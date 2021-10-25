@@ -25,9 +25,9 @@ export class DefinationsComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-
+//for list routing
   OpenLink(val) {
-    // debugger
+  
     if (val == 1) {
       this.interestrateftdTrue = true;
       this.termdepositpsTrue = false;
