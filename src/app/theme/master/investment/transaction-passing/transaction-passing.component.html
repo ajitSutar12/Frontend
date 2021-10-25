@@ -1,0 +1,206 @@
+<!-- Investment Transaction passing  -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Investment Transaction passing</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="TotalAmount" class="form-control" placeholder=" " id="TransactionNo"
+                                        value="{{ message.TransactionNo }}" formControlName="TransactionNo">
+                                    <label for="TransactionNo">Transaction No.</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="Date" required=""
+                                        max="9999-12-31" formControlName="Date" value="{{ message.TransactionDate}}"
+                                        onfocus="(this.type='date')" />
+                                    <label for="Date">Transaction Date</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false" placeholder="Scheme *" required title="Compulsory Selection" formControlName="Scheme">
+                                </ng-select>
+                                <label>{{ message.Scheme}}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Scheme'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="b" [multiple]="false" placeholder="Account No *" required title="Compulsory Selection" formControlName="AccountNo">
+                                </ng-select>
+                                <label>{{ message.AccountNo }}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AccountNo'].invalid && (angForm.controls['AccountNo'].dirty || angForm.controls['AccountNo'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AccountNo'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <a class="btn btn-primary ripple light" role="button" id="cashbtn">Cash </a>
+                            <a class="btn btn-primary ripple light" role="button" id="transferbtn"> Transfer</a>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="AcOpenDate" required=""
+                                        max="9999-12-31" formControlName="AcOpenDate" value="{{ message.AcOpenDate}}"
+                                        onfocus="(this.type='date')" />
+                                    <label for="AcOpenDate">A/c Open Date</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="LastInterestDate"
+                                        max="9999-12-31" formControlName="LastInterestDate"
+                                        value="{{ message.LastInterestDate}}" onfocus="(this.type='date')" />
+                                    <label for="LastInterestDate">Last Interest Date</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="TotalAmount" class="form-control" placeholder=" "
+                                        id="LedgerBalance" value="{{ message.LedgerBalance }}"
+                                        formControlName="LedgerBalance">
+                                    <label for="LedgerBalance">Ledger Balance</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <h6>Trans. Type:</h6>
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" [checked]="isDeposit == true">
+                                        <!--Default checked-->
+                                        <i class="helper"></i>Deposit
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" [checked]="isDeposit == false">
+                                        <!--Default unchecked-->
+                                        <i class="helper"></i>Interest Received
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="ReceiptNo" class="form-control" placeholder=" "
+                                        id="ReceiptNo" value="{{ message.ReceiptNo }}" formControlName="ReceiptNo">
+                                    <label for="ReceiptNo">Receipt No.</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="InterestuptoDate"
+                                        max="9999-12-31" formControlName="InterestuptoDate"
+                                        value="{{ message.InterestuptoDate}}" onfocus="(this.type='date')" />
+                                    <label for="InterestuptoDate">Interest Upto Date</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="To" class="form-control" placeholder=" "
+                                        id="TransactionAmount" required="" value="{{ message.TransactionAmount }}"
+                                        pattern="^[0-9]+$" title="Input allowed only 0-9"
+                                        formControlName="TransactionAmount">
+                                    <label for="TransactionAmount">Transaction Amount <sub
+                                            class="required">*</sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TransactionAmount'].invalid && (angForm.controls['TransactionAmount'].dirty || angForm.controls['TransactionAmount'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['TransactionAmount'].errors?.pattern || angForm.controls['TransactionAmount'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="Credit" [multiple]="false" placeholder="Credit GL A/c" formControlName="CreditGLAcNo">
+                                </ng-select>
+                                <label>{{ message.CreditGLAcNo }}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="To" class="form-control" placeholder=" " id="Narration"
+                                        value="{{ message.Narration }}" pattern="^[A-Za-z0-9\./ -]+$"
+                                        title="Input allowed only  A-Z a-z  - / . (Space) and 0-9"
+                                        formControlName="Narration">
+                                    <label for="Narration">Narration</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Narration'].invalid && (angForm.controls['Narration'].dirty || angForm.controls['Narration'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Narration'].errors?.pattern || angForm.controls['Narration'].errors?.required">
+                                    Input allowed only A-Z a-z - / . (Space) and 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <a class="btn btn-primary ripple light" role="button" id="view">View Vouchers</a>
+                        </div>
+                        <!-- <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                        </div> -->
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" [disabled]="angForm.invalid">Approve</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Master TDS Interest Rate</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="financial_year" class="form-control" placeholder=" "
+                                        id="financial_year" required="" minlength="8" maxlength="8"
+                                        value="{{ message.financial_year }}" pattern="^[0-9]+$"
+                                        title="Input allowed only  0-9" formControlName="financial_year">
+                                    <label for="financial_year">Financial Year<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['financial_year'].invalid && (angForm.controls['financial_year'].dirty || angForm.controls['financial_year'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['financial_year'].errors?.pattern || angForm.controls['financial_year'].errors?.minlength || angForm.controls['financial_year'].errors?.maxlength || angForm.controls['financial_year'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="EffectiveDate" class="form-control" placeholder=" "
+                                        id="EffectiveDate" required="" value="{{ message.EffectiveDate }}" max="9999-12-31"
+                                        id="date" onfocus="(this.type='date')" formControlName="EffectiveDate">
+                                    <label for="date">Effective Date<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EffectiveDate'].invalid && (angForm.controls['EffectiveDate'].dirty || angForm.controls['EffectiveDate'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['EffectiveDate'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="interest_amount" class="form-control" placeholder=" "
+                                        id="interest_amount" required=""
+                                        value="{{ message.financial_year }}" pattern="^[0-9]+$"
+                                        title="Input allowed only  0-9" formControlName="interest_amount">
+                                    <label for="interest_amount">Interest Amount<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['interest_amount'].invalid && (angForm.controls['interest_amount'].dirty || angForm.controls['interest_amount'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['interest_amount'].errors?.pattern || angForm.controls['interest_amount'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="tds_rate" class="form-control" placeholder=" "
+                                        id="tds_rate" required="" value="{{ message.tds_rate }}" pattern="^[0-9]+$"
+                                        title="Input allowed only  0-9" formControlName="tds_rate">
+                                    <label for="tds_rate">TDS Rate<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['tds_rate'].invalid && (angForm.controls['tds_rate'].dirty || angForm.controls['tds_rate'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['tds_rate'].errors?.pattern || angForm.controls['tds_rate'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="surcharge_rate" class="form-control" placeholder=" "
+                                        id="surcharge_rate" value="{{ message.surcharge_rate }}"
+                                        pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        formControlName="surcharge_rate">
+                                    <label for="surcharge_rate">Surcharge Rate</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['surcharge_rate'].invalid && (angForm.controls['surcharge_rate'].dirty || angForm.controls['surcharge_rate'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['surcharge_rate'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

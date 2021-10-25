@@ -1,0 +1,558 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Savings Pigmy Account Closing</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="A_BALCODE" class="form-control" placeholder=" "
+                                        id="BranchCode" formControlName="BranchCode" disabled>
+                                    <label for="BranchCode">Branch Code</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
+                                    placeholder="Scheme Code*" required title="Compulsory Selection"
+                                    formControlName="schemeCode">
+                                </ng-select>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['schemeCode'].invalid && (angForm.controls['schemeCode'].dirty || angForm.controls['schemeCode'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['schemeCode'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="Date" max="9999-12-31"
+                                        formControlName="Date" onfocus="(this.type='date')" />
+                                    <label for="Date">Date</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
+                                    placeholder="Account No.*" required title="Compulsory Selection"
+                                    formControlName="AccountNo">
+                                </ng-select>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AccountNo'].invalid && (angForm.controls['AccountNo'].dirty || angForm.controls['AccountNo'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AccountNo'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="A_BALCODE" class="form-control" placeholder=" "
+                                        id="Voucher_Number" formControlName="Voucher_Number">
+                                    <label for="Voucher_Number">Voucher Number</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card">
+                                <div class="row">
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="card-block">
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="" class="form-control"
+                                                                        placeholder=" " id="OpeningDate"
+                                                                        max="9999-12-31" formControlName="OpeningDate"
+                                                                        onfocus="(this.type='date')" disabled />
+                                                                    <label for="OpeningDate">Opening Date</label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="" class="form-control"
+                                                                        placeholder=" " id="RenewalDate"
+                                                                        max="9999-12-31" formControlName="RenewalDate"
+                                                                        onfocus="(this.type='date')" disabled />
+                                                                    <label for="RenewalDate">Renewal Date</label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="Interest_Rate"
+                                                                        class="form-control" placeholder=" "
+                                                                        id="Interest_Rate"
+                                                                        formControlName="Interest_Rate" disabled>
+                                                                    <label for="Interest_Rate">Interest Rate%</label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder=" " id="LastInterestDate"
+                                                                        max="9999-12-31"
+                                                                        formControlName="LastInterestDate"
+                                                                        onfocus="(this.type='date')" disabled />
+                                                                    <label for="LastInterestDate">Last Interest
+                                                                        Date</label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder=" " id="maturityDate"
+                                                                        max="9999-12-31" formControlName="maturityDate"
+                                                                        onfocus="(this.type='date')" disabled />
+                                                                    <label for="maturityDate">Maturity Date</label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="Months"
+                                                                        class="form-control" placeholder=" " id="Months"
+                                                                        formControlName="Months" disabled>
+                                                                    <label for="Months">Months</label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="Days" class="form-control"
+                                                                        placeholder=" " id="Days" formControlName="Days"
+                                                                        disabled>
+                                                                    <label for="Days">Days</label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="card-block">
+                                                    <h6>Closing Details</h6>
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <div class="card-block">
+                                                                <div class="row">
+                                                                    <div class="col-sm">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="border-lable-flt">
+                                                                                <input type="text" name="InterestRate"
+                                                                                    class="form-control" placeholder=" "
+                                                                                    id="InterestRate"
+                                                                                    value="{{ message.InterestRate }}"
+                                                                                    pattern="^[0-9]+$"
+                                                                                    formControlName="InterestRate">
+                                                                                <label for="InterestRate">Interest
+                                                                                    Rate%*</label>
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="form-group form-primary form-static-label"
+                                                                            *ngIf="angForm.controls['InterestRate'].invalid && (angForm.controls['InterestRate'].dirty || angForm.controls['InterestRate'].touched)"
+                                                                            class="alert alert-danger">
+                                                                            <div
+                                                                                *ngIf="angForm.controls['InterestRate'].errors?.pattern || angForm.controls['InterestRate'].errors?.required">
+                                                                                Input allowed only 0-9
+                                                                            </div>
+                                                                        </div>
+                                                                        <div *ngIf="angForm.get('InterestRate').hasError('required') && myform.submitted"
+                                                                            class='alert alert-danger'>This field is
+                                                                            required</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm">
+                                                                        <h6>Enter Interest Rate & Interest Amount 0 For
+                                                                            Fresh Calculation</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="border-lable-flt">
+                                                                                <input type="text" name="month"
+                                                                                    class="form-control" placeholder=" "
+                                                                                    id="month" formControlName="month"
+                                                                                    disabled>
+                                                                                <label for="month">Months</label>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="border-lable-flt">
+                                                                                <input type="text" name="monthInterest"
+                                                                                    class="form-control" placeholder=" "
+                                                                                    id="monthInterest"
+                                                                                    formControlName="monthInterest"
+                                                                                    disabled>
+                                                                                <label
+                                                                                    for="monthInterest">Interest</label>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="border-lable-flt">
+                                                                                <input type="text" name="TotalInterest"
+                                                                                    class="form-control" placeholder=" "
+                                                                                    id="TotalInterest"
+                                                                                    value="{{ message.TotalInterest }}"
+                                                                                    pattern="^[0-9]+$"
+                                                                                    formControlName="TotalInterest">
+                                                                                <label for="TotalInterest">Total
+                                                                                    Interest @ 6.00%</label>
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="form-group form-primary form-static-label"
+                                                                            *ngIf="angForm.controls['TotalInterest'].invalid && (angForm.controls['TotalInterest'].dirty || angForm.controls['TotalInterest'].touched)"
+                                                                            class="alert alert-danger">
+                                                                            <div
+                                                                                *ngIf="angForm.controls['TotalInterest'].errors?.pattern || angForm.controls['TotalInterest'].errors?.required">
+                                                                                Input allowed only 0-9
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="border-lable-flt">
+                                                                                <input type="text"
+                                                                                    name="paid_postInterest"
+                                                                                    class="form-control" placeholder=" "
+                                                                                    id="paid_postInterest"
+                                                                                    formControlName="paid_postInterest"
+                                                                                    disabled>
+                                                                                <label for="paid_postInterest">Posted
+                                                                                    Interest</label>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="border-lable-flt">
+                                                                                <input type="text" name="netInterest"
+                                                                                    class="form-control" placeholder=" "
+                                                                                    id="netInterest"
+                                                                                    formControlName="netInterest"
+                                                                                    disabled>
+                                                                                <label for="netInterest">Net
+                                                                                    Interest</label>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm">
+                                                            <div class="card-block">
+                                                                <div class="row">
+                                                                    <div class="col-sm">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="border-lable-flt">
+                                                                                <input type="text" name="LedgerBalance"
+                                                                                    class="form-control" placeholder=" "
+                                                                                    id="LedgerBalance"
+                                                                                    formControlName="LedgerBalance"
+                                                                                    disabled>
+                                                                                <label for="LedgerBalance">Ledger
+                                                                                    Balance</label>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="border-lable-flt">
+                                                                                <input type="text"
+                                                                                    name="PayableInterest"
+                                                                                    class="form-control" placeholder=" "
+                                                                                    id="PayableInterest"
+                                                                                    formControlName="PayableInterest"
+                                                                                    disabled>
+                                                                                <label for="PayableInterest">Payable
+                                                                                    Interest</label>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="border-lable-flt">
+                                                                                <input type="text" name="Net_Interest"
+                                                                                    class="form-control" placeholder=" "
+                                                                                    id="Net_Interest"
+                                                                                    formControlName="Net_Interest"
+                                                                                    disabled>
+                                                                                <label for="Net_Interest">+Net
+                                                                                    Interest</label>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="border-lable-flt">
+                                                                                <input type="text"
+                                                                                    name="OtherChargesAmount"
+                                                                                    class="form-control" placeholder=" "
+                                                                                    id="OtherChargesAmount"
+                                                                                    value="{{ message.OtherChargesAmount }}"
+                                                                                    pattern="^[0-9]+$"
+                                                                                    formControlName="OtherChargesAmount">
+                                                                                <label for="OtherChargesAmount">-Other
+                                                                                    Charges Amount</label>
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="form-group form-primary form-static-label"
+                                                                            *ngIf="angForm.controls['OtherChargesAmount'].invalid && (angForm.controls['OtherChargesAmount'].dirty || angForm.controls['OtherChargesAmount'].touched)"
+                                                                            class="alert alert-danger">
+                                                                            <div
+                                                                                *ngIf="angForm.controls['OtherChargesAmount'].errors?.pattern || angForm.controls['OtherChargesAmount'].errors?.required">
+                                                                                Input allowed only 0-9
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm">
+                                                                        <div
+                                                                            class="form-group form-primary form-static-label">
+                                                                            <ng-select [ngClass]="'ng-select'"
+                                                                                [options]="simpleOption"
+                                                                                [multiple]="false"
+                                                                                placeholder="Other Charges GL Account"
+                                                                                required title="Compulsory Selection"
+                                                                                formControlName="OtherChargesGLAccount">
+                                                                            </ng-select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm">
+                                                                        <div class="form-group input-group">
+                                                                            <span class="border-lable-flt">
+                                                                                <input type="text"
+                                                                                    name="NetPayableAmount"
+                                                                                    class="form-control" placeholder=" "
+                                                                                    id="NetPayableAmount"
+                                                                                    formControlName="NetPayableAmount"
+                                                                                    disabled>
+                                                                                <label for="NetPayableAmount">Net
+                                                                                    Payable Amount</label>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h6>Payment Details</h6>
+                                </div>
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <h6>Mode</h6>
+                                            <div class="form-radio">
+                                                <div class="radio radio-inline">
+                                                    <label>
+                                                        <input type="radio" name="radio">
+                                                        <i class="helper"></i>Cash
+                                                    </label>
+                                                </div>
+                                                <div class="radio radio-inline">
+                                                    <label>
+                                                        <input type="radio" name="radio" checked>
+                                                        <i class="helper"></i>Transfer
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="Cheque" class="form-control"
+                                                        placeholder=" " id="Cheque" value="{{ message.Cheque }}"
+                                                        pattern="^[0-9]+$" formControlName="Cheque">
+                                                    <label for="Cheque">Cheque Number</label>
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['Cheque'].invalid && (angForm.controls['Cheque'].dirty || angForm.controls['Cheque'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['Cheque'].errors?.pattern || angForm.controls['Cheque'].errors?.required">
+                                                    Input allowed only A-Z a-z - / . (Space) and 0-9
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="Cheque1" class="form-control"
+                                                        placeholder=" " id="Cheque1" value="{{ message.Cheque1 }}"
+                                                        pattern="^[0-9]+$" formControlName="Cheque1">
+                                                    <label for="Cheque1">Cheque Number</label>
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['Cheque1'].invalid && (angForm.controls['Cheque1'].dirty || angForm.controls['Cheque1'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['Cheque1'].errors?.pattern || angForm.controls['Cheque1'].errors?.required">
+                                                    Input allowed only 0-9
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="TokenNo" class="form-control"
+                                                        placeholder=" " id="TokenNo" value="{{ message.TokenNo }}"
+                                                        pattern="^[0-9]+$" formControlName="TokenNo" disabled>
+                                                    <label for="TokenNo">Token No.</label>
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['TokenNo'].invalid && (angForm.controls['TokenNo'].dirty || angForm.controls['TokenNo'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['TokenNo'].errors?.pattern || angForm.controls['TokenNo'].errors?.required">
+                                                    Input allowed only 0-9
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="card-block">
+                                            <h6>Tranfer Accounts Details</h6>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="card-block">
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <div class="table-responsive">
+                                                            <table datatable [dtOptions]="dtExportButtonOptions1"
+                                                                class="table table-striped table-bordered table-hover"
+                                                                style="width: 100%;">
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
+                                    placeholder="Narration" required title="Compulsory Selection"
+                                    formControlName="Narration">
+                                </ng-select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-sm-3">
+                            <a class="btn btn-primary ripple light" role="button" id="view"
+                                (click)="viewVouchersData(1)">View
+                                Vouchers</a>
+                        </div> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

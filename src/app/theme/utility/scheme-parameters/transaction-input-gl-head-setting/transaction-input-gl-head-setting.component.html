@@ -1,0 +1,131 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Transaction Input Head Setting</h5>
+            </div>
+            <form class="form-material">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <!-- DROPDOWN HERE -->
+                            <form class="form-material" action="javascript:">
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" maxlength="5" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Serial No<span class="required"> *</span></label>
+                                </div>
+                            </form>
+                            <!-- DROPDOWN HERE -->
+                        </div>
+                        <div class="col-sm">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="form-radio">
+                                            <form>
+                                                <div class="radio radio-inline">
+                                                    <label>
+                                                        <input type="radio" name="radio" checked="checked">
+                                                        <i class="helper"></i>Scheme Wise<span class="required"> </span>
+                                                    </label>
+                                                </div>
+                                                <div class="radio radio-inline">
+                                                    <label>
+                                                        <input type="radio" name="radio">
+                                                        <i class="helper"></i>G.L. Code Wise<span class="required"> </span>
+                                                    </label>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1">
+                                    <label class="border-checkbox-label" for="checkbox1">Check Require <span class="required"> </span></label>
+                                </div>
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox2">
+                                    <label class="border-checkbox-label" for="checkbox2">Interest Date
+                                        Applicable<span class="required"> </span></label>
+                                </div>
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox3">
+                                    <label class="border-checkbox-label" for="checkbox3">Is Noting Required ?<span class="required"> </span></label>
+                                </div>
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox4">
+                                    <label class="border-checkbox-label" for="checkbox4">Is Check Bal. When A/c Closing
+                                        ?<span class="required"> </span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm">
+
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" maxlength="5" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Description<span class="required"> *</span></label>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" maxlength="5" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Short Name<span class="required"> *</span></label>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="card-block">
+                    <button class="btn btn-primary ripple light">Add</button>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+
+                    </div>
+                    <div class="col-sm">
+                        <h6><span class="required">* </span>: Required Fields</h6>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

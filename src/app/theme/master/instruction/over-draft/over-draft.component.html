@@ -1,0 +1,207 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Over Draft</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <div class="card-block">
+                <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
+                                    placeholder="Scheme Code *" required title="Compulsory Selection"
+                                    formControlName="SchemeCode">
+                                </ng-select>
+                                <label>{{ message.SchemeCode}}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['SchemeCode'].invalid && (angForm.controls['SchemeCode'].dirty || angForm.controls['SchemeCode'].touched)"
+                                class='alert alert-danger'>
+                                <div *ngIf="angForm.controls['SchemeCode'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="b" [multiple]="false"
+                                    placeholder="Account No *" required title="Compulsory Selection"
+                                    formControlName="AccountNo">
+                                </ng-select>
+                                <label>{{ message.AccountNo }}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AccountNo'].invalid && (angForm.controls['AccountNo'].dirty || angForm.controls['AccountNo'].touched)"
+                                class='alert alert-danger'>
+                                <div *ngIf="angForm.controls['AccountNo'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <ul class="basic-list">
+                                    <li>
+                                        <h6>
+                                            <a (click)="OpenLink(1)" routerLinkActive="active"
+                                                class="text-right f-w-600" id="pointer">
+                                                <div class="form-radio">
+                                                    <div class="radio radio-inline">
+                                                        <label>
+                                                            <input type="radio" name="radio" ng-model="OD"
+                                                                value="PeriodicallyOverDraft" ng-change="change()"
+                                                                checked>
+                                                            <i class="helper"></i>Periodically Over Draft<span
+                                                                class="required"> </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </h6>
+                                    </li>
+                                    <li>
+                                        <h6>
+                                            <a (click)="OpenLink(2)" routerLinkActive="active"
+                                                class="text-right f-w-600" id="pointer">
+                                                <div class="form-radio">
+                                                    <div class="radio radio-inline">
+                                                        <label>
+                                                            <input type="radio" name="radio" ng-model="OD"
+                                                                value="TemporaryOverDraft" ng-change="change()">
+                                                            <i class="helper"></i>Temporary Over Draft<span
+                                                                class="required"> </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </h6>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="card-block">
+                                    <div *ngIf="PeriodicallyOverDraftTrue">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" name="To" class="form-control"
+                                                            placeholder=" " id="Over" required="" pattern="^[0-9]+$"
+                                                            title="Input allowed only  0-9" formControlName="Over">
+                                                        <label for="Over">Over DRaft Amount<sub
+                                                                class="required">*</sub></label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['Over'].invalid && (angForm.controls['Over'].dirty || angForm.controls['Over'].touched)"
+                                                    class='alert alert-danger'>
+                                                    <div
+                                                        *ngIf="angForm.controls['Over'].errors?.pattern || angForm.controls['Over'].errors?.required">
+                                                        This field is required and Input allowed only 0-9
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" name="To" class="form-control"
+                                                            placeholder=" " id="Over1" required="" pattern="^[0-9]+$"
+                                                            title="Input allowed only  0-9" formControlName="Over1">
+                                                        <label for="Over1">OD period in days<sub
+                                                                class="required">*</sub></label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['Over1'].invalid && (angForm.controls['Over1'].dirty || angForm.controls['Over1'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div
+                                                        *ngIf="angForm.controls['Over1'].errors?.pattern || angForm.controls['Over1'].errors?.required">
+                                                        This field is required and Input allowed only 0-9
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" class="form-control" placeholder=" "
+                                                            id="Date" required="" max="9999-12-31"
+                                                            formControlName="Date" value="{{ message.TransactionDate}}"
+                                                            onfocus="(this.type='date')" />
+                                                        <label for="Date">OD Till Date <sub
+                                                                class="required">*</sub></label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['Date'].invalid && (angForm.controls['Date'].dirty || angForm.controls['Date'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="angForm.controls['Date'].errors?.required">
+                                                        This field is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="TemporaryOverDraftTrue">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="To" class="form-control" placeholder=" "
+                                                        id="To" required="" pattern="^[0-9]+$"
+                                                        title="Input allowed only  0-9" formControlName="Over2">
+                                                    <label for="To">Over DRaft Amount <sub
+                                                            class="required">*</sub></label>
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['Over2'].invalid && (angForm.controls['Over2'].dirty || angForm.controls['Over2'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['Over2'].errors?.pattern || angForm.controls['Over2'].errors?.required">
+                                                    This field is required and Input allowed only 0-9
+                                                </div>
+                                            </div>
+                                            <!-- <div *ngIf="angForm.get('Over2').hasError('required') && myform.submitted"
+                                                    class='alert alert-danger'>This field is required</div>  -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton"
+                                [disabled]="angForm.invalid">update</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light">Close</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

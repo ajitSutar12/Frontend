@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Pat Scheme Interest Rates</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm col-lg-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="EffectiveDate" class="form-control" placeholder=" "
+                                        id="EffectiveDate" required="" value="{{ message.EffectiveDate }}" max="9999-12-31" id="date" onfocus="(this.type='date')" formControlName="EffectiveDate">
+                                    <label for="date">Effective Date<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EffectiveDate'].invalid && (angForm.controls['EffectiveDate'].dirty || angForm.controls['EffectiveDate'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['EffectiveDate'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Scheme*" required title="Compulsory Selection" formControlName="scheme">
+                                </ng-select>
+                                <label>{{ message.scheme }}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['scheme'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Int.Category *" required title="Compulsory Selection" formControlName="category">
+                                </ng-select>
+                                <label>{{ message.scheme }}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['category'].invalid && (angForm.controls['category'].dirty || angForm.controls['category'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['category'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

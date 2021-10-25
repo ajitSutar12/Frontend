@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Loan Installment Enquiry</h5>
+            </div>
+            <form class="form-material">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Loan Amount<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">No. of Installments<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <!-- <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="true" placehonder="Repayment Mode">
+                                </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="true" placeholder="Repayment Mode *">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Interest Rate<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-radio">
+                                <form>
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="radio" checked="checked">
+                                            <i class="helper"></i>EMI<span class="required"> </span>
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="radio">
+                                            <i class="helper"></i>Plain<span class="required"> </span>
+                                        </label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Installment<span class="required"> *</span></label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary ripple light">Process</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9">
+
+                        </div>
+                        <div class="col-sm">
+                            <h6><span class="required">* </span>: Required Fields</h6>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Minimum Balance Master</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <div class="card-block">
+
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="Account" class="form-control" placeholder=" " id="BC_CODE"
+                                        pattern="^[0-9]+$" formControlName="BC_CODE" disabled>
+                                    <label for="BC_CODE">Bal.Categary Code</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                        id="BC_NAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="BC_NAME">
+                                    <label for="BC_NAME">Bal.Categary Name<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BC_NAME'].invalid && (angForm.controls['BC_NAME'].dirty || angForm.controls['BC_NAME'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['BC_NAME'].errors?.pattern || angForm.controls['BC_NAME'].errors?.required || angForm.controls['BC_NAME'].errors?.maxlength">
+                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                        id="BC_MINBAL" required="" pattern="\d{1,20}(\.\d{2})?"
+                                        title="Input allowed only  0-9" formControlName="BC_MINBAL">
+                                    <label for="BC_MINBAL">Minimum Balance<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BC_MINBAL'].invalid && (angForm.controls['BC_MINBAL'].dirty || angForm.controls['BC_MINBAL'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['BC_MINBAL'].errors?.pattern || angForm.controls['BC_MINBAL'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
+                                [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                                class="table table-striped table-bordered table-hover">
+                                <tbody *ngIf="minimumBalanceMaster?.length != 0">
+                                    <tr *ngFor="let data of minimumBalanceMaster">
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
+                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
+                                                (click)="delClickHandler(data.id)">Delete</button> -->
+                                        </td>
+                                        <td>{{ data.BC_CODE}}</td>
+                                        <td>{{ data.BC_NAME}}</td>
+                                        <td>{{ data.BC_MINBAL}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="minimumBalanceMaster?.length == 0">
+                                    <tr>
+                                        <td colspan="6" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th><input type="text" placeholder="Search Balance Categary Code"
+                                                name="BC_CODE"></th>
+                                        <th><input type="text" placeholder="Search Balance Categary Name"
+                                                name="BC_NAME"></th>
+                                        <th><input type="text" placeholder="Search Minimum Balance" name="BC_MINBAL">
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

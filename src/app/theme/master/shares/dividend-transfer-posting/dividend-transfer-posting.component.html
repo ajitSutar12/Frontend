@@ -1,0 +1,94 @@
+<!-- Dividend Transfer Posting -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Dividend Transfer Posting</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="WarrantDate" required=""
+                                        max="9999-12-31" formControlName="WarrantDate" value="{{ message.WarrantDate}}"
+                                        onfocus="(this.type='date')" />
+                                    <label for="WarrantDate">Warrant Date <sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['WarrantDate'].invalid && (angForm.controls['WarrantDate'].dirty || angForm.controls['WarrantDate'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['WarrantDate'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1"
+                                        [checked]="isTransferToReserveFundOrOtherAccount == true">
+                                    <label class="border-checkbox-label" for="checkbox1">Transfer To Reserve Fund Or
+                                        Other Account<span class="required"> </span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
+                                    placeholder="Scheme Code" formControlName="SchemeCode">
+                                </ng-select>
+                                <label>{{ message.SchemeCode}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="Dividend" class="form-control" placeholder=" "
+                                        id="AccountNo" value="{{ message.AccountNo }}" pattern="^[0-9]+$"
+                                        title="Input allowed only 0-9" formControlName="AccountNo">
+                                    <label for="AccountNo">Account Number</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AccountNo'].invalid && (angForm.controls['AccountNo'].dirty || angForm.controls['AccountNo'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AccountNo'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton"
+                                [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

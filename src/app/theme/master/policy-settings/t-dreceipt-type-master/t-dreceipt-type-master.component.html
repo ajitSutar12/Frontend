@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>TD Receipt Type Master</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <div class="card-block">
+                <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                    <div class="row">
+
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="RECEIPT_TYPE" class="form-control" placeholder=" "
+                                        id="ReceiptType" required="" value="{{ message.ReceiptType }}" pattern="^[A-Za-z\./ -]+$"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="ReceiptType">
+                                    <label for="ReceiptType">Receipt Type<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ReceiptType'].invalid && (angForm.controls['ReceiptType'].dirty || angForm.controls['ReceiptType'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['ReceiptType'].errors?.pattern || angForm.controls['ReceiptType'].errors?.required">
+                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="LAST_RECEIPT_NO" class="form-control" placeholder=" "
+                                        id="label-name" required="" value="{{ message.LastReceiptNo }}" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="LastReceiptNo">
+                                    <label for="label-name">Last Receipt No.<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['LastReceiptNo'].invalid && (angForm.controls['LastReceiptNo'].dirty || angForm.controls['LastReceiptNo'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['LastReceiptNo'].errors?.pattern || angForm.controls['LastReceiptNo'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

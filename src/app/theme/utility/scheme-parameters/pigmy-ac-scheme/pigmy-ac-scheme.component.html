@@ -1,0 +1,628 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Pigmy Deposit Scheme Settings </h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
+                                        required="" pattern="^[0-9]+$" maxlength="5" title="Input allowed only 0-9"
+                                        formControlName="S_APPL">
+                                    <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['S_APPL'].invalid && (angForm.controls['S_APPL'].dirty || angForm.controls['S_APPL'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf=" angForm.controls['S_APPL'].errors?.required || angForm.controls['S_APPL'].errors?.pattern">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="S_NAME" class="form-control" placeholder=" "
+                                        id="Description" required="" pattern="^[A-Za-z\./ -]+$" maxlength="90"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_NAME">
+                                    <label for="Description">Description<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['S_NAME'].invalid && (angForm.controls['S_NAME'].dirty || angForm.controls['S_NAME'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['S_NAME'].errors?.pattern || angForm.controls['S_NAME'].errors?.required || angForm.controls['S_NAME'].errors?.maxlength">
+                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
+                                        id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="10"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
+                                    <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['S_SHNAME'].invalid && (angForm.controls['S_SHNAME'].dirty || angForm.controls['S_SHNAME'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['S_SHNAME'].errors?.pattern || angForm.controls['S_SHNAME'].errors?.required || angForm.controls['S_SHNAME'].errors?.maxlength">
+                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
+                                    placeholder="G.L. A/c No. *" required title="Compulsory Selection"
+                                    formControlName="S_GLACNO">
+                                </ng-select>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['S_GLACNO'].invalid && (angForm.controls['S_GLACNO'].dirty || angForm.controls['S_GLACNO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf=" angForm.controls['S_GLACNO'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
+                                    placeholder="Interest G.L. A/c *" required title="Compulsory Selection"
+                                    formControlName="S_INT_ACNO">
+                                </ng-select>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['S_INT_ACNO'].invalid && (angForm.controls['S_INT_ACNO'].dirty || angForm.controls['S_INT_ACNO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf=" angForm.controls['S_INT_ACNO'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
+                                    id="S_RECBL_PYBL_INT_ACNO" placeholder="Payable Int.A/c"
+                                    formControlName="S_RECBL_PYBL_INT_ACNO" [required]="IS_RECBL_PYBL_INT_ACNO">
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="card-block">
+                                <ul class="basic-list">
+                                    <li>
+                                        <h6> <a (click)="OpenLink(4)" routerLink="/utility/schemeParameters"
+                                                routerLinkActive="active" [ngClass]="{'isActive': intrestTrue}"
+                                                class="text-right f-w-600" id="pointer">
+                                                Interest Applicable</a></h6>
+                                    </li>
+                                    <li>
+                                        <h6> <a (click)="OpenLink(5)" routerLink="/utility/schemeParameters"
+                                                routerLinkActive="active" [ngClass]="{'isActive': StandingTrue}"
+                                                class="text-right f-w-600" id="pointer">
+                                                Standing Instruction</a></h6>
+                                    </li>
+                                    <li>
+                                        <h6> <a (click)="OpenLink(6)" routerLink="/utility/schemeParameters"
+                                                routerLinkActive="active" [ngClass]="{'isActive': BalanceTrue}"
+                                                class="text-right f-w-600" id="pointer">
+                                                Balance Entry/Premature</a></h6>
+                                    </li>
+                                    <li>
+                                        <h6> <a (click)="OpenLink(7)" routerLink="/utility/schemeParameters"
+                                                routerLinkActive="active" [ngClass]="{'isActive': OverDraftTrue}"
+                                                class="text-right f-w-600" id="pointer">
+                                                OverDraft Interest Applicable</a></h6>
+                                    </li>
+                                    <li>
+                                        <h6> <a (click)="OpenLink(8)" routerLink="/utility/schemeParameters"
+                                                routerLinkActive="active" [ngClass]="{'isActive': ServiceTrue}"
+                                                class="text-right f-w-600" id="pointer">
+                                                Service Charges Details</a></h6>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div *ngIf="intrestTrue">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Interest Applicable</h5>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="border-checkbox-section">
+                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            name="IS_INT_APPLICABLE" id="S_INT_APPLICABLE"
+                                                            formControlName="S_INT_APPLICABLE"
+                                                            (click)="isIntrestApplicable($event)">
+                                                        <label class="border-checkbox-label" for="S_INT_APPLICABLE">Is
+                                                            Interest Applicable ?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="border-checkbox-section">
+                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="POST_TO_INDIVIDUAL_AC"
+                                                            formControlName="POST_TO_INDIVIDUAL_AC" disabled>
+                                                        <label class="border-checkbox-label"
+                                                            for="POST_TO_INDIVIDUAL_AC">Is
+                                                            Post Interest to A/c ?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="border-checkbox-section">
+                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="S_PAYABLE_INT_ALLOW"
+                                                            formControlName="S_PAYABLE_INT_ALLOW"
+                                                            (click)="isPaybaleInterestAllow($event)" disabled>
+                                                        <label class="border-checkbox-label"
+                                                            for="S_PAYABLE_INT_ALLOW">Is Payable Interest Allow
+                                                            ?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" class="form-control" placeholder=" "
+                                                            id="S_PRODUCT_DAY_BASE" formControlName="S_PRODUCT_DAY_BASE"
+                                                            [(ngModel)]="S_PRODUCT_DAY_BASE" name="S_PRODUCT_DAY_BASE"
+                                                            pattern="^[0-9]+$" title="Input allowed only  0-9" max="31"
+                                                            (change)="isProductDayBase(S_PRODUCT_DAY_BASE)" disabled>
+                                                        <label for="S_PRODUCT_DAY_BASE">Product Base Start Day<sub
+                                                                class="required">* </sub></label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['S_PRODUCT_DAY_BASE'].invalid && (angForm.controls['S_PRODUCT_DAY_BASE'].dirty || angForm.controls['S_PRODUCT_DAY_BASE'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div
+                                                        *ngIf="angForm.controls['S_PRODUCT_DAY_BASE'].errors?.pattern || angForm.controls['S_PRODUCT_DAY_BASE'].errors?.required || angForm.controls['S_PRODUCT_DAY_BASE'].errors?.min || angForm.controls['S_PRODUCT_DAY_BASE'].errors?.max">
+                                                        This field is required and Input allowed only 0-9
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="form-radio">
+                                                    <div class="radio radio-inline">
+                                                        <label>
+                                                            <input type="radio" value="MB"
+                                                                id="S_PRODUCT_DAY_BASE_MONTH_BEGIN"
+                                                                name="S_PRODUCT_DAY_BASE"
+                                                                formControlName="S_PRODUCT_DAY_BASE"
+                                                                [checked]="S_PRODUCT_DAY_BASE==0" disabled>
+                                                            <i class="helper"></i>Month Begin<span class="required">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio radio-inline">
+                                                        <label>
+                                                            <input type="radio" value="ME"
+                                                                id="S_PRODUCT_DAY_BASE_MONTH_END"
+                                                                name="S_PRODUCT_DAY_BASE"
+                                                                formControlName="S_PRODUCT_DAY_BASE"
+                                                                [checked]="S_PRODUCT_DAY_BASE==0" disabled>
+                                                            <i class="helper"></i>Month End<span class="required">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" class="form-control" placeholder=" "
+                                                            id="S_PRODUCT_DAY_BASE_END" title="Input allowed only  0-9"
+                                                            formControlName="S_PRODUCT_DAY_BASE_END"
+                                                            [(ngModel)]="S_PRODUCT_DAY_BASE_END"
+                                                            name="S_PRODUCT_DAY_BASE_END" pattern="^[0-9]+$"
+                                                            title="Input allowed only  0-9" max="31"
+                                                            (change)="isProductDayBaseEndDay(S_PRODUCT_DAY_BASE_END)"
+                                                            disabled>
+                                                        <label for="S_PRODUCT_DAY_BASE_END">Product Base End Day<sub
+                                                                class="required">* </sub></label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['S_PRODUCT_DAY_BASE_END'].invalid && (angForm.controls['S_PRODUCT_DAY_BASE_END'].dirty || angForm.controls['S_PRODUCT_DAY_BASE_END'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div
+                                                        *ngIf="angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.pattern || angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.required || angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.min || angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.max">
+                                                        This field is required and Input allowed only 0-9
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="form-radio">
+                                                    <div class="radio radio-inline">
+                                                        <label>
+                                                            <input type="radio" id="S_PRODUCT_DAY_BASE_END_MONTH_BEGIN"
+                                                                value="MB" name="S_PRODUCT_DAY_BASE_END"
+                                                                formControlName="S_PRODUCT_DAY_BASE_END"
+                                                                [checked]="S_PRODUCT_DAY_BASE_END==0" disabled>
+                                                            <i class="helper"></i>Month Begin<span class="required">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio radio-inline">
+                                                        <label>
+                                                            <input type="radio" id="S_PRODUCT_DAY_BASE_END_MONTH_END"
+                                                                value="ME" name="S_PRODUCT_DAY_BASE_END"
+                                                                formControlName="S_PRODUCT_DAY_BASE_END"
+                                                                [checked]="S_PRODUCT_DAY_BASE_END==0" disabled>
+                                                            <i class="helper"></i>Month End<span class="required">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" name="MIN_INT_LIMIT" class="form-control"
+                                                            placeholder=" " id="MIN_INT_LIMIT"
+                                                            pattern="\d{1,2}(\.\d{2})?" title="Input allowed only  0-9"
+                                                            formControlName="MIN_INT_LIMIT" disabled>
+                                                        <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['MIN_INT_LIMIT'].invalid && (angForm.controls['MIN_INT_LIMIT'].dirty || angForm.controls['MIN_INT_LIMIT'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="angForm.controls['MIN_INT_LIMIT'].errors?.pattern">
+                                                        Input allowed only 0-9
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="StandingTrue">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5> Standing Instruction</h5>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="border-checkbox-section">
+                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="STAND_INSTRUCTION_ALLOW">
+                                                        <label class="border-checkbox-label"
+                                                            for="STAND_INSTRUCTION_ALLOW">Is Standing
+                                                            Instruction Applicable?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="border-checkbox-section">
+                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="IS_AUTO_CUT_INSTRUCTION">
+                                                        <label class="border-checkbox-label"
+                                                            for="IS_AUTO_CUT_INSTRUCTION">Is
+                                                            Instruction though Auto Cutting LN/CC?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="border-checkbox-section">
+                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="IS_ALLOW_SI_MINBAL">
+                                                        <label class="border-checkbox-label" for="IS_ALLOW_SI_MINBAL">Is
+                                                            Allow
+                                                            Standing Instruction Minimum Bal?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="border-checkbox-section">
+                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="WITHDRAWAL_APPLICABLE">
+                                                        <label class="border-checkbox-label"
+                                                            for="WITHDRAWAL_APPLICABLE">Is
+                                                            Withdrawal Applicable ?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="border-checkbox-section">
+                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="S_INTPAID_ON_CLOSING">
+                                                        <label class="border-checkbox-label"
+                                                            for="S_INTPAID_ON_CLOSING">Is Interest
+                                                            Paid on A/c Closing ?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label></label>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" name="ROUNDOFF_FACTOR" class="form-control"
+                                                            placeholder=" " id="ROUNDOFF_FACTOR" pattern="^[0-9]+$"
+                                                            title="Input allowed only  0-9" maxlength="2"
+                                                            formControlName="ROUNDOFF_FACTOR">
+                                                        <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in
+                                                            Paise</label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['ROUNDOFF_FACTOR'].invalid && (angForm.controls['ROUNDOFF_FACTOR'].dirty || angForm.controls['ROUNDOFF_FACTOR'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div
+                                                        *ngIf="angForm.controls['ROUNDOFF_FACTOR'].errors?.pattern || angForm.controls['ROUNDOFF_FACTOR'].errors?.maxlength">
+                                                        Input allowed only 0-9
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="BalanceTrue">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5> Balance Entry/Premature</h5>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="border-checkbox-section">
+                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="BALANCE_ADD_APPLICABLE">
+                                                        <label class="border-checkbox-label"
+                                                            for="BALANCE_ADD_APPLICABLE">Is Balance
+                                                            Entry Allow ?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="border-checkbox-section">
+                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="PREMATURE_COMPOUND_INT">
+                                                        <label class="border-checkbox-label"
+                                                            for="PREMATURE_COMPOUND_INT">Is
+                                                            Prematured Compound Interest ?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" name="PIGMY_MACHINE_SCHEME"
+                                                            class="form-control" placeholder=" "
+                                                            id="PIGMY_MACHINE_SCHEME" pattern="^[0-9]+$"
+                                                            title="Input allowed only  0-9" maxlength="6"
+                                                            formControlName="PIGMY_MACHINE_SCHEME">
+                                                        <label for="PIGMY_MACHINE_SCHEME">Pigmy Machine Scheme
+                                                            No.</label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['PIGMY_MACHINE_SCHEME'].invalid && (angForm.controls['PIGMY_MACHINE_SCHEME'].dirty || angForm.controls['PIGMY_MACHINE_SCHEME'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div
+                                                        *ngIf="angForm.controls['PIGMY_MACHINE_SCHEME'].errors?.pattern || angForm.controls['PIGMY_MACHINE_SCHEME'].errors?.maxlength">
+                                                        Input allowed only 0-9
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="OverDraftTrue">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5> OverDraft Interest Applicable</h5>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="border-checkbox-section">
+                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="OVERDRAFT_INTEREST_APPLICABLE"
+                                                            name="OVERDRAFT_INTEREST_APPLICABLE"
+                                                            formControlName="OVERDRAFT_INTEREST_APPLICABLE"
+                                                            (click)="isOverdraftInterestApplicable($event)">
+                                                        <label class="border-checkbox-label"
+                                                            for="OVERDRAFT_INTEREST_APPLICABLE">Is
+                                                            OverDraft Interest Applicable?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label></label>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" name="OVERDRAFT_INTEREST_RATE"
+                                                            class="form-control" placeholder=" "
+                                                            id="OVERDRAFT_INTEREST_RATE" pattern="\d{1,2}(\.\d{1,2})?"
+                                                            title="Input allowed only  0-9"
+                                                            formControlName="OVERDRAFT_INTEREST_RATE" disabled
+                                                            [required]="IS_OVERDRAFT_INTEREST_RATE">
+                                                        <label for="OVERDRAFT_INTEREST_RATE">Overdraft Interest Rate
+                                                            %</label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['OVERDRAFT_INTEREST_RATE'].invalid && (angForm.controls['OVERDRAFT_INTEREST_RATE'].dirty || angForm.controls['OVERDRAFT_INTEREST_RATE'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div
+                                                        *ngIf="angForm.controls['OVERDRAFT_INTEREST_RATE'].errors?.pattern">
+                                                        Input allowed only 0-9
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="ServiceTrue">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5> Service Charges Details</h5>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="form-group form-primary form-static-label">
+                                                    <ng-select [ngClass]="'ng-select'" [options]="acMaster"
+                                                        [multiple]="false" placeholder="Service Charges GL Code"
+                                                        formControlName="SVR_CHARGE_GLCODE">
+                                                    </ng-select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" name="SVR_CHARGE_RATE" class="form-control"
+                                                            placeholder=" " id="SVR_CHARGE_RATE"
+                                                            pattern="\d{1,2}(\.\d{1,2})?"
+                                                            title="Input allowed only  0-9"
+                                                            formControlName="SVR_CHARGE_RATE">
+                                                        <label for="SVR_CHARGE_RATE">Service Charges Rate</label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['SVR_CHARGE_RATE'].invalid && (angForm.controls['SVR_CHARGE_RATE'].dirty || angForm.controls['SVR_CHARGE_RATE'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="angForm.controls['SVR_CHARGE_RATE'].errors?.pattern">
+                                                        Input allowed only 0-9
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <label></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
+                                [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                                class="table table-striped table-bordered table-hover">
+                                <tbody *ngIf="pigmyACScheme?.length != 0">
+                                    <tr *ngFor="let data of pigmyACScheme">
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
+                                                (click)="editClickHandler(data.id)">Edit</button>
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
+                                                (click)="delClickHandler(data.id)">Delete</button> -->
+                                        </td>
+                                        <td>{{ data.S_ACNOTYPE }}</td>
+                                        <td>{{ data.S_APPL }}</td>
+                                        <td>{{ data.S_NAME }}</td>
+                                        <td>{{ data.S_SHNAME }}</td>
+                                        <td>{{ data.S_GLACNO }}</td>
+                                        <td>{{ data.S_INT_ACNO }}</td>
+                                        <td>{{ data.S_RECBL_PYBL_INT_ACNO }}</td>
+                                        <td>{{ data.S_INT_APPLICABLE }}</td>
+                                        <td>{{ data.POST_TO_INDIVIDUAL_AC }}</td>
+                                        <td>{{ data.S_PAYABLE_INT_ALLOW }}</td>
+                                        <td>{{ data.S_PRODUCT_DAY_BASE }}</td>
+                                        <td>{{ data.S_PRODUCT_DAY_BASE_END }}</td>
+                                        <td>{{ data.MIN_INT_LIMIT }}</td>
+                                        <td>{{ data.STAND_INSTRUCTION_ALLOW }}</td>
+                                        <td>{{ data.IS_AUTO_CUT_INSTRUCTION }}</td>
+                                        <td>{{ data.IS_ALLOW_SI_MINBAL }}</td>
+                                        <td>{{ data.WITHDRAWAL_APPLICABLE }}</td>
+                                        <td>{{ data.S_INTPAID_ON_CLOSING }}</td>
+                                        <td>{{ data.ROUNDOFF_FACTOR }}</td>
+                                        <td>{{ data.BALANCE_ADD_APPLICABLE }}</td>
+                                        <td>{{ data.PREMATURE_COMPOUND_INT }}</td>
+                                        <td>{{ data.PIGMY_MACHINE_SCHEME }}</td>
+                                        <td>{{ data.OVERDRAFT_INTEREST_APPLICABLE}}</td>
+                                        <td>{{ data.OVERDRAFT_INTEREST_RATE }}</td>
+                                        <td>{{ data.SVR_CHARGE_GLCODE }}</td>
+                                        <td>{{ data.SVR_CHARGE_RATE }}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="pigmyACScheme?.length == 0">
+                                    <tr>
+                                        <td colspan="6" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

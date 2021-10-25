@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Locker Rack Master</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <div class="card-block">
+                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="RACK_NO" class="form-control" placeholder=" "
+                                        id="RackNumber" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        formControlName="RACK_NO" disabled>
+                                    <label for="RackNumber">Rack Number</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="RACK_DESC" class="form-control" placeholder=" "
+                                        id="RACK_DESC" required="" pattern="^[A-Za-z\./ -]+$" maxlength="50"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="RACK_DESC">
+                                    <label for="RACK_DESC">Rack Description<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['RACK_DESC'].invalid && (angForm.controls['RACK_DESC'].dirty || angForm.controls['RACK_DESC'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['RACK_DESC'].errors?.pattern || angForm.controls['RACK_DESC'].errors?.required || angForm.controls['RACK_DESC'].errors?.maxlength">
+                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="LOCKER_FROMNO" class="form-control" placeholder=" "
+                                        id="LOCKER_FROMNO" required="" pattern="^[0-9]+$" maxlength="10"
+                                        title="Input allowed only  0-9" formControlName="LOCKER_FROMNO">
+                                    <label for="LOCKER_FROMNO">Lockers From<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['LOCKER_FROMNO'].invalid && (angForm.controls['LOCKER_FROMNO'].dirty || angForm.controls['LOCKER_FROMNO'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['LOCKER_FROMNO'].errors?.pattern || angForm.controls['LOCKER_FROMNO'].errors?.required || angForm.controls['LOCKER_FROMNO'].errors?.maxlength">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="LOCKER_TONO" class="form-control" placeholder=" "
+                                        id="LOCKER_TONO" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        formControlName="LOCKER_TONO" maxlength="10">
+                                    <label for="LOCKER_TONO">Lockers to<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['LOCKER_TONO'].invalid && (angForm.controls['LOCKER_TONO'].dirty || angForm.controls['LOCKER_TONO'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['LOCKER_TONO'].errors?.pattern || angForm.controls['LOCKER_TONO'].errors?.required || angForm.controls['LOCKER_TONO'].errors?.maxlength">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover">
+                                <tbody *ngIf="lockerRackMaster?.length != 0">
+                                    <tr *ngFor="let data of lockerRackMaster">
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
+                                                (click)="delClickHandler(data.id)">Delete</button> -->
+                                        </td>
+                                        <td>{{ data.RACK_NO}}</td>
+                                        <td>{{ data.RACK_DESC}}</td>
+                                        <td>{{ data.LOCKER_FROMNO}}</td>
+                                        <td>{{ data.LOCKER_TONO}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="lockerRackMaster?.length == 0">
+                                    <tr>
+                                        <td colspan="6" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                      <th></th>
+                                      <th><input type="text" placeholder="Rack Number " name="RACK_NO"/></th>
+                                      <th><input type="text" placeholder="Rack Description" name="RACK_DESC"/></th>
+                                      <th><input type="text" placeholder="Lockers From" name="LOCKER_FROMNO"/></th>
+                                      <th><input type="text" placeholder="Lockers to" name="LOCKER_TONO"/></th>
+                                    </tr>
+                                  </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

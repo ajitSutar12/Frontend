@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-header">
+                <h5>View</h5>
+            </div>
+            <div class="card-block">
+                <div class="col-md-12">
+                    <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
+
+                        <ul class="basic-list">
+                            <li>
+                                <h6> <a (click)="OpenLink(1)" routerLinkActive="active" class="text-right f-w-600" id="pointer">1. Interest Paid History</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(2)" routerLinkActive="active" class="text-right f-w-600" id="pointer">2. Cheque Book Details</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(3)" routerLinkActive="active" class="text-right f-w-600" id="pointer">3. Unclear Cheques</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(4)" routerLinkActive="active" class="text-right f-w-600" id="pointer">4. Loan Projection</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(5)" routerLinkActive="active" class="text-right f-w-600" id="pointer">5. Loan Installment Enquiry</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(6)" routerLinkActive="active" class="text-right f-w-600" id="pointer">6. Deposit Interest Projection</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(7)" routerLinkActive="active" class="text-right f-w-600" id="pointer">7. Ratio Analysis</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(8)" routerLinkActive="active" class="text-right f-w-600" id="pointer">8. Deposit Loan Analysis</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(9)" routerLinkActive="active" class="text-right f-w-600" id="pointer">9. Budget View</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(10)" routerLinkActive="active" class="text-right f-w-600" id="pointer">10. Member Guarantor View</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(11)" routerLinkActive="active" class="text-right f-w-600" id="pointer">11. Locker View</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(12)" routerLinkActive="active" class="text-right f-w-600" id="pointer">12. Graph Loan Deposit Position</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(13)" routerLinkActive="active" class="text-right f-w-600" id="pointer">13. Comparitive Graph-Loan Deposit Position</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(14)" routerLinkActive="active" class="text-right f-w-600" id="pointer">14. CD Ratio Analysis</a></h6>
+                            </li>
+                        </ul>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div class="card-block">
+            <div *ngIf="interestpaidhistoryTrue">
+                <app-interest-paid-history></app-interest-paid-history>
+            </div>
+            <div *ngIf="chequebookdetailsTrue">
+                <app-cheque-book-details></app-cheque-book-details>
+            </div>
+            <div *ngIf="unclearchequesTrue">
+                <app-unclear-cheque></app-unclear-cheque>
+            </div>
+            <div *ngIf="loanprojectionTrue">
+                <app-loan-projection></app-loan-projection>
+            </div>
+            <div *ngIf="loaninstallmentinquiryTrue">
+                <app-loan-installment-inquiry></app-loan-installment-inquiry>
+            </div>
+            <div *ngIf="depositinterestprojectionTrue">
+                <app-deposit-interest-projection></app-deposit-interest-projection>
+            </div>
+            <div *ngIf="ratioanalysisTrue">
+                <app-ratio-analysis></app-ratio-analysis>
+            </div>
+            <div *ngIf="depositloananalysisTrue">
+                <app-deposit-loan-analysis></app-deposit-loan-analysis>
+            </div>
+            <div *ngIf="budgetviewTrue">
+                <app-budget-view></app-budget-view>
+            </div>
+            <div *ngIf="memberguarntorviewTrue">
+                <app-member-guarantor-view></app-member-guarantor-view>
+            </div>
+            <div *ngIf="lockerviewTrue">
+                <app-locker-view></app-locker-view>
+            </div>
+            <div *ngIf="graphloandepositpositionTrue">
+                <app-graph-loan-deposit-position></app-graph-loan-deposit-position>
+            </div>
+            <div *ngIf="comaparitivegraphloandepositpositionTrue">
+                <app-comparitive-graph-loan-deposit-position></app-comparitive-graph-loan-deposit-position>
+            </div>
+            <div *ngIf="cdratioanalysisTrue">
+                <app-cd-ration-analysis></app-cd-ration-analysis>
+            </div>
+        </div>
+    </div>
+</div>

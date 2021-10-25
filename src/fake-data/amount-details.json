@@ -1,0 +1,18 @@
+{
+    "data": [
+        {
+            "ReceiptPaymentHead": "Interest Amount (Short_Name from Traninputhead where scheme_type='CC')",
+            "InterestDate": "23/09/2021",
+            "Amount": 1250,
+            "Balance": 1250,
+            "Type": "Dr"
+        },
+        {
+            "ReceiptPaymentHead": "Vasuli Charges (Short_Name from Traninputhead where scheme_type='CC')",
+            "InterestDate": "23/09/2021",
+            "Amount": 500,
+            "Balance": 500,
+            "Type": "Dr"
+        }
+    ]
+}

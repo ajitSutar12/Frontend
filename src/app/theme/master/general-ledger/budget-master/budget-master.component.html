@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Budget Allocation Master</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="AC_TYPE" class="form-control" placeholder=" "
+                                        id="BudgetYear" required="" value="{{ message.BudgetYear }}" pattern="^[0-9]+$"
+                                        title="Input allowed only 0-9" formControlName="BudgetYear">
+                                    <label for="BudgetYear">Budget Year<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BudgetYear'].invalid && (angForm.controls['BudgetYear'].dirty || angForm.controls['BudgetYear'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['BudgetYear'].errors?.pattern || angForm.controls['BudgetYear'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" checked>
+                                        <i class="helper"></i>Expenditure
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio">
+                                        <i class="helper"></i>Income
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton"
+                                [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

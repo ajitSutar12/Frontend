@@ -1,0 +1,177 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Reconciliation Transaction Entry</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="A_BALCODE" class="form-control" placeholder=" "
+                                        id="GLAccount" required="" value="{{ message.GLAccount }}" pattern="^[0-9]+$"
+                                        title="Input allowed only  0-9" formControlName="GLAccount">
+                                    <label for="GLAccount">GL Account <sub class="required">* </sub> </label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['GLAccount'].invalid && (angForm.controls['GLAccount'].dirty || angForm.controls['GLAccount'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['GLAccount'].errors?.pattern || angForm.controls['GLAccount'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-radio">
+                            <div class="radio radio-inline">
+                                <label>
+                                    <input type="radio" name="radio" [checked]="isAllEntries == true" checked>
+                                    <i class="helper"></i>All Entries<span class="required"> </span>
+                                </label>
+                            </div>
+                            <div class="radio radio-inline">
+                                <label>
+                                    <input type="radio" name="radio" [checked]="isAllEntries == false">
+                                    <i class="helper"></i>Pending Entries<span class="required"> </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="A_BALCODE" class="form-control" placeholder=" "
+                                        id="BranchCode" value="{{ message.BranchCode }}" formControlName="BranchCode">
+                                    <label for="BranchCode">Branch Code</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="FromDate" class="form-control" placeholder=" "
+                                        id="FromDate" required="" value="{{ message.FromDate }}" max="9999-12-31"
+                                        onfocus="(this.type='date')" formControlName="FromDate">
+                                    <label for="FromDate">From Date<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['FromDate'].invalid && (angForm.controls['FromDate'].dirty || angForm.controls['FromDate'].touched)" class="alert alert-danger">
+                                <div *ngIf=" angForm.controls['FromDate'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="ToDate" class="form-control" placeholder=" " id="ToDate"
+                                        required="" value="{{ message.ToDate }}" max="9999-12-31"
+                                        onfocus="(this.type='date')" formControlName="ToDate">
+                                    <label for="ToDate">To Date<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ToDate'].invalid && (angForm.controls['ToDate'].dirty || angForm.controls['ToDate'].touched)" class="alert alert-danger">
+                                <div *ngIf=" angForm.controls['ToDate'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6>No. of Records</h6>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="Withdrawals" class="form-control" placeholder=" "
+                                        id="Withdrawals" value="{{ message.BranchCode }}" formControlName="Withdrawals"
+                                        disabled>
+                                    <label for="Withdrawals">Withdrawals</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                        id="Deposits" value="{{ message.Deposits }}" formControlName="Deposits"
+                                        disabled>
+                                    <label for="Deposits">Deposits</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                        id="Amount" value="{{ message.Amount }}" formControlName="Amount" disabled>
+                                    <label for="Amount">Amount</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6>Un Cleared Amount</h6>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                        id="Withdrawal" value="{{ message.Withdrawal }}" formControlName="Withdrawal"
+                                        disabled>
+                                    <label for="Withdrawal">Withdrawals</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                        id="Deposit" disabled value="{{ message.Deposit }}" formControlName="Deposit">
+                                    <label for="Deposit">Deposits</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                        id="Amounts" disabled value="{{ message.Amounts }}" formControlName="Amounts">
+                                    <label for="Amounts">Amount</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover" style="width: 100%;">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

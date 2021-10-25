@@ -1,0 +1,338 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Scheme types Settings</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <div class="card-block">
+                <form action="javascript:" [formGroup]="angForm">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="schemetype" [multiple]="false" placeholder="Scheme Type*" required title="Compulsory Selection" formControlName="S_ACNOTYPE">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                        <input type="text" name="S_NAME" class="form-control" placeholder=" "
+                                            id="S_NAME" required="" pattern="^[A-Za-z\./ -]+$"
+                                            title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="50"
+                                            formControlName="S_NAME">
+                                        <label for="S_NAME">Description<sub class="required">* </sub></label>
+                                    </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['S_NAME'].invalid && (angForm.controls['S_NAME'].dirty || angForm.controls['S_NAME'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['S_NAME'].errors?.pattern || angForm.controls['S_NAME'].errors?.required">
+                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+
+                            <ul class="basic-list list-icons">
+                                <li>
+                                    <h6> <a (click)="OpenLink(21)" routerLinkActive="active" routerLink="/utility/schemeParameters" [ngClass]="{'isActive': transactionsTrue}" class="text-right f-w-600" id="pointer">Transactions</a>
+                                    </h6>
+
+                                </li>
+
+                                <li>
+                                    <h6> <a (click)="OpenLink(22)" routerLinkActive="active" routerLink="/utility/schemeParameters" [ngClass]="{'isActive': clearingTrue}" class="text-right f-w-600" id="pointer">Clearing</a>
+                                    </h6>
+                                </li>
+                                <li>
+                                    <h6> <a (click)="OpenLink(23)" routerLinkActive="active" routerLink="/utility/schemeParameters" [ngClass]="{'isActive': overdraftTrue}" class="text-right f-w-600" id="pointer">Overdraft</a>
+                                    </h6>
+                                </li>
+                                <li>
+                                    <h6> <a (click)="OpenLink(24)" routerLinkActive="active" routerLink="/utility/schemeParameters" [ngClass]="{'isActive': otherTrue}" class="text-right f-w-600" id="pointer">Other Settings</a>
+                                    </h6>
+                                </li>
+                            </ul>
+
+
+                        </div>
+                        <div class="col-sm-8">
+                            <div *ngIf="transactionsTrue">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>Transactions</h5>
+                                            </div>
+                                            <div class="card-block">
+                                                <div class="col-sm">
+                                                    <div class="border-checkbox-section">
+                                                        <div class="border-checkbox-group border-checkbox-group-primary">
+                                                            <input class="border-checkbox" type="checkbox" id="S_SINGLE_VOUCHER" formControlName="S_SINGLE_VOUCHER">
+                                                            <label class="border-checkbox-label" for="S_SINGLE_VOUCHER">In
+                                                                    Single Voucher Required?<span class="required">
+                                                                    </span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm">
+                                                    <div class="border-checkbox-section">
+                                                        <div class="border-checkbox-group border-checkbox-group-primary">
+                                                            <input class="border-checkbox" type="checkbox" id="S_MULTY_VOUCHER" formControlName="S_MULTY_VOUCHER">
+                                                            <label class="border-checkbox-label" for="S_MULTY_VOUCHER">In
+                                                                    Multi Voucher Required?<span class="required">
+                                                                    </span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <div class="border-checkbox-section">
+                                                        <div class="border-checkbox-group border-checkbox-group-primary">
+                                                            <input class="border-checkbox" type="checkbox" id="S_CASH_PAID_LOCK " formControlName="S_CASH_PAID_LOCK">
+                                                            <label class="border-checkbox-label" for="S_CASH_PAID_LOCK ">Is
+                                                                    Required Cash Payment Lock?<span class="required">
+                                                                    </span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md">
+                                                    <div class="form-group input-group">
+                                                        <span class="border-lable-flt">
+                                                                <input type="text" name="S_CASH_PAID_MIN_AMT"
+                                                                    class="form-control" placeholder=" "
+                                                                    id="S_CASH_PAID_MIN_AMT" required=""
+                                                                    pattern="\d{1,20}(\.\d{2})?"
+                                                                    title="Input allowed only  0-9/ . (Space)"
+                                                                    maxlength="20,2"
+                                                                    formControlName="S_CASH_PAID_MIN_AMT">
+                                                                <label for="S_CASH_PAID_MIN_AMT">Show Message when cash
+                                                                    Payment Min Rs.<sub class="required">*
+                                                                    </sub></label>
+                                                            </span>
+                                                    </div>
+                                                    <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['S_CASH_PAID_MIN_AMT'].invalid && (angForm.controls['S_CASH_PAID_MIN_AMT'].dirty || angForm.controls['S_CASH_PAID_MIN_AMT'].touched)" class="alert alert-danger">
+                                                        <div *ngIf="angForm.controls['S_CASH_PAID_MIN_AMT'].errors?.pattern || angForm.controls['S_CASH_PAID_MIN_AMT'].errors?.required">
+                                                            This field is required and Input allowed only 0-9 . (Space)
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="clearingTrue">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card-header">
+                                            <h5>Clearing</h5>
+                                        </div>
+                                        <div class="card">
+
+                                            <div class="card-block">
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <div class="border-checkbox-section">
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" type="checkbox" id="S_LOCAL_CLEARING" formControlName="S_LOCAL_CLEARING">
+                                                                <label class="border-checkbox-label" for="S_LOCAL_CLEARING">Is Local Clearing
+                                                                        Applicable?<span class="required">
+                                                                        </span></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm">
+                                                        <div class="border-checkbox-section">
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" type="checkbox" id="S_CHEQUE_BOOK" formControlName="S_CHEQUE_BOOK">
+                                                                <label class="border-checkbox-label" for="S_CHEQUE_BOOK">Is Cheue Book Required?<span
+                                                                            class="required">
+                                                                        </span></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <div class="border-checkbox-section">
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" type="checkbox" id="S_DEMAND_DRAFT" formControlName="S_DEMAND_DRAFT">
+                                                                <label class="border-checkbox-label" for="S_DEMAND_DRAFT">Is Demand Draft
+                                                                        Applicable?<span class="required">
+                                                                        </span></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="border-checkbox-section">
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" type="checkbox" id="IS_PO_APPL" formControlName="IS_PO_APPL">
+                                                                <label class="border-checkbox-label" for="IS_PO_APPL">Is
+                                                                        Pay Order Applicable?<span class="required">
+                                                                        </span></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="overdraftTrue">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card-header">
+                                            <h5>Overdraft</h5>
+                                        </div>
+                                        <div class="card">
+
+                                            <div class="card-block">
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <div class="border-checkbox-section">
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" type="checkbox" id="S_TEMP_OVERDRFT" formControlName="S_TEMP_OVERDRFT">
+                                                                <label class="border-checkbox-label" for="S_TEMP_OVERDRFT">Is
+                                                                        Temporary Overdraft Applicable<span
+                                                                            class="required"> </span>?</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm">
+                                                        <div class="border-checkbox-section">
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" type="checkbox" id="S_PERIODCL_OVERDRFT" formControlName="S_PERIODCL_OVERDRFT">
+                                                                <label class="border-checkbox-label" for="S_PERIODCL_OVERDRFT">Is
+                                                                        Periodically Overdraft Applicable?<span
+                                                                            class="required"> </span></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf=" otherTrue">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card-header">
+                                            <h5>Other Settings</h5>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <div class="border-checkbox-section">
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" type="checkbox" id="S_SPECIAL_INSTRUCTION" formControlName="S_SPECIAL_INSTRUCTION">
+                                                                <label class="border-checkbox-label" for="S_SPECIAL_INSTRUCTION">Is
+                                                                        Special Instruction Applicable?<span
+                                                                            class="required"> </span></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm">
+                                                        <div class="border-checkbox-section">
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" type="checkbox" id="S_SUB_PRINT" formControlName="S_SUB_PRINT">
+                                                                <label class="border-checkbox-label" for="S_SUB_PRINT">Is
+                                                                        Subsidiary Print Required?<span
+                                                                            class="required">
+                                                                        </span></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <div class="border-checkbox-section">
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" type="checkbox" id="S_FREEZE_APPLICABLE" formControlName="S_FREEZE_APPLICABLE">
+                                                                <label class="border-checkbox-label" for="S_FREEZE_APPLICABLE">Is
+                                                                        Freeze A/c Applicable?<span class="required">
+                                                                        </span></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover">
+                                <tbody *ngIf="schemetypes?.length != 0">
+                                    <tr *ngFor="let data of schemetypes">
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
+                                        </td>
+                                        <td>{{ data.S_ACNOTYPE }}</td>
+                                        <td>{{ data.S_NAME }}</td>
+                                        <td>{{ data.S_SINGLE_VOUCHER }}</td>
+                                        <td>{{ data.S_MULTY_VOUCHER }}</td>
+                                        <td>{{ data.S_CASH_PAID_MIN_AMT }}</td>
+                                        <td>{{ data.S_CASH_PAID_LOCK }}</td>
+                                        <td>{{ data.S_LOCAL_CLEARING }}</td>
+                                        <td>{{ data.S_CHEQUE_BOOK }}</td>
+                                        <td>{{ data.S_DEMAND_DRAFT }}</td>
+                                        <td>{{ data.IS_PO_APPL }}</td>
+                                        <td>{{ data.S_TEMP_OVERDRFT }}</td>
+                                        <td>{{ data.S_PERIODCL_OVERDRFT }}</td>
+                                        <td>{{ data.S_SPECIAL_INSTRUCTION }}</td>
+                                        <td>{{ data.S_SUB_PRINT }}</td>
+                                        <td>{{ data.S_FREEZE_APPLICABLE }}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="schemetypes?.length == 0">
+                                    <tr>
+                                        <td colspan="6" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

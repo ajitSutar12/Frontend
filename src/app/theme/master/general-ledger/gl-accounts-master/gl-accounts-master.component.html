@@ -1,0 +1,154 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Account Master</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="AC_NO" class="form-control" placeholder=" " id="AC_NO"
+                                        formControlName="AC_NO" disabled>
+                                    <label for="AC_NO">General Ledger Code</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="AC_TYPE" class="form-control" placeholder=" " id="AC_NAME"
+                                        required pattern="^[A-Za-z\./ -]+$" maxlength="250"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NAME">
+                                    <label for="AC_NAME">General Ledger Name<sub class="required">*
+                                        </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_NAME'].invalid && (angForm.controls['AC_NAME'].dirty || angForm.controls['AC_NAME'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_NAME'].errors?.pattern || angForm.controls['AC_NAME'].errors?.required || angForm.controls['AC_NAME'].errors?.maxlength">
+                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="statementCode" [multiple]="false" placeholder="Statement Code*" required title="Compulsory Selection" formControlName="AC_BCD">
+                                </ng-select>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_BCD'].invalid && (angForm.controls['AC_BCD'].dirty || angForm.controls['AC_BCD'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_BCD'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="IS_RED_BALANCE_AC" value="checkbox" formControlName="IS_RED_BALANCE_AC">
+                                    <label class="border-checkbox-label" for="IS_RED_BALANCE_AC">Is Red Balance Account
+                                        ?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="IS_DIRECT_ENTRY_ALLOW" value="checkbox" formControlName="IS_DIRECT_ENTRY_ALLOW" checked>
+                                    <label class="border-checkbox-label" for="IS_DIRECT_ENTRY_ALLOW">Is Allow Direct
+                                        Entry To Account </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="AC_IS_CASH_IN_TRANSIT" value="checkbox" formControlName="AC_IS_CASH_IN_TRANSIT">
+                                    <label class="border-checkbox-label" for="AC_IS_CASH_IN_TRANSIT">Cash In Transit
+                                        Account</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="IS_TAXABLEFOR_GST" value="checkbox" formControlNAme="IS_TAXABLEFOR_GST">
+                                    <label class="border-checkbox-label" for="IS_TAXABLEFOR_GST">Is Taxable For
+                                        GST</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="IS_ACTIVE" value="checkbox" formControlName="IS_ACTIVE" checked>
+                                    <label class="border-checkbox-label" for="IS_ACTIVE">Is Active Account</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover">
+                                <tbody *ngIf="glAccountMaster?.length != 0">
+                                    <tr *ngFor="let data of glAccountMaster">
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button>
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
+                                                (click)="delClickHandler(data.id)">Delete</button> -->
+                                        </td>
+                                        <td>{{data.AC_NO }}</td>
+                                        <td>{{data.AC_NAME }}</td>
+                                        <td>{{data.AC_BCD }}</td>
+                                        <td>{{data.IS_RED_BALANCE_AC }}</td>
+                                        <td>{{data.IS_DIRECT_ENTRY_ALLOW }}</td>
+                                        <td>{{data.AC_IS_CASH_IN_TRANSIT}}</td>
+                                        <td>{{data.IS_TAXABLEFOR_GST }}</td>
+                                        <td>{{data.IS_ACTIVE }}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="glAccountMaster?.length == 0">
+                                    <tr>
+                                        <td colspan="6" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th><input type="text" placeholder="Search General Ledger Code" name="search-generalLedgerCode" /></th>
+                                        <th><input type="text" placeholder="Search General Ledger Name" name="search-generalLedgerName" /></th>
+                                        <th><input type="text" placeholder="Search Statement Code" name="search-statementCode" /></th>
+                                        <th><input type="text" placeholder="Search Is Red Balance Account" name="search-isRedBalanceAccount" /></th>
+                                        <th><input type="text" placeholder="Search Is Allow Direct Entry To Account" name="search-isAllowDirectEntryToAccount" /></th>
+                                        <th><input type="text" placeholder="Search Cash In TransitAccount" name="search-cashInTransitAccount" /></th>
+                                        <th><input type="text" placeholder="Search Is Tax able For GST" name="search-isTaxableForGST" /></th>
+                                        <th><input type="text" placeholder="Search Is Active Account" name="search-isActiveAccount" /></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

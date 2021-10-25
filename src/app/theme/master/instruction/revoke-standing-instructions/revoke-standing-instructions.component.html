@@ -1,0 +1,236 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Revoke Standing Instructions</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " max="9999-12-31"
+                                        formControlName="Date" value="{{ message.Date}}" onfocus="(this.type='date')"
+                                        id="date" />
+                                    <label for="date">Date</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" checked>
+                                        <i class="helper"></i>Month Begin
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio">
+                                        <i class="helper"></i>Month End
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio">
+                                        <i class="helper"></i> Specific Day
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " max="9999-12-31"
+                                        formControlName="Date" value="{{ message.StartFrom}}"
+                                        onfocus="(this.type='date')" id="StartFrom" />
+                                    <label for="StartFrom">Start From</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
+                                    placeholder="Instruction No." title="Compulsory Selection"
+                                    formControlName="TransactionNo">
+                                </ng-select>
+                                <label>{{ message.InstructionNo }}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " max="9999-12-31"
+                                        formControlName="Date" value="{{ message.Day}}" onfocus="(this.type='date')"
+                                        id="Day" />
+                                    <label for="Day">Day</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
+                                    placeholder="Frequency" title="Compulsory Selection"
+                                    formControlName="TransactionNo">
+                                </ng-select>
+                                <label>{{message.Frequency}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="NextExecutionOn"
+                                        max="9999-12-31" formControlName="Date" value="{{ message.NextExecutionOn}}"
+                                        onfocus="(this.type='date')" />
+                                    <label for="NextExecutionOn">Next Execution On</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " max="9999-12-31"
+                                        formControlName="Date" value="{{ message.LastExecutionOn}}"
+                                        onfocus="(this.type='date')" id="LastExecutionOn" />
+                                    <label for="LastExecutionOn">Last Execution On</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h6>Debit Account Details</h6>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
+                                    placeholder="Scheme " required title="Compulsory Selection"
+                                    formControlName="Scheme">
+                                </ng-select>
+                                <label>{{ message.Scheme }}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="b" [multiple]="false"
+                                    placeholder="Account No" required>
+                                </ng-select>
+                                <label>{{ message.AccountNo }}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="To" class="form-control" placeholder=" "
+                                        id="DebitNarration" value="{{ message.DebitNarration }}">
+                                    <label for="DebitNarration">Debit Narration</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h6>Credit Account Details</h6>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
+                                    placeholder="Scheme " title="Compulsory Selection" formControlName="Scheme">
+                                </ng-select>
+                                <label>{{ message.Scheme1 }}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="b" [multiple]="false"
+                                    placeholder="Account No">
+                                </ng-select>
+                                <label>{{ message.AccountNo1 }}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="To" class="form-control" placeholder=" "
+                                        id="CreditNarration" value="{{ message.CreditNarration }}">
+                                    <label for="CreditNarration">Credit Narration</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1" value="checkbox"
+                                        [checked]="isIsAuto == true">
+                                    <label class="border-checkbox-label" for="checkbox1">Is Auto Balance Transfer
+                                        Remaining this Minimum Balance :<span class="required"> </span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="To" class="form-control" placeholder=" "
+                                        id="TransactionAmount" value="{{ message.TransactionAmount }}">
+                                    <label for="TransactionAmount">Transaction Amount</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " required="" max="9999-12-31"
+                                        formControlName="RevokeDate" value="{{ message.RevokeDate}}"
+                                        onfocus="(this.type='date')" id="RevokeDate" />
+                                    <label for="RevokeDate">Revoke Date <sub class="required">*</sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['RevokeDate'].invalid && (angForm.controls['RevokeDate'].dirty || angForm.controls['RevokeDate'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['RevokeDate'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton"
+                                [disabled]="angForm.invalid">Update</button>
+                            <!-- <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button> -->
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

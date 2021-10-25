@@ -1,0 +1,304 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Batch transfer Voucher(Companywise)</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form class="form-material">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="VoucherNumber" class="form-control"
+                                    value="{{ message.VoucherNumber }}" pattern="[0-9]+$"
+                                    title="Input allowed only  0-9">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Voucher No</label>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-sm">
+                            
+                            <div>
+                                <input type="checkbox" formControlName="checkbox_value">
+                                <div class="border-checkbox-section">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input class="border-checkbox" type="checkbox" id="checkbox1" 
+                                        formControlName="checkbox_value" />
+                                        <label class="border-checkbox-label" for="checkbox1">Import from file<span
+                                                class="required"> </span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                
+                            </div>
+                        </div> -->
+
+                        <!-- <script type="text/javascript">
+                            var app = angular.module('MyApp', [])
+                            app.controller('MyController', function ($scope) {
+                                //This will disable the TextBox by default.
+                                $scope.IsDisabled = true;
+                                $scope.EnableDisable = function () {
+                                    //If TextBox is disabled it will be enabled and vice versa.
+                                    $scope.IsDisabled = !$scope.HasPassport;
+                                }
+                            });
+                        </script> -->
+                        <!-- <div class="col-sm-2" ng-app="MyApp" ng-controller="MyController"> -->
+                            <!-- <div class="col-sm">
+                                <div class="border-checkbox-section">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input class="border-checkbox" type="checkbox" id="checkbox1" value="checkbox"
+                                            [checked]="isPrintHeadInOneSide == true">
+                                        <label class="border-checkbox-label" for="checkbox1">Print Head In One Side </label>
+                                    </div>
+                                </div>
+                            </div> -->
+                        <div class="col-sm-2">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1"  value="checkbox"
+                                    [checked]="ischeckbox == true" (change)="handleSelected($event)">
+                                    <label class="border-checkbox-label" for="checkbox1">Import from file<span
+                                            > </span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm" *ngIf="isImportFile">
+
+
+                            <label class="custom-file">
+                                <input type="file" ng2FileSelect [uploader]="uploader"  class="custom-file-input"
+                                    value="{{ message.Importfile}}"/>
+                                <span class="custom-file-control">Import from File Location <span class="required">*
+                                    </span></span>
+                            </label>
+                            <label>{{message.Importfile}}</label>
+
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="BranchCode" class="form-control" disabled=""
+                                    value="{{ message.BranchCode}}">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Branch Code</label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input placeholder="" class="form-control" type="text" onfocus="(this.type='date')"
+                                    value="{{ message.VoucherDate }}" id="date" />
+                                <label class="float-label"> Voucher Date </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="CompanyCode" class="form-control"
+                                    value="{{ message.CompanyCode }}" required="" pattern="^[0-9]+$"
+                                    title="Input allowed only  0-9">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Company Code<span class="required"> *</span></label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="DebitAccount1" class="form-control"
+                                    value="{{ message.DebitAccount1 }}" pattern="^[0-9]+$"
+                                    title="Input allowed only  0-9">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Debit Account 1</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="DebitAccount2" class="form-control"
+                                    value="{{ message.DebitAccount2 }}" pattern="^[0-9]+$"
+                                    title="Input allowed only  0-9">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Debit Account 2</label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="LedgerBalance" class="form-control"
+                                    value="{{ message.LedgerBalance }}" pattern="^[0-9]+$"
+                                    title="Input allowed only  0-9">
+                                <span class="form-bar"></span>
+                                <label class="float-label">leager Balance</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group form-primary form-static-label">
+                                        <input type="text" name="ChequeNoT" class="form-control" required=""
+                                            value="{{ message.ChequeNoT}}" pattern="^[A-Za-z0-9'\.\-\s]+$"
+                                            title="Input allowed only  A-Z a-z  - / . (Space) ^[0-9]+$">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Cheque No<span class="required"> *</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group form-primary form-static-label">
+                                        <input type="text" name="ChequeNo" class="form-control" required=""
+                                            value="{{message.ChequeNo}}" pattern="^[0-9]+$"
+                                            title="Input allowed only  0-9">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label"></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input placeholder="" class="form-control" type="text" onfocus="(this.type='date')"
+                                    id="date" value="{{ message.CheqDate}}" />
+                                <label class="float-label">Cheque Date</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="VoucherAmount" class="form-control" required=""
+                                    value="{{ message.VoucherAmount }}" pattern="^[0-9]+$"
+                                    title="Input allowed only  0-9">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Voucher Amount<span class="required"> *</span></label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+
+                                    <div class="form-group form-default form-static-label">
+                                        <textarea class="form-control" name="AC_TADDR1" value="{{ message.Narration }}"
+                                            pattern="^[A-Za-z\./ -]+$"
+                                            title="Input allowed only  A-Z a-z  - / . (Space)">
+
+                                                <!-- <div class="form-group form-primary form-static-label">
+                                                    <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
+                                                    placeholder="" required title="Narration">
+                                                    </ng-select>
+                                                    <label>{{message.Narration}}</label>
+                                                </div>
+                                     -->
+                                        
+                                            </textarea>
+                                        <span class="form-bar"></span>
+
+                                        <label class="float-label">Narration</label>
+                                    </div>
+
+                                    <!-- <div class="form-group form-primary form-static-label">
+                                            <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
+                                                placeholder="Narration" required title="Narration">
+                                            </ng-select>
+                                            <label>{{message.Narration}}</label>
+                                        </div>  -->
+
+                                </div>
+
+                                <div class="col-sm">
+                                    <div class="form-group form-primary form-static-label">
+                                        <input type="text" name="TotalAmount" class="form-control"
+                                            value="{{ message.TotalAmount }}" pattern="^[0-9]+$"
+                                            title="Input allowed only  0-9">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Total Amount</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm">
+                                    <div class="form-group form-primary form-static-label">
+                                        <input type="text" name="footer-email" class="form-control"
+                                            value="{{ message.Createdby }}" pattern="^[A-Za-z\./ -]+$"
+                                            title="Input allowed only  A-Z a-z  - / . (Space)">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Created by</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm">
+                                    <button class="btn btn-primary ripple light">Add</button>
+                                    <button class="btn btn-primary ripple light" (click)="updateData()"
+                                        *ngIf="updateShow">Update</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="col-sm">
+                                <div class="form-group form-primary form-static-label">
+
+                                    <h6><label>Credit Amount Details</label></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="table-responsive">
+                                <table datatable [dtOptions]="dtExportButtonOptions"
+                                    class="table table-striped table-bordered table-hover" style="width: 100%;">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="card">
+    <div class="card-block">
+        <div class="row">
+            <div class="col-sm">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtExportButtonOptions1"
+                        class="table table-striped table-bordered table-hover" style="width: 100%;">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

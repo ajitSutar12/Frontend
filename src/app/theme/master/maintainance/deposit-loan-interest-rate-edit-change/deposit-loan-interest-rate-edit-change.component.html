@@ -1,0 +1,167 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Deposit/Loan/CC Interest Rate Addition/Increases/Decreses</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
+                                    placeholder="Scheme Code *" required title="Compulsory Selection"
+                                    formControlName="Scheme">
+                                </ng-select>
+                                <label>{{message.schemecode}}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Scheme'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " required="" max="9999-12-31"
+                                        formControlName="Date" value="{{ message.effectdate}}"
+                                        onfocus="(this.type='date')" id="date" />
+                                    <label for="date">Effective Date<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['Date'].invalid && (angForm.controls['Date'].dirty || angForm.controls['Date'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Date'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="Ac" [multiple]="false"
+                                    placeholder="Starting Account No *" required title="Compulsory Selection"
+                                    formControlName="startingaccno">
+                                </ng-select>
+                                <label>{{message.startingaccno}}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['startingaccno'].invalid && (angForm.controls['startingaccno'].dirty || angForm.controls['startingaccno'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['startingaccno'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="Ac2" [multiple]="false"
+                                    placeholder="Ending Ac No. *" required title="Compulsory Selection"
+                                    formControlName="endingaccno">
+                                </ng-select>
+                                <label>{{message.endingaccno}}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['endingaccno'].invalid && (angForm.controls['endingaccno'].dirty || angForm.controls['endingaccno'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['endingaccno'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-radio">
+                                <h6>Interest Mode</h6>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" [checked]="isIncrease == true">
+                                        <i class="helper"></i>Increase<span class="required"> </span>
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" [checked]="isIncrease == false">
+                                        <i class="helper"></i>Decrease<span class="required"> </span>
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" [checked]="isIncrease == false">
+                                        <i class="helper"></i>Same Int. Rate Addition<span class="required"> </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="To" class="form-control" placeholder=" " id="interestrate"
+                                        required="" value="{{ message.interestrate }}" pattern="^[0-9]+$"
+                                        title="Input allowed only  0-9" formControlName="interestrate">
+                                    <label for="interestrate">Interest Rate%<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['interestrate'].invalid && (angForm.controls['interestrate'].dirty || angForm.controls['interestrate'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['interestrate'].errors?.pattern || angForm.controls['interestrate'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <a class="btn btn-primary ripple light" (click)="OpenLink(1)" routerLinkActive="active"
+                                role="button" id="up">View Current Interest Rate</a>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div *ngIf="GuarantorTrue">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table datatable [dtOptions]="dtExportButtonOptions"
+                                            class="table table-striped table-bordered table-hover" style="width: 100%;">
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table datatable [dtOptions]="dtExportButtonOptions1"
+                                    class="table table-striped table-bordered table-hover" style="width: 100%;">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

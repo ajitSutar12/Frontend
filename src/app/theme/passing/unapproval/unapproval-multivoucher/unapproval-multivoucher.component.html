@@ -1,0 +1,439 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Multi Voucher Entry Unapprove</h5>
+            </div>
+            <div class="card-block">
+                <form class="form-material" action="javascript:">
+                    <div class="row">
+                        <div class="col-12">
+
+
+                            <ngb-tabset>
+                                <ngb-tab title="Ledger View">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+
+                                            <form class="form-material" action="javascript:">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Instruction
+                                                                No.<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-inline">
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <input placeholder="Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Scheme<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Scheme
+                                                                Type<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Account
+                                                                No.<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Transaction
+                                                                Mode<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Amount<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Cheque
+                                                                No.<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Total
+                                                                Debit<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Total
+                                                                Credit<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Particulars<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <button class="btn btn-primary ripple light">Add</button>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-9">
+
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <h6><span class="required">* </span>: Required Fields</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="table-responsive">
+                                                        <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </ng-template>
+                                </ngb-tab>
+                                <ngb-tab title="Signature">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <form class="form-material" action="javascript:">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-radio">
+                                                            <form>
+                                                                <div class="radio radio-inline">
+                                                                    <label>
+                                                                        <input type="radio" name="radio"
+                                                                            checked="checked">
+                                                                        <i class="helper"></i>Custmoer ID (All
+                                                                        Scheme)<span class="required"> </span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="radio radio-inline">
+                                                                    <label>
+                                                                        <input type="radio" name="radio">
+                                                                        <i class="helper"></i>Individual Scheme<span class="required"> </span>
+                                                                    </label>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Customer ID<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <button class="btn btn-primary ripple light">Add</button>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-9">
+
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <h6><span class="required">* </span>: Required Fields</h6>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="col-sm-12">
+                                                <div class="table-responsive">
+                                                    <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <ngb-tab title="Interest Paid">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <form class="form-material" action="javascript:">
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Scheme<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Account<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-inline">
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <input placeholder="Till Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-inline">
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <input placeholder="Account Opening Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <button class="btn btn-primary ripple light">Add</button>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-9">
+
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <h6><span class="required">* </span>: Required Fields</h6>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="col-sm-12">
+                                                <div class="table-responsive">
+                                                    <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </ng-template>
+                                </ngb-tab>
+                                <ngb-tab title="Unpassed Details">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <div class="row">
+                                                <div class="table-responsive">
+                                                    <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <ngb-tab title="Enquiry">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <form class="form-material" action="javascript:">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Scheme<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Account<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-inline">
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <input placeholder=" Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <button class="btn btn-primary ripple light">Add</button>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-9">
+
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <h6><span class="required">* </span>: Required Fields</h6>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="col-sm-12">
+                                                <div class="table-responsive">
+                                                    <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <ngb-tab title="Multi Voucher">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <form class="form-material" action="javascript:">
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Voucher
+                                                                No.<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-inline">
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <input placeholder="Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Scheme<span class="required"> *</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Scheme Type<span class="required"> *</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Account No.<span class="required"> *</span></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Transaction Mode<span class="required"> *</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Amount<span class="required"> *</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Dr/Cr Chegue No.<span class="required"> *</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Total Debit<span class="required"> *</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Particulars<span class="required"> *</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <input type="text" name="footer-email" class="form-control" required="">
+                                                            <span class="form-bar"></span>
+                                                            <label class="float-label">Total Credit<span class="required"> *</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <button class="btn btn-primary ripple light">Add</button>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-9">
+
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <h6><span class="required">* </span>: Required Fields</h6>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="col-sm-12">
+                                                <div class="table-responsive">
+                                                    <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                            </ngb-tabset>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

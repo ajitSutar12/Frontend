@@ -1,0 +1,303 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Revoke Interest Instruction</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="Date" max="9999-12-31"
+                                        formControlName="Date" value="{{ message.Date}}" onfocus="(this.type='date')" />
+                                    <label for="Date">Date</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" checked>
+                                        <i class="helper"></i>Month Begin
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio">
+                                        <i class="helper"></i>Month End
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio">
+                                        <i class="helper"></i>Specific Day of Month
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio">
+                                        <i class="helper"></i>After Specific Days
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="StartFrom"
+                                        max="9999-12-31" formControlName="StartFrom" value="{{ message.StartFrom}}"
+                                        onfocus="(this.type='date')" />
+                                    <label for="StartFrom">Start From</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="TotalAmount" class="form-control" placeholder=" "
+                                        id="InstructionNo" value="{{ message.InstructionNo }}">
+                                    <label for="InstructionNo">Instruction No.</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="NextExecutionOn"
+                                        max="9999-12-31" formControlName="NextExecutionOn"
+                                        value="{{ message.NextExecutionOn}}" onfocus="(this.type='date')" />
+                                    <label for="NextExecutionOn">Next Execution On</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- DROPDOWN HERE -->
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
+                                    placeholder="Frequency">
+                                </ng-select>
+                                <label>{{message.Frequency}}</label>
+                            </div>
+                        </div>
+                        <h6>Payment By</h6>
+                        <div class="col-sm">
+                            <a (click)="OpenLink(1)" routerLinkActive="active" class="text-right f-w-600" id="pointer">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="radio1" ng-model="OD" ng-change="change()"
+                                                [checked]="isCash == true" value="cash1">
+                                            <i class="helper"></i>Cash
+                                        </label>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm">
+                            <a (click)="OpenLink(2)" routerLinkActive="active" class="text-right f-w-600" id="pointer">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="radio1" ng-model="OD" ng-change="change()"
+                                                [checked]="isCash == false" value="transfer1">
+                                            <i class="helper"></i>Transfer
+                                        </label>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="LastExecutionOn"
+                                        max="9999-12-31" formControlName="LastExecutionOn"
+                                        value="{{ message.LastExecutionOn}}" onfocus="(this.type='date')" />
+                                    <label for="LastExecutionOn">Last Executed On</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="cash1True">
+                        <h6>Interest Instruction Account Details</h6>
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group form-primary form-static-label">
+                                        <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
+                                            placeholder="Scheme" required title="Compulsory Selection"
+                                            formControlName="Scheme">
+                                        </ng-select>
+                                        <label>{{ message.Scheme }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group form-primary form-static-label">
+                                        <ng-select [ngClass]="'ng-select'" [options]="b" [multiple]="false"
+                                            placeholder="Account No" required>
+                                        </ng-select>
+                                        <label>{{ message.AccountNo }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="To" class="form-control" placeholder=" "
+                                                id="Particulars" value="{{ message.Particulars }}">
+                                            <label for="Particulars">Particulars</label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="transfer1True">
+                        <h6>Interest Instruction Account Details</h6>
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group form-primary form-static-label">
+                                        <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
+                                            placeholder="Scheme" required title="Compulsory Selection"
+                                            formControlName="Scheme">
+                                        </ng-select>
+                                        <label>{{ message.Scheme }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group form-primary form-static-label">
+                                        <ng-select [ngClass]="'ng-select'" [options]="b" [multiple]="false"
+                                            placeholder="Account No" required>
+                                        </ng-select>
+                                        <label>{{ message.AccountNo }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="To" class="form-control" placeholder=" "
+                                                id="Particulars" value="{{ message.Particulars }}">
+                                            <label for="Particulars">Particulars</label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h6>Credit Account Details</h6>
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group form-primary form-static-label">
+                                        <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
+                                            placeholder="Scheme" required title="Compulsory Selection"
+                                            formControlName="Scheme">
+                                        </ng-select>
+                                        <label>{{ message.Scheme1 }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group form-primary form-static-label">
+                                        <ng-select [ngClass]="'ng-select'" [options]="b" [multiple]="false"
+                                            placeholder="Account No" required>
+                                        </ng-select>
+                                        <label>{{ message.AccountNo1 }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="To" class="form-control" placeholder=" "
+                                                id="AdviceNarration" value="{{ message.AdviceNarration }}">
+                                            <label for="AdviceNarration">Advice Narration</label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="To" class="form-control" placeholder=" "
+                                                id="Particulars1" value="{{ message.Particulars1 }}">
+                                            <label for="Particulars1">Particulars</label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="RevokeDate" required=""
+                                        max="9999-12-31" formControlName="RevokeDate" value="{{ message.RevokeDate}}"
+                                        onfocus="(this.type='date')" />
+                                    <label for="RevokeDate">Revoke Date <sub class="required">*</sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['RevokeDate'].invalid && (angForm.controls['RevokeDate'].dirty || angForm.controls['RevokeDate'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['RevokeDate'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1" value="checkbox"
+                                        [checked]="isIsDiscountInterestApplicable == true">
+                                    <label class="border-checkbox-label" for="checkbox1">Is Discount Interest
+                                        Applicable?<span class="required"> </span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton"
+                                [disabled]="angForm.invalid">Update</button>
+                            <!-- <button class="btn btn-primary ripple light" *ngIf="showButton">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button> -->
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

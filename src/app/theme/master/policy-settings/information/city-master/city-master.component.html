@@ -1,0 +1,173 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>City Master</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="CITY_CODE" class="form-control" placeholder=" " maxlength="4"
+                                        id="label-name" disabled  pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="CITY_CODE">
+                                    <label for="label-name">City Code</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="CITY_NAME" class="form-control" placeholder=" "
+                                        id="CityName" required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="CITY_NAME">
+                                    <label for="CityName">City Name<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CITY_NAME'].invalid && (angForm.controls['CITY_NAME'].dirty || angForm.controls['CITY_NAME'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['CITY_NAME'].errors?.pattern || angForm.controls['CITY_NAME'].errors?.required|| angForm.controls['CITY_NAME'].errors?.maxlength">
+                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="DISTANCE" class="form-control" placeholder=" " maxlength="4"
+                                        id="Distance" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="DISTANCE">
+                                    <label for="Distance">Distance from Branch(in km)</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DISTANCE'].invalid && (angForm.controls['DISTANCE'].dirty || angForm.controls['DISTANCE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['DISTANCE'].errors?.pattern ||angForm.controls['DISTANCE'].errors?.maxlength">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="TALUKA_CODE" class="form-control" placeholder=" " maxlength="4"
+                                        id="TalukaCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="TALUKA_CODE">
+                                    <label for="TalukaCode">Taluka Code<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TALUKA_CODE'].invalid && (angForm.controls['TALUKA_CODE'].dirty || angForm.controls['TALUKA_CODE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['TALUKA_CODE'].errors?.pattern || angForm.controls['TALUKA_CODE'].errors?.required|| angForm.controls['TALUKA_CODE'].errors?.maxlength">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="DISTRICT_CODE" class="form-control" placeholder=" " maxlength="4"
+                                        id="DistrictCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="DISTRICT_CODE">
+                                    <label for="DistrictCode">District Code<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DISTRICT_CODE'].invalid && (angForm.controls['DISTRICT_CODE'].dirty || angForm.controls['DISTRICT_CODE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['DISTRICT_CODE'].errors?.pattern || angForm.controls['DISTRICT_CODE'].errors?.required|| angForm.controls['DISTRICT_CODE'].errors?.maxlength">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="STATE_CODE" class="form-control" placeholder=" " maxlength="4"
+                                        id="StateCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="STATE_CODE">
+                                    <label for="StateCode">State Code<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['STATE_CODE'].invalid && (angForm.controls['STATE_CODE'].dirty || angForm.controls['STATE_CODE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['STATE_CODE'].errors?.pattern || angForm.controls['STATE_CODE'].errors?.required|| angForm.controls['STATE_CODE'].errors?.maxlength">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="REGION_CODE" class="form-control" placeholder=" " maxlength="4"
+                                        id="Region" required=""  pattern="^[0-9]+$"
+                                        title="Input allowed only  0-9" formControlName="REGION_CODE">
+                                    <label for="Region">Region<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['REGION_CODE'].invalid && (angForm.controls['REGION_CODE'].dirty || angForm.controls['REGION_CODE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['REGION_CODE'].errors?.pattern || angForm.controls['REGION_CODE'].errors?.required || angForm.controls['REGION_CODE'].errors?.maxlength">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
+                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover" style="width: 100%;">
+                                <tbody *ngIf="cityMaster?.length != 0">
+                                    <tr *ngFor="let data of cityMaster">
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
+                                        </td>
+
+                                        <td>{{ data.CITY_CODE }}</td>
+                                        <td>{{ data.CITY_NAME }}</td>
+                                        <td>{{ data.DISTANCE }}</td>
+                                        <td>{{ data.TALUKA_CODE }}</td>
+                                        <td>{{ data.DISTRICT_CODE }}</td>
+                                        <td>{{ data.STATE_CODE }}</td>
+                                        <td>{{ data.REGION_CODE }}</td>
+
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="cityMaster?.length == 0">
+                                    <tr>
+                                        <td colspan="6" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th><input type="text" placeholder="Search City Code" name="search-CITY_CODE"></th>
+                                        <th><input type="text" placeholder="Search City Name" name="search-CITY_NAME"></th>
+                                        <th><input type="text" placeholder="Search Distance" name="search-DISTANCE"></th>
+                                        <th><input type="text" placeholder="Search Taluka Code" name="search-TALUKA_CODE"></th>
+                                        <th><input type="text" placeholder="Search District Code" name="search-DISTRICT_CODE"></th>
+                                        <th><input type="text" placeholder="Search State Code" name="search-STATE_CODE"></th>
+                                        <th><input type="text" placeholder="Search Region" name="search-REGION_CODE"></th>
+
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

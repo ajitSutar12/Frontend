@@ -1,0 +1,87 @@
+<!-- Cashier User Maintainence -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Cashier User Maintainence</h5>
+            </div>
+            <form class="form-material" action="javascript:">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                            <input type="radio" name="radio" checked="checked">
+                                            <i class="helper"></i>Create Cashier<span class="required"> </span>
+                                        </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                            <input type="radio" name="radio">
+                                            <i class="helper"></i>Clear Login (Allowed Multi Login)<span class="required"> </span>
+                                        </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1">
+                                    <label class="border-checkbox-label" for="checkbox1">Create User As Main Cashier
+                                        (Safe Vault)...?<span class="required"> </span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Cashier User ID<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Teller Limit<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light">Ok</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9">
+
+                        </div>
+                        <div class="col-sm">
+                            <h6><span class="required">* </span>: Required Fields</h6>
+                        </div>
+                    </div>
+                </div>
+            </form>
+           
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

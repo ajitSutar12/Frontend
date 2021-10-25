@@ -1,0 +1,147 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Shares Transfer Passing</h5>
+            </div>
+            <form class="form-material">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Scheme<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Member No.<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Transaction No.<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input placeholder="Membership Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Total No. of Shares<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Transfer Shares Amount<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="card"> -->
+                    <!-- <div class="card-header"> -->
+                    <!-- <h6>Member Transfer To</h6> -->
+                    <!-- </div> -->
+                    <!-- <div class="card-block"> -->
+                    <div class="row">
+                        <div class="col-sm">
+                            <h6>Member Transfer To</h6>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Scheme<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Member No.<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                    <!-- </div> -->
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input placeholder="Resolution Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Resolution No.<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input placeholder="Transfer Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Actual Transfer Amount<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Reason<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light">Transfer</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9">
+
+                        </div>
+                        <div class="col-sm">
+                            <h6><span class="required">* </span>: Required Fields</h6>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

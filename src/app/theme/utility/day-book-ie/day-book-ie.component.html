@@ -1,0 +1,112 @@
+<!-- Day Book Data Import/Export Utility -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Day Book Data Import/Export Utility</h5>
+            </div>
+            <form class="form-material" action="javascript:">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="true" placeholder="Required Data *">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Branch Code<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input placeholder="From Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input placeholder="Upto Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="true" placeholder="Target <Package> *">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" checked="checked">
+                                        <i class="helper"></i>Export<span class="required"> </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary ripple light">.MDB</button>
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary ripple light">.DBF</button>
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary ripple light">.TXT</button>
+                        </div>
+                        <div class="col-sm">
+                            <label class="custom-file">
+                                <input type="file" ng2FileSelect [uploader]="uploader" class="custom-file-input">
+                                <span class="custom-file-control"></span>
+                            </label>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light">Ok</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9">
+
+                        </div>
+                        <div class="col-sm">
+                            <h6><span class="required">* </span>: Required Fields</h6>
+                        </div>
+                    </div>
+                </div>
+            </form>
+           
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

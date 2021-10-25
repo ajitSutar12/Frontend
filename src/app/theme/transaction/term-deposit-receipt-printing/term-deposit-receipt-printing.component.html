@@ -1,0 +1,536 @@
+<!-- <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Term Deposit Account Renewal</h5>
+            </div>
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <form class="form-material" action="javascript:">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Scheme</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                    <div class="input-group-append bg-default" (click)="d.toggle()">
+                                        <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm">
+                        <form class="form-material" action="javascript:">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Account No.</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card-block">
+                <div class="card">    
+                    <div class="card-header">
+                        <h5>Previous Details</h5>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm">
+                                <form class="form-material" action="javascript:">
+                                    <div class="form-group form-primary form-static-label">
+                                        <input type="text" name="footer-email" class="form-control" required="">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Deposit Amount</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm">
+                                A/C Open Date
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                            <div class="input-group-append bg-default" (click)="d.toggle()">
+                                                <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm">
+                                Maturity Date
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                            <div class="input-group-append bg-default" (click)="d.toggle()">
+                                                <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <form class="form-material" action="javascript:">
+                                    <div class="form-group form-primary form-static-label">
+                                        <input type="text" name="footer-email" class="form-control" required="">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Maturity Amount</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm">
+                                As on Date
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                            <div class="input-group-append bg-default" (click)="d.toggle()">
+                                                <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm">
+                                <form class="form-material" action="javascript:">
+                                    <div class="form-group form-primary form-static-label">
+                                        <input type="text" name="footer-email" class="form-control" required="">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Receipt No.</label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <form class="form-material" action="javascript:">
+                                    <div class="form-group form-primary form-static-label">
+                                        <input type="text" name="footer-email" class="form-control" required="">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Months & Days</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm">
+                                <form class="form-material" action="javascript:">
+                                    <div class="form-group form-primary form-static-label">
+                                        <input type="text" name="footer-email" class="form-control" required="">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Int. Rate</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm">
+                                <form class="form-material" action="javascript:">
+                                    <div class="form-group form-primary form-static-label">
+                                        <input type="text" name="footer-email" class="form-control" required="">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Total Int. Paid</label>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                Last Interest Date
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                            <div class="input-group-append bg-default" (click)="d.toggle()">
+                                                <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm">
+                                <form class="form-material" action="javascript:">
+                                    <div class="form-group form-primary form-static-label">
+                                        <input type="text" name="footer-email" class="form-control" required="">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Interest Category</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm">
+                                Last Trn Date 
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                            <div class="input-group-append bg-default" (click)="d.toggle()">
+                                                <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="card-block">
+            <div class="card">    
+                <div class="card-header">
+                    <h5>Interest Status</h5>
+                </div>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1">
+                                    <label class="border-checkbox-label" for="checkbox1">Normal Interest</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            Interest Upto
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                        <div class="input-group-append bg-default" (click)="d.toggle()">
+                                            <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm">
+                            <form class="form-material" action="javascript:">
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Interest</label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card-block">
+                            <div class="form-radio">
+                                <form>
+                                    <div class="row">
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="radio" checked="checked">
+                                            <i class="helper"></i>Cash 
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="radio">
+                                            <i class="helper"></i>Add in Deposit
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="radio radio-inline ">
+                                        <label>
+                                            <input type="radio" name="radio">
+                                            <i class="helper"></i>Transfer
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-inline ">
+                                        <label>
+                                            <input type="radio" name="radio">
+                                            <i class="helper"></i>Keep as Payable
+                                        </label>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-sm">
+                            <form class="form-material" action="javascript:">
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Scheme</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm">
+                            <form class="form-material" action="javascript:">
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">A/C No</label>
+                                </div>
+                            </form>
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                        <div class="input-group-append bg-default" (click)="d.toggle()">
+                                            <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm">
+                            <form class="form-material" action="javascript:">
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Interest Category</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                        <div class="input-group-append bg-default" (click)="d.toggle()">
+                                            <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="border-checkbox-section">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1">
+                                    <label class="border-checkbox-label" for="checkbox1">Payable Interest</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            Interest Upto
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                        <div class="input-group-append bg-default" (click)="d.toggle()">
+                                            <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm">
+                            <form class="form-material" action="javascript:">
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Interest</label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card-block">
+                            <div class="form-radio">
+                                <form>
+                                    <div class="row">
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="radio" checked="checked">
+                                            <i class="helper"></i>Cash 
+                                        </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="radio">
+                                            <i class="helper"></i>Add in Deposit
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="radio radio-inline ">
+                                        <label>
+                                            <input type="radio" name="radio">
+                                            <i class="helper"></i>Transfer
+                                        </label>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-sm">
+                            <form class="form-material" action="javascript:">
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Scheme</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm">
+                            <form class="form-material" action="javascript:">
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">A/C No</label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="card-block">
+        <div class="card">    
+            <div class="card-header">
+                <h5>Renewal Details</h5>
+            </div>
+            <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <form class="form-material" action="javascript:">
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Renewal Tran. No.</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm">
+                            <form class="form-material" action="javascript:">
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Int Category</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm">
+                            New As on Date
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                        <div class="input-group-append bg-default" (click)="d.toggle()">
+                                            <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <form class="form-material" action="javascript:">
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Months & Days</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm">
+                            <form class="form-material" action="javascript:">
+                                <label class="float-label">Total Days = 366</label>
+                            </form>
+                        </div>
+                        <div class="col-sm">
+                            <form class="form-material" action="javascript:">
+                                <div class="form-group form-primary form-static-label">
+                                    <input type="text" name="footer-email" class="form-control" required="">
+                                    <span class="form-bar"></span>
+                                    <label class="float-label">Receipt No.</label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <form class="form-material" action="javascript:">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Deposit Amount</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm">
+                        <form class="form-material" action="javascript:">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Rate</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm">
+                        New Last Interest Date
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                    <div class="input-group-append bg-default" (click)="d.toggle()">
+                                        <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm">
+                        <form class="form-material" action="javascript:">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="footer-email" class="form-control" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Maturity Amount</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm">
+                        Maturity Date
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelPopup" ngbDatepicker #d="ngbDatepicker">
+                                    <div class="input-group-append bg-default" (click)="d.toggle()">
+                                        <span class="icofont icofont-ui-calendar input-group-text"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+</div>
+        <div class="card-block">
+            <div class="col-sm"><button class="btn btn-primary ripple light">Add</button></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+            
+              </div>
+               <div class="col-sm">
+                 <h6><span class="required">* </span>: Required Fields</h6>
+              </div>
+           </div>
+    </div>
+</div> -->

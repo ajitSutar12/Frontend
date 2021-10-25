@@ -1,0 +1,68 @@
+<!-- Backdated Day Open -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Backdated Day Open</h5>
+            </div>
+            <form class="form-material" action="javascript:">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <p>Note: This utility opens back dated 'Working Day'. Through this option you are allowed
+                                only to add/modify new entries i.e. you are not allowed to modify entries which were
+                                already posted on that 'Working Day'.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input placeholder="Day To Be Opened *" class="form-control" type="text"
+                                            onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light">Go</button>
+                        </div>
+                        <div class="col-sm">
+                            <div class="col-sm">
+                                <button class="btn btn-primary ripple light">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9">
+                        
+                          </div>
+                           <div class="col-sm">
+                             <h6><span class="required">* </span>: Required Fields</h6>
+                          </div>
+                       </div>
+                </div>
+            </form>
+           
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

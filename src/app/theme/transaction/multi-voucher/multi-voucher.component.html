@@ -1,0 +1,208 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Multi Voucher</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <div class="card-block">
+                <form class="form-material">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="voucherno" class="form-control" value="{{message.voucherno}}">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Voucher No</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input class="form-control" type="text" onfocus="(this.type='date')" id="date"
+                                    name="voucherdate" value="{{message.voucherdate}}">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Voucher Date</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="branchcode" class="form-control" value="{{message.branchcode}}"
+                                    disabled>
+                                <span class="form-bar"></span>
+                                <label class="float-label">Branch Code</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" name="SchemeType" [options]="SchemeTypeOption"
+                                    [multiple]="false" placeholder="Scheme Type *" required>
+                                </ng-select>
+                                <label>{{ message.SchemeType }}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" name="SchemeCode" [options]="SchemeCodeOption"
+                                    [multiple]="false" placeholder="Scheme Code *" required>
+                                </ng-select>
+                                <label>{{ message.SchemeCode }}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="AccNoOption" name="AccountNumber"
+                                    [multiple]="false" placeholder="Account No *" required>
+                                </ng-select>
+                                <label>{{ message.AccountNumber }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="TransactionModeOption"
+                                    name="TransactionMode" [multiple]="false" placeholder="Transaction Mode *" required>
+                                </ng-select>
+                                <label>{{ message.TransactionMode }}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="voucheramount" class="form-control" pattern="^[0-9]+$"
+                                    title="Input allowed only  0-9" value="{{message.voucheramount}}" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Voucher Amount</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" [checked]="isCredit == true">
+                                        <i class="helper"></i>Credit<span class="required"> </span>
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" [checked]="isCredit == false">
+                                        <i class="helper"></i>Debit<span class="required"> </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-1">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="chequeno" class="form-control" pattern="^[0-9]+$"
+                                    title="Input allowed only  0-9" value="{{message.chequeno}}">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Cheque No.</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="" class="form-control" pattern="^[0-9]+$"
+                                    title="Input allowed only  0-9">
+                                <span class="form-bar"></span>
+                                <!-- <label class="float-label">Cheque No.</label> -->
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-default form-static-label">
+                                <textarea class="form-control" name="AC_TADDR1" pattern="^[A-Za-z\./ -]+$"
+                                    title="Input allowed only  A-Z a-z  - / . (Space)"></textarea>
+                                <span class="form-bar"></span>
+                                <label class="float-label">Particulars</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="" class="form-control" value="{{message.totaldebitamount}}" value="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Total Debit Amount</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="totaldebitamount" class="form-control"
+                                    value="{{message.totalcreditamount}}">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Total Credit Amount</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="dayopeningbalance" class="form-control"
+                                    value="{{message.dayopeningbalance}}">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Day Opening Balance</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="passed" class="form-control" value="{{message.passed}}">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Passed</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="unpassed" class="form-control" value="{{message.unpassed}}">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Unpassed</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="clearedbalance" class="form-control"
+                                    value="{{message.clearedbalance}}">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Cleared Balance</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" name="afterthisvoucher" class="form-control"
+                                    value="{{message.afterthisvoucher}}">
+                                <span class="form-bar"></span>
+                                <label class="float-label">After this Voucher</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

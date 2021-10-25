@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Term Loan & Cash credit A/C Interest Rate Modification</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="loanAndCCForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
+                                    placeholder="Scheme *" required title="Compulsory Selection"
+                                    formControlName="AC_TYPE">
+                                </ng-select>
+                                <label>{{message.scheme}}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="loanAndCCForm.controls['AC_TYPE'].invalid && (loanAndCCForm.controls['AC_TYPE'].dirty || loanAndCCForm.controls['AC_TYPE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="loanAndCCForm.controls['AC_TYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="Ac" [multiple]="false"
+                                    placeholder="Account No. *" required title="Compulsory Selection"
+                                    formControlName="AC_NO">
+                                </ng-select>
+                                <label>{{message.account}}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="loanAndCCForm.controls['AC_NO'].invalid && (loanAndCCForm.controls['AC_NO'].dirty || loanAndCCForm.controls['AC_NO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="loanAndCCForm.controls['AC_NO'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton"
+                                [disabled]="loanAndCCForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover">
+                                <tbody *ngIf="jsonData?.length != 0">
+                                    <tr *ngFor="let data of jsonData">
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
+                                                (click)="editClickHandler(data.id)">Edit</button>
+                                            <button id="delbtn" class="btn btn-outline-primary btn-sm"
+                                                (click)="delClickHandler(data.id)">Delete</button>
+                                        </td>
+                                        <td>{{ data.AC_TYPE }}</td>
+                                        <td>{{ data.AC_NO }}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="jsonData?.length == 0">
+                                    <tr>
+                                        <td colspan="3" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

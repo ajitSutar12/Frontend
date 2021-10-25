@@ -1,0 +1,156 @@
+<!-- Year Wise Unpaid Dividend Opening Entry -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Year Wise Unpaid Dividend Opening Entry</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
+                                    placeholder="Scheme *" required title="Compulsory Selection"
+                                    formControlName="Scheme">
+                                </ng-select>
+                                <label>{{ message.Scheme}}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Scheme'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="b" [multiple]="false"
+                                    placeholder="Salary Division" formControlName="SalaryDivision">
+                                </ng-select>
+                                <label>{{ message.SalaryDivision}}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['SalaryDivision'].invalid && (angForm.controls['SalaryDivision'].dirty || angForm.controls['SalaryDivision'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['SalaryDivision'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="WarrantDate" required=""
+                                        max="9999-12-31" formControlName="WarrantDate" value="{{ message.WarrantDate}}"
+                                        onfocus="(this.type='date')" />
+                                    <label for="WarrantDate">Div.Warrant Date <sub class="required">*</sub> </label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['WarrantDate'].invalid && (angForm.controls['WarrantDate'].dirty || angForm.controls['WarrantDate'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['WarrantDate'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="DividendYearFrom" class="form-control" placeholder=" "
+                                        id="DividendYearFrom" required="" value="{{ message.DividendYearFrom }}"
+                                        pattern="^[0-9]+$" title="Input allowed only 0-9"
+                                        formControlName="DividendYearFrom" minlength="4" maxlength="4">
+                                    <label for="DividendYearFrom">Dividend Year From <sub
+                                            class="required">*</sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['DividendYearFrom'].invalid && (angForm.controls['DividendYearFrom'].dirty || angForm.controls['DividendYearFrom'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['DividendYearFrom'].errors?.pattern || angForm.controls['DividendYearFrom'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="To" class="form-control" placeholder=" " id="To"
+                                        required="" value="{{ message.To }}" pattern="^[0-9]+$"
+                                        title="Input allowed only 0-9" minlength="4" maxlength="4" formControlName="To">
+                                    <label for="To">To *</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['To'].invalid && (angForm.controls['To'].dirty || angForm.controls['To'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['To'].errors?.pattern || angForm.controls['To'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="b" [multiple]="false"
+                                    placeholder="Member From" formControlName="MemberFrom">
+                                </ng-select>
+                                <label>{{ message.MemberFrom}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="b" [multiple]="false"
+                                    placeholder="Member To " formControlName="MemberTo">
+                                </ng-select>
+                                <label>{{ message.MemberTo}}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="TotalAmount" class="form-control" placeholder=" "
+                                        id="TotalAmount" value="{{ message.TotalAmount }}"
+                                        formControlName="TotalAmount">
+                                    <label for="TotalAmount">Total Amount</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton"
+                                [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

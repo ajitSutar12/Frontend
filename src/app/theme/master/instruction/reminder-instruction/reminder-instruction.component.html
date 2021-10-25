@@ -1,0 +1,159 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Get Remind Instructions Details</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="user" [multiple]="false"
+                                    placeholder="User ID*" formControlName="UserID">
+                                </ng-select>
+                                <label>{{message.UserID}}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['UserID'].invalid && (angForm.controls['UserID'].dirty || angForm.controls['UserID'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['UserID'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="entryDate" 
+                                        max="9999-12-31" value="{{ message.Date}}" onfocus="(this.type='date')" />
+                                    <label for="entryDate">Entry Date</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="To" class="form-control" placeholder=" " id="EntryTime" 
+                                        max="9999-12-31"value="{{ message.EntryTime }}">
+                                    <label for="EntryTime">Entry Time</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton"
+                                [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="To" class="form-control" placeholder=" " id="" required=""
+                                        max="9999-12-31"value="{{ message.SrNo }}">
+                                    <label for="">Sr.No.</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="" required=""
+                                        max="9999-12-31" formControlName="FromDate" value="{{ message.FromDate}}"
+                                        onfocus="(this.type='date')" />
+                                    <label for="">From Date *</label>
+                                </span>
+                            </div>
+                            <div *ngIf="angForm.get('FromDate').hasError('required') && myform.submitted"
+                                class='alert alert-danger'>This field is required</div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="" required=""
+                                        max="9999-12-31" formControlName="FromDate" value="{{ message.UpToDate}}"
+                                        onfocus="(this.type='date')" />
+                                    <label for="">Up To Date *</label>
+                                </span>
+                            </div>
+                            <div *ngIf="angForm.get('FromDate').hasError('required') && myform.submitted"
+                                class='alert alert-danger'>This field is required</div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
+                                    placeholder="Frequency">
+                                </ng-select>
+                                <label>{{message.Frequency}}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="To" class="form-control" placeholder=" " id="" required=""
+                                        max="9999-12-31"value="{{ message.Details }}"
+                                        pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
+                                        formControlName="Details">
+                                    <label for="">Details *</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['Details'].invalid && (angForm.controls['Details'].dirty || angForm.controls['Details'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['Details'].errors?.pattern || angForm.controls['Details'].errors?.required">
+                                    Input allowed only A-Z a-z - / . (Space)
+                                </div>
+
+                            </div>
+                            <div *ngIf="angForm.get('Details').hasError('required') && myform.submitted"
+                                class='alert alert-danger'>This field is required</div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="" required=""
+                                        max="9999-12-31" formControlName="NextExeuDate"
+                                        value="{{ message.NextExeuDate}}" onfocus="(this.type='date')" />
+                                    <label for="">Next Exeu.Date *</label>
+                                </span>
+                            </div>
+                            <div *ngIf="angForm.get('NextExeuDate').hasError('required') && myform.submitted"
+                                class='alert alert-danger'>This field is required</div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="row">
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton"
+                                [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
+                        </div>
+                    </div> -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

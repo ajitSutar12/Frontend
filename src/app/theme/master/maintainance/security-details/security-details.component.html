@@ -1,0 +1,160 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Security Details</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Scheme" required title="Compulsory Selection" formControlName="Scheme">
+                                </ng-select>
+                            </div>
+                            <!-- <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)" class="alert alert-danger">
+                                <div
+                                *ngIf="angForm.controls['Scheme'].errors?.required">
+                                Please Select Scheme
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="Ac" [multiple]="false" placeholder="Account No." required title="Compulsory Selection" formControlName="AccountNo">
+                                </ng-select>
+                            </div>
+                            <!-- <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AccountNo'].invalid && (angForm.controls['AccountNo'].dirty || angForm.controls['AccountNo'].touched)" class="alert alert-danger">
+                                <div
+                                *ngIf="angForm.controls['Scheme'].errors?.required">
+                                Please Select Account No.
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="To" class="form-control" placeholder=" " id="LedgerBalance"
+                                        required="" formControlName="LedgerBalance">
+                                    <label for="LedgerBalance">Ledger Balance</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-block">
+                <div class="col-md-12">
+                    <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
+
+                        <ul class="basic-list">
+                            <li>
+                                <h6> <a (click)="OpenLink(1)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': ownDepositsTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">1. Own Deposits</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(2)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': otherSecurityTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">2. Other Security</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(3)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': firePolicyTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">3. Fire Policy</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(4)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': marketSharesTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">4. Market Shares</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(5)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': stockStatementTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">5. Stock Statement</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(6)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': govtSecurityAndLicTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">6. Government Security & LIC</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(7)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': plantAndMachineryTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">7. Plant & Machinery</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(8)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': furnitureAndFixtureTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">8. Furniture & Fixture</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(9)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': vehicleTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">9. Vehicle</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(10)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': landAndBuildingsTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">10. Land & Buildings</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(11)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': goldAndSilverTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">11. Gold & Silver</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(13)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': customerInsuranceTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">12. Customer Insurance</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(14)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': bookDebtsTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">13. Book Debts</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(15)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': pleadgeStockTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">14. Pleadge Stock</a></h6>
+                            </li>
+
+                        </ul>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div class="card-block">
+            <div *ngIf="ownDepositsTrue">
+                <app-own-deposits></app-own-deposits>
+            </div>
+            <div *ngIf="otherSecurityTrue">
+                <app-other-security></app-other-security>
+            </div>
+            <div *ngIf="firePolicyTrue">
+                <app-fire-policy></app-fire-policy>
+            </div>
+            <div *ngIf="marketSharesTrue">
+                <app-market-shares></app-market-shares>
+            </div>
+            <div *ngIf="stockStatementTrue">
+                <app-stock-statement></app-stock-statement>
+            </div>
+            <div *ngIf="govtSecurityAndLicTrue">
+                <app-govt-security-and-lic></app-govt-security-and-lic>
+            </div>
+            <div *ngIf="plantAndMachineryTrue">
+                <app-plant-and-machinery></app-plant-and-machinery>
+            </div>
+            <div *ngIf="furnitureAndFixtureTrue">
+                <app-furniture-and-fixture></app-furniture-and-fixture>
+            </div>
+            <div *ngIf="vehicleTrue">
+                <app-vehicle></app-vehicle>
+            </div>
+            <div *ngIf="landAndBuildingsTrue">
+                <app-land-and-buildings></app-land-and-buildings>
+            </div>
+            <div *ngIf="goldAndSilverTrue">
+                <app-gold-and-silver></app-gold-and-silver>
+            </div>
+            <div *ngIf="otherSecurityTrue2">
+                <app-other-security2></app-other-security2>
+            </div>
+            <div *ngIf="customerInsuranceTrue">
+                <app-customer-insurance></app-customer-insurance>
+            </div>
+            <div *ngIf="bookDebtsTrue">
+                <app-book-debts></app-book-debts>
+            </div>
+            <div *ngIf="pleadgeStockTrue">
+                <app-pleadge-stock></app-pleadge-stock>
+            </div>
+        </div>
+    </div>
+</div>

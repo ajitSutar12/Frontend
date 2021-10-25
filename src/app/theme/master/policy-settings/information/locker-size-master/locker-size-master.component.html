@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Locker Size Master</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <div class="card-block">
+                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                        id="SIZE_SR_NO" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        formControlName="SIZE_SR_NO" disabled>
+                                    <label for="SIZE_SR_NO">Size Serial No.</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                        id="SIZE_NAME" required="" maxlength="50" pattern="^[A-Za-z\./ -]+$"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="SIZE_NAME">
+                                    <label for="SIZE_NAME">Locker Size<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SIZE_NAME'].invalid && (angForm.controls['SIZE_NAME'].dirty || angForm.controls['SIZE_NAME'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['SIZE_NAME'].errors?.pattern || angForm.controls['SIZE_NAME'].errors?.required || angForm.controls['SIZE_NAME'].errors?.maxlength">
+                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                        id="RENT" required="" pattern="\d{1,20}(\.\d{1,5})?"
+                                        title="Input allowed only  0-9" formControlName="RENT">
+                                    <label for="RENT">Locker Rent/Deposit<sub class="required">*
+                                        </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['RENT'].invalid && (angForm.controls['RENT'].dirty || angForm.controls['RENT'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['RENT'].errors?.pattern || angForm.controls['RENT'].errors?.required">
+                                    This field is required and Input allowed only . 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover">
+                                <tbody *ngIf="lockerSizeMaster?.length != 0">
+                                    <tr *ngFor="let data of lockerSizeMaster">
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
+                                        </td>
+                                        <td>{{ data.SIZE_SR_NO}}</td>
+                                        <td>{{ data.SIZE_NAME}}</td>
+                                        <td>{{ data.RENT}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="lockerSizeMaster?.length == 0">
+                                    <tr>
+                                        <td colspan="6" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                      <th></th>
+                                      <th><input type="text" placeholder="Size Serial No " name="SIZE_SR_NO"/></th>
+                                      <th><input type="text" placeholder="Locker Size" name="SIZE_NAME"/></th>
+                                      <th><input type="text" placeholder="Locker Rent Deposit" name="RENT"/></th>
+                                      
+                                    </tr>
+                                  </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

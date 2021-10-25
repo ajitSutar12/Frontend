@@ -1,0 +1,116 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Customer Insurance</h5>
+                <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="InsuranceDate"
+                                        required="" max="9999-12-31" formControlName="InsuranceDate"
+                                        value="{{ message.InsuranceDate}}" onfocus="(this.type='date')" />
+                                    <label for="InsuranceDate">Insurance Date<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['InsuranceDate'].invalid && (angForm.controls['InsuranceDate'].dirty || angForm.controls['InsuranceDate'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['InsuranceDate'].errors?.required">
+                                    This field is required
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="PolicyNo" class="form-control" placeholder=" "
+                                        id="label-name" required="" value="{{ message.PolicyNo }}" pattern="^[0-9]+$"
+                                        title="Input allowed only 0-9" formControlName="PolicyNo">
+                                    <label for="PolicyNo">Policy No<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['PolicyNo'].invalid && (angForm.controls['PolicyNo'].dirty || angForm.controls['PolicyNo'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['PolicyNo'].errors?.pattern || angForm.controls['PolicyNo'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Insurance Company *" formControlName="InsuranceCompany">
+                                </ng-select>
+                                <label>{{message.InsuranceCompany}}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['InsuranceCompany'].invalid && (angForm.controls['InsuranceCompany'].dirty || angForm.controls['InsuranceCompany'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['InsuranceCompany'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="InsuranceExpiryDate"
+                                        required="" max="9999-12-31" formControlName="InsuranceExpiryDate"
+                                        value="{{ message.InsuranceExpiryDate}}" onfocus="(this.type='date')" />
+                                    <label for="InsuranceExpiryDate">Insurance Expiry Date<sub class="required">*
+                                        </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['InsuranceExpiryDate'].invalid && (angForm.controls['InsuranceExpiryDate'].dirty || angForm.controls['InsuranceExpiryDate'].touched)" class="alert alert-danger">
+                                <div *ngIf=" angForm.controls['InsuranceExpiryDate'].errors?.required">
+                                    This field is required
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="InsuranceAmount" class="form-control" placeholder=" "
+                                        id="InsuranceAmount" required="" value="{{ message.InsuranceAmount }}"
+                                        pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
+                                        formControlName="InsuranceAmount">
+                                    <label for="InsuranceAmount">Insurance Amount<sub class="required">*
+                                        </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['InsuranceAmount'].invalid && (angForm.controls['InsuranceAmount'].dirty || angForm.controls['InsuranceAmount'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['InsuranceAmount'].errors?.pattern || angForm.controls['InsuranceAmount'].errors?.required">
+                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover" width="100%">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

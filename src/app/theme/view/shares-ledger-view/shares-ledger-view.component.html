@@ -1,0 +1,128 @@
+<!--Member Ledger View  -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Shares Ledger View</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> 
+
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                    <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Scheme*" required title="Compulsory Selection" formControlName="Scheme">
+                                    </ng-select>
+                                <label>{{ message.Scheme }}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)" class="alert alert-danger">
+                                <div *ngIf="ngForm.controls['Scheme'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                    <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Account No.*" required title="Compulsory Selection" formControlName="Accountno">
+                                    </ng-select>
+                                <label>{{ message.Accountno }}</label>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Accountno'].invalid && (angForm.controls['Accountno'].dirty || angForm.controls['Accountno'].touched)" class="alert alert-danger">
+                                <div *ngIf="ngForm.controls['Accountno'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <textarea type="text" name="FreezeAccountStatus" class="form-control" placeholder=" "pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
+                                        id="FreezeAccountStatus" required="" value="{{ message.FreezeAccountStatus }}" formControlName="FreezeAccountStatus" disabled></textarea>
+                                    <label for="FreezeAccountStatus">Freeze Account Status</label>
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <textarea type="text" name="AccountClosedOn" class="form-control" placeholder=" "pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
+                                        id="AccountClosedOn" required="" value="{{ message.AccountClosedOn }}" formControlName="AccountClosedOn" disabled></textarea>
+                                    <label for="AccountClosedOn">A/c Closed On xx/xx/xxxx</label>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="FromDate" class="form-control" placeholder=" "
+                                        id="FromDate" required="" value="{{ message.FromDate }}" max="31-12-9999" id="date" onfocus="(this.type='date')" formControlName="FromDate">
+                                    <label for="FromDate">From Date<sub class="required">*</sub></label>
+                                </span>
+                            </div>
+                            <div
+                            *ngIf="angForm.controls['FromDate'].errors?.pattern || angForm.controls['FromDate'].errors?.required">
+                            
+                            </div>
+                            <div *ngIf="angForm.get('FromDate').hasError('required') && myform.submitted"
+                                class='alert alert-danger'>This field is required
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="ToDate" class="form-control" placeholder=" "
+                                        id="ToDate" required="" value="{{ message.ToDate }}" max="31-12-9999" id="date" onfocus="(this.type='date')" formControlName="ToDate">
+                                    <label for="ToDate">To Date<sub class="required">*</sub></label>
+                                </span>
+                            </div>
+                            <div
+                            *ngIf="angForm.controls['ToDate'].errors?.pattern || angForm.controls['ToDate'].errors?.required">
+                            
+                            </div>
+                            <div *ngIf="angForm.get('ToDate').hasError('required') && myform.submitted"
+                                class='alert alert-danger'>This field is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="AccountOpeningDate" class="form-control" placeholder=" "
+                                        id="AccountOpeningDate" required="" value="{{ message.AccountOpeningDate }}" max="31-12-9999" id="date" onfocus="(this.type='date')" formControlName="AccountOpeningDate">
+                                    <label for="AccountOpeningDate">Account Opening Date</label>
+                                </span>
+                            </div>
+                            <div
+                            *ngIf="angForm.controls['AccountOpeningDate'].errors?.pattern || angForm.controls['AccountOpeningDate'].errors?.required">
+                            Input valid Date
+                            </div>
+                            <div *ngIf="angForm.get('AccountOpeningDate').hasError('required') && myform.submitted"
+                                class='alert alert-danger'>This field is required
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" [disabled]="angForm.invalid">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtExportButtonOptions"
+                        class="table table-striped table-bordered table-hover">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

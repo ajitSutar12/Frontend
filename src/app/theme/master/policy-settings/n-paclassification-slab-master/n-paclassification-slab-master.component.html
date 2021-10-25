@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>NPA Classification Master</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+
+            <form action="javascript:" [formGroup]="angForm" novaliEffectiveDate (ngSubmit)="submit()" #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="EffectiveDate" class="form-control" placeholder=" " required=""
+                                        value="{{ message.EffectiveDate }}" max="9999-12-31" id="EffectiveDate"
+                                        onfocus="(this.type='EffectiveDate')" formControlName="EffectiveDate">
+                                    <label for="EffectiveDate">Effective EffectiveDate<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EffectiveDate'].invalid && (angForm.controls['EffectiveDate'].dirty || angForm.controls['EffectiveDate'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['EffectiveDate'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                        id="BaseDays" value="{{ message.BaseDays }}" pattern="^[0-9]+$"
+                                        title="Input allowed only  0-9" formControlName="BaseDays">
+                                    <label for="BaseDays">Base Days</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['BaseDays'].invalid && (angForm.controls['BaseDays'].dirty || angForm.controls['BaseDays'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BaseDays'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
