@@ -8,7 +8,7 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 })
 export class AppComponent implements OnInit {
   title = 'Welcome || Your Bank Name';
-
+  //sample comment
   constructor(private router: Router, private _hotkeysService: HotkeysService) { }
 
   ngOnInit() {
