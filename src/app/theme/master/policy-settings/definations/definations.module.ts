@@ -45,6 +45,8 @@ import {Int7Service} from '../../../../shared/elements/int7.service';
 import {Scheme8Service} from '../../../../shared/elements/scheme8.service';
 import {Int8Service} from '../../../../shared/elements/int8.service';
 
+import{SizeSlabWiseService} from './size-slab-wise-ar/size-slab-wise-ar.service';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -63,7 +65,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     FormsModule,ReactiveFormsModule
   ],
-  providers: [DepreciationService,Scheme1Service,Int1Service,Scheme2Service,Int2Service,Scheme3Service,Scheme4Service,Scheme5Service,Scheme6Service,Int6Service,Scheme7Service,Int7Service,Scheme8Service,Int8Service,
+  providers: [DepreciationService,Scheme1Service,Int1Service,Scheme2Service,Int2Service,Scheme3Service,Scheme4Service,Scheme5Service,Scheme6Service,Int6Service,Scheme7Service,Int7Service,Scheme8Service,Int8Service,SizeSlabWiseService,
     {
       
       provide: PERFECT_SCROLLBAR_CONFIG,

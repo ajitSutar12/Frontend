@@ -35,7 +35,7 @@ export class ModalComponent implements OnInit {
 
   openMyModal(event) {
     document.querySelector('#' + event).classList.add('md-show');
-  }
+  } 
 
   closeMyModal(event) {
     ((event.target.parentElement.parentElement).parentElement).classList.remove('md-show');
