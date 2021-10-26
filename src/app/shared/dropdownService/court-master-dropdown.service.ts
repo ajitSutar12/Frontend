@@ -7,7 +7,7 @@ export class CourtMasterDropdownService {
 
     url = "http://localhost:4000/court-master";
 
-    courtMasterObject = new Array();;
+    courtMasterObject = new Array();
 
     constructor(private http: HttpClient) { }
 

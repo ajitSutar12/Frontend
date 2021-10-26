@@ -1,129 +1,212 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subject } from 'rxjs';
+// Creating and maintaining form fields with validation 
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+// Displaying Sweet Alert
 import Swal from 'sweetalert2';
-import { animate, style, transition, trigger } from '@angular/animations';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+// Angular Datatable Directive  
+import { DataTableDirective } from 'angular-datatables';
+// Service File For Handling CRUD Operation
+import { TdsInterestRateService } from './tds-interest-rate.service';
+// Used to Call API
+import { HttpClient } from '@angular/common/http';
 
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+
+// For fetching values from backend
+interface TdsInterest {
+  FIN_YEAR: number;
+  INTEREST_AMOUNT: number;
+  TDS_RATE: number;
+  SURCHARGE_RATE: number;
+  EFFECT_DATE: Date;
+}
 @Component({
   selector: 'app-tds-interest-rate',
   templateUrl: './tds-interest-rate.component.html',
-  styleUrls: ['./tds-interest-rate.component.scss'],
-  animations: [
-    trigger('fadeInOutTranslate', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('400ms ease-in-out', style({ opacity: 1 }))
-      ]),
-      transition(':leave', [
-        style({ transform: 'translate(0)' }),
-        animate('400ms ease-in-out', style({ opacity: 0 }))
-      ])
-    ])
-  ]
+  styleUrls: ['./tds-interest-rate.component.scss']
 })
 export class TdsInterestRateComponent implements OnInit {
+  // For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+
+  dtTrigger: Subject<any> = new Subject();
+  // Store data from backend
+  tdsInterests: TdsInterest[];
+  // Created Form Group
   angForm: FormGroup;
-  dtExportButtonOptions: any = {};
+  //Datatable variable
+  dtExportButtonOptions: DataTables.Settings = {};
+  Data: any;
+  //variables for pagination
+  page: number = 1;
+  passenger: any;
+  itemsPerPage = 10;
+  totalItems: any;
+  currentJustify = 'start';
+  active = 1;
+  activeKeep = 1;
+  // Variables for search 
+  filterObject: { name: string; type: string; }[];
+  filter: any;
+  filterForm: FormGroup;
+  // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  updateID: number = 0;
+  schemeCode: any;
+  //for search functionality
+  filterData = {};
 
-  constructor(private fb: FormBuilder) { this.createForm(); }
-
-  message = {
-    date: "",
-    financial_year: "",
-    interest_amount: "",
-    tds_rate: "",
-    surcharge_rate: "",
-    EffectiveDate: ""
-  };
+  constructor(
+    private http: HttpClient,
+    private fb: FormBuilder,
+    private tdsInterestRate: TdsInterestRateService) {
+  }
 
   ngOnInit(): void {
+    // Fetching Server side data
     this.dtExportButtonOptions = {
-      ajax: 'fake-data/depreciation-data.json',
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters['filterData'] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            'http://localhost:4000/tds-interest-rate',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.tdsInterests = resp.data;
+
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
+            });
+          });
+      },
       columns: [
         {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
+          title: 'Action'
         }, {
           title: 'Financial Year',
-          data: 'financial_year'
+          data: 'FIN_YEAR'
         }, {
           title: 'Effect Date',
-          data: 'date'
+          data: 'EFFECT_DATE'
         }, {
           title: 'Interest Amount',
-          data: 'interest_amount'
+          data: 'INTEREST_AMOUNT'
         }, {
           title: 'TDS Rate',
-          data: 'tds_rate'
+          data: 'TDS_RATE'
         }, {
           title: 'Surchrge Rate',
-          data: 'surcharge_rate'
+          data: 'SURCHARGE_RATE'
         },
       ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
+      dom: 'Blrtip',
     };
+    this.createForm();
   }
-
   createForm() {
     this.angForm = this.fb.group({
-      EffectiveDate: ['', [ Validators.required]],
-      financial_year: ['', [Validators.pattern, Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
-      surcharge_rate: ['', [Validators.pattern]],
-      tds_rate: ['', [Validators.pattern, Validators.required]],
-      interest_amount: ['', [Validators.pattern, Validators.required]],
+      FIN_YEAR: ['', [Validators.required, Validators.pattern]],
+      EFFECT_DATE: ['', [Validators.required]],
+      INTEREST_AMOUNT: ['', [Validators.required, Validators.pattern]],
+      TDS_RATE: ['', [Validators.required, Validators.pattern]],
+      SURCHARGE_RATE: ['', [Validators.pattern]]
     });
   }
+  // Method to insert data into database through NestJS
   submit() {
-    console.log(this.angForm.valid);
-
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      'FIN_YEAR': formVal.FIN_YEAR,
+      'EFFECT_DATE': formVal.EFFECT_DATE,
+      'INTEREST_AMOUNT': formVal.INTEREST_AMOUNT,
+      'TDS_RATE': formVal.TDS_RATE,
+      'SURCHARGE_RATE': formVal.SURCHARGE_RATE,
     }
+    this.tdsInterestRate.postData(dataToSend).subscribe(data1 => {
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      // to reload after insertion of data
+      this.rerender();
+    }, (error) => {
+      console.log(error)
+    })
+    //To clear form
+    this.resetForm();
   }
 
-  //function for edit button clicked
-  editClickHandler(info: any): void {
-    this.message.date = info.date;
-    this.message.financial_year = info.financial_year;
-    this.message.interest_amount = info.interest_amount;
-    this.message.tds_rate = info.tds_rate;
-    this.message.surcharge_rate = info.surcharge_rate;
-    this.message.EffectiveDate = info.EffectiveDate;
+  //Method for append data into fields
+  editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
-  }
-  updateData() {
-    this.showButton = true;
-    this.updateShow = false;
+    this.tdsInterestRate.getFormData(id).subscribe(data => {
+      this.updateID = data.id;
+      this.angForm.setValue({
+        'FIN_YEAR': data.FIN_YEAR,
+        'EFFECT_DATE': data.EFFECT_DATE,
+        'INTEREST_AMOUNT': data.INTEREST_AMOUNT,
+        'TDS_RATE': data.TDS_RATE,
+        'SURCHARGE_RATE': data.SURCHARGE_RATE,
+
+      })
+    })
   }
 
-  //function for delete button clicked
-  delClickHandler(info: any): void {
-    this.message.financial_year = info.financial_year;
+  //Method for update data 
+  updateData(id) {
+    let data = this.angForm.value;
+    data['id'] = this.updateID;
+    this.tdsInterestRate.updateData(data).subscribe(() => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.showButton = true;
+      this.updateShow = false;
+      this.rerender();
+      this.resetForm();
+    })
+  }
+
+  // Method for delete data
+  delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to delete financial year." + this.message.financial_year + "  data",
+      text: "Do you want to delete Company Group Master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -131,11 +214,18 @@ export class TdsInterestRateComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
+        this.tdsInterestRate.deleteData(id).subscribe(data1 => {
+          this.tdsInterests = data1;
+          Swal.fire(
+            'Deleted!',
+            'Your data has been deleted.',
+            'success'
+          )
+        }), (error) => {
+
+        }
+        // to reload after delete of data
+        this.rerender();
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
@@ -146,6 +236,48 @@ export class TdsInterestRateComponent implements OnInit {
         )
       }
     })
+  }
+
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
+
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  // Reset Function
+  resetForm() {
+    this.createForm();
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 
 }

@@ -5,33 +5,31 @@
                 <h5>Depreciation Rate Master</h5>
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm col-lg">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="LastIntDate" class="form-control" placeholder=" "
-                                        id="LastIntDate" required="" value="{{ message.LastIntDate }}" max="9999-12-31" id="date" onfocus="(this.type='date')" formControlName="date">
-                                    <label for="date">Last Int. Date<sub class="required">* </sub></label>
+                                    <input type="text" name="EFFECT_DATE" class="form-control" placeholder=" "
+                                        id="EFFECT_DATE" required="" max="9999-12-31" id="EFFECT_DATE"
+                                        onfocus="(this.type='date')" formControlName="EFFECT_DATE">
+                                    <label for="EFFECT_DATE">Last Int. Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['date'].errors?.pattern || angForm.controls['date'].errors?.required">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
                                     This field is required
                                 </div>
                             </div>
-
                         </div>
-
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Category Code*" required title="Compulsory Selection" formControlName="category">
+                                <ng-select [ngClass]="'ng-select'" [options]="category" [multiple]="false" placeholder="Category Code*" required title="Compulsory Selection" formControlName="CATEGORY">
                                 </ng-select>
-                                <label>{{ message.scheme }}</label>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['category'].invalid && (angForm.controls['category'].dirty || angForm.controls['category'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['category'].errors?.required">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CATEGORY'].invalid && (angForm.controls['CATEGORY'].dirty || angForm.controls['CATEGORY'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['CATEGORY'].errors?.required">
                                     This field is required
                                 </div>
                             </div>
@@ -39,23 +37,22 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="DepreciationRate" class="form-control" placeholder=" "
-                                        id="DepreciationRate" required="" value="{{ message.DepreciationRate }}"
-                                        pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        formControlName="DepreciationRate">
-                                    <label for="DepreciationRate">Depreciation Rate<sub class="required">*
+                                    <input type="text" name="DEPR_RATE" class="form-control" placeholder=" "
+                                        id="DEPR_RATE" required="" pattern="\d{1,20}(\.\d{2})?"
+                                        title="Input allowed only  0-9" formControlName="DEPR_RATE">
+                                    <label for="DEPR_RATE">Depreciation Rate<sub class="required">*
                                         </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DepreciationRate'].invalid && (angForm.controls['DepreciationRate'].dirty || angForm.controls['DepreciationRate'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['DepreciationRate'].errors?.pattern || angForm.controls['DepreciationRate'].errors?.required">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DEPR_RATE'].invalid && (angForm.controls['DEPR_RATE'].dirty || angForm.controls['DEPR_RATE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['DEPR_RATE'].errors?.pattern || angForm.controls['DEPR_RATE'].errors?.required">
                                     This field is required and Input allowed only 0-9
                                 </div>
                             </div>
 
                         </div>
                         <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
                         </div>
                     </div>
@@ -70,9 +67,33 @@
         <div class="card">
             <div class="card-block">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover">
+                                <tbody *ngIf="depriciationRate?.length != 0">
+                                    <tr *ngFor="let data of depriciationRate">
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
+                                        </td>
+                                        <td>{{ data.EFFECT_DATE }}</td>
+                                        <td>{{ data.CATEGORY }}</td>
+                                        <td>{{ data.DEPR_RATE }}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="depriciationRate?.length == 0">
+                                    <tr>
+                                        <td colspan="6" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th><input type="text" placeholder="Search Effective Date" name="search-effectiveDate" /></th>
+                                        <th><input type="text" placeholder="Search Category Code" name="search-categoryCode" /></th>
+                                        <th><input type="text" placeholder="Search Depriciation Rate" name="search-depriciation Rate" />
+                                        </th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

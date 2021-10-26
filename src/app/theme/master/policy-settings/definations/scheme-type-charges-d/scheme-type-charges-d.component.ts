@@ -1,91 +1,189 @@
-import { Component, OnInit } from '@angular/core';
-import { IOption } from 'ng-select';
-import { Subscription } from 'rxjs/Subscription';
-import { ChargesTypeService } from '../../../../../shared/elements/charges-type.service';
-import { Scheme5Service } from '../../../../../shared/elements/scheme5.service';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
+// Creating and maintaining form fields with validation 
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+// Displaying Sweet Alert
 import Swal from 'sweetalert2';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+// Angular Datatable Directive  
+import { DataTableDirective } from 'angular-datatables';
+// Used to Call API
+import { HttpClient } from '@angular/common/http';
+import { ChargesTypeService } from '../../../../../shared/dropdownService/charges-type.service';
+import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service';
+import { SchemeTypeChargesService } from './scheme-type-cherges-d.service';
+import { IOption } from 'ng-select';
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
 
+// For fetching values from backend
+interface SchemeTypeChargesRate {
+  EFFECT_DATE: Date;
+  ACNOTYPE: string;
+  SERIAL_NO: number;
+  CHARGES_TYPE: string;
+  FROM_RANGE: number;
+  TO_RANGE: number;
+  CHARGES_AMT: number;
+  CHARGES_GL_ACNO: string;
+}
 @Component({
   selector: 'app-scheme-type-charges-d',
   templateUrl: './scheme-type-charges-d.component.html',
   styleUrls: ['./scheme-type-charges-d.component.scss'],
 })
 export class SchemeTypeChargesDComponent implements OnInit {
+  // For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+
+  dtTrigger: Subject<any> = new Subject();
+  // Store data from backend
+  schemeTypeChargesRate: SchemeTypeChargesRate[];
+  // Created Form Group
   angForm: FormGroup;
-  dtExportButtonOptions: any = {};
-  simpleOption: Array<IOption> = this.ChargesTypeService.getCharacters();
-  sch: Array<IOption> = this.Scheme5Service.getCharacters();
+  //Datatable variable
+  dtExportButtonOptions: DataTables.Settings = {};
+  Data: any;
+  //variables for pagination
+  page: number = 1;
+  passenger: any;
+  itemsPerPage = 10;
+  totalItems: any;
+  currentJustify = 'start';
+  active = 1;
+  activeKeep = 1;
+
+  // Variables for search 
+  filterObject: { name: string; type: string; }[];
+  filter: any;
+  filterForm: FormGroup;
+  // Variables for hide/show add and update button
+  showButton: boolean = true;
+  updateShow: boolean = false;
+  updateID: number = 0;
+  schemeCode: any;
+  //for search functionality
+  filterData = {};
+  category: any;
+
+  //title select variables
+  chargestype: Array<IOption> = this.chargesType.getCharacters();
+  schemeType: Array<IOption> = this.schemeTypeDropdown.getCharacters();
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
   selectedCharacter = '3';
   timeLeft = 5;
   private dataSub: Subscription = null;
-  showButton: boolean = true;
-  updateShow: boolean = false;
-
-  constructor(public ChargesTypeService: ChargesTypeService, public Scheme5Service: Scheme5Service, private fb: FormBuilder) { this.createForm(); }
-
-  message = {
-    srno: "",
-    LastIntDate: "",
-    scheme: "",
-    Charges_GL_Account: "",
-  };
+  constructor(
+    private http: HttpClient,
+    private fb: FormBuilder,
+    // for dropdown
+    public chargesType: ChargesTypeService,
+    private schemeTypeDropdown: SchemeTypeDropdownService,
+    private schemeTypeChargesService: SchemeTypeChargesService) {
+  }
 
   ngOnInit(): void {
+    // Fetching Server side data
     this.dtExportButtonOptions = {
-      ajax: 'fake-data/lacc-ir-data.json',
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters['filterData'] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            'http://localhost:4000/scheme-type-charges-definition',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.schemeTypeChargesRate = resp.data;
+
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
+            });
+          });
+      },
       columns: [
         {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Sr. No',
-          data: 'srno'
-        }, {
-          title: 'From',
-          data: 'from_amount'
-        }, {
-          title: 'To',
-          data: 'to_amount'
-        }, {
-          title: 'Charges Amount',
-          data: 'charges_amount'
+          title: 'Action'
         },
+        {
+          title: 'Scheme Type',
+          data: 'ACNOTYPE'
+        },
+        {
+          title: 'Effect Date',
+          data: 'EFFECT_DATE'
+        },
+        {
+          title: 'Sr.No',
+          data: 'SERIAL_NO'
+        },
+        {
+          title: 'Charges Type',
+          data: 'CHARGES_TYPE'
+        },
+        {
+          title: 'From',
+          data: 'FROM_RANGE'
+        },
+        {
+          title: 'To',
+          data: 'TO_RANGE'
+        },
+        {
+          title: 'Charges Amount',
+          data: 'CHARGES_AMT'
+        },
+        {
+          title: 'Charges GL Account',
+          data: 'CHARGES_GL_ACNO'
+        }
       ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
+      dom: 'Blrtip',
     };
+    this.createForm();
     this.runTimer();
-    this.dataSub = this.ChargesTypeService.loadCharacters().subscribe((options) => {
+    this.dataSub = this.schemeTypeDropdown.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
-    this.runTimer();
-    this.dataSub = this.Scheme5Service.loadCharacters().subscribe((options) => {
+    this.dataSub = this.chargesType.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
+
   }
 
   runTimer() {
@@ -97,43 +195,79 @@ export class SchemeTypeChargesDComponent implements OnInit {
     }, 1000);
   }
 
-
   createForm() {
     this.angForm = this.fb.group({
-
-      // DocumentmasterCode: ['',Validators.pattern],
-      scheme: ['',[ Validators.required]],
-      charges: ['',[ Validators.required]],
-      Charges_GL_Account: ['', [Validators.pattern, Validators.required]],
-      LastIntDate: ['', [Validators.required]],
+      EFFECT_DATE: ['', [Validators.required]],
+      ACNOTYPE: ['', [Validators.required]],
+      SERIAL_NO: [''],
+      CHARGES_TYPE: ['', [Validators.required]],
+      FROM_RANGE: [''],
+      TO_RANGE: [''],
+      CHARGES_AMT: [''],
+      CHARGES_GL_ACNO: ['', [Validators.required]],
     });
   }
+  // Method to insert data into database through NestJS
   submit() {
-    console.log(this.angForm.valid);
-
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      'EFFECT_DATE': formVal.EFFECT_DATE,
+      'ACNOTYPE': formVal.ACNOTYPE,
+      'SERIAL_NO': formVal.SERIAL_NO,
+      'CHARGES_TYPE': formVal.CHARGES_TYPE,
+      'FROM_RANGE': formVal.FROM_RANGE,
+      'TO_RANGE': formVal.TO_RANGE,
+      'CHARGES_AMT': formVal.CHARGES_AMT,
+      'CHARGES_GL_ACNO': formVal.CHARGES_GL_ACNO,
     }
+    this.schemeTypeChargesService.postData(dataToSend).subscribe(data1 => {
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      // to reload after insertion of data
+      this.rerender();
+    }, (error) => {
+      console.log(error)
+    })
+    //To clear form
+    this.resetForm();
   }
 
-  //function for edit button clicked
-  editClickHandler(info: any): void {
-    this.message.srno = info.srno;
-
+  //Method for append data into fields
+  editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
-  }
-  updateData() {
-    this.showButton = true;
-    this.updateShow = false;
+    this.schemeTypeChargesService.getFormData(id).subscribe(data => {
+      this.updateID = data.id;
+      this.angForm.setValue({
+        'EFFECT_DATE': data.EFFECT_DATE,
+        'ACNOTYPE': data.ACNOTYPE,
+        'SERIAL_NO': data.SERIAL_NO,
+        'CHARGES_TYPE': data.CHARGES_TYPE,
+        'FROM_RANGE': data.FROM_RANGE,
+        'TO_RANGE': data.TO_RANGE,
+        'CHARGES_AMT': data.CHARGES_AMT,
+        'CHARGES_GL_ACNO': data.CHARGES_GL_ACNO,
+      })
+    })
   }
 
-  //function for delete button clicked
-  delClickHandler(info: any): void {
-    this.message.srno = info.srno;
+  //Method for update data 
+  updateData(id) {
+    let data = this.angForm.value;
+    data['id'] = this.updateID;
+    this.schemeTypeChargesService.updateData(data).subscribe(() => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.showButton = true;
+      this.updateShow = false;
+      this.rerender();
+      this.resetForm();
+    })
+  }
+
+  // Method for delete data
+  delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to delete sr no." + this.message.srno + "  data",
+      text: "Do you want to delete Company Group Master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -141,11 +275,18 @@ export class SchemeTypeChargesDComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
+        this.schemeTypeChargesService.deleteData(id).subscribe(data1 => {
+          this.schemeTypeChargesRate = data1;
+          Swal.fire(
+            'Deleted!',
+            'Your data has been deleted.',
+            'success'
+          )
+        }), (error) => {
+
+        }
+        // to reload after delete of data
+        this.rerender();
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
@@ -158,4 +299,44 @@ export class SchemeTypeChargesDComponent implements OnInit {
     })
   }
 
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
+
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  // Reset Function
+  resetForm() {
+    this.createForm();
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
 }

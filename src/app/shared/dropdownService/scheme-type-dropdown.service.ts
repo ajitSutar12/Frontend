@@ -6,12 +6,19 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class SchemeTypeDropdownService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: 'CA', label: 'Current Deposit(CA)' },
+        { value: 'AG', label: 'Pigmy Agent(AG)' },
+        { value: 'LN', label: 'Term Loan(LN)' },
         { value: 'CC', label: 'Cash Credit(CC)' },
         { value: 'GS', label: 'Anamat Account(GS)' },
+        { value: 'CA', label: 'Current Deposit(CA)' },
+        { value: 'DS', label: 'Dispute Loan(DS)' },
         { value: 'GL', label: 'General Ledger(GL)' },
-        { value: 'LN', label: 'Term Loan(LN)' },
+        { value: 'IV', label: 'Investment(IV)' },
+        { value: 'LK', label: 'Locker(LK)' },
+        { value: 'PG', label: 'Pigmy Deposit(PG)' },
         { value: 'SB', label: 'Savings Deposit(SB)' },
+        { value: 'SH', label: 'Shares(SH)' },
+        { value: 'TD', label: 'Term Deposit(TD)' },
     ];
 
     getCharacters(): Array<IOption> {

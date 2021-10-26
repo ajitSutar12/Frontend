@@ -4,8 +4,8 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class DepriciationCatDropdownMasterService {
-    depriciationObject: any;
-    url: "http://localhost:4000/depriciation-category-master";
+    depriciationObject = new Array();
+    url = "http://localhost:4000/depriciation-category-master";
 
     constructor(private http: HttpClient) { }
     public getDepriciationMasterList() {
