@@ -3,40 +3,42 @@
         <div class="card">
             <div class="card-header">
                 <h5>CD Ratio Analysis</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
-            <form class="form-material">
+            <form action="javascript:">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-3">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input placeholder="Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-                                    </div>
-                                </div>
+                            
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="Date" class="form-control" placeholder=" "
+                                        id="Date" 
+                                        onfocus="(this.type='date')" formControlName="Date">
+                                    <label for="Date">Date *</label>
+                                </span>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-3">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input placeholder="To Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                      
                         <div class="col-sm-3">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Branch<span class="required"> *</span></label>
-                            </div>
+                            
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="Branch"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="Branch"
+                                    required=""
+                                  />
+                                  <label for="Branch"
+                                    >Branch<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
-                        <!-- <div class="col-sm-3">
-                            <div class="card-block">
-                                <button class="btn btn-primary ripple light">Loan Bar</button>
-                            </div>
-                        </div> -->
+
                     </div>
                     <div class="row">
                         <div class="col-lg-9">
@@ -48,12 +50,7 @@
                        </div>
                 </div>
             </form>
-            <!-- <div class="col-12">
-                <div class="table-responsive">
-                    <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
-                    </table>
-                </div>
-            </div> -->
+            
         </div>
     </div>
 </div>

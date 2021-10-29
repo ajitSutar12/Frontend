@@ -72,9 +72,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     FormsModule, ReactiveFormsModule
   ],
-<<<<<<< Updated upstream
-  providers: [DepreciationService,Scheme1Service,Int1Service,Scheme2Service,Int2Service,Scheme3Service,Scheme4Service,Scheme5Service,Scheme6Service,Int6Service,Scheme7Service,Int7Service,Scheme8Service,Int8Service,SizeSlabWiseService,
-=======
   providers: [DepreciationService,
     Scheme1Service,
     Int1Service,
@@ -96,7 +93,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DepriciationCatDropdownMasterService,
     SchemeTypeChargesService,
     ChargesTypeService,
->>>>>>> Stashed changes
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,

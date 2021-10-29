@@ -3,38 +3,84 @@
         <div class="card">
             <div class="card-header">
                 <h5>Account Enquiry</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+
             </div>
            
-                <form class="form-material" action="javascript:">
+                <form  action="javascript:">
                     <div class="card-block">
                     <div class="row">
                         <div class="col-sm-3">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Process Year<span class="required"> *</span></label>
-                            </div>
+                           
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="ProcessYear"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="ProcessYear"
+                                    required=""
+                                  />
+                                  <label for="ProcessYear"
+                                    >Process Year<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
                         <div class="col-sm-3">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Process Month<span class="required"> *</span></label>
-                            </div>
+
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="ProcessMonth"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="ProcessMonth"
+                                    required=""
+                                  />
+                                  <label for="ProcessMonth"
+                                    >Process Month<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
                         <div class="col-sm-3">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Salary Division<span class="required"> *</span></label>
-                            </div>
+                            
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="SalaryDivision"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="SalaryDivision"
+                                    required=""
+                                  />
+                                  <label for="SalaryDivision"
+                                    >Salary Division<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
                         <div class="col-sm-3">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Sub Division<span class="required"> *</span></label>
-                            </div>
+
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="SubDivision"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="SubDivision"
+                                    required=""
+                                  />
+                                  <label for="SubDivision"
+                                    >Sub Division<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
                     </div>
 
@@ -43,23 +89,24 @@
                             <button class="btn btn-primary ripple light">Add</button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-9">
-                        
-                          </div>
-                           <div class="col-sm">
-                             <h6><span class="required">* </span>: Required Fields</h6>
-                          </div>
-                       </div>
+
                 </div>
                 </form>
            
-            <div class="col-sm-12">
-                <div class="table-responsive">
-                    <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
-                    </table>
-                </div>
-            </div>
+           
         </div>
     </div>
 </div>
+<div class="card">
+    <div class="card-block">
+      <div class="col-sm-12">
+        <div class="table-responsive">
+          <table
+            datatable
+            [dtOptions]="dtExportButtonOptions"
+            class="table table-striped table-bordered table-hover"
+          ></table>
+        </div>
+      </div>
+    </div>
+  </div>

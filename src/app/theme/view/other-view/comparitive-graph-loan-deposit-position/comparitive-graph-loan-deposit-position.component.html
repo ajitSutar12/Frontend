@@ -3,56 +3,59 @@
         <div class="card">
             <div class="card-header">
                 <h5>Graph</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
-            <form class="form-material">
+            <form action="javascript:">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-3">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input placeholder="From Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-                                    </div>
-                                </div>
+                            
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="FromDate" class="form-control" placeholder=" "
+                                        id="FromDate" 
+                                        onfocus="(this.type='date')" formControlName="FromDate">
+                                    <label for="FromDate">From Date *</label>
+                                </span>
                             </div>
                         </div>
                         <div class="col-sm-3">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input placeholder="To Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-                                    </div>
-                                </div>
+                           
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="ToDate" class="form-control" placeholder=" "
+                                        id="ToDate" 
+                                        onfocus="(this.type='date')" formControlName="ToDate">
+                                    <label for="ToDate">To Date *</label>
+                                </span>
                             </div>
                         </div>
 
                         <div class="col-sm-3">
-                            <div class="card-block">
+                    
                                 <button class="btn btn-primary ripple light">Deposits Bar</button>
-                            </div>
+                        
                         </div>
                         <div class="col-sm-3">
-                            <div class="card-block">
+                        
                                 <button class="btn btn-primary ripple light">Loan Bar</button>
-                            </div>
+                            
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-9">
-                        
-                          </div>
-                           <div class="col-sm">
-                             <h6><span class="required">* </span>: Required Fields</h6>
-                          </div>
-                       </div>
+                   
                 </div>
             </form>
-            <div class="col-12">
-                <div class="table-responsive">
-                    <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
-                    </table>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>
+<div class="card">
+    <div class="card-block">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>

@@ -3,92 +3,161 @@
         <div class="card">
             <div class="card-header">
                 <h5>View Term Deposit Interest Projection</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
-            <form class="form-material">
+            <form action="javascript:">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Scheme<span class="required"> *</span></label>
-                            </div>
+                        <div class="col-sm">
+                            
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="Scheme"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="Scheme"
+                                    required=""
+                                  />
+                                  <label for="Scheme"
+                                    >Scheme<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
-                        <div class="col-sm-2">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Deposit Amount<span class="required"> *</span></label>
-                            </div>
+                        <div class="col-sm">
+                            
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="DepositAmount"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="DepositAmount"
+                                    required=""
+                                  />
+                                  <label for="DepositAmount"
+                                    >Deposit Amount<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
-                        <div class="col-sm-2">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Month<span class="required"> *</span></label>
-                            </div>
+                        <div class="col-sm">
+                            
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="Month"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="Month"
+                                    required=""
+                                  />
+                                  <label for="Month"
+                                    >Month<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
-                        <div class="col-sm-2">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Days<span class="required"> *</span></label>
-                            </div>
+                        <div class="col-sm">
+                           
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="Days"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="Days"
+                                    required=""
+                                  />
+                                  <label for="Days"
+                                    >Days<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Interest Rate<span class="required"> *</span></label>
-                            </div>
+                        <div class="col-sm">
+                            
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="InterestRate"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="InterestRate"
+                                    required=""
+                                  />
+                                  <label for="InterestRate"
+                                    >Interest Rate<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input placeholder="Deposit Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-                                    </div>
-                                </div>
+                            
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="DepositDate" class="form-control" placeholder=" "
+                                        id="DepositDate" 
+                                        onfocus="(this.type='date')" formControlName="DepositDate">
+                                    <label for="DepositDate">Deposit Date *</label>
+                                </span>
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input placeholder="Maturity Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-                                    </div>
-                                </div>
+                           
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="MaturityDate" class="form-control" placeholder=" "
+                                        id="MaturityDate" 
+                                        onfocus="(this.type='date')" formControlName="MaturityDate">
+                                    <label for="Date">Maturity Date *</label>
+                                </span>
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Maturity Amount<span class="required"> *</span></label>
-                            </div>
+                            
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="MaturityAmount"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="MaturityAmount"
+                                    required=""
+                                  />
+                                  <label for="MaturityAmount"
+                                    >Maturity Amount<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
                         <div class="col-sm">
                             <button class="btn btn-primary ripple light">Process</button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-9">
-                        
-                          </div>
-                           <div class="col-sm">
-                             <h6><span class="required">* </span>: Required Fields</h6>
-                          </div>
-                       </div>
+                    
                 </div>
             </form>
-            <div class="col-12">
-                <div class="table-responsive">
-                    <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
-                    </table>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>
+<div class="card">
+    <div class="card-block">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>

@@ -4,63 +4,133 @@
         <div class="card">
             <div class="card-header">
                 <h5>Member Ledger View</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
-            <form class="form-material" action="javascript:">
+            <form action="javascript:">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Member No.<span class="required"> *</span></label>
-                            </div>
+
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="MemberNo"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="MemberNo"
+                                    required=""
+                                  />
+                                  <label for="MemberNo"
+                                    >Member No.<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Employee No.<span class="required"> *</span></label>
-                            </div>
+                            
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="EmployeeNo"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="EmployeeNo"
+                                    required=""
+                                  />
+                                  <label for="EmployeeNo"
+                                    >Employee No.<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <input placeholder="Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-                                    </div>
-                                </div>
+                           
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="Date" class="form-control" placeholder=" "
+                                        id="Date" 
+                                        onfocus="(this.type='date')" formControlName="Date">
+                                    <label for="Date"> Date *</label>
+                                </span>
                             </div>
 
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Total Loan Amount<span class="required"> *</span></label>
-                            </div>
+
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="TotalLoanAmount"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="TotalLoanAmount"
+                                    required=""
+                                  />
+                                  <label for="TotalLoanAmount"
+                                    >Total Loan Amount<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
+                            
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Total Deposit Amount<span class="required"> *</span></label>
-                            </div>
+                          
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="TotalDepositAmount"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="TotalDepositAmount"
+                                    required=""
+                                  />
+                                  <label for="TotalDepositAmount"
+                                    >Total Deposit Amount<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Total Interest On Loan<span class="required"> *</span></label>
-                            </div>
+
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="TotalInterestOnLoan"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="TotalInterestOnLoan"
+                                    required=""
+                                  />
+                                  <label for="TotalInterestOnLoan"
+                                    >Total Interest On Loan<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Total Interest On Deposit<span class="required"> *</span></label>
-                            </div>
+                           
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="TotalInterestOnDeposit"
+                                    class="form-control"
+                                    placeholder=" "
+                                    id="TotalInterestOnDeposit"
+                                    required=""
+                                  />
+                                  <label for="TotalInterestOnDeposit"
+                                    >Total Interest On Deposit<sub class="required">* </sub></label
+                                  >
+                                </span>
+                              </div>
                         </div>
                         <div class="col-sm">
                             <button class="btn btn-primary ripple light">Add</button>
@@ -70,18 +140,21 @@
                         <div class="col-lg-9">
                         
                           </div>
-                           <div class="col-sm">
-                             <h6><span class="required">* </span>: Required Fields</h6>
-                          </div>
+                          
                        </div>
                 </div>
             </form>
-            <div class="col-12">
-                <div class="table-responsive">
-                    <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
-                    </table>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>
+<div class="card">
+    <div class="card-block">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover">
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
