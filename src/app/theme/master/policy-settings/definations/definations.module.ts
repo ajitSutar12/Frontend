@@ -28,6 +28,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SelectModule } from 'ng-select';
+import { ChargesTypeService } from '../../../../shared/elements/charges-type.service';
 import { DepreciationService } from '../../../../shared/elements/depreciation.service';
 import { Scheme1Service } from '../../../../shared/elements/scheme1.service';
 import { Int1Service } from '../../../../shared/elements/int1.service';
@@ -43,17 +44,14 @@ import { Scheme7Service } from '../../../../shared/elements/scheme7.service';
 import { Int7Service } from '../../../../shared/elements/int7.service';
 import { Scheme8Service } from '../../../../shared/elements/scheme8.service';
 import { Int8Service } from '../../../../shared/elements/int8.service';
-import { TdsInterestRateService } from './tds-interest-rate/tds-interest-rate.service';
-import { PrematurePigmyService } from './premature-pigmy-less-ir/premature-pigmy-less-ir.service';
-import { SchemeTypeDropdownService } from '../../../../shared/dropdownService/scheme-type-dropdown.service';
-import { DereciationService } from './depreciation-rate-master/depreciation-rate-master.service';
-import { DepriciationCatDropdownMasterService } from '../../../../shared/dropdownService/depriciation-category-master-dropdown.service';
-import { SchemeTypeChargesService } from './scheme-type-charges-d/scheme-type-cherges-d.service';
-import { ChargesTypeService } from '../../../../shared/dropdownService/charges-type.service';
 
-
-import{SizeSlabWiseService} from './size-slab-wise-ar/size-slab-wise-ar.service';
-
+import { SchemeTypeDropdownService } from '../../../../shared/dropdownService/scheme-type-dropdown.service'
+import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service'
+import { TermDepositInterestRateService } from '../definations/term-deposit-ir/term-deposit-ir.service'
+import { TermDepositPatSchemeService } from '../definations/term-deposit-pat-scheme/term-deposit-pat-scheme.service'
+import { InterestRateForLoanandCCService } from '../definations/interest-rate-for-lacc/interest-rate-for-lacc.service'
+import { SavingandPigmyInterestRatesService } from '../definations/interest-rate-for-sapd/interest-rate-for-sapd.service'
+import { SizeSlabWiseService } from '../definations/size-slab-wise-ar/size-slab-wise-ar.service'
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -72,27 +70,18 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     FormsModule, ReactiveFormsModule
   ],
-  providers: [DepreciationService,
-    Scheme1Service,
-    Int1Service,
-    Scheme2Service,
-    Int2Service,
-    Scheme3Service,
-    Scheme4Service,
-    Scheme5Service,
-    Scheme6Service,
-    Int6Service,
-    Scheme7Service,
-    Int7Service,
-    Scheme8Service,
-    Int8Service,
-    TdsInterestRateService,
-    PrematurePigmyService,
+  providers: [DepreciationService, Scheme1Service,
+    Int1Service, Scheme2Service, Int2Service, Scheme3Service,
+    Scheme4Service, Scheme5Service, Scheme6Service, Int6Service,
+    Scheme7Service, Int7Service, Scheme8Service, Int8Service,
+
     SchemeTypeDropdownService,
-    DereciationService,
-    DepriciationCatDropdownMasterService,
-    SchemeTypeChargesService,
-    ChargesTypeService,
+    IntrestCategoryMasterDropdownService,
+    TermDepositInterestRateService,
+    TermDepositPatSchemeService,
+    SavingandPigmyInterestRatesService,
+    InterestRateForLoanandCCService,
+    SizeSlabWiseService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,

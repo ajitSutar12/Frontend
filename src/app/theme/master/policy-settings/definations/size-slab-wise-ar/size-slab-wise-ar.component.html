@@ -30,7 +30,7 @@
                                     placeholder="Int.Category *" required title="Compulsory Selection"
                                     formControlName="INT_CATEGORY">
                                 </ng-select>
-                                
+
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['INT_CATEGORY'].invalid && (angForm.controls['INT_CATEGORY'].dirty || angForm.controls['INT_CATEGORY'].touched)"
@@ -69,7 +69,7 @@
                         </h5>
                         <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
                     </div>
-                    <form action="javascript:" [formGroup]="angForm" novalidate >
+                    <form action="javascript:" [formGroup]="angForm" novalidate>
                         <div class="card-block">
                             <div class="row">
                                 <div class="col-sm">
@@ -81,7 +81,7 @@
                                             <label for="SERIAL_NO">Sr.No.<sub class="required">* </sub></label>
                                         </span>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="col-sm">
                                     <div class="form-group input-group">
@@ -143,9 +143,9 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-        
+
             <div class="card-block">
-                    <button type="button" class="btn btn-primary ripple light" (click)="modalLarge.show()">New</button>
+                <button type="button" class="btn btn-primary ripple light" (click)="modalLarge.show()">New</button>
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
@@ -153,11 +153,10 @@
                                 class="table table-striped table-bordered table-hover">
                                 <tbody *ngIf="sizeSlabWise?.length != 0">
                                     <tr *ngFor="let data of sizeSlabWise">
-                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn" 
-                                            (click)="editClickHandler(data.id) || modalLarge.show()"
-                                           
-                                                >Edit</button> &nbsp;
-                                          
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
+                                                (click)="editClickHandler(data.id) || modalLarge.show()">Edit</button>
+                                            &nbsp;
+
                                         </td>
                                         <td>{{ data.SERIAL_NO }}</td>
                                         <td>{{ data.EFFECT_DATE }}</td>
@@ -188,9 +187,9 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-        
+
             <div class="card-block">
-                    
+
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
@@ -198,15 +197,13 @@
                                 class="table table-striped table-bordered table-hover">
                                 <tbody *ngIf="sizeSlabWise?.length != 0">
                                     <tr *ngFor="let data of sizeSlabWise">
-                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn" 
-                                            (click)="editClickHandler(data.id)"
-                                           
-                                                >Edit</button> &nbsp;
-                                          
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
+                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+
                                         </td>
                                         <td>{{ data.ACNOTYPE }}</td>
                                         <td>{{ data.INT_CATEGORY }}</td>
-                                       
+
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="sizeSlabWise?.length == 0">

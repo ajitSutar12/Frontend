@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { IOption } from 'ng-select';
-
-
 @Injectable()
 export class SchemeTypeDropdownService {
     public static readonly PLAYER_ONE: Array<IOption> = [
@@ -19,6 +17,7 @@ export class SchemeTypeDropdownService {
         { value: 'SB', label: 'Savings Deposit(SB)' },
         { value: 'SH', label: 'Shares(SH)' },
         { value: 'TD', label: 'Term Deposit(TD)' },
+
     ];
 
     getCharacters(): Array<IOption> {

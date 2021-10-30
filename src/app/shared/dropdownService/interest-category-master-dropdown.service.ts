@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class IntrestCategoryMasterDropdownService {
     intrestCategoryMasterObject = new Array();
-    url = 'http://localhost:4000/intrest-category-master';
+    url = 'http://localhost:4000/interest-category-master';
 
     constructor(private http: HttpClient) { }
     public getIntrestCategoaryMasterList() {
@@ -13,7 +13,7 @@ export class IntrestCategoryMasterDropdownService {
         return this.http.get<any>(this.url + '/')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: element.id };
+                    let obj = { label: element.CODE + '( ' + element.NAME + ' )', value: element.id };
                     this.intrestCategoryMasterObject.push(obj)
                 });
                 return this.intrestCategoryMasterObject;

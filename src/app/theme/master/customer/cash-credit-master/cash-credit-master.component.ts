@@ -413,6 +413,42 @@ export class CashCreditMasterComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
+      AC_ACNOTYPE: ['CC'],
+      AC_TYPE: ['', [Validators.required]],
+      AC_NO: [''],
+      AC_NAME: [''],
+      AC_AGE: [''],
+      AC_TITLE: [''],
+      AC_MEMBTYPE: [''],
+      AC_MEMBNO: [''],
+      AC_CUSTID: [''],
+      AC_CAST: [''],
+      AC_OPDATE: [''],
+      AC_OCODE: [''],
+      AC_INTCATA: [''],
+      AC_SANCTION_AMOUNT: [''],
+      AC_SANCTION_DATE: [''],
+      AC_MONTHS: [''],
+      AC_EXPIRE_DATE: [''],
+      AC_INTRATE: [''],
+      AC_DRAWPOWER_AMT: [''],
+      AC_INSTALLMENT: [''],
+      AC_IS_RECOVERY: [''],
+      AC_OPEN_OLD_DATE: [''],
+      IS_AGGRI_LOAN: [''],
+      ACRE_AREA: [''],
+      AC_DPACTYPE: [''],
+      AC_DPACNO: [''],
+      REF_ACNO: [''],
+      AC_BIRTH_DT: [''],
+
+
+
+
+
+
+
+
       Scheme: ['', [Validators.required]],
       NormalInterestRate: ['',],
       AccountNo: ['',],
@@ -485,9 +521,9 @@ export class CashCreditMasterComponent implements OnInit {
       GCity_Code: ['',],
       CName: ['',],
       CCity: ['',],
-      ManualRefMemberNo: ['',[Validators.pattern]],
-      Mobile: ['',[Validators.pattern]],
-      Remark: ['',[Validators.pattern]],
+      ManualRefMemberNo: ['', [Validators.pattern]],
+      Mobile: ['', [Validators.pattern]],
+      Remark: ['', [Validators.pattern]],
     });
   }
 
