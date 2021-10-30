@@ -44,6 +44,14 @@ import { Scheme7Service } from '../../../../shared/elements/scheme7.service';
 import { Int7Service } from '../../../../shared/elements/int7.service';
 import { Scheme8Service } from '../../../../shared/elements/scheme8.service';
 import { Int8Service } from '../../../../shared/elements/int8.service';
+import { TdsInterestRateService } from './tds-interest-rate/tds-interest-rate.service';
+import { PrematurePigmyService } from './premature-pigmy-less-ir/premature-pigmy-less-ir.service';
+import { DereciationService } from './depreciation-rate-master/depreciation-rate-master.service';
+import { DepriciationCatDropdownMasterService } from '../../../../shared/dropdownService/depriciation-category-master-dropdown.service';
+import { SchemeTypeChargesService } from './scheme-type-charges-d/scheme-type-cherges-d.service';
+import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service';
+
+
 
 import { SchemeTypeDropdownService } from '../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service'
@@ -70,12 +78,32 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     FormsModule, ReactiveFormsModule
   ],
-  providers: [DepreciationService, Scheme1Service,
-    Int1Service, Scheme2Service, Int2Service, Scheme3Service,
-    Scheme4Service, Scheme5Service, Scheme6Service, Int6Service,
-    Scheme7Service, Int7Service, Scheme8Service, Int8Service,
 
+  providers: [DepreciationService,
+    Scheme1Service,
+    Int1Service,
+    Scheme2Service,
+    Int2Service,
+    Scheme3Service,
+    Scheme4Service,
+    Scheme5Service,
+    Scheme6Service,
+    Int6Service,
+    Scheme7Service,
+    Int7Service,
+    Scheme8Service,
+    Int8Service,
+    TdsInterestRateService,
+    PrematurePigmyService,
     SchemeTypeDropdownService,
+    DereciationService,
+    DepriciationCatDropdownMasterService,
+    SchemeTypeChargesService,
+    ChargesTypeService,
+    SizeSlabWiseService,
+    TermDepositInterestRateService,
+    IntrestCategoryMasterDropdownService,
+    ACMasterDropdownService,
     IntrestCategoryMasterDropdownService,
     TermDepositInterestRateService,
     TermDepositPatSchemeService,

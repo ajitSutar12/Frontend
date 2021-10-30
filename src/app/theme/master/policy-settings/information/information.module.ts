@@ -39,13 +39,13 @@ import { TdReciptSeriesMasterComponent } from './td-recipt-series-master/td-reci
 import { SalaryDivisionMasterComponent } from './salary-division-master/salary-division-master.component';
 import { SubSalaryDivisionMasterComponent } from './sub-salary-division-master/sub-salary-division-master.component';
 import { ItemCategoryMasterComponent } from './item-category-master/item-category-master.component';
+import { RiskCatagoryComponent } from './risk-catagory/risk-catagory.component';
 import { SelectModule } from 'ng-select';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { DataTablesModule } from 'angular-datatables';
 import { ReportTypeMasterComponent } from './report-type-master/report-type-master.component';
-import { TitleService } from '../../../../shared/dropdownService/title.service';
 import { NarrationService } from './narration/narration.service';
 import { BankService } from './bank-master/bank-master.service';
 import { OwnBranchService } from './own-branch-master/own-branch-master.service';
@@ -86,6 +86,8 @@ import { LockerSMasterDropDownService } from '../../../../shared/dropdownService
 import { SchemeTypeDropdownService } from '../../../../shared/dropdownService/scheme-type-dropdown.service';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { CompanyGroupMasterDropdownService } from '../../../../shared/dropdownService/company-group-master-dropdown.service';
+import { RiskCategoryDropdownService } from '../../../../shared/dropdownService/risk-category-dropdown.service';
+import { RiskCatMasterService } from './risk-catagory/risk-category.service';
 
 
 
@@ -106,7 +108,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   ],
   providers: [
-    TitleService,
     NarrationService,
     OwnBranchService,
     ClearingBranchService,
@@ -146,6 +147,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SchemeTypeDropdownService,
     SchemeCodeDropdownService,
     CompanyGroupMasterDropdownService,
+    RiskCategoryDropdownService,
+    RiskCatMasterService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
@@ -189,7 +192,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SalaryDivisionMasterComponent,
     SubSalaryDivisionMasterComponent,
     ItemCategoryMasterComponent,
-    ReportTypeMasterComponent
+    ReportTypeMasterComponent,
+    RiskCatagoryComponent
   ]
 })
 export class InformationModule { }

@@ -13,7 +13,6 @@ import { HttpClient } from '@angular/common/http';
 //Importing for prefix dropdown
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
-import { TitleService } from '../../../../../shared/dropdownService/title.service';
 
 // Handling datatable data
 class DataTableResponse {
@@ -64,14 +63,6 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-  //prefix dropdown
-  title: Array<IOption> = this.PrefixService.getCharacters();
-  selectedOption = '3';
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = '3';
-  timeLeft = 5;
-  private dataSub: Subscription = null;
 
   //variable to get ID to update
   updateID: number = 0;
@@ -81,7 +72,6 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private prefixMasterService: PrefixMasterService,
-    public PrefixService: TitleService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -146,25 +136,12 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       ],
       dom: 'Blrtip',
     };
-    this.runTimer();
-    this.dataSub = this.PrefixService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-  }
-
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
   }
 
   createForm() {
     this.angForm = this.fb.group({
       SR_NO: [''],
-      PREFIX: ['', [Validators.required]],
+      PREFIX: ['', [Validators.required, Validators.pattern]],
       SEX: ['male', [Validators.required]]
     });
   }

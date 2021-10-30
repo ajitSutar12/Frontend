@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment'
 
 
 @Injectable()
-export class castMasterService {
+export class CastMasterService {
   getCharacters(): IOption[] {
     throw new Error('Method not implemented.');
   }

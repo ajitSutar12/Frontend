@@ -11,12 +11,31 @@ export class CustomerIdService {
     [x: string]: any;
     // API 
     url = "http://localhost:4000/customer-id";
+    url1 = "http://localhost:4000/customer-address";
+    url2 = "http://localhost:4000/tds-form";
+
 
     constructor(private http: HttpClient) { }
 
     //Insertion Operation
     postData(data: any): Observable<any> {
         return this.http.post(this.url + '/insert', data).pipe(map((res) => res),
+            catchError((error) => {
+                Swal.fire('Please Input Proper Data!');
+                return throwError(error);
+            })
+        )
+    }
+    postDataAdd(data: any): Observable<any> {
+        return this.http.post(this.url1 + '/insert', data).pipe(map((res) => res),
+            catchError((error) => {
+                Swal.fire('Please Input Proper Data!');
+                return throwError(error);
+            })
+        )
+    }
+    postDataTds(data: any): Observable<any> {
+        return this.http.post(this.url2 + '/insert', data).pipe(map((res) => res),
             catchError((error) => {
                 Swal.fire('Please Input Proper Data!');
                 return throwError(error);

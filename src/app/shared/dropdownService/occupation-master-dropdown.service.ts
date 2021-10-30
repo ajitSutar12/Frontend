@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
 
 
 @Injectable()
-export class occupationMasterService {
+export class OccupationMasterService {
     occupationMasterObject = new Array();
     // API 
     // url = "http://localhost:4000/occupation-master"; 

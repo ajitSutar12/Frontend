@@ -139,12 +139,7 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
       dom: 'Blrtip',
 
     };
-    this.angForm = new FormGroup({
-      'CODE': new FormControl(''),
-      'NAME': new FormControl(''),
 
-
-    })
 
   }
   // Method to handle validation of form

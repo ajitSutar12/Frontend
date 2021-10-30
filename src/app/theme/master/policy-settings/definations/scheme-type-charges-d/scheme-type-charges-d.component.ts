@@ -10,8 +10,10 @@ import { DataTableDirective } from 'angular-datatables';
 import { HttpClient } from '@angular/common/http';
 import { ChargesTypeService } from '../../../../../shared/dropdownService/charges-type.service';
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service';
+import { ACMasterDropdownService } from '../../../../../shared/dropdownService/ac-master-dropdown.service';
 import { SchemeTypeChargesService } from './scheme-type-cherges-d.service';
 import { IOption } from 'ng-select';
+import { first } from 'rxjs/operators';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -49,6 +51,7 @@ export class SchemeTypeChargesDComponent implements OnInit {
   angForm: FormGroup;
   //Datatable variable
   dtExportButtonOptions: DataTables.Settings = {};
+  dtModalOptions: DataTables.Settings = {};
   Data: any;
   //variables for pagination
   page: number = 1;
@@ -63,9 +66,10 @@ export class SchemeTypeChargesDComponent implements OnInit {
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
-  // Variables for hide/show add and update button
-  showButton: boolean = true;
-  updateShow: boolean = false;
+   // Variables for hide/show add and update and new button
+   showButton: boolean = true;
+   updateShow: boolean = false;
+   newbtnShow: boolean = false;
   updateID: number = 0;
   schemeCode: any;
   //for search functionality
@@ -81,13 +85,15 @@ export class SchemeTypeChargesDComponent implements OnInit {
   selectedCharacter = '3';
   timeLeft = 5;
   private dataSub: Subscription = null;
+  accontType: any;
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     // for dropdown
     public chargesType: ChargesTypeService,
     private schemeTypeDropdown: SchemeTypeDropdownService,
-    private schemeTypeChargesService: SchemeTypeChargesService) {
+    private schemeTypeChargesService: SchemeTypeChargesService,
+    private aCMasterService:ACMasterDropdownService) {
   }
 
   ngOnInit(): void {
@@ -148,13 +154,67 @@ export class SchemeTypeChargesDComponent implements OnInit {
           title: 'Effect Date',
           data: 'EFFECT_DATE'
         },
-        {
-          title: 'Sr.No',
-          data: 'SERIAL_NO'
-        },
+        
         {
           title: 'Charges Type',
           data: 'CHARGES_TYPE'
+        },
+        
+        {
+          title: 'Charges GL Account',
+          data: 'CHARGES_GL_ACNO'
+        }
+      ],
+      dom: 'Blrtip',
+    };
+
+    this.dtModalOptions = {
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters['filterData'] = this.filterData;
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+        this.http
+          .post<DataTableResponse>(
+            'http://localhost:4000/scheme-type-charges-definition',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.schemeTypeChargesRate = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
+            });
+          });
+      },
+      columns: [
+        {
+          title: 'Action'
+        },
+        {
+          title: 'Sr.No',
+          data: 'SERIAL_NO'
         },
         {
           title: 'From',
@@ -168,12 +228,8 @@ export class SchemeTypeChargesDComponent implements OnInit {
           title: 'Charges Amount',
           data: 'CHARGES_AMT'
         },
-        {
-          title: 'Charges GL Account',
-          data: 'CHARGES_GL_ACNO'
-        }
       ],
-      dom: 'Blrtip',
+      dom: 'lrtip',
     };
     this.createForm();
     this.runTimer();
@@ -183,7 +239,9 @@ export class SchemeTypeChargesDComponent implements OnInit {
     this.dataSub = this.chargesType.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
-
+    this.aCMasterService.getACMasterList().pipe(first()).subscribe(data => {
+      this.accontType = data;
+    })
   }
 
   runTimer() {
@@ -201,9 +259,9 @@ export class SchemeTypeChargesDComponent implements OnInit {
       ACNOTYPE: ['', [Validators.required]],
       SERIAL_NO: [''],
       CHARGES_TYPE: ['', [Validators.required]],
-      FROM_RANGE: [''],
-      TO_RANGE: [''],
-      CHARGES_AMT: [''],
+      FROM_RANGE: ['',[Validators.pattern]],
+      TO_RANGE: ['',[Validators.pattern]],
+      CHARGES_AMT: ['',[Validators.pattern]],
       CHARGES_GL_ACNO: ['', [Validators.required]],
     });
   }
@@ -235,6 +293,7 @@ export class SchemeTypeChargesDComponent implements OnInit {
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.schemeTypeChargesService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -250,14 +309,22 @@ export class SchemeTypeChargesDComponent implements OnInit {
     })
   }
 
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+  
   //Method for update data 
-  updateData(id) {
+  updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.schemeTypeChargesService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
+      this.newbtnShow = false;
       this.rerender();
       this.resetForm();
     })

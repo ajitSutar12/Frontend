@@ -111,6 +111,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
 
             let getColumnName = element.data;
             let columnValue = element.value;
+            console.log(this.filterData);
             if (this.filterData.hasOwnProperty(element.data)) {
               let value = this.filterData[getColumnName];
               if (columnValue != undefined || value != undefined) {

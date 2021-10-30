@@ -13,7 +13,7 @@ export class PrefixMasterDropdownService {
         return this.http.get<any>(this.url + '/')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: element.id };
+                    let obj = { label: element.PREFIX, value: element.id };
                     this.prefixMasterObject.push(obj)
                 });
                 return this.prefixMasterObject;
