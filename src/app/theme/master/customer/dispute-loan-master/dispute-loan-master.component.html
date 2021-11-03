@@ -14,12 +14,12 @@
                                     <span class="border-lable-flt">
                                         <ng-select [ngClass]="'ng-select'" [options]="statementOption"
                                             [multiple]="false" placeholder="Scheme *" required
-                                            title="Compulsory Selection" formControlName="Scheme">
+                                            title="Compulsory Selection" formControlName="AC_TYPE">
                                         </ng-select>
                                     </span>
                                 </div>
-                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)" class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['Scheme'].errors?.required">
+                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)" class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
                                         This field is required
                                     </div>
                                 </div>
@@ -29,122 +29,93 @@
                                     <span class="border-lable-flt">
                                         <ng-select [ngClass]="'ng-select'" [options]="statementOption"
                                             [multiple]="false" placeholder="Account No " required
-                                            title="Compulsory Selection" formControlName="AccountNo">
+                                            title="Compulsory Selection" formControlName="AC_NO">
                                         </ng-select>
                                     </span>
                                 </div>
-
+                            </div>  
+                            <div class="col-md">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="REF_AC_TYPE" class="form-control"
+                                            placeholder=" " id="REF_AC_TYPE" value=""
+                                            pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                            formControlName="REF_AC_TYPE">
+                                        <label for="REF_AC_TYPE">Transfer From Scheme</label>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['REF_AC_TYPE'].invalid && (angForm.controls['REF_AC_TYPE'].dirty || angForm.controls['REF_AC_TYPE'].touched)" class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['REF_AC_TYPE'].errors?.pattern">
+                                        Input allowed only 0-9
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" name="NormalInterestRate" class="form-control"
-                                            placeholder=" " id="NormalInterestRate" disabled
-                                            value="{{ message.AccountNo }}" pattern="^[0-9]+$"
-                                            title="Input allowed only  0-9" formControlName="NormalInterestRate">
-                                        <label for="NormalInterestRate">Normal Interest Rate%</label>
+                                        <input type="text" name="REF_AC_NO" class="form-control" placeholder=" "
+                                            id="REF_AC_NO" value="" pattern="^[0-9]+$"
+                                            title="Input allowed only  0-9" formControlName="REF_AC_NO">
+                                        <label for="REF_AC_NO">Transfer From A/c No</label>
                                     </span>
                                 </div>
-
+                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['REF_AC_NO'].invalid && (angForm.controls['REF_AC_NO'].dirty || angForm.controls['REF_AC_NO'].touched)" class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['REF_AC_NO'].errors?.pattern">
+                                        Input allowed only 0-9
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" name="TransferFromScheme" class="form-control"
-                                            placeholder=" " id="TransferFromScheme" value="{{ message.AccountNo }}"
-                                            pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                            formControlName="TransferFromScheme">
-                                        <label for="TransferFromScheme">Transfer From Scheme</label>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TransferFromScheme'].invalid && (angForm.controls['TransferFromScheme'].dirty || angForm.controls['TransferFromScheme'].touched)" class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['TransferFromScheme'].errors?.pattern">
-                                        Input allowed only 0-9
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" name="TransferFromAcNo" class="form-control" placeholder=" "
-                                            id="TransferFromAcNo" value="{{ message.AccountNo }}" pattern="^[0-9]+$"
-                                            title="Input allowed only  0-9" formControlName="TransferFromAcNo">
-                                        <label for="TransferFromAcNo">Transfer From A/c No</label>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TransferFromAcNo'].invalid && (angForm.controls['TransferFromAcNo'].dirty || angForm.controls['TransferFromAcNo'].touched)" class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['TransferFromAcNo'].errors?.pattern">
-                                        Input allowed only 0-9
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md">
+                            <div class="col-md-3">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <ng-select [ngClass]="'ng-select'" [options]="statementOption"
                                             [multiple]="false" placeholder="Customer ID *" required
-                                            title="Compulsory Selection" formControlName="CustomerID1">
+                                            title="Compulsory Selection" formControlName="AC_CUSTID">
                                         </ng-select>
                                     </span>
                                 </div>
-                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CustomerID1'].invalid && (angForm.controls['CustomerID1'].dirty || angForm.controls['CustomerID1'].touched)" class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['CustomerID1'].errors?.required">
+                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)" class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
                                         This field is required
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-2">
+                            <div class="col-md-3">
+                                <button class="btn btn-primary ripple light">New Customer ID</button>
+                            </div>
+                            <!-- <div class="col-md-2">
                                 <div class="form-group form-primary form-static-label">
-                                    <ng-select [ngClass]="'ng-select'" [options]="titleOption" [multiple]="false" placeholder="Title*" required title="Compulsory Selection" formControlName="Title">
+                                    <ng-select [ngClass]="'ng-select'" [options]="titleOption" [multiple]="false" placeholder="Title*" required title="Compulsory Selection" formControlName="AC_TITLE">
                                     </ng-select>
-                                    <label>{{ message.Title }}</label>
+                                    <label>{{ message.AC_TITLE }}</label>
                                 </div>
-                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Title'].invalid && (angForm.controls['Title'].dirty || angForm.controls['Title'].touched)" class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['Title'].errors?.required">
+                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_TITLE'].invalid && (angForm.controls['AC_TITLE'].dirty || angForm.controls['AC_TITLE'].touched)" class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_TITLE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-md">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <ng-select [ngClass]="'ng-select'" [options]="statementOption"
+                                            [multiple]="false" placeholder="Name *" required
+                                            title="Compulsory Selection" formControlName="AC_NAME">
+                                        </ng-select>
+                                        <!-- <label>{{ message.AC_NAME }}</label> -->
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_NAME'].invalid && (angForm.controls['AC_NAME'].dirty || angForm.controls['AC_NAME'].touched)" class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_NAME'].errors?.required">
                                         This field is required
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" name="Name" class="form-control" placeholder=" " id="Name"
-                                            required="" value="{{ message.Name }}" pattern="^[A-Za-z\./ -]+$"
-                                            title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="Name">
-                                        <label for="Name">Name<sub class="required">* </sub></label>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Name'].invalid && (angForm.controls['Name'].dirty || angForm.controls['Name'].touched)" class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['Name'].errors?.pattern || angForm.controls['Name'].errors?.required">
-                                        This field is required and Input allowed only A-Z a-z - / . (Space)
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" name="LastIntDate" class="form-control" placeholder=" "
-                                            id="LastIntDate" value="{{ message.LastIntDate }}" max="9999-12-31"
-                                            onfocus="(this.type='date')" disabled formControlName="LastIntDate">
-                                        <label for="LastIntDate">Last Int Date</label>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" name="LedgerBalance" class="form-control" placeholder=" "
-                                            id="LedgerBalance" required="" value="{{ message.LedgerBalance }}" disabled
-                                            formControlName="LedgerBalance">
-                                        <label for="LedgerBalance">Ledger Balance</label>
-                                    </span>
-                                </div>
-                            </div>
                         </div>
+                       
+
                         <div class="row">
                             <div class="col-12">
                                 <div class="card-block">
@@ -156,18 +127,18 @@
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="Opening_Date"
+                                                                    <input type="text" name="AC_OPDATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="Opening_Date" required=""
-                                                                        value="{{ message.Opening_Date }}"
+                                                                        id="AC_OPDATE" required=""
+                                                                        value=""
                                                                         max="9999-12-31" onfocus="(this.type='date')"
-                                                                        formControlName="Opening_Date">
-                                                                    <label for="Opening_Date">Opening Date<sub
+                                                                        formControlName="AC_OPDATE">
+                                                                    <label for="AC_OPDATE">Opening Date<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Opening_Date'].invalid && (angForm.controls['Opening_Date'].dirty || angForm.controls['Opening_Date'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Opening_Date'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_OPDATE'].invalid && (angForm.controls['AC_OPDATE'].dirty || angForm.controls['AC_OPDATE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_OPDATE'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -179,7 +150,7 @@
                                                                         [options]="statementOption" [multiple]="false"
                                                                         placeholder="Member Scheme " required
                                                                         title="Compulsory Selection"
-                                                                        formControlName="MemberScheme">
+                                                                        formControlName="AC_MEMBTYPE">
                                                                     </ng-select>
                                                                 </span>
                                                             </div>
@@ -191,7 +162,7 @@
                                                                         [options]="statementOption" [multiple]="false"
                                                                         placeholder="Member No " required
                                                                         title="Compulsory Selection"
-                                                                        formControlName="MemberNo">
+                                                                        formControlName="AC_MEMBNO">
                                                                     </ng-select>
                                                                 </span>
                                                             </div>
@@ -205,12 +176,12 @@
                                                                         [options]="statementOption" [multiple]="false"
                                                                         placeholder="Cast *" required
                                                                         title="Compulsory Selection"
-                                                                        formControlName="Cast">
+                                                                        formControlName="AC_CAST">
                                                                     </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Cast'].invalid && (angForm.controls['Cast'].dirty || angForm.controls['Cast'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Cast'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_CAST'].invalid && (angForm.controls['AC_CAST'].dirty || angForm.controls['AC_CAST'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_CAST'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -222,12 +193,12 @@
                                                                         [options]="statementOption" [multiple]="false"
                                                                         placeholder="Occupation *" required
                                                                         title="Compulsory Selection"
-                                                                        formControlName="Occupation">
+                                                                        formControlName="AC_OCODE">
                                                                     </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Occupation'].invalid && (angForm.controls['Occupation'].dirty || angForm.controls['Occupation'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Occupation'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_OCODE'].invalid && (angForm.controls['AC_OCODE'].dirty || angForm.controls['AC_OCODE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_OCODE'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -239,12 +210,12 @@
                                                                         [options]="statementOption" [multiple]="false"
                                                                         placeholder="Interest Category *" required
                                                                         title="Compulsory Selection"
-                                                                        formControlName="InterestCategory">
+                                                                        formControlName="AC_INTCATA">
                                                                     </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['InterestCategory'].invalid && (angForm.controls['InterestCategory'].dirty || angForm.controls['InterestCategory'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['InterestCategory'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_INTCATA'].invalid && (angForm.controls['AC_INTCATA'].dirty || angForm.controls['AC_INTCATA'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_INTCATA'].errors?.required">
                                                                     This field is required
 
                                                                 </div>
@@ -260,24 +231,24 @@
                                                                         [options]="statementOption" [multiple]="false"
                                                                         placeholder="Health Code *" required
                                                                         title="Compulsory Selection"
-                                                                        formControlName="HealthCode">
+                                                                        formControlName="AC_HEALTH">
                                                                     </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['HealthCode'].invalid && (angForm.controls['HealthCode'].dirty || angForm.controls['HealthCode'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['HealthCode'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_HEALTH'].invalid && (angForm.controls['AC_HEALTH'].dirty || angForm.controls['AC_HEALTH'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_HEALTH'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
-                                                                <ng-select [ngClass]="'ng-select'" [options]="repayModeOption" [multiple]="false" placeholder="Repay Mode*" required title="Compulsory Selection" formControlName="RepayMode">
+                                                                <ng-select [ngClass]="'ng-select'" [options]="repayModeOption" [multiple]="false" placeholder="Repay Mode*" required title="Compulsory Selection" formControlName="AC_REPAYMODE">
                                                                 </ng-select>
-                                                                <label>{{ message.RepayMode }}</label>
+                                                                
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['RepayMode'].invalid && (angForm.controls['RepayMode'].dirty || angForm.controls['RepayMode'].touched)" class="alert alert-danger">
-                                                                <div *ngIf=" angForm.controls['RepayMode'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_REPAYMODE'].invalid && (angForm.controls['AC_REPAYMODE'].dirty || angForm.controls['AC_REPAYMODE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf=" angForm.controls['AC_REPAYMODE'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -285,19 +256,19 @@
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="SanctionLimit"
+                                                                    <input type="text" name="AC_SANCTION_AMOUNT"
                                                                         class="form-control" placeholder=" "
-                                                                        id="SanctionLimit" required=""
-                                                                        value="{{ message.Category }}"
+                                                                        id="AC_SANCTION_AMOUNT" required=""
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="SanctionLimit">
-                                                                    <label for="SanctionLimit">Sanction Limit<sub
+                                                                        formControlName="AC_SANCTION_AMOUNT">
+                                                                    <label for="AC_SANCTION_AMOUNT">Sanction Limit<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SanctionLimit'].invalid && (angForm.controls['SanctionLimit'].dirty || angForm.controls['SanctionLimit'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['SanctionLimit'].errors?.pattern || angForm.controls['SanctionLimit'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_SANCTION_AMOUNT'].invalid && (angForm.controls['AC_SANCTION_AMOUNT'].dirty || angForm.controls['AC_SANCTION_AMOUNT'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_SANCTION_AMOUNT'].errors?.pattern || angForm.controls['AC_SANCTION_AMOUNT'].errors?.required">
                                                                     This field is required and Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -307,18 +278,18 @@
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="SanctionDate"
+                                                                    <input type="text" name="AC_SANCTION_DATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="SanctionDate" required=""
-                                                                        value="{{ message.SanctionDate }}"
+                                                                        id="AC_SANCTION_DATE" required=""
+                                                                        value=""
                                                                         max="9999-12-31" onfocus="(this.type='date')"
-                                                                        formControlName="SanctionDate">
-                                                                    <label for="SanctionDate">Sanction Date<sub
+                                                                        formControlName="AC_SANCTION_DATE">
+                                                                    <label for="AC_SANCTION_DATE">Sanction Date<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SanctionDate'].invalid && (angForm.controls['SanctionDate'].dirty || angForm.controls['SanctionDate'].touched)" class="alert alert-danger">
-                                                                <div *ngIf=" angForm.controls['SanctionDate'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_SANCTION_DATE'].invalid && (angForm.controls['AC_SANCTION_DATE'].dirty || angForm.controls['AC_SANCTION_DATE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf=" angForm.controls['AC_SANCTION_DATE'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -326,18 +297,18 @@
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="DrawingPower"
+                                                                    <input type="text" name="AC_DRAWPOWER_AMT"
                                                                         class="form-control" placeholder=" "
-                                                                        id="DrawingPower" required=""
-                                                                        value="{{ message.DrawingPower }}"
+                                                                        id="AC_DRAWPOWER_AMT" required=""
+                                                                        value=""
                                                                         max="9999-12-31" onfocus="(this.type='date')"
-                                                                        formControlName="DrawingPower">
-                                                                    <label for="DrawingPower">Drawing Power<sub
+                                                                        formControlName="AC_DRAWPOWER_AMT">
+                                                                    <label for="AC_DRAWPOWER_AMT">Drawing Power<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DrawingPower'].invalid && (angForm.controls['DrawingPower'].dirty || angForm.controls['DrawingPower'].touched)" class="alert alert-danger">
-                                                                <div *ngIf=" angForm.controls['DrawingPower'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_DRAWPOWER_AMT'].invalid && (angForm.controls['AC_DRAWPOWER_AMT'].dirty || angForm.controls['AC_DRAWPOWER_AMT'].touched)" class="alert alert-danger">
+                                                                <div *ngIf=" angForm.controls['AC_DRAWPOWER_AMT'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -345,19 +316,18 @@
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="InstallmentAmount"
+                                                                    <input type="text" name="AC_INSTALLMENT"
                                                                         class="form-control" placeholder=" "
-                                                                        id="InstallmentAmount"
-                                                                        value="{{ message.DepositAcNo }}"
+                                                                        id="AC_INSTALLMENT"
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="InstallmentAmount">
-                                                                    <label for="InstallmentAmount">Installment
-                                                                        Amount</label>
+                                                                        formControlName="AC_INSTALLMENT">
+                                                                    <label for="AC_INSTALLMENT">Installment Amount</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['InstallmentAmount'].invalid && (angForm.controls['InstallmentAmount'].dirty || angForm.controls['InstallmentAmount'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['InstallmentAmount'].errors?.pattern">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_INSTALLMENT'].invalid && (angForm.controls['AC_INSTALLMENT'].dirty || angForm.controls['AC_INSTALLMENT'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_INSTALLMENT'].errors?.pattern">
                                                                     Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -369,11 +339,11 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="Period"
                                                                         class="form-control" placeholder=" " id="Period"
-                                                                        required="" value="{{ message.Period }}"
+                                                                        required="" value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="Period">
-                                                                    <label for="Period">Period(Months)<sub
+                                                                    <label for="Period">Period in Months<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
@@ -386,19 +356,18 @@
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="MoratoriumPeriod"
+                                                                    <input type="text" name="AC_MORATORIUM_PERIOD"
                                                                         class="form-control" placeholder=" "
-                                                                        id="MoratoriumPeriod"
-                                                                        value="{{ message.MoratoriumPeriod }}"
+                                                                        id="AC_MORATORIUM_PERIOD"
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="MoratoriumPeriod">
-                                                                    <label for="MoratoriumPeriod">Moratorium
-                                                                        Period(Months)</label>
+                                                                        formControlName="AC_MORATORIUM_PERIOD">
+                                                                    <label for="AC_MORATORIUM_PERIOD">Moratorium Period(Months)</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['MoratoriumPeriod'].invalid && (angForm.controls['MoratoriumPeriod'].dirty || angForm.controls['MoratoriumPeriod'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['MoratoriumPeriod'].errors?.pattern">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_MORATORIUM_PERIOD'].invalid && (angForm.controls['AC_MORATORIUM_PERIOD'].dirty || angForm.controls['AC_MORATORIUM_PERIOD'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_MORATORIUM_PERIOD'].errors?.pattern">
                                                                     Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -406,18 +375,18 @@
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="GracePeriod"
+                                                                    <input type="text" name="AC_GRACE_PERIOD"
                                                                         class="form-control" placeholder=" "
-                                                                        id="GracePeriod"
-                                                                        value="{{ message.GracePeriod }}"
+                                                                        id="AC_GRACE_PERIOD"
+                                                                        value=" "
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="GracePeriod">
-                                                                    <label for="GracePeriod">Grace Period(Days)</label>
+                                                                        formControlName="AC_GRACE_PERIOD">
+                                                                    <label for="AC_GRACE_PERIOD">Grace Period in Days</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['GracePeriod'].invalid && (angForm.controls['GracePeriod'].dirty || angForm.controls['GracePeriod'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['GracePeriod'].errors?.pattern">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_GRACE_PERIOD'].invalid && (angForm.controls['AC_GRACE_PERIOD'].dirty || angForm.controls['AC_GRACE_PERIOD'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_GRACE_PERIOD'].errors?.pattern">
                                                                     Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -425,19 +394,19 @@
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="ExpiryDate1"
+                                                                    <input type="text" name="c"
                                                                         class="form-control" placeholder=" "
-                                                                        id="ExpiryDate1" required=""
-                                                                        value="{{ message.DrawingPower }}"
+                                                                        id="AC_EXPIRE_DATE" required=""
+                                                                        value=""
                                                                         max="9999-12-31" id="date"
                                                                         onfocus="(this.type='date')"
-                                                                        formControlName="ExpiryDate1">
-                                                                    <label for="ExpiryDate1">Expiry Date<sub
+                                                                        formControlName="AC_EXPIRE_DATE">
+                                                                    <label for="AC_EXPIRE_DATE">Expiry Date<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ExpiryDate1'].invalid && (angForm.controls['ExpiryDate1'].dirty || angForm.controls['ExpiryDate1'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['ExpiryDate1'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_EXPIRE_DATE'].invalid && (angForm.controls['AC_EXPIRE_DATE'].dirty || angForm.controls['AC_EXPIRE_DATE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_EXPIRE_DATE'].errors?.required">
                                                                     Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -448,19 +417,19 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="NormalIntRate"
+                                                                    <input type="text" name="AC_INTRATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="NormalIntRate" required=""
-                                                                        value="{{ message.GracePeriod }}"
+                                                                        id="AC_INTRATE" required=""
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="NormalIntRate">
-                                                                    <label for="NormalIntRate">Normal Int. Rate<sub
+                                                                        formControlName="AC_INTRATE">
+                                                                    <label for="AC_INTRATE">Normal Int. Rate<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['NormalIntRate'].invalid && (angForm.controls['NormalIntRate'].dirty || angForm.controls['NormalIntRate'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['NormalIntRate'].errors?.pattern || angForm.controls['NormalIntRate'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_INTRATE'].invalid && (angForm.controls['AC_INTRATE'].dirty || angForm.controls['AC_INTRATE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_INTRATE'].errors?.pattern || angForm.controls['AC_INTRATE'].errors?.required">
                                                                     This field is rquired and Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -471,7 +440,7 @@
                                                                     <input type="text" name="PenalIntRate"
                                                                         class="form-control" placeholder=" "
                                                                         id="PenalIntRate"
-                                                                        value="{{ message.GracePeriod }}"
+                                                                        value=" "
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="PenalIntRate">
@@ -487,31 +456,32 @@
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="EffectiveDate"
+                                                                    <input type="text" name="EFFECT_DATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="EffectiveDate" required=""
-                                                                        value="{{ message.Birth_Date }}"
+                                                                        id="EFFECT_DATE" required=""
+                                                                        value=""
                                                                         max="9999-12-31" onfocus="(this.type='date')"
-                                                                        formControlName="EffectiveDate">
-                                                                    <label for="EffectiveDate">Effective Date<sub
+                                                                        formControlName="EFFECT_DATE">
+                                                                    <label for="EFFECT_DATE">Effective Date<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
 
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EffectiveDate'].invalid && (angForm.controls['EffectiveDate'].dirty || angForm.controls['EffectiveDate'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['EffectiveDate'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-2">
+                                                        <!-- <div class="col-sm-2">
                                                             <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
                                                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </ng-template>
                                         </ngb-tab>
+
                                         <ngb-tab title="2.Other Detail">
                                             <ng-template ngbTabContent>
                                                 <div [@fadeInOutTranslate] class="m-t-15">
@@ -521,14 +491,14 @@
                                                                 <span class="border-lable-flt">
                                                                     <ng-select [ngClass]="'ng-select'"
                                                                         [options]="statementOption" [multiple]="false"
-                                                                        placeholder="Authority *" required
+                                                                        placeholder="Authority*" required
                                                                         title="Compulsory Selection"
-                                                                        formControlName="Authority">
+                                                                        formControlName="AC_AUTHORITY">
                                                                     </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Authority'].invalid && (angForm.controls['Authority'].dirty || angForm.controls['Authority'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Authority'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_AUTHORITY'].invalid && (angForm.controls['AC_AUTHORITY'].dirty || angForm.controls['AC_AUTHORITY'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_AUTHORITY'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -540,12 +510,12 @@
                                                                     [options]="statementOption" [multiple]="false"
                                                                     placeholder="Recommended By *" required
                                                                     title="Compulsory Selection"
-                                                                    formControlName="RecommendedBy">
+                                                                    formControlName="AC_RECOMMEND_BY">
                                                                 </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['RecommendedBy'].invalid && (angForm.controls['RecommendedBy'].dirty || angForm.controls['RecommendedBy'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['RecommendedBy'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_RECOMMEND_BY'].invalid && (angForm.controls['AC_RECOMMEND_BY'].dirty || angForm.controls['AC_RECOMMEND_BY'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_RECOMMEND_BY'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -557,12 +527,12 @@
                                                                     [options]="statementOption" [multiple]="false"
                                                                     placeholder="Priority *" required
                                                                     title="Compulsory Selection"
-                                                                    formControlName="Priority">
+                                                                    formControlName="AC_PRIORITY">
                                                                 </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Priority'].invalid && (angForm.controls['Priority'].dirty || angForm.controls['Priority'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Priority'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_PRIORITY'].invalid && (angForm.controls['AC_PRIORITY'].dirty || angForm.controls['AC_PRIORITY'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_PRIORITY'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -576,12 +546,12 @@
                                                                     [options]="statementOption" [multiple]="false"
                                                                     placeholder="Purpose *" required
                                                                     title="Compulsory Selection"
-                                                                    formControlName="Purpose">
+                                                                    formControlName="AC_PURPOSE">
                                                                 </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Purpose'].invalid && (angForm.controls['Purpose'].dirty || angForm.controls['Purpose'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Purpose'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_PURPOSE'].invalid && (angForm.controls['AC_PURPOSE'].dirty || angForm.controls['AC_PURPOSE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_PURPOSE'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -591,14 +561,14 @@
                                                                 <span class="border-lable-flt">
                                                                     <ng-select [ngClass]="'ng-select'"
                                                                     [options]="statementOption" [multiple]="false"
-                                                                    placeholder="Industry *" required
+                                                                    placeholder="Industry*" required
                                                                     title="Compulsory Selection"
-                                                                    formControlName="Industry">
+                                                                    formControlName="AC_INDUSTRY">
                                                                 </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Industry'].invalid && (angForm.controls['Industry'].dirty || angForm.controls['Industry'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Industry'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_INDUSTRY'].invalid && (angForm.controls['AC_INDUSTRY'].dirty || angForm.controls['AC_INDUSTRY'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_INDUSTRY'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -610,12 +580,12 @@
                                                                     [options]="statementOption" [multiple]="false"
                                                                     placeholder="Weaker Section *" required
                                                                     title="Compulsory Selection"
-                                                                    formControlName="WeakerSection">
+                                                                    formControlName="AC_WEAKER">
                                                                 </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['WeakerSection'].invalid && (angForm.controls['WeakerSection'].dirty || angForm.controls['WeakerSection'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['WeakerSection'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_WEAKER'].invalid && (angForm.controls['AC_WEAKER'].dirty || angForm.controls['AC_WEAKER'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_WEAKER'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -624,11 +594,11 @@
                                                     <div class="row">
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
-                                                                <ng-select [ngClass]="'ng-select'" [options]="statementOption" [multiple]="false" placeholder="Account Type" required title="Compulsory Selection" formControlName="AccountType">
+                                                                <ng-select [ngClass]="'ng-select'" [options]="statementOption" [multiple]="false" placeholder="Account Type" required title="Compulsory Selection" formControlName="AC_RELATION_TYPE">
                                                                 </ng-select>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AccountType'].invalid && (angForm.controls['AccountType'].dirty || angForm.controls['AccountType'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['AccountType'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_RELATION_TYPE'].invalid && (angForm.controls['AC_RELATION_TYPE'].dirty || angForm.controls['AC_RELATION_TYPE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_RELATION_TYPE'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -640,12 +610,12 @@
                                                                     [options]="statementOption" [multiple]="false"
                                                                     placeholder="Director " 
                                                                     title="Compulsory Selection"
-                                                                    formControlName="Director">
+                                                                    formControlName="AC_DIRECTOR">
                                                                 </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Director'].invalid && (angForm.controls['Director'].dirty || angForm.controls['Director'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Director'].errors?.pattern ">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_DIRECTOR'].invalid && (angForm.controls['AC_DIRECTOR'].dirty || angForm.controls['AC_DIRECTOR'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_DIRECTOR'].errors?.pattern ">
                                                                     Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -657,12 +627,12 @@
                                                                     [options]="statementOption" [multiple]="false"
                                                                     placeholder="Director Relation " 
                                                                     title="Compulsory Selection"
-                                                                    formControlName="Director_Relation">
+                                                                    formControlName="AC_DIRECTOR_RELATION">
                                                                 </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Director_Relation'].invalid && (angForm.controls['Director_Relation'].dirty || angForm.controls['Director_Relation'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Director_Relation'].errors?.pattern ">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_DIRECTOR_RELATION'].invalid && (angForm.controls['AC_DIRECTOR_RELATION'].dirty || angForm.controls['AC_DIRECTOR_RELATION'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_DIRECTOR_RELATION'].errors?.pattern ">
                                                                     Input allowed only A-Z a-z - / . (Space)
                                                                 </div>
                                                             </div>
@@ -677,17 +647,17 @@
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="R_No" class="form-control"
-                                                                        placeholder=" " id="R_No"
-                                                                        value="{{ message.UnclearBalance }}"
+                                                                    <input type="text" name="AC_COREG_NO" class="form-control"
+                                                                        placeholder=" " id="AC_COREG_NO"
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="R_No">
-                                                                    <label for="R_No">No.</label>
+                                                                        formControlName="AC_COREG_NO">
+                                                                    <label for="AC_COREG_NO">No.</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['R_No'].invalid && (angForm.controls['R_No'].dirty || angForm.controls['R_No'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['R_No'].errors?.pattern">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_COREG_NO'].invalid && (angForm.controls['AC_COREG_NO'].dirty || angForm.controls['AC_COREG_NO'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_COREG_NO'].errors?.pattern">
                                                                     Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -695,29 +665,29 @@
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="R_Date"
-                                                                        class="form-control" placeholder=" " id="R_Date"
-                                                                        value="{{ message.Birth_Date }}"
+                                                                    <input type="text" name="AC_COREG_DATE"
+                                                                        class="form-control" placeholder=" " id="No."
+                                                                        value=""
                                                                         max="9999-12-31" onfocus="(this.type='date')"
-                                                                        formControlName="R_Date">
-                                                                    <label for="R_Date">Date</label>
+                                                                        formControlName="AC_COREG_DATE">
+                                                                    <label for="AC_COREG_DATE">Date</label>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="Amount"
-                                                                        class="form-control" placeholder=" " id="Amount"
-                                                                        value="{{ message.UnclearBalance }}"
+                                                                    <input type="text" name="AC_COREG_AMT"
+                                                                        class="form-control" placeholder=" " id="AC_COREG_AMT"
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="Amount">
-                                                                    <label for="Amount">Amount</label>
+                                                                        formControlName="AC_COREG_AMT">
+                                                                    <label for="AC_COREG_AMT">Amount</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Amount'].invalid && (angForm.controls['Amount'].dirty || angForm.controls['Amount'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Amount'].errors?.pattern">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_COREG_AMT'].invalid && (angForm.controls['AC_COREG_AMT'].dirty || angForm.controls['AC_COREG_AMT'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_COREG_AMT'].errors?.pattern">
                                                                     Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -729,25 +699,23 @@
                                                         </div>
 
                                                     </div>
-                                                    <div class="row">
-                                                        <label> </label>
-                                                    </div>
+                                                    
                                                     <div class="row">
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="ResolutionNo"
+                                                                    <input type="text" name="AC_RESO_NO"
                                                                         class="form-control" placeholder=" "
-                                                                        id="ResolutionNo"
-                                                                        value="{{ message.UnclearBalance }}"
+                                                                        id="AC_RESO_NO"
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="ResolutionNo">
-                                                                    <label for="ResolutionNo">No.</label>
+                                                                        formControlName="AC_RESO_NO">
+                                                                    <label for="AC_RESO_NO">No.</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ResolutionNo'].invalid && (angForm.controls['ResolutionNo'].dirty || angForm.controls['ResolutionNo'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['ResolutionNo'].errors?.pattern">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_RESO_NO'].invalid && (angForm.controls['AC_RESO_NO'].dirty || angForm.controls['AC_RESO_NO'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_RESO_NO'].errors?.pattern">
                                                                     Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -755,25 +723,23 @@
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="ResolutionDate"
+                                                                    <input type="text" name="AC_RESO_DATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="ResolutionDate"
-                                                                        value="{{ message.Birth_Date }}"
+                                                                        id="AC_RESO_DATE"
+                                                                        value=""
                                                                         max="9999-12-31" onfocus="(this.type='date')"
-                                                                        formControlName="ResolutionDate">
-                                                                    <label for="ResolutionDate">Date</label>
+                                                                        formControlName="AC_RESO_DATE">
+                                                                    <label for="AC_RESO_DATE">Date</label>
                                                                 </span>
                                                             </div>
 
                                                         </div>
-                                                        <div class="col-sm">
-                                                            <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
-                                                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                                                        </div>
+                                                       
                                                     </div>
                                                 </div>
                                             </ng-template>
                                         </ngb-tab>
+
                                         <ngb-tab title="3.Address">
                                             <ng-template ngbTabContent>
                                                 <div [@fadeInOutTranslate] class="m-t-15">
@@ -781,10 +747,327 @@
                                                         <div class="col-sm">
                                                             <h6 style="text-align: center;font-size: 16px;">--------- Permanent Address ---------</h6>
                                                         </div>
-
                                                     </div>
                                                     <div class="row">
-                                                        <label> </label>
+                                                        <div class="col-md">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="House" class="form-control"
+                                                                        placeholder=" " id="House"
+                                                                        value=""
+                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        formControlName="House">
+                                                                    <label for="House">House</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['House'].invalid && (angForm.controls['House'].dirty || angForm.controls['House'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['House'].errors?.pattern">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="Ward" class="form-control"
+                                                                        placeholder=" " id="Ward" value=""
+                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        formControlName="Ward">
+                                                                    <label for="Ward">Ward</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Ward'].invalid && (angForm.controls['Ward'].dirty || angForm.controls['Ward'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['Ward'].errors?.pattern">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <textarea type="text" name="Detail" class="form-control"
+                                                                        placeholder=" " pattern="^[A-Za-z\./ -]+$"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        id="Detail" value=""
+                                                                        formControlName="Detail"></textarea>
+                                                                    <label for="Detail">Detail</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Detail'].invalid && (angForm.controls['Detail'].dirty || angForm.controls['Detail'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['Detail'].errors?.pattern">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="Galli" class="form-control"
+                                                                        placeholder=" " id="Galli"
+                                                                        value=""
+                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        formControlName="Galli">
+                                                                    <label for="Galli">Galli</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Galli'].invalid && (angForm.controls['Galli'].dirty || angForm.controls['Galli'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['Galli'].errors?.pattern">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <ng-select [ngClass]="'ng-select'" [options]="d" [multiple]="false" placeholder="City" required title="Compulsory Selection" formControlName="City">
+                                                                </ng-select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="Area" class="form-control"
+                                                                        placeholder=" " id="Area" value=""
+                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        formControlName="Area">
+                                                                    <label for="Area">Area</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Area'].invalid && (angForm.controls['Area'].dirty || angForm.controls['Area'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['Area'].errors?.pattern">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="PinCode" class="form-control"
+                                                                        placeholder=" " id="PinCode"
+                                                                        value="" pattern="^[0-9]+$"
+                                                                        title="Input allowed only  0-9"
+                                                                        formControlName="PinCode">
+                                                                    <label for="PinCode">Pin Code</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['PinCode'].invalid && (angForm.controls['PinCode'].dirty || angForm.controls['PinCode'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['PinCode'].errors?.pattern">
+                                                                    Input allowed only 0-9
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <h6 style="text-align: center;font-size: 16px;">--------- Temporory Address ---------</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="TempHouse" class="form-control"
+                                                                        placeholder=" " id="TempHouse"
+                                                                        value=""
+                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        formControlName="TempHouse">
+                                                                    <label for="TempHouse">House</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TempHouse'].invalid && (angForm.controls['TempHouse'].dirty || angForm.controls['TempHouse'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['TempHouse'].errors?.pattern">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="TempWard" class="form-control"
+                                                                        placeholder=" " id="TempWard"
+                                                                        value=""
+                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        formControlName="TempWard">
+                                                                    <label for="TempWard">Ward</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TempWard'].invalid && (angForm.controls['TempWard'].dirty || angForm.controls['TempWard'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['TempWard'].errors?.pattern">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <textarea type="text" name="TempDetail" class="form-control"
+                                                                        placeholder=" " pattern="^[A-Za-z\./ -]+$"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        id="TempDetail" value=""
+                                                                        formControlName="TempDetail"></textarea>
+                                                                    <label for="TempDetail">Detail</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TempDetail'].invalid && (angForm.controls['TempDetail'].dirty || angForm.controls['TempDetail'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['TempDetail'].errors?.pattern">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="TempGalli" class="form-control"
+                                                                        placeholder=" " id="TempGalli"
+                                                                        value=""
+                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        formControlName="TempGalli">
+                                                                    <label for="TempGalli">Galli</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TempGalli'].invalid && (angForm.controls['TempGalli'].dirty || angForm.controls['TempGalli'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['TempGalli'].errors?.pattern">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <ng-select [ngClass]="'ng-select'" [options]="d" [multiple]="false" placeholder="City" title="Compulsory Selection" formControlName="TempCity">
+                                                                </ng-select>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TempCity'].invalid && (angForm.controls['TempCity'].dirty || angForm.controls['TempCity'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['TempCity'].errors?.pattern">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="TempArea" class="form-control"
+                                                                        placeholder=" " id="c"
+                                                                        value=""
+                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        formControlName="TempArea">
+                                                                    <label for="TempArea">Area</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TempArea'].invalid && (angForm.controls['TempArea'].dirty || angForm.controls['TempArea'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['TempArea'].errors?.pattern">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="TempPinCode" class="form-control"
+                                                                        placeholder=" " id="TempPinCode"
+                                                                        value="" pattern="^[0-9]+$"
+                                                                        title="Input allowed only  0-9"
+                                                                        formControlName="TempPinCode">
+                                                                    <label for="TempPinCode">Pin Code</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TempPinCode'].invalid && (angForm.controls['TempPinCode'].dirty || angForm.controls['TempPinCode'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['TempPinCode'].errors?.pattern">
+                                                                    Input allowed only 0-9
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="TelePh" class="form-control"
+                                                                        placeholder=" " id="TelePh" value=""
+                                                                        pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                                                        formControlName="TelePh">
+                                                                    <label for="TelePh">Tele. Ph.</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TelePh'].invalid && (angForm.controls['TelePh'].dirty || angForm.controls['TelePh'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['TelePh'].errors?.pattern">
+                                                                    Input allowed only 0-9
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="R" class="form-control" placeholder=" "
+                                                                        id="label-name"  value="" pattern="^[0-9]+$"
+                                                                        title="Input allowed only  0-9" formControlName="R">
+                                                                    <label for="label-name">R</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['R'].invalid && (angForm.controls['R'].dirty || angForm.controls['R'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['R'].errors?.pattern">
+                                                                    Input allowed only 0-9
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="Customer_mobile"
+                                                                        class="form-control" placeholder=" "
+                                                                        id="Customer_mobile"
+                                                                        value="" pattern="^[0-9]+$"
+                                                                        title="Input allowed only  0-9"
+                                                                        formControlName="Customer_mobile">
+                                                                    <label for="Customer_mobile">Mobile</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Customer_mobile'].invalid && (angForm.controls['Customer_mobile'].dirty || angForm.controls['Customer_mobile'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['Customer_mobile'].errors?.pattern">
+                                                                    Input allowed only 0-9
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="customer_email"
+                                                                        class="form-control" placeholder=" "
+                                                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                                                        title="Enter valid Email" id="customer_email"
+                                                                        value=""
+                                                                        formControlName="customer_email">
+                                                                    <label for="customer_email">Email</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['customer_email'].invalid && (angForm.controls['customer_email'].dirty || angForm.controls['customer_email'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['customer_email'].errors?.pattern">
+                                                                    Enter valid Email
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                       
+                                                       
+                                                    </div>
+                                                    <!-- <div class="row">
+                                                        <div class="col-sm">
+                                                            <h6 style="text-align: center;font-size: 16px;">--------- Permanent Address ---------</h6>
+                                                        </div>
+
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md">
@@ -1026,10 +1309,11 @@
                                                             <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
                                                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </ng-template>
                                         </ngb-tab>
+
                                         <ngb-tab title="4.Guarantor /Secrities">
                                             <ng-template ngbTabContent>
                                                 <div [@fadeInOutTranslate] class="m-t-15">
@@ -1196,10 +1480,10 @@
                                                                                 </ng-select>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="col-sm-2">
+                                                                        <!-- <div class="col-sm-2">
                                                                             <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
                                                                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1207,10 +1491,10 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-12">
-                                                            <div class="table-responsive">
+                                                            <!-- <div class="table-responsive">
                                                                 <table datatable [dtOptions]="guarantorOptions" class="table table-striped table-bordered table-hover" style="width:100%;">
                                                                 </table>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -1265,10 +1549,10 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-12">
-                                                            <div class="table-responsive">
+                                                            <!-- <div class="table-responsive">
                                                                 <table datatable [dtOptions]="securitiesOptions" class="table table-striped table-bordered table-hover" style="width:100%;">
                                                                 </table>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -1279,13 +1563,13 @@
                                                         <div class="col-sm-4">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="G_Remark"
+                                                                    <input type="text" name="G_AC_REMARK"
                                                                         class="form-control" placeholder=" "
-                                                                        id="G_Remark" value="{{ message.CustomerID }}"
+                                                                        id="G_AC_REMARK" value="{{ message.CustomerID }}"
                                                                         pattern="^[A-Za-z\./ -]+$"
                                                                         title="Input allowed only  A-Z a-z - / . (Space)"
-                                                                        formControlName="G_Remark">
-                                                                    <label for="G_Remark">Remark</label>
+                                                                        formControlName="G_AC_REMARK">
+                                                                    <label for="G_AC_REMARK">AC_REMARK</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -1293,6 +1577,7 @@
                                                 </div>
                                             </ng-template>
                                         </ngb-tab>
+
                                         <ngb-tab title="5.Dispute Details">
                                             <ng-template ngbTabContent>
                                                 <div [@fadeInOutTranslate] class="m-t-15">
@@ -1300,31 +1585,31 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="SuiteDate"
+                                                                    <input type="text" name="CASE_SUITE_DATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="SuiteDate" value="{{ message.Birth_Date }}"
+                                                                        id="CASE_SUITE_DATE" value=""
                                                                         max="9999-12-31" onfocus="(this.type='date')"
-                                                                        formControlName="SuiteDate">
-                                                                    <label for="SuiteDate">Suite Date</label>
+                                                                        formControlName="CASE_SUITE_DATE">
+                                                                    <label for="CASE_SUITE_DATE">Suite Date</label>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="CourtInterestRate"
+                                                                    <input type="text" name="COURT_INT_RATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="CourtInterestRate"
-                                                                        value="{{ message.NormalInterestRate }}"
+                                                                        id="COURT_INT_RATE"
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="CourtInterestRate">
-                                                                    <label for="CourtInterestRate">Court Interest
+                                                                        formControlName="COURT_INT_RATE">
+                                                                    <label for="COURT_INT_RATE">Court Interest
                                                                         Rate</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CourtInterestRate'].invalid && (angForm.controls['CourtInterestRate'].dirty || angForm.controls['CourtInterestRate'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['CourtInterestRate'].errors?.pattern">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['COURT_INT_RATE'].invalid && (angForm.controls['COURT_INT_RATE'].dirty || angForm.controls['COURT_INT_RATE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['COURT_INT_RATE'].errors?.pattern">
                                                                     Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -1332,19 +1617,19 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="CourtInstallment"
+                                                                    <input type="text" name="COURT_INSTALLMENT"
                                                                         class="form-control" placeholder=" "
-                                                                        id="CourtInstallment"
-                                                                        value="{{ message.CourtInstallment }}"
+                                                                        id="COURT_INSTALLMENT"
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="CourtInstallment">
-                                                                    <label for="CourtInstallment">Court
+                                                                        formControlName="COURT_INSTALLMENT">
+                                                                    <label for="COURT_INSTALLMENT">Court
                                                                         Installment</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CourtInstallment'].invalid && (angForm.controls['CourtInstallment'].dirty || angForm.controls['CourtInstallment'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['CourtInstallment'].errors?.pattern">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['COURT_INSTALLMENT'].invalid && (angForm.controls['COURT_INSTALLMENT'].dirty || angForm.controls['COURT_INSTALLMENT'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['COURT_INSTALLMENT'].errors?.pattern">
                                                                     Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -1352,13 +1637,13 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="CourtOrderDate"
+                                                                    <input type="text" name="COURT_ORDER_DATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="CourtOrderDate"
-                                                                        value="{{ message.Birth_Date }}"
+                                                                        id="COURT_ORDER_DATE"
+                                                                        value=""
                                                                         max="9999-12-31" onfocus="(this.type='date')"
-                                                                        formControlName="CourtOrderDate">
-                                                                    <label for="CourtOrderDate">Court Order Date</label>
+                                                                        formControlName="COURT_ORDER_DATE">
+                                                                    <label for="COURT_ORDER_DATE">Court Order Date</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -1367,19 +1652,19 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="SuiteAmount"
+                                                                    <input type="text" name="SUITE_AMT"
                                                                         class="form-control" placeholder=" "
-                                                                        id="SuiteAmount" required=""
-                                                                        value="{{ message.CustomerID }}"
+                                                                        id="SUITE_AMT" required=""
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="SuiteAmount">
-                                                                    <label for="SuiteAmount">Suite Amount<sub
+                                                                        formControlName="SUITE_AMT">
+                                                                    <label for="SUITE_AMT">Suite Amount<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SuiteAmount'].invalid && (angForm.controls['SuiteAmount'].dirty || angForm.controls['SuiteAmount'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['SuiteAmount'].errors?.pattern || angForm.controls['SuiteAmount'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SUITE_AMT'].invalid && (angForm.controls['SUITE_AMT'].dirty || angForm.controls['SUITE_AMT'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['SUITE_AMT'].errors?.pattern || angForm.controls['SUITE_AMT'].errors?.required">
                                                                     This field is required and Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -1387,12 +1672,12 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="ResultDate"
+                                                                    <input type="text" name="COURT_RESULT_DATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="ResultDate" value="{{ message.Birth_Date }}"
+                                                                        id="COURT_RESULT_DATE" value=""
                                                                         max="9999-12-31" onfocus="(this.type='date')"
-                                                                        formControlName="ResultDate">
-                                                                    <label for="ResultDate">Result Date</label>
+                                                                        formControlName="COURT_RESULT_DATE">
+                                                                    <label for="COURT_RESULT_DATE">Result Date</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -1412,19 +1697,19 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="RecoverableAmount"
+                                                                    <input type="text" name="RECOVERABLE_AMT"
                                                                         class="form-control" placeholder=" "
-                                                                        id="RecoverableAmount" required=""
-                                                                        value="{{ message.CustomerID }}"
+                                                                        id="RECOVERABLE_AMT" required=""
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="RecoverableAmount">
-                                                                    <label for="RecoverableAmount">Recoverable
+                                                                        formControlName="RECOVERABLE_AMT">
+                                                                    <label for="RECOVERABLE_AMT">Recoverable
                                                                         Amount<sub class="required">* </sub></label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['RecoverableAmount'].invalid && (angForm.controls['RecoverableAmount'].dirty || angForm.controls['RecoverableAmount'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['RecoverableAmount'].errors?.pattern || angForm.controls['RecoverableAmount'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['RECOVERABLE_AMT'].invalid && (angForm.controls['RECOVERABLE_AMT'].dirty || angForm.controls['RECOVERABLE_AMT'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['RECOVERABLE_AMT'].errors?.pattern || angForm.controls['RECOVERABLE_AMT'].errors?.required">
                                                                     This field is required and Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -1434,33 +1719,31 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="IntCalculationDate"
+                                                                    <input type="text" name="INT_CALC_DATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="IntCalculationDate"
-                                                                        value="{{ message.Birth_Date }}"
+                                                                        id="INT_CALC_DATE"
+                                                                        value=""
                                                                         max="9999-12-31" onfocus="(this.type='date')"
-                                                                        formControlName="IntCalculationDate">
-                                                                    <label for="IntCalculationDate">Int. Calculation
-                                                                        Date</label>
+                                                                        formControlName="INT_CALC_DATE">
+                                                                    <label for="INT_CALC_DATE">Int. Calculation Date</label>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="RecoverableInterest"
+                                                                    <input type="text" name="RECOVERABLE_INT"
                                                                         class="form-control" placeholder=" "
-                                                                        id="RecoverableInterest"
-                                                                        value="{{ message.NormalInterestRate }}"
+                                                                        id="RECOVERABLE_INT"
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="RecoverableInterest">
-                                                                    <label for="RecoverableInterest">Recoverable
-                                                                        Interest</label>
+                                                                        formControlName="RECOVERABLE_INT">
+                                                                    <label for="RECOVERABLE_INT">Recoverable Interest</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['RecoverableInterest'].invalid && (angForm.controls['RecoverableInterest'].dirty || angForm.controls['RecoverableInterest'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['RecoverableInterest'].errors?.pattern">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['RECOVERABLE_INT'].invalid && (angForm.controls['RECOVERABLE_INT'].dirty || angForm.controls['RECOVERABLE_INT'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['RECOVERABLE_INT'].errors?.pattern">
                                                                     Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -1468,18 +1751,18 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="CASE_NO"
+                                                                    <input type="text" name="COURT_CASE_NO"
                                                                         class="form-control" placeholder=" "
-                                                                        id="CASE_NO"
-                                                                        value="{{ message.NormalInterestRate }}"
+                                                                        id="COURT_CASE_NO"
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="CASE_NO">
-                                                                    <label for="CASE_NO">Case No.</label>
+                                                                        formControlName="COURT_CASE_NO">
+                                                                    <label for="COURT_CASE_NO">Case No.</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CASE_NO'].invalid && (angForm.controls['CASE_NO'].dirty || angForm.controls['CASE_NO'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['CASE_NO'].errors?.pattern">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['COURT_CASE_NO'].invalid && (angForm.controls['COURT_CASE_NO'].dirty || angForm.controls['COURT_CASE_NO'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['COURT_CASE_NO'].errors?.pattern">
                                                                     Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -1487,17 +1770,17 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="OldScheme"
+                                                                    <input type="text" name="REF_OLD_AC_TYPE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="OldScheme" value="{{ message.CustomerID }}"
+                                                                        id="REF_OLD_AC_TYPE" value=""
                                                                         pattern="^[A-Za-z0-9\./ -]+$"
                                                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
-                                                                        formControlName="OldScheme">
-                                                                    <label for="OldScheme">Old Scheme/ A/c No.</label>
+                                                                        formControlName="REF_OLD_AC_TYPE">
+                                                                    <label for="REF_OLD_AC_TYPE">Old Scheme/ A/c No.1</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['OldScheme'].invalid && (angForm.controls['OldScheme'].dirty || angForm.controls['OldScheme'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['OldScheme'].errors?.pattern">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['REF_OLD_AC_TYPE'].invalid && (angForm.controls['REF_OLD_AC_TYPE'].dirty || angForm.controls['REF_OLD_AC_TYPE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['REF_OLD_AC_TYPE'].errors?.pattern">
                                                                     Input allowed only A-Z a-z 0-9 - / . (Space)
                                                                 </div>
                                                             </div>
@@ -1508,19 +1791,19 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="OldScheme1"
+                                                                    <input type="text" name="REF_OLD_AC_NO"
                                                                         class="form-control" placeholder=" "
-                                                                        id="OldScheme1" required=""
-                                                                        value="{{ message.CustomerID }}"
+                                                                        id="REF_OLD_AC_NO" required=""
+                                                                        value=""
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="OldScheme1">
-                                                                    <label for="OldScheme1">Old Scheme/ A/c No.<sub
+                                                                        formControlName="REF_OLD_AC_NO">
+                                                                    <label for="REF_OLD_AC_NO">Old Scheme/ A/c No.2<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['OldScheme1'].invalid && (angForm.controls['OldScheme1'].dirty || angForm.controls['OldScheme1'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['OldScheme1'].errors?.pattern || angForm.controls['OldScheme1'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['REF_OLD_AC_NO'].invalid && (angForm.controls['REF_OLD_AC_NO'].dirty || angForm.controls['REF_OLD_AC_NO'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['REF_OLD_AC_NO'].errors?.pattern || angForm.controls['REF_OLD_AC_NO'].errors?.required">
                                                                     This field is required and Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -1528,12 +1811,12 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <ng-select [ngClass]="'ng-select'" [options]="statementOption" [multiple]="false" placeholder="Advocate *" required title="Compulsory Selection" formControlName="Advocate">
+                                                                    <ng-select [ngClass]="'ng-select'" [options]="statementOption" [multiple]="false" placeholder="Advocate *" required title="Compulsory Selection" formControlName="ADVOCATE">
                                                                     </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Advocate'].invalid && (angForm.controls['Advocate'].dirty || angForm.controls['Advocate'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Advocate'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ADVOCATE'].invalid && (angForm.controls['ADVOCATE'].dirty || angForm.controls['ADVOCATE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['ADVOCATE'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -1541,12 +1824,12 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <ng-select [ngClass]="'ng-select'" [options]="statementOption" [multiple]="false" placeholder="Loan Stage *" required title="Compulsory Selection" formControlName="LoanStage">
+                                                                    <ng-select [ngClass]="'ng-select'" [options]="statementOption" [multiple]="false" placeholder="Loan Stage *" required title="Compulsory Selection" formControlName="LOAN_STAGE">
                                                                     </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['LoanStage'].invalid && (angForm.controls['LoanStage'].dirty || angForm.controls['LoanStage'].touched)" class="alert alert-danger">
-                                                                <div *ngIf=" angForm.controls['LoanStage'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['LOAN_STAGE'].invalid && (angForm.controls['LOAN_STAGE'].dirty || angForm.controls['LOAN_STAGE'].touched)" class="alert alert-danger">
+                                                                <div *ngIf=" angForm.controls['LOAN_STAGE'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -1554,12 +1837,12 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <ng-select [ngClass]="'ng-select'" [options]="statementOption" [multiple]="false" placeholder="Court *" required title="Compulsory Selection" formControlName="Court">
+                                                                    <ng-select [ngClass]="'ng-select'" [options]="statementOption" [multiple]="false" placeholder="Court *" required title="Compulsory Selection" formControlName="COURT">
                                                                     </ng-select>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Court'].invalid && (angForm.controls['Court'].dirty || angForm.controls['Court'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Court'].errors?.required">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['COURT'].invalid && (angForm.controls['COURT'].dirty || angForm.controls['COURT'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['COURT'].errors?.required">
                                                                     This field is required
                                                                 </div>
                                                             </div>
@@ -1569,29 +1852,30 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="Remark"
-                                                                        class="form-control" placeholder=" " id="Remark"
-                                                                        value="{{ message.Remark }}"
+                                                                    <input type="text" name="AC_REMARK"
+                                                                        class="form-control" placeholder=" " id="AC_REMARK"
+                                                                        value=""
                                                                         pattern="^[A-Za-z\./ -]+$"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                        formControlName="Remark">
-                                                                    <label for="Remark">Remark</label>
+                                                                        formControlName="AC_REMARK">
+                                                                    <label for="AC_REMARK">Remark</label>
                                                                 </span>
                                                             </div>
-                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Remark'].invalid && (angForm.controls['Remark'].dirty || angForm.controls['Remark'].touched)" class="alert alert-danger">
-                                                                <div *ngIf="angForm.controls['Remark'].errors?.pattern">
+                                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_REMARK'].invalid && (angForm.controls['AC_REMARK'].dirty || angForm.controls['AC_REMARK'].touched)" class="alert alert-danger">
+                                                                <div *ngIf="angForm.controls['AC_REMARK'].errors?.pattern">
                                                                     Input allowed only A-Z a-z - / . (Space)
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <!-- <div class="col-sm">
                                                             <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
                                                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </ng-template>
                                         </ngb-tab>
+
                                         <ngb-tab title="6.Documents">
                                             <ng-template ngbTabContent>
                                                 <div [@fadeInOutTranslate] class="m-t-15">
@@ -1610,12 +1894,116 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="table-responsive">
+                                <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover">
+                                    <tbody *ngIf="disputelonemaster?.length != 0">
+                                        <tr *ngFor="let data of disputelonemaster">
+                                            <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button>
+                                            </td>
+                                            <td>{{data.AC_TYPE}}</td>
+                                            <td>{{data.AC_NO}}</td>
+                                            <td>{{data.REF_AC_TYPE}}</td>
+                                            <td>{{data.REF_AC_NO}}</td>
+                                            <td>{{data.AC_OPDATE}}</td>
+                                            <td>{{data.AC_MEMBTYPE}}</td>
+                                            <td>{{data.AC_MEMBNO}}</td>
+                                            <td>{{data.AC_CAST}}</td>
+                                            <td>{{data.AC_OCODE}}</td>
+                                            <td>{{data.AC_INTCATA}}</td>
+                                            <td>{{data.AC_HEALTH}}</td>
+                                            <td>{{data.AC_REPAYMODE}}</td>
+                                            <td>{{data.AC_SANCTION_AMOUNT}}</td>
+                                            <td>{{data.AC_SANCTION_DATE}}</td>
+                                            <td>{{data.AC_DRAWPOWER_AMT}}</td>
+                                            <td>{{data.AC_INSTALLMENT}}</td>
+                                            <td>{{data.Period}}</td>
+                                            <td>{{data.AC_MORATORIUM_PERIOD}}</td>
+                                            <td>{{data.AC_GRACE_PERIOD}}</td>
+                                            <td>{{data.AC_EXPIRE_DATE}}</td>
+                                            <td>{{data.AC_INTRATE}} </td>
+                                            <td>{{data.PenalIntRate}}</td>
+                                            <td>{{data.EFFECT_DATE}}</td>
+                                            <td>{{data.AC_AUTHORITY}}</td>
+                                            <td>{{data.AC_RECOMMEND_BY}}</td>
+                                            <td>{{data.AC_PRIORITY}}</td>
+                                            <td>{{data.AC_PURPOSE}}</td>
+                                            <td>{{data.AC_INDUSTRY}}</td>
+                                            <td>{{data.AC_WEAKER}}</td>
+                                            <td>{{data.AC_RELATION_TYPE}}</td>
+                                            <td>{{data.AC_DIRECTOR}}</td>
+                                            <td>{{data.AC_DIRECTOR_RELATION}}</td>
+                                            <td>{{data.AC_COREG_NO}}</td>
+                                            <td>{{data.AC_COREG_DATE}}</td>
+                                            <td>{{data.AC_COREG_AMT}}</td>
+                                            <td>{{data.AC_RESO_NO}}</td>
+                                            <td>{{data.AC_RESO_DATE}}</td>
+                                            <td>{{data.House}}</td>
+                                            <td>{{data.Ward}}</td>
+                                            <td>{{data.Detail}}</td>
+                                            <td>{{data.Galli}}</td>
+                                            <td>{{data.Area}}</td>
+                                            <td>{{data.PinCode}}</td>
+                                            <td>{{data.TempHouse}}</td>
+                                            <td>{{data.TempWard}}</td>
+                                            <td>{{data.TempDetail}} </td>
+                                            <td>{{data.TempGalli}}</td>
+                                            <td>{{data.TempCity}}</td>
+                                            <td>{{data.TempArea}}</td>
+                                            <td>{{data.TempPinCode}}</td>
+                                            <td>{{data.TelePh}}</td>
+                                            <td>{{data.R}}</td>
+                                            <td>{{data.Customer_mobile}}</td>
+                                            <td>{{data.customer_email}}</td>
+                                            <td>{{data.CASE_SUITE_DATE}}</td>
+                                            <td>{{data.COURT_INT_RATE}}</td>
+                                            <td>{{data.COURT_INSTALLMENT}}</td>
+                                            <td>{{data.COURT_ORDER_DATE}}</td>
+                                            <td>{{data.SUITE_AMT}}</td>
+                                            <td>{{data.COURT_RESULT_DATE}}</td>
+                                            <td>{{data.BranchCode}}</td>
+                                            <td>{{data.RECOVERABLE_AMT}}</td>
+                                            <td>{{data.INT_CALC_DATE}}</td>
+                                            <td>{{data.RECOVERABLE_INT}}</td>
+                                            <td>{{data.COURT_CASE_NO}}</td>
+                                            <td>{{data.REF_OLD_AC_TYPE}}</td>
+                                            <td>{{data.REF_OLD_AC_NO}}</td>
+                                            <td>{{data.ADVOCATE}}</td>
+                                            <td>{{data.LOAN_STAGE}}</td>
+                                            <td>{{data.COURT}}</td>
+                                            <td>{{data.AC_REMARK}} </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="disputelonemaster?.length == 0">
+                                        <tr>
+                                            <td colspan="6" class="no-data-available">No data!</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
@@ -1630,4 +2018,4 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->

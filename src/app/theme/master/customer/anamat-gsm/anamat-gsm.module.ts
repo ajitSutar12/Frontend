@@ -10,6 +10,8 @@ import { CustomeridService } from '../../../../shared/elements/customerid.servic
 import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {anamatGSMService} from './anamat-gsm.service'
+import { City3Service } from '../../../../shared/elements/city3.service';
 
 @NgModule({
   imports: [
@@ -17,10 +19,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AnamatGSMRoutingModule,
     DataTablesModule,
     SelectModule,
-    FormsModule, ReactiveFormsModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgbModule
   ],
   declarations: [AnamatGSMComponent],
-  providers: [TitleService, MsService,AccountcodeService,CustomeridService]
+  providers: [
+    TitleService, 
+    MsService,
+    AccountcodeService,
+    CustomeridService,
+    City3Service,
+    anamatGSMService
+  ]
 })
 export class AnamatGSMModule { }

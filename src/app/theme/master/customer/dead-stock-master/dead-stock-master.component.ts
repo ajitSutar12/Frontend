@@ -1,219 +1,453 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+
+import { animate, style, transition, trigger } from '@angular/animations';
+import { Subject } from 'rxjs';
+// Creating and maintaining form fields with validation 
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+// Displaying Sweet Alert
 import Swal from 'sweetalert2';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+// Angular Datatable Directive 
+import { DataTableDirective } from 'angular-datatables';
+// Service File For Handling CRUD Operation
+import { DeadstockmasterService } from './dead-stock-master.service';
+// Used to Call API
+import { HttpClient } from '@angular/common/http';
+//  dropdown
+import { ItemCatMasterDropdownService} from '../../../../shared/dropdownService/item-category-master-dropdown.service';
+import { DepriciationCatDropdownMasterService} from '../../../../shared/dropdownService/depriciation-category-master-dropdown.service';
+import { ACMasterDropdownService} from '../../../../shared/dropdownService/ac-master-dropdown.service';
+
+import { IOption } from 'ng-select';
+import { Subscription } from 'rxjs/Subscription';
+import { first } from 'rxjs/operators';
+
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+
+// For fetching values from backend
+interface deadstockinterface {
+  //id:number
+  ITEM_TYPE: string;
+  ITEM_CODE: String;
+  ITEM_NAME: string;
+  PURCHASE_DATE: number;
+  DEPR_CATEGORY:number;
+  OP_BAL_DATE:string;
+  SUPPLIER_NAME: string;
+  PURCHASE_OP_QUANTITY:string;
+  PURCHASE_RATE: string;
+  PURCHASE_QUANTITY:string;
+  PURCHASE_VALUE:string;
+  OP_BALANCE:string;
+  OP_QUANTITY:number;
+  LAST_DEPR_DATE:Date;
+  GL_ACNO: string;
+
+
+
+}
 
 @Component({
-  selector: 'app-dead-stock-master',
-  templateUrl: './dead-stock-master.component.html',
-  styleUrls: ['./dead-stock-master.component.scss']
-})
-export class DeadStockMasterComponent implements OnInit {
+     selector: 'app-dead-stock-master',
+     templateUrl: './dead-stock-master.component.html',
+     styleUrls: ['./dead-stock-master.component.scss']
+   })
+   export class DeadStockMasterComponent implements OnInit {
+
+
+  // For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+ 
+  dtTrigger: Subject<any> = new Subject();
+  // Store data from backend
+  deadstock: deadstockinterface[];
+  // Created Form Group
   angForm: FormGroup;
-
-  dtExportButtonOptions: any = {};
-
+  //Datatable variable
+  dtExportButtonOptions: DataTables.Settings = {};
+  Data: any;
+  //variables for pagination
+  page: number = 1;
+  passenger: any;
+  itemsPerPage = 10;
+  totalItems: any;
+  currentJustify = 'start';
+  active = 1;
+  activeKeep = 1;
+  // Variables for search 
+  filterObject: { name: string; type: string; }[];
+  filter: any;
+  filterForm: FormGroup;
+  // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  updateID: number = 0;
 
-  message = {
-    ItemType: " ",
-    ItemCode: " ",
-    ItemName: " ",
-    PurchaseDate: "",
-    DeprCategory: " ",
-    OpBalanceDate: "",
-    SupplierName: " ",
-    PurchaseRate: " ",
-    PurchaseQty: " ",
-    PurchaseValue: " ",
-    OpeningAmount: " ",
-    Quantity: " ",
-    LastDepreciationDate: "",
-    GLACNo: " ",
-    TotalRecords: " "
-  };
+  companyCode: any;
+  schemeCode: any;
 
-  constructor(private fb: FormBuilder) { this.createForm(); }
+  //for search functionality
+  filterData = {};
+ //Title
+ //itemtypeoption: Array<IOption> = this.ItemCatMasterDropdownService.getCharacters();
+  // SUPPLIER_NAME: IOption[];
+  selectedOption = '3';
+  isDisabled = true;
+  characters: Array<IOption>;
+  selectedCharacter = '3';
+  timeLeft = 5;
+
+  private dataSub: Subscription = null;
+  itemtypeoption: any;
+  DeprCategoryoption: any[];
+  GLACNooption: any[];
+
+  purchaserate=0;
+  purchasequality=0;
+  ans;
+  // purchasevalue;
+  
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private deadstockmasterService: DeadstockmasterService,
+    private ItemCatMasterDropdownService: ItemCatMasterDropdownService,
+    private DepriciationCatDropdownMasterService:DepriciationCatDropdownMasterService,
+    private ACMasterDropdownService:ACMasterDropdownService,
+  
+  ) { }
 
   ngOnInit(): void {
+
+
+    this.createForm();
+    // Fetching Server side data
     this.dtExportButtonOptions = {
-      ajax: 'fake-data/dead-stock-master.json',
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+        dataTableParameters.columns.forEach(element => {
+          if(element.search.value !=''){
+  
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          }else{
+  
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if(this.filterData.hasOwnProperty(element.data)){
+                let value = this.filterData[getColumnName];
+                if(columnValue != undefined || value != undefined){
+                  delete this.filterData[element.data];
+                } 
+            }
+          }
+        });
+        dataTableParameters['filterData'] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+           'http://localhost:4000/user-defination',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.deadstock = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
+            });
+          });
+      },
       columns: [
         {
           title: 'Action',
           render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm"id="editbtn">Edit</button>' + ' ' + '<button  id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
+            return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'Item Type',
-          data: 'ItemType'
-        }, {
-          title: 'Item Code',
-          data: 'ItemCode'
-        }, {
-          title: 'Item Name',
-          data: 'ItemName'
-        },
-        {
-          title: 'Purchase Date',
-          data: 'PurchaseDate'
-        }, {
-          title: 'Depr Category',
-          data: 'DeprCategory'
-        },
-        {
-          title: 'Op.Balance Date',
-          data: 'OpBalanceDate'
-        }, {
-          title: 'SupplierName',
-          data: 'SupplierName'
-        }, {
-          title: 'Purchase Rate',
-          data: 'PurchaseRate'
-        },
-        {
-          title: 'Purchase Qty',
-          data: 'PurchaseQty'
-        },
-        {
-          title: 'Purchase Value',
-          data: 'PurchaseValue'
-        },
-        {
-          title: 'Opening Amount',
-          data: 'OpeningAmount'
-        },
-        {
-          title: 'Quantity',
-          data: 'Quantity'
-        },
-        {
-          title: 'Last Depreciation Date',
-          data: 'LastDepreciationDate'
-        },
-        {
-          title: 'GL A/C No',
-          data: 'GLACNo'
-        },
-        {
-          title: 'Total Records',
-          data: 'TotalRecords'
-        },],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
+                title: 'Item Type',
+                     data: 'ITEM_TYPE'
+                   }, {
+                     title: 'Item Code',
+                    data: 'ITEM_CODE'
+               }, {
+                     title: 'Item Name',
+                     data: 'ITEM_NAME'
+                   },
+                   {
+                     title: 'Purchase Date',
+                     data: 'PURCHASE_DATE'
+                  }, {
+                     title: 'Depr Category',
+                     data: 'DEPR_CATEGORY'
+                   },
+                   {
+                     title: 'Op.Balance Date',
+                 data: 'OP_BAL_DATE'
+                   },
+                    {
+                     title: 'SupplierName',
+                   data: 'SUPPLIER_NAME'
+                   }, 
+                   
+                   {
+                     title :'PURCHASE QUANTITY',
+                     data:'PURCHASE_OP_QUANTITY'
+                   },
+                   {
+                     title: 'Purchase Rate',
+                     data: 'PURCHASE_RATE'
+                   },
+                {
+                     title: 'Purchase Qty',
+                     data: 'PURCHASE_QUANTITY'
+                  },
+                   {
+                     title: 'Purchase Value',
+                    data: 'PURCHASE_VALUE'
+                   },
+                   {
+                     title: 'Opening Amount',
+                     data: 'OP_BALANCE'
+                   },
+                   {
+                     title: 'Quantity',
+                     data: 'OP_QUANTITY'
+                   },
+                   {
+                     title: 'Last Depreciation Date',
+                     data: 'LAST_DEPR_DATE'
+                 },
+                   {
+                     title: 'GL A/C No',
+                     data: 'GL_ACNO'
+                   },
+                  // {
+                  //    title: 'Total Records',
+                  //    data: 'TotalRecords'
+                  //  },
+        
+        
       ],
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
+      dom: 'Blrtip',
     };
+    this.ItemCatMasterDropdownService.getItemMasterList().pipe(first()).subscribe(data => {
+      this.itemtypeoption = data;
+    })
+    this.DepriciationCatDropdownMasterService.getDepriciationMasterList().pipe(first()).subscribe(data => {
+      this.DeprCategoryoption = data;
+    })
+    this.ACMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
+      this.GLACNooption = data;
+    })
+    this.runTimer();
+    
+    // this.dataSub = this.ItemCatMasterDropdownService.loadCharacters().subscribe((options) => {
+    //   this.characters = options;
+    // });
+    
   }
+
+  purchasevalue(purchaserate,purchasequality){
+      return this.ans = ( purchaserate * purchasequality );
+  }
+ // Purchasevalue($event) {
+    //if ($event.target.clicked) {
+     // if 
+      // (document.getElementById('PURCHASE_RATE')*document.getElementById('PURCHASE_OP_QUANTITY')){
+        
+     // }
+
+    // var purchaserate = document.getElementById('PURCHASE_RATE')
+
+    // var purchasevalue :   {{purchaserate* purchasequality}}
+  //  }
+//  }
+
 
   createForm() {
     this.angForm = this.fb.group({
-      ItemType: ['', [Validators.required, Validators.pattern]],
-      ItemCode: [''],
-      ItemName: ['', [Validators.required, Validators.pattern]],
-      DeprCategory: ['', [Validators.required, Validators.pattern]],
-      PurchaseDate: ['', [Validators.required]],
-      SupplierName: ['', [Validators.pattern]],
-      PurchaseRate: ['', [Validators.pattern]],
-      PurchaseQty: ['', [Validators.pattern]],
-      PurchaseValue: ['', [Validators.pattern]],
-      OpeningAmount: ['', [Validators.pattern]],
-      Quantity: ['', [Validators.pattern]],
-      LastDepreciationDate: ['', [Validators.required]],
-      GLACNo: ['', [Validators.required]],
-      TotalRecords: [''],
-      OpBalanceDate: [''],
+    
+      
+      ITEM_TYPE: ['', [Validators.required,Validators.pattern]],
+      ITEM_CODE: ['', [ Validators.pattern]],
+      ITEM_NAME: ['', [Validators.required, Validators.pattern]],
+      PURCHASE_DATE: [''],
+      DEPR_CATEGORY: [''],
+      OP_BAL_DATE: ['', [Validators.required, Validators.pattern]],
+      SUPPLIER_NAME: ['', [Validators.required, Validators.pattern]],
+      PURCHASE_OP_QUANTITY:[''],
+      PURCHASE_RATE: ['', [Validators.required]],
+      PURCHASE_QUANTITY: ['', [ Validators.pattern]],
+      PURCHASE_VALUE: ['', [Validators.required, Validators.pattern]],
+      OP_BALANCE: ['', [Validators.required, Validators.pattern]],
+      OP_QUANTITY: ['', [Validators.required]],
+      LAST_DEPR_DATE: ['', [Validators.required, Validators.pattern]],
+       GL_ACNO: ['', [Validators.required]],
+      
+
+
     });
   }
-
-  submit() {
-    console.log(this.angForm.valid);
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
-    }
-  }
-
-  /**
-* @editClickHandler function for edit button clicked
-*/
-  editClickHandler(info: any): void {
-    this.message.ItemType = info.ItemType;
-    this.message.ItemCode = info.ItemCode;
-    this.message.ItemName = info.ItemName;
-    this.message.PurchaseDate = info.PurchaseDate;
-    this.message.DeprCategory = info.DeprCategory;
-    this.message.OpBalanceDate = info.OpBalanceDate;
-    this.message.SupplierName = info.SupplierName;
-    this.message.PurchaseRate = info.PurchaseRate;
-    this.message.PurchaseQty = info.PurchaseQty;
-    this.message.PurchaseValue = info.PurchaseValue;
-    this.message.OpeningAmount = info.OpeningAmount;
-    this.message.Quantity = info.Quantity;
-    this.message.LastDepreciationDate = info.LastDepreciationDate;
-    this.message.GLACNo = info.GLACNo;
-    this.message.TotalRecords = info.TotalRecords;
-    this.showButton = false;
-    this.updateShow = true;
-  }
-
-  /**
-  * @updateData function for update data 
-  */
-  updateData() {
-    this.showButton = true;
-    this.updateShow = false;
-    // this.form.reset();
-  }
-
-  /**
-  * @delClickHandler function for delete button 
-    @Swal sweetalert2
-    @Swal.fire open a modal window to display message
-  */
-  delClickHandler(info: any): void {
-    this.message.ItemType = info.ItemType;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete ItemType." + this.message.ItemType + "  data",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      /* run code if our result  isConfirmed function Swal.fire open a modal window to display message
-      else if result is dismiss then it cancel and open a modal window to display cancel message
-       */
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
+    // Method to insert data into database through NestJS
+    submit() {
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        'ITEM_TYPE': formVal.ITEM_TYPE,
+        'ITEM_CODE': formVal.ITEM_CODE,
+        'ITEM_NAME': formVal.ITEM_NAME,
+        'PURCHASE_DATE': formVal.PURCHASE_DATE,
+        'OP_BAL_DATE': formVal.OP_BAL_DATE,
+        'SUPPLIER_NAME': formVal.SUPPLIER_NAME,
+        'PURCHASE_OP_QUANTITY':formVal.PURCHASE_OP_QUANTITY,
+        'PURCHASE_RATE': formVal.PURCHASE_RATE,
+        'PURCHASE_QUANTITY': formVal.PURCHASE_QUANTITY,
+        'PURCHASE_VALUE': formVal.PURCHASE_VALUE,
+        'OP_BALANCE': formVal.OP_BALANCE,
+        'OP_QUANTITY': formVal.OP_QUANTITY,
+        'LAST_DEPR_DATE': formVal.LAST_DEPR_DATE,
+        'GL_ACNO': formVal.GL_ACNO,
+       
+  
       }
-    })
-  }
+      this.deadstockmasterService.postData(dataToSend).subscribe(data1 => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        // to reload after insertion of data
+        this.rerender();
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.angForm.reset();
+    }
+  
+    //Method for append data into fields
+    editClickHandler(id) {
+      this.showButton = false;
+      this.updateShow = true;
+      this.deadstockmasterService.getFormData(id).subscribe(data => {
+        this.updateID = data.id;
+        this.angForm.setValue({
+          'ITEM_TYPE': data.ITEM_TYPE,
+        'ITEM_CODE': data.ITEM_CODE,
+        'ITEM_NAME': data.ITEM_NAME,
+        'PURCHASE_DATE': data.PURCHASE_DATE,
+        'OP_BAL_DATE': data.OP_BAL_DATE,
+        'SUPPLIER_NAME': data.SUPPLIER_NAME,
+        'PURCHASE_OP_QUANTITY':data.PURCHASE_OP_QUANTITY,
+        'PURCHASE_RATE': data.PURCHASE_RATE,
+        'PURCHASE_QUANTITY': data.PURCHASE_QUANTITY,
+        'PURCHASE_VALUE': data.PURCHASE_VALUE,
+        // 'OP_BALANCE': data.OP_BALANCE,
+        
+        })
+      })
+    }
+    //Method for update data 
+    updateData() {
+      let data = this.angForm.value;
+      data['id'] = this.updateID;
+      this.deadstockmasterService.updateData(data).subscribe(() => {
+        Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+        this.showButton = true;
+        this.updateShow = false;
+        this.rerender();
+        this.angForm.reset();
+      })
+    }
+  
+    //Method for delete data
+    delClickHandler(id: number) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to delete narration data.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#229954',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deadstockmasterService.deleteData(id).subscribe(data1 => {
+            this.deadstock = data1;
+            Swal.fire(
+              'Deleted!',
+              'Your data has been deleted.',
+              'success'
+            )
+          }), (error) => {
+            console.log(error)
+          }
+          // to reload after delete of data
+          this.rerender();
+        } else if (
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          Swal.fire(
+            'Cancelled',
+            'Your data is safe.',
+            'error'
+          )
+        }
+      })
+    }
+  
+    ngAfterViewInit(): void {
+      this.dtTrigger.next();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.columns().every(function () {
+          const that = this;
+          $('input', this.footer()).on('keyup change', function () {
+         
+            if (this['value'] != '') {
+              that
+                .search(this['value'])
+                .draw();
+            }else{
+              that
+              .search(this['value'])
+              .draw();
+            }
+          });
+        });
+      });
+    }
+  
+    ngOnDestroy(): void {
+      // Do not forget to unsubscribe the event
+      this.dtTrigger.unsubscribe();
+    }
+  
+    rerender(): void {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        this.dtTrigger.next();
+      });
+    }
+    runTimer() {
+      const timer = setInterval(() => {
+        this.timeLeft -= 1;
+        if (this.timeLeft === 0) {
+          clearInterval(timer);
+        }
+      }, 1000);
+    }
 }
+

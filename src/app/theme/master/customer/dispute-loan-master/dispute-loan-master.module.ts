@@ -10,6 +10,7 @@ import { SelectModule } from 'ng-select';
 import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
 import { StatementTypeService } from '../../../../shared/elements/statment-type.service';
 import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
+import { DisputeLoanMasterService} from './dispute-loan-master.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +21,12 @@ import { SchemeCodeService } from '../../../../shared/elements/scheme-code.servi
     FormsModule,ReactiveFormsModule
   ],
   declarations: [DisputeLoanMasterComponent],
-  providers: [TitleService, RepayModeService,StatementTypeService,SchemeCodeService]
+  providers: [
+     TitleService,
+     RepayModeService,
+     StatementTypeService,
+     SchemeCodeService,
+     DisputeLoanMasterService
+    ]
 })
 export class DisputeLoanMasterModule { }
