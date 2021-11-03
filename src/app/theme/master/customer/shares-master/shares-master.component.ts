@@ -27,16 +27,73 @@ class DataTableResponse {
 }
 
 // For fetching values from backend
-interface TermDepositInterestRate {
-  EFFECT_DATE: Date
-  ACNOTYPE: string
-  INT_CATEGORY: string
-  FROM_DAYS: string
-  FROM_MONTHS: string
-  TO_DAYS: string
-  TO_MONTHS: string
-  INT_RATE: String
-  PENAL_INT_RATE: string
+interface ShareMaster {
+  AC_TYPE: string
+  AC_NO: number
+  AC_TITLE: string
+  AC_CUSTID: number
+  AC_NAME: string
+  AC_CATG: string
+  EMP_NO: number
+  AC_MEM_BIRTH_DT: Date
+  AC_JOIN_DATE: Date
+  AC_RETIRE_DATE: Date
+  AC_MEM_AGE: number
+  MEMBERSHIP_BY: string
+  AC_SIGN_TYPE: string
+  AC_SREPRESENT: string
+  AC_HOSUBNO: string
+  AC_WARD: string
+  AC_ADDR: string
+  AC_GALLI: string
+  AC_AREA: string
+  CITY_NAME: string
+  AC_PIN: number
+  AC_PHNO: number
+  AC_MOBNO: number
+  AC_EMAIL: string
+
+  //other controls
+  AC_OPDATE: Date
+  AC_EXPDT: Date
+  DEATH_DATE: Date
+  AC_CAST: string
+  AC_OCODE: string
+  AC_DIRECT: string
+  AC_BRANCH: string
+  AC_SALARYDIVISION_CODE: number
+  SUB_SALARYDIVISION_CODE: number
+  AC_SBNO: number
+  AC_RESNO: number
+  AC_RESDT: string
+  AC_IS_RECOVERY: string
+  AC_INSTALLMENT: string
+  REF_ACNO: number
+  AC_NARR: string
+  //nominee controls (NOMINEELINK table)
+  AC_NNAME: string
+  AC_NRELA: string
+  AC_NDATE: Date
+  AGE: number
+  ADDR1: string
+  ADDR2: string
+  ADDR3: string
+  CTCODE: number
+  PIN: number
+
+  //shares details under nominee tab
+  AC_SHBALDATE: Date
+  AC_OP_SHNO: number
+  AC_FACE_VALUE: string
+  AC_OP_BAL: string
+
+  //marathi details
+  AC_DEV_NAME: string
+  AC_DEV_WARD: string
+  AC_DEV_ADD: string
+  AC_DEV_GALLI: string
+  AC_DEV_AREA: string
+  AC_DEV_CITYCODE: number
 }
 @Component({
   selector: 'app-shares-master',
@@ -57,13 +114,52 @@ interface TermDepositInterestRate {
   ]
 })
 export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  // newCustomerID = [];
+  newCustomerID;
+
+  newCustomer(newCustomer) {
+    console.log("new customer")
+    // this.newCustomerID.push(newCustomer)
+    this.newCustomerID = newCustomer
+    console.log(this.newCustomerID)
+    this.angForm.setValue({
+      'AC_NO': this.newCustomerID.AC_NO,
+      'AC_MEMBTYPE': this.newCustomerID.AC_MEMBTYPE,
+      'AC_MEMBNO': this.newCustomerID.AC_MEMBNO,
+      'AC_TITLE': this.newCustomerID.AC_TITLE,
+      'AC_NAME': this.newCustomerID.AC_NAME,
+      'AC_CAST': this.newCustomerID.AC_CAST,
+      'AC_OCODE': this.newCustomerID.AC_OCODE,
+      'AC_ADHARNO': this.newCustomerID.AC_ADHARNO,
+      'AC_RISKCATG': this.newCustomerID.AC_RISKCATG,
+      'AC_BIRTH_DT': this.newCustomerID.AC_BIRTH_DT,
+      'AC_PANNO': this.newCustomerID.AC_PANNO,
+      'AC_SALARYDIVISION_CODE': this.newCustomerID.AC_SALARYDIVISION_CODE,
+      'AC_ADDR1': this.newCustomerID.AC_ADDR1,
+      'AC_ADDR2': this.newCustomerID.AC_ADDR2,
+      'AC_ADDR3': this.newCustomerID.AC_ADDR3,
+      'AC_IS_RECOVERY': this.newCustomerID.AC_IS_RECOVERY,
+      'AC_CTCODE': this.newCustomerID.AC_CTCODE,
+      'AC_PIN': this.newCustomerID.AC_PIN,
+      'AC_MOBILENO': this.newCustomerID.AC_MOBILENO,
+      'AC_PHONE_RES': this.newCustomerID.AC_PHONE_RES,
+      'AC_PHONE_OFFICE': this.newCustomerID.AC_PHONE_OFFICE,
+      'AC_EMAILID': this.newCustomerID.AC_EMAILID,
+      'TDS_REQUIRED': this.newCustomerID.TDS_REQUIRED,
+      'SMS_REQUIRED': this.newCustomerID.SMS_REQUIRED,
+      'IS_KYC_RECEIVED': this.newCustomerID.IS_KYC_RECEIVED
+
+    })
+  }
+  basicTab;
+  otherTab;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   // Store data from backend
-  termDepositInterestRate: TermDepositInterestRate[];
+  shareMaster: ShareMaster[];
   // Created Form Group
   angForm: FormGroup;
   //Datatable variable
@@ -105,10 +201,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   scheme: Array<IOption> = this.signTypeDropdownService.getCharacters();
   // Customer_ID //customer id from idmaster
   Customer_ID: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  title //from idmaster as per customer id
+  //title //from idmaster as per customer id
+  title: Array<IOption> = this.signTypeDropdownService.getCharacters();
   // category //from category master
   category: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  membershipType//membership type default option
+  // membershipType//membership type default option
+  membershipType: Array<IOption> = this.signTypeDropdownService.getCharacters();
   signType: Array<IOption> = this.signTypeDropdownService.getCharacters();   //sign type default option
   // city //city from customer id from idmaster
   city: Array<IOption> = this.signTypeDropdownService.getCharacters();
@@ -262,8 +360,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createForm() {
     this.angForm = this.fb.group({
-      //extra control not in excel
-      TotalRecords: ['', [Validators.pattern]],
       //excel controls
       AC_TYPE: ['', [Validators.required]],
       AC_NO: [''],
@@ -340,15 +436,72 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
-      'EFFECT_DATE': formVal.EFFECT_DATE,
-      'ACNOTYPE': formVal.ACNOTYPE,
-      'INT_CATEGORY': formVal.INT_CATEGORY,
-      'FROM_DAYS': formVal.FROM_DAYS,
-      'FROM_MONTHS': formVal.FROM_MONTHS,
-      'TO_DAYS': formVal.TO_DAYS,
-      'TO_MONTHS': formVal.TO_MONTHS,
-      'INT_RATE': formVal.INT_RATE,
-      'PENAL_INT_RATE': formVal.PENAL_INT_RATE,
+      'AC_TYPE': formVal.AC_TYPE,
+      'AC_NO': formVal.AC_NO,
+      'AC_TITLE': formVal.AC_TITLE,
+      'AC_CUSTID': formVal.AC_CUSTID,
+      'AC_NAME': formVal.AC_NAME,
+      'AC_CATG': formVal.AC_CATG,
+      'EMP_NO': formVal.EMP_NO,
+      'AC_MEM_BIRTH_DT': formVal.AC_MEM_BIRTH_DT,
+      'AC_JOIN_DATE': formVal.AC_JOIN_DATE,
+      'AC_RETIRE_DATE': formVal.AC_RETIRE_DATE,
+      'AC_MEM_AGE': formVal.AC_MEM_AGE,
+      'MEMBERSHIP_BY': formVal.MEMBERSHIP_BY,
+      'AC_SIGN_TYPE': formVal.AC_SIGN_TYPE,
+      'AC_SREPRESENT': formVal.AC_SREPRESENT,
+      'AC_HOSUBNO': formVal.AC_HOSUBNO,
+      'AC_WARD': formVal.AC_WARD,
+      'AC_ADDR': formVal.AC_ADDR,
+      'AC_GALLI': formVal.AC_GALLI,
+      'AC_AREA': formVal.AC_AREA,
+      'CITY_NAME': formVal.CITY_NAME,
+      'AC_PIN': formVal.AC_PIN,
+      'AC_PHNO': formVal.AC_PHNO,
+      'AC_MOBNO': formVal.AC_MOBNO,
+      'AC_EMAIL': formVal.AC_EMAIL,
+
+      //other controls
+      'AC_OPDATE': formVal.AC_OPDATE,
+      'AC_EXPDT': formVal.AC_EXPDT,
+      'DEATH_DATE': formVal.DEATH_DATE,
+      'AC_CAST': formVal.AC_CAST,
+      'AC_OCODE': formVal.AC_OCODE,
+      'AC_DIRECT': formVal.AC_DIRECT,
+      'AC_BRANCH': formVal.AC_BRANCH,
+      'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
+      'SUB_SALARYDIVISION_CODE': formVal.SUB_SALARYDIVISION_CODE,
+      'AC_SBNO': formVal.AC_SBNO,
+      'AC_RESNO': formVal.AC_RESNO,
+      'AC_RESDT': formVal.AC_RESDT,
+      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+      'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
+      'REF_ACNO': formVal.REF_ACNO,
+      'AC_NARR': formVal.AC_NARR,
+      //nominee controls (NOMINEELINK table)
+      'AC_NNAME': formVal.AC_NNAME,
+      'AC_NRELA': formVal.AC_NRELA,
+      'AC_NDATE': formVal.AC_NDATE,
+      'AGE': formVal.AGE,
+      'ADDR1': formVal.ADDR1,
+      'ADDR2': formVal.ADDR2,
+      'ADDR3': formVal.ADDR3,
+      'CTCODE': formVal.CTCODE,
+      'PIN': formVal.PIN,
+
+      //shares details under nominee tab
+      'AC_SHBALDATE': formVal.AC_SHBALDATE,
+      'AC_OP_SHNO': formVal.AC_OP_SHNO,
+      'AC_FACE_VALUE': formVal.AC_FACE_VALUE,
+      'AC_OP_BAL': formVal.AC_OP_BAL,
+
+      //marathi details
+      'AC_DEV_NAME': formVal.AC_DEV_NAME,
+      'AC_DEV_WARD': formVal.AC_DEV_WARD,
+      'AC_DEV_ADD': formVal.AC_DEV_ADD,
+      'AC_DEV_GALLI': formVal.AC_DEV_GALLI,
+      'AC_DEV_AREA': formVal.AC_DEV_AREA,
+      'AC_DEV_CITYCODE': formVal.AC_DEV_CITYCODE
     }
     this.ShareMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -369,15 +522,72 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ShareMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
-        'EFFECT_DATE': data.EFFECT_DATE,
-        'ACNOTYPE': data.ACNOTYPE,
-        'INT_CATEGORY': data.INT_CATEGORY,
-        'FROM_DAYS': data.FROM_DAYS,
-        'FROM_MONTHS': data.FROM_MONTHS,
-        'TO_DAYS': data.TO_DAYS,
-        'TO_MONTHS': data.TO_MONTHS,
-        'INT_RATE': data.INT_RATE,
-        'PENAL_INT_RATE': data.PENAL_INT_RATE,
+        'AC_TYPE': data.AC_TYPE,
+        'AC_NO': data.AC_NO,
+        'AC_TITLE': data.AC_TITLE,
+        'AC_CUSTID': data.AC_CUSTID,
+        'AC_NAME': data.AC_NAME,
+        'AC_CATG': data.AC_CATG,
+        'EMP_NO': data.EMP_NO,
+        'AC_MEM_BIRTH_DT': data.AC_MEM_BIRTH_DT,
+        'AC_JOIN_DATE': data.AC_JOIN_DATE,
+        'AC_RETIRE_DATE': data.AC_RETIRE_DATE,
+        'AC_MEM_AGE': data.AC_MEM_AGE,
+        'MEMBERSHIP_BY': data.MEMBERSHIP_BY,
+        'AC_SIGN_TYPE': data.AC_SIGN_TYPE,
+        'AC_SREPRESENT': data.AC_SREPRESENT,
+        'AC_HOSUBNO': data.AC_HOSUBNO,
+        'AC_WARD': data.AC_WARD,
+        'AC_ADDR': data.AC_ADDR,
+        'AC_GALLI': data.AC_GALLI,
+        'AC_AREA': data.AC_AREA,
+        'CITY_NAME': data.CITY_NAME,
+        'AC_PIN': data.AC_PIN,
+        'AC_PHNO': data.AC_PHNO,
+        'AC_MOBNO': data.AC_MOBNO,
+        'AC_EMAIL': data.AC_EMAIL,
+
+        //other controls
+        'AC_OPDATE': data.AC_OPDATE,
+        'AC_EXPDT': data.AC_EXPDT,
+        'DEATH_DATE': data.DEATH_DATE,
+        'AC_CAST': data.AC_CAST,
+        'AC_OCODE': data.AC_OCODE,
+        'AC_DIRECT': data.AC_DIRECT,
+        'AC_BRANCH': data.AC_BRANCH,
+        'AC_SALARYDIVISION_CODE': data.AC_SALARYDIVISION_CODE,
+        'SUB_SALARYDIVISION_CODE': data.SUB_SALARYDIVISION_CODE,
+        'AC_SBNO': data.AC_SBNO,
+        'AC_RESNO': data.AC_RESNO,
+        'AC_RESDT': data.AC_RESDT,
+        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
+        'AC_INSTALLMENT': data.AC_INSTALLMENT,
+        'REF_ACNO': data.REF_ACNO,
+        'AC_NARR': data.AC_NARR,
+        //nominee controls (NOMINEELINK table)
+        'AC_NNAME': data.AC_NNAME,
+        'AC_NRELA': data.AC_NRELA,
+        'AC_NDATE': data.AC_NDATE,
+        'AGE': data.AGE,
+        'ADDR1': data.ADDR1,
+        'ADDR2': data.ADDR2,
+        'ADDR3': data.ADDR3,
+        'CTCODE': data.CTCODE,
+        'PIN': data.PIN,
+
+        //shares details under nominee tab
+        'AC_SHBALDATE': data.AC_SHBALDATE,
+        'AC_OP_SHNO': data.AC_OP_SHNO,
+        'AC_FACE_VALUE': data.AC_FACE_VALUE,
+        'AC_OP_BAL': data.AC_OP_BAL,
+
+        //marathi details
+        'AC_DEV_NAME': data.AC_DEV_NAME,
+        'AC_DEV_WARD': data.AC_DEV_WARD,
+        'AC_DEV_ADD': data.AC_DEV_ADD,
+        'AC_DEV_GALLI': data.AC_DEV_GALLI,
+        'AC_DEV_AREA': data.AC_DEV_AREA,
+        'AC_DEV_CITYCODE': data.AC_DEV_CITYCODE
       })
     })
   }
@@ -416,7 +626,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         this.ShareMasterService.deleteData(id).subscribe(data1 => {
-          this.termDepositInterestRate = data1;
+          this.shareMaster = data1;
           Swal.fire(
             'Deleted!',
             'Your data has been deleted.',
@@ -484,10 +694,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         clearInterval(timer);
       }
     }, 1000);
-  }
-
-  newCustomer() {
-    console.log("new customer")
   }
 
   OpenLink(val) {

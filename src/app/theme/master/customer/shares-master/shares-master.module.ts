@@ -21,6 +21,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MembershipTypeDropdownService } from '../../../../shared/dropdownService/membership-type-dropdown.service'
 import { SignTypeDropdownService } from '../../../../shared/dropdownService/sign-type-dropdown.service'
 import { ShareMasterService } from './shares-master.service'
+import { SharedModule } from '../../../../shared/shared.module';
+import { CustomerIdModule } from '../customer-id/customer-id.module';
+
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +38,9 @@ import { ShareMasterService } from './shares-master.service'
     NgbModule,
     SelectModule,
     FormsModule, ReactiveFormsModule,
-
+    SharedModule,
+    CustomerIdModule,
+    PerfectScrollbarModule,
   ],
   providers: [City3Service, Sal2Service,
     Sal1Service, StatementTypeService, MemberTypeService,
@@ -37,7 +48,14 @@ import { ShareMasterService } from './shares-master.service'
     City1Service, City2Service,
     MembershipTypeDropdownService,
     SignTypeDropdownService,
-    ShareMasterService],
+    ShareMasterService,
+    {
+
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+
+    },
+  ],
   declarations: [SharesMasterComponent],
   bootstrap: [SharesMasterComponent]
 })

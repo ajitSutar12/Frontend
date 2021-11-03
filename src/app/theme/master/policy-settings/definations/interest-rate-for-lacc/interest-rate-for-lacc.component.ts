@@ -152,53 +152,6 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
           title: 'Int.Category',
           data: 'INT_CATEGORY'
         },
-      ],
-      dom: 'Blrtip',
-    };
-    this.dtModalOptions = {
-      pagingType: 'full_numbers',
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.columns.forEach(element => {
-          if (element.search.value != '') {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters['filterData'] = this.filterData;
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        this.page = dataTableParameters.start / dataTableParameters.length;
-        this.http
-          .post<DataTableResponse>(
-            'http://localhost:4000/interest-rate-for-loan-and-cc',
-            dataTableParameters
-          ).subscribe(resp => {
-            this.interestRateForLoanandCC = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: []
-            });
-          });
-      },
-      columns: [
-        {
-          title: 'Action'
-        },
         {
           title: 'From Amount',
           data: 'FROM_AMOUNT'
@@ -215,10 +168,58 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
           title: 'Penal Interest Rate',
           data: 'PENAL_INT_RATE'
         },
-
       ],
-      dom: 'lrtip',
+      dom: 'Blrtip',
     };
+    // this.dtModalOptions = {
+    //   pagingType: 'full_numbers',
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.columns.forEach(element => {
+    //       if (element.search.value != '') {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters['filterData'] = this.filterData;
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         'http://localhost:4000/interest-rate-for-loan-and-cc',
+    //         dataTableParameters
+    //       ).subscribe(resp => {
+    //         this.interestRateForLoanandCC = resp.data;
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: []
+    //         });
+    //       });
+    //   },
+    //   columns: [
+    //     {
+    //       title: 'Action'
+    //     },
+
+
+    //   ],
+    //   dom: 'lrtip',
+    // };
     this.runTimer();
     this.dataSub = this.schemeTypeDropdownService.loadCharacters().subscribe((options) => {
       this.characters = options;

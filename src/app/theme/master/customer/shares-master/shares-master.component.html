@@ -9,7 +9,7 @@
             <div class="card-block">
                 <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
                                     placeholder="Scheme *" required title="Compulsory Selection"
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Customer_ID" [multiple]="false"
                                     placeholder="Customer ID *" required title="Compulsory Selection"
@@ -39,10 +39,30 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-1">
-                            <button class="btn btn-primary ripple light" (click)="newCustomer()">New Customer</button>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-primary ripple light" (click)="modalLarge.show()">New
+                                Customer</button>
                         </div>
                     </div>
+                    <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
+                        <div class="app-modal-header">
+                            <h4 class="modal-title">Customer ID </h4>
+                            <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="app-modal-body">
+                            <perfect-scrollbar style="max-width: 800px; max-height: 450px;">
+                                <app-customer-id (newCustomerEvent)="newCustomer($event)"></app-customer-id>
+                            </perfect-scrollbar>
+                        </div>
+
+                        <div class="app-modal-footer">
+                            <button type="button" class="btn btn-primary ripple light"
+                                (click)="modalLarge.hide()">Close</button>
+                            <button type="button" class="btn btn-primary ripple light">Save changes</button>
+                        </div>
+                    </app-modal-basic>
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
@@ -64,7 +84,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
                                         required="" pattern="^[A-Za-z\./ -]+$" formControlName="AC_NAME"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" disabled>
+                                        title="Input allowed only  A-Z a-z  - / . (Space)">
                                     <label for="AC_NAME">Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -76,12 +96,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton"
+                                title="Fill Mandatory Fields of Basic and Other Tab" (click)="submit()"
+                                [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm">
                             <div class="card-block">
                                 <ngb-tabset>
-                                    <ngb-tab title="1.Basic " id="basicTab" name="basicTab" ngModel #basicTab="ngModel">
+                                    <ngb-tab title="1.Basic" [(ngModel)]="basicTab" id="basicTab" name="basicTab">
+                                        <!-- #basicTab="ngModel" -->
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
@@ -555,30 +583,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" name="TotalRecords" class="form-control"
-                                                                placeholder=" " id="TotalRecords" pattern="^[0-9]+$"
-                                                                title="Input allowed only  0-9"
-                                                                formControlName="TotalRecords">
-                                                            <label for="TotalRecords">Total Records</label>
-                                                        </span>
-                                                    </div>
-                                                    <div class="form-group form-primary form-static-label"
-                                                        *ngIf="angForm.controls['TotalRecords'].invalid && (angForm.controls['TotalRecords'].dirty || angForm.controls['TotalRecords'].touched)"
-                                                        class="alert alert-danger">
-                                                        <div *ngIf="angForm.controls['TotalRecords'].errors?.pattern">
-                                                            Input allowed only 0-9
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </ng-template>
                                     </ngb-tab>
-                                    <ngb-tab title="2.Other" id="otherTab" name="otherTab" ngModel #otherTab="ngModel"
-                                        [disabled]="basicTab.invalid">
+                                    <ngb-tab title="2.Other" id="otherTab" name="otherTab"
+                                        [disabled]="basicTab">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
@@ -846,8 +854,7 @@
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
-                                    <ngb-tab title="3.Nominee" id="nomineeTab" name="nomineeTab" ngModel #nomineeTab="ngModel"
-                                        [disabled]="otherTab.invalid">
+                                    <ngb-tab title="3.Nominee" id="nomineeTab" name="nomineeTab">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
@@ -1157,8 +1164,7 @@
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
-                                    <ngb-tab title="4.Documents" id="documentTab" name="documentTab" ngModel
-                                        #documentTab="ngModel" [disabled]="nomineeTab.invalid">
+                                    <ngb-tab title="4.Documents" id="documentTab" name="documentTab">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="table-responsive">
@@ -1170,7 +1176,7 @@
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
-                                    <ngb-tab title="5.Marathi Details" [disabled]="documentTab.invalid">
+                                    <ngb-tab title="5.Marathi Details">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
@@ -1287,12 +1293,6 @@
                                                                 formControlName="AC_DEV_CITYCODE">
                                                             </ng-select>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm">
-                                                        <button class="btn btn-primary ripple light" *ngIf="showButton"
-                                                            (click)="submit()" [disabled]="angForm.invalid">Add</button>
-                                                        <button class="btn btn-primary ripple light"
-                                                            (click)="updateData()" *ngIf="updateShow">Update</button>
                                                     </div>
                                                 </div>
                                             </div>

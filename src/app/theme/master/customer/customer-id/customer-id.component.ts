@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -80,6 +80,13 @@ interface CustomerMaster {
 })
 
 export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Output() newCustomerEvent = new EventEmitter<string>();
+
+  addNewCustomer(value: string) {
+    this.newCustomerEvent.emit(value);
+  }
+
+
 
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -397,13 +404,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createForm() {
     this.angForm = this.fb.group({
-      AC_NO: [''],
-      AC_MEMBTYPE: [''],
-      AC_MEMBNO: [''],
+      AC_NO: ['',],
+      AC_MEMBTYPE: ['', [Validators.pattern]],
+      AC_MEMBNO: ['', [Validators.pattern]],
       AC_TITLE: ['', [Validators.required]],
-      F_NAME: ['', [Validators.pattern, Validators.required]],
-      M_NAME: ['', [Validators.pattern, Validators.required]],
-      L_NAME: ['', [Validators.pattern, Validators.required]],
       AC_NAME: ['', [Validators.pattern, Validators.required]],
       AC_CAST: [''],
       AC_OCODE: [''],
