@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-
+import { environment } from '../../../environments/environment';
 @Injectable()
 export class LockerRMasterDropDownService {
     lockerRObject = new Array();
-    url = "http://localhost:4000/locker-rack-master";
-
+    // url = "http://localhost:4000/locker-rack-master";
+    url = environment.base_url;
     constructor(private http: HttpClient) { }
     public getLockerRMasterList() {
         this.lockerRObject = []
-        return this.http.get<any>(this.url + '/')
+        return this.http.get<any>(this.url + '/locker-rack-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.RACK_NO, value: element.id };

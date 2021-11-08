@@ -19,10 +19,12 @@ import { Subscription } from 'rxjs/Subscription';
 import { first } from 'rxjs/operators';
 //dropdown
  import { TitleService } from '../../../../shared/elements/title.service';
-import { MsService } from '../../../../shared/elements/ms.service';
+ import { MsService } from '../../../../shared/elements/ms.service';
  import { AccountcodeService } from '../../../../shared/elements/accountcode.service';
  import { CustomeridService } from '../../../../shared/elements/customerid.service';
  import { City3Service } from '../../../../shared/elements/city3.service';
+
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -62,11 +64,60 @@ interface glsubmaster {
    selector: 'app-anamat-gsm',
    templateUrl: './anamat-gsm.component.html',
    styleUrls: ['./anamat-gsm.component.scss'],
+   animations: [
+    trigger('fadeInOutTranslate', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('400ms ease-in-out', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        style({ transform: 'translate(0)' }),
+        animate('400ms ease-in-out', style({ opacity: 0 }))
+      ])
+    ])
+  ]
  })
 
- export class AnamatGSMComponent implements OnInit {
+ export class AnamatGSMComponent implements  OnInit, AfterViewInit, OnDestroy  {
+  // newCustomerID = [];
+  newCustomerID;
 
+  newCustomer(newCustomer) {
+    console.log("new customer")
+    // this.newCustomerID.push(newCustomer)
+    this.newCustomerID = newCustomer
+    console.log(this.newCustomerID)
+    this.angForm.setValue({
+      'AC_NO': this.newCustomerID.AC_NO,
+      'AC_MEMBTYPE': this.newCustomerID.AC_MEMBTYPE,
+      'AC_MEMBNO': this.newCustomerID.AC_MEMBNO,
+      'AC_TITLE': this.newCustomerID.AC_TITLE,
+      'AC_NAME': this.newCustomerID.AC_NAME,
+      'AC_CAST': this.newCustomerID.AC_CAST,
+      'AC_OCODE': this.newCustomerID.AC_OCODE,
+      'AC_ADHARNO': this.newCustomerID.AC_ADHARNO,
+      'AC_RISKCATG': this.newCustomerID.AC_RISKCATG,
+      'AC_BIRTH_DT': this.newCustomerID.AC_BIRTH_DT,
+      'AC_PANNO': this.newCustomerID.AC_PANNO,
+      'AC_SALARYDIVISION_CODE': this.newCustomerID.AC_SALARYDIVISION_CODE,
+      'AC_ADDR1': this.newCustomerID.AC_ADDR1,
+      'AC_ADDR2': this.newCustomerID.AC_ADDR2,
+      'AC_ADDR3': this.newCustomerID.AC_ADDR3,
+      'AC_IS_RECOVERY': this.newCustomerID.AC_IS_RECOVERY,
+      'AC_CTCODE': this.newCustomerID.AC_CTCODE,
+      'AC_PIN': this.newCustomerID.AC_PIN,
+      'AC_MOBILENO': this.newCustomerID.AC_MOBILENO,
+      'AC_PHONE_RES': this.newCustomerID.AC_PHONE_RES,
+      'AC_PHONE_OFFICE': this.newCustomerID.AC_PHONE_OFFICE,
+      'AC_EMAILID': this.newCustomerID.AC_EMAILID,
+      'TDS_REQUIRED': this.newCustomerID.TDS_REQUIRED,
+      'SMS_REQUIRED': this.newCustomerID.SMS_REQUIRED,
+      'IS_KYC_RECEIVED': this.newCustomerID.IS_KYC_RECEIVED
 
+    })
+  }
+  basicTab;
+  otherTab;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -481,5 +532,6 @@ interface glsubmaster {
         }
       }, 1000);
     }
+   
 }
 

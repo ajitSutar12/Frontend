@@ -26,5 +26,4 @@ export class cityMasterService {
                 return this.cityMasterObject;
             }));
     }
-
 }

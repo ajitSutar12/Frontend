@@ -13,6 +13,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {anamatGSMService} from './anamat-gsm.service'
 import { City3Service } from '../../../../shared/elements/city3.service';
 
+import { CustomerIdModule } from '../customer-id/customer-id.module';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { SharedModule } from '../../../../shared/shared.module';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 @NgModule({
   imports: [
     CommonModule,
@@ -21,8 +29,12 @@ import { City3Service } from '../../../../shared/elements/city3.service';
     SelectModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    PerfectScrollbarModule,
+    CustomerIdModule,
+    SharedModule
   ],
+ 
   declarations: [AnamatGSMComponent],
   providers: [
     TitleService, 
@@ -30,7 +42,13 @@ import { City3Service } from '../../../../shared/elements/city3.service';
     AccountcodeService,
     CustomeridService,
     City3Service,
-    anamatGSMService
+    anamatGSMService,
+    {
+
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+
+    },
   ]
 })
 export class AnamatGSMModule { }

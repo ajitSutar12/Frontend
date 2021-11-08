@@ -6,12 +6,12 @@ import { environment } from '../../../environments/environment';
 export class AlternetCodeDropdownService {
 
     alternetCodeObject = new Array();
-    url = 'http://localhost:4000/gl-statement-code';
-    // url = environment.base_url;
+    // url = 'http://localhost:4000/gl-statement-code';
+     url = environment.base_url;
 
     constructor(private http: HttpClient) { }
     public getAlternetCodeList() {
-        return this.http.get<any>(this.url + '/')
+        return this.http.get<any>(this.url + '/gl-statement-code')
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.A_BALCODE + '(' + element.A_ACHEAD + ',' + element.A_ACTYPE + ')', value: element.id };

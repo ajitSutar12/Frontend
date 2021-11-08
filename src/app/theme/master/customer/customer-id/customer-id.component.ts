@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -80,13 +80,6 @@ interface CustomerMaster {
 })
 
 export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Output() newCustomerEvent = new EventEmitter<string>();
-
-  addNewCustomer(value: string) {
-    this.newCustomerEvent.emit(value);
-  }
-
-
 
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -152,11 +145,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       serverSide: true,
       processing: true,
       ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+        // dataTableParameters.minNumber = dataTableParameters.start + 1;
+        // dataTableParameters.maxNumber =
+        //   dataTableParameters.start + dataTableParameters.length;
+        // let datatableRequestParam: any;
+        // this.page = dataTableParameters.start / dataTableParameters.length;
         // column filter
         // dataTableParameters.columns.forEach(element => {
         //   if (element.search.value != '') {
@@ -176,14 +169,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         //     }
         //   }
         // });
-        dataTableParameters['filterData'] = this.filterData;
+        // dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
             'http://localhost:4000/customer-id',
             dataTableParameters
           ).subscribe(resp => {
             this.customerMaster = resp.data;
-
+console.log(resp.data)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -337,7 +330,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         },
 
       ],
-      dom: 'Bfrtip',
+      dom: 'Blrtip',
     };
     this.dtExportOptions = {
       pagingType: 'full_numbers',
@@ -404,10 +397,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createForm() {
     this.angForm = this.fb.group({
-      AC_NO: ['',],
-      AC_MEMBTYPE: ['', [Validators.pattern]],
-      AC_MEMBNO: ['', [Validators.pattern]],
+      AC_NO: [''],
+      AC_MEMBTYPE: [''],
+      AC_MEMBNO: [''],
       AC_TITLE: ['', [Validators.required]],
+      F_NAME: ['', [Validators.pattern, Validators.required]],
+      M_NAME: ['', [Validators.pattern, Validators.required]],
+      L_NAME: ['', [Validators.pattern, Validators.required]],
       AC_NAME: ['', [Validators.pattern, Validators.required]],
       AC_CAST: [''],
       AC_OCODE: [''],
@@ -468,9 +464,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       'TDS_REQUIRED': formVal.TDS_REQUIRED,
       'SMS_REQUIRED': formVal.SMS_REQUIRED,
       'IS_KYC_RECEIVED': formVal.IS_KYC_RECEIVED,
-    }
-
-    const dataToSendAdd = {
       'AC_HONO': formVal.AC_HONO,
       'AC_WARD': formVal.AC_WARD,
       'AC_TADDR': formVal.AC_TADDR,
@@ -478,15 +471,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_AREA': formVal.AC_AREA,
       'AC_CTCODE': formVal.AC_CTCODE,
       'AC_PIN': formVal.AC_PIN,
-    }
-
-    const dataToSendTds = {
       'FIN_YEAR': formVal.FIN_YEAR,
       'SUBMIT_DATE': formVal.SUBMIT_DATE,
       'FORM_TYPE': formVal.FORM_TYPE,
       'TDS_RATE': formVal.TDS_RATE,
       'TDS_LIMIT': formVal.TDS_LIMIT
     }
+
 
     this.customerIdService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -495,20 +486,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     }, (error) => {
       console.log(error)
     })
-    this.customerIdService.postDataAdd(dataToSendAdd).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
-    }, (error) => {
-      console.log(error)
-    })
-    this.customerIdService.postDataTds(dataToSendTds).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
-    }, (error) => {
-      console.log(error)
-    })
+  
     //To clear form
  this.resetForm();
   }

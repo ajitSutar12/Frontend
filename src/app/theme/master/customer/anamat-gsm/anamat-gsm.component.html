@@ -24,7 +24,7 @@
                         <div class="col-md">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Ac_NO" [multiple]="false"
-                                    placeholder="Account No " formControlName="Ac_NO">
+                                    placeholder="Account No " formControlName="AC_NO">
                                 </ng-select>
                             </div>
                         </div>
@@ -42,6 +42,29 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-primary ripple light" (click)="modalLarge.show()">New
+                                Customer</button>
+                        </div>
+                        <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
+                            <div class="app-modal-header">
+                                <h4 class="modal-title">Customer ID </h4>
+                                <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="app-modal-body">
+                                <perfect-scrollbar style="max-width: 800px; max-height: 450px;">
+                                    <app-customer-id (newCustomerEvent)="newCustomer($event)"></app-customer-id>
+                                </perfect-scrollbar>
+                            </div>
+    
+                            <div class="app-modal-footer">
+                                <button type="button" class="btn btn-primary ripple light"
+                                    (click)="modalLarge.hide()">Close</button>
+                                <button type="button" class="btn btn-primary ripple light">Save changes</button>
+                            </div>
+                        </app-modal-basic>
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
@@ -383,7 +406,6 @@
                                         <th><input type="text" placeholder="Search Pincode" name="Pincode"></th>
                                         <th><input type="text" placeholder="Search opening bal. date" name="AC_OPDATE"></th>
                                         <th><input type="text" placeholder="Search Recovery" name="Recovery"></th>
-                                        <th><input type="text" placeholder="Search opening bal" name="Debit"></th>
                                         <th><input type="text" placeholder="Search opening bal" name="Debit"></th>
                                         <th><input type="text" placeholder="Search AC_PARTICULAR" name="AC_PARTICULAR"></th>
                                     </tr>

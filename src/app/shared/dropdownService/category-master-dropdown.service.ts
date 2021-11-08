@@ -26,5 +26,4 @@ export class categoryMasterService {
                 return this.categoryMasterObject;
             }));
     }
-
 }

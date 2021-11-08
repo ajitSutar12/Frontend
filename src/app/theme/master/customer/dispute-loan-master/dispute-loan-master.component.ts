@@ -31,6 +31,8 @@ interface DisputeLoanMaster {
   AC_NO:number;
   REF_AC_TYPE:number;
   REF_AC_NO:number;
+  AC_CUSTID:number;
+  AC_NAME:string;
   AC_OPDATE:Date;
   AC_MEMBTYPE:string;
   AC_MEMBNO:number;
@@ -112,6 +114,45 @@ interface DisputeLoanMaster {
 
 })
 export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy  {
+    // newCustomerID = [];
+    newCustomerID;
+
+    newCustomer(newCustomer) {
+      console.log("new customer")
+      // this.newCustomerID.push(newCustomer)
+      this.newCustomerID = newCustomer
+      console.log(this.newCustomerID)
+      this.angForm.setValue({
+        'AC_NO': this.newCustomerID.AC_NO,
+        'AC_MEMBTYPE': this.newCustomerID.AC_MEMBTYPE,
+        'AC_MEMBNO': this.newCustomerID.AC_MEMBNO,
+        'AC_TITLE': this.newCustomerID.AC_TITLE,
+        'AC_NAME': this.newCustomerID.AC_NAME,
+        'AC_CAST': this.newCustomerID.AC_CAST,
+        'AC_OCODE': this.newCustomerID.AC_OCODE,
+        'AC_ADHARNO': this.newCustomerID.AC_ADHARNO,
+        'AC_RISKCATG': this.newCustomerID.AC_RISKCATG,
+        'AC_BIRTH_DT': this.newCustomerID.AC_BIRTH_DT,
+        'AC_PANNO': this.newCustomerID.AC_PANNO,
+        'AC_SALARYDIVISION_CODE': this.newCustomerID.AC_SALARYDIVISION_CODE,
+        'AC_ADDR1': this.newCustomerID.AC_ADDR1,
+        'AC_ADDR2': this.newCustomerID.AC_ADDR2,
+        'AC_ADDR3': this.newCustomerID.AC_ADDR3,
+        'AC_IS_RECOVERY': this.newCustomerID.AC_IS_RECOVERY,
+        'AC_CTCODE': this.newCustomerID.AC_CTCODE,
+        'AC_PIN': this.newCustomerID.AC_PIN,
+        'AC_MOBILENO': this.newCustomerID.AC_MOBILENO,
+        'AC_PHONE_RES': this.newCustomerID.AC_PHONE_RES,
+        'AC_PHONE_OFFICE': this.newCustomerID.AC_PHONE_OFFICE,
+        'AC_EMAILID': this.newCustomerID.AC_EMAILID,
+        'TDS_REQUIRED': this.newCustomerID.TDS_REQUIRED,
+        'SMS_REQUIRED': this.newCustomerID.SMS_REQUIRED,
+        'IS_KYC_RECEIVED': this.newCustomerID.IS_KYC_RECEIVED
+  
+      })
+    }
+    basicTab;
+    otherTab;
 
     // For reloading angular datatable after CRUD operation
     @ViewChild(DataTableDirective, { static: false })
@@ -153,10 +194,12 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   dtdocumentOptions: any = {}; //Datatable variable for document form
 
   //Select option for title, repay mode
+  statementOption:any;
+  d:any;
   titleOption: Array<IOption> = this.TitleService.getCharacters();
   repayModeOption: Array<IOption> = this.RepayModeService.getCharacters();
   simpleOption: Array<IOption> = this.RepayModeService.getCharacters();
-  statementOption: Array<IOption> = this.SchemeCodeService.getCharacters();
+  scheme: Array<IOption> = this.SchemeCodeService.getCharacters();
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -673,6 +716,8 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   AC_NO:[''],
   REF_AC_TYPE:[''],
   REF_AC_NO:[''],
+  AC_CUSTID:[''],
+  AC_NAME:[''],
   AC_OPDATE:[''],
   AC_MEMBTYPE:[''],
   AC_MEMBNO:[''],
@@ -750,6 +795,8 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   'AC_ACNOTYPE':formVal.AC_ACNOTYPE,
   'AC_TYPE': formVal.AC_TYPE,
   'AC_NO':formVal.AC_NO,
+  'AC_CUSTID':formVal.AC_CUSTID,
+  'AC_NAME':formVal.AC_NAME,
   'REF_AC_TYPE':formVal.REF_AC_TYPE,
   'REF_AC_NO':formVal.REF_AC_NO,
   'AC_OPDATE':formVal.AC_OPDATE,
@@ -842,6 +889,8 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   'AC_TYPE': data.AC_TYPE,
   'AC_NO':data.AC_NO,
   'REF_AC_TYPE':data.REF_AC_TYPE,
+  'AC_CUSTID':data.AC_CUSTID,
+  'AC_NAME':data.AC_NAME,
   'REF_AC_NO':data.REF_AC_NO,
   'AC_OPDATE':data.AC_OPDATE,
   'AC_MEMBTYPE':data.AC_MEMBTYPE,
