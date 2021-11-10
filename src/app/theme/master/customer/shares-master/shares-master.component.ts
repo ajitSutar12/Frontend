@@ -15,7 +15,10 @@ import { HttpClient } from '@angular/common/http';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 //Service file of dropdown
-import { MembershipTypeDropdownService } from '../../../../shared/dropdownService/membership-type-dropdown.service'
+import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
+import { CustomerIdService } from '../customer-id/customer-id.service';
+import { categoryMasterService } from '../../../../shared/dropdownService/category-master-dropdown.service';
+import { MembershipTypeDropdownService } from '../../../../shared/dropdownService/membership-type-dropdown.service';
 import { SignTypeDropdownService } from '../../../../shared/dropdownService/sign-type-dropdown.service'
 import { first } from 'rxjs/operators';
 // Handling datatable data
@@ -123,9 +126,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newCustomerID = newCustomer
     console.log(this.newCustomerID)
     this.angForm.setValue({
-      'AC_NO': this.newCustomerID.AC_NO,
-      'AC_MEMBTYPE': this.newCustomerID.AC_MEMBTYPE,
-      'AC_MEMBNO': this.newCustomerID.AC_MEMBNO,
       'AC_TITLE': this.newCustomerID.AC_TITLE,
       'AC_NAME': this.newCustomerID.AC_NAME,
       'AC_CAST': this.newCustomerID.AC_CAST,
@@ -133,26 +133,32 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_ADHARNO': this.newCustomerID.AC_ADHARNO,
       'AC_RISKCATG': this.newCustomerID.AC_RISKCATG,
       'AC_BIRTH_DT': this.newCustomerID.AC_BIRTH_DT,
-      'AC_PANNO': this.newCustomerID.AC_PANNO,
-      'AC_SALARYDIVISION_CODE': this.newCustomerID.AC_SALARYDIVISION_CODE,
-      'AC_ADDR1': this.newCustomerID.AC_ADDR1,
-      'AC_ADDR2': this.newCustomerID.AC_ADDR2,
-      'AC_ADDR3': this.newCustomerID.AC_ADDR3,
-      'AC_IS_RECOVERY': this.newCustomerID.AC_IS_RECOVERY,
+      'AC_HONO': this.newCustomerID.AC_HONO,
+      'AC_WARD': this.newCustomerID.AC_WARD,
+      'AC_TADDR': this.newCustomerID.AC_TADDR,
+      'AC_TGALLI': this.newCustomerID.AC_TGALLI,
+      'AC_AREA': this.newCustomerID.AC_AREA,
       'AC_CTCODE': this.newCustomerID.AC_CTCODE,
       'AC_PIN': this.newCustomerID.AC_PIN,
+      'AC_PANNO': this.newCustomerID.AC_PANNO,
+      'AC_SALARYDIVISION_CODE': this.newCustomerID.AC_SALARYDIVISION_CODE,
       'AC_MOBILENO': this.newCustomerID.AC_MOBILENO,
       'AC_PHONE_RES': this.newCustomerID.AC_PHONE_RES,
       'AC_PHONE_OFFICE': this.newCustomerID.AC_PHONE_OFFICE,
       'AC_EMAILID': this.newCustomerID.AC_EMAILID,
+      'AC_IS_RECOVERY': this.newCustomerID.AC_IS_RECOVERY,
       'TDS_REQUIRED': this.newCustomerID.TDS_REQUIRED,
       'SMS_REQUIRED': this.newCustomerID.SMS_REQUIRED,
-      'IS_KYC_RECEIVED': this.newCustomerID.IS_KYC_RECEIVED
+      'IS_KYC_RECEIVED': this.newCustomerID.IS_KYC_RECEIVED,
+      'FIN_YEAR': this.newCustomerID.FIN_YEAR,
+      'SUBMIT_DATE': this.newCustomerID.SUBMIT_DATE,
+      'FORM_TYPE': this.newCustomerID.FORM_TYPE,
+      'TDS_RATE': this.newCustomerID.TDS_RATE,
+      'TDS_LIMIT': this.newCustomerID.TDS_LIMIT,
 
     })
   }
-  basicTab;
-  otherTab;
+
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -199,27 +205,24 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Dropdown options
   // scheme //scheme code from schemast(S_ACNOTYPE)
   scheme: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  // Customer_ID //customer id from idmaster
-  Customer_ID: Array<IOption> = this.signTypeDropdownService.getCharacters();
+  Cust_ID //customer id from idmaster
   //title //from idmaster as per customer id
-  title: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  // category //from category master
-  category: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  // membershipType//membership type default option
-  membershipType: Array<IOption> = this.signTypeDropdownService.getCharacters();
+  // title: Array<IOption> = this.signTypeDropdownService.getCharacters();
+  category //from category master
+  membershipType: Array<IOption> = this.signTypeDropdownService.getCharacters(); //membership type default option
   signType: Array<IOption> = this.signTypeDropdownService.getCharacters();   //sign type default option
   // city //city from customer id from idmaster
-  city: Array<IOption> = this.signTypeDropdownService.getCharacters();
+  // city: Array<IOption> = this.signTypeDropdownService.getCharacters();
   // cast // customer id from idmaster
-  cast: Array<IOption> = this.signTypeDropdownService.getCharacters();
+  // cast: Array<IOption> = this.signTypeDropdownService.getCharacters();
   // occupation // customer id from idmaster
-  occupation: Array<IOption> = this.signTypeDropdownService.getCharacters();
+  // occupation: Array<IOption> = this.signTypeDropdownService.getCharacters();
   // director//from directormaster
   director: Array<IOption> = this.signTypeDropdownService.getCharacters();
   // branch_code//from ownbranchmaster
   branch_code: Array<IOption> = this.signTypeDropdownService.getCharacters();
   // salary_div // customer id from idmaster
-  salary_div: Array<IOption> = this.signTypeDropdownService.getCharacters();
+  // salary_div: Array<IOption> = this.signTypeDropdownService.getCharacters();
   // sub_salary_div //information sub salary master
   sub_salary_div: Array<IOption> = this.signTypeDropdownService.getCharacters();
   // ncity //city for nominee from citymaster
@@ -241,6 +244,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private ShareMasterService: ShareMasterService,
     private membershipTypeDropdownService: MembershipTypeDropdownService,
     private signTypeDropdownService: SignTypeDropdownService,
+    private customerID: CustomerIDMasterDropdownService,
+    private customerIdService: CustomerIdService,
+    private categoryMasterService: categoryMasterService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -356,6 +362,56 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSub = this.signTypeDropdownService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
+    this.membershipTypeDropdownService.loadCharacters().subscribe((options) => {
+      this.membershipType = options;
+    });
+
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+      this.Cust_ID = data;
+    })
+    this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
+      this.category = data;
+    })
+  }
+  id
+  getCustomer(id) {
+
+    console.log('in getcustomer', id)
+    this.customerIdService.getFormData(id).subscribe(data => {
+      debugger
+      this.angForm.setValue({
+        'AC_TITLE': data.AC_TITLE,
+        'AC_NAME': data.AC_NAME,
+        'AC_CAST': data.AC_CAST,
+        'AC_OCODE': data.AC_OCODE,
+        'AC_ADHARNO': data.AC_ADHARNO,
+        'AC_RISKCATG': data.AC_RISKCATG,
+        'AC_BIRTH_DT': data.AC_BIRTH_DT,
+        'AC_HONO': data.AC_HONO,
+        'AC_WARD': data.AC_WARD,
+        'AC_TADDR': data.AC_TADDR,
+        'AC_TGALLI': data.AC_TGALLI,
+        'AC_AREA': data.AC_AREA,
+        'AC_CTCODE': data.AC_CTCODE,
+        'AC_PIN': data.AC_PIN,
+        'AC_PANNO': data.AC_PANNO,
+        'AC_SALARYDIVISION_CODE': data.AC_SALARYDIVISION_CODE,
+        'AC_MOBILENO': data.AC_MOBILENO,
+        'AC_PHONE_RES': data.AC_PHONE_RES,
+        'AC_PHONE_OFFICE': data.AC_PHONE_OFFICE,
+        'AC_EMAILID': data.AC_EMAILID,
+        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
+        'TDS_REQUIRED': data.TDS_REQUIRED,
+        'SMS_REQUIRED': data.SMS_REQUIRED,
+        'IS_KYC_RECEIVED': data.IS_KYC_RECEIVED,
+        'FIN_YEAR': data.FIN_YEAR,
+        'SUBMIT_DATE': data.SUBMIT_DATE,
+        'FORM_TYPE': data.FORM_TYPE,
+        'TDS_RATE': data.TDS_RATE,
+        'TDS_LIMIT': data.TDS_LIMIT,
+
+      })
+    })
   }
 
   createForm() {
@@ -406,14 +462,14 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NARR: ['', [Validators.pattern]],
 
       //nominee controls (NOMINEELINK table)
-      AC_NNAME: ['', [Validators.required, Validators.pattern]],
-      AC_NRELA: ['', [Validators.required, Validators.pattern]],
-      AC_NDATE: ['', [Validators.required]],
+      AC_NNAME: ['', [Validators.pattern]],
+      AC_NRELA: ['', [Validators.pattern]],
+      AC_NDATE: ['',],
       AGE: [''],
       ADDR1: ['', [Validators.pattern]],
       ADDR2: ['', [Validators.pattern]],
       ADDR3: ['', [Validators.pattern]],
-      CTCODE: ['', [Validators.required]],
+      CTCODE: ['',],
       PIN: ['', [Validators.pattern]],
 
       //shares details under nominee tab

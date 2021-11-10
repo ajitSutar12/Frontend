@@ -432,7 +432,7 @@ console.log(resp.data)
       FORM_TYPE: [''],
       TDS_RATE: ['', [Validators.pattern]],
       TDS_LIMIT: ['', [Validators.pattern]],
-      UPLOADFIELD:[''],
+      // UPLOADFIELD:[''],
 
     });
   }
@@ -501,6 +501,7 @@ console.log(resp.data)
     this.showButton = false;
     this.updateShow = true;
     this.customerIdService.getFormData(id).subscribe(data => {
+      console.log('edit', data)
       this.updateID = data.id;
       this.angForm.setValue({
         'AC_NO': data.AC_NO,
@@ -516,13 +517,13 @@ console.log(resp.data)
         'AC_ADHARNO': data.AC_ADHARNO,
         'AC_RISKCATG': data.AC_RISKCATG,
         'AC_BIRTH_DT': data.AC_BIRTH_DT,
-        'AC_HONO': data.AC_HONO,
-        'AC_WARD': data.AC_WARD,
-        'AC_TADDR': data.AC_TADDR,
-        'AC_TGALLI': data.AC_TGALLI,
-        'AC_AREA': data.AC_AREA,
-        'AC_CTCODE': data.AC_CTCODE,
-        'AC_PIN': data.AC_PIN,
+        'AC_HONO': data.custAddress.AC_HONO,
+        'AC_WARD': data.custAddress.AC_WARD,
+        'AC_TADDR': data.custAddress.AC_TADDR,
+        'AC_TGALLI': data.custAddress.AC_TGALLI,
+        'AC_AREA': data.custAddress.AC_AREA,
+        'AC_CTCODE': data.custAddress.AC_CTCODE,
+        'AC_PIN': data.custAddress.AC_PIN,
         'AC_SALARYDIVISION_CODE': data.AC_SALARYDIVISION_CODE,
         'AC_PANNO': data.AC_PANNO,
         'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
@@ -533,11 +534,11 @@ console.log(resp.data)
         'TDS_REQUIRED': data.TDS_REQUIRED,
         'SMS_REQUIRED': data.SMS_REQUIRED,
         'IS_KYC_RECEIVED': data.IS_KYC_RECEIVED,
-        'FIN_YEAR': data.FIN_YEAR,
-        'SUBMIT_DATE': data.SUBMIT_DATE,
-        'FORM_TYPE': data.FORM_TYPE,
-        'TDS_RATE': data.TDS_RATE,
-        'TDS_LIMIT': data.TDS_LIMIT
+        'FIN_YEAR': data.tdsForm.FIN_YEAR,
+        'SUBMIT_DATE': data.tdsForm.SUBMIT_DATE,
+        'FORM_TYPE': data.tdsForm.FORM_TYPE,
+        'TDS_RATE': data.tdsForm.TDS_RATE,
+        'TDS_LIMIT': data.tdsForm.TDS_LIMIT
       })
     })
   }

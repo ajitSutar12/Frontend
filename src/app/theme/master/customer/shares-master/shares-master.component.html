@@ -26,9 +26,10 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="Customer_ID" [multiple]="false"
-                                    placeholder="Customer ID *" required title="Compulsory Selection"
-                                    formControlName="AC_CUSTID">
+                                <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
+                                    placeholder="Customer ID *" required title="Compulsory Selection" 
+                                    formControlName="AC_CUSTID"
+                                    [ngModel]="id" (ngModelChange)="getCustomer($event)">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -66,7 +67,7 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="title" [multiple]="false"
+                                <ng-select [ngClass]="'ng-select'" [multiple]="false"
                                     placeholder="Title *" required title="Compulsory Selection"
                                     formControlName="AC_TITLE" disable>
                                 </ng-select>
@@ -108,8 +109,12 @@
                         <div class="col-sm">
                             <div class="card-block">
                                 <ngb-tabset>
+<<<<<<< Updated upstream
                                     <ngb-tab title="1.Basic" [(ngModel)]="basicTab" id="basicTab" name="basicTab">
                                         <!-- #basicTab="ngModel" -->
+=======
+                                    <ngb-tab title="1.Basic">
+>>>>>>> Stashed changes
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
@@ -585,8 +590,12 @@
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
+<<<<<<< Updated upstream
                                     <ngb-tab title="2.Other" id="otherTab" name="otherTab"
                                         [disabled]="basicTab">
+=======
+                                    <ngb-tab title="2.Other">
+>>>>>>> Stashed changes
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
@@ -854,7 +863,11 @@
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
+<<<<<<< Updated upstream
                                     <ngb-tab title="3.Nominee" id="nomineeTab" name="nomineeTab">
+=======
+                                    <ngb-tab title="3.Nominee">
+>>>>>>> Stashed changes
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
@@ -878,7 +891,7 @@
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AC_NNAME"
                                                                                     class="form-control" placeholder=" "
-                                                                                    id="AC_NNAME" required=""
+                                                                                    id="AC_NNAME"
                                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                     formControlName="AC_NNAME">
@@ -891,9 +904,8 @@
                                                                             *ngIf="angForm.controls['AC_NNAME'].invalid && (angForm.controls['AC_NNAME'].dirty || angForm.controls['AC_NNAME'].touched)"
                                                                             class="alert alert-danger">
                                                                             <div
-                                                                                *ngIf="angForm.controls['AC_NNAME'].errors?.pattern || angForm.controls['AC_NNAME'].errors?.required">
-                                                                                This fiels is required and Input allowed
-                                                                                only A-Z a-z - / . (Space)
+                                                                                *ngIf="angForm.controls['AC_NNAME'].errors?.pattern">
+                                                                                Input allowed only A-Z a-z - / . (Space)
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -902,7 +914,7 @@
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AC_NRELA"
                                                                                     class="form-control" placeholder=" "
-                                                                                    id="AC_NRELA" required=""
+                                                                                    id="AC_NRELA"
                                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                     formControlName="AC_NRELA">
@@ -915,9 +927,8 @@
                                                                             *ngIf="angForm.controls['AC_NRELA'].invalid && (angForm.controls['AC_NRELA'].dirty || angForm.controls['AC_NRELA'].touched)"
                                                                             class="alert alert-danger">
                                                                             <div
-                                                                                *ngIf="angForm.controls['AC_NRELA'].errors?.pattern || angForm.controls['AC_NRELA'].errors?.required">
-                                                                                This fiels is required and Input allowed
-                                                                                only A-Z a-z - / . (Space)
+                                                                                *ngIf="angForm.controls['AC_NRELA'].errors?.pattern">
+                                                                                Input allowed only A-Z a-z - / . (Space)
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -926,8 +937,7 @@
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AC_NDATE"
                                                                                     class="form-control" placeholder=" "
-                                                                                    id="AC_NDATE" required
-                                                                                    max="9999-12-31"
+                                                                                    id="AC_NDATE" max="9999-12-31"
                                                                                     onfocus="(this.type='date')"
                                                                                     formControlName="AC_NDATE">
                                                                                 <label for="AC_NDATE">Nomination
@@ -935,14 +945,14 @@
                                                                                     </sub></label>
                                                                             </span>
                                                                         </div>
-                                                                        <div class="form-group form-primary form-static-label"
+                                                                        <!-- <div class="form-group form-primary form-static-label"
                                                                             *ngIf="angForm.controls['AC_NDATE'].invalid && (angForm.controls['AC_NDATE'].dirty || angForm.controls['AC_NDATE'].touched)"
                                                                             class="alert alert-danger">
                                                                             <div
                                                                                 *ngIf="angForm.controls['AC_NDATE'].errors?.required">
                                                                                 This fiels is required
                                                                             </div>
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
@@ -1028,19 +1038,19 @@
                                                                             class="form-group form-primary form-static-label">
                                                                             <ng-select [ngClass]="'ng-select'"
                                                                                 [options]="ncity" [multiple]="false"
-                                                                                placeholder="City *" required
+                                                                                placeholder="City *" 
                                                                                 title="Compulsory Selection"
                                                                                 formControlName="CTCODE">
                                                                             </ng-select>
                                                                         </div>
-                                                                        <div class="form-group form-primary form-static-label"
+                                                                        <!-- <div class="form-group form-primary form-static-label"
                                                                             *ngIf="angForm.controls['CTCODE'].invalid && (angForm.controls['CTCODE'].dirty || angForm.controls['CTCODE'].touched)"
                                                                             class="alert alert-danger">
                                                                             <div
                                                                                 *ngIf="angForm.controls['CTCODE'].errors?.required">
                                                                                 This field is required
                                                                             </div>
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
                                                                     <div class="col-sm">
                                                                         <div class="form-group input-group">
@@ -1164,7 +1174,11 @@
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
+<<<<<<< Updated upstream
                                     <ngb-tab title="4.Documents" id="documentTab" name="documentTab">
+=======
+                                    <ngb-tab title="4.Documents">
+>>>>>>> Stashed changes
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="table-responsive">
@@ -1288,7 +1302,7 @@
                                                     <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="mCity"
-                                                                [multiple]="false" placeholder="City" required
+                                                                [multiple]="false" placeholder="City"
                                                                 title="Compulsory Selection"
                                                                 formControlName="AC_DEV_CITYCODE">
                                                             </ng-select>

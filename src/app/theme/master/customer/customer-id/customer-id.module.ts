@@ -27,7 +27,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     ReactiveFormsModule,
     FileUploadModule
   ],
-  exports:[CustomerIdComponent],
+  exports:[CustomerIdComponent], 
   declarations: [CustomerIdComponent],
   providers: [PrefixMasterDropdownService,
     CustomerIdService,

@@ -18,12 +18,18 @@ import { Sal2Service } from '../../../../shared/elements/sal2.service';
 import { City3Service } from '../../../../shared/elements/city3.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MembershipTypeDropdownService } from '../../../../shared/dropdownService/membership-type-dropdown.service'
 import { SignTypeDropdownService } from '../../../../shared/dropdownService/sign-type-dropdown.service'
 import { ShareMasterService } from './shares-master.service'
 import { SharedModule } from '../../../../shared/shared.module';
 import { CustomerIdModule } from '../customer-id/customer-id.module';
+<<<<<<< Updated upstream
 
+=======
+import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
+import { CustomerIdService } from '../customer-id/customer-id.service';
+import { categoryMasterService } from '../../../../shared/dropdownService/category-master-dropdown.service';
+import { MembershipTypeDropdownService } from '../../../../shared/dropdownService/membership-type-dropdown.service';
+>>>>>>> Stashed changes
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -49,6 +55,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MembershipTypeDropdownService,
     SignTypeDropdownService,
     ShareMasterService,
+<<<<<<< Updated upstream
+=======
+    CustomerIDMasterDropdownService,
+    categoryMasterService,
+    CustomerIdService,
+>>>>>>> Stashed changes
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,

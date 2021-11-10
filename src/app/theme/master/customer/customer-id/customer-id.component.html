@@ -178,9 +178,9 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_HONO" class="form-control" placeholder=" "
+                                    <input type="text" formControlName="AC_HONO" name="AC_HONO" class="form-control" placeholder=" "
                                         pattern="^[A-Za-z0-9]+$" title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                        id="AC_HONO" formControlName="AC_HONO">
+                                        id="AC_HONO" >
                                     <label for="AC_HONO">House</label>
                                 </span>
                             </div>
@@ -524,7 +524,7 @@
                                                                                 [uploader]="uploader"
                                                                                 class="custom-file-input"
                                                                                 id="uploaderfield"
-                                                                                formControlName="UPLOADFIELD" />
+                                                                                formControlName="" />
                                                                             <span class="custom-file-control">Upload
                                                                                 Photo</span>
                                                                         </label>
@@ -623,13 +623,13 @@
                                         <td>{{data.AC_ADHARNO}}</td>
                                         <td>{{data.AC_PANNO}}</td>
                                         <td>{{data.AC_BIRTH_DT}}</td>
-                                        <td>{{data.AC_HONO}}</td>
-                                        <td>{{data.AC_WARD}}</td>
-                                        <td>{{data.AC_TADDR}}</td>
-                                        <td>{{data.AC_TGALLI}}</td>
-                                        <td>{{data.AC_AREA}}</td>
-                                        <td>{{data.AC_CTCODE}}</td>
-                                        <td>{{data.AC_PIN}}</td>
+                                        <td>{{data.custAddress.AC_HONO}}</td>
+                                        <td>{{data.custAddress.AC_WARD}}</td>
+                                        <td>{{data.custAddress.AC_TADDR}}</td>
+                                        <td>{{data.custAddress.AC_TGALLI}}</td>
+                                        <td>{{data.custAddress.AC_AREA}}</td>
+                                        <td>{{data.custAddress.AC_CTCODE}}</td>
+                                        <td>{{data.custAddress.AC_PIN}}</td>
                                         <td>{{data.AC_SALARYDIVISION_CODE}}</td>
                                         <td>{{data.AC_MOBILENO}}</td>
                                         <td>{{data.AC_PHONE_RES}}</td>
@@ -639,11 +639,11 @@
                                         <td>{{data.TDS_REQUIRED}}</td>
                                         <td>{{data.SMS_REQUIRED}}</td>
                                         <td>{{data.IS_KYC_RECEIVED}}</td>
-                                        <td>{{data.FIN_YEAR}}</td>
-                                        <td>{{data.SUBMIT_DATE}}</td>
-                                        <td>{{data.FORM_TYPE}}</td>
-                                        <td>{{data.TDS_RATE}}</td>
-                                        <td>{{data.TDS_LIMIT}}</td>
+                                        <td>{{data.tdsForm.FIN_YEAR}}</td>
+                                        <td>{{data.tdsForm.SUBMIT_DATE}}</td>
+                                        <td>{{data.tdsForm.FORM_TYPE}}</td>
+                                        <td>{{data.tdsForm.TDS_RATE}}</td>
+                                        <td>{{data.tdsForm.TDS_LIMIT}}</td>
 
                                     </tr>
                                 </tbody>
@@ -707,164 +707,3 @@
         </div>
     </div>
 </div>
-
-
-<!-- <tr>
-                                                            <td style="align-items: center;">
-                                                                <div class="border-checkbox-section">
-                                                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input class="border-checkbox" type="checkbox" id="SIGNATURE" (click)="isShow(2)">
-                                                                        <label class="border-checkbox-label" for="SIGNATURE">Signature</label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="align-items: center;">
-                                                                <div class="row">
-                                                                    <div class="col-sm">
-                                                                        <label class="custom-file">
-                                                                            <input type="file" ng2FileSelect
-                                                                                [uploader]="uploader"
-                                                                                class="custom-file-input" />
-                                                                            <span class="custom-file-control">Upload
-                                                                                Signature</span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-
-                                                                        <span style="font-size: 20px;color: rgb(193, 22, 22); cursor: pointer;" class="fa fa-fw fa-times field-icon"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="align-items: center;">
-                                                                <div class="col-sm-2">
-                                                                    <span style="font-size: 20px;color: #0f459b; cursor: pointer;" class="fa fa-fw fa-eye field-icon"></span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="align-items: center;">
-                                                                <div class="border-checkbox-section">
-                                                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input class="border-checkbox" type="checkbox" id="AADHARCARD" (click)="isShow(3)">
-                                                                        <label class="border-checkbox-label" for="AADHARCARD">Aadhar Card</label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="align-items: center;">
-                                                                <div class="row">
-                                                                    <div class="col-sm">
-                                                                        <label class="custom-file">
-                                                                            <input type="file" ng2FileSelect
-                                                                                [uploader]="uploader"
-                                                                                class="custom-file-input" />
-                                                                            <span class="custom-file-control">Upload
-                                                                                Aadhar Card</span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-
-                                                                        <span style="font-size: 20px;color: rgb(193, 22, 22); cursor: pointer;" class="fa fa-fw fa-times field-icon"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="align-items: center;">
-                                                                <div class="col-sm-2">
-                                                                    <span style="font-size: 20px;color: #0f459b; cursor: pointer;" class="fa fa-fw fa-eye field-icon"></span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="align-items: center;">
-                                                                <div class="border-checkbox-section">
-                                                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input class="border-checkbox" type="checkbox" id="PANCARD" (click)="isShow(4)">
-                                                                        <label class="border-checkbox-label" for="PANCARD">Pan Card</label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="align-items: center;">
-                                                                <div class="row">
-                                                                    <div class="col-sm">
-                                                                        <label class="custom-file">
-                                                                            <input type="file" ng2FileSelect
-                                                                                [uploader]="uploader"
-                                                                                class="custom-file-input" />
-                                                                            <span class="custom-file-control">Upload
-                                                                                Pan Card</span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-
-                                                                        <span style="font-size: 20px;color: rgb(193, 22, 22); cursor: pointer;" class="fa fa-fw fa-times field-icon"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="align-items: center;">
-                                                                <div class="col-sm-2">
-                                                                    <span style="font-size: 20px;color: #0f459b; cursor: pointer;" class="fa fa-fw fa-eye field-icon"></span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="align-items: center;">
-                                                                <div class="border-checkbox-section">
-                                                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input class="border-checkbox" type="checkbox" id="VOTINGCARD" (click)="isShow(5)">
-                                                                        <label class="border-checkbox-label" for="VOTINGCARD">Voting Card</label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="align-items: center;">
-                                                                <div class="row">
-                                                                    <div class="col-sm">
-                                                                        <label class="custom-file">
-                                                                            <input type="file" ng2FileSelect
-                                                                                [uploader]="uploader"
-                                                                                class="custom-file-input" />
-                                                                            <span class="custom-file-control">Upload
-                                                                                Voting Card</span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-                                                                        <span style="font-size: 20px;color: rgb(193, 22, 22); cursor: pointer;" class="fa fa-fw fa-times field-icon"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="align-items: center;">
-                                                                <div class="col-sm-2">
-                                                                    <span style="font-size: 20px;color: #0f459b; cursor: pointer;" class="fa fa-fw fa-eye field-icon"></span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="align-items: center;">
-                                                                <div class="border-checkbox-section">
-                                                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input class="border-checkbox" type="checkbox" id="RATIONCARD" (click)="isShow(6)">
-                                                                        <label class="border-checkbox-label" for="RATIONCARD">Ration Card</label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="align-items: center;">
-                                                                <div class="row">
-                                                                    <div class="col-sm">
-                                                                        <label class="custom-file">
-                                                                            <input type="file" ng2FileSelect
-                                                                                [uploader]="uploader"
-                                                                                class="custom-file-input" />
-                                                                            <span class="custom-file-control">Upload
-                                                                                Ration Card</span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-
-                                                                        <span style="font-size: 20px;color: rgb(193, 22, 22); cursor: pointer;" class="fa fa-fw fa-times field-icon"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="align-items: center;">
-                                                                <div class="col-sm-2">
-                                                                    <span style="font-size: 20px;color: #0f459b; cursor: pointer;" class="fa fa-fw fa-eye field-icon"></span>
-                                                                </div>
-                                                            </td>
-                                                        </tr> -->

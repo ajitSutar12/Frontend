@@ -28,7 +28,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SelectModule } from 'ng-select';
-import { ChargesTypeService } from '../../../../shared/elements/charges-type.service';
+import { ChargesTypeService } from '../../../../shared/dropdownService/charges-type.service';
 import { DepreciationService } from '../../../../shared/elements/depreciation.service';
 import { Scheme1Service } from '../../../../shared/elements/scheme1.service';
 import { Int1Service } from '../../../../shared/elements/int1.service';
@@ -60,6 +60,7 @@ import { TermDepositPatSchemeService } from '../definations/term-deposit-pat-sch
 import { InterestRateForLoanandCCService } from '../definations/interest-rate-for-lacc/interest-rate-for-lacc.service'
 import { SavingandPigmyInterestRatesService } from '../definations/interest-rate-for-sapd/interest-rate-for-sapd.service'
 import { SizeSlabWiseService } from '../definations/size-slab-wise-ar/size-slab-wise-ar.service'
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -111,10 +112,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     InterestRateForLoanandCCService,
     SizeSlabWiseService,
     {
-
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
-
     },
     ChargesTypeService,
   ],
