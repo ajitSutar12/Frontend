@@ -4,6 +4,16 @@ import { Subscription } from 'rxjs/Subscription';
 import { npcslabMasterService } from '../../../../shared/elements/npcslab-master.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
+// Angular Datatable Directive 
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import{ReceiptService} from './n-paclassification-slab-master.component.service';
+
+
+interface receiptinterface{
+  LastReceiptNo:string,
+  ReceiptType: number,
+}
 
 @Component({
   selector: 'app-n-paclassification-slab-master',
@@ -13,6 +23,9 @@ import Swal from 'sweetalert2';
 export class NPAClassificationSlabMasterComponent implements OnInit {
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
+  dtElement: DataTableDirective;
+  dtTrigger: Subject<any> = new Subject();
+
 
   //title select variables
   simpleOption: Array<IOption> = this.npcslabMasterService.getCharacters();
@@ -27,7 +40,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit {
   showButton: boolean = true;
   updateShow: boolean = false;
 
-  constructor(public npcslabMasterService: npcslabMasterService, private fb: FormBuilder) { this.createForm(); }
+  constructor(public npcslabMasterService: npcslabMasterService, private fb: FormBuilder, private npaservice :ReceiptService) { this.createForm(); }
   //object created to get data when row is clicked
   message = {
     EffectiveDate: "",
@@ -120,10 +133,25 @@ export class NPAClassificationSlabMasterComponent implements OnInit {
   }
   submit() {
     console.log(this.angForm.valid);
-
     if (this.angForm.valid) {
-      console.log(this.angForm.value);
+      // console.log(this.angForm.value);
     }
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      'LastReceiptNo': formVal.LastReceiptNo,
+      'ReceiptType': formVal.ReceiptType,
+    };
+    // console.log(this.angForm.value);
+    this.npaservice.postData(dataToSend).subscribe(
+      (data1) => {
+        Swal.fire("Success!", "Data Added Successfully !", "success");
+        // to reload after insertion of data
+        // this.rerender();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   //function for edit button clicked

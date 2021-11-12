@@ -5,7 +5,7 @@
                 <h5>Budget Allocation Master</h5>
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+            <form action="javascript:" [formGroup]="angForm" novalidate  #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md">
@@ -30,13 +30,13 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="radio" checked>
+                                        <input type="radio" name="radio"  value="expenditure" formControlName="radio">
                                         <i class="helper"></i>Expenditure
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="radio">
+                                        <input type="radio" name="radio" value="income"formControlName="radio">
                                         <i class="helper"></i>Income
                                     </label>
                                 </div>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-sm">
                             <button class="btn btn-primary ripple light" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Add</button>
+                                [disabled]="angForm.invalid" (click)="submit(angForm.value)" (click)="submit(angForm.value)">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
                         </div>

@@ -2,7 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { animate, style, transition, trigger } from '@angular/animations';
+import{ ReceiptService} from './t-dreceipt-type-master.component.service';
+// Angular Datatable Directive 
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 
+
+interface receiptinterface{
+  LastReceiptNo:string,
+  ReceiptType: number,
+}
 
 @Component({
   selector: 'app-t-dreceipt-type-master',
@@ -23,11 +32,14 @@ import { animate, style, transition, trigger } from '@angular/animations';
 })
 export class TDReceiptTypeMasterComponent implements OnInit {
   angForm: FormGroup;
+  dtElement: DataTableDirective;
+  dtTrigger: Subject<any> = new Subject();
+
   dtExportButtonOptions: any = {};
   //variables for  add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-
+  updateID:number = 0;
   //object created to get data when row is clicked
   message = {
     ReceiptType: "",
@@ -36,7 +48,7 @@ export class TDReceiptTypeMasterComponent implements OnInit {
 
   };
 
-  constructor(private fb: FormBuilder) { this.createForm(); }
+  constructor(private fb: FormBuilder, private _receipt:ReceiptService) { this.createForm(); }
 
   ngOnInit(): void {
 
@@ -90,15 +102,39 @@ export class TDReceiptTypeMasterComponent implements OnInit {
   }
   submit() {
     console.log(this.angForm.valid);
-
     if (this.angForm.valid) {
-      console.log(this.angForm.value);
+      // console.log(this.angForm.value);
     }
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      'LastReceiptNo': formVal.LastReceiptNo,
+      'ReceiptType': formVal.ReceiptType,
+    };
+    // console.log(this.angForm.value);
+    this._receipt.postData(dataToSend).subscribe(
+      (data1) => {
+        Swal.fire("Success!", "Data Added Successfully !", "success");
+        // to reload after insertion of data
+        // this.rerender();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
   //function toggle update to add button
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    let data = this.angForm.value;
+    data['id'] = this.updateID;
+    this._receipt.updateData(data).subscribe(() => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.showButton = true;
+      this.updateShow = false;
+      this.rerender();
+       this.resetForm();
+    })
 
   }
   //function for edit button clicked
@@ -139,4 +175,16 @@ export class TDReceiptTypeMasterComponent implements OnInit {
       }
     })
   }
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
+    // Reset Function
+    resetForm() {
+      this.createForm();
+    }
 }
