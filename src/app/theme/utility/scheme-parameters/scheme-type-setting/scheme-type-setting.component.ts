@@ -236,6 +236,18 @@ export class SchemeTypeSettingComponent implements OnInit {
       this.characters = options;
     });
   }
+  // enable-disable checkbox event
+  cashpaymentlock($event) {
+    if ($event.target.checked) {
+      document.getElementById('S_CASH_PAID_MIN_AMT').removeAttribute("disabled");
+
+    }
+    else {
+      document.getElementById('S_CASH_PAID_MIN_AMT').setAttribute("disabled", "true")
+      this.angForm.controls.POST_TO_INDIVIDUAL_AC.reset();
+     
+    }
+  }
 
   runTimer() {
     const timer = setInterval(() => {

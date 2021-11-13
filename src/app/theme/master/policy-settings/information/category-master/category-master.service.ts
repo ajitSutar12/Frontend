@@ -4,14 +4,15 @@ import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {environment}  from '../../../../../../environments/environment';
+  import {environment}  from '../../../../../../environments/environment';
+
 @Injectable()
 export class CategoryMasterService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  //url = "http://localhost:4000/category-master";
-  url = environment.base_url;
+  // url = "http://localhost:4000/category-master";
+   url = environment.base_url;
 
   constructor(private http: HttpClient) { }
 

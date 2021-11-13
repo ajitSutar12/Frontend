@@ -91,7 +91,8 @@
                                                 <div class="col-sm">
                                                     <div class="border-checkbox-section">
                                                         <div class="border-checkbox-group border-checkbox-group-primary">
-                                                            <input class="border-checkbox" type="checkbox" id="S_CASH_PAID_LOCK " formControlName="S_CASH_PAID_LOCK">
+                                                            <input class="border-checkbox" type="checkbox" id="S_CASH_PAID_LOCK " 
+                                                            formControlName="S_CASH_PAID_LOCK" (click)="cashpaymentlock($event)">
                                                             <label class="border-checkbox-label" for="S_CASH_PAID_LOCK ">Is
                                                                     Required Cash Payment Lock?<span class="required">
                                                                     </span></label>
@@ -107,7 +108,7 @@
                                                                     pattern="\d{1,20}(\.\d{2})?"
                                                                     title="Input allowed only  0-9/ . (Space)"
                                                                     maxlength="20,2"
-                                                                    formControlName="S_CASH_PAID_MIN_AMT">
+                                                                    formControlName="S_CASH_PAID_MIN_AMT" disabled>
                                                                 <label for="S_CASH_PAID_MIN_AMT">Show Message when cash
                                                                     Payment Min Rs.<sub class="required">*
                                                                     </sub></label>

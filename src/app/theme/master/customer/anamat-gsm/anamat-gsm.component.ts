@@ -44,13 +44,13 @@ interface glsubmaster {
   AC_NAME: string;
   AC_MEMBTYPE:string;
   AC_MEMBNO:string;
-  House: string;
-  Ward: string;
-  Detail: string;
-  Galli: string;
-  Area: string;
-  City:string;
-  Pincode:string;
+  AC_HONO: string;
+  AC_WARD: string;
+  AC_TADDR: string;
+  AC_TGALLI: string;
+  AC_AREA: string;
+  AC_CTCODE:string;
+  AC_PIN:string;
   AC_OPDATE:Date;
   Recovery:string;
   Debit:boolean;
@@ -88,9 +88,6 @@ interface glsubmaster {
     this.newCustomerID = newCustomer
     console.log(this.newCustomerID)
     this.angForm.setValue({
-      'AC_NO': this.newCustomerID.AC_NO,
-      'AC_MEMBTYPE': this.newCustomerID.AC_MEMBTYPE,
-      'AC_MEMBNO': this.newCustomerID.AC_MEMBNO,
       'AC_TITLE': this.newCustomerID.AC_TITLE,
       'AC_NAME': this.newCustomerID.AC_NAME,
       'AC_CAST': this.newCustomerID.AC_CAST,
@@ -98,21 +95,28 @@ interface glsubmaster {
       'AC_ADHARNO': this.newCustomerID.AC_ADHARNO,
       'AC_RISKCATG': this.newCustomerID.AC_RISKCATG,
       'AC_BIRTH_DT': this.newCustomerID.AC_BIRTH_DT,
-      'AC_PANNO': this.newCustomerID.AC_PANNO,
-      'AC_SALARYDIVISION_CODE': this.newCustomerID.AC_SALARYDIVISION_CODE,
-      'AC_ADDR1': this.newCustomerID.AC_ADDR1,
-      'AC_ADDR2': this.newCustomerID.AC_ADDR2,
-      'AC_ADDR3': this.newCustomerID.AC_ADDR3,
-      'AC_IS_RECOVERY': this.newCustomerID.AC_IS_RECOVERY,
+      'AC_HONO': this.newCustomerID.AC_HONO,
+      'AC_WARD': this.newCustomerID.AC_WARD,
+      'AC_TADDR': this.newCustomerID.AC_TADDR,
+      'AC_TGALLI': this.newCustomerID.AC_TGALLI,
+      'AC_AREA': this.newCustomerID.AC_AREA,
       'AC_CTCODE': this.newCustomerID.AC_CTCODE,
       'AC_PIN': this.newCustomerID.AC_PIN,
+      'AC_PANNO': this.newCustomerID.AC_PANNO,
+      'AC_SALARYDIVISION_CODE': this.newCustomerID.AC_SALARYDIVISION_CODE,
       'AC_MOBILENO': this.newCustomerID.AC_MOBILENO,
       'AC_PHONE_RES': this.newCustomerID.AC_PHONE_RES,
       'AC_PHONE_OFFICE': this.newCustomerID.AC_PHONE_OFFICE,
       'AC_EMAILID': this.newCustomerID.AC_EMAILID,
+      'AC_IS_RECOVERY': this.newCustomerID.AC_IS_RECOVERY,
       'TDS_REQUIRED': this.newCustomerID.TDS_REQUIRED,
       'SMS_REQUIRED': this.newCustomerID.SMS_REQUIRED,
-      'IS_KYC_RECEIVED': this.newCustomerID.IS_KYC_RECEIVED
+      'IS_KYC_RECEIVED': this.newCustomerID.IS_KYC_RECEIVED,
+      'FIN_YEAR': this.newCustomerID.FIN_YEAR,
+      'SUBMIT_DATE': this.newCustomerID.SUBMIT_DATE,
+      'FORM_TYPE': this.newCustomerID.FORM_TYPE,
+      'TDS_RATE': this.newCustomerID.TDS_RATE,
+      'TDS_LIMIT': this.newCustomerID.TDS_LIMIT,
 
     })
   }
@@ -278,31 +282,31 @@ interface glsubmaster {
                   },
                   
                   {
-                    data: 'House',
+                    data: 'AC_HONO',
                     title: 'House'
                   },
                   {
-                    data: 'Ward',
+                    data: 'AC_WARD',
                     title: 'Ward'
                   },
                   {
-                    data: 'Detail',
+                    data: 'AC_TADDR',
                     title: 'Detail'
                   },
                   {
-                    data: 'Galli',
+                    data: 'AC_TGALLI',
                     title: 'Galli'
                   },
                   {
-                    data: 'Area',
+                    data: 'AC_AREA',
                     title: 'Area'
                   },
                   {
-                    data: 'City',
+                    data: 'AC_CTCODE',
                     title: 'City'
                   },
                   {
-                    data: 'Pincode',
+                    data: 'AC_PIN',
                     title: 'Pincode'
                   },
                   {
@@ -359,13 +363,13 @@ interface glsubmaster {
       AC_NAME: ['', [Validators.required, Validators.pattern]],
       AC_MEMBTYPE: ['', [Validators.required]],
       AC_MEMBNO: ['', [Validators.required, Validators.pattern]],
-      House: ['', [Validators.required, Validators.pattern]],
-      Ward: ['', [Validators.required]],
-      Detail:[''],
-      Galli:[''],
-      Area:[''],
-      City:[''],
-      Pincode:[''],
+      AC_HONO: ['', [Validators.required, Validators.pattern]],
+      AC_WARD: ['', [Validators.required]],
+      AC_TADDR:[''],
+      AC_TGALLI:[''],
+      AC_AREA:[''],
+      AC_CTCODE:[''],
+      AC_PIN:[''],
       AC_OPDATE:[''],
       Recovery:[''],
       Debit:[''],
@@ -387,13 +391,13 @@ interface glsubmaster {
         'AC_NAME': formVal.AC_NAME,
         'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
         'AC_MEMBNO': formVal.AC_MEMBNO,
-        'House': formVal.House,
-        'Ward': formVal.Ward,
-        'Detail': formVal.Detail,
-        'Galli': formVal.Galli,
-        'Area': formVal.Area,
-        'City': formVal.City,
-        'Pincode': formVal.Pincode,
+        'AC_HONO': formVal.AC_HONO,
+        'AC_WARD': formVal.AC_WARD,
+        'AC_TADDR': formVal.AC_TADDR,
+        'AC_TGALLI': formVal.AC_TGALLI,
+        'AC_AREA': formVal.AC_AREA,
+        'AC_CTCODE': formVal.AC_CTCODE,
+        'AC_PIN': formVal.AC_PIN,
         'AC_OPDATE': formVal.AC_OPDATE,
         'Recovery': formVal.Recovery,
         'Debit': formVal.Debit,
@@ -426,13 +430,13 @@ interface glsubmaster {
           'AC_NAME': data.AC_NAME,
           'AC_MEMBTYPE': data.AC_MEMBTYPE,
           'AC_MEMBNO': data.AC_MEMBNO,
-          'House': data.House,
-          'Ward': data.Ward,
-          'Detail': data.Detail,
-          'Galli': data.Galli,
-          'Area': data.Area,
-          'City': data.City,
-          'Pincode': data.Pincode,
+          'AC_HONO': data.AC_HONO,
+          'AC_WARD': data.AC_WARD,
+          'AC_TADDR': data.AC_TADDR,
+          'AC_TGALLI': data.AC_TGALLI,
+          'AC_AREA': data.AC_AREA,
+          'AC_CTCODE': data.AC_CTCODE,
+          'AC_PIN': data.AC_PIN,
           'AC_OPDATE': data.AC_OPDATE,
           'Recovery': data.Recovery,
           'Debit': data.Debit,

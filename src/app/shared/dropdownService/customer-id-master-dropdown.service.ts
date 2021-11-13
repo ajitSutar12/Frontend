@@ -5,6 +5,9 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class CustomerIDMasterDropdownService {
+    loadCharacters() {
+      throw new Error('Method not implemented.');
+    }
 
     url = environment.base_url;
     customerIDMasterObject = new Array();

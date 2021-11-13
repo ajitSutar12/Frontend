@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 export class AdvocateMasterDropdownService {
     advocateMasterObject = new Array();
     // url ='http://localhost:4000/advocate-master';
-    url = environment.base_url;
+    url = environment.base_url; 
 
     constructor(private http: HttpClient) { }
     public getAdvocateMasterList() {

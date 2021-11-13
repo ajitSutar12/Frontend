@@ -777,7 +777,7 @@ const MENUITEMS = [
           //
           {
             state: 'nottice',
-            name: 'Nottice',
+            name: 'Notice',
           },
           //
           {

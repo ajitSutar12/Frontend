@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-
+import { environment } from '../../../environments/environment';
 @Injectable()
 export class DepriciationCatDropdownMasterService {
     depriciationObject = new Array();
-    url = "http://localhost:4000/depriciation-category-master";
-
+    // url = "http://localhost:4000/depriciation-category-master";
+    url = environment.base_url;
     constructor(private http: HttpClient) { }
     public getDepriciationMasterList() {
         this.depriciationObject = []

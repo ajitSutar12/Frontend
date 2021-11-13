@@ -70,10 +70,11 @@
                             <div class="col-md-3">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <ng-select [ngClass]="'ng-select'" [options]="statementOption"
-                                            [multiple]="false" placeholder="Customer ID *" required
-                                            title="Compulsory Selection" formControlName="AC_CUSTID">
+                                        <ng-select [ngClass]="'ng-select'" [options]="custid"
+                                            [multiple]="false" placeholder="Customer ID *" required 
+                                            title="Compulsory Selection" #custID formControlName="AC_CUSTID">
                                         </ng-select>
+                                        <!-- <button class="btn btn-primary mt-3" (click)="getDataText(custID)">Get Details</button> -->
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)" class="alert alert-danger">
@@ -83,8 +84,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <button type="button" class="btn btn-primary ripple light" (click)="modalLarge.show()">New
-                                    Customer</button>
+                                <span style="font-size: 20px;color: rgb(22, 68, 193); cursor: pointer;" class="fa fa-fw fa-user-plus field-icon" (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer"></span>
                             </div>
                             <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
                                 <div class="app-modal-header">
@@ -117,19 +117,36 @@
                                     </div>
                                 </div>
                             </div> -->
-                            <div class="col-md">
+                            <!-- <div class="col-md">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <ng-select [ngClass]="'ng-select'" [options]="statementOption"
                                             [multiple]="false" placeholder="Name *" required
                                             title="Compulsory Selection" formControlName="AC_NAME">
                                         </ng-select>
-                                        <!-- <label>{{ message.AC_NAME }}</label> -->
+                                         <label>{{ message.AC_NAME }}</label> 
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_NAME'].invalid && (angForm.controls['AC_NAME'].dirty || angForm.controls['AC_NAME'].touched)" class="alert alert-danger">
                                     <div *ngIf="angForm.controls['AC_NAME'].errors?.required">
                                         This field is required
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-md">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="AC_NAME" class="form-control"
+                                            placeholder=" " id="AC_NAME" value=""
+                                            pattern="^[A-Za-z\./ -]+$"title="Input allowed only  0-9"
+                                            formControlName="AC_NAME">
+                                        <label for="AC_NAME">Name</label>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_NAME'].invalid && (angForm.controls['AC_NAME'].dirty || angForm.controls['AC_NAME'].touched)" class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_NAME'].errors?.pattern">
+                                        Input allowed only A-Z a-z
                                     </div>
                                 </div>
                             </div>
@@ -433,7 +450,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <h6>Interest Details</h6>
+                                                        <div class="col-sm">
+                                                            <h6><b>Interest Details  : </b></h6>
+                                                        </div>
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">

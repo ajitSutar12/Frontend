@@ -19,6 +19,7 @@ import { cityMasterService } from '../../../../shared/dropdownService/city-maste
 import { RiskCategoryDropdownService } from '../../../../shared/dropdownService/risk-category-dropdown.service';
 import { FileUploader } from 'ng2-file-upload';
 import { DocumentMasterDropdownService } from '../../../../shared/dropdownService/document-master-dropdown.service';
+import { Router } from '@angular/router';
 
 
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -132,7 +133,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     private salaryDMaster: SalaryDMasterdropdownService,
     private cityMaster: cityMasterService,
     private riskCategoryDropdown: RiskCategoryDropdownService,
-    private documentMasterService: DocumentMasterDropdownService
+    private documentMasterService: DocumentMasterDropdownService,
+    public router: Router,
   ) { }
 
   ngOnInit(): void {

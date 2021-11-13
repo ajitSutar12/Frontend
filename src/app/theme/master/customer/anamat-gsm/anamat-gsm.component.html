@@ -43,8 +43,7 @@
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <button type="button" class="btn btn-primary ripple light" (click)="modalLarge.show()">New
-                                Customer</button>
+                            <span style="font-size: 20px;color: rgb(22, 68, 193); cursor: pointer;" class="fa fa-fw fa-user-plus field-icon" (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer"></span>
                         </div>
                         <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
                             <div class="app-modal-header">
@@ -140,17 +139,17 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="House" class="form-control"
-                                        placeholder=" " id="House"
+                                    <input type="text" name="AC_HONO" class="form-control"
+                                        placeholder=" " id="AC_HONO"
                                         value=""
                                         pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        formControlName="House">
-                                    <label for="House">House</label>
+                                        formControlName="AC_HONO">
+                                    <label for="AC_HONO">House</label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['House'].invalid && (angForm.controls['House'].dirty || angForm.controls['House'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['House'].errors?.pattern">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_HONO'].invalid && (angForm.controls['AC_HONO'].dirty || angForm.controls['AC_HONO'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_HONO'].errors?.pattern">
                                     Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
@@ -158,16 +157,16 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="Ward" class="form-control"
-                                        placeholder=" " id="Ward" value=""
+                                    <input type="text" name="AC_HONO" class="form-control"
+                                        placeholder=" " id="AC_HONO" value=""
                                         pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        formControlName="Ward">
-                                    <label for="Ward">Ward</label>
+                                        formControlName="AC_HONO">
+                                    <label for="AC_HONO">Ward</label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Ward'].invalid && (angForm.controls['Ward'].dirty || angForm.controls['Ward'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['Ward'].errors?.pattern">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_HONO'].invalid && (angForm.controls['AC_HONO'].dirty || angForm.controls['AC_HONO'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_HONO'].errors?.pattern">
                                     Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
@@ -175,16 +174,16 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <textarea type="text" name="Detail" class="form-control"
+                                    <textarea type="text" name="AC_TADDR" class="form-control"
                                         placeholder=" " pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        id="Detail" value=""
-                                        formControlName="Detail"></textarea>
-                                    <label for="Detail">Detail</label>
+                                        id="AC_TADDR" value=""
+                                        formControlName="AC_TADDR"></textarea>
+                                    <label for="AC_TADDR">Detail</label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Detail'].invalid && (angForm.controls['Detail'].dirty || angForm.controls['Detail'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['Detail'].errors?.pattern">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_TADDR'].invalid && (angForm.controls['AC_TADDR'].dirty || angForm.controls['AC_TADDR'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_TADDR'].errors?.pattern">
                                     Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
@@ -194,76 +193,76 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="Galli" class="form-control"
-                                        placeholder=" " id="Galli"
+                                    <input type="text" name="AC_TGALLI" class="form-control"
+                                        placeholder=" " id="AC_TGALLI"
                                         value=""
                                         pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        formControlName="Galli">
-                                    <label for="Galli">Galli</label>
+                                        formControlName="AC_TGALLI">
+                                    <label for="AC_TGALLI">Galli</label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Galli'].invalid && (angForm.controls['Galli'].dirty || angForm.controls['Galli'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['Galli'].errors?.pattern">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_TGALLI'].invalid && (angForm.controls['AC_TGALLI'].dirty || angForm.controls['AC_TGALLI'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_TGALLI'].errors?.pattern">
                                     Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="d" [multiple]="false" placeholder="City" required title="Compulsory Selection" formControlName="City">
+                                <ng-select [ngClass]="'ng-select'" [options]="d" [multiple]="false" placeholder="City" required title="Compulsory Selection" formControlName="AC_CTCODE">
                                 </ng-select>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="Area" class="form-control"
-                                        placeholder=" " id="Area" value=""
+                                    <input type="text" name="AC_AREA" class="form-control"
+                                        placeholder=" " id="AC_AREA" value=""
                                         pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        formControlName="Area">
-                                    <label for="Area">Area</label>
+                                        formControlName="AC_AREA">
+                                    <label for="AC_AREA">Area</label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Area'].invalid && (angForm.controls['Area'].dirty || angForm.controls['Area'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['Area'].errors?.pattern">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_AREA'].invalid && (angForm.controls['AC_AREA'].dirty || angForm.controls['AC_AREA'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_AREA'].errors?.pattern">
                                     Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
                         </div>
                     </div>
                      <div class="row">
-                        <div class="col-md">
+                        <!-- <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="City" class="form-control" placeholder=" " id="City"
+                                    <input type="text" name="AC_CTCODE" class="form-control" placeholder=" " id="AC_CTCODE"
                                         value="" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        formControlName="City">
-                                    <label for="City">City</label>
+                                        formControlName="AC_CTCODE">
+                                    <label for="AC_CTCODE">City</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['City'].invalid && (angForm.controls['City'].dirty || angForm.controls['City'].touched)"
+                                *ngIf="angForm.controls['AC_CTCODE'].invalid && (angForm.controls['AC_CTCODE'].dirty || angForm.controls['AC_CTCODE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['City'].errors?.pattern">
+                                <div *ngIf="angForm.controls['AC_CTCODE'].errors?.pattern">
                                     Input allowed only 0-9
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="Pincode" class="form-control" placeholder=" " id="Pincode"
+                                    <input type="text" name="AC_PIN" class="form-control" placeholder=" " id="AC_PIN"
                                         value="" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        formControlName="Pincode">
-                                    <label for="Pincode">Pincode</label>
+                                        formControlName="AC_PIN">
+                                    <label for="AC_PIN">Pincode</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['Pincode'].invalid && (angForm.controls['Pincode'].dirty || angForm.controls['Pincode'].touched)"
+                                *ngIf="angForm.controls['AC_PIN'].invalid && (angForm.controls['AC_PIN'].dirty || angForm.controls['AC_PIN'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['Pincode'].errors?.pattern">
+                                <div *ngIf="angForm.controls['AC_PIN'].errors?.pattern">
                                     Input allowed only 0-9
                                 </div>
                             </div>
@@ -367,13 +366,13 @@
                                         <td>{{ data.AC_NAME }}</td>
                                         <td>{{ data.AC_MEMBTYPE }}</td>
                                         <td>{{ data.AC_MEMBNO }}</td>
-                                        <td>{{ data.House }}</td>
-                                        <td>{{ data.Ward }}</td> 
-                                        <td>{{ data.Detail }}</td> 
-                                        <td>{{ data.Galli }}</td> 
-                                        <td>{{ data.Area }}</td> 
-                                        <td>{{ data.City }}</td> 
-                                        <td>{{ data.Pincode }}</td> 
+                                        <td>{{ data.AC_HONO }}</td>
+                                        <td>{{ data.AC_HONO }}</td> 
+                                        <td>{{ data.AC_TADDR }}</td> 
+                                        <td>{{ data.AC_TGALLI }}</td> 
+                                        <td>{{ data.AC_AREA }}</td> 
+                                        <td>{{ data.AC_CTCODE }}</td> 
+                                        <td>{{ data.AC_PIN }}</td> 
                                         <td>{{ data.AC_OPDATE }}</td> 
                                         <td>{{ data.Recovery }}</td> 
                                         <td>{{ data.Debit }}</td> 
@@ -397,13 +396,13 @@
                                         <th><input type="text" placeholder="Search name" name="AC_NAME"></th>
                                         <th><input type="text" placeholder="Search Member scheme" name="AC_MEMBTYPE"></th>
                                         <th><input type="text" placeholder="Search Member no" name="AC_MEMBNO"></th>
-                                        <th><input type="text" placeholder="Search House" name="House"></th>
-                                        <th><input type="text" placeholder="Search Ward" name="Ward"></th>
-                                        <th><input type="text" placeholder="Search Detail" name="Detail"></th>
-                                        <th><input type="text" placeholder="Search Galli" name="Galli"></th>
-                                        <th><input type="text" placeholder="Search Area" name="Area"></th>
-                                        <th><input type="text" placeholder="Search City" name="City"></th>
-                                        <th><input type="text" placeholder="Search Pincode" name="Pincode"></th>
+                                        <th><input type="text" placeholder="Search House" name="AC_HONO"></th>
+                                        <th><input type="text" placeholder="Search Ward" name="AC_HONO"></th>
+                                        <th><input type="text" placeholder="Search Detail" name="AC_TADDR"></th>
+                                        <th><input type="text" placeholder="Search Galli" name="AC_TGALLI"></th>
+                                        <th><input type="text" placeholder="Search Area" name="AC_AREA"></th>
+                                        <th><input type="text" placeholder="Search City" name="AC_CTCODE"></th>
+                                        <th><input type="text" placeholder="Search Pincode" name="AC_PIN"></th>
                                         <th><input type="text" placeholder="Search opening bal. date" name="AC_OPDATE"></th>
                                         <th><input type="text" placeholder="Search Recovery" name="Recovery"></th>
                                         <th><input type="text" placeholder="Search opening bal" name="Debit"></th>

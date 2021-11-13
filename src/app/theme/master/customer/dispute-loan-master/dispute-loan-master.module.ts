@@ -11,7 +11,7 @@ import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
 import { StatementTypeService } from '../../../../shared/elements/statment-type.service';
 import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
 import { DisputeLoanMasterService} from './dispute-loan-master.service'
-
+import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { CustomerIdModule } from '../customer-id/customer-id.module';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -39,6 +39,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
      StatementTypeService,
      SchemeCodeService,
      DisputeLoanMasterService,
+     CustomerIDMasterDropdownService,
      {
 
       provide: PERFECT_SCROLLBAR_CONFIG,

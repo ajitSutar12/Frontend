@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 // Creating and maintaining form fields with validation 
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
 // Angular Datatable Directive 
@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 import { UserdefinationServiceD} from '../../../shared/dropdownService/user-defination-dropdown.service'
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
-import { first } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, first, map, switchMapTo, take, tap } from 'rxjs/operators';
 
 // Handling datatable data
 class DataTableResponse {
@@ -218,6 +218,12 @@ export class UserDefinationComponent implements OnInit {
       this.characters = options;
     });
   }
+
+
+  
+
+
+
   createForm() {
     this.angForm = this.fb.group({
     
@@ -226,10 +232,13 @@ export class UserDefinationComponent implements OnInit {
       L_NAME: ['', [ Validators.pattern]],
       DOB: [''],
       MOB_NO: ['', [Validators.required, Validators.pattern]],
-      EMAIL: ['', [Validators.required, Validators.pattern]],
+      // EMAIL: ['', [Validators.required, Validators.pattern]],
+      EMAIL : ['', [Validators.required, Validators.email,
+                   Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       ROLE: ['', [Validators.required]],
+      // USER_NAME: ['', [Validators.required, Validators.pattern], UserDefinationComponent.createValidator(this.userdefinationservice)],
       USER_NAME: ['', [Validators.required, Validators.pattern]],
-       PASSWORD: ['', [Validators.required, Validators.pattern]],
+      PASSWORD: ['', [Validators.required, Validators.pattern]],
       STATUS: ['', [Validators.required]],
       // USER_CREATED_AT: ['', [ Validators.pattern]],
       
@@ -237,6 +246,24 @@ export class UserDefinationComponent implements OnInit {
 
     });
   }
+  
+  // static createValidator(service: UserDefinationService) {
+  //   debugger
+  //   return (control: AbstractControl): Observable<ValidationErrors | null> => {
+  //     if (!control.valueChanges || control.pristine) {
+  //       return of(null);
+  //     } else {
+  //       return control.valueChanges.pipe(
+  //         debounceTime(300),
+  //         distinctUntilChanged(),
+  //         take(1),
+  //         switchMapTo(service.checkUSER_NAMEExists(control.value)),
+  //         tap(() => control.markAsTouched()),
+  //         map((data) => (data.exist ? { userExist: true } : null))
+  //       );
+  //     }
+  //   };
+  // }
     // Method to insert data into database through NestJS
     submit() {
       const formVal = this.angForm.value;
@@ -334,7 +361,8 @@ export class UserDefinationComponent implements OnInit {
         }
       })
     }
-  
+
+   
     ngAfterViewInit(): void {
       this.dtTrigger.next();
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

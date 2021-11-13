@@ -249,6 +249,34 @@ export class SavingSchemeComponent implements OnInit {
       this.acMaster = data;
     })
   }
+   // enable-disable checkbox event
+   Interest_applicable($event) {
+    if ($event.target.checked) {
+      document.getElementById('POST_TO_INDIVIDUAL_AC').removeAttribute("disabled");
+      document.getElementById('S_RECEIVABLE_INT_ALLOW').removeAttribute("disabled");
+      document.getElementById('IS_SHOW_INT_AS_RECINT_IFDUEBAL').removeAttribute("disabled");
+      document.getElementById('IS_INTUPTODATE').removeAttribute("disabled");
+      document.getElementById('IS_NO_POST_INT_AFT_OD').removeAttribute("disabled");
+      document.getElementById('MIN_INT_LIMIT').removeAttribute("disabled");
+      document.getElementById('ROUNDOFF_FACTOR').removeAttribute("disabled");
+    }
+    else {
+      document.getElementById('POST_TO_INDIVIDUAL_AC').setAttribute("disabled", "true")
+      this.angForm.controls.POST_TO_INDIVIDUAL_AC.reset();
+      document.getElementById('S_RECEIVABLE_INT_ALLOW').setAttribute("disabled", "true")
+      this.angForm.controls.S_RECEIVABLE_INT_ALLOW.reset();
+      document.getElementById('IS_SHOW_INT_AS_RECINT_IFDUEBAL').setAttribute("disabled", "true")
+      this.angForm.controls.IS_SHOW_INT_AS_RECINT_IFDUEBAL.reset();
+      document.getElementById('IS_INTUPTODATE').setAttribute("disabled", "true")
+      this.angForm.controls.IS_INTUPTODATE.reset();
+      document.getElementById('IS_NO_POST_INT_AFT_OD').setAttribute("disabled", "true")
+      this.angForm.controls.IS_NO_POST_INT_AFT_OD.reset();
+      document.getElementById('MIN_INT_LIMIT').setAttribute("disabled", "true")
+      this.angForm.controls.MIN_INT_LIMIT.reset();
+      document.getElementById('ROUNDOFF_FACTOR').setAttribute("disabled", "true")
+      this.angForm.controls.ROUNDOFF_FACTOR.reset();
+    }
+  }
 
   createForm() {
     this.angForm = this.fb.group({

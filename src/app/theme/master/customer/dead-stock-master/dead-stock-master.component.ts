@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input } from '@angular/core';
 
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Subject } from 'rxjs';
@@ -60,6 +60,14 @@ interface deadstockinterface {
    export class DeadStockMasterComponent implements OnInit {
 
 
+    //calculations
+    firstnumber :string;
+    secondnumber : string;
+    PURCHASE_VALUE: number;
+    Addnumber(){
+      this.PURCHASE_VALUE == parseInt(this.firstnumber) * parseInt(this.secondnumber)
+    }
+  
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -126,6 +134,7 @@ interface deadstockinterface {
 
   ngOnInit(): void {
 
+    
 
     this.createForm();
     // Fetching Server side data
@@ -263,9 +272,14 @@ interface deadstockinterface {
     
   }
 
-  purchasevalue(purchaserate,purchasequality){
-      return this.ans = ( purchaserate * purchasequality );
-  }
+
+
+  // purchasevalue(purchaserate,purchasequality){
+  //     return this.ans = ( purchaserate * purchasequality );
+  // }
+
+
+
  // Purchasevalue($event) {
     //if ($event.target.clicked) {
      // if 
@@ -273,6 +287,7 @@ interface deadstockinterface {
         
      // }
 
+     
     // var purchaserate = document.getElementById('PURCHASE_RATE')
 
     // var purchasevalue :   {{purchaserate* purchasequality}}
@@ -354,6 +369,7 @@ interface deadstockinterface {
         'PURCHASE_QUANTITY': data.PURCHASE_QUANTITY,
         'PURCHASE_VALUE': data.PURCHASE_VALUE,
         // 'OP_BALANCE': data.OP_BALANCE,
+        'GL_ACNO': data.GL_ACNO,
         
         })
       })
@@ -449,5 +465,10 @@ interface deadstockinterface {
         }
       }, 1000);
     }
+
+    // getDataText(id){
+    //   const data = this.Data.find(x => x.id === id);
+    //   return data ? data.text : "Cannot find data with id ${id}";
+    // }
 }
 

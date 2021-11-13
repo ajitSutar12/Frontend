@@ -279,6 +279,162 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- <div *ngIf="interestApplicableTrue">
+                                    <div class="card-header">
+                                        <h5>Interest Applicable</h5>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="row">
+                                            <div class="border-checkbox-section">
+                                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                                    <input class="border-checkbox" type="checkbox"
+                                                        formControlName="S_INT_APPLICABLE" id="S_INT_APPLICABLE"
+                                                        [(ngModel)]="checkboxStatus" (click)="check_en($event)"
+                                                        formControlName="S_NAME">
+                                                    <label class="border-checkbox-label" for="S_INT_APPLICABLE">Is
+                                                        Interest
+                                                        Applicable?<span class="required"> </span></label>
+                                                </div>
+                                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                                    <input class="border-checkbox" type="checkbox"
+                                                        formControlName="POST_TO_INDIVIDUAL_AC"
+                                                        id="POST_TO_INDIVIDUAL_AC" [disabled]="!checkboxStatus">
+                                                    <label class="border-checkbox-label" for="POST_TO_INDIVIDUAL_AC">Is
+                                                        Post Interest to
+                                                        A/c
+                                                        ?<span class="required"> </span></label>
+                                                </div>
+                                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                                    <input class="border-checkbox" type="checkbox"
+                                                        formControlName="IS_DAYBASE_INT_CALCULATION"
+                                                        id="IS_DAYBASE_INT_CALCULATION" disabled>
+                                                    <label class="border-checkbox-label"
+                                                        for="IS_DAYBASE_INT_CALCULATION">Is Day Base
+                                                        Interest
+                                                        Calculation ?<span class="required"> </span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label for=""></label>
+                                            <label for=""></label>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" name="S_PRODUCT_DAY_BASE"
+                                                            class="form-control" placeholder=" " id="S_PRODUCT_DAY_BASE"
+                                                            required="" pattern="^[0-9]+$" miv="1" max="31"
+                                                            title="Input allowed only between  1 to 31 . (Space)"
+                                                            formControlName="S_PRODUCT_DAY_BASE">
+                                                        <label for="S_PRODUCT_DAY_BASE">Product Base Start Day<sub
+                                                                class="required">* </sub></label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['S_PRODUCT_DAY_BASE'].invalid && (angForm.controls['S_PRODUCT_DAY_BASE'].dirty || angForm.controls['S_PRODUCT_DAY_BASE'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div
+                                                        *ngIf="angForm.controls['S_PRODUCT_DAY_BASE'].errors?.pattern || angForm.controls['S_PRODUCT_DAY_BASE'].errors?.required">
+                                                        This field is required and Input allowed only 1 to 31 . (Space)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="form-radio">
+                                                    <div class="radio radio-inline">
+                                                        <label>
+                                                            <input type="radio" name="S_PRODUCT_DAY_BASE"
+                                                                checked="checked" value="MB"
+                                                                formControlName="S_PRODUCT_DAY_BASE">
+                                                            <i class="helper"></i>Month Begin<span class="required">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio radio-inline">
+                                                        <label>
+                                                            <input type="radio" name="S_PRODUCT_DAY_BASE"
+                                                                checked="checked" value="ME"
+                                                                formControlName="S_PRODUCT_DAY_BASE">
+                                                            <i class="helper"></i>Month End<span class="required">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" name="S_PRODUCT_DAY_BASE_END"
+                                                            class="form-control" placeholder=" "
+                                                            id="S_PRODUCT_DAY_BASE_END" required="" min="1" max="31"
+                                                            maxlength="2" pattern="^[0-9]+$"
+                                                            title="Input allowed only between 1 to 31 . (Space)"
+                                                            formControlName="S_PRODUCT_DAY_BASE_END">
+                                                        <label for="S_PRODUCT_DAY_BASE_END_T">Product Base End Day<sub
+                                                                class="required">* </sub></label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['S_PRODUCT_DAY_BASE_END'].invalid && (angForm.controls['S_PRODUCT_DAY_BASE_END'].dirty || angForm.controls['S_PRODUCT_DAY_BASE_END'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div
+                                                        *ngIf="angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.pattern || angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.required ||angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.max">
+                                                        This field is required and Input allowed only 1 to 31 . (Space)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="form-radio">
+                                                    <div class="radio radio-inline">
+                                                        <label>
+                                                            <input type="radio" name="S_PRODUCT_DAY_BASE_END" value="MB"
+                                                                checked="checked"
+                                                                formControlName="S_PRODUCT_DAY_BASE_END">
+                                                            <i class="helper"></i>Month Begin<span class="required">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio radio-inline">
+                                                        <label>
+                                                            <input type="radio" name="S_PRODUCT_DAY_BASE_END" value="ME"
+                                                                checked="checked"
+                                                                formControlName="S_PRODUCT_DAY_BASE_END">
+                                                            <i class="helper"></i>Month End<span class="required">
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" name="MIN_INT_LIMIT" class="form-control"
+                                                            placeholder=" " id="MIN_INT_LIMIT" required=""
+                                                            pattern="\d{1,20}(\.\d{2})?" maxlength="2"
+                                                            title="Input allowed only  0-9  - / . (Space)"
+                                                            formControlName="MIN_INT_LIMIT">
+                                                        <label for="MIN_INT_LIMIT">Minimum Interest Amount<sub
+                                                                class="required">* </sub></label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['MIN_INT_LIMIT'].invalid && (angForm.controls['MIN_INT_LIMIT'].dirty || angForm.controls['MIN_INT_LIMIT'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div
+                                                        *ngIf="angForm.controls['MIN_INT_LIMIT'].errors?.pattern || angForm.controls['MIN_INT_LIMIT'].errors?.required">
+                                                        This field is required and Input allowed only 0-9 . (Space)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
                                 <div *ngIf=" standingInstructionTrue ">
                                     <div class="card-header">
                                         <h5>Standing Instruction</h5>

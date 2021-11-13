@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
+//animation
+import { animate, style, transition, trigger } from '@angular/animations';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // Displaying Sweet Alert
@@ -10,12 +12,17 @@ import { Subscription } from 'rxjs/Subscription';
 import { TitleService } from '../../../../shared/elements/title.service';
 import { RepayModeService } from '../../../../shared/elements/repay-mode.service';
 import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
+import {CustomerIDMasterDropdownService} from '../../../../shared/dropdownService/customer-id-master-dropdown.service'
+
 // Angular Datatable Directive 
 import { DataTableDirective } from 'angular-datatables';
 // Service File For Handling CRUD Operation
 import { DisputeLoanMasterService } from './dispute-loan-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
+import { first } from 'rxjs/operators';
+
+import {CustomerIdService} from '../customer-id/customer-id.service'
 
 // Handling datatable data
 class DataTableResponse {
@@ -100,10 +107,6 @@ interface DisputeLoanMaster {
   LOAN_STAGE:string;
   COURT:string;
   AC_REMARK:string;
-
-
-
-
 }
 
 
@@ -111,7 +114,18 @@ interface DisputeLoanMaster {
   selector: 'app-dispute-loan-master',
   templateUrl: './dispute-loan-master.component.html',
   styleUrls: ['./dispute-loan-master.component.scss'],
-
+  animations: [
+    trigger('fadeInOutTranslate', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('400ms ease-in-out', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        style({ transform: 'translate(0)' }),
+        animate('400ms ease-in-out', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy  {
     // newCustomerID = [];
@@ -200,6 +214,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   repayModeOption: Array<IOption> = this.RepayModeService.getCharacters();
   simpleOption: Array<IOption> = this.RepayModeService.getCharacters();
   scheme: Array<IOption> = this.SchemeCodeService.getCharacters();
+  custid
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -215,7 +230,10 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     public TitleService: TitleService,
     public SchemeCodeService: SchemeCodeService, 
     public RepayModeService: RepayModeService,
-    private fb: FormBuilder) { }
+    private CustomerIDMasterDropdownService:CustomerIDMasterDropdownService,
+    private fb: FormBuilder,
+    private CustomerIdService:CustomerIdService,
+    ) { }
 
 
 
@@ -687,13 +705,17 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
       this.characters = options;
     });
 
-    this.runTimer();
+
     this.dataSub = this.TitleService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
     this.dataSub = this.SchemeCodeService.loadCharacters().subscribe((options) => {
       this.characters = options;
+      
     });
+    this.CustomerIDMasterDropdownService.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+      this.custid = data;
+    })
 
   }
   runTimer() {
@@ -1026,8 +1048,27 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
           }
         });
       });
-    })
+    });
   }
+  // ngAfterViewInit(): void {
+  //   this.dtTrigger.next();
+  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //     dtInstance.columns().every(function () {
+  //       const that = this;
+  //       $('input', this.footer()).on('keyup change', function () {
+  //         if (this['value'] != '') {
+  //           that
+  //             .search(this['value'])
+  //             .draw();
+  //         } else {
+  //           that
+  //             .search(this['value'])
+  //             .draw();
+  //         }
+  //       });
+  //     });
+  //   })
+  // }
   // Reset Function
   resetForm() {
     this.createForm();
@@ -1045,4 +1086,70 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
       this.dtTrigger.next();
     });
   }
+
+  // fetch records by id
+  // getDataText(id:any){
+  //   debugger
+  //   this.CustomerIdService.getFormData(id).subscribe(data => {
+  //   let value = id._value[0];
+  //   // const fetchvalue = this.angForm.value;
+  //   const dataToSend = {
+  //     'AC_NAME':value.AC_NAME,
+  //   }
+  // }
+
+  getDataText(id:any){
+      debugger
+      console.log("fetch recordss")
+  this.CustomerIdService.getFormData(id).subscribe(data => {
+    this.updateID = data.id;
+    this.angForm.patchValue({
+  
+     'AC_NAME':data.AC_NAME,
+    })
+    })
+  }
+
+
+  id
+  getCustomer(id)
+ {
+    console.log('in getcustomer', id)
+    this.CustomerIdService.getFormData(id).subscribe(data => {
+      console.log('get customer data', data)
+      this.angForm.patchValue({
+        AC_TITLE: data.AC_TITLE,
+        AC_NAME: data.AC_NAME,
+        AC_CAST: data.AC_CAST,
+        AC_OCODE: data.AC_OCODE,
+        AC_ADHARNO: data.AC_ADHARNO,
+        AC_RISKCATG: data.AC_RISKCATG,
+        AC_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_HONO: data.custAddress.AC_HONO,
+        AC_WARD: data.custAddress.AC_WARD,
+        AC_TADDR: data.custAddress.AC_TADDR,
+        AC_TGALLI: data.custAddress.AC_TGALLI,
+        AC_AREA: data.custAddress.AC_AREA,
+        AC_CTCODE: data.custAddress.AC_CTCODE,
+        AC_PIN: data.custAddress.AC_PIN,
+        AC_PANNO: data.AC_PANNO,
+        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
+        AC_MOBILENO: data.AC_MOBILENO,
+        AC_PHONE_RES: data.AC_PHONE_RES,
+        AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
+        AC_EMAILID: data.AC_EMAILID,
+        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+        TDS_REQUIRED: data.TDS_REQUIRED,
+        SMS_REQUIRED: data.SMS_REQUIRED,
+        IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
+        FIN_YEAR: data.FIN_YEAR,
+        SUBMIT_DATE: data.SUBMIT_DATE,
+        FORM_TYPE: data.FORM_TYPE,
+        TDS_RATE: data.TDS_RATE,
+        TDS_LIMIT: data.TDS_LIMIT,
+
+      })
+    })
+  }
+  
 }
