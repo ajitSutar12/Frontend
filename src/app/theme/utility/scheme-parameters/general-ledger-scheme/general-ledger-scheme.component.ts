@@ -15,7 +15,7 @@ import { S1Service } from '../../../../shared/elements/s1.service';
 import { GeneralLedgerSchemeService } from './general-ledger-scheme.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http'
-
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -42,6 +42,8 @@ interface GeneralLedgerScheme {
   styleUrls: ['./general-ledger-scheme.component.scss']
 })
 export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -119,7 +121,7 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
         }
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/general-ledger-scheme',
+            this.url+'/general-ledger-scheme',
             dataTableParameters
           ).subscribe(resp => {
             this.generalLedgerScheme = resp.data;
@@ -274,7 +276,7 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
   // }
 
   OpenLink(val) {
-    
+
     if (val == 1) {
       this.firstTrue = true;
     }

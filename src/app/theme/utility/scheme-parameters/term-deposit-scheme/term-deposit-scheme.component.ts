@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 //Dropdown service file
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -116,6 +117,8 @@ interface TermDepositScheme {
   styleUrls: ['./term-deposit-scheme.component.scss']
 })
 export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -227,7 +230,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         }
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/term-deposit-scheme',
+            this.url + '/term-deposit-scheme',
             dataTableParameters
           ).subscribe(resp => {
             this.termDepositScheme = resp.data;

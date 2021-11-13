@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -16,7 +16,7 @@ import { TermLoanSchemeService } from './term-loan-scheme.service';
 //Dropdown service file
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
-
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -81,8 +81,9 @@ interface TermLoanMaster {
   styleUrls: ['./term-loan-scheme.component.scss']
 })
 
-export class TermLoanSchemeComponent implements OnInit {
-
+export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -180,7 +181,7 @@ export class TermLoanSchemeComponent implements OnInit {
         }
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/term-loan-scheme',
+            this.url + '/term-loan-scheme',
             dataTableParameters
           ).subscribe(resp => {
             this.termLoanMaster = resp.data;
@@ -621,7 +622,7 @@ export class TermLoanSchemeComponent implements OnInit {
   getOneColumn() {
     this.http
       .get(
-        'http://localhost:4000/term-loan-scheme/getOneColumn'
+        this.url + '/term-loan-scheme/getOneColumn'
       ).subscribe(resp => {
         this.dropDown = resp;
       });

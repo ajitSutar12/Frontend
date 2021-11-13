@@ -18,6 +18,7 @@ import { DisputLoanSchemeService } from './disput-loan-scheme.service';
 //Dropdown service file
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -71,8 +72,9 @@ interface DisputLoanMaster {
   templateUrl: './disput-loan-scheme.component.html',
   styleUrls: ['./disput-loan-scheme.component.scss']
 })
-export class DisputLoanSchemeComponent implements OnInit {
-
+export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -164,7 +166,7 @@ export class DisputLoanSchemeComponent implements OnInit {
         }
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/disput-loan-scheme',
+            this.url + '/disput-loan-scheme',
             dataTableParameters
           ).subscribe(resp => {
             this.disputLoanMaster = resp.data;

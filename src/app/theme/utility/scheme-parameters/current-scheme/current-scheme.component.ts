@@ -18,7 +18,7 @@ import { HttpClient } from '@angular/common/http'
 //Dropdown service file
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
-
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -55,6 +55,8 @@ interface CurrentScheme {
   styleUrls: ['./current-scheme.component.scss']
 })
 export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -152,7 +154,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         }
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/current-scheme',
+            this.url + '/current-scheme',
             dataTableParameters
           ).subscribe(resp => {
             this.currentScheme = resp.data;

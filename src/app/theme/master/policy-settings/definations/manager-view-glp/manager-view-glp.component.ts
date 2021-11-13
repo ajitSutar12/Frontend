@@ -1,131 +1,306 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/first';
-import Swal from 'sweetalert2';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { IOption } from 'ng-select';
+import { Subscription } from 'rxjs/Subscription';
+import {ManagerViewGlpService} from './manager-view-glp.service';
+// for dropdown
+//import { StatementTypeService } from '../../../../shared/elements/statement-type.service';
+import { SchemeTypeDropdownService} from '../../../../../shared/dropdownService/scheme-type-dropdown.service';
+import { Int8Service } from '../../../../../shared/elements/int8.service';
+import {IntrestCategoryMasterDropdownService} from '../../../../../shared/dropdownService/interest-category-master-dropdown.service';
+import {StatementCodeDropdownService} from '../../../../../shared/dropdownService/statement-code-dropdown.service';
+import {DisplayToViewService} from '../../../../../shared/dropdownService/display-to-view.service';
+import {PercentageToWCapitalService} from '../../../../../shared/dropdownService/percentage-to-W-Capital.service';
 
+import Swal from 'sweetalert2';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+// Used to Call API
+import { HttpClient } from '@angular/common/http';
+import { id } from '@swimlane/ngx-datatable';
+import { first } from 'rxjs/operators';
+
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+// For fetching values from backend
+interface ManagerView {
+  SR_NO: number;
+  TYPE: string;
+  STATEMENT_CODE: string;
+  DECRIPTION :string;
+  IS_DISPLAY:string;
+  PERCENTAGE_TO_WORKING_CAPITAL:string;
+}
 @Component({
   selector: 'app-manager-view-glp',
   templateUrl: './manager-view-glp.component.html',
   styleUrls: ['./manager-view-glp.component.scss']
 })
-export class ManagerViewGLPComponent implements OnInit {
+export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy {
+  // For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+ angForm: FormGroup;
+ dtExportButtonOptions: any = {};
+ dtExportOptions:any ={}
 
-  dtExportButtonOptions: any = {};
 
-  showButton: boolean = true;
-  updateShow: boolean = false;
+ //title select variables
+
+ DisplayToView: Array<IOption> = this.displayToViewService.getCharacters();
+ 
+ PercentageToWCapital: Array<IOption> = this.percentageToWCapitalService.getCharacters();
+//title select variables
+schemetype: Array<IOption> = this.SchemeTypes.getCharacters(); selectedOption = '3';
+ isDisabled = true;
+ characters: Array<IOption>;
+ selectedCharacter = '3';
+ timeLeft = 5;
+ managerView: ManagerView[];
+ private dataSub: Subscription = null;
+// Variables for search 
+filterObject: { name: string; type: string; }[];
+filter: any;
+filterForm: FormGroup;
+// Variables for hide/show add and update button
+showButton: boolean = true;
+updateShow: boolean = false;
+
+//variable to get ID to update
+updateID: number = 0;
+page: number = 1;
+//filter variable
+filterData = {};
+counter = 1;
+obj : any;
+rowData= [];
+ showDialog = false;
+ @Input() visible: boolean;
+ public config: any;
+ StatementCodeDropdown:any;
+ intrestCategoryMaster:any;
+ constructor( 
+     // for dropdown
+   public SchemeTypes:SchemeTypeDropdownService,
+   public displayToViewService:DisplayToViewService,
+
+   public percentageToWCapitalService: PercentageToWCapitalService, 
+   public StatementCodeDropdownService:StatementCodeDropdownService,
+   private http: HttpClient,
+   private fb: FormBuilder,
+   public ManagerViewGlpService:ManagerViewGlpService ) { this.createForm(); }
+
+ ngOnInit(): void {
+
+   // Fetching Server side data
+   this.dtExportOptions = {
+     pagingType: 'full_numbers',
+     paging: true,
+     pageLength: 10,
+     serverSide: true,
+     processing: true,
+     ajax: (dataTableParameters: any, callback) => {
+       dataTableParameters.columns.forEach(element => {
+         if (element.search.value != '') {
+           let string = element.search.value;
+           this.filterData[element.data] = string;
+         } else {
+           let getColumnName = element.data;
+           let columnValue = element.value;
+           if (this.filterData.hasOwnProperty(element.data)) {
+             let value = this.filterData[getColumnName];
+             if (columnValue != undefined || value != undefined) {
+               delete this.filterData[element.data];
+             }
+           }
+         }
+       });
+       dataTableParameters['filterData'] = this.filterData;
+       dataTableParameters.minNumber = dataTableParameters.start + 1;
+       dataTableParameters.maxNumber =
+         dataTableParameters.start + dataTableParameters.length;
+       this.page = dataTableParameters.start / dataTableParameters.length;
+       this.http
+         .post<DataTableResponse>(
+           'http://localhost:4000/manager-view-glp',
+           dataTableParameters
+         ).subscribe(resp => {
+           this.managerView = resp.data;
+           callback({
+             recordsTotal: resp.recordsTotal,
+             recordsFiltered: resp.recordsTotal,
+             data: []
+           });
+         });
+     },
+     columns: [
+       {
+         title: 'Action'
+       },{
+        title: 'Sr. No',
+        data: 'SR_NO'
+      }, {
+        title: 'Type',
+        data: 'TYPE'
+      }, {
+        title: 'Statement Code',
+        data: 'STATEMENT_CODE'
+      }, {
+        title: 'Description',
+        data: 'DECRIPTION'
+      }, {
+        title: '% to W capital',
+        data: 'PERCENTAGE_TO_WORKING_CAPITAL'
+      }, {
+        title: 'Display To View',
+        data: 'IS_DISPLAY'
+      },
+     
+     ],
+     dom:'lrtip'
+   
+   };
   
 
-  message = {
-    scheme_type: "",
-    int_category: "",
-    srno: ""
-  };
-
-//function for edit button clicked
-  editClickHandler(info: any): void {
-    this.message.scheme_type = info.scheme_type;
-    this.message.int_category = info.int_category;
-    this.message.srno=info.srno;
-
-    this.showButton = false;
-    this.updateShow = true;
-  }
-
-   //function for delete button clicked
-delClickHandler(info:any):void  {
-  this.message.srno=info.srno;
-      Swal.fire({
-    title: 'Are you sure?',
-    text: "Do you want to delete srno." + this.message.srno + "  data", 
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#229954',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire(
-        'Deleted!',
-        'Your data has been deleted.',
-        'success'
-      )
-    } else if (
-      result.dismiss === Swal.DismissReason.cancel
-    ) {
-      Swal.fire(
-        'Cancelled',
-        'Your data is safe.',
-        'error'
-      )
-    }
+  this.StatementCodeDropdownService.getStatementCodeList().pipe(first()).subscribe(data => {
+   
+    this.StatementCodeDropdown = data;
   })
-}
-  constructor() { }
+ }
 
-  ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/manager-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },{
-          title: 'Sr. No',
-          data: 'srno'
-        }, {
-          title: 'Type',
-          data: 'type'
-        }, {
-          title: 'Statement Code',
-          data: 'statementCode'
-        }, {
-          title: 'Description',
-          data: 'description'
-        }, {
-          title: '% to W capital',
-          data: 'w_capital'
-        }, {
-          title: 'View',
-          data: 'view'
-        },
-    ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
+ createForm() {
+   this.angForm = this.fb.group({
+  
+    SR_NO	:[''],
+     TYPE: ['',[ Validators.required]],
+     STATEMENT_CODE: ['',[ Validators.required]],
+     DECRIPTION: ['',[ Validators.required]],
+     IS_DISPLAY: [''],
+     PERCENTAGE_TO_WORKING_CAPITAL: ['']
+   });
+ }
+
+ // Method to insert data into database through NestJS
+ submit() {
+   const formVal = this.angForm.value;
+   const dataToSend = {
+  	
+    
+     'SR_NO': formVal.SR_NO,
+     'TYPE': formVal.TYPE,
+     'STATEMENT_CODE': formVal.STATEMENT_CODE,
+     'DECRIPTION': formVal.DECRIPTION,
+     'IS_DISPLAY': formVal.IS_DISPLAY,
+     'PERCENTAGE_TO_WORKING_CAPITAL': formVal.PERCENTAGE_TO_WORKING_CAPITAL,
+   
      
-  //row click handler code
-  rowCallback: (row: Node, data: any[] | Object, index: number) => {
-    const self = this;
-    $('td', row).off('click');
-    $('td', row).on('click', '#editbtn', () => {
-      self.editClickHandler(data);
-    });
-    $('td', row).on('click', '#delbtn', () => {
-      self.delClickHandler(data);
-    });
-    return row;
-  }
-  };
-}
+   
+   }
+   console.log(dataToSend);
+   this.ManagerViewGlpService.postData(dataToSend).subscribe(data1 => {
+     Swal.fire('Success!', 'Data Added Successfully !', 'success');
+     // to reload after insertion of data
+     this.rerender();
+      //To clear form
+   this.angForm.reset();
+   }, (error) => {
+     console.log(error)
+   })
+  
+ }
 
+
+   // Reset Function
+   resetForm() {
+     this.createForm();
+   }
+ ngAfterViewInit(): void {
+   this.dtTrigger.next();
+   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+     dtInstance.columns().every(function () {
+       const that = this;
+       $('input', this.footer()).on('keyup change', function () {
+         if (this['value'] != '') {
+           that
+             .search(this['value'])
+             .draw();
+         } else {
+           that
+             .search(this['value'])
+             .draw();
+         }
+       });
+     });
+   });
+ }
+ 
+ ngOnDestroy(): void {
+   // Do not forget to unsubscribe the event
+   this.dtTrigger.unsubscribe();
+
+ }
+
+   rerender(): void {
+     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+       // Destroy the table first
+       dtInstance.destroy();
+       // Call the dtTrigger to rerender again
+       this.dtTrigger.next();
+     });
+   }
+
+   //Method for append data into fields
+ editClickHandler(id) {
+   
+   this.showButton = false;
+   this.updateShow = true;
+   this.ManagerViewGlpService.getFormData(id).subscribe(data => {
+     this.updateID = data.id;
+     this.angForm.setValue({
+         
+      'SR_NO': data.SR_NO,
+      'TYPE': data.TYPE,
+      'STATEMENT_CODE': data.STATEMENT_CODE,
+      'DECRIPTION': data.DECRIPTION,
+      'IS_DISPLAY': data.IS_DISPLAY,
+      'PERCENTAGE_TO_WORKING_CAPITAL': data.PERCENTAGE_TO_WORKING_CAPITAL,
+       
+     })
+   })
+ }
+
+
+//Method for update data 
 updateData() {
-this.showButton = true;
-this.updateShow = false;
+ let data = this.angForm.value;
+ data['id'] = this.updateID;
+ this.ManagerViewGlpService.updateData(data).subscribe(() => {
+   Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+   this.showButton = true;
+   this.updateShow = false;
+   this.rerender();
+   this.resetForm();
+ })
 }
 
+
+ runTimer() {
+   const timer = setInterval(() => {
+     this.timeLeft -= 1;
+     if (this.timeLeft === 0) {
+       clearInterval(timer);
+     }
+   }, 1000);
+
+ }
+
+ 
 
 }

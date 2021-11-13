@@ -53,13 +53,26 @@ import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-m
 
 
 
-import { SchemeTypeDropdownService } from '../../../../shared/dropdownService/scheme-type-dropdown.service'
-import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service'
+// import { SchemeTypeDropdownService } from '../../../../shared/dropdownService/scheme-type-dropdown.service'
+// import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service'
 import { TermDepositInterestRateService } from '../definations/term-deposit-ir/term-deposit-ir.service'
 import { TermDepositPatSchemeService } from '../definations/term-deposit-pat-scheme/term-deposit-pat-scheme.service'
 import { InterestRateForLoanandCCService } from '../definations/interest-rate-for-lacc/interest-rate-for-lacc.service'
 import { SavingandPigmyInterestRatesService } from '../definations/interest-rate-for-sapd/interest-rate-for-sapd.service'
-import { SizeSlabWiseService } from '../definations/size-slab-wise-ar/size-slab-wise-ar.service'
+// import { SizeSlabWiseService } from '../definations/size-slab-wise-ar/size-slab-wise-ar.service'
+
+
+import { SecurityCodeService } from './security-code/security-code.service';
+import { ManagerViewGlpService } from './manager-view-glp/manager-view-glp.service';
+import { SizeSlabWiseService } from './size-slab-wise-ar/size-slab-wise-ar.service';
+import { SchemeLinkingWithDService } from './scheme-linking-with-d/scheme-linking-with-d.service';
+import { DocumentMasterService } from '../information/document-master/document-master.service';
+import { SchemeTypeDropdownService } from '../../../../shared/dropdownService/scheme-type-dropdown.service';
+import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service';
+import { StatementCodeDropdownService } from '../../../../shared/dropdownService/statement-code-dropdown.service';
+import { PercentageToWCapitalService } from '../../../../shared/dropdownService/percentage-to-W-Capital.service';
+import { DisplayToViewService } from '../../../../shared/dropdownService/display-to-view.service';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -111,6 +124,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SavingandPigmyInterestRatesService,
     InterestRateForLoanandCCService,
     SizeSlabWiseService,
+    SecurityCodeService,
+    ManagerViewGlpService,
+    SchemeLinkingWithDService,
+    DocumentMasterService,
+    StatementCodeDropdownService,
+    PercentageToWCapitalService,
+    DisplayToViewService,
+
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

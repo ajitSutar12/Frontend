@@ -19,11 +19,8 @@
                                         </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['S_APPL'].invalid && (angForm.controls['S_APPL'].dirty || angForm.controls['S_APPL'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf=" angForm.controls['S_APPL'].errors?.required ||angForm.controls['S_APPL'].errors?.pattern ">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['S_APPL'].invalid && (angForm.controls['S_APPL'].dirty || angForm.controls['S_APPL'].touched)" class="alert alert-danger">
+                                <div *ngIf=" angForm.controls['S_APPL'].errors?.required ||angForm.controls['S_APPL'].errors?.pattern ">
                                     This field is required and Input allowed only 0-9
                                 </div>
                             </div>
@@ -37,11 +34,8 @@
                                     <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['S_SHNAME'].invalid && (angForm.controls['S_SHNAME'].dirty || angForm.controls['S_SHNAME'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['S_SHNAME'].errors?.pattern || angForm.controls['S_SHNAME'].errors?.required || angForm.controls['S_SHNAME'].errors?.maxlength">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['S_SHNAME'].invalid && (angForm.controls['S_SHNAME'].dirty || angForm.controls['S_SHNAME'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['S_SHNAME'].errors?.pattern || angForm.controls['S_SHNAME'].errors?.required || angForm.controls['S_SHNAME'].errors?.maxlength">
                                     This field is required and Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
@@ -55,11 +49,8 @@
                                     <label for="S_NAME">Description<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['S_NAME'].invalid && (angForm.controls['S_NAME'].dirty || angForm.controls['S_NAME'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['S_NAME'].errors?.pattern || angForm.controls['S_NAME'].errors?.required || angForm.controls['S_NAME'].errors?.maxlength">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['S_NAME'].invalid && (angForm.controls['S_NAME'].dirty || angForm.controls['S_NAME'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['S_NAME'].errors?.pattern || angForm.controls['S_NAME'].errors?.required || angForm.controls['S_NAME'].errors?.maxlength">
                                     This field is required and Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
@@ -69,14 +60,10 @@
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
-                                    placeholder="G.L. A/c No. *" required title="Compulsory Selection"
-                                    formControlName="S_GLACNO">
+                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false" placeholder="G.L. A/c No. *" required title="Compulsory Selection" formControlName="S_GLACNO">
                                 </ng-select>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['S_GLACNO'].invalid && (angForm.controls['S_GLACNO'].dirty || angForm.controls['S_GLACNO'].touched)"
-                                class="alert alert-danger">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['S_GLACNO'].invalid && (angForm.controls['S_GLACNO'].dirty || angForm.controls['S_GLACNO'].touched)" class="alert alert-danger">
                                 <div *ngIf=" angForm.controls['S_GLACNO'].errors?.required">
                                     This field is required
                                 </div>
@@ -92,11 +79,8 @@
                                     <label for="MEMBER_TYPE">Member Type<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['MEMBER_TYPE'].invalid && (angForm.controls['MEMBER_TYPE'].dirty || angForm.controls['MEMBER_TYPE'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['MEMBER_TYPE'].errors?.pattern || angForm.controls['MEMBER_TYPE'].errors?.required || angForm.controls['MEMBER_TYPE'].errors?.maxlength">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['MEMBER_TYPE'].invalid && (angForm.controls['MEMBER_TYPE'].dirty || angForm.controls['MEMBER_TYPE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['MEMBER_TYPE'].errors?.pattern || angForm.controls['MEMBER_TYPE'].errors?.required || angForm.controls['MEMBER_TYPE'].errors?.maxlength">
                                     This field is required and Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
@@ -105,8 +89,7 @@
                         <div class="col-sm">
                             <div class="border-checkbox-section">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox" name="IS_AUTO_NO" id="IS_AUTO_NO"
-                                        formControlName="IS_AUTO_NO">
+                                    <input class="border-checkbox" type="checkbox" name="IS_AUTO_NO" id="IS_AUTO_NO" formControlName="IS_AUTO_NO">
                                     <label class="border-checkbox-label" for="IS_AUTO_NO">Is Auto Account Number Show ?
                                     </label>
                                 </div>
@@ -121,15 +104,11 @@
                         <div class="card-block">
                             <ul class="basic-list list-icons">
                                 <li>
-                                    <h6> <a (click)="OpenLink(101)" routerLinkActive="active" class="text-right f-w-600"
-                                            routerLink="/utility/schemeParameters"
-                                            [ngClass]="{'isActive': FaceValueDividendTrue}" id="pointer"> Face
+                                    <h6> <a (click)="OpenLink(101)" routerLinkActive="active" class="text-right f-w-600" routerLink="/utility/schemeParameters" [ngClass]="{'isActive': FaceValueDividendTrue}" id="pointer"> Face
                                             Value/Dividend %</a></h6>
                                 </li>
                                 <li>
-                                    <h6> <a (click)="OpenLink(102)" routerLinkActive="active" class="text-right f-w-600"
-                                            routerLink="/utility/schemeParameters"
-                                            [ngClass]="{'isActive': OtherSettings_True}" id="pointer"> Other
+                                    <h6> <a (click)="OpenLink(102)" routerLinkActive="active" class="text-right f-w-600" routerLink="/utility/schemeParameters" [ngClass]="{'isActive': OtherSettings_True}" id="pointer"> Other
                                             Settings</a></h6>
                                 </li>
                             </ul>
@@ -154,9 +133,7 @@
                                                     <label for="SHARES_FACE_VALUE">Share Face Value</label>
                                                 </span>
                                             </div>
-                                            <div class="form-group form-primary form-static-label"
-                                                *ngIf="angForm.controls['SHARES_FACE_VALUE'].invalid && (angForm.controls['SHARES_FACE_VALUE'].dirty || angForm.controls['SHARES_FACE_VALUE'].touched)"
-                                                class="alert alert-danger">
+                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SHARES_FACE_VALUE'].invalid && (angForm.controls['SHARES_FACE_VALUE'].dirty || angForm.controls['SHARES_FACE_VALUE'].touched)" class="alert alert-danger">
                                                 <div *ngIf=" angForm.controls['SHARES_FACE_VALUE'].errors?.pattern ">
                                                     Input allowed only 0-9
                                                 </div>
@@ -172,9 +149,7 @@
                                                     <label for="MAX_SHARES_LIMIT">Maximum No.of Shares Limit</label>
                                                 </span>
                                             </div>
-                                            <div class="form-group form-primary form-static-label"
-                                                *ngIf="angForm.controls['MAX_SHARES_LIMIT'].invalid && (angForm.controls['MAX_SHARES_LIMIT'].dirty || angForm.controls['MAX_SHARES_LIMIT'].touched)"
-                                                class="alert alert-danger">
+                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['MAX_SHARES_LIMIT'].invalid && (angForm.controls['MAX_SHARES_LIMIT'].dirty || angForm.controls['MAX_SHARES_LIMIT'].touched)" class="alert alert-danger">
                                                 <div *ngIf=" angForm.controls['MAX_SHARES_LIMIT'].errors?.pattern ">
                                                     Input allowed only 0-9
                                                 </div>
@@ -192,9 +167,7 @@
                                                     <label for="DIVIDEND_PERCENTAGE">Dividend Percentage %</label>
                                                 </span>
                                             </div>
-                                            <div class="form-group form-primary form-static-label"
-                                                *ngIf="angForm.controls['DIVIDEND_PERCENTAGE'].invalid && (angForm.controls['DIVIDEND_PERCENTAGE'].dirty || angForm.controls['DIVIDEND_PERCENTAGE'].touched)"
-                                                class="alert alert-danger">
+                                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DIVIDEND_PERCENTAGE'].invalid && (angForm.controls['DIVIDEND_PERCENTAGE'].dirty || angForm.controls['DIVIDEND_PERCENTAGE'].touched)" class="alert alert-danger">
                                                 <div *ngIf=" angForm.controls['DIVIDEND_PERCENTAGE'].errors?.pattern ">
                                                     Input allowed only 0-9
                                                 </div>
@@ -255,11 +228,8 @@
                                         <div class="row">
                                             <div class="border-checkbox-section">
                                                 <div class="border-checkbox-group border-checkbox-group-primary">
-                                                    <input class="border-checkbox" type="checkbox"
-                                                        name="IS_ADD_BONUS_IN_DIVIDEND" id="IS_ADD_BONUS_IN_DIVIDEND"
-                                                        formControlName="IS_ADD_BONUS_IN_DIVIDEND">
-                                                    <label class="border-checkbox-label"
-                                                        for="IS_ADD_BONUS_IN_DIVIDEND">Is Add Bonus Amount in Dividend
+                                                    <input class="border-checkbox" type="checkbox" name="IS_ADD_BONUS_IN_DIVIDEND" id="IS_ADD_BONUS_IN_DIVIDEND" formControlName="IS_ADD_BONUS_IN_DIVIDEND">
+                                                    <label class="border-checkbox-label" for="IS_ADD_BONUS_IN_DIVIDEND">Is Add Bonus Amount in Dividend
                                                         Amount?
                                                     </label>
                                                 </div>
@@ -280,14 +250,9 @@
                                             <div class="row">
                                                 <div class="col-sm">
                                                     <div class="border-checkbox-section">
-                                                        <div
-                                                            class="border-checkbox-group border-checkbox-group-primary">
-                                                            <input class="border-checkbox" type="checkbox"
-                                                                name="BALANCE_ADD_APPLICABLE"
-                                                                id="BALANCE_ADD_APPLICABLE"
-                                                                formControlName="BALANCE_ADD_APPLICABLE">
-                                                            <label class="border-checkbox-label"
-                                                                for="BALANCE_ADD_APPLICABLE">Is Balance Entry Allow ?
+                                                        <div class="border-checkbox-group border-checkbox-group-primary">
+                                                            <input class="border-checkbox" type="checkbox" name="BALANCE_ADD_APPLICABLE" id="BALANCE_ADD_APPLICABLE" formControlName="BALANCE_ADD_APPLICABLE">
+                                                            <label class="border-checkbox-label" for="BALANCE_ADD_APPLICABLE">Is Balance Entry Allow ?
                                                             </label>
                                                         </div>
                                                     </div>
@@ -296,11 +261,8 @@
                                             <div class="row">
                                                 <div class="col-sm">
                                                     <div class="border-checkbox-section">
-                                                        <div
-                                                            class="border-checkbox-group border-checkbox-group-primary">
-                                                            <input class="border-checkbox" type="checkbox"
-                                                                name="INT_ROUND_OFF" id="INT_ROUND_OFF"
-                                                                formControlName="INT_ROUND_OFF">
+                                                        <div class="border-checkbox-group border-checkbox-group-primary">
+                                                            <input class="border-checkbox" type="checkbox" name="INT_ROUND_OFF" id="INT_ROUND_OFF" formControlName="INT_ROUND_OFF">
                                                             <label class="border-checkbox-label" for="INT_ROUND_OFF">Is
                                                                 Dividend Round off Required..?
                                                             </label>
@@ -321,11 +283,8 @@
                                                             Paise</label>
                                                     </span>
                                                 </div>
-                                                <div class="form-group form-primary form-static-label"
-                                                    *ngIf="angForm.controls['ROUNDOFF_FACTOR'].invalid && (angForm.controls['ROUNDOFF_FACTOR'].dirty || angForm.controls['ROUNDOFF_FACTOR'].touched)"
-                                                    class="alert alert-danger">
-                                                    <div
-                                                        *ngIf=" angForm.controls['ROUNDOFF_FACTOR'].errors?.pattern ||angForm.controls['SHARES_FACE_VALUE'].errors?.maxlength  ">
+                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ROUNDOFF_FACTOR'].invalid && (angForm.controls['ROUNDOFF_FACTOR'].dirty || angForm.controls['ROUNDOFF_FACTOR'].touched)" class="alert alert-danger">
+                                                    <div *ngIf=" angForm.controls['ROUNDOFF_FACTOR'].errors?.pattern ||angForm.controls['SHARES_FACE_VALUE'].errors?.maxlength  ">
                                                         Input allowed only 0-9
                                                     </div>
                                                 </div>
@@ -342,11 +301,8 @@
                                                             Limit</label>
                                                     </span>
                                                 </div>
-                                                <div class="form-group form-primary form-static-label"
-                                                    *ngIf="angForm.controls['SANCT_LIMIT_PERCENTAGE'].invalid && (angForm.controls['SANCT_LIMIT_PERCENTAGE'].dirty || angForm.controls['SANCT_LIMIT_PERCENTAGE'].touched)"
-                                                    class="alert alert-danger">
-                                                    <div
-                                                        *ngIf=" angForm.controls['SANCT_LIMIT_PERCENTAGE'].errors?.pattern ">
+                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SANCT_LIMIT_PERCENTAGE'].invalid && (angForm.controls['SANCT_LIMIT_PERCENTAGE'].dirty || angForm.controls['SANCT_LIMIT_PERCENTAGE'].touched)" class="alert alert-danger">
+                                                    <div *ngIf=" angForm.controls['SANCT_LIMIT_PERCENTAGE'].errors?.pattern ">
                                                         Input allowed only 0-9
                                                     </div>
                                                 </div>
@@ -364,9 +320,7 @@
                                                         <label for="RETIREMENT_YEARS">Years for Retirement Date</label>
                                                     </span>
                                                 </div>
-                                                <div class="form-group form-primary form-static-label"
-                                                    *ngIf="angForm.controls['RETIREMENT_YEARS'].invalid && (angForm.controls['RETIREMENT_YEARS'].dirty || angForm.controls['RETIREMENT_YEARS'].touched)"
-                                                    class="alert alert-danger">
+                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['RETIREMENT_YEARS'].invalid && (angForm.controls['RETIREMENT_YEARS'].dirty || angForm.controls['RETIREMENT_YEARS'].touched)" class="alert alert-danger">
                                                     <div *ngIf=" angForm.controls['RETIREMENT_YEARS'].errors?.pattern ">
                                                         Input allowed only 0-9
                                                     </div>
@@ -420,19 +374,15 @@
 
 
                 </div>
-                <div class="col-sm">
-
-                    <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
-                        [disabled]="angForm.invalid">Add</button>
-                    <button class="btn btn-primary ripple light" (click)="updateData()"
-                        *ngIf="updateShow">Update</button>
+                <div class="row">
+                    <div class="col-sm">
+                        <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
+                        <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                    </div>
                 </div>
-
             </form>
-
         </div>
     </div>
-
 </div>
 <div class="row">
     <div class="col-12">
@@ -441,12 +391,10 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-                                class="table table-striped table-bordered table-hover">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover">
                                 <tbody *ngIf="shareScheme?.length != 0">
                                     <tr *ngFor="let data of shareScheme">
-                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
-                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
                                                 (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>

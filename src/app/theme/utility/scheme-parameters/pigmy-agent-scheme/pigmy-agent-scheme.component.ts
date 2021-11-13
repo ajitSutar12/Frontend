@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { PigmyagentService } from './pigmy-agent-scheme.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -35,185 +35,187 @@ interface Pigmyagent {
   S_ACNOTYPE: string;
   S_APPL: string;
   S_NAME: string;
-  S_SHNAME:string;
-  S_INT_APPLICABLE:string;
-  MIN_INT_LIMIT:string;
-  STAND_INSTRUCTION_ALLOW:string;
-  WITHDRAWAL_APPLICABLE:string;
-  BALANCE_ADD_APPLICABLE:string;
+  S_SHNAME: string;
+  S_INT_APPLICABLE: string;
+  MIN_INT_LIMIT: string;
+  STAND_INSTRUCTION_ALLOW: string;
+  WITHDRAWAL_APPLICABLE: string;
+  BALANCE_ADD_APPLICABLE: string;
 }
-
 @Component({
   selector: 'app-pigmy-agent-scheme',
   templateUrl: './pigmy-agent-scheme.component.html',
   styleUrls: ['./pigmy-agent-scheme.component.scss']
 })
-export class PigmyAgentSchemeComponent implements OnInit {
-   // For reloading angular datatable after CRUD operation
-   @ViewChild(DataTableDirective, { static: false })
-   dtElement: DataTableDirective;
-   dtOptions: DataTables.Settings = {};
-   dtTrigger: Subject<any> = new Subject();
-   // Store data from backend
-   pigmyagentscheme: Pigmyagent[];
-   // Created Form Group
-   angForm: FormGroup;
-   //Datatable variable
-   dtExportButtonOptions: DataTables.Settings = {};
-   Data: any;
-   //variables for pagination
-   page: number = 1;
-   passenger: any;
-   itemsPerPage = 10;
-   totalItems: any;
-   currentJustify = 'start';
-   active = 1;
-   activeKeep = 1;
-   // Variables for search 
-   filterObject: { name: string; type: string; }[];
-   filter: any;
-   filterForm: FormGroup;
-   // Variables for hide/show add and update button
-   showButton: boolean = true;
-   updateShow: boolean = false;
-   //variable to get Id to update
-   updateID: number = 0;
-   checkboxStatus: any;
- 
+export class PigmyAgentSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
+  // For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  // Store data from backend
+  pigmyagentscheme: Pigmyagent[];
+  // Created Form Group
+  angForm: FormGroup;
+  //Datatable variable
+  dtExportButtonOptions: DataTables.Settings = {};
+  Data: any;
+  //variables for pagination
+  page: number = 1;
+  passenger: any;
+  itemsPerPage = 10;
+  totalItems: any;
+  currentJustify = 'start';
+  active = 1;
+  activeKeep = 1;
+  // Variables for search 
+  filterObject: { name: string; type: string; }[];
+  filter: any;
+  filterForm: FormGroup;
+  // Variables for hide/show add and update button
+  showButton: boolean = true;
+  updateShow: boolean = false;
+  //variable to get Id to update
+  updateID: number = 0;
+  checkboxStatus: any;
+
   //least routing
-  CommissionApplicableTrue=true;
-  OtherSettings1True=false;
-  
-  constructor( 
+  CommissionApplicableTrue = true;
+  OtherSettings1True = false;
+
+  constructor(
     private http: HttpClient,
     private pigmyagentService: PigmyagentService,
     private fb: FormBuilder
-    ) {this.createForm(); }
+  ) { this.createForm(); }
 
-    ngOnInit(): void {
-      this.createForm();
-      // Fetching Server side data
-      this.dtExportButtonOptions = {
-        pagingType: 'full_numbers',
-        paging: true,
-        pageLength: 10,
-        serverSide: true,
-        processing: true,
-        ajax: (dataTableParameters: any, callback) => {
-          dataTableParameters.minNumber = dataTableParameters.start + 1;
-          dataTableParameters.maxNumber =
-            dataTableParameters.start + dataTableParameters.length;
-          let datatableRequestParam: any;
-          this.page = dataTableParameters.start / dataTableParameters.length;
-          if (dataTableParameters.search.value != '') {
-            this.filter = dataTableParameters.search.value;
-            this.filterObject = [
-              // { name: "A_BALCODE", type: "default" },
-              // { name: "A_ACHEAD", type: "default" },
-              // { name: "A_ACTYPE", type: "default" }
-            ]
-            datatableRequestParam = {
-              page: this.page,
-              limit: dataTableParameters.length,
-              filter: dataTableParameters.search.value,
-              filter_in: this.filterObject
-            }
+  ngOnInit(): void {
+    this.createForm();
+    // Fetching Server side data
+    this.dtExportButtonOptions = {
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+        if (dataTableParameters.search.value != '') {
+          this.filter = dataTableParameters.search.value;
+          this.filterObject = [
+            // { name: "A_BALCODE", type: "default" },
+            // { name: "A_ACHEAD", type: "default" },
+            // { name: "A_ACTYPE", type: "default" }
+          ]
+          datatableRequestParam = {
+            page: this.page,
+            limit: dataTableParameters.length,
+            filter: dataTableParameters.search.value,
+            filter_in: this.filterObject
           }
-          else {
-            datatableRequestParam = {
-              page: this.page,
-              limit: dataTableParameters.length
-            }
+        }
+        else {
+          datatableRequestParam = {
+            page: this.page,
+            limit: dataTableParameters.length
           }
-          this.http
-            .post<DataTableResponse>(
-              'http://localhost:4000/pigmy-agent-scheme',
-              dataTableParameters
-            ).subscribe(resp => {
-              this.pigmyagentscheme = resp.data;
-              callback({
-                recordsTotal: resp.recordsTotal,
-                recordsFiltered: resp.recordsTotal,
-                data: []
-              });
+        }
+        this.http
+          .post<DataTableResponse>(
+            this.url + '/pigmy-agent-scheme',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.pigmyagentscheme = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
             });
-        },
-        columns: [
-          {
-            title: 'Action',
-            render: function (data: any, type: any, full: any) {
-              return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>'      }
-          },
-          {
-            title: 'Type',
-            data: 'S_ACNOTYPE',
-          },
-          {
-            title: 'Scheme Code',
-            data: 'S_APPL',
-          },
-          {
-            title: 'Description',
-            data: 'S_NAME',
-          },
-          {
-            title: 'Short Name',
-            data: 'S_SHNAME',
-          },
-          {
-            title: 'Is Pigmy Commission Applicable ?',
-            data: 'S_INT_APPLICABLE',
-          },
-          {
-            title: 'Minimum Interest Amount - Text Box',
-            data: 'MIN_INT_LIMIT',
-          },
-          {
-            title: 'Is Standing Instruction Applicable ?',
-            data: 'STAND_INSTRUCTION_ALLOW',
-          },
-          {
-            title: 'Is Withdrawal Applicable ?',
-            data: 'WITHDRAWAL_APPLICABLE',
-          },
-          {
-            title: 'Is Balance Entry Allow ?',
-            data: 'BALANCE_ADD_APPLICABLE',
+          });
+      },
+      columns: [
+        {
+          title: 'Action',
+          render: function (data: any, type: any, full: any) {
+            return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>'
           }
+        },
+        {
+          title: 'Type',
+          data: 'S_ACNOTYPE',
+        },
+        {
+          title: 'Scheme Code',
+          data: 'S_APPL',
+        },
+        {
+          title: 'Description',
+          data: 'S_NAME',
+        },
+        {
+          title: 'Short Name',
+          data: 'S_SHNAME',
+        },
+        {
+          title: 'Is Pigmy Commission Applicable ?',
+          data: 'S_INT_APPLICABLE',
+        },
+        {
+          title: 'Minimum Interest Amount - Text Box',
+          data: 'MIN_INT_LIMIT',
+        },
+        {
+          title: 'Is Standing Instruction Applicable ?',
+          data: 'STAND_INSTRUCTION_ALLOW',
+        },
+        {
+          title: 'Is Withdrawal Applicable ?',
+          data: 'WITHDRAWAL_APPLICABLE',
+        },
+        {
+          title: 'Is Balance Entry Allow ?',
+          data: 'BALANCE_ADD_APPLICABLE',
+        }
 
-        ],
-        dom: 'Blrtip',
-      };
+      ],
+      dom: 'Blrtip',
+    };
+  }
+
+
+  // enable-disable checkbox event
+  Pigmy_commission($event) {
+    if ($event.target.checked) {
+      document.getElementById('MIN_INT_LIMIT').removeAttribute("disabled");
     }
-
-
-// enable-disable checkbox event
-Pigmy_commission($event) {
-  if ($event.target.checked) {
-    document.getElementById('MIN_INT_LIMIT').removeAttribute("disabled");
+    else {
+      document.getElementById('MIN_INT_LIMIT').setAttribute("disabled", "true")
+      this.angForm.controls.MIN_INT_LIMIT.reset();
+    }
   }
-  else {
-    document.getElementById('MIN_INT_LIMIT').setAttribute("disabled", "true")
-    this.angForm.controls.MIN_INT_LIMIT.reset();
-  }
-}
   createForm() {
     this.angForm = this.fb.group({
 
       S_ACNOTYPE: ['PG'],
-      S_APPL: ['',[ Validators.required, Validators.pattern]],
-      S_NAME:['',[ Validators.required, Validators.pattern]],
-      S_SHNAME:['',[ Validators.required, Validators.pattern]],
-      S_INT_APPLICABLE:[''],
-      MIN_INT_LIMIT:['',[ Validators.pattern]],
-      STAND_INSTRUCTION_ALLOW:[''],
-      WITHDRAWAL_APPLICABLE:[''],
-      BALANCE_ADD_APPLICABLE:[''],
-      
+      S_APPL: ['', [Validators.required, Validators.pattern]],
+      S_NAME: ['', [Validators.required, Validators.pattern]],
+      S_SHNAME: ['', [Validators.required, Validators.pattern]],
+      S_INT_APPLICABLE: [''],
+      MIN_INT_LIMIT: ['', [Validators.pattern]],
+      STAND_INSTRUCTION_ALLOW: [''],
+      WITHDRAWAL_APPLICABLE: [''],
+      BALANCE_ADD_APPLICABLE: [''],
+
     });
   }
-   // Method to insert data into database through NestJS
-   submit() {
+  // Method to insert data into database through NestJS
+  submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
       'S_ACNOTYPE': formVal.S_ACNOTYPE,
@@ -244,7 +246,7 @@ Pigmy_commission($event) {
     this.pigmyagentService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
-       
+
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
         'S_NAME': data.S_NAME,
@@ -324,18 +326,15 @@ Pigmy_commission($event) {
     });
   }
 
-  OpenLink(val)
-  {
-    if(val ==105)
-    {
-      this.CommissionApplicableTrue=true;
-      this.OtherSettings1True=false;
+  OpenLink(val) {
+    if (val == 105) {
+      this.CommissionApplicableTrue = true;
+      this.OtherSettings1True = false;
 
     }
-    if(val ==106)
-    {
-      this.CommissionApplicableTrue=false;
-      this.OtherSettings1True=true;
+    if (val == 106) {
+      this.CommissionApplicableTrue = false;
+      this.OtherSettings1True = true;
 
     }
   }

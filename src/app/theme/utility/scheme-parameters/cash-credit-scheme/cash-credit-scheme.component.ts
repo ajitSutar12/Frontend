@@ -16,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { OverdraftInterestPostService } from '../../../../shared/dropdownService/overdraft-interest-post.service'
 import { first } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -66,6 +67,8 @@ interface Cashcredit {
   styleUrls: ['./cash-credit-scheme.component.scss']
 })
 export class CashCreditSchemeComponent implements OnInit {
+  //api 
+  url = environment.base_url;
   //least routing
   InterestApplicableTrue = true;
   PenalInterestApplicableTrue = false;
@@ -159,7 +162,7 @@ export class CashCreditSchemeComponent implements OnInit {
         }
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/cash-credit-scheme',
+            this.url + '/cash-credit-scheme',
             dataTableParameters
           ).subscribe(resp => {
             this.cashcredit = resp.data;

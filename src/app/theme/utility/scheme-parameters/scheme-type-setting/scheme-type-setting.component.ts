@@ -15,6 +15,7 @@ import { SchemetypeService } from './scheme-type-setting.service';
 // for dropdown
 //import { StatementTypeService } from '../../../../shared/elements/statement-type.service';
 import { SchemeTypeDropdownService } from '../../../../shared/dropdownService/scheme-type-dropdown.service';
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -48,8 +49,9 @@ interface SchemeType {
   templateUrl: './scheme-type-setting.component.html',
   styleUrls: ['./scheme-type-setting.component.scss']
 })
-export class SchemeTypeSettingComponent implements OnInit {
-
+export class SchemeTypeSettingComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -147,7 +149,7 @@ export class SchemeTypeSettingComponent implements OnInit {
         }
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/scheme-type',
+            this.url + '/scheme-type',
             dataTableParameters
           ).subscribe(resp => {
             this.schemetypes = resp.data;

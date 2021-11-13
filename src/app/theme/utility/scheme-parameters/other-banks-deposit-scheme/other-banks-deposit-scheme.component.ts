@@ -19,6 +19,7 @@ import { first } from 'rxjs/operators';
 import { OtherBanksDepositSchemeService } from './other-banks-deposit-scheme.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -84,14 +85,14 @@ interface OtherBankDepositScheme {
   WITHDRAWAL_APPLICABLE: boolean
   BALANCE_ADD_APPLICABLE: boolean
   LESS_PREMATURE_INT_RATE: string
-}
-
-@Component({
+}@Component({
   selector: 'app-other-banks-deposit-scheme',
   templateUrl: './other-banks-deposit-scheme.component.html',
   styleUrls: ['./other-banks-deposit-scheme.component.scss']
 })
 export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -200,7 +201,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
         }
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/other-banks-deposit-scheme',
+            this.url + '/other-banks-deposit-scheme',
             dataTableParameters
           ).subscribe(resp => {
             this.otherBankDepositScheme = resp.data;

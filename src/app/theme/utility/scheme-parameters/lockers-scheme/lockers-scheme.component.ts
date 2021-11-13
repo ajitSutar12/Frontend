@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 //Dropdown service file
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -36,6 +37,8 @@ interface LockeScheme {
   styleUrls: ['./lockers-scheme.component.scss'],
 })
 export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -111,7 +114,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         }
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/lockers-scheme',
+            this.url + '/lockers-scheme',
             dataTableParameters
           ).subscribe(resp => {
             this.lockeScheme = resp.data;

@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 //Dropdown service file
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
-
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -38,7 +38,8 @@ interface GeneralMaster {
   styleUrls: ['./general-sub-ac-scheme.component.scss']
 })
 export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
-
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -115,7 +116,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
         }
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/general-sub-ac-scheme',
+            this.url + '/general-sub-ac-scheme',
             dataTableParameters
           ).subscribe(resp => {
             this.generalMaster = resp.data;

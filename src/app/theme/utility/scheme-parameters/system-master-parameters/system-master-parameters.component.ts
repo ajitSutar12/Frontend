@@ -22,6 +22,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { HttpClient } from '@angular/common/http';
 import { SystemMasterParametersService } from './system-master-parameters.service';
 import Swal from 'sweetalert2';
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -32,9 +33,9 @@ class DataTableResponse {
 interface SystemMasterParameters {
   SYSPARA_CODE: string;
   BANK_CODE: string;
-  BANK_NAME:string;
+  BANK_NAME: string;
   BRANCH_CODE: string;
-BRANCH_NAME:string;
+  BRANCH_NAME: string;
 
   ADDRESS: string;
   CHAIRMAN: string;
@@ -165,6 +166,8 @@ BRANCH_NAME:string;
   ]
 })
 export class SystemMasterParametersComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // angForm: FormGroup;
   // dtExportButtonOptions: any = {};
   // simpleOption: Array<IOption> = this.selectOptionService.getCharacters();
@@ -259,7 +262,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         }
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/system-master-parameters',
+            this.url + '/system-master-parameters',
             dataTableParameters
           ).subscribe(resp => {
             this.systemParameters = resp.data;
@@ -278,17 +281,17 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
           }
         }, {
           title: 'Type',
-        
+
         }, {
           title: 'Bank Code',
-         
-        },{
+
+        }, {
           title: 'Bank Name'
-        },  {
+        }, {
           title: 'Branch Code'
-        },{
+        }, {
           title: 'Branch Name'
-        },  {
+        }, {
           title: 'Bank Address'
         }, {
           title: 'Bank Start Date'
@@ -524,9 +527,9 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     this.angForm = this.fb.group({
       SYSPARA_CODE: ['A'],
       BANK_CODE: ['', [Validators.pattern, Validators.required]],
-      BANK_NAME:['',[Validators.pattern, Validators.required]],
+      BANK_NAME: ['', [Validators.pattern, Validators.required]],
       BRANCH_CODE: ['', [Validators.pattern, Validators.required]],
-      BRANCH_NAME:['',[Validators.pattern, Validators.required]],
+      BRANCH_NAME: ['', [Validators.pattern, Validators.required]],
       ADDRESS: ['', [Validators.pattern, Validators.required]],
       COMPANY_START_DATE: ['', [Validators.required]],
       NO_OF_EMPLOYEES: ['', [Validators.pattern]],
@@ -670,13 +673,13 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     const dataToSend = {
 
       'SYSPARA_CODE': formVal.SYSPARA_CODE,
-      'BANK_NAME':formVal.BANK_NAME,
-      
+      'BANK_NAME': formVal.BANK_NAME,
+
 
       'BANK_CODE': formVal.BANK_CODE,
       'BRANCH_CODE': formVal.BRANCH_CODE,
       'BRANCH_NAME': formVal.BRANCH_NAME,
-    
+
       'ADDRESS': formVal.ADDRESS,
       'CHAIRMAN': formVal.CHAIRMAN,
       'ACCOUNTANT': formVal.ACCOUNTANT,
@@ -742,7 +745,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       'NPA_SUBMETHOD': formVal.NPA_SUBMETHOD,
       'AUTO_LOCK_TIME': formVal.AUTO_LOCK_TIME,
       'PASSWORD_EXPIRE_DAYS': formVal.PASSWORD_EXPIRE_DAYS,
-      'IS_ALLOW_CLG_TALLY_VOUCHER':formVal.IS_ALLOW_CLG_TALLY_VOUCHER,
+      'IS_ALLOW_CLG_TALLY_VOUCHER': formVal.IS_ALLOW_CLG_TALLY_VOUCHER,
       'IS_CLG_DATE_ADD': formVal.IS_CLG_DATE_ADD,
       'IS_AUTO_CLEARING_EFFECT': formVal.IS_AUTO_CLEARING_EFFECT,
       'AUTO_NO': formVal.AUTO_NO,
@@ -817,7 +820,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     this.systemMasterParametersService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
-        'SYSPARA_CODE':data.SYSPARA_CODE,
+        'SYSPARA_CODE': data.SYSPARA_CODE,
         'BANK_CODE': data.BANK_CODE,
         'BANK_NAME': data.BANK_NAME,
         'BRANCH_CODE': data.BRANCH_CODE,
@@ -880,7 +883,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         'NPA_SUBMETHOD': data.NPA_SUBMETHOD,
         'AUTO_LOCK_TIME': data.AUTO_LOCK_TIME,
         'PASSWORD_EXPIRE_DAYS': data.PASSWORD_EXPIRE_DAYS,
-        'IS_ALLOW_CLG_TALLY_VOUCHER':data.IS_ALLOW_CLG_TALLY_VOUCHER,
+        'IS_ALLOW_CLG_TALLY_VOUCHER': data.IS_ALLOW_CLG_TALLY_VOUCHER,
         'IS_CLG_DATE_ADD': data.IS_CLG_DATE_ADD,
         'IS_AUTO_CLEARING_EFFECT': data.IS_AUTO_CLEARING_EFFECT,
         'AUTO_NO': data.AUTO_NO,
@@ -933,7 +936,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       })
     })
   }
- 
+
 
   //Method for update data 
   updateData() {
