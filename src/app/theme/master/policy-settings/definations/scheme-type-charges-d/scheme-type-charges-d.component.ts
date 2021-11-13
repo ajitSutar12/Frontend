@@ -14,6 +14,7 @@ import { ACMasterDropdownService } from '../../../../../shared/dropdownService/a
 import { SchemeTypeChargesService } from './scheme-type-cherges-d.service';
 import { IOption } from 'ng-select';
 import { first } from 'rxjs/operators';
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -38,7 +39,9 @@ interface SchemeTypeChargesRate {
   templateUrl: './scheme-type-charges-d.component.html',
   styleUrls: ['./scheme-type-charges-d.component.scss'],
 })
-export class SchemeTypeChargesDComponent implements OnInit {
+export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -66,10 +69,10 @@ export class SchemeTypeChargesDComponent implements OnInit {
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
-   // Variables for hide/show add and update and new button
-   showButton: boolean = true;
-   updateShow: boolean = false;
-   newbtnShow: boolean = false;
+  // Variables for hide/show add and update and new button
+  showButton: boolean = true;
+  updateShow: boolean = false;
+  newbtnShow: boolean = false;
   updateID: number = 0;
   schemeCode: any;
   //for search functionality
@@ -93,7 +96,7 @@ export class SchemeTypeChargesDComponent implements OnInit {
     public chargesType: ChargesTypeService,
     private schemeTypeDropdown: SchemeTypeDropdownService,
     private schemeTypeChargesService: SchemeTypeChargesService,
-    private aCMasterService:ACMasterDropdownService) {
+    private aCMasterService: ACMasterDropdownService) {
   }
 
   ngOnInit(): void {
@@ -130,7 +133,7 @@ export class SchemeTypeChargesDComponent implements OnInit {
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/scheme-type-charges-definition',
+            this.url + '/scheme-type-charges-definition',
             dataTableParameters
           ).subscribe(resp => {
             this.schemeTypeChargesRate = resp.data;
@@ -154,12 +157,12 @@ export class SchemeTypeChargesDComponent implements OnInit {
           title: 'Effect Date',
           data: 'EFFECT_DATE'
         },
-        
+
         {
           title: 'Charges Type',
           data: 'CHARGES_TYPE'
         },
-        
+
         {
           title: 'Charges GL Account',
           data: 'CHARGES_GL_ACNO'
@@ -197,7 +200,7 @@ export class SchemeTypeChargesDComponent implements OnInit {
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/scheme-type-charges-definition',
+            this.url + '/scheme-type-charges-definition',
             dataTableParameters
           ).subscribe(resp => {
             this.schemeTypeChargesRate = resp.data;
@@ -259,9 +262,9 @@ export class SchemeTypeChargesDComponent implements OnInit {
       ACNOTYPE: ['', [Validators.required]],
       SERIAL_NO: [''],
       CHARGES_TYPE: ['', [Validators.required]],
-      FROM_RANGE: ['',[Validators.pattern]],
-      TO_RANGE: ['',[Validators.pattern]],
-      CHARGES_AMT: ['',[Validators.pattern]],
+      FROM_RANGE: ['', [Validators.pattern]],
+      TO_RANGE: ['', [Validators.pattern]],
+      CHARGES_AMT: ['', [Validators.pattern]],
       CHARGES_GL_ACNO: ['', [Validators.required]],
     });
   }
@@ -315,7 +318,7 @@ export class SchemeTypeChargesDComponent implements OnInit {
     this.newbtnShow = false;
     this.resetForm();
   }
-  
+
   //Method for update data 
   updateData() {
     let data = this.angForm.value;

@@ -37,7 +37,7 @@ export class SchemeParametersComponent implements OnInit {
   OpenLink(val) {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-    // debugger
+    // 
     if (val == 1) {
       this.systemmasterparametersTrue = true;
       this.smssettingTrue = false;

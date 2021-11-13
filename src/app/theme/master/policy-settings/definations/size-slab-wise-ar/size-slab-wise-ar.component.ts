@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
-import {SizeSlabWiseService} from './size-slab-wise-ar.service';
+import { SizeSlabWiseService } from './size-slab-wise-ar.service';
 import { Scheme8Service } from '../../../../../shared/elements/scheme8.service';
 import { Int8Service } from '../../../../../shared/elements/int8.service';
 import Swal from 'sweetalert2';
@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 
 // Handling datatable data
 class DataTableResponse {
@@ -23,27 +23,27 @@ class DataTableResponse {
 interface SizeSlabWise {
   SERIAL_NO: number,
   EFFECT_DATE: string,
-  INT_RATE:string
-  ACNOTYPE :string,
-  INT_CATEGORY:string,
+  INT_RATE: string
+  ACNOTYPE: string,
+  INT_CATEGORY: string,
 }
-
 @Component({
   selector: 'app-size-slab-wise-ar',
   templateUrl: './size-slab-wise-ar.component.html',
   styleUrls: ['./size-slab-wise-ar.component.scss'],
 })
 
-
-export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestroy {
-   // For reloading angular datatable after CRUD operation
-   @ViewChild(DataTableDirective, { static: false })
-   dtElement: DataTableDirective;
-   dtOptions: DataTables.Settings = {};
-   dtTrigger: Subject<any> = new Subject();
+export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
+  // For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
-  dtExportOptions:any ={}
+  dtExportOptions: any = {}
   //title select variables
   simpleOption: Array<IOption> = this.Scheme8Service.getCharacters();
   int: Array<IOption> = this.Int8Service.getCharacters();
@@ -54,28 +54,28 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
   timeLeft = 5;
   sizeSlabWise: SizeSlabWise[];
   private dataSub: Subscription = null;
- // Variables for search 
- filterObject: { name: string; type: string; }[];
- filter: any;
- filterForm: FormGroup;
- // Variables for hide/show add and update button
- showButton: boolean = true;
- updateShow: boolean = false;
+  // Variables for search 
+  filterObject: { name: string; type: string; }[];
+  filter: any;
+  filterForm: FormGroup;
+  // Variables for hide/show add and update button
+  showButton: boolean = true;
+  updateShow: boolean = false;
 
- //variable to get ID to update
- updateID: number = 0;
- page: number = 1;
- //filter variable
- filterData = {};
+  //variable to get ID to update
+  updateID: number = 0;
+  page: number = 1;
+  //filter variable
+  filterData = {};
 
   showDialog = false;
   @Input() visible: boolean;
   public config: any;
-  constructor(public Scheme8Service: Scheme8Service, 
-    public Int8Service: Int8Service, 
+  constructor(public Scheme8Service: Scheme8Service,
+    public Int8Service: Int8Service,
     private http: HttpClient,
     private fb: FormBuilder,
-    public SizeSlabWiseService:SizeSlabWiseService ) { this.createForm(); }
+    public SizeSlabWiseService: SizeSlabWiseService) { this.createForm(); }
 
   message = {
     scheme_type: "",
@@ -124,7 +124,7 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
     //     return row;
     //   }
     // };
- 
+
     // Fetching Server side data
     this.dtExportOptions = {
       pagingType: 'full_numbers',
@@ -155,7 +155,7 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/deposit-intrest-rate',
+            this.url + '/deposit-intrest-rate',
             dataTableParameters
           ).subscribe(resp => {
             this.sizeSlabWise = resp.data;
@@ -178,10 +178,10 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
           title: 'Int.Category',
           data: 'INT_CATEGORY'
         }
-      
+
       ],
-      dom:'lrtip'
-    
+      dom: 'lrtip'
+
     };
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
@@ -212,7 +212,7 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/deposit-intrest-rate',
+            this.url + '/deposit-intrest-rate',
             dataTableParameters
           ).subscribe(resp => {
             this.sizeSlabWise = resp.data;
@@ -240,25 +240,25 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
           data: 'INT_RATE'
         },
       ],
-      dom:'lrtip'
-    
+      dom: 'lrtip'
+
     };
 
-   
 
-   
+
+
   }
 
   createForm() {
     this.angForm = this.fb.group({
-      SERIAL_NO:['',[Validators.pattern]],
-      EFFECT_DATE: ['',[ Validators.required]],
-      INT_RATE: ['',[ Validators.required,Validators.pattern]],
-      ACNOTYPE: ['',[ Validators.required]],
-      INT_CATEGORY: ['',[ Validators.required]]
+      SERIAL_NO: ['', [Validators.pattern]],
+      EFFECT_DATE: ['', [Validators.required]],
+      INT_RATE: ['', [Validators.required, Validators.pattern]],
+      ACNOTYPE: ['', [Validators.required]],
+      INT_CATEGORY: ['', [Validators.required]]
     });
   }
-  
+
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
@@ -273,18 +273,18 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
       this.rerender();
-       //To clear form
-    this.angForm.reset();
+      //To clear form
+      this.angForm.reset();
     }, (error) => {
       console.log(error)
     })
-   
+
   }
-  
-    // Reset Function
-    resetForm() {
-      this.createForm();
-    }
+
+  // Reset Function
+  resetForm() {
+    this.createForm();
+  }
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -304,25 +304,25 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
       });
     });
   }
-  
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
 
   }
 
-    rerender(): void {
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first
-        dtInstance.destroy();
-        // Call the dtTrigger to rerender again
-        this.dtTrigger.next();
-      });
-    }
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
 
-    //Method for append data into fields
+  //Method for append data into fields
   editClickHandler(id) {
-    
+
     this.showButton = false;
     this.updateShow = true;
     this.SizeSlabWiseService.getFormData(id).subscribe(data => {
@@ -333,11 +333,11 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
         'SERIAL_NO': data.SERIAL_NO,
         'EFFECT_DATE': data.EFFECT_DATE,
         'INT_RATE': data.INT_RATE
-        
+
       })
     })
   }
- 
+
   // //function for edit button clicked
   // editClickHandler(info: any): void {
   //   this.message.scheme_type = info.scheme_type;
@@ -345,18 +345,18 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
   //   this.showButton = false;
   //   this.updateShow = true;
   // }
- //Method for update data 
- updateData() {
-  let data = this.angForm.value;
-  data['id'] = this.updateID;
-  this.SizeSlabWiseService.updateData(data).subscribe(() => {
-    Swal.fire('Success!', 'Record Updated Successfully !', 'success');
-    this.showButton = true;
-    this.updateShow = false;
-    this.rerender();
-    this.resetForm();
-  })
-}
+  //Method for update data 
+  updateData() {
+    let data = this.angForm.value;
+    data['id'] = this.updateID;
+    this.SizeSlabWiseService.updateData(data).subscribe(() => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.showButton = true;
+      this.updateShow = false;
+      this.rerender();
+      this.resetForm();
+    })
+  }
 
   //function for delete button clicked
   delClickHandler(info: any): void {
@@ -397,7 +397,7 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
     }, 1000);
 
   }
- 
-  
+
+
 
 }

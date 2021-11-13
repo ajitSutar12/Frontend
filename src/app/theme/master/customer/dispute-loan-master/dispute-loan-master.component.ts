@@ -109,7 +109,6 @@ interface DisputeLoanMaster {
   AC_REMARK:string;
 }
 
-
 @Component({
   selector: 'app-dispute-loan-master',
   templateUrl: './dispute-loan-master.component.html',

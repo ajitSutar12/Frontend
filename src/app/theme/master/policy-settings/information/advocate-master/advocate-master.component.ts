@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { AdvocateService } from './advocate-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -30,6 +30,8 @@ interface AdvocateMaster {
   styleUrls: ['./advocate-master.component.scss']
 })
 export class AdvocateMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -79,6 +81,12 @@ export class AdvocateMasterComponent implements OnInit, AfterViewInit, OnDestroy
       serverSide: true,
       processing: true,
       ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+
         dataTableParameters.columns.forEach(element => {
           if (element.search.value != '') {
             let string = element.search.value;
@@ -95,13 +103,9 @@ export class AdvocateMasterComponent implements OnInit, AfterViewInit, OnDestroy
           }
         });
         dataTableParameters['filterData'] = this.filterData;
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/advocate-master',
+            this.url + '/advocate-master',
             dataTableParameters
           ).subscribe(resp => {
             this.advocatemasters = resp.data;
@@ -150,7 +154,7 @@ export class AdvocateMasterComponent implements OnInit, AfterViewInit, OnDestroy
       console.log(error)
     })
     //To clear form
-    this.resetForm;
+    this.resetForm();
   }
   //Method for append data into fields
   editClickHandler(id) {

@@ -224,7 +224,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+          
           if (this['value'] != '') {
             that
               .search(this['value'])

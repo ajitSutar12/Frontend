@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { PrioritySectorMasterService } from './priority-sector-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -31,6 +31,8 @@ interface PrioritySectorMaster {
   styleUrls: ['./priority-sector-master.component.scss']
 })
 export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -79,6 +81,12 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
       serverSide: true,
       processing: true,
       ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+
         dataTableParameters.columns.forEach(element => {
           if (element.search.value != '') {
             let string = element.search.value;
@@ -95,14 +103,9 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
           }
         });
         dataTableParameters['filterData'] = this.filterData;
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/priority-sector-master',
+            this.url + '/priority-sector-master',
             dataTableParameters
           ).subscribe(resp => {
             this.prioritySectorMaster = resp.data;

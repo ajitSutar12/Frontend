@@ -7,10 +7,10 @@ import Swal from 'sweetalert2';
 // Angular Datatable Directive 
 import { DataTableDirective } from 'angular-datatables';
 // Service File For Handling CRUD Operation
-import {ItemCategoryMasterService} from './item-category-master.service';
+import { ItemCategoryMasterService } from './item-category-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -25,17 +25,14 @@ interface ItemCategoryMaster {
   AC_NO: number,
   NAME: string,
 }
-
-
-
-
-
 @Component({
   selector: 'app-item-category-master',
   templateUrl: './item-category-master.component.html',
   styleUrls: ['./item-category-master.component.scss']
 })
 export class ItemCategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -63,20 +60,20 @@ export class ItemCategoryMasterComponent implements OnInit, AfterViewInit, OnDes
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-updateID:number=0;
+  updateID: number = 0;
 
-// column filter
-filterData = {};
+  // column filter
+  filterData = {};
 
   constructor(
     private http: HttpClient,
     private itemCategoryMasterService: ItemCategoryMasterService,
     private fb: FormBuilder) {
-   
+
   }
 
 
- 
+
   ngOnInit(): void {
     // Fetching Server side data
     this.dtExportButtonOptions = {
@@ -91,21 +88,21 @@ filterData = {};
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-       
+
         dataTableParameters.columns.forEach(element => {
-          if(element.search.value !=''){
-  
+          if (element.search.value != '') {
+
             let string = element.search.value;
             this.filterData[element.data] = string;
-          }else{
-  
+          } else {
+
             let getColumnName = element.data;
             let columnValue = element.value;
-            if(this.filterData.hasOwnProperty(element.data)){
-                let value = this.filterData[getColumnName];
-                if(columnValue != undefined || value != undefined){
-                  delete this.filterData[element.data];
-                } 
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
             }
           }
         });
@@ -113,11 +110,11 @@ filterData = {};
 
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/item-category-master',
+            this.url + '/item-category-master',
             dataTableParameters
           ).subscribe(resp => {
             this.itemCategoryMaster = resp.data;
-          
+
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -140,7 +137,7 @@ filterData = {};
           title: 'Name',
           data: 'NAME',
         },
-      
+
       ],
       dom: 'Blrtip',
     };
@@ -150,7 +147,6 @@ filterData = {};
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-    
       NAME: ['', [Validators.pattern, Validators.required]],
     });
   }
@@ -159,7 +155,6 @@ filterData = {};
     const formVal = this.angForm.value;
     const dataToSend = {
       'CODE': formVal.CODE,
-   
       'NAME': formVal.NAME,
     }
     this.itemCategoryMasterService.postData(dataToSend).subscribe(data1 => {
@@ -167,10 +162,10 @@ filterData = {};
       // to reload after insertion of data
       this.rerender();
     }, (error) => {
-    
+
     })
     //To clear form
-     this.resetForm();
+    this.resetForm();
   }
 
   //Method for append data into fields
@@ -178,26 +173,23 @@ filterData = {};
     this.showButton = false;
     this.updateShow = true;
     this.itemCategoryMasterService.getFormData(id).subscribe(data => {
-      this.updateID=data.id;
+      this.updateID = data.id;
       this.angForm.setValue({
         'CODE': data.CODE,
-      
         'NAME': data.NAME,
       })
     })
   }
   //Method for update data 
-  updateData(id) {
-  
+  updateData() {
     let data = this.angForm.value;
-     data['id']=this.updateID;
-   
+    data['id'] = this.updateID;
     this.itemCategoryMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.rerender();
-       this.resetForm();
+      this.resetForm();
     })
   }
 
@@ -221,7 +213,7 @@ filterData = {};
             'success'
           )
         }), (error) => {
-         
+
         }
         // to reload after delete of data
         this.rerender();
@@ -243,15 +235,15 @@ filterData = {};
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+
           if (this['value'] != '') {
             that
               .search(this['value'])
               .draw();
-          }else{
+          } else {
             that
-            .search(this['value'])
-            .draw();
+              .search(this['value'])
+              .draw();
           }
         });
       });
@@ -263,8 +255,8 @@ filterData = {};
     this.dtTrigger.unsubscribe();
   }
 
-   // Reset Function
-   resetForm() {
+  // Reset Function
+  resetForm() {
     this.createForm();
   }
 

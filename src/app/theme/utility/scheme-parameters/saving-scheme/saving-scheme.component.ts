@@ -96,6 +96,10 @@ export class SavingSchemeComponent implements OnInit {
   //Dropdown option variable
   acMaster: any
 
+  S_PRODUCT_DAY_BASE
+
+  S_PRODUCT_DAY_BASE_END
+
   constructor(
     private savingschemeservice: SavingschemeService,
     private acMasterDropdownService: ACMasterDropdownService,
@@ -277,6 +281,58 @@ export class SavingSchemeComponent implements OnInit {
       this.angForm.controls.ROUNDOFF_FACTOR.reset();
     }
   }
+
+    //Function to enable/Disable fields according selection of Interest applicable list
+    isIntrestApplicable($event) {
+      if ($event.target.checked) {
+        document.getElementById('POST_TO_INDIVIDUAL_AC').removeAttribute("disabled");
+        document.getElementById('IS_DAYBASE_INT_CALCULATION').removeAttribute("disabled");
+        document.getElementById('S_PRODUCT_DAY_BASE').removeAttribute("disabled");
+        document.getElementById('S_PRODUCT_DAY_BASE_END').removeAttribute("disabled");
+        document.getElementById('MIN_INT_LIMIT').removeAttribute("disabled");
+      }
+      else {
+        document.getElementById('POST_TO_INDIVIDUAL_AC').setAttribute("disabled", "true");
+        document.getElementById('IS_DAYBASE_INT_CALCULATION').removeAttribute("disabled");
+        document.getElementById('S_PRODUCT_DAY_BASE').setAttribute("disabled", "true");
+        document.getElementById('S_PRODUCT_DAY_BASE_END').setAttribute("disabled", "true");
+        document.getElementById('MIN_INT_LIMIT').setAttribute("disabled", "true");
+      }
+    }
+      //Function to enable/Disable fields according selection of product day base start day
+      isProductDayBase(S_PRODUCT_DAY_BASE) {
+        if (S_PRODUCT_DAY_BASE == 0) {
+          document.getElementById('S_PRODUCT_DAY_BASE_MONTH_BEGIN').removeAttribute("disabled");
+          document.getElementById('S_PRODUCT_DAY_BASE_MONTH_END').removeAttribute("disabled");
+        }
+        else {
+          document.getElementById('S_PRODUCT_DAY_BASE_MONTH_BEGIN').setAttribute("disabled", "false");
+          document.getElementById('S_PRODUCT_DAY_BASE_MONTH_END').setAttribute("disabled", "false");
+        }
+      }
+        //Function to enable/Disable fields according selection of product day base end day
+    isProductDayBaseEndDay(S_PRODUCT_DAY_BASE_END) {
+      if (S_PRODUCT_DAY_BASE_END == 0) {
+        document.getElementById('S_PRODUCT_DAY_BASE_END_MONTH_BEGIN').removeAttribute("disabled");
+        document.getElementById('S_PRODUCT_DAY_BASE_END_MONTH_END').removeAttribute("disabled");
+      }
+      else {
+        document.getElementById('S_PRODUCT_DAY_BASE_END_MONTH_BEGIN').setAttribute("disabled", "false");
+        document.getElementById('S_PRODUCT_DAY_BASE_END_MONTH_END').setAttribute("disabled", "false");
+      }
+    }
+      //Function to enable/Disable fields according selection of overdraft Interest applicable 
+        isOverdraftInterest($event) {
+      if ($event.target.checked) {
+        document.getElementById('OVERDRAFT_INTEREST_RATE').removeAttribute("disabled");
+  
+      }
+      else {
+        document.getElementById('OVERDRAFT_INTEREST_RATE').setAttribute("disabled", "true")
+        this.angForm.controls.OVERDRAFT_INTEREST_RATE.reset();
+       
+      }
+    }
 
   createForm() {
     this.angForm = this.fb.group({

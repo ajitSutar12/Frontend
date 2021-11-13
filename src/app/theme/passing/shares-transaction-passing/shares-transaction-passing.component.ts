@@ -19,7 +19,7 @@ export class SharesTransactionPassingComponent implements OnInit {
   }
 
   OpenLink(val) {
-    // debugger
+    // 
     if (val == 1) {
       this.issuenewsharesTrue = true;
       this.sharestransferTrue = false;

@@ -121,7 +121,7 @@ export class SecurityDetailsComponent implements OnInit {
   OpenLink(val) {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-    // debugger
+    // 
     if (val == 1) {
       this.ownDepositsTrue = true;
       this.otherSecurityTrue = false;

@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { IntrestCategoryMasterDropdownService } from '../../../../../shared/dropdownService/interest-category-master-dropdown.service'
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { first } from 'rxjs/operators';
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -30,7 +31,6 @@ interface SavingandPigmyInterestRate {
   INT_CATEGORY: string
   EFFECT_DATE: Date
   INT_RATE: number
-
 }
 
 @Component({
@@ -39,6 +39,8 @@ interface SavingandPigmyInterestRate {
   styleUrls: ['./interest-rate-for-sapd.component.scss'],
 })
 export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -124,7 +126,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/saving-and-pigmy-interest-rates',
+            this.url + '/saving-and-pigmy-interest-rates',
             dataTableParameters
           ).subscribe(resp => {
             this.savingandPigmyInterestRate = resp.data;

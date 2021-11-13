@@ -4,7 +4,7 @@ import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {environment}  from '../../../../../environments/environment';
+import {environment}  from '../../../../../environments/environment'
 @Injectable()
 export class CustomerIdService {
     // Variable for handleError
@@ -35,10 +35,6 @@ export class CustomerIdService {
     //Deletion Operation
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/customer-id/delete/' + id).pipe(catchError(this.handleError));
-    }
-
-    doSomethingFromService1(){
-        console.log('service customer just did something');
-      }
+    }  
 }
 

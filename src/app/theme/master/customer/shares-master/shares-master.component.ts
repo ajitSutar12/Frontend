@@ -20,6 +20,11 @@ import { CustomerIdService } from '../customer-id/customer-id.service';
 import { categoryMasterService } from '../../../../shared/dropdownService/category-master-dropdown.service';
 import { MembershipTypeDropdownService } from '../../../../shared/dropdownService/membership-type-dropdown.service';
 import { SignTypeDropdownService } from '../../../../shared/dropdownService/sign-type-dropdown.service'
+import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service'
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { SubSalaryDMasterdropdownService } from '../../../../shared/dropdownService/subsalary-division-master-dropdown.service'
+import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service'
+import { environment } from '../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 // Handling datatable data
 class DataTableResponse {
@@ -45,7 +50,7 @@ interface ShareMaster {
   MEMBERSHIP_BY: string
   AC_SIGN_TYPE: string
   AC_SREPRESENT: string
-  AC_HOSUBNO: string
+  AC_HONO: string
   AC_WARD: string
   AC_ADDR: string
   AC_GALLI: string
@@ -73,16 +78,6 @@ interface ShareMaster {
   AC_INSTALLMENT: string
   REF_ACNO: number
   AC_NARR: string
-  //nominee controls (NOMINEELINK table)
-  AC_NNAME: string
-  AC_NRELA: string
-  AC_NDATE: Date
-  AGE: number
-  ADDR1: string
-  ADDR2: string
-  ADDR3: string
-  CTCODE: number
-  PIN: number
 
   //shares details under nominee tab
   AC_SHBALDATE: Date
@@ -98,11 +93,22 @@ interface ShareMaster {
   AC_DEV_AREA: string
   AC_DEV_CITYCODE: number
 }
+interface Nominee {
+  //nominee controls (NOMINEELINK table)
+  AC_NNAME: string
+  AC_NRELA: string
+  AC_NDATE: Date
+  AGE: number
+  ADDR1: string
+  ADDR2: string
+  ADDR3: string
+  CTCODE: number
+  PIN: number
+}
 @Component({
   selector: 'app-shares-master',
   templateUrl: './shares-master.component.html',
   styleUrls: ['./shares-master.component.scss'],
-
   animations: [
     trigger('fadeInOutTranslate', [
       transition(':enter', [
@@ -116,7 +122,9 @@ interface ShareMaster {
     ])
   ]
 })
+
 export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+
   // newCustomerID = [];
   newCustomerID;
 
@@ -125,39 +133,41 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     // this.newCustomerID.push(newCustomer)
     this.newCustomerID = newCustomer
     console.log(this.newCustomerID)
-    this.angForm.setValue({
-      'AC_TITLE': this.newCustomerID.AC_TITLE,
-      'AC_NAME': this.newCustomerID.AC_NAME,
-      'AC_CAST': this.newCustomerID.AC_CAST,
-      'AC_OCODE': this.newCustomerID.AC_OCODE,
-      'AC_ADHARNO': this.newCustomerID.AC_ADHARNO,
-      'AC_RISKCATG': this.newCustomerID.AC_RISKCATG,
-      'AC_BIRTH_DT': this.newCustomerID.AC_BIRTH_DT,
-      'AC_HONO': this.newCustomerID.AC_HONO,
-      'AC_WARD': this.newCustomerID.AC_WARD,
-      'AC_TADDR': this.newCustomerID.AC_TADDR,
-      'AC_TGALLI': this.newCustomerID.AC_TGALLI,
-      'AC_AREA': this.newCustomerID.AC_AREA,
-      'AC_CTCODE': this.newCustomerID.AC_CTCODE,
-      'AC_PIN': this.newCustomerID.AC_PIN,
-      'AC_PANNO': this.newCustomerID.AC_PANNO,
-      'AC_SALARYDIVISION_CODE': this.newCustomerID.AC_SALARYDIVISION_CODE,
-      'AC_MOBILENO': this.newCustomerID.AC_MOBILENO,
-      'AC_PHONE_RES': this.newCustomerID.AC_PHONE_RES,
-      'AC_PHONE_OFFICE': this.newCustomerID.AC_PHONE_OFFICE,
-      'AC_EMAILID': this.newCustomerID.AC_EMAILID,
-      'AC_IS_RECOVERY': this.newCustomerID.AC_IS_RECOVERY,
-      'TDS_REQUIRED': this.newCustomerID.TDS_REQUIRED,
-      'SMS_REQUIRED': this.newCustomerID.SMS_REQUIRED,
-      'IS_KYC_RECEIVED': this.newCustomerID.IS_KYC_RECEIVED,
-      'FIN_YEAR': this.newCustomerID.FIN_YEAR,
-      'SUBMIT_DATE': this.newCustomerID.SUBMIT_DATE,
-      'FORM_TYPE': this.newCustomerID.FORM_TYPE,
-      'TDS_RATE': this.newCustomerID.TDS_RATE,
-      'TDS_LIMIT': this.newCustomerID.TDS_LIMIT,
+    this.angForm.patchValue({
+      AC_TITLE: this.newCustomerID.AC_TITLE,
+      AC_NAME: this.newCustomerID.AC_NAME,
+      AC_CAST: this.newCustomerID.AC_CAST,
+      CITY_NAME: this.newCustomerID.AC_OCODE,
+      AC_ADHARNO: this.newCustomerID.AC_ADHARNO,
+      AC_RISKCATG: this.newCustomerID.AC_RISKCATG,
+      AC_BIRTH_DT: this.newCustomerID.AC_BIRTH_DT,
+      AC_HONO: this.newCustomerID.custAddress.AC_HONO,
+      AC_WARD: this.newCustomerID.custAddress.AC_WARD,
+      AC_TADDR: this.newCustomerID.custAddress.AC_TADDR,
+      AC_TGALLI: this.newCustomerID.custAddress.AC_TGALLI,
+      AC_AREA: this.newCustomerID.custAddress.AC_AREA,
+      AC_CTCODE: this.newCustomerID.custAddress.AC_CTCODE,
+      AC_PIN: this.newCustomerID.custAddress.AC_PIN,
+      AC_PANNO: this.newCustomerID.AC_PANNO,
+      AC_SALARYDIVISION_CODE: this.newCustomerID.AC_SALARYDIVISION_CODE,
+      AC_MOBILENO: this.newCustomerID.AC_MOBILENO,
+      AC_PHONE_RES: this.newCustomerID.AC_PHONE_RES,
+      AC_PHONE_OFFICE: this.newCustomerID.AC_PHONE_OFFICE,
+      AC_EMAILID: this.newCustomerID.AC_EMAILID,
+      AC_IS_RECOVERY: this.newCustomerID.AC_IS_RECOVERY,
+      TDS_REQUIRED: this.newCustomerID.TDS_REQUIRED,
+      SMS_REQUIRED: this.newCustomerID.SMS_REQUIRED,
+      IS_KYC_RECEIVED: this.newCustomerID.IS_KYC_RECEIVED,
+      FIN_YEAR: this.newCustomerID.FIN_YEAR,
+      SUBMIT_DATE: this.newCustomerID.SUBMIT_DATE,
+      FORM_TYPE: this.newCustomerID.FORM_TYPE,
+      TDS_RATE: this.newCustomerID.TDS_RATE,
+      TDS_LIMIT: this.newCustomerID.TDS_LIMIT,
 
     })
   }
+  //api 
+  url = environment.base_url;
 
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -166,6 +176,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject();
   // Store data from backend
   shareMaster: ShareMaster[];
+  nominee: Nominee[];
   // Created Form Group
   angForm: FormGroup;
   //Datatable variable
@@ -173,8 +184,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //datatable variable to change
   dtModalOptions: DataTables.Settings = {};
-  dtExportButtonOptions1: any = {};
-  dtExportButtonOptions2: any = {};
+  dtNominee: any = {};
+  dtDocument: any = {};
 
   recovery: boolean = false;
   GuarantorTrue: boolean = false;
@@ -205,33 +216,20 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Dropdown options
   // scheme //scheme code from schemast(S_ACNOTYPE)
   scheme: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  Cust_ID //customer id from idmaster
-  //title //from idmaster as per customer id
-  // title: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  category //from category master
-  membershipType: Array<IOption> = this.signTypeDropdownService.getCharacters(); //membership type default option
+  Cust_ID: any[] //customer id from idmaster
+  // title: string //from idmaster as per customer id
+  category: any[] //from category master
+  membershipType: Array<IOption> = this.membershipTypeDropdownService.getCharacters(); //membership type default option
   signType: Array<IOption> = this.signTypeDropdownService.getCharacters();   //sign type default option
-  // city //city from customer id from idmaster
-  // city: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  // cast // customer id from idmaster
-  // cast: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  // occupation // customer id from idmaster
-  // occupation: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  // director//from directormaster
-  director: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  // branch_code//from ownbranchmaster
-  branch_code: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  // salary_div // customer id from idmaster
-  // salary_div: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  // sub_salary_div //information sub salary master
-  sub_salary_div: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  // ncity //city for nominee from citymaster
-  ncity: Array<IOption> = this.signTypeDropdownService.getCharacters();
-  // mCity //city for marathi tab from citymaster
-  mCity: Array<IOption> = this.signTypeDropdownService.getCharacters();
-
-  //scheme dropdown variables
-  //Sign-type
+  city: string //city from customer id from idmaster
+  cast: string // customer id from idmaster
+   occupation: string // customer id from idmaster
+    director: any[]//from directormaster
+  branch_code: any[]//from ownbranchmaster
+  salary_div: string // customer id from idmaster
+  sub_salary_div: any[] //information sub salary master
+  ncity: any[] //city for nominee from citymaster
+  mCity: any[] //city for marathi tab from citymaster
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -247,42 +245,69 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private customerID: CustomerIDMasterDropdownService,
     private customerIdService: CustomerIdService,
     private categoryMasterService: categoryMasterService,
+    private directorMasterDropdownService: DirectorMasterDropdownService,
+    private ownbranchMasterService: OwnbranchMasterService,
+    private subSalaryDMasterdropdownService: SubSalaryDMasterdropdownService,
+    private cityMasterService: cityMasterService,
+
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.createForm();
     this.dtExportButtonOptions = {
-      ajax: 'fake-data/customer.json',
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+        dataTableParameters['filterData'] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + '/share-master',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.shareMaster = resp.data;
+            console.log(this.shareMaster)
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
+            });
+          });
+      },
       columns: [
         {
           title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Scheme',
-          data: 'Member_scheme'
-        }, {
-          title: 'Member No',
-          data: 'Member_no'
-        }, {
-          title: 'Customer ID',
-          data: 'Customer_id'
-        }, {
-          title: 'Title',
-          data: 'title'
-        }, {
-          title: 'Name',
-          data: 'Customer_name'
         },
+
+        {
+          title: '',
+          data: ''
+        },
+        {
+          title: '',
+          data: ''
+        },
+        {
+          title: '',
+          data: ''
+        },
+        {
+          title: '',
+          data: ''
+        },
+
       ],
-      dom: 'Bfrtip',
-
-
-
+      dom: 'Blrtip',
     };
 
-    this.dtExportButtonOptions2 = {
+    this.dtDocument = {
       ajax: 'fake-data/documents.json',
       columns: [
         {
@@ -301,7 +326,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           data: 'IsAccepted'
         }
       ],
-      dom: 'Bfrtip',
+      dom: 'Blrtip',
       buttons: [
         'copy',
         'print',
@@ -311,52 +336,67 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     };
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/customer.json',
+    this.dtNominee = {
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+        dataTableParameters['filterData'] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + '/nominee',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.nominee = resp.data;
+            console.log(this.nominee)
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
+            });
+          });
+      },
       columns: [
         {
           title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
         },
         {
           title: 'Name',
-          data: 'Customer_name'
+          data: 'AC_NNAME'
         }, {
           title: 'Relation',
-          data: 'relation'
+          data: 'AC_NRELA'
         }, {
           title: 'Age',
-          data: 'age'
+          data: 'AGE'
         }, {
           title: 'Nomination Date',
-          data: 'birthDate'
+          data: 'AC_NDATE'
         }, {
-          title: 'Address',
-          data: 'Customer_address'
+          title: 'Address1',
+          data: 'ADDR1'
         }, {
-          title: 'Address',
-          data: 'Customer_address'
+          title: 'Address2',
+          data: 'ADDR2'
         }, {
-          title: 'Address',
-          data: 'Customer_address'
+          title: 'Address3',
+          data: 'ADDR3'
         }, {
           title: 'City',
-          data: 'Customer_city'
+          data: 'CTCODE'
         }, {
           title: 'Pin Code',
-          data: 'Customer_pin_code'
+          data: 'PIN'
         },
       ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
+      dom: 'Blrtip',
     };
     this.runTimer();
     this.dataSub = this.signTypeDropdownService.loadCharacters().subscribe((options) => {
@@ -372,43 +412,56 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
       this.category = data;
     })
+    this.directorMasterDropdownService.getDirectorMasterList().pipe(first()).subscribe(data => {
+      this.director = data;
+    })
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
+    this.subSalaryDMasterdropdownService.getSubSalaryDMasterList().pipe(first()).subscribe(data => {
+      this.sub_salary_div = data;
+    })
+    this.cityMasterService.getcityList().pipe(first()).subscribe(data => {
+      this.ncity = data;
+      this.mCity = data;
+    })
   }
   id
   getCustomer(id) {
 
     console.log('in getcustomer', id)
     this.customerIdService.getFormData(id).subscribe(data => {
-      debugger
-      this.angForm.setValue({
-        'AC_TITLE': data.AC_TITLE,
-        'AC_NAME': data.AC_NAME,
-        'AC_CAST': data.AC_CAST,
-        'AC_OCODE': data.AC_OCODE,
-        'AC_ADHARNO': data.AC_ADHARNO,
-        'AC_RISKCATG': data.AC_RISKCATG,
-        'AC_BIRTH_DT': data.AC_BIRTH_DT,
-        'AC_HONO': data.AC_HONO,
-        'AC_WARD': data.AC_WARD,
-        'AC_TADDR': data.AC_TADDR,
-        'AC_TGALLI': data.AC_TGALLI,
-        'AC_AREA': data.AC_AREA,
-        'AC_CTCODE': data.AC_CTCODE,
-        'AC_PIN': data.AC_PIN,
-        'AC_PANNO': data.AC_PANNO,
-        'AC_SALARYDIVISION_CODE': data.AC_SALARYDIVISION_CODE,
-        'AC_MOBILENO': data.AC_MOBILENO,
-        'AC_PHONE_RES': data.AC_PHONE_RES,
-        'AC_PHONE_OFFICE': data.AC_PHONE_OFFICE,
-        'AC_EMAILID': data.AC_EMAILID,
-        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
-        'TDS_REQUIRED': data.TDS_REQUIRED,
-        'SMS_REQUIRED': data.SMS_REQUIRED,
-        'IS_KYC_RECEIVED': data.IS_KYC_RECEIVED,
-        'FIN_YEAR': data.FIN_YEAR,
-        'SUBMIT_DATE': data.SUBMIT_DATE,
-        'FORM_TYPE': data.FORM_TYPE,
-        'TDS_RATE': data.TDS_RATE,
-        'TDS_LIMIT': data.TDS_LIMIT,
+      console.log('get customer data', data)
+      this.angForm.patchValue({
+        AC_TITLE: data.AC_TITLE,
+        AC_NAME: data.AC_NAME,
+        AC_CAST: data.AC_CAST,
+        AC_OCODE: data.AC_OCODE,
+        AC_ADHARNO: data.AC_ADHARNO,
+        AC_RISKCATG: data.AC_RISKCATG,
+        AC_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_HONO: data.custAddress.AC_HONO,
+        AC_WARD: data.custAddress.AC_WARD,
+        AC_TADDR: data.custAddress.AC_TADDR,
+        AC_TGALLI: data.custAddress.AC_TGALLI,
+        AC_AREA: data.custAddress.AC_AREA,
+        CITY_NAME: data.custAddress.AC_CTCODE,
+        AC_PIN: data.custAddress.AC_PIN,
+        AC_PANNO: data.AC_PANNO,
+        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
+        AC_MOBILENO: data.AC_MOBILENO,
+        AC_PHONE_RES: data.AC_PHONE_RES,
+        AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
+        AC_EMAILID: data.AC_EMAILID,
+        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+        TDS_REQUIRED: data.TDS_REQUIRED,
+        SMS_REQUIRED: data.SMS_REQUIRED,
+        IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
+        FIN_YEAR: data.FIN_YEAR,
+        SUBMIT_DATE: data.SUBMIT_DATE,
+        FORM_TYPE: data.FORM_TYPE,
+        TDS_RATE: data.TDS_RATE,
+        TDS_LIMIT: data.TDS_LIMIT,
 
       })
     })
@@ -419,7 +472,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //excel controls
       AC_TYPE: ['', [Validators.required]],
       AC_NO: [''],
-      AC_TITLE: [{ isDisabled: true }, [Validators.required]],
+      AC_TITLE: ['', [Validators.required]],
       AC_CUSTID: ['', [Validators.required]],
       AC_NAME: ['', [Validators.required]],
       //basic controls
@@ -432,12 +485,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       MEMBERSHIP_BY: ['', [Validators.required]],
       AC_SIGN_TYPE: ['', [Validators.required]],
       AC_SREPRESENT: ['', [Validators.pattern]],
-      AC_HOSUBNO: ['', [Validators.pattern]],
+      AC_HONO: ['', [Validators.pattern]],
       AC_WARD: ['', [Validators.pattern]],
       AC_ADDR: ['', [Validators.pattern]],
       AC_GALLI: ['', [Validators.pattern]],
       AC_AREA: [''],
-      CITY_NAME: [{ isDisabled: true }],
+      CITY_NAME: [],
       AC_PIN: [''],
       AC_PHNO: ['', [Validators.pattern]],
       AC_MOBNO: [''],
@@ -506,7 +559,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'MEMBERSHIP_BY': formVal.MEMBERSHIP_BY,
       'AC_SIGN_TYPE': formVal.AC_SIGN_TYPE,
       'AC_SREPRESENT': formVal.AC_SREPRESENT,
-      'AC_HOSUBNO': formVal.AC_HOSUBNO,
+      'AC_HONO': formVal.AC_HONO,
       'AC_WARD': formVal.AC_WARD,
       'AC_ADDR': formVal.AC_ADDR,
       'AC_GALLI': formVal.AC_GALLI,
@@ -592,7 +645,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'MEMBERSHIP_BY': data.MEMBERSHIP_BY,
         'AC_SIGN_TYPE': data.AC_SIGN_TYPE,
         'AC_SREPRESENT': data.AC_SREPRESENT,
-        'AC_HOSUBNO': data.AC_HOSUBNO,
+        'AC_HONO': data.AC_HONO,
         'AC_WARD': data.AC_WARD,
         'AC_ADDR': data.AC_ADDR,
         'AC_GALLI': data.AC_GALLI,

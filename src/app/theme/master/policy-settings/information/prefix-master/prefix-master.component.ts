@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 //Importing for prefix dropdown
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -36,6 +36,8 @@ interface PrefixMaster {
 })
 
 export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -107,7 +109,7 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/prefix-master',
+            this.url + '/prefix-master',
             dataTableParameters
           ).subscribe(resp => {
             this.prefixMaster = resp.data;

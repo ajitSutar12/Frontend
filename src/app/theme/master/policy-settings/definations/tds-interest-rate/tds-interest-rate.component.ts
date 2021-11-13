@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { TdsInterestRateService } from './tds-interest-rate.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -32,7 +32,9 @@ interface TdsInterest {
   templateUrl: './tds-interest-rate.component.html',
   styleUrls: ['./tds-interest-rate.component.scss']
 })
-export class TdsInterestRateComponent implements OnInit {
+export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -106,7 +108,7 @@ export class TdsInterestRateComponent implements OnInit {
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/tds-interest-rate',
+            this.url + '/tds-interest-rate',
             dataTableParameters
           ).subscribe(resp => {
             this.tdsInterests = resp.data;

@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { environment } from '../../../../../environments/environment';
-
 import {CustomerIdService} from '../customer-id/customer-id.service'
 
 @Injectable()
@@ -28,10 +27,10 @@ export class DisputeLoanMasterService {
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http.post(this.url + '/dispute-loan-master/insert', data).pipe(map((res) => res),
-      catchError((error) => {
-        Swal.fire('Please Input Proper Data !');
-        return throwError(error);
-      })
+    catchError((error) => {
+      Swal.fire('Please Input Proper Data !');
+      return throwError(error);
+    })
     )
   }
   // For append data
@@ -47,14 +46,6 @@ export class DisputeLoanMasterService {
     return this.http.delete(this.url + '/dispute-loan-master/delete/' + id).pipe(catchError(this.handleError));
   }
 
-
-
-  // fetch record by id
-  getOne(id) {
-    return this.http.get("http://localhost:4000/customer-id/posts/" + id).pipe(map((res) => {
-      return res
-    }))
-  }
 }
 
 

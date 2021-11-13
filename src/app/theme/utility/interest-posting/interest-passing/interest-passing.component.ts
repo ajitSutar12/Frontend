@@ -13,7 +13,7 @@ export class InterestPassingComponent implements OnInit {
 
   constructor() { }
   OpenLink(val) {
-    // debugger
+    // 
     if (val == 1) {
       this.EditInterestCalculationTrue = true;
       this.CalculateInterestPassingTrue = false;

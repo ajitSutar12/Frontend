@@ -59,10 +59,8 @@
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-
                                         <td>{{ data.CODE }}</td>
                                         <td>{{ data.NAME }}</td>
-
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="castmaster?.length == 0">
@@ -73,9 +71,8 @@
                                 <tfoot>
                                     <tr>
                                         <th></th>
-                                        <th><input type="text" placeholder="Search Code" name="search-CODE"></th>
-                                        <th><input type="text" placeholder="Search Name" name="search-NAME"></th>
-
+                                        <th><input type="text" placeholder="Search Code" name="CODE"></th>
+                                        <th><input type="text" placeholder="Search Name" name="NAME"></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -83,7 +80,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

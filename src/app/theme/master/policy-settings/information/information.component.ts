@@ -51,7 +51,7 @@ export class InformationComponent implements OnInit {
   }
 
   OpenLink(val) {
-    // debugger
+    // 
     if (val == 1) {
       this.narationmasterTrue = true;
       this.bankTrue = false;

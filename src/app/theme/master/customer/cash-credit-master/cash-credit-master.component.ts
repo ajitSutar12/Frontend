@@ -19,7 +19,7 @@ import { A1Service } from '../../../../shared/elements/a1.service';
 import { CitycodeService } from '../../../../shared/elements/citycode.service';
 import { MemberTypeService } from '../../../../shared/elements/member-type.service';
 import { MemberService } from '../../../../shared/elements/member.service';
-
+import { environment } from '../../../../../environments/environment'
 @Component({
   selector: 'app-cash-credit-master',
   templateUrl: './cash-credit-master.component.html',
@@ -40,6 +40,8 @@ import { MemberService } from '../../../../shared/elements/member.service';
 
 export class CashCreditMasterComponent implements OnInit {
   angForm: FormGroup;
+   //api 
+   url = environment.base_url;
 
   //variable for checkbox  
   isRecovery: boolean = false; //return boolean value and display unchecked checkbox in basic tab

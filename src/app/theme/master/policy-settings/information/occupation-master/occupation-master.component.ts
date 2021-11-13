@@ -10,6 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { OccupationMasterService } from './occupation-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../../environments/environment'
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -20,7 +21,6 @@ class DataTableResponse {
 // For fetching values from backend
 interface OccupationMaster {
   CODE: number,
-
   NAME: string,
 }
 
@@ -58,10 +58,10 @@ export class OccupationMasterComponent implements OnInit {
   showButton: boolean = true;
   updateShow: boolean = false;
   updateID: number = 0;
-// column search
+  // column search
   filterData = {};
-
-
+  //api 
+  url = environment.base_url;
 
   constructor(
     private http: HttpClient,
@@ -79,36 +79,31 @@ export class OccupationMasterComponent implements OnInit {
       serverSide: true,
       processing: true,
       ajax: (dataTableParameters: any, callback) => {
-// column search/filter
-        dataTableParameters.columns.forEach(element => {
-          if(element.search.value !=''){
-  
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          }else{
-  
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if(this.filterData.hasOwnProperty(element.data)){
-                let value = this.filterData[getColumnName];
-                if(columnValue != undefined || value != undefined){
-                  delete this.filterData[element.data];
-                } 
-            }
-          }
-        });
-
-
-        dataTableParameters['filterData'] = this.filterData;
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-       
+
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/occupation-master',
+            this.url + '/occupation-master',
             dataTableParameters
           ).subscribe(resp => {
             this.occupationMaster = resp.data;
@@ -123,9 +118,6 @@ export class OccupationMasterComponent implements OnInit {
       columns: [
         {
           title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          }
         },
         {
           title: 'Code',
@@ -135,7 +127,7 @@ export class OccupationMasterComponent implements OnInit {
           title: 'Name',
           data: 'NAME',
         },
-      
+
       ],
       dom: 'Blrtip',
     };
@@ -145,7 +137,6 @@ export class OccupationMasterComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-
       NAME: ['', [Validators.pattern, Validators.required]],
     });
   }
@@ -154,7 +145,6 @@ export class OccupationMasterComponent implements OnInit {
     const formVal = this.angForm.value;
     const dataToSend = {
       'CODE': formVal.CODE,
-
       'NAME': formVal.NAME,
     }
     this.occupationMasterService.postData(dataToSend).subscribe(data1 => {
@@ -176,17 +166,14 @@ export class OccupationMasterComponent implements OnInit {
       this.updateID = data.id;
       this.angForm.setValue({
         'CODE': data.CODE,
-
         'NAME': data.NAME,
       })
     })
   }
   //Method for update data 
-  updateData(id) {
-
+  updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
-
     this.occupationMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -238,15 +225,15 @@ export class OccupationMasterComponent implements OnInit {
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+
           if (this['value'] != '') {
             that
               .search(this['value'])
               .draw();
-          }else{
+          } else {
             that
-            .search(this['value'])
-            .draw();
+              .search(this['value'])
+              .draw();
           }
         });
       });

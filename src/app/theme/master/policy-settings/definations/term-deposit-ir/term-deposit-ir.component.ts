@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { IntrestCategoryMasterDropdownService } from '../../../../../shared/dropdownService/interest-category-master-dropdown.service'
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { first } from 'rxjs/operators';
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -42,6 +43,8 @@ interface TermDepositInterestRate {
   styleUrls: ['./term-deposit-ir.component.scss'],
 })
 export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -128,7 +131,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/interest-rate-for-term-deposit',
+            this.url + '/interest-rate-for-term-deposit',
             dataTableParameters
           ).subscribe(resp => {
             this.termDepositInterestRate = resp.data;
@@ -186,7 +189,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/interest-rate-for-term-deposit',
+            this.url + '/interest-rate-for-term-deposit',
             dataTableParameters
           ).subscribe(resp => {
             this.termDepositInterestRate = resp.data;

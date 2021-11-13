@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { CourtMasterService } from './court-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -32,6 +32,8 @@ interface CourtMaster {
   styleUrls: ['./court-master.component.scss']
 })
 export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -78,6 +80,12 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       serverSide: true,
       processing: true,
       ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+
         dataTableParameters.columns.forEach(element => {
           if (element.search.value != '') {
             let string = element.search.value;
@@ -94,14 +102,9 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         });
         dataTableParameters['filterData'] = this.filterData;
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/court-master',
+            this.url + '/court-master',
             dataTableParameters
           ).subscribe(resp => {
             this.courtMaster = resp.data;
@@ -135,7 +138,6 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-
       NAME: ['', [Validators.pattern, Validators.required]],
     });
   }
@@ -144,7 +146,6 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     const formVal = this.angForm.value;
     const dataToSend = {
       'CODE': formVal.CODE,
-
       'NAME': formVal.NAME,
     }
     this.courtMasterService.postData(dataToSend).subscribe(data1 => {
@@ -166,17 +167,14 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.updateID = data.id;
       this.angForm.setValue({
         'CODE': data.CODE,
-
         'NAME': data.NAME,
       })
     })
   }
   //Method for update data 
-  updateData(id) {
-
+  updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
-
     this.courtMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;

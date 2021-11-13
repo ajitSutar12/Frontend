@@ -172,7 +172,7 @@ export class OverDraftComponent implements OnInit {
   }
 
   OpenLink(val) {
-    // debugger
+    // 
     if (val == 1) {
       this.PeriodicallyOverDraftTrue = true;
       this.TemporaryOverDraftTrue = false;

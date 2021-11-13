@@ -4,7 +4,7 @@ import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {environment}  from '../../../../../../environments/environment';
+import {environment}  from '../../../../../../environments/environment'; 
 
 @Injectable()
 export class BankService {

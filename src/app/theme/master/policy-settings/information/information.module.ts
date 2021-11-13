@@ -90,7 +90,7 @@ import { RiskCategoryDropdownService } from '../../../../shared/dropdownService/
 import { RiskCatMasterService } from './risk-catagory/risk-category.service';
 
 
-
+// import { NgSelectModule } from '@ng-select/ng-select';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -103,7 +103,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     DataTablesModule,
     SelectModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+
+
+
+    // NgSelectModule
 
 
   ],

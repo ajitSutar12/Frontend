@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { ReportTypeMasterService } from './report-type-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -25,14 +25,14 @@ interface ReportTypeMaster {
   AC_NO: number,
   NAME: string,
 }
-
-
 @Component({
   selector: 'app-report-type-master',
   templateUrl: './report-type-master.component.html',
   styleUrls: ['./report-type-master.component.scss']
 })
 export class ReportTypeMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -65,11 +65,7 @@ export class ReportTypeMasterComponent implements OnInit, AfterViewInit, OnDestr
   constructor(
     private http: HttpClient,
     private reportTypeMasterService: ReportTypeMasterService,
-    private fb: FormBuilder) {
-
-  }
-
-
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -85,28 +81,28 @@ export class ReportTypeMasterComponent implements OnInit, AfterViewInit, OnDestr
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-       
+
         dataTableParameters.columns.forEach(element => {
-          if(element.search.value !=''){
-  
+          if (element.search.value != '') {
+
             let string = element.search.value;
             this.filterData[element.data] = string;
-          }else{
-  
+          } else {
+
             let getColumnName = element.data;
             let columnValue = element.value;
-            if(this.filterData.hasOwnProperty(element.data)){
-                let value = this.filterData[getColumnName];
-                if(columnValue != undefined || value != undefined){
-                  delete this.filterData[element.data];
-                } 
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
             }
           }
         });
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/report-type-master',
+            this.url + '/report-type-master',
             dataTableParameters
           ).subscribe(resp => {
             this.reportTypeMaster = resp.data;
@@ -133,7 +129,7 @@ export class ReportTypeMasterComponent implements OnInit, AfterViewInit, OnDestr
           title: 'Name',
           data: 'NAME',
         },
-      
+
       ],
       dom: 'Blrtip',
     };
@@ -143,7 +139,6 @@ export class ReportTypeMasterComponent implements OnInit, AfterViewInit, OnDestr
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-
       NAME: ['', [Validators.pattern, Validators.required]],
     });
   }
@@ -152,7 +147,6 @@ export class ReportTypeMasterComponent implements OnInit, AfterViewInit, OnDestr
     const formVal = this.angForm.value;
     const dataToSend = {
       'CODE': formVal.CODE,
-
       'NAME': formVal.NAME,
     }
     this.reportTypeMasterService.postData(dataToSend).subscribe(data1 => {
@@ -174,17 +168,14 @@ export class ReportTypeMasterComponent implements OnInit, AfterViewInit, OnDestr
       this.updateID = data.id;
       this.angForm.setValue({
         'CODE': data.CODE,
-
         'NAME': data.NAME,
       })
     })
   }
   //Method for update data 
-  updateData(id) {
-
+  updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
-
     this.reportTypeMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -236,15 +227,15 @@ export class ReportTypeMasterComponent implements OnInit, AfterViewInit, OnDestr
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+
           if (this['value'] != '') {
             that
               .search(this['value'])
               .draw();
-          }else{
+          } else {
             that
-            .search(this['value'])
-            .draw();
+              .search(this['value'])
+              .draw();
           }
         });
       });

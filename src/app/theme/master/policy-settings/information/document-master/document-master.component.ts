@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { DocumentMasterService } from './document-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -31,6 +31,8 @@ interface DocumentMaster {
   styleUrls: ['./document-master.component.scss']
 })
 export class DocumentMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -103,7 +105,7 @@ export class DocumentMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/document-master',
+            this.url + '/document-master',
             dataTableParameters
           ).subscribe(resp => {
             this.documentMaster = resp.data;

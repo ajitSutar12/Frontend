@@ -33,7 +33,7 @@
                                         </ng-select>
                                     </span>
                                 </div>
-                            </div>  
+                            </div>
                             <div class="col-md">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -98,60 +98,29 @@
                                         <app-customer-id (newCustomerEvent)="newCustomer($event)"></app-customer-id>
                                     </perfect-scrollbar>
                                 </div>
-        
+
                                 <div class="app-modal-footer">
-                                    <button type="button" class="btn btn-primary ripple light"
-                                        (click)="modalLarge.hide()">Close</button>
+                                    <button type="button" class="btn btn-primary ripple light" (click)="modalLarge.hide()">Close</button>
                                     <button type="button" class="btn btn-primary ripple light">Save changes</button>
                                 </div>
                             </app-modal-basic>
-                            <!-- <div class="col-md-2">
-                                <div class="form-group form-primary form-static-label">
-                                    <ng-select [ngClass]="'ng-select'" [options]="titleOption" [multiple]="false" placeholder="Title*" required title="Compulsory Selection" formControlName="AC_TITLE">
-                                    </ng-select>
-                                    <label>{{ message.AC_TITLE }}</label>
-                                </div>
-                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_TITLE'].invalid && (angForm.controls['AC_TITLE'].dirty || angForm.controls['AC_TITLE'].touched)" class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['AC_TITLE'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- <div class="col-md">
+                            <div class="col-sm">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <ng-select [ngClass]="'ng-select'" [options]="statementOption"
-                                            [multiple]="false" placeholder="Name *" required
-                                            title="Compulsory Selection" formControlName="AC_NAME">
-                                        </ng-select>
-                                         <label>{{ message.AC_NAME }}</label> 
+                                        <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
+                                            required pattern="^[A-Za-z\./ -]+$" 
+                                            title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NAME">
+                                        <label for="AC_NAME"> Name<sub class="required">* </sub></label>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_NAME'].invalid && (angForm.controls['AC_NAME'].dirty || angForm.controls['AC_NAME'].touched)" class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['AC_NAME'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <div class="col-md">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" name="AC_NAME" class="form-control"
-                                            placeholder=" " id="AC_NAME" value=""
-                                            pattern="^[A-Za-z\./ -]+$"title="Input allowed only  0-9"
-                                            formControlName="AC_NAME">
-                                        <label for="AC_NAME">Name</label>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_NAME'].invalid && (angForm.controls['AC_NAME'].dirty || angForm.controls['AC_NAME'].touched)" class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['AC_NAME'].errors?.pattern">
-                                        Input allowed only A-Z a-z
+                                    <div *ngIf="angForm.controls['AC_NAME'].errors?.pattern || angForm.controls['AC_NAME'].errors?.required">
+                                        This field is required and Input allowed only A-Z a-z - / . (Space)
                                     </div>
                                 </div>
                             </div>
                         </div>
-                       
+
 
                         <div class="row">
                             <div class="col-12">
@@ -282,7 +251,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'" [options]="repayModeOption" [multiple]="false" placeholder="Repay Mode*" required title="Compulsory Selection" formControlName="AC_REPAYMODE">
                                                                 </ng-select>
-                                                                
+
                                                             </div>
                                                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_REPAYMODE'].invalid && (angForm.controls['AC_REPAYMODE'].dirty || angForm.controls['AC_REPAYMODE'].touched)" class="alert alert-danger">
                                                                 <div *ngIf=" angForm.controls['AC_REPAYMODE'].errors?.required">
@@ -738,7 +707,7 @@
                                                         </div>
 
                                                     </div>
-                                                    
+
                                                     <div class="row">
                                                         <div class="col-md">
                                                             <div class="form-group input-group">
@@ -773,7 +742,7 @@
                                                             </div>
 
                                                         </div>
-                                                       
+
                                                     </div>
                                                 </div>
                                             </ng-template>
@@ -1099,8 +1068,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                       
-                                                       
+
+
                                                     </div>
                                                     <!-- <div class="row">
                                                         <div class="col-sm">

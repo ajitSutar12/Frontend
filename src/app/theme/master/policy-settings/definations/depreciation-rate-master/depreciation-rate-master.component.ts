@@ -14,7 +14,7 @@ import { DepriciationCatDropdownMasterService } from '../../../../../shared/drop
 import { IOption } from 'ng-select';
 import { DereciationService } from './depreciation-rate-master.service';
 import { first } from 'rxjs/operators';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -36,6 +36,8 @@ interface DepriciationRate {
   styleUrls: ['./depreciation-rate-master.component.scss'],
 })
 export class DepreciationRateMasterComponent implements OnInit {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -113,7 +115,7 @@ export class DepreciationRateMasterComponent implements OnInit {
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/depriciation-rate-master',
+            this.url + '/depriciation-rate-master',
             dataTableParameters
           ).subscribe(resp => {
             this.depriciationRate = resp.data;

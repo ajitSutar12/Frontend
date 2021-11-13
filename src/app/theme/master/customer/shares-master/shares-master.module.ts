@@ -26,6 +26,10 @@ import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownServ
 import { CustomerIdService } from '../customer-id/customer-id.service';
 import { categoryMasterService } from '../../../../shared/dropdownService/category-master-dropdown.service';
 import { MembershipTypeDropdownService } from '../../../../shared/dropdownService/membership-type-dropdown.service';
+import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service'
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { SubSalaryDMasterdropdownService } from '../../../../shared/dropdownService/subsalary-division-master-dropdown.service'
+import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service'
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -54,6 +58,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CustomerIDMasterDropdownService,
     categoryMasterService,
     CustomerIdService,
+    DirectorMasterDropdownService,
+    OwnbranchMasterService,
+    cityMasterService,
+    SubSalaryDMasterdropdownService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,

@@ -330,7 +330,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   }
 
   OpenLink(val) {
-    // debugger
+    // 
     if (val == 1) {
       this.CashTrue = true;
       this.TransferTrue = false;

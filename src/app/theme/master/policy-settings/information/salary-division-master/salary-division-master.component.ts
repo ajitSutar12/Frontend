@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { SalaryDivisionService } from './salary-division-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -39,6 +39,8 @@ interface SalaryMaster {
   styleUrls: ['./salary-division-master.component.scss']
 })
 export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -114,7 +116,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
 
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/salary-division-master',
+            this.url + '/salary-division-master',
             dataTableParameters
           ).subscribe(resp => {
             this.salarymasters = resp.data;
@@ -126,7 +128,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
           });
       },
       // columns: [
-        
+
       //   {
       //     title: 'Action'
       //   },
@@ -308,7 +310,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+
           if (this['value'] != '') {
             that
               .search(this['value'])

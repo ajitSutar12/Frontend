@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { SchemeCodeDropdownService } from '../../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { CompanyGroupMasterDropdownService } from '../../../../../shared/dropdownService/company-group-master-dropdown.service';
 import { first } from 'rxjs/operators';
+import { environment } from '../../../../../../environments/environment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -38,11 +39,13 @@ interface CompanyGroupLinkMaster {
 })
 
 export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
- 
+
   dtTrigger: Subject<any> = new Subject();
   // Store data from backend
   companyGroupLinkMaster: CompanyGroupLinkMaster[];
@@ -80,13 +83,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     private fb: FormBuilder,
     public schemeCodeService: SchemeCodeDropdownService,
     public companyGroupService: CompanyGroupMasterDropdownService,
-  ) {
-
-  }
-
-
-
-
+  ) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -103,26 +100,26 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
         dataTableParameters.columns.forEach(element => {
-          if(element.search.value !=''){
-  
+          if (element.search.value != '') {
+
             let string = element.search.value;
             this.filterData[element.data] = string;
-          }else{
-  
+          } else {
+
             let getColumnName = element.data;
             let columnValue = element.value;
-            if(this.filterData.hasOwnProperty(element.data)){
-                let value = this.filterData[getColumnName];
-                if(columnValue != undefined || value != undefined){
-                  delete this.filterData[element.data];
-                } 
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
             }
           }
         });
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/company-group-link-master',
+            this.url + '/company-group-link-master',
             dataTableParameters
           ).subscribe(resp => {
             this.companyGroupLinkMaster = resp.data;
@@ -139,23 +136,26 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
           title: 'Action'
         },
         {
-          title: 'Company Code'
+          title: 'Company Code',
+          data: 'COMP_CODE'
         },
         {
-          title: 'Scheme Code'
+          title: 'Scheme Code',
+          data: 'CODE'
         },
         {
-          title: 'From Account'
+          title: 'From Account',
+          data: 'FROM_AC'
         },
         {
-          title: 'To Account'
+          title: 'To Account',
+          data: 'TO_AC'
         },
 
       ],
       dom: 'Blrtip',
     };
     this.createForm();
-
 
     this.companyGroupService.getCompanyGroupMasterList().pipe(first()).subscribe(data => {
       this.companyCode = data;
@@ -164,27 +164,23 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       this.schemeCode = data;
     })
   }
- 
+
   createForm() {
     this.angForm = this.fb.group({
-
       COMP_CODE: ['', [Validators.required]],
       CODE: ['', [Validators.required]],
       FROM_AC: ['', [Validators.pattern]],
       TO_AC: ['', [Validators.pattern]],
-
     });
   }
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
-
       'COMP_CODE': formVal.COMP_CODE,
       'CODE': formVal.CODE,
       'FROM_AC': formVal.FROM_AC,
       'TO_AC': formVal.TO_AC,
-
     }
     this.companyGroupLinkMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -208,17 +204,14 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
         'CODE': data.CODE,
         'FROM_AC': data.FROM_AC,
         'TO_AC': data.TO_AC
-
       })
     })
   }
 
   //Method for update data 
-  updateData(id) {
-
+  updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
-
     this.companyGroupLinkMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -271,21 +264,21 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+
           if (this['value'] != '') {
             that
               .search(this['value'])
               .draw();
-          }else{
+          } else {
             that
-            .search(this['value'])
-            .draw();
+              .search(this['value'])
+              .draw();
           }
         });
       });
     });
   }
-  
+
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
@@ -305,9 +298,4 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       this.dtTrigger.next();
     });
   }
-
-
-
-
-
 }

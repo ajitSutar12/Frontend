@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 import { GlStatementCodeService } from './gl-statement-code.service';
 import { HttpClient } from '@angular/common/http';
 import { DataTableDirective } from 'angular-datatables';
-
+import { environment } from '../../../../../environments/environment'
 import { Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 class DataTableResponse {
@@ -34,6 +34,9 @@ interface GlStatementCodeMaster {
 })
 
 export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
+
   @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
   glStatementCodeMaster: GlStatementCodeMaster[];
@@ -74,7 +77,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   filter: any;
   filterForm: FormGroup;
   alternate: any;
-// Filter Variable
+  // Filter Variable
   filterData = {};
   //constructor
   constructor(
@@ -101,17 +104,15 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-        
+
         dataTableParameters.columns.forEach(element => {
           if (element.search.value != '') {
-
             let string = element.search.value;
             this.filterData[element.data] = string;
           } else {
 
             let getColumnName = element.data;
             let columnValue = element.value;
-            console.log(this.filterData);
             if (this.filterData.hasOwnProperty(element.data)) {
               let value = this.filterData[getColumnName];
               if (columnValue != undefined || value != undefined) {
@@ -120,10 +121,11 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
             }
           }
         });
+        
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/gl-statement-code',
+            this.url + '/gl-statement-code',
             dataTableParameters
           ).subscribe(resp => {
             this.glStatementCodeMaster = resp.data;
@@ -149,15 +151,15 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
         },
         {
           title: 'Statement Type',
-          data:'A_ACTYPE'
+          data: 'A_ACTYPE'
         },
         {
           title: 'Alternate Code',
-          data:'ALTERNATE_CODE'
+          data: 'ALTERNATE_CODE'
         },
         {
           title: 'Is Print Head In One Side',
-          data:'IS_PRINT_HEAD_IN_ONESIDE'
+          data: 'IS_PRINT_HEAD_IN_ONESIDE'
         }
       ],
       dom: 'Blrtip',
@@ -282,12 +284,14 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
       this.resetForm();
     })
   }
+
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
+
           if (this['value'] != '') {
             that
               .search(this['value'])
@@ -301,6 +305,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
       });
     });
   }
+
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

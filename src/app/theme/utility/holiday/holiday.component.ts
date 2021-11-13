@@ -24,7 +24,7 @@ export class HolidayComponent implements OnInit {
 
 
   OpenLink(val) {
-    // debugger
+    // 
     if (val == 1) {
       this.january = true;
       this.february = false;

@@ -7,10 +7,10 @@ import Swal from 'sweetalert2';
 // Angular Datatable Directive 
 import { DataTableDirective } from 'angular-datatables';
 // Service File For Handling CRUD Operation
-import { CitytMasterService} from './city-master.service';
+import { CitytMasterService } from './city-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -31,6 +31,8 @@ interface CityMaster {
   styleUrls: ['./city-master.component.scss']
 })
 export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -58,134 +60,126 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-updateID:number=0;
-// column filter
-filterData = {};
+  updateID: number = 0;
+  // column filter
+  filterData = {};
+
   constructor(
     private http: HttpClient,
     private citytMasterService: CitytMasterService,
-    private fb: FormBuilder) {
-   
-  }
+    private fb: FormBuilder) { }
 
 
- 
- 
+  ngOnInit(): void {
+    // Fetching Server side data
+    this.dtExportButtonOptions = {
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
 
-ngOnInit(): void {
-  // Fetching Server side data
-  this.dtExportButtonOptions = {
-    pagingType: 'full_numbers',
-    paging: true,
-    pageLength: 10,
-    serverSide: true,
-    processing: true,
-    ajax: (dataTableParameters: any, callback) => {
-      dataTableParameters.minNumber = dataTableParameters.start + 1;
-      dataTableParameters.maxNumber =
-        dataTableParameters.start + dataTableParameters.length;
-      let datatableRequestParam: any;
-      this.page = dataTableParameters.start / dataTableParameters.length;
-      
-      // 
-      dataTableParameters.columns.forEach(element => {
-        if(element.search.value !=''){
-
-          let string = element.search.value;
-          this.filterData[element.data] = string;
-        }else{
-
-          let getColumnName = element.data;
-          let columnValue = element.value;
-          if(this.filterData.hasOwnProperty(element.data)){
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
               let value = this.filterData[getColumnName];
-              if(columnValue != undefined || value != undefined){
+              if (columnValue != undefined || value != undefined) {
                 delete this.filterData[element.data];
-              } 
+              }
+            }
           }
-        }
-      });
-      dataTableParameters['filterData'] = this.filterData;
-
-      this.http
-        .post<DataTableResponse>(
-          'http://localhost:4000/city-master',
-          dataTableParameters
-        ).subscribe(resp => {
-          this.cityMaster = resp.data;
-         
-          callback({
-            recordsTotal: resp.recordsTotal,
-            recordsFiltered: resp.recordsTotal,
-            data: []
-          });
         });
-    },
-    columns: [
-      {
-        title: 'Action',
-        render: function (data: any, type: any, full: any) {
-          return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-        }
+        dataTableParameters['filterData'] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + '/city-master',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.cityMaster = resp.data;
+
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
+            });
+          });
       },
-      {
-        title: 'City Code',
-        data: 'CITY_CODE',
-      },
-      {
-        title: 'City Name',
-        data: 'CITY_NAME',
-      },
-      {
-        title: 'Distance',
-        data: 'DISTANCE',
-      },
-      {
-        title: 'Taluka Code',
-        data: 'TALUKA_CODE',
-      },
-      {
-        title: 'District Code',
-        data: 'DISTRICT_CODE',
-      },
-      {
-        title: 'State Code',
-        data: 'STATE_CODE',
-      },
-      {
-        title: 'Region',
-        data: 'REGION_CODE',
-      },
-    ],
-    dom: 'Blrtip',
-  };
-  this.createForm();
-}
+      columns: [
+        {
+          title: 'Action',
+          render: function (data: any, type: any, full: any) {
+            return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+          }
+        },
+        {
+          title: 'City Code',
+          data: 'CITY_CODE',
+        },
+        {
+          title: 'City Name',
+          data: 'CITY_NAME',
+        },
+        {
+          title: 'Distance',
+          data: 'DISTANCE',
+        },
+        {
+          title: 'Taluka Code',
+          data: 'TALUKA_CODE',
+        },
+        {
+          title: 'District Code',
+          data: 'DISTRICT_CODE',
+        },
+        {
+          title: 'State Code',
+          data: 'STATE_CODE',
+        },
+        {
+          title: 'Region',
+          data: 'REGION_CODE',
+        },
+      ],
+      dom: 'Blrtip',
+    };
+    this.createForm();
+  }
 
   createForm() {
     this.angForm = this.fb.group({
-      
+
       CITY_CODE: [''],
-      DISTANCE: ['',[Validators.pattern]],
-      CITY_NAME:   ['',[Validators.required,Validators.pattern]],
-      TALUKA_CODE: ['',[Validators.required,Validators.pattern]],
-      STATE_CODE:  ['',[Validators.required,Validators.pattern]],
-      DISTRICT_CODE:     ['',[Validators.required,Validators.pattern]],
-      REGION_CODE: ['',[Validators.required,Validators.pattern]],
+      DISTANCE: ['', [Validators.pattern]],
+      CITY_NAME: ['', [Validators.required, Validators.pattern]],
+      TALUKA_CODE: ['', [Validators.required, Validators.pattern]],
+      STATE_CODE: ['', [Validators.required, Validators.pattern]],
+      DISTRICT_CODE: ['', [Validators.required, Validators.pattern]],
+      REGION_CODE: ['', [Validators.required, Validators.pattern]],
     });
   }
-   // Method to insert data into database through NestJS
-   submit() {
+  // Method to insert data into database through NestJS
+  submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
-     
+
       'CITY_CODE': formVal.CITY_CODE,
-          'CITY_NAME': formVal.CITY_NAME,
-          'DISTANCE': formVal.DISTANCE,
-          'TALUKA_CODE': formVal.TALUKA_CODE,
-          'DISTRICT_CODE': formVal.DISTRICT_CODE,
-          'STATE_CODE': formVal.STATE_CODE,
-          'REGION_CODE': formVal.REGION_CODE
+      'CITY_NAME': formVal.CITY_NAME,
+      'DISTANCE': formVal.DISTANCE,
+      'TALUKA_CODE': formVal.TALUKA_CODE,
+      'DISTRICT_CODE': formVal.DISTRICT_CODE,
+      'STATE_CODE': formVal.STATE_CODE,
+      'REGION_CODE': formVal.REGION_CODE
     }
     this.citytMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -195,44 +189,44 @@ ngOnInit(): void {
 
     })
     //To clear form
-     this.resetForm();
+    this.resetForm();
   }
 
-    //Method for append data into fields
-    editClickHandler(id) {
-      this.showButton = false;
-      this.updateShow = true;
-      this.citytMasterService.getFormData(id).subscribe(data => {
-        this.updateID=data.id;
-        this.angForm.setValue({
-          'CITY_CODE': data.CITY_CODE,
-          'CITY_NAME': data.CITY_NAME,
-          'DISTANCE': data.DISTANCE,
-          'TALUKA_CODE': data.TALUKA_CODE,
-          'DISTRICT_CODE': data.DISTRICT_CODE,
-          'STATE_CODE': data.STATE_CODE,
-          'REGION_CODE': data.REGION_CODE
-        })
+  //Method for append data into fields
+  editClickHandler(id) {
+    this.showButton = false;
+    this.updateShow = true;
+    this.citytMasterService.getFormData(id).subscribe(data => {
+      this.updateID = data.id;
+      this.angForm.setValue({
+        'CITY_CODE': data.CITY_CODE,
+        'CITY_NAME': data.CITY_NAME,
+        'DISTANCE': data.DISTANCE,
+        'TALUKA_CODE': data.TALUKA_CODE,
+        'DISTRICT_CODE': data.DISTRICT_CODE,
+        'STATE_CODE': data.STATE_CODE,
+        'REGION_CODE': data.REGION_CODE
       })
-    }
+    })
+  }
 
-   //Method for update data 
-   updateData(id) {
-  
+  //Method for update data 
+  updateData(id) {
+
     let data = this.angForm.value;
-     data['id']=this.updateID;
-   
+    data['id'] = this.updateID;
+
     this.citytMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.rerender();
-       this.resetForm();
+      this.resetForm();
     })
   }
 
-   //Method for delete data
-   delClickHandler(id: number) {
+  //Method for delete data
+  delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
       text: "Do you want to delete city master data.",
@@ -251,7 +245,7 @@ ngOnInit(): void {
             'success'
           )
         }), (error) => {
-         
+
         }
         // to reload after delete of data
         this.rerender();
@@ -273,15 +267,15 @@ ngOnInit(): void {
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+
           if (this['value'] != '') {
             that
               .search(this['value'])
               .draw();
-          }else{
+          } else {
             that
-            .search(this['value'])
-            .draw();
+              .search(this['value'])
+              .draw();
           }
         });
       });
@@ -293,8 +287,8 @@ ngOnInit(): void {
     this.dtTrigger.unsubscribe();
   }
 
-   // Reset Function
-   resetForm() {
+  // Reset Function
+  resetForm() {
     this.createForm();
   }
 

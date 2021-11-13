@@ -10,9 +10,9 @@ import { DataTableDirective } from 'angular-datatables';
 import { PrematurePigmyService } from './premature-pigmy-less-ir.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-import { SchemeTypeDropdownService} from '../../../../../shared/dropdownService/scheme-type-dropdown.service';
+import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service';
 import { IOption } from 'ng-select';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -37,7 +37,8 @@ interface PrematurePigmy {
   styleUrls: ['./premature-pigmy-less-ir.component.scss'],
 })
 export class PrematurePigmyLessIRComponent implements OnInit {
-
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -59,7 +60,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   currentJustify = 'start';
   active = 1;
   activeKeep = 1;
-  
+
   // Variables for search 
   filterObject: { name: string; type: string; }[];
   filter: any;
@@ -72,22 +73,22 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   //for search functionality
   filterData = {};
 
-   //title select variables
-   schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
- 
-   selectedOption = '3';
-   isDisabled = true;
-   characters: Array<IOption>;
-   selectedCharacter = '3';
-   timeLeft = 5;
- 
-   private dataSub: Subscription = null;
+  //title select variables
+  schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
+
+  selectedOption = '3';
+  isDisabled = true;
+  characters: Array<IOption>;
+  selectedCharacter = '3';
+  timeLeft = 5;
+
+  private dataSub: Subscription = null;
 
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
-      // for dropdown
-      public SchemeTypes:SchemeTypeDropdownService,
+    // for dropdown
+    public SchemeTypes: SchemeTypeDropdownService,
     private prematurePigmyService: PrematurePigmyService) {
   }
 
@@ -143,12 +144,12 @@ export class PrematurePigmyLessIRComponent implements OnInit {
         },
         {
           title: 'Effective Date',
-          data:'EFFECT_DATE'
+          data: 'EFFECT_DATE'
         },
-        
+
         {
           title: 'Scheme Type',
-          data:'AC_ACNOTYPE'
+          data: 'AC_ACNOTYPE'
         },
         {
           title: 'Sr No',
@@ -274,7 +275,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     });
 
   }
-runTimer() {
+  runTimer() {
     const timer = setInterval(() => {
       this.timeLeft -= 1;
       if (this.timeLeft === 0) {

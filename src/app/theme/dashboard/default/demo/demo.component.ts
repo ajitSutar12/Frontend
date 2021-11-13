@@ -250,7 +250,7 @@ export class DemoComponent implements OnInit, OnDestroy{
   }
   OpenLink(val)
   {
-    debugger
+    
     if(val == 1)
     {
       this.firstTrue = true;

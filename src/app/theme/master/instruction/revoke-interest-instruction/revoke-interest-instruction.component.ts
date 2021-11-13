@@ -282,7 +282,7 @@ export class RevokeInterestInstructionComponent implements OnInit {
   }
 
   OpenLink(val) {
-    // debugger
+    // 
     if (val == 1) {
       this.cash1True = true;
       this.transfer1True = false;

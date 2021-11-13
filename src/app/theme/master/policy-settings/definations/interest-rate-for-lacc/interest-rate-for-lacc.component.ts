@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { IntrestCategoryMasterDropdownService } from '../../../../../shared/dropdownService/interest-category-master-dropdown.service'
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { first } from 'rxjs/operators';
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -41,6 +42,8 @@ interface InterestRateForLoanandCC {
   styleUrls: ['./interest-rate-for-lacc.component.scss'],
 })
 export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -126,7 +129,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/interest-rate-for-loan-and-cc',
+            this.url+'/interest-rate-for-loan-and-cc',
             dataTableParameters
           ).subscribe(resp => {
             this.interestRateForLoanandCC = resp.data;

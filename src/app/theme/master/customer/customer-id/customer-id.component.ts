@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -19,8 +19,8 @@ import { cityMasterService } from '../../../../shared/dropdownService/city-maste
 import { RiskCategoryDropdownService } from '../../../../shared/dropdownService/risk-category-dropdown.service';
 import { FileUploader } from 'ng2-file-upload';
 import { DocumentMasterDropdownService } from '../../../../shared/dropdownService/document-master-dropdown.service';
-import { Router } from '@angular/router';
-
+import { environment } from '../../../../../environments/environment'
+import { Router } from '@angular/router'
 
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
@@ -81,7 +81,17 @@ interface CustomerMaster {
 })
 
 export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Output() newCustomerEvent = new EventEmitter<string>();
 
+  addNewCustomer(value: string) {
+    this.newCustomerEvent.emit(value);
+  }
+  //api 
+  url = environment.base_url;
+
+  fname = ' ';
+  mname = ' ';
+  lname = ' ';
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -113,7 +123,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //variable to get ID to update
   updateID: number = 0;
-  filterData: any;
+   // Filter Variable
+  filterData = {};
   prifix: any[];
   castMaster: any[];
   occupation: any[];
@@ -134,7 +145,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     private cityMaster: cityMasterService,
     private riskCategoryDropdown: RiskCategoryDropdownService,
     private documentMasterService: DocumentMasterDropdownService,
-    public router: Router,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
@@ -147,38 +158,35 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       serverSide: true,
       processing: true,
       ajax: (dataTableParameters: any, callback) => {
-        // dataTableParameters.minNumber = dataTableParameters.start + 1;
-        // dataTableParameters.maxNumber =
-        //   dataTableParameters.start + dataTableParameters.length;
-        // let datatableRequestParam: any;
-        // this.page = dataTableParameters.start / dataTableParameters.length;
-        // column filter
-        // dataTableParameters.columns.forEach(element => {
-        //   if (element.search.value != '') {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
 
-        //     let string = element.search.value;
-        //     this.filterData[element.data] = string;
-        //   } else {
-
-        //     let getColumnName = element.data;
-        //     let columnValue = element.value;
-        //     console.log(this.filterData);
-        //     if (this.filterData.hasOwnProperty(element.data)) {
-        //       let value = this.filterData[getColumnName];
-        //       if (columnValue != undefined || value != undefined) {
-        //         delete this.filterData[element.data];
-        //       }
-        //     }
-        //   }
-        // });
-        // dataTableParameters['filterData'] = this.filterData;
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/customer-id',
+            this.url + '/customer-id',
             dataTableParameters
           ).subscribe(resp => {
             this.customerMaster = resp.data;
-console.log(resp.data)
+            console.log(this.customerMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -348,7 +356,7 @@ console.log(resp.data)
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/document-master',
+            this.url + '/document-master',
             dataTableParameters
           ).subscribe(resp => {
             this.documentMaster = resp.data;
@@ -406,7 +414,7 @@ console.log(resp.data)
       F_NAME: ['', [Validators.pattern, Validators.required]],
       M_NAME: ['', [Validators.pattern, Validators.required]],
       L_NAME: ['', [Validators.pattern, Validators.required]],
-      AC_NAME: ['', [Validators.pattern, Validators.required]],
+      AC_NAME: ['', [Validators.pattern]],
       AC_CAST: [''],
       AC_OCODE: [''],
       AC_ADHARNO: ['', [Validators.pattern]],
@@ -450,7 +458,7 @@ console.log(resp.data)
       'F_NAME': formVal.F_NAME,
       'M_NAME': formVal.M_NAME,
       'L_NAME': formVal.L_NAME,
-      'AC_NAME': formVal.AC_NAME,
+      'AC_NAME': formVal.F_NAME + ' ' + formVal.M_NAME + ' ' + formVal.L_NAME,
       'AC_CAST': formVal.AC_CAST,
       'AC_OCODE': formVal.AC_OCODE,
       'AC_ADHARNO': formVal.AC_ADHARNO,
@@ -488,15 +496,15 @@ console.log(resp.data)
     }, (error) => {
       console.log(error)
     })
-  
+
     //To clear form
- this.resetForm();
+    this.resetForm();
   }
 
- // Reset Function
- resetForm() {
-  this.createForm();
-}
+  // Reset Function
+  resetForm() {
+    this.createForm();
+  }
 
   //Method for append data into fields
   editClickHandler(id) {
@@ -550,11 +558,12 @@ console.log(resp.data)
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.customerIdService.updateData(data).subscribe(() => {
+      console.log(data)
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.rerender();
-   this.resetForm();
+      this.resetForm();
     })
   }
 
@@ -600,7 +609,6 @@ console.log(resp.data)
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          
           if (this['value'] != '') {
             that
               .search(this['value'])
@@ -660,7 +668,7 @@ console.log(resp.data)
       this.isTdsFormA = false;
     }
   }
-  cancel(){
+  cancel() {
     this.uploader = null;
   }
 }

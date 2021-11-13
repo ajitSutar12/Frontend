@@ -46,7 +46,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
-                                        required pattern="^[A-Za-z\./ -]+$"
+                                        required pattern="^[A-Za-z\./ -]+$" [(ngModel)]="fname"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="F_NAME">
                                     <label for="F_NAME">First Name<sub class="required">* </sub></label>
                                 </span>
@@ -61,7 +61,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="M_NAME" class="form-control" placeholder=" " id="M_NAME"
-                                        required pattern="^[A-Za-z\./ -]+$"
+                                        required pattern="^[A-Za-z\./ -]+$" [(ngModel)]="mname"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="M_NAME">
                                     <label for="M_NAME">Middle Name<sub class="required">* </sub></label>
                                 </span>
@@ -76,7 +76,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
-                                        required pattern="^[A-Za-z\./ -]+$"
+                                        required pattern="^[A-Za-z\./ -]+$" [(ngModel)]="lname"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="L_NAME">
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
                                 </span>
@@ -93,13 +93,14 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
-                                        required pattern="^[A-Za-z\./ -]+$"
+                                        pattern="^[A-Za-z\./ -]+$" disabled
+                                        value="{{fname + ' ' + mname + ' ' + lname}}"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NAME">
                                     <label for="AC_NAME">Full Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_NAME'].invalid && (angForm.controls['AC_NAME'].dirty || angForm.controls['AC_NAME'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_NAME'].errors?.pattern || angForm.controls['AC_NAME'].errors?.required">
+                                <div *ngIf="angForm.controls['AC_NAME'].errors?.pattern">
                                     This field is required and Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
@@ -178,9 +179,9 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" formControlName="AC_HONO" name="AC_HONO" class="form-control" placeholder=" "
-                                        pattern="^[A-Za-z0-9]+$" title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                        id="AC_HONO" >
+                                    <input type="text" formControlName="AC_HONO" name="AC_HONO" class="form-control"
+                                        placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
+                                        title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_HONO">
                                     <label for="AC_HONO">House</label>
                                 </span>
                             </div>
@@ -194,8 +195,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_WARD" class="form-control" placeholder=" "
-                                        pattern="^[A-Za-z0-9]+$" title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                        id="AC_WARD" formControlName="AC_WARD">
+                                        pattern="^[A-Za-z0-9\./ -]+$"
+                                        title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_WARD"
+                                        formControlName="AC_WARD">
                                     <label for="AC_WARD">Ward</label>
                                 </span>
                             </div>
@@ -209,8 +211,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_TADDR" class="form-control" placeholder=" "
-                                        pattern="^[A-Za-z0-9]+$" title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                        id="AC_TADDR" formControlName="AC_TADDR">
+                                        pattern="^[A-Za-z0-9\./ -]+$"
+                                        title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_TADDR"
+                                        formControlName="AC_TADDR">
                                     <label for="AC_TADDR">Detail</label>
                                 </span>
                             </div>
@@ -227,8 +230,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_TGALLI" class="form-control" placeholder=" "
-                                        pattern="^[A-Za-z0-9]+$" title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                        id="AC_TGALLI" formControlName="AC_TGALLI">
+                                        pattern="^[A-Za-z0-9\./ -]+$"
+                                        title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_TGALLI"
+                                        formControlName="AC_TGALLI">
                                     <label for="AC_TGALLI">Galli</label>
                                 </span>
                             </div>
@@ -242,8 +246,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_AREA" class="form-control" placeholder=" "
-                                        pattern="^[A-Za-z0-9]+$" title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                        id="AC_AREA" formControlName="AC_AREA">
+                                        pattern="^[A-Za-z0-9\./ -]+$"
+                                        title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_AREA"
+                                        formControlName="AC_AREA">
                                     <label for="AC_AREA">Area</label>
                                 </span>
                             </div>
@@ -523,8 +528,7 @@
                                                                             <input type="file" ng2FileSelect
                                                                                 [uploader]="uploader"
                                                                                 class="custom-file-input"
-                                                                                id="uploaderfield"
-                                                                                formControlName="" />
+                                                                                id="uploaderfield" formControlName="" />
                                                                             <span class="custom-file-control">Upload
                                                                                 Photo</span>
                                                                         </label>
@@ -587,7 +591,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="addNewCustomer(angForm.value)" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
                         </div>
                     </div>
@@ -597,7 +601,7 @@
     </div>
 </div>
 <ng-container *ngIf='router.url==="/master/customer/customerId"'>
-    <div class="row" >
+    <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
@@ -644,7 +648,7 @@
                                             <td>{{data.tdsForm.FORM_TYPE}}</td>
                                             <td>{{data.tdsForm.TDS_RATE}}</td>
                                             <td>{{data.tdsForm.TDS_LIMIT}}</td>
-    
+
                                         </tr>
                                     </tbody>
                                     <tbody *ngIf="customerMaster?.length == 0">
@@ -656,7 +660,8 @@
                                         <tr>
                                             <th></th>
                                             <th><input type="text" placeholder="Search Customer Id" name="AC_NO"></th>
-                                            <th><input type="text" placeholder="Search Member Number" name="AC_MEMBNO"></th>
+                                            <th><input type="text" placeholder="Search Member Number" name="AC_MEMBNO">
+                                            </th>
                                             <th><input type="text" placeholder="Search Member Scheme" name="AC_MEMBTYPE">
                                             </th>
                                             <th><input type="text" placeholder="Search Title" name="AC_TITLE"></th>
@@ -665,13 +670,15 @@
                                             <th><input type="text" placeholder="Search Last Name" name="L_NAME"> </th>
                                             <th><input type="text" placeholder="Search Full Name" name="AC_NAME"> </th>
                                             <th><input type="text" placeholder="Search Cast" name="AC_CAST"> </th>
-                                            <th><input type="text" placeholder="Search Occupation" name="AC_OCODE"> </th>
+                                            <th><input type="text" placeholder="Search Occupation" name="AC_OCODE">
+                                            </th>
                                             <th><input type="text" placeholder="Search Risk Category" name="AC_RISKCATG">
                                             </th>
                                             <th><input type="text" placeholder="Search Aadhar Number" name="AC_ADHARNO">
                                             </th>
                                             <th><input type="text" placeholder="Search Pan Number" name="AC_PANNO"></th>
-                                            <th><input type="text" placeholder="Search Birth Date" name="AC_BIRTH_DT"></th>
+                                            <th><input type="text" placeholder="Search Birth Date" name="AC_BIRTH_DT">
+                                            </th>
                                             <th><input type="text" placeholder="Search House" name="AC_HONO"></th>
                                             <th><input type="text" placeholder="Search Ward" name="AC_WARD"></th>
                                             <th><input type="text" placeholder="Search Detail" name="AC_TADDR"></th>
@@ -687,11 +694,13 @@
                                             <th><input type="text" placeholder="Search Office(O)" name="AC_PHONE_OFFICE">
                                             </th>
                                             <th><input type="text" placeholder="Search Email ID" name="AC_EMAILID"></th>
-                                            <th><input type="text" placeholder="Search Recovery" name="AC_IS_RECOVERY"></th>
+                                            <th><input type="text" placeholder="Search Recovery" name="AC_IS_RECOVERY">
+                                            </th>
                                             <th><input type="text" placeholder="Search TDS Calculation Required?" name="TDS_REQUIRED"></th>
                                             <th><input type="text" placeholder="Search SMS Facility Required ?" name="SMS_REQUIRED"></th>
                                             <th><input type="text" placeholder="Search KYC" name="IS_KYC_RECEIVED"></th>
-                                            <th><input type="text" placeholder="Search Financial Year" name="FIN_YEAR"></th>
+                                            <th><input type="text" placeholder="Search Financial Year" name="FIN_YEAR">
+                                            </th>
                                             <th><input type="text" placeholder="Search Submission Date" name="SUBMIT_DATE">
                                             </th>
                                             <th><input type="text" placeholder="Search Form Type" name="FORM_TYPE"></th>

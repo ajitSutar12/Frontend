@@ -30,7 +30,7 @@ export class SizewiseBalanceModificationComponent implements OnInit {
    
   }
   OpenLink(val) {
-    // debugger
+    // 
     if (val == 1) {
       this.depositSizewiseBalanceTrue = true;
       this.loanSizewiseBalanceTrue = false;}

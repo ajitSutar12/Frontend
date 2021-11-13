@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { WeakerService } from './weaker-section-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -29,7 +29,9 @@ interface WeakerMaster {
   templateUrl: './weaker-section-master.component.html',
   styleUrls: ['./weaker-section-master.component.scss']
 })
-export class WeakerSectionMasterComponent implements OnInit {
+export class WeakerSectionMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -100,7 +102,7 @@ export class WeakerSectionMasterComponent implements OnInit {
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/weaker-master',
+            this.url + '/weaker-master',
             dataTableParameters
           ).subscribe(resp => {
             this.weakermasters = resp.data;
@@ -210,6 +212,7 @@ export class WeakerSectionMasterComponent implements OnInit {
       }
     })
   }
+
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

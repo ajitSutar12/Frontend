@@ -29,7 +29,7 @@ export class OtherViewComponent implements OnInit {
   }
 
   OpenLink(val) {
-    // debugger
+    // 
     if (val == 1) {
       this.interestpaidhistoryTrue = true;
       this.chequebookdetailsTrue = false;

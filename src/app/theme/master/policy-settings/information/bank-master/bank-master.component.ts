@@ -10,6 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { BankService } from './bank-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../../environments/environment'
 
 // Handling datatable data
 class DataTableResponse {
@@ -40,6 +41,8 @@ interface BankMaster {
   styleUrls: ['./bank-master.component.scss']
 })
 export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -70,6 +73,9 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //variable to get Id to update
   updateID: number = 0;
 
+  // Filter Variable
+  filterData = {};
+
   constructor(
     private http: HttpClient,
     private bankService: BankService,
@@ -90,29 +96,26 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-        if (dataTableParameters.search.value != '') {
-          this.filter = dataTableParameters.search.value;
-          this.filterObject = [
-            { name: "BANK_NAME", type: "default" },
-            { name: "BANK_SHORTNAME", type: "default" },
-            { name: "LEDGER_CODE", type: "default" }
-          ]
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length,
-            filter: dataTableParameters.search.value,
-            filter_in: this.filterObject
+
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
           }
-        }
-        else {
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length
-          }
-        }
+        });
+        dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/bank-master',
+            this.url + '/bank-master',
             dataTableParameters
           ).subscribe(resp => {
             this.bankmasters = resp.data;
@@ -126,9 +129,6 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       columns: [
         {
           title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          }
         },
         {
           title: 'Bank Code',
@@ -210,7 +210,6 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'HO_SUB_GLACNO': formVal.HO_SUB_GLACNO,
       'BANKCODE': formVal.BANKCODE,
     }
-    console.log(dataToSend);
     this.bankService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
@@ -291,10 +290,26 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     })
   }
+
   ngAfterViewInit(): void {
     this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
   }
-
   // Reset Function
   resetForm() {
     this.createForm();

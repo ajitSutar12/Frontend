@@ -10,6 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { DirectorMasterService } from './director-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../../environments/environment'
 
 // Handling datatable data
 class DataTableResponse {
@@ -40,6 +41,8 @@ interface DirectorMaster {
   styleUrls: ['./director-master.component.scss']
 })
 export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -111,7 +114,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/director-master',
+            this.url + '/director-master',
             dataTableParameters
           ).subscribe(resp => {
             this.directorMaster = resp.data;
@@ -287,7 +290,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+
           if (this['value'] != '') {
             that
               .search(this['value'])

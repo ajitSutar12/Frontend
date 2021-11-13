@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 // Angular Datatable Directive 
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { environment } from '../../../../../../environments/environment'
 
 // Handling datatable data
 class DataTableResponse {
@@ -31,6 +32,8 @@ interface CastMaster {
   styleUrls: ['./cast-master.component.scss']
 })
 export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -55,10 +58,13 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
+  // Filter Variable
+  filterData = {};
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
   updateID: number = 0;
+
   constructor(private fb: FormBuilder,
     private castMasterService: CastMasterService,
     private http: HttpClient) { this.createForm(); }
@@ -78,44 +84,36 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-        if (dataTableParameters.search.value != '') {
-          this.filter = dataTableParameters.search.value;
-          this.filterObject = [
 
-
-          ]
-
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length,
-            filter: dataTableParameters.search.value,
-            filter_in: this.filterObject
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
           }
-        }
-        else {
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length
-          }
-        }
+        });
+        dataTableParameters['filterData'] = this.filterData;
         that.http
           .post<DataTableResponse>(
-            'http://localhost:4000/cast-master',
-
+            this.url+'/cast-master',
             dataTableParameters
           ).subscribe(resp => {
             this.castmaster = resp.data;
-
-
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
               data: []
-
             });
           });
       },
-
       columns: [
         {
           title: 'Action',
@@ -123,29 +121,21 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         },
         {
           title: 'Category Code',
-
+          data:'CODE'
         },
         {
           title: 'Description',
+          data:'NAME'
         }
       ],
       dom: 'Blrtip',
-
-    };
-    this.angForm = new FormGroup({
-      'CODE': new FormControl(''),
-      'NAME': new FormControl(''),
-
-
-    })
-
+    }; 
   }
 
 
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
-
       CODE: [''],
       NAME: ['', [Validators.pattern, Validators.required]]
     });
@@ -153,7 +143,6 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit() {
-
     const formVal = this.angForm.value;
     const dataToSend = {
       "CODE": formVal.CODE,
@@ -163,12 +152,9 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.rerender();
     }, (error) => {
-
-
     })
     this.resetForm();
   }
-
 
   //Method for append data into fields
   editClickHandler(id) {
@@ -179,18 +165,13 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.angForm.setValue({
         'CODE': data.CODE,
         'NAME': data.NAME,
-
-
       })
-
     })
   }
   //Method for update data 
-  updateData(id) {
-
+  updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
-
     this.castMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -199,9 +180,9 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.resetForm();
     })
   }
+
   //Method for delete data
   delClickHandler(id: number) {
-
     Swal.fire({
       title: 'Are you sure?',
       text: "Do you want to delete Cast Master data.",
@@ -235,10 +216,24 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-
-
   ngAfterViewInit(): void {
     this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
   }
 
   ngOnDestroy(): void {

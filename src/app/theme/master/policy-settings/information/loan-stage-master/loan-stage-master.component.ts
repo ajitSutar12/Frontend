@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { LoanStageService } from './loan-stage-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -31,7 +31,9 @@ interface LoanStageMaster {
   templateUrl: './loan-stage-master.component.html',
   styleUrls: ['./loan-stage-master.component.scss']
 })
-export class LoanStageMasterComponent implements OnInit {
+export class LoanStageMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -102,7 +104,7 @@ export class LoanStageMasterComponent implements OnInit {
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/loan-stage-master',
+            this.url + '/loan-stage-master',
             dataTableParameters
           ).subscribe(resp => {
             this.loanstagemasters = resp.data;

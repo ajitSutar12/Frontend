@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { ClearingBranchService } from './clearing-branch-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -32,6 +32,8 @@ interface ClearingBranch {
   styleUrls: ['./clearing-branch-master.component.scss']
 })
 export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -83,29 +85,26 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-     
+
         dataTableParameters.columns.forEach(element => {
-          if(element.search.value !=''){
-  
+          if (element.search.value != '') {
             let string = element.search.value;
             this.filterData[element.data] = string;
-          }else{
-  
+          } else {
             let getColumnName = element.data;
             let columnValue = element.value;
-            if(this.filterData.hasOwnProperty(element.data)){
-                let value = this.filterData[getColumnName];
-                if(columnValue != undefined || value != undefined){
-                  delete this.filterData[element.data];
-                } 
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
             }
           }
         });
         dataTableParameters['filterData'] = this.filterData;
-
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/clearing-branch-master',
+            this.url+'/clearing-branch-master',
             dataTableParameters
           ).subscribe(resp => {
             this.clearingBranches = resp.data;
@@ -234,15 +233,15 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+
           if (this['value'] != '') {
             that
               .search(this['value'])
               .draw();
-          }else{
+          } else {
             that
-            .search(this['value'])
-            .draw();
+              .search(this['value'])
+              .draw();
           }
         });
       });

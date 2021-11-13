@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { MinimumBalanceMasterService } from './minimum-balance-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -33,6 +33,8 @@ interface MinimumBalanceMaster {
   styleUrls: ['./minimum-balance-master.component.scss']
 })
 export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -104,7 +106,7 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/minimum-balance-master',
+            this.url + '/minimum-balance-master',
             dataTableParameters
           ).subscribe(resp => {
             this.minimumBalanceMaster = resp.data;

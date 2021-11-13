@@ -13,7 +13,7 @@ export class SchemeCodeDropdownService {
         return this.http.get<any>(this.url + '/scheme-parameters')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.S_APPL, value: element.id };
+                    let obj = { label: element.S_APPL+'('+element.S_NAME+')', value: element.id };
                     this.schemeCodeObject.push(obj)
                 });
                 return this.schemeCodeObject;

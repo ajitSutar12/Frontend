@@ -12,8 +12,9 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="CODE" class="form-control" placeholder=" " maxlength="4" disabled
-                                        id="OccupationCode"  pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="CODE">
+                                    <input type="text" name="CODE" class="form-control" placeholder=" " maxlength="4"
+                                        disabled id="OccupationCode" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        formControlName="CODE">
                                     <label for="OccupationCode">Occupation Code</label>
                                 </span>
                             </div>
@@ -37,14 +38,10 @@
                             <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
                         </div>
-
                     </div>
-
                 </div>
             </form>
-
         </div>
-
     </div>
 </div>
 <div class="row">
@@ -60,10 +57,8 @@
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-
                                         <td>{{ data.CODE }}</td>
                                         <td>{{ data.NAME }}</td>
-
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="occupationMaster?.length == 0">
@@ -74,8 +69,8 @@
                                 <tfoot>
                                     <tr>
                                         <th></th>
-                                        <th><input type="text" placeholder="Search CODE" name="search-code"></th>
-                                        <th><input type="text" placeholder="Search Name" name="search-name"></th>
+                                        <th><input type="text" placeholder="Search CODE" name="CODE"></th>
+                                        <th><input type="text" placeholder="Search Name" name="NAME"></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -83,7 +78,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

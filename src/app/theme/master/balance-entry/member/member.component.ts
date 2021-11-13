@@ -20,7 +20,7 @@ export class MemberComponent implements OnInit {
   {
   }
   OpenLink(val) {
-    // debugger
+    // 
     if (val == 1) {
       this.memberbalanceadditionTrue = true;
       this.recoveryinstallmentTrue = false;

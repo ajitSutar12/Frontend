@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 // Angular Datatable Directive 
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { environment } from '../../../../../../environments/environment'
 
 // Handling datatable data
 class DataTableResponse {
@@ -32,6 +33,8 @@ interface CategoryMaster {
   styleUrls: ['./category-master.component.scss']
 })
 export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -82,70 +85,57 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-        
-        // column filter
+
         dataTableParameters.columns.forEach(element => {
-          if(element.search.value !=''){
-  
+          if (element.search.value != '') {
             let string = element.search.value;
             this.filterData[element.data] = string;
-          }else{
-  
+          } else {
             let getColumnName = element.data;
             let columnValue = element.value;
-            if(this.filterData.hasOwnProperty(element.data)){
-                let value = this.filterData[getColumnName];
-                if(columnValue != undefined || value != undefined){
-                  delete this.filterData[element.data];
-                } 
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
             }
           }
         });
         dataTableParameters['filterData'] = this.filterData;
-
         that.http
           .post<DataTableResponse>(
-            'http://localhost:4000/category-master',
+            this.url + '/category-master',
 
             dataTableParameters
           ).subscribe(resp => {
             this.categorymaster = resp.data;
-
-
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
               data: []
-
             });
           });
       },
-
       columns: [
         {
-          title: 'Action',
-              render: function (data: any, type: any, full: any) {
-                return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-              }
+          title: 'Action',        
         },
         {
           title: 'Category Code',
-
+          data:'CODE'
         },
         {
           title: 'Description',
+          data:'NAME'
         }
       ],
       dom: 'Blrtip',
-
     };
-
-
   }
+  
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
-
       CODE: [''],
       NAME: ['', [Validators.pattern, Validators.required]]
     });
@@ -153,24 +143,18 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   // Method to insert data into database through NestJS
   submit() {
-
     const formVal = this.angForm.value;
     const dataToSend = {
       "CODE": formVal.CODE,
       "NAME": formVal.NAME,
-
     }
-
     this.categoryMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.rerender();
     }, (error) => {
-
-
     })
-     this.resetForm();
+    this.resetForm();
   }
-
 
   //Method for append data into fields
   editClickHandler(id) {
@@ -181,29 +165,25 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.angForm.setValue({
         'CODE': data.CODE,
         'NAME': data.NAME,
-
-
       })
-
     })
   }
-  //Method for update data 
-  updateData(id) {
 
+  //Method for update data 
+  updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
-
     this.categoryMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.rerender();
-       this.resetForm();
+      this.resetForm();
     })
   }
+
   //Method for delete data
   delClickHandler(id: number) {
-
     Swal.fire({
       title: 'Are you sure?',
       text: "Do you want to delete Category Master data.",
@@ -237,28 +217,27 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   }
 
-
-
-    ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+
           if (this['value'] != '') {
             that
               .search(this['value'])
               .draw();
-          }else{
+          } else {
             that
-            .search(this['value'])
-            .draw();
+              .search(this['value'])
+              .draw();
           }
         });
       });
     });
   }
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
@@ -277,7 +256,4 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.dtTrigger.next();
     });
   }
-
-
-
 }

@@ -37,7 +37,7 @@ export class CentralisedPassingComponent implements OnInit {
   }
 
   OpenLink(val) {
-    // debugger
+    // 
     if (val == 1) {
       this.voucherTrue = true;
       this.batchvoucherTrue = false;

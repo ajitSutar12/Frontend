@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service';
 import { SchemeCodeDropdownService } from '../../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { first } from 'rxjs/operators';
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -41,6 +42,8 @@ interface CompanyGroupMaster {
   styleUrls: ['./company-group-master.component.scss']
 })
 export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -78,8 +81,8 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   characters: Array<IOption>;
   selectedCharacter = '3';
   timeLeft = 5;
-//for search functionality
-filterData = {};
+  //for search functionality
+  filterData = {};
   private dataSub: Subscription = null;
 
   constructor(
@@ -87,12 +90,7 @@ filterData = {};
     private companyGroupMasterService: CompanyGroupMasterService,
     private fb: FormBuilder,
     public schemeTypeDropdown: SchemeTypeDropdownService,
-    public schemeCodeDropdown: SchemeCodeDropdownService) {
-
-  }
-
-
-
+    public schemeCodeDropdown: SchemeCodeDropdownService) { }
 
 
   ngOnInit(): void {
@@ -109,31 +107,29 @@ filterData = {};
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
+
         dataTableParameters.columns.forEach(element => {
-          if(element.search.value !=''){
-  
+          if (element.search.value != '') {
             let string = element.search.value;
             this.filterData[element.data] = string;
-          }else{
-  
+          } else {
             let getColumnName = element.data;
             let columnValue = element.value;
-            if(this.filterData.hasOwnProperty(element.data)){
-                let value = this.filterData[getColumnName];
-                if(columnValue != undefined || value != undefined){
-                  delete this.filterData[element.data];
-                } 
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
             }
           }
         });
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/company-group-master',
+            this.url + '/company-group-master',
             dataTableParameters
           ).subscribe(resp => {
             this.companyGroupMaster = resp.data;
-
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -146,17 +142,23 @@ filterData = {};
           title: 'Action'
         },
         {
-          title: 'Code'
+          title: 'Code',
+          data: 'COMP_CODE'
         }, {
-          title: 'Name'
+          title: 'Name',
+          data: 'NAME'
         }, {
-          title: 'Address'
+          title: 'Address',
+          data: 'ADDRESS'
         }, {
-          title: 'SchemeTypeComboBox'
+          title: 'Scheme Type',
+          data: 'AC_ACNOTYPE'
         }, {
-          title: 'Schemecode'
+          title: 'Scheme code',
+          data: 'AC_TYPE'
         }, {
-          title: 'A/c No'
+          title: 'A/c No',
+          data: 'AC_NO'
         }],
       dom: 'Blrtip',
     };
@@ -183,14 +185,12 @@ filterData = {};
 
   createForm() {
     this.angForm = this.fb.group({
-
       COMP_CODE: [''],
       NAME: [''],
       ADDRESS: [''],
       AC_ACNOTYPE: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.pattern]],
       AC_NO: ['', [Validators.pattern, Validators.required]]
-
     });
   }
   // Method to insert data into database through NestJS
@@ -237,11 +237,9 @@ filterData = {};
   }
 
   //Method for update data 
-  updateData(id) {
-
+  updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
-
     this.companyGroupMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -294,21 +292,21 @@ filterData = {};
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+
           if (this['value'] != '') {
             that
               .search(this['value'])
               .draw();
-          }else{
+          } else {
             that
-            .search(this['value'])
-            .draw();
+              .search(this['value'])
+              .draw();
           }
         });
       });
     });
   }
-  
+
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
@@ -328,9 +326,5 @@ filterData = {};
       this.dtTrigger.next();
     });
   }
-
-
-
-
 
 }

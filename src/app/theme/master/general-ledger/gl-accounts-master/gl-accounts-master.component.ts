@@ -13,6 +13,7 @@ import { GlAccountsMasterService } from './gl-accounts-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http'
 import { first } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment'
 
 // Handling datatable data
 class DataTableResponse {
@@ -40,6 +41,8 @@ interface GLAccountMaster {
 })
 
 export class GlAccountsMasterComponent implements OnInit {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -100,11 +103,9 @@ export class GlAccountsMasterComponent implements OnInit {
 
         dataTableParameters.columns.forEach(element => {
           if (element.search.value != '') {
-
             let string = element.search.value;
             this.filterData[element.data] = string;
           } else {
-
             let getColumnName = element.data;
             let columnValue = element.value;
             if (this.filterData.hasOwnProperty(element.data)) {
@@ -118,7 +119,7 @@ export class GlAccountsMasterComponent implements OnInit {
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/gl-account-master',
+            this.url+'/gl-account-master',
             dataTableParameters
           ).subscribe(resp => {
             this.glAccountMaster = resp.data;
@@ -173,8 +174,6 @@ export class GlAccountsMasterComponent implements OnInit {
       this.statementCode = data;
     })
   }
-
-
 
   createForm() {
     this.angForm = this.fb.group({
@@ -236,7 +235,6 @@ export class GlAccountsMasterComponent implements OnInit {
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
-    console.log('Update data', data)
     this.glAccountsMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;

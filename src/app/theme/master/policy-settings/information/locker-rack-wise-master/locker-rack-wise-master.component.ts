@@ -12,7 +12,7 @@ import { LockerRackWiseMasterService } from './locker-rack-wise-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -35,9 +35,9 @@ interface LockerRackWiseMaster {
   styleUrls: ['./locker-rack-wise-master.component.scss']
 })
 
-export class LockerRackWiseMasterComponent implements OnInit {
-
-
+export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -96,26 +96,26 @@ export class LockerRackWiseMasterComponent implements OnInit {
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
         dataTableParameters.columns.forEach(element => {
-          if(element.search.value !=''){
-  
+          if (element.search.value != '') {
+
             let string = element.search.value;
             this.filterData[element.data] = string;
-          }else{
-  
+          } else {
+
             let getColumnName = element.data;
             let columnValue = element.value;
-            if(this.filterData.hasOwnProperty(element.data)){
-                let value = this.filterData[getColumnName];
-                if(columnValue != undefined || value != undefined){
-                  delete this.filterData[element.data];
-                } 
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
             }
           }
         });
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/locker-rackwise-master',
+            this.url + '/locker-rackwise-master',
             dataTableParameters
           ).subscribe(resp => {
             this.lockerRackWiseMaster = resp.data;
@@ -131,15 +131,19 @@ export class LockerRackWiseMasterComponent implements OnInit {
           title: 'Action'
         },
         {
-          title: 'Rack Number'
+          title: 'Rack Number',
+          data: 'RACK_NO'
         }, {
-          title: 'Locker Number'
+          title: 'Locker Number',
+          data: 'LOCKER_NO'
         },
         {
-          title: 'Locker Key Number'
+          title: 'Locker Key Number',
+          data: 'KEY_NO'
         },
         {
-          title: 'Locker size'
+          title: 'Locker size',
+          data: 'SIZE_SR_NO'
         },
       ],
       dom: 'Blrtip',
@@ -148,10 +152,7 @@ export class LockerRackWiseMasterComponent implements OnInit {
     this.lockerSMaster.getLockerSMasterList().pipe(first()).subscribe(data => {
       this.lockerMaster = data;
     })
-
-
   }
-
 
   createForm() {
     this.angForm = this.fb.group({
@@ -188,7 +189,7 @@ export class LockerRackWiseMasterComponent implements OnInit {
     this.updateShow = true;
     this.lockerRackWiseMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.angForm.patchValue({
         'RACK_NO': data.RACK_NO,
         'LOCKER_NO': data.LOCKER_NO,
         'KEY_NO': data.KEY_NO,
@@ -251,21 +252,21 @@ export class LockerRackWiseMasterComponent implements OnInit {
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+
           if (this['value'] != '') {
             that
               .search(this['value'])
               .draw();
-          }else{
+          } else {
             that
-            .search(this['value'])
-            .draw();
+              .search(this['value'])
+              .draw();
           }
         });
       });
     });
   }
-  
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();

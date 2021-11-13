@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { SubSalaryService } from './sub-salary-division-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -37,7 +37,9 @@ interface SubSalaryMaster {
   templateUrl: './sub-salary-division-master.component.html',
   styleUrls: ['./sub-salary-division-master.component.scss']
 })
-export class SubSalaryDivisionMasterComponent implements OnInit {
+export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -91,29 +93,29 @@ export class SubSalaryDivisionMasterComponent implements OnInit {
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-        
+
         // column filter
         dataTableParameters.columns.forEach(element => {
-          if(element.search.value !=''){
-  
+          if (element.search.value != '') {
+
             let string = element.search.value;
             this.filterData[element.data] = string;
-          }else{
-  
+          } else {
+
             let getColumnName = element.data;
             let columnValue = element.value;
-            if(this.filterData.hasOwnProperty(element.data)){
-                let value = this.filterData[getColumnName];
-                if(columnValue != undefined || value != undefined){
-                  delete this.filterData[element.data];
-                } 
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
             }
           }
         });
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/sub-salary-division-master',
+            this.url + '/sub-salary-division-master',
             dataTableParameters
           ).subscribe(resp => {
             this.subsalarymasters = resp.data;
@@ -127,7 +129,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit {
       // columns: [
       //   {
       //     title: 'Action',
-          
+
       //   },
       //   {
       //     title: 'Division Code', 
@@ -245,7 +247,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit {
       console.log(error)
     })
     //To clear form
-     this.resetForm();
+    this.resetForm();
   }
   //Method for append data into fields
   editClickHandler(id) {
@@ -275,7 +277,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit {
       this.showButton = true;
       this.updateShow = false;
       this.rerender();
-       this.resetForm();
+      this.resetForm();
     })
   }
   //Method for delete data
@@ -319,15 +321,15 @@ export class SubSalaryDivisionMasterComponent implements OnInit {
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
+
           if (this['value'] != '') {
             that
               .search(this['value'])
               .draw();
-          }else{
+          } else {
             that
-            .search(this['value'])
-            .draw();
+              .search(this['value'])
+              .draw();
           }
         });
       });
@@ -339,11 +341,11 @@ export class SubSalaryDivisionMasterComponent implements OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-   // Reset Function
-   resetForm() {
+  // Reset Function
+  resetForm() {
     this.createForm();
   }
-  
+
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first

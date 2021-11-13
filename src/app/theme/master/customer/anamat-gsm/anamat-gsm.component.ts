@@ -18,12 +18,12 @@ import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { first } from 'rxjs/operators';
 //dropdown
- import { TitleService } from '../../../../shared/elements/title.service';
- import { MsService } from '../../../../shared/elements/ms.service';
- import { AccountcodeService } from '../../../../shared/elements/accountcode.service';
- import { CustomeridService } from '../../../../shared/elements/customerid.service';
- import { City3Service } from '../../../../shared/elements/city3.service';
-
+import { TitleService } from '../../../../shared/elements/title.service';
+import { MsService } from '../../../../shared/elements/ms.service';
+import { AccountcodeService } from '../../../../shared/elements/accountcode.service';
+import { CustomeridService } from '../../../../shared/elements/customerid.service';
+import { City3Service } from '../../../../shared/elements/city3.service';
+import { environment } from '../../../../../environments/environment'
 
 // Handling datatable data
 class DataTableResponse {
@@ -36,35 +36,35 @@ class DataTableResponse {
 // For fetching values from backend
 interface glsubmaster {
   //id:number
-  AC_ACNOTYPE:number;
+  AC_ACNOTYPE: number;
   AC_TYPE: string;
   AC_NO: String;
-  AC_CUSTID:string;
-  AC_TITLE:string;
+  AC_CUSTID: string;
+  AC_TITLE: string;
   AC_NAME: string;
-  AC_MEMBTYPE:string;
-  AC_MEMBNO:string;
+  AC_MEMBTYPE: string;
+  AC_MEMBNO: string;
   AC_HONO: string;
   AC_WARD: string;
   AC_TADDR: string;
   AC_TGALLI: string;
   AC_AREA: string;
-  AC_CTCODE:string;
-  AC_PIN:string;
-  AC_OPDATE:Date;
-  Recovery:string;
-  Debit:boolean;
-  AC_PARTICULAR:string;
+  AC_CTCODE: string;
+  AC_PIN: string;
+  AC_OPDATE: Date;
+  Recovery: string;
+  Debit: boolean;
+  AC_PARTICULAR: string;
 
 
 
 }
 
- @Component({
-   selector: 'app-anamat-gsm',
-   templateUrl: './anamat-gsm.component.html',
-   styleUrls: ['./anamat-gsm.component.scss'],
-   animations: [
+@Component({
+  selector: 'app-anamat-gsm',
+  templateUrl: './anamat-gsm.component.html',
+  styleUrls: ['./anamat-gsm.component.scss'],
+  animations: [
     trigger('fadeInOutTranslate', [
       transition(':enter', [
         style({ opacity: 0 }),
@@ -76,9 +76,11 @@ interface glsubmaster {
       ])
     ])
   ]
- })
+})
 
- export class AnamatGSMComponent implements  OnInit, AfterViewInit, OnDestroy  {
+export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // newCustomerID = [];
   newCustomerID;
 
@@ -126,7 +128,7 @@ interface glsubmaster {
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
- 
+
   dtTrigger: Subject<any> = new Subject();
   // Store data from backend
   anamat: glsubmaster[];
@@ -163,38 +165,38 @@ interface glsubmaster {
   d: Array<IOption> = this.City3Service.getCharacters();
   titleOption: Array<IOption> = this.TitleService.getCharacters();
   itemtypeoption: Array<IOption> = this.TitleService.getCharacters();
-   scheme: Array<IOption> = this.MsService.getCharacters();
-   Ac_NO: Array<IOption> = this.accountCodeService.getCharacters();
-   CustomerID: Array<IOption> = this.customerIdService.getCharacters();
-   selectedOption = '3';
+  scheme: Array<IOption> = this.MsService.getCharacters();
+  Ac_NO: Array<IOption> = this.accountCodeService.getCharacters();
+  CustomerID: Array<IOption> = this.customerIdService.getCharacters();
+  selectedOption = '3';
   isDisabled = true;
-   characters: Array<IOption>;
-   selectedCharacter = '3';
-   timeLeft = 5;
+  characters: Array<IOption>;
+  selectedCharacter = '3';
+  timeLeft = 5;
 
   private dataSub: Subscription = null;
 
-     //variables for  add and update button
+  //variables for  add and update button
   //  showButton: boolean = true;
   //  updateShow: boolean = false;
 
-   //variable for checkbox and radio button 
-      isRecovery: boolean = false;
-      isDebit: boolean = true;
+  //variable for checkbox and radio button 
+  isRecovery: boolean = false;
+  isDebit: boolean = true;
 
-  
+
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private anamatGSMService: anamatGSMService,
     public TitleService: TitleService,
-     public MsService: MsService, 
-     public customerIdService: CustomeridService,
-      public accountCodeService: AccountcodeService,
-      public City3Service: City3Service,
-     
-  //  private anamatGSMServiceDa: anamatGSMServiceDa,
-  
+    public MsService: MsService,
+    public customerIdService: CustomeridService,
+    public accountCodeService: AccountcodeService,
+    public City3Service: City3Service,
+
+    //  private anamatGSMServiceDa: anamatGSMServiceDa,
+
   ) { }
 
   ngOnInit(): void {
@@ -215,26 +217,26 @@ interface glsubmaster {
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
         dataTableParameters.columns.forEach(element => {
-          if(element.search.value !=''){
-  
+          if (element.search.value != '') {
+
             let string = element.search.value;
             this.filterData[element.data] = string;
-          }else{
-  
+          } else {
+
             let getColumnName = element.data;
             let columnValue = element.value;
-            if(this.filterData.hasOwnProperty(element.data)){
-                let value = this.filterData[getColumnName];
-                if(columnValue != undefined || value != undefined){
-                  delete this.filterData[element.data];
-                } 
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
             }
           }
         });
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-           'http://localhost:4000/user-defination',
+            this.url + '/user-defination',
             dataTableParameters
           ).subscribe(resp => {
             this.anamat = resp.data;
@@ -252,112 +254,110 @@ interface glsubmaster {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
-                  {
-                    data: 'AC_TYPE',
-                    title: 'Scheme'
-                  },
-                  {
-                    data: 'AC_NO',
-                    title: 'Account'
-                  },
-                  {
-                    data: 'AC_CUSTID',
-                    title: 'Customer ID'
-                  },
-                  {
-                    data: 'AC_TITLE',
-                    title: 'Title'
-                  },
-                  {
-                    data: 'AC_NAME',
-                    title: 'Name'
-                  },
-                  {
-                    data: 'AC_MEMBTYPE',
-                    title: 'Member Scheme'
-                  },
-                  {
-                    data: 'AC_MEMBNO',
-                    title: 'Member No'
-                  },
-                  
-                  {
-                    data: 'AC_HONO',
-                    title: 'House'
-                  },
-                  {
-                    data: 'AC_WARD',
-                    title: 'Ward'
-                  },
-                  {
-                    data: 'AC_TADDR',
-                    title: 'Detail'
-                  },
-                  {
-                    data: 'AC_TGALLI',
-                    title: 'Galli'
-                  },
-                  {
-                    data: 'AC_AREA',
-                    title: 'Area'
-                  },
-                  {
-                    data: 'AC_CTCODE',
-                    title: 'City'
-                  },
-                  {
-                    data: 'AC_PIN',
-                    title: 'Pincode'
-                  },
-                  {
-                    data: 'AC_OPDATE',
-                    title: 'opening bal. date'
-                  },
-                  {
-                    data: 'Recovery',
-                    title: 'Recovery'
-                  },
-                  {
-                    data: 'Debit',
-                    title: 'opening bal'
-                  },
-                  {
-                    data: 'AC_PARTICULAR',
-                    title: 'Reason'
-                  },
-             
+        {
+          data: 'AC_TYPE',
+          title: 'Scheme'
+        },
+        {
+          data: 'AC_NO',
+          title: 'Account'
+        },
+        {
+          data: 'AC_CUSTID',
+          title: 'Customer ID'
+        },
+        {
+          data: 'AC_TITLE',
+          title: 'Title'
+        },
+        {
+          data: 'AC_NAME',
+          title: 'Name'
+        },
+        {
+          data: 'AC_MEMBTYPE',
+          title: 'Member Scheme'
+        },
+        {
+          data: 'AC_MEMBNO',
+          title: 'Member No'
+        },
+
+        {
+          data: 'AC_HONO',
+          title: 'House'
+        },
+        {
+          data: 'AC_WARD',
+          title: 'Ward'
+        },
+        {
+          data: 'AC_TADDR',
+          title: 'Detail'
+        },
+        {
+          data: 'AC_TGALLI',
+          title: 'Galli'
+        },
+        {
+          data: 'AC_AREA',
+          title: 'Area'
+        },
+        {
+          data: 'AC_CTCODE',
+          title: 'City'
+        },
+        {
+          data: 'AC_PIN',
+          title: 'Pincode'
+        },
+        {
+          data: 'AC_OPDATE',
+          title: 'opening bal. date'
+        },
+        {
+          data: 'Recovery',
+          title: 'Recovery'
+        },
+        {
+          data: 'Debit',
+          title: 'opening bal'
+        },
+        {
+          data: 'AC_PARTICULAR',
+          title: 'Reason'
+        },
+
       ],
       dom: 'Blrtip',
     };
-   
+
     // this.anamatGSMServiceD.getuserdefinationList().pipe(first()).subscribe(data => {
     //   this.anamat = data;
     // })
     this.runTimer();
-        this.dataSub = this.TitleService.loadCharacters().subscribe((options) => {
-           this.characters = options;
-         });
-    
-         this.dataSub = this.MsService.loadCharacters().subscribe((options) => {
-           this.characters = options;
-         });
-         this.dataSub = this.accountCodeService.loadCharacters().subscribe((options) => {
-           this.characters = options;
-         });
-         this.dataSub = this.customerIdService.loadCharacters().subscribe((options) => {
-           this.characters = options;
-         });
-         this.dataSub = this.City3Service.loadCharacters().subscribe((options) => {
-          this.characters = options;
-        });
-  
+    this.dataSub = this.TitleService.loadCharacters().subscribe((options) => {
+      this.characters = options;
+    });
+
+    this.dataSub = this.MsService.loadCharacters().subscribe((options) => {
+      this.characters = options;
+    });
+    this.dataSub = this.accountCodeService.loadCharacters().subscribe((options) => {
+      this.characters = options;
+    });
+    this.dataSub = this.customerIdService.loadCharacters().subscribe((options) => {
+      this.characters = options;
+    });
+    this.dataSub = this.City3Service.loadCharacters().subscribe((options) => {
+      this.characters = options;
+    });
+
   }
   createForm() {
     this.angForm = this.fb.group({
-    
-      
-      AC_TYPE: ['', [Validators.required,Validators.pattern]],
-      AC_NO: ['', [ Validators.pattern]],
+      AC_TYPE: ['', [Validators.required, Validators.pattern]],
+      AC_NO: ['', [Validators.pattern]],
       AC_CUSTID: [''],
       AC_TITLE: ['', [Validators.required, Validators.pattern]],
       AC_NAME: ['', [Validators.required, Validators.pattern]],
@@ -365,177 +365,179 @@ interface glsubmaster {
       AC_MEMBNO: ['', [Validators.required, Validators.pattern]],
       AC_HONO: ['', [Validators.required, Validators.pattern]],
       AC_WARD: ['', [Validators.required]],
-      AC_TADDR:[''],
-      AC_TGALLI:[''],
-      AC_AREA:[''],
-      AC_CTCODE:[''],
-      AC_PIN:[''],
-      AC_OPDATE:[''],
-      Recovery:[''],
-      Debit:[''],
-      AC_PARTICULAR:[''],
-      
+      AC_TADDR: [''],
+      AC_TGALLI: [''],
+      AC_AREA: [''],
+      AC_CTCODE: [''],
+      AC_PIN: [''],
+      AC_OPDATE: [''],
+      Recovery: [''],
+      Debit: [''],
+      AC_PARTICULAR: [''],
+
 
 
     });
   }
-    // Method to insert data into database through NestJS
-    submit() {
-      const formVal = this.angForm.value;
-      const dataToSend = {
-        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-        'AC_TYPE': formVal.AC_TYPE,
-        'AC_NO': formVal.AC_NO,
-        'AC_CUSTID': formVal.AC_CUSTID,
-        'AC_TITLE': formVal.AC_TITLE,
-        'AC_NAME': formVal.AC_NAME,
-        'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
-        'AC_MEMBNO': formVal.AC_MEMBNO,
-        'AC_HONO': formVal.AC_HONO,
-        'AC_WARD': formVal.AC_WARD,
-        'AC_TADDR': formVal.AC_TADDR,
-        'AC_TGALLI': formVal.AC_TGALLI,
-        'AC_AREA': formVal.AC_AREA,
-        'AC_CTCODE': formVal.AC_CTCODE,
-        'AC_PIN': formVal.AC_PIN,
-        'AC_OPDATE': formVal.AC_OPDATE,
-        'Recovery': formVal.Recovery,
-        'Debit': formVal.Debit,
-        'AC_PARTICULAR': formVal.AC_PARTICULAR,
-  
-      }
-      this.anamatGSMService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
-        // to reload after insertion of data
-        this.rerender();
-      }, (error) => {
-        console.log(error)
+  // Method to insert data into database through NestJS
+  submit() {
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+      'AC_TYPE': formVal.AC_TYPE,
+      'AC_NO': formVal.AC_NO,
+      'AC_CUSTID': formVal.AC_CUSTID,
+      'AC_TITLE': formVal.AC_TITLE,
+      'AC_NAME': formVal.AC_NAME,
+      'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
+      'AC_MEMBNO': formVal.AC_MEMBNO,
+      'AC_HONO': formVal.AC_HONO,
+      'AC_WARD': formVal.AC_WARD,
+      'AC_TADDR': formVal.AC_TADDR,
+      'AC_TGALLI': formVal.AC_TGALLI,
+      'AC_AREA': formVal.AC_AREA,
+      'AC_CTCODE': formVal.AC_CTCODE,
+      'AC_PIN': formVal.AC_PIN,
+      'AC_OPDATE': formVal.AC_OPDATE,
+      'Recovery': formVal.Recovery,
+      'Debit': formVal.Debit,
+      'AC_PARTICULAR': formVal.AC_PARTICULAR,
+
+    }
+    this.anamatGSMService.postData(dataToSend).subscribe(data1 => {
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      // to reload after insertion of data
+      this.rerender();
+    }, (error) => {
+      console.log(error)
+    })
+    //To clear form
+    this.angForm.reset();
+  }
+
+  //Method for append data into fields
+  editClickHandler(id) {
+    this.showButton = false;
+    this.updateShow = true;
+    this.anamatGSMService.getFormData(id).subscribe(data => {
+      this.updateID = data.id;
+      this.angForm.setValue({
+        'AC_ACNOTYPE': data.AC_ACNOTYPE,
+        'AC_TYPE': data.AC_TYPE,
+        'AC_NO': data.AC_NO,
+        'AC_CUSTID': data.AC_CUSTID,
+        'AC_TITLE': data.AC_TITLE,
+        'AC_NAME': data.AC_NAME,
+        'AC_MEMBTYPE': data.AC_MEMBTYPE,
+        'AC_MEMBNO': data.AC_MEMBNO,
+        'AC_HONO': data.AC_HONO,
+        'AC_WARD': data.AC_WARD,
+        'AC_TADDR': data.AC_TADDR,
+        'AC_TGALLI': data.AC_TGALLI,
+        'AC_AREA': data.AC_AREA,
+        'AC_CTCODE': data.AC_CTCODE,
+        'AC_PIN': data.AC_PIN,
+        'AC_OPDATE': data.AC_OPDATE,
+        'Recovery': data.Recovery,
+        'Debit': data.Debit,
+        'AC_PARTICULAR': data.AC_PARTICULAR,
+
       })
-      //To clear form
+    })
+  }
+
+
+  //Method for update data 
+  updateData() {
+    let data = this.angForm.value;
+    data['id'] = this.updateID;
+    this.anamatGSMService.updateData(data).subscribe(() => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.showButton = true;
+      this.updateShow = false;
+      this.rerender();
       this.angForm.reset();
-    }
-  
-    //Method for append data into fields
-    editClickHandler(id) {
-      this.showButton = false;
-      this.updateShow = true;
-      this.anamatGSMService.getFormData(id).subscribe(data => {
-        this.updateID = data.id;
-        this.angForm.setValue({
-          'AC_ACNOTYPE': data.AC_ACNOTYPE,
-          'AC_TYPE': data.AC_TYPE,
-          'AC_NO': data.AC_NO,
-          'AC_CUSTID': data.AC_CUSTID,
-          'AC_TITLE': data.AC_TITLE,
-          'AC_NAME': data.AC_NAME,
-          'AC_MEMBTYPE': data.AC_MEMBTYPE,
-          'AC_MEMBNO': data.AC_MEMBNO,
-          'AC_HONO': data.AC_HONO,
-          'AC_WARD': data.AC_WARD,
-          'AC_TADDR': data.AC_TADDR,
-          'AC_TGALLI': data.AC_TGALLI,
-          'AC_AREA': data.AC_AREA,
-          'AC_CTCODE': data.AC_CTCODE,
-          'AC_PIN': data.AC_PIN,
-          'AC_OPDATE': data.AC_OPDATE,
-          'Recovery': data.Recovery,
-          'Debit': data.Debit,
-          'AC_PARTICULAR': data.AC_PARTICULAR,
-        
-        })
-      })
-    }
-    //Method for update data 
-    updateData() {
-      let data = this.angForm.value;
-      data['id'] = this.updateID;
-      this.anamatGSMService.updateData(data).subscribe(() => {
-        Swal.fire('Success!', 'Record Updated Successfully !', 'success');
-        this.showButton = true;
-        this.updateShow = false;
-        this.rerender();
-        this.angForm.reset();
-      })
-    }
-  
-    //Method for delete data
-    delClickHandler(id: number) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "Do you want to delete narration data.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#229954',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.anamatGSMService.deleteData(id).subscribe(data1 => {
-            this.anamat = data1;
-            Swal.fire(
-              'Deleted!',
-              'Your data has been deleted.',
-              'success'
-            )
-          }), (error) => {
-            console.log(error)
-          }
-          // to reload after delete of data
-          this.rerender();
-        } else if (
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
+    })
+  }
+
+  //Method for delete data
+  delClickHandler(id: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you want to delete narration data.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#229954',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.anamatGSMService.deleteData(id).subscribe(data1 => {
+          this.anamat = data1;
           Swal.fire(
-            'Cancelled',
-            'Your data is safe.',
-            'error'
+            'Deleted!',
+            'Your data has been deleted.',
+            'success'
           )
+        }), (error) => {
+          console.log(error)
         }
-      })
-    }
-  
-    ngAfterViewInit(): void {
-      this.dtTrigger.next();
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.columns().every(function () {
-          const that = this;
-          $('input', this.footer()).on('keyup change', function () {
-         
-            if (this['value'] != '') {
-              that
-                .search(this['value'])
-                .draw();
-            }else{
-              that
+        // to reload after delete of data
+        this.rerender();
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelled',
+          'Your data is safe.',
+          'error'
+        )
+      }
+    })
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+
+          if (this['value'] != '') {
+            that
               .search(this['value'])
               .draw();
-            }
-          });
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
         });
       });
-    }
-  
-    ngOnDestroy(): void {
-      // Do not forget to unsubscribe the event
-      this.dtTrigger.unsubscribe();
-    }
-  
-    rerender(): void {
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        // Destroy the table first
-        dtInstance.destroy();
-        // Call the dtTrigger to rerender again
-        this.dtTrigger.next();
-      });
-    }
-    runTimer() {
-      const timer = setInterval(() => {
-        this.timeLeft -= 1;
-        if (this.timeLeft === 0) {
-          clearInterval(timer);
-        }
-      }, 1000);
-    }
-   
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
+  runTimer() {
+    const timer = setInterval(() => {
+      this.timeLeft -= 1;
+      if (this.timeLeft === 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+  }
+
 }
 

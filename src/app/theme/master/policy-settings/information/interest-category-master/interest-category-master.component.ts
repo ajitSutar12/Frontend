@@ -10,6 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { InterestCategoryMasterService } from './interest-category-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../../environments/environment'
 
 // Handling datatable data
 class DataTableResponse {
@@ -31,7 +32,9 @@ interface IntrestCatagoryMaster {
   styleUrls: ['./interest-category-master.component.scss']
 })
 
-export class InterestCategoryMasterComponent implements OnInit {
+export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -104,7 +107,7 @@ export class InterestCategoryMasterComponent implements OnInit {
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/interest-category-master',
+            this.url + '/interest-category-master',
             dataTableParameters
           ).subscribe(resp => {
             this.intrestCatagoryMaster = resp.data;

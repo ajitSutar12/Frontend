@@ -274,7 +274,7 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
   // }
 
   OpenLink(val) {
-    debugger
+    
     if (val == 1) {
       this.firstTrue = true;
     }

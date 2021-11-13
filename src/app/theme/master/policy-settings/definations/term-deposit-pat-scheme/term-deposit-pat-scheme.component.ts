@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { IntrestCategoryMasterDropdownService } from '../../../../../shared/dropdownService/interest-category-master-dropdown.service'
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { first } from 'rxjs/operators';
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -40,6 +41,8 @@ interface TermDepositPatScheme {
   styleUrls: ['./term-deposit-pat-scheme.component.scss'],
 })
 export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -126,7 +129,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/pat-scheme-interest-rates',
+            this.url + '/pat-scheme-interest-rates',
             dataTableParameters
           ).subscribe(resp => {
             this.termDepositPatScheme = resp.data;
@@ -184,7 +187,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/pat-scheme-interest-rates',
+            this.url+'/pat-scheme-interest-rates',
             dataTableParameters
           ).subscribe(resp => {
             this.termDepositPatScheme = resp.data;
