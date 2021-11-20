@@ -195,7 +195,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.narrationService.deleteData(id).subscribe(data1 => {
-          this.narrations = data1;
+          // this.narrations = data1;
           Swal.fire(
             'Deleted!',
             'Your data has been deleted.',

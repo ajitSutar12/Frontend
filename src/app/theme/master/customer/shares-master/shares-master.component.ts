@@ -223,8 +223,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   signType: Array<IOption> = this.signTypeDropdownService.getCharacters();   //sign type default option
   city: string //city from customer id from idmaster
   cast: string // customer id from idmaster
-   occupation: string // customer id from idmaster
-    director: any[]//from directormaster
+  occupation: string // customer id from idmaster
+  director: any[]//from directormaster
   branch_code: any[]//from ownbranchmaster
   salary_div: string // customer id from idmaster
   sub_salary_div: any[] //information sub salary master

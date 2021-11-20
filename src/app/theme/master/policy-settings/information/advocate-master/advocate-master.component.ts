@@ -193,7 +193,7 @@ export class AdvocateMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }).then((result) => {
       if (result.isConfirmed) {
         this.advocateService.deleteData(id).subscribe(data1 => {
-          this.advocatemasters = data1;
+        
           Swal.fire(
             'Deleted!',
             'Your data has been deleted.',

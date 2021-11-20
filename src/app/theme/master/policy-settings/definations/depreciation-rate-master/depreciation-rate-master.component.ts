@@ -148,7 +148,7 @@ export class DepreciationRateMasterComponent implements OnInit {
     };
     this.createForm();
 
-    this.categoryMaster.getDepriciationMasterList().pipe(first()).subscribe(data => {
+    this.categoryMaster.getDepriciationCatasterList().pipe(first()).subscribe(data => {
       this.category = data;
     })
 

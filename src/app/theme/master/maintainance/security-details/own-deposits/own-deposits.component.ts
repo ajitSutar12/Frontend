@@ -1,117 +1,211 @@
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subject } from "rxjs";
+import { IOption } from "ng-select";
+import { Subscription } from "rxjs/Subscription";
+import { S2Service } from "../../../../../shared/elements/s2.service";
+import { Ac2Service } from "../../../../../shared/elements/ac2.service";
+import Swal from "sweetalert2";
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from "@angular/forms";
+import { OwnDepositsComponentService } from "./own-deposits.service"; //Injecting service into component.
+// Angular Datatable Directive
+import { DataTableDirective } from "angular-datatables";
+//Dropdown service file
+import { OwnbranchMasterService} from '../../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { first } from "rxjs/operators";
+import{schemedropdownService} from '../../../../../shared/dropdownService/scheme-dropdown.service'
+import { HttpClient } from "@angular/common/http";
+import { environment } from '../../../../../../environments/environment'
 
-import { Component, OnInit } from '@angular/core';
-import { IOption } from 'ng-select';
-import { Subscription } from 'rxjs/Subscription';
-import { S2Service } from '../../../../../shared/elements/s2.service';
-import { Ac2Service } from '../../../../../shared/elements/ac2.service';
-import Swal from 'sweetalert2';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number; 
+}
+// For fetching values from backend
+interface DepositeMaster {
+  BRANCH_CODE: number;
+  DEPO_AC_TYPE: string;
+  AC_NO: number;
+  SUBMISSION_DATE: Date;
+  RECEIPT_NO: number;
+  DEPOSIT_AMT: number;
+  REMARK: string;
+  MATURITY_DATE: Date;
+  MARGIN: number;
+  LEDGER_Bal: number;
+}
 
 @Component({
-  selector: 'app-own-deposits',
-  templateUrl: './own-deposits.component.html',
-  styleUrls: ['./own-deposits.component.scss']
+  selector: "app-own-deposits",
+  templateUrl: "./own-deposits.component.html",
+  styleUrls: ["./own-deposits.component.scss"],
 })
-export class OwnDepositsComponent implements OnInit {
+export class OwnDepositsComponent implements AfterViewInit, OnDestroy, OnInit  {
+
+    //api 
+    url = environment.base_url;
 
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
+
   simpleOption: Array<IOption> = this.S2Service.getCharacters();
+
   Ac: Array<IOption> = this.Ac2Service.getCharacters();
-  selectedOption = '3';
+
+  selectedOption = "3";
   isDisabled = true;
   characters: Array<IOption>;
-  selectedCharacter = '3';
+  selectedCharacter = "3";
   timeLeft = 5;
   private dataSub: Subscription = null;
+  
   showButton: boolean = true;
   updateShow: boolean = false;
+  updateID: number; //variable for updating
+  // Store data from backend
+  depositemasters: DepositeMaster[];
+  // For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  //Dropdown option variable
+  branchOption: any
+  obj:any={type:"own deposite form"}
+  page: number;
+  // column search variable
+ filterData = {};
 
-  constructor(private fb: FormBuilder, public S2Service: S2Service, public Ac2Service: Ac2Service) { this.createForm(); }
-
-  message = {
-    branch: "",
-    scheme: "",
-    acc_no: "",
-    subm_date: "",
-    receipt_no: "",
-    deposit_amount: "",
-    remarks: "",
-    maturity_date: "",
-    margin: "",
-    LedgerBalance: ""
-  };
-
+ 
+  constructor(
+    private fb: FormBuilder,
+    public S2Service: S2Service,
+    public Ac2Service: Ac2Service,
+    private _deposite: OwnDepositsComponentService,
+    private _ownbranchmasterservice:OwnbranchMasterService,
+    private _sheme:schemedropdownService,
+    private http: HttpClient,
+  ) {
+   
+  }
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
+ 
   ngOnInit(): void {
+
+    this.createForm();
+    // Fetching Server side data
     this.dtExportButtonOptions = {
-      ajax: 'fake-data/security-details.json',
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+        dataTableParameters.columns.forEach(element => {
+          if(element.search.value !=''){
+  
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          }else{
+  
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if(this.filterData.hasOwnProperty(element.data)){
+                let value = this.filterData[getColumnName];
+                if(columnValue != undefined || value != undefined){
+                  delete this.filterData[element.data];
+                } 
+            }
+          }
+        });
+        dataTableParameters['filterData'] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + '/own-deposits',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.depositemasters = resp.data;
+
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
+            });
+          });
+      },
       columns: [
         {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
+          title: "Action",
+         
         },
         {
-          title: 'Account No',
-          data: 'acc_no'
+          title: "Branch",
+          data: "BRANCH_CODE",
         },
         {
-          title: 'Submission Date',
-          data: 'subm_date'
-        }, {
-          title: 'Maturity Date',
-          data: 'maturity_date'
-        }, {
-          title: 'Receipt No.',
-          data: 'receipt_no'
-        }, {
-          title: 'Deposit Bal.',
-          data: 'deposit_bal'
-        }, {
-          title: 'Deposit Amount',
-          data: 'deposit_amount'
-        }, {
-          title: 'Margin %',
-          data: 'margin'
-        }, {
-          title: 'Remarks',
-          data: 'remarks'
+          title: "Scheme",
+          data: "DEPO_AC_TYPE",
         },
         {
-          title: 'Ledger Balance',
-          data: 'LedgerBalance'
-        }
-
+          title: "Account No",
+          data: "AC_NO",
+        },
+        {
+          title: "Date of Submission",
+          data: "SUBMISSION_DATE",
+        },
+        {
+          title: "Receipt Number",
+          data: "RECEIPT_NO",
+        },
+        {
+          title: "Deposit Amount",
+          data: "DEPOSIT_AMT",
+        },
+        {
+          title: "Remarks",
+          data: "REMARK",
+        },
+        {
+          title: "Maturity Date",
+          data: "MATURITY_DATE",
+        },
+        {
+          title: "Margin %",
+          data: "MARGIN",
+        },
+        {
+          title: "Ledger Balance",
+          data: "LEDGER_Bal",
+        },
       ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
+      dom: "Blrtip",
+      
     };
     this.runTimer();
-    this.dataSub = this.S2Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
     });
-    this.dataSub = this.Ac2Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
+    this._sheme.getschemelsit(this.obj).pipe(first()).subscribe(data => {
+      this.simpleOption = data;
     });
+    
+  
   }
 
   runTimer() {
@@ -121,83 +215,142 @@ export class OwnDepositsComponent implements OnInit {
         clearInterval(timer);
       }
     }, 1000);
-
   }
 
   createForm() {
     this.angForm = this.fb.group({
-
-      branch: ['', [Validators.pattern, Validators.required]],
-      scheme: ['', [Validators.required]],
-      acc_no: ['', [Validators.required]],
-      subm_date: ['', [Validators.required]],
-      receipt_no: ['', [Validators.pattern]],
-      deposit_amount: ['', [Validators.pattern]],
-      remarks: ['', [Validators.pattern]],
-      maturity_date: ['', [Validators.max]],
-      margin: ['', [Validators.pattern]],
-      LedgerBal: ['', [Validators.pattern]]
+      BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
+      DEPO_AC_TYPE: ["", [Validators.required]],
+      AC_NO: ["", [Validators.required]],
+      SUBMISSION_DATE: ["", [Validators.required]],
+      RECEIPT_NO: ["", [Validators.pattern]],
+      DEPOSIT_AMT: ["", [Validators.pattern]],
+      REMARK: ["", [Validators.pattern]],
+      MATURITY_DATE: ["", [Validators.max]],
+      MARGIN: ["", [Validators.pattern]],
+      LEDGER_Bal: ["", [Validators.pattern]],
     });
   }
   submit() {
-    console.log(this.angForm.valid);
-
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
-    }
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      'BRANCH_CODE': formVal.BRANCH_CODE,
+      'DEPO_AC_TYPE': formVal.DEPO_AC_TYPE,
+      'AC_NO':formVal.AC_NO,
+      'SUBMISSION_DATE':formVal.SUBMISSION_DATE,
+      'RECEIPT_NO':formVal.RECEIPT_NO,
+      'DEPOSIT_AMT':formVal.DEPOSIT_AMT,
+      'REMARK':formVal.REMARK,
+      'MATURITY_DATE':formVal.MATURITY_DATE,
+      'MARGIN':formVal.MARGIN,
+      'LEDGER_Bal':formVal.LEDGER_Bal,
+    };
+    this._deposite.postData(dataToSend).subscribe(
+      (data1) => {
+        Swal.fire("Success!", "Data Added Successfully !", "success");
+        // to reload after insertion of data
+        this.rerender();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    //To clear form
+    this.resetForm();
   }
 
   //function for edit button clicked
-  editClickHandler(info: any): void {
-    this.message.branch = info.branch;
-    this.message.scheme = info.scheme;
-    this.message.acc_no = info.acc_no;
-    this.message.subm_date = info.subm_date;
-    this.message.receipt_no = info.receipt_no;
-    this.message.deposit_amount = info.deposit_amount;
-    this.message.remarks = info.remarks;
-    this.message.maturity_date = info.maturity_date;
-
-    this.message.margin = info.margin;
-
-    this.message.LedgerBalance = info.LedgerBalance;
-
+  editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
+    this._deposite.getFormData(id).subscribe((data) => {
+      this.updateID = data.id;
+      this.angForm.setValue({
+        'BRANCH_CODE': data.BRANCH_CODE,
+        'DEPO_AC_TYPE': data.DEPO_AC_TYPE,
+         'AC_NO': data.AC_NO,
+         'SUBMISSION_DATE':data.SUBMISSION_DATE,
+         'RECEIPT_NO': data.RECEIPT_NO,
+         'DEPOSIT_AMT': data.DEPOSIT_AMT,
+         'REMARK': data.REMARK,
+         'MATURITY_DATE':data.MATURITY_DATE,
+         'MARGIN': data.MARGIN,
+         'LEDGER_Bal': data.LEDGER_Bal,
+      });
+    });
   }
 
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    let data = this.angForm.value;
+    data['id'] = this.updateID;
+    this._deposite.updateData(data).subscribe(() => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.showButton = true;
+      this.updateShow = false;
+      this.rerender();
+      this.resetForm();
+    })
   }
 
   //function for delete button clicked
-  delClickHandler(info: any): void {
-    this.message.acc_no = info.acc_no;
+  delClickHandler(id: number): void {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delect Account." + this.message.acc_no + "  data",
-      icon: 'warning',
+      title: "Are you sure?",
+      text: "Do you want to delete own deposite Master data.",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#229954",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
+        this._deposite.deleteData(id).subscribe((data1) => {
+       
+          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+        }),
+          (error) => {
+            console.log(error);
+          };
+        // to reload after delete of data
+        this.rerender();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire("Cancelled", "Your data is safe.", "error");
       }
-    })
+    });
+  }
+  resetForm() {
+    this.createForm();
+  }
+  
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          debugger
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 }

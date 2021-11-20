@@ -11,9 +11,10 @@ export class DeadstockmasterService {
     // Variable for handleError
     [x: string]: any;
   
-// API 
+// API  
   //url = "http://localhost:4000/dead-stock-master";
-  url = environment.base_url;
+  url = environment.base_url; 
+  
     constructor(private http: HttpClient) { }
 
     //Insertion Operation

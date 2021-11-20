@@ -11,3 +11,15 @@ ng-select.ng-select>div>div.single {
     border-radius: 4px;
     height: auto;
 }
+#custicon {
+    z-index: 1000;
+    left: 90%;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: -10px;
+    margin-right: -10px;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+    color: #4680ff;
+}

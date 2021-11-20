@@ -11,10 +11,10 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="F_NAME" maxlength="2000" class="form-control"
-                                        placeholder=" " id="label-name" required="" pattern="^[A-Za-z\./ -]+$"
+                                    <input type="text" name="F_NAME" maxlength="50" class="form-control" placeholder=" "
+                                        id="F_NAME" required="" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="F_NAME">
-                                    <label for="label-name">First Name<sub class="required">* </sub></label>
+                                    <label for="F_NAME">First Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -29,10 +29,10 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="L_NAME" maxlength="2000" class="form-control"
-                                        placeholder=" " id="label-name" required="" pattern="^[A-Za-z\./ -]+$"
+                                    <input type="text" name="L_NAME" maxlength="50" class="form-control" placeholder=" "
+                                        id="L_NAME" required="" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="L_NAME">
-                                    <label for="label-name">Last Name<sub class="required">* </sub></label>
+                                    <label for="L_NAME">Last Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -58,9 +58,10 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
+                                    <!-- pattern="( ^[789]\d{9}$ or ^[789][0-9]{9}$ )" -->
                                     <input type="text" name="MOB_NO" class="form-control" placeholder=" "
-                                        pattern="( ^[789]\d{9}$ or ^[789][0-9]{9}$ ) " maxlength="10"
-                                        title="Input allowed only  0-9" id="MOB_NO" formControlName="MOB_NO">
+                                        pattern="[7-9]{1}[0-9]{9}" maxlength="10" title="Input allowed only  0-9"
+                                        id="MOB_NO" formControlName="MOB_NO">
                                     <label for="MOB_NO">Mobile<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -76,7 +77,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="EMAIL" class="form-control" placeholder=" "
-                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter valid Email"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter valid Email"
                                         id="EMAIL" formControlName="EMAIL">
                                     <label for="EMAIL">Email<sub class="required">* </sub></label>
                                 </span>
@@ -104,112 +105,133 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <!-- <div class="col-md-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="USER_NAME" maxlength="2000" class="form-control"
+                                        placeholder=" " id="label-name" required="" pattern="[a-zA-Z0-9-]+"
+                                        maxlength="12" minlength="8" title="Input allowed only  A-Z a-z  - / . (Space)"
+                                        formControlName="USER_NAME">
+                                    <label for="USER_NAME">User Name<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div *ngIf="USER_NAME.touched && USER_NAME.errors">
+                                <span *ngIf="formName.controls['USER_NAME']?.errors?.required">Please enter user name</span>
+                                <span *ngIf="formName.controls['USER_NAME']?.errors?.pattern">Maximum
+                                    {{formName.controls['USER_NAME']?.errors?.maxlength.requiredLength}} characters are
+                                    allowed.</span>
+                                <span *ngIf="inviteForm.controls['USER_NAME']?.errors?.userExist">User already exists.
+                                </span>
+                            </div>
+                         </div> -->
+                        <div class="col-md-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <!-- pattern="^[a-zA-Z0-9 ]+$" -->
 
-                   
-                        <div class="row">
-                            <!-- <div class="col-md-4">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" name="USER_NAME" maxlength="2000" class="form-control"
-                                            placeholder=" " id="label-name" required="" pattern="[a-zA-Z0-9-]+"
-                                            maxlength="12" minlength="8" title="Input allowed only  A-Z a-z  - / . (Space)"
-                                            formControlName="USER_NAME">
-                                        <label for="USER_NAME">User Name<sub class="required">* </sub></label>
-                                    </span>
+                                    <input type="text" name="USER_NAME" class="form-control" placeholder=" "
+                                        id="label-name" required="" pattern="^[a-zA-Z0-9 ]+$" maxlength="12"
+                                        minlength="8"
+                                        title="Input allowed only  A-Z a-z 0-9 - / . with minimun 8 characters (Space)"
+                                        formControlName="USER_NAME" (keyup)="userCheckUnique($event)">
+                                    <!-- (onKeyUp)="userCheckUnique()"  -->
+                                    <label for="USER_NAME">User Name<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['USER_NAME'].invalid && (angForm.controls['USER_NAME'].dirty || angForm.controls['USER_NAME'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['USER_NAME'].errors?.pattern || angForm.controls['USER_NAME'].errors?.required ">
+                                    This field is required and Input allowed only A-Z a-z - / . 0-9 and symbols (Space)
                                 </div>
-                                <div *ngIf="USER_NAME.touched && USER_NAME.errors">
-                                    <span *ngIf="formName.controls['USER_NAME']?.errors?.required">Please enter email
-                                        address.</span>
-                                    <span *ngIf="formName.controls['USER_NAME']?.errors?.pattern">Maximum
-                                        {{formName.controls['USER_NAME']?.errors?.maxlength.requiredLength}} characters are
-                                        allowed.</span>
-                                    <span *ngIf="inviteForm.controls['USER_NAME']?.errors?.userExist">User already exists.
-                                    </span>
-                                </div>
-                                <div *ngIf="user.status === 'PENDING'">
-                                    <span class="text-info">Checking...</span>
-                                </div>
-                            </div> -->
-                            <div class="col-md-4">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <!-- pattern="^[a-zA-Z0-9 ]+$" -->
-                                        
-                                        <input type="text" name="USER_NAME" class="form-control" placeholder=" "
-                                            id="label-name" required="" pattern="?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}" maxlength="12"
-                                            minlength="8" title="Input allowed only  A-Z a-z  - / . (Space)"
-                                            formControlName="USER_NAME">
-                                        <label for="USER_NAME">User Name<sub class="required">* </sub></label>
-                                    </span>
+                                <div
+                                    *ngIf="angForm.controls['USER_NAME'].errors?.maxlength  || angForm.controls['USER_NAME'].errors?.minlength">
+                                    minimum length is 8 and maximum is 12
                                 </div>
                                 <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['USER_NAME'].invalid && (angForm.controls['USER_NAME'].dirty || angForm.controls['USER_NAME'].touched)"
+                                    *ngIf="angForm.controls['USER_NAME'].errors?.userCheckUnique"
                                     class="alert alert-danger">
-                                    <div
-                                        *ngIf="angForm.controls['USER_NAME'].errors?.pattern || angForm.controls['USER_NAME'].errors?.required || angForm.controls['USER_NAME'].errors?.maxlength">
-                                        This field is required and Input allowed only A-Z a-z - / . (Space)
-                                    </div>
+                                    username already exist.
                                 </div>
-                                <!-- <div class="formError" *ngIf="this.form['controls'].USER_NAME.hasError('alreadyExist')">
+
+                            </div>
+                            <!-- <div class="formError" *ngIf="this.form['controls'].USER_NAME.hasError('alreadyExist')">
                                 *this USER_NAME already exists in our database
                             </div> -->
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <!-- pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" -->
+                                    <input type="password" name="PASSWORD" class="form-control" placeholder=" "
+                                        maxlength="12" minlength="8"
+                                        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}"
+                                        title="Enter password of minlength  and 8 maxlength 12 " id="PASSWORD"
+                                        formControlName="PASSWORD">
+                                    <label for="PASSWORD">Password</label>
+                                </span>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <!-- pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" -->
-                                        <input type="password" name="PASSWORD" class="form-control" placeholder=" "
-                                            maxlength="12" minlength="8"
-                                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}"
-                                            title="Enter password of minlength  and 8 maxlength 12 " id="PASSWORD"
-                                            formControlName="PASSWORD">
-                                        <label for="PASSWORD">Password</label>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['PASSWORD'].invalid && (angForm.controls['PASSWORD'].dirty || angForm.controls['PASSWORD'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['PASSWORD'].errors?.pattern">
-                                        Enter valid password of At least 8 characters in length and have Lowercase
-                                        letters,Uppercase letters,Numbers,Special characters
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-                                <label for="status"> Status</label>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-radio">
-                                    <div class="radio radio-inline">
-                                        <label>
-                                            <input type="radio" name="STATUS" checked="checked" value="active"
-                                                formControlName="STATUS">
-                                            <i class="helper"></i>Active
-                                        </label>
-                                    </div>
-                                    <div class="radio radio-inline">
-                                        <label>
-                                            <input type="radio" name="STATUS" checked="checked" value="inactive"
-                                                formControlName="STATUS">
-                                            <i class="helper"></i>Inactive
-                                        </label>
-                                    </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['PASSWORD'].invalid && (angForm.controls['PASSWORD'].dirty || angForm.controls['PASSWORD'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['PASSWORD'].errors?.pattern">
+                                    Enter valid password of At least 8 characters in length and have Lowercase
+                                    letters,Uppercase letters,Numbers,Special characters
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
-                                    [disabled]="angForm.invalid">Add</button>
-                                <button class="btn btn-primary ripple light" (click)="updateData()"
-                                    *ngIf="updateShow">Update</button>
-                            </div>
-
+                        <div class="col-md-1">
+                            <label for="status"> Status</label>
                         </div>
-
+                        <div class="col-md">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="STATUS" checked="checked" value="active"
+                                            formControlName="STATUS">
+                                        <i class="helper"></i>Active
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="STATUS" checked="checked" value="inactive"
+                                            formControlName="STATUS">
+                                        <i class="helper"></i>Inactive
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
+                                [disabled]="angForm.invalid ">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
+                        </div>
+                        <!-- (click)="emailcheck($event) -->
+                    </div>
+                    <!-- <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-4">Email</label>
+                                <input type="email" class="form-control" formControlName="s_email" #s_email (change)="emailCheckUnique()" />
+                            </div>
+                            <div *ngIf="angForm.controls['s_email'].invalid && (angForm.controls['s_email'].dirty || angForm.controls['s_email'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['s_email'].errors.required">
+                                E-mail is required.
+                                </div>
+                                <div *ngIf="angForm.controls['s_email'].errors.email">
+                                Enter Valid E-mail 
+                                </div>
+                            </div>  
+                            <div *ngIf="emailAlredyExist != ''" class="alert alert-danger">
+                                {{emailAlredyExist}} 
+                            </div> 
+                        </div> -->
+                </div>
             </form>
-
         </div>
     </div>
 </div>

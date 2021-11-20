@@ -1,7 +1,31 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import{marketsharesomponentservice} from'./market-shares.component.service'
+// Angular Datatable Directive
+import { DataTableDirective } from "angular-datatables";
+import { Subject } from "rxjs";
+
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+// For fetching values from backend
+interface MarketMaster {
+  SUBMISSION_DATE: Date,
+  CO_CODE: number,
+      CO_NAME: string,
+      MARKET_VALUE: number
+      MARGIN: number
+      SHARES:number,
+      UPDATED_BY: string,
+      RELEASE_DATE:Date,
+      RELEASE_BY:string,
+}
 
 @Component({
   selector: 'app-market-shares',
@@ -14,18 +38,15 @@ export class MarketSharesComponent implements OnInit {
   dtExportButtonOptions: any = {};
   showButton: boolean = true;
   updateShow: boolean = false;
-  constructor(private fb: FormBuilder) { this.createForm(); }
-  message = {
-    released_by: "",
-    released_on: "",
-    updated_by: "",
-    no_of_shares: "",
-    market_value: "",
-    company_name: "",
-    company_code: "",
-    subm_date: "",
-    margin: "",
-  };
+  updateID:number;
+  marketmaster:MarketMaster[];
+
+  // For reloading angular datatable after CRUD operation
+ @ViewChild(DataTableDirective, { static: false })
+ dtElement: DataTableDirective;
+ dtTrigger: Subject<any> = new Subject();
+  constructor(private fb: FormBuilder,private _marketservice:marketsharesomponentservice) { this.createForm(); }
+  
   ngOnInit(): void {
     this.dtExportButtonOptions = {
       ajax: 'fake-data/security-details.json',
@@ -37,31 +58,31 @@ export class MarketSharesComponent implements OnInit {
           }
         }, {
           title: 'Co. Code',
-          data: 'company_code'
+          data: 'CO_CODE'
         }, {
           title: 'Company Name ',
-          data: 'company_name'
+          data: 'CO_NAME'
         }, {
           title: 'Market Value',
-          data: 'market_value'
+          data: 'MARKET_VALUE'
         }, {
           title: 'Margin %',
-          data: 'margin'
+          data: 'MARGIN'
         }, {
           title: 'No. of Shares',
-          data: 'no_of_shares'
+          data: 'SHARES'
         }, {
           title: 'Subm. Date',
-          data: 'subm_date'
+          data: 'SUBMISSION_DATE'
         }, {
           title: 'Updated By',
-          data: 'updated_by'
+          data: 'UPDATED_BY'
         }, {
           title: 'Release Date',
-          data: 'released_on'
+          data: 'RELEASE_DATE'
         }, {
           title: 'Release By',
-          data: 'released_by'
+          data: 'RELEASE_BY'
         },
       ],
       dom: 'Bfrtip',
@@ -89,38 +110,64 @@ export class MarketSharesComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
 
-      subm_date: ['', [Validators.required]],
-      company_code: ['', [Validators.pattern, Validators.required]],
-      company_name: ['', [Validators.pattern, Validators.required]],
-      market_value: ['', [Validators.pattern, Validators.required]],
-      margin: ['', [Validators.pattern, Validators.required]],
-      no_of_shares: ['', [Validators.pattern]],
-      updated_by: ['', [Validators.pattern, Validators.required]],
-      released_on: ['', [Validators.required]],
-      released_by: ['', [Validators.pattern, Validators.required]]
+      SUBMISSION_DATE: ['', [Validators.required]],
+      CO_CODE: ['', [Validators.pattern, Validators.required]],
+      CO_NAME: ['', [Validators.pattern, Validators.required]],
+      MARKET_VALUE: ['', [Validators.pattern, Validators.required]],
+      MARGIN: ['', [Validators.pattern, Validators.required]],
+      SHARES: ['', [Validators.pattern]],
+      UPDATED_BY: ['', [Validators.pattern, Validators.required]],
+      RELEASE_DATE: ['', [Validators.required]],
+      RELEASE_BY: ['', [Validators.pattern, Validators.required]]
     });
   }
-  submit() {
-    console.log(this.angForm.valid);
-
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
-    }
+  submit(data:any) {
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      'SUBMISSION_DATE': formVal.SUBMISSION_DATE,
+      'CO_CODE': formVal.CO_CODE,
+      'CO_NAME':formVal.CO_NAME,
+      'MARKET_VALUE':formVal.MARKET_VALUE,
+      'MARGIN':formVal.MARGIN,
+      'SHARES':formVal.SHARES,
+      'UPDATED_BY':formVal.UPDATED_BY,
+      'RELEASE_DATE':formVal.RELEASE_DATE,
+      'RELEASE_BY':formVal.RELEASE_BY,
+    
+    };
+    this._marketservice.postData(dataToSend).subscribe(
+      (data1) => {
+        Swal.fire("Success!", "Data Added Successfully !", "success");
+        // to reload after insertion of data
+        this.rerender();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    //To clear form
+    this.resetForm();
   }
 
   //function for edit button clicked
-  editClickHandler(info: any): void {
-    this.message.released_by = info.released_by;
-    this.message.released_on = info.released_on;
-    this.message.updated_by = info.updated_by;
-    this.message.no_of_shares = info.no_of_shares;
-    this.message.market_value = info.market_value;
-    this.message.company_name = info.company_name;
-    this.message.subm_date = info.subm_date;
-    this.message.company_code = info.company_code;
-    this.message.margin = info.margin;
+  editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
+    this._marketservice.getFormData(id).subscribe((data) => {
+      this.updateID = data.id;
+      this.angForm.setValue({
+        'SUBMISSION_DATE': data.SUBMISSION_DATE,
+  'CO_CODE': data.CO_CODE,
+  'CO_NAME': data.CO_NAME,
+  'MARKET_VALUE':data.MARKET_VALUE,
+  'MARGIN': data.MARGIN,
+  'SHARES': data.SHARES,
+  'UPDATED_BY': data.UPDATED_BY,
+  'RELEASE_DATE':data.RELEASE_DATE,
+  'RELEASE_BY': data.RELEASE_BY,
+ 
+      });
+    });
   }
   updateData() {
     this.showButton = true;
@@ -128,11 +175,11 @@ export class MarketSharesComponent implements OnInit {
   }
 
   //function for delete button clicked
-  delClickHandler(info: any): void {
-    this.message.company_code = info.company_code;
+  delClickHandler(id: any): void {
+  
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to delete company code." + this.message.company_code + "  data",
+      text: "Do you want to delete company code data",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -140,6 +187,10 @@ export class MarketSharesComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
+        this._marketservice.deleteData(id).subscribe((data1) => {
+          this.marketmaster = data1;
+          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+        }),
         Swal.fire(
           'Deleted!',
           'Your data has been deleted.',
@@ -155,5 +206,16 @@ export class MarketSharesComponent implements OnInit {
         )
       }
     })
+  }
+  resetForm() {
+    this.createForm();
+  }
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 }

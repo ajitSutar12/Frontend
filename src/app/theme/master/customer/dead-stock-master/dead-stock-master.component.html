@@ -1,400 +1,384 @@
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5>Dead Stock Master</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
-            </div>
-            <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
-
-                    <div class="row">
-
-                        <div class="col-md">
-                            <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="itemtypeoption" [multiple]="false"
-                                    placeholder="Item Type" formControlName="ITEM_TYPE">
-                                </ng-select>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['ITEM_TYPE'].invalid && (angForm.controls['ITEM_TYPE'].dirty || angForm.controls['ITEM_TYPE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['ITEM_TYPE'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="ITEM_CODE" class="form-control" placeholder=" "
-                                        id="ITEM_CODE" value="" formControlName="ITEM_CODE">
-                                    <label for="ITEM_CODE">Item Code</label>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="Name" class="form-control" placeholder=" " id="ITEM_NAME"
-                                        required="" value="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="ITEM_NAME">
-                                    <label for="ITEM_NAME">Item Name<sub class="required">* </sub></label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['ITEM_NAME'].invalid && (angForm.controls['ITEM_NAME'].dirty || angForm.controls['ITEM_NAME'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['ITEM_NAME'].errors?.pattern || angForm.controls['ITEM_NAME'].errors?.required">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-md">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="PURCHASE_DATE" class="form-control" placeholder=" "
-                                        id="PURCHASE_DATE" required="" value="" max="9999-12-31"
-                                        onfocus="(this.type='date')" formControlName="PURCHASE_DATE">
-                                    <label for="PURCHASE_DATE">Purchase Date<sub class="required">* </sub></label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['PURCHASE_DATE'].invalid && (angForm.controls['PURCHASE_DATE'].dirty || angForm.controls['PURCHASE_DATE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['PURCHASE_DATE'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="DeprCategoryoption" [multiple]="false"
-                                    placeholder="Depr. Category" formControlName="DEPR_CATEGORY">
-                                </ng-select>
-                            </div>
-                            <!-- <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DEPR_CATEGORY'].invalid && (angForm.controls['DEPR_CATEGORY'].dirty || angForm.controls['DEPR_CATEGORY'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['DEPR_CATEGORY'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div> -->
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="OP_BAL_DATE" class="form-control" placeholder=" "
-                                        id="OP_BAL_DATE" value="" max="9999-12-31" onfocus="(this.type='date')"
-                                        formControlName="OP_BAL_DATE">
-                                    <label for="OP_BAL_DATE">Op. Balance Date</label>
-                                </span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm">
-                            <h6 style="text-align: center;font-size: 16px;">--------- Opening Status ---------</h6>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label> </label>
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-md">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="Name" class="form-control" placeholder=" "
-                                        id="SUPPLIER_NAME" value="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        formControlName="SUPPLIER_NAME">
-                                    <label for="SUPPLIER_NAME">Supplier Name</label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['SUPPLIER_NAME'].invalid && (angForm.controls['SUPPLIER_NAME'].dirty || angForm.controls['SUPPLIER_NAME'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['SUPPLIER_NAME'].errors?.pattern">
-                                    Input allowed only A-Z a-z - / . (Space)
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="Account" class="form-control" placeholder=" "
-                                        id="OP_BALANCE" value="" pattern="\d{1,20}(\.\d{2})?"
-                                        title="Input allowed only  0-9" formControlName="OP_BALANCE">
-                                    <label for="OP_BALANCE">Opening Amount</label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['OP_BALANCE'].invalid && (angForm.controls['OP_BALANCE'].dirty || angForm.controls['OP_BALANCE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['OP_BALANCE'].errors?.pattern">
-                                    Input allowed only 0-9
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="OP_QUANTITY" class="form-control" placeholder=" "
-                                        id="OP_QUANTITY" value="" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        formControlName="OP_QUANTITY">
-                                    <label for="OP_QUANTITY">OP_QUANTITY</label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['OP_QUANTITY'].invalid && (angForm.controls['OP_QUANTITY'].dirty || angForm.controls['OP_QUANTITY'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['OP_QUANTITY'].errors?.pattern">
-                                    Input allowed only 0-9
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- <div ng-app="sumApp" ng-controller="sumCtrl"> -->
-                        <div class="row">
-
-                            <div class="col-md">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" name="Account" class="form-control" placeholder=" "
-                                            id="PURCHASE_RATE" value="" pattern="\d{1,20}(\.\d{2})?"
-                                            title="Input allowed only  0-9" formControlName="PURCHASE_RATE"
-                                            ng-model="purchaserate" ng-init="purchaserate=0" [(ngModel)] = "firstnumber">
-                                        <label for="PURCHASE_RATE">Purchase Rate</label>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['PURCHASE_RATE'].invalid && (angForm.controls['PURCHASE_RATE'].dirty || angForm.controls['PURCHASE_RATE'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['PURCHASE_RATE'].errors?.pattern">
-                                        Input allowed only 0-9
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" name="Account" class="form-control" placeholder=" "
-                                            id="PURCHASE_OP_QUANTITY" value="" pattern="^[0-9]+$"
-                                            title="Input allowed only  0-9" formControlName="PURCHASE_OP_QUANTITY"
-                                            ng-model="purchasequality" ng-init="purchasequality=0" [(ngModel)] = "secondnumber">
-                                        <label for="PURCHASE_OP_QUANTITY">Purchase Qty</label>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['PURCHASE_OP_QUANTITY'].invalid && (angForm.controls['PURCHASE_OP_QUANTITY'].dirty || angForm.controls['PURCHASE_OP_QUANTITY'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['PURCHASE_OP_QUANTITY'].errors?.pattern">
-                                        Input allowed only 0-9
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- result is :{{PURCHASE_VALUE}} -->
-                            <!-- <button ng-Click="add();">add</button> -->
-                            <!-- <button onclick="add()">Add</button> -->
-                            <div class="col-md">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" name="Account" class="form-control" placeholder=" "
-                                            id="PURCHASE_VALUE" value="{{PURCHASE_VALUE}}" pattern="\d{1,20}(\.\d{2})?"
-                                            title="Input allowed only  0-9" formControlName="PURCHASE_VALUE" (click)="Addnumber()">
-                                              <!-- ng-model="PURCHASE_VALUE" onclick="add()" -->
-                                        <label for="PURCHASE_VALUE"> Purchase Value</label>
-                                    </span>
-                                </div>
-
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['PURCHASE_VALUE'].invalid && (angForm.controls['PURCHASE_VALUE'].dirty || angForm.controls['PURCHASE_VALUE'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['PURCHASE_VALUE'].errors?.pattern">
-                                        Input allowed only 0-9
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <script>
-                                function add() {
-                                    var numOne, numTwo, sum;
-                                    numOne = parseInt(document.getElementById("PURCHASE_RATE").value);
-                                    numTwo = parseInt(document.getElementById("PURCHASE_OP_QUANTITY").value);
-                                    sum = numOne * numTwo;
-                                    document.getElementById("PURCHASE_VALUE").value = sum;
-                                }
-                                </script> -->
-
-                            <!-- <script>
-                                var app= angular.module('sumApp',[]);
-                                app.controller('sumCtrl', function($scope){
-                                    var a =$scope.purchaserate;
-                                    var b =$scope.purchasequality;
-                                    $scope.add= function(){
-                                        $scope.PURCHASE_VALUE= $scope.purchaserate * $scope.purchasequality;
-                                        document.getElementById("PURCHASE_VALUE").innerHTML = $scope.PURCHASE_VALUE;
-                                    }
-                                })
-                            </script> -->
-
-                            <!-- <div class="col-md">
-                                <p>PURCHASE_VALUE : {{purchaserate * purchasequality}}</p>
-                            </div>  -->
-
-
-
-
-                        </div>
-
-
-                    <!-- </div> -->
-
-                    <div class="row">
-
-                        <div class="col-md">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="Birth_Date" class="form-control" placeholder=" "
-                                        id="LAST_DEPR_DATE" value="" max="9999-12-31" onfocus="(this.type='date')"
-                                        formControlName="LAST_DEPR_DATE">
-                                    <label for="LAST_DEPR_DATE">Last Depreciation Date</label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['LAST_DEPR_DATE'].invalid && (angForm.controls['LAST_DEPR_DATE'].dirty || angForm.controls['LAST_DEPR_DATE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['LAST_DEPR_DATE'].errors?.required">
-                                    This is required field
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="GLACNooption" [multiple]="false"
-                                    placeholder="GL A/C No" formControlName="GL_ACNO">
-                                </ng-select>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['GL_ACNO'].invalid && (angForm.controls['GL_ACNO'].dirty || angForm.controls['GL_ACNO'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['GL_ACNO'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- <div class="col-md">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="Scheme" class="form-control" placeholder=" "
-                                        id="TotalRecords" value=""
-                                        formControlName="TotalRecords">
-                                    <label for="TotalRecords">Total Records</label>
-                                </span>
-                            </div>
-                        </div> -->
-                        <div class="col-md">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row"  >
-    <div class="col-12">
-        <div class="card">
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-                                class="table table-striped table-bordered table-hover">
-                                <tbody *ngIf="deadstock?.length != 0">
-                                    <tr *ngFor="let data of deadstock">
-                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
-                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp;
-                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
-                                        </td>
-
-                                        <td>{{ data.ITEM_TYPE }}</td>
-                                        <td>{{ data.ITEM_CODE }}</td>
-                                        <td>{{ data.ITEM_NAME }}</td>
-                                        <td>{{ data.PURCHASE_DATE }}</td>
-                                        <td>{{ data.DEPR_CATEGORY }}</td>
-                                        <td>{{ data.OP_BAL_DATE }}</td>
-                                        <td>{{ data.SUPPLIER_NAME }}</td>
-                                        <td>{{ data.PURCHASE_RATE }}</td>
-                                        <td>{{ data.PURCHASE_QUANTITY }}</td>
-                                        <td>{{ data.PURCHASE_VALUE }}</td>
-                                        <td>{{ data.OP_BALANCE }}</td>
-                                        <td>{{ data.OP_QUANTITY }}</td>
-                                        <td>{{ data.LAST_DEPR_DATE }}</td>
-                                        <td>{{ data.GL_ACNO }}</td>
-                                    </tr>
-                                </tbody>
-                                <tbody *ngIf="deadstock?.length == 0">
-                                    <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <th><input type="text" placeholder="Search Item Type" name="ITEM_TYPE"></th>
-                                        <th><input type="text" placeholder="Search Item Code" name="ITEM_CODE"></th>
-                                        <th><input type="text" placeholder="Search Item Name" name="ITEM_NAME"></th>
-                                        <th><input type="text" placeholder="Search Purchase Date" name="PURCHASE_DATE">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Depr Category" name="DEPR_CATEGORY">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Op.Balance Date" name="OP_BAL_DATE">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Supplier Name" name="SUPPLIER_NAME">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Purchase Rate" name="PURCHASE_RATE">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Purchase Qty"
-                                                name="PURCHASE_QUANTITY"></th>
-                                        <th><input type="text" placeholder="Search Purchase Value"
-                                                name="PURCHASE_VALUE"></th>
-                                        <th><input type="text" placeholder="Search Opening Amount" name="OP_BALANCE">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Quantity" name="OP_QUANTITY"></th>
-                                        <th><input type="text" placeholder="Search Last Depreciation Date"
-                                                name="LAST_DEPR_DATE"></th>
-                                        <th><input type="text" placeholder="Search GL A/C No" name="GL_ACNO"></th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5>Dead Stock Master</h5>
+        <h6 style="float: right">
+          <sub class="required">* </sub>: Required Fields
+        </h6>
+      </div>
+      <div class="card-block">
+        <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+          <div class="row">
+            <div class="col-md">
+              <div class="form-group form-primary form-static-label">
+                <ng-select [ngClass]="'ng-select'" [options]="itemtypeoption" [multiple]="false" placeholder="Item Type"
+                  formControlName="ITEM_TYPE">
+                </ng-select>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['ITEM_TYPE'].invalid &&
+                  (angForm.controls['ITEM_TYPE'].dirty ||
+                    angForm.controls['ITEM_TYPE'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['ITEM_TYPE'].errors?.required">
+                  This field is required
                 </div>
+              </div>
             </div>
 
-        </div>
+            <div class="col-md">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="ITEM_CODE" class="form-control" placeholder=" " id="ITEM_CODE" value=""
+                    pattern="^[0-9]+$" formControlName="ITEM_CODE" disabled />
+                  <label for="ITEM_CODE">Item Code</label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['ITEM_CODE'].invalid &&
+                  (angForm.controls['ITEM_CODE'].dirty ||
+                    angForm.controls['ITEM_CODE'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['ITEM_CODE'].errors?.pattern">
+                  This field is required and Input allowed only 0-9 - / .
+                  (Space)
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="Name" class="form-control" placeholder=" " required="" value=""
+                    pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
+                    formControlName="ITEM_NAME" />
+                  <label for="ITEM_NAME">Item Name<sub class="required">* </sub></label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['ITEM_NAME'].invalid &&
+                  (angForm.controls['ITEM_NAME'].dirty ||
+                    angForm.controls['ITEM_NAME'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="
+                    angForm.controls['ITEM_NAME'].errors?.pattern ||
+                    angForm.controls['ITEM_NAME'].errors?.required
+                  ">
+                  This field is required and Input allowed only A-Z a-z - / .
+                  (Space)
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="PURCHASE_DATE" class="form-control" placeholder=" " id="PURCHASE_DATE"
+                    required="" value="" max="9999-12-31" onfocus="(this.type='date')"
+                    formControlName="PURCHASE_DATE" />
+                  <label for="PURCHASE_DATE">Purchase Date<sub class="required">* </sub></label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['PURCHASE_DATE'].invalid &&
+                  (angForm.controls['PURCHASE_DATE'].dirty ||
+                    angForm.controls['PURCHASE_DATE'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['PURCHASE_DATE'].errors?.required">
+                  This field is required
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group form-primary form-static-label">
+                <ng-select [ngClass]="'ng-select'" [options]="DeprCategoryoption" [multiple]="false"
+                  placeholder="Depr. Category" formControlName="DEPR_CATEGORY">
+                </ng-select>
+              </div>
+
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="OP_BAL_DATE" class="form-control" placeholder=" " id="OP_BAL_DATE" value=""
+                    max="9999-12-31" onfocus="(this.type='date')" formControlName="OP_BAL_DATE" />
+                  <label for="OP_BAL_DATE">Op. Balance Date</label>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm">
+              <h6 style="text-align: center; font-size: 16px">
+                --------- Opening Status ---------
+              </h6>
+            </div>
+          </div>
+
+          <div class="row">
+            <label> </label>
+          </div>
+
+          <div class="row">
+            <div class="col-md">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="Name" class="form-control" placeholder=" " id="SUPPLIER_NAME" value=""
+                    pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
+                    formControlName="SUPPLIER_NAME" />
+                  <label for="SUPPLIER_NAME">Supplier Name</label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['SUPPLIER_NAME'].invalid &&
+                  (angForm.controls['SUPPLIER_NAME'].dirty ||
+                    angForm.controls['SUPPLIER_NAME'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['SUPPLIER_NAME'].errors?.pattern">
+                  Input allowed only A-Z a-z - / . (Space)
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="Account" class="form-control" placeholder=" " id="OP_BALANCE" value=""
+                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="OP_BALANCE" />
+                  <label for="OP_BALANCE">Opening Amount</label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['OP_BALANCE'].invalid &&
+                  (angForm.controls['OP_BALANCE'].dirty ||
+                    angForm.controls['OP_BALANCE'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['OP_BALANCE'].errors?.pattern">
+                  Input allowed only 0-9
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="OP_QUANTITY" class="form-control" placeholder=" " id="OP_QUANTITY" value=""
+                    pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="OP_QUANTITY" />
+                  <label for="OP_QUANTITY">OP_QUANTITY</label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['OP_QUANTITY'].invalid &&
+                  (angForm.controls['OP_QUANTITY'].dirty ||
+                    angForm.controls['OP_QUANTITY'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['OP_QUANTITY'].errors?.pattern">
+                  Input allowed only 0-9
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="Account" class="form-control" placeholder=" " id="PURCHASE_RATE" value=""
+                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="PURCHASE_RATE"
+                    ng-init="firstnumber=0" [(ngModel)]="firstnumber" />
+                  <label for="PURCHASE_RATE">Purchase Rate</label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['PURCHASE_RATE'].invalid &&
+                  (angForm.controls['PURCHASE_RATE'].dirty ||
+                    angForm.controls['PURCHASE_RATE'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['PURCHASE_RATE'].errors?.pattern">
+                  Input allowed only 0-9
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="Account" class="form-control" placeholder=" " id="PURCHASE_OP_QUANTITY"
+                    value="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="PURCHASE_OP_QUANTITY"
+                    ng-init="secondnumber=0" [(ngModel)]="secondnumber" />
+                  <label for="PURCHASE_OP_QUANTITY">Purchase Qty</label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['PURCHASE_OP_QUANTITY'].invalid &&
+                  (angForm.controls['PURCHASE_OP_QUANTITY'].dirty ||
+                    angForm.controls['PURCHASE_OP_QUANTITY'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="
+                    angForm.controls['PURCHASE_OP_QUANTITY'].errors?.pattern
+                  ">
+                  Input allowed only 0-9
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="Account" class="form-control" placeholder=" " id="PURCHASE_VALUE"
+                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="PURCHASE_VALUE"
+                    value="{{ firstnumber * secondnumber }}" disabled />
+
+                  <label for="PURCHASE_VALUE"> Purchase Value</label>
+                </span>
+              </div>
+
+
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="lastdep_Date" class="form-control" placeholder=" " id="LAST_DEPR_DATE"
+                    value="" max="9999-12-31" onfocus="(this.type='date')" formControlName="LAST_DEPR_DATE" />
+                  <label for="LAST_DEPR_DATE">Last Depreciation Date</label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['LAST_DEPR_DATE'].invalid &&
+                  (angForm.controls['LAST_DEPR_DATE'].dirty ||
+                    angForm.controls['LAST_DEPR_DATE'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['LAST_DEPR_DATE'].errors?.required">
+                  This is required field
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md">
+              <div class="form-group form-primary form-static-label">
+                <ng-select [ngClass]="'ng-select'" [options]="GLACNooption" [multiple]="false" placeholder="GL A/C No"
+                  formControlName="GL_ACNO">
+                </ng-select>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['GL_ACNO'].invalid &&
+                  (angForm.controls['GL_ACNO'].dirty ||
+                    angForm.controls['GL_ACNO'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['GL_ACNO'].errors?.required">
+                  This field is required
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-primary ripple light" *ngIf="showButton">
+                Add
+              </button>
+              <!-- [disabled]="angForm.invalid" -->
+              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                Update
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+      <div class="card">
+          <div class="card-block">
+              <div class="row">
+                  <div class="col-sm">
+                      <div class="table-responsive">
+                          <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover">
+                              <tbody *ngIf="customerMaster?.length != 0">
+                                  <tr *ngFor="let data of customerMaster">
+                                      <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button>
+                                      </td>
+                                      <td>{{ data.ITEM_TYPE }}</td>
+                                      <td>{{ data.ITEM_CODE }}</td>
+                                      <td>{{ data.ITEM_NAME }}</td>
+                                      <td>{{ data.PURCHASE_DATE }}</td>
+                                      <td>{{ data.DEPR_CATEGORY }}</td>
+                                      <td>{{ data.OP_BAL_DATE }}</td>
+                                      <td>{{ data.SUPPLIER_NAME }}</td>
+                                      <td>{{ data.PURCHASE_RATE }}</td>
+                                      <td>{{ data.PURCHASE_QUANTITY }}</td>
+                                      <td>{{ data.PURCHASE_VALUE }}</td>
+                                      <td>{{ data.OP_BALANCE }}</td>
+                                      <td>{{ data.OP_QUANTITY }}</td>
+                                      <td>{{ data.LAST_DEPR_DATE }}</td>
+                                      <td>{{ data.GL_ACNO }}</td>>
+
+                                  </tr>
+                              </tbody>
+                              <tbody *ngIf="customerMaster?.length == 0">
+                                  <tr>
+                                      <td colspan="6" class="no-data-available">No data!</td>
+                                  </tr>
+                              </tbody>
+                              <tfoot>
+                                <tr>
+                                  <th></th>
+                                  <th>
+                                    <input type="text" placeholder="Search Item Type" name="ITEM_TYPE" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search Item Code" name="ITEM_CODE" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search Item Name" name="ITEM_NAME" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search Purchase Date" name="PURCHASE_DATE" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search Depr Category" name="DEPR_CATEGORY" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search Op.Balance Date" name="OP_BAL_DATE" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search Supplier Name" name="SUPPLIER_NAME" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search Purchase Rate" name="PURCHASE_RATE" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search Purchase Qty" name="PURCHASE_QUANTITY" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search Purchase Value" name="PURCHASE_VALUE" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search Opening Amount" name="OP_BALANCE" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search Quantity" name="OP_QUANTITY" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search Last Depreciation Date" name="LAST_DEPR_DATE" />
+                                  </th>
+                                  <th>
+                                    <input type="text" placeholder="Search GL A/C No" name="GL_ACNO" />
+                                  </th>
+                                </tr>
+                              </tfoot>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>

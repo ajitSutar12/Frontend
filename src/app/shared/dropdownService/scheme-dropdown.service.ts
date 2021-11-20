@@ -8,22 +8,24 @@ import { environment } from '../../../environments/environment';
 
 
 @Injectable()
-export class cityMasterService {
-    cityMasterObject = new Array();
+export class schemedropdownService {
+    OwnbranchMasterObject = new Array();
     // API 
-    //url = "http://localhost:4000/city-master"; 
+    //url = "http://localhost:4000/own-branch-master"; 
     url = environment.base_url;
+
     constructor(private http: HttpClient) { }
 
-    public getcityList() {
-        this.cityMasterObject = [];
-        return this.http.get<any>(this.url + '/city-master')
+    public getschemelsit(data:any) {
+        this.OwnbranchMasterObject = []
+        return this.http.get<any>(this.url + '/own-branch-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.CITY_NAME, value: element.CITY_NAME };
-                    this.cityMasterObject.push(obj)
+                    let obj = { label: element.NAME, value: element.id };
+                    this.OwnbranchMasterObject.push(obj)
                 });
-                return this.cityMasterObject;
+                return this.OwnbranchMasterObject;
             }));
     }
+
 }

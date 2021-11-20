@@ -5,6 +5,9 @@ import { IOption } from 'ng-select';
 
 @Injectable()
 export class CustomeridService {
+    getFormData(id: any) {
+      throw new Error('Method not implemented.');
+    }
     public static readonly PLAYER_ONE: Array<IOption> = [
         { value: '0', label: '10100' },
         { value: '1', label: '20100' },

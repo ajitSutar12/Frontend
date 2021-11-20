@@ -609,6 +609,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
+          debugger
           if (this['value'] != '') {
             that
               .search(this['value'])
