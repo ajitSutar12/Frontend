@@ -78,8 +78,8 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
 
 
   //scheme dropdown variables
-  interestcategory;
-  simpleOption: Array<IOption> = this.schemeTypeDropdownService.getCharacters();
+  interestcategory: any[];
+    simpleOption: Array<IOption> = this.schemeTypeDropdownService.getCharacters();
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;

@@ -14,7 +14,7 @@ export class AlternetCodeDropdownService {
         return this.http.get<any>(this.url + '/gl-statement-code')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.A_BALCODE + '(' + element.A_ACHEAD + ',' + element.A_ACTYPE + ')', value: element.id };
+                    let obj = { label: element.A_BALCODE + ' ' + element.A_ACHEAD + ' , ' + element.A_ACTYPE , value: `${element.id }`};
                     this.alternetCodeObject.push(obj)
                 });
                 return this.alternetCodeObject;

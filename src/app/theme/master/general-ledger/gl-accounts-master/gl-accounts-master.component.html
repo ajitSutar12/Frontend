@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="border-checkbox-section">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="IS_TAXABLEFOR_GST" value="checkbox" formControlNAme="IS_TAXABLEFOR_GST">
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="border-checkbox-section">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="IS_ACTIVE" value="checkbox" formControlName="IS_ACTIVE" checked>
@@ -92,9 +92,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm">
                             <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>&nbsp;
+                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
                         </div>
                     </div>
                 </div>

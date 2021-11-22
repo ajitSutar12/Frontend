@@ -690,6 +690,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit() {
+    console.log('in submit')
     const formVal = this.angForm.value;
     const dataToSend = {
       'AC_TYPE': formVal.AC_TYPE,
@@ -755,6 +756,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.getCustomer(id);
     this.ShareMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)

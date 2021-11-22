@@ -16,7 +16,7 @@ export class PrioritySectorMasterDropdownService {
         return this.http.get<any>(this.url + '/priority-sector-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: element.id };
+                    let obj = { label: element.NAME, value: `${element.id}`  };
                     this.prioritysectorMasterObject.push(obj)
                 });
                 return this.prioritysectorMasterObject;

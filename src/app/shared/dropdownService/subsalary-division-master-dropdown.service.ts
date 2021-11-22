@@ -13,7 +13,7 @@ export class SubSalaryDMasterdropdownService {
         return this.http.get<any>(this.url + '/salary-division-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: `${element.id}` };
+                    let obj = { label: element.NAME,value: `${element.id}`};
                     this.subSalaryObject.push(obj)
                 });
                 return this.subSalaryObject;

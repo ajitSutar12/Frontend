@@ -73,8 +73,6 @@ import { StatementCodeDropdownService } from '../../../../shared/dropdownService
 import { PercentageToWCapitalService } from '../../../../shared/dropdownService/percentage-to-W-Capital.service';
 import { DisplayToViewService } from '../../../../shared/dropdownService/display-to-view.service';
 
-
-
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };

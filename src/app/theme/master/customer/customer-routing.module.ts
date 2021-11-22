@@ -61,6 +61,14 @@ const routes: Routes = [
         path: 'deadStockMaster',
         loadChildren: () => import('./dead-stock-master/dead-stock-master.module').then(m => m.DeadStockMasterModule)
       },
+      {
+        path: 'deadStockMaster',
+        loadChildren: () => import('./dead-stock-master/dead-stock-master.module').then(m => m.DeadStockMasterModule)
+      },
+      {
+        path: 'accountOpening',
+        loadChildren: () => import('./account-opening/account-opening.module').then(m => m.AccountOpeningModule)
+      },
     ]
   }
 ];

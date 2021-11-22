@@ -63,6 +63,7 @@ interface CustomerMaster {
   AC_PHONE_RES: number
   AC_PHONE_OFFICE: number
   AC_EMAILID: string
+  TDSDOCUMNET: boolean
   AC_IS_RECOVERY: boolean
   TDS_REQUIRED: boolean
   SMS_REQUIRED: boolean
@@ -120,7 +121,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-
+  newbtnShow: boolean = false;
   //variable to get ID to update
   updateID: number = 0;
   // Filter Variable
@@ -133,6 +134,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   city: any[];
   risk: any[];
   documentMaster: DocumentMaster[];
+  isDocument: boolean = false;
+  isTdsForm: boolean = false
+  isTdsFormA: boolean = false
+  SUBMIT_DATE: boolean = false
 
   constructor(
     private http: HttpClient,
@@ -303,6 +308,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           data: 'AC_EMAILID'
         },
         {
+          title: 'Is Received TDS Document',
+          data: 'TDSDOCUMNET'
+        },
+        {
           title: 'Recovery',
           data: 'AC_IS_RECOVERY'
         },
@@ -364,10 +373,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
-              data: []
+              data: resp.data
             });
           });
       },
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action',
@@ -433,12 +446,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_PHONE_RES: ['', [Validators.pattern]],
       AC_PHONE_OFFICE: ['', [Validators.pattern]],
       AC_EMAILID: ['', [Validators.pattern]],
+      TDSDOCUMNET: [''],
       AC_IS_RECOVERY: [false],
       TDS_REQUIRED: [false],
       SMS_REQUIRED: [false],
       IS_KYC_RECEIVED: [false],
       FIN_YEAR: [''],
-      SUBMIT_DATE: ['', [Validators.required]],
+      SUBMIT_DATE: [''],
       FORM_TYPE: [''],
       TDS_RATE: ['', [Validators.pattern]],
       TDS_LIMIT: ['', [Validators.pattern]],
@@ -458,7 +472,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       'F_NAME': formVal.F_NAME,
       'M_NAME': formVal.M_NAME,
       'L_NAME': formVal.L_NAME,
-      'AC_NAME': formVal.F_NAME + ' ' + formVal.M_NAME + ' ' + formVal.L_NAME,
+      'AC_NAME': formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME,
       'AC_CAST': formVal.AC_CAST,
       'AC_OCODE': formVal.AC_OCODE,
       'AC_ADHARNO': formVal.AC_ADHARNO,
@@ -474,6 +488,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       'TDS_REQUIRED': formVal.TDS_REQUIRED,
       'SMS_REQUIRED': formVal.SMS_REQUIRED,
       'IS_KYC_RECEIVED': formVal.IS_KYC_RECEIVED,
+      'TDSDOCUMNET': formVal.TDSDOCUMNET,
       'AC_HONO': formVal.AC_HONO,
       'AC_WARD': formVal.AC_WARD,
       'AC_ADDR': formVal.AC_ADDR,
@@ -507,12 +522,23 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   // Reset Function
   resetForm() {
     this.createForm();
+    this.isDocument = false;
+    this.isTdsForm = false
+    this.isTdsFormA = false
+  }
+
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
   }
 
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.customerIdService.getFormData(id).subscribe(data => {
       console.log('edit', data)
       this.updateID = data.id;
@@ -530,13 +556,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_ADHARNO': data.AC_ADHARNO,
         'AC_RISKCATG': data.AC_RISKCATG,
         'AC_BIRTH_DT': data.AC_BIRTH_DT,
-        'AC_HONO': data.custAddress.AC_HONO,
-        'AC_WARD': data.custAddress.AC_WARD,
-        'AC_ADDR': data.custAddress.AC_ADDR,
-        'AC_GALLI': data.custAddress.AC_GALLI,
-        'AC_AREA': data.custAddress.AC_AREA,
-        'AC_CTCODE': data.custAddress.AC_CTCODE,
-        'AC_PIN': data.custAddress.AC_PIN,
+        'AC_HONO': data.custAddress[0].AC_HONO,
+        'AC_WARD': data.custAddress[0].AC_WARD,
+        'AC_ADDR': data.custAddress[0].AC_ADDR,
+        'AC_GALLI': data.custAddress[0].AC_GALLI,
+        'AC_AREA': data.custAddress[0].AC_AREA,
+        'AC_CTCODE': data.custAddress[0].AC_CTCODE,
+        'AC_PIN': data.custAddress[0].AC_PIN,
         'AC_SALARYDIVISION_CODE': data.AC_SALARYDIVISION_CODE,
         'AC_PANNO': data.AC_PANNO,
         'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
@@ -544,6 +570,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_PHONE_RES': data.AC_PHONE_RES,
         'AC_PHONE_OFFICE': data.AC_PHONE_OFFICE,
         'AC_EMAILID': data.AC_EMAILID,
+        'TDSDOCUMNET': data.AC_EMAILID,
         'TDS_REQUIRED': data.TDS_REQUIRED,
         'SMS_REQUIRED': data.SMS_REQUIRED,
         'IS_KYC_RECEIVED': data.IS_KYC_RECEIVED,
@@ -565,6 +592,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
+      this.newbtnShow = false;
       this.rerender();
       this.resetForm();
     })
@@ -638,7 +666,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dtTrigger.next();
     });
   }
-  isDocument: boolean = false;
+
   isKYC($event) {
     if ($event.target.checked) {
       this.isDocument = true;
@@ -647,17 +675,25 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  isChecked($event){
+    if ($event.target.checked) {
+      document.getElementById("{{data.value}}").removeAttribute("disabled");
+    }
+    else{
+      document.getElementById("{{data.value}}").setAttribute("disabled", "true");
+    }
+  }
 
-  isTdsForm: boolean = false
-  isTdsFormA: boolean = false
   isReceivedTds($event) {
     if ($event.target.checked) {
       this.isTdsForm = true;
       this.isTdsFormA = false;
+      this.SUBMIT_DATE = true
 
     } else {
       this.isTdsForm = false;
       this.isTdsFormA = false;
+      this.SUBMIT_DATE = false
     }
   }
   isForm15A(value) {

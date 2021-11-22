@@ -81,7 +81,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   filterData = {};
 
   //scheme dropdown variables
-  interestcategory;
+  interestcategory: any[];
   simpleOption: Array<IOption> = this.schemeTypeDropdownService.getCharacters();
   selectedOption = '3';
   isDisabled = true;

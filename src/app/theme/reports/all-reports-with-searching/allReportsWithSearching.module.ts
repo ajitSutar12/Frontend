@@ -5,6 +5,7 @@ import {allReportsWithSearchingRoutingModule} from './allReportsWithSearching-ro
 import {SharedModule} from '../../../shared/shared.module';
 // import {ChartModule} from 'angular2-chartjs';
 import {DataTablesModule} from 'angular-datatables';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import {DataTablesModule} from 'angular-datatables';
     allReportsWithSearchingRoutingModule,
     SharedModule,
     // ChartModule
-    DataTablesModule
+    DataTablesModule,
+    FileUploadModule
   ],
   declarations: [AllReportsWithSearchingComponent]
 })

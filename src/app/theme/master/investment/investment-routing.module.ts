@@ -10,10 +10,7 @@ const routes: Routes = [
       status: false
     },
     children: [
-      {
-        path: 'accountOpening',
-        loadChildren: () => import('./account-opening/account-opening.module').then(m => m.AccountOpeningModule)
-      },
+    
       {
         path: 'transactionEntry',
         loadChildren: () => import('./transaction-entry/transaction-entry.module').then(m => m.TransactionEntryModule)

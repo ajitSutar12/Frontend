@@ -17,9 +17,7 @@
                                     <label for="date">Effective Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)"
-                                class="alert alert-danger">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
                                     This field is required
                                 </div>
@@ -28,14 +26,10 @@
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
-                                    placeholder="scheme*" required title="Compulsory Selection"
-                                    formControlName="ACNOTYPE">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="scheme*" required title="Compulsory Selection" formControlName="ACNOTYPE">
                                 </ng-select>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)"
-                                class="alert alert-danger">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['ACNOTYPE'].errors?.required">
                                     This field is required
                                 </div>
@@ -43,14 +37,10 @@
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
-                                    placeholder="Int. category *" required title="Compulsory Selection"
-                                    formControlName="INT_CATEGORY">
+                                <ng-select [ngClass]="'ng-select'" [options]="interestcategory" [multiple]="false" placeholder="Int.Category *" required title="Compulsory Selection" formControlName="INT_CATEGORY">
                                 </ng-select>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['INT_CATEGORY'].invalid && (angForm.controls['INT_CATEGORY'].dirty || angForm.controls['INT_CATEGORY'].touched)"
-                                class="alert alert-danger">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['INT_CATEGORY'].invalid && (angForm.controls['INT_CATEGORY'].dirty || angForm.controls['INT_CATEGORY'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['INT_CATEGORY'].errors?.required">
                                     This field is required
                                 </div>
@@ -72,23 +62,15 @@
                                     <th>Penal Interest Rate</th>
                                 </tr>
                                 <tr>
-                                    <td> <input type="text" name="FROM_AMOUNT" class="form-control" placeholder=" "
-                                            id="FROM_AMOUNT" pattern="^[0-9]+$" title="Input allowed only 0-9"
-                                            formControlName="FROM_AMOUNT">
+                                    <td> <input type="text" name="FROM_AMOUNT" class="form-control" placeholder=" " id="FROM_AMOUNT" pattern="^[0-9]+$" title="Input allowed only 0-9" formControlName="FROM_AMOUNT">
                                     </td>
-                                    <td> <input type="text" name="TO_AMOUNT" class="form-control" placeholder=" "
-                                            id="TO_AMOUNT" pattern="^[0-9]+$" title="Input allowed only 0-9"
-                                            formControlName="TO_AMOUNT">
+                                    <td> <input type="text" name="TO_AMOUNT" class="form-control" placeholder=" " id="TO_AMOUNT" pattern="^[0-9]+$" title="Input allowed only 0-9" formControlName="TO_AMOUNT">
                                     </td>
                                     <td>
-                                        <input type="text" name="INT_RATE" class="form-control" placeholder=" "
-                                            pattern="\d{1,20}(\.\d{2})?" id="INT_RATE" maxlength="20"
-                                            title="Input allowed only  0-9" formControlName="INT_RATE">
+                                        <input type="text" name="INT_RATE" class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="INT_RATE" maxlength="20" title="Input allowed only  0-9" formControlName="INT_RATE">
                                     </td>
                                     <td>
-                                        <input type="text" name="PENAL_INT_RATE" class="form-control" placeholder=" "
-                                            pattern="\d{1,20}(\.\d{2})?" id="PENAL_INT_RATE" maxlength="20"
-                                            title="Input allowed only  0-9" formControlName="PENAL_INT_RATE">
+                                        <input type="text" name="PENAL_INT_RATE" class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="PENAL_INT_RATE" maxlength="20" title="Input allowed only  0-9" formControlName="PENAL_INT_RATE">
                                     </td>
                                 </tr>
 
@@ -96,14 +78,11 @@
                         </table>
                         <div class="row">
                             <div class="col-sm-2">
-                                <button class="btn btn-primary ripple light" *ngIf="showButton"
-                                    [disabled]="angForm.invalid">Add</button>
-                                <button class="btn btn-primary ripple light" (click)="updateData()"
-                                    *ngIf="updateShow">Update</button>
+                                <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
                             </div>
                             <div class="col-sm-4">
-                                <button class="btn btn-primary ripple light" (click)="addNewData()"
-                                    *ngIf="newbtnShow">New
+                                <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">New
                                     Interest Rate</button>
                             </div>
                         </div>
@@ -290,12 +269,10 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-                                class="table table-striped table-bordered table-hover">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover">
                                 <tbody *ngIf="interestRateForLoanandCC?.length != 0">
                                     <tr *ngFor="let data of interestRateForLoanandCC">
-                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
-                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" -->
                                             <!-- (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
@@ -326,8 +303,7 @@
                                         <th><input type="text" placeholder="Search Upto Amount" name="TO_AMOUNT">
                                         </th>
                                         <th><input type="text" placeholder="Search Interest Rate" name="INT_RATE"></th>
-                                        <th><input type="text" placeholder="Search Penal Interest Rate"
-                                                name="PENAL_INT_RATE">
+                                        <th><input type="text" placeholder="Search Penal Interest Rate" name="PENAL_INT_RATE">
                                         </th>
                                 </tfoot>
                             </table>

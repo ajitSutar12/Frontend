@@ -15,7 +15,7 @@
                                         formControlName="AC_NO" disabled>
                                     <label for="AC_NO">Customer Id</label>
                                 </span>
-                            </div> 
+                            </div>
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
@@ -45,15 +45,30 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
+                                    <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
+                                        required pattern="^[A-Z]+$" [(ngModel)]="lname" title="Input allowed only A-Z"
+                                        formControlName="L_NAME">
+                                    <label for="L_NAME">Last Name<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['L_NAME'].invalid && (angForm.controls['L_NAME'].dirty || angForm.controls['L_NAME'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['L_NAME'].errors?.pattern || angForm.controls['L_NAME'].errors?.required">
+                                    This field is required and Input allowed only A-Z - / . (Space)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
                                     <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
-                                        required pattern="^[A-Za-z\./ -]+$" [(ngModel)]="fname"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="F_NAME">
+                                        required pattern="^[A-Z]+$" [(ngModel)]="fname" title="Input allowed only A-Z"
+                                        formControlName="F_NAME">
                                     <label for="F_NAME">First Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['F_NAME'].invalid && (angForm.controls['F_NAME'].dirty || angForm.controls['F_NAME'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['F_NAME'].errors?.pattern || angForm.controls['F_NAME'].errors?.required">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    This field is required and Input allowed only A-Z
                                 </div>
                             </div>
                         </div>
@@ -61,32 +76,18 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="M_NAME" class="form-control" placeholder=" " id="M_NAME"
-                                        required pattern="^[A-Za-z\./ -]+$" [(ngModel)]="mname"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="M_NAME">
+                                        required pattern="^[A-Z]+$" [(ngModel)]="mname" title="Input allowed only A-Z"
+                                        formControlName="M_NAME">
                                     <label for="M_NAME">Middle Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['M_NAME'].invalid && (angForm.controls['M_NAME'].dirty || angForm.controls['M_NAME'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['M_NAME'].errors?.pattern || angForm.controls['M_NAME'].errors?.required">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    This field is required and Input allowed only A-Z
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
-                                        required pattern="^[A-Za-z\./ -]+$" [(ngModel)]="lname"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="L_NAME">
-                                    <label for="L_NAME">Last Name<sub class="required">* </sub></label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['L_NAME'].invalid && (angForm.controls['L_NAME'].dirty || angForm.controls['L_NAME'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['L_NAME'].errors?.pattern || angForm.controls['L_NAME'].errors?.required">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -94,7 +95,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
                                         pattern="^[A-Za-z\./ -]+$" disabled
-                                        value="{{fname + ' ' + mname + ' ' + lname}}"
+                                        value="{{lname + ' ' + fname + ' ' + mname}}"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NAME">
                                     <label for="AC_NAME">Full Name<sub class="required">* </sub></label>
                                 </span>
@@ -138,8 +139,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_ADHARNO" class="form-control" placeholder=" "
-                                        pattern="^[0-9]+$" title="Input allowed only 0-9" id="AC_ADHARNO" maxlength="12"
-                                        minlength="12" formControlName="AC_ADHARNO">
+                                        pattern="[2-9]{1}[0-9]{11}" title="Input allowed only 0-9" id="AC_ADHARNO"
+                                        maxlength="12" minlength="12" formControlName="AC_ADHARNO">
                                     <label for="AC_ADHARNO">Customer Aadhar No.</label>
                                 </span>
                             </div>
@@ -271,8 +272,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PIN" class="form-control" placeholder=" "
-                                        pattern="^[0-9]+$" title=" Input allowed only  0-9" maxlength="6" minlength="6"
-                                        id="AC_PIN" formControlName="AC_PIN">
+                                        pattern="^[1-9][0-9]{5}" title=" Input allowed only  0-9" maxlength="6"
+                                        minlength="6" id="AC_PIN" formControlName="AC_PIN">
                                     <label for="AC_PIN">Pin Code</label>
                                 </span>
                             </div>
@@ -297,14 +298,14 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_MOBILENO" class="form-control" placeholder=" "
-                                        pattern="^[0-9]+$" title="Input allowed only  0-9" id="AC_MOBILENO"
+                                        pattern="[7-9]{1}[0-9]{9}" title="Input allowed only  0-9" id="AC_MOBILENO"
                                         maxlength="10" minlength="10" formControlName="AC_MOBILENO">
                                     <label for="AC_MOBILENO">Mobile Number</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_MOBILENO'].invalid && (angForm.controls['AC_MOBILENO'].dirty || angForm.controls['AC_MOBILENO'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_MOBILENO'].errors?.pattern || angForm.controls['AC_MOBILENO'].errors?.maxlength || angForm.controls['AC_MOBILENO'].errors?.minlength">
-                                    Input allowed only 0-9
+                                    Input allowed only 0-9 and It starts by either for 7 or 8 or 9,
                                 </div>
                             </div>
                         </div>
@@ -312,7 +313,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PHONE_RES" class="form-control" placeholder=" "
-                                        pattern="^[0-9]+$" title="Input allowed only  0-9" id="AC_PHONE_RES"
+                                        pattern="[7-9]{1}[0-9]{9}" title="Input allowed only  0-9" id="AC_PHONE_RES"
                                         maxlength="10" minlength="10" formControlName="AC_PHONE_RES">
                                     <label for="AC_PHONE_RES">Residential(R)</label>
                                 </span>
@@ -380,7 +381,7 @@
                         <div class="col-sm-6">
                             <div class="border-checkbox-section">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox" id="IRTDSDFY" value="IRTDSDFY" (click)="isReceivedTds($event)">
+                                    <input class="border-checkbox" type="checkbox" id="IRTDSDFY" value="IRTDSDFY" (click)="isReceivedTds($event)" formControlName="TDSDOCUMNET">
                                     <label class="border-checkbox-label" for="IRTDSDFY">Is Received TDS Document for
                                         Year 2020-2021<span class="required"> *</span></label>
                                 </div>
@@ -423,7 +424,7 @@
                                 <span class="border-lable-flt">
                                     <input class="form-control" type="text" onfocus="(this.type='date')"
                                         id="SUBMIT_DATE" max="9999-12-31" formControlName="SUBMIT_DATE" placeholder=" "
-                                        required>
+                                        [required]="SUBMIT_DATE">
                                     <label for="SUBMIT_DATE">Submission Date<sub class="required">
                                             *</sub></label>
                                 </span>
@@ -497,11 +498,13 @@
                         </div>
                     </div>
                     <div class="row" *ngIf="isDocument">
+
                         <div class="col-sm">
                             <div class="card">
                                 <div class="card-block">
                                     <div class="row">
                                         <div class="col-sm">
+
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-hover" [dtOptions]="dtExportOptions" [dtTrigger]="dtTrigger">
                                                     <thead>
@@ -512,7 +515,8 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody *ngIf="documentMaster?.length != 0">
-                                                        <tr *ngFor="let data of documentMaster">
+
+                                                        <tr *ngFor="let item of documentMaster">
                                                             <td style="align-items: center;">
                                                                 <div class="border-checkbox-section">
                                                                     <div class="border-checkbox-group border-checkbox-group-primary">
@@ -525,12 +529,12 @@
                                                                 <div class="row">
                                                                     <div class="col-sm">
                                                                         <label class="custom-file">
-                                                                            <input type="file" ng2FileSelect
+                                                                            <input type="file"
                                                                                 [uploader]="uploader"
                                                                                 class="custom-file-input"
-                                                                                id="uploaderfield" formControlName="" />
+                                                                                id="uploaderfield" />
                                                                             <span class="custom-file-control">Upload
-                                                                                Photo</span>
+                                                                                {{data.label}}</span>
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-sm-2">
@@ -544,36 +548,6 @@
                                                                     <span style="font-size: 20px;color: #0f459b; cursor: pointer;" class="fa fa-fw fa-eye field-icon"></span>
                                                                 </div>
                                                             </td>
-                                                            <!-- <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
-                                                                <div class="app-modal-header">
-                                                                    <h4 class="modal-title">Display Document</h4>
-                                                                    <button type="button" class="close basic-close" (click)="modalLarge.hide()">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="app-modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col-12">
-                                                                            <div class="card">
-                                                                                <div class="card-header">
-                                                                                    <h5>Document
-                                                                                    </h5>
-                                                                                    <h6 style="float: right;"><sub class="required">* </sub>: Required Fields
-                                                                                    </h6>
-                                                                                </div>
-                                                                                <div class="card-block">
-                                                                                    <label>Document</label>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="app-modal-footer">
-                                                                    <button type="button" class="btn btn-default ripple" (click)="modalLarge.hide()">Close</button>
-                                                                    <button type="button" class="btn btn-primary ripple light">Save
-                                                                        changes</button>
-                                                                </div>
-                                                            </app-modal-basic> -->
                                                         </tr>
                                                     </tbody>
                                                     <tbody *ngIf="documentMaster?.length == 0">
@@ -593,7 +567,10 @@
                         <div class="col-sm-2">
                             <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
                             <!-- <button class="btn btn-primary ripple light" (click)="addNewCustomer(angForm.value)" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button> -->
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
                         </div>
                     </div>
                 </form>
@@ -628,18 +605,19 @@
                                             <td>{{data.AC_ADHARNO}}</td>
                                             <td>{{data.AC_PANNO}}</td>
                                             <td>{{data.AC_BIRTH_DT}}</td>
-                                            <td>{{data.custAddress.AC_HONO}}</td>
-                                            <td>{{data.custAddress.AC_WARD}}</td>
-                                            <td>{{data.custAddress.AC_ADDR}}</td>
-                                            <td>{{data.custAddress.AC_GALLI}}</td>
-                                            <td>{{data.custAddress.AC_AREA}}</td>
-                                            <td>{{data.custAddress.AC_CTCODE}}</td>
-                                            <td>{{data.custAddress.AC_PIN}}</td>
+                                            <td>{{data.custAddress[0].AC_HONO}}</td>
+                                            <td>{{data.custAddress[0].AC_WARD}}</td>
+                                            <td>{{data.custAddress[0].AC_ADDR}}</td>
+                                            <td>{{data.custAddress[0].AC_GALLI}}</td>
+                                            <td>{{data.custAddress[0].AC_AREA}}</td>
+                                            <td>{{data.custAddress[0].AC_CTCODE}}</td>
+                                            <td>{{data.custAddress[0].AC_PIN}}</td>
                                             <td>{{data.AC_SALARYDIVISION_CODE}}</td>
                                             <td>{{data.AC_MOBILENO}}</td>
                                             <td>{{data.AC_PHONE_RES}}</td>
                                             <td>{{data.AC_PHONE_OFFICE}}</td>
                                             <td>{{data.AC_EMAILID}}</td>
+                                            <td>{{data.TDSDOCUMNET}}</td>
                                             <td>{{data.AC_IS_RECOVERY}}</td>
                                             <td>{{data.TDS_REQUIRED}}</td>
                                             <td>{{data.SMS_REQUIRED}}</td>
@@ -695,6 +673,7 @@
                                             <th><input type="text" placeholder="Search Office(O)" name="AC_PHONE_OFFICE">
                                             </th>
                                             <th><input type="text" placeholder="Search Email ID" name="AC_EMAILID"></th>
+                                            <th><input type="text" placeholder="Search Is Received TDS Document" name="TDSDOCUMNET"></th>
                                             <th><input type="text" placeholder="Search Recovery" name="AC_IS_RECOVERY">
                                             </th>
                                             <th><input type="text" placeholder="Search TDS Calculation Required?" name="TDS_REQUIRED"></th>

@@ -23,7 +23,7 @@ interface GlStatementCodeMaster {
   A_ACHEAD: string;
   A_ACTYPE: string;
   ALTERNATE_CODE: string;
-  IS_PRINT_HEAD_IN_ONESIDE: string;
+  IS_PRINT_HEAD_IN_ONESIDE: boolean;
 }
 
 @Component({
@@ -58,7 +58,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   //variables for  add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-
+  newbtnShow: boolean = false;
   //variable for checkbox and radio button 
   isPrintHeadInOneSide: boolean = false;
 
@@ -79,6 +79,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   alternate: any;
   // Filter Variable
   filterData = {};
+
   //constructor
   constructor(
     public StatementTypeService: StatementTypeService,
@@ -97,7 +98,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
       paging: true,
       pageLength: 10,
       serverSide: true,
-      processing: true,
+      processing: true, 
       ajax: (dataTableParameters: any, callback) => {
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
@@ -137,6 +138,10 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
             });
           });
       },
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action'
@@ -211,17 +216,27 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
 
     this.glStatementCodeService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.rerender();
+
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
     })
     //To clear form
     this.resetForm();
 
   }
+  addNewData(){
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.glStatementCodeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -279,7 +294,11 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       //To clear form
       this.resetForm();
     })

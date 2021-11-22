@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment'
 
 
 @Injectable() 
-export class bankMasterService {
+export class BankMasterService {
     bankMasterObject = new Array();
     // API 
     //url = "http://localhost:4000/bank-master"; 
@@ -16,12 +16,12 @@ export class bankMasterService {
 
     constructor(private http: HttpClient) { }
 
-    public getbankList() {
+    public getBankList() {
         this.bankMasterObject = [];
         return this.http.get<any>(this.url + '/bank-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: element.id };
+                    let obj = { label: element.BANK_CODE +' '+ element.BANK_NAME, value: `${element.id}` };
                     this.bankMasterObject.push(obj)
                 });
                 return this.bankMasterObject;

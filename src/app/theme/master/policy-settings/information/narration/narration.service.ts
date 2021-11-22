@@ -11,7 +11,6 @@ export class NarrationService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  //url = "http://localhost:4000/narration";
   url = environment.base_url;
   constructor(private http: HttpClient) { }
 

@@ -13,7 +13,7 @@ export class HealthMasterDropdownService {
         return this.http.get<any>(this.url + '/health-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: element.id };
+                    let obj = { label: element.NAME, value: `${element.id}`};
                     this.healthMasterObject.push(obj)
                 });
                 return this.healthMasterObject;

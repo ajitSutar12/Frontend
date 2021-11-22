@@ -12,7 +12,6 @@ export class ClearingBranchService {
   // Variable for handleError
   [x: string]: any;
    // API 
-  //url = "http://localhost:4000/clearing-branch-master";
   url = environment.base_url;
 
   constructor(private http: HttpClient) { }

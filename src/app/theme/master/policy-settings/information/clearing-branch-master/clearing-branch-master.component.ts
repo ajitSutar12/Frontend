@@ -61,6 +61,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   //variable to get Id to update
   updateID: number = 0;
   filterData = {};
@@ -156,8 +157,9 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     }
     this.clearingBranchService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
@@ -165,10 +167,18 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     this.resetForm();
   }
 
+  addNewData(){
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.clearingBranchService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -186,7 +196,10 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     })
   }

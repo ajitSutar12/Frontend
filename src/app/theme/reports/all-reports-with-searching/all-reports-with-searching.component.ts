@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FileUploader, FileLikeObject } from 'ng2-file-upload';
+ 
 
-
+const URL = 'http://localhost:3000/fileupload/';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -159,5 +161,21 @@ export class AllReportsWithSearchingComponent implements OnInit {
  
   // }
   
+  public uploader: FileUploader = new FileUploader({
+    url: URL,
+    disableMultipart : false,
+    autoUpload: true,
+    method: 'post',
+    itemAlias: 'attachment',
+    allowedFileType: ['image', 'pdf']
 
+
+    });
+
+  public onFileSelected(event: EventEmitter<File[]>) {
+    const file: File = event[0];
+    console.log(file);
+
+  }
+  
 }

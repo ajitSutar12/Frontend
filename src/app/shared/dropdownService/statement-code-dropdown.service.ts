@@ -13,12 +13,10 @@ constructor(private http: HttpClient) { }
         return this.http.get<any>(this.url + '/gl-statement-code')
         .pipe(map(ele => {
             ele.forEach(element => {
-                let obj = {label:element.A_BALCODE + '(' + element.A_ACHEAD + ')', value:element.id};
+                let obj = {label:element.A_BALCODE + ' ' + element.A_ACHEAD, value:`${element.id}`};
                 this.statementObject.push(obj)
             });
         return this.statementObject;
         }));
     }
-
-
 }

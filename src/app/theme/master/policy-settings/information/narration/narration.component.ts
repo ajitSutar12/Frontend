@@ -10,7 +10,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { NarrationService } from './narration.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -19,20 +19,19 @@ class DataTableResponse {
   recordsTotal: number;
 }
 
-
-
 // For fetching values from backend
 interface Narration {
   ID: number,
   NARRATION: string
 }
-
 @Component({
   selector: 'app-narration',
   templateUrl: './narration.component.html',
   styleUrls: ['./narration.component.scss']
 })
 export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -60,11 +59,12 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   //variable to get Id to update
   updateID: number = 0;
 
   // column search variable
- filterData = {};
+  filterData = {};
 
   constructor(
     private http: HttpClient,
@@ -90,26 +90,26 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
         dataTableParameters.columns.forEach(element => {
-          if(element.search.value !=''){
-  
+          if (element.search.value != '') {
+
             let string = element.search.value;
             this.filterData[element.data] = string;
-          }else{
-  
+          } else {
+
             let getColumnName = element.data;
             let columnValue = element.value;
-            if(this.filterData.hasOwnProperty(element.data)){
-                let value = this.filterData[getColumnName];
-                if(columnValue != undefined || value != undefined){
-                  delete this.filterData[element.data];
-                } 
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
             }
           }
         });
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/narration',
+            this.url + '/narration',
             dataTableParameters
           ).subscribe(resp => {
             this.narrations = resp.data;
@@ -121,6 +121,10 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
             });
           });
       },
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action',
@@ -150,14 +154,14 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
     }
     this.narrationService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.ngOnInit();
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
     //To clear form
-     this.resetForm();
+    this.resetForm();
   }
 
   //Method for append data into fields
@@ -165,6 +169,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
     debugger
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.narrationService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -172,8 +177,12 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       })
     })
   }
-
-  
+  addNewData(){
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
@@ -182,8 +191,11 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
-       this.resetForm();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      this.resetForm();
     })
   }
 
@@ -229,7 +241,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          
+
           if (this['value'] != '') {
             debugger
             that
@@ -250,11 +262,11 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-   // Reset Function
-   resetForm() {
+  // Reset Function
+  resetForm() {
     this.createForm();
   }
-  
+
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first

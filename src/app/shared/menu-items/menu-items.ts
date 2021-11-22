@@ -193,6 +193,10 @@ const MENUITEMS = [
                 name: 'Dead Stock Master',
                 id:10212
               },
+              {
+                state: 'accountOpening',
+                name: 'Investment Module'
+              },
             ]
           },
           {
@@ -384,45 +388,35 @@ const MENUITEMS = [
             ]
 
           },
-          {
-            state: 'Investment',
-            short_label: 'D',
-            name: 'Investment',
-            type: 'sub',
-            id:107,
-            children: [
-              {
-                state: 'accountOpening',
-                name: 'Account Opening',
-                id:10701,
-              },
-              {
-                state: 'transactionEntry',
-                name: 'Transaction Entry',
-                id:10702,
-              },
-              {
-                state: 'accountClosing',
-                name: 'Account Closing',
-                id:10703,
-              },
-              {
-                state: 'accountOpenPassing',
-                name: 'Account Open Passing',
-                id:10704,
-              },
-              {
-                state: 'transactionPassing',
-                name: 'Transaction Passing',
-                id:10705,
-              },
-              {
-                state: 'accountClosePassing',
-                name: 'Account Close Passing',
-                id:10706,
-              },
-            ]
-          },
+          // {
+          //   state: 'Investment',
+          //   short_label: 'D',
+          //   name: 'Investment',
+          //   type: 'sub',
+          //   children: [
+            
+          //     {
+          //       state: 'transactionEntry',
+          //       name: 'Transaction Entry'
+          //     },
+          //     {
+          //       state: 'accountClosing',
+          //       name: 'Account Closing'
+          //     },
+          //     {
+          //       state: 'accountOpenPassing',
+          //       name: 'Account Open Passing'
+          //     },
+          //     {
+          //       state: 'transactionPassing',
+          //       name: 'Transaction Passing'
+          //     },
+          //     {
+          //       state: 'accountClosePassing',
+          //       name: 'Account Close Passing'
+          //     },
+          //   ]
+          // },
           {
             state: 'Shares',
             name: 'Shares/Dividend',
@@ -463,11 +457,10 @@ const MENUITEMS = [
             ]
 
           },
-          {
-            state: 'SignatureScanning',
-            name: 'SignatureScanning',
-            id:109
-          },
+          // {
+          //   state: 'SignatureScanning',
+          //   name: 'SignatureScanning'
+          // },
           {
             state: 'DDBankCityMaster',
             name: 'DDBankCityMaster',

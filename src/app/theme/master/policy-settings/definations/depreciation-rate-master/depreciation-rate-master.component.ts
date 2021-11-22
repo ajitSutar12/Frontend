@@ -67,11 +67,12 @@ export class DepreciationRateMasterComponent implements OnInit {
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   updateID: number = 0;
   schemeCode: any;
   //for search functionality
   filterData = {};
-  category: any;
+  category: any[];
 
   constructor(
     private http: HttpClient,
@@ -127,6 +128,10 @@ export class DepreciationRateMasterComponent implements OnInit {
             });
           });
       },
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action'
@@ -170,8 +175,9 @@ export class DepreciationRateMasterComponent implements OnInit {
     }
     this.dereciationService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
@@ -183,6 +189,7 @@ export class DepreciationRateMasterComponent implements OnInit {
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.dereciationService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -201,9 +208,19 @@ export class DepreciationRateMasterComponent implements OnInit {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     })
+  }
+
+  addNewData(){
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
   }
 
   // Method for delete data

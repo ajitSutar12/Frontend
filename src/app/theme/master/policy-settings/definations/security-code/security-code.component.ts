@@ -11,6 +11,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../../environments/environment'
 
 
 // Handling datatable data
@@ -22,9 +23,9 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface SecurityCode {
-  SECU_CODE: string;
+  SECU_CODE: number;
   SECU_NAME: string;
-  MARGIN: string;
+  MARGIN: number;
   FIRE_POLICY: boolean;
   MARKET_SHARE: boolean;
   BOOK_DEBTS: boolean;
@@ -47,6 +48,11 @@ interface SecurityCode {
   styleUrls: ['./security-code.component.scss'],
 })
 export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  
+  //api 
+  url = environment.base_url;
+
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -65,7 +71,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-
+  newbtnShow: boolean = false;
   //variable to get ID to update
   updateID: number = 0;
   page: number = 1;
@@ -113,7 +119,8 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/security-code',
+            this.url + '/security-code',
+            
             dataTableParameters
           ).subscribe(resp => {
             this.securityCode = resp.data;
@@ -124,6 +131,10 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
             });
           });
       },
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action',
@@ -194,8 +205,8 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
 
       SECU_NAME: ['', [Validators.pattern, Validators.required]],
-      SECU_CODE: ['', [Validators.pattern, Validators.required]],
-      MARGIN: ['', [Validators.pattern]],
+      SECU_CODE: [''],
+      MARGIN: ['', [Validators.pattern, Validators.max]],
       FIRE_POLICY: [''],
       MARKET_SHARE: [''],
       BOOK_DEBTS: [''],
@@ -210,9 +221,6 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
       GOLD_SILVER: [''],
       OTHER_SECURITY: [''],
       CUST_INSURANCE: [''],
-
-
-
     });
   }
   // Method to insert data into database through NestJS
@@ -239,14 +247,22 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.securityCodeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       //To clear form
       this.angForm.reset();
     }, (error) => {
       console.log(error)
     })
 
+  }
+
+  addNewData(){
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
   }
 
   // Reset Function
@@ -293,6 +309,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.securityCodeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -326,7 +343,10 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     })
   }
@@ -370,9 +390,5 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     })
   }
-
-
-
-
 
 }

@@ -14,7 +14,7 @@ export class WeakerMasterDropdownService {
         return this.http.get<any>(this.url + '/weaker-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: element.id };
+                    let obj = { label: element.NAME, value:`${element.id}` };
                     this.weakerMasterObject.push(obj)
                 });
                 return this.weakerMasterObject;

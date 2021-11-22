@@ -49,10 +49,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
-                            <!-- <input type="text" name="ID" class="form-control" placeholder=" " id="ID" pattern="^[0-9]+$" hidden formControlName="ID"> -->
-                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>&nbsp;
+                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
                         </div>
                     </div>
                 </div>
