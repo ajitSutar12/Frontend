@@ -5,131 +5,130 @@
                 <h5>Mark Freeze Account</h5>
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
+                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
                                     placeholder="Scheme*" required title="Compulsory Selection"
-                                    formControlName="Scheme">
+                                    formControlName="AC_TYPE">
                                 </ng-select>
-                                <label>{{ message.Scheme }}</label>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)"
+                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['Scheme'].errors?.required">
+                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
                                     This field is required
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="b" [multiple]="false"
+                                <ng-select [ngClass]="'ng-select'" [options]="acno" [multiple]="false"
                                     placeholder="Account No*" required title="Compulsory Selection"
-                                    formControlName="AccountNo">
+                                    formControlName="AC_NO">
                                 </ng-select>
-                                <label>{{ message.AccountNo }}</label>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AccountNo'].invalid && (angForm.controls['AccountNo'].dirty || angForm.controls['AccountNo'].touched)"
+                                *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                 class='alert alert-danger'>
-                                <div *ngIf="angForm.controls['AccountNo'].errors?.required">
+                                <div *ngIf="angForm.controls['AC_NO'].errors?.required">
                                     This field is required
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="c" [multiple]="false"
-                                    placeholder="Customer ID" formControlName="CustomerID">
+                                <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
+                                    placeholder="Customer ID" formControlName="AC_CUSTID">
                                 </ng-select>
-                                <label>{{ message.CustomerID }}</label>
                             </div>
                         </div>
                     </div>
-                   
-                        <div class="row">
-                            <h6>Freeze Details</h6>
-                            <div class="col-sm"> 
-                                <div class="form-group form-primary form-static-label">
-                                    <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
-                                        placeholder="Freeze Status *" required title="Compulsory Selection"
-                                        formControlName="FreezeStatus">
-                                    </ng-select>
-                                    <label>{{ message.FreezeStatus }}</label>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['FreezeStatus'].invalid && (angForm.controls['FreezeStatus'].dirty || angForm.controls['FreezeStatus'].touched)"
-                                    class='alert alert-danger'>
-                                    <div *ngIf="angForm.controls['FreezeStatus'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
+                    <div class="row">
+                        <h6>Freeze Details</h6>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="freezoption" [multiple]="false"
+                                    placeholder="Freeze Status *" required title="Compulsory Selection"
+                                    [(ngModel)]="freezStatus" (ngModelChange)="freezDeatils(freezStatus)"
+                                    formControlName="AC_FREEZE_STATUS">
+                                </ng-select>
                             </div>
-                            <div class="col-sm">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" name="To" class="form-control" placeholder=" "
-                                            id="FreezeAmount" value="{{ message.FreezeAmount }}" pattern="^[0-9]+$"
-                                            title="Input allowed only  0-9" formControlName="FreezeAmount">
-                                        <label for="FreezeAmount">Freeze Amount</label>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['FreezeAmount'].invalid && (angForm.controls['FreezeAmount'].dirty || angForm.controls['FreezeAmount'].touched)"
-                                    class="alert alert-danger">
-                                    <div
-                                        *ngIf="angForm.controls['FreezeAmount'].errors?.pattern">
-                                        Input allowed only 0-9
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" class="form-control" placeholder=" " id="FreezeDate"
-                                            required="" max="9999-12-31" formControlName="FreezeDate"
-                                            value="{{ message.FreezeDate}}" onfocus="(this.type='date')" />
-                                        <label for="FreezeDate">Freeze Date <sub class="required">*</sub></label>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['FreezeDate'].invalid && (angForm.controls['FreezeDate'].dirty || angForm.controls['FreezeDate'].touched)"
-                                    class="alert alert-danger">
-                                    <div
-                                        *ngIf="angForm.controls['FreezeDate'].errors?.pattern || angForm.controls['FreezeDate'].errors?.required">
-                                        This field is required and Input allowed only 0-9
-                                    </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_FREEZE_STATUS'].invalid && (angForm.controls['AC_FREEZE_STATUS'].dirty || angForm.controls['AC_FREEZE_STATUS'].touched)"
+                                class='alert alert-danger'>
+                                <div *ngIf="angForm.controls['AC_FREEZE_STATUS'].errors?.required">
+                                    This field is required
                                 </div>
                             </div>
                         </div>
-                   
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="AC_FREEZE_AMOUNT" class="form-control" placeholder=" "
+                                        id="AC_FREEZE_AMOUNT" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        formControlName="AC_FREEZE_AMOUNT">
+                                    <label for="AC_FREEZE_AMOUNT">Freeze Amount</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_FREEZE_AMOUNT'].invalid && (angForm.controls['AC_FREEZE_AMOUNT'].dirty || angForm.controls['AC_FREEZE_AMOUNT'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_FREEZE_AMOUNT'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" placeholder=" " id="AC_FREEZE_DATE"
+                                        max="9999-12-31" formControlName="AC_FREEZE_DATE"
+                                        onfocus="(this.type='date')" />
+                                    <label for="AC_FREEZE_DATE">Freeze Date <sub class="required">*</sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_FREEZE_DATE'].invalid && (angForm.controls['AC_FREEZE_DATE'].dirty || angForm.controls['AC_FREEZE_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['AC_FREEZE_DATE'].errors?.pattern || angForm.controls['AC_FREEZE_DATE'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="To" class="form-control" placeholder=" " id="Remark"
-                                        required="" value="{{ message.Remark }}" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="Remark">
-                                    <label for="Remark">Remark <sub class="required">*</sub></label>
+                                    <input type="text" name="To" class="form-control" placeholder=" "
+                                        id="AC_FREEZE_REASON" pattern="^[A-Za-z\./ -]+$"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                        formControlName="AC_FREEZE_REASON">
+                                    <label for="AC_FREEZE_REASON">Remark <sub class="required">*</sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['Remark'].invalid && (angForm.controls['Remark'].dirty || angForm.controls['Remark'].touched)"
+                                *ngIf="angForm.controls['AC_FREEZE_REASON'].invalid && (angForm.controls['AC_FREEZE_REASON'].dirty || angForm.controls['AC_FREEZE_REASON'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['Remark'].errors?.pattern || angForm.controls['Remark'].errors?.required">
+                                    *ngIf="angForm.controls['AC_FREEZE_REASON'].errors?.pattern || angForm.controls['AC_FREEZE_REASON'].errors?.required">
                                     This field is required and Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <button class="btn btn-primary ripple light" *ngIf="showButton"
                                 [disabled]="angForm.invalid">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" (click)="addNewData()"
+                                *ngIf="newbtnShow">New</button>
                         </div>
                     </div>
                 </div>
@@ -144,14 +143,49 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions"
-                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                                class="table table-striped table-bordered table-hover">
+                                <tbody *ngIf="freezAccount?.length != 0">
+                                    <tr *ngFor="let data of freezAccount">
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
+                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" -->
+                                            <!-- (click)="delClickHandler(data.id)">Delete</button> -->
+                                        </td>
+                                        <td>{{ data.AC_TYPE }}</td>
+                                        <td>{{ data.AC_NO }}</td>
+                                        <td>{{ data.AC_CUSTID }}</td>
+                                        <td>{{ data.AC_FREEZE_STATUS}}</td>
+                                        <td>{{ data.AC_FREEZE_AMOUNT}}</td>
+                                        <td>{{ data.AC_FREEZE_DATE }}</td>
+                                        <td>{{ data.AC_FREEZE_REASON}}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="freezAccount?.length == 0">
+                                    <tr>
+                                        <td colspan="3" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th><input type="text" placeholder="Search Scheme" name="AC_TYPE"></th>
+                                        <th><input type="text" placeholder="Search Account No" name="AC_NO"></th>
+                                        <th><input type="text" placeholder="Search Customer ID" name="AC_CUSTID"></th>
+                                        <th><input type="text" placeholder="Search Freeze Status"
+                                                name="AC_FREEZE_STATUS"></th>
+                                        <th><input type="text" placeholder="Search Freeze Amount"
+                                                name="AC_FREEZE_AMOUNT"></th>
+                                        <th><input type="text" placeholder="Search Freeze Date" name="AC_FREEZE_DATE">
+                                        </th>
+                                        <th><input type="text" placeholder="Search Remark" name="AC_FREEZE_REASON"></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

@@ -16,7 +16,7 @@ export class DirectorMasterDropdownService {
         return this.http.get<any>(this.url + '/director-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: element.NAME };
+                    let obj = { label: element.NAME, value: `${element.id}` };
                     this.directorMasterObject.push(obj)
                 });
                 return this.directorMasterObject;

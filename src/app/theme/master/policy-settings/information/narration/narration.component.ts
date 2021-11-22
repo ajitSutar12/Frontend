@@ -83,6 +83,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       processing: true,
 
       ajax: (dataTableParameters: any, callback) => {
+        debugger
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
           dataTableParameters.start + dataTableParameters.length;
@@ -150,6 +151,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
     this.narrationService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
+      this.ngOnInit();
       this.rerender();
     }, (error) => {
       console.log(error)
@@ -160,6 +162,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
 
   //Method for append data into fields
   editClickHandler(id) {
+    debugger
     this.showButton = false;
     this.updateShow = true;
     this.narrationService.getFormData(id).subscribe(data => {
@@ -169,6 +172,8 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       })
     })
   }
+
+  
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
@@ -226,6 +231,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
         $('input', this.footer()).on('keyup change', function () {
           
           if (this['value'] != '') {
+            debugger
             that
               .search(this['value'])
               .draw();

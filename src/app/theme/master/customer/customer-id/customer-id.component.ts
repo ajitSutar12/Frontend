@@ -52,8 +52,8 @@ interface CustomerMaster {
   AC_BIRTH_DT: string
   AC_HONO: string
   AC_WARD: string
-  AC_TADDR: string
-  AC_TGALLI: string
+  AC_ADDR: string
+  AC_GALLI: string
   AC_AREA: string
   AC_CTCODE: string
   AC_PIN: number
@@ -82,16 +82,16 @@ interface CustomerMaster {
 
 export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() newCustomerEvent = new EventEmitter<string>();
-
-  addNewCustomer(value: string) {
+  custData;
+  addNewCustomer(value) {
     this.newCustomerEvent.emit(value);
   }
   //api 
   url = environment.base_url;
 
-  fname = ' ';
-  mname = ' ';
-  lname = ' ';
+  fname = '';
+  mname = '';
+  lname = '';
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -123,7 +123,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //variable to get ID to update
   updateID: number = 0;
-   // Filter Variable
+  // Filter Variable
   filterData = {};
   prifix: any[];
   castMaster: any[];
@@ -264,11 +264,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         },
         {
           title: 'Detail',
-          data: 'AC_TADDR'
+          data: 'AC_ADDR'
         },
         {
           title: 'Galli',
-          data: 'AC_TGALLI'
+          data: 'AC_GALLI'
         },
         {
           title: 'Area',
@@ -422,8 +422,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_BIRTH_DT: ['',],
       AC_HONO: ['', [Validators.pattern]],
       AC_WARD: ['', [Validators.pattern]],
-      AC_TADDR: ['', [Validators.pattern]],
-      AC_TGALLI: ['', [Validators.pattern]],
+      AC_ADDR: ['', [Validators.pattern]],
+      AC_GALLI: ['', [Validators.pattern]],
       AC_AREA: ['', [Validators.pattern]],
       AC_CTCODE: [''],
       AC_PIN: ['', [Validators.pattern]],
@@ -476,8 +476,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       'IS_KYC_RECEIVED': formVal.IS_KYC_RECEIVED,
       'AC_HONO': formVal.AC_HONO,
       'AC_WARD': formVal.AC_WARD,
-      'AC_TADDR': formVal.AC_TADDR,
-      'AC_TGALLI': formVal.AC_TGALLI,
+      'AC_ADDR': formVal.AC_ADDR,
+      'AC_GALLI': formVal.AC_GALLI,
       'AC_AREA': formVal.AC_AREA,
       'AC_CTCODE': formVal.AC_CTCODE,
       'AC_PIN': formVal.AC_PIN,
@@ -489,8 +489,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
 
-    this.customerIdService.postData(dataToSend).subscribe(data1 => {
+    this.customerIdService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      console.log('submit', data)
+      // this.custData = data1.id;
+      this.addNewCustomer(data.id)
       // to reload after insertion of data
       this.rerender();
     }, (error) => {
@@ -529,8 +532,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_BIRTH_DT': data.AC_BIRTH_DT,
         'AC_HONO': data.custAddress.AC_HONO,
         'AC_WARD': data.custAddress.AC_WARD,
-        'AC_TADDR': data.custAddress.AC_TADDR,
-        'AC_TGALLI': data.custAddress.AC_TGALLI,
+        'AC_ADDR': data.custAddress.AC_ADDR,
+        'AC_GALLI': data.custAddress.AC_GALLI,
         'AC_AREA': data.custAddress.AC_AREA,
         'AC_CTCODE': data.custAddress.AC_CTCODE,
         'AC_PIN': data.custAddress.AC_PIN,
@@ -609,7 +612,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-          debugger
           if (this['value'] != '') {
             that
               .search(this['value'])

@@ -2,8 +2,11 @@ import { AfterViewInit, Component, Input, OnDestroy, OnInit, Output, ViewChild }
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { SizeSlabWiseService } from './size-slab-wise-ar.service';
-import { Scheme8Service } from '../../../../../shared/elements/scheme8.service';
+// for dropdown
+//import { StatementTypeService } from '../../../../shared/elements/statement-type.service';
+import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service';
 import { Int8Service } from '../../../../../shared/elements/int8.service';
+import { IntrestCategoryMasterDropdownService } from '../../../../../shared/dropdownService/interest-category-master-dropdown.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
@@ -11,6 +14,7 @@ import { Subject } from 'rxjs';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { first } from 'rxjs/operators';
 
 // Handling datatable data
 class DataTableResponse {
@@ -44,10 +48,13 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
   dtExportOptions: any = {}
+
+
   //title select variables
-  simpleOption: Array<IOption> = this.Scheme8Service.getCharacters();
-  int: Array<IOption> = this.Int8Service.getCharacters();
-  selectedOption = '3';
+  ///intrestCategoryMaster: Array<IOption> = this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList();
+
+  //title select variables
+  schemetype: Array<IOption> = this.SchemeTypes.getCharacters(); selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
   selectedCharacter = '3';
@@ -67,63 +74,23 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
   page: number = 1;
   //filter variable
   filterData = {};
-
+  counter = 1;
+  obj: any;
+  rowData = [];
   showDialog = false;
   @Input() visible: boolean;
   public config: any;
-  constructor(public Scheme8Service: Scheme8Service,
+  intrestCategoryMaster: any;
+  constructor(
+    // for dropdown
+    public SchemeTypes: SchemeTypeDropdownService,
     public Int8Service: Int8Service,
+    public intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private http: HttpClient,
     private fb: FormBuilder,
     public SizeSlabWiseService: SizeSlabWiseService) { this.createForm(); }
 
-  message = {
-    scheme_type: "",
-    int_category: "",
-    scheme: "",
-  };
-
   ngOnInit(): void {
-    // this.dtExportButtonOptions = {
-    //   ajax: 'fake-data/slab-wise.json',
-    //   columns: [
-    //     {
-    //       title: 'Action',
-    //       render: function (data: any, type: any, full: any) {
-    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-    //       }
-    //     }, {
-    //       title: 'Sr No.',
-    //       data: 'srno'
-    //     }, {
-    //       title: 'Effected Date',
-    //       data: 'Effected_Date'
-    //     }, {
-    //       title: 'Interest Rate',
-    //       data: 'Interest_Rate'
-    //     },
-    //   ],
-    //   // dom: 'Bfrtip',
-    //   // buttons: [
-    //   //   'copy',
-    //   //   'print',
-    //   //   'excel',
-    //   //   'csv'
-    //   // ],
-
-    //   //row click handler code
-    //   rowCallback: (row: Node, data: any[] | Object, index: number) => {
-    //     const self = this;
-    //     $('td', row).off('click');
-    //     $('td', row).on('click', '#editbtn', () => {
-    //       self.editClickHandler(data);
-    //     });
-    //     $('td', row).on('click', '#delbtn', () => {
-    //       self.delClickHandler(data);
-    //     });
-    //     return row;
-    //   }
-    // };
 
     // Fetching Server side data
     this.dtExportOptions = {
@@ -177,58 +144,8 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
         {
           title: 'Int.Category',
           data: 'INT_CATEGORY'
-        }
-
-      ],
-      dom: 'lrtip'
-
-    };
-    this.dtExportButtonOptions = {
-      pagingType: 'full_numbers',
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.columns.forEach(element => {
-          if (element.search.value != '') {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters['filterData'] = this.filterData;
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        this.page = dataTableParameters.start / dataTableParameters.length;
-        this.http
-          .post<DataTableResponse>(
-            this.url + '/deposit-intrest-rate',
-            dataTableParameters
-          ).subscribe(resp => {
-            this.sizeSlabWise = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: []
-            });
-          });
-      },
-      columns: [
-        {
-          title: 'Action'
-        },
-        {
-          title: 'Sr.No.',
+        }, {
+          title: 'Serial No',
           data: 'SERIAL_NO'
         },
         {
@@ -236,22 +153,27 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
           data: 'EFFECT_DATE'
         },
         {
-          title: 'Interest Rate',
+          title: 'Int.Rate',
           data: 'INT_RATE'
-        },
+        }
+
       ],
       dom: 'lrtip'
 
     };
 
 
+    this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
+      console.log(data);
+      this.intrestCategoryMaster = data;
 
+    })
 
   }
 
   createForm() {
     this.angForm = this.fb.group({
-      SERIAL_NO: ['', [Validators.pattern]],
+      SERIAL_NO: [''],
       EFFECT_DATE: ['', [Validators.required]],
       INT_RATE: ['', [Validators.required, Validators.pattern]],
       ACNOTYPE: ['', [Validators.required]],
@@ -265,10 +187,13 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
     const dataToSend = {
       'ACNOTYPE': formVal.ACNOTYPE,
       'INT_CATEGORY': formVal.INT_CATEGORY,
-      'SERIAL_NO': formVal.SERIAL_NO,
-      'EFFECT_DATE': formVal.EFFECT_DATE,
-      'INT_RATE': formVal.INT_RATE,
+      'Data': this.rowData,
+
+
+
+
     }
+    console.log(dataToSend);
     this.SizeSlabWiseService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
@@ -281,6 +206,17 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
 
   }
 
+
+  Add() {
+
+    const formVal = this.angForm.value;
+    var object = {
+
+      'EFFECT_DATE': formVal.EFFECT_DATE,
+      'INT_RATE': formVal.INT_RATE,
+    }
+    this.rowData.push(object);
+  }
   // Reset Function
   resetForm() {
     this.createForm();
@@ -319,7 +255,41 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
       this.dtTrigger.next();
     });
   }
-
+  //Method for delete data
+  delClickHandler(id: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you want to delete all rows data.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#229954',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.SizeSlabWiseService.deleteData(id).subscribe(data1 => {
+          this.rowData = data1;
+          Swal.fire(
+            'Deleted!',
+            'Your data has been deleted.',
+            'success'
+          )
+        }), (error) => {
+          console.log(error)
+        }
+        // to reload after delete of data
+        this.rerender();
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelled',
+          'Your data is safe.',
+          'error'
+        )
+      }
+    })
+  }
   //Method for append data into fields
   editClickHandler(id) {
 
@@ -332,19 +302,14 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
         'INT_CATEGORY': data.INT_CATEGORY,
         'SERIAL_NO': data.SERIAL_NO,
         'EFFECT_DATE': data.EFFECT_DATE,
-        'INT_RATE': data.INT_RATE
+        'INT_RATE': data.INT_RATE,
+
 
       })
     })
   }
 
-  // //function for edit button clicked
-  // editClickHandler(info: any): void {
-  //   this.message.scheme_type = info.scheme_type;
-  //   this.message.int_category = info.int_category;
-  //   this.showButton = false;
-  //   this.updateShow = true;
-  // }
+
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
@@ -358,35 +323,6 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
     })
   }
 
-  //function for delete button clicked
-  delClickHandler(info: any): void {
-    this.message.scheme_type = info.scheme_type;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete scheme type." + this.message.scheme_type + "  data",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
-      }
-    })
-  }
 
   runTimer() {
     const timer = setInterval(() => {

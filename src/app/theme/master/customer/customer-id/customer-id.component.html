@@ -210,15 +210,15 @@
                         <div class="col-sm-7">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_TADDR" class="form-control" placeholder=" "
+                                    <input type="text" name="AC_ADDR" class="form-control" placeholder=" "
                                         pattern="^[A-Za-z0-9\./ -]+$"
-                                        title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_TADDR"
-                                        formControlName="AC_TADDR">
-                                    <label for="AC_TADDR">Detail</label>
+                                        title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_ADDR"
+                                        formControlName="AC_ADDR">
+                                    <label for="AC_ADDR">Detail</label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_TADDR'].invalid && (angForm.controls['AC_TADDR'].dirty || angForm.controls['AC_TADDR'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_TADDR'].errors?.pattern">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_ADDR'].invalid && (angForm.controls['AC_ADDR'].dirty || angForm.controls['AC_ADDR'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_ADDR'].errors?.pattern">
                                     Input allowed only A-Z a-z 0-9 - / . (Space)
                                 </div>
                             </div>
@@ -229,15 +229,15 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_TGALLI" class="form-control" placeholder=" "
+                                    <input type="text" name="AC_GALLI" class="form-control" placeholder=" "
                                         pattern="^[A-Za-z0-9\./ -]+$"
-                                        title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_TGALLI"
-                                        formControlName="AC_TGALLI">
-                                    <label for="AC_TGALLI">Galli</label>
+                                        title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_GALLI"
+                                        formControlName="AC_GALLI">
+                                    <label for="AC_GALLI">Galli</label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_TGALLI'].invalid && (angForm.controls['AC_TGALLI'].dirty || angForm.controls['AC_TGALLI'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_TGALLI'].errors?.pattern">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_GALLI'].invalid && (angForm.controls['AC_GALLI'].dirty || angForm.controls['AC_GALLI'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_GALLI'].errors?.pattern">
                                     Input allowed only A-Z a-z 0-9 - / . (Space)
                                 </div>
                             </div>
@@ -591,7 +591,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" (click)="addNewCustomer(angForm.value)" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
+                            <!-- <button class="btn btn-primary ripple light" (click)="addNewCustomer(angForm.value)" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button> -->
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
                         </div>
                     </div>
@@ -629,8 +630,8 @@
                                             <td>{{data.AC_BIRTH_DT}}</td>
                                             <td>{{data.custAddress.AC_HONO}}</td>
                                             <td>{{data.custAddress.AC_WARD}}</td>
-                                            <td>{{data.custAddress.AC_TADDR}}</td>
-                                            <td>{{data.custAddress.AC_TGALLI}}</td>
+                                            <td>{{data.custAddress.AC_ADDR}}</td>
+                                            <td>{{data.custAddress.AC_GALLI}}</td>
                                             <td>{{data.custAddress.AC_AREA}}</td>
                                             <td>{{data.custAddress.AC_CTCODE}}</td>
                                             <td>{{data.custAddress.AC_PIN}}</td>
@@ -681,8 +682,8 @@
                                             </th>
                                             <th><input type="text" placeholder="Search House" name="AC_HONO"></th>
                                             <th><input type="text" placeholder="Search Ward" name="AC_WARD"></th>
-                                            <th><input type="text" placeholder="Search Detail" name="AC_TADDR"></th>
-                                            <th><input type="text" placeholder="Search Galli" name="AC_TGALLI"></th>
+                                            <th><input type="text" placeholder="Search Detail" name="AC_ADDR"></th>
+                                            <th><input type="text" placeholder="Search Galli" name="AC_GALLI"></th>
                                             <th><input type="text" placeholder="Search Area" name="AC_AREA"></th>
                                             <th><input type="text" placeholder="Search City" name="AC_CTCODE"></th>
                                             <th><input type="text" placeholder="Search Pin" name="AC_PIN"></th>
