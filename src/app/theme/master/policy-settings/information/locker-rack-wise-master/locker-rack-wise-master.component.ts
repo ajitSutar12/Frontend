@@ -65,7 +65,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-
+  newbtnShow: boolean = false;
   lockerMaster: any;
 
   //variable to get ID to update
@@ -126,6 +126,10 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
             });
           });
       },
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action'
@@ -175,7 +179,10 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
     this.lockerRackWiseMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
-      this.rerender();
+
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
@@ -187,6 +194,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.lockerRackWiseMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.patchValue({
@@ -206,11 +214,20 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     })
   }
 
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
