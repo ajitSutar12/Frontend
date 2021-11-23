@@ -7,9 +7,9 @@
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
+                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
-                        <div class="col-md">
+                        <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" placeholder="Scheme*" formControlName="Scheme">
                                 </ng-select>
@@ -20,13 +20,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="accountNo" [multiple]="false" placeholder="Account No." formControlName="Account">
                                 </ng-select>
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="cust_ID" [multiple]="false" placeholder="Customer ID*" formControlName="CustomerID">
                                 </ng-select>
@@ -69,26 +69,15 @@
                     </div>
                     <!-- Start of Tab forms -->
                     <div class="row">
-                        <div class="col-sm-10">
+                        <div class="col-sm">
                             <div class="card-block">
                                 <ngb-tabset>
                                     <!-- start of basic tab -->
                                     <ngb-tab title="1.Basic ">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
-                                                <div class="row">
-                                                    <div class="col-md">
-                                                        <div class="form-group input-group">
-                                                            <span class="border-lable-flt">
-                                                                <input type="text" name="PropriatorName"
-                                                                    class="form-control" placeholder=" "
-                                                                    id="PropriatorName" disabled
-                                                                    formControlName="PropriatorName">
-                                                                <label for="PropriatorName">Propriator Name</label>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md">
+                                                <div class="row">                                                  
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="Member_Scheme"
@@ -105,7 +94,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="Member_No" class="form-control"
@@ -124,7 +113,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="Opening_Date"
@@ -143,7 +132,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="Birth_Date"
@@ -155,7 +144,7 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="ManualRefMemberNo"
@@ -177,7 +166,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="cast" name="Cast" [multiple]="false" placeholder="Cast *" required title="Compulsory Selection" formControlName="Cast">
                                                             </ng-select>
@@ -188,7 +177,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="occupation" name="Occupation" [multiple]="false" placeholder="Occupation *" required title="Compulsory Selection" formControlName="Occupation">
                                                             </ng-select>
@@ -199,7 +188,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="category" name="Category" [multiple]="false" placeholder="Category *" required title="Compulsory Selection" formControlName="Category">
                                                             </ng-select>
@@ -212,7 +201,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="operation" name="Operation" [multiple]="false" placeholder="Operation *" required title="Compulsory Selection" formControlName="Operation">
                                                             </ng-select>
@@ -223,7 +212,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="balance_category" name="Balance_Category" [multiple]="false" placeholder="Balance Category *" required title="Compulsory Selection" formControlName="Balance_Category">
                                                             </ng-select>
@@ -234,7 +223,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="int_category" name="Interest_Category" [multiple]="false" placeholder="Interest Category *" required title="Compulsory Selection" formControlName="Interest_Category">
                                                             </ng-select>
@@ -247,7 +236,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="pan_no" class="form-control"
@@ -264,7 +253,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="InstallmentAmt"
@@ -314,7 +303,7 @@
                                                     <label> </label>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <textarea type="text" name="address"
@@ -332,7 +321,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <textarea type="text" name="address"
@@ -350,7 +339,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <textarea type="text" name="address"
@@ -370,7 +359,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="city" name="title" [multiple]="false" placeholder="City Code*" required title="Compulsory Selection" formControlName="City_Code">
                                                             </ng-select>
@@ -381,7 +370,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="Pin" class="form-control"
@@ -408,7 +397,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <!-- <h6><span style="font-weight: bold;">-----Temporory Address:-----</span></h6> -->
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <textarea type="text" name="address"
@@ -426,7 +415,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <textarea type="text" name="address"
@@ -444,7 +433,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <textarea type="text" name="address"
@@ -464,7 +453,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="city" name="tCity_Code" [multiple]="false" placeholder="City Code*" required title="Compulsory Selection" formControlName="tCity_Code">
                                                             </ng-select>
@@ -475,7 +464,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="Pin" class="form-control"
@@ -491,7 +480,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="R" class="form-control"
@@ -508,7 +497,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="O" class="form-control"
@@ -523,7 +512,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="Pin" class="form-control"
@@ -563,7 +552,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="birthDate" class="form-control"
@@ -575,7 +564,7 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="Guardian_Name"
@@ -594,7 +583,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="Relation" class="form-control"
@@ -652,7 +641,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="Signature_Authority"
@@ -728,7 +717,7 @@
                                                     <div class="col-sm">
                                                         <div *ngIf="NomineeTrue">
                                                             <div class="row">
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="NName"
@@ -747,7 +736,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="NRelation"
@@ -766,7 +755,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="Nomination_Date"
@@ -789,7 +778,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="Age"
@@ -807,7 +796,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <textarea type="text" name="address"
@@ -825,7 +814,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <textarea type="text" name="naddress2"
@@ -845,7 +834,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <textarea type="text" name="naddress3"
@@ -863,7 +852,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group form-primary form-static-label">
                                                                         <ng-select [ngClass]="'ng-select'" [options]="city" [multiple]="false" placeholder="City*" formControlName="ncity">
                                                                         </ng-select>
@@ -874,7 +863,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="nPin"
@@ -912,7 +901,7 @@
                                                     <div class="col-sm">
                                                         <div *ngIf="JointAccountsTrue">
                                                             <div class="row">
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="JName"
@@ -962,7 +951,7 @@
                                                     <div class="col-sm">
                                                         <div *ngIf="PowerofAttorneyTrue">
                                                             <div class="row">
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="PName"
@@ -981,7 +970,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="Appointed_on"
@@ -1000,7 +989,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md">
+                                                                <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="Expiry_Date"
@@ -1055,57 +1044,7 @@
                                     <!-- End of Documents tab  -->
                                 </ngb-tabset>
                             </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="form-group input-group">
-                                        <span class="border-lable-flt">
-                                            <input type="text" name="LastIntDate" class="form-control" placeholder=" "
-                                                id="LastIntDate" value="{{ message.LastIntDate }}" max="9999-12-31"
-                                                onfocus="(this.type='date')" formControlName="LastIntDate" disabled>
-                                            <label for="LastIntDate">Last Int Date</label>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="form-group input-group">
-                                        <span class="border-lable-flt">
-                                            <input type="text" name="UnclearBalance" class="form-control"
-                                                placeholder=" " id="UnclearBalance" disabled
-                                                value="{{ message.UnclearBalance }}" formControlName="UnclearBalance">
-                                            <label for="UnclearBalance">Unclear Balance</label>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="form-group input-group">
-                                        <span class="border-lable-flt">
-                                            <input type="text" name="FreezeStatus" class="form-control" placeholder=" "
-                                                id="FreezeStatus" disabled value="{{ message.FreezeStatus }}"
-                                                formControlName="FreezeStatus">
-                                            <label for="FreezeStatus">Freeze Status</label>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="form-group input-group">
-                                        <span class="border-lable-flt">
-                                            <input type="text" name="LedgerBalance" class="form-control" placeholder=" "
-                                                id="LedgerBalance" disabled value="{{ message.LedgerBalance }}"
-                                                formControlName="LedgerBalance">
-                                            <label for="LedgerBalance">Ledger Balance</label>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>                       
                     </div>
                     <!-- End of tab Forms -->
                 </form>

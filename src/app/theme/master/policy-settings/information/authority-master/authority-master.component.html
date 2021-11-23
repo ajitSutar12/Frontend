@@ -8,7 +8,7 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md">
+                        <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="CODE" class="form-control" placeholder=" "
@@ -18,7 +18,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="NAME" class="form-control" placeholder=" " id="Description"
@@ -36,11 +36,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
                                 [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+                                [disabled]="angForm.invalid">Update</button>&nbsp;
+                            <button class="btn btn-primary ripple light" (click)="addNewData()"
+                                *ngIf="newbtnShow">New</button>
                         </div>
                     </div>
                 </div>
@@ -79,7 +81,7 @@
                                         <th><input type="text" placeholder="Search Authority Code" name="CODE"></th>
                                         <th><input type="text" placeholder="Search Description" name="NAME"></th>
                                     </tr>
-                                </tfoot> 
+                                </tfoot>
                             </table>
                         </div>
                     </div>

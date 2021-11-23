@@ -31,8 +31,8 @@ interface InsuranceMaster {
   styleUrls: ['./insurance-master.component.scss']
 })
 export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestroy {
-    //api 
-    url = environment.base_url;
+  //api 
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -60,6 +60,7 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
 
   //variable to get ID to update
   updateID: number = 0;
@@ -106,7 +107,7 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url+'/insurance-master',
+            this.url + '/insurance-master',
             dataTableParameters
           ).subscribe(resp => {
             this.insuranceMaster = resp.data;
@@ -117,6 +118,10 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
             });
           });
       },
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action'
@@ -151,7 +156,9 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.insuranceMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
@@ -163,6 +170,7 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.insuranceMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -180,11 +188,20 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     })
   }
 
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
