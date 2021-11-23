@@ -6,7 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 export class LoanAndCCInterestRateChangesService {
     [x: string]: any;
     httpData: any;
-    url = "http://localhost:4000/loan-and-cc";
+    // loan-and-cc";
 
     constructor(private http: HttpClient) { }
 

@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class CompanyGLinkMasterDropdownService {
     companyGLinkObject = new Array();
-    // url = "http://localhost:4000/company-group-link-master";
+    // // company-group-link-master";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
     public getCompanyGLinkMasterList() {

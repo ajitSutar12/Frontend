@@ -261,7 +261,7 @@ export class DeadStockMasterComponent
       .subscribe((data) => {
         this.itemtypeoption = data;
       });
-      this.DepriciationCatDropdownMaster.getDepriciationCatasterList()
+      this.DepriciationCatDropdownMaster.getDepriciationMasterList()
       .pipe(first())
       .subscribe((data) => {
         this.DeprCategoryoption = data;

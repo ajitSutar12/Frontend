@@ -11,7 +11,7 @@ export class CourtMasterService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  // url = "http://localhost:4000/court-master";
+  // // court-master";
   url = environment.base_url;
 
   constructor(private http: HttpClient) { }

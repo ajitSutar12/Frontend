@@ -191,7 +191,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             dataTableParameters
           ).subscribe(resp => {
             this.customerMaster = resp.data;
-            console.log(this.customerMaster)
+            console.log(resp.data)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,

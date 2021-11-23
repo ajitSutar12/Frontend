@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class LockerSMasterDropDownService {
     lockerSObject = new Array();
-    // url = "http://localhost:4000/locker-size-master";
+    // // locker-size-master";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
     public getLockerSMasterList() {

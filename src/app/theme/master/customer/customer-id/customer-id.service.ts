@@ -10,7 +10,7 @@ export class CustomerIdService {
     // Variable for handleError
     [x: string]: any;
     // API 
-    // url = "http://localhost:4000/customer-id";
+    // // customer-id";
     url = environment.base_url;
 
     constructor(private http: HttpClient) { }

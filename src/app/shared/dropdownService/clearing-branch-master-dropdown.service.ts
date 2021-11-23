@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 export class ClearingbranchMasterService {
     ClearingbranchMasterObject = new Array();
     // API 
-    // url = "http://localhost:4000/clearing-branch-master"; 
+    // // clearing-branch-master"; 
     url = environment.base_url;
     constructor(private http: HttpClient) { }
 

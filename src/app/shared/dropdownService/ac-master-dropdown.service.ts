@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class ACMasterDropdownService {
 
-    // url = "http://localhost:4000/gl-account-master"; 
+    // // gl-account-master"; 
     url = environment.base_url;
     acMasterObject = new Array();
 

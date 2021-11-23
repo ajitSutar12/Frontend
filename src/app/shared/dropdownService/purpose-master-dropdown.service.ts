@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class PurposeMasterDropdownService {
 
-    // url = "http://localhost:4000/purpose-master";
+    // // purpose-master";
     url = environment.base_url;
     purposeMasterObject = new Array();
 

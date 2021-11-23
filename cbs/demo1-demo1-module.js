@@ -1943,10 +1943,10 @@ class Demo1Service {
                 },
                 {
                     text: 'Unapproval', value: 303, children: [
-                        { text: 'Unapproval Multivoucher', value: 3031 },
-                        { text: 'Unapproval Voucher', value: 3032 },
-                        { text: 'Unapproval Deposit Closing', value: 3033 },
-                        { text: 'Unapproval Deposit Posting', value: 3034 },
+                        { text: 'Unapproval Multivoucher', value: 30301 },
+                        { text: 'Unapproval Voucher', value: 30302 },
+                        { text: 'Unapproval Deposit Closing', value: 30303 },
+                        { text: 'Unapproval Deposit Posting', value: 30304 },
                     ]
                 },
                 {
@@ -1978,10 +1978,13 @@ class Demo1Service {
                     text: 'Member View', value: 407
                 },
                 {
-                    text: 'Member Liablity View', value: 408
+                    text: 'Master Card', value: 408
                 },
                 {
-                    text: 'Other View', value: 409
+                    text: 'Member Liablity View', value: 409
+                },
+                {
+                    text: 'Other View', value: 410
                 },
             ]
         });

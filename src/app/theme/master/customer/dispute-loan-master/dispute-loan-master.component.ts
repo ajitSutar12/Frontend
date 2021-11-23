@@ -1098,7 +1098,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   // }
 
   getDataText(id:any){
-      debugger
+     // debugger
       console.log("fetch recordss")
   this.CustomerIdService.getFormData(id).subscribe(data => {
     this.updateID = data.id;

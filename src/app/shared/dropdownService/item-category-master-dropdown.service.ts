@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class ItemCatMasterDropdownService {
     itemObject: any;
-    // url = "http://localhost:4000/item-category-master";
+    // // item-category-master";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
     public getItemMasterList() {

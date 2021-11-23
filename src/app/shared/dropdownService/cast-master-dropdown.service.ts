@@ -15,7 +15,7 @@ export class CastMasterService {
   }
   castMasterObject = new Array();
   // API 
-  //url = "http://localhost:4000/cast-master"; 
+  //// cast-master"; 
   url = environment.base_url;
   constructor(private http: HttpClient) { }
 

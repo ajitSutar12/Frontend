@@ -10,7 +10,7 @@ export class SchemeLinkingWithDService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  url = "http://localhost:4000/scheme-linking-with-d";
+  // scheme-linking-with-d";
 
   constructor(private http: HttpClient) { }
 

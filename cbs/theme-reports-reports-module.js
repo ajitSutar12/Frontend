@@ -26,7 +26,7 @@ const routes = [
         children: [
             {
                 path: 'allReportsWithSearching',
-                loadChildren: () => Promise.all(/*! import() | all-reports-with-searching-allReportsWithSearching-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~96429515"), __webpack_require__.e("all-reports-with-searching-allReportsWithSearching-module")]).then(__webpack_require__.bind(null, /*! ./all-reports-with-searching/allReportsWithSearching.module */ "./src/app/theme/reports/all-reports-with-searching/allReportsWithSearching.module.ts")).then(m => m.AllReportsWithSearchingModule)
+                loadChildren: () => Promise.all(/*! import() | all-reports-with-searching-allReportsWithSearching-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~96429515"), __webpack_require__.e("default~all-reports-with-searching-allReportsWithSearching-module~anamat-gsm-anamat-gsm-module~batch~e5775bba"), __webpack_require__.e("all-reports-with-searching-allReportsWithSearching-module")]).then(__webpack_require__.bind(null, /*! ./all-reports-with-searching/allReportsWithSearching.module */ "./src/app/theme/reports/all-reports-with-searching/allReportsWithSearching.module.ts")).then(m => m.AllReportsWithSearchingModule)
             },
             ///
             {

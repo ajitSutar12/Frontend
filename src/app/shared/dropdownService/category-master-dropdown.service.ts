@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 export class categoryMasterService {
     categoryMasterObject = new Array();
     // API 
-    // url = "http://localhost:4000/category-master"; 
+    // // category-master"; 
     url = environment.base_url;
     constructor(private http: HttpClient) { }
 

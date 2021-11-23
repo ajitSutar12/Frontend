@@ -34,61 +34,6 @@ __export(__webpack_require__(/*! rxjs-compat/Observable */ "./node_modules/rxjs-
 
 /***/ }),
 
-/***/ "./src/app/shared/elements/memberno.service.ts":
-/*!*****************************************************!*\
-  !*** ./src/app/shared/elements/memberno.service.ts ***!
-  \*****************************************************/
-/*! exports provided: MembernoService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MembernoService", function() { return MembernoService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-class MembernoService {
-    getCharacters() {
-        return this.cloneOptions(MembernoService.PLAYER_ONE);
-    }
-    loadCharacters() {
-        return this.loadOptions(MembernoService.PLAYER_ONE);
-    }
-    getCharactersWithDisabled() {
-        const characters = this.cloneOptions(MembernoService.PLAYER_ONE);
-        characters[1].disabled = true;
-        characters[4].disabled = true;
-        return characters;
-    }
-    loadOptions(options) {
-        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
-            setTimeout(() => {
-                obs.next(this.cloneOptions(options));
-                obs.complete();
-            }, 5000);
-        });
-    }
-    cloneOptions(options) {
-        return options.map(option => ({ value: option.value, label: option.label }));
-    }
-}
-MembernoService.PLAYER_ONE = [
-    { value: '0', label: '101' },
-    { value: '1', label: '101' },
-    { value: '2', label: '102' }
-];
-MembernoService.ɵfac = function MembernoService_Factory(t) { return new (t || MembernoService)(); };
-MembernoService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: MembernoService, factory: MembernoService.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MembernoService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], null, null); })();
-
-
-/***/ }),
-
 /***/ "./src/app/theme/master/shares/unpaid-dividend-entry/unpaid-dividend-entry-routing.module.ts":
 /*!***************************************************************************************************!*\
   !*** ./src/app/theme/master/shares/unpaid-dividend-entry/unpaid-dividend-entry-routing.module.ts ***!

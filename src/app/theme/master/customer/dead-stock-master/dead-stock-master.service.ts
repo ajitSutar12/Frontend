@@ -12,7 +12,7 @@ export class DeadstockmasterService {
     [x: string]: any;
   
 // API  
-  //url = "http://localhost:4000/dead-stock-master";
+  //// dead-stock-master";
   url = environment.base_url; 
   
     constructor(private http: HttpClient) { }

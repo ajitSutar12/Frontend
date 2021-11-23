@@ -10,7 +10,7 @@ export class SizeSlabWiseService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  url = "http://localhost:4000/deposit-intrest-rate";
+  // deposit-intrest-rate";
 
   constructor(private http: HttpClient) { }
 

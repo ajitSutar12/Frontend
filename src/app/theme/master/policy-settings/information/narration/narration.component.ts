@@ -83,7 +83,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       processing: true,
 
       ajax: (dataTableParameters: any, callback) => {
-        debugger
+      //  debugger
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
           dataTableParameters.start + dataTableParameters.length;
@@ -166,7 +166,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
 
   //Method for append data into fields
   editClickHandler(id) {
-    debugger
+   // debugger
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
@@ -243,7 +243,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
         $('input', this.footer()).on('keyup change', function () {
 
           if (this['value'] != '') {
-            debugger
+         //   debugger
             that
               .search(this['value'])
               .draw();

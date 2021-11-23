@@ -11,7 +11,7 @@ export class SharesSchemeService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  // url = "http://localhost:4000/shares-scheme";
+  // // shares-scheme";
   url = environment.base_url;
 
 

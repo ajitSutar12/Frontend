@@ -6,7 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 export class NpaOpeningDetailsEntryService {
     [x: string]: any;
     httpData: any;
-    url = "http://localhost:4000/npa-opening-details";
+    // npa-opening-details";
 
     constructor(private http: HttpClient) { }
 

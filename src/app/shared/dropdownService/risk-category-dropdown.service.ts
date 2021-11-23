@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class RiskCategoryDropdownService {
 
-    // url = "http://localhost:4000/risk-catagory";
+    // // risk-catagory";
     url = environment.base_url;
     riskCatObject = new Array();
 

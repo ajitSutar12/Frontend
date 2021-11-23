@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class PrioritySectorMasterDropdownService {
 
-    // url = "http://localhost:4000/priority-sector-master";
+    // // priority-sector-master";
     url = environment.base_url;
     prioritysectorMasterObject = new Array();
 

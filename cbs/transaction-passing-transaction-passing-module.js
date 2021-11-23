@@ -34,61 +34,6 @@ __export(__webpack_require__(/*! rxjs-compat/Observable */ "./node_modules/rxjs-
 
 /***/ }),
 
-/***/ "./src/app/shared/elements/a1.service.ts":
-/*!***********************************************!*\
-  !*** ./src/app/shared/elements/a1.service.ts ***!
-  \***********************************************/
-/*! exports provided: A1Service */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A1Service", function() { return A1Service; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-class A1Service {
-    getCharacters() {
-        return this.cloneOptions(A1Service.PLAYER_ONE);
-    }
-    loadCharacters() {
-        return this.loadOptions(A1Service.PLAYER_ONE);
-    }
-    getCharactersWithDisabled() {
-        const characters = this.cloneOptions(A1Service.PLAYER_ONE);
-        characters[1].disabled = true;
-        characters[4].disabled = true;
-        return characters;
-    }
-    loadOptions(options) {
-        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
-            setTimeout(() => {
-                obs.next(this.cloneOptions(options));
-                obs.complete();
-            }, 5000);
-        });
-    }
-    cloneOptions(options) {
-        return options.map(option => ({ value: option.value, label: option.label }));
-    }
-}
-A1Service.PLAYER_ONE = [
-    { value: '0', label: '1' },
-    { value: '1', label: '2' },
-    { value: '2', label: '3' }
-];
-A1Service.ɵfac = function A1Service_Factory(t) { return new (t || A1Service)(); };
-A1Service.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: A1Service, factory: A1Service.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](A1Service, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], null, null); })();
-
-
-/***/ }),
-
 /***/ "./src/app/shared/elements/acountno.service.ts":
 /*!*****************************************************!*\
   !*** ./src/app/shared/elements/acountno.service.ts ***!

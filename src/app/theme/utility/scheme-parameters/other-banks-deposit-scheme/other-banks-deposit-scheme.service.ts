@@ -11,7 +11,7 @@ export class OtherBanksDepositSchemeService {
     // Variable for handleError
     [x: string]: any;
     // API 
-    // url = "http://localhost:4000/other-banks-deposit-scheme";
+    // // other-banks-deposit-scheme";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
 

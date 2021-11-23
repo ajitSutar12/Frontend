@@ -11,7 +11,7 @@ export class DepriciationService {
   // Variable for handleError
   [x: string]: any;
   // API 
- // url = "http://localhost:4000/Depriciation-category-master";
+ // // Depriciation-category-master";
  url = environment.base_url;
   constructor(private http: HttpClient) { }
 

@@ -11,7 +11,7 @@ export class OccupationMasterService {
   // Variable for handleError
   [x: string]: any;
   // API 
- // url = "http://localhost:4000/occupation-master";
+ // // occupation-master";
  url = environment.base_url;
   constructor(private http: HttpClient) { }
 

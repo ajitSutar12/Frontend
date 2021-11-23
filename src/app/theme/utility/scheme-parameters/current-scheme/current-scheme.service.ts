@@ -11,7 +11,7 @@ export class CurrentSchemeService {
     // Variable for handleError
     [x: string]: any;
     // API 
-    // url = "http://localhost:4000/current-scheme";
+    // // current-scheme";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
 

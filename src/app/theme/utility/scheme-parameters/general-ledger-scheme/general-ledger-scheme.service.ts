@@ -12,7 +12,7 @@ export class GeneralLedgerSchemeService {
     // Variable for handleError
     [x: string]: any;
     // API 
-    // url = "http://localhost:4000/general-ledger-scheme";
+    // // general-ledger-scheme";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
 

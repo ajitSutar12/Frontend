@@ -11,7 +11,7 @@ export class PigmyAcSchemeService {
     // Variable for handleError
     [x: string]: any;
     // API 
-    // url = "http://localhost:4000/pigmy-ac-scheme";
+    // // pigmy-ac-scheme";
     url = environment.base_url;
 
     constructor(private http: HttpClient) { }

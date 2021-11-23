@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class CompanyGroupMasterDropdownService {
     companyGroupObject = new Array();
-    // url = "http://localhost:4000/company-group-master";
+    // // company-group-master";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
     public getCompanyGroupMasterList() {

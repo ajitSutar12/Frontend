@@ -30,7 +30,7 @@ const routes = [
             },
             {
                 path: 'unapprovalVoucher',
-                loadChildren: () => Promise.all(/*! import() | unapproval-voucher-unapproval-voucher-module */[__webpack_require__.e("default~anamat-gsm-anamat-gsm-module~batch-voucher-batch-voucher-module~cash-credit-ac-renewal-cash-~6f4a72fa"), __webpack_require__.e("common"), __webpack_require__.e("unapproval-voucher-unapproval-voucher-module")]).then(__webpack_require__.bind(null, /*! ./unapproval-voucher/unapproval-voucher.module */ "./src/app/theme/passing/unapproval/unapproval-voucher/unapproval-voucher.module.ts")).then(m => m.UnapprovalVoucheModule)
+                loadChildren: () => Promise.all(/*! import() | unapproval-voucher-unapproval-voucher-module */[__webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c7318be3"), __webpack_require__.e("common"), __webpack_require__.e("unapproval-voucher-unapproval-voucher-module")]).then(__webpack_require__.bind(null, /*! ./unapproval-voucher/unapproval-voucher.module */ "./src/app/theme/passing/unapproval/unapproval-voucher/unapproval-voucher.module.ts")).then(m => m.UnapprovalVoucheModule)
             },
             {
                 path: 'unapprovalDepositClosing',

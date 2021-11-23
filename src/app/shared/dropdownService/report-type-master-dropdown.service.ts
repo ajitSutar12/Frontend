@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class ReportTMasterDropdownService {
     reportObject = new Array();
-    // url = "http://localhost:4000/document-master";
+    // // document-master";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
     public getReportTMasterList() {

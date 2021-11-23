@@ -11,7 +11,7 @@ export class TermLoanSchemeService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  // url = "http://localhost:4000/term-loan-scheme";
+  // // term-loan-scheme";
   url = environment.base_url;
 
   constructor(private http: HttpClient) { }

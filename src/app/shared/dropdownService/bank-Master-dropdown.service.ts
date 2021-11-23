@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment'
 export class BankMasterService {
     bankMasterObject = new Array();
     // API 
-    //url = "http://localhost:4000/bank-master"; 
+    //// bank-master"; 
     url = environment.base_url;
 
     constructor(private http: HttpClient) { }

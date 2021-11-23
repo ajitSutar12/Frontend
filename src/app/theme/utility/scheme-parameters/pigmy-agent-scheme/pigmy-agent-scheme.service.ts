@@ -11,7 +11,7 @@ export class PigmyagentService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  // url = "http://localhost:4000/pigmy-agent-scheme";
+  // // pigmy-agent-scheme";
   url = environment.base_url;
 
 

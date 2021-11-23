@@ -13,7 +13,7 @@ export class LockersSchemeService {
   [x: string]: any;
   // API 
   url = environment.base_url;
-  // url = "http://localhost:4000/lockers-scheme";
+  // // lockers-scheme";
   constructor(private http: HttpClient) { }
 
   //Insertion Operation

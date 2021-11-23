@@ -11,7 +11,7 @@ export class DisputLoanSchemeService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  // url = "http://localhost:4000/disput-loan-scheme";
+  // // disput-loan-scheme";
   url = environment.base_url;
   constructor(private http: HttpClient) { }
 

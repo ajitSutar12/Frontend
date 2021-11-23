@@ -25,10 +25,6 @@ const routes = [
         },
         children: [
             {
-                path: 'accountOpening',
-                loadChildren: () => Promise.all(/*! import() | account-opening-account-opening-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~96429515"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~24a2a2a5"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~4e4f68e3"), __webpack_require__.e("common"), __webpack_require__.e("account-opening-account-opening-module")]).then(__webpack_require__.bind(null, /*! ./account-opening/account-opening.module */ "./src/app/theme/master/investment/account-opening/account-opening.module.ts")).then(m => m.AccountOpeningModule)
-            },
-            {
                 path: 'transactionEntry',
                 loadChildren: () => Promise.all(/*! import() | transaction-entry-transaction-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~96429515"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~24a2a2a5"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~4e4f68e3"), __webpack_require__.e("common"), __webpack_require__.e("transaction-entry-transaction-entry-module")]).then(__webpack_require__.bind(null, /*! ./transaction-entry/transaction-entry.module */ "./src/app/theme/master/investment/transaction-entry/transaction-entry.module.ts")).then(m => m.TransactionEntryModule)
             },

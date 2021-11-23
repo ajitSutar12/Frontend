@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class SchemeCodeDropdownService {
     schemeCodeObject = new Array();
-    // url = "http://localhost:4000/scheme-parameters";
+    // // scheme-parameters";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
     public getSchemeCodeList() {

@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class AuthorityMasterDropdownService {
 
-    // url = "http://localhost:4000/authority-master";
+    // // authority-master";
     url = environment.base_url;
     authorityMasterObject = new Array();
 

@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class CourtMasterDropdownService {
 
-    // url = "http://localhost:4000/court-master";
+    // // court-master";
     url = environment.base_url;
     courtMasterObject = new Array();
 

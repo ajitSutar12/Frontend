@@ -1,5 +1,115 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["cash-credit-master-cash-credit-master-module"],{
 
+/***/ "./src/app/shared/elements/member.service.ts":
+/*!***************************************************!*\
+  !*** ./src/app/shared/elements/member.service.ts ***!
+  \***************************************************/
+/*! exports provided: MemberService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MemberService", function() { return MemberService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+class MemberService {
+    getCharacters() {
+        return this.cloneOptions(MemberService.PLAYER_ONE);
+    }
+    loadCharacters() {
+        return this.loadOptions(MemberService.PLAYER_ONE);
+    }
+    getCharactersWithDisabled() {
+        const characters = this.cloneOptions(MemberService.PLAYER_ONE);
+        characters[1].disabled = true;
+        characters[4].disabled = true;
+        return characters;
+    }
+    loadOptions(options) {
+        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
+            setTimeout(() => {
+                obs.next(this.cloneOptions(options));
+                obs.complete();
+            }, 5000);
+        });
+    }
+    cloneOptions(options) {
+        return options.map(option => ({ value: option.value, label: option.label }));
+    }
+}
+MemberService.PLAYER_ONE = [
+    { value: '0', label: '1' },
+    { value: '1', label: '2' },
+    { value: '2', label: '3' }
+];
+MemberService.ɵfac = function MemberService_Factory(t) { return new (t || MemberService)(); };
+MemberService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: MemberService, factory: MemberService.ɵfac });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MemberService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+    }], null, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/shared/elements/memberscheme.service.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/shared/elements/memberscheme.service.ts ***!
+  \*********************************************************/
+/*! exports provided: MemberschemeService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MemberschemeService", function() { return MemberschemeService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+class MemberschemeService {
+    getCharacters() {
+        return this.cloneOptions(MemberschemeService.PLAYER_ONE);
+    }
+    loadCharacters() {
+        return this.loadOptions(MemberschemeService.PLAYER_ONE);
+    }
+    getCharactersWithDisabled() {
+        const characters = this.cloneOptions(MemberschemeService.PLAYER_ONE);
+        characters[1].disabled = true;
+        characters[4].disabled = true;
+        return characters;
+    }
+    loadOptions(options) {
+        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
+            setTimeout(() => {
+                obs.next(this.cloneOptions(options));
+                obs.complete();
+            }, 5000);
+        });
+    }
+    cloneOptions(options) {
+        return options.map(option => ({ value: option.value, label: option.label }));
+    }
+}
+MemberschemeService.PLAYER_ONE = [
+    { value: '0', label: '34678' },
+    { value: '1', label: '4647' },
+    { value: '2', label: '5578' }
+];
+MemberschemeService.ɵfac = function MemberschemeService_Factory(t) { return new (t || MemberschemeService)(); };
+MemberschemeService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: MemberschemeService, factory: MemberschemeService.ɵfac });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MemberschemeService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+    }], null, null); })();
+
+
+/***/ }),
+
 /***/ "./src/app/theme/master/customer/cash-credit-master/cash-credit-master-routing.module.ts":
 /*!***********************************************************************************************!*\
   !*** ./src/app/theme/master/customer/cash-credit-master/cash-credit-master-routing.module.ts ***!

@@ -10,7 +10,7 @@ export class ManagerViewGlpService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  url = "http://localhost:4000/manager-view-glp";
+  // manager-view-glp";
 
   constructor(private http: HttpClient) { }
 

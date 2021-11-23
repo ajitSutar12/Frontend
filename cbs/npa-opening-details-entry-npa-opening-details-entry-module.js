@@ -752,9 +752,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class NpaOpeningDetailsEntryService {
+    // npa-opening-details";
     constructor(http) {
         this.http = http;
-        this.url = "http://localhost:4000/npa-opening-details";
     }
     //get data for form
     loadData() {

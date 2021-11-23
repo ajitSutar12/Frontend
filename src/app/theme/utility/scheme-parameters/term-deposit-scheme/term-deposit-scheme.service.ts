@@ -11,7 +11,7 @@ export class TermDepositSchemeService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  // url = "http://localhost:4000/term-deposit-scheme";
+  // // term-deposit-scheme";
   url = environment.base_url;
 
   constructor(private http: HttpClient) { }

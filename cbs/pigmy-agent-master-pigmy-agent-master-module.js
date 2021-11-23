@@ -216,6 +216,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class CustomeridService {
+    getFormData(id) {
+        throw new Error('Method not implemented.');
+    }
     getCharacters() {
         return this.cloneOptions(CustomeridService.PLAYER_ONE);
     }

@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 export class cityMasterService {
     cityMasterObject = new Array();
     // API 
-    //url = "http://localhost:4000/city-master"; 
+    //// city-master"; 
     url = environment.base_url;
     constructor(private http: HttpClient) { }
 

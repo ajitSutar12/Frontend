@@ -244,7 +244,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
-              data: resp.data
+              data: []
             });
           });
       },
@@ -929,7 +929,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //show customer modal
   showModal() {
-    debugger
+  //  debugger
     this.showModalStatus = true;
   }
 

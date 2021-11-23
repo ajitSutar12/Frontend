@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class OperationMasterDropdownService {
 
-    // url = "http://localhost:4000/operation-master";
+    // // operation-master";
     url = environment.base_url;
     operationMasterObject = new Array();
 

@@ -12,7 +12,7 @@ export class GeneralSubAcSchemeService {
     // Variable for handleError
     [x: string]: any;
     // API 
-    // url = "http://localhost:4000/general-sub-ac-scheme";
+    // // general-sub-ac-scheme";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
 

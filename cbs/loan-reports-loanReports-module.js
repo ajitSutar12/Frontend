@@ -16,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 class LoanReportsComponent {
     constructor() { }
     add() {
-        debugger;
+        // debugger
         this.result == parseInt(this.num1) + parseInt(this.num2);
     }
     ngOnInit() {

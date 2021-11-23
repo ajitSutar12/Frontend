@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 export class OccupationMasterService {
     occupationMasterObject = new Array();
     // API 
-    // url = "http://localhost:4000/occupation-master"; 
+    // // occupation-master"; 
     url = environment.base_url;
     constructor(private http: HttpClient) { }
 
