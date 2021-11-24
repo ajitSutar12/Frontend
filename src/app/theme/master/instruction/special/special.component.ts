@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+// Used to Call API
+import { HttpClient } from "@angular/common/http";
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { ExucuteOnService } from '../../../../shared/elements/exucute-on.service';
@@ -7,14 +15,54 @@ import { AcountnoService } from '../../../../shared/elements/acountno.service';
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import{ specialservice } from './special.service'
+// Angular Datatable Directive
+import { DataTableDirective } from "angular-datatables";
+import { Subject } from "rxjs";
+import { environment } from "src/environments/environment";
+
+
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+// For fetching values from backend
+interface SpecialMaster {
+      
+  INSTRUCTION_NO: number;
+  INSTRUCTION_DATE: Date;
+  TRAN_ACTYPE: string;
+  TRAN_ACNO: number;
+  FROM_DATE: Date;
+  TO_DATE: Date;
+  DRCR_APPLY: string;
+  IS_RESTRICT: boolean;
+  DETAILS: string;
+}
+
 
 @Component({
   selector: 'app-special',
   templateUrl: './special.component.html',
   styleUrls: ['./special.component.scss']
 })
-export class SpecialComponent implements OnInit {
+export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   angForm: FormGroup;
+   //api 
+   url = environment.base_url;
+   // For reloading angular datatable after CRUD operation
+   @ViewChild(DataTableDirective, { static: false })
+   dtElement: DataTableDirective;
+   dtOptions: DataTables.Settings = {};
+   dtTrigger: Subject<any> = new Subject();
+   // Store data from backend
+   specialMaster: SpecialMaster[];
+     //filter variable
+  filterData = {};
+
 
   //Datatable
   dtExportButtonOptions: any = {};
@@ -33,98 +81,104 @@ export class SpecialComponent implements OnInit {
   updateShow: boolean = false;
   //variable for checkbox and radio button 
   isIsRestrictTransactionEntry: boolean = false;
+  page: number;
+  updateID: any;
 
-  message = {
-    InstructionNo: " ",
-    Date: "",
-    Scheme: " ",
-    AccountNo: " ",
-    StartFrom: " ",
-    UptoDate: " ",
-    ExecuteOn: " ",
-    Details: " ",
-    Date2: " ",
-    IsRestrictTransactionEntry: " ",
+ 
 
-  };
-
-  constructor(private fb: FormBuilder, public ExucuteOnService: ExucuteOnService, public Scheme1Service: Scheme1Service, public AcountnoService: AcountnoService) { this.createForm(); }
+  constructor(private fb: FormBuilder, public ExucuteOnService: ExucuteOnService, public Scheme1Service: Scheme1Service, public AcountnoService: AcountnoService,    private http: HttpClient,private _special:specialservice
+    ) {  }
 
   ngOnInit(): void {
+    this.createForm();
+    // Fetching Server side data
     this.dtExportButtonOptions = {
-      ajax: 'fake-data/special.json',
+      pagingType: "full_numbers",
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+
+        dataTableParameters.columns.forEach((element) => {
+          if (element.search.value != "") {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters["filterData"] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + "/market-shares",
+            dataTableParameters
+          )
+          .subscribe((resp) => {
+            this.specialMaster= resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: [],
+            });
+          });
+      },
       columns: [
         {
-          title: 'Action',
+          title: "Action",
           render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm"id="editbtn">Edit</button>' + ' ' + '<button  id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
+            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+          },
         },
+       
         {
           title: 'Instruction No',
-          data: 'InstructionNo'
+          data: 'INSTRUCTION_NO'
         }, {
           title: 'Date',
-          data: 'Date'
+          data: 'INSTRUCTION_DATE'
         },
         {
           title: 'Scheme',
-          data: 'Scheme'
+          data: 'TRAN_ACTYPE'
         }, {
           title: 'Account No',
-          data: 'AccountNo'
+          data: 'TRAN_ACNO'
         },
         {
           title: 'Start From',
-          data: 'StartFrom'
+          data: 'FROM_DATE'
         },
         {
           title: 'Upto Date',
-          data: 'UptoDate'
+          data: 'TO_DATE'
         },
-        {
-          title: 'Execute On',
-          data: 'ExecuteOn'
-        },
+       
         {
           title: 'Is Restrict Transaction Entry',
-          data: 'IsRestrictTransactionEntry'
+          data: 'IS_RESTRICT'
         },
 
         {
           title: 'Details',
-          data: 'Details'
+          data: 'DETAILS'
         },
-        {
-          title: 'Date2',
-          data: 'Date2'
-        },
-
+       
       ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-      //row click handler code
-
-      /**
-* @rowCallback function for editClickHandler and delClickHandler to passes table data to there filds
-  @return row 
-*/
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
+      dom: 'Blrtip',
+     
     };
 
 
@@ -152,53 +206,66 @@ export class SpecialComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
-      Date: ['',],
-      Date2: ['',],
-      StartFrom: ['', [Validators.required]],
-      UptoDate: ['', [Validators.required]],
+      INSTRUCTION_NO: ['',],
+      INSTRUCTION_DATE: ['',],
+      TRAN_ACTYPE: ['', [Validators.required]],
+      TRAN_ACNO: ['', [Validators.required]],
       // ExecuteOn: ['', [Validators.required]], 
-      InstructionNo: ['',],
-      Particulars: ['', [Validators.pattern, Validators.required]],
-      Scheme: ['', [Validators.required]],
-      ExecuteOn: ['', [Validators.required]],
-      RevokeDate: ['', [Validators.required]],
-      AccountNo: ['',]
+      FROM_DATE: ['',[Validators.required]],
+      TO_DATE: ['', [ Validators.required]],
+      DRCR_APPLY: ['', [Validators.required]],
+      IS_RESTRICT: [''],
+      DETAILS: ['', [Validators.required,Validators.pattern]],
     });
   }
 
   submit() {
-    console.log(this.angForm.valid);
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
-    }
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      INSTRUCTION_NO: formVal.INSTRUCTION_NO,
+      INSTRUCTION_DATE: formVal.INSTRUCTION_DATE,
+      TRAN_ACTYPE: formVal.TRAN_ACTYPE,
+      TRAN_ACNO: formVal.TRAN_ACNO,
+      FROM_DATE: formVal.FROM_DATE,
+      TO_DATE: formVal.TO_DATE,
+      DRCR_APPLY: formVal.DRCR_APPLY,
+      IS_RESTRICT: formVal.IS_RESTRICT,
+      DETAILS: formVal.DETAILS,
+    };
+    this._special.postData(dataToSend).subscribe(
+      (data1) => {
+        Swal.fire("Success!", "Data Added Successfully !", "success");
+        // to reload after insertion of data
+        this.rerender();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    //To clear form
+    this.resetForm();
   }
   /**
 * @editClickHandler function for edit button clicked
 */
 
-  editClickHandler(info: any): void {
-    this.message.InstructionNo = info.InstructionNo;
-    this.message.Date = info.Date;
-    this.message.Scheme = info.Scheme;
-    this.message.StartFrom = info.StartFrom;
-    this.message.UptoDate = info.UptoDate;
-    this.message.AccountNo = info.AccountNo;
-    this.message.ExecuteOn = info.ExecuteOn;
-    this.message.Details = info.Details;
-    this.message.Date2 = info.Date2;
-    this.message.IsRestrictTransactionEntry = info.IsRestrictTransactionEntry;
-
+  editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
-    //code for chekbox
-    if (this.message.IsRestrictTransactionEntry == "Yes") {
-      this.isIsRestrictTransactionEntry = true;   //return boolean value and display checked checkbox
-    }
-    else {
-      this.isIsRestrictTransactionEntry = false;   //return boolean value and display unchecked checkbox
-    }
-    this.showButton = false;
-    this.updateShow = true;
+    this._special.getFormData(id).subscribe((data) => {
+      this.updateID = data.id;
+      this.angForm.setValue({
+        INSTRUCTION_NO: data.INSTRUCTION_NO,
+        INSTRUCTION_DATE: data.INSTRUCTION_DATE,
+        TRAN_ACTYPE: data.TRAN_ACTYPE,
+        TRAN_ACNO: data.TRAN_ACNO,
+        FROM_DATE: data.FROM_DATE,
+        TO_DATE: data.TO_DATE,
+        DRCR_APPLY: data.DRCR_APPLY,
+        IS_RESTRICT: data.IS_RESTRICT,
+        DETAILS: data.DETAILS,
+      });
+    });
   }
 
   /**
@@ -207,7 +274,15 @@ export class SpecialComponent implements OnInit {
   updateData() {
     this.showButton = true;
     this.updateShow = false;
-    // this.form.reset();
+    let data = this.angForm.value;
+    data["id"] = this.updateID;
+    this._special.updateData(data).subscribe(() => {
+      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      this.showButton = true;
+      this.updateShow = false;
+      this.rerender();
+      this.resetForm();
+    });
   }
 
   /**
@@ -215,11 +290,10 @@ export class SpecialComponent implements OnInit {
     @Swal sweetalert2
     @Swal.fire open a modal window to display message
   */
-  delClickHandler(info: any): void {
-    this.message.InstructionNo = info.InstructionNo;
+  delClickHandler(id: any): void {
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to delete Instruction No." + this.message.InstructionNo + "  data",
+      text: "Do you want to delete  Special Instruction  data",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -230,6 +304,9 @@ export class SpecialComponent implements OnInit {
       else if result is dismiss then it cancel and open a modal window to display cancel message
        */
       if (result.isConfirmed) {
+        this._special.deleteData(id).subscribe((data1) => {
+          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+        }),
         Swal.fire(
           'Deleted!',
           'Your data has been deleted.',
@@ -245,5 +322,37 @@ export class SpecialComponent implements OnInit {
         )
       }
     })
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $("input", this.footer()).on("keyup change", function () {
+          if (this["value"] != "") {
+            that.search(this["value"]).draw();
+          } else {
+            that.search(this["value"]).draw();
+          }
+        });
+      });
+    });
+  }
+  // Reset Function
+  resetForm() {
+    this.createForm();
+  }
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 }
