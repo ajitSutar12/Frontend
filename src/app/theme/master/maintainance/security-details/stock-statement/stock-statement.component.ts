@@ -1,17 +1,25 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  Input,
+  Output,
+  EventEmitter,
+} from "@angular/core";
 import { Subject } from "rxjs";
-import { stockcomponentservice } from "./stock-statement.component.service";
+// Creating and maintaining form fields with validation
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+// Displaying Sweet Alert
+import Swal from "sweetalert2";
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
-import { first } from "rxjs/operators";
-
-import Swal from "sweetalert2";
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
-} from "@angular/forms";
+// Service File For Handling CRUD Operation
+import { stockcomponentservice } from "./stock-statement.component.service";
+// Used to Call API
+import { HttpClient } from "@angular/common/http";
+import { environment } from "../../../../../../environments/environment";
 
 // Handling datatable data
 class DataTableResponse {
@@ -22,48 +30,132 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface StockMaster {
-  SUBMISSION_DATE: number;
-  STATEMENT_DATE: string;
+  id: number;
+  AC_ACNOTYPE: string;
+  AC_TYPE: number;
+  BRANCH_CODE: string;
+  AC_NO: number;
+  SECU_CODE: number;
+  SR_NO: number;
+  SUBMISSION_DATE: Date;
+  STATEMENT_DATE: Date;
   RAW_MATERIAL: number;
-  MARGIN: number;
+  RAW_MARGIN: number;
   WORK_PROGRESS: number;
   FINISHED_GOODS: number;
-  WORK_MARGIN: number,
+  WORK_MARGIN: number;
   FINISHED_MARGIN: number;
   REMARK: string;
+  SECURITY_TYPE: string;
 }
 @Component({
   selector: "app-stock-statement",
   templateUrl: "./stock-statement.component.html",
   styleUrls: ["./stock-statement.component.scss"],
 })
-export class StockStatementComponent implements OnInit {
-  angForm: FormGroup;
-  dtExportButtonOptions: any = {};
-  showButton: boolean = true;
-  updateShow: boolean = false;
-  updateID: number; //variable for updating
-  // Store data from backend
-  stockmasters: StockMaster[];
+export class StockStatementComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
+  //passing data form child to parent
+  @Output() newItemEvent = new EventEmitter<string>();
+
+  //passing data from parent to child component
+  @Input() scheme: any;
+  @Input() Accountno: any;
+  //api
+  //api
+  url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  // Store data from backend
+  stockmasters: StockMaster[];
+  // Created Form Group
+  angForm: FormGroup;
+  //Datatable variable
+  dtExportButtonOptions: DataTables.Settings = {};
+  Data: any;
+  //variables for pagination
+  page: number = 1;
+  passenger: any;
+  itemsPerPage = 10;
+  totalItems: any;
+  currentJustify = "start";
+  active = 1;
+  activeKeep = 1;
+  // Variables for search
+  filterObject: { name: string; type: string }[];
+  filter: any;
+  filterForm: FormGroup;
+  // Variables for hide/show add and update button
+  showButton: boolean = true;
+  updateShow: boolean = false;
 
-  constructor(private fb: FormBuilder, private _stock: stockcomponentservice) {
-    this.createForm();
-  }
+  //variable to get ID to update
+  updateID: number = 0;
+
+  //filter variable
+  filterData = {};
+
+  constructor(
+    private fb: FormBuilder,
+    private _stock: stockcomponentservice,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
+    this.createForm();
     this.dtExportButtonOptions = {
-      ajax: "fake-data/security-details.json",
+      pagingType: "full_numbers",
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+
+        dataTableParameters.columns.forEach((element) => {
+          if (element.search.value != "") {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters["filterData"] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + "/stock-statement",
+            dataTableParameters
+          )
+          .subscribe((resp) => {
+            this.stockmasters = resp.data;
+            console.log("stock:", resp);
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: [],
+            });
+          });
+      },
       columns: [
         {
           title: "Action",
           render: function (data: any, type: any, full: any) {
             return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-            // + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>'
           },
         },
         {
@@ -80,13 +172,13 @@ export class StockStatementComponent implements OnInit {
         },
         {
           title: "R/M Margin %",
-          data: "MARGIN",
+          data: "RAW_MARGIN",
         },
         {
           title: "Work In Progress",
           data: "WORK_PROGRESS",
         },
-      
+
         {
           title: "Finished Goods",
           data: "FINISHED_GOODS",
@@ -104,20 +196,7 @@ export class StockStatementComponent implements OnInit {
           data: "REMARK",
         },
       ],
-      dom: "Bfrtip",
-      buttons: ["copy", "print", "excel", "csv"],
-      // //row click handler code
-      // rowCallback: (row: Node, data: any[] | Object, index: number) => {
-      //   const self = this;
-      //   $('td', row).off('click');
-      //   $('td', row).on('click', '#editbtn', () => {
-      //     self.editClickHandler(data);
-      //   });
-      //   $('td', row).on('click', '#delbtn', () => {
-      //     self.delClickHandler(data);
-      //   });
-      //   return row;
-      // }
+      dom: "Blrtip",
     };
   }
 
@@ -126,7 +205,7 @@ export class StockStatementComponent implements OnInit {
       SUBMISSION_DATE: ["", [Validators.required]],
       STATEMENT_DATE: ["", [Validators.required]],
       RAW_MATERIAL: ["", [Validators.pattern]],
-      MARGIN: ["", [Validators.pattern]],
+      RAW_MARGIN: ["", [Validators.pattern]],
       WORK_PROGRESS: ["", [Validators.pattern]],
       FINISHED_GOODS: ["", [Validators.pattern, Validators.required]],
       WORK_MARGIN: ["", [Validators.pattern]],
@@ -138,10 +217,12 @@ export class StockStatementComponent implements OnInit {
   submit(data: any) {
     const formVal = this.angForm.value;
     const dataToSend = {
+      AC_TYPE: this.scheme._value[0],
+      AC_NO: this.Accountno,
       SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       STATEMENT_DATE: formVal.STATEMENT_DATE,
       RAW_MATERIAL: formVal.RAW_MATERIAL,
-      MARGIN: formVal.MARGIN,
+      RAW_MARGIN: formVal.RAW_MARGIN,
       WORK_PROGRESS: formVal.WORK_PROGRESS,
       FINISHED_GOODS: formVal.FINISHED_GOODS,
       WORK_MARGIN: formVal.WORK_MARGIN,
@@ -149,6 +230,7 @@ export class StockStatementComponent implements OnInit {
       REMARK: formVal.REMARK,
       LEDGER_Bal: formVal.LEDGER_Bal,
     };
+    console.log("submit:", dataToSend.RAW_MARGIN);
     this._stock.postData(dataToSend).subscribe(
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -162,18 +244,36 @@ export class StockStatementComponent implements OnInit {
     //To clear form
     this.resetForm();
   }
-
+ //check  if margin values are below 100
+ checkmargin(ele:any){ 
+   debugger
+  //check  if given value  is below 100
+  console.log(ele);
+  if(ele <= 100){
+console.log(ele);
+  }
+  else{
+    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+  }
+}
   //function for edit button clicked
   editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
     this._stock.getFormData(id).subscribe((data) => {
-      this.updateID = data.id;
-      this.angForm.setValue({
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      dropdown.account = data.AC_NO.toString();
+
+      this.newItemEvent.emit(dropdown), (this.updateID = data.id);
+      this.angForm.patchValue({
+        AC_TYPE: this.scheme._value[0],
+        AC_NO: this.Accountno,
         SUBMISSION_DATE: data.SUBMISSION_DATE,
         STATEMENT_DATE: data.STATEMENT_DATE,
         RAW_MATERIAL: data.RAW_MATERIAL,
-        MARGIN: data.MARGIN,
+        RAW_MARGIN: data.RAW_MARGIN,
         WORK_PROGRESS: data.WORK_PROGRESS,
         FINISHED_GOODS: data.FINISHED_GOODS,
         WORK_MARGIN: data.WORK_MARGIN,
@@ -210,7 +310,6 @@ export class StockStatementComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this._stock.deleteData(id).subscribe((data1) => {
-          this.stockmasters = data1;
           Swal.fire("Deleted!", "Your data has been deleted.", "success");
         }),
           (error) => {
@@ -222,9 +321,30 @@ export class StockStatementComponent implements OnInit {
       }
     });
   }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $("input", this.footer()).on("keyup change", function () {
+          if (this["value"] != "") {
+            that.search(this["value"]).draw();
+          } else {
+            that.search(this["value"]).draw();
+          }
+        });
+      });
+    });
+  }
+  // Reset Function
   resetForm() {
     this.createForm();
   }
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first

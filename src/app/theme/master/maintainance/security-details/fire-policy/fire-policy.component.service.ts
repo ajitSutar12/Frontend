@@ -28,29 +28,17 @@ export class firepolicycomponentservice {
   // For append data
   getFormData(id: any): Observable<any> {
     return this.http
-<<<<<<< Updated upstream
-      .get(this.url + "/xyz/" + id)
-=======
       .get(this.url + "/fire-policy/" + id)
->>>>>>> Stashed changes
       .pipe(catchError(this.handleError));
   }
   //Updation Operation
   updateData(data): Observable<any> {
-<<<<<<< Updated upstream
-    return this.http.put(this.url + "/pqr/update", data);
-=======
     return this.http.put(this.url + "/fire-policy/update", data);
->>>>>>> Stashed changes
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http
-<<<<<<< Updated upstream
-      .delete(this.url + "/efg/delete/" + id)
-=======
       .delete(this.url + "/fire-policy/delete/" + id)
->>>>>>> Stashed changes
       .pipe(catchError(this.handleError));
   }
 }

@@ -1,5 +1,16 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  Input,
+    Output,
+  EventEmitter,
+} from "@angular/core";
 import Swal from "sweetalert2";
+// Used to Call API
+import { HttpClient } from "@angular/common/http";
 import {
   FormGroup,
   FormBuilder,
@@ -10,6 +21,7 @@ import { othersecuritycomponentservice } from "./other-security.component.servic
 import { Subject } from "rxjs";
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
+import { environment } from "src/environments/environment";
 
 // Handling datatable data
 class DataTableResponse {
@@ -20,6 +32,9 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface SecurityMaster {
+  id: number;
+  AC_ACNOTYPE: string;
+  AC_TYPE: number;
   SUBMISSION_DATE: Date;
   SHORT_DETAILS: string;
   TOTAL_VALUE: number;
@@ -31,7 +46,17 @@ interface SecurityMaster {
   templateUrl: "./other-security.component.html",
   styleUrls: ["./other-security.component.scss"],
 })
-export class OtherSecurityComponent implements OnInit {
+export class OtherSecurityComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{ 
+  //passing data form child to parent
+  @Output() newItemEvent = new EventEmitter<string>();
+
+  //passing data from parent to child component
+  @Input() scheme: any;
+  @Input() Accountno: any;
+  //api
+  url = environment.base_url;
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
   showButton: boolean = true;
@@ -45,25 +70,71 @@ export class OtherSecurityComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  filterData = {};
+  page: number;
 
   constructor(
     private fb: FormBuilder,
+    private http: HttpClient,
     private _security: othersecuritycomponentservice
-  ) {
-    this.createForm();
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.createForm();
+    // Fetching Server side data
     this.dtExportButtonOptions = {
-      ajax: "fake-data/security-details.json",
+      pagingType: "full_numbers",
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+
+        dataTableParameters.columns.forEach((element) => {
+          if (element.search.value != "") {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters["filterData"] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + "/other-security",
+            dataTableParameters
+          )
+          .subscribe((resp) => {
+            this.securitymasters = resp.data;
+            console.log("fetch", this.securitymasters);
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: [],
+            });
+          });
+      },
+
       columns: [
         {
           title: "Action",
           render: function (data: any, type: any, full: any) {
             return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-            // + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>'
           },
         },
+
         {
           title: "Date of Submission",
           data: "subm_date",
@@ -85,25 +156,14 @@ export class OtherSecurityComponent implements OnInit {
           data: "security_details",
         },
       ],
-      dom: "Bfrtip",
-      buttons: ["copy", "print", "excel", "csv"],
-      // //row click handler code
-      // rowCallback: (row: Node, data: any[] | Object, index: number) => {
-      //   const self = this;
-      //   $('td', row).off('click');
-      //   $('td', row).on('click', '#editbtn', () => {
-      //     self.editClickHandler(data);
-      //   });
-      //   $('td', row).on('click', '#delbtn', () => {
-      //     self.delClickHandler(data);
-      //   });
-      //   return row;
-      // }
+      dom: "Blrtip",
     };
   }
 
   createForm() {
     this.angForm = this.fb.group({
+      AC_TYPE:[''],
+      AC_NO:[''],
       SUBMISSION_DATE: ["", [Validators.required]],
       SHORT_DETAILS: ["", [Validators.pattern, Validators.required]],
       TOTAL_VALUE: ["", [Validators.pattern, Validators.required]],
@@ -111,15 +171,18 @@ export class OtherSecurityComponent implements OnInit {
       DETAILS: ["", [Validators.pattern, Validators.required]],
     });
   }
-  submit(data: any) {
+  submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
+      AC_TYPE: this.scheme._value[0],
+      AC_NO: this.Accountno,
       SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       SHORT_DETAILS: formVal.SHORT_DETAILS,
       TOTAL_VALUE: formVal.TOTAL_VALUE,
       MARGIN: formVal.MARGIN,
       DETAILS: formVal.DETAILS,
     };
+    console.log("in submit", dataToSend);
     this._security.postData(dataToSend).subscribe(
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -136,11 +199,21 @@ export class OtherSecurityComponent implements OnInit {
 
   //function for edit button clicked
   editClickHandler(id: any): void {
+  
     this.showButton = false;
     this.updateShow = true;
     this._security.getFormData(id).subscribe((data) => {
+       //sending values to parent
+       let dropdown: any = {};
+       dropdown.scheme = data.AC_TYPE;
+       dropdown.account = data.AC_NO.toString();
+       this.newItemEvent.emit(dropdown),
+ 
       this.updateID = data.id;
-      this.angForm.setValue({
+      console.log(this.updateID)
+      this.angForm.patchValue({
+        AC_TYPE: this.scheme._value[0],
+        AC_NO: this.Accountno,
         SUBMISSION_DATE: data.SUBMISSION_DATE,
         SHORT_DETAILS: data.SHORT_DETAILS,
         TOTAL_VALUE: data.TOTAL_VALUE,
@@ -149,6 +222,17 @@ export class OtherSecurityComponent implements OnInit {
       });
     });
   }
+  //check  if margin values are below 100
+checkmargin(ele:any){ 
+  //check  if given value  is below 100
+  console.log(ele);
+  if(ele <= 100){
+console.log(ele);
+  }
+  else{
+    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+  }
+}
 
   updateData() {
     this.showButton = true;
@@ -181,9 +265,30 @@ export class OtherSecurityComponent implements OnInit {
       }
     });
   }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $("input", this.footer()).on("keyup change", function () {
+          if (this["value"] != "") {
+            that.search(this["value"]).draw();
+          } else {
+            that.search(this["value"]).draw();
+          }
+        });
+      });
+    });
+  }
+  // Reset Function
   resetForm() {
     this.createForm();
   }
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first

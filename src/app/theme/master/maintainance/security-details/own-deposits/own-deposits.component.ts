@@ -1,38 +1,53 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  Input,
+  Output,
+  EventEmitter,
+} from "@angular/core";
 import { Subject } from "rxjs";
 import { IOption } from "ng-select";
 import { Subscription } from "rxjs/Subscription";
 import { S2Service } from "../../../../../shared/elements/s2.service";
 import { Ac2Service } from "../../../../../shared/elements/ac2.service";
 import Swal from "sweetalert2";
+// Used to Call API
+import { HttpClient } from "@angular/common/http";
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl,
 } from "@angular/forms";
-import { OwnDepositsComponentService } from "./own-deposits.service"; //Injecting service into component.
+import { OwnDepositsComponentService } from "./own-deposits.component.service"; //Injecting service into component.
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 //Dropdown service file
-import { OwnbranchMasterService} from '../../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { OwnbranchMasterService } from "../../../../../shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
-import{schemedropdownService} from '../../../../../shared/dropdownService/scheme-dropdown.service'
-import { HttpClient } from "@angular/common/http";
-import { environment } from '../../../../../../environments/environment'
+import { schemedropdownService } from "../../../../../shared/dropdownService/scheme-dropdown.service";
+import { environment } from "src/environments/environment";
 
 // Handling datatable data
 class DataTableResponse {
   data: any[];
   draw: number;
   recordsFiltered: number;
-  recordsTotal: number; 
+  recordsTotal: number;
 }
 // For fetching values from backend
 interface DepositeMaster {
-  BRANCH_CODE: number;
-  DEPO_AC_TYPE: string;
+  id: number;
+  AC_ACNOTYPE: string;
+  AC_TYPE: number;
   AC_NO: number;
+
+  BRANCH_CODE: string;
+  DEPO_AC_TYPE: string;
+  DEPO_AC_NO: number;
   SUBMISSION_DATE: Date;
   RECEIPT_NO: number;
   DEPOSIT_AMT: number;
@@ -41,17 +56,20 @@ interface DepositeMaster {
   MARGIN: number;
   LEDGER_Bal: number;
 }
-
 @Component({
   selector: "app-own-deposits",
   templateUrl: "./own-deposits.component.html",
   styleUrls: ["./own-deposits.component.scss"],
 })
-export class OwnDepositsComponent implements AfterViewInit, OnDestroy, OnInit  {
+export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
+  //passing data form child to parent
+  @Output() newItemEvent = new EventEmitter<string>();
 
-    //api 
-    url = environment.base_url;
-
+  //passing data from parent to child component
+  @Input() scheme: any;
+  @Input() Accountno: any;
+  //api
+  url = environment.base_url;
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
 
@@ -65,7 +83,7 @@ export class OwnDepositsComponent implements AfterViewInit, OnDestroy, OnInit  {
   selectedCharacter = "3";
   timeLeft = 5;
   private dataSub: Subscription = null;
-  
+
   showButton: boolean = true;
   updateShow: boolean = false;
   updateID: number; //variable for updating
@@ -76,82 +94,79 @@ export class OwnDepositsComponent implements AfterViewInit, OnDestroy, OnInit  {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  //Dropdown option variable
-  branchOption: any
-  obj:any={type:"own deposite form"}
-  page: number;
-  // column search variable
- filterData = {};
+  //filter variable
+  filterData = {};
 
- 
+  //Dropdown option variable
+  branchOption: any;
+  obj: any = { type: "own deposite form" };
+  page: number;
+
   constructor(
     private fb: FormBuilder,
     public S2Service: S2Service,
     public Ac2Service: Ac2Service,
     private _deposite: OwnDepositsComponentService,
-    private _ownbranchmasterservice:OwnbranchMasterService,
-    private _sheme:schemedropdownService,
-    private http: HttpClient,
+    private _ownbranchmasterservice: OwnbranchMasterService,
+    private _sheme: schemedropdownService,
+    private http: HttpClient
   ) {
-   
+    this.createForm();
   }
-  ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
-  }
- 
-  ngOnInit(): void {
 
+  ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
     this.dtExportButtonOptions = {
-      pagingType: 'full_numbers',
+      pagingType: "full_numbers",
       paging: true,
       pageLength: 10,
       serverSide: true,
       processing: true,
-
       ajax: (dataTableParameters: any, callback) => {
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-        dataTableParameters.columns.forEach(element => {
-          if(element.search.value !=''){
-  
+
+        dataTableParameters.columns.forEach((element) => {
+          if (element.search.value != "") {
             let string = element.search.value;
             this.filterData[element.data] = string;
-          }else{
-  
+          } else {
             let getColumnName = element.data;
             let columnValue = element.value;
-            if(this.filterData.hasOwnProperty(element.data)){
-                let value = this.filterData[getColumnName];
-                if(columnValue != undefined || value != undefined){
-                  delete this.filterData[element.data];
-                } 
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
             }
           }
         });
-        dataTableParameters['filterData'] = this.filterData;
+        dataTableParameters["filterData"] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url + '/own-deposits',
+            this.url + "/own-deposits",
             dataTableParameters
-          ).subscribe(resp => {
+          )
+          .subscribe((resp) => {
             this.depositemasters = resp.data;
-
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
-              data: []
+              data: [],
             });
           });
       },
+
       columns: [
         {
           title: "Action",
-         
+          render: function (data: any, type: any, full: any) {
+            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+          },
         },
         {
           title: "Branch",
@@ -163,7 +178,7 @@ export class OwnDepositsComponent implements AfterViewInit, OnDestroy, OnInit  {
         },
         {
           title: "Account No",
-          data: "AC_NO",
+          data: "DEPO_AC_NO",
         },
         {
           title: "Date of Submission",
@@ -195,17 +210,20 @@ export class OwnDepositsComponent implements AfterViewInit, OnDestroy, OnInit  {
         },
       ],
       dom: "Blrtip",
-      
     };
     this.runTimer();
-    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
-      this.branchOption = data;
-    });
-    this._sheme.getschemelsit(this.obj).pipe(first()).subscribe(data => {
-      this.simpleOption = data;
-    });
-    
-  
+    this._ownbranchmasterservice
+      .getOwnbranchList()
+      .pipe(first())
+      .subscribe((data) => {
+        this.branchOption = data;
+      });
+    this._sheme
+      .getschemelsit(this.obj)
+      .pipe(first())
+      .subscribe((data) => {
+        this.simpleOption = data;
+      });
   }
 
   runTimer() {
@@ -219,32 +237,42 @@ export class OwnDepositsComponent implements AfterViewInit, OnDestroy, OnInit  {
 
   createForm() {
     this.angForm = this.fb.group({
+      AC_TYPE: [""],
+      AC_NO: [""],
+      //AC_ACNOTYPE:['LN'],
       BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
       DEPO_AC_TYPE: ["", [Validators.required]],
-      AC_NO: ["", [Validators.required]],
+      DEPO_AC_NO: ["", [Validators.required]],
       SUBMISSION_DATE: ["", [Validators.required]],
-      RECEIPT_NO: ["", [Validators.pattern]],
+      RECEIPT_NO: [""],
       DEPOSIT_AMT: ["", [Validators.pattern]],
       REMARK: ["", [Validators.pattern]],
-      MATURITY_DATE: ["", [Validators.max]],
+      MATURITY_DATE: [""],
       MARGIN: ["", [Validators.pattern]],
-      LEDGER_Bal: ["", [Validators.pattern]],
+      LEDGER_Bal: [""],
     });
   }
   submit() {
+    console.log(this.scheme._value[0]);
+    console.log(this.Accountno);
     const formVal = this.angForm.value;
+    debugger;
     const dataToSend = {
-      'BRANCH_CODE': formVal.BRANCH_CODE,
-      'DEPO_AC_TYPE': formVal.DEPO_AC_TYPE,
-      'AC_NO':formVal.AC_NO,
-      'SUBMISSION_DATE':formVal.SUBMISSION_DATE,
-      'RECEIPT_NO':formVal.RECEIPT_NO,
-      'DEPOSIT_AMT':formVal.DEPOSIT_AMT,
-      'REMARK':formVal.REMARK,
-      'MATURITY_DATE':formVal.MATURITY_DATE,
-      'MARGIN':formVal.MARGIN,
-      'LEDGER_Bal':formVal.LEDGER_Bal,
+      AC_TYPE: this.scheme._value[0],
+      AC_NO: this.Accountno,
+      BRANCH_CODE: formVal.BRANCH_CODE,
+      DEPO_AC_TYPE: formVal.DEPO_AC_TYPE,
+      DEPO_AC_NO: formVal.DEPO_AC_NO,
+      SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+      RECEIPT_NO: formVal.RECEIPT_NO,
+      DEPOSIT_AMT: formVal.DEPOSIT_AMT,
+      REMARK: formVal.REMARK,
+      MATURITY_DATE: formVal.MATURITY_DATE,
+      MARGIN: formVal.MARGIN,
+      LEDGER_Bal: formVal.LEDGER_Bal,
     };
+    console.log("own deposit",dataToSend);
+
     this._deposite.postData(dataToSend).subscribe(
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -259,24 +287,37 @@ export class OwnDepositsComponent implements AfterViewInit, OnDestroy, OnInit  {
     this.resetForm();
   }
 
+
   //function for edit button clicked
   editClickHandler(id: any): void {
+
+    
+
     this.showButton = false;
     this.updateShow = true;
     this._deposite.getFormData(id).subscribe((data) => {
+      
       this.updateID = data.id;
-      this.angForm.setValue({
-        'BRANCH_CODE': data.BRANCH_CODE,
-        'DEPO_AC_TYPE': data.DEPO_AC_TYPE,
-         'AC_NO': data.AC_NO,
-         'SUBMISSION_DATE':data.SUBMISSION_DATE,
-         'RECEIPT_NO': data.RECEIPT_NO,
-         'DEPOSIT_AMT': data.DEPOSIT_AMT,
-         'REMARK': data.REMARK,
-         'MATURITY_DATE':data.MATURITY_DATE,
-         'MARGIN': data.MARGIN,
-         'LEDGER_Bal': data.LEDGER_Bal,
-      });
+      console.log("edit scheme", data);
+
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      dropdown.account = data.AC_NO.toString();
+      this.newItemEvent.emit(dropdown),
+
+        this.angForm.patchValue({
+          BRANCH_CODE: data.BRANCH_CODE,
+          DEPO_AC_TYPE: data.DEPO_AC_TYPE,
+          DEPO_AC_NO: data.DEPO_AC_NO,
+          SUBMISSION_DATE: data.SUBMISSION_DATE,
+          RECEIPT_NO: data.RECEIPT_NO,
+          DEPOSIT_AMT: data.DEPOSIT_AMT,
+          REMARK: data.REMARK,
+          MATURITY_DATE: data.MATURITY_DATE,
+          MARGIN: data.MARGIN,
+          LEDGER_Bal: data.LEDGER_Bal,
+        });
     });
   }
 
@@ -284,21 +325,21 @@ export class OwnDepositsComponent implements AfterViewInit, OnDestroy, OnInit  {
     this.showButton = true;
     this.updateShow = false;
     let data = this.angForm.value;
-    data['id'] = this.updateID;
+    data["id"] = this.updateID;
     this._deposite.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
       this.rerender();
       this.resetForm();
-    })
+    });
   }
 
   //function for delete button clicked
   delClickHandler(id: number): void {
     Swal.fire({
       title: "Are you sure?",
-      text: "Do you want to delete own deposite Master data.",
+      text: "Do you want to delete advocate Master data.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -307,7 +348,6 @@ export class OwnDepositsComponent implements AfterViewInit, OnDestroy, OnInit  {
     }).then((result) => {
       if (result.isConfirmed) {
         this._deposite.deleteData(id).subscribe((data1) => {
-       
           Swal.fire("Deleted!", "Your data has been deleted.", "success");
         }),
           (error) => {
@@ -320,29 +360,39 @@ export class OwnDepositsComponent implements AfterViewInit, OnDestroy, OnInit  {
       }
     });
   }
-  resetForm() {
-    this.createForm();
+  //check  if margin values are below 100
+checkmargin(ele:any){ 
+  //check  if given value  is below 100
+  console.log(ele);
+  if(ele <= 100){
+console.log(ele);
   }
-  
+  else{
+    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+  }
+}
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
         const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-          debugger
-          if (this['value'] != '') {
-            that
-              .search(this['value'])
-              .draw();
+        $("input", this.footer()).on("keyup change", function () {
+          if (this["value"] != "") {
+            that.search(this["value"]).draw();
           } else {
-            that
-              .search(this['value'])
-              .draw();
+            that.search(this["value"]).draw();
           }
         });
       });
     });
+  }
+  // Reset Function
+  resetForm() {
+    this.createForm();
+  }
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
   rerender(): void {

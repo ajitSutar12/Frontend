@@ -10,7 +10,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Scheme" required title="Compulsory Selection" formControlName="Scheme">
+                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" [(ngModel)]="schemeedit" placeholder="Scheme" required title="Compulsory Selection" #scheme (ngModelChange)="schemechange()" formControlName="AC_TYPE">
                                 </ng-select>
                             </div>
                             <!-- <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)" class="alert alert-danger">
@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="Ac" [multiple]="false" placeholder="Account No." required title="Compulsory Selection" formControlName="AccountNo">
+                                <ng-select [ngClass]="'ng-select'" [options]="Ac" [multiple]="false" placeholder="Account No." required title="Compulsory Selection" #ACCOUNT  [(ngModel)]="accountedit" (ngModelChange)="Accountnochange()" formControlName="AC_NO">
                                 </ng-select>
                             </div>
                             <!-- <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AccountNo'].invalid && (angForm.controls['AccountNo'].dirty || angForm.controls['AccountNo'].touched)" class="alert alert-danger">
@@ -36,14 +36,11 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="To" class="form-control" placeholder=" " id="LedgerBalance"
-                                        required="" formControlName="LedgerBalance">
+                                        required="" formControlName="LEDGER_BAL">
                                     <label for="LedgerBalance">Ledger Balance</label>
                                 </span>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
-                        </div> -->
                     </div>
 
                 </div>
@@ -111,49 +108,49 @@
     <div class="col-sm-9">
         <div class="card-block">
             <div *ngIf="ownDepositsTrue">
-                <app-own-deposits></app-own-deposits>
+                <app-own-deposits [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-own-deposits>
             </div>
             <div *ngIf="otherSecurityTrue">
-                <app-other-security></app-other-security>
+                <app-other-security [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)" ></app-other-security>
             </div>
             <div *ngIf="firePolicyTrue">
-                <app-fire-policy></app-fire-policy>
+                <app-fire-policy  [scheme]="scheme" [Accountno]="Accountno"(newItemEvent)="addItem($event)" ></app-fire-policy>
             </div>
             <div *ngIf="marketSharesTrue">
-                <app-market-shares></app-market-shares>
+                <app-market-shares [scheme]="scheme" [Accountno]="Accountno"(newItemEvent)="addItem($event)" ></app-market-shares>
             </div>
             <div *ngIf="stockStatementTrue">
-                <app-stock-statement></app-stock-statement>
+                <app-stock-statement  [scheme]="scheme" [Accountno]="Accountno"(newItemEvent)="addItem($event)" ></app-stock-statement>
             </div>
             <div *ngIf="govtSecurityAndLicTrue">
-                <app-govt-security-and-lic></app-govt-security-and-lic>
+                <app-govt-security-and-lic  [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-govt-security-and-lic>
             </div>
             <div *ngIf="plantAndMachineryTrue">
-                <app-plant-and-machinery></app-plant-and-machinery>
+                <app-plant-and-machinery  [scheme]="scheme" [Accountno]="Accountno"(newItemEvent)="addItem($event)" ></app-plant-and-machinery>
             </div>
             <div *ngIf="furnitureAndFixtureTrue">
-                <app-furniture-and-fixture></app-furniture-and-fixture>
+                <app-furniture-and-fixture  [scheme]="scheme" [Accountno]="Accountno"(newItemEvent)="addItem($event)" ></app-furniture-and-fixture>
             </div>
             <div *ngIf="vehicleTrue">
-                <app-vehicle></app-vehicle>
+                <app-vehicle  [scheme]="scheme" [Accountno]="Accountno"(newItemEvent)="addItem($event)" ></app-vehicle>
             </div>
             <div *ngIf="landAndBuildingsTrue">
-                <app-land-and-buildings></app-land-and-buildings>
+                <app-land-and-buildings  [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-land-and-buildings>
             </div>
             <div *ngIf="goldAndSilverTrue">
-                <app-gold-and-silver></app-gold-and-silver>
+                <app-gold-and-silver  [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-gold-and-silver>
             </div>
             <div *ngIf="otherSecurityTrue2">
-                <app-other-security2></app-other-security2>
+                <app-other-security2 [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-other-security2>
             </div>
             <div *ngIf="customerInsuranceTrue">
-                <app-customer-insurance></app-customer-insurance>
+                <app-customer-insurance [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-customer-insurance>
             </div>
             <div *ngIf="bookDebtsTrue">
-                <app-book-debts></app-book-debts>
+                <app-book-debts [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-book-debts>
             </div>
             <div *ngIf="pleadgeStockTrue">
-                <app-pleadge-stock></app-pleadge-stock>
+                <app-pleadge-stock [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-pleadge-stock>
             </div>
         </div>
     </div>

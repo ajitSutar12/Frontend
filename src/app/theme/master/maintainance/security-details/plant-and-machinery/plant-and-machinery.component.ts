@@ -1,184 +1,361 @@
-import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+// import { Component, OnInit,ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,Input,Output,
+  EventEmitter,
+} from "@angular/core";
+// Used to Call API
+import { HttpClient } from "@angular/common/http";
+import { Subject } from "rxjs";
+import Swal from "sweetalert2";
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from "@angular/forms";
+import { plantmachineryService } from "./plant-and-machinery.service";
 
+// Angular Datatable Directive
+import { DataTableDirective } from "angular-datatables";
+import { environment } from "src/environments/environment";
+
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+// For fetching values from backend
+interface PlantMaster {
+  id:number;
+    AC_ACNOTYPE:string;
+    AC_TYPE:number;
+  SUBMISSION_DATE: Date;
+  MACHINE_NAME: string;
+  MACHINE_TYPE: string;
+  DISTINCTIVE_NO: string;
+  SPECIFICATION: string;
+  AQUISITION_DATE: Date;
+  NEW_EQUIPEMENT: number;
+  SUPPLIER_NAME: string;
+  PURCHASE_PRICE: number;
+  MARGIN: number;
+  REMARK: string;
+}
 @Component({
-  selector: 'app-plant-and-machinery',
-  templateUrl: './plant-and-machinery.component.html',
-  styleUrls: ['./plant-and-machinery.component.scss']
+  selector: "app-plant-and-machinery",
+  templateUrl: "./plant-and-machinery.component.html",
+  styleUrls: ["./plant-and-machinery.component.scss"],
 })
+export class PlantAndMachineryComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
+    //passing data form child to parent
+    @Output() newItemEvent = new EventEmitter<string>();
 
-export class PlantAndMachineryComponent implements OnInit {
-
+   //passing data from parent to child component
+ @Input() scheme:any;
+ @Input() Accountno:any;
+  //api
+  url = environment.base_url;
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
   showButton: boolean = true;
   updateShow: boolean = false;
   isnew_equip: boolean = false;
 
-  constructor(private fb: FormBuilder) { this.createForm(); }
+  updateID: number; //variable for updating
+  // Store data from backend
+  plantmasters: PlantMaster[];
+  // For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  page: number;
+  filterData= {};
 
-  message = {
-    subm_date: "",
-    machinery_name: "",
-    machinery_type: "",
-    DistinctiveNumber: "",
-    specification: "",
-    DateofAcquisition: "",
-    Suppliername: "",
-    margin: "",
-    remarks: "",
-    new_equip: "",
-    PurchasePrice: ""
-  };
+  constructor(
+    private fb: FormBuilder,
+    private _plant: plantmachineryService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
+    this.createForm();
+    // Fetching Server side data
     this.dtExportButtonOptions = {
-      ajax: 'fake-data/security-details.json',
+      pagingType: "full_numbers",
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+
+        dataTableParameters.columns.forEach((element) => {
+          if (element.search.value != "") {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters["filterData"] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + "/plant-and-machinery",
+            dataTableParameters
+          )
+          .subscribe((resp) => {
+            this.plantmasters = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: [],
+            });
+          });
+      },
+
       columns: [
         {
-          title: 'Action',
+          title: "Action",
           render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Submission Date',
-          data: 'subm_date'
-        }, {
-          title: 'Machinery Name',
-          data: 'machinery_name'
-        }, {
-          title: 'Machinery Type',
-          data: 'machinery_type'
-        }, {
-          title: 'Distinctive Number',
-          data: 'receipt_no'
-        }, {
-          title: 'Specification',
-          data: 'specification'
-        }, {
-          title: 'Acquisition Date',
-          data: 'premium_due_date'
-        }, {
-          title: 'New Equipment',
-          data: 'new_equip'
-        }, {
-          title: 'Supplier Name',
-          data: 'name'
-        }, {
-          title: 'Purchase Price',
-          data: 'market_value'
-        }, {
-          title: 'Margin %',
-          data: 'margin'
-        }, {
-          title: 'Remarks',
-          data: 'remarks'
+            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+          },
+        },
+        {
+          title: "Submission Date",
+          data: "SUBMISSION_DATE",
+        },
+        {
+          title: "Machinery Name",
+          data: "MACHINE_NAME",
+        },
+        {
+          title: "Machinery Type",
+          data: "MACHINE_TYPE",
+        },
+        {
+          title: "Distinctive Number",
+          data: "DISTINCTIVE_NO",
+        },
+        {
+          title: "Specification",
+          data: "SPECIFICATION",
+        },
+        {
+          title: "Acquisition Date",
+          data: "AQUISITION_DATE",
+        },
+        {
+          title: "New Equipment",
+          data: "NEW_EQUIPEMENT",
+        },
+        {
+          title: "Supplier Name",
+          data: "SUPPLIER_NAME",
+        },
+        {
+          title: "Purchase Price",
+          data: "PURCHASE_PRICE",
+        },
+        {
+          title: "Margin %",
+          data: "MARGIN",
+        },
+        {
+          title: "Remarks",
+          data: "REMARK",
         },
       ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
+      dom: "Blrtip",
+     
+      // //row click handler code
+      // rowCallback: (row: Node, data: any[] | Object, index: number) => {
+      //   const self = this;
+      //   $('td', row).off('click');
+      //   $('td', row).on('click', '#editbtn', () => {
+      //     self.editClickHandler(data);
+      //   });
+      //   $('td', row).on('click', '#delbtn', () => {
+      //     self.delClickHandler(data);
+      //   });
+      //   return row;
+      // }
     };
   }
   createForm() {
     this.angForm = this.fb.group({
-      subm_date: ['', [Validators.required]],
-      machinery_name: ['', [Validators.pattern, Validators.required]],
-      machinery_type: ['', [Validators.pattern, Validators.required]],
-      DistinctiveNumber: ['', [Validators.pattern, Validators.required]],
-      Specification: ['', [Validators.pattern]],
-      DateofAcquisition: [''],
-      Suppliername: ['', [Validators.pattern, Validators.required]],
-      PurchasePrice: ['', [Validators.pattern, Validators.required]],
-      margin: ['', [Validators.pattern]],
-      remarks: ['', [Validators.pattern]]
+      SUBMISSION_DATE: ["", [Validators.required]],
+      MACHINE_NAME: ["", [Validators.pattern, Validators.required]],
+      MACHINE_TYPE: ["", [Validators.pattern, Validators.required]],
+      DISTINCTIVE_NO: ["", [Validators.pattern, Validators.required]],
+      SPECIFICATION: ["", [Validators.pattern]],
+      AQUISITION_DATE: [""],
+      NEW_EQUIPEMENT: ["", [Validators.pattern, Validators.required]],
+      SUPPLIER_NAME: ["", [Validators.pattern, Validators.required]],
+      PURCHASE_PRICE: ["", [Validators.pattern]],
+      MARGIN: ["", [Validators.pattern]],
+      REMARK: ["", [Validators.pattern]],
     });
   }
 
   submit() {
-    console.log(this.angForm.valid);
-
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
-    }
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      AC_TYPE:this.scheme._value[0],
+      AC_NO:this.Accountno,
+      SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+      MACHINE_NAME: formVal.MACHINE_NAME,
+      MACHINE_TYPE: formVal.MACHINE_TYPE,
+      DISTINCTIVE_NO: formVal.DISTINCTIVE_NO,
+      SPECIFICATION: formVal.SPECIFICATION,
+      AQUISITION_DATE: formVal.AQUISITION_DATE,
+      NEW_EQUIPEMENT: formVal.NEW_EQUIPEMENT,
+      SUPPLIER_NAME: formVal.SUPPLIER_NAME,
+      PURCHASE_PRICE: formVal.PURCHASE_PRICE,
+      MARGIN: formVal.MARGIN,
+      REMARK: formVal.REMARK,
+    };
+    this._plant.postData(dataToSend).subscribe(
+      (data1) => {
+        Swal.fire("Success!", "Data Added Successfully !", "success");
+        // to reload after insertion of data
+        this.rerender();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    //To clear form
+    this.resetForm();
   }
 
+    //check  if margin values are below 100
+checkmargin(ele:any){ 
+  //check  if given value  is below 100
+  console.log(ele);
+  if(ele <= 100){
+console.log(ele);
+  }
+  else{
+    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+  }
+}
+
   //function for edit button clicked
-  editClickHandler(info: any): void {
-    this.message.subm_date = info.subm_date;
-    this.message.machinery_name = info.machinery_name;
-    this.message.machinery_type = info.machinery_type;
-    this.message.DistinctiveNumber = info.DistinctiveNumber;
-    this.message.specification = info.specification;
-    this.message.margin = info.margin;
-    this.message.Suppliername = info.Suppliername;
-    this.message.DateofAcquisition = info.DateofAcquisition;
-    this.message.remarks = info.remarks;
-    this.message.new_equip = info.new_equip;
-    this.message.PurchasePrice = info.message.PurchasePrice;
-
-    //code for chekbox
-    if (this.message.new_equip == "Yes") {
-      this.isnew_equip = true;   //return boolean value and display checked checkbox
-    }
-    else {
-      this.isnew_equip = false;   //return boolean value and display unchecked checkbox
-    }
-
+  editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
+    this._plant.getFormData(id).subscribe((data) => {
+      this.updateID = data.id;
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      dropdown.account = data.AC_NO.toString();
+      this.newItemEvent.emit(dropdown),
+
+      this.angForm.patchValue({
+        
+        AC_TYPE:this.scheme._value[0],
+        AC_NO:this.Accountno,
+        SUBMISSION_DATE: data.SUBMISSION_DATE,
+        MACHINE_NAME: data.MACHINE_NAME,
+        MACHINE_TYPE: data.MACHINE_TYPE,
+        DISTINCTIVE_NO: data.DISTINCTIVE_NO,
+        SPECIFICATION: data.SPECIFICATION,
+        AQUISITION_DATE: data.AQUISITION_DATE,
+        NEW_EQUIPEMENT: data.NEW_EQUIPEMENT,
+        SUPPLIER_NAME: data.SUPPLIER_NAME,
+        PURCHASE_PRICE: data.PURCHASE_PRICE,
+        MARGIN: data.MARGIN,
+        REMARK: data.REMARK,
+      });
+    });
   }
 
   updateData() {
     this.showButton = true;
     this.updateShow = false;
-    }
-
-  //function for delete button clicked
-  delClickHandler(info: any): void {
-    this.message.subm_date = info.subm_date;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Submission Date." + this.message.subm_date + "  data",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
-      }
-    })
+    let data = this.angForm.value;
+    data["id"] = this.updateID;
+    this._plant.updateData(data).subscribe(() => {
+      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      this.showButton = true;
+      this.updateShow = false;
+      this.rerender();
+      this.resetForm();
+    });
   }
 
+  //function for delete button clicked
+  delClickHandler(id: any): void {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to delete Plant and Machinery data",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#229954",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._plant.deleteData(id).subscribe((data1) => {
+          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+        }),
+          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire("Cancelled", "Your data is safe.", "error");
+      }
+    });
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $("input", this.footer()).on("keyup change", function () {
+          if (this["value"] != "") {
+            that.search(this["value"]).draw();
+          } else {
+            that.search(this["value"]).draw();
+          }
+        });
+      });
+    });
+  }
+  // Reset Function
+  resetForm() {
+    this.createForm();
+  }
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
 }

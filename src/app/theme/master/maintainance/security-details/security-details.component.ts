@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { S1Service } from '../../../../shared/elements/s1.service';
 import { Ac1Service } from '../../../../shared/elements/ac1.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { schemedropdownService } from 'src/app/shared/dropdownService/scheme-dropdown.service';
 
 @Component({
   selector: 'app-security-details',
@@ -12,6 +13,12 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
   styleUrls: ['./security-details.component.scss']
 })
 export class SecurityDetailsComponent implements OnInit {
+scheme:any;
+Accountno:any;
+schemeedit:any;
+accountedit:any;
+
+
 
   angForm: FormGroup;
   ownDepositsTrue: boolean = true;
@@ -105,9 +112,9 @@ export class SecurityDetailsComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
-      Scheme: [''],
-      AccountNo: [''],
-      LedgerBalance: ['']
+      AC_TYPE: [''],
+      AC_NO: [''],
+      LEDGER_BAL: ['']
     });
   }
   submit() {
@@ -117,7 +124,26 @@ export class SecurityDetailsComponent implements OnInit {
       console.log(this.angForm.value);
     }
   }
+//output functionality
+addItem(newItem:any) {
+  this.schemeedit = newItem.scheme;
+  this.accountedit = newItem.account;
+}
+//input functionality
+  schemechange(){
+   
+    let result = this.angForm.value;
+    this.scheme = result.AC_TYPE;
+    console.log(this.scheme);
 
+  }
+  Accountnochange(){
+     
+    let result = this.angForm.value;
+    this.Accountno = result.AC_NO;
+    console.log(this.Accountno);
+
+  }
   OpenLink(val) {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;

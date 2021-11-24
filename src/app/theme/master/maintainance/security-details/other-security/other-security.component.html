@@ -59,6 +59,7 @@
                     id="short_details"
                     required=""
                     pattern="^[A-Za-z0-9'\.\-\s]+$"
+                    maxlength="90"
                     title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                     formControlName="SHORT_DETAILS"
                   />
@@ -97,7 +98,7 @@
                     placeholder=" "
                     id="total_value"
                     required=""
-                    pattern="^[0-9]+$"
+                    pattern="\d{1,20}(\.\d{2})?"
                     title="Input allowed only  0-9"
                     formControlName="TOTAL_VALUE"
                   />
@@ -135,8 +136,10 @@
                     name="margin"
                     class="form-control"
                     placeholder=" "
+                    #margin
+                    (keyup)="checkmargin(margin.value)"
                     id="margin"
-                    pattern="^[0-100]+$"
+                    pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9"
                     formControlName="MARGIN"
                   />
@@ -168,6 +171,7 @@
                     id="security_details"
                     required=""
                     pattern="^[A-Za-z0-9'\.\-\s]+$"
+                    maxlength="4000"
                     title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                     formControlName="DETAILS"
                   />
@@ -199,7 +203,7 @@
               <button
                 class="btn btn-primary ripple light"
                 *ngIf="showButton"
-                (click)="submit(angForm.value)"
+                (click)="submit()"
                 [disabled]="angForm.invalid"
               >
                 Add

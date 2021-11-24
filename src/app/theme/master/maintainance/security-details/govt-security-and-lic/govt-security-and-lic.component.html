@@ -94,6 +94,7 @@
                     id="policy_no"
                     required=""
                     pattern="^[0-9]+$"
+                    maxlength="50"
                     title="Input allowed only  0-9"
                     formControlName="CERT_POLICY_NO"
                   />
@@ -133,6 +134,8 @@
                     placeholder=" "
                     id="margin"
                     required=""
+                    #margin
+                    (keyup)="checkmargin(margin.value)"
                     pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9"
                     formControlName="MARGIN"
@@ -341,14 +344,14 @@
                     type="text"
                     class="form-control"
                     placeholder=" "
-                    id="premium_due_date"
+                    id="PREMIUM_DUE_DATE"
                     required=""
                     max="9999-12-31"
-                    name="premium_due_date"
+                    name="PREMIUM_DUE_DATE"
                     formControlName="PREMIUM_DUE_DATE"
                     onfocus="(this.type='date')"
                   />
-                  <label for="premium_due_date"
+                  <label for="PREMIUM_DUE_DATE"
                     >Premium Due Date<sub class="required">* </sub></label
                   >
                 </span>
@@ -417,7 +420,7 @@
                     class="form-control"
                     placeholder=" "
                     id="nominee"
-                    maxlength="20"
+                    maxlength="90"
                     pattern="^[A-Za-z'\.\-\s]+$"
                     title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="NOMINEE"

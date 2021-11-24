@@ -120,23 +120,25 @@
                     class="form-control"
                     placeholder=" "
                     id="rm_margin"
+                    #marginmaterialcost
+                    (keyup)="checkmargin(marginmaterialcost.value)" 
                     pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9"
-                    formControlName="MARGIN"
+                    formControlName="RAW_MARGIN"
                   />
-                  <label for="rm_margin">Margin </label>
+                  <label for="rm_margin">(Margin) Raw Material Cost </label>
                 </span>
               </div>
               <div
                 class="form-group form-primary form-static-label"
                 *ngIf="
-                  angForm.controls['MARGIN'].invalid &&
-                  (angForm.controls['MARGIN'].dirty ||
-                    angForm.controls['MARGIN'].touched)
+                  angForm.controls['RAW_MARGIN'].invalid &&
+                  (angForm.controls['RAW_MARGIN'].dirty ||
+                    angForm.controls['RAW_MARGIN'].touched)
                 "
                 class="alert alert-danger"
               >
-                <div *ngIf="angForm.controls['MARGIN'].errors?.pattern">
+                <div *ngIf="angForm.controls['RAW_MARGIN'].errors?.pattern">
                   Input allowed only 0-9
                 </div>
               </div>
@@ -182,11 +184,13 @@
                     class="form-control"
                     placeholder=" "
                     id="wp_margin"
-                    pattern="^[0-9]+$"
+                    #marginworkprogress
+                    (keyup)="checkmargin(marginworkprogress.value)" 
+                    pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9"
                     formControlName="WORK_MARGIN"
                   />
-                  <label for="wp_margin">Work in Progress Goods</label>
+                  <label for="wp_margin">(Margin) Work In Progress Goods</label>
                 </span>
               </div>
               <div
@@ -253,13 +257,14 @@
                     placeholder=" "
                     id="fg_margin"
                     required=""
-                  
-                    pattern="^[0-9]+$"
+                    #margingoodscost
+                    (keyup)="checkmargin(margingoodscost.value)"
+                    pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9"
                     formControlName="FINISHED_MARGIN"
                   />
                   <label for="fg_margin"
-                    >Work In Progress Goods<sub class="required">* </sub></label
+                    >(Margin) Finished Goods Cost<sub class="required">* </sub></label
                   >
                 </span>
               </div>
@@ -366,7 +371,7 @@
                     <td>{{ data.SUBMISSION_DATE }}</td>
                     <td>{{ data.STATEMENT_DATE }}</td>
                     <td>{{ data.RAW_MATERIAL }}</td>
-                    <td>{{ data.MARGIN }}</td>
+                    <td>{{ data.RAW_MARGIN }}</td>
                     <td>{{ data.WORK_PROGRESS }}</td>
                     <td>{{ data.WORK_MARGIN }}</td>
                     <td>{{ data.FINISHED_GOODS }}</td>
@@ -406,8 +411,8 @@
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Margin %"
-                        name="MARGIN"
+                        placeholder="Search (Margin) Raw Material Cost "
+                        name="RAW_MARGIN"
                       />
                     </th>
                     <th>
