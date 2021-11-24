@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 export class schemedropdownService {
     OwnbranchMasterObject = new Array();
     // API 
-    //// own-branch-master"; 
+    //url = "http://localhost:4000/own-branch-master"; 
     url = environment.base_url;
 
     constructor(private http: HttpClient) { }

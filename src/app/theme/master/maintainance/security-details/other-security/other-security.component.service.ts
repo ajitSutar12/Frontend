@@ -17,7 +17,7 @@ export class othersecuritycomponentservice {
   constructor(private http: HttpClient) {}
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + "/abc/insert", data).pipe(
+    return this.http.post(this.url + "/other-security/insert", data).pipe(
       map((res) => res),
       catchError((error) => {
         Swal.fire("Please Input Proper Data !");
@@ -28,17 +28,29 @@ export class othersecuritycomponentservice {
   // For append data
   getFormData(id: any): Observable<any> {
     return this.http
+<<<<<<< Updated upstream
       .get(this.url + "/xyz/" + id)
+=======
+      .get(this.url + "/other-security/" + id)
+>>>>>>> Stashed changes
       .pipe(catchError(this.handleError));
   }
   //Updation Operation
   updateData(data): Observable<any> {
+<<<<<<< Updated upstream
     return this.http.put(this.url + "/pqr/update", data);
+=======
+    return this.http.put(this.url + "/other-security/update", data);
+>>>>>>> Stashed changes
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http
+<<<<<<< Updated upstream
       .delete(this.url + "/efg/delete/" + id)
+=======
+      .delete(this.url + "/other-security/delete/" + id)
+>>>>>>> Stashed changes
       .pipe(catchError(this.handleError));
   }
 }

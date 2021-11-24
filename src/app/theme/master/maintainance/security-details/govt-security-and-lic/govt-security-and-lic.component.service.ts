@@ -14,31 +14,39 @@ export class governmentsecuritycomponentservice {
   // API
   url = environment.base_url;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    console.log(this.url);
+  }
+  
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + "/abc/insert", data).pipe(
-      map((res) => res),
-      catchError((error) => {
-        Swal.fire("Please Input Proper Data !");
-        return throwError(error);
-      })
-    );
+    return this.http
+      .post(this.url + "/govt-security-and-lic/insert", data)
+      .pipe(
+        map((res) => res),
+        catchError((error) => {
+          Swal.fire("Please Input Proper Data !");
+          return throwError(error);
+        })
+      );
   }
+
   // For append data
   getFormData(id: any): Observable<any> {
     return this.http
-      .get(this.url + "/xyz/" + id)
+      .get(this.url + "/govt-security-and-lic/" + id)
       .pipe(catchError(this.handleError));
   }
+
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + "/pqr/update", data);
+    return this.http.put(this.url + "/govt-security-and-lic/update", data);
   }
+
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http
-      .delete(this.url + "/efg/delete/" + id)
+      .delete(this.url + "/govt-security-and-lic/delete/" + id)
       .pipe(catchError(this.handleError));
   }
 }

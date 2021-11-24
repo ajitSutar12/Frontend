@@ -8,7 +8,7 @@ import { environment } from "../../../../../../environments/environment";
 @Injectable({
   providedIn: "root",
 })
-export class stockcomponentservice {
+export class landandbuildingsService {
   // Variable for handleError
   [x: string]: any;
   // API
@@ -17,7 +17,7 @@ export class stockcomponentservice {
   constructor(private http: HttpClient) {}
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + "/stock-statement/insert", data).pipe(
+    return this.http.post(this.url + "/land-and-buildings/insert", data).pipe(
       map((res) => res),
       catchError((error) => {
         Swal.fire("Please Input Proper Data !");
@@ -28,17 +28,17 @@ export class stockcomponentservice {
   // For append data
   getFormData(id: any): Observable<any> {
     return this.http
-      .get(this.url + "/stock-statement/" + id)
+      .get(this.url + "/land-and-buildings/" + id)
       .pipe(catchError(this.handleError));
   }
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + "/stock-statement/update", data);
+    return this.http.put(this.url + "/land-and-buildings/update", data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http
-      .delete(this.url + "/stock-statement/delete/" + id)
+      .delete(this.url + "/land-and-buildings/delete/" + id)
       .pipe(catchError(this.handleError));
   }
 }
