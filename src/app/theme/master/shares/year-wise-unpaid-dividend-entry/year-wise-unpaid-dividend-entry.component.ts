@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
 // dynamic dropdown
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { SalaryDMasterdropdownService } from '../../../../shared/dropdownService/salary-division-master-dropdown.service';
-import { ShareMasterDropdownService } from '../../../../shared/dropdownService/share-master-dropdown.service';
+// import { ShareMasterDropdownService } from '../../../../shared/dropdownService/share-master-dropdown.service';
 
 import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -102,7 +102,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
     private http: HttpClient,
     private YearwiseunpaidService: YearwiseunpaidService,
     private SalaryDMasterdropdownService: SalaryDMasterdropdownService,
-    private ShareMasterDropdownService: ShareMasterDropdownService,
+    // private ShareMasterDropdownService: ShareMasterDropdownService,
     private fb: FormBuilder,
 
     private SchemeCodeDropdownService: SchemeCodeDropdownService,) {
@@ -210,7 +210,6 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
       dom: 'Blrtip',
     };
-    
 
 
 
@@ -220,10 +219,10 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
     this.SalaryDMasterdropdownService.getSalaryDMasterList().pipe(first()).subscribe(data => {
       this.SalaryDMasterObject = data;
     })
-    this.ShareMasterDropdownService.getGLAccountMasterList().pipe(first()).subscribe(data => {
-      this.ShareMasterObject = data;
-      this.ShareMasterObjectB = data;
-    })
+    // this.ShareMasterDropdownService.getGLAccountMasterList().pipe(first()).subscribe(data => {
+    //   this.ShareMasterObject = data;
+    //   this.ShareMasterObjectB = data;
+    // })
   }
   // Method to handle validation of form
   createForm() {

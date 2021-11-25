@@ -115,7 +115,7 @@ interface DisputeLoanMaster {
   AC_PHNO: string;
   AC_MOBNO: string;
   AC_EMAIL: string;
-  AC_ADDFLAG: boolean;
+  AC_ADDFLAG: string;
   AC_THONO: string;
   AC_TWARD: string;
   AC_TGALLI: string;
