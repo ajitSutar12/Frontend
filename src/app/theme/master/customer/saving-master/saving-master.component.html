@@ -644,7 +644,7 @@
                                     </ngb-tab>
                                     <!-- End of Address tab -->
                                     <!-- start of Introducer/Minor Details tab  -->
-                                    <ngb-tab title="3.Introducer/Minor Details">
+                                    <ngb-tab title="3.Introducer/Minor Details" (click)="ageCalculator()">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
@@ -654,7 +654,7 @@
                                                                 class="border-checkbox-group border-checkbox-group-primary">
                                                                 <input class="border-checkbox" type="checkbox"
                                                                     id="ac_minor" name="AC_MINOR"
-                                                                    formControlName="AC_MINOR" disabled>
+                                                                    [checked]="MINOR==true" formControlName="AC_MINOR">
                                                                 <label class="border-checkbox-label"
                                                                     for="ac_minor">Minor
                                                                     Details</label>
@@ -1220,18 +1220,19 @@
                                                             <div
                                                                 class="border-checkbox-group border-checkbox-group-primary">
                                                                 <input class="border-checkbox" type="checkbox"
-                                                                    id="checkbox3" value="checkbox"
-                                                                    [checked]="isPowerofAttorney == true">
-                                                                <!--Default unchecked-->
-                                                                <label class="border-checkbox-label" for="checkbox3"
+                                                                    id="powerofattorney" value="checkbox"
+                                                                    (click)="ispowerof($event)">
+                                                                <label class="border-checkbox-label"
+                                                                    for="powerofattorney"
                                                                     [ngClass]="{'isActive': PowerofAttorneyTrue}">Power
                                                                     of Attorney</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm">
-                                                        <h6> <a (click)="OpenLink(3)" routerLinkActive="active"
-                                                                class="text-right f-w-600" id="pointer">Click Here
+                                                        <h6> <a routerLinkActive="active" class="text-right f-w-600"
+                                                                id="pointer" id="click">Click
+                                                                Here
                                                                 To Modify</a></h6>
                                                     </div>
                                                 </div>
@@ -1248,7 +1249,8 @@
                                                                                 id="ATTERONEY_NAME"
                                                                                 pattern="^[A-Za-z\./ -]+$"
                                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                formControlName="ATTERONEY_NAME">
+                                                                                formControlName="ATTERONEY_NAME"
+                                                                                [required]="ATTERONEY_NAME">
                                                                             <label for="ATTERONEY_NAME">Name<sub
                                                                                     class="required">* </sub></label>
                                                                         </span>
@@ -1268,7 +1270,8 @@
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="DATE_APPOINTED"
                                                                                 class="form-control" placeholder=" "
-                                                                                id="DATE_APPOINTED" required=""
+                                                                                id="DATE_APPOINTED"
+                                                                                [required]="DATE_APPOINTED"
                                                                                 max="9999-12-31"
                                                                                 onfocus="(this.type='date')"
                                                                                 formControlName="DATE_APPOINTED">
@@ -1292,7 +1295,8 @@
                                                                                 class="form-control" placeholder=" "
                                                                                 id="DATE_EXPIRY" max="9999-12-31"
                                                                                 onfocus="(this.type='date')"
-                                                                                formControlName="DATE_EXPIRY">
+                                                                                formControlName="DATE_EXPIRY"
+                                                                                [required]="DATE_EXPIRY">
                                                                             <label for="DATE_EXPIRY">Expiry Date<sub
                                                                                     class="required">* </sub></label>
                                                                         </span>
@@ -1396,8 +1400,71 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions"
-                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                                class="table table-striped table-bordered table-hover">
+                                <tbody *ngIf="savingMaster?.length != 0">
+                                    <tr *ngFor="let data of savingMaster">
+                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
+                                                (click)="editClickHandler(data.id)">Edit</button>
+                                        </td>
+                                        <td>{{data.AC_TYPE }}</td>
+                                        <td>{{data.AC_NO }}</td>
+                                        <td>{{data.AC_CUSTID }}</td>
+                                        <td>{{data.AC_OPDATE }}</td>
+                                        <td>{{data.REF_ACNO }}</td>
+                                        <td>{{data.AC_CATG }}</td>
+                                        <td>{{data.AC_OPR_CODE }}</td>
+                                        <td>{{data.AC_BALCATG }}</td>
+                                        <td>{{data.AC_INTCATA }}</td>
+                                        <td>{{data.AC_SCHMAMT }}</td>
+                                        <td>{{data.AC_MINOR }}</td>
+                                        <td>{{data.AC_MBDATE }}</td>
+                                        <td>{{data.AC_GRDNAME }}</td>
+                                        <td>{{data.AC_GRDRELE }}</td>
+                                        <td>{{data.AC_INTROBRANCH }}</td>
+                                        <td>{{data.AC_INTROID }}</td>
+                                        <td>{{data.AC_INTRACNO }}</td>
+                                        <td>{{data.AC_INTRNAME }}</td>
+                                        <td>{{data.SIGNATURE_AUTHORITY }}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="savingMaster?.length == 0">
+                                    <tr>
+                                        <td colspan="6" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th><input type="text" placeholder="Search Scheme" name="AC_TYPE"></th>
+                                        <th><input type="text" placeholder="Search Member No" name="AC_NO"></th>
+                                        <th><input type="text" placeholder="Search Customer ID" name="AC_CUSTID"></th>
+                                        <th><input type="text" placeholder="Search Open Date" name="AC_OPDATE"></th>
+                                        <th><input type="text" placeholder="Search Manual Ref.Member No"
+                                                name="REF_ACNO"></th>
+                                        <th><input type="text" placeholder="Search Category" name="AC_CATG"></th>
+                                        <th><input type="text" placeholder="Search Operation" name="AC_OPR_CODE"></th>
+                                        <th><input type="text" placeholder="Search Balance Category" name="AC_BALCATG">
+                                        </th>
+                                        <th><input type="text" placeholder="Search Interest Category" name="AC_INTCATA">
+                                        </th>
+                                        <th><input type="text" placeholder="Search Installment Amount"
+                                                name="AC_SCHMAMT"></th>
+                                        <th><input type="text" placeholder="Search Minor Details" name="AC_MINOR"></th>
+                                        <th><input type="text" placeholder="Search Birth Date" name="AC_MBDATE"></th>
+                                        <th><input type="text" placeholder="Search Guardian Name" name="AC_GRDNAME">
+                                        </th>
+                                        <th><input type="text" placeholder="Search Relation" name="AC_GRDRELE"></th>
+                                        <th><input type="text" placeholder="Search Branch" name="AC_INTROBRANCH"></th>
+                                        <th><input type="text" placeholder="Search Account Type" name="AC_INTROID"></th>
+                                        <th><input type="text" placeholder="Search Account code" name="AC_INTRACNO">
+                                        </th>
+                                        <th><input type="text" placeholder="Search Name" name="AC_INTRNAME"></th>
+                                        <th><input type="text" placeholder="Search Signature Authority"
+                                                name="SIGNATURE_AUTHORITY"></th>
+
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

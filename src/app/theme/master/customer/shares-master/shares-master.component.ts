@@ -663,6 +663,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('edit', data)
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
+      //get nominee to edit
       this.multiNominee = data.nomineeDetails
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
@@ -803,6 +804,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   // Reset Function
   resetForm() {
     this.createForm();
+    this.nomineeTrue = false
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

@@ -18,11 +18,8 @@ import { SavingMasterService } from './saving-master.service'
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { CustomerIdService } from '../customer-id/customer-id.service';
 import { categoryMasterService } from '../../../../shared/dropdownService/category-master-dropdown.service';
-import { MembershipTypeDropdownService } from '../../../../shared/dropdownService/membership-type-dropdown.service';
-import { SignTypeDropdownService } from '../../../../shared/dropdownService/sign-type-dropdown.service'
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service'
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
-import { SubSalaryDMasterdropdownService } from '../../../../shared/dropdownService/subsalary-division-master-dropdown.service'
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service'
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 import { OperationMasterDropdownService } from '../../../../shared/dropdownService/operation-master-dropdown.service'
@@ -101,6 +98,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   angForm: FormGroup;
   //Datatable variable
   dtExportButtonOptions: DataTables.Settings = {};
+  dtdocumentOptions: any = {}; //Datatable variable for document form
   Data: any;
   //variables for pagination
   page: number = 1;
@@ -158,8 +156,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   Cust_ID: any[] //customer id from idmaster
   // title: string //from idmaster as per customer id
   category: any[] //from category master
-  membershipType: Array<IOption> = this.membershipTypeDropdownService.getCharacters(); //membership type default option
-  signType: Array<IOption> = this.signTypeDropdownService.getCharacters();   //sign type default option
   city //city from customer id from idmaster
   cast: string // customer id from idmaster
   occupation: string // customer id from idmaster
@@ -168,8 +164,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   int_category// interest category from interest category master
   director: any[]//from directormaster
   branch_code: any[]//from ownbranchmaster
-  salary_div: string // customer id from idmaster
-  sub_salary_div: any[] //information sub salary master
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -181,24 +175,17 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private savingMasterService: SavingMasterService,
-    private membershipTypeDropdownService: MembershipTypeDropdownService,
-    private signTypeDropdownService: SignTypeDropdownService,
     private customerID: CustomerIDMasterDropdownService,
     private customerIdService: CustomerIdService,
     private categoryMasterService: categoryMasterService,
     private directorMasterDropdownService: DirectorMasterDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private subSalaryDMasterdropdownService: SubSalaryDMasterdropdownService,
     private cityMasterService: cityMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private operationMasterDropdownService: OperationMasterDropdownService,
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private minimumBalanceMasterDropdownService: MinimumBalanceMasterDropdownService,
     private fb: FormBuilder) { }
-
-
-  dtdocumentOptions: any = {}; //Datatable variable for document form
-
 
   ngOnInit(): void {
     this.createForm();
@@ -237,42 +224,81 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Action'
         },
         {
-          data: 'Scheme',
-          title: 'Scheme'
+          title: 'Scheme',
+          data: 'AC_TYPE'
         },
         {
-          data: 'Account',
-          title: 'Account'
+          title: 'Account No',
+          data: 'AC_NO'
         },
         {
-          data: 'CustomerID',
-          title: 'Customer ID'
+          title: 'Customer ID',
+          data: 'AC_CUSTID'
         },
         {
-          data: 'Title',
-          title: 'Title'
+          title: 'Opening Date',
+          data: 'AC_OPDATE'
         },
         {
-          data: 'Name',
-          title: 'Name'
+          title: 'Manual Ref.Member No.',
+          data: 'REF_ACNO'
         },
         {
-          data: 'LastIntDate',
-          title: 'Last Int. Date'
+          title: 'Category',
+          data: 'AC_CATG'
         },
         {
-          data: 'UnclearBalance',
-          title: 'Unclear Balance'
+          title: 'Operation',
+          data: 'AC_OPR_CODE'
         },
         {
-          data: 'FreezeStatus',
-          title: 'Freeze Status '
+          title: 'Balance Category',
+          data: 'AC_BALCATG'
         },
         {
-          data: 'LedgerBalance',
-          title: 'Ledger Balance'
-        }
-
+          title: 'Interest Category',
+          data: 'AC_INTCATA'
+        },
+        {
+          title: 'Installment Amount ',
+          data: 'AC_SCHMAMT'
+        },
+        {
+          title: 'Minor Details',
+          data: 'AC_MINOR'
+        },
+        {
+          title: 'Birth Date',
+          data: 'AC_MBDATE'
+        },
+        {
+          title: 'Guardian Name',
+          data: 'AC_GRDNAME'
+        },
+        {
+          title: 'Relation',
+          data: 'AC_GRDRELE'
+        },
+        {
+          title: 'Branch',
+          data: 'AC_INTROBRANCH'
+        },
+        {
+          title: 'Account Type',
+          data: 'AC_INTROID'
+        },
+        {
+          title: 'Account code',
+          data: 'AC_INTRACNO'
+        },
+        {
+          title: 'Name',
+          data: 'AC_INTRNAME'
+        },
+        {
+          title: 'Signature Authority',
+          data: 'SIGNATURE_AUTHORITY'
+        },
       ],
       dom: 'Blrtip',
     };
@@ -322,9 +348,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
     })
-    this.subSalaryDMasterdropdownService.getSubSalaryDMasterList().pipe(first()).subscribe(data => {
-      this.sub_salary_div = data;
-    })
     this.cityMasterService.getcityList().pipe(first()).subscribe(data => {
       this.city = data;
     })
@@ -362,13 +385,21 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
+      console.log('edit customer id', id)
+      console.log('getcustomer', data)
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
         AC_CAST: data.AC_CAST,
         AC_OCODE: data.AC_OCODE,
-        AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_MEMBTYPE: data.AC_MEMBTYPE,
+        AC_MEMBNO: data.AC_MEMBNO,
+        AC_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_MBDATE: data.AC_BIRTH_DT,
+        AC_PANNO: data.AC_PANNO,
+        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+
         AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
         AC_HONO: data.custAddress[0].AC_HONO,
         AC_WARD: data.custAddress[0].AC_WARD,
@@ -377,20 +408,20 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_AREA: data.custAddress[0].AC_AREA,
         AC_CTCODE: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
-        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
         AC_MOBNO: data.AC_MOBILENO,
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,
-        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
-        AC_THONO: data.custAddress.AC_THONO,
-        AC_TWARD: data.custAddress.AC_TWARD,
-        AC_TADDR: data.custAddress.AC_TADDR,
-        AC_TGALLI: data.custAddress.AC_TGALLI,
-        AC_TAREA: data.custAddress.AC_TAREA,
-        AC_TCTCODE: data.custAddress.AC_TCTCODE,
-        AC_TPIN: data.custAddress.AC_TPIN,
+
+        // AC_THONO: data.custAddress.custAddress[1].AC_THONO,
+        // AC_TWARD: data.custAddress.custAddress[1].AC_TWARD,
+        // AC_TADDR: data.custAddress.custAddress[1].AC_TADDR,
+        // AC_TGALLI: data.custAddress.custAddress[1].AC_TGALLI,
+        // AC_TAREA: data.custAddress.custAddress[1].AC_TAREA,
+        // AC_TCTCODE: data.custAddress.custAddress[1].AC_TCTCODE,
+        // AC_TPIN: data.custAddress.custAddress[1].AC_TPIN,
       })
     })
+    this.ageCalculator();
   }
 
   createForm() {
@@ -468,9 +499,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       ATTERONEY_NAME: ['', []],
       DATE_APPOINTED: ['', []],
       DATE_EXPIRY: ['', []],
-
-
-
     })
   }
 
@@ -505,6 +533,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_INTCATA': formVal.AC_INTCATA,
       'AC_OPDATE': formVal.AC_OPDATE,
       'AC_SCHMAMT': formVal.AC_SCHMAMT,
+      'REF_ACNO': formVal.REF_ACNO,
       //address
       'AC_ADDFLAG': formVal.AC_ADDFLAG,
       'AC_THONO': formVal.AC_THONO,
@@ -524,25 +553,23 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_INTRACNO': formVal.AC_INTRACNO,
       'AC_INTRNAME': formVal.AC_INTRNAME,
       'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
-
-
       //nominee
       'NomineeData': this.multiNominee,
       //Joint Account
-      'jointAccountData': this.multiJointAC,
+      'JointAccountData': this.multiJointAC,
       //Attorney
-      'attorneyData': this.multiAttorney
+      'PowerOfAttorneyData': this.multiAttorney
     }
     this.savingMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload()
-    });
+
     //To clear form
     this.resetForm();
     this.multiNominee = []
@@ -555,64 +582,46 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
-    this.getCustomer(id);
     this.savingMasterService.getFormData(id).subscribe(data => {
+      console.log('edit', data)
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
+      //get nominee to edit
       this.multiNominee = data.nomineeDetails
-      this.multiJointAC = data.jointAccountData
-      this.multiAttorney = data.attorneyData
-      //joint
-      //attorney
+      //get joint accounts to edit
+      this.multiJointAC = data.jointAccounts
+      //get attorney to edit
+      this.multiAttorney = data.powerOfAttorney
       this.angForm.patchValue({
-        AC_TYPE: data.AC_TYPE,
+        'AC_TYPE': data.AC_TYPE,
         'AC_NO': data.AC_NO,
         'AC_CATG': data.AC_CATG,
-        'EMP_NO': data.EMP_NO,
-        'AC_JOIN_DATE': data.AC_JOIN_DATE,
-        'AC_RETIRE_DATE': data.AC_RETIRE_DATE,
-        'MEMBERSHIP_BY': data.MEMBERSHIP_BY,
-        'AC_SIGN_TYPE': data.AC_SIGN_TYPE,
-        'AC_SREPRESENT': data.AC_SREPRESENT,
-
-        //other controls
+        'AC_BALCATG': data.AC_BALCATG,
+        'AC_OPR_CODE': data.AC_OPR_CODE,
+        // 'AC_CUSTID': data.AC_CUSTID,
+        'AC_INTCATA': data.AC_INTCATA,
         'AC_OPDATE': data.AC_OPDATE,
-        'AC_EXPDT': data.AC_EXPDT,
-        'DEATH_DATE': data.DEATH_DATE,
-        'AC_DIRECT': data.AC_DIRECT,
-        'AC_BRANCH': data.AC_BRANCH,
-        'SUB_SALARYDIVISION_CODE': data.SUB_SALARYDIVISION_CODE,
-        'AC_SBNO': data.AC_SBNO,
-        'AC_RESNO': data.AC_RESNO,
-        'AC_RESDT': data.AC_RESDT,
-        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
-        'AC_INSTALLMENT': data.AC_INSTALLMENT,
+        'AC_SCHMAMT': data.AC_SCHMAMT,
         'REF_ACNO': data.REF_ACNO,
-        'AC_NARR': data.AC_NARR,
-        //nominee controls (NOMINEELINK table)
-        'AC_NNAME': data.AC_NNAME,
-        'AC_NRELA': data.AC_NRELA,
-        'AC_NDATE': data.AC_NDATE,
-        'AGE': data.AGE,
-        'ADDR1': data.ADDR1,
-        'ADDR2': data.ADDR2,
-        'ADDR3': data.ADDR3,
-        'CTCODE': data.CTCODE,
-        'PIN': data.PIN,
-
-        //shares details under nominee tab
-        'AC_SHBALDATE': data.AC_SHBALDATE,
-        'AC_OP_SHNO': data.AC_OP_SHNO,
-        'AC_FACE_VALUE': data.AC_FACE_VALUE,
-        'AC_OP_BAL': data.AC_OP_BAL,
-
-        //marathi details
-        'AC_DEV_NAME': data.AC_DEV_NAME,
-        'AC_DEV_WARD': data.AC_DEV_WARD,
-        'AC_DEV_ADD': data.AC_DEV_ADD,
-        'AC_DEV_GALLI': data.AC_DEV_GALLI,
-        'AC_DEV_AREA': data.AC_DEV_AREA,
-        'AC_DEV_CITYCODE': data.AC_DEV_CITYCODE
+        //address
+        // 'AC_ADDFLAG': data.custAddress[1].AC_ADDFLAG,
+        // 'AC_THONO': data.custAddress[1].AC_THONO,
+        // 'AC_TWARD': data.custAddress[1].AC_TWARD,
+        // 'AC_TADDR': data.custAddress[1].AC_TADDR,
+        // 'AC_TGALLI': data.custAddress[1].AC_TGALLI,
+        // 'AC_TAREA': data.custAddress[1].AC_TAREA,
+        // 'AC_TCTCODE': data.custAddress[1].AC_TCTCODE,
+        // 'AC_TPIN': data.custAddress[1].AC_TPIN,
+        //minor and introducer
+        'AC_MINOR': data.AC_MINOR,
+        'AC_MBDATE': data.AC_MBDATE,
+        'AC_GRDNAME': data.AC_GRDNAME,
+        'AC_GRDRELE': data.AC_GRDRELE,
+        'AC_INTROBRANCH': data.AC_INTROBRANCH,
+        'AC_INTROID': data.AC_INTROID,
+        'AC_INTRACNO': data.AC_INTRACNO,
+        'AC_INTRNAME': data.AC_INTRNAME,
+        'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
       })
     })
   }
@@ -623,6 +632,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['NomineeData'] = this.multiNominee
     data['JointAccountData'] = this.multiJointAC
     data['PowerOfAttorneyData'] = this.multiAttorney
+    console.log(" data['PowerOfAttorneyData']", data['PowerOfAttorneyData'])
     data['id'] = this.updateID;
     this.savingMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
@@ -707,6 +717,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   // Reset Function
   resetForm() {
     this.createForm();
+    this.PowerofAttorneyTrue = false
+    this.JointAccountsTrue = false
+    this.nomineeTrue = false
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
@@ -894,5 +907,41 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.controls['ATTERONEY_NAME'].reset();
     this.angForm.controls['DATE_APPOINTED'].reset();
     this.angForm.controls['DATE_EXPIRY'].reset();
+  }
+
+  DATE_EXPIRY = false
+  DATE_APPOINTED = false
+  ATTERONEY_NAME = false
+  ispowerof($event) {
+    if ($event.target.checked) {
+      this.PowerofAttorneyTrue = true
+      this.DATE_EXPIRY = true
+      this.DATE_APPOINTED = true
+      this.ATTERONEY_NAME = true
+    }
+    else {
+      this.PowerofAttorneyTrue = false
+      this.DATE_EXPIRY = false
+      this.DATE_APPOINTED = false
+      this.ATTERONEY_NAME = false
+    }
+  }
+  showAge
+  MINOR = false
+  ageCalculator() {
+    if (this.angForm.controls.AC_BIRTH_DT) {
+      console.log('agecalculator', this.angForm.controls.AC_BIRTH_DT.value)
+      const convertAge = new Date(this.angForm.controls.AC_BIRTH_DT.value);
+      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+      this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+      if (this.showAge <= 18) {
+        console.log('age', this.showAge)
+        this.MINOR = false
+      }
+      else if (this.showAge > 18) {
+        console.log('age', this.showAge)
+        this.MINOR = true
+      }
+    }
   }
 }
