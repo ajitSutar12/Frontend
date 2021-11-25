@@ -15,7 +15,7 @@ import { cityMasterService } from '../../../../shared/dropdownService/city-maste
 import { RiskCategoryDropdownService } from '../../../../shared/dropdownService/risk-category-dropdown.service';
 import {DocumentMasterDropdownService } from '../../../../shared/dropdownService/document-master-dropdown.service';
 import { FileUploadModule } from 'ng2-file-upload';
-
+import { SharedModule } from '../../../../shared/shared.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +25,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     NgbModule,
     FormsModule, 
     ReactiveFormsModule,
-    FileUploadModule
+    FileUploadModule,
+    SharedModule
   ],
   exports:[CustomerIdComponent], 
   declarations: [CustomerIdComponent],

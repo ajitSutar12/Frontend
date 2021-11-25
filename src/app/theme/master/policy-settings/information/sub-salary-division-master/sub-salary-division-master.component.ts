@@ -10,8 +10,10 @@ import { DataTableDirective } from 'angular-datatables';
 import { SubSalaryService } from './sub-salary-division-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../../environments/environment'
-// Handling datatable data
+import { environment } from '../../../../../../environments/environment';
+import { SalaryDMasterdropdownService } from '../../../../../shared/dropdownService/salary-division-master-dropdown.service'
+import { first } from 'rxjs/operators';
+
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -69,13 +71,14 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
   updateShow: boolean = false;
   //variable to get Id to update
   updateID: number = 0;
-
+  id: string = '';
   // column filter 
   filterData = {};
-
+  division= []
   constructor(
     private http: HttpClient,
     private subSalaryDivisionService: SubSalaryService,
+    private subSalaryDivision: SalaryDMasterdropdownService,
     private fb: FormBuilder) {
   }
   ngOnInit(): void {
@@ -126,48 +129,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
             });
           });
       },
-      // columns: [
-      //   {
-      //     title: 'Action',
-
-      //   },
-      //   {
-      //     title: 'Division Code', 
-      //     data:'SAL_CODE',
-      //   }, 
-      //   {
-      //     title: 'Sub Code',
-      //     data:'CODE',
-      //   }, 
-      //   {
-      //     title: 'Name',
-      //     data:'NAME',
-      //   }, 
-      //   {
-      //     title: 'At-Post',
-      //     data:'AT_POST',
-      //   }, 
-      //   {
-      //     title: 'Taluka Name',
-      //     data:'TALUKA_NAME',
-      //   },
-      //    {
-      //     title: 'District Name',
-      //     data:'DISTRICT_NAME',
-      //   },
-      //   {
-      //     title: 'Email ID',
-      //     data:'AC_EMAILID',
-      //   },
-      //   {
-      //     title: 'Telephone(R)',
-      //     data:'PHNO',
-      //   },
-      //   {
-      //     title: 'Telephone(Mob)',
-      //     data:'MOBNO',
-      //   },
-      // ],
+     
       columns: [
         {
           title: 'Action',
@@ -209,12 +171,15 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
       ],
       dom: 'Blrtip',
     };
+    this.subSalaryDivision.getSalaryDMasterList().pipe(first()).subscribe(data => {
+      this.division = data;
+    })
   }
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
-      SAL_CODE: [''],
-      CODE: ['', [Validators.pattern, Validators.required]],
+      SAL_CODE: ['', [Validators.required]],
+      CODE: [''],
       NAME: ['', [Validators.pattern, Validators.required]],
       AT_POST: ['', [Validators.pattern]],
       TALUKA_NAME: ['', [Validators.pattern]],
@@ -353,5 +318,17 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+  value = 0; 
+ checkId(id){
+  
+  this.subSalaryDivisionService.getFormData(id).subscribe(data => {
+    if(data.CODE == null){
+      this.angForm.setValue({
+        'CODE': this.value + 1
+      })
+    }
+  })
+
   }
 }

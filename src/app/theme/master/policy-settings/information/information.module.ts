@@ -88,6 +88,8 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
 import { CompanyGroupMasterDropdownService } from '../../../../shared/dropdownService/company-group-master-dropdown.service';
 import { RiskCategoryDropdownService } from '../../../../shared/dropdownService/risk-category-dropdown.service';
 import { RiskCatMasterService } from './risk-catagory/risk-category.service';
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { SalaryDMasterdropdownService } from '../../../../shared/dropdownService/salary-division-master-dropdown.service'
 
 
 // import { NgSelectModule } from '@ng-select/ng-select';
@@ -153,6 +155,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CompanyGroupMasterDropdownService,
     RiskCategoryDropdownService,
     RiskCatMasterService,
+    OwnbranchMasterService,
+    SalaryDMasterdropdownService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

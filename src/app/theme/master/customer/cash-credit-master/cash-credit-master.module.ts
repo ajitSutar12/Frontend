@@ -4,23 +4,35 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CashCreditMasterRoutingModule } from './cash-credit-master-routing.module';
 import { CashCreditMasterComponent } from './cash-credit-master.component';
-import { TitleService } from '../../../../shared/elements/title.service';
-import { AccountTypeService } from '../../../../shared/elements/account-type.service';
+import { CashCreditService } from './cash-credit-master.service';
 import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
-import { CustomeridService } from '../../../../shared/elements/customerid.service';
-import { MemberschemeService } from '../../../../shared/elements/memberscheme.service';
-import { MembernoService } from '../../../../shared/elements/memberno.service';
-import { CastService } from '../../../../shared/elements/cast.service';
-import { OccuptionService } from '../../../../shared/elements/occuption.service';
-import { S1Service } from '../../../../shared/elements/s1.service';
-import { S2Service } from '../../../../shared/elements/s2.service';
-import { S3Service } from '../../../../shared/elements/s3.service';
-import { A1Service } from '../../../../shared/elements/a1.service';
-import { CitycodeService } from '../../../../shared/elements/citycode.service';
-import { MemberTypeService } from '../../../../shared/elements/member-type.service';
-import { MemberService } from '../../../../shared/elements/member.service';
+import { SharedModule } from '../../../../shared/shared.module';
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { CustomerIdService } from '../customer-id/customer-id.service';
+import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
+import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service';
+import { RepayModeService } from '../../../../shared/dropdownService/repay-mode.service';
+import { InstallmentMethodService } from '../../../../shared/dropdownService/installment-method.service';
+import { AuthorityMasterDropdownService } from '../../../../shared/dropdownService/authority-master-dropdown.service';
+import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
+import { RecoveryClearkMasterDropdownService } from '../../../../shared/dropdownService/recovery-cleark-master-dropdown.service';
+import { PrioritySectorMasterDropdownService } from '../../../../shared/dropdownService/priority-sector-master-dropdown.service';
+import { WeakerMasterDropdownService } from '../../../../shared/dropdownService/weaker-master-dropdown.service';
+import { PurposeMasterDropdownService } from '../../../../shared/dropdownService/purpose-master-dropdown.service';
+import { IndustryMasterDropdownService } from '../../../../shared/dropdownService/industry-master-dropdown.service';
+import { HealthMasterDropdownService } from '../../../../shared/dropdownService/health-master-dropdown.service';
+import { AccountTypeService } from '../../../../shared/dropdownService/account-type.service';
+import { SecurityMasterdropdownService } from '../../../../shared/dropdownService/security-master-dropdown.service';
+import { InterestRateForLoanandCCService } from '../../policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
+import { CustomerIdModule } from '../customer-id/customer-id.module';
+import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 @NgModule({
   imports: [
     CommonModule,
@@ -28,11 +40,31 @@ import { MemberService } from '../../../../shared/elements/member.service';
     DataTablesModule,
     NgbModule,
     SelectModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    SharedModule,
+    CustomerIdModule,
+    PerfectScrollbarModule,
+    SharedModule
   ],
   declarations: [CashCreditMasterComponent],
-  providers: [TitleService, AccountTypeService, SchemeCodeService, CustomeridService,
-    MemberschemeService, MembernoService, CastService, OccuptionService, S1Service, S2Service,
-    S3Service, A1Service, CitycodeService, MemberTypeService, MemberService]
+  providers: [CashCreditService,
+    SchemeCodeDropdownService,
+    CustomerIdService,
+    CustomerIDMasterDropdownService,
+    IntrestCategoryMasterDropdownService,
+    RepayModeService,
+    InstallmentMethodService,
+    AuthorityMasterDropdownService,
+    DirectorMasterDropdownService,
+    RecoveryClearkMasterDropdownService,
+    PrioritySectorMasterDropdownService,
+    WeakerMasterDropdownService,
+    PurposeMasterDropdownService,
+    IndustryMasterDropdownService,
+    HealthMasterDropdownService,
+    AccountTypeService,
+    SecurityMasterdropdownService,
+    InterestRateForLoanandCCService,
+    PrioritySectorMasterService]
 })
 export class CashCreditMasterModule { }

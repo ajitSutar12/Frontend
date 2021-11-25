@@ -34,9 +34,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm">
                             <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+
+                            <button class="btn btn-primary ripple light" (click)="updateData()" [disabled]="angForm.invalid" *ngIf="updateShow">Update</button> &nbsp;
+                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
                         </div>
 
                     </div>
@@ -74,10 +76,10 @@
                                 <tfoot>
                                     <tr>
                                         <th></th>
-                                        <th><input type="text" placeholder="Search CODE" name="search-CODE">
-                                            <th><input type="text" placeholder="Search NAME" name="search-NAME">
+                                        <th><input type="text" placeholder="Search CODE" name="CODE"> </th>
+                                        <th><input type="text" placeholder="Search NAME" name="NAME">
 
-                                            </th>
+                                        </th>
                                     </tr>
                                 </tfoot>
                             </table>

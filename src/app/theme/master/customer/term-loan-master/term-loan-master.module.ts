@@ -26,6 +26,7 @@ import { AccountTypeService } from '../../../../shared/dropdownService/account-t
 import { SecurityMasterdropdownService } from '../../../../shared/dropdownService/security-master-dropdown.service';
 import { InterestRateForLoanandCCService } from '../../policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
 import { CustomerIdModule } from '../customer-id/customer-id.module';
+import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -70,7 +71,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HealthMasterDropdownService,
     AccountTypeService,
     SecurityMasterdropdownService,
-    InterestRateForLoanandCCService
+    InterestRateForLoanandCCService,
+    PrioritySectorMasterService
   ]
 })
 export class TermLoanMasterModule { }

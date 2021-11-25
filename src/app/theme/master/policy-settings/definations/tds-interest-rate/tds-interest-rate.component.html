@@ -19,7 +19,7 @@
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['FIN_YEAR'].invalid && (angForm.controls['FIN_YEAR'].dirty || angForm.controls['FIN_YEAR'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FIN_YEAR'].errors?.pattern || angForm.controls['FIN_YEAR'].errors?.minlength || angForm.controls['FIN_YEAR'].errors?.maxlength || angForm.controls['FIN_YEAR'].errors?.required">
-                                    This field is required and Input allowed only 0-9
+                                    This field is required and Input allowed only 0-9(8 digit between two years from and to (i.e.20212022))
                                 </div>
                             </div>
                         </div>

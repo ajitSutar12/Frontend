@@ -18,23 +18,23 @@
                                                 <div class="card-block">
 
                                                     <div class="row">
-                                                        <div class="col-sm-4">
+                                                        <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="BANK_CODE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="BANK_CODE" maxlength="4" required
+                                                                        id="BANK_CODE" maxlength="4" pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        pattern="^[0-9]+$" formControlName="BANK_CODE">
+                                                                        formControlName="BANK_CODE">
                                                                     <label for="BANK_CODE">Bank Code<sub
-                                                                            class="required">* </sub></label>
+                                                                            class="required">* </sub> </label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
                                                                 *ngIf="angForm.controls['BANK_CODE'].invalid && (angForm.controls['BANK_CODE'].dirty || angForm.controls['BANK_CODE'].touched)"
                                                                 class="alert alert-danger">
                                                                 <div
-                                                                    *ngIf="angForm.controls['BANK_CODE'].errors?.pattern || angForm.controls['BANK_CODE'].errors?.required || angForm.controls['BANK_CODE'].errors?.maxlength">
+                                                                    *ngIf="angForm.controls['BANK_CODE'].errors?.required || angForm.controls['BANK_CODE'].errors?.pattern || angForm.controls['BANK_CODE'].errors?.maxlength">
                                                                     This field is required and Input allowed only 0-9
                                                                 </div>
                                                             </div>
@@ -62,56 +62,30 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-4">
-                                                            <div class="form-group input-group">
-                                                                <span class="border-lable-flt">
-                                                                    <input type="text" name="BRANCH_CODE"
-                                                                        class="form-control" placeholder=" "
-                                                                        id="BRANCH_CODE" maxlength="4" required
-                                                                        title="Input allowed only  0-9"
-                                                                        pattern="^[0-9]+$"
-                                                                        formControlName="BRANCH_CODE">
-                                                                    <label for="BRANCH_CODE">Branch Code<sub
-                                                                            class="required">* </sub></label>
-                                                                </span>
+                                                        <div class="col-sm">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <ng-select [ngClass]="'ng-select'"
+                                                                    [options]="OwnbranchMasterDropdown"
+                                                                    [multiple]="false" placeholder="Branch Code *"
+                                                                    title="Compulsory Selection"
+                                                                    formControlName="BRANCH_CODE">
+                                                                </ng-select>
                                                             </div>
+
 
                                                             <div class="form-group form-primary form-static-label"
                                                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                                                 class="alert alert-danger">
                                                                 <div
-                                                                    *ngIf="angForm.controls['BRANCH_CODE'].errors?.pattern || angForm.controls['BRANCH_CODE'].errors?.required  || angForm.controls['BRANCH_CODE'].errors?.maxlength">
-                                                                    This field is required and Input allowed only 0-9
+                                                                    *ngIf=" angForm.controls['BRANCH_CODE'].errors?.required || angForm.controls['BRANCH_CODE'].errors?.maxlength">
+                                                                    This field is required
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
-                                                            <div class="form-group input-group">
-                                                                <span class="border-lable-flt">
-                                                                    <input type="text" name="BRANCH_NAME"
-                                                                        class="form-control" placeholder=" "
-                                                                        id="BRANCH_NAME" required=""
-                                                                        pattern="^[A-Za-z\./ -]+$"
-                                                                        formControlName="BRANCH_NAME" maxlength="90"
-                                                                        title="Input allowed only  A-Z a-z  - / . (Space)">
-                                                                    <label for="BRANCH_NAME">Branch Name<sub
-                                                                            class="required">* </sub></label>
-                                                                </span>
-                                                            </div>
-                                                            <div class="form-group form-primary form-static-label"
-                                                                *ngIf="angForm.controls['BRANCH_NAME'].invalid && (angForm.controls['BRANCH_NAME'].dirty || angForm.controls['BRANCH_NAME'].touched)"
-                                                                class="alert alert-danger">
-                                                                <div
-                                                                    *ngIf="angForm.controls['BRANCH_NAME'].errors?.pattern || angForm.controls['BRANCH_NAME'].errors?.required || angForm.controls['BRANCH_NAME'].errors?.maxlength">
-                                                                    This field is required and Input allowed only A-Z
-                                                                    a-z - / . (Space)
-                                                                </div>
-                                                            </div>
-                                                        </div>
+
                                                     </div>
-                                                    
+
+
 
 
 
@@ -125,7 +99,8 @@
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                         id="ADDRESS" maxlength="4000"
                                                                         formControlName="ADDRESS"></textarea>
-                                                                    <label for="ADDRESS">Bank Address</label>
+                                                                    <label for="ADDRESS">Bank Address<sub
+                                                                            class="required">* </sub></label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -147,7 +122,7 @@
                                                                         onfocus="(this.type='date')"
                                                                         formControlName="COMPANY_START_DATE">
                                                                     <label for="COMPANY_START_DATE">Bank Start
-                                                                        Date</label>
+                                                                        Date<sub class="required">* </sub></label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -181,7 +156,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                       
+
 
 
 
@@ -260,7 +235,7 @@
                                                             </div>
                                                         </div>
 
-                                                       
+
 
 
 
@@ -339,7 +314,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
 
 
 
@@ -440,7 +415,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="DD Commission"
                                                                     title="Compulsory Selection"
                                                                     formControlName="DD_COMMISSION_ACNO">
@@ -450,7 +425,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Dividend GL *" required
                                                                     title="Compulsory Selection"
                                                                     formControlName="DIVIDEND_ACNO">
@@ -468,7 +443,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Bonus GL *" required
                                                                     title="Compulsory Selection"
                                                                     formControlName="BONUS_GLACNO">
@@ -490,7 +465,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Bills For Collection"
                                                                     title="Compulsory Selection"
                                                                     formControlName="BILL_FOR_COLLECTION_ACNO">
@@ -500,7 +475,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Bills For Collection"
                                                                     title="Compulsory Selection"
                                                                     formControlName="BILL_RECEIVABLE_ACNO">
@@ -510,7 +485,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="BC BR Clearing Dr."
                                                                     title="Compulsory Selection"
                                                                     formControlName="BCBR_DR_GLACNO">
@@ -526,7 +501,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Clearing Suspence GL A/c"
                                                                     title="Compulsory Selection"
                                                                     formControlName="CLG_SUSPENCE_ACNO">
@@ -536,7 +511,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Inward Bill Collection GL A/c"
                                                                     title="Compulsory Selection"
                                                                     formControlName="INWARD_BILL_COLLECTION_ACNO">
@@ -546,7 +521,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Inward Bill
                                                                     Receivable GL
                                                                     A/c" title="Compulsory Selection"
@@ -566,104 +541,118 @@
                                                                     <input class="border-checkbox" type="checkbox"
                                                                         name="IS_ALLOW_RECOVERY_DIFF"
                                                                         id="IS_ALLOW_RECOVERY_DIFF"
-                                                                        formControlName="IS_ALLOW_RECOVERY_DIFF">
+                                                                        formControlName="IS_ALLOW_RECOVERY_DIFF"
+                                                                        (click)="Allow_Recovery($event)">
                                                                     <label class="border-checkbox-label"
                                                                         for="IS_ALLOW_RECOVERY_DIFF">Allow Recovery
                                                                     </label>
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <div class="col-sm">
-                                                            <div class="form-radio">
-                                                                <div class="radio radio-inline">
-                                                                    <label>
-                                                                        <input type="radio" value="MemberNoWiseRecovery"
-                                                                            name="RECOVERY_METHOD"
-                                                                            formControlName="RECOVERY_METHOD">
-                                                                        <i class="helper"></i>Member No Wise
-                                                                        Recovery<span class="required"> </span>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm">
-                                                            <div class="form-radio">
-                                                                <div class="radio radio-inline">
-                                                                    <label>
-                                                                        <input type="radio"
-                                                                            value="CustomeIDWiseRecovery"
-                                                                            name="RECOVERY_METHOD"
-                                                                            formControlName="RECOVERY_METHOD">
-                                                                        <i class="helper"></i>CustomerID Wise
-                                                                        Recovery<span class="required"> </span>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-sm">
-                                                            <div class="border-checkbox-section">
-                                                                <div
-                                                                    class="border-checkbox-group border-checkbox-group-primary">
-                                                                    <input class="border-checkbox" type="checkbox"
-                                                                        name="IS_PROCESS_FOR_MONTH"
-                                                                        id="IS_PROCESS_FOR_MONTH"
-                                                                        formControlName="IS_PROCESS_FOR_MONTH">
-                                                                    <label class="border-checkbox-label"
-                                                                        for="IS_PROCESS_FOR_MONTH">Is Process For
-                                                                        Process
-                                                                        Month/Year
-                                                                    </label>
+                                                    <div class="card-block" *ngIf="Show">
+                                                        <div class="row">
+
+                                                            <div class="col-sm">
+                                                                <div class="form-radio">
+                                                                    <div class="radio radio-inline">
+                                                                        <label>
+                                                                            <input type="radio"
+                                                                                value="MemberNoWiseRecovery"
+                                                                                name="RECOVERY_METHOD"
+                                                                                formControlName="RECOVERY_METHOD"
+                                                                                >
+                                                                            <i class="helper"></i>Member No Wise
+                                                                            Recovery<span class="required"> </span>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-sm">
-                                                            <div class="form-group input-group">
-                                                                <span class="border-lable-flt">
-                                                                    <input type="text" name="RECOVERY_DR_ACNO"
-                                                                        class="form-control" placeholder=" "
-                                                                        id="RECOVERY_DR_ACNO" pattern="^[0-9]+$"
-                                                                        title="Input allowed only  0-9" maxlength="6"
-                                                                        formControlName="RECOVERY_DR_ACNO">
-                                                                    <label for="RECOVERY_DR_ACNO">Recovery GL
-                                                                        A/c No.<sub class="required">*</sub></label>
-                                                                </span>
-                                                            </div>
-                                                            <div class="form-group form-primary form-static-label"
-                                                                *ngIf="angForm.controls['RECOVERY_DR_ACNO'].invalid && (angForm.controls['RECOVERY_DR_ACNO'].dirty || angForm.controls['RECOVERY_DR_ACNO'].touched)"
-                                                                class="alert alert-danger">
-                                                                <div
-                                                                    *ngIf=" angForm.controls['RECOVERY_DR_ACNO'].errors?.required || angForm.controls['RECOVERY_DR_ACNO'].errors?.pattern ||angForm.controls['RECOVERY_DR_ACNO'].errors?.maxlength">
-                                                                    This field is required and Input allowed only 0-9
+                                                            <div class="col-sm">
+                                                                <div class="form-radio">
+                                                                    <div class="radio radio-inline">
+                                                                        <label>
+                                                                            <input type="radio"
+                                                                                value="CustomeIDWiseRecovery"
+                                                                                name="RECOVERY_METHOD"
+                                                                                formControlName="RECOVERY_METHOD"
+                                                                                >
+                                                                            <i class="helper"></i>CustomerID Wise
+                                                                            Recovery<span class="required"> </span>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
+
                                                             </div>
-                                                        </div>
-                                                        <div class="col-sm">
                                                             <div class="col-sm">
                                                                 <div class="border-checkbox-section">
                                                                     <div
                                                                         class="border-checkbox-group border-checkbox-group-primary">
                                                                         <input class="border-checkbox" type="checkbox"
-                                                                            name="IS_PROCESS_UPTO_TRANDATE"
-                                                                            id="IS_PROCESS_UPTO_TRANDATE"
-                                                                            formControlName="IS_PROCESS_UPTO_TRANDATE">
+                                                                            name="IS_PROCESS_FOR_MONTH"
+                                                                            id="IS_PROCESS_FOR_MONTH"
+                                                                            formControlName="IS_PROCESS_FOR_MONTH"
+                                                                            >
                                                                         <label class="border-checkbox-label"
-                                                                            for="IS_PROCESS_UPTO_TRANDATE">Is Process
-                                                                            Upto
-                                                                            Current Date
+                                                                            for="IS_PROCESS_FOR_MONTH">Is Process For
+                                                                            Process
+                                                                            Month/Year
                                                                         </label>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+
+                                                            <div class="col-sm">
+                                                                <div class="form-group input-group">
+                                                                    <span class="border-lable-flt">
+                                                                        <input type="text" name="RECOVERY_DR_ACNO"
+                                                                            class="form-control" placeholder=" "
+                                                                            id="RECOVERY_DR_ACNO" pattern="^[0-9]+$"
+                                                                            title="Input allowed only  0-9"
+                                                                            maxlength="6"
+                                                                            formControlName="RECOVERY_DR_ACNO" >
+                                                                        <label for="RECOVERY_DR_ACNO">Recovery GL
+                                                                            A/c No.<sub class="required">*</sub></label>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="form-group form-primary form-static-label"
+                                                                    *ngIf="angForm.controls['RECOVERY_DR_ACNO'].invalid && (angForm.controls['RECOVERY_DR_ACNO'].dirty || angForm.controls['RECOVERY_DR_ACNO'].touched)"
+                                                                    class="alert alert-danger">
+                                                                    <div
+                                                                        *ngIf=" angForm.controls['RECOVERY_DR_ACNO'].errors?.required || angForm.controls['RECOVERY_DR_ACNO'].errors?.pattern ||angForm.controls['RECOVERY_DR_ACNO'].errors?.maxlength">
+                                                                        This field is required and Input allowed only
+                                                                        0-9
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm">
+                                                                <div class="col-sm">
+                                                                    <div class="border-checkbox-section">
+                                                                        <div
+                                                                            class="border-checkbox-group border-checkbox-group-primary">
+                                                                            <input class="border-checkbox"
+                                                                                type="checkbox"
+                                                                                name="IS_PROCESS_UPTO_TRANDATE"
+                                                                                id="IS_PROCESS_UPTO_TRANDATE"
+                                                                                formControlName="IS_PROCESS_UPTO_TRANDATE"
+                                                                                >
+                                                                            <label class="border-checkbox-label"
+                                                                                for="IS_PROCESS_UPTO_TRANDATE">Is
+                                                                                Process
+                                                                                Upto
+                                                                                Current Date
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
 
                                                         </div>
 
                                                     </div>
-
-
 
                                                 </div>
                                             </div>
@@ -685,7 +674,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Head Office Ac No *
                                                                  " title="Compulsory Selection" required
                                                                     formControlName="HO_GLACNO">
@@ -705,7 +694,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Bank Gaurantee Dr.A/c"
                                                                     formControlName="BG_DR_ACNO">
                                                                 </ng-select>
@@ -714,7 +703,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Bank Gaurantee Cr.
                                                                     A/c" formControlName="BG_CR_ACNO">
                                                                 </ng-select>
@@ -727,7 +716,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Pay Order A/c"
                                                                     formControlName="PAY_ORDER_ACNO">
                                                                 </ng-select>
@@ -736,7 +725,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Inward Bills
                                                                     Purchase
                                                                     A/c" formControlName="INWARD_BILLS_PURCHASE_ACNO">
@@ -746,7 +735,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Year End
                                                                     Profit Loss
                                                                     Transfer *" required
@@ -769,7 +758,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Profit / Loss Print in
                                                                     B/S
                                                                     GL" formControlName="PL_TRANSFER_ACNO">
@@ -779,7 +768,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Share
                                                                     Capital Statement
                                                                     No. *" required
@@ -813,7 +802,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="TDS Payable GL A/c *" required
                                                                     formControlName="TDS_PAYABLE_GLACNO">
                                                                 </ng-select>
@@ -830,7 +819,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Surcharge GL A/c *" required
                                                                     formControlName="SURCHARGE_GLACNO">
                                                                 </ng-select>
@@ -847,7 +836,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Cheque Book Charges
                                                                     GL" formControlName="CHEQUE_CHARGES_ACNO">
                                                                 </ng-select>
@@ -858,7 +847,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="Cheque Bounce
                                                                     Charges 
                                                                     GL" formControlName="CHEQUE_BOUNCE_ACNO">
@@ -892,7 +881,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="ACMasterDropdown" [multiple]="false"
                                                                     placeholder="MICR Charges GL A/c"
                                                                     formControlName="MICR_CHARGES_ACNO">
                                                                 </ng-select>
@@ -993,7 +982,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="WeeklyandHalfHoliday" [multiple]="false"
                                                                     placeholder="Weekly Holiday *" required
                                                                     title="Compulsory Selection"
                                                                     formControlName="WEEKLY_HOLIDAY">
@@ -1011,7 +1000,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="WeeklyandHalfHoliday" [multiple]="false"
                                                                     placeholder="Half Day *" required
                                                                     title="Compulsory Selection"
                                                                     formControlName="HALF_DAY">
@@ -1029,7 +1018,8 @@
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
-                                                                    [options]="simpleOption" [multiple]="false"
+                                                                    [options]="IntrestCalculationMethod"
+                                                                    [multiple]="false"
                                                                     placeholder="Interest Calculation Method *" required
                                                                     title="Compulsory Selection"
                                                                     formControlName="INT_CALC_METHOD">
@@ -1708,7 +1698,7 @@
 
                                                                         </div>
                                                                         <div class="row">
-                                                                          
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1765,7 +1755,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
-                                                                           
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1821,7 +1811,7 @@
 
                                                                         </div>
                                                                         <div class="row">
-                                                                           
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1879,7 +1869,7 @@
 
                                                                         </div>
                                                                         <div class="row">
-                                                                           
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1937,7 +1927,7 @@
 
                                                                         </div>
                                                                         <div class="row">
-                                                                           
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1994,7 +1984,7 @@
                                                                             </div>
 
                                                                         </div>
-                                                                  
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2163,7 +2153,7 @@
                                                             <div class="col-sm">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <ng-select [ngClass]="'ng-select'"
-                                                                        [options]="simpleOption" [multiple]="false"
+                                                                        [options]="ACMasterDropdown" [multiple]="false"
                                                                         placeholder="Back Day Open Options "
                                                                         title="Compulsory Selection"
                                                                         formControlName="BACK_DAY_OPTION">
@@ -2210,8 +2200,8 @@
                                                             <div class="col-sm">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <ng-select [ngClass]="'ng-select'"
-                                                                        [options]="simpleOption" [multiple]="false"
-                                                                        placeholder="Clearing House Member *" required
+                                                                        [options]="ACMasterDropdown" [multiple]="false"
+                                                                        placeholder="Cash In Hand GL A/c *" required
                                                                         title="Cash in Hand GL
                                                                         A/c Amount *"
                                                                         formControlName="CASH_IN_HAND_ACNO">
@@ -2231,7 +2221,7 @@
                                                             <div class="col-sm">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <ng-select [ngClass]="'ng-select'"
-                                                                        [options]="simpleOption" [multiple]="false"
+                                                                        [options]="ACMasterDropdown" [multiple]="false"
                                                                         placeholder="Clearing House Member *" required
                                                                         title="Compulsory Selection"
                                                                         formControlName="CLG_HOUSE_METHOD">
@@ -2317,7 +2307,7 @@
                                         <td>{{ data.BANK_CODE }}</td>
                                         <td>{{ data.BANK_NAME }}</td>
                                         <td>{{ data.BRANCH_CODE }}</td>
-                                        <td>{{ data.BRANCH_NAME }}</td>
+
                                         <td>{{ data.ADDRESS }}</td>
                                         <td>{{ data.COMPANY_START_DATE }}</td>
                                         <td>{{ data.NO_OF_EMPLOYEES }}</td>
@@ -2362,6 +2352,7 @@
                                         <td>{{ data.MICR_CHARGES_ACNO }}</td>
                                         <td>{{ data.MICR_CHARGES_AMOUNT }}</td>
                                         <td>{{ data.MICR_CHARGES_INWORD_CLG }}</td>
+
                                         <td>{{ data.GRACE_PERIOD }}</td>
                                         <td>{{ data.WEEKLY_HOLIDAY }}</td>
                                         <td>{{ data.HALF_DAY }}</td>
@@ -2377,6 +2368,8 @@
                                         <td>{{ data.MEMBER_FOR_GUR }}</td>
                                         <td>{{ data.AUTO_LOCK_TIME }}</td>
                                         <td>{{ data.PASSWORD_EXPIRE_DAYS }}</td>
+
+
                                         <td>{{ data.IS_ALLOW_CLG_TALLY_VOUCHER }}</td>
                                         <td>{{ data.DENOMINATION_REQUIRE }}</td>
                                         <td>{{ data.CUSTOMER_ID_REQUIRED }}</td>
@@ -2397,7 +2390,6 @@
                                         <td>{{ data.IS_ALLOW_USER_MULTI_LOGIN }}</td>
                                         <td>{{ data.IS_AUTO_INSTRUCTION_PASS }}</td>
                                         <td>{{ data.PIGMY_AC_RENEW_APPLY }}</td>
-                                        <td>{{ data.PIGMY_AC_RENEW_APPLY }}</td>
                                         <td>{{ data.MAINTAIN_CHEQUE_SERIES }}</td>
                                         <td>{{ data.IS_RECEIPTNO_IN_PIGMYCHART }}</td>
                                         <td>{{ data.IS_BANKERS_COMM_TRAN_REQD }}</td>
@@ -2414,10 +2406,11 @@
                                         <td>{{ data.IS_ALLOW_RECOVERY_DIFF }}</td>
                                         <td>{{ data.WITHDRW_CLOSING_FOR_GURMEMBERS }}</td>
                                         <td>{{ data.SCHMWISE_REC_IMPEXP }}</td>
+
                                         <td>{{ data.PREVIOUS_DATE }}</td>
                                         <td>{{ data.CURRENT_DATE }}</td>
                                         <td>{{ data.DAY_BEGIN_EXECUTED }}</td>
-                                        <td>{{ data.DAY_BEGIN_EXECUTED }}</td>
+                                        <td>{{ data.DAY_END_EXECUTED }}</td>
                                         <td>{{ data.PIGMY_PREVIOUS_DATE }}</td>
                                         <td>{{ data.PIGMY_CURRENT_DATE }}</td>
                                         <td>{{ data.PIGMY_DAY_BEGIN_EXECUTED }}</td>
@@ -2437,6 +2430,223 @@
                                         <td colspan="6" class="no-data-available">No data!</td>
                                     </tr>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+
+                                        <th><input type="text" placeholder="Type" name="SYSPARA_CODE"></th>
+                                        <th><input type="text" placeholder="Bank Code" name="BANK_CODE"></th>
+                                        <th><input type="text" placeholder="Bank Name" name="BANK_NAME"></th>
+                                        <th><input type="text" placeholder="Branch Code" name="BRANCH_CODE"></th>
+                                        <th><input type="text" placeholder="Bank Address" name="ADDRESS"></th>
+                                        <th><input type="text" placeholder="Bank Start Date" name="COMPANY_START_DATE">
+                                        </th>
+                                        <th><input type="text" placeholder="No. Of Employees" name="NO_OF_EMPLOYEES">
+                                        </th>
+                                        <th><input type="text" placeholder="Accountant" name="ACCOUNTANT"></th>
+                                        <th><input type="text" placeholder="General Manager" name="GENERAL_MANAGER">
+                                        </th>
+                                        <th><input type="text" placeholder="Chairman" name="CHAIRMAN"></th>
+                                        <th><input type="text" placeholder="Officer Name" name="OFFICER_NAME"></th>
+                                        <th><input type="text" placeholder="Officer Designation"
+                                                name="OFFICER_DESIGNATION"></th>
+                                        <th><input type="text" placeholder="RBI Licence No." name="RBI_LICENCE_NO"></th>
+                                        <th><input type="text" placeholder="Manager Name" name="MANAGER_NAME"></th>
+                                        <th><input type="text" placeholder="Branch City Name" name="BRANCH_CITY_NAME">
+                                        </th>
+                                        <th><input type="text" placeholder="Company Code" name="COMPANY_CODE"></th>
+                                        <th><input type="text" placeholder="DD Commission" name="DD_COMMISSION_ACNO">
+                                        </th>
+                                        <th><input type="text" placeholder="Dividend GL" name="DIVIDEND_ACNO"></th>
+                                        <th><input type="text" placeholder="Bonus GL" name="BONUS_GLACNO"></th>
+                                        <th><input type="text" placeholder="Bills For Collection"
+                                                name="BILL_FOR_COLLECTION_ACNO"></th>
+                                        <th><input type="text" placeholder="Bills Receivable"
+                                                name="BILL_RECEIVABLE_ACNO"></th>
+                                        <th><input type="text" placeholder="BC BR Clearing Dr." name="BCBR_DR_GLACNO">
+                                        </th>
+                                        <th><input type="text" placeholder="BC BR Head Office Sub Code"
+                                                name="BCBR_DR_SUB_GLACNO"></th>
+                                        <th><input type="text" placeholder="Clearing Suspence GL A/c"
+                                                name="CLG_SUSPENCE_ACNO"></th>
+                                        <th><input type="text" placeholder="Inward Bill Collection GL A/c"
+                                                name="INWARD_BILL_COLLECTION_ACNO"></th>
+                                        <th><input type="text" placeholder="Inward Bill Receivable GL A/c"
+                                                name="INWARD_BILL_RECEIVABLE_ACNO"></th>
+                                        <th><input type="text" placeholder="Allow Recovery"
+                                                name="IS_ALLOW_RECOVERY_DIFF"></th>
+                                        <th><input type="text" placeholder="Member No Wise Recovery"
+                                                name="RECOVERY_METHOD"></th>
+                                        <th><input type="text" placeholder="CustomerID Wise Recovery"
+                                                name="RECOVERY_METHOD"></th>
+                                        <th><input type="text" placeholder="Is Process For Process Month/Year"
+                                                name="IS_PROCESS_FOR_MONTH"></th>
+
+                                        <th><input type="text" placeholder="Recovery GL  A/c No."
+                                                name="RECOVERY_DR_ACNO"></th>
+                                        <th><input type="text" placeholder="Is Process Upto Current Date"
+                                                name="IS_PROCESS_UPTO_TRANDATE"></th>
+                                        <th><input type="text" placeholder="Head Office Ac No" name="HO_GLACNO"></th>
+                                        <th><input type="text" placeholder="Bank Gaurantee Dr. A/c" name="BG_DR_ACNO">
+                                        </th>
+                                        <th><input type="text" placeholder="Bank Gaurantee Cr. A/c" name="BG_CR_ACNO">
+                                        </th>
+                                        <th><input type="text" placeholder="Pay Order A/c" name="PAY_ORDER_ACNO"></th>
+                                        <th><input type="text" placeholder="Inward Bills Purchase A/c"
+                                                name="INWARD_BILLS_PURCHASE_ACNO"></th>
+                                        <th><input type="text" placeholder="Year End Profit Loss Transfer"
+                                                name="YEAR_CLOSING_TRANSFER_ACNO"></th>
+
+                                        <th><input type="text" placeholder="Profit / Loss Print in B/S GL"
+                                                name="PL_TRANSFER_ACNO"></th>
+                                        <th><input type="text" placeholder="Share Capital Statement No."
+                                                name="AUTHORIZED_SHARE_CAPITAL_CODE"></th>
+                                        <th><input type="text" placeholder="TDS Payable GL A/c"
+                                                name="TDS_PAYABLE_GLACNO"></th>
+                                        <th><input type="text" placeholder="Surcharge GL A/c" name="SURCHARGE_GLACNO">
+                                        </th>
+                                        <th><input type="text" placeholder="Cheque Book Charges GL"
+                                                name="CHEQUE_CHARGES_ACNO"></th>
+                                        <th><input type="text" placeholder="Cheque Bounce Charges GL"
+                                                name="CHEQUE_BOUNCE_ACNO"></th>
+                                        <th><input type="text" placeholder="Cheque Bounce Charges"
+                                                name="CHEQUE_BOUNCE_CHARGES"></th>
+                                        <th><input type="text" placeholder="MICR Charges GL A/c"
+                                                name="MICR_CHARGES_ACNO"></th>
+                                        <th><input type="text" placeholder="O/W Charges" name="MICR_CHARGES_AMOUNT">
+                                        </th>
+                                        <th><input type="text" placeholder="I/W Charges" name="MICR_CHARGES_INWORD_CLG">
+                                        </th>
+                                        <th><input type="text" placeholder="Grace Period (Days)" name="GRACE_PERIOD">
+                                        </th>
+                                        <th><input type="text" placeholder="Weekly Holiday" name="WEEKLY_HOLIDAY"></th>
+                                        <th><input type="text" placeholder="Half Day" name="HALF_DAY"></th>
+                                        <th><input type="text" placeholder="Interest Calculation Method"
+                                                name="INT_CALC_METHOD"></th>
+                                        <th><input type="text" placeholder="Moratorium Period" name="MORATORIUM_PERIOD">
+                                        </th>
+                                        <th><input type="text" placeholder="Sanctioned Cash Limit for"
+                                                name="SANCTIONED_CASH_LIMIT"></th>
+                                        <th><input type="text" placeholder="Pigmy Commission Method/Rule"
+                                                name="IS_PGCOMMISSION_PERCALCULATION"></th>
+                                        <th><input type="text" placeholder="Dividend Calculation Month No."
+                                                name="DIV_CALCU_MONTH"></th>
+                                        <th><input type="text" placeholder="High Value Clearing Amount"
+                                                name="HIGH_VALUE_CLEARING_AMT"></th>
+                                        <th><input type="text" placeholder="NPA Method No" name="NPA_METHOD"></th>
+                                        <th><input type="text" placeholder="Sub Method No." name="NPA_SUBMETHOD"></th>
+                                        <th><input type="text" placeholder="Dividend Payable for the last"
+                                                name="DIV_PAYABLE_FOR_LAST_YEARS"></th>
+                                        <th><input type="text" placeholder="Member Can Be Guarantor for No. of A/cs"
+                                                name="MEMBER_FOR_GUR"></th>
+                                        <th><input type="text" placeholder="S/W Lock Time/m" name="AUTO_LOCK_TIME"></th>
+                                        <th><input type="text" placeholder="Password Expiry Days"
+                                                name="PASSWORD_EXPIRE_DAYS"></th>
+                                        <th><input type="text" placeholder="Is Voucher Require in Clg. Tally"
+                                                name="IS_ALLOW_CLG_TALLY_VOUCHER"></th>
+                                        <th><input type="text" placeholder="Denomination Require"
+                                                name="DENOMINATION_REQUIRE"></th>
+                                        <th><input type="text" placeholder="Customer ID required'"
+                                                name="CUSTOMER_ID_REQUIRED"></th>
+                                        <th><input type="text" placeholder="Is Clearing Date Add by 1 Day"
+                                                name="IS_CLG_DATE_ADD"></th>
+                                        <th><input type="text" placeholder="Teller Mode" name="TELLER_MODE"></th>
+                                        <th><input type="text" placeholder=" TDS Calculate required"
+                                                name="IS_TDS_CALCULATE"></th>
+                                        <th><input type="text" placeholder=" Is Auto Clearing Effect"
+                                                name="IS_AUTO_CLEARING_EFFECT"></th>
+                                        <th><input type="text" placeholder="Allow Direct Entry to Scheme GL"
+                                                name="IS_ALLOW_SCHEME_GL_ENTRY"></th>
+                                        <th><input type="text" placeholder=" Is NPA Auto Voucher Create"
+                                                name="IS_AUTO_VOUCHER_NPA_OIR"></th>
+                                        <th><input type="text" placeholder=" Auto Account Numbering" name="AUTO_NO">
+                                        </th>
+                                        <th><input type="text" placeholder="Token Not Applicable"
+                                                name="TOKEN_NO_APPLICABLE"></th>
+                                        <th><input type="text" placeholder="Is HO Sub GL A/c Input Required"
+                                                name="IS_HO_SUB_GLACNO_REQUIRED"></th>
+                                        <th><input type="text" placeholder="Master Approve Required"
+                                                name="MASTER_APPROVAL_REQUIRED"></th>
+                                        <th><input type="text"
+                                                placeholder="Auto Attach Deposit Ac Joint Names to Primary Name"
+                                                name="MASTER_ATTACH_JOINT_NAMES"></th>
+                                        <th><input type="text" placeholder=" Is Clearing option Required"
+                                                name="IS_REQUIRE_CLEARING_OPTION"></th>
+                                        <th><input type="text" placeholder="Is Posting DD Preparation"
+                                                name="IS_POSTING_DD_PREPARATION"></th>
+                                        <th><input type="text" placeholder="Auto Attach Guardian Name to Primary Name"
+                                                name="MASTER_ATTACH_GUARDIAN_NAMES"></th>
+                                        <th><input type="text" placeholder="Is Allowed Multiple time User Login?"
+                                                name="IS_ALLOW_USER_MULTI_LOGIN"></th>
+                                        <th><input type="text" placeholder=" Auto Instruction Passing"
+                                                name="IS_AUTO_INSTRUCTION_PASS"></th>
+                                        <th><input type="text" placeholder="Allow Pigmy Accounts Renewal"
+                                                name="PIGMY_AC_RENEW_APPLY"></th>
+                                        <th><input type="text" placeholder="Maintain Cheque Series"
+                                                name="MAINTAIN_CHEQUE_SERIES"></th>
+                                        <th><input type="text" placeholder="Ac Wise Receipt No Input In Pigmy Chart"
+                                                name="IS_RECEIPTNO_IN_PIGMYCHART"></th>
+                                        <th><input type="text" placeholder="Is Bankers Commission Voucher Required"
+                                                name="IS_BANKERS_COMM_TRAN_REQD"></th>
+                                        <th><input type="text" placeholder="Pigmy Auto Voucher Generation"
+                                                name="PIGMY_IS_AUTO_VOUCHER"></th>
+                                        <th><input type="text"
+                                                placeholder="Is Rebit Interest Rate Wise Calculation (Loan)"
+                                                name="IS_REBIT_INTRATE_CAL"></th>
+                                        <th><input type="text" placeholder="Is Required IBC/IBR Vouchers"
+                                                name="IS_IBCIBR_VOUCH_REQD"></th>
+                                        <th><input type="text" placeholder=" MICR Charges Applicable"
+                                                name="IS_MICR_CHARGES_APPL"></th>
+                                        <th><input type="text" placeholder="Allow to Change Loan Interest Amount"
+                                                name="IS_ALLOW_LOANINT_CHANGE"></th>
+                                        <th><input type="text" placeholder="Depreciation With Half/Full Rate"
+                                                name="DEPRECIATION_WITH_HALFFULLRATE"></th>
+                                        <th><input type="text" placeholder="Guarantors From Only A Type Members"
+                                                name="IS_GURR_FROM_MEMBERS"></th>
+                                        <th><input type="text" placeholder="Consider Renewal As Open For CC"
+                                                name="IS_CONSIDER_CCRENEWAL_AS_OPEN"></th>
+                                        <th><input type="text" placeholder=" Auto Certificate and Shares no. Update"
+                                                name="IS_AUTO_UPDATE_SHARES_NO"></th>
+                                        <th><input type="text" placeholder=" Auto Post Daily Overdraft Interest"
+                                                name="IS_AUTOPOSTDAILY_OVERDRAFT_INT"></th>
+                                        <th><input type="text" placeholder="Allow To Maintain Recovery Differnce"
+                                                name="IS_ALLOW_RECOVERY_DIFF"></th>
+                                        <th><input type="text"
+                                                placeholder=" Check Member Loan/Gauranter forwithdraw/closing"
+                                                name="WITHDRW_CLOSING_FOR_GURMEMBERS"></th>
+                                        <th><input type="text" placeholder="Scheme Wise Recovery Import/Expor"
+                                                name="SCHMWISE_REC_IMPEXP"></th>
+                                        <th><input type="text" placeholder="Previous Date" name="PREVIOUS_DATE"></th>
+                                        <th><input type="text" placeholder="Current Date" name="CURRENT_DATE"></th>
+                                        <th><input type="text" placeholder="Day Begin Executed"
+                                                name="DAY_BEGIN_EXECUTED"></th>
+                                        <th><input type="text" placeholder="Day End Executed" name="DAY_END_EXECUTED">
+                                        </th>
+                                        <th><input type="text" placeholder="Pigmy Previous Date"
+                                                name="PIGMY_PREVIOUS_DATE"></th>
+                                        <th><input type="text" placeholder="Pigmy Current Date"
+                                                name="PIGMY_CURRENT_DATE"></th>
+                                        <th><input type="text" placeholder="Day Begin Executed"
+                                                name="PIGMY_DAY_BEGIN_EXECUTED"></th>
+                                        <th><input type="text" placeholder="Day End Executed"
+                                                name="PIGMY_DAY_END_EXECUTED"></th>
+                                        <th><input type="text" placeholder="Back Day Open Options"
+                                                name="BACK_DAY_OPTION"></th>
+                                        <th><input type="text" placeholder="Is Online Transactions?" name="ON_LINE">
+                                        </th>
+                                        <th><input type="text" placeholder="Is Receipt Printing by Designing Method ?"
+                                                name="IS_RECEIPT_PRINT_DESIGNMETHOD"></th>
+                                        <th><input type="text" placeholder="Cash in Hand GL A/c Amount"
+                                                name="CASH_IN_HAND_ACNO"></th>
+                                        <th><input type="text" placeholder="Clearing House Member"
+                                                name="CLG_HOUSE_METHOD"></th>
+                                        <th><input type="text" placeholder="No. of Lines Per Passbook"
+                                                name="LINES_PER_PASSBOOKPAGE"></th>
+
+
+
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

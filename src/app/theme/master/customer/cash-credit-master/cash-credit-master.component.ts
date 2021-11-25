@@ -1,25 +1,90 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
-import { TitleService } from '../../../../shared/elements/title.service';
-import { AccountTypeService } from '../../../../shared/elements/account-type.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
-import { CustomeridService } from '../../../../shared/elements/customerid.service';
-import { MemberschemeService } from '../../../../shared/elements/memberscheme.service';
-import { MembernoService } from '../../../../shared/elements/memberno.service';
-import { CastService } from '../../../../shared/elements/cast.service';
-import { OccuptionService } from '../../../../shared/elements/occuption.service';
-import { S1Service } from '../../../../shared/elements/s1.service';
-import { S2Service } from '../../../../shared/elements/s2.service';
-import { S3Service } from '../../../../shared/elements/s3.service';
-import { A1Service } from '../../../../shared/elements/a1.service';
-import { CitycodeService } from '../../../../shared/elements/citycode.service';
-import { MemberTypeService } from '../../../../shared/elements/member-type.service';
-import { MemberService } from '../../../../shared/elements/member.service';
+// Used to Call API
+import { HttpClient } from '@angular/common/http';
+import { first } from 'rxjs/operators';
+import { CustomerIdService } from '../customer-id/customer-id.service';
+import { CashCreditService } from './cash-credit-master.service';
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 import { environment } from '../../../../../environments/environment'
+import { Router } from '@angular/router'
+import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
+import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service';
+import { AuthorityMasterDropdownService } from '../../../../shared/dropdownService/authority-master-dropdown.service';
+import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
+import { RecoveryClearkMasterDropdownService } from '../../../../shared/dropdownService/recovery-cleark-master-dropdown.service';
+import { PrioritySectorMasterDropdownService } from '../../../../shared/dropdownService/priority-sector-master-dropdown.service';
+import { WeakerMasterDropdownService } from '../../../../shared/dropdownService/weaker-master-dropdown.service';
+import { PurposeMasterDropdownService } from '../../../../shared/dropdownService/purpose-master-dropdown.service';
+import { IndustryMasterDropdownService } from '../../../../shared/dropdownService/industry-master-dropdown.service';
+import { HealthMasterDropdownService } from '../../../../shared/dropdownService/health-master-dropdown.service';
+import { AccountTypeService } from '../../../../shared/dropdownService/account-type.service';
+import { SecurityMasterdropdownService } from '../../../../shared/dropdownService/security-master-dropdown.service';
+import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
+import { InterestRateForLoanandCCService } from '../../policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
+import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
+import { IOption } from 'ng-select';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs-compat';
+
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+
+// For fetching values from backend
+interface CashCreditMaster {
+  AC_ACNOTYPE: string
+  AC_TYPE: string
+  AC_NO: number
+  AC_CUSTID: string
+  AC_OPDATE: Date
+  AC_OPEN_OLD_DATE: Date
+  REF_ACNO: string
+  AC_INTCATA: string
+  AC_SANCTION_AMOUNT: number
+  AC_SANCTION_DATE: Date
+  AC_DRAWPOWER_AMT: number
+  AC_MONTHS: number
+  AC_EXPIRE_DATE: Date
+  AC_INTRATE: number
+  AC_INSTALLMENT: number
+  AC_AUTHORITY: string
+  AC_RECOMMEND_BY: string
+  AC_RECOVERY_CLERK: string
+  AC_PRIORITY: string
+  AC_PRIORITY_SUB1: string
+  AC_PRIORITY_SUB2: string
+  AC_PRIORITY_SUB3: string
+  AC_WEAKER: string
+  AC_PURPOSE: string
+  AC_INDUSTRY: string
+  AC_HEALTH: string
+  AC_RELATION_TYPE: string
+  AC_DIRECTOR: string
+  AC_DIRECTOR_RELATION: string
+  AC_COREG_NO: number
+  AC_COREG_DATE: Date
+  AC_COREG_AMT: number
+  AC_RESO_NO: number
+  AC_RESO_DATE: Date
+  AC_ADDFLAG: boolean
+  AC_THONO: string
+  AC_TWARD: string
+  AC_TADDR: string
+  AC_TGALLI: string
+  AC_TAREA: string
+  AC_TCTCODE: string
+  AC_TPIN: number
+  AC_DPACTYPE: string
+  AC_DPACNO: string
+}
 @Component({
   selector: 'app-cash-credit-master',
   templateUrl: './cash-credit-master.component.html',
@@ -39,48 +104,71 @@ import { environment } from '../../../../../environments/environment'
 })
 
 export class CashCreditMasterComponent implements OnInit {
+  //api 
+  url = environment.base_url;
+  // For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  // Store data from backend
+  cashCreditMaster: CashCreditMaster[];
+  // Created Form Group
   angForm: FormGroup;
-   //api 
-   url = environment.base_url;
+  //Datatable variable
+  dtExportButtonOptions: DataTables.Settings = {};
+  dtExportOptions: DataTables.Settings = {};
+  Data: any;
+  //variables for pagination
+  page: number = 1;
+  passenger: any;
+  itemsPerPage = 10;
+  totalItems: any;
+  currentJustify = 'start';
+  active = 1;
+  activeKeep = 1;
+  // Variables for search 
+  filterObject: { name: string; type: string; }[];
+  filter: any;
+  filterForm: FormGroup;
+  // Variables for hide/show add and update button
+  showButton: boolean = true;
+  updateShow: boolean = false;
+  newbtnShow: boolean = false;
+  //variable to get ID to update
+  updateID: number = 0;
+  // Filter Variable
+  filterData = {};
+  prifix: any[];
+  castMaster: any[];
+  occupation: any[];
+  riskCategory: any[];
+  salaryDivision: any[];
+  city: any[];
+  risk: any[];
+  intCat: any[]
+  sanction: any[]
+  Recommended: any[]
+  Recovery: any[]
+  priority: any[]
+  weaker: any[]
+  purpose: any[]
+  health: any[]
+  industry: any[]
+  scheme: any[] //scheme code from schemast(S_ACNOTYPE)
+  Cust_ID: any[] //customer id from idmaster
+  GCust_ID: any[] //customer id from idmaster
+  CCust_ID: any[] //customer id from idmaster
+  security: any[]
+  // documentMaster: DocumentMaster[];
+  id: string = '';
+  Gid: string = '';
+  Cid: string = '';
+  idp: string = '';
 
-  //variable for checkbox  
-  isRecovery: boolean = false; //return boolean value and display unchecked checkbox in basic tab
-  isAggricultureLoan: boolean = false; //return boolean value and display unchecked checkbox in basic tab
-  isWeaker: boolean = false; //return boolean value and display unchecked checkbox in other deatils tab
 
-  dtExportButtonOptions: any = {}; //Datatable variable for main form
-  securitiesOptions: any = {};     //Datatable variable for securities tab
-  guarantorOptions: any = {};      //Datatable variable for gurantor tab
-  coborrowerOptions: any = {};     //Datatable variable for coborrower tab
-  dtdocumentOptions: any = {};     //Datatable variable for document form
 
-  //Select option for title, account type
-  titleOption: Array<IOption> = this.TitleService.getCharacters();
-  scheme: Array<IOption> = this.schemeCodeService.getCharacters();
-  CustomerID: Array<IOption> = this.customerIdService.getCharacters();
-  MemberScheme: Array<IOption> = this.memberSchemeService.getCharacters();
-  MemberNo: Array<IOption> = this.memberNoService.getCharacters();
-  Cast: Array<IOption> = this.castService.getCharacters();
-  Occupation: Array<IOption> = this.occuptionService.getCharacters();
-  SanctionAuthority: Array<IOption> = this.S1Service.getCharacters();
-  RecommendedBy: Array<IOption> = this.S2Service.getCharacters();
-  RecoveryCleark: Array<IOption> = this.S3Service.getCharacters();
-  Priority: Array<IOption> = this.A1Service.getCharacters();
-  WeakerSection: Array<IOption> = this.A1Service.getCharacters();
-  Purpose: Array<IOption> = this.S1Service.getCharacters();
-  Industry: Array<IOption> = this.S2Service.getCharacters();
-  Director: Array<IOption> = this.S3Service.getCharacters();
-  DirectorRelation: Array<IOption> = this.A1Service.getCharacters();
-  City_Code: Array<IOption> = this.cityCodeService.getCharacters();
-  City_Code1: Array<IOption> = this.cityCodeService.getCharacters();
-  SecurityDetails: Array<IOption> = this.S1Service.getCharacters();
-  gCustomerID: Array<IOption> = this.customerIdService.getCharacters();
-  MemberType: Array<IOption> = this.memberTypeService.getCharacters();
-  member_code: Array<IOption> = this.memberService.getCharacters();
-  GCity_Code: Array<IOption> = this.cityCodeService.getCharacters();
-  CCustomerID: Array<IOption> = this.customerIdService.getCharacters();
-  CCity: Array<IOption> = this.cityCodeService.getCharacters();
-  accountTypeOption: Array<IOption> = this.AccountTypeService.getCharacters();
+  account: Array<IOption> = this.accountType.getCharacters();
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -88,312 +176,284 @@ export class CashCreditMasterComponent implements OnInit {
   timeLeft = 5;
 
   private dataSub: Subscription = null;
-
-  //display code according choice
-  GuarantorTrue: boolean = false;
-  CoBorrowerTrue: boolean = false;
-
-  //variables for  add and update button
-  showButton: boolean = true;
-  updateShow: boolean = false;
-
-  //object created to get data when row is clicked
-  message = {
-    Scheme: "",
-    AccountNo: "",
-    LastIntDate: "",
-    CustomerID: "",
-    Title: "",
-    Name: "",
-    LedgerBalance: "",
-    NormalInterestRate: "",
-    Renewal_Date: "",
-    Birth_Date: ""
-  };
-
-  constructor(public TitleService: TitleService, public AccountTypeService: AccountTypeService, public schemeCodeService: SchemeCodeService,
-    public customerIdService: CustomeridService, public memberSchemeService: MemberschemeService, public memberNoService: MembernoService,
-    public castService: CastService, public occuptionService: OccuptionService, public S1Service: S1Service, public S2Service: S2Service,
-    public S3Service: S3Service, public A1Service: A1Service, public cityCodeService: CitycodeService, public memberTypeService: MemberTypeService,
-    public memberService: MemberService, private fb: FormBuilder) { this.createForm(); }
-
+  constructor(
+    private http: HttpClient,
+    private cashCredit: CashCreditService,
+    private customerIdService: CustomerIdService,
+    private fb: FormBuilder,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private customerID: CustomerIDMasterDropdownService,
+    private interstCate: IntrestCategoryMasterDropdownService,
+    private authorityMasterDropdown: AuthorityMasterDropdownService,
+    private directorMasterDropdown: DirectorMasterDropdownService,
+    private recoveryClearkMaster: RecoveryClearkMasterDropdownService,
+    private prioritySector: PrioritySectorMasterDropdownService,
+    private weakerMaster: WeakerMasterDropdownService,
+    private purposeMaster: PurposeMasterDropdownService,
+    private industryMaster: IndustryMasterDropdownService,
+    private healthMaster: HealthMasterDropdownService,
+    private cityMaster: cityMasterService,
+    private accountType: AccountTypeService,
+    private securityMaster: SecurityMasterdropdownService,
+    private InterestRateForLoanandCC: InterestRateForLoanandCCService,
+    private prioritySectorMaster: PrioritySectorMasterService,
+    public router: Router
+  ) { }
   ngOnInit(): void {
+    this.createForm();
+    // Fetching Server side data
     this.dtExportButtonOptions = {
-      ajax: 'fake-data/cash-credit-master.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          data: 'Scheme',
-          title: 'Scheme'
-        },
-        {
-          data: 'AccountNo',
-          title: 'Account No'
-        },
-        {
-          data: 'CustomerID',
-          title: 'Customer ID'
-        },
-        {
-          data: 'NormalInterestRate',
-          title: 'Normal Interest Rate'
-        },
-        {
-          data: 'Title',
-          title: 'Title'
-        },
-        {
-          data: 'Name',
-          title: 'Name'
-        },
-        {
-          data: 'LastIntDate',
-          title: 'Last Int. Date'
-        },
-        {
-          data: 'LedgerBalance',
-          title: 'Ledger Balance'
-        }
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
-    this.securitiesOptions = {
-      ajax: 'fake-data/securities.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          data: 'Code',
-          title: 'Code'
-        },
-        {
-          data: 'Description',
-          title: 'Description'
-        }
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
 
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
         });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
-    this.guarantorOptions = {
-      ajax: 'fake-data/guarantor.json',
+        dataTableParameters['filterData'] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + '/term-loan-master',
+            dataTableParameters
+          ).subscribe(resp => {
+            // this.customerMaster = resp.data;
+            // console.log(this.customerMaster)
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
+            });
+          });
+      },
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
         },
         {
-          data: 'CustomerID',
-          title: 'Customer ID'
+          title: 'Type',
+          data: 'AC_ACNOTYPE'
         },
         {
-          data: 'MemberType',
-          title: 'Member Type'
+          title: 'Scheme',
+          data: 'AC_TYPE'
         },
         {
-          data: 'Membercode',
-          title: 'Member code'
+          title: 'Account No',
+          data: 'AC_NO'
         },
         {
-          data: 'Name',
-          title: 'Name'
+          title: 'Customer ID',
+          data: 'AC_CUSTID'
         },
         {
-          data: 'ExpiryDate',
-          title: 'Expiry Date'
+          title: 'Name',
+          data: 'AC_NAME'
         },
         {
-          data: 'AddressLine1',
-          title: 'Address Line1'
+          title: 'Opening Date',
+          data: 'AC_OPDATE'
         },
         {
-          data: 'AddressLine2',
-          title: 'Address Line2'
+          title: 'Renewal Date',
+          data: 'AC_OPEN_OLD_DATE'
         },
         {
-          data: 'AddressLine3',
-          title: 'Address Line3'
+          title: 'Deposit Scheme',
+          data: 'AC_DPACTYPE'
         },
         {
-          data: 'City',
-          title: 'City'
+          title: 'Deposit A/c No.',
+          data: 'AC_DPACNO'
+        },
+        {
+          title: 'Manual Reference Member No.',
+          data: 'REF_ACNO'
+        },
+        {
+          title: 'Interest Category',
+          data: 'AC_INTCATA'
+        },
+        {
+          title: 'Sanction Limit',
+          data: 'AC_SANCTION_AMOUNT'
+        },
+        {
+          title: 'Sanction Date',
+          data: 'AC_SANCTION_DATE'
+        },
+        {
+          title: 'Drawing Power',
+          data: 'AC_DRAWPOWER_AMT'
+        },
+        {
+          title: 'Period',
+          data: 'AC_MONTHS'
+        },
+        {
+          title: 'Expiry Date',
+          data: 'AC_EXPIRE_DATE'
+        },
+        {
+          title: 'Interest Rate',
+          data: 'AC_INTRATE'
+        },
+        {
+          title: 'Installment',
+          data: 'AC_INSTALLMENT'
+        },
+        {
+          title: 'Sanction Authority',
+          data: 'AC_AUTHORITY'
+        },
+        {
+          title: 'Recommended By',
+          data: 'AC_RECOMMEND_BY'
+        },
+        {
+          title: 'Recovery Cleark',
+          data: 'AC_RECOVERY_CLERK'
+        },
+        {
+          title: 'Priority',
+          data: 'AC_PRIORITY'
+        },
+        {
+          title: 'Priority 1',
+          data: 'AC_PRIORITY_SUB1'
+        },
+        {
+          title: 'Priority 2',
+          data: 'AC_PRIORITY_SUB2'
+        },
+        {
+          title: 'Priority 3',
+          data: 'AC_PRIORITY_SUB3'
+        },
+        {
+          title: 'Weaker Section',
+          data: 'AC_WEAKER'
+        },
+        {
+          title: 'Purpose',
+          data: 'AC_PURPOSE'
+        },
+        {
+          title: 'Industry',
+          data: 'AC_INDUSTRY'
+        },
+        {
+          title: 'Health Code',
+          data: 'AC_HEALTH'
+        },
+        {
+          title: 'Account Type',
+          data: 'AC_RELATION_TYPE'
+        },
+        {
+          title: 'Director',
+          data: 'AC_DIRECTOR'
+        },
+        {
+          title: 'Director Relation',
+          data: 'AC_DIRECTOR_RELATION'
+        },
+        {
+          title: 'Registration no.',
+          data: 'AC_COREG_NO'
+        },
+        {
+          title: 'Registration Date',
+          data: 'AC_COREG_DATE'
+        },
+        {
+          title: 'Amount',
+          data: 'AC_COREG_AMT'
+        },
+        {
+          title: 'Resolution Details No.',
+          data: 'AC_RESO_NO'
+        },
+        {
+          title: 'Resolution Details Dt.',
+          data: 'AC_RESO_DATE'
         },
       ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
-    this.coborrowerOptions = {
-      ajax: 'fake-data/coborrower.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          data: 'CustomerID',
-          title: 'Customer ID'
-        },
-        {
-          data: 'Name',
-          title: 'Name'
-        },
-        {
-          data: 'AddressLine1',
-          title: 'Address Line1'
-        },
-        {
-          data: 'AddressLine2',
-          title: 'Address Line2'
-        },
-        {
-          data: 'AddressLine3',
-          title: 'Address Line3'
-        },
-        {
-          data: 'CityCode',
-          title: 'City Code'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
-    this.dtdocumentOptions = {
-      ajax: 'fake-data/documents.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          data: 'Code',
-          title: 'Code'
-        },
-        {
-          data: 'Description',
-          title: 'Description'
-        },
-        {
-          data: 'IsAccepted',
-          title: 'Is Accepted'
-        }
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
+      dom: 'Blrtip',
     };
 
+
+    this.schemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
+      this.scheme = data;
+    })
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+      this.Cust_ID = data;
+      this.GCust_ID = data;
+      this.CCust_ID = data;
+    })
+    this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
+      this.intCat = data;
+    })
+    this.authorityMasterDropdown.getAuthorityMasterList().pipe(first()).subscribe(data => {
+      this.sanction = data;
+    })
+    this.directorMasterDropdown.getDirectorMasterList().pipe(first()).subscribe(data => {
+      this.Recommended = data;
+    })
+    this.recoveryClearkMaster.getRecoveryClearkMasterList().pipe(first()).subscribe(data => {
+      this.Recovery = data;
+    })
+    this.prioritySector.getPrioritySectorMasterList().pipe(first()).subscribe(data => {
+      this.priority = data;
+    })
+    this.weakerMaster.getWeakerMasterList().pipe(first()).subscribe(data => {
+      this.weaker = data;
+    })
+    this.purposeMaster.getPurposeMasterList().pipe(first()).subscribe(data => {
+      this.purpose = data;
+    })
+    this.industryMaster.getIndustaryMasterList().pipe(first()).subscribe(data => {
+      this.industry = data;
+    })
+    this.healthMaster.getHealthMasterList().pipe(first()).subscribe(data => {
+      this.health = data;
+    })
+    this.cityMaster.getcityList().pipe(first()).subscribe(data => {
+      this.city = data;
+    })
+    this.securityMaster.getsecurityMasterList().pipe(first()).subscribe(data => {
+      this.security = data;
+    })
     this.runTimer();
-    this.dataSub = this.TitleService.loadCharacters().subscribe((options) => {
+
+    this.dataSub = this.accountType.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
 
-    this.runTimer();
-    this.dataSub = this.AccountTypeService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-  }
+  };
 
   runTimer() {
     const timer = setInterval(() => {
@@ -404,158 +464,254 @@ export class CashCreditMasterComponent implements OnInit {
     }, 1000);
   }
 
-  OpenLink(val) {
-    if (val == 1) {
-      this.GuarantorTrue = true;
-    }
-    if (val == 2) {
-      this.CoBorrowerTrue = true;
-    }
-  }
-
   createForm() {
     this.angForm = this.fb.group({
-      AC_ACNOTYPE: ['CC'],
+      CoAC_CUSTID: ['', [Validators.required]],
+      AC_CUSTID: ['', [Validators.required]],
+      GAC_CUSTID: ['', [Validators.required]],
+      CAC_CUSTID: ['', [Validators.required]],
+      SECURITY_CODE: [''],
+      SECURITY_VALUE: [''],
+      AC_REMARK: ['', [Validators.pattern]],
+      AC_ACNOTYPE: ['LN'],
       AC_TYPE: ['', [Validators.required]],
       AC_NO: [''],
-      AC_NAME: [''],
-      AC_AGE: [''],
-      AC_TITLE: [''],
-      AC_MEMBTYPE: [''],
-      AC_MEMBNO: [''],
-      AC_CUSTID: [''],
-      AC_CAST: [''],
-      AC_OPDATE: [''],
-      AC_OCODE: [''],
-      AC_INTCATA: [''],
-      AC_SANCTION_AMOUNT: [''],
-      AC_SANCTION_DATE: [''],
-      AC_MONTHS: [''],
-      AC_EXPIRE_DATE: [''],
-      AC_INTRATE: [''],
-      AC_DRAWPOWER_AMT: [''],
-      AC_INSTALLMENT: [''],
-      AC_IS_RECOVERY: [''],
-      AC_OPEN_OLD_DATE: [''],
-      IS_AGGRI_LOAN: [''],
-      ACRE_AREA: [''],
       AC_DPACTYPE: [''],
       AC_DPACNO: [''],
-      REF_ACNO: [''],
+      AC_TITLE: [''],
+      AC_NAME: [''],
+      GAC_NAME: [''],
+      CAC_NAME: [''],
+      AC_OPDATE: ['', [Validators.required]],
+      AC_OPEN_OLD_DATE: [''],
       AC_BIRTH_DT: [''],
-
-
-
-
-
-
-
-
-      Scheme: ['', [Validators.required]],
-      NormalInterestRate: ['',],
-      AccountNo: ['',],
-      CustomerID: ['', [Validators.required]],
-      Title: ['', [Validators.required]],
-      Name: ['', [Validators.pattern, Validators.required]],
-      LastIntDate: ['',],
-      LedgerBalance: ['',],
-      Opening_Date: ['', [Validators.required]],
-      Renewal_Date: ['',],
-      Birth_Date: ['', [Validators.required]],
-      age: ['', [Validators.pattern]],
-      Cast: ['', [Validators.required]],
-      Occupation: ['', [Validators.required]],
-      SanctionDate: ['', [Validators.required]],
-      MemberScheme: ['',],
-      MemberNo: ['',],
-      DepositScheme: ['',],
-      Category: ['', [Validators.pattern, Validators.required]],
-      SanctionLimit: ['', [Validators.pattern, Validators.required]],
-      DrawingPower: ['', [Validators.pattern, Validators.required]],
-      Period: ['', [Validators.pattern, Validators.required]],
-      InterestRate: ['', [Validators.pattern, Validators.required]],
-      DepositAcNo: ['', [Validators.pattern]],
-      Installment: ['', [Validators.pattern]],
-      AcreArea: ['', [Validators.pattern]],
-      ExpiryDate: ['', [Validators.required]],
-      EffectiveDate: ['', [Validators.required]],
-      SanctionAuthority: ['', [Validators.required]],
-      RecommendedBy: ['', [Validators.required]],
-      RecoveryCleark: ['', [Validators.required]],
-      Priority: ['', [Validators.required]],
-      WeakerSection: ['', [Validators.required]],
-      Purpose: ['', [Validators.required]],
-      Industry: ['', [Validators.required]],
-      AccountType: ['', [Validators.required]],
-      Director: ['',],
-      DirectorRelation: ['',],
-      RDate: ['',],
-      ReDate: ['',],
-      RNo: ['', [Validators.pattern]],
-      RAmount: ['', [Validators.pattern]],
-      ReNo: ['', [Validators.pattern]],
-      address1: ['', [Validators.pattern]],
-      address2: ['', [Validators.pattern]],
-      address3: ['', [Validators.pattern]],
-      taddress1: ['', [Validators.pattern]],
-      taddress2: ['', [Validators.pattern]],
-      taddress3: ['', [Validators.pattern]],
-      Pin: ['', [Validators.pattern]],
-      tPin: ['', [Validators.pattern]],
-      R: ['', [Validators.pattern]],
-      O: ['', [Validators.pattern]],
-      TotalSecurityAmount: ['', [Validators.pattern]],
-      GName: ['', [Validators.pattern]],
-      Gaddress1: ['', [Validators.pattern]],
-      Gaddress2: ['', [Validators.pattern]],
-      Gaddress3: ['', [Validators.pattern]],
-      Caddress1: ['', [Validators.pattern]],
-      Caddress2: ['', [Validators.pattern]],
-      Caddress3: ['', [Validators.pattern]],
-      City_Code: ['', [Validators.required]],
-      City_Code1: ['', [Validators.required]],
-      gCustomerID: ['', [Validators.required]],
-      MemberType: ['', [Validators.required]],
-      member_code: ['', [Validators.required]],
-      CCustomerID: ['', [Validators.required]],
-      SecurityDetails: ['',],
-      GExpiryDate: ['',],
-      GCity_Code: ['',],
-      CName: ['',],
-      CCity: ['',],
-      ManualRefMemberNo: ['', [Validators.pattern]],
-      Mobile: ['', [Validators.pattern]],
-      Remark: ['', [Validators.pattern]],
+      AC_IS_RECOVERY: [''],
+      AC_MEMBTYPE: [''],
+      AC_MEMBNO: [''],
+      REF_ACNO: [''],
+      AC_CAST: [''],
+      AC_OCODE: [''],
+      AC_INTCATA: ['', [Validators.required]],
+      AC_SANCTION_AMOUNT: ['', [Validators.required, Validators.pattern]],
+      AC_SANCTION_DATE: ['', [Validators.required]],
+      AC_DRAWPOWER_AMT: ['', [Validators.required, Validators.pattern]],
+      AC_MONTHS: ['', [Validators.required, Validators.pattern]],
+      AC_EXPIRE_DATE: ['', [Validators.required]],
+      AC_INTRATE: ['', [Validators.required, Validators.pattern]],
+      AC_INSTALLMENT: [''],
+      AC_AUTHORITY: ['', [Validators.required]],
+      AC_RECOMMEND_BY: ['', [Validators.required]],
+      AC_RECOVERY_CLERK: ['', [Validators.required]],
+      AC_PRIORITY: ['', [Validators.required]],
+      AC_PRIORITY_SUB1: [''],
+      AC_PRIORITY_SUB2: [''],
+      AC_PRIORITY_SUB3: [''],
+      AC_WEAKER: ['', [Validators.required]],
+      AC_PURPOSE: ['', [Validators.required]],
+      AC_INDUSTRY: ['', [Validators.required]],
+      AC_HEALTH: ['', [Validators.required]],
+      AC_RELATION_TYPE: ['', [Validators.required]],
+      AC_DIRECTOR: [''],
+      AC_DIRECTOR_RELATION: [''],
+      AC_COREG_NO: ['', [Validators.pattern]],
+      AC_COREG_DATE: [''],
+      AC_COREG_AMT: ['', [Validators.pattern]],
+      AC_RESO_NO: ['', [Validators.pattern]],
+      AC_RESO_DATE: [''],
+      AC_HONO: [''],
+      AC_WARD: [''],
+      AC_ADDR: [''],
+      AC_GALLI: [''],
+      AC_AREA: [''],
+      AC_CTCODE: [''],
+      AC_PIN: [''],
+      GAC_HONO: [''],
+      GAC_WARD: [''],
+      GAC_ADDR: [''],
+      GAC_GALLI: [''],
+      GAC_AREA: [''],
+      GAC_CTCODE: [''],
+      GAC_PIN: [''],
+      CAC_HONO: [''],
+      CAC_WARD: [''],
+      CAC_ADDR: [''],
+      CAC_GALLI: [''],
+      CAC_AREA: [''],
+      CAC_CTCODE: [''],
+      CAC_PIN: [''],
+      AC_ADDFLAG: [false],
+      AC_THONO: [''],
+      AC_TWARD: [''],
+      AC_TADDR: [''],
+      AC_TGALLI: [''],
+      AC_TAREA: [''],
+      AC_TCTCODE: [''],
+      AC_TPIN: [''],
+      AC_MOBILENO: [''],
+      AC_PHONE_RES: [''],
+      AC_PHONE_OFFICE: [''],
+      EXP_DATE: [''],
+      GAC_MEMBNO: [''],
+      GAC_MEMBTYPE: [''],
     });
   }
 
+  // Method to insert data into database through NestJS
   submit() {
-    console.log(this.angForm.valid);
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+      'AC_TYPE': formVal.AC_TYPE,
+      'AC_NO': formVal.AC_NO,
+      'AC_CUSTID': formVal.AC_CUSTID,
+      'AC_OPDATE': formVal.AC_OPDATE,
+      'AC_OPEN_OLD_DATE': formVal.AC_OPEN_OLD_DATE,
+      'AC_DPACTYPE': formVal.AC_DPACTYPE,
+      'AC_DPACNO': formVal.AC_DPACNO,
+      'REF_ACNO': formVal.REF_ACNO,
+      'AC_INTCATA': formVal.AC_INTCATA,
+      'AC_SANCTION_AMOUNT': formVal.AC_SANCTION_AMOUNT,
+      'AC_SANCTION_DATE': formVal.AC_SANCTION_DATE,
+      'AC_DRAWPOWER_AMT': formVal.AC_DRAWPOWER_AMT,
+      'AC_MONTHS': formVal.AC_MONTHS,
+      'AC_EXPIRE_DATE': formVal.AC_EXPIRE_DATE,
+      'AC_INTRATE': formVal.AC_INTRATE,
+      'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
+      'AC_AUTHORITY': formVal.AC_AUTHORITY,
+      'AC_RECOMMEND_BY': formVal.AC_RECOMMEND_BY,
+      'AC_RECOVERY_CLERK': formVal.AC_RECOVERY_CLERK,
+      'AC_PRIORITY': formVal.AC_PRIORITY,
+      'AC_PRIORITY_SUB1': formVal.AC_PRIORITY_SUB1,
+      'AC_PRIORITY_SUB2': formVal.AC_PRIORITY_SUB2,
+      'AC_PRIORITY_SUB3': formVal.AC_PRIORITY_SUB3,
+      'AC_WEAKER': formVal.AC_WEAKER,
+      'AC_PURPOSE': formVal.AC_PURPOSE,
+      'AC_INDUSTRY': formVal.AC_INDUSTRY,
+      'AC_HEALTH': formVal.AC_HEALTH,
+      'AC_RELATION_TYPE': formVal.AC_RELATION_TYPE,
+      'AC_DIRECTOR': formVal.AC_DIRECTOR,
+      'AC_DIRECTOR_RELATION': formVal.AC_DIRECTOR_RELATION,
+      'AC_COREG_NO': formVal.AC_COREG_NO,
+      'AC_COREG_DATE': formVal.AC_COREG_DATE,
+      'AC_COREG_AMT': formVal.AC_COREG_AMT,
+      'AC_RESO_NO': formVal.AC_RESO_NO,
+      'AC_RESO_DATE': formVal.AC_RESO_DATE,
+      'AC_THONO': formVal.AC_THONO,
+      'AC_TWARD': formVal.AC_TWARD,
+      'AC_TADDR': formVal.AC_TADDR,
+      'AC_TGALLI': formVal.AC_TGALLI,
+      'AC_TAREA': formVal.AC_TAREA,
+      'AC_TCTCODE': formVal.AC_TCTCODE,
+      'AC_TPIN': formVal.AC_TPIN,
+      'CoBorrowerData': this.multiCoBorrower,
+      'GuarantorData': this.multiGuarantor
     }
+
+
+    this.cashCredit.postData(dataToSend).subscribe(data => {
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+    }, (error) => {
+      console.log(error)
+    })
+
+    //To clear form
+    this.resetForm();
   }
 
-  //function executes when edit button clicked
-  editClickHandler(info: any): void {
-    this.message.Scheme = info.Scheme;
-    this.message.AccountNo = info.AccountNo;
-    this.message.LastIntDate = info.LastIntDate;
-    this.message.CustomerID = info.CustomerID;
-    this.message.Title = info.Title;
-    this.message.Name = info.Name;
-    this.message.LedgerBalance = info.LedgerBalance;
-    this.message.NormalInterestRate = info.NormalInterestRate;
+  // Reset Function
+  resetForm() {
+    this.createForm();
+  }
+
+  //Method for append data into fields
+  editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
+    this.cashCredit.getFormData(id).subscribe(data => {
+      console.log('edit', data)
+      this.updateID = data.id;
+      this.angForm.setValue({
+        'AC_ACNOTYPE': data.AC_ACNOTYPE,
+        'AC_TYPE': data.AC_TYPE,
+        'AC_NO': data.AC_NO,
+        'AC_CUSTID': data.AC_CUSTID,
+        'AC_OPDATE': data.AC_OPDATE,
+        'AC_OPEN_OLD_DATE': data.AC_OPEN_OLD_DATE,
+        'AC_DPACTYPE': data.AC_DPACTYPE,
+        'AC_DPACNO': data.AC_DPACNO,
+        'REF_ACNO': data.REF_ACNO,
+        'AC_INTCATA': data.AC_INTCATA,
+        'AC_SANCTION_AMOUNT': data.AC_SANCTION_AMOUNT,
+        'AC_SANCTION_DATE': data.AC_SANCTION_DATE,
+        'AC_DRAWPOWER_AMT': data.AC_DRAWPOWER_AMT,
+        'AC_MONTHS': data.AC_MONTHS,
+        'AC_EXPIRE_DATE': data.AC_EXPIRE_DATE,
+        'AC_INTRATE': data.AC_INTRATE,
+        'AC_INSTALLMENT': data.AC_INSTALLMENT,
+        'AC_AUTHORITY': data.AC_AUTHORITY,
+        'AC_RECOMMEND_BY': data.AC_RECOMMEND_BY,
+        'AC_RECOVERY_CLERK': data.AC_RECOVERY_CLERK,
+        'AC_PRIORITY': data.AC_PRIORITY,
+        'AC_PRIORITY_SUB1': data.AC_PRIORITY_SUB1,
+        'AC_PRIORITY_SUB2': data.AC_PRIORITY_SUB2,
+        'AC_PRIORITY_SUB3': data.AC_PRIORITY_SUB3,
+        'AC_WEAKER': data.AC_WEAKER,
+        'AC_PURPOSE': data.AC_PURPOSE,
+        'AC_INDUSTRY': data.AC_INDUSTRY,
+        'AC_HEALTH': data.AC_HEALTH,
+        'AC_RELATION_TYPE': data.AC_RELATION_TYPE,
+        'AC_DIRECTOR': data.AC_DIRECTOR,
+        'AC_DIRECTOR_RELATION': data.AC_DIRECTOR_RELATION,
+        'AC_COREG_NO': data.AC_COREG_NO,
+        'AC_COREG_DATE': data.AC_COREG_DATE,
+        'AC_COREG_AMT': data.AC_COREG_AMT,
+        'AC_RESO_NO': data.AC_RESO_NO,
+        'AC_RESO_DATE': data.AC_RESO_DATE,
+        'AC_THONO': data.custAddress[1].AC_THONO,
+        'AC_TWARD': data.custAddress[1].AC_TWARD,
+        'AC_TADDR': data.custAddress[1].AC_TADDR,
+        'AC_TGALLI': data.custAddress[1].AC_TGALLI,
+        'AC_TAREA': data.custAddress[1].AC_TAREA,
+        'AC_TCTCODE': data.custAddress[1].AC_TCTCODE,
+        'AC_TPIN': data.custAddress[1].AC_TPIN,
+      })
+    })
   }
 
-  //function execute when delete button clicked
-  delClickHandler(info: any): void {
-    this.message.Scheme = info.Scheme;
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+  //Method for update data 
+  updateData() {
+    let data = this.angForm.value;
+    data['GuarantorData'] = this.multiGuarantor
+    data['CoBorrowerData'] = this.multiCoBorrower
+    data['id'] = this.updateID;
+    this.cashCredit.updateData(data).subscribe(() => {
+      console.log(data)
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.showButton = true;
+      this.updateShow = false;
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      this.resetForm();
+    })
+  }
+
+  //Method for delete data
+  delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to delete Scheme." + this.message.Scheme + "  data",
+      text: "Do you want to delete Term loan master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -563,11 +719,18 @@ export class CashCreditMasterComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
+        this.cashCredit.deleteData(id).subscribe(data1 => {
+          this.cashCreditMaster = data1;
+          Swal.fire(
+            'Deleted!',
+            'Your data has been deleted.',
+            'success'
+          )
+        }), (error) => {
+          console.log(error)
+        }
+        // to reload after delete of data
+        this.rerender();
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
@@ -579,10 +742,322 @@ export class CashCreditMasterComponent implements OnInit {
       }
     })
   }
+  getInterest(id) {
 
-  //function toggle update to add button
-  updateData() {
-    this.showButton = true;
-    this.updateShow = false;
+    this.InterestRateForLoanandCC.getFormData(id).subscribe(data => {
+      this.angForm.patchValue({
+        INT_CATEGORY: id.toString(),
+        AC_INTRATE: data.INT_RATE,
+      })
+    })
+  }
+
+  getPriority(idp) {
+    this.prioritySectorMaster.getFormData(idp).subscribe(data => {
+      console.log("priority", data)
+      this.angForm.patchValue({
+        AC_PRIORITY: idp.toString(),
+        AC_PRIORITY_SUB1: data.SUB1_CODE,
+        AC_PRIORITY_SUB2: data.SUB2_CODE,
+        AC_PRIORITY_SUB3: data.SUB3_CODE,
+      })
+    })
+  }
+
+  getgCustomer(Gid) {
+    console.log('in getcustomer', Gid)
+    this.customerIdService.getFormData(Gid).subscribe(data => {
+      console.log('get customer data', data)
+      this.angForm.patchValue({
+        GAC_CUSTID: Gid.toString(),
+        GAC_MEMBNO: data.AC_MEMBNO,
+        GAC_MEMBTYPE: data.AC_MEMBTYPE,
+        GAC_NAME: data.AC_NAME,
+        GAC_HONO: data.custAddress[0].AC_HONO,
+        GAC_WARD: data.custAddress[0].AC_WARD,
+        GAC_TADDR: data.custAddress[0].AC_TADDR,
+        GAC_TGALLI: data.custAddress[0].AC_TGALLI,
+        GAC_AREA: data.custAddress[0].AC_AREA,
+        GCITY_NAME: data.custAddress[0].AC_CTCODE,
+        GAC_PIN: data.custAddress[0].AC_PIN,
+      })
+    })
+  }
+
+  multiCoBorrower = [];
+  CoBorrowerShowButton: boolean = true
+  CoBorrowerUpdateShow: boolean = false
+  multiGuarantor = [];
+  GuarantorShowButton: boolean = true
+  GuarantorUpdateShow: boolean = false
+
+  addGuarantor() {
+    const formVal = this.angForm.value;
+    var object = {
+      GAC_CUSTID: formVal.GAC_CUSTID,
+      GAC_MEMBNO: formVal.GAC_MEMBNO,
+      GAC_MEMBTYPE: formVal.GAC_MEMBTYPE,
+      GAC_NAME: formVal.GAC_NAME,
+      GAC_HONO: formVal.GAC_HONO,
+      GAC_WARD: formVal.GAC_WARD,
+      GAC_ADDR: formVal.GAC_ADDR,
+      GAC_GALLI: formVal.GAC_GALLI,
+      GAC_AREA: formVal.GAC_AREA,
+      GAC_CTCODE: formVal.GAC_CTCODE,
+      GAC_PIN: formVal.GAC_PIN,
+      EXP_DATE: formVal.EXP_DATE
+    }
+    this.multiGuarantor.push(object);
+    this.resetGuarantor()
+  }
+  addCoBorrower() {
+    const formVal = this.angForm.value;
+    var object = {
+      CAC_CUSTID: formVal.CAC_CUSTID,
+      CAC_NAME: formVal.CAC_NAME,
+      CAC_HONO: formVal.CAC_HONO,
+      CAC_WARD: formVal.CAC_WARD,
+      CAC_ADDR: formVal.CAC_ADDR,
+      CAC_GALLI: formVal.CAC_GALLI,
+      CAC_AREA: formVal.CAC_AREA,
+      CAC_CTCODE: formVal.CAC_CTCODE,
+      CAC_PIN: formVal.CAC_PIN
+    }
+    this.multiCoBorrower.push(object);
+    this.resetCoBorrower()
+  }
+
+  CoBorrowerupdateid
+  CoBorrowerID
+  Guarantorupdateid
+  GuarantorID
+  editCoBorrower(id) {
+    this.CoBorrowerupdateid = id
+    console.log('in edit nominee', this.multiCoBorrower[id].id)
+    this.CoBorrowerID = this.multiCoBorrower[id].id;
+    this.CoBorrowerTrue = true
+    this.CoBorrowerShowButton = false;
+    this.CoBorrowerUpdateShow = true;
+    this.angForm.patchValue({
+      CAC_CUSTID: this.multiCoBorrower[id].CAC_CUSTID,
+      CAC_NAME: this.multiCoBorrower[id].CAC_NAME,
+      CAC_HONO: this.multiCoBorrower[id].CAC_HONO,
+      CAC_WARD: this.multiCoBorrower[id].CAC_WARD,
+      CAC_ADDR: this.multiCoBorrower[id].CAC_ADDR,
+      CAC_GALLI: this.multiCoBorrower[id].CAC_GALLI,
+      CAC_AREA: this.multiCoBorrower[id].CAC_AREA,
+      CAC_CTCODE: this.multiCoBorrower[id].CAC_CTCODE,
+      CAC_PIN: this.multiCoBorrower[id].CAC_PIN
+    })
+  }
+  editGuarantor(id) {
+    this.Guarantorupdateid = id
+    console.log('in edit nominee', this.multiGuarantor[id].id)
+    this.GuarantorID = this.multiGuarantor[id].id;
+    this.GuarantorTrue = true
+    this.GuarantorShowButton = false;
+    this.GuarantorUpdateShow = true;
+    this.angForm.patchValue({
+      GAC_CUSTID: this.multiGuarantor[id].GAC_CUSTID,
+      GAC_NAME: this.multiGuarantor[id].GAC_NAME,
+      GAC_MEMBNO: this.multiGuarantor[id].GAC_MEMBNO,
+      GAC_MEMBTYPE: this.multiGuarantor[id].GAC_MEMBTYPE,
+      GAC_HONO: this.multiGuarantor[id].GAC_HONO,
+      GAC_WARD: this.multiGuarantor[id].GAC_WARD,
+      GAC_ADDR: this.multiGuarantor[id].GAC_ADDR,
+      GAC_GALLI: this.multiGuarantor[id].GAC_GALLI,
+      GAC_AREA: this.multiGuarantor[id].GAC_AREA,
+      GAC_CTCODE: this.multiGuarantor[id].GAC_CTCODE,
+      EXP_DATE: this.multiGuarantor[id].EXP_DATE,
+      GAC_PIN: this.multiGuarantor[id].GAC_PIN
+    })
+  }
+  updateCoBorrower() {
+    let index = this.CoBorrowerID;
+    this.CoBorrowerShowButton = true;
+    this.CoBorrowerUpdateShow = false;
+    const formVal = this.angForm.value;
+    var object = {
+      CAC_CUSTID: formVal.CAC_CUSTID,
+      CAC_NAME: formVal.CAC_NAME,
+      CAC_HONO: formVal.CAC_HONO,
+      CAC_WARD: formVal.CAC_WARD,
+      CAC_ADDR: formVal.CAC_ADDR,
+      CAC_GALLI: formVal.CAC_GALLI,
+      CAC_AREA: formVal.CAC_AREA,
+      CAC_CTCODE: formVal.CAC_CTCODE,
+      CAC_PIN: formVal.CAC_PIN,
+      id: this.CoBorrowerID
+    }
+    this.multiCoBorrower[this.CoBorrowerupdateid] = object;
+    this.resetCoBorrower()
+  }
+  updateGuarantor() {
+    let index = this.GuarantorID;
+    this.GuarantorShowButton = true;
+    this.GuarantorUpdateShow = false;
+    const formVal = this.angForm.value;
+    var object = {
+      GAC_CUSTID: formVal.GAC_CUSTID,
+      GAC_MEMBNO: formVal.GAC_MEMBNO,
+      GAC_MEMBTYPE: formVal.GAC_MEMBTYPE,
+      GAC_NAME: formVal.GAC_NAME,
+      GAC_HONO: formVal.GAC_HONO,
+      GAC_WARD: formVal.GAC_WARD,
+      GAC_ADDR: formVal.GAC_ADDR,
+      GAC_GALLI: formVal.GAC_GALLI,
+      GAC_AREA: formVal.GAC_AREA,
+      GAC_CTCODE: formVal.GAC_CTCODE,
+      GAC_PIN: formVal.GAC_PIN,
+      EXP_DATE: formVal.EXP_DATE,
+      id: this.GuarantorID
+    }
+    this.multiGuarantor[this.Guarantorupdateid] = object;
+    this.resetGuarantor()
+  }
+  resetCoBorrower() {
+    this.angForm.controls['CAC_CUSTID'].reset();
+    this.angForm.controls['CAC_NAME'].reset();
+    this.angForm.controls['CAC_HONO'].reset();
+    this.angForm.controls['CAC_WARD'].reset();
+    this.angForm.controls['CAC_ADDR'].reset();
+    this.angForm.controls['CAC_GALLI'].reset();
+    this.angForm.controls['CAC_AREA'].reset();
+    this.angForm.controls['CAC_CTCODE'].reset();
+    this.angForm.controls['CAC_PIN'].reset();
+  }
+  resetGuarantor() {
+    this.angForm.controls['GAC_CUSTID'].reset();
+    this.angForm.controls['GAC_MEMBNO'].reset();
+    this.angForm.controls['GAC_MEMBTYPE'].reset();
+    this.angForm.controls['GAC_NAME'].reset();
+    this.angForm.controls['GAC_HONO'].reset();
+    this.angForm.controls['GAC_WARD'].reset();
+    this.angForm.controls['GAC_ADDR'].reset();
+    this.angForm.controls['GAC_GALLI'].reset();
+    this.angForm.controls['GAC_AREA'].reset();
+    this.angForm.controls['GAC_CTCODE'].reset();
+    this.angForm.controls['GAC_PIN'].reset();
+    this.angForm.controls['EXP_DATE'].reset();
+  }
+  getCCustomer(Cid) {
+    console.log('in getcustomer', Cid)
+    this.customerIdService.getFormData(Cid).subscribe(data => {
+      console.log('get customer data', data)
+      this.angForm.patchValue({
+        CAC_CUSTID: Cid.toString(),
+        CAC_NAME: data.AC_NAME,
+        CAC_HONO: data.custAddress[0].AC_HONO,
+        CAC_WARD: data.custAddress[0].AC_WARD,
+        CAC_TADDR: data.custAddress[0].AC_TADDR,
+        CAC_TGALLI: data.custAddress[0].AC_TGALLI,
+        CAC_AREA: data.custAddress[0].AC_AREA,
+        CCITY_NAME: data.custAddress[0].AC_CTCODE,
+        CAC_PIN: data.custAddress[0].AC_PIN,
+
+      })
+    })
+  }
+  delCoBorrower(id) {
+    this.multiCoBorrower.splice(id, 1)
+  }
+  delGuarantor(id) {
+    this.multiGuarantor.splice(id, 1)
+  }
+  getCustomer(id) {
+    console.log('in getcustomer', id)
+    this.customerIdService.getFormData(id).subscribe(data => {
+      console.log('get customer data', data)
+      this.angForm.patchValue({
+        AC_CUSTID: id.toString(),
+        AC_TITLE: data.AC_TITLE,
+        AC_NAME: data.AC_NAME,
+        AC_MEMBTYPE: data.AC_MEMBTYPE,
+        AC_MEMBNO: data.AC_MEMBNO,
+        AC_CAST: data.AC_CAST,
+        AC_OCODE: data.AC_OCODE,
+        AC_ADHARNO: data.AC_ADHARNO,
+        AC_RISKCATG: data.AC_RISKCATG,
+        AC_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
+        AC_HONO: data.custAddress[0].AC_HONO,
+        AC_WARD: data.custAddress[0].AC_WARD,
+        AC_TADDR: data.custAddress[0].AC_TADDR,
+        AC_TGALLI: data.custAddress[0].AC_TGALLI,
+        AC_AREA: data.custAddress[0].AC_AREA,
+        CITY_NAME: data.custAddress[0].AC_CTCODE,
+        AC_PIN: data.custAddress[0].AC_PIN,
+        AC_PANNO: data.AC_PANNO,
+        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
+        AC_MOBILENO: data.AC_MOBILENO,
+        AC_PHONE_RES: data.AC_PHONE_RES,
+        AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
+        AC_EMAILID: data.AC_EMAILID,
+        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+        TDS_REQUIRED: data.TDS_REQUIRED,
+        SMS_REQUIRED: data.SMS_REQUIRED,
+        IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
+        FIN_YEAR: data.FIN_YEAR,
+        SUBMIT_DATE: data.SUBMIT_DATE,
+        FORM_TYPE: data.FORM_TYPE,
+        TDS_RATE: data.TDS_RATE,
+        TDS_LIMIT: data.TDS_LIMIT,
+      })
+    })
+  }
+
+  newCustomer(newCustomer) {
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+      this.Cust_ID = data;
+      this.id = newCustomer;
+      this.getCustomer(newCustomer);
+    })
+
+  }
+  //temp address flag variable
+  tempAddress: boolean = true;
+  tempAsPermanent() {
+    this.tempAddress = !this.tempAddress;
+  }
+  GuarantorTrue: boolean = false
+  CoBorrowerTrue: boolean = false
+  OpenLink() {
+    this.GuarantorTrue = !this.GuarantorTrue
+  }
+  OpenCoBorr() {
+    this.CoBorrowerTrue = !this.CoBorrowerTrue
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
   }
 }

@@ -11,6 +11,8 @@ import { SalaryDivisionService } from './salary-division-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { OwnbranchMasterService } from '../../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { first } from 'rxjs/operators';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -68,14 +70,18 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   //variable to get Id to update
   updateID: number = 0;
+
+  branchCode = [];
   // column filter
   filterData = {}
 
   constructor(
     private http: HttpClient,
     private salaryDivisionService: SalaryDivisionService,
+    private ownbranchMaster: OwnbranchMasterService,
     private fb: FormBuilder) {
   }
   ngOnInit(): void {
@@ -127,39 +133,10 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
             });
           });
       },
-      // columns: [
-
-      //   {
-      //     title: 'Action'
-      //   },
-      //   {
-      //     title: 'Code'
-      //   },
-      //   {
-      //     title: 'Full Name'
-      //   }, 
-      //   {
-      //     title: 'Short Name'
-      //   }, 
-      //   {
-      //     title: 'At Post'
-      //   }, 
-      //   {
-      //     title: 'Taluka Name'
-      //   }, 
-      //   {
-      //     title: 'District Name'
-      //   },
-      //   {
-      //     title: 'Branch Code'
-      //   }, 
-      //   {
-      //     title: 'Telephone(R)'
-      //   },
-      //   {
-      //     title: 'Telephone(Mob)'
-      //   }
-      // ],
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action',
@@ -198,6 +175,10 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
         }
       ], dom: 'Blrtip',
     };
+
+    this.ownbranchMaster.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchCode = data;
+    })
   }
   // Method to handle validation of form
   createForm() {
@@ -230,8 +211,9 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
     }
     this.salaryDivisionService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
@@ -242,6 +224,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.salaryDivisionService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -265,10 +248,20 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     })
   }
+  addNewData(){
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({

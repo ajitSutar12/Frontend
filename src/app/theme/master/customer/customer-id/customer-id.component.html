@@ -52,14 +52,14 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
-                                        required pattern="^[A-Z]+$" [(ngModel)]="lname" title="Input allowed only A-Z"
+                                        required pattern="^[A-Za-z]+$" style="text-transform:uppercase" [(ngModel)]="lname" title="Input allowed only A-Z"
                                         formControlName="L_NAME">
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['L_NAME'].invalid && (angForm.controls['L_NAME'].dirty || angForm.controls['L_NAME'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['L_NAME'].errors?.pattern || angForm.controls['L_NAME'].errors?.required">
-                                    This field is required and Input allowed only A-Z - / . (Space)
+                                    This field is required and Input allowed only A-Z
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
-                                        required pattern="^[A-Z]+$" [(ngModel)]="fname" title="Input allowed only A-Z"
+                                        required pattern="^[A-Za-z]+$" style="text-transform:uppercase" [(ngModel)]="fname" title="Input allowed only A-Z"
                                         formControlName="F_NAME">
                                     <label for="F_NAME">First Name<sub class="required">* </sub></label>
                                 </span>
@@ -81,8 +81,8 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="M_NAME" class="form-control" placeholder=" " id="M_NAME"
-                                        required pattern="^[A-Z]+$" [(ngModel)]="mname" title="Input allowed only A-Z"
+                                    <input type="text" name="M_NAME" style="text-transform:uppercase" class="form-control" placeholder=" " id="M_NAME"
+                                        required pattern="^[A-Za-z]+$" [(ngModel)]="mname" title="Input allowed only A-Z"
                                         formControlName="M_NAME">
                                     <label for="M_NAME">Middle Name<sub class="required">* </sub></label>
                                 </span>
@@ -100,15 +100,15 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
-                                        pattern="^[A-Za-z\./ -]+$" disabled
+                                        pattern="^[A-Za-z\./ -]+$" style="text-transform:uppercase" disabled
                                         value="{{lname + ' ' + fname + ' ' + mname}}"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NAME">
+                                        title="Input allowed only  A-Z a-z (Space)" formControlName="AC_NAME">
                                     <label for="AC_NAME">Full Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_NAME'].invalid && (angForm.controls['AC_NAME'].dirty || angForm.controls['AC_NAME'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_NAME'].errors?.pattern">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    This field is required and Input allowed only A-Z a-z (Space)
                                 </div>
                             </div>
                         </div>
@@ -152,7 +152,7 @@
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_ADHARNO'].invalid && (angForm.controls['AC_ADHARNO'].dirty || angForm.controls['AC_ADHARNO'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_ADHARNO'].errors?.pattern || angForm.controls['AC_ADHARNO'].errors?.maxlength || angForm.controls['AC_ADHARNO'].errors?.minlength">
-                                    Input allowed only 0-9
+                                    Input allowed only 0-9( It should have 12 digits and It should not start with 0 and 1)
                                 </div>
                             </div>
                         </div>
@@ -160,13 +160,13 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PANNO" class="form-control" placeholder=" "
-                                        pattern="^[A-Z0-9]+$" title="Enter Uppercase letters and digits only"
-                                        id="AC_PANNO" formControlName="AC_PANNO">
+                                        pattern="^[A-Z0-9]+$" title="Enter Uppercase letters and digits only" maxlength="10"
+                                        id="AC_PANNO" formControlName="AC_PANNO"> 
                                     <label for="AC_PANNO">Customer Pan No.</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_PANNO'].invalid && (angForm.controls['AC_PANNO'].dirty || angForm.controls['AC_PANNO'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_PANNO'].errors?.pattern">
+                                <div *ngIf="angForm.controls['AC_PANNO'].errors?.pattern || angForm.controls['AC_PANNO'].errors?.maxlength">
                                     Enter Uppercase letters and digits only
                                 </div>
                             </div>
@@ -319,14 +319,14 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PHONE_RES" class="form-control" placeholder=" "
-                                        pattern="[7-9]{1}[0-9]{9}" title="Input allowed only  0-9" id="AC_PHONE_RES"
+                                        pattern="[0]{1}[0-9]{9}" title="Input allowed only  0-9" id="AC_PHONE_RES"
                                         maxlength="10" minlength="10" formControlName="AC_PHONE_RES">
                                     <label for="AC_PHONE_RES">Residential(R)</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_PHONE_RES'].invalid && (angForm.controls['AC_PHONE_RES'].dirty || angForm.controls['AC_PHONE_RES'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_PHONE_RES'].errors?.pattern || angForm.controls['AC_PHONE_RES'].errors?.maxlength || angForm.controls['AC_PHONE_RES'].errors?.minlength">
-                                    Input allowed only 0-9
+                                    Input allowed only 0-9 and It starts by 0
                                 </div>
                             </div>
                         </div>
@@ -522,7 +522,7 @@
                                                     </thead>
                                                     <tbody *ngIf="documentMaster?.length != 0">
 
-                                                        <tr *ngFor="let item of documentMaster">
+                                                        <tr *ngFor="let data of documentMaster; let indexOfelement=index;">
                                                             <td style="align-items: center;">
                                                                 <div class="border-checkbox-section">
                                                                     <div class="border-checkbox-group border-checkbox-group-primary">
@@ -534,19 +534,12 @@
                                                             <td style="align-items: center;">
                                                                 <div class="row">
                                                                     <div class="col-sm">
-                                                                        <label class="custom-file">
-                                                                            <input type="file"
-                                                                                [uploader]="uploader"
-                                                                                class="custom-file-input"
-                                                                                id="uploaderfield" />
-                                                                            <span class="custom-file-control">Upload
-                                                                                {{data.label}}</span>
-                                                                        </label>
+                                                                        <input type="file" name="file" (change)="fileChangeEvent($event, indexOfelement)">
                                                                     </div>
-                                                                    <div class="col-sm-2">
+                                                                    <!-- <div class="col-sm-2">
 
                                                                         <span style="font-size: 20px;color: rgb(193, 22, 22); cursor: pointer;" class="fa fa-fw fa-times field-icon" (click)="cancel()"></span>
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
                                                             </td>
                                                             <td style="align-items: center;">

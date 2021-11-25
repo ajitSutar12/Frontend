@@ -60,6 +60,7 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   //variable to get Id to update
   updateID: number = 0;
 
@@ -107,7 +108,7 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url+'/Depriciation-category-master',
+            this.url + '/Depriciation-category-master',
             dataTableParameters
           ).subscribe(resp => {
             this.descriptionCategoryMasters = resp.data;
@@ -118,6 +119,10 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
             });
           });
       },
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action',
@@ -159,8 +164,9 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
     }
     this.depriciationService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
@@ -171,6 +177,7 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.depriciationService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -180,6 +187,14 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
       })
     })
   }
+
+  addNewData(){
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
@@ -188,7 +203,10 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     })
   }

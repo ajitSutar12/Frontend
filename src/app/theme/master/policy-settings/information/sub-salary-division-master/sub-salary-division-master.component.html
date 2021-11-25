@@ -9,29 +9,26 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="SAL_CODE" class="form-control" placeholder=" " disabled
-                                        id="SAL_CODE"  pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        formControlName="SAL_CODE">
-                                    <label for="SAL_CODE">Division Code</label>
-                                </span>
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="division" [multiple]="false" placeholder="Division Code *" required title="Compulsory Selection" formControlName="SAL_CODE" [(ngModel)]="id" (selected)="checkId(id)">
+                                </ng-select>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SAL_CODE'].invalid && (angForm.controls['SAL_CODE'].dirty || angForm.controls['SAL_CODE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['SAL_CODE'].errors?.required">
+                                    This field is required
+                                </div>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="CODE" class="form-control" placeholder=" " id="CODE"
-                                        required="" pattern="^[0-9]+$" maxlength="12"
+                                       pattern="^[0-9]+$" maxlength="12" disabled
                                         title="Input allowed only 0-9" formControlName="CODE">
-                                    <label for="CODE">Sub Code<sub class="required">* </sub></label>
+                                    <label for="CODE">Sub Code</label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CODE'].invalid && (angForm.controls['CODE'].dirty || angForm.controls['CODE'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['CODE'].errors?.pattern || angForm.controls['CODE'].errors?.required || angForm.controls['CODE'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
-                                </div>
-                            </div>
+
                         </div>
                         <div class="col-md">
                             <div class="form-group input-group">

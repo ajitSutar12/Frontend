@@ -33,6 +33,7 @@ import { AccountTypeService } from '../../../../shared/dropdownService/account-t
 import { SecurityMasterdropdownService } from '../../../../shared/dropdownService/security-master-dropdown.service';
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
 import { InterestRateForLoanandCCService } from '../../policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
+import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
 import { RepayModeService } from '../../../../shared/dropdownService/repay-mode.service';
 import { IOption } from 'ng-select';
 
@@ -84,6 +85,7 @@ interface TermLoanMaster {
   AC_COREG_AMT: number
   AC_RESO_NO: number
   AC_RESO_DATE: Date
+  AC_ADDFLAG: boolean
   AC_THONO: string
   AC_TWARD: string
   AC_TADDR: string
@@ -91,7 +93,6 @@ interface TermLoanMaster {
   AC_TAREA: string
   AC_TCTCODE: string
   AC_TPIN: number
-  EXP_DATE: Date
 }
 @Component({
   selector: 'app-term-loan-master',
@@ -115,10 +116,6 @@ export class TermLoanMasterComponent implements OnInit {
 
   //api 
   url = environment.base_url;
-
-  fname = ' ';
-  mname = ' ';
-  lname = ' ';
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -147,7 +144,7 @@ export class TermLoanMasterComponent implements OnInit {
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-
+  newbtnShow: boolean = false;
   //variable to get ID to update
   updateID: number = 0;
   // Filter Variable
@@ -170,13 +167,14 @@ export class TermLoanMasterComponent implements OnInit {
   industry: any[]
   scheme: any[] //scheme code from schemast(S_ACNOTYPE)
   Cust_ID: any[] //customer id from idmaster
-  GCust_ID: any[] //customer id from idmaster
-  CCust_ID: any[] //customer id from idmaster
+  GCust_ID: any //customer id from idmaster
+  CCust_ID: any //customer id from idmaster
   security: any[]
   // documentMaster: DocumentMaster[];
   id: string = '';
   Gid: string = '';
   Cid: string = '';
+  idp: string = '';
 
   repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
   installment: Array<IOption> = this.installmentMethodService.getCharacters();
@@ -210,6 +208,7 @@ export class TermLoanMasterComponent implements OnInit {
     private accountType: AccountTypeService,
     private securityMaster: SecurityMasterdropdownService,
     private InterestRateForLoanandCC: InterestRateForLoanandCCService,
+    private prioritySectorMaster: PrioritySectorMasterService,
     public router: Router
   ) { }
 
@@ -250,12 +249,12 @@ export class TermLoanMasterComponent implements OnInit {
             this.url + '/term-loan-master',
             dataTableParameters
           ).subscribe(resp => {
-            // this.customerMaster = resp.data;
-            // console.log(this.customerMaster)
+            this.termLoanMaster = resp.data;
+            console.log(this.termLoanMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
-              data: resp.data
+              data: []
             });
           });
       },
@@ -423,38 +422,6 @@ export class TermLoanMasterComponent implements OnInit {
           title: 'Resolution Details Dt.',
           data: 'AC_RESO_DATE'
         },
-        {
-          title: 'House No',
-          data: 'TAC_HONO'
-        },
-        {
-          title: 'Ward',
-          data: 'TAC_WARD'
-        },
-        {
-          title: 'Detail',
-          data: 'TAC_ADDR'
-        },
-        {
-          title: 'Galli',
-          data: 'TAC_GALLI'
-        },
-        {
-          title: 'Area',
-          data: 'TAC_AREA'
-        },
-        {
-          title: 'City',
-          data: 'TAC_CTCODE'
-        },
-        {
-          title: 'Pin Code',
-          data: 'TAC_PIN'
-        },
-        {
-          title: 'Expiry Date',
-          data: 'EXP_DATE'
-        },
       ],
       dom: 'Blrtip',
     };
@@ -465,11 +432,7 @@ export class TermLoanMasterComponent implements OnInit {
     })
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
-    })
-    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.GCust_ID = data;
-    })
-    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.CCust_ID = data;
     })
     this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
@@ -531,15 +494,18 @@ export class TermLoanMasterComponent implements OnInit {
     this.angForm = this.fb.group({
       CoAC_CUSTID: ['', [Validators.required]],
       AC_CUSTID: ['', [Validators.required]],
-      GACust_ID: ['', [Validators.required]],
-      SECURITY_CODE:[''],
-      SECURITY_VALUE:[''],
-      AC_REMARK:['',[Validators.pattern]],
+      GAC_CUSTID: ['', [Validators.required]],
+      CAC_CUSTID: ['', [Validators.required]],
+      SECURITY_CODE: [''],
+      SECURITY_VALUE: [''],
+      AC_REMARK: ['', [Validators.pattern]],
       AC_ACNOTYPE: ['LN'],
       AC_TYPE: ['', [Validators.required]],
       AC_NO: [''],
       AC_TITLE: [''],
       AC_NAME: [''],
+      GAC_NAME: [''],
+      CAC_NAME: [''],
       AC_OPDATE: ['', [Validators.required]],
       AC_OPEN_OLD_DATE: [''],
       AC_BIRTH_DT: [''],
@@ -587,6 +553,21 @@ export class TermLoanMasterComponent implements OnInit {
       AC_AREA: [''],
       AC_CTCODE: [''],
       AC_PIN: [''],
+      GAC_HONO: [''],
+      GAC_WARD: [''],
+      GAC_ADDR: [''],
+      GAC_GALLI: [''],
+      GAC_AREA: [''],
+      GAC_CTCODE: [''],
+      GAC_PIN: [''],
+      CAC_HONO: [''],
+      CAC_WARD: [''],
+      CAC_ADDR: [''],
+      CAC_GALLI: [''],
+      CAC_AREA: [''],
+      CAC_CTCODE: [''],
+      CAC_PIN: [''],
+      AC_ADDFLAG: [false],
       AC_THONO: [''],
       AC_TWARD: [''],
       AC_TADDR: [''],
@@ -598,6 +579,8 @@ export class TermLoanMasterComponent implements OnInit {
       AC_PHONE_RES: [''],
       AC_PHONE_OFFICE: [''],
       EXP_DATE: [''],
+      GAC_MEMBNO: [''],
+      GAC_MEMBTYPE: [''],
     });
   }
 
@@ -650,20 +633,24 @@ export class TermLoanMasterComponent implements OnInit {
       'AC_TAREA': formVal.AC_TAREA,
       'AC_TCTCODE': formVal.AC_TCTCODE,
       'AC_TPIN': formVal.AC_TPIN,
-      'EXP_DATE': formVal.EXP_DATE,
+      'CoBorrowerData': this.multiCoBorrower,
+      'GuarantorData': this.multiGuarantor
     }
 
 
     this.termLoanService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
 
     //To clear form
     this.resetForm();
+    this.multiCoBorrower = []
+    this.multiGuarantor = []
   }
 
   // Reset Function
@@ -675,11 +662,20 @@ export class TermLoanMasterComponent implements OnInit {
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.termLoanService.getFormData(id).subscribe(data => {
       console.log('edit', data)
       this.updateID = data.id;
-      this.angForm.setValue({
-        'AC_ACNOTYPE': data.AC_ACNOTYPE,
+      this.getCustomer(data.AC_CUSTID)
+      // this.getgCustomer(data.GAC_CUSTID)
+      // this.getCCustomer(data.CAC_CUSTID)
+      this.multiCoBorrower = data.CoborrowerMaster,
+        console.log("data coborr", data.CoborrowerMaster)
+      console.log("multi coborr", this.multiCoBorrower)
+      this.multiGuarantor = data.guaranterMaster
+      console.log("scheme", data.AC_TYPE)
+      // debugger
+      this.angForm.patchValue({
         'AC_TYPE': data.AC_TYPE,
         'AC_NO': data.AC_NO,
         'AC_CUSTID': data.AC_CUSTID,
@@ -717,28 +713,34 @@ export class TermLoanMasterComponent implements OnInit {
         'AC_COREG_AMT': data.AC_COREG_AMT,
         'AC_RESO_NO': data.AC_RESO_NO,
         'AC_RESO_DATE': data.AC_RESO_DATE,
-        'AC_THONO': data.AC_THONO,
-        'AC_TWARD': data.AC_TWARD,
-        'AC_TADDR': data.AC_TADDR,
-        'AC_TGALLI': data.AC_TGALLI,
-        'AC_TAREA': data.AC_TAREA,
-        'AC_TCTCODE': data.AC_TCTCODE,
-        'AC_TPIN': data.AC_TPIN,
-        'EXP_DATE': data.EXP_DATE,
       })
+      console.log("after patch", this.angForm)
     })
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
+    console.log(this.multiGuarantor)
+    console.log(this.multiCoBorrower)
+
+    data['GuarantorData'] = this.multiGuarantor
+    data['CoBorrowerData'] = this.multiCoBorrower
     data['id'] = this.updateID;
     this.termLoanService.updateData(data).subscribe(() => {
       console.log(data)
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     })
   }
@@ -778,14 +780,235 @@ export class TermLoanMasterComponent implements OnInit {
       }
     })
   }
-  getInterest(id){
-    
+  getInterest(id) {
+
     this.InterestRateForLoanandCC.getFormData(id).subscribe(data => {
       this.angForm.patchValue({
         INT_CATEGORY: id.toString(),
         AC_INTRATE: data.INT_RATE,
       })
     })
+  }
+
+  getPriority(idp) {
+    this.prioritySectorMaster.getFormData(idp).subscribe(data => {
+      console.log("priority", data)
+      this.angForm.patchValue({
+        AC_PRIORITY: idp.toString(),
+        AC_PRIORITY_SUB1: data.SUB1_CODE,
+        AC_PRIORITY_SUB2: data.SUB2_CODE,
+        AC_PRIORITY_SUB3: data.SUB3_CODE,
+      })
+    })
+  }
+
+  getgCustomer(Gid) {
+    console.log('in getcustomer', Gid)
+    this.customerIdService.getFormData(Gid).subscribe(data => {
+      console.log('get customer data', data)
+      this.angForm.patchValue({
+        GAC_CUSTID: Gid.toString(),
+        GAC_MEMBNO: data.AC_MEMBNO,
+        GAC_MEMBTYPE: data.AC_MEMBTYPE,
+        GAC_NAME: data.AC_NAME,
+        GAC_HONO: data.custAddress[0].AC_HONO,
+        GAC_WARD: data.custAddress[0].AC_WARD,
+        GAC_ADDR: data.custAddress[0].AC_ADDR,
+        GAC_GALLI: data.custAddress[0].AC_GALLI,
+        GAC_AREA: data.custAddress[0].AC_AREA,
+        GCITY_NAME: data.custAddress[0].AC_CTCODE,
+        GAC_PIN: data.custAddress[0].AC_PIN,
+      })
+    })
+  }
+
+  multiCoBorrower = [];
+  CoBorrowerShowButton: boolean = true
+  CoBorrowerUpdateShow: boolean = false
+  multiGuarantor = [];
+  GuarantorShowButton: boolean = true
+  GuarantorUpdateShow: boolean = false
+
+  addGuarantor() {
+    const formVal = this.angForm.value;
+    var object = {
+      AC_TYPE: formVal.AC_TYPE,
+      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
+      GAC_CUSTID: formVal.GAC_CUSTID,
+      GAC_MEMBNO: formVal.GAC_MEMBNO,
+      GAC_MEMBTYPE: formVal.GAC_MEMBTYPE,
+      GAC_NAME: formVal.GAC_NAME,
+      GAC_HONO: formVal.GAC_HONO,
+      GAC_WARD: formVal.GAC_WARD,
+      GAC_ADDR: formVal.GAC_ADDR,
+      GAC_GALLI: formVal.GAC_GALLI,
+      GAC_AREA: formVal.GAC_AREA,
+      GAC_CTCODE: formVal.GAC_CTCODE,
+      GAC_PIN: formVal.GAC_PIN,
+      EXP_DATE: formVal.EXP_DATE
+    }
+    this.multiGuarantor.push(object);
+    this.resetGuarantor()
+  }
+  addCoBorrower() {
+    const formVal = this.angForm.value;
+    var object = {
+      AC_TYPE: formVal.AC_TYPE,
+      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
+      CAC_CUSTID: formVal.CAC_CUSTID,
+      CAC_NAME: formVal.CAC_NAME,
+      CAC_HONO: formVal.CAC_HONO,
+      CAC_WARD: formVal.CAC_WARD,
+      CAC_ADDR: formVal.CAC_ADDR,
+      CAC_GALLI: formVal.CAC_GALLI,
+      CAC_AREA: formVal.CAC_AREA,
+      CAC_CTCODE: formVal.CAC_CTCODE,
+      CAC_PIN: formVal.CAC_PIN
+    }
+    this.multiCoBorrower.push(object);
+    this.resetCoBorrower()
+  }
+
+  CoBorrowerupdateid
+  CoBorrowerID
+  Guarantorupdateid
+  GuarantorID
+  coBorrowerIndex
+  editCoBorrower(id) {
+    this.coBorrowerIndex = id
+    this.CoBorrowerupdateid = id
+    console.log('in edit nominee', this.multiCoBorrower[id].id)
+    this.CoBorrowerID = this.multiCoBorrower[id].id;
+    this.CoBorrowerTrue = true
+    this.CoBorrowerShowButton = false;
+    this.CoBorrowerUpdateShow = true;
+    this.angForm.patchValue({
+      CAC_CUSTID: this.multiCoBorrower[id].CAC_CUSTID,
+      CAC_NAME: this.multiCoBorrower[id].CAC_NAME,
+      CAC_HONO: this.multiCoBorrower[id].CAC_HONO,
+      CAC_WARD: this.multiCoBorrower[id].CAC_WARD,
+      CAC_ADDR: this.multiCoBorrower[id].CAC_ADDR,
+      CAC_GALLI: this.multiCoBorrower[id].CAC_GALLI,
+      CAC_AREA: this.multiCoBorrower[id].CAC_AREA,
+      CAC_CTCODE: this.multiCoBorrower[id].CAC_CTCODE,
+      CAC_PIN: this.multiCoBorrower[id].CAC_PIN
+    })
+  }
+  guarantorIndex
+  editGuarantor(id) {
+    this.guarantorIndex = id
+    this.Guarantorupdateid = id
+    console.log('in edit nominee', this.multiGuarantor[id].id)
+    this.GuarantorID = this.multiGuarantor[id].id;
+    this.GuarantorTrue = true
+    this.GuarantorShowButton = false;
+    this.GuarantorUpdateShow = true;
+    this.angForm.patchValue({
+      GAC_CUSTID: this.multiGuarantor[id].GAC_CUSTID,
+      GAC_NAME: this.multiGuarantor[id].GAC_NAME,
+      GAC_MEMBNO: this.multiGuarantor[id].GAC_MEMBNO,
+      GAC_MEMBTYPE: this.multiGuarantor[id].GAC_MEMBTYPE,
+      GAC_HONO: this.multiGuarantor[id].GAC_HONO,
+      GAC_WARD: this.multiGuarantor[id].GAC_WARD,
+      GAC_ADDR: this.multiGuarantor[id].GAC_ADDR,
+      GAC_GALLI: this.multiGuarantor[id].GAC_GALLI,
+      GAC_AREA: this.multiGuarantor[id].GAC_AREA,
+      GAC_CTCODE: this.multiGuarantor[id].GAC_CTCODE,
+      EXP_DATE: this.multiGuarantor[id].EXP_DATE,
+      GAC_PIN: this.multiGuarantor[id].GAC_PIN
+    })
+  }
+  updateCoBorrower() {
+    let index = this.coBorrowerIndex;
+    this.CoBorrowerShowButton = true;
+    this.CoBorrowerUpdateShow = false;
+    const formVal = this.angForm.value;
+    var object = {
+      CAC_CUSTID: formVal.CAC_CUSTID,
+      CAC_NAME: formVal.CAC_NAME,
+      CAC_HONO: formVal.CAC_HONO,
+      CAC_WARD: formVal.CAC_WARD,
+      CAC_ADDR: formVal.CAC_ADDR,
+      CAC_GALLI: formVal.CAC_GALLI,
+      CAC_AREA: formVal.CAC_AREA,
+      CAC_CTCODE: formVal.CAC_CTCODE,
+      CAC_PIN: formVal.CAC_PIN,
+      id: this.CoBorrowerID
+    }
+    this.multiCoBorrower[index] = object;
+    this.resetCoBorrower()
+  }
+  updateGuarantor() {
+    let index = this.guarantorIndex;
+    this.GuarantorShowButton = true;
+    this.GuarantorUpdateShow = false;
+    const formVal = this.angForm.value;
+    var object = {
+      GAC_CUSTID: formVal.GAC_CUSTID,
+      GAC_MEMBNO: formVal.GAC_MEMBNO,
+      GAC_MEMBTYPE: formVal.GAC_MEMBTYPE,
+      GAC_NAME: formVal.GAC_NAME,
+      GAC_HONO: formVal.GAC_HONO,
+      GAC_WARD: formVal.GAC_WARD,
+      GAC_ADDR: formVal.GAC_ADDR,
+      GAC_GALLI: formVal.GAC_GALLI,
+      GAC_AREA: formVal.GAC_AREA,
+      GAC_CTCODE: formVal.GAC_CTCODE,
+      GAC_PIN: formVal.GAC_PIN,
+      EXP_DATE: formVal.EXP_DATE,
+      id: this.GuarantorID
+    }
+    this.multiGuarantor[index] = object;
+    this.resetGuarantor()
+  }
+  resetCoBorrower() {
+    this.angForm.controls['CAC_CUSTID'].reset();
+    this.angForm.controls['CAC_NAME'].reset();
+    this.angForm.controls['CAC_HONO'].reset();
+    this.angForm.controls['CAC_WARD'].reset();
+    this.angForm.controls['CAC_ADDR'].reset();
+    this.angForm.controls['CAC_GALLI'].reset();
+    this.angForm.controls['CAC_AREA'].reset();
+    this.angForm.controls['CAC_CTCODE'].reset();
+    this.angForm.controls['CAC_PIN'].reset();
+  }
+  resetGuarantor() {
+    this.angForm.controls['GAC_CUSTID'].reset();
+    this.angForm.controls['GAC_MEMBNO'].reset();
+    this.angForm.controls['GAC_MEMBTYPE'].reset();
+    this.angForm.controls['GAC_NAME'].reset();
+    this.angForm.controls['GAC_HONO'].reset();
+    this.angForm.controls['GAC_WARD'].reset();
+    this.angForm.controls['GAC_ADDR'].reset();
+    this.angForm.controls['GAC_GALLI'].reset();
+    this.angForm.controls['GAC_AREA'].reset();
+    this.angForm.controls['GAC_CTCODE'].reset();
+    this.angForm.controls['GAC_PIN'].reset();
+    this.angForm.controls['EXP_DATE'].reset();
+  }
+  getCCustomer(Cid) {
+    console.log('in getcustomer', Cid)
+    this.customerIdService.getFormData(Cid).subscribe(data => {
+      console.log('get customer data', data)
+      this.angForm.patchValue({
+        CAC_CUSTID: Cid.toString(),
+        CAC_NAME: data.AC_NAME,
+        CAC_HONO: data.custAddress[0].AC_HONO,
+        CAC_WARD: data.custAddress[0].AC_WARD,
+        CAC_ADDR: data.custAddress[0].AC_ADDR,
+        CAC_GALLI: data.custAddress[0].AC_GALLI,
+        CAC_AREA: data.custAddress[0].AC_AREA,
+        CCITY_NAME: data.custAddress[0].AC_CTCODE,
+        CAC_PIN: data.custAddress[0].AC_PIN,
+
+      })
+    })
+  }
+  delCoBorrower(id) {
+    this.multiCoBorrower.splice(id, 1)
+  }
+  delGuarantor(id) {
+    this.multiGuarantor.splice(id, 1)
   }
   getCustomer(id) {
     console.log('in getcustomer', id)
@@ -802,13 +1025,14 @@ export class TermLoanMasterComponent implements OnInit {
         AC_ADHARNO: data.AC_ADHARNO,
         AC_RISKCATG: data.AC_RISKCATG,
         AC_BIRTH_DT: data.AC_BIRTH_DT,
-        AC_HONO: data.custAddress.AC_HONO,
-        AC_WARD: data.custAddress.AC_WARD,
-        AC_TADDR: data.custAddress.AC_TADDR,
-        AC_TGALLI: data.custAddress.AC_TGALLI,
-        AC_AREA: data.custAddress.AC_AREA,
-        CITY_NAME: data.custAddress.AC_CTCODE,
-        AC_PIN: data.custAddress.AC_PIN,
+        AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
+        AC_HONO: data.custAddress[0].AC_HONO,
+        AC_WARD: data.custAddress[0].AC_WARD,
+        AC_ADDR: data.custAddress[0].AC_ADDR,
+        AC_GALLI: data.custAddress[0].AC_GALLI,
+        AC_AREA: data.custAddress[0].AC_AREA,
+        AC_CTCODE: data.custAddress[0].AC_CTCODE,
+        AC_PIN: data.custAddress[0].AC_PIN,
         AC_PANNO: data.AC_PANNO,
         AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
         AC_MOBILENO: data.AC_MOBILENO,
@@ -835,6 +1059,11 @@ export class TermLoanMasterComponent implements OnInit {
       this.getCustomer(newCustomer);
     })
 
+  }
+  //temp address flag variable
+  tempAddress: boolean = true;
+  tempAsPermanent() {
+    this.tempAddress = !this.tempAddress;
   }
   GuarantorTrue: boolean = false
   CoBorrowerTrue: boolean = false

@@ -58,7 +58,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
-                                        required="" pattern="^[A-Za-z\./ -]+$" formControlName="AC_NAME"
+                                        pattern="^[A-Za-z\./ -]+$" formControlName="AC_NAME"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" disabled>
                                     <label for="AC_NAME">Name</label>
                                 </span>
@@ -159,7 +159,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_SCHMAMT" class="form-control" placeholder=" "
@@ -189,7 +189,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_MATUAMT" class="form-control" placeholder=" "
@@ -207,15 +207,15 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" class="form-control" placeholder=" " id="AC_CLOSEDT" required
+                                    <input type="text" class="form-control" placeholder=" " id="AC_CLOSEDT"
                                         max="9999-12-31" formControlName="AC_CLOSEDT" onfocus="(this.type='date')"
                                         disabled />
                                     <label for="AC_CLOSEDT">Account Closed Date </label>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">Add</button>
+                        <div class="col-sm-3">
+                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button> &nbsp;
                             <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
                         </div>

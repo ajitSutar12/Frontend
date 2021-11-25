@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject, Subscriber } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // Displaying Sweet Alert
@@ -675,11 +675,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  isChecked($event){
+  isChecked($event) {
     if ($event.target.checked) {
       document.getElementById("{{data.value}}").removeAttribute("disabled");
     }
-    else{
+    else {
       document.getElementById("{{data.value}}").setAttribute("disabled", "true");
     }
   }
@@ -707,7 +707,30 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isTdsFormA = false;
     }
   }
-  cancel() {
-    this.uploader = null;
+  // cancel() {
+  //   this.uploader = null;
+  // }
+  imageError: string;
+  isImageSaved: boolean;
+  cardImageBase64: string;
+
+
+  fileChangeEvent(event: Event, id) {
+let arr=[];
+arr.push(event)
+console.log('arr', arr)
+    let me = this;
+   let file = (event.target as HTMLInputElement).files[0];
+   let reader = new FileReader();
+   reader.readAsDataURL(file);
+   reader.onload = function () {
+     //me.modelvalue = reader.result;
+     console.log(reader.result);
+   };
+   reader.onerror = function (error) {
+     console.log('Error: ', error);
+   };
+
+
   }
 }
