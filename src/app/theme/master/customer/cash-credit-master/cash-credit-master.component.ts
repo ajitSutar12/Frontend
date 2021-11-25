@@ -82,8 +82,8 @@ interface CashCreditMaster {
   AC_TAREA: string
   AC_TCTCODE: string
   AC_TPIN: number
-  AC_DPACTYPE: string
-  AC_DPACNO: string
+  // AC_DPACTYPE: string
+  // AC_DPACNO: string
 }
 @Component({
   selector: 'app-cash-credit-master',
@@ -236,7 +236,7 @@ export class CashCreditMasterComponent implements OnInit {
             this.url + '/term-loan-master',
             dataTableParameters
           ).subscribe(resp => {
-            // this.customerMaster = resp.data;
+            this.cashCreditMaster = resp.data;
             // console.log(this.customerMaster)
             callback({
               recordsTotal: resp.recordsTotal,
@@ -281,14 +281,14 @@ export class CashCreditMasterComponent implements OnInit {
           title: 'Renewal Date',
           data: 'AC_OPEN_OLD_DATE'
         },
-        {
-          title: 'Deposit Scheme',
-          data: 'AC_DPACTYPE'
-        },
-        {
-          title: 'Deposit A/c No.',
-          data: 'AC_DPACNO'
-        },
+        // {
+        //   title: 'Deposit Scheme',
+        //   data: 'AC_DPACTYPE'
+        // },
+        // {
+        //   title: 'Deposit A/c No.',
+        //   data: 'AC_DPACNO'
+        // },
         {
           title: 'Manual Reference Member No.',
           data: 'REF_ACNO'
@@ -473,11 +473,11 @@ export class CashCreditMasterComponent implements OnInit {
       SECURITY_CODE: [''],
       SECURITY_VALUE: [''],
       AC_REMARK: ['', [Validators.pattern]],
-      AC_ACNOTYPE: ['LN'],
+      AC_ACNOTYPE: ['CC'],
       AC_TYPE: ['', [Validators.required]],
       AC_NO: [''],
-      AC_DPACTYPE: [''],
-      AC_DPACNO: [''],
+      // AC_DPACTYPE: [''],
+      // AC_DPACNO: [''],
       AC_TITLE: [''],
       AC_NAME: [''],
       GAC_NAME: [''],
@@ -566,8 +566,8 @@ export class CashCreditMasterComponent implements OnInit {
       'AC_CUSTID': formVal.AC_CUSTID,
       'AC_OPDATE': formVal.AC_OPDATE,
       'AC_OPEN_OLD_DATE': formVal.AC_OPEN_OLD_DATE,
-      'AC_DPACTYPE': formVal.AC_DPACTYPE,
-      'AC_DPACNO': formVal.AC_DPACNO,
+      // 'AC_DPACTYPE': formVal.AC_DPACTYPE,
+      // 'AC_DPACNO': formVal.AC_DPACNO,
       'REF_ACNO': formVal.REF_ACNO,
       'AC_INTCATA': formVal.AC_INTCATA,
       'AC_SANCTION_AMOUNT': formVal.AC_SANCTION_AMOUNT,
@@ -641,8 +641,8 @@ export class CashCreditMasterComponent implements OnInit {
         'AC_CUSTID': data.AC_CUSTID,
         'AC_OPDATE': data.AC_OPDATE,
         'AC_OPEN_OLD_DATE': data.AC_OPEN_OLD_DATE,
-        'AC_DPACTYPE': data.AC_DPACTYPE,
-        'AC_DPACNO': data.AC_DPACNO,
+        // 'AC_DPACTYPE': data.AC_DPACTYPE,
+        // 'AC_DPACNO': data.AC_DPACNO,
         'REF_ACNO': data.REF_ACNO,
         'AC_INTCATA': data.AC_INTCATA,
         'AC_SANCTION_AMOUNT': data.AC_SANCTION_AMOUNT,

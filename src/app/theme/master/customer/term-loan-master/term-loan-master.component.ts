@@ -112,7 +112,7 @@ interface TermLoanMaster {
   ]
 })
 
-export class TermLoanMasterComponent implements OnInit {
+export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //api 
   url = environment.base_url;
@@ -175,7 +175,7 @@ export class TermLoanMasterComponent implements OnInit {
   Gid: string = '';
   Cid: string = '';
   idp: string = '';
-
+  idi: string = '';
   repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
   installment: Array<IOption> = this.installmentMethodService.getCharacters();
   account: Array<IOption> = this.accountType.getCharacters();
@@ -426,7 +426,9 @@ export class TermLoanMasterComponent implements OnInit {
       dom: 'Blrtip',
     };
 
-
+    this.repayModeService.loadCharacters().subscribe((options) => {
+      this.repayModeOption = options;
+    });
     this.schemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
       this.scheme = data;
     })
@@ -673,46 +675,45 @@ export class TermLoanMasterComponent implements OnInit {
         console.log("data coborr", data.CoborrowerMaster)
       console.log("multi coborr", this.multiCoBorrower)
       this.multiGuarantor = data.guaranterMaster
-      console.log("scheme", data.AC_TYPE)
+      console.log("scheme", data.REF_ACNO)  
       // debugger
       this.angForm.patchValue({
-        'AC_TYPE': data.AC_TYPE,
-        'AC_NO': data.AC_NO,
-        'AC_CUSTID': data.AC_CUSTID,
-        'AC_OPDATE': data.AC_OPDATE,
-        'AC_OPEN_OLD_DATE': data.AC_OPEN_OLD_DATE,
-        'REF_ACNO': data.REF_ACNO,
-        'AC_INTCATA': data.AC_INTCATA,
-        'AC_SANCTION_AMOUNT': data.AC_SANCTION_AMOUNT,
-        'AC_SANCTION_DATE': data.AC_SANCTION_DATE,
-        'AC_DRAWPOWER_AMT': data.AC_DRAWPOWER_AMT,
-        'AC_MONTHS': data.AC_MONTHS,
-        'AC_EXPIRE_DATE': data.AC_EXPIRE_DATE,
-        'AC_INTRATE': data.AC_INTRATE,
-        'AC_REPAYMODE': data.AC_REPAYMODE,
-        'INSTALLMENT_METHOD': data.INSTALLMENT_METHOD,
-        'AC_INSTALLMENT': data.AC_INSTALLMENT,
-        'AC_MORATORIUM_PERIOD': data.AC_MORATORIUM_PERIOD,
-        'AC_GRACE_PERIOD': data.AC_GRACE_PERIOD,
-        'AC_AUTHORITY': data.AC_AUTHORITY,
-        'AC_RECOMMEND_BY': data.AC_RECOMMEND_BY,
-        'AC_RECOVERY_CLERK': data.AC_RECOVERY_CLERK,
-        'AC_PRIORITY': data.AC_PRIORITY,
-        'AC_PRIORITY_SUB1': data.AC_PRIORITY_SUB1,
-        'AC_PRIORITY_SUB2': data.AC_PRIORITY_SUB2,
-        'AC_PRIORITY_SUB3': data.AC_PRIORITY_SUB3,
-        'AC_WEAKER': data.AC_WEAKER,
-        'AC_PURPOSE': data.AC_PURPOSE,
-        'AC_INDUSTRY': data.AC_INDUSTRY,
-        'AC_HEALTH': data.AC_HEALTH,
-        'AC_RELATION_TYPE': data.AC_RELATION_TYPE,
-        'AC_DIRECTOR': data.AC_DIRECTOR,
-        'AC_DIRECTOR_RELATION': data.AC_DIRECTOR_RELATION,
-        'AC_COREG_NO': data.AC_COREG_NO,
-        'AC_COREG_DATE': data.AC_COREG_DATE,
-        'AC_COREG_AMT': data.AC_COREG_AMT,
-        'AC_RESO_NO': data.AC_RESO_NO,
-        'AC_RESO_DATE': data.AC_RESO_DATE,
+        AC_TYPE: data.AC_TYPE,
+        AC_NO: data.AC_NO,
+        AC_OPDATE: data.AC_OPDATE,
+        AC_OPEN_OLD_DATE: data.AC_OPEN_OLD_DATE,
+        REF_ACNO: data.REF_ACNO,
+        AC_INTCATA: data.AC_INTCATA,
+        AC_SANCTION_AMOUNT: data.AC_SANCTION_AMOUNT,
+        AC_SANCTION_DATE: data.AC_SANCTION_DATE,
+        AC_DRAWPOWER_AMT: data.AC_DRAWPOWER_AMT,
+        AC_MONTHS: data.AC_MONTHS,
+        AC_EXPIRE_DATE: data.AC_EXPIRE_DATE,
+        AC_INTRATE: data.AC_INTRATE,
+        AC_REPAYMODE: data.AC_REPAYMODE,
+        INSTALLMENT_METHOD: data.INSTALLMENT_METHOD,
+        AC_INSTALLMENT: data.AC_INSTALLMENT,
+        AC_MORATORIUM_PERIOD: data.AC_MORATORIUM_PERIOD,
+        AC_GRACE_PERIOD: data.AC_GRACE_PERIOD,
+        AC_AUTHORITY: data.AC_AUTHORITY,
+        AC_RECOMMEND_BY: data.AC_RECOMMEND_BY,
+        AC_RECOVERY_CLERK: data.AC_RECOVERY_CLERK,
+        AC_PRIORITY: data.AC_PRIORITY,
+        AC_PRIORITY_SUB1: data.AC_PRIORITY_SUB1,
+        AC_PRIORITY_SUB2: data.AC_PRIORITY_SUB2,
+        AC_PRIORITY_SUB3: data.AC_PRIORITY_SUB3,
+        AC_WEAKER: data.AC_WEAKER,
+        AC_PURPOSE: data.AC_PURPOSE,
+        AC_INDUSTRY: data.AC_INDUSTRY,
+        AC_HEALTH: data.AC_HEALTH,
+        AC_RELATION_TYPE: data.AC_RELATION_TYPE,
+        AC_DIRECTOR: data.AC_DIRECTOR,
+        AC_DIRECTOR_RELATION: data.AC_DIRECTOR_RELATION,
+        AC_COREG_NO: data.AC_COREG_NO,
+        AC_COREG_DATE: data.AC_COREG_DATE,
+        AC_COREG_AMT: data.AC_COREG_AMT,
+        AC_RESO_NO: data.AC_RESO_NO,
+        AC_RESO_DATE: data.AC_RESO_DATE,
       })
       console.log("after patch", this.angForm)
     })
@@ -780,11 +781,11 @@ export class TermLoanMasterComponent implements OnInit {
       }
     })
   }
-  getInterest(id) {
-
-    this.InterestRateForLoanandCC.getFormData(id).subscribe(data => {
+  getInterest(idi) {
+    this.InterestRateForLoanandCC.getFormData(idi).subscribe(data => {
+      console.log('interest category', data)
       this.angForm.patchValue({
-        INT_CATEGORY: id.toString(),
+        AC_INTCATA: data.INT_CATEGORY,
         AC_INTRATE: data.INT_RATE,
       })
     })
@@ -883,15 +884,15 @@ export class TermLoanMasterComponent implements OnInit {
     this.CoBorrowerShowButton = false;
     this.CoBorrowerUpdateShow = true;
     this.angForm.patchValue({
-      CAC_CUSTID: this.multiCoBorrower[id].CAC_CUSTID,
-      CAC_NAME: this.multiCoBorrower[id].CAC_NAME,
-      CAC_HONO: this.multiCoBorrower[id].CAC_HONO,
-      CAC_WARD: this.multiCoBorrower[id].CAC_WARD,
-      CAC_ADDR: this.multiCoBorrower[id].CAC_ADDR,
-      CAC_GALLI: this.multiCoBorrower[id].CAC_GALLI,
-      CAC_AREA: this.multiCoBorrower[id].CAC_AREA,
-      CAC_CTCODE: this.multiCoBorrower[id].CAC_CTCODE,
-      CAC_PIN: this.multiCoBorrower[id].CAC_PIN
+      CAC_CUSTID: this.multiCoBorrower[id].AC_CUSTID,
+      CAC_NAME: this.multiCoBorrower[id].AC_NAME,
+      CAC_HONO: this.multiCoBorrower[id].AC_HONO,
+      CAC_WARD: this.multiCoBorrower[id].AC_WARD,
+      CAC_ADDR: this.multiCoBorrower[id].AC_ADDR,
+      CAC_GALLI: this.multiCoBorrower[id].AC_GALLI,
+      CAC_AREA: this.multiCoBorrower[id].AC_AREA,
+      CAC_CTCODE: this.multiCoBorrower[id].AC_CTCODE,
+      CAC_PIN: this.multiCoBorrower[id].AC_PIN
     })
   }
   guarantorIndex

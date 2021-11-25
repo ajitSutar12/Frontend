@@ -259,34 +259,34 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Birth Date',
           data: 'AC_BIRTH_DT'
         },
-        {
-          title: 'House No',
-          data: 'AC_HONO'
-        },
-        {
-          title: 'Ward',
-          data: 'AC_WARD'
-        },
-        {
-          title: 'Detail',
-          data: 'AC_ADDR'
-        },
-        {
-          title: 'Galli',
-          data: 'AC_GALLI'
-        },
-        {
-          title: 'Area',
-          data: 'AC_AREA'
-        },
-        {
-          title: 'City',
-          data: 'AC_CTCODE'
-        },
-        {
-          title: 'Pin Code',
-          data: 'AC_PIN'
-        },
+        // {
+        //   title: 'House No',
+        //   data: 'AC_HONO'
+        // },
+        // {
+        //   title: 'Ward',
+        //   data: 'AC_WARD'
+        // },
+        // {
+        //   title: 'Detail',
+        //   data: 'AC_ADDR'
+        // },
+        // {
+        //   title: 'Galli',
+        //   data: 'AC_GALLI'
+        // },
+        // {
+        //   title: 'Area',
+        //   data: 'AC_AREA'
+        // },
+        // {
+        //   title: 'City',
+        //   data: 'AC_CTCODE'
+        // },
+        // {
+        //   title: 'Pin Code',
+        //   data: 'AC_PIN'
+        // },
         {
           title: 'Salary Div.',
           data: 'AC_SALARYDIVISION_CODE'
@@ -542,7 +542,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.customerIdService.getFormData(id).subscribe(data => {
       console.log('edit', data)
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.angForm.patchValue({
         'AC_NO': data.AC_NO,
         'AC_MEMBTYPE': data.AC_MEMBTYPE,
         'AC_MEMBNO': data.AC_MEMBNO,
@@ -557,12 +557,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_RISKCATG': data.AC_RISKCATG,
         'AC_BIRTH_DT': data.AC_BIRTH_DT,
         'AC_HONO': data.custAddress[0].AC_HONO,
-        'AC_WARD': data.custAddress[0].AC_WARD,
-        'AC_ADDR': data.custAddress[0].AC_ADDR,
-        'AC_GALLI': data.custAddress[0].AC_GALLI,
-        'AC_AREA': data.custAddress[0].AC_AREA,
-        'AC_CTCODE': data.custAddress[0].AC_CTCODE,
-        'AC_PIN': data.custAddress[0].AC_PIN,
+        // 'AC_WARD': data.custAddress[0].AC_WARD,
+        // 'AC_ADDR': data.custAddress[0].AC_ADDR,
+        // 'AC_GALLI': data.custAddress[0].AC_GALLI,
+        // 'AC_AREA': data.custAddress[0].AC_AREA,
+        // 'AC_CTCODE': data.custAddress[0].AC_CTCODE,
+        // 'AC_PIN': data.custAddress[0].AC_PIN,
         'AC_SALARYDIVISION_CODE': data.AC_SALARYDIVISION_CODE,
         'AC_PANNO': data.AC_PANNO,
         'AC_IS_RECOVERY': data.AC_IS_RECOVERY,

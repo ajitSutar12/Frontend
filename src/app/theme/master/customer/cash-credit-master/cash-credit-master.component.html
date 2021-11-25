@@ -209,7 +209,7 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
+                                                    <!-- <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_DPACTYPE"
@@ -219,7 +219,7 @@
                                                                 <label for="AC_DPACTYPE">Deposit Scheme</label>
                                                             </span>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm">
@@ -233,7 +233,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
+                                                    <!-- <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_DPACNO" class="form-control"
@@ -248,7 +248,7 @@
                                                                 Input allowed only 0-9
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
@@ -1524,8 +1524,8 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-3">
-                                <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
-                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button> &nbsp;
+                                <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()">Add</button>
+                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button> &nbsp;
                                 <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
                             </div>
                         </div>
@@ -1554,8 +1554,8 @@
                                         <td>{{data.AC_CUSTID}}</td>
                                         <td>{{data.AC_OPDATE}}</td>
                                         <td>{{data.AC_OPEN_OLD_DATE}}</td>
-                                        <td>{{data.AC_DPACTYPE}}</td>
-                                        <td>{{data.AC_DPACNO}}</td>
+                                        <!-- <td>{{data.AC_DPACTYPE}}</td> -->
+                                        <!-- <td>{{data.AC_DPACNO}}</td> -->
                                         <td>{{data.REF_ACNO}}</td>
                                         <td>{{data.AC_INTCATA}}</td>
                                         <td>{{data.AC_SANCTION_AMOUNT}}</td>
@@ -1601,8 +1601,8 @@
                                         <th><input type="text" placeholder="Search Name" name="AC_NAME"></th>
                                         <th><input type="text" placeholder="Search Opening Date" name="AC_OPDATE"></th>
                                         <th><input type="text" placeholder="Search Renewal Date" name="AC_OPEN_OLD_DATE"></th>
-                                        <th><input type="text" placeholder="Search Deposit Scheme" name="AC_DPACTYPE"></th>
-                                        <th><input type="text" placeholder="Search Deposit A/c No." name="AC_DPACNO"></th>
+                                        <!-- <th><input type="text" placeholder="Search Deposit Scheme" name="AC_DPACTYPE"></th> -->
+                                        <!-- <th><input type="text" placeholder="Search Deposit A/c No." name="AC_DPACNO"></th> -->
                                         <th><input type="text" placeholder="Search Manual Reference Member No." name="REF_ACNO"></th>
                                         <th><input type="text" placeholder="Search Interest Category" name="AC_INTCATA">
                                         </th>
