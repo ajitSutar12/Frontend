@@ -16,13 +16,14 @@ export class DisputeLoanMasterService {
   url = environment.base_url;
   constructor(
     private http: HttpClient,
-    private CustomerIdService:CustomerIdService) { }
+    //private CustomerIdService:CustomerIdService
+    ) { }
 
 
-    do(){
-      this.CustomerIdService.doSomethingFromService1();
-      console.log('after service 1 function');
-    }
+    // do(){
+    //   this.CustomerIdService.doSomethingFromService1();
+    //   console.log('after service 1 function');
+    // }
 
   //Insertion Operation
   postData(data: any): Observable<any> {

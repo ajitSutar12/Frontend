@@ -62,6 +62,7 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   updateID: number = 0;
 
   // column search
@@ -116,6 +117,10 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
             });
           });
       },
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action',        
@@ -150,9 +155,14 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
     this.categoryMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
     })
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
     this.resetForm();
   }
 
@@ -160,6 +170,7 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.categoryMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -177,11 +188,23 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     })
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
   }
-
+  
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({

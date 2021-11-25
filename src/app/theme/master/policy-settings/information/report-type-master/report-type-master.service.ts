@@ -11,7 +11,7 @@ export class ReportTypeMasterService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  //// report-type-master";
+  //url = "http://localhost:4000/report-type-master";
   url = environment.base_url;
   constructor(private http: HttpClient) { }
 

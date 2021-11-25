@@ -11,7 +11,7 @@ export class ItemCategoryMasterService {
   // Variable for handleError
   [x: string]: any;
   // API 
- // // item-category-master";
+ // url = "http://localhost:4000/item-category-master";
  url = environment.base_url;
   constructor(private http: HttpClient) { }
 

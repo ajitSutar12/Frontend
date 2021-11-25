@@ -64,6 +64,7 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   showButton: boolean = true;
   updateShow: boolean = false;
   updateID: number = 0;
+  newbtnShow: boolean;
 
   constructor(private fb: FormBuilder,
     private castMasterService: CastMasterService,
@@ -160,6 +161,7 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.castMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id
       this.angForm.setValue({
@@ -176,11 +178,17 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
+      this.newbtnShow = false;
       this.rerender();
       this.resetForm();
     })
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({

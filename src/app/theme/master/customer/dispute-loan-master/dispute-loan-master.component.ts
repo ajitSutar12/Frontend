@@ -21,15 +21,16 @@ import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdow
 import { OccupationMasterService } from '../../../../shared/dropdownService/occupation-master-dropdown.service';
 import { HealthMasterDropdownService } from '../../../../shared/dropdownService/health-master-dropdown.service';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
-import {AuthorityMasterDropdownService} from '../../../../shared/dropdownService/authority-master-dropdown.service'
-import {PrioritySectorMasterDropdownService} from '../../../../shared/dropdownService/priority-sector-master-dropdown.service';
-import {PurposeMasterDropdownService} from '../../../../shared/dropdownService/purpose-master-dropdown.service';
-import {IndustryMasterDropdownService} from '../../../../shared/dropdownService/industry-master-dropdown.service';
-import {WeakerMasterDropdownService} from '../../../../shared/dropdownService/weaker-master-dropdown.service';
-import {AdvocateMasterDropdownService } from '../../../../shared/dropdownService/advocate-master-dropdown.service';
-import { DirectorMasterDropdownService} from '../../../../shared/dropdownService/director-master-dropdown.service';
-import {LoanStageMasterDropdownService} from '../../../../shared/dropdownService/loan-stage-master-dropdown.service'
-import {CourtMasterDropdownService} from '../../../../shared/dropdownService/court-master-dropdown.service';
+import { AuthorityMasterDropdownService } from '../../../../shared/dropdownService/authority-master-dropdown.service'
+import { PrioritySectorMasterDropdownService } from '../../../../shared/dropdownService/priority-sector-master-dropdown.service';
+import { PurposeMasterDropdownService } from '../../../../shared/dropdownService/purpose-master-dropdown.service';
+import { IndustryMasterDropdownService } from '../../../../shared/dropdownService/industry-master-dropdown.service';
+import { WeakerMasterDropdownService } from '../../../../shared/dropdownService/weaker-master-dropdown.service';
+import { AdvocateMasterDropdownService } from '../../../../shared/dropdownService/advocate-master-dropdown.service';
+import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
+import { LoanStageMasterDropdownService } from '../../../../shared/dropdownService/loan-stage-master-dropdown.service'
+import { CourtMasterDropdownService } from '../../../../shared/dropdownService/court-master-dropdown.service';
+import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
 
 import { InstallmentMethodService } from '../../../../shared/dropdownService/installment-method.service';
 
@@ -42,7 +43,8 @@ import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 
 import { CustomerIdService } from "../customer-id/customer-id.service";
-import {TermLoanService} from '../term-loan-master/term-loan-master.service'
+import { TermLoanService } from '../term-loan-master/term-loan-master.service'
+import { environment } from 'src/environments/environment';
 
 
 
@@ -62,7 +64,7 @@ interface DisputeLoanMaster {
   // basic 
   AC_TYPE: string;
   AC_NO: string;
-  REF_AC_NO:string;
+  REF_AC_NO: string;
   REF_AC_TYPE: string;
   AC_CUSTID: string;
   AC_NAME: string;
@@ -113,7 +115,7 @@ interface DisputeLoanMaster {
   AC_PHNO: string;
   AC_MOBNO: string;
   AC_EMAIL: string;
-  AC_ADDFLAG: string;
+  AC_ADDFLAG: boolean;
   AC_THONO: string;
   AC_TWARD: string;
   AC_TGALLI: string;
@@ -132,8 +134,8 @@ interface DisputeLoanMaster {
   AC_ADDR2: string;
   AC_ADDR3: string;
   CTCODE: string;
-  SECURITY_CODE:string;
-  SECURITY_VALUE:string;
+  SECURITY_CODE: string;
+  SECURITY_VALUE: string;
 
   // dispute setails
 
@@ -156,7 +158,7 @@ interface DisputeLoanMaster {
   AC_REMARK: string;
   // documents
 
- 
+
 
 }
 
@@ -187,6 +189,9 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
 
   basicTab;
   otherTab;
+
+  //api 
+  url = environment.base_url;
 
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -229,8 +234,8 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   dtdocumentOptions: any = {}; //Datatable variable for document form
 
   // //Select option for title, repay mode
-  statementOption:any;
-  d:any;
+  statementOption: any;
+  d: any;
   titleOption: Array<IOption> = this.TitleService.getCharacters();
   simpleOption: Array<IOption> = this.RepayModeService.getCharacters();
   repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
@@ -260,6 +265,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   loanstageoption: any;
   courtoption: any;
   dataSub: Subscription;
+  city: any;
 
   constructor(
     private http: HttpClient,
@@ -269,7 +275,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     public RepayModeService: RepayModeService,
     private fb: FormBuilder,
     private CustomerIdService: CustomerIdService,
-    private TermLoanService:TermLoanService,
+    private TermLoanService: TermLoanService,
     private TermLoanMasterDropdownService: TermLoanMasterDropdownService,
     private HealthMasterDropdownService: HealthMasterDropdownService,
     private IntrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
@@ -278,16 +284,17 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     private SchemeCodeDropdownService: SchemeCodeDropdownService,
     private CustomerIDMasterDropdownService: CustomerIDMasterDropdownService,
     private AuthorityMasterDropdownService: AuthorityMasterDropdownService,
-    private PrioritySectorMasterDropdownService:PrioritySectorMasterDropdownService,
-    private PurposeMasterDropdownService:PurposeMasterDropdownService,
-    private IndustryMasterDropdownService:IndustryMasterDropdownService,
-    private WeakerMasterDropdownService:WeakerMasterDropdownService,
-    private AdvocateMasterDropdownService:AdvocateMasterDropdownService,
-    private DirectorMasterDropdownService:DirectorMasterDropdownService,
-    private LoanStageMasterDropdownService:LoanStageMasterDropdownService,
-    private CourtMasterDropdownService:CourtMasterDropdownService,
+    private PrioritySectorMasterDropdownService: PrioritySectorMasterDropdownService,
+    private PurposeMasterDropdownService: PurposeMasterDropdownService,
+    private IndustryMasterDropdownService: IndustryMasterDropdownService,
+    private WeakerMasterDropdownService: WeakerMasterDropdownService,
+    private AdvocateMasterDropdownService: AdvocateMasterDropdownService,
+    private DirectorMasterDropdownService: DirectorMasterDropdownService,
+    private LoanStageMasterDropdownService: LoanStageMasterDropdownService,
+    private CourtMasterDropdownService: CourtMasterDropdownService,
     private repayModeService: RepayModeService,
     private installmentMethodService: InstallmentMethodService,
+    private cityMaster: cityMasterService,
   ) { }
 
 
@@ -336,7 +343,8 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/dispute-loan-master',
+            this.url + '/term-loan-master',
+            // 'http://localhost:4000/dispute-loan-master',
             dataTableParameters
           ).subscribe(resp => {
             this.disputelonemaster = resp.data;
@@ -763,11 +771,11 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     this.HealthMasterDropdownService.getHealthMasterList().pipe(first()).subscribe(data => {
       this.healthcodeoption = data;
     })
-   
+
     this.AuthorityMasterDropdownService.getAuthorityMasterList().pipe(first()).subscribe(data => {
       this.authorityoption = data;
     })
-  
+
     this.PrioritySectorMasterDropdownService.getPrioritySectorMasterList().pipe(first()).subscribe(data => {
       this.priorityoption = data;
     })
@@ -783,7 +791,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     this.DirectorMasterDropdownService.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.directoroption = data;
     })
-   
+
     this.AdvocateMasterDropdownService.getAdvocateMasterList().pipe(first()).subscribe(data => {
       this.advocateoption = data;
     })
@@ -793,12 +801,16 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     this.CourtMasterDropdownService.getCourtMasterList().pipe(first()).subscribe(data => {
       this.courtoption = data;
     })
+    this.cityMaster.getcityList().pipe(first()).subscribe(data => {
+      this.city = data;
+    })
 
 
   }
 
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
+    //this.tempAddress = this.tempAddress;
   }
   runTimer() {
     const timer = setInterval(() => {
@@ -820,7 +832,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
       // basic 
       AC_TYPE: [''],
       AC_NO: [''],
-      REF_AC_NO:[''],
+      REF_AC_NO: [''],
       REF_AC_TYPE: [''],
       AC_CUSTID: [''],
       AC_NAME: [''],
@@ -890,8 +902,9 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
       AC_ADDR2: [''],
       AC_ADDR3: [''],
       CTCODE: [''],
-      SECURITY_CODE:[''],
-      SECURITY_VALUE:[''],
+      SECURITY_CODE: [''],
+      SECURITY_VALUE: [''],
+      G_AC_REMARK: [''],
       // dispute setails
 
       CASE_SUITE_DATE: [''],
@@ -914,7 +927,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
       // documents
 
 
-     
+
 
     });
   }
@@ -927,7 +940,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
       // basic 
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
-      'REF_AC_NO':formVal.REF_AC_NO,
+      'REF_AC_NO': formVal.REF_AC_NO,
       'REF_AC_TYPE': formVal.REF_AC_TYPE,
       'AC_CUSTID': formVal.AC_CUSTID,
       'AC_NAME': formVal.AC_NAME,
@@ -997,8 +1010,9 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
       'AC_ADDR2': formVal.AC_ADDR2,
       'AC_ADDR3': formVal.AC_ADDR3,
       'CTCODE': formVal.CTCODE,
-      'SECURITY_CODE':formVal.SECURITY_CODE,
-      'SECURITY_VALUE':formVal.SECURITY_VALUE,
+      'SECURITY_CODE': formVal.SECURITY_CODE,
+      'SECURITY_VALUE': formVal.SECURITY_VALUE,
+      'G_AC_REMARK': formVal.G_AC_REMARK,
 
       // dispute setails
 
@@ -1022,7 +1036,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
       // documents
 
 
-    
+
     }
     this.DisputeLoanMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -1049,7 +1063,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
         'AC_TYPE': data.AC_TYPE,
         'AC_NO': data.AC_NO,
         'REF_AC_TYPE': data.REF_AC_TYPE,
-        'REF_AC_NO':data.REF_AC_NO,
+        'REF_AC_NO': data.REF_AC_NO,
         'AC_CUSTID': data.AC_CUSTID,
         'AC_NAME': data.AC_NAME,
         'AC_OPDATE': data.AC_OPDATE,
@@ -1118,8 +1132,9 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
         'AC_ADDR2': data.AC_ADDR2,
         'AC_ADDR3': data.AC_ADDR3,
         'CTCODE': data.CTCODE,
-        'SECURITY_CODE':data.SECURITY_CODE,
-        'SECURITY_VALUE':data.SECURITY_VALUE,
+        'SECURITY_CODE': data.SECURITY_CODE,
+        'SECURITY_VALUE': data.SECURITY_VALUE,
+        'G_AC_REMARK': data.G_AC_REMARK,
         // dispute setails
 
         'CASE_SUITE_DATE': data.CASE_SUITE_DATE,
@@ -1142,7 +1157,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
         // documents
 
 
-  
+
       })
     })
   }
@@ -1245,12 +1260,14 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     console.log('in transer from term loan master AC no ', id)
     this.TermLoanService.getFormData(id).subscribe(data => {
       console.log('get transfered data ', data)
+      this.getCustomer(data.AC_CUSTID)
       this.angForm.patchValue({
+
         // 'AC_ACNOTYPE': data.AC_ACNOTYPE,
         'AC_TYPE': data.AC_TYPE,
         'AC_NO': data.AC_NO,
-        'AC_CUSTID': data.AC_CUSTID,
-        'AC_OPDATE': data.AC_OPDATE,
+        AC_OPDATE: data.AC_OPDATE,
+        'AC_NAME': data.AC_NAME,
         'AC_OPEN_OLD_DATE': data.AC_OPEN_OLD_DATE,
         'REF_ACNO': data.REF_ACNO,
         'AC_INTCATA': data.AC_INTCATA,
@@ -1295,6 +1312,41 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
 
       })
     })
+  }
+
+  getCustomer(id) {
+    this.CustomerIdService.getFormData(id).subscribe((data) => {
+      this.angForm.patchValue({
+        AC_CUSTID: id.toString(),
+        AC_TITLE: data.AC_TITLE,
+        AC_NAME: data.AC_NAME,
+        AC_CAST: data.AC_CAST,
+        AC_OCODE: data.AC_OCODE,
+        AC_MEMBTYPE: data.AC_MEMBTYPE,
+        AC_MEMBNO: data.AC_MEMBNO,
+        AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
+        AC_HONO: data.custAddress[0].AC_HONO,
+        AC_WARD: data.custAddress[0].AC_WARD,
+        AC_ADDR: data.custAddress[0].AC_ADDR,
+        AC_GALLI: data.custAddress[0].AC_GALLI,
+        AC_AREA: data.custAddress[0].AC_AREA,
+        AC_CTCODE: data.custAddress[0].AC_CTCODE,
+        AC_PIN: data.custAddress[0].AC_PIN,
+        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
+        AC_MOBNO: data.AC_MOBILENO,
+        AC_PHNO: data.AC_PHONE_RES,
+        AC_EMAIL: data.AC_EMAILID,
+        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+        AC_THONO: data.custAddress.AC_THONO,
+        AC_TWARD: data.custAddress.AC_TWARD,
+        AC_TADDR: data.custAddress.AC_TADDR,
+        AC_TGALLI: data.custAddress.AC_TGALLI,
+        AC_TAREA: data.custAddress.AC_TAREA,
+        AC_TCTCODE: data.custAddress.AC_TCTCODE,
+        AC_TPIN: data.custAddress.AC_TPIN,
+      });
+    });
   }
 
 }

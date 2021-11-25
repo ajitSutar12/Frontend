@@ -72,6 +72,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   updateID: number = 0;
   schemeCode: any;
 
@@ -84,13 +85,14 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   //for search functionality
   filterData = {};
   private dataSub: Subscription = null;
+  scheme: any;
 
   constructor(
     private http: HttpClient,
     private companyGroupMasterService: CompanyGroupMasterService,
     private fb: FormBuilder,
     public schemeTypeDropdown: SchemeTypeDropdownService,
-    public schemeCodeDropdown: SchemeCodeDropdownService) { }
+    public SchemeCodeDropdownService: SchemeCodeDropdownService) { }
 
 
   ngOnInit(): void {
@@ -137,6 +139,10 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
             });
           });
       },
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action'
@@ -168,8 +174,8 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     this.dataSub = this.schemeTypeDropdown.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
-    this.schemeCodeDropdown.getSchemeCodeList().pipe(first()).subscribe(data => {
-      this.schemeCode = data;
+    this.SchemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
+      this.scheme = data;
     })
 
   }
@@ -209,18 +215,26 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     this.companyGroupMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
 
     })
     //To clear form
     this.resetForm();
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.companyGroupMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -244,7 +258,10 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     })
   }

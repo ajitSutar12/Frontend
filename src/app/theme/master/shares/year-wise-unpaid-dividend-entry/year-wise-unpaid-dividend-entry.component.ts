@@ -13,13 +13,15 @@ import { HttpClient } from '@angular/common/http';
 
 
 // dynamic dropdown
-import{ SchemeCodeDropdownService} from '../../../../shared/dropdownService/scheme-code-dropdown.service';
-import{ SalaryDMasterdropdownService} from '../../../../shared/dropdownService/salary-division-master-dropdown.service';
-import{ ShareMasterDropdownService} from '../../../../shared/dropdownService/share-master-dropdown.service';
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
+import { SalaryDMasterdropdownService } from '../../../../shared/dropdownService/salary-division-master-dropdown.service';
+import { ShareMasterDropdownService } from '../../../../shared/dropdownService/share-master-dropdown.service';
 
 import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
+
+import { ShareMasterService } from '../../customer/shares-master/shares-master.service'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -33,16 +35,16 @@ class DataTableResponse {
 // For fetching values from backend
 interface Yearwisedividend {
   ID: number,
-  ACNOTYPE:string;
+  ACNOTYPE: string;
   ACTYPE: string,
-  AC_SALARYDIVISION_CODE:number,
-  WARRENT_DATE:Date,
-  DIV_FROM_YEAR:number,
-  DIV_TO_YEAR:number,
-  AC_NO:number,
-  TOTAL_SHARES:number,
-  MEMBER_CLOSE_DATE:Date,
-  DIVIDEND_AMOUNT:number,
+  AC_SALARYDIVISION_CODE: number,
+  WARRENT_DATE: Date,
+  DIV_FROM_YEAR: number,
+  DIV_TO_YEAR: number,
+  AC_NO: number,
+  TOTAL_SHARES: number,
+  MEMBER_CLOSE_DATE: Date,
+  DIVIDEND_AMOUNT: number,
   // AC_NAME:string,
 }
 
@@ -54,7 +56,7 @@ interface Yearwisedividend {
 
 export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDestroy, OnInit {
   acType: string = "";
-  
+
   //api
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -90,19 +92,20 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
   updateID: number = 0;
 
   // column search variable
- filterData = {};
+  filterData = {};
   SchemeCodeObject: any[];
   SalaryDMasterObject: any;
   ShareMasterObject: any[];
+  ShareMasterObjectB: any[];
 
   constructor(
     private http: HttpClient,
     private YearwiseunpaidService: YearwiseunpaidService,
-    private SalaryDMasterdropdownService:SalaryDMasterdropdownService,
-    private ShareMasterDropdownService:ShareMasterDropdownService,
+    private SalaryDMasterdropdownService: SalaryDMasterdropdownService,
+    private ShareMasterDropdownService: ShareMasterDropdownService,
     private fb: FormBuilder,
-    
-  private SchemeCodeDropdownService:SchemeCodeDropdownService,) {
+
+    private SchemeCodeDropdownService: SchemeCodeDropdownService,) {
   }
 
   ngOnInit(): void {
@@ -115,7 +118,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       serverSide: true,
       processing: true,
       ajax: (dataTableParameters: any, callback) => {
-      
+
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
           dataTableParameters.start + dataTableParameters.length;
@@ -145,7 +148,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
           )
           .subscribe((resp) => {
             this.yearwiseunpaid = resp.data;
-            console.log('fetch',this.yearwiseunpaid);
+            console.log('fetch', this.yearwiseunpaid);
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -161,93 +164,100 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
           }
         },
         {
-                    title: 'Scheme',
-                    data: 'ACTYPE'
-                  }, {
-                    title: 'Salary Division',
-                    data: 'AC_SALARYDIVISION_CODE'
-                  }, {
-                    title: 'Warrant Date',
-                    data: 'WARRENT_DATE'
-                  }, {
-                    title: 'Dividend Year From',
-                    data: 'DIV_FROM_YEAR'
-                  }, {
-                    title: 'To',
-                    data: 'DIV_TO_YEAR'
-                  }, {
-                    title: 'Member From',
-                    data: 'AC_NO'
-                  }, {
-                    title: 'Member To',
-                    data: 'AC_NO'
-                  }, {
-                    title: 'Total Amount',
-                    data: 'TOTAL_SHARES'
-                  }, {
-                    title: 'Member No',
-                    data: 'AC_NO'
-                  }, 
-                  // {
-                  //   title: 'Member Name',
-                  //   data: 'AC_NAME'
-                  // },
-                   {
-                    title: 'Dividend Amount',
-                    data: 'DIVIDEND_AMOUNT'
-                  }, {
-                    title: 'Close Date',
-                    data: 'MEMBER_CLOSE_DATE'
-                  }],
-        
+          title: 'Scheme',
+          data: 'ACTYPE'
+        }, {
+          title: 'Salary Division',
+          data: 'AC_SALARYDIVISION_CODE'
+        }, {
+          title: 'Warrant Date',
+          data: 'WARRENT_DATE'
+        }, {
+          title: 'Dividend Year From',
+          data: 'DIV_FROM_YEAR'
+        }, {
+          title: 'To',
+          data: 'DIV_TO_YEAR'
+        }, {
+          title: 'Member From',
+          data: 'AC_NO'
+        }, {
+          title: 'Member To',
+          data: 'AC_NO'
+        }, {
+          title: 'Total Amount',
+          data: 'TOTAL_SHARES'
+        }, {
+          title: 'Member No',
+          data: 'AC_NO'
+        },
+        // {
+        //   title: 'Member Name',
+        //   data: 'AC_NAME'
+        // },
+        {
+          title: 'Dividend Amount',
+          data: 'DIVIDEND_AMOUNT'
+        }, {
+          title: 'Close Date',
+          data: 'MEMBER_CLOSE_DATE'
+        }],
+
+
+
+
 
 
       dom: 'Blrtip',
     };
+    
 
-    this.SchemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data=>{
+
+
+    this.SchemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
       this.SchemeCodeObject = data;
     })
-    this.SalaryDMasterdropdownService.getSalaryDMasterList().pipe(first()).subscribe(data=>{
+    this.SalaryDMasterdropdownService.getSalaryDMasterList().pipe(first()).subscribe(data => {
       this.SalaryDMasterObject = data;
     })
-    this.ShareMasterDropdownService.getGLAccountMasterList().pipe(first()).subscribe(data=>{
+    this.ShareMasterDropdownService.getGLAccountMasterList().pipe(first()).subscribe(data => {
       this.ShareMasterObject = data;
+      this.ShareMasterObjectB = data;
     })
   }
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
-      
-  ACNOTYPE:['SH'],
-  ACTYPE: [''],
-  AC_SALARYDIVISION_CODE:[''],
-  WARRENT_DATE:[''],
-  DIV_FROM_YEAR:[''],
-  DIV_TO_YEAR:[''],
-  AC_NO:[''],
-  TOTAL_SHARES:[''],
-  MEMBER_CLOSE_DATE:[''],
-  DIVIDEND_AMOUNT:[''],
-  // AC_NAME:[''],
+
+      ACNOTYPE: ['SH'],
+      ACTYPE: [''],
+      AC_SALARYDIVISION_CODE: [''],
+      WARRENT_DATE: [''],
+      DIV_FROM_YEAR: [''],
+      DIV_TO_YEAR: [''],
+      AC_NO: [''],
+      TOTAL_SHARES: [''],
+      MEMBER_CLOSE_DATE: [''],
+      DIVIDEND_AMOUNT: [''],
+      // AC_NAME:[''],
     });
   }
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
-      
-  'ACNOTYPE':formVal.ACNOTYPE,
-  'ACTYPE':formVal.ACTYPE,
-  'AC_SALARYDIVISION_CODE':formVal.AC_SALARYDIVISION_CODE,
-  'WARRENT_DATE':formVal.WARRENT_DATE,
-  'DIV_FROM_YEAR':formVal.DIV_FROM_YEAR,
-  'DIV_TO_YEAR':formVal.DIV_TO_YEAR,
-  'AC_NO':formVal.AC_NO,
-  'TOTAL_SHARES':formVal.TOTAL_SHARES,
-  'MEMBER_CLOSE_DATE':formVal.MEMBER_CLOSE_DATE,
-  'DIVIDEND_AMOUNT':formVal.DIVIDEND_AMOUNT,
-  // 'AC_NAME':formVal.AC_NAME,
+
+      'ACNOTYPE': formVal.ACNOTYPE,
+      'ACTYPE': formVal.ACTYPE,
+      'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
+      'WARRENT_DATE': formVal.WARRENT_DATE,
+      'DIV_FROM_YEAR': formVal.DIV_FROM_YEAR,
+      'DIV_TO_YEAR': formVal.DIV_TO_YEAR,
+      'AC_NO': formVal.AC_NO,
+      'TOTAL_SHARES': formVal.TOTAL_SHARES,
+      'MEMBER_CLOSE_DATE': formVal.MEMBER_CLOSE_DATE,
+      'DIVIDEND_AMOUNT': formVal.DIVIDEND_AMOUNT,
+      // 'AC_NAME':formVal.AC_NAME,
     }
     this.YearwiseunpaidService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -257,7 +267,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       console.log(error)
     })
     //To clear form
-     this.resetForm();
+    this.resetForm();
   }
 
   //Method for append data into fields
@@ -268,16 +278,16 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
     this.YearwiseunpaidService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
-        'ACNOTYPE':data.ACNOTYPE,
-        'ACTYPE':data.ACTYPE,
-        'AC_SALARYDIVISION_CODE':data.AC_SALARYDIVISION_CODE,
-        'WARRENT_DATE':data.WARRENT_DATE,
-        'DIV_FROM_YEAR':data.DIV_FROM_YEAR,
-        'DIV_TO_YEAR':data.DIV_TO_YEAR,
-        'AC_NO':data.AC_NO,
-        'TOTAL_SHARES':data.TOTAL_SHARES,
-        'MEMBER_CLOSE_DATE':data.MEMBER_CLOSE_DATE,
-        'DIVIDEND_AMOUNT':data.DIVIDEND_AMOUNT,
+        'ACNOTYPE': data.ACNOTYPE,
+        'ACTYPE': data.ACTYPE,
+        'AC_SALARYDIVISION_CODE': data.AC_SALARYDIVISION_CODE,
+        'WARRENT_DATE': data.WARRENT_DATE,
+        'DIV_FROM_YEAR': data.DIV_FROM_YEAR,
+        'DIV_TO_YEAR': data.DIV_TO_YEAR,
+        'AC_NO': data.AC_NO,
+        'TOTAL_SHARES': data.TOTAL_SHARES,
+        'MEMBER_CLOSE_DATE': data.MEMBER_CLOSE_DATE,
+        'DIVIDEND_AMOUNT': data.DIVIDEND_AMOUNT,
         // 'AC_NAME':data.AC_NAME,
       })
     })
@@ -292,7 +302,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       this.updateShow = false;
       this.newbtnShow = false;
       this.rerender();
-       this.resetForm();
+      this.resetForm();
     })
   }
   addNewData() {
@@ -337,7 +347,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
     })
   }
 
- 
+
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -349,10 +359,10 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
             that
               .search(this['value'])
               .draw();
-          }else{
+          } else {
             that
-            .search(this['value'])
-            .draw();
+              .search(this['value'])
+              .draw();
           }
         });
       });
@@ -364,11 +374,11 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
     this.dtTrigger.unsubscribe();
   }
 
-   // Reset Function
-   resetForm() {
+  // Reset Function
+  resetForm() {
     this.createForm();
   }
-  
+
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -379,200 +389,6 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
   }
 
 
-  // a: Array<IOption> = this.Scheme1Service.getCharacters();
-  // b: Array<IOption> = this.MembernoService.getCharacters();
 
-  // selectedOption = '3';
-  // isDisabled = true;
-  // characters: Array<IOption>;
-  // selectedCharacter = '3';
-  // timeLeft = 5;
-
-  // private dataSub: Subscription = null;
-
-//   showButton: boolean = true;
-//   updateShow: boolean = false;
-
-//   message = {
-//     Scheme: "",
-//     SalaryDivision: "",
-//     WarrantDate: "",
-//     DividendYearFrom: "",
-//     To: "",
-//     MemberFrom: "",
-//     MemberTo: " ",
-//     TotalAmount: ""
-//   };
-
-//   constructor(private fb: FormBuilder, public Scheme1Service: Scheme1Service, public MembernoService: MembernoService) { this.createForm(); }
-
-//   ngOnInit(): void {
-//     this.dtExportButtonOptions = {
-//       ajax: 'fake-data/year-wise-unpaid-dividend-entry.json',
-//       columns: [
-//         {
-//           title: 'Action',
-//           render: function (data: any, type: any, full: any) {
-//             return '<button class="btn btn-outline-primary btn-sm"id="editbtn">Edit</button>' + ' ' + '<button  id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-//           }
-//         },
-//         {
-//           title: 'Scheme',
-//           data: 'Scheme'
-//         }, {
-//           title: 'Salary Division',
-//           data: 'SalaryDivision'
-//         }, {
-//           title: 'Warrant Date',
-//           data: 'WarrantDate'
-//         }, {
-//           title: 'Dividend Year From',
-//           data: 'DividendYearFrom'
-//         }, {
-//           title: 'To',
-//           data: 'To'
-//         }, {
-//           title: 'Member From',
-//           data: 'MemberFrom'
-//         }, {
-//           title: 'Member To',
-//           data: 'MemberTo'
-//         }, {
-//           title: 'Total Amount',
-//           data: 'TotalAmount'
-//         }, {
-//           title: 'Member No',
-//           data: 'MemberNo'
-//         }, {
-//           title: 'Member Name',
-//           data: 'MemberName'
-//         }, {
-//           title: 'Dividend Amount',
-//           data: 'DividendAmount'
-//         }, {
-//           title: 'Close Date',
-//           data: 'CloseDate'
-//         }],
-//       dom: 'Bfrtip',
-//       buttons: [
-//         'copy',
-//         'print',
-//         'excel',
-//         'csv'
-//       ],
-//       //row click handler code
-
-//       /**
-//       * @rowCallback function for editClickHandler and delClickHandler to passes table data to there filds
-//       @return row 
-//       */
-//       rowCallback: (row: Node, data: any[] | Object, index: number) => {
-//         const self = this;
-//         $('td', row).off('click');
-//         $('td', row).on('click', '#editbtn', () => {
-//           self.editClickHandler(data);
-//         });
-//         $('td', row).on('click', '#delbtn', () => {
-//           self.delClickHandler(data);
-//         });
-//         return row;
-//       }
-//     };
-//     this.dataSub = this.Scheme1Service.loadCharacters().subscribe((options) => {
-//       this.characters = options;
-//     });
-//     this.dataSub = this.MembernoService.loadCharacters().subscribe((options) => {
-//       this.characters = options;
-//     });
-//   }
-
-//   runTimer() {
-//     const timer = setInterval(() => {
-//       this.timeLeft -= 1;
-//       if (this.timeLeft === 0) {
-//         clearInterval(timer);
-//       }
-//     }, 1000);
-//   }
-
-//   createForm() {
-//     this.angForm = this.fb.group({
-//       Scheme: ['', [Validators.required]],
-//       SalaryDivision: ['', [Validators.pattern]],
-//       WarrantDate: ['', [Validators.required]],
-//       DividendYearFrom: ['', [Validators.pattern, Validators.required]],
-//       To: ['', [Validators.pattern, Validators.required]],
-//       MemberFrom: ['',],
-//       MemberTo: ['',],
-//       TotalAmount: ['',]
-//     });
-//   }
-
-//   submit() {
-//     console.log(this.angForm.valid);
-//     if (this.angForm.valid) {
-//       console.log(this.angForm.value);
-//     }
-//   }
-
-//   /**
-// * @editClickHandler function for edit button clicked
-// */
-//   editClickHandler(info: any): void {
-//     this.message.Scheme = info.Scheme;
-//     this.message.SalaryDivision = info.SalaryDivision;
-//     this.message.WarrantDate = info.WarrantDate;
-//     this.message.DividendYearFrom = info.DividendYearFrom;
-//     this.message.To = info.To;
-//     this.message.MemberFrom = info.MemberFrom;
-//     this.message.MemberTo = info.MemberTo;
-//     this.message.TotalAmount = info.TotalAmount;
-//     this.showButton = false;
-//     this.updateShow = true;
-//   }
-
-//   /**
-//   * @updateData function for update data 
-//   */
-//   updateData() {
-//     this.showButton = true;
-//     this.updateShow = false;
-//     // this.form.reset();
-//   }
-
-//   /**
-//   * @delClickHandler function for delete button 
-//     @Swal sweetalert2
-//     @Swal.fire open a modal window to display message
-//   */
-//   //function for delete button clicked
-//   delClickHandler(info: any): void {
-//     this.message.Scheme = info.Scheme;
-//     Swal.fire({
-//       title: 'Are you sure?',
-//       text: "Do you want to delete scheme." + this.message.Scheme + "  data",
-//       icon: 'warning',
-//       showCancelButton: true,
-//       confirmButtonColor: '#229954',
-//       cancelButtonColor: '#d33',
-//       confirmButtonText: 'Yes, delete it!'
-//     }).then((result) => {
-//       if (result.isConfirmed) {
-//         Swal.fire(
-//           'Deleted!',
-//           'Your data has been deleted.',
-//           'success'
-//         )
-//       } else if (
-//         result.dismiss === Swal.DismissReason.cancel
-//       ) {
-//         Swal.fire(
-//           'Cancelled',
-//           'Your data is safe.',
-//           'error'
-//         )
-//       }
-//     })
-//   }
 }
 

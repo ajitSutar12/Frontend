@@ -26,10 +26,13 @@ import { AccountTypeService } from '../../../../shared/dropdownService/account-t
 import { SecurityMasterdropdownService } from '../../../../shared/dropdownService/security-master-dropdown.service';
 import { InterestRateForLoanandCCService } from '../../policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
 import { CustomerIdModule } from '../customer-id/customer-id.module';
+import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
+
 import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -72,7 +75,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AccountTypeService,
     SecurityMasterdropdownService,
     InterestRateForLoanandCCService,
-    PrioritySectorMasterService
+    PrioritySectorMasterService,
+    cityMasterService
   ]
 })
 export class TermLoanMasterModule { }

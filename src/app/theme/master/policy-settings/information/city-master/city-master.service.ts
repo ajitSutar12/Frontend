@@ -12,7 +12,7 @@ export class CitytMasterService {
   // Variable for handleError
   [x: string]: any;
    // API 
-  //// city-master";
+  //url = "http://localhost:4000/city-master";
   url = environment.base_url;
 
   constructor(private http: HttpClient) { }

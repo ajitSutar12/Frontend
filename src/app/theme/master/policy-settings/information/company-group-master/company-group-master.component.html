@@ -5,11 +5,10 @@
                 <h5>Company Group Master</h5>
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
-
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="cl-md">
+                        <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="CODE" class="form-control" placeholder=" " maxlength="5" disabled
@@ -38,7 +37,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <textarea type="text" name="ADDRESS" class="form-control" placeholder=" " maxlength="2000"
-                                        pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
+                                    pattern="^[A-Za-z0-9\./ -]+$" title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                         id="Address"
                                         formControlName="ADDRESS"></textarea>
                                     <label for="Address">Address</label>
@@ -66,7 +65,7 @@
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="schemeCode" [multiple]="false" placeholder="Scheme Code*" required title="Compulsory Selection" maxlength="5" formControlName="AC_TYPE">
+                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" placeholder="Scheme Code*" required title="Compulsory Selection" maxlength="5" formControlName="AC_TYPE">
                                 </ng-select>
 
                             </div>
@@ -97,13 +96,14 @@
                             <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
                         </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">New
+                                </button>
+                        </div>
                     </div>
 
                 </div>
             </form>
-
-
-
         </div>
     </div>
 </div>
