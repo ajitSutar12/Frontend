@@ -8,6 +8,10 @@ import { MembernoService } from '../../../../shared/elements/memberno.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {YearwiseunpaidService} from './year-wise-unpaid-dividend-entry.service';
+import{ SchemeCodeDropdownService} from '../../../../shared/dropdownService/scheme-code-dropdown.service';
+import{ SalaryDMasterdropdownService} from '../../../../shared/dropdownService/salary-division-master-dropdown.service';
+import{ ShareMasterDropdownService} from '../../../../shared/dropdownService/share-master-dropdown.service';
 
 @NgModule({
   imports: [
@@ -20,7 +24,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   declarations: [YearWiseUnpaidDividendEntryComponent],
-  providers: [Scheme1Service, MembernoService]
+  providers: [YearwiseunpaidService,
+     SchemeCodeDropdownService,
+     SalaryDMasterdropdownService,
+     ShareMasterDropdownService
+    ]
 
 })
 export class YearWiseUnpaidDividendEntryModule { }

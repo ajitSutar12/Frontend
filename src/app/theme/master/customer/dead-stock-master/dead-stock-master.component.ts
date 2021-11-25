@@ -70,8 +70,6 @@ export class DeadStockMasterComponent
   firstnumber: number;
   secondnumber: number;
 
-
-
   //api
   url = environment.base_url;
 
@@ -103,6 +101,7 @@ export class DeadStockMasterComponent
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   updateID: number = 0;
 
   companyCode: any;
@@ -121,7 +120,7 @@ export class DeadStockMasterComponent
 
   private dataSub: Subscription = null;
   itemtypeoption: any[];
-  DeprCategoryoption
+  DeprCategoryoption;
   GLACNooption: any[];
 
   constructor(
@@ -143,13 +142,11 @@ export class DeadStockMasterComponent
       serverSide: true,
       processing: true,
       ajax: (dataTableParameters: any, callback) => {
-      
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-
         dataTableParameters.columns.forEach((element) => {
           if (element.search.value != "") {
             let string = element.search.value;
@@ -173,7 +170,6 @@ export class DeadStockMasterComponent
           )
           .subscribe((resp) => {
             this.customerMaster = resp.data;
-            console.log('fetch',this.customerMaster);
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -256,12 +252,13 @@ export class DeadStockMasterComponent
       ],
       dom: "Blrtip",
     };
+
     this.ItemCatMasterDropdownService.getItemMasterList()
       .pipe(first())
       .subscribe((data) => {
         this.itemtypeoption = data;
       });
-      this.DepriciationCatDropdownMaster.getDepriciationMasterList()
+    this.DepriciationCatDropdownMaster.getDepriciationMasterList()
       .pipe(first())
       .subscribe((data) => {
         this.DeprCategoryoption = data;
@@ -283,8 +280,6 @@ export class DeadStockMasterComponent
     //   this.characters = options;
     // });
   }
-
-
 
   createForm() {
     this.angForm = this.fb.group({
@@ -309,32 +304,34 @@ export class DeadStockMasterComponent
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
-      'ITEM_TYPE': formVal.ITEM_TYPE,
-      'ITEM_CODE': formVal.ITEM_CODE,
-      'ITEM_NAME': formVal.ITEM_NAME,
-      'PURCHASE_DATE': formVal.PURCHASE_DATE,
-      'DEPR_CATEGORY': formVal.DEPR_CATEGORY,
-      'OP_BAL_DATE': formVal.OP_BAL_DATE,
-      'SUPPLIER_NAME': formVal.SUPPLIER_NAME,
-      'PURCHASE_OP_QUANTITY': formVal.PURCHASE_OP_QUANTITY,
-      'PURCHASE_RATE': formVal.PURCHASE_RATE,
-      'PURCHASE_QUANTITY': formVal.PURCHASE_QUANTITY,
-      'PURCHASE_VALUE': formVal.PURCHASE_VALUE,
-      'OP_BALANCE': formVal.OP_BALANCE,
-      'OP_QUANTITY': formVal.OP_QUANTITY,
-      'LAST_DEPR_DATE': formVal.LAST_DEPR_DATE,
-      'GL_ACNO': formVal.GL_ACNO,
+      ITEM_TYPE: formVal.ITEM_TYPE,
+      ITEM_CODE: formVal.ITEM_CODE,
+      ITEM_NAME: formVal.ITEM_NAME,
+      PURCHASE_DATE: formVal.PURCHASE_DATE,
+      DEPR_CATEGORY: formVal.DEPR_CATEGORY,
+      OP_BAL_DATE: formVal.OP_BAL_DATE,
+      SUPPLIER_NAME: formVal.SUPPLIER_NAME,
+      PURCHASE_OP_QUANTITY: formVal.PURCHASE_OP_QUANTITY,
+      PURCHASE_RATE: formVal.PURCHASE_RATE,
+      PURCHASE_QUANTITY: formVal.PURCHASE_QUANTITY,
+      PURCHASE_VALUE: formVal.PURCHASE_VALUE,
+      OP_BALANCE: formVal.OP_BALANCE,
+      OP_QUANTITY: formVal.OP_QUANTITY,
+      LAST_DEPR_DATE: formVal.LAST_DEPR_DATE,
+      GL_ACNO: formVal.GL_ACNO,
     };
     this.deadstockmasterService.postData(dataToSend).subscribe(
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
-        // to reload after insertion of data
-        this.rerender();
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
       },
       (error) => {
         console.log(error);
       }
     );
+   
     //To clear form
     this.angForm.reset();
   }
@@ -343,24 +340,25 @@ export class DeadStockMasterComponent
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = false;
     this.deadstockmasterService.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
       this.angForm.setValue({
-        'ITEM_TYPE': data.ITEM_TYPE,
-        'ITEM_CODE': data.ITEM_CODE,
-        'ITEM_NAME': data.ITEM_NAME,
-        'PURCHASE_DATE': data.PURCHASE_DATE,
-        'DEPR_CATEGORY': data.DEPR_CATEGORY,
-        'OP_BAL_DATE': data.OP_BAL_DATE,
-        'SUPPLIER_NAME': data.SUPPLIER_NAME,
-        'PURCHASE_OP_QUANTITY': data.PURCHASE_OP_QUANTITY,
-        'PURCHASE_RATE': data.PURCHASE_RATE,
-        'PURCHASE_QUANTITY': data.PURCHASE_QUANTITY,
-        'PURCHASE_VALUE': data.PURCHASE_VALUE,
-        'OP_BALANCE': data.OP_BALANCE,
-        'OP_QUANTITY': data.OP_QUANTITY,
-        'LAST_DEPR_DATE': data.LAST_DEPR_DATE,
-        'GL_ACNO': data.GL_ACNO,
+        ITEM_TYPE: data.ITEM_TYPE,
+        ITEM_CODE: data.ITEM_CODE,
+        ITEM_NAME: data.ITEM_NAME,
+        PURCHASE_DATE: data.PURCHASE_DATE,
+        DEPR_CATEGORY: data.DEPR_CATEGORY,
+        OP_BAL_DATE: data.OP_BAL_DATE,
+        SUPPLIER_NAME: data.SUPPLIER_NAME,
+        PURCHASE_OP_QUANTITY: data.PURCHASE_OP_QUANTITY,
+        PURCHASE_RATE: data.PURCHASE_RATE,
+        PURCHASE_QUANTITY: data.PURCHASE_QUANTITY,
+        PURCHASE_VALUE: data.PURCHASE_VALUE,
+        OP_BALANCE: data.OP_BALANCE,
+        OP_QUANTITY: data.OP_QUANTITY,
+        LAST_DEPR_DATE: data.LAST_DEPR_DATE,
+        GL_ACNO: data.GL_ACNO,
       });
     });
   }
@@ -372,11 +370,23 @@ export class DeadStockMasterComponent
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.angForm.reset();
     });
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = true;
+    this.resetForm();
+  }
+    // Reset Function
+    resetForm() {
+      this.createForm();
+    }
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
@@ -409,26 +419,21 @@ export class DeadStockMasterComponent
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
         const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-        
-          if (this['value'] != '') {
-            that
-              .search(this['value'])
-              .draw();
+        $("input", this.footer()).on("keyup change", function () {
+          if (this["value"] != "") {
+            that.search(this["value"]).draw();
           } else {
-            that
-              .search(this['value'])
-              .draw();
+            that.search(this["value"]).draw();
           }
         });
       });
     });
   }
-
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
+
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -446,6 +451,4 @@ export class DeadStockMasterComponent
       }
     }, 1000);
   }
-
-
 }

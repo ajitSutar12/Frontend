@@ -46,6 +46,7 @@ class DataTableResponse {
 // For fetching values from backend
 interface anamatinf {
   //id:number
+  AC_MONTHS:string;
   AC_ACNOTYPE: number;
   AC_TYPE: string;
   AC_NO: String;
@@ -89,43 +90,43 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   newCustomerID;
   scheme: any[];
 
-  newCustomer(newCustomer) {
-    console.log("new customer");
-    // this.newCustomerID.push(newCustomer)
-    this.newCustomerID = newCustomer;
-    console.log(this.newCustomerID);
-    this.angForm.patchValue({
-      AC_TITLE: this.newCustomerID.AC_TITLE,
-      AC_NAME: this.newCustomerID.AC_NAME,
-      AC_CAST: this.newCustomerID.AC_CAST,
-      CITY_NAME: this.newCustomerID.AC_OCODE,
-      AC_ADHARNO: this.newCustomerID.AC_ADHARNO,
-      AC_RISKCATG: this.newCustomerID.AC_RISKCATG,
-      AC_BIRTH_DT: this.newCustomerID.AC_BIRTH_DT,
-      AC_HONO: this.newCustomerID.custAddress.AC_HONO,
-      AC_WARD: this.newCustomerID.custAddress.AC_WARD,
-      AC_TADDR: this.newCustomerID.custAddress.AC_TADDR,
-      AC_TGALLI: this.newCustomerID.custAddress.AC_TGALLI,
-      AC_AREA: this.newCustomerID.custAddress.AC_AREA,
-      AC_CTCODE: this.newCustomerID.custAddress.AC_CTCODE,
-      AC_PIN: this.newCustomerID.custAddress.AC_PIN,
-      AC_PANNO: this.newCustomerID.AC_PANNO,
-      AC_SALARYDIVISION_CODE: this.newCustomerID.AC_SALARYDIVISION_CODE,
-      AC_MOBILENO: this.newCustomerID.AC_MOBILENO,
-      AC_PHONE_RES: this.newCustomerID.AC_PHONE_RES,
-      AC_PHONE_OFFICE: this.newCustomerID.AC_PHONE_OFFICE,
-      AC_EMAILID: this.newCustomerID.AC_EMAILID,
-      AC_IS_RECOVERY: this.newCustomerID.AC_IS_RECOVERY,
-      TDS_REQUIRED: this.newCustomerID.TDS_REQUIRED,
-      SMS_REQUIRED: this.newCustomerID.SMS_REQUIRED,
-      IS_KYC_RECEIVED: this.newCustomerID.IS_KYC_RECEIVED,
-      FIN_YEAR: this.newCustomerID.FIN_YEAR,
-      SUBMIT_DATE: this.newCustomerID.SUBMIT_DATE,
-      FORM_TYPE: this.newCustomerID.FORM_TYPE,
-      TDS_RATE: this.newCustomerID.TDS_RATE,
-      TDS_LIMIT: this.newCustomerID.TDS_LIMIT,
-    });
-  }
+  // newCustomer(newCustomer) {
+  //   console.log("new customer");
+  //   // this.newCustomerID.push(newCustomer)
+  //   this.newCustomerID = newCustomer;
+  //   console.log(this.newCustomerID);
+  //   this.angForm.patchValue({
+  //     AC_TITLE: this.newCustomerID.AC_TITLE,
+  //     AC_NAME: this.newCustomerID.AC_NAME,
+  //     AC_CAST: this.newCustomerID.AC_CAST,
+  //     // AC_CTCODE: this.newCustomerID.AC_OCODE,
+  //     AC_ADHARNO: this.newCustomerID.AC_ADHARNO,
+  //     AC_RISKCATG: this.newCustomerID.AC_RISKCATG,
+  //     AC_BIRTH_DT: this.newCustomerID.AC_BIRTH_DT,
+  //     AC_HONO: this.newCustomerID.custAddress.AC_HONO,
+  //     AC_WARD: this.newCustomerID.custAddress.AC_WARD,
+  //     AC_TADDR: this.newCustomerID.custAddress.AC_TADDR,
+  //     AC_TGALLI: this.newCustomerID.custAddress.AC_TGALLI,
+  //     AC_AREA: this.newCustomerID.custAddress.AC_AREA,
+  //     AC_CTCODE: this.newCustomerID.custAddress.AC_CTCODE,
+  //     AC_PIN: this.newCustomerID.custAddress.AC_PIN,
+  //     AC_PANNO: this.newCustomerID.AC_PANNO,
+  //     AC_SALARYDIVISION_CODE: this.newCustomerID.AC_SALARYDIVISION_CODE,
+  //     AC_MOBILENO: this.newCustomerID.AC_MOBILENO,
+  //     AC_PHONE_RES: this.newCustomerID.AC_PHONE_RES,
+  //     AC_PHONE_OFFICE: this.newCustomerID.AC_PHONE_OFFICE,
+  //     AC_EMAILID: this.newCustomerID.AC_EMAILID,
+  //     AC_IS_RECOVERY: this.newCustomerID.AC_IS_RECOVERY,
+  //     TDS_REQUIRED: this.newCustomerID.TDS_REQUIRED,
+  //     SMS_REQUIRED: this.newCustomerID.SMS_REQUIRED,
+  //     IS_KYC_RECEIVED: this.newCustomerID.IS_KYC_RECEIVED,
+  //     FIN_YEAR: this.newCustomerID.FIN_YEAR,
+  //     SUBMIT_DATE: this.newCustomerID.SUBMIT_DATE,
+  //     FORM_TYPE: this.newCustomerID.FORM_TYPE,
+  //     TDS_RATE: this.newCustomerID.TDS_RATE,
+  //     TDS_LIMIT: this.newCustomerID.TDS_LIMIT,
+  //   });
+  // }
   //api
   url = environment.base_url;
 
@@ -159,6 +160,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
+
   updateID: number = 0;
 
   companyCode: any;
@@ -189,6 +192,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   //variable for checkbox and radio button
   isRecovery: boolean = false;
   isDebit: boolean = true;
+  id: any;
 
   constructor(
     private fb: FormBuilder,
@@ -199,10 +203,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     // public accountCodeService: AccountcodeService,
     private cityMasterService: cityMasterService,
     private SchemeCodeDropdownService: SchemeCodeDropdownService,
-    private customerID: CustomerIDMasterDropdownService
-  ) //  private anamatGSMServiceDa: anamatGSMServiceDa,
-
-  {}
+    private customerID: CustomerIDMasterDropdownService //  private anamatGSMServiceDa: anamatGSMServiceDa,
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -249,6 +251,12 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
             });
           });
       },
+      columnDefs: [
+        {
+          targets: "_all",
+          defaultContent: "",
+        },
+      ],
       columns: [
         {
           title: "Action",
@@ -359,44 +367,48 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         this.Cust_ID = data;
       });
   }
-  id;
+
+  addNewCustomer(newCustomer) {
+    this.customerID
+      .getCustomerIDMasterList()
+      .pipe(first())
+      .subscribe((data) => {
+        this.Cust_ID = data;
+        this.id = newCustomer;
+        this.getCustomer(newCustomer);
+      });
+  }
   getCustomer(id) {
-    console.log("in customer", id);
     this.customerIdService.getFormData(id).subscribe((data) => {
-      console.log("get customer data", data);
       this.angForm.patchValue({
-        // AC_PARTICULAR: string;
+        AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
-        AC_MEMBTYPE:data.AC_MEMBTYPE,
-        AC_MEMBNO:data.AC_MEMBNO,
-        // AC_CAST: data.AC_CAST,
-        // AC_OCODE: data.AC_OCODE,
-        // AC_ADHARNO: data.AC_ADHARNO,
-        // AC_RISKCATG: data.AC_RISKCATG,
-        // AC_BIRTH_DT: data.AC_BIRTH_DT,
-         AC_HONO: data.custAddress.AC_HONO,
-         AC_WARD: data.custAddress.AC_WARD,
-         AC_TADDR: data.custAddress.AC_TADDR,
-         AC_TGALLI: data.custAddress.AC_TGALLI,
-         AC_AREA: data.custAddress.AC_AREA,
-         CITY_NAME: data.custAddress.AC_CTCODE,
-         AC_PIN: data.custAddress.AC_PIN,
-        // AC_PANNO: data.AC_PANNO,
-        // AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
-        // AC_MOBILENO: data.AC_MOBILENO,
-        // AC_PHONE_RES: data.AC_PHONE_RES,
-        // AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
-        // AC_EMAILID: data.AC_EMAILID,
-        // AC_IS_RECOVERY: data.AC_IS_RECOVERY,
-        // TDS_REQUIRED: data.TDS_REQUIRED,
-        // SMS_REQUIRED: data.SMS_REQUIRED,
-        // IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
-        // FIN_YEAR: data.FIN_YEAR,
-        // SUBMIT_DATE: data.SUBMIT_DATE,
-        // FORM_TYPE: data.FORM_TYPE,
-        // TDS_RATE: data.TDS_RATE,
-        // TDS_LIMIT: data.TDS_LIMIT,
+        AC_CAST: data.AC_CAST,
+        AC_OCODE: data.AC_OCODE,
+        AC_MEMBTYPE: data.AC_MEMBTYPE,
+        AC_MEMBNO: data.AC_MEMBNO,
+        AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
+        AC_HONO: data.custAddress[0].AC_HONO,
+        AC_WARD: data.custAddress[0].AC_WARD,
+        AC_ADDR: data.custAddress[0].AC_ADDR,
+        AC_GALLI: data.custAddress[0].AC_GALLI,
+        AC_AREA: data.custAddress[0].AC_AREA,
+        AC_CTCODE: data.custAddress[0].AC_CTCODE,
+        AC_PIN: data.custAddress[0].AC_PIN,
+        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
+        AC_MOBNO: data.AC_MOBILENO,
+        AC_PHNO: data.AC_PHONE_RES,
+        AC_EMAIL: data.AC_EMAILID,
+        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+        AC_THONO: data.custAddress.AC_THONO,
+        AC_TWARD: data.custAddress.AC_TWARD,
+        AC_TADDR: data.custAddress.AC_TADDR,
+        AC_TGALLI: data.custAddress.AC_TGALLI,
+        AC_TAREA: data.custAddress.AC_TAREA,
+        AC_TCTCODE: data.custAddress.AC_TCTCODE,
+        AC_TPIN: data.custAddress.AC_TPIN,
       });
     });
   }
@@ -422,6 +434,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       Recovery: [""],
       Debit: [""],
       AC_PARTICULAR: [""],
+      AC_MONTHS:[""],
     });
   }
   // Method to insert data into database through NestJS
@@ -447,17 +460,21 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       Recovery: formVal.Recovery,
       Debit: formVal.Debit,
       AC_PARTICULAR: formVal.AC_PARTICULAR,
+      AC_MONTHS:formVal.AC_MONTHS,
     };
     this.anamatGSMService.postData(dataToSend).subscribe(
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         // to reload after insertion of data
-        this.rerender();
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload();
+        });
       },
       (error) => {
         console.log(error);
       }
     );
+
     //To clear form
     this.angForm.reset();
   }
@@ -466,6 +483,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.anamatGSMService.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
       this.acType = "2";
@@ -477,6 +495,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
         AC_MEMBTYPE: data.AC_MEMBTYPE,
+
         AC_MEMBNO: data.AC_MEMBNO,
         AC_HONO: data.AC_HONO,
         AC_WARD: data.AC_WARD,
@@ -489,6 +508,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         Recovery: data.Recovery,
         Debit: data.Debit,
         AC_PARTICULAR: data.AC_PARTICULAR,
+        AC_MONTHS:data.AC_MONTHS,
       });
     });
   }
@@ -500,11 +520,23 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       this.angForm.reset();
     });
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+  // Reset Function
+  resetForm() {
+    this.createForm();
+  }
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({

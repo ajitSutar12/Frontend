@@ -12,7 +12,7 @@ export class DisputeLoanMasterService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  //// dispute-loan-master";
+  //url = "http://localhost:4000/dispute-loan-master";
   url = environment.base_url;
   constructor(
     private http: HttpClient,
