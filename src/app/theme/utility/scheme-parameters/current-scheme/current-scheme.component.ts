@@ -108,6 +108,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   S_PRODUCT_DAY_BASE;
   S_PRODUCT_DAY_BASE_END;
   OVERDRAFT_INTEREST_APPLICABLE;
+  filterData={};
 
   constructor(
     private http: HttpClient,
@@ -132,26 +133,22 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-        if (dataTableParameters.search.value != '') {
-          this.filter = dataTableParameters.search.value;
-          this.filterObject = [
-            // { name: "A_BALCODE", type: "default" },
-            // { name: "A_ACHEAD", type: "default" },
-            // { name: "A_ACTYPE", type: "default" }
-          ]
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length,
-            filter: dataTableParameters.search.value,
-            filter_in: this.filterObject
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
           }
-        }
-        else {
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length
-          }
-        }
+        });
         this.http
           .post<DataTableResponse>(
             this.url + '/current-scheme',
@@ -170,58 +167,76 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
           title: 'Action',
         },
         {
-          title: 'Type'
+          title: 'Type',
+          data: 'S_ACNOTYPE',
         },
         {
           title: 'Scheme Code',
+          data: 'S_APPL',
         },
         {
           title: 'Description',
+          data: 'S_NAME',
         },
         {
           title: 'Short Name',
+          data: 'S_SHNAME',
         },
         {
-          title: 'G.L. A/c No.'
+          title: 'G.L. A/c No.',
+          data: 'S_GLACNO',
         },
         {
-          title: 'Interest GL A/c'
+          title: 'Interest GL A/c',
+          data: 'S_INT_ACNO',
         },
         {
           title: 'Is Interest Applicable? ',
+          data: 'S_INT_APPLICABLE',
         },
         {
           title: 'Is Post Interest to A/c ? ',
+          data: 'POST_TO_INDIVIDUAL_AC',
         },
         {
           title: 'Product Base Start Day',
+          data: 'S_PRODUCT_DAY_BASE',
         },
         {
           title: 'Product Base End Day',
+          data: 'S_PRODUCT_DAY_BASE_END',
         },
         {
           title: 'Minimum Interest Amount',
+          data: 'MIN_INT_LIMIT',
         },
         {
           title: 'Is Standing Instruction Applicable ?',
+          data: 'STAND_INSTRUCTION_ALLOW',
         },
         {
           title: 'Interest Round Off Factor in Paise',
+          data: 'ROUNDOFF_FACTOR',
         },
         {
           title: 'Cheque Book Minimum Balance',
+          data: 'CHEQUEBOOK_MIN_BAL',
         },
         {
           title: 'Is Balance Entry Allow ?',
+          data: 'BALANCE_ADD_APPLICABLE',
         },
         {
           title: 'Is Allow Dormat Flag Updation ?',
+          data: 'DORMANT_FLAG_APPLICABLE',
         },
         {
           title: 'Interest Applicable Type',
+          data: 'OVERDRAFT_INTEREST_APPLICABLE',
         },
         {
           title: 'Overdraft Interest Rate',
+          data: 'OVERDRAFT_INTEREST_RATE',
         }
       ],
       dom: 'Blrtip',

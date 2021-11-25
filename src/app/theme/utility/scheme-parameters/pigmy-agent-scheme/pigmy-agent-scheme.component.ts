@@ -84,6 +84,7 @@ export class PigmyAgentSchemeComponent implements OnInit, AfterViewInit, OnDestr
   //least routing
   CommissionApplicableTrue = true;
   OtherSettings1True = false;
+  filterData={};
 
   constructor(
     private http: HttpClient,
@@ -106,26 +107,22 @@ export class PigmyAgentSchemeComponent implements OnInit, AfterViewInit, OnDestr
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-        if (dataTableParameters.search.value != '') {
-          this.filter = dataTableParameters.search.value;
-          this.filterObject = [
-            // { name: "A_BALCODE", type: "default" },
-            // { name: "A_ACHEAD", type: "default" },
-            // { name: "A_ACTYPE", type: "default" }
-          ]
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length,
-            filter: dataTableParameters.search.value,
-            filter_in: this.filterObject
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
           }
-        }
-        else {
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length
-          }
-        }
+        });
         this.http
           .post<DataTableResponse>(
             this.url + '/pigmy-agent-scheme',

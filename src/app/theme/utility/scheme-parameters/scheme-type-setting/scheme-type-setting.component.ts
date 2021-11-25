@@ -90,7 +90,9 @@ export class SchemeTypeSettingComponent implements OnInit, AfterViewInit, OnDest
   clearingTrue = false;
   overdraftTrue = false;
   otherTrue = false;
-
+  
+// Filter Variable
+filterData = {};
 
   //title select variables
   schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
@@ -127,26 +129,23 @@ export class SchemeTypeSettingComponent implements OnInit, AfterViewInit, OnDest
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-        if (dataTableParameters.search.value != '') {
-          this.filter = dataTableParameters.search.value;
-          this.filterObject = [
-            // { name: "A_BALCODE", type: "default" },
-            // { name: "A_ACHEAD", type: "default" },
-            // { name: "A_ACTYPE", type: "default" }
-          ]
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length,
-            filter: dataTableParameters.search.value,
-            filter_in: this.filterObject
+       
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
           }
-        }
-        else {
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length
-          }
-        }
+        });
         this.http
           .post<DataTableResponse>(
             this.url + '/scheme-type',

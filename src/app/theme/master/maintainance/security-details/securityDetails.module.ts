@@ -36,7 +36,7 @@ import { Ac1Service } from "../../../../shared/elements/ac1.service";
 import { S1Service } from "../../../../shared/elements/s1.service";
 import { Ac2Service } from "../../../../shared/elements/ac2.service";
 import { S2Service } from "../../../../shared/elements/s2.service";
-import { OwnDepositsComponentService } from "./own-deposits/own-deposits.service";
+import { OwnDepositsComponentService } from "./own-deposits/own-deposit.service";
 import { othersecuritycomponentservice } from "./other-security/other-security.component.service";
 import { firepolicycomponentservice } from "./fire-policy/fire-policy.component.service";
 import { OwnbranchMasterService } from "../../../../shared/dropdownService/own-branch-master-dropdown.service";

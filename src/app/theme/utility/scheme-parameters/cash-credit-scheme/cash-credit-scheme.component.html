@@ -617,12 +617,13 @@
                                         <td>{{ data.S_GLACNO }}</td>
                                         <td>{{ data.S_INT_ACNO }}</td>
                                         <td>{{ data.S_RECBL_PYBL_INT_ACNO }}</td>
-                                        <td>{{ data.PENAL_ACNO }}</td>
+                                        <td>{{ data.S_PENAL_ACNO }}</td>
                                         <td>{{ data.S_RECBL_PENAL_ACNO }}</td>
                                         <td>{{ data.S_RECBL_ODUE_INT_ACNO}}</td>
                                         <td>{{ data.S_INT_APPLICABLE }}</td>
                                         <td>{{ data.POST_TO_INDIVIDUAL_AC }}</td>
                                         <td>{{ data.S_RECEIVABLE_INT_ALLOW }}</td>
+                                        <td>{{ data.IS_SHOW_INT_AS_RECINT_IFDUEBAL }}</td>
                                         <td>{{ data.IS_SHOW_INT_AS_RECINT_IFDUEBAL }}</td>
                                         <td>{{ data.IS_INTUPTODATE }}</td>
                                         <td>{{ data.IS_NO_POST_INT_AFT_OD }}</td>
@@ -636,7 +637,6 @@
                                         <td>{{ data.OVERDRAFT_INTEREST_APPLICABLE }}</td>
                                         <td>{{ data.OVERDRAFT_INTEREST_RATE }}</td>
                                         <td>{{ data.ODPENALTY_ON_EXPIRED_LEDGERBAL }}</td>
-                                        <td>{{ data.INT_INSTRUCTION_ALLOW }}</td>
                                         <td>{{ data.STAND_INSTRUCTION_ALLOW }}</td>
                                         <td>{{ data.BALANCE_ADD_APPLICABLE }}</td>
                                         <td>{{ data.CHEQUEBOOK_MIN_BAL }}</td>
@@ -650,6 +650,246 @@
                                         <td colspan="6" class="no-data-available">No data!</td>
                                     </tr>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                      <th></th>
+                                      <th>
+                                        <input
+                                          type="text"
+                                          placeholder="Search Type"
+                                          name="S_ACNOTYPE"
+                                        />
+                                      </th>
+                                      <th>
+                                        <input
+                                          type="text"
+                                          placeholder="Search Scheme Code"
+                                          name="S_APPL"
+                                        />
+                                      </th>
+                                      <th>
+                                        <input
+                                          type="text"
+                                          placeholder="Search Description"
+                                          name="S_NAME"
+                                        />
+                                      </th>
+                                      <th>
+                                        <input
+                                          type="text"
+                                          placeholder="Search Short Name"
+                                          name="S_SHNAME"
+                                        />
+                                      </th>
+                                      <th>
+                                        <input
+                                          type="text"
+                                          placeholder="Search G.L. A/c No."
+                                          name="S_GLACNO"
+                                        />
+                                      </th>
+                                      <th>
+                                        <input
+                                          type="text"
+                                          placeholder="Search Interest GL A/c"
+                                          name="S_INT_ACNO"
+                                        />
+                                      </th>
+                                      <th>
+                                        <input
+                                          type="text"
+                                          placeholder="Search Receivable Int. A/c"
+                                          name="S_RECBL_PYBL_INT_ACNO"
+                                        />
+                                      </th>
+                                      <th>
+                                        <input
+                                          type="text"
+                                          placeholder="Search Penal Int. A/c"
+                                          name="S_PENAL_ACNO"
+                                        />
+                                      </th>
+                                      <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Recble Penal Int. A/c"
+                                            name="S_RECBL_PENAL_ACNO"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Recble Overdue Int."
+                                            name="S_RECBL_ODUE_INT_ACNO"
+                                          />
+                                        </th>
+                                        <th>
+                                            <input
+                                              type="text"
+                                              placeholder="Search Is Interest Applicable ?"
+                                              name="S_INT_APPLICABLE"
+                                            />
+                                          </th>
+                                        
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Is Post Interest to A/c ?"
+                                            name="POST_TO_INDIVIDUAL_AC"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Is Balance Entry Allow ?"
+                                            name="S_RECEIVABLE_INT_ALLOW"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Is Receivable Int. Allowed ?"
+                                            name="IS_SHOW_INT_AS_RECINT_IFDUEBAL"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Post as Receivable Interest, if Account goes in Overdue ?"
+                                            name="IS_SHOW_INT_AS_RECINT_IFDUEBAL"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Is Dont Post Interest After Expiry Date ?"
+                                            name="IS_INTUPTODATE"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Is Dont Post Interest After OD"
+                                            name="IS_NO_POST_INT_AFT_OD"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Minimum Interest Amount"
+                                            name="MIN_INT_LIMIT"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Interest Round Off Factor in Paise"
+                                            name="ROUNDOFF_FACTOR"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Penal Interest Applicable ?"
+                                            name="S_PENAL_INT_APPLICABLE"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Post Penal Interest to Account ?"
+                                            name="IS_POST_PENAL_TO_AC"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Add Penal Interest in Interest Amount ?"
+                                            name="POST_PENALINT_IN_INTEREST"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Calculate Extra Penal for CC Overdraf"
+                                            name="IS_CAL_EXTRAPENAL_FOR_CC"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Penal Interest Rate %"
+                                            name="S_PENAL_INT_RATE"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search OverDraft Interest Post / Add in"
+                                            name="OVERDRAFT_INTEREST_APPLICABLE"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Overdraf Interest Rate %"
+                                            name="OVERDRAFT_INTEREST_RATE"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Is OD Interest Calculate Only after Account Expiry Date ? "
+                                            name="ODPENALTY_ON_EXPIRED_LEDGERBAL"
+                                          />
+                                        </th>
+                                        <th>
+                                            <input
+                                              type="text"
+                                              placeholder="Search Is Interest Applicable ?"
+                                              name="S_INT_APPLICABLE"
+                                            />
+                                          </th>
+                                       
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Is Standing Instruction Applicable ?"
+                                            name="STAND_INSTRUCTION_ALLOW"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Is Balance Entry Allowed ?"
+                                            name="BALANCE_ADD_APPLICABLE"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Cheque Book Minimum Balance"
+                                            name="CHEQUEBOOK_MIN_BAL"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Is Deposit against CC"
+                                            name="IS_DEPO_LOAN"
+                                          />
+                                        </th>
+                                        <th>
+                                          <input
+                                            type="text"
+                                            placeholder="Search Is Gold against CC"
+                                            name="IS_GOLDLOAN"
+                                          />
+                                        </th>
+                  
+                                    </tr>
+                                  </tfoot>
+                  
                             </table>
                         </div>
                     </div>

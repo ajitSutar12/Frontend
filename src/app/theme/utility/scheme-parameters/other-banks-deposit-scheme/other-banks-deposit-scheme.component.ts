@@ -91,6 +91,8 @@ interface OtherBankDepositScheme {
   styleUrls: ['./other-banks-deposit-scheme.component.scss']
 })
 export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  // Filter Variable
+  filterData = {};
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -179,26 +181,22 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-        if (dataTableParameters.search.value != '') {
-          this.filter = dataTableParameters.search.value;
-          this.filterObject = [
-            // { name: "A_BALCODE", type: "default" },
-            // { name: "A_ACHEAD", type: "default" },
-            // { name: "A_ACTYPE", type: "default" }
-          ]
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length,
-            filter: dataTableParameters.search.value,
-            filter_in: this.filterObject
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
           }
-        }
-        else {
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length
-          }
-        }
+        });
         this.http
           .post<DataTableResponse>(
             this.url + '/other-banks-deposit-scheme',
@@ -217,160 +215,212 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
           title: 'Action',
         },
         {
-          title: 'Type'
+          title: 'Type',
+          data: 'S_ACNOTYPE',
         },
         {
           title: 'Scheme Code',
+          data: 'S_APPL',
         },
         {
           title: 'Description',
+          data: 'S_NAME',
         },
         {
           title: 'Short Name',
+          data: 'S_SHNAME',
         },
         {
-          title: 'G.L.A/c No.'
+          title: 'G.L.A/c No.',
+          data: 'S_GLACNO',
         },
         {
-          title: 'Interest GL A/c'
+          title: 'Interest GL A/c',
+          data: 'S_INT_ACNO',
         },
         {
-          title: 'Receivable Int A/c'
+          title: 'Receivable Int A/c',
+          data: 'S_RECBL_PYBL_INT_ACNO',
         },
         {
-          title: 'Penal Int. A/c'
+          title: 'Penal Int. A/c',
+          data: 'S_PENAL_ACNO',
         },
         {
-          title: 'Recble Penal Int.A/c'
+          title: 'Recble Penal Int.A/c',
+          data: 'S_RECBL_PENAL_ACNO',
         },
         {
-          title: 'Cash Interest A/c'
+          title: 'Cash Interest A/c',
+          data: 'S_CASH_INT_ACNO',
         },
         {
-          title: 'INTEREST RULE'
+          title: 'INTEREST RULE',
+          data: 'INTEREST_RULE',
         },
         {
-          title: 'Is Interest Applicable?'
+          title: 'Is Interest Applicable?',
+          data: 'S_INT_APPLICABLE',
         },
         {
-          title: 'Is Post Interest to A/c'
+          title: 'Is Post Interest to A/c',
+          data: 'POST_TO_INDIVIDUAL_AC',
         },
         {
-          title: 'Is Payable Interest Allowed?'
+          title: 'Is Payable Interest Allowed?',
+          data: 'S_PAYABLE_INT_ALLOW',
         },
         {
-          title: 'Minimum Interest Amount'
+          title: 'Minimum Interest Amount',
+          data: 'MIN_INT_LIMIT',
         },
         {
-          title: 'S_INTCALTP'
+          title: 'S_INTCALTP',
+          data: 'S_INTCALTP',
         },
         {
-          title: 'Interest upto Int.Calculation date'
+          title: 'Interest upto Int.Calculation date',
+          data: 'IS_INTUPTODATE',
         },
         {
-          title: 'S_INTCALC_METHOD'
+          title: 'S_INTCALC_METHOD',
+          data: 'S_INTCALC_METHOD',
         },
         {
-          title: 'Fixed Quarter'
+          title: 'Fixed Quarter',
+          data: 'FIX_QUARTER',
         },
         {
-          title: 'Quarter Plus Days'
+          title: 'Quarter Plus Days',
+          data: 'QUARTER_PLUS_DAYS',
         },
         {
-          title: 'Compound Interest'
+          title: 'Compound Interest',
+          data: 'COMPOUND_INT_BASIS',
         },
         {
-          title: 'Compound Int. Days'
+          title: 'Compound Int. Days',
+          data: 'COMPOUND_INT_DAYS',
         },
         {
-          title: 'Discount Int.Rate Applicable'
+          title: 'Discount Int.Rate Applicable',
+          data: 'IS_DISCOUNTED_INT_RATE',
         },
         {
-          title: 'S_INSTTYPE'
+          title: 'S_INSTTYPE',
+          data: 'S_INSTTYPE',
         },
         {
-          title: 'Installment Base'
+          title: 'Installment Base',
+          data: 'INSTALLMENT_BASIS',
         },
         {
-          title: 'is Assumed Installment is paid?'
+          title: 'is Assumed Installment is paid?',
+          data: 'IS_ASSUMED_INSTALLMENTS',
         },
         {
-          title: 'Installment Compulsory in Multiple Amt'
+          title: 'Installment Compulsory in Multiple Amt',
+          data: 'INSTALLMENT_COMPULSORY_IN_PAT',
         },
         {
-          title: 'Penal Interest Applicable?'
+          title: 'Penal Interest Applicable?',
+          data: 'S_PENAL_INT_APPLICABLE',
         },
         {
-          title: 'Penal Product Base Day'
+          title: 'Penal Product Base Day',
+          data: 'DEPOSIT_PENAL_INT_CALC_DAY',
         },
         {
-          title: 'Post Penal Interest to A/c'
+          title: 'Post Penal Interest to A/c',
+          data: 'POST_PENALINT_IN_INTEREST',
         },
         {
-          title: 'Maturity Calculation Multiple Amount'
+          title: 'Maturity Calculation Multiple Amount',
+          data: 'S_MATUCALC',
         },
         {
-          title: 'Is Calculated Maturity Amt. In Master'
+          title: 'Is Calculated Maturity Amt. In Master',
+          data: 'IS_CAL_MATURITY_AMT',
         },
         {
-          title: 'Is Fixed Maturity Amount for Payment'
+          title: 'Is Fixed Maturity Amount for Payment',
+          data: 'FIXED_MATURITY_AMT',
         },
         {
-          title: 'Premature Compound Interest'
+          title: 'Premature Compound Interest',
+          data: 'PREMATURE_COMPOUND_INT',
         },
         {
-          title: 'Auto Maturity Transfer process Execute'
+          title: 'Auto Maturity Transfer process Execute',
+          data: 'TRANSFER_TO_MATURE_DEPOSIT',
         },
         {
-          title: 'As on Date Applicable for Deposit'
+          title: 'As on Date Applicable for Deposit',
+          data: 'S_INTASON',
         },
         {
-          title: 'TD Period Input Applicable'
+          title: 'TD Period Input Applicable',
+          data: 'PERIOD_APPLICABLE',
         },
         {
-          title: 'Is Auto Calculate Deposit Period ?'
+          title: 'Is Auto Calculate Deposit Period ?',
+          data: 'IS_AUTO_PERIOD_CALCULATE',
         },
         {
-          title: 'Unit of TD Period'
+          title: 'Unit of TD Period',
+          data: 'UNIT_OF_PERIOD',
         },
         {
-          title: 'Minimum Period in Days'
+          title: 'Minimum Period in Days',
+          data: 'MIN_DAYS',
         },
         {
-          title: 'Minimum Period in Months'
+          title: 'Minimum Period in Months',
+          data: 'MIN_MONTH',
         },
         {
-          title: 'Multiple of Amount'
+          title: 'Multiple of Amount',
+          data: 'MULTIPLE_OF_AMT',
         },
         {
-          title: 'Multiple of Days'
+          title: 'Multiple of Days',
+          data: 'MULTIPLE_OF_DAYS',
         },
         {
-          title: 'Multiple of Months'
+          title: 'Multiple of Months',
+          data: 'MULTIPLE_OF_MONTH',
         },
         {
-          title: 'Is Cash Interest Payment Allowed ?'
+          title: 'Is Cash Interest Payment Allowed ?',
+          data: 'S_INTPAID',
         },
         {
-          title: 'Is Interest Paid on A/c Closing ?'
+          title: 'Is Interest Paid on A/c Closing ?',
+          data: 'S_INTPAID_ON_CLOSING',
         },
         {
-          title: 'Is Standing Instruction Applicable ?'
+          title: 'Is Standing Instruction Applicable ?',
+          data: 'STAND_INSTRUCTION_ALLOW',
         },
         {
-          title: 'Is Interest Instruction Applicable ?'
+          title: 'Is Interest Instruction Applicable ?',
+          data: 'INT_INSTRUCTION_ALLOW',
         },
         {
-          title: 'Is FD Receipt No.Input?'
+          title: 'Is FD Receipt No.Input?',
+          data: 'RECEIPT_NO_INPUT',
         },
         {
-          title: 'Is Withdrawal Applicable ?'
+          title: 'Is Withdrawal Applicable ?',
+          data: 'WITHDRAWAL_APPLICABLE',
         },
         {
-          title: 'Is Balance Entry Allowed ?'
+          title: 'Is Balance Entry Allowed ?',
+          data: 'BALANCE_ADD_APPLICABLE',
         },
         {
-          title: 'Premature Less Interest Rate ?'
+          title: 'Premature Less Interest Rate ?',
+          data: 'LESS_PREMATURE_INT_RATE',
         }
       ],
       dom: 'Blrtip',

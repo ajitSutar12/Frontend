@@ -4,6 +4,7 @@ import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import{environment} from '../../../../../../environments/environment'
 
 @Injectable()
 export class ManagerViewGlpService {
@@ -11,7 +12,7 @@ export class ManagerViewGlpService {
   [x: string]: any;
   // API 
   // manager-view-glp";
-
+url=environment.base_url
   constructor(private http: HttpClient) { }
 
   //Insertion Operation

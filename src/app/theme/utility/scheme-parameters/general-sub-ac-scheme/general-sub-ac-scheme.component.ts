@@ -73,6 +73,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
 
   //Dropdown option variable
   acMaster: any
+  filterData = {};
 
   constructor(public generalSubAcSchemeService: GeneralSubAcSchemeService,
     private acMasterDropdownService: ACMasterDropdownService,
@@ -94,26 +95,22 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-        if (dataTableParameters.search.value != '') {
-          this.filter = dataTableParameters.search.value;
-          this.filterObject = [
-            // { name: "A_BALCODE", type: "default" },
-            // { name: "A_ACHEAD", type: "default" },
-            // { name: "A_ACTYPE", type: "default" }
-          ]
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length,
-            filter: dataTableParameters.search.value,
-            filter_in: this.filterObject
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
           }
-        }
-        else {
-          datatableRequestParam = {
-            page: this.page,
-            limit: dataTableParameters.length
-          }
-        }
+        });
         this.http
           .post<DataTableResponse>(
             this.url + '/general-sub-ac-scheme',
@@ -132,22 +129,28 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
           title: 'Action'
         },
         {
-          title: 'Type'
+          title: 'Type',
+          data: 'S_ACNOTYPE'
         },
         {
-          title: 'Scheme Code'
+          title: 'Scheme Code',
+          data: 'S_APPL'
         },
         {
-          title: 'Description'
+          title: 'Description',
+          data: 'S_NAME'
         },
         {
-          title: 'Short Name'
+          title: 'Short Name',
+          data: 'S_SHNAME'
         },
         {
-          title: 'G.L. A/c No.'
+          title: 'G.L. A/c No.',
+          data: 'S_GLACNO'
         },
         {
-          title: 'Is Balance Entry Applicable ?'
+          title: 'Is Balance Entry Applicable ?',
+          data: 'BALANCE_ADD_APPLICABLE'
         },
       ],
       dom: 'Blrtip',

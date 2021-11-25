@@ -22,7 +22,7 @@ import {
   Validators,
   FormControl,
 } from "@angular/forms";
-import { OwnDepositsComponentService } from "./own-deposits.component.service"; //Injecting service into component.
+import { OwnDepositsComponentService } from "./own-deposit.service"; //Injecting service into component.
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 //Dropdown service file

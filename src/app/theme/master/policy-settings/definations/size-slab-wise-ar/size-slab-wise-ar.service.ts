@@ -4,12 +4,14 @@ import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import{ environment} from '../../../../../../environments/environment'
 
 @Injectable()
 export class SizeSlabWiseService {
   // Variable for handleError
   [x: string]: any;
   // API 
+  url = environment.base_url;
   // deposit-intrest-rate";
 
   constructor(private http: HttpClient) { }

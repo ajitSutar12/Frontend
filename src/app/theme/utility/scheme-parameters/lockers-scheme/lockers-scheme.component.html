@@ -147,8 +147,9 @@
                                         </td>
                                         <td>{{ data.S_ACNOTYPE }}</td>
                                         <td>{{ data.S_APPL }}</td>
-                                        <td>{{ data.S_SHNAME }}</td>
                                         <td>{{ data.S_NAME }}</td>
+                                        <td>{{ data.S_SHNAME }}</td>
+                                        
                                         <td>{{ data.S_GLACNO }}</td>
                                         <td>{{ data.LOCKER_RENT_ACNO }}</td>
                                         <td>{{ data.LOCKER_RECBL_RENT_ACNO }}</td>
@@ -162,6 +163,20 @@
                                         <td colspan="6" class="no-data-available">No data!</td>
                                     </tr>
                                 </tbody>
+                                 <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th><input type="text" placeholder="Search Type" name="S_ACNOTYPE" /></th>
+                                        <th><input type="text" placeholder="Search Scheme Code" name="S_APPL" /></th>
+                                        <th><input type="text" placeholder="Search Description" name="S_NAME" /></th>
+
+                                        <th><input type="text" placeholder="Search Short Name" name="S_SHNAME" /></th>
+                                        <th><input type="text" placeholder="Search G.L. A/c No." name="S_GLACNO" /></th>
+                                        <th><input type="text" placeholder="Search Locker Rent A/c" name="LOCKER_RENT_ACNO" /></th>
+                                        <th><input type="text" placeholder="Search Receivable Locker Rend A/C" name="LOCKER_RECBL_RENT_ACNO" /></th>
+                                        <th><input type="text" placeholder="Search Locker Deposit Applicable" name="LOCKER_DEPOSIT_APPLICABLE" /></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
