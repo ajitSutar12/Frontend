@@ -47,7 +47,7 @@ interface ShareMaster {
   MEMBERSHIP_BY: string
   AC_SIGN_TYPE: string
   AC_SREPRESENT: string
-  AC_OPstring: string
+  AC_OPDATE: string
   AC_EXPDT: string
   DEATH_DATE: string
   AC_DIRECT: string
@@ -93,18 +93,7 @@ interface Nominee {
   AC_NPIN: number
 
 }
-interface Nominee {
-  //nominee controls (NOMINEELINK table)
-  AC_NNAME: string
-  AC_NRELA: string
-  AC_NDATE: Date
-  AGE: number
-  ADDR1: string
-  ADDR2: string
-  ADDR3: string
-  CTCODE: number
-  PIN: number
-}
+
 @Component({
   selector: 'app-shares-master',
   templateUrl: './shares-master.component.html',
@@ -128,7 +117,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   url = environment.base_url;
 
   // For reloading angular datatable after CRUD operation
-  @ViewChild('modalLarge') modalLarge: ElementRef;
   @ViewChild(DataTableDirective, { static: false })
 
   dtElement: DataTableDirective;
@@ -166,9 +154,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
-
-  showModalStatus: boolean = false;
-
+  //Nominee variables
+  multiNominee = [];
+  nomineeIndex: number
+  nomineeID
+  nomineeShowButton: boolean = true
+  nomineeUpdateShow: boolean = false
   //variable to get ID to update
   updateID: number = 0;
 
@@ -177,8 +168,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //temp address flag variable
   tempAddress: boolean = true;
-  nomineeupdateid
-  nomineeID
+
   //Dropdown options
   scheme //scheme code from schemast(S_ACNOTYPE)
   // scheme: Array<IOption> = this.signTypeDropdownService.getCharacters();
@@ -194,15 +184,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   branch_code: any[]//from ownbranchmaster
   salary_div: string // customer id from idmaster
   sub_salary_div: any[] //information sub salary master
-  // ncity: any[] //city for nominee from citymaster
-  // mCity: any[] //city for marathi tab from citymaster
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
   selectedCharacter = '3';
   timeLeft = 5;
   id: string = '';
-  shareMasterData: any;
   private dataSub: Subscription = null;
 
   constructor(
@@ -241,6 +228,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             dataTableParameters
           ).subscribe(resp => {
             this.shareMaster = resp.data;
+            console.log('fetch', resp.data)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -284,10 +272,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Retirement Date',
           data: 'AC_RETIRE_DATE'
         },
-        // {
-        //   title: 'Age',
-        //   data: 'AC_MEM_AGE'
-        // },
         {
           title: 'Membership Type',
           data: 'MEMBERSHIP_BY'
@@ -453,81 +437,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     };
-    // this.dtNominee = {
-    //   pagingType: 'full_numbers',
-    //   paging: true,
-    //   pageLength: 10,
-    //   serverSide: true,
-    //   processing: true,
-    //   ajax: (dataTableParameters: any, callback) => {
-    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
-    //     dataTableParameters.maxNumber =
-    //       dataTableParameters.start + dataTableParameters.length;
-    //     let datatableRequestParam: any;
-    //     this.page = dataTableParameters.start / dataTableParameters.length;
-    //     dataTableParameters['filterData'] = this.filterData;
-    //     this.http
-    //       .post<DataTableResponse>(
-    //         this.url + '/nominee',
-    //         dataTableParameters
-    //       ).subscribe(resp => {
-    //         this.nominee = resp.data;
-    //         console.log(this.nominee)
-    //         callback({
-    //           recordsTotal: resp.recordsTotal,
-    //           recordsFiltered: resp.recordsTotal,
-    //           data: []
-    //         });
-    //       });
-    //   },
-    //   columns: [
-    //     {
-    //       title: 'Action',
-    //     },
-    //     {
-    //       title: 'Name',
-    //       data: 'AC_NNAME'
-    //     }, {
-    //       title: 'Relation',
-    //       data: 'AC_NRELA'
-    //     }, {
-    //       title: 'Age',
-    //       data: 'AGE'
-    //     }, {
-    //       title: 'Nomination Date',
-    //       data: 'AC_NDATE'
-    //     },
-    //     {
-    //       title: 'House',
-    //       data: 'AC_NHONO'
-    //     },
-    //     {
-    //       title: 'Ward',
-    //       data: 'AC_NWARD'
-    //     },
-    //     {
-    //       title: 'Detail',
-    //       data: 'AC_NADDR'
-    //     },
-    //     {
-    //       title: 'Galli',
-    //       data: 'AC_NGALLI'
-    //     },
-    //     {
-    //       title: 'Area',
-    //       data: 'AC_NAREA'
-    //     },
-    //     {
-    //       title: 'City',
-    //       data: 'AC_NCTCODE'
-    //     },
-    //     {
-    //       title: 'Pin Code',
-    //       data: 'AC_NPIN'
-    //     },
-    //   ],
-    //   dom: 'Blrtip',
-    // };
+
     this.runTimer();
     this.dataSub = this.signTypeDropdownService.loadCharacters().subscribe((options) => {
       this.characters = options;
@@ -535,7 +445,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.membershipTypeDropdownService.loadCharacters().subscribe((options) => {
       this.membershipType = options;
     });
-
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
     })
@@ -690,7 +599,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit() {
-    console.log('in submit')
     const formVal = this.angForm.value;
     const dataToSend = {
       'AC_TYPE': formVal.AC_TYPE,
@@ -699,8 +607,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_CATG': formVal.AC_CATG,
       'EMP_NO': formVal.EMP_NO,
       'AC_JOIN_DATE': formVal.AC_JOIN_DATE,
+      'AC_OPDATE': formVal.AC_OPDATE,
+      'AC_EXPDT': formVal.AC_EXPDT,
+      'DEATH_DATE': formVal.DEATH_DATE,
+      'AC_DIRECT': formVal.AC_DIRECT,
+      'AC_BRANCH': formVal.AC_BRANCH,
       'AC_RETIRE_DATE': formVal.AC_RETIRE_DATE,
-      // 'AC_MEM_AGE': formVal.AC_MEM_AGE,
       'MEMBERSHIP_BY': formVal.MEMBERSHIP_BY,
       'AC_SIGN_TYPE': formVal.AC_SIGN_TYPE,
       'AC_SREPRESENT': formVal.AC_SREPRESENT,
@@ -711,16 +623,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
       'REF_ACNO': formVal.REF_ACNO,
       'AC_NARR': formVal.AC_NARR,
-      //nominee controls (NOMINEELINK table)
-      // 'AC_NNAME': formVal.AC_NNAME,
-      // 'AC_NDATE': formVal.AC_NDATE,
-      // 'AGE': formVal.AGE,
-      // 'ADDR1': formVal.ADDR1,
-      // 'ADDR2': formVal.ADDR2,
-      // 'ADDR3': formVal.ADDR3,
-      // 'CTCODE': formVal.CTCODE,
-      // 'PIN': formVal.PIN,
-
       //shares details under nominee tab
       'AC_SHBALDATE': formVal.AC_SHBALDATE,
       'AC_OP_SHNO': formVal.AC_OP_SHNO,
@@ -734,18 +636,19 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_DEV_GALLI': formVal.AC_DEV_GALLI,
       'AC_DEV_AREA': formVal.AC_DEV_AREA,
       'AC_DEV_CITYCODE': formVal.AC_DEV_CITYCODE,
+      //Nominee 
       'NomineeData': this.multiNominee
     }
     this.ShareMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      console.log('submit', data)
       // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload()
-    });
     //To clear form
     this.resetForm();
     this.multiNominee = []
@@ -756,8 +659,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
-    this.getCustomer(id);
     this.ShareMasterService.getFormData(id).subscribe(data => {
+      console.log('edit', data)
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       this.multiNominee = data.nomineeDetails
@@ -824,13 +727,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.multiNominee = []
       this.resetForm();
     })
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload()
-    });
   }
 
   addNewData() {
@@ -863,7 +765,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           console.log(error)
         }
         // to reload after delete of data
-        this.rerender();
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
@@ -927,15 +831,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.nomineeTrue = !this.nomineeTrue;
   }
 
-  //show customer modal
-  showModal() {
-  //  debugger
-    this.showModalStatus = true;
-  }
-
-  multiNominee = [];
-  nomineeShowButton: boolean = true
-  nomineeUpdateShow: boolean = false
   addNominee() {
     const formVal = this.angForm.value;
     var object = {
@@ -954,10 +849,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.multiNominee.push(object);
     this.resetNominee()
   }
-  
+
   editNominee(id) {
-    this.nomineeupdateid=id
-    console.log('in edit nominee', this.multiNominee[id].id)
+    this.nomineeIndex = id
     this.nomineeID = this.multiNominee[id].id;
     this.nomineeTrue = true
     this.nomineeShowButton = false;
@@ -978,9 +872,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateNominee() {
-    let index = this.nomineeID;
-    this.nomineeShowButton = true;
-    this.nomineeUpdateShow = false;
+    let index = this.nomineeIndex;
+    console.log('update nominee', index)
     const formVal = this.angForm.value;
     var object = {
       AC_NNAME: formVal.AC_NNAME,
@@ -994,9 +887,11 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NAREA: formVal.AC_NAREA,
       AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
-      id : this.nomineeID
+      id: this.nomineeID
     }
-    this.multiNominee[this.nomineeupdateid] = object;
+    this.multiNominee[index] = object;
+    this.nomineeShowButton = true;
+    this.nomineeUpdateShow = false;
     this.resetNominee()
   }
 

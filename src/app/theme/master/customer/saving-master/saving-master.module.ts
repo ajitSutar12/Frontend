@@ -4,22 +4,31 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SavingMasterRoutingModule } from './saving-master-routing.module';
 import { SavingMasterComponent } from './saving-master.component';
-import { TitleService } from '../../../../shared/elements/title.service';
 import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
-import { AcountnoService } from '../../../../shared/elements/acountno.service';
-import { CustomeridService } from '../../../../shared/elements/customerid.service';
-import { CastService } from '../../../../shared/elements/cast.service';
-import { OccuptionService } from '../../../../shared/elements/occuption.service';
-import { CategoryService } from '../../../../shared/elements/category.service';
-import { OperationService } from '../../../../shared/elements/operation.service';
-import { BalanceCategoryService } from '../../../../shared/elements/balancecategory.service';
-import { InterestcategoryService } from '../../../../shared/elements/interestcategory.Service';
-import { CitycodeService } from '../../../../shared/elements/citycode.service';
-import {BranchService} from '../../../../shared/elements/branch.service';
-import {AccountTypeService} from '../../../../shared/elements/account-type.service';
-import {AccountcodeService} from '../../../../shared/elements/accountcode.service';
+import { SharedModule } from '../../../../shared/shared.module';
+
+import { SignTypeDropdownService } from '../../../../shared/dropdownService/sign-type-dropdown.service'
+import { CustomerIdModule } from '../customer-id/customer-id.module';
+import { SavingMasterService } from './saving-master.service'
+import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
+import { CustomerIdService } from '../customer-id/customer-id.service';
+import { categoryMasterService } from '../../../../shared/dropdownService/category-master-dropdown.service';
+import { MembershipTypeDropdownService } from '../../../../shared/dropdownService/membership-type-dropdown.service';
+import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service'
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { SubSalaryDMasterdropdownService } from '../../../../shared/dropdownService/subsalary-division-master-dropdown.service'
+import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service'
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { OperationMasterDropdownService } from '../../../../shared/dropdownService/operation-master-dropdown.service'
+import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service'
+import { MinimumBalanceMasterDropdownService } from '../../../../shared/dropdownService/minimum-balance-master-dropdown.service'
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @NgModule({
   imports: [
@@ -28,11 +37,32 @@ import {AccountcodeService} from '../../../../shared/elements/accountcode.servic
     DataTablesModule,
     NgbModule,
     SelectModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    CustomerIdModule,
+    PerfectScrollbarModule,
+    SharedModule //modal
   ],
   declarations: [SavingMasterComponent],
-  providers: [TitleService, SchemeCodeService, AcountnoService, CustomeridService, CastService,
-    OccuptionService, CategoryService, OperationService, BalanceCategoryService, CitycodeService, InterestcategoryService,
-  BranchService,AccountTypeService,AccountcodeService]
+  providers: [
+    SavingMasterService,
+    MembershipTypeDropdownService,
+    CustomerIDMasterDropdownService,
+    categoryMasterService,
+    CustomerIdService,
+    DirectorMasterDropdownService,
+    OwnbranchMasterService,
+    cityMasterService,
+    SubSalaryDMasterdropdownService,
+    SchemeCodeDropdownService,
+    SignTypeDropdownService,
+    OperationMasterDropdownService,
+    IntrestCategoryMasterDropdownService,
+    MinimumBalanceMasterDropdownService,
+    {
+
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+
+    },]
 })
 export class SavingMasterModule { }

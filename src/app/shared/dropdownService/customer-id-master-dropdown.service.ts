@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class CustomerIDMasterDropdownService {
     loadCharacters() {
-      throw new Error('Method not implemented.');
+        throw new Error('Method not implemented.');
     }
 
     url = environment.base_url;
@@ -19,7 +19,7 @@ export class CustomerIDMasterDropdownService {
         return this.http.get<any>(this.url + '/customer-id')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: `${element.AC_NO}`, value: `${element.id}` };
+                    let obj = { label: element.AC_NO + ' ' + element.AC_NAME, value: `${element.id}` };
                     this.customerIDMasterObject.push(obj)
                 });
                 return this.customerIDMasterObject;
