@@ -24,7 +24,7 @@ export class CastMasterService {
     return this.http.get<any>(this.url + '/cast-master')
       .pipe(map(ele => {
         ele.forEach(element => {
-          let obj = { label: element.NAME, value: element.id };
+          let obj = { label: element.NAME, value: `${element.id }`};
           this.castMasterObject.push(obj)
         });
         return this.castMasterObject;

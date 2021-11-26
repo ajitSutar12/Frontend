@@ -17,7 +17,7 @@ url=environment.base_url
 
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + '/insert', data).pipe(map((res) => res),
+    return this.http.post(this.url + '/manager-view-glp/insert', data).pipe(map((res) => res),
     catchError((error) => {
       Swal.fire('Please Input Proper Data !');
       return throwError(error);
@@ -26,15 +26,15 @@ url=environment.base_url
   }
   // For append data
   getFormData(id: any): Observable<any> {
-    return this.http.get(this.url + '/' + id).pipe(catchError(this.handleError));
+    return this.http.get(this.url + '/manager-view-glp/' + id).pipe(catchError(this.handleError));
   }
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + '/update', data);
+    return this.http.put(this.url + '/manager-view-glp/update', data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
-    return this.http.delete(this.url + '/delete/' + id).pipe(catchError(this.handleError));
+    return this.http.delete(this.url + '/manager-view-glp/delete/' + id).pipe(catchError(this.handleError));
   }
 }
 

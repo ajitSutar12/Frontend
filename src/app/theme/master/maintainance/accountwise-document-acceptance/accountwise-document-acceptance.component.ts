@@ -5,6 +5,7 @@ import { S7Service } from '../../../../shared/elements/s7.service';
 import { Ac7Service } from '../../../../shared/elements/ac7.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import{environment} from '../../../../../environments/environment'
 
 @Component({
   selector: 'app-accountwise-document-acceptance',
@@ -13,6 +14,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 
 export class AccountwiseDocumentAcceptanceComponent implements OnInit {
+ url = environment.base_url;
   angForm: FormGroup;
 
   //Datatable

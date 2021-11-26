@@ -29,7 +29,7 @@ export class SavingandPigmyInterestRatesService {
     }
     //Updation Operation
     updateData(data): Observable<any> {
-        return this.http.put(this.url + '/saving-and-pigmy-interest-rates//saving-and-pigmy-interest-ratesupdate', data);
+        return this.http.put(this.url + '/saving-and-pigmy-interest-rates/update', data);
     }
     //Deletion Operation
     deleteData(id: any): Observable<any> {

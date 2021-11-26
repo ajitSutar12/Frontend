@@ -14,6 +14,7 @@ import { ReportService } from "./gl-report-master.component.service";
 import { Subject } from 'rxjs';
 // Angular Datatable Directive 
 import { DataTableDirective } from 'angular-datatables';
+import {environment} from '../../../../../environments/environment'
 
 
 interface reportinterface {
@@ -81,6 +82,7 @@ interface reportinterface {
   ],
 })
 export class GlReportMasterComponent implements OnInit {
+  url =environment.base_url;
   angForm: FormGroup;
 
   dtExportButtonOptions: any = {}; //Datatable variable

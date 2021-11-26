@@ -64,7 +64,7 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   showButton: boolean = true;
   updateShow: boolean = false;
   updateID: number = 0;
-  newbtnShow: boolean;
+  newbtnShow: boolean = false;
 
   constructor(private fb: FormBuilder,
     private castMasterService: CastMasterService,
@@ -151,9 +151,12 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.castMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
     })
+
     this.resetForm();
   }
 
@@ -170,6 +173,8 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     })
   }
+  
+ 
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
@@ -179,7 +184,9 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     })
   }

@@ -69,6 +69,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
+
   updateID: number = 0;
 
   companyCode: any;
@@ -185,8 +187,9 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.companyGroupLinkMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
-      this.rerender();
-    }, (error) => {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });    }, (error) => {
 
     })
     //To clear form
@@ -197,6 +200,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
+
     this.companyGroupLinkMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -207,6 +212,12 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       })
     })
   }
+  addNewData(){
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
 
   //Method for update data 
   updateData() {
@@ -216,8 +227,11 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
-      this.resetForm();
+      this.newbtnShow = false;
+
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });      this.resetForm();
     })
   }
 

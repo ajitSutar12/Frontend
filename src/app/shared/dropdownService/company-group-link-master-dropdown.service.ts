@@ -13,7 +13,7 @@ export class CompanyGLinkMasterDropdownService {
         return this.http.get<any>(this.url + '/company-group-link-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.COMP_CODE, value: element.id };
+                    let obj = { label: element.COMP_CODE, value: `${element.id }`};
                     this.companyGLinkObject.push(obj)
                 });
                 return this.companyGLinkObject;

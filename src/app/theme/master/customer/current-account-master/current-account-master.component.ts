@@ -18,6 +18,7 @@ import { AccountTypeService } from '../../../../shared/elements/account-type.ser
 import { AccountcodeService } from '../../../../shared/elements/accountcode.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import{environment} from '../../../../../environments/environment'
 
 @Component({
   selector: 'app-current-account-master',
@@ -39,7 +40,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 
 export class CurrentAccountMasterComponent implements OnInit {
   angForm: FormGroup;
-
+url =environment.base_url;
   //variable for checkbox 
   isRecovery: boolean = false; //return boolean value and display unchecked checkbox in basic tab
   isMinor: boolean = false; //return boolean value and display unchecked checkbox in Minor tab

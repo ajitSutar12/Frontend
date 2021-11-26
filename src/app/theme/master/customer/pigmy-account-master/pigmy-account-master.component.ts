@@ -6,6 +6,7 @@ import { SchemeCodeService } from '../../../../shared/elements/scheme-code.servi
 
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import {environment} from '../../../../../environments/environment'
 
 // Multiple Selection
 
@@ -30,6 +31,7 @@ import Swal from 'sweetalert2';
   ]
 })
 export class PigmyAccountMasterComponent implements OnInit {
+  url = environment.base_url;
 
   angForm: FormGroup;
   SchemeCodeService: Array<IOption> = this.schemeCodeService.getCharacters();

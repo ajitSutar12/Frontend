@@ -6,6 +6,7 @@ import { TitleService } from '../../../../shared/elements/title.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AccountcodeService } from '../../../../shared/elements/accountcode.service';
+import{environment} from '../../../../../environments/environment'
 
 @Component({
   selector: 'app-term-deposits-master',
@@ -25,7 +26,7 @@ import { AccountcodeService } from '../../../../shared/elements/accountcode.serv
   ]
 })
 export class TermDepositsMasterComponent implements OnInit {
-
+url = environment.base_url;
   angForm: FormGroup;
 
   createForm() {

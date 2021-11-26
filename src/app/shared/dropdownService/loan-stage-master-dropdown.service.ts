@@ -13,7 +13,7 @@ export class LoanStageMasterDropdownService {
         return this.http.get<any>(this.url + '/loan-stage-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: element.id };
+                    let obj = { label: element.NAME, value: `${element.id }`};
                     this.loanStageMasterObject.push(obj)
                 });
                 return this.loanStageMasterObject;

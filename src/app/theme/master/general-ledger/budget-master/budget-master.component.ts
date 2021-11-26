@@ -11,6 +11,7 @@ import { BudgetserviceService } from "./budget-master.component.service";
 // Angular Datatable Directive 
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { environment} from '../../../../../environments/environment'
 
 
 // For fetching values from backend
@@ -25,6 +26,7 @@ interface budget {
   styleUrls: ["./budget-master.component.scss"],
 })
 export class BudgetMasterComponent implements OnInit {
+  url =environment.base_url
   angForm: FormGroup;
   timeLeft: number;
   dtElement: DataTableDirective;

@@ -181,7 +181,7 @@
                                 <tbody *ngIf="bankmasters?.length != 0">
                                     <tr *ngFor="let data of bankmasters">
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
-                                            <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button>
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
                                         <td>{{ data.BANK_CODE }}</td>
                                         <td>{{ data.BANK_NAME }}</td>

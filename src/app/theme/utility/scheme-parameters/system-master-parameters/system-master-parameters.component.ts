@@ -27,6 +27,7 @@ import { HttpClient } from '@angular/common/http';
 import { SystemMasterParametersService } from './system-master-parameters.service';
 import Swal from 'sweetalert2';
 import { first } from 'rxjs/operators';
+import{environment} from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -171,7 +172,8 @@ interface SystemMasterParameters {
 })
 export class SystemMasterParametersComponent implements OnInit, AfterViewInit, OnDestroy {
 
-
+//api 
+url = environment.base_url
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -263,7 +265,7 @@ filterData = {};
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/system-master-parameters',
+            '/system-master-parameters',
             dataTableParameters
           ).subscribe(resp => {
             this.systemParameters = resp.data;

@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm">
                             <div class="form-radio">
                                 <h6>Sex</h6>
                                 <div class="radio radio-inline">
@@ -64,9 +64,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm">
                             <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>&nbsp;
+                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
                         </div>
                     </div>
                 </div>

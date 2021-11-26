@@ -13,7 +13,7 @@ export class ItemCatMasterDropdownService {
         return this.http.get<any>(this.url + '/item-category-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: element.NAME };
+                    let obj = { label: element.NAME, value: `${element.NAME }`};
                     this.itemObject.push(obj)
                 });
                 return this.itemObject;

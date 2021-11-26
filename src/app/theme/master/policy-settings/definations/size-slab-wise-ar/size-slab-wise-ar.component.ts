@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { id } from '@swimlane/ngx-datatable';
 import { first } from 'rxjs/operators';
+import {environment} from '../../../../../../environments/environment'
 
 
 // Handling datatable data
@@ -41,6 +42,8 @@ interface SizeSlabWise {
 
 
 export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestroy {
+  //api
+  url = environment.base_url;
    // For reloading angular datatable after CRUD operation
    @ViewChild(DataTableDirective, { static: false })
    dtElement: DataTableDirective;
@@ -123,7 +126,7 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/deposit-intrest-rate',
+            this.url+'/deposit-intrest-rate',
             dataTableParameters
           ).subscribe(resp => {
             this.sizeSlabWise = resp.data;

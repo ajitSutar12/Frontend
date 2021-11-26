@@ -344,7 +344,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
         this.http
           .post<DataTableResponse>(
             this.url + '/term-loan-master',
-            // 'http://localhost:4000/dispute-loan-master',
+            // '/dispute-loan-master',
             dataTableParameters
           ).subscribe(resp => {
             this.disputelonemaster = resp.data;

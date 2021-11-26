@@ -8,7 +8,7 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md">
+                        <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="CODE" class="form-control" placeholder=" " maxlength="4" disabled
@@ -17,7 +17,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="NAME" class="form-control" placeholder=" " maxlength="100"
@@ -32,14 +32,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>&nbsp;
+                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow" [disabled]="angForm.invalid" (click)="addNewData()">New</button>
                         </div>
-                        <div class="col-sm-2">
+                        <!-- <div class="col-sm-2">
                             <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">New
                                 </button>
-                        </div>
+                        </div> -->
 
                     </div>
 

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import{environment} from '../../../../../environments/environment'
 @Component({
   selector: 'app-definations',
   templateUrl: './definations.component.html',
   styleUrls: ['./definations.component.scss']
 })
 export class DefinationsComponent implements OnInit {
+  url = environment.base_url;
   interestrateftdTrue: boolean = true;
   termdepositpsTrue: boolean = false;
   interestrateforsapdTrue: boolean = false;

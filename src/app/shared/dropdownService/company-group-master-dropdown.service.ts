@@ -13,7 +13,7 @@ export class CompanyGroupMasterDropdownService {
         return this.http.get<any>(this.url + '/company-group-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.COMP_CODE, value: element.id };
+                    let obj = { label: element.COMP_CODE, value: `${element.id }`};
                     this.companyGroupObject.push(obj)
                 });
                 return this.companyGroupObject;

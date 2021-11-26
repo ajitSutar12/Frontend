@@ -11,6 +11,7 @@ import { BranchService } from '../../../../shared/elements/branch.service';
 import { CastService } from '../../../../shared/elements/cast.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import {environment} from '../../../../../environments/environment'
 
 @Component({
   selector: 'app-pigmy-agent-master',
@@ -31,6 +32,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 
 export class PigmyAgentMasterComponent implements OnInit {
+  url =environment.base_url;
   angForm: FormGroup;
 
   dtExportButtonOptions: any = {}; //Datatable variable for main form

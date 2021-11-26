@@ -240,6 +240,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
       })
     })
   }
+
   //Method for update data 
   updateData() {
     let data = this.angForm.value;

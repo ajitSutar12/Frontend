@@ -126,7 +126,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            'http://localhost:4000/premature-pigmy-less-int-rate',
+            this.url +' /premature-pigmy-less-int-rate',
             dataTableParameters
           ).subscribe(resp => {
             this.prematurePigmy = resp.data;

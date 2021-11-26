@@ -66,7 +66,8 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>&nbsp;
+                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
                         </div>
                     </div>
 

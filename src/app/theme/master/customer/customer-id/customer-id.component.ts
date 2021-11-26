@@ -22,7 +22,7 @@ import { DocumentMasterDropdownService } from '../../../../shared/dropdownServic
 import { environment } from '../../../../../environments/environment'
 import { Router } from '@angular/router'
 
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+// const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -413,7 +413,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
   uploader: FileUploader = new FileUploader({
-    url: URL,
+    // url: URL,
     isHTML5: true
   });
 

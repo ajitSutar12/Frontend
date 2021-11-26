@@ -6,6 +6,7 @@ import { Ac4Service } from '../../../../shared/elements/ac4.service';
 import { S15Service } from '../../../../shared/elements/s15.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import {environment} from '../../../../../environments/environment'
 
 @Component({
   selector: 'app-deposit-loan-interest-rate-edit-change',
@@ -15,7 +16,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 
 export class DepositLoanInterestRateEditChangeComponent implements OnInit {
   angForm: FormGroup;
-
+url = environment.base_url;
   //Datatable
 
   dtExportButtonOptions: any = {};
