@@ -1,0 +1,15 @@
+{
+    "data": [{
+            "Name2": "xyz",
+            "Operation": "Yes"
+            
+            
+        },
+        {
+            "Name2": "abc",
+            "Operation": "No"
+           
+        }
+
+    ]
+}

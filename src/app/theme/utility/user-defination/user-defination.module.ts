@@ -4,7 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserDefinationComponent } from './user-defination.component';
 import { UserDefinationRoutingModule } from './user-defination-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
-import { UserdefinationServiceD} from '../../../shared/dropdownService/user-defination-dropdown.service'
+import { UserdefinationServiceD} from '../../../shared/dropdownService/user-defination-dropdown.service';
+import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
 import {UserDefinationService} from './user-defination.service'
 import { DataTablesModule } from 'angular-datatables';
 import {SelectModule} from 'ng-select';
@@ -20,6 +21,6 @@ import {SelectModule} from 'ng-select';
 
   ],
   declarations: [UserDefinationComponent],
-  providers:[UserdefinationServiceD,UserDefinationService]
+  providers:[UserdefinationServiceD,UserDefinationService,OwnbranchMasterService]
 })
 export class UserDefinationModule { }

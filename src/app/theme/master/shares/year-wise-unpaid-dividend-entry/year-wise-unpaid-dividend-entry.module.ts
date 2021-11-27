@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {YearwiseunpaidService} from './year-wise-unpaid-dividend-entry.service';
 import{ SchemeCodeDropdownService} from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import{ SalaryDMasterdropdownService} from '../../../../shared/dropdownService/salary-division-master-dropdown.service';
-import{ ShareMasterDropdownService} from '../../../../shared/dropdownService/share-master-dropdown.service';
+// import{ ShareMasterDropdownService} from '../../../../shared/dropdownService/share-master-dropdown.service';
 
 @NgModule({
   imports: [
@@ -27,7 +27,7 @@ import{ ShareMasterDropdownService} from '../../../../shared/dropdownService/sha
   providers: [YearwiseunpaidService,
      SchemeCodeDropdownService,
      SalaryDMasterdropdownService,
-     ShareMasterDropdownService
+    //  ShareMasterDropdownService
     ]
 
 })

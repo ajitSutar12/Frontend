@@ -534,7 +534,7 @@
                                                             <td style="align-items: center;">
                                                                 <div class="row">
                                                                     <div class="col-sm">
-                                                                        <input type="file" name="file" (change)="fileChangeEvent($event, indexOfelement)">
+                                                                        <input type="file" name="file" (change)="fileChangeEvent($event, indexOfelement,data.value)">
                                                                     </div>
                                                                     <!-- <div class="col-sm-2">
 
@@ -544,7 +544,7 @@
                                                             </td>
                                                             <td style="align-items: center;">
                                                                 <div class="col-sm-2">
-                                                                    <span style="font-size: 20px;color: #0f459b; cursor: pointer;" class="fa fa-fw fa-eye field-icon"></span>
+                                                                    <span style="font-size: 20px;color: #0f459b; cursor: pointer;" (click)="viewImagePreview(data.value)" class="fa fa-fw fa-eye field-icon"></span>
                                                                 </div>
                                                             </td>
                                                         </tr>

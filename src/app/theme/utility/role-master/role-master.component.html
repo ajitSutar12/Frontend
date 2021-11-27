@@ -1,0 +1,85 @@
+
+<div class="row">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Role Master</h5>
+            </div>
+            <div class="card-block">
+                <form [formGroup]="angForm" novalidate #myform="ngForm">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="NAME" class="form-control" placeholder=" " id="NAME"
+                                        required pattern="^[A-Za-z\./ -]+$"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME" >
+                                    <label for="F_NAME">NAME<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="status"> Status</label>
+                        </div>
+                        <div class="col-md-3">
+                            
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="STATUS"
+                                            checked="checked" value="active"
+                                            formControlName="STATUS">
+                                        <i class="helper"></i>Active
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="STATUS"
+                                            checked="checked" value="inactive"
+                                            formControlName="STATUS">
+                                        <i class="helper"></i>Inactive
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="addButton">Add</button>
+                            <button class="btn btn-primary ripple light" (click)="update()" *ngIf="updateButton">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                Role Master List
+            </div>
+            <div class="card-body">
+                <table class="table table-striped" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                        <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of RoleList">
+                            <td><button class="btn btn-info" (click)="editRole(item)">Edit</button></td>
+                            <td>{{item.id}}</td>
+                            <td>{{item.NAME}}</td>
+                            <td>{{item.STATUS}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {animate, AUTO_STYLE, state, style, transition, trigger} from '@angular/animations';
-import {MenuItems} from '../../shared/menu-items/menu-items';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
+import { MenuItems } from '../../shared/menu-items/menu-items';
 
 @Component({
   selector: 'app-admin',
@@ -54,12 +54,12 @@ import {MenuItems} from '../../shared/menu-items/menu-items';
     ]),
     trigger('fadeInOutTranslate', [
       transition(':enter', [
-        style({opacity: 0}),
-        animate('400ms ease-in-out', style({opacity: 1}))
+        style({ opacity: 0 }),
+        animate('400ms ease-in-out', style({ opacity: 1 }))
       ]),
       transition(':leave', [
-        style({transform: 'translate(0)'}),
-        animate('400ms ease-in-out', style({opacity: 0}))
+        style({ transform: 'translate(0)' }),
+        animate('400ms ease-in-out', style({ opacity: 0 }))
       ])
     ]),
     trigger('mobileMenuTop', [
@@ -145,6 +145,12 @@ export class AdminComponent implements OnInit, OnDestroy {
   public config: any;
   public searchInterval: any;
 
+  public meunItemList: any[];
+  public menuItem: any;
+  public menuListData: any;
+
+  public userData: any
+
   scroll = (): void => {
     const scrollPosition = window.pageYOffset;
     if (scrollPosition > 56) {
@@ -222,6 +228,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.setMenuAttributes(this.windowWidth);
     this.setHeaderAttributes(this.windowWidth);
 
+
+
     // dark theme
     /*this.setLayoutType('dark');*/
 
@@ -240,6 +248,92 @@ export class AdminComponent implements OnInit, OnDestroy {
     // sidebar img
     /*this.setLayoutType('img');*/
 
+    //Menu item filter as per user role
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    this.userData = result;
+    let resultArray = result.Role.Rolehaspermission.Menus;
+    //console.log(resultArray);
+
+    let arrayList1 = resultArray.split(',');
+    var arrayList = arrayList1.map(function (x) {
+      return parseInt(x, 10);
+    });
+    arrayList.sort(function (a, b) { return b - a });
+    //console.log(arrayList);
+
+    let menuItemList = this.menuItems.getAll();
+
+    this.meunItemList = menuItemList[0].main;
+    var meunItemList = menuItemList[0].main;
+    this.meunItemList.forEach(function (element, index) {
+      //debugger
+      if (arrayList.includes(element.id)) {
+
+        if (element.children != [] && element.children != undefined) {
+
+          element.children.forEach(function (ele, index1) {
+            if (arrayList.includes(ele.id)) {
+              if (ele.children != [] && ele.children != undefined) {
+                //debugger
+                ele.children.forEach(function (ele1, index2) {
+                  if (arrayList.includes(ele1.id)) {
+                  } else {
+                    delete meunItemList[index].children[index1].children[index2];
+                  }
+                });
+              }
+            } else {
+              delete meunItemList[index].children[index1];
+            }
+          });
+        }
+      } else {
+        delete meunItemList[index];
+      }
+    });
+    this.menuItem = menuItemList;
+    //console.log(this.menuItem[0].main)
+    // this.menuItem[0].main.forEach(ele=>{
+    //   if(ele == null){
+    //     //console.log('null value')
+    //   }
+    // })
+
+    var first = this.menuItem[0].main.findIndex(
+      function (el) {
+        return (el !== null);
+      }
+    );
+    //console.log(this.menuItem[0].main.length);
+    for (let i = 0; i < this.menuItem[0].main.length; i++) {
+      //console.log(this.menuItem[0].main[i]);
+      // this.menuItem[0].main.splice(i,1);
+    }
+
+    var arrSor = [];
+
+    this.menuItem[0].main.forEach(function (el) {
+      if (el === null) {
+        arrSor.push(el);
+      } else {
+        arrSor.unshift(el);
+      }
+    });
+    this.menuListData = arrSor.reverse();
+
+    //console.log(this.menuItem[0].main)
+    // var filtered = this.menuItem[0].main.filter(function (el) {
+    //   return el != null;
+    // });
+
+    // this.menuListData = filtered;
+    // //console.log(this.menuListData);
+  }
+
+  deleteMainMenu(ele) {
+    //console.log(ele)
   }
 
   ngOnInit() {
@@ -516,22 +610,22 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   setHeaderPosition() {
-      this.isHeaderChecked = !this.isHeaderChecked;
-      this.pcodedHeaderPosition = this.isHeaderChecked === true ? 'fixed' : 'relative';
-      this.headerFixedMargin = this.isHeaderChecked === true ? '56px' : '';
-      if (this.isHeaderChecked === false) {
-        window.addEventListener('scroll', this.scroll, true);
-        window.scrollTo(0, 0);
-      } else {
-        window.removeEventListener('scroll', this.scroll, true);
-        if (this.pcodedDeviceType === 'desktop') {
-          this.headerFixedTop = 'auto';
-        }
-        this.pcodedSidebarPosition = 'fixed';
-        if (this.verticalNavType !== 'collapsed') {
-          this.sidebarFixedHeight = this.isSidebarChecked === true ? 'calc(100vh - 56px)' : 'calc(100vh + 56px)';
-        }
+    this.isHeaderChecked = !this.isHeaderChecked;
+    this.pcodedHeaderPosition = this.isHeaderChecked === true ? 'fixed' : 'relative';
+    this.headerFixedMargin = this.isHeaderChecked === true ? '56px' : '';
+    if (this.isHeaderChecked === false) {
+      window.addEventListener('scroll', this.scroll, true);
+      window.scrollTo(0, 0);
+    } else {
+      window.removeEventListener('scroll', this.scroll, true);
+      if (this.pcodedDeviceType === 'desktop') {
+        this.headerFixedTop = 'auto';
       }
+      this.pcodedSidebarPosition = 'fixed';
+      if (this.verticalNavType !== 'collapsed') {
+        this.sidebarFixedHeight = this.isSidebarChecked === true ? 'calc(100vh - 56px)' : 'calc(100vh + 56px)';
+      }
+    }
   }
 
   toggleOpenedSidebar() {
@@ -576,6 +670,12 @@ export class AdminComponent implements OnInit, OnDestroy {
         }
       }
     }
+  }
+
+  logout(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
   }
 
 }

@@ -89,6 +89,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   //api 
   url = environment.base_url;
+  imageObject = new Array();
 
   fname = '';
   mname = '';
@@ -714,23 +715,28 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   isImageSaved: boolean;
   cardImageBase64: string;
 
-
-  fileChangeEvent(event: Event, id) {
-let arr=[];
-arr.push(event)
-console.log('arr', arr)
+  fileChangeEvent(event: Event, id, valueid) {
+    debugger
+    let arr = [];
     let me = this;
-   let file = (event.target as HTMLInputElement).files[0];
-   let reader = new FileReader();
-   reader.readAsDataURL(file);
-   reader.onload = function () {
-     //me.modelvalue = reader.result;
-     console.log(reader.result);
-   };
-   reader.onerror = function (error) {
-     console.log('Error: ', error);
-   };
+    let obj= {};
+    let file = (event.target as HTMLInputElement).files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async function () {
+      let result =  await reader.result;
+      obj[valueid] = result;
+    };
+    this.imageObject.push(obj);
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+    console.log(this.imageObject);
+  }
 
 
+  viewImagePreview(ele:any){
+    debugger 
+    console.log(ele);
   }
 }
