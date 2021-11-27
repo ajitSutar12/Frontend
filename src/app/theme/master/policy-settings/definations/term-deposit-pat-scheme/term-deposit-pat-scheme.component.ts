@@ -28,7 +28,7 @@ class DataTableResponse {
 // For fetching values from backend
 interface TermDepositPatScheme {
   EFFECT_DATE: string
-  ACNOTYPE: string
+  AC_TYPE: string
   INT_CATEGORY: string
   MONTHS: string
   DAYS: string
@@ -72,7 +72,9 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
-
+  addShowButton: boolean = true
+  UpdateShowButton: boolean = false
+  multiField = [];
   //variable to get ID to update
   updateID: number = 0;
 
@@ -158,65 +160,6 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       ],
       dom: 'Blrtip',
     };
-    this.dtModalOptions = {
-      pagingType: 'full_numbers',
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.columns.forEach(element => {
-          if (element.search.value != '') {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters['filterData'] = this.filterData;
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        this.page = dataTableParameters.start / dataTableParameters.length;
-        this.http
-          .post<DataTableResponse>(
-            this.url+'/pat-scheme-interest-rates',
-            dataTableParameters
-          ).subscribe(resp => {
-            this.termDepositPatScheme = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: []
-            });
-          });
-      },
-      columns: [
-        {
-          title: 'Action'
-        },
-        {
-          title: 'Months',
-          data: 'MONTHS'
-        },
-        {
-          title: 'Days',
-          data: 'DAYS'
-        },
-        {
-          title: 'Interest Rate',
-          data: 'INT_RATE'
-        },
-      ],
-      dom: 'lrtip',
-    };
     this.runTimer();
     this.dataSub = this.schemeTypeDropdownService.loadCharacters().subscribe((options) => {
       this.characters = options;
@@ -245,35 +188,37 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       'EFFECT_DATE': formVal.EFFECT_DATE,
       'AC_TYPE': formVal.AC_TYPE,
       'INT_CATEGORY': formVal.INT_CATEGORY,
-      'MONTHS': formVal.MONTHS,
-      'DAYS': formVal.DAYS,
-      'INT_RATE': formVal.INT_RATE
+      'FieldData': this.multiField,
     }
     this.termDepositPatSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
     //To clear form
     this.resetForm();
+    this.multiField = []
   }
-
+  tableButton: boolean = true
   //Method for append data into fields
-  editClickHandler(id) {
+  editClickHandler(data) {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
-    this.termDepositPatSchemeService.getFormData(id).subscribe(data => {
+    this.addShowButton = false
+    
+    this.termDepositPatSchemeService.getFormData(data).subscribe(data => {
+      console.log(data)
+      console.log(data.EFFECT_DATE)
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.angForm.patchValue({
         'EFFECT_DATE': data.EFFECT_DATE,
         'AC_TYPE': data.AC_TYPE,
         'INT_CATEGORY': data.INT_CATEGORY,
-        'MONTHS': data.MONTHS,
-        'DAYS': data.DAYS,
-        'INT_RATE': data.INT_RATE
+        // this.multiField = data.FieldData
       })
     })
   }
@@ -282,12 +227,16 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['FieldData'] = this.multiField
     this.termDepositPatSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      this.multiField = []
       this.resetForm();
     })
   }
@@ -296,6 +245,8 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.addShowButton = true;
+    this.multiField = [];
     this.resetForm();
   }
 
@@ -380,6 +331,55 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       }
     }, 1000);
 
+  }
+
+  addField() {
+    const formVal = this.angForm.value;
+    var object = {
+      MONTHS: formVal.MONTHS,
+      DAYS: formVal.DAYS,
+      INT_RATE: formVal.INT_RATE,
+
+    }
+    this.multiField.push(object);
+    this.resetField()
+  }
+  resetField() {
+    this.angForm.controls['MONTHS'].reset();
+    this.angForm.controls['DAYS'].reset();
+    this.angForm.controls['INT_RATE'].reset();
+  }
+  intIndex: number
+  intID: number
+  updateField() {
+    let index = this.intIndex;
+    this.addShowButton = true;
+    this.UpdateShowButton = false;
+    const formVal = this.angForm.value;
+    var object = {
+      MONTHS: formVal.MONTHS,
+      DAYS: formVal.DAYS,
+      INT_RATE: formVal.INT_RATE,
+      id: this.intID
+    }
+    this.multiField[index] = object;
+    this.resetField()
+  }
+
+  editField(id) {
+    this.intIndex = id
+    this.intID = this.multiField[id].id;
+    this.addShowButton = false;
+    this.UpdateShowButton = true;
+    this.angForm.patchValue({
+      MONTHS: this.multiField[id].MONTHS,
+      DAYS: this.multiField[id].DAYS,
+      INT_RATE: this.multiField[id].INT_RATE,
+
+    })
+  }
+  delField(id) {
+    this.multiField.splice(id, 1)
   }
 
 }
