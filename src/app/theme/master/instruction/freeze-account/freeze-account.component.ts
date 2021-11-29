@@ -86,6 +86,11 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
   // column search
   filterData = {};
 
+  //Scheme type variable
+  //deposit: SB,TD,CA,GS
+  //Loan: LN,CC
+  schemeType: string = 'SB'
+
   constructor(private fb: FormBuilder,
     private freezeAccountService: freezeAccountService,
     private dpMasterACNODropdownService: DPMasterACNODropdownService,
@@ -166,7 +171,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     this.dataSub = this.freezeAccountService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
-    this.schemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
     })
     this.dpMasterACNODropdownService.getACNOList().pipe(first()).subscribe(data => {

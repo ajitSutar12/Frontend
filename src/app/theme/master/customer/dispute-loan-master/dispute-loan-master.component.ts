@@ -228,6 +228,8 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   //filter variable
   filterData = {};
 
+  //Scheme type variable
+  schemeType: string = 'DS'
 
   securitiesOptions: any = {};     //Datatable variable for securities tab
   guarantorOptions: any = {};      //Datatable variable for gurantor tab
@@ -271,7 +273,6 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     private http: HttpClient,
     private DisputeLoanMasterService: DisputeLoanMasterService,
     public TitleService: TitleService,
-
     public RepayModeService: RepayModeService,
     private fb: FormBuilder,
     private CustomerIdService: CustomerIdService,
@@ -296,11 +297,6 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     private installmentMethodService: InstallmentMethodService,
     private cityMaster: cityMasterService,
   ) { }
-
-
-
-
-
 
   //display code according choice
 
@@ -567,44 +563,34 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
           data: 'AC_THONO',
           title: 'House'
         },
-
         {
           data: 'AC_TWARD',
           title: 'Ward'
         },
-
         {
           data: 'AC_TGALLI',
           title: 'Galli'
         },
-
         {
           data: 'AC_TAREA',
           title: 'Area'
         },
-
         {
           data: 'AC_TADDR',
           title: 'Detail'
         },
-
         {
           data: 'AC_TCTCODE',
           title: 'City'
         },
-
         {
           data: 'AC_TPIN',
           title: 'Pin Code'
         },
-
-
-
         {
           data: 'AC_NO',
           title: 'CustomerID'
         },
-
         {
           data: 'MEMBER_TYPE',
           title: 'member type'
@@ -735,14 +721,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
 
       ],
       dom: 'Blrtip',
-
-
-
     };
-
-    this.runTimer();
-
-
     this.runTimer();
     this.dataSub = this.repayModeService.loadCharacters().subscribe((options) => {
       this.characters = options;
@@ -750,7 +729,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     this.dataSub = this.installmentMethodService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
-    this.SchemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
+    this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
     })
     this.TermLoanMasterDropdownService.getTermLoanMasterList().pipe(first()).subscribe(data => {

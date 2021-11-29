@@ -5,18 +5,32 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class SchemeCodeDropdownService {
     schemeCodeObject = new Array();
+    schemeObject = new Array();
     // // scheme-parameters";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
-    public getSchemeCodeList() {
+    public getSchemeCodeList(scheme) {
         this.schemeCodeObject = []
-        return this.http.get<any>(this.url + '/scheme-parameters')
+        return this.http.get<any>(this.url + '/scheme-parameters/' + scheme)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.S_APPL+' '+element.S_NAME, value: `${element.id}` };
+                    let obj = { label: element.S_APPL + ' ' + element.S_NAME, value: `${element.id}` };
                     this.schemeCodeObject.push(obj)
                 });
                 return this.schemeCodeObject;
+            }));
+    }
+
+
+    public getAllSchemeList() {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/scheme-parameters/')
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.S_ACNOTYPE + ' ' + element.S_NAME, value: `${element.S_ACNOTYPE}` };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
             }));
     }
 }

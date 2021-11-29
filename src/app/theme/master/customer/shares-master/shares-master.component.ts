@@ -37,13 +37,13 @@ class DataTableResponse {
 
 // For fetching values from backend
 interface ShareMaster {
+  AC_ACNOTYPE: string
   AC_TYPE: string
   AC_NO: number
   AC_CUSTID: number
   EMP_NO: string
   AC_JOIN_DATE: string
   AC_RETIRE_DATE: string
-  // AC_MEM_AGE: string
   MEMBERSHIP_BY: string
   AC_SIGN_TYPE: string
   AC_SREPRESENT: string
@@ -78,21 +78,6 @@ interface ShareMaster {
   AC_TCTCODE: number;
   AC_TPIN: number
 }
-interface Nominee {
-  //nominee controls (NOMINEELINK table)
-  AC_NNAME: string
-  AC_NRELA: string
-  AC_NDATE: Date
-  AGE: number
-  AC_NHONO: String
-  AC_NWARD: string
-  AC_NADDR: string
-  AC_NGALLI: string
-  AC_NAREA: string
-  AC_NCTCODE: string
-  AC_NPIN: number
-
-}
 
 @Component({
   selector: 'app-shares-master',
@@ -124,19 +109,13 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject();
   // Store data from backend
   shareMaster: ShareMaster[];
-  nominee: Nominee[];
   // Created Form Group
   angForm: FormGroup;
   //Datatable variable
   dtExportButtonOptions: DataTables.Settings = {};
 
   //datatable variable to change
-  dtModalOptions: DataTables.Settings = {};
-  dtNominee: any = {};
   dtDocument: any = {};
-
-  recovery: boolean = false;
-  nomineeTrue: boolean = false;
   Data: any;
   //variables for pagination
   page: number = 1;
@@ -155,6 +134,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   updateShow: boolean = false;
   newbtnShow: boolean = false;
   //Nominee variables
+  nomineeTrue: boolean = false;
   multiNominee = [];
   nomineeIndex: number
   nomineeID
@@ -169,11 +149,11 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //temp address flag variable
   tempAddress: boolean = true;
 
+  //Scheme type variable
+  schemeType: string = 'SH'
   //Dropdown options
   scheme //scheme code from schemast(S_ACNOTYPE)
-  // scheme: Array<IOption> = this.signTypeDropdownService.getCharacters();
   Cust_ID: any[] //customer id from idmaster
-  // title: string //from idmaster as per customer id
   category: any[] //from category master
   membershipType: Array<IOption> = this.membershipTypeDropdownService.getCharacters(); //membership type default option
   signType: Array<IOption> = this.signTypeDropdownService.getCharacters();   //sign type default option
@@ -219,7 +199,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
           dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
         dataTableParameters['filterData'] = this.filterData;
         this.http
@@ -228,7 +207,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             dataTableParameters
           ).subscribe(resp => {
             this.shareMaster = resp.data;
-            console.log('fetch', resp.data)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -243,6 +221,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       columns: [
         {
           title: 'Action',
+        },
+        {
+          title: 'Type',
+          data: 'AC_ACNOTYPE'
         },
         {
           title: 'Scheme',
@@ -284,38 +266,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Represent by',
           data: 'AC_SREPRESENT'
         },
-        // {
-        //   title: 'TempAddress As Permanent',
-        //   data: 'AC_ADDFLAG'
-        // },
-        // {
-        //   title: 'House',
-        //   data: 'AC_THONO'
-        // },
-        // {
-        //   title: 'Ward',
-        //   data: 'AC_TWARD'
-        // },
-        // {
-        //   title: 'Detail',
-        //   data: 'AC_TADDR'
-        // },
-        // {
-        //   title: 'Galli',
-        //   data: 'AC_TGALLI'
-        // },
-        // {
-        //   title: 'Area',
-        //   data: 'AC_TAREA'
-        // },
-        // {
-        //   title: 'City',
-        //   data: 'AC_TCTCODE'
-        // },
-        // {
-        //   title: 'PinCode',
-        //   data: 'AC_TPIN'
-        // },
         {
           title: 'Open Date',
           data: 'AC_OPDATE'
@@ -448,7 +398,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
     })
-    this.schemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
     })
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
@@ -517,6 +467,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
       //excel controls
       AC_TYPE: ['', [Validators.required]],
+      AC_ACNOTYPE: ['SH'],
       AC_NO: [''],
       AC_TITLE: [''],
       AC_CUSTID: ['', [Validators.required]],
@@ -527,7 +478,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_MEM_BIRTH_DT: [''],
       AC_JOIN_DATE: [''],
       AC_RETIRE_DATE: [''],
-      // AC_MEM_AGE: ['', [Validators.pattern]],
       MEMBERSHIP_BY: ['', [Validators.required]],
       AC_SIGN_TYPE: ['', [Validators.required]],
       AC_SREPRESENT: ['', [Validators.pattern]],
@@ -601,6 +551,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
+      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
       'AC_CUSTID': formVal.AC_CUSTID,
@@ -666,6 +617,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //get nominee to edit
       this.multiNominee = data.nomineeDetails
       this.angForm.patchValue({
+        AC_ACNOTYPE: data.AC_ACNOTYPE,
         AC_TYPE: data.AC_TYPE,
         'AC_NO': data.AC_NO,
         'AC_CATG': data.AC_CATG,
@@ -804,6 +756,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   // Reset Function
   resetForm() {
     this.createForm();
+    this.resetNominee()
     this.nomineeTrue = false
   }
   ngOnDestroy(): void {
@@ -833,25 +786,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.nomineeTrue = !this.nomineeTrue;
   }
 
-  addNominee() {
-    const formVal = this.angForm.value;
-    var object = {
-      AC_NNAME: formVal.AC_NNAME,
-      AC_NRELA: formVal.AC_NRELA,
-      AC_NDATE: formVal.AC_NDATE,
-      AGE: formVal.AGE,
-      AC_NHONO: formVal.AC_NHONO,
-      AC_NWARD: formVal.AC_NWARD,
-      AC_NADDR: formVal.AC_NADDR,
-      AC_NGALLI: formVal.AC_NGALLI,
-      AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE,
-      AC_NPIN: formVal.AC_NPIN,
-    }
-    this.multiNominee.push(object);
-    this.resetNominee()
-  }
-
   editNominee(id) {
     this.nomineeIndex = id
     this.nomineeID = this.multiNominee[id].id;
@@ -875,7 +809,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   updateNominee() {
     let index = this.nomineeIndex;
-    console.log('update nominee', index)
+    this.nomineeShowButton = true;
+    this.nomineeUpdateShow = false;
     const formVal = this.angForm.value;
     var object = {
       AC_NNAME: formVal.AC_NNAME,
@@ -892,8 +827,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       id: this.nomineeID
     }
     this.multiNominee[index] = object;
-    this.nomineeShowButton = true;
-    this.nomineeUpdateShow = false;
     this.resetNominee()
   }
 

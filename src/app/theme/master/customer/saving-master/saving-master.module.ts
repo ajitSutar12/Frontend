@@ -30,6 +30,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+
 @NgModule({
   imports: [
     CommonModule,
@@ -63,6 +66,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
 
-    },]
+    },
+
+    SystemMasterParametersService,
+    SchemeAccountNoService
+  ]
 })
 export class SavingMasterModule { }

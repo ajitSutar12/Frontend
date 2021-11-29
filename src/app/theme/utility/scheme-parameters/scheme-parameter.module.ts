@@ -53,12 +53,11 @@ import { SchemeTypeDropdownService } from '../../../shared/dropdownService/schem
 import { OverdraftInterestPostService } from '../../../shared/dropdownService/overdraft-interest-post.service';
 
 import {SystemMasterParametersService} from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
-
 //dropdown service
 import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-master-dropdown.service'
-// import {OwnbranchMasterService} from '../../../shared/dropdownService/own-branch-master-dropdown.service';
-// import {WeeklyHolidayService} from '../../../shared/dropdownService/weekly-holiday.service';
-// import {IntrestCalculationMethodService} from '../../../shared/dropdownService/intrest-calculation-method-dropdown.service';
+import {OwnbranchMasterService} from '../../../shared/dropdownService/own-branch-master-dropdown.service';
+import {WeeklyHolidayService} from '../../../shared/dropdownService/weekly-holiday.service';
+import {IntrestCalculationMethodService} from '../../../shared/dropdownService/intrest-calculation-method-dropdown.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -92,7 +91,6 @@ import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-mast
     TermDepositSchemeService,
     PigmyagentService,
     SchemetypeService,
-    OwnbranchMasterService,
     SavingschemeService,
     CashcreditService,
     StatementTypeService,
@@ -101,8 +99,6 @@ import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-mast
     OverdraftInterestPostService,
     ACMasterDropdownService,
     SystemMasterParametersService,
-    WeeklyHolidayService,
-    IntrestCalculationMethodService,
   ],
   declarations: [SchemeParametersComponent, SystemMasterParametersComponent, RecoverySequenceComponent, SchemeTypeSettingComponent, TransactionInputGlHeadSettingComponent, ChequeCollectionInputHeadComponent, OtherBanksDepositSchemeComponent, LockersSchemeComponent, GeneralLedgerSchemeComponent, GeneralSubAcSchemeComponent, SharesSchemeComponent, SavingSchemeComponent, CurrentSchemeComponent, TermDepositSchemeComponent, CashCreditSchemeComponent, TermLoanSchemeComponent, DisputLoanSchemeComponent, PigmyAcSchemeComponent, PigmyAgentSchemeComponent, PayrollSettingsComponent, SmsSettingsComponent]
 })

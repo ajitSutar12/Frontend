@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
                                     placeholder="Customer ID *" required title="Compulsory Selection"
@@ -68,7 +68,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
@@ -85,6 +85,9 @@
                                 *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-primary ripple light" (click)="addNewData()"
                                 *ngIf="newbtnShow">New</button>
+                        </div>
+                        <div class="col-sm-2" *ngIf="multiJointAC?.length != 0">
+                            <label style="color: #1e5bc5 ">JOINT ACCOUNT</label>
                         </div>
                     </div>
                     <!-- Start of Tab forms -->
@@ -497,9 +500,9 @@
                                                             <div
                                                                 class="border-checkbox-group border-checkbox-group-primary">
                                                                 <input class="border-checkbox" type="checkbox"
-                                                                    id="AC_ADDFLAG" formControlName="AC_ADDFLAG">
-                                                                <label class="border-checkbox-label" for="AC_ADDFLAG"
-                                                                    (click)="tempAsPermanent()">Is
+                                                                    id="AC_ADDFLAG" formControlName="AC_ADDFLAG"
+                                                                    (click)="tempAsPermanent()">
+                                                                <label class="border-checkbox-label" for="AC_ADDFLAG">Is
                                                                     Temporory Address same as Permanent Address</label>
                                                             </div>
                                                         </div>
@@ -644,7 +647,7 @@
                                     </ngb-tab>
                                     <!-- End of Address tab -->
                                     <!-- start of Introducer/Minor Details tab  -->
-                                    <ngb-tab title="3.Introducer/Minor Details" (click)="ageCalculator()">
+                                    <ngb-tab title="3.Introducer/Minor Details">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
@@ -654,7 +657,8 @@
                                                                 class="border-checkbox-group border-checkbox-group-primary">
                                                                 <input class="border-checkbox" type="checkbox"
                                                                     id="ac_minor" name="AC_MINOR"
-                                                                    [checked]="MINOR==true" formControlName="AC_MINOR">
+                                                                    [checked]="MINOR==true" formControlName="AC_MINOR"
+                                                                    disabled>
                                                                 <label class="border-checkbox-label"
                                                                     for="ac_minor">Minor
                                                                     Details</label>
@@ -679,14 +683,16 @@
                                                                     class="form-control" placeholder=" " id="AC_GRDNAME"
                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                    formControlName="AC_GRDNAME">
+                                                                    formControlName="AC_GRDNAME"
+                                                                    [required]="introducerReq">
                                                                 <label for="AC_GRDNAME">Guardian Name</label>
                                                             </span>
                                                         </div>
                                                         <div class="form-group form-primary form-static-label"
                                                             *ngIf="angForm.controls['AC_GRDNAME'].invalid && (angForm.controls['AC_GRDNAME'].dirty || angForm.controls['AC_GRDNAME'].touched)"
                                                             class="alert alert-danger">
-                                                            <div *ngIf="angForm.controls['AC_GRDNAME'].errors?.pattern">
+                                                            <div
+                                                                *ngIf="angForm.controls['AC_GRDNAME'].errors?.pattern || angForm.controls['AC_GRDNAME'].errors?.required">
                                                                 Input allowed only A-Z a-z - / . (Space)
                                                             </div>
                                                         </div>
@@ -698,14 +704,16 @@
                                                                     class="form-control" placeholder=" " id="AC_GRDRELE"
                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                    formControlName="AC_GRDRELE">
+                                                                    formControlName="AC_GRDRELE"
+                                                                    [required]="introducerReq">
                                                                 <label for="AC_GRDRELE">Relation</label>
                                                             </span>
                                                         </div>
                                                         <div class="form-group form-primary form-static-label"
                                                             *ngIf="angForm.controls['AC_GRDRELE'].invalid && (angForm.controls['AC_GRDRELE'].dirty || angForm.controls['AC_GRDRELE'].touched)"
                                                             class="alert alert-danger">
-                                                            <div *ngIf="angForm.controls['AC_GRDRELE'].errors?.pattern">
+                                                            <div
+                                                                *ngIf="angForm.controls['AC_GRDRELE'].errors?.pattern || angForm.controls['AC_GRDRELE'].errors?.required">
                                                                 Input allowed only A-Z a-z - / . (Space)
                                                             </div>
                                                         </div>
@@ -723,17 +731,19 @@
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <div class="form-group form-primary form-static-label">
-                                                            <ng-select [ngClass]="'ng-select'" [options]="scheme"
+                                                            <ng-select [ngClass]="'ng-select'" [options]="allScheme"
                                                                 [multiple]="false" placeholder="Account Type"
-                                                                formControlName="AC_INTROID">
+                                                                formControlName="AC_INTROID" [(ngModel)]="acno"
+                                                                (selected)="getIntroducer(acno)">
                                                             </ng-select>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <div class="form-group form-primary form-static-label">
-                                                            <ng-select [ngClass]="'ng-select'" [options]="scheme"
-                                                                [multiple]="false" placeholder="Account Code"
-                                                                formControlName="AC_INTRACNO">
+                                                            <ng-select [ngClass]="'ng-select'"
+                                                                [options]="introducerACNo" [multiple]="false"
+                                                                placeholder="Account Code" formControlName="AC_INTRACNO"
+                                                                (selected)="getIntroducerName($event)">
                                                             </ng-select>
                                                         </div>
                                                     </div>
@@ -1220,8 +1230,7 @@
                                                             <div
                                                                 class="border-checkbox-group border-checkbox-group-primary">
                                                                 <input class="border-checkbox" type="checkbox"
-                                                                    id="powerofattorney" value="checkbox"
-                                                                    (click)="ispowerof($event)">
+                                                                    id="powerofattorney" (click)="ispowerof($event)">
                                                                 <label class="border-checkbox-label"
                                                                     for="powerofattorney"
                                                                     [ngClass]="{'isActive': PowerofAttorneyTrue}">Power
@@ -1407,6 +1416,7 @@
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
                                                 (click)="editClickHandler(data.id)">Edit</button>
                                         </td>
+                                        <td>{{data.AC_ACNOTYPE}}</td>
                                         <td>{{data.AC_TYPE }}</td>
                                         <td>{{data.AC_NO }}</td>
                                         <td>{{data.AC_CUSTID }}</td>
@@ -1436,6 +1446,7 @@
                                 <tfoot>
                                     <tr>
                                         <th></th>
+                                        <th><input type="text" placeholder="Search Scheme Type" name="AC_ACNOTYPE"></th>
                                         <th><input type="text" placeholder="Search Scheme" name="AC_TYPE"></th>
                                         <th><input type="text" placeholder="Search Member No" name="AC_NO"></th>
                                         <th><input type="text" placeholder="Search Customer ID" name="AC_CUSTID"></th>

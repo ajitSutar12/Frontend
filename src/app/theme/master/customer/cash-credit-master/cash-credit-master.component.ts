@@ -166,7 +166,8 @@ export class CashCreditMasterComponent implements OnInit {
   Cid: string = '';
   idp: string = '';
 
-
+  //Scheme type variable
+  schemeType: string = 'CC'
 
   account: Array<IOption> = this.accountType.getCharacters();
   selectedOption = '3';
@@ -199,6 +200,7 @@ export class CashCreditMasterComponent implements OnInit {
     private prioritySectorMaster: PrioritySectorMasterService,
     public router: Router
   ) { }
+
   ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
@@ -406,7 +408,7 @@ export class CashCreditMasterComponent implements OnInit {
     };
 
 
-    this.schemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
     })
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {

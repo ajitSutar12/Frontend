@@ -91,6 +91,9 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
   //variable to get Id to update
   updateID: number = 0;
 
+  //Scheme type variable
+  schemeType: string = 'SH'
+
   // column search variable
   filterData = {};
   SchemeCodeObject: any[];
@@ -202,18 +205,11 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
           title: 'Close Date',
           data: 'MEMBER_CLOSE_DATE'
         }],
-
-
-
-
-
-
       dom: 'Blrtip',
     };
 
 
-
-    this.SchemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
+    this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.SchemeCodeObject = data;
     })
     this.SalaryDMasterdropdownService.getSalaryDMasterList().pipe(first()).subscribe(data => {

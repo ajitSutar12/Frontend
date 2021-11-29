@@ -1386,6 +1386,7 @@
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
                                                 (click)="editClickHandler(data.id)">Edit</button>
                                         </td>
+                                        <td>{{data.AC_ACNOTYPE}}</td>
                                         <td>{{data.AC_TYPE }}</td>
                                         <td>{{data.AC_NO }}</td>
                                         <td>{{data.AC_CUSTID }}</td>
@@ -1436,6 +1437,7 @@
                                 <tfoot>
                                     <tr>
                                         <th></th>
+                                        <th><input type="text" placeholder="Search Scheme Type" name="AC_ACNOTYPE"></th>
                                         <th><input type="text" placeholder="Search Scheme" name="AC_TYPE"></th>
                                         <th><input type="text" placeholder="Search Member No" name="AC_NO"></th>
                                         <th><input type="text" placeholder="Search Customer ID" name="AC_CUSTID"></th>

@@ -46,7 +46,7 @@ class DataTableResponse {
 // For fetching values from backend
 interface anamatinf {
   //id:number
-  AC_MONTHS:string;
+  AC_MONTHS: string;
   AC_ACNOTYPE: number;
   AC_TYPE: string;
   AC_NO: String;
@@ -185,6 +185,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private dataSub: Subscription = null;
 
+  //Scheme type variable
+  schemeType: string = 'GS'
+
   //variables for  add and update button
   //  showButton: boolean = true;
   //  updateShow: boolean = false;
@@ -204,7 +207,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     private cityMasterService: cityMasterService,
     private SchemeCodeDropdownService: SchemeCodeDropdownService,
     private customerID: CustomerIDMasterDropdownService //  private anamatGSMServiceDa: anamatGSMServiceDa,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -349,7 +352,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       this.characters = options;
     });
 
-    this.SchemeCodeDropdownService.getSchemeCodeList()
+    this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType)
       .pipe(first())
       .subscribe((data) => {
         this.scheme = data;
@@ -434,7 +437,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       Recovery: [""],
       Debit: [""],
       AC_PARTICULAR: [""],
-      AC_MONTHS:[""],
+      AC_MONTHS: [""],
     });
   }
   // Method to insert data into database through NestJS
@@ -460,7 +463,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       Recovery: formVal.Recovery,
       Debit: formVal.Debit,
       AC_PARTICULAR: formVal.AC_PARTICULAR,
-      AC_MONTHS:formVal.AC_MONTHS,
+      AC_MONTHS: formVal.AC_MONTHS,
     };
     this.anamatGSMService.postData(dataToSend).subscribe(
       (data1) => {
@@ -508,7 +511,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         Recovery: data.Recovery,
         Debit: data.Debit,
         AC_PARTICULAR: data.AC_PARTICULAR,
-        AC_MONTHS:data.AC_MONTHS,
+        AC_MONTHS: data.AC_MONTHS,
       });
     });
   }

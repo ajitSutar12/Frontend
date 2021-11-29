@@ -87,6 +87,9 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   private dataSub: Subscription = null;
   scheme: any;
 
+  //Scheme type variable
+  schemeTypeCode: string = 'GL'
+
   constructor(
     private http: HttpClient,
     private companyGroupMasterService: CompanyGroupMasterService,
@@ -174,7 +177,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     this.dataSub = this.schemeTypeDropdown.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
-    this.SchemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
+    this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeTypeCode).pipe(first()).subscribe(data => {
       this.scheme = data;
     })
 

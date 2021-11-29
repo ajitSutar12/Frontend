@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 //animation
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -27,6 +27,8 @@ import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdow
 import { MinimumBalanceMasterDropdownService } from '../../../../shared/dropdownService/minimum-balance-master-dropdown.service'
 import { environment } from '../../../../../environments/environment'
 import { first } from 'rxjs/operators';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 
 // Handling datatable data
 class DataTableResponse {
@@ -37,9 +39,11 @@ class DataTableResponse {
 }
 
 interface SavingMaster {
+  AC_ACNOTYPE: string
   AC_TYPE: string
   AC_NO: number
   AC_CATG: string
+  AC_NAME: string
   AC_BALCATG: string
   AC_OPR_CODE: number
   AC_CUSTID: number
@@ -131,6 +135,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   // Store data from backend
   savingMaster: SavingMaster[];
 
+  //introducer variables
+  acno: any
+  introducerReq: boolean = false
   //temp address flag variable
   tempAddress: boolean = true;
   //nominee, joint ac and attorney variables 
@@ -149,12 +156,16 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   jointUpdateShow: boolean = false
   attorneyShowButton: boolean = true
   attorneyUpdateShow: boolean = false
+  //add required validation to attorney fields
+  DATE_EXPIRY = false
+  DATE_APPOINTED = false
+  ATTERONEY_NAME = false
 
+  //Scheme type variable
+  schemeType: string = 'SB'
   //Dropdown options
   scheme //scheme code from schemast(S_ACNOTYPE)
-  // scheme: Array<IOption> = this.signTypeDropdownService.getCharacters();
   Cust_ID: any[] //customer id from idmaster
-  // title: string //from idmaster as per customer id
   category: any[] //from category master
   city //city from customer id from idmaster
   cast: string // customer id from idmaster
@@ -164,6 +175,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   int_category// interest category from interest category master
   director: any[]//from directormaster
   branch_code: any[]//from ownbranchmaster
+  allScheme //account type for introducer
+  introducerACNo //account no for introducer
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -185,6 +198,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private operationMasterDropdownService: OperationMasterDropdownService,
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private minimumBalanceMasterDropdownService: MinimumBalanceMasterDropdownService,
+    private systemParameter: SystemMasterParametersService,
+    private schemeAccountNoService: SchemeAccountNoService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -222,6 +237,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       columns: [
         {
           title: 'Action'
+        },
+        {
+          title: 'Type',
+          data: 'AC_ACNOTYPE'
         },
         {
           title: 'Scheme',
@@ -336,7 +355,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
     })
-    this.schemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
     })
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
@@ -360,6 +379,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.int_category = data;
     })
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      this.allScheme = data;
+    })
   }
 
   runTimer() {
@@ -370,11 +392,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }, 1000);
   }
-
+  //function to toggle temp address field
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
   }
-
+  //function to get new customer data
   addNewCustomer(newCustomer) {
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
@@ -382,11 +404,21 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.getCustomer(newCustomer);
     })
   }
-
+  //set open date, appointed date and expiry date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        AC_OPDATE: data.CURRENT_DATE,
+        DATE_APPOINTED: data.CURRENT_DATE,
+        DATE_EXPIRY: data.CURRENT_DATE
+      })
+    })
+  }
+  //function to get existing customer data according selection
   getCustomer(id) {
+    this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
-      console.log('edit customer id', id)
-      console.log('getcustomer', data)
+      this.ageCalculator(data.AC_BIRTH_DT);
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
@@ -421,13 +453,13 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         // AC_TPIN: data.custAddress.custAddress[1].AC_TPIN,
       })
     })
-    this.ageCalculator();
   }
-
+  //formcontrols with validation
   createForm() {
     this.angForm = this.fb.group({
       //basic controls
       AC_TYPE: ['', [Validators.required]],
+      AC_ACNOTYPE: ['SB'],
       AC_NO: [''],
       AC_CUSTID: ['', [Validators.required]],
       AC_NAME: [''],
@@ -455,7 +487,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_AREA: [''],
       AC_CTCODE: [''],
       AC_PIN: [''],
-      AC_ADDFLAG: [false],
+      AC_ADDFLAG: [],
       AC_THONO: ['', [Validators.pattern]],
       AC_TWARD: ['', [Validators.pattern]],
       AC_TADDR: ['', [Validators.pattern]],
@@ -473,8 +505,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_GRDNAME: ['', [Validators.pattern]],
       AC_GRDRELE: ['', [Validators.pattern]],
       AC_INTROBRANCH: ['', []],
-      AC_INTROID: ['', []],
-      AC_INTRACNO: ['', []],
+      AC_INTROID: [''],
+      AC_INTRACNO: [''],
       AC_INTRNAME: ['', [Validators.pattern]],
       SIGNATURE_AUTHORITY: ['', [Validators.pattern]],
 
@@ -493,7 +525,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
       //joint ac
       JOINT_ACNAME: ['', [Validators.pattern]],
-      OPERATOR: [''],
+      OPERATOR: [true],
 
       //attorney
       ATTERONEY_NAME: ['', []],
@@ -501,7 +533,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       DATE_EXPIRY: ['', []],
     })
   }
-
+  //nominee, joint account and attorney selection display
   OpenLink(val) {
     if (val == 1) {
       this.nomineeTrue = !this.nomineeTrue;
@@ -520,10 +552,100 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  //get account no according scheme for introducer
+  getIntroducer(acno) {
+    switch (acno) {
+      case 'SB':
+        console.log("saving");
+        this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'SH':
+        console.log("Share");
+        this.schemeAccountNoService.getShareSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CA':
+        console.log("Current account");
+        this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'LN':
+        console.log("Term Loan");
+        this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'TD':
+        console.log("Term Deposit");
+        this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'DS':
+        console.log("Dispute Loan");
+        this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CC':
+        console.log("Cash Credit Loan");
+        this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'GS':
+        console.log("anamat");
+        this.schemeAccountNoService.getAnamatSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'PG':
+        console.log("Pigmy account");
+        this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'AG':
+        console.log("Pigmy agent");
+        this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'IV':
+        console.log("Investment");
+        this.schemeAccountNoService.getInvestmentSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+    }
+  }
+
+  //get introducer name according account no
+  getIntroducerName(value: any) {
+    this.angForm.patchValue({
+      AC_INTRNAME: value.name
+    })
+  }
+
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
+      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
       'AC_CATG': formVal.AC_CATG,
@@ -532,6 +654,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_CUSTID': formVal.AC_CUSTID,
       'AC_INTCATA': formVal.AC_INTCATA,
       'AC_OPDATE': formVal.AC_OPDATE,
+      'AC_NAME': formVal.AC_NAME,
       'AC_SCHMAMT': formVal.AC_SCHMAMT,
       'REF_ACNO': formVal.REF_ACNO,
       //address
@@ -593,6 +716,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //get attorney to edit
       this.multiAttorney = data.powerOfAttorney
       this.angForm.patchValue({
+        'AC_ACNOTYPE': data.AC_ACNOTYPE,
         'AC_TYPE': data.AC_TYPE,
         'AC_NO': data.AC_NO,
         'AC_CATG': data.AC_CATG,
@@ -648,11 +772,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.resetForm();
     })
   }
-
+  //reset function while update
   addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.multiNominee = []
+    this.multiJointAC = []
+    this.multiAttorney = []
     this.resetForm();
   }
 
@@ -717,10 +844,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   // Reset Function
   resetForm() {
     this.createForm();
+    this.resetNominee();
+    this.resetJointAC()
+    this.resetAttorney()
     this.PowerofAttorneyTrue = false
     this.JointAccountsTrue = false
     this.nomineeTrue = false
   }
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
@@ -734,6 +865,29 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dtTrigger.next();
     });
   }
+
+  //calculate age for minor details
+  ageCalculator(birthDate) {
+    let showAge: number
+    if (birthDate) {
+      const convertAge = new Date(birthDate);
+      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+      showAge = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+      if (showAge <= 18) {
+        this.angForm.controls['AC_MINOR'].setValue(true);
+        this.angForm.controls['AC_GRDNAME'].enable();
+        this.angForm.controls['AC_GRDRELE'].enable();
+        this.introducerReq = true
+      }
+      else if (showAge > 18) {
+        this.angForm.controls['AC_MINOR'].setValue(false);
+        this.angForm.controls['AC_GRDNAME'].disable();
+        this.angForm.controls['AC_GRDRELE'].disable();
+        this.introducerReq = false
+      }
+    }
+  }
+
   //Nominee
   addNominee() {
     const formVal = this.angForm.value;
@@ -871,6 +1025,21 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetAttorney()
   }
 
+  ispowerof($event) {
+    if ($event.target.checked) {
+      this.PowerofAttorneyTrue = true
+      this.DATE_EXPIRY = true
+      this.DATE_APPOINTED = true
+      this.ATTERONEY_NAME = true
+    }
+    else {
+      this.PowerofAttorneyTrue = false
+      this.DATE_EXPIRY = false
+      this.DATE_APPOINTED = false
+      this.ATTERONEY_NAME = false
+    }
+  }
+
   editAttorney(id) {
     this.attorneyIndex = id
     this.attorneyID = this.multiAttorney[id].id;
@@ -907,41 +1076,5 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.controls['ATTERONEY_NAME'].reset();
     this.angForm.controls['DATE_APPOINTED'].reset();
     this.angForm.controls['DATE_EXPIRY'].reset();
-  }
-
-  DATE_EXPIRY = false
-  DATE_APPOINTED = false
-  ATTERONEY_NAME = false
-  ispowerof($event) {
-    if ($event.target.checked) {
-      this.PowerofAttorneyTrue = true
-      this.DATE_EXPIRY = true
-      this.DATE_APPOINTED = true
-      this.ATTERONEY_NAME = true
-    }
-    else {
-      this.PowerofAttorneyTrue = false
-      this.DATE_EXPIRY = false
-      this.DATE_APPOINTED = false
-      this.ATTERONEY_NAME = false
-    }
-  }
-  showAge
-  MINOR = false
-  ageCalculator() {
-    if (this.angForm.controls.AC_BIRTH_DT) {
-      console.log('agecalculator', this.angForm.controls.AC_BIRTH_DT.value)
-      const convertAge = new Date(this.angForm.controls.AC_BIRTH_DT.value);
-      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-      this.showAge = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-      if (this.showAge <= 18) {
-        console.log('age', this.showAge)
-        this.MINOR = false
-      }
-      else if (this.showAge > 18) {
-        console.log('age', this.showAge)
-        this.MINOR = true
-      }
-    }
   }
 }

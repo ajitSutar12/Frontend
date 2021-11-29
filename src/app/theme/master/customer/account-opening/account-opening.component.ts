@@ -77,6 +77,10 @@ export class AccountOpeningComponent implements OnInit {
   updateID: number = 0;
   // Filter Variable
   filterData = {};
+
+  //Scheme type variable
+  schemeType: string = 'IV'
+
   //variables for  add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -223,7 +227,7 @@ export class AccountOpeningComponent implements OnInit {
     this.ownbranchMaster.getOwnbranchList().pipe(first()).subscribe(data => {
       this.BranchCode = data;
     })
-    this.schemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
     })
   }

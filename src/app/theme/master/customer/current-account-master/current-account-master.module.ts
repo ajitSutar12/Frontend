@@ -4,22 +4,24 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CurrentAccountMasterRoutingModule } from './current-account-master-routing.module';
 import { CurrentAccountMasterComponent } from './current-account-master.component';
-import { TitleService } from '../../../../shared/elements/title.service';
-import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
-import { AcountnoService } from '../../../../shared/elements/acountno.service';
-import { CustomeridService } from '../../../../shared/elements/customerid.service';
-import { CastService } from '../../../../shared/elements/cast.service';
-import { OccuptionService } from '../../../../shared/elements/occuption.service';
-import { CategoryService } from '../../../../shared/elements/category.service';
-import { OperationService } from '../../../../shared/elements/operation.service';
-import { BalanceCategoryService } from '../../../../shared/elements/balancecategory.service';
-import { InterestcategoryService } from '../../../../shared/elements/interestcategory.Service';
-import { CitycodeService } from '../../../../shared/elements/citycode.service';
-import {BranchService} from '../../../../shared/elements/branch.service';
-import {AccountTypeService} from '../../../../shared/elements/account-type.service';
-import {AccountcodeService} from '../../../../shared/elements/accountcode.service';
 import { SelectModule } from 'ng-select';
-import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../../../../shared/shared.module';
+import { CustomerIdModule } from '../customer-id/customer-id.module';
+import { CurrentAccountMasterService } from './current-account-master.service'
+//Service file of dropdown
+import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
+import { CustomerIdService } from '../customer-id/customer-id.service';
+import { categoryMasterService } from '../../../../shared/dropdownService/category-master-dropdown.service';
+import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service'
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service'
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { OperationMasterDropdownService } from '../../../../shared/dropdownService/operation-master-dropdown.service'
+import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service'
+import { MinimumBalanceMasterDropdownService } from '../../../../shared/dropdownService/minimum-balance-master-dropdown.service'
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 
 
 @NgModule({
@@ -29,11 +31,14 @@ import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
     DataTablesModule,
     NgbModule,
     SelectModule,
-    FormsModule,ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    SharedModule,
+    CustomerIdModule
   ],
   declarations: [CurrentAccountMasterComponent],
-  providers:[TitleService, SchemeCodeService, AcountnoService, CustomeridService, CastService,
-    OccuptionService, CategoryService, OperationService, BalanceCategoryService, CitycodeService, InterestcategoryService,
-  BranchService,AccountTypeService,AccountcodeService]
+  providers: [CurrentAccountMasterService, CustomerIDMasterDropdownService, CustomerIdService,
+    categoryMasterService, DirectorMasterDropdownService, OwnbranchMasterService, cityMasterService,
+    SchemeCodeDropdownService, OperationMasterDropdownService, IntrestCategoryMasterDropdownService,
+    MinimumBalanceMasterDropdownService, SystemMasterParametersService, SchemeAccountNoService]
 })
 export class CurrentAccountMasterModule { }

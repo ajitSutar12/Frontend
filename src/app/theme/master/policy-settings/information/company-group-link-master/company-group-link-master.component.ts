@@ -75,6 +75,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
   companyCode: any;
   schemeCode: any;
+  //Scheme type variable
+  schemeType: string = 'GL'
 
   //for search functionality
   filterData = {};
@@ -162,7 +164,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.companyGroupService.getCompanyGroupMasterList().pipe(first()).subscribe(data => {
       this.companyCode = data;
     })
-    this.schemeCodeService.getSchemeCodeList().pipe(first()).subscribe(data => {
+    this.schemeCodeService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.schemeCode = data;
     })
   }

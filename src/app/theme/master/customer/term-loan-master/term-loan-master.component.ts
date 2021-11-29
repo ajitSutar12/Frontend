@@ -147,6 +147,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   newbtnShow: boolean = false;
   //variable to get ID to update
   updateID: number = 0;
+
+  //Scheme type variable
+  schemeType: string = 'LN'
+
   // Filter Variable
   filterData = {};
   prifix: any[];
@@ -426,10 +430,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       dom: 'Blrtip',
     };
 
-    this.repayModeService.loadCharacters().subscribe((options) => {
-      this.repayModeOption = options;
-    });
-    this.schemeCodeDropdownService.getSchemeCodeList().pipe(first()).subscribe(data => {
+
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
     })
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
