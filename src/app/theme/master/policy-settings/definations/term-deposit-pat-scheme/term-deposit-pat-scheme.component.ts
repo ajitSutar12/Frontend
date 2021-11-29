@@ -134,6 +134,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
             this.url + '/pat-scheme-interest-rates',
             dataTableParameters
           ).subscribe(resp => {
+            console.log(resp.data)
             this.termDepositPatScheme = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,

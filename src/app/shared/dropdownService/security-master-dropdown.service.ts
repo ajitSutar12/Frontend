@@ -12,11 +12,7 @@ export class SecurityMasterdropdownService {
         return this.http.get<any>(this.url + '/security-code')
             .pipe(map(ele => {
                 ele.forEach(element => {
-<<<<<<< Updated upstream
                     let obj = { label: element.SECU_CODE, value: `${element.id}` };
-=======
-                    let obj = { label: element.SECU_CODE, value: `${element.id }`};
->>>>>>> Stashed changes
                     this.securityObject.push(obj)
                 });
                 return this.securityObject;
