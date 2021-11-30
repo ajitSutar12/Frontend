@@ -84,3 +84,13 @@ File: style.scss
 @import "partials/custom";
 // outlineTextbox custom scss
 @import "partials/outlineTextbox.scss";
+
+.td_right{
+	text-align: right;
+}
+.td_left{
+	text-align: left;
+}
+.td_center{
+	text-align: center;
+}

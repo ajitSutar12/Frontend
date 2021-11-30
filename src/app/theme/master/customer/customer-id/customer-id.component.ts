@@ -1,26 +1,34 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { Observable, Subject, Subscriber } from 'rxjs';
-// Creating and maintaining form fields with validation 
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  Output,
+  EventEmitter,
+} from "@angular/core";
+import { Observable, Subject, Subscriber } from "rxjs";
+// Creating and maintaining form fields with validation
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 // Displaying Sweet Alert
-import Swal from 'sweetalert2';
-// Angular Datatable Directive  
-import { DataTableDirective } from 'angular-datatables';
+import Swal from "sweetalert2";
+// Angular Datatable Directive
+import { DataTableDirective } from "angular-datatables";
 // Service File For Handling CRUD Operation
-import { CustomerIdService } from './customer-id.service';
+import { CustomerIdService } from "./customer-id.service";
 // Used to Call API
-import { HttpClient } from '@angular/common/http';
-import { first } from 'rxjs/operators';
-import { PrefixMasterDropdownService } from '../../../../shared/dropdownService/prefix-master-dropdown.service';
-import { CastMasterService } from '../../../../shared/dropdownService/cast-master-dropdown.service';
-import { OccupationMasterService } from '../../../../shared/dropdownService/occupation-master-dropdown.service';
-import { SalaryDMasterdropdownService } from '../../../../shared/dropdownService/salary-division-master-dropdown.service';
-import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
-import { RiskCategoryDropdownService } from '../../../../shared/dropdownService/risk-category-dropdown.service';
-import { FileUploader } from 'ng2-file-upload';
-import { DocumentMasterDropdownService } from '../../../../shared/dropdownService/document-master-dropdown.service';
-import { environment } from '../../../../../environments/environment'
-import { Router } from '@angular/router'
+import { HttpClient } from "@angular/common/http";
+import { first } from "rxjs/operators";
+import { PrefixMasterDropdownService } from "../../../../shared/dropdownService/prefix-master-dropdown.service";
+import { CastMasterService } from "../../../../shared/dropdownService/cast-master-dropdown.service";
+import { OccupationMasterService } from "../../../../shared/dropdownService/occupation-master-dropdown.service";
+import { SalaryDMasterdropdownService } from "../../../../shared/dropdownService/salary-division-master-dropdown.service";
+import { cityMasterService } from "../../../../shared/dropdownService/city-master-dropdown.service";
+import { RiskCategoryDropdownService } from "../../../../shared/dropdownService/risk-category-dropdown.service";
+import { FileUploader } from "ng2-file-upload";
+import { DocumentMasterDropdownService } from "../../../../shared/dropdownService/document-master-dropdown.service";
+import { environment } from "../../../../../environments/environment";
+import { Router } from "@angular/router";
 
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
@@ -33,67 +41,66 @@ class DataTableResponse {
 
 // For fetching values from backend
 interface DocumentMaster {
-  id: number
-  NAME: string
+  id: number;
+  NAME: string;
 }
 interface CustomerMaster {
-  AC_NO: number
-  AC_MEMBTYPE: string
-  AC_MEMBNO: string
-  AC_TITLE: string
-  F_NAME: string
-  L_NAME: string
-  M_NAME: string
-  AC_NAME: string
-  AC_CAST: string
-  AC_OCODE: string
-  AC_ADHARNO: string
-  AC_RISKCATG: string
-  AC_BIRTH_DT: string
-  AC_HONO: string
-  AC_WARD: string
-  AC_ADDR: string
-  AC_GALLI: string
-  AC_AREA: string
-  AC_CTCODE: string
-  AC_PIN: number
-  AC_PANNO: number
-  AC_SALARYDIVISION_CODE: string
-  AC_MOBILENO: number
-  AC_PHONE_RES: number
-  AC_PHONE_OFFICE: number
-  AC_EMAILID: string
-  TDSDOCUMNET: boolean
-  AC_IS_RECOVERY: boolean
-  TDS_REQUIRED: boolean
-  SMS_REQUIRED: boolean
-  IS_KYC_RECEIVED: boolean
-  FIN_YEAR: number
-  SUBMIT_DATE: Date
-  FORM_TYPE: string
-  TDS_RATE: number
-  TDS_LIMIT: number
+  AC_NO: number;
+  AC_MEMBTYPE: string;
+  AC_MEMBNO: string;
+  AC_TITLE: string;
+  F_NAME: string;
+  L_NAME: string;
+  M_NAME: string;
+  AC_NAME: string;
+  AC_CAST: string;
+  AC_OCODE: string;
+  AC_ADHARNO: string;
+  AC_RISKCATG: string;
+  AC_BIRTH_DT: string;
+  AC_HONO: string;
+  AC_WARD: string;
+  AC_ADDR: string;
+  AC_GALLI: string;
+  AC_AREA: string;
+  AC_CTCODE: string;
+  AC_PIN: number;
+  AC_PANNO: number;
+  AC_SALARYDIVISION_CODE: string;
+  AC_MOBILENO: number;
+  AC_PHONE_RES: number;
+  AC_PHONE_OFFICE: number;
+  AC_EMAILID: string;
+  TDSDOCUMNET: boolean;
+  AC_IS_RECOVERY: boolean;
+  TDS_REQUIRED: boolean;
+  SMS_REQUIRED: boolean;
+  IS_KYC_RECEIVED: boolean;
+  FIN_YEAR: number;
+  SUBMIT_DATE: Date;
+  FORM_TYPE: string;
+  TDS_RATE: number;
+  TDS_LIMIT: number;
 }
 
 @Component({
-  selector: 'app-customer-id',
-  templateUrl: './customer-id.component.html',
-  styleUrls: ['./customer-id.component.scss'],
+  selector: "app-customer-id",
+  templateUrl: "./customer-id.component.html",
+  styleUrls: ["./customer-id.component.scss"],
 })
-
 export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() newCustomerEvent = new EventEmitter<string>();
   custData;
   addNewCustomer(value) {
     this.newCustomerEvent.emit(value);
   }
-  //api 
+  //api
   url = environment.base_url;
   imageObject = new Array();
 
-  fname = '';
-  mname = '';
-  lname = '';
+  fname = "";
+  mname = "";
+  lname = "";
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -112,11 +119,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   passenger: any;
   itemsPerPage = 10;
   totalItems: any;
-  currentJustify = 'start';
+  currentJustify = "start";
   active = 1;
   activeKeep = 1;
-  // Variables for search 
-  filterObject: { name: string; type: string; }[];
+  // Variables for search
+  filterObject: { name: string; type: string }[];
   filter: any;
   filterForm: FormGroup;
   // Variables for hide/show add and update button
@@ -136,9 +143,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   risk: any[];
   documentMaster: DocumentMaster[];
   isDocument: boolean = false;
-  isTdsForm: boolean = false
-  isTdsFormA: boolean = false
-  SUBMIT_DATE: boolean = false
+  isTdsForm: boolean = false;
+  isTdsFormA: boolean = false;
+  SUBMIT_DATE: boolean = false;
+  enablefields: boolean = true;
 
   constructor(
     private http: HttpClient,
@@ -152,13 +160,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     private riskCategoryDropdown: RiskCategoryDropdownService,
     private documentMasterService: DocumentMasterDropdownService,
     public router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
     this.dtExportButtonOptions = {
-      pagingType: 'full_numbers',
+      pagingType: "full_numbers",
       paging: true,
       pageLength: 10,
       serverSide: true,
@@ -170,8 +178,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
 
-        dataTableParameters.columns.forEach(element => {
-          if (element.search.value != '') {
+        dataTableParameters.columns.forEach((element) => {
+          if (element.search.value != "") {
             let string = element.search.value;
             this.filterData[element.data] = string;
           } else {
@@ -185,80 +193,81 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           }
         });
-        dataTableParameters['filterData'] = this.filterData;
+        dataTableParameters["filterData"] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url + '/customer-id',
+            this.url + "/customer-id",
             dataTableParameters
-          ).subscribe(resp => {
+          )
+          .subscribe((resp) => {
             this.customerMaster = resp.data;
-            console.log(resp.data)
+            console.log(resp.data);
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
-              data: []
+              data: [],
             });
           });
       },
       columns: [
         {
-          title: 'Action',
+          title: "Action",
         },
         {
-          title: ' Customer ID',
-          data: 'AC_NO'
+          title: " Customer ID",
+          data: "AC_NO",
         },
         {
-          title: 'Member No',
-          data: 'AC_MEMBNO'
+          title: "Member No",
+          data: "AC_MEMBNO",
         },
         {
-          title: 'Member Scheme',
-          data: 'AC_MEMBTYPE'
+          title: "Member Scheme",
+          data: "AC_MEMBTYPE",
         },
         {
-          title: 'Title',
-          data: 'AC_TITLE'
+          title: "Title",
+          data: "AC_TITLE",
         },
         {
-          title: 'First Name',
-          data: 'F_NAME'
+          title: "First Name",
+          data: "F_NAME",
         },
         {
-          title: 'Middle Name',
-          data: 'M_NAME'
+          title: "Middle Name",
+          data: "M_NAME",
         },
         {
-          title: 'Last Name',
-          data: 'L_NAME'
+          title: "Last Name",
+          data: "L_NAME",
         },
         {
-          title: 'Full Name',
-          data: 'AC_NAME'
+          title: "Full Name",
+          data: "AC_NAME",
         },
         {
-          title: 'Cast',
-          data: 'AC_CAST'
+          title: "Cast",
+          data: "AC_CAST",
         },
         {
-          title: 'Occupation',
-          data: 'AC_OCODE'
+          title: "Occupation",
+          data: "AC_OCODE",
         },
         {
-          title: 'Risk Category',
-          data: 'AC_RISKCATG'
+          title: "Risk Category",
+          data: "AC_RISKCATG",
         },
         {
-          title: 'Adhar Card No.',
-          data: 'AC_ADHARNO'
+          title: "Adhar Card No.",
+          data: "AC_ADHARNO",
         },
         {
-          title: 'PAN No.',
-          data: 'AC_PANNO'
+          title: "PAN No.",
+          data: "AC_PANNO",
         },
         {
-          title: 'Birth Date',
-          data: 'AC_BIRTH_DT'
+          title: "Birth Date",
+          data: "AC_BIRTH_DT",
         },
         // {
         //   title: 'House No',
@@ -289,71 +298,70 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         //   data: 'AC_PIN'
         // },
         {
-          title: 'Salary Div.',
-          data: 'AC_SALARYDIVISION_CODE'
+          title: "Salary Div.",
+          data: "AC_SALARYDIVISION_CODE",
         },
         {
-          title: 'Mobile Number',
-          data: 'AC_MOBILENO'
+          title: "Mobile Number",
+          data: "AC_MOBILENO",
         },
         {
-          title: 'Recidential(R)',
-          data: 'AC_PHONE_RES'
+          title: "Recidential(R)",
+          data: "AC_PHONE_RES",
         },
         {
-          title: 'Office(O)',
-          data: 'AC_PHONE_OFFICE'
+          title: "Office(O)",
+          data: "AC_PHONE_OFFICE",
         },
         {
-          title: 'Email ID',
-          data: 'AC_EMAILID'
+          title: "Email ID",
+          data: "AC_EMAILID",
         },
         {
-          title: 'Is Received TDS Document',
-          data: 'TDSDOCUMNET'
+          title: "Is Received TDS Document",
+          data: "TDSDOCUMNET",
+        },
+        // {
+        //   title: "Recovery",
+        //   data: "AC_IS_RECOVERY",
+        // },
+        {
+          title: "TDS Calculation Required?",
+          data: "TDS_REQUIRED",
         },
         {
-          title: 'Recovery',
-          data: 'AC_IS_RECOVERY'
+          title: "SMS Facility Required ?",
+          data: "SMS_REQUIRED",
         },
         {
-          title: 'TDS Calculation Required?',
-          data: 'TDS_REQUIRED'
+          title: "KYC",
+          data: "IS_KYC_RECEIVED",
         },
         {
-          title: 'SMS Facility Required ?',
-          data: 'SMS_REQUIRED'
+          title: "Financial Year",
+          data: "FIN_YEAR",
         },
         {
-          title: 'KYC',
-          data: 'IS_KYC_RECEIVED'
+          title: "Submission Date",
+          data: "SUBMIT_DATE",
         },
         {
-          title: 'Financial Year',
-          data: 'FIN_YEAR'
+          title: "Form Type",
+          data: "FORM_TYPE",
         },
         {
-          title: 'Submission Date',
-          data: 'SUBMIT_DATE'
+          title: "TDS Rate %",
+          data: "TDS_RATE",
         },
         {
-          title: 'Form Type',
-          data: 'FORM_TYPE'
+          title: "TDS Limit",
+          data: "TDS_LIMIT",
         },
-        {
-          title: 'TDS Rate %',
-          data: 'TDS_RATE'
-        },
-        {
-          title: 'TDS Limit',
-          data: 'TDS_LIMIT'
-        },
-
       ],
-      dom: 'Blrtip',
+      dom: "Blrtip",
     };
     this.dtExportOptions = {
-      pagingType: 'full_numbers',
+      pagingType: "full_numbers",
       paging: true,
       pageLength: 10,
       serverSide: true,
@@ -366,99 +374,120 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            this.url + '/document-master',
+            this.url + "/document-master",
             dataTableParameters
-          ).subscribe(resp => {
+          )
+          .subscribe((resp) => {
             this.documentMaster = resp.data;
 
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
-              data: resp.data
+              data: resp.data,
             });
           });
       },
-      columnDefs: [{
-        targets: '_all',
-        defaultContent: ""
-      }],
+      columnDefs: [
+        {
+          targets: "_all",
+          defaultContent: "",
+        },
+      ],
       columns: [
         {
-          title: 'Action',
-          data: 'NAME'
+          title: "Action",
+          data: "NAME",
         },
-      ]
+      ],
     };
 
-
-    this.prefixMaster.getPrefixMasterList().pipe(first()).subscribe(data => {
-      this.prifix = data;
-    })
-    this.documentMasterService.getDocumentMasterList().pipe(first()).subscribe(data => {
-      this.documentMaster = data;
-    })
-    this.castService.getcastList().pipe(first()).subscribe(data => {
-      this.castMaster = data;
-    })
-    this.occupationMaster.getoccupationList().pipe(first()).subscribe(data => {
-      this.occupation = data;
-    })
-    this.salaryDMaster.getSalaryDMasterList().pipe(first()).subscribe(data => {
-      this.salaryDivision = data;
-    })
-    this.cityMaster.getcityList().pipe(first()).subscribe(data => {
-      this.city = data;
-    })
-    this.riskCategoryDropdown.getRiskCategoryList().pipe(first()).subscribe(data => {
-      this.risk = data;
-    })
+    this.prefixMaster
+      .getPrefixMasterList()
+      .pipe(first())
+      .subscribe((data) => {
+        this.prifix = data;
+      });
+    this.documentMasterService
+      .getDocumentMasterList()
+      .pipe(first())
+      .subscribe((data) => {
+        this.documentMaster = data;
+      });
+    this.castService
+      .getcastList()
+      .pipe(first())
+      .subscribe((data) => {
+        this.castMaster = data;
+      });
+    this.occupationMaster
+      .getoccupationList()
+      .pipe(first())
+      .subscribe((data) => {
+        this.occupation = data;
+      });
+    this.salaryDMaster
+      .getSalaryDMasterList()
+      .pipe(first())
+      .subscribe((data) => {
+        this.salaryDivision = data;
+      });
+    this.cityMaster
+      .getcityList()
+      .pipe(first())
+      .subscribe((data) => {
+        this.city = data;
+      });
+    this.riskCategoryDropdown
+      .getRiskCategoryList()
+      .pipe(first())
+      .subscribe((data) => {
+        this.risk = data;
+      });
   }
   uploader: FileUploader = new FileUploader({
     // url: URL,
-    isHTML5: true
+    isHTML5: true,
   });
-
 
   createForm() {
     this.angForm = this.fb.group({
-      AC_NO: [''],
-      AC_MEMBTYPE: [''],
-      AC_MEMBNO: [''],
-      AC_TITLE: ['', [Validators.required]],
-      F_NAME: ['', [Validators.pattern, Validators.required]],
-      M_NAME: ['', [Validators.pattern, Validators.required]],
-      L_NAME: ['', [Validators.pattern, Validators.required]],
-      AC_NAME: ['', [Validators.pattern]],
-      AC_CAST: [''],
-      AC_OCODE: [''],
-      AC_ADHARNO: ['', [Validators.pattern]],
-      AC_RISKCATG: [''],
-      AC_BIRTH_DT: ['',],
-      AC_HONO: ['', [Validators.pattern]],
-      AC_WARD: ['', [Validators.pattern]],
-      AC_ADDR: ['', [Validators.pattern]],
-      AC_GALLI: ['', [Validators.pattern]],
-      AC_AREA: ['', [Validators.pattern]],
-      AC_CTCODE: [''],
-      AC_PIN: ['', [Validators.pattern]],
-      AC_SALARYDIVISION_CODE: [''],
-      AC_PANNO: ['', [Validators.pattern]],
-      AC_MOBILENO: ['', [Validators.pattern]],
-      AC_PHONE_RES: ['', [Validators.pattern]],
-      AC_PHONE_OFFICE: ['', [Validators.pattern]],
-      AC_EMAILID: ['', [Validators.pattern]],
-      TDSDOCUMNET: [''],
+      AC_NO: [""],
+      AC_MEMBTYPE: [""],
+      AC_MEMBNO: [""],
+      AC_TITLE: ["", [Validators.required]],
+      F_NAME: ["", [Validators.pattern, Validators.required]],
+      M_NAME: ["", [Validators.pattern, Validators.required]],
+      L_NAME: ["", [Validators.pattern, Validators.required]],
+      AC_NAME: ["", [Validators.pattern]],
+      AC_CAST: [""],
+      AC_OCODE: [""],
+      AC_ADHARNO: ["", [Validators.pattern]],
+      AC_RISKCATG: [""],
+      AC_BIRTH_DT: [""],
+      AC_HONO: ["", [Validators.pattern]],
+      AC_WARD: ["", [Validators.pattern]],
+      AC_ADDR: ["", [Validators.pattern]],
+      AC_GALLI: ["", [Validators.pattern]],
+      AC_AREA: ["", [Validators.pattern]],
+      AC_CTCODE: [""],
+      AC_PIN: ["", [Validators.pattern]],
+      AC_SALARYDIVISION_CODE: [""],
+      AC_PANNO: ["", [Validators.pattern]],
+      AC_MOBILENO: ["", [Validators.pattern]],
+      AC_PHONE_RES: ["", [Validators.pattern]],
+      AC_PHONE_OFFICE: ["", [Validators.pattern]],
+      AC_EMAILID: ["", [Validators.pattern]],
+      TDSDOCUMNET: [""],
       AC_IS_RECOVERY: [false],
       TDS_REQUIRED: [false],
       SMS_REQUIRED: [false],
       IS_KYC_RECEIVED: [false],
-      FIN_YEAR: [''],
-      SUBMIT_DATE: [''],
-      FORM_TYPE: [''],
-      TDS_RATE: ['', [Validators.pattern]],
-      TDS_LIMIT: ['', [Validators.pattern]],
+      FIN_YEAR: [""],
+      SUBMIT_DATE: [""],
+      FORM_TYPE: [""],
+      TDS_RATE: ["", [Validators.pattern]],
+      TDS_LIMIT: ["", [Validators.pattern]],
       // UPLOADFIELD:[''],
-
     });
   }
 
@@ -466,55 +495,57 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
-      'AC_NO': formVal.AC_NO,
-      'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
-      'AC_MEMBNO': formVal.AC_MEMBNO,
-      'AC_TITLE': formVal.AC_TITLE,
-      'F_NAME': formVal.F_NAME,
-      'M_NAME': formVal.M_NAME,
-      'L_NAME': formVal.L_NAME,
-      'AC_NAME': formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME,
-      'AC_CAST': formVal.AC_CAST,
-      'AC_OCODE': formVal.AC_OCODE,
-      'AC_ADHARNO': formVal.AC_ADHARNO,
-      'AC_RISKCATG': formVal.AC_RISKCATG,
-      'AC_BIRTH_DT': formVal.AC_BIRTH_DT,
-      'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
-      'AC_MOBILENO': formVal.AC_MOBILENO,
-      'AC_PHONE_RES': formVal.AC_PHONE_RES,
-      'AC_PANNO': formVal.AC_PANNO,
-      'AC_PHONE_OFFICE': formVal.AC_PHONE_OFFICE,
-      'AC_EMAILID': formVal.AC_EMAILID,
-      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
-      'TDS_REQUIRED': formVal.TDS_REQUIRED,
-      'SMS_REQUIRED': formVal.SMS_REQUIRED,
-      'IS_KYC_RECEIVED': formVal.IS_KYC_RECEIVED,
-      'TDSDOCUMNET': formVal.TDSDOCUMNET,
-      'AC_HONO': formVal.AC_HONO,
-      'AC_WARD': formVal.AC_WARD,
-      'AC_ADDR': formVal.AC_ADDR,
-      'AC_GALLI': formVal.AC_GALLI,
-      'AC_AREA': formVal.AC_AREA,
-      'AC_CTCODE': formVal.AC_CTCODE,
-      'AC_PIN': formVal.AC_PIN,
-      'FIN_YEAR': formVal.FIN_YEAR,
-      'SUBMIT_DATE': formVal.SUBMIT_DATE,
-      'FORM_TYPE': formVal.FORM_TYPE,
-      'TDS_RATE': formVal.TDS_RATE,
-      'TDS_LIMIT': formVal.TDS_LIMIT
-    }
+      AC_NO: formVal.AC_NO,
+      AC_MEMBTYPE: formVal.AC_MEMBTYPE,
+      AC_MEMBNO: formVal.AC_MEMBNO,
+      AC_TITLE: formVal.AC_TITLE,
+      F_NAME: formVal.F_NAME,
+      M_NAME: formVal.M_NAME,
+      L_NAME: formVal.L_NAME,
+      AC_NAME: formVal.L_NAME + " " + formVal.F_NAME + " " + formVal.M_NAME,
+      AC_CAST: formVal.AC_CAST,
+      AC_OCODE: formVal.AC_OCODE,
+      AC_ADHARNO: formVal.AC_ADHARNO,
+      AC_RISKCATG: formVal.AC_RISKCATG,
+      AC_BIRTH_DT: formVal.AC_BIRTH_DT,
+      AC_SALARYDIVISION_CODE: formVal.AC_SALARYDIVISION_CODE,
+      AC_MOBILENO: formVal.AC_MOBILENO,
+      AC_PHONE_RES: formVal.AC_PHONE_RES,
+      AC_PANNO: formVal.AC_PANNO,
+      AC_PHONE_OFFICE: formVal.AC_PHONE_OFFICE,
+      AC_EMAILID: formVal.AC_EMAILID,
+      AC_IS_RECOVERY: formVal.AC_IS_RECOVERY,
+      TDS_REQUIRED: formVal.TDS_REQUIRED,
+      SMS_REQUIRED: formVal.SMS_REQUIRED,
+      IS_KYC_RECEIVED: formVal.IS_KYC_RECEIVED,
+      TDSDOCUMNET: formVal.TDSDOCUMNET,
+      AC_HONO: formVal.AC_HONO,
+      AC_WARD: formVal.AC_WARD,
+      AC_ADDR: formVal.AC_ADDR,
+      AC_GALLI: formVal.AC_GALLI,
+      AC_AREA: formVal.AC_AREA,
+      AC_CTCODE: formVal.AC_CTCODE,
+      AC_PIN: formVal.AC_PIN,
+      FIN_YEAR: formVal.FIN_YEAR,
+      SUBMIT_DATE: formVal.SUBMIT_DATE,
+      FORM_TYPE: formVal.FORM_TYPE,
+      TDS_RATE: formVal.TDS_RATE,
+      TDS_LIMIT: formVal.TDS_LIMIT,
+    };
 
-
-    this.customerIdService.postData(dataToSend).subscribe(data => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      console.log('submit', data)
-      // this.custData = data1.id;
-      this.addNewCustomer(data.id)
-      // to reload after insertion of data
-      this.rerender();
-    }, (error) => {
-      console.log(error)
-    })
+    this.customerIdService.postData(dataToSend).subscribe(
+      (data) => {
+        Swal.fire("Success!", "Data Added Successfully !", "success");
+        console.log("submit", data);
+        // this.custData = data1.id;
+        this.addNewCustomer(data.id);
+        // to reload after insertion of data
+        this.rerender();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 
     //To clear form
     this.resetForm();
@@ -524,8 +555,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   resetForm() {
     this.createForm();
     this.isDocument = false;
-    this.isTdsForm = false
-    this.isTdsFormA = false
+    this.isTdsForm = false;
+    this.isTdsFormA = false;
   }
 
   addNewData() {
@@ -535,104 +566,144 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetForm();
   }
 
+  //enabling and disabling fields of photo and adhar card checkbox
+  Enablefields(data, id, ele) {
+    debugger;
+    console.log(data);
+    if (ele.target.checked) {
+      (document.getElementById("file" + id) as HTMLInputElement).disabled =
+        false;
+        (document.getElementById("eyebutton" + id) as HTMLInputElement).disabled =
+        false;
+        
+    } else {
+      (document.getElementById("file" + id) as HTMLInputElement).disabled =
+        true;
+        (document.getElementById("eyeicon" + id) as HTMLInputElement).disabled =
+        true;
+    }
+  }
+
+  //check  if margin values are below 100
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
+    console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
+    } else {
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
+  }
+  //method to add space
+  addSpace(data: any) {
+    let result = data
+      .replace(/\D/g, "")
+      .split(/(?:([\d]{4}))/g)
+      .filter((s) => s.length > 0)
+      .join(" ");
+    (document.getElementById("AC_ADHARNO") as HTMLInputElement).value = result;
+    console.log(data);
+  }
+
+  //method for adding hyphen in date
+  addhyphen(data: any) {
+    let result = data
+      .replace(/\D/g, "")
+      .split(/(?:([\d]{4}))/g)
+      .filter((s) => s.length > 0)
+      .join("-");
+    (document.getElementById("FIN_YEAR") as HTMLInputElement).value = result;
+  }
+
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
-    this.customerIdService.getFormData(id).subscribe(data => {
-      console.log('edit', data)
+    this.customerIdService.getFormData(id).subscribe((data) => {
+      console.log("edit", data);
       this.updateID = data.id;
       this.angForm.patchValue({
-        'AC_NO': data.AC_NO,
-        'AC_MEMBTYPE': data.AC_MEMBTYPE,
-        'AC_MEMBNO': data.AC_MEMBNO,
-        'AC_TITLE': data.AC_TITLE,
-        'F_NAME': data.F_NAME,
-        'M_NAME': data.M_NAME,
-        'L_NAME': data.L_NAME,
-        'AC_NAME': data.AC_NAME,
-        'AC_CAST': data.AC_CAST,
-        'AC_OCODE': data.AC_OCODE,
-        'AC_ADHARNO': data.AC_ADHARNO,
-        'AC_RISKCATG': data.AC_RISKCATG,
-        'AC_BIRTH_DT': data.AC_BIRTH_DT,
-        'AC_HONO': data.custAddress[0].AC_HONO,
+        AC_NO: data.AC_NO,
+        AC_MEMBTYPE: data.AC_MEMBTYPE,
+        AC_MEMBNO: data.AC_MEMBNO,
+        AC_TITLE: data.AC_TITLE,
+        F_NAME: data.F_NAME,
+        M_NAME: data.M_NAME,
+        L_NAME: data.L_NAME,
+        AC_NAME: data.AC_NAME,
+        AC_CAST: data.AC_CAST,
+        AC_OCODE: data.AC_OCODE,
+        AC_ADHARNO: data.AC_ADHARNO,
+        AC_RISKCATG: data.AC_RISKCATG,
+        AC_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_HONO: data.custAddress[0].AC_HONO,
         // 'AC_WARD': data.custAddress[0].AC_WARD,
         // 'AC_ADDR': data.custAddress[0].AC_ADDR,
         // 'AC_GALLI': data.custAddress[0].AC_GALLI,
         // 'AC_AREA': data.custAddress[0].AC_AREA,
         // 'AC_CTCODE': data.custAddress[0].AC_CTCODE,
         // 'AC_PIN': data.custAddress[0].AC_PIN,
-        'AC_SALARYDIVISION_CODE': data.AC_SALARYDIVISION_CODE,
-        'AC_PANNO': data.AC_PANNO,
-        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
-        'AC_MOBILENO': data.AC_MOBILENO,
-        'AC_PHONE_RES': data.AC_PHONE_RES,
-        'AC_PHONE_OFFICE': data.AC_PHONE_OFFICE,
-        'AC_EMAILID': data.AC_EMAILID,
-        'TDSDOCUMNET': data.AC_EMAILID,
-        'TDS_REQUIRED': data.TDS_REQUIRED,
-        'SMS_REQUIRED': data.SMS_REQUIRED,
-        'IS_KYC_RECEIVED': data.IS_KYC_RECEIVED,
-        'FIN_YEAR': data.tdsForm.FIN_YEAR,
-        'SUBMIT_DATE': data.tdsForm.SUBMIT_DATE,
-        'FORM_TYPE': data.tdsForm.FORM_TYPE,
-        'TDS_RATE': data.tdsForm.TDS_RATE,
-        'TDS_LIMIT': data.tdsForm.TDS_LIMIT
-      })
-    })
+        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
+        AC_PANNO: data.AC_PANNO,
+        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+        AC_MOBILENO: data.AC_MOBILENO,
+        AC_PHONE_RES: data.AC_PHONE_RES,
+        AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
+        AC_EMAILID: data.AC_EMAILID,
+        TDSDOCUMNET: data.AC_EMAILID,
+        TDS_REQUIRED: data.TDS_REQUIRED,
+        SMS_REQUIRED: data.SMS_REQUIRED,
+        IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
+        FIN_YEAR: data.tdsForm.FIN_YEAR,
+        SUBMIT_DATE: data.tdsForm.SUBMIT_DATE,
+        FORM_TYPE: data.tdsForm.FORM_TYPE,
+        TDS_RATE: data.tdsForm.TDS_RATE,
+        TDS_LIMIT: data.tdsForm.TDS_LIMIT,
+      });
+    });
   }
 
-  //Method for update data 
+  //Method for update data
   updateData() {
     let data = this.angForm.value;
-    data['id'] = this.updateID;
+    data["id"] = this.updateID;
     this.customerIdService.updateData(data).subscribe(() => {
-      console.log(data)
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      console.log(data);
+      Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
       this.rerender();
       this.resetForm();
-    })
+    });
   }
 
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "Do you want to delete Authority master data.",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#229954",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        this.customerIdService.deleteData(id).subscribe(data1 => {
+        this.customerIdService.deleteData(id).subscribe((data1) => {
           this.customerMaster = data1;
-          Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
-            'success'
-          )
-        }), (error) => {
-          console.log(error)
-        }
+          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+        }),
+          (error) => {
+            console.log(error);
+          };
         // to reload after delete of data
         this.rerender();
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire("Cancelled", "Your data is safe.", "error");
       }
-    })
+    });
   }
 
   ngAfterViewInit(): void {
@@ -640,15 +711,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
         const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-          if (this['value'] != '') {
-            that
-              .search(this['value'])
-              .draw();
+        $("input", this.footer()).on("keyup change", function () {
+          if (this["value"] != "") {
+            that.search(this["value"]).draw();
           } else {
-            that
-              .search(this['value'])
-              .draw();
+            that.search(this["value"]).draw();
           }
         });
       });
@@ -679,9 +746,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   isChecked($event) {
     if ($event.target.checked) {
       document.getElementById("{{data.value}}").removeAttribute("disabled");
-    }
-    else {
-      document.getElementById("{{data.value}}").setAttribute("disabled", "true");
+    } else {
+      document
+        .getElementById("{{data.value}}")
+        .setAttribute("disabled", "true");
     }
   }
 
@@ -689,12 +757,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     if ($event.target.checked) {
       this.isTdsForm = true;
       this.isTdsFormA = false;
-      this.SUBMIT_DATE = true
-
+      this.SUBMIT_DATE = true;
     } else {
       this.isTdsForm = false;
       this.isTdsFormA = false;
-      this.SUBMIT_DATE = false
+      this.SUBMIT_DATE = false;
     }
   }
   isForm15A(value) {
@@ -716,27 +783,26 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   cardImageBase64: string;
 
   fileChangeEvent(event: Event, id, valueid) {
-    debugger
+    debugger;
     let arr = [];
     let me = this;
-    let obj= {};
+    let obj = {};
     let file = (event.target as HTMLInputElement).files[0];
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async function () {
-      let result =  await reader.result;
+      let result = await reader.result;
       obj[valueid] = result;
     };
     this.imageObject.push(obj);
     reader.onerror = function (error) {
-      console.log('Error: ', error);
+      console.log("Error: ", error);
     };
     console.log(this.imageObject);
   }
 
-
-  viewImagePreview(ele:any){
-    debugger 
+  viewImagePreview(ele: any) {
+    debugger;
     console.log(ele);
   }
 }
