@@ -30,7 +30,7 @@ class ItemCatMasterDropdownService {
         return this.http.get(this.url + '/item-category-master')
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
             ele.forEach(element => {
-                let obj = { label: element.NAME, value: element.NAME };
+                let obj = { label: element.NAME, value: `${element.NAME}` };
                 this.itemObject.push(obj);
             });
             return this.itemObject;

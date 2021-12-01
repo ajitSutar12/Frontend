@@ -31,7 +31,7 @@ class AdvocateMasterDropdownService {
         return this.http.get(this.url + '/advocate-master')
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
             ele.forEach(element => {
-                let obj = { label: element.NAME, value: element.id };
+                let obj = { label: element.NAME, value: `${element.id}` };
                 this.advocateMasterObject.push(obj);
             });
             return this.advocateMasterObject;
@@ -78,7 +78,7 @@ class CourtMasterDropdownService {
         return this.http.get(this.url + '/court-master')
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
             ele.forEach(element => {
-                let obj = { label: element.NAME, value: element.id };
+                let obj = { label: element.NAME, value: `${element.id}` };
                 this.courtMasterObject.push(obj);
             });
             return this.courtMasterObject;
@@ -125,7 +125,7 @@ class LoanStageMasterDropdownService {
         return this.http.get(this.url + '/loan-stage-master')
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
             ele.forEach(element => {
-                let obj = { label: element.NAME, value: element.id };
+                let obj = { label: element.NAME, value: `${element.id}` };
                 this.loanStageMasterObject.push(obj);
             });
             return this.loanStageMasterObject;
@@ -3089,6 +3089,8 @@ class DisputeLoanMasterComponent {
         this.updateID = 0;
         //filter variable
         this.filterData = {};
+        //Scheme type variable
+        this.schemeType = 'DS';
         this.securitiesOptions = {}; //Datatable variable for securities tab
         this.guarantorOptions = {}; //Datatable variable for gurantor tab
         this.dtdocumentOptions = {}; //Datatable variable for document form
@@ -3141,7 +3143,7 @@ class DisputeLoanMasterComponent {
                 this.page = dataTableParameters.start / dataTableParameters.length;
                 this.http
                     .post(this.url + '/term-loan-master', 
-                // 'http://localhost:4000/dispute-loan-master',
+                // '/dispute-loan-master',
                 dataTableParameters).subscribe(resp => {
                     this.disputelonemaster = resp.data;
                     callback({
@@ -3510,14 +3512,13 @@ class DisputeLoanMasterComponent {
             dom: 'Blrtip',
         };
         this.runTimer();
-        this.runTimer();
         this.dataSub = this.repayModeService.loadCharacters().subscribe((options) => {
             this.characters = options;
         });
         this.dataSub = this.installmentMethodService.loadCharacters().subscribe((options) => {
             this.characters = options;
         });
-        this.SchemeCodeDropdownService.getSchemeCodeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(data => {
+        this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(data => {
             this.scheme = data;
         });
         this.TermLoanMasterDropdownService.getTermLoanMasterList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["first"])()).subscribe(data => {

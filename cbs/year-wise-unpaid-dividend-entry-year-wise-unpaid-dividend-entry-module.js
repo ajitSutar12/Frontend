@@ -70,18 +70,30 @@ class SchemeCodeDropdownService {
     constructor(http) {
         this.http = http;
         this.schemeCodeObject = new Array();
+        this.schemeObject = new Array();
         // // scheme-parameters";
         this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].base_url;
     }
-    getSchemeCodeList() {
+    getSchemeCodeList(scheme) {
         this.schemeCodeObject = [];
-        return this.http.get(this.url + '/scheme-parameters')
+        return this.http.get(this.url + '/scheme-parameters/' + scheme)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
             ele.forEach(element => {
                 let obj = { label: element.S_APPL + ' ' + element.S_NAME, value: `${element.id}` };
                 this.schemeCodeObject.push(obj);
             });
             return this.schemeCodeObject;
+        }));
+    }
+    getAllSchemeList() {
+        this.schemeObject = [];
+        return this.http.get(this.url + '/scheme-parameters/')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
+            ele.forEach(element => {
+                let obj = { label: element.S_ACNOTYPE + ' ' + element.S_NAME, value: `${element.S_ACNOTYPE}` };
+                this.schemeObject.push(obj);
+            });
+            return this.schemeObject;
         }));
     }
 }
@@ -386,6 +398,8 @@ class YearWiseUnpaidDividendEntryComponent {
         this.newbtnShow = false;
         //variable to get Id to update
         this.updateID = 0;
+        //Scheme type variable
+        this.schemeType = 'SH';
         // column search variable
         this.filterData = {};
     }
@@ -482,7 +496,7 @@ class YearWiseUnpaidDividendEntryComponent {
             ],
             dom: 'Blrtip',
         };
-        this.SchemeCodeDropdownService.getSchemeCodeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])()).subscribe(data => {
+        this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])()).subscribe(data => {
             this.SchemeCodeObject = data;
         });
         this.SalaryDMasterdropdownService.getSalaryDMasterList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])()).subscribe(data => {

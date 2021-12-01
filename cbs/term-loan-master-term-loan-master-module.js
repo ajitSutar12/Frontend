@@ -2690,6 +2690,8 @@ class TermLoanMasterComponent {
         this.newbtnShow = false;
         //variable to get ID to update
         this.updateID = 0;
+        //Scheme type variable
+        this.schemeType = 'LN';
         // Filter Variable
         this.filterData = {};
         // documentMaster: DocumentMaster[];
@@ -2927,10 +2929,7 @@ class TermLoanMasterComponent {
             ],
             dom: 'Blrtip',
         };
-        this.repayModeService.loadCharacters().subscribe((options) => {
-            this.repayModeOption = options;
-        });
-        this.schemeCodeDropdownService.getSchemeCodeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
+        this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
             this.scheme = data;
         });
         this.customerID.getCustomerIDMasterList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
