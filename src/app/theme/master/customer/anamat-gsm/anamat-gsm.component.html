@@ -17,30 +17,14 @@
                                 </ng-select>
                             </div>
 
-                            <!-- <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div> -->
                         </div>
-                        <div class="col-sm">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="AC_NO" class="form-control" placeholder=" " id="AC_NO"
-                                        value="" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        formControlName="AC_NO" disabled>
-                                    <label for="AC_NO">Account No</label>
-                                </span>
-                            </div>
-                        </div>
+                        
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
                                     placeholder="Customer ID *" required title="Compulsory Selection"
-                                    formControlName="AC_CUSTID" [(ngModel)]="id" (selected)="getCustomer(id)" 
-                                    style="width: 90%;">
+                                    formControlName="AC_CUSTID" [(ngModel)]="id" (selected)="getCustomer(id)"
+                                    style="width: 90%;" (keyup)=checkCUST_No()>
                                 </ng-select>
                                 <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
                                     (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer"></span>
@@ -54,40 +38,64 @@
                             </div>
                         </div>
                         <!-- <ng-container *ngIf="showModalStatus"> -->
-                            <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
-                                <div class="app-modal-header">
-                                    <h4 class="modal-title">Customer ID </h4>
-                                    <button type="button" class="close basic-close" (click)="modalLarge.hide()">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="app-modal-body">
-                                    <perfect-scrollbar style="max-width: 800px; max-height: 450px;">
-                                        <app-customer-id (newCustomerEvent)="addNewCustomer($event)"></app-customer-id>
-                                    </perfect-scrollbar>
-                                </div>
-    
-                                <div class="app-modal-footer">
-                                    <button type="button" class="btn btn-primary ripple light" (click)="modalLarge.hide()">Close</button>
-                                </div>
-                            </app-modal-basic>
+                        <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
+                            <div class="app-modal-header">
+                                <h4 class="modal-title">Customer ID </h4>
+                                <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="app-modal-body">
+                                <perfect-scrollbar style="max-width: 800px; max-height: 450px;">
+                                    <app-customer-id (newCustomerEvent)="addNewCustomer($event)"></app-customer-id>
+                                </perfect-scrollbar>
+                            </div>
+
+                            <div class="app-modal-footer">
+                                <button type="button" class="btn btn-primary ripple light"
+                                    (click)="modalLarge.hide()">Close</button>
+                            </div>
+                        </app-modal-basic>
+
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="AC_NO" class="form-control" placeholder=" " id="AC_NO"
+                                        value="" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        formControlName="AC_NO" disabled>
+                                    <label for="AC_NO">Account No</label>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
+                        
                         <div class="col-sm-2">
-                            <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="titleOption" name="AC_TITLE"
-                                    [multiple]="false" placeholder="Title*" required title="Compulsory Selection"
-                                    formControlName="AC_TITLE"  disabled>
-                                </ng-select>
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="Name" class="form-control" placeholder=" " id="AC_TITLE"
+                                         value="" pattern="^[A-Za-z\./ -]+$"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_TITLE"
+                                        disabled>
+                                    <label for="AC_TITLE">Title </label>
+                                </span>
                             </div>
-                           
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_TITLE'].invalid && (angForm.controls['AC_TITLE'].dirty || angForm.controls['AC_TITLE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['AC_TITLE'].errors?.pattern">
+                                     Input allowed only A-Z a-z - / . (Space)
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-5">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="Name" class="form-control" placeholder=" " id="AC_NAME"
                                         required="" value="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NAME" disabled>
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NAME"
+                                        disabled>
                                     <label for="AC_NAME">Name </label>
                                 </span>
                             </div>
@@ -105,7 +113,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_MEMBTYPE" class="form-control" placeholder=" "
                                         id="AC_MEMBTYPE" value="" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        formControlName="AC_MEMBTYPE"  disabled>
+                                        formControlName="AC_MEMBTYPE" disabled>
                                     <label for="AC_MEMBTYPE">Member Scheme</label>
                                 </span>
                             </div>
@@ -117,7 +125,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_MEMBNO" class="form-control" placeholder=" "
@@ -142,7 +150,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_HONO" class="form-control" placeholder=" " id="AC_HONO"
                                         value="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_HONO" disabled>
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_HONO"
+                                        disabled>
                                     <label for="AC_HONO">House</label>
                                 </span>
                             </div>
@@ -159,7 +168,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_WARD" class="form-control" placeholder=" " id="AC_WARD"
                                         value="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_WARD" disabled>
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_WARD"
+                                        disabled>
                                     <label for="AC_WARD">Ward</label>
                                 </span>
                             </div>
@@ -176,7 +186,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_TADDR" class="form-control" placeholder=" "
                                         id="AC_TADDR" value="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_TADDR" disabled>
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_TADDR"
+                                        disabled>
                                     <label for="AC_TADDR">Detail</label>
                                 </span>
                             </div>
@@ -196,7 +207,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_TGALLI" class="form-control" placeholder=" "
                                         id="AC_TGALLI" value="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_TGALLI" disabled>
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_TGALLI"
+                                        disabled>
                                     <label for="AC_TGALLI">Galli</label>
                                 </span>
                             </div>
@@ -214,7 +226,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_CTCODE" class="form-control" placeholder=" "
                                         id="AC_CTCODE" value="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_CTCODE" disabled>
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_CTCODE"
+                                        disabled>
                                     <label for="AC_CTCODE">City</label>
                                 </span>
                             </div>
@@ -231,7 +244,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_AREA" class="form-control" placeholder=" " id="AC_AREA"
                                         value="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_AREA" disabled>
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_AREA"
+                                        disabled>
                                     <label for="AC_AREA">Area</label>
                                 </span>
                             </div>
@@ -269,83 +283,83 @@
                                     <label for="AC_OPDATE">Open Date </label>
                                 </span>
                             </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_OPDATE'].invalid && (angForm.controls['AC_OPDATE'].dirty || angForm.controls['AC_OPDATE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_OPDATE'].errors?.pattern || angForm.controls['AC_OPDATE'].errors?.required" >
+                                   This field is Required .
+                                </div>
+                            </div>
                         </div>
-                      
+
                     </div>
 
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="border-checkbox-section">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox" id="Recovery" value="checkbox"
-                                        [checked]="isRecovery == true" formControlName="Recovery">
-                                    <!--Default unchecked-->
-                                    <label class="border-checkbox-label" for="Recovery">Recovery</label>
+                                    <input class="border-checkbox" type="checkbox" id="AC_IS_RECOVERY" value="checkbox"
+                                         formControlName="AC_IS_RECOVERY">
+                                    
+                                    <label class="border-checkbox-label" for="AC_IS_RECOVERY">Recovery</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-md-1">
+                            <label for="">Opening Balance :</label>
+                        </div>
+                         <div class="col-sm-3">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <!-- [checked]="isDebit == true" -->
-                                        <input type="radio" name="Debit" 
-                                            formControlName="Debit" value="Debit" checked>
-                                        <!--Default checked-->
+                                      
+                                        <input type="radio" name="DEBIT" formControlName="DEBIT" value="DEBIT" checked="true">
+                                    
                                         <i class="helper"></i>Debit
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <!-- [checked]="isDebit == false" -->
-                                        <input type="radio" name="Debit"
-                                            formControlName="Debit" value="Credit">
-                                        <!--Default unchecked-->
+                                       
+                                        <input type="radio" name="DEBIT" formControlName="DEBIT" value="Credit">
+                                       
                                         <i class="helper"></i>Credit
                                     </label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm">
+                        </div> 
+       
+                        <div class="col-sm-6">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
-                                        id="AC_PARTICULAR" value="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                        id="AC_PARTICULAR" value="" pattern="^[A-Za-z\./ 0-9 -]+$"
+                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                         formControlName="AC_PARTICULAR">
-                                    <label for="AC_PARTICULAR">Reason</label>
+                                    <label for="AC_PARTICULAR">Reason<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_PARTICULAR'].invalid && (angForm.controls['AC_PARTICULAR'].dirty || angForm.controls['AC_PARTICULAR'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_PARTICULAR'].errors?.pattern">
+                                <div *ngIf="angForm.controls['AC_PARTICULAR'].errors?.pattern || angForm.controls['AC_PARTICULAR'].errors?.required" >
                                     Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
                         </div>
-                        <!-- [disabled]="angForm.invalid" -->
-                        <!-- <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton"
-                               >Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
-                        </div> -->
-                        <div class="col-md-2">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton">Add
-                            </button>
-                            <!-- [attr.disabled]="!angForm.valid ? true : null" -->
+ 
+                        
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
                             <!-- [disabled]="angForm.invalid" -->
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow" > Update
-                                <!-- [disabled]="angForm.invalid" -->
-                            </button> 
-                        </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">New
-                                </button>
-                        </div>
-
-
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid"
+                            >Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+                             >Update</button> &nbsp;
+                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
+                          </div>
                     </div>
                 </form>
             </div>
@@ -369,10 +383,11 @@
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
 
-                                        <!-- <td>{{ data.AC_ACNOTYPE }}</td> -->
+                                         <td>{{ data.AC_ACNOTYPE }}</td>
                                         <td>{{ data.AC_TYPE }}</td>
-                                        <td>{{ data.AC_NO }}</td>
+                                        
                                         <td>{{ data.AC_CUSTID }}</td>
+                                        <td>{{ data.AC_NO }}</td>
                                         <td>{{ data.AC_TITLE }}</td>
                                         <td>{{ data.AC_NAME }}</td>
                                         <td>{{ data.AC_MEMBTYPE }}</td>
@@ -386,7 +401,7 @@
                                         <td>{{ data.AC_PIN }}</td>
                                         <td>{{ data.AC_OPDATE }}</td>
                                         <td>{{ data.Recovery }}</td>
-                                        <td>{{ data.Debit }}</td>
+                                        <td>{{ data.DEBIT }}</td>
 
                                         <td>{{ data.AC_PARTICULAR }}</td>
                                     </tr>
@@ -399,13 +414,15 @@
                                 <tfoot>
                                     <tr>
                                         <th></th>
-                                        <!-- <th><input type="text" placeholder="Search scheme" name="AC_ACNOTYPE"></th> -->
+                                       <th><input type="text" placeholder="Search scheme" name="AC_ACNOTYPE"></th> 
                                         <th><input type="text" placeholder="Search scheme" name="AC_TYPE"></th>
-                                        <th><input type="text" placeholder="Search Account no" name="AC_NO"></th>
+                                       
                                         <th><input type="text" placeholder="Search CustomerID" name="AC_CUSTID"></th>
+                                        <th><input type="text" placeholder="Search Account no" name="AC_NO"></th>
                                         <th><input type="text" placeholder="Search title" name="AC_TITLE"></th>
                                         <th><input type="text" placeholder="Search name" name="AC_NAME"></th>
-                                        <th><input type="text" placeholder="Search Member scheme" name="AC_MEMBTYPE"></th>
+                                        <th><input type="text" placeholder="Search Member scheme" name="AC_MEMBTYPE">
+                                        </th>
                                         <th><input type="text" placeholder="Search Member no" name="AC_MEMBNO"></th>
                                         <th><input type="text" placeholder="Search House" name="AC_HONO"></th>
                                         <th><input type="text" placeholder="Search Ward" name="AC_HONO"></th>
@@ -417,7 +434,7 @@
                                         <th><input type="text" placeholder="Search opening bal. date" name="AC_OPDATE">
                                         </th>
                                         <th><input type="text" placeholder="Search Recovery" name="Recovery"></th>
-                                        <th><input type="text" placeholder="Search opening bal" name="Debit"></th>
+                                        <th><input type="text" placeholder="Search opening bal" name="DEBIT"></th>
                                         <th><input type="text" placeholder="Search AC_PARTICULAR" name="Reason">
                                         </th>
                                     </tr>

@@ -8,11 +8,11 @@
             <div class="card-block">
                 <form action="javascript:" [formGroup]="angForm">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
-                                        required="" pattern="^[0-9]+$" maxlength="5"
+                                        required="" pattern="^[0-9]+$" maxlength="4"
                                         title="Input allowed only  0-9. (Space)" formControlName="S_APPL">
                                     <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                                 </span>
@@ -44,11 +44,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
-                                        id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="10"
+                                        id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="15"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
                                     <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
                                 </span>
@@ -62,8 +65,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
@@ -96,6 +97,9 @@
                                 </div>
                             </div>
                         </div>
+                       
+                    </div>
+                    <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
@@ -104,8 +108,6 @@
                                 </ng-select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
@@ -186,7 +188,7 @@
                                                             (click)="Interest_applicable($event)">
                                                         <label class="border-checkbox-label" for="S_INT_APPLICABLE">Is
                                                             Interest
-                                                            Applicable<span class="required"> </span></label>
+                                                            Applicable</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -199,7 +201,7 @@
                                                         <label class="border-checkbox-label"
                                                             for="POST_TO_INDIVIDUAL_AC">Is
                                                             Post
-                                                            Interest to A/c<span class="required"> </span></label>
+                                                            Interest to A/c</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -214,7 +216,7 @@
                                                         <label class="border-checkbox-label"
                                                             for="S_RECEIVABLE_INT_ALLOW">Is
                                                             Receivable
-                                                            Int. Allowed ?<span class="required"> </span></label>
+                                                            Int. Allowed ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -226,8 +228,7 @@
                                                             id="IS_SHOW_INT_AS_RECINT_IFDUEBAL" disabled>
                                                         <label class="border-checkbox-label"
                                                             for="IS_SHOW_INT_AS_RECINT_IFDUEBAL">Post as
-                                                            Receivable Interest, if Account goes in Overdue ?<span
-                                                                class="required"> </span></label>
+                                                            Receivable Interest, if Account goes in Overdue ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -242,8 +243,7 @@
                                                         <label class="border-checkbox-label" for="IS_INTUPTODATE">Is
                                                             Don't
                                                             Post
-                                                            Interest After Expiry Date ?<span class="required">
-                                                            </span></label>
+                                                            Interest After Expiry Date ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -257,7 +257,7 @@
                                                             for="IS_NO_POST_INT_AFT_OD">Is
                                                             Don't
                                                             Post
-                                                            Interest After OD ?<span class="required"> </span></label>
+                                                            Interest After OD ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -271,12 +271,11 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="MIN_INT_LIMIT" class="form-control"
-                                                            placeholder=" " id="MIN_INT_LIMIT" required=""
+                                                            placeholder=" " id="MIN_INT_LIMIT"
                                                             pattern="\d{1,20}(\.\d{2})?" maxlength="2"
                                                             title="Input allowed only  0-9 . (Space)"
                                                             formControlName="MIN_INT_LIMIT" disabled>
-                                                        <label for="MIN_INT_LIMIT">Minimum Interest Amount<sub
-                                                                class="required">* </sub></label>
+                                                        <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
@@ -284,7 +283,7 @@
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['MIN_INT_LIMIT'].errors?.pattern || angForm.controls['MIN_INT_LIMIT'].errors?.required">
-                                                        This field is required and Input allowed only 0-9 . (Space)
+                                                         Input allowed only 0-9 . (Space)
                                                     </div>
                                                 </div>
                                             </div>
@@ -294,12 +293,12 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="ROUNDOFF_FACTOR" class="form-control"
-                                                            placeholder=" " id="ROUNDOFF_FACTOR" required=""
+                                                            placeholder=" " id="ROUNDOFF_FACTOR" 
                                                             pattern="^[0-9]+$" maxlength="2"
                                                             title="Input allowed only  0-9 . (Space)"
                                                             formControlName="ROUNDOFF_FACTOR" disabled>
                                                         <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in
-                                                            Paise<sub class="required">* </sub></label>
+                                                            Paise</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
@@ -307,7 +306,7 @@
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['ROUNDOFF_FACTOR'].errors?.pattern || angForm.controls['ROUNDOFF_FACTOR'].errors?.required">
-                                                        This field is required and Input allowed only 0-9 . (Space)
+                                                         Input allowed only 0-9 . (Space)
                                                     </div>
                                                 </div>
                                             </div>
@@ -333,7 +332,7 @@
                                                         <label class="border-checkbox-label"
                                                             for="S_PENAL_INT_APPLICABLE">Penal
                                                             Interest
-                                                            Applicable ?<span class="required"> </span></label>
+                                                            Applicable ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -346,7 +345,7 @@
                                                         <label class="border-checkbox-label"
                                                             for="IS_POST_PENAL_TO_AC">Post
                                                             Penal
-                                                            Interest to Account ?<span class="required"> </span></label>
+                                                            Interest to Account ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -360,8 +359,7 @@
                                                             id="POST_PENALINT_IN_INTEREST" disabled>
                                                         <label class="border-checkbox-label"
                                                             for="POST_PENALINT_IN_INTEREST">Add Penal
-                                                            Interest in Interest Amount ?<span class="required">
-                                                            </span></label>
+                                                            Interest in Interest Amount ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -373,8 +371,7 @@
                                                             id="IS_CAL_EXTRAPENAL_FOR_CC" disabled>
                                                         <label class="border-checkbox-label"
                                                             for="IS_CAL_EXTRAPENAL_FOR_CC">Calculate
-                                                            Extra Penal for CC Overdraf<span class="required">
-                                                            </span></label>
+                                                            Extra Penal for CC Overdraf</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -387,20 +384,19 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="S_PENAL_INT_RATE" class="form-control"
-                                                            placeholder=" " id="S_PENAL_INT_RATE" required=""
+                                                            placeholder=" " id="S_PENAL_INT_RATE"
                                                             pattern="\d{1,20}(\.\d{2})?" maxlength="2"
                                                             title="Input allowed only  0-9 . (Space)"
                                                             formControlName="S_PENAL_INT_RATE" disabled>
-                                                        <label for="S_PENAL_INT_RATE">Penal Interest Rate %<sub
-                                                                class="required">* </sub></label>
+                                                        <label for="S_PENAL_INT_RATE">Penal Interest Rate %</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
                                                     *ngIf="angForm.controls['S_PENAL_INT_RATE'].invalid && (angForm.controls['S_PENAL_INT_RATE'].dirty || angForm.controls['S_PENAL_INT_RATE'].touched)"
                                                     class="alert alert-danger">
                                                     <div
-                                                        *ngIf="angForm.controls['S_PENAL_INT_RATE'].errors?.pattern || angForm.controls['S_PENAL_INT_RATE'].errors?.required">
-                                                        This field is required and Input allowed only 0-9 . (Space)
+                                                        *ngIf="angForm.controls['S_PENAL_INT_RATE'].errors?.pattern">
+                                                        Input allowed only 0-9 . (Space)
                                                     </div>
                                                 </div>
                                             </div>
@@ -420,14 +416,36 @@
                                                 <div class="form-group form-primary form-static-label">
                                                     <ng-select [ngClass]="'ng-select'" [options]="OverDraft"
                                                         [multiple]="false"
-                                                        placeholder="OverDraft Interest Post / Add in " required
+                                                        placeholder="OverDraft Interest Post / Add in " 
                                                         title="Compulsory Selection"
                                                         formControlName="OVERDRAFT_INTEREST_APPLICABLE">
                                                     </ng-select>
                                                 </div>
                                             </div>
+                                            
+                                        </div>
+                                        <div class="row">
                                             <div class="col-sm">
                                                 <div class="col-sm">
+                                                    <div class="form-group input-group">
+                                                        <span class="border-lable-flt">
+                                                            <input type="text" name="OVERDRAFT_INTEREST_RATE" class="form-control" placeholder=" " id="OVERDRAFT_INTEREST_RATE"
+                                                                required="" pattern="^[0-9]+$" 
+                                                                title="Input allowed only  0-9. (Space)" formControlName="OVERDRAFT_INTEREST_RATE">
+                                                            <label for="OVERDRAFT_INTEREST_RATE">Overdraf
+                                                                Interest Rate %</label>
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group form-primary form-static-label"
+                                                        *ngIf="angForm.controls['OVERDRAFT_INTEREST_RATE'].invalid && (angForm.controls['OVERDRAFT_INTEREST_RATE'].dirty || angForm.controls['OVERDRAFT_INTEREST_RATE'].touched)"
+                                                        class="alert alert-danger">
+                                                        <div
+                                                            *ngIf="angForm.controls['OVERDRAFT_INTEREST_RATE'].errors?.pattern ">
+                                                            Input allowed only 0-9. (Space)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="col-sm">
                                                     <div class="border-checkbox-section">
                                                         <div
                                                             class="border-checkbox-group border-checkbox-group-primary">
@@ -436,13 +454,11 @@
                                                                 id="OVERDRAFT_INTEREST_RATE">
                                                             <label class="border-checkbox-label"
                                                                 for="OVERDRAFT_INTEREST_RATE">Overdraf
-                                                                Interest Rate %<span class="required"> </span></label>
+                                                                Interest Rate %</label>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-sm">
                                                 <div class="border-checkbox-section">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
@@ -452,8 +468,7 @@
                                                         <label class="border-checkbox-label"
                                                             for="ODPENALTY_ON_EXPIRED_LEDGERBAL">Is OD
                                                             Interest
-                                                            Calculate Only after Account Expiry Date ?<span
-                                                                class="required"> </span></label>
+                                                            Calculate Only after Account Expiry Date ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -478,8 +493,7 @@
                                                         <label class="border-checkbox-label"
                                                             for="INT_INSTRUCTION_ALLOW">Is
                                                             Interest
-                                                            Instruction Applicable ?<span class="required">
-                                                            </span></label>
+                                                            Instruction Applicable ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -491,8 +505,7 @@
                                                             id="STAND_INSTRUCTION_ALLOW">
                                                         <label class="border-checkbox-label"
                                                             for="STAND_INSTRUCTION_ALLOW">Is Standing
-                                                            Instruction Applicable ?<span class="required">
-                                                            </span></label>
+                                                            Instruction Applicable ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -510,7 +523,7 @@
                                                         <label class="border-checkbox-label"
                                                             for="BALANCE_ADD_APPLICABLE">Is
                                                             Balance
-                                                            Entry Allowed ?<span class="required"> </span></label>
+                                                            Entry Allowed ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -519,21 +532,21 @@
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="CHEQUEBOOK_MIN_BAL"
                                                             class="form-control" placeholder=" " id="CHEQUEBOOK_MIN_BAL"
-                                                            required="" pattern="\d{1,20}(\.\d{2})?"
+                                                             pattern="\d{1,20}(\.\d{2})?"
                                                             title="Input allowed only  0-9. (Space)"
                                                             formControlName="CHEQUEBOOK_MIN_BAL">
-                                                        <label for="CHEQUEBOOK_MIN_BAL">Cheque Book Minimum Balance<sub
-                                                                class="required">* </sub></label>
+                                                        <label for="CHEQUEBOOK_MIN_BAL">Cheque Book Minimum Balance</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
-                                                    *ngIf="angForm.controls['CHEQUEBOOK_MIN_BAL'].invalid && (angForm.controls['CHEQUEBOOK_MIN_BAL'].dirty || angForm.controls['S_PENAL_INT_RATE'].touched)"
-                                                    class="alert alert-danger">
-                                                    <div
-                                                        *ngIf="angForm.controls['CHEQUEBOOK_MIN_BAL'].errors?.pattern || angForm.controls['CHEQUEBOOK_MIN_BAL'].errors?.required">
-                                                        This field is required and Input allowed only 0-9 . (Space)
-                                                    </div>
+                                                *ngIf="angForm.controls['CHEQUEBOOK_MIN_BAL'].invalid && (angForm.controls['CHEQUEBOOK_MIN_BAL'].dirty || angForm.controls['CHEQUEBOOK_MIN_BAL'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['CHEQUEBOOK_MIN_BAL'].errors?.pattern">
+                                                    Input allowed only 0-9
                                                 </div>
+                                            </div>
+                                         
                                             </div>
                                         </div>
                                     </div>
@@ -553,25 +566,22 @@
                                                         <label>
                                                             <input type="radio" name="IS_DEPO_LOAN" checked="checked"
                                                                 formControlName="IS_DEPO_LOAN" value="dacc">
-                                                            <i class="helper"></i>Is Deposit against CC<span
-                                                                class="required"> </span>
+                                                            <i class="helper"></i>Is Deposit against CC
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
                                                         <label>
                                                             <input type="radio" name="IS_DEPO_LOAN"
                                                                 formControlName="IS_DEPO_LOAN" value="igacc">
-                                                            <i class="helper"></i>Is Gold against CC<span
-                                                                class="required">
-                                                            </span>
+                                                            <i class="helper"></i>Is Gold against CC
+                                                            
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
                                                         <label>
                                                             <input type="radio" name="IS_DEPO_LOAN"
                                                                 formControlName="IS_DEPO_LOAN" value="idacc">
-                                                            <i class="helper"></i>Is Deposit against CC<span
-                                                                class="required"> </span>
+                                                            <i class="helper"></i>Is Deposit against CC
                                                         </label>
                                                     </div>
                                                 </div>
@@ -581,15 +591,18 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
-                                [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
+                                    [disabled]="angForm.invalid">Add</button>
+                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+                                    [disabled]="angForm.invalid">Update</button> &nbsp;
+                                <button class="btn btn-primary ripple light" *ngIf="newbtnShow"
+                                    (click)="addNewData()">New</button>
+                            </div>
                         </div>
                     </div>
+                    
                 </form>
             </div>
         </div>
@@ -624,7 +637,6 @@
                                         <td>{{ data.POST_TO_INDIVIDUAL_AC }}</td>
                                         <td>{{ data.S_RECEIVABLE_INT_ALLOW }}</td>
                                         <td>{{ data.IS_SHOW_INT_AS_RECINT_IFDUEBAL }}</td>
-                                        <td>{{ data.IS_SHOW_INT_AS_RECINT_IFDUEBAL }}</td>
                                         <td>{{ data.IS_INTUPTODATE }}</td>
                                         <td>{{ data.IS_NO_POST_INT_AFT_OD }}</td>
                                         <td>{{ data.MIN_INT_LIMIT }}</td>
@@ -637,6 +649,7 @@
                                         <td>{{ data.OVERDRAFT_INTEREST_APPLICABLE }}</td>
                                         <td>{{ data.OVERDRAFT_INTEREST_RATE }}</td>
                                         <td>{{ data.ODPENALTY_ON_EXPIRED_LEDGERBAL }}</td>
+                                        <td>{{ data.INT_INSTRUCTION_ALLOW}}</td>
                                         <td>{{ data.STAND_INSTRUCTION_ALLOW }}</td>
                                         <td>{{ data.BALANCE_ADD_APPLICABLE }}</td>
                                         <td>{{ data.CHEQUEBOOK_MIN_BAL }}</td>
@@ -652,244 +665,143 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                      <th></th>
-                                      <th>
-                                        <input
-                                          type="text"
-                                          placeholder="Search Type"
-                                          name="S_ACNOTYPE"
-                                        />
-                                      </th>
-                                      <th>
-                                        <input
-                                          type="text"
-                                          placeholder="Search Scheme Code"
-                                          name="S_APPL"
-                                        />
-                                      </th>
-                                      <th>
-                                        <input
-                                          type="text"
-                                          placeholder="Search Description"
-                                          name="S_NAME"
-                                        />
-                                      </th>
-                                      <th>
-                                        <input
-                                          type="text"
-                                          placeholder="Search Short Name"
-                                          name="S_SHNAME"
-                                        />
-                                      </th>
-                                      <th>
-                                        <input
-                                          type="text"
-                                          placeholder="Search G.L. A/c No."
-                                          name="S_GLACNO"
-                                        />
-                                      </th>
-                                      <th>
-                                        <input
-                                          type="text"
-                                          placeholder="Search Interest GL A/c"
-                                          name="S_INT_ACNO"
-                                        />
-                                      </th>
-                                      <th>
-                                        <input
-                                          type="text"
-                                          placeholder="Search Receivable Int. A/c"
-                                          name="S_RECBL_PYBL_INT_ACNO"
-                                        />
-                                      </th>
-                                      <th>
-                                        <input
-                                          type="text"
-                                          placeholder="Search Penal Int. A/c"
-                                          name="S_PENAL_ACNO"
-                                        />
-                                      </th>
-                                      <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Recble Penal Int. A/c"
-                                            name="S_RECBL_PENAL_ACNO"
-                                          />
+                                        <th></th>
+                                        <th>
+                                            <input type="text" placeholder="Search Type" name="S_ACNOTYPE" />
                                         </th>
                                         <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Recble Overdue Int."
-                                            name="S_RECBL_ODUE_INT_ACNO"
-                                          />
+                                            <input type="text" placeholder="Search Scheme Code" name="S_APPL" />
                                         </th>
                                         <th>
-                                            <input
-                                              type="text"
-                                              placeholder="Search Is Interest Applicable ?"
-                                              name="S_INT_APPLICABLE"
-                                            />
-                                          </th>
+                                            <input type="text" placeholder="Search Description" name="S_NAME" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Short Name" name="S_SHNAME" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search G.L. A/c No." name="S_GLACNO" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Interest GL A/c" name="S_INT_ACNO" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Receivable Int. A/c"
+                                                name="S_RECBL_PYBL_INT_ACNO" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Penal Int. A/c"
+                                                name="S_PENAL_ACNO" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Recble Penal Int. A/c"
+                                                name="S_RECBL_PENAL_ACNO" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Recble Overdue Int."
+                                                name="S_RECBL_ODUE_INT_ACNO" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Is Interest Applicable ?"
+                                                name="S_INT_APPLICABLE" />
+                                        </th>
+
+                                        <th>
+                                            <input type="text" placeholder="Search Is Post Interest to A/c ?"
+                                                name="POST_TO_INDIVIDUAL_AC" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Is Balance Entry Allow ?"
+                                                name="S_RECEIVABLE_INT_ALLOW" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Is Receivable Int. Allowed ?"
+                                                name="IS_SHOW_INT_AS_RECINT_IFDUEBAL" />
+                                        </th>
+  
+                                        <th>
+                                            <input type="text"
+                                                placeholder="Search Is Dont Post Interest After Expiry Date ?"
+                                                name="IS_INTUPTODATE" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Is Dont Post Interest After OD"
+                                                name="IS_NO_POST_INT_AFT_OD" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Minimum Interest Amount"
+                                                name="MIN_INT_LIMIT" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Interest Round Off Factor in Paise"
+                                                name="ROUNDOFF_FACTOR" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Penal Interest Applicable ?"
+                                                name="S_PENAL_INT_APPLICABLE" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Post Penal Interest to Account ?"
+                                                name="IS_POST_PENAL_TO_AC" />
+                                        </th>
+                                        <th>
+                                            <input type="text"
+                                                placeholder="Search Add Penal Interest in Interest Amount ?"
+                                                name="POST_PENALINT_IN_INTEREST" />
+                                        </th>
+                                        <th>
+                                            <input type="text"
+                                                placeholder="Search Calculate Extra Penal for CC Overdraf"
+                                                name="IS_CAL_EXTRAPENAL_FOR_CC" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Penal Interest Rate %"
+                                                name="S_PENAL_INT_RATE" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search OverDraft Interest Post / Add in"
+                                                name="OVERDRAFT_INTEREST_APPLICABLE" />
+                                        </th>
                                         
                                         <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Is Post Interest to A/c ?"
-                                            name="POST_TO_INDIVIDUAL_AC"
-                                          />
+                                            <input type="text" placeholder="Search Overdraf Interest Rate %"
+                                                name="OVERDRAFT_INTEREST_RATE" />
                                         </th>
+                                    
+
                                         <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Is Balance Entry Allow ?"
-                                            name="S_RECEIVABLE_INT_ALLOW"
-                                          />
+                                            <input type="text"
+                                                placeholder="Search Is OD Interest Calculate Only after Account Expiry Date ? "
+                                                name="ODPENALTY_ON_EXPIRED_LEDGERBAL" />
                                         </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Is Receivable Int. Allowed ?"
-                                            name="IS_SHOW_INT_AS_RECINT_IFDUEBAL"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Post as Receivable Interest, if Account goes in Overdue ?"
-                                            name="IS_SHOW_INT_AS_RECINT_IFDUEBAL"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Is Dont Post Interest After Expiry Date ?"
-                                            name="IS_INTUPTODATE"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Is Dont Post Interest After OD"
-                                            name="IS_NO_POST_INT_AFT_OD"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Minimum Interest Amount"
-                                            name="MIN_INT_LIMIT"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Interest Round Off Factor in Paise"
-                                            name="ROUNDOFF_FACTOR"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Penal Interest Applicable ?"
-                                            name="S_PENAL_INT_APPLICABLE"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Post Penal Interest to Account ?"
-                                            name="IS_POST_PENAL_TO_AC"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Add Penal Interest in Interest Amount ?"
-                                            name="POST_PENALINT_IN_INTEREST"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Calculate Extra Penal for CC Overdraf"
-                                            name="IS_CAL_EXTRAPENAL_FOR_CC"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Penal Interest Rate %"
-                                            name="S_PENAL_INT_RATE"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search OverDraft Interest Post / Add in"
-                                            name="OVERDRAFT_INTEREST_APPLICABLE"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Overdraf Interest Rate %"
-                                            name="OVERDRAFT_INTEREST_RATE"
-                                          />
-                                        </th>
-                                        <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Is OD Interest Calculate Only after Account Expiry Date ? "
-                                            name="ODPENALTY_ON_EXPIRED_LEDGERBAL"
-                                          />
-                                        </th>
-                                        <th>
-                                            <input
-                                              type="text"
-                                              placeholder="Search Is Interest Applicable ?"
-                                              name="S_INT_APPLICABLE"
-                                            />
-                                          </th>
                                        
                                         <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Is Standing Instruction Applicable ?"
-                                            name="STAND_INSTRUCTION_ALLOW"
-                                          />
+                                            <input type="text" placeholder="Is Balance Entry Allowed ?"
+                                                name="BALANCE_ADD_APPLICABLE" />
                                         </th>
                                         <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Is Balance Entry Allowed ?"
-                                            name="BALANCE_ADD_APPLICABLE"
-                                          />
+                                            <input type="text" placeholder="Instruction Allowed ?"
+                                                name="INT_INSTRUCTION_ALLOW" />
                                         </th>
                                         <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Cheque Book Minimum Balance"
-                                            name="CHEQUEBOOK_MIN_BAL"
-                                          />
+                                            <input type="text" placeholder="Search Is Standing Instruction Applicable ?"
+                                                name="STAND_INSTRUCTION_ALLOW" />
                                         </th>
                                         <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Is Deposit against CC"
-                                            name="IS_DEPO_LOAN"
-                                          />
+                                            <input type="text" placeholder="Search Cheque Book Minimum Balance"
+                                                name="CHEQUEBOOK_MIN_BAL" />
                                         </th>
                                         <th>
-                                          <input
-                                            type="text"
-                                            placeholder="Search Is Gold against CC"
-                                            name="IS_GOLDLOAN"
-                                          />
+                                            <input type="text" placeholder="Search Is Deposit against CC"
+                                                name="IS_DEPO_LOAN" />
                                         </th>
-                  
+                                        <th>
+                                            <input type="text" placeholder="Search Is Gold against CC"
+                                                name="IS_GOLDLOAN" />
+                                        </th>
+
                                     </tr>
-                                  </tfoot>
-                  
+                                </tfoot>
+
                             </table>
                         </div>
                     </div>

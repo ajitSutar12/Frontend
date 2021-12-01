@@ -84,12 +84,7 @@
                                                         </div>
 
                                                     </div>
-
-
-
-
-
-                                                    <div class="row">
+                                                     <div class="row">
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
@@ -296,7 +291,7 @@
                                                                     <input type="text" name="RBI_LICENCE_NO"
                                                                         class="form-control" placeholder=" "
                                                                         id="RBI_LICENCE_NO" required=""
-                                                                        pattern="^[A-Za-z\./ -0-9]+$"
+                                                                        pattern="^[A-Za-z0-9\./ -]+$"
                                                                         formControlName="RBI_LICENCE_NO" maxlength="100"
                                                                         title="Input allowed 0-9 and A-Z a-z  - / . (Space) ">
                                                                     <label for="RBI_LICENCE_NO">RBI Licence No.<sub
@@ -2001,7 +1996,7 @@
                             </ng-template>
                         </ngb-tab>
 
-                        <ngb-tab title="Admin Options">
+                        <ngb-tab title="5 Admin Options">
                             <ng-template ngbTabContent>
                                 <div [@fadeInOutTranslate] class="m-t-15">
                                     <div class="row">
@@ -2263,13 +2258,7 @@
 
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
-
-                                                        <button class="btn btn-primary ripple light" *ngIf="showButton"
-                                                            (click)="submit()" >Add</button>
-                                                        <button class="btn btn-primary ripple light"
-                                                            (click)="updateData()" *ngIf="updateShow">Update</button>
-                                                    </div>
+                                                    
 
 
                                                 </div>
@@ -2281,6 +2270,15 @@
                         </ngb-tab>
 
                     </ngb-tabset>
+                    <div class="row">
+                        <div class="col-sm-4">
+                          <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
+                            [disabled]="angForm.invalid">Add</button>
+                          <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+                            [disabled]="angForm.invalid">Update</button> &nbsp;
+                          <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
+                        </div>
+                      </div>
                 </div>
             </form>
 

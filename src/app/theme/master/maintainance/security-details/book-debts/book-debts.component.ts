@@ -351,7 +351,7 @@ console.log(ele);
     });
   }
   calculate() {
-    debugger;
+    // debugger;
     let debtopenid = Number((document.getElementById(
       "DebtorsOpeningBalance"
     ) as HTMLInputElement).value);

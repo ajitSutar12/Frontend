@@ -30,8 +30,8 @@ import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
 import { SelectModule } from "ng-select";
 import { OtherSecurity2Component } from "./other-security2/other-security2.component";
 import { glMasterService } from "../../../../shared/elements/gl-master.service";
-import { GoldsilverService } from "../../../../shared/elements/goldsilver.service";
-import { InsuranceService } from "../../../../shared/elements/insurance.service";
+// import { GoldsilverService } from "../../../../shared/elements/goldsilver.service";
+// import { InsuranceMasterDropdownService } from "../../../../shared/dropdownService/insurance-master-dropdown.service";
 import { Ac1Service } from "../../../../shared/elements/ac1.service";
 import { S1Service } from "../../../../shared/elements/s1.service";
 import { Ac2Service } from "../../../../shared/elements/ac2.service";
@@ -44,8 +44,11 @@ import { schemedropdownService } from "../../../../shared/dropdownService/scheme
 import { marketsharesomponentservice } from "../security-details/market-shares/market-shares.component.service";
 import { stockcomponentservice } from "../security-details/stock-statement/stock-statement.component.service";
 import { governmentsecuritycomponentservice } from "../security-details/govt-security-and-lic/govt-security-and-lic.component.service";
-
+import {customerinsuranceService} from '../security-details/customer-insurance/customer-insurance.service'
+import {goldandsilverService} from '../security-details/gold-and-silver/gold-and-silver.service'
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { GoldsilverService } from "../../../../shared/dropdownService/goldsilver.service";
+import{InsuranceMasterDropdownService } from '../../../../shared/dropdownService/insurance-master-dropdown.service'
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -65,7 +68,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   providers: [
     GoldsilverService,
-    InsuranceService,
+    GoldsilverService,
+   InsuranceMasterDropdownService,
     Ac1Service,
     S1Service,
     Ac2Service,
@@ -82,7 +86,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     schemedropdownService,
     marketsharesomponentservice,
     stockcomponentservice,
-    governmentsecuritycomponentservice
+    governmentsecuritycomponentservice,
+    customerinsuranceService,
+    goldandsilverService
 
   ],
   declarations: [
@@ -102,6 +108,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PleadgeStockComponent,
     OwnDepositsComponent,
     OtherSecurity2Component,
+  
   ],
 })
 export class SecurityDetailsModule {}

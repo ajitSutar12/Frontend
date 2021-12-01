@@ -17,6 +17,7 @@ import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService
 import { SchemeCodeDropdownService } from '../../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -89,12 +90,14 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
 
   //Scheme type variable
   schemeTypeCode: string = 'GL'
+  companyACNo: any;
 
   constructor(
     private http: HttpClient,
     private companyGroupMasterService: CompanyGroupMasterService,
     private fb: FormBuilder,
     public schemeTypeDropdown: SchemeTypeDropdownService,
+    private schemeService: SchemeAccountNoService,
     public SchemeCodeDropdownService: SchemeCodeDropdownService) { }
 
 
@@ -347,4 +350,94 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
+  acno: any
+    //get account no according scheme for introducer
+    getIntroducer(acno) {
+      switch (acno) {
+        case 'SB':
+          console.log("saving");
+          this.schemeService.getSavingSchemeList().pipe(first()).subscribe(data => {
+            this.companyACNo = data;
+          })
+          break;
+  
+        case 'SH':
+          console.log("Share");
+          this.schemeService.getShareSchemeList().pipe(first()).subscribe(data => {
+            this.companyACNo = data;
+          })
+          break;
+  
+        case 'CA':
+          console.log("Current account");
+          this.schemeService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
+            this.companyACNo = data;
+          })
+          break;
+  
+        case 'LN':
+          console.log("Term Loan");
+          this.schemeService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+            this.companyACNo = data;
+          })
+          break;
+  
+        case 'TD':
+          console.log("Term Deposit");
+          this.schemeService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+            this.companyACNo = data;
+          })
+          break;
+  
+        case 'DS':
+          console.log("Dispute Loan");
+          this.schemeService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
+            this.companyACNo = data;
+          })
+          break;
+  
+        case 'CC':
+          console.log("Cash Credit Loan");
+          this.schemeService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+            this.companyACNo = data;
+          })
+          break;
+  
+        case 'GS':
+          console.log("anamat");
+          this.schemeService.getAnamatSchemeList().pipe(first()).subscribe(data => {
+            this.companyACNo = data;
+          })
+          break;
+  
+        case 'PG':
+          console.log("Pigmy account");
+          this.schemeService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
+            this.companyACNo = data;
+          })
+          break;
+  
+        case 'AG':
+          console.log("Pigmy agent");
+          this.schemeService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
+            this.companyACNo = data;
+          })
+          break;
+  
+        case 'IV':
+          console.log("Investment");
+          this.schemeService.getInvestmentSchemeList().pipe(first()).subscribe(data => {
+            this.companyACNo = data;
+          })
+          break;
+      }
+    }
+
+      //get introducer name according account no
+   
+  getAC_NO(value: any) {
+    this.angForm.patchValue({
+      'AC_NO' : value.AC_NO
+    })
+  }
 }

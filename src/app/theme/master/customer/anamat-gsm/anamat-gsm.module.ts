@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AnamatGSMRoutingModule } from './anamat-gsm-routing.module';
 import { AnamatGSMComponent } from './anamat-gsm.component';
 import { DataTablesModule } from 'angular-datatables';
-import { TitleService } from '../../../../shared/elements/title.service';
 import { MsService } from '../../../../shared/elements/ms.service';
 // import { AccountcodeService } from '../../../../shared/elements/accountcode.service';
 import { CustomeridService } from '../../../../shared/elements/customerid.service';
@@ -18,9 +17,11 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SharedModule } from '../../../../shared/shared.module';
+import { PrefixMasterDropdownService } from "src/app/shared/dropdownService/prefix-master-dropdown.service";
 
 import {SchemeCodeDropdownService} from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
+import {SystemMasterParametersService} from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service"
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -40,8 +41,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
  
   declarations: [AnamatGSMComponent],
   providers: [
-    TitleService, 
-   
+    PrefixMasterDropdownService,
     SchemeCodeDropdownService,
     CustomeridService,
     cityMasterService,
@@ -53,6 +53,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
 
     },
+    SystemMasterParametersService,
   ]
 })
 export class AnamatGSMModule { }

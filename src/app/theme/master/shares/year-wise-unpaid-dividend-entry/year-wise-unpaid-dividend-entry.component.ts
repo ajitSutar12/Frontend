@@ -21,7 +21,9 @@ import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 
-import { ShareMasterService } from '../../customer/shares-master/shares-master.service'
+// import { ShareMasterService } from '../../customer/shares-master/shares-master.service';
+
+import {ShareMasterService} from '../../customer/shares-master/shares-master.service'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -101,14 +103,18 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
   ShareMasterObject: any[];
   ShareMasterObjectB: any[];
 
+  multiNominee = [];
+
   constructor(
     private http: HttpClient,
     private YearwiseunpaidService: YearwiseunpaidService,
     private SalaryDMasterdropdownService: SalaryDMasterdropdownService,
     // private ShareMasterDropdownService: ShareMasterDropdownService,
     private fb: FormBuilder,
-
-    private SchemeCodeDropdownService: SchemeCodeDropdownService,) {
+    
+    private SchemeCodeDropdownService: SchemeCodeDropdownService,
+    private ShareMasterService:ShareMasterService,
+    ) {
   }
 
   ngOnInit(): void {
@@ -220,6 +226,48 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
     //   this.ShareMasterObjectB = data;
     // })
   }
+
+
+  
+  // getCustomer(id) {
+  //   this.ShareMasterService.getFormData(id).subscribe(data => {
+  //     this.angForm.patchValue({
+
+
+  //       // AC_CUSTID: id.toString(),
+  //       // AC_TITLE: data.AC_TITLE,
+  //       // AC_NAME: data.AC_NAME,
+  //       // AC_CAST: data.AC_CAST,
+  //       // AC_OCODE: data.AC_OCODE,
+  //       // AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
+  //       // AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
+  //       // AC_HONO: data.custAddress[0].AC_HONO,
+  //       // AC_WARD: data.custAddress[0].AC_WARD,
+  //       // AC_ADDR: data.custAddress[0].AC_ADDR,
+  //       // AC_GALLI: data.custAddress[0].AC_GALLI,
+  //       // AC_AREA: data.custAddress[0].AC_AREA,
+  //       // AC_CTCODE: data.custAddress[0].AC_CTCODE,
+  //       // AC_PIN: data.custAddress[0].AC_PIN,
+  //       // AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
+  //       // AC_MOBNO: data.AC_MOBILENO,
+  //       // AC_PHNO: data.AC_PHONE_RES,
+  //       // AC_EMAIL: data.AC_EMAILID,
+  //       // AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+  //       // AC_THONO: data.custAddress.AC_THONO,
+  //       // AC_TWARD: data.custAddress.AC_TWARD,
+  //       // AC_TADDR: data.custAddress.AC_TADDR,
+  //       // AC_TGALLI: data.custAddress.AC_TGALLI,
+  //       // AC_TAREA: data.custAddress.AC_TAREA,
+  //       // AC_TCTCODE: data.custAddress.AC_TCTCODE,
+  //       // AC_TPIN: data.custAddress.AC_TPIN,
+  //     })
+  //     console.log(data)
+  //   })
+  // }
+
+
+
+
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
@@ -252,17 +300,22 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       'TOTAL_SHARES': formVal.TOTAL_SHARES,
       'MEMBER_CLOSE_DATE': formVal.MEMBER_CLOSE_DATE,
       'DIVIDEND_AMOUNT': formVal.DIVIDEND_AMOUNT,
+         //nominee
+         'NomineeData': this.multiNominee,
       // 'AC_NAME':formVal.AC_NAME,
     }
     this.YearwiseunpaidService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
     //To clear form
     this.resetForm();
+    this.multiNominee = []
   }
 
   //Method for append data into fields
@@ -272,6 +325,8 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
     this.newbtnShow = false;
     this.YearwiseunpaidService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
+      //get nominee to edit
+      this.multiNominee = data.nomineeDetails
       this.angForm.setValue({
         'ACNOTYPE': data.ACNOTYPE,
         'ACTYPE': data.ACTYPE,
@@ -290,13 +345,17 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
+    data['NomineeData'] = this.multiNominee
     data['id'] = this.updateID;
     this.YearwiseunpaidService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      this.multiNominee = []
       this.resetForm();
     })
   }
@@ -304,6 +363,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.multiNominee = []
     this.resetForm();
   }
   //Method for delete data

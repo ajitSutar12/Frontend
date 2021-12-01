@@ -41,9 +41,9 @@ interface OtherBankDepositScheme {
   S_RECBL_PENAL_ACNO: string
   S_CASH_INT_ACNO: string
   INTEREST_RULE: string
-  IS_RECURRING_TYPE: string
-  IS_CALLDEPOSIT_TYPE: string
-  REINVESTMENT: string
+   IS_RECURRING_TYPE: string
+   IS_CALLDEPOSIT_TYPE: string
+   REINVESTMENT: string
   S_INT_APPLICABLE: boolean
   POST_TO_INDIVIDUAL_AC: boolean
   S_PAYABLE_INT_ALLOW: boolean
@@ -85,7 +85,14 @@ interface OtherBankDepositScheme {
   WITHDRAWAL_APPLICABLE: boolean
   BALANCE_ADD_APPLICABLE: boolean
   LESS_PREMATURE_INT_RATE: string
-}@Component({
+  S_PRODUCT_DAY_BASE:string
+  S_PRODUCT_DAY_BASE_END:string
+  PROD_INTUPTODATE:boolean
+
+}
+
+
+@Component({
   selector: 'app-other-banks-deposit-scheme',
   templateUrl: './other-banks-deposit-scheme.component.html',
   styleUrls: ['./other-banks-deposit-scheme.component.scss']
@@ -156,6 +163,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
   S_PRODUCT_DAY_BASE_END;
   INSTALLMENT_BASIS: boolean = true;
   DEPOSIT_PENAL_INT_CALC_DAY;
+  newbtnShow: boolean;
 
   constructor(
     private http: HttpClient,
@@ -461,9 +469,9 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
       S_RECBL_PENAL_ACNO: [''],
       S_CASH_INT_ACNO: [''],
       INTEREST_RULE: [''],
-      // IS_RECURRING_TYPE: [''],
-      // IS_CALLDEPOSIT_TYPE: [''],
-      // REINVESTMENT: [''],
+       IS_RECURRING_TYPE: [''],
+      IS_CALLDEPOSIT_TYPE: [''],
+       REINVESTMENT: [''],
       S_INT_APPLICABLE: [false],
       POST_TO_INDIVIDUAL_AC: [false],
       S_PAYABLE_INT_ALLOW: [false],
@@ -527,8 +535,8 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
       'S_CASH_INT_ACNO': formVal.S_CASH_INT_ACNO,
       'INTEREST_RULE': formVal.INTEREST_RULE,
       'IS_RECURRING_TYPE': formVal.IS_RECURRING_TYPE,
-      'IS_CALLDEPOSIT_TYPE': formVal.IS_CALLDEPOSIT_TYPE,
-      'REINVESTMENT': formVal.REINVESTMENT,
+      // 'IS_CALLDEPOSIT_TYPE': formVal.IS_CALLDEPOSIT_TYPE,
+      //  'REINVESTMENT': formVal.REINVESTMENT,
       'S_INT_APPLICABLE': formVal.S_INT_APPLICABLE,
       'POST_TO_INDIVIDUAL_AC': formVal.POST_TO_INDIVIDUAL_AC,
       'S_PAYABLE_INT_ALLOW': formVal.S_PAYABLE_INT_ALLOW,
@@ -541,6 +549,9 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
       'COMPOUND_INT_BASIS': formVal.COMPOUND_INT_BASIS,
       'COMPOUND_INT_DAYS': formVal.COMPOUND_INT_DAYS,
       'IS_DISCOUNTED_INT_RATE': formVal.IS_DISCOUNTED_INT_RATE,
+      'S_PRODUCT_DAY_BASE':formVal.S_PRODUCT_DAY_BASE,
+      'S_PRODUCT_DAY_BASE_END':formVal.S_PRODUCT_DAY_BASE_END,
+      'PROD_INTUPTODATE':formVal.PROD_INTUPTODATE,
       'S_INSTTYPE': formVal.S_INSTTYPE,
       'INSTALLMENT_BASIS': formVal.INSTALLMENT_BASIS,
       'IS_ASSUMED_INSTALLMENTS': formVal.IS_ASSUMED_INSTALLMENTS,
@@ -586,6 +597,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.otherBanksDepositSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -600,9 +612,9 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
         'S_RECBL_PENAL_ACNO': data.S_RECBL_PENAL_ACNO,
         'S_CASH_INT_ACNO': data.S_CASH_INT_ACNO,
         'INTEREST_RULE': data.INTEREST_RULE,
-        'IS_RECURRING_TYPE': data.IS_RECURRING_TYPE,
-        'IS_CALLDEPOSIT_TYPE': data.IS_CALLDEPOSIT_TYPE,
-        'REINVESTMENT': data.REINVESTMENT,
+         'IS_RECURRING_TYPE': data.IS_RECURRING_TYPE,
+        // 'IS_CALLDEPOSIT_TYPE': data.IS_CALLDEPOSIT_TYPE,
+        // 'REINVESTMENT': data.REINVESTMENT,
         'S_INT_APPLICABLE': data.S_INT_APPLICABLE,
         'POST_TO_INDIVIDUAL_AC': data.POST_TO_INDIVIDUAL_AC,
         'S_PAYABLE_INT_ALLOW': data.S_PAYABLE_INT_ALLOW,
@@ -615,6 +627,9 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
         'COMPOUND_INT_BASIS': data.COMPOUND_INT_BASIS,
         'COMPOUND_INT_DAYS': data.COMPOUND_INT_DAYS,
         'IS_DISCOUNTED_INT_RATE': data.IS_DISCOUNTED_INT_RATE,
+        'S_PRODUCT_DAY_BASE':data.S_PRODUCT_DAY_BASE,
+        'S_PRODUCT_DAY_BASE_END':data.S_PRODUCT_DAY_BASE_END,
+        'PROD_INTUPTODATE':data.PROD_INTUPTODATE,
         'S_INSTTYPE': data.S_INSTTYPE,
         'INSTALLMENT_BASIS': data.INSTALLMENT_BASIS,
         'IS_ASSUMED_INSTALLMENTS': data.IS_ASSUMED_INSTALLMENTS,
@@ -656,16 +671,22 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
+      this.newbtnShow = false;
       this.rerender();
       this.resetForm();
     })
   }
 
-  //reset the form 
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+  // Reset Function
   resetForm() {
     this.createForm();
   }
-
   //Method for delete data
   // delClickHandler(id: number) {
   //   Swal.fire({

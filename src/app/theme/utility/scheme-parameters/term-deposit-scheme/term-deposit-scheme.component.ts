@@ -184,6 +184,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
   INSTALLMENT_BASIS = true;
   IS_ASSUMED_INSTALLMENTS = true;
   filterData={};
+  newbtnShow: boolean;
 
   // S_PRODUCT_DAY_BASE: any;
   constructor(
@@ -1090,7 +1091,10 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     this.TermDepositSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
-      this.rerender();
+      // to reload after insertion of data
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
     }, (error) => {
       console.log(error)
     })
@@ -1101,6 +1105,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.TermDepositSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -1205,13 +1210,25 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      // to reload after insertion of data
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       this.resetForm();
     })
   }
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+  // Reset Function
   resetForm() {
     this.createForm();
   }
+
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({

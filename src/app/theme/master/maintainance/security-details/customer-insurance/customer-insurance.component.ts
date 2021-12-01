@@ -9,7 +9,6 @@ import {
 } from "@angular/core";
 import { IOption } from "ng-select";
 import { Subscription } from "rxjs/Subscription";
-import { InsuranceService } from "../../../../../shared/elements/insurance.service";
 import Swal from "sweetalert2";
 import {
   FormGroup,
@@ -61,7 +60,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit,OnDestr
   url = environment.base_url;
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
-  simpleOption: Array<IOption> = this.InsuranceService.getCharacters();
+  // simpleOption: Array<IOption> = this.InsuranceService.getCharacters();
   selectedOption = "3";
   isDisabled = true;
   characters: Array<IOption>;
@@ -84,7 +83,6 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit,OnDestr
 
   constructor(
     private fb: FormBuilder,
-    public InsuranceService: InsuranceService,
     private _customerservice: customerinsuranceService,
     private http: HttpClient,
     private _insurancedropdown:InsuranceMasterDropdownService

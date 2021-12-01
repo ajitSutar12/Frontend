@@ -34,7 +34,7 @@ import { DirectorMasterDropdownService} from '../../../../shared/dropdownService
 import {LoanStageMasterDropdownService} from '../../../../shared/dropdownService/loan-stage-master-dropdown.service'
 import {CourtMasterDropdownService} from '../../../../shared/dropdownService/court-master-dropdown.service';
 import { InstallmentMethodService } from '../../../../shared/dropdownService/installment-method.service';
-
+import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
 import { CustomeridService } from '../../../../shared/elements/customerid.service'
 
 import {TermLoanService} from '../term-loan-master/term-loan-master.service'
@@ -78,7 +78,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
      LoanStageMasterDropdownService,
      CourtMasterDropdownService,
      InstallmentMethodService,
-   
+     cityMasterService,
      CustomeridService,
 
      {

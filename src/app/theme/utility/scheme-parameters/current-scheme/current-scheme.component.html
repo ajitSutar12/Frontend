@@ -8,7 +8,7 @@
             <div class="card-block">
                 <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
@@ -48,7 +48,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
-                                        id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="10"
+                                        id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="15"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
                                     <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
                                 </span>
@@ -179,16 +179,15 @@
                                                             [(ngModel)]="S_PRODUCT_DAY_BASE" name="S_PRODUCT_DAY_BASE"
                                                             pattern="^[0-9]+$" title="Input allowed only  0-9" max="31"
                                                             (change)="isProductDayBase(S_PRODUCT_DAY_BASE)" disabled>
-                                                        <label for="S_PRODUCT_DAY_BASE">Product Base Start Day<sub
-                                                                class="required">* </sub></label>
+                                                        <label for="S_PRODUCT_DAY_BASE">Product Base Start Day</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
                                                     *ngIf="angForm.controls['S_PRODUCT_DAY_BASE'].invalid && (angForm.controls['S_PRODUCT_DAY_BASE'].dirty || angForm.controls['S_PRODUCT_DAY_BASE'].touched)"
                                                     class="alert alert-danger">
                                                     <div
-                                                        *ngIf="angForm.controls['S_PRODUCT_DAY_BASE'].errors?.pattern || angForm.controls['S_PRODUCT_DAY_BASE'].errors?.required || angForm.controls['S_PRODUCT_DAY_BASE'].errors?.min || angForm.controls['S_PRODUCT_DAY_BASE'].errors?.max">
-                                                        This field is required and Input allowed only 0-9
+                                                        *ngIf="angForm.controls['S_PRODUCT_DAY_BASE'].errors?.pattern ||  angForm.controls['S_PRODUCT_DAY_BASE'].errors?.min || angForm.controls['S_PRODUCT_DAY_BASE'].errors?.max">
+                                                        Input allowed only 0-9
                                                     </div>
                                                 </div>
                                             </div>
@@ -200,8 +199,7 @@
                                                                 value="MB" name="S_PRODUCT_DAY_BASE"
                                                                 formControlName="S_PRODUCT_DAY_BASE"
                                                                 [checked]="S_PRODUCT_DAY_BASE==0" disabled>
-                                                            <i class="helper"></i>Month Begin<span class="required">
-                                                            </span>
+                                                            <i class="helper"></i>Month Begin
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
@@ -210,8 +208,7 @@
                                                                 value="ME" name="S_PRODUCT_DAY_BASE"
                                                                 formControlName="S_PRODUCT_DAY_BASE"
                                                                 [checked]="S_PRODUCT_DAY_BASE==0" disabled>
-                                                            <i class="helper"></i>Month End<span class="required">
-                                                            </span>
+                                                            <i class="helper"></i>Month End
                                                         </label>
                                                     </div>
                                                 </div>
@@ -230,16 +227,15 @@
                                                             title="Input allowed only  0-9" max="31"
                                                             (change)="isProductDayBaseEndDay(S_PRODUCT_DAY_BASE_END)"
                                                             disabled>
-                                                        <label for="S_PRODUCT_DAY_BASE_END">Product Base End Day<sub
-                                                                class="required">* </sub></label>
+                                                        <label for="S_PRODUCT_DAY_BASE_END">Product Base End Day</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
                                                     *ngIf="angForm.controls['S_PRODUCT_DAY_BASE_END'].invalid && (angForm.controls['S_PRODUCT_DAY_BASE_END'].dirty || angForm.controls['S_PRODUCT_DAY_BASE_END'].touched)"
                                                     class="alert alert-danger">
                                                     <div
-                                                        *ngIf="angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.pattern || angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.required || angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.min || angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.max">
-                                                        This field is required and Input allowed only 0-9
+                                                        *ngIf="angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.pattern ||  angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.min || angForm.controls['S_PRODUCT_DAY_BASE_END'].errors?.max">
+                                                         Input allowed only 0-9
                                                     </div>
                                                 </div>
                                             </div>
@@ -251,8 +247,7 @@
                                                                 value="MB" name="S_PRODUCT_DAY_BASE_END"
                                                                 formControlName="S_PRODUCT_DAY_BASE_END"
                                                                 [checked]="S_PRODUCT_DAY_BASE_END==0" disabled>
-                                                            <i class="helper"></i>Month Begin<span class="required">
-                                                            </span>
+                                                            <i class="helper"></i>Month Begin
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
@@ -261,8 +256,7 @@
                                                                 name="S_PRODUCT_DAY_BASE_END" value="ME"
                                                                 formControlName="S_PRODUCT_DAY_BASE_END"
                                                                 [checked]="S_PRODUCT_DAY_BASE_END==0" disabled>
-                                                            <i class="helper"></i>Month End<span class="required">
-                                                            </span>
+                                                            <i class="helper"></i>Month End
                                                         </label>
                                                     </div>
                                                 </div>
@@ -454,16 +448,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-9">
-                            <label></label>
+                        <div class="col-sm-4">
+                          <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
+                            [disabled]="angForm.invalid">Add</button>
+                          <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+                            [disabled]="angForm.invalid">Update</button> &nbsp;
+                          <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
                         </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
-                        </div>
-                    </div>
+                      </div>
                 </form>
             </div>
         </div>

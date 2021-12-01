@@ -1,1 +1,60 @@
 <p>balance books</p>
+<!-- <div class="card-block">
+    <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tbody *ngIf="multiNominee?.length != 0">
+                            <tr>
+                                <th>Action</th>
+                                <th>Name</th>
+                                <th>Relation</th>
+                                <th>Age</th>
+                                <th>Nomination Date</th>
+                                <th>House</th>
+                                <th>Ward</th>
+                                <th>Details</th>
+                                <th>Galli</th>
+                                <th>Area</th>
+                                <th>City</th>
+                                <th>Pin code</th>
+                            </tr>
+                            <tr *ngFor="let data of multiNominee; let indexOfelement=index;">
+                                <td>
+                                    <button class="btn btn-outline-primary btn-sm" id="editbtn"
+                                        (click)="editNominee(indexOfelement)">Edit</button>
+                                    &nbsp;
+                                    <button id="delbtn" class="btn btn-outline-primary btn-sm"
+                                        (click)="delNominee(indexOfelement)">Delete</button>
+
+                                </td>
+                                <td>{{data.AC_NNAME }}</td>
+                                <td>{{data.AC_NRELA }}</td>
+                                <td>{{data.AGE }}</td>
+                                <td>{{data.AC_NDATE }}</td>
+                                <td>{{data.AC_NHONO }}</td>
+                                <td>{{data.AC_NWARD }}</td>
+                                <td>{{data.AC_NADDR }}</td>
+                                <td>{{data.AC_NGALLI }}</td>
+                                <td>{{data.AC_NAREA }}</td>
+                                <td>{{data.AC_NCTCODE }}</td>
+                                <td>{{data.AC_NPIN }}</td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="multiNominee?.length == 0">
+                            <tr>
+                                <td colspan="6" class="no-data-available">No
+                                    data!
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()">Add</button>
+        </div>
+    </form>
+</div> -->

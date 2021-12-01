@@ -122,6 +122,7 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
   InstallmentSettingsTrue = false;
   //variable to get ID to update
   updateID: number = 0;
+  newbtnShow: boolean;
 
   constructor(public installmentMethodService: InstallmentMethodService,
     private acMasterDropdownService: ACMasterDropdownService,
@@ -464,7 +465,9 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
     this.disputLoanSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
     }, (error) => {
       console.log(error)
     })
@@ -476,6 +479,7 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.disputLoanSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -527,15 +531,24 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      // to reload after insertion of data
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       this.resetForm();
     })
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+  // Reset Function
   resetForm() {
     this.createForm();
   }
-
   ngAfterViewInit(): void {
     this.dtTrigger.next();
   }

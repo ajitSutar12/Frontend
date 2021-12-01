@@ -58,107 +58,116 @@ class DataTableResponse {
 
 // For fetching values from backend
 interface DisputeLoanMaster {
+id:number;
+AC_ACNOTYPE:string
 
-  id: number;
-  // AC_ACNOTYPE:string;
-  // basic 
-  AC_TYPE: string;
-  AC_NO: string;
-  REF_AC_NO: string;
-  REF_AC_TYPE: string;
-  AC_CUSTID: string;
-  AC_NAME: string;
-  AC_OPDATE: string;
-  AC_MEMBTYPE: string;
-  AC_MEMBNO: string;
-  AC_CAST: string;
-  AC_OCODE: string;
-  AC_INTCATA: string;
-  AC_HEALTH: string;
-  AC_REPAYMODE: string;
-  AC_SANCTION_AMOUNT: string;
-  AC_SANCTION_DATE: string;
-  AC_DRAWPOWER_AMT: string;
-  AC_INSTALLMENT: string;
-  AC_MONTHS: string;
-  AC_MORATORIUM_PERIOD: string;
-  AC_GRACE_PERIOD: string;
-  AC_EXPIRE_DATE: string;
-  AC_INTRATE: string;
-  AC_PENALINTRATE: string;
-  EFFECT_DATE: string;
-
-  // other details
-  AC_AUTHORITY: string;
-  AC_RECOMMEND_BY: string;
-  AC_PRIORITY: string;
-  AC_PURPOSE: string;
-  AC_INDUSTRY: string;
-  AC_WEAKER: string;
-  AC_RELATION_TYPE: string;
-  AC_DIRECTOR: string;
-  AC_DIRECTOR_RELATION: string;
-  AC_COREG_NO: string;
-  AC_COREG_DATE: string;
-  AC_COREG_AMT: string;
-  AC_RESO_NO: string;
-  AC_RESO_DATE: string;
-
-  // address
-  AC_HONO: string;
-  AC_WARD: string;
-  AC_GALLI: string;
-  AC_AREA: string;
-  AC_ADDR: string;
-  AC_CTCODE: string;
-  AC_PIN: string;
-  AC_PHNO: string;
-  AC_MOBNO: string;
-  AC_EMAIL: string;
-  AC_ADDFLAG: string;
-  AC_THONO: string;
-  AC_TWARD: string;
-  AC_TGALLI: string;
-  AC_TAREA: string;
-  AC_TADDR: string;
-  AC_TCTCODE: string;
-  AC_TPIN: string;
-
-  //guarantor -securities
-
-  MEMBER_TYPE: string;
-  MEMBER_NO: string;
-  NAME: string;
-  EXP_DATE: string;
-  AC_ADDR1: string;
-  AC_ADDR2: string;
-  AC_ADDR3: string;
-  CTCODE: string;
-  SECURITY_CODE: string;
-  SECURITY_VALUE: string;
-
-  // dispute setails
-
-  CASE_SUITE_DATE: string;
-  COURT_INT_RATE: string;
-  COURT_INSTALLMENT: string;
-  COURT_ORDER_DATE: string;
-  SUITE_AMT: string;
-  COURT_RESULT_DATE: string;
-  BRANCH_CODE: string;
-  RECOVERABLE_AMT: string;
-  INT_CALC_DATE: string;
-  RECOVERABLE_INT: string;
-  COURT_CASE_NO: string;
-  REF_OLD_AC_TYPE: string;
-  REF_OLD_AC_NO: string;
-  ADVOCATE: string;
-  LOAN_STAGE: string;
-  COURT: string;
-  AC_REMARK: string;
-  // documents
+//main
+AC_TYPE:string
+AC_NO:number
+REF_AC_TYPE:string
+REF_AC_NO:number
+AC_CUSTID:string
+AC_NAME:string
 
 
+// basic
+AC_OPDATE:string
+AC_MEMBTYPE:string     
+AC_MEMBNO:string
+AC_CAST:string
+AC_OCODE:string
+AC_INTCATA:string
+AC_HEALTH:string
+AC_REPAYMODE:string
+AC_SANCTION_AMOUNT:string
+AC_SANCTION_DATE:string
+AC_DRAWPOWER_AMT:string
+AC_INSTALLMENT:string
+AC_MONTHS:string
+AC_MORATORIUM_PERIOD:string
+AC_GRACE_PERIOD:string
+AC_EXPIRE_DATE:string
+AC_INTRATE:string
+AC_PENALINTRATE:string
+EFFECT_DATE:string
+
+
+// other details
+AC_AUTHORITY:string
+AC_RECOMMEND_BY:string
+AC_PRIORITY:string
+AC_PURPOSE:string
+AC_INDUSTRY:string
+AC_WEAKER:string
+AC_RELATION_TYPE:string
+AC_DIRECTOR:string
+AC_DIRECTOR_RELATION:string
+AC_COREG_NO:string
+AC_COREG_DATE:string
+AC_COREG_AMT:string
+AC_RESO_NO:string
+AC_RESO_DATE:string
+
+// address
+AC_HONO:string
+AC_WARD:string
+AC_ADDR:string
+AC_GALLI:string
+AC_AREA:string
+AC_CTCODE:string
+AC_PIN:string
+AC_ADDFLAG:boolean
+AC_THONO:string
+AC_TWARD:string
+AC_TADDR:string
+AC_TGALLI:string
+AC_TAREA:string
+AC_TCTCODE:string
+AC_TPIN:string
+AC_MOBILENO:string
+AC_PHONE_RES:string
+AC_PHONE_OFFICE:string
+
+
+// securities
+SECURITY_CODE:string
+SECURITY_VALUE:string
+AC_REMARK:string
+
+// Guarantor
+GAC_CUSTID:string
+GAC_MEMBNO:string
+GAC_MEMBTYPE:string
+GAC_NAME:string
+EXP_DATE:string
+GAC_HONO:string
+GAC_WARD:string
+GAC_ADDR:string
+GAC_GALLI:string
+GAC_AREA:string
+GAC_CTCODE:string
+GAC_PIN:string
+
+// Dispute Details
+CASE_SUITE_DATE:string
+COURT_INT_RATE:string
+COURT_INSTALLMENT:string
+COURT_ORDER_DATE:string
+SUITE_AMT:string
+COURT_RESULT_DATE:string
+BRANCH_CODE:string
+RECOVERABLE_AMT:string
+INT_CALC_DATE:string
+RECOVERABLE_INT:string
+COURT_CASE_NO:string
+REF_OLD_AC_TYPE:string
+REF_OLD_AC_NO:string
+ADVOCATE:string
+LOAN_STAGE:string
+COURT:string
+D_AC_REMARK:string
+
+// document
 
 }
 
@@ -248,9 +257,8 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   selectedCharacter = '3';
   timeLeft = 5;
 
-  GuarantorTrue = false;
+  // GuarantorTrue = false;
   memno: any[];
-  tempAddress: boolean;
   castoption: any[];
   occupationoption: any[];
   intcategoryoption: any[];
@@ -268,6 +276,9 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   courtoption: any;
   dataSub: Subscription;
   city: any;
+  multiCoBorrower: any[];
+  multiGuarantor: any[];
+  memno1: any[];
 
   constructor(
     private http: HttpClient,
@@ -300,11 +311,11 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
 
   //display code according choice
 
-  OpenLink(val) {
-    if (val == 1) {
-      this.GuarantorTrue = true;
-    }
-  }
+  // OpenLink(val) {
+  //   if (val == 1) {
+  //     this.GuarantorTrue = true;
+  //   }
+  // }
 
   ngOnInit(): void {
 
@@ -532,52 +543,44 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
           title: 'Detail'
         },
         {
-          data: 'AC_TGALLI',
+          data: 'AC_GALLI',
           title: 'Galli'
+        },
+        {
+          data:'AC_AREA',
+          title:'area'
         },
         {
           data: 'AC_CTCODE',
           title: 'city'
         },
         {
-          data: 'AC_PHNO',
-          title: 'R'
-        },
-        {
           data: 'AC_PIN',
           title: 'PinCode'
         },
         {
-          data: 'AC_MOBNO',
-          title: 'Mobile'
-        },
-        {
-          data: 'AC_EMAIL',
-          title: 'Email'
-        },
-        {
           data: 'AC_ADDFLAG',
-          title: 'flag temp address as permanent address'
+          title: 'flag'
         },
         {
           data: 'AC_THONO',
-          title: 'House'
+          title: 'house no'
         },
         {
           data: 'AC_TWARD',
-          title: 'Ward'
-        },
-        {
-          data: 'AC_TGALLI',
-          title: 'Galli'
-        },
-        {
-          data: 'AC_TAREA',
-          title: 'Area'
+          title: 'ward'
         },
         {
           data: 'AC_TADDR',
-          title: 'Detail'
+          title:'Details'
+        },
+        {
+          data: 'AC_TGALLI',
+          title: 'galli'
+        },
+        {
+          data: 'AC_TAREA',
+          title: 'area'
         },
         {
           data: 'AC_TCTCODE',
@@ -585,114 +588,138 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
         },
         {
           data: 'AC_TPIN',
-          title: 'Pin Code'
+          title: 'pin no'
         },
         {
-          data: 'AC_NO',
-          title: 'CustomerID'
+          data: 'AC_MOBILENO',
+          title: 'Mob no'
         },
         {
-          data: 'MEMBER_TYPE',
-          title: 'member type'
+          data: 'AC_PHONE_RES',
+          title: 'Phone no'
         },
         {
-          data: 'MEMBER_NO',
-          title: 'member code'
-        },
-        {
-          data: 'NAME',
-          title: 'Name'
-        },
-        {
-          data: 'EXP_DATE',
-          title: 'Expiry Date'
-        },
-
-        {
-          data: 'AC_ADDR',
-          title: 'Address'
-        },
-
-        {
-          data: 'AC_ADDR1',
-          title: 'Address'
-        },
-        {
-          data: 'AC_ADDR2',
-          title: 'Address'
-        },
-        {
-          data: 'CTCODE',
-          title: 'city'
+          data: 'AC_PHONE_OFFICE',
+          title: 'Office(Phn)'
         },
         {
           data: 'SECURITY_CODE',
-          title: 'Security Details'
+          title: 'security code'
         },
         {
           data: 'SECURITY_VALUE',
-          title: 'Total Security Amount'
+          title: 'security value'
         },
         {
-          data: 'G_AC_REMARK',
-          title: 'G_AC_REMARK'
+          data: 'AC_REMARK',
+          title: 'Remark'
+        },
+        {
+          data: 'GAC_CUSTID',
+          title: 'Grarantor Customer ID'
+        },
+        {
+          data: 'GAC_MEMBNO',
+          title: 'Grarantor Member no'
+        },
+
+        {
+          data: 'GAC_MEMBTYPE',
+          title: 'Grarantor member scheme'
+        },
+
+        {
+          data: 'GAC_NAME',
+          title: 'Grarantor name'
+        },
+        {
+          data: 'EXP_DATE',
+          title: 'expiry date'
+        },
+        {
+          data: 'GAC_HONO',
+          title: 'G house no'
+        },
+        {
+          data: 'GAC_WARD',
+          title: 'G ward'
+        },
+        {
+          data: 'GAC_ADDR',
+          title: 'details'
+        },
+        {
+          data: 'GAC_GALLI',
+          title: 'G Galli'
+        },
+        {
+          data: 'GAC_AREA',
+          title: 'Area'
+        },
+        {
+          data: 'GAC_CTCODE',
+          title: 'City'
+        },
+        {
+          data: 'GAC_PIN',
+          title: 'G pin no'
         },
         {
           data: 'CASE_SUITE_DATE',
-          title: 'Suite Date'
-        },
-        {
-          data: 'COURT_INT_RATE',
-          title: 'Court Interest Rate'
-        },
-        {
-          data: 'COURT_INSTALLMENT',
-          title: 'Court Installment'
-        },
-        {
-          data: 'COURT_ORDER_DATE',
           title: 'Court Order Date'
         },
         {
-          data: 'SUITE_AMT',
-          title: 'Suite Amount'
+          data: 'COURT_INT_RATE',
+          title: 'Court interest rate'
         },
+        {
+          data: 'COURT_INSTALLMENT',
+          title: 'Installment'
+        },
+        {
+          data: 'COURT_ORDER_DATE',
+          title: 'Court order date'
+        },
+
+        {
+          data: 'SUITE_AMT',
+          title: 'suit amt'
+        },
+
         {
           data: 'COURT_RESULT_DATE',
-          title: 'Result Date'
+          title: 'Court Result Date'
         },
+
         {
           data: 'BRANCH_CODE',
-          title: 'Branch Code'
+          title: 'Branch code'
         },
 
         {
           data: 'RECOVERABLE_AMT',
-          title: 'Recoverable amt'
+          title: 'Recoverable amount'
         },
 
         {
           data: 'INT_CALC_DATE',
-          title: 'Int. Calculation Date'
+          title: 'Interest cal. date'
         },
-
         {
-          data: 'RECOVERABLE_INT',
-          title: 'Recoverable Interest'
+          data:'RECOVERABLE_INT',
+          title:'recoverable interest'
         },
-
         {
-          data: 'COURT_CASE_NO',
-          title: 'Case No'
+          data:'COURT_CASE_NO',
+          title:'court case no'
         },
-
         {
-          data: 'REF_OLD_AC_TYPE',
-          title: 'Old Scheme/ A/c No.1'
+          data:'REF_OLD_AC_TYPE',
+          title:'Old  A/c Scheme'
         },
         {
           data: 'REF_OLD_AC_NO',
-          title: 'Old Scheme/ A/c No.2'
+          title: 'Old Scheme/ A/c No'
         },
         {
           data: 'ADVOCATE',
@@ -707,13 +734,13 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
           title: 'COURT'
         },
         {
-          data: 'AC_REMARK',
+          data: 'D_AC_REMARK',
           title: 'REMARK'
         },
-        {
-          data: 'MEMBER_NO',
-          title: 'member code'
-        },
+        // {
+        //   data: 'MEMBER_NO',
+        //   title: 'member code'
+        // },
 
 
 
@@ -734,6 +761,7 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     })
     this.TermLoanMasterDropdownService.getTermLoanMasterList().pipe(first()).subscribe(data => {
       this.memno = data;
+      this.memno1 = data;
     })
     this.CustomerIDMasterDropdownService.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.custid = data;
@@ -787,10 +815,19 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
 
   }
 
-  tempAsPermanent() {
-    this.tempAddress = !this.tempAddress;
-    //this.tempAddress = this.tempAddress;
+  GuarantorTrue: boolean = false
+  CoBorrowerTrue: boolean = false
+  OpenLink() {
+    this.GuarantorTrue = !this.GuarantorTrue
   }
+
+ //temp address flag variable
+ tempAddress: boolean = true;
+ tempAsPermanent() {
+   this.tempAddress = !this.tempAddress;
+ }
+
+
   runTimer() {
     const timer = setInterval(() => {
       this.timeLeft -= 1;
@@ -806,108 +843,115 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
-
-      // AC_ACNOTYPE: ['DS'],
-      // basic 
-      AC_TYPE: [''],
-      AC_NO: [''],
-      REF_AC_NO: [''],
-      REF_AC_TYPE: [''],
-      AC_CUSTID: [''],
-      AC_NAME: [''],
-      AC_OPDATE: [''],
-      AC_MEMBTYPE: [''],
-      AC_MEMBNO: [''],
-      AC_CAST: [''],
-      AC_OCODE: [''],
-      AC_INTCATA: [''],
-      AC_HEALTH: [''],
-      AC_REPAYMODE: [''],
-      AC_SANCTION_AMOUNT: [''],
-      AC_SANCTION_DATE: [''],
-      AC_DRAWPOWER_AMT: [''],
-      AC_INSTALLMENT: [''],
-      AC_MONTHS: [''],
-      AC_MORATORIUM_PERIOD: [''],
-      AC_GRACE_PERIOD: [''],
-      AC_EXPIRE_DATE: [''],
-      AC_INTRATE: [''],
-      AC_PENALINTRATE: [''],
-      EFFECT_DATE: [''],
-
+     
+      AC_ACNOTYPE: ['DS'],
+      
+      //main
+      AC_TYPE:[''],
+      AC_NO:[''],
+      REF_AC_TYPE:[''],
+      REF_AC_NO:[''],
+      AC_CUSTID:[''],
+      AC_NAME:[''],
+      
+      
+      // basic
+      AC_OPDATE:[''],
+      AC_MEMBTYPE:[''],    
+      AC_MEMBNO:[''],
+      AC_CAST:[''],
+      AC_OCODE:[''],
+      AC_INTCATA:[''],
+      AC_HEALTH:[''],
+      AC_REPAYMODE:[''],
+      AC_SANCTION_AMOUNT:[''],
+      AC_SANCTION_DATE:[''],
+      AC_DRAWPOWER_AMT:[''],
+      AC_INSTALLMENT:[''],
+      AC_MONTHS:[''],
+      AC_MORATORIUM_PERIOD:[''],
+      AC_GRACE_PERIOD:[''],
+      AC_EXPIRE_DATE:[''],
+      AC_INTRATE:[''],
+      AC_PENALINTRATE:[''],
+      EFFECT_DATE:[''],
+      
+      
       // other details
-      AC_AUTHORITY: [''],
-      AC_RECOMMEND_BY: [''],
-      AC_PRIORITY: [''],
-      AC_PURPOSE: [''],
-      AC_INDUSTRY: [''],
-      AC_WEAKER: [''],
-      AC_RELATION_TYPE: [''],
-      AC_DIRECTOR: [''],
-      AC_DIRECTOR_RELATION: [''],
-      AC_COREG_NO: [''],
-      AC_COREG_DATE: [''],
-      AC_COREG_AMT: [''],
-      AC_RESO_NO: [''],
-      AC_RESO_DATE: [''],
-
+      AC_AUTHORITY:[''],
+      AC_RECOMMEND_BY:[''],
+      AC_PRIORITY:[''],
+      AC_PURPOSE:[''],
+      AC_INDUSTRY:[''],
+      AC_WEAKER:[''],
+      AC_RELATION_TYPE:[''],
+      AC_DIRECTOR:[''],
+      AC_DIRECTOR_RELATION:[''],
+      AC_COREG_NO:[''],
+      AC_COREG_DATE:[''],
+      AC_COREG_AMT:[''],
+      AC_RESO_NO:[''],
+      AC_RESO_DATE:[''],
+      
       // address
-      AC_HONO: [''],
-      AC_WARD: [''],
-      AC_GALLI: [''],
-      AC_AREA: [''],
-      AC_ADDR: [''],
-      AC_CTCODE: [''],
-      AC_PIN: [''],
-      AC_PHNO: [''],
-      AC_MOBNO: [''],
-      AC_EMAIL: [''],
-      AC_ADDFLAG: [''],
-      AC_THONO: [''],
-      AC_TWARD: [''],
-      AC_TGALLI: [''],
-      AC_TAREA: [''],
-      AC_TADDR: [''],
-      AC_TCTCODE: [''],
-      AC_TPIN: [''],
-
-      //guarantor -securities
-
-      MEMBER_TYPE: [''],
-      MEMBER_NO: [''],
-      NAME: [''],
-      EXP_DATE: [''],
-      AC_ADDR1: [''],
-      AC_ADDR2: [''],
-      AC_ADDR3: [''],
-      CTCODE: [''],
-      SECURITY_CODE: [''],
-      SECURITY_VALUE: [''],
-      G_AC_REMARK: [''],
-      // dispute setails
-
-      CASE_SUITE_DATE: [''],
-      COURT_INT_RATE: [''],
-      COURT_INSTALLMENT: [''],
-      COURT_ORDER_DATE: [''],
-      SUITE_AMT: [''],
-      COURT_RESULT_DATE: [''],
-      BRANCH_CODE: [''],
-      RECOVERABLE_AMT: [''],
-      INT_CALC_DATE: [''],
-      RECOVERABLE_INT: [''],
-      COURT_CASE_NO: [''],
-      REF_OLD_AC_TYPE: [''],
-      REF_OLD_AC_NO: [''],
-      ADVOCATE: [''],
-      LOAN_STAGE: [''],
-      COURT: [''],
-      AC_REMARK: [''],
-      // documents
-
-
-
-
+      AC_HONO:[''],
+      AC_WARD:[''],
+      AC_ADDR:[''],
+      AC_GALLI:[''],
+      AC_AREA:[''],
+      AC_CTCODE:[''],
+      AC_PIN:[''],
+      AC_ADDFLAG:[''],
+      AC_THONO:[''],
+      AC_TWARD:[''],
+      AC_TADDR:[''],
+      AC_TGALLI:[''],
+      AC_TAREA:[''],
+      AC_TCTCODE:[''],
+      AC_TPIN:[''],
+      AC_MOBILENO:[''],
+      AC_PHONE_RES:[''],
+      AC_PHONE_OFFICE:[''],
+      
+      
+      // securities
+      SECURITY_CODE:[''],
+      SECURITY_VALUE:[''],
+      AC_REMARK:[''],
+      
+      // Guarantor
+      GAC_CUSTID:[''],
+      GAC_MEMBNO:[''],
+      GAC_MEMBTYPE:[''],
+      GAC_NAME:[''],
+      EXP_DATE:[''],
+      GAC_HONO:[''],
+      GAC_WARD:[''],
+      GAC_ADDR:[''],
+      GAC_GALLI:[''],
+      GAC_AREA:[''],
+      GAC_CTCODE:[''],
+      GAC_PIN:[''],
+      
+      // Dispute Details
+      CASE_SUITE_DATE:[''],
+      COURT_INT_RATE:[''],
+      COURT_INSTALLMENT:[''],
+      COURT_ORDER_DATE:[''],
+      SUITE_AMT:[''],
+      COURT_RESULT_DATE:[''],
+      BRANCH_CODE:[''],
+      RECOVERABLE_AMT:[''],
+      INT_CALC_DATE:[''],
+      RECOVERABLE_INT:[''],
+      COURT_CASE_NO:[''],
+      REF_OLD_AC_TYPE:[''],
+      REF_OLD_AC_NO:[''],
+      ADVOCATE:[''],
+      LOAN_STAGE:[''],
+      COURT:[''],
+      D_AC_REMARK:[''],
+    
     });
   }
   // Method to insert data into database through NestJS
@@ -915,106 +959,115 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     const formVal = this.angForm.value;
     const dataToSend = {
 
-      // 'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      // basic 
-      'AC_TYPE': formVal.AC_TYPE,
-      'AC_NO': formVal.AC_NO,
-      'REF_AC_NO': formVal.REF_AC_NO,
-      'REF_AC_TYPE': formVal.REF_AC_TYPE,
-      'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_NAME': formVal.AC_NAME,
-      'AC_OPDATE': formVal.AC_OPDATE,
-      'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
-      'AC_MEMBNO': formVal.AC_MEMBNO,
-      'AC_CAST': formVal.AC_CAST,
-      'AC_OCODE': formVal.AC_OCODE,
-      'AC_INTCATA': formVal.AC_INTCATA,
-      'AC_HEALTH': formVal.AC_HEALTH,
-      'AC_REPAYMODE': formVal.AC_REPAYMODE,
-      'AC_SANCTION_AMOUNT': formVal.AC_SANCTION_AMOUNT,
-      'AC_SANCTION_DATE': formVal.AC_SANCTION_DATE,
-      'AC_DRAWPOWER_AMT': formVal.AC_DRAWPOWER_AMT,
-      'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
-      'AC_MONTHS': formVal.AC_MONTHS,
-      'AC_MORATORIUM_PERIOD': formVal.AC_MORATORIUM_PERIOD,
-      'AC_GRACE_PERIOD': formVal.AC_GRACE_PERIOD,
-      'AC_EXPIRE_DATE': formVal.AC_EXPIRE_DATE,
-      'AC_INTRATE': formVal.AC_INTRATE,
-      'AC_PENALINTRATE': formVal.AC_PENALINTRATE,
-      'EFFECT_DATE': formVal.EFFECT_DATE,
-
+      AC_ACNOTYPE:formVal.AC_ACNOTYPE,
+      
+      //main
+      AC_TYPE:formVal.AC_TYPE,
+      AC_NO:formVal.AC_NO,
+      REF_AC_TYPE:formVal.REF_AC_TYPE,
+      REF_AC_NO:formVal.REF_AC_NO,
+      AC_CUSTID:formVal.AC_CUSTID,
+      AC_NAME:formVal.AC_NAME,
+      
+      
+      // basic
+      AC_OPDATE:formVal.AC_OPDATE,
+      AC_MEMBTYPE:formVal.AC_MEMBTYPE,
+      AC_MEMBNO:formVal.AC_MEMBNO,
+      AC_CAST:formVal.AC_CAST,
+      AC_OCODE:formVal.AC_OCODE,
+      AC_INTCATA:formVal.AC_INTCATA,
+      AC_HEALTH:formVal.AC_HEALTH,
+      AC_REPAYMODE:formVal.AC_REPAYMODE,
+      AC_SANCTION_AMOUNT:formVal.AC_SANCTION_AMOUNT,
+      AC_SANCTION_DATE:formVal.AC_SANCTION_DATE,
+      AC_DRAWPOWER_AMT:formVal.AC_DRAWPOWER_AMT,
+      AC_INSTALLMENT:formVal.AC_INSTALLMENT,
+      AC_MONTHS:formVal.AC_MONTHS,
+      AC_MORATORIUM_PERIOD:formVal.AC_MORATORIUM_PERIOD,
+      AC_GRACE_PERIOD:formVal.AC_GRACE_PERIOD,
+      AC_EXPIRE_DATE:formVal.AC_EXPIRE_DATE,
+      AC_INTRATE:formVal.AC_INTRATE,
+      AC_PENALINTRATE:formVal.AC_PENALINTRATE,
+      EFFECT_DATE:formVal.EFFECT_DATE,
+      
+      
       // other details
-      'AC_AUTHORITY': formVal.AC_AUTHORITY,
-      'AC_RECOMMEND_BY': formVal.AC_RECOMMEND_BY,
-      'AC_PRIORITY': formVal.AC_PRIORITY,
-      'AC_PURPOSE': formVal.AC_PURPOSE,
-      'AC_INDUSTRY': formVal.AC_INDUSTRY,
-      'AC_WEAKER': formVal.AC_WEAKER,
-      'AC_RELATION_TYPE': formVal.AC_RELATION_TYPE,
-      'AC_DIRECTOR': formVal.AC_DIRECTOR,
-      'AC_DIRECTOR_RELATION': formVal.AC_DIRECTOR_RELATION,
-      'AC_COREG_NO': formVal.AC_COREG_NO,
-      'AC_COREG_DATE': formVal.AC_COREG_DATE,
-      'AC_COREG_AMT': formVal.AC_COREG_AMT,
-      'AC_RESO_NO': formVal.AC_RESO_NO,
-      'AC_RESO_DATE': formVal.AC_RESO_DATE,
-
+      AC_AUTHORITY:formVal.AC_AUTHORITY,
+      AC_RECOMMEND_BY:formVal.AC_RECOMMEND_BY,
+      AC_PRIORITY:formVal.AC_PRIORITY,
+      AC_PURPOSE:formVal.AC_PURPOSE,
+      AC_INDUSTRY:formVal.AC_INDUSTRY,
+      AC_WEAKER:formVal.AC_WEAKER,
+      AC_RELATION_TYPE:formVal.AC_RELATION_TYPE,
+      AC_DIRECTOR:formVal.AC_DIRECTOR,
+      AC_DIRECTOR_RELATION:formVal.AC_DIRECTOR_RELATION,
+      AC_COREG_NO:formVal.AC_COREG_NO,
+      AC_COREG_DATE:formVal.AC_COREG_DATE,
+      AC_COREG_AMT:formVal.AC_COREG_AMT,
+      AC_RESO_NO:formVal.AC_RESO_NO,
+      AC_RESO_DATE:formVal.AC_RESO_DATE,
+      
       // address
-      'AC_HONO': formVal.AC_HONO,
-      'AC_WARD': formVal.AC_WARD,
-      'AC_GALLI': formVal.AC_GALLI,
-      'AC_AREA': formVal.AC_AREA,
-      'AC_ADDR': formVal.AC_ADDR,
-      'AC_CTCODE': formVal.AC_CTCODE,
-      'AC_PIN': formVal.AC_PIN,
-      'AC_PHNO': formVal.AC_PHNO,
-      'AC_MOBNO': formVal.AC_MOBNO,
-      'AC_EMAIL': formVal.AC_EMAIL,
-      'AC_ADDFLAG': formVal.AC_ADDFLAG,
-      'AC_THONO': formVal.AC_THONO,
-      'AC_TWARD': formVal.AC_TWARD,
-      'AC_TGALLI': formVal.AC_TGALLI,
-      'AC_TAREA': formVal.AC_TAREA,
-      'AC_TADDR': formVal.AC_TADDR,
-      'AC_TCTCODE': formVal.AC_TCTCODE,
-      'AC_TPIN': formVal.AC_TPIN,
+      AC_HONO:formVal.AC_HONO,
+      AC_WARD:formVal.AC_WARD,
+      AC_ADDR:formVal.AC_ADDR,
+      AC_GALLI:formVal.AC_GALLI,
+      AC_AREA:formVal.AC_AREA,
+      AC_CTCODE:formVal.AC_CTCODE,
+      AC_PIN:formVal.AC_PIN,
+      AC_ADDFLAG:formVal.AC_ADDFLAG,
+      AC_THONO:formVal.AC_THONO,
+      AC_TWARD:formVal.AC_TWARD,
+      AC_TADDR:formVal.AC_TADDR,
+      AC_TGALLI:formVal.AC_TGALLI,
+      AC_TAREA:formVal.AC_TAREA,
+      AC_TCTCODE:formVal.AC_TCTCODE,
+      AC_TPIN:formVal.AC_TPIN,
+      AC_MOBILENO:formVal.AC_MOBILENO,
+      AC_PHONE_RES:formVal.AC_PHONE_RES,
+      AC_PHONE_OFFICE:formVal.AC_PHONE_OFFICE,
+      
+      
+      // securities
+      SECURITY_CODE:formVal.SECURITY_CODE,
+      SECURITY_VALUE:formVal.SECURITY_VALUE,
+      AC_REMARK:formVal.AC_REMARK,
+      
+      // Guarantor
+      GAC_CUSTID:formVal.GAC_CUSTID,
+      GAC_MEMBNO:formVal.GAC_MEMBNO,
+      GAC_MEMBTYPE:formVal.GAC_MEMBTYPE,
+      GAC_NAME:formVal.GAC_NAME,
+      EXP_DATE:formVal.EXP_DATE,
+      GAC_HONO:formVal.GAC_HONO,
+      GAC_WARD:formVal.GAC_WARD,
+      GAC_ADDR:formVal.GAC_ADDR,
+      GAC_GALLI:formVal.GAC_GALLI,
+      GAC_AREA:formVal.GAC_AREA,
+      GAC_CTCODE:formVal.GAC_CTCODE,
+      GAC_PIN:formVal.GAC_PIN,
+      
+      // Dispute Details
+      CASE_SUITE_DATE:formVal.CASE_SUITE_DATE,
+      COURT_INT_RATE:formVal.COURT_INT_RATE,
+      COURT_INSTALLMENT:formVal.COURT_INSTALLMENT,
+      COURT_ORDER_DATE:formVal.COURT_ORDER_DATE,
+      SUITE_AMT:formVal.SUITE_AMT,
+      COURT_RESULT_DATE:formVal.COURT_RESULT_DATE,
+      BRANCH_CODE:formVal.BRANCH_CODE,
+      RECOVERABLE_AMT:formVal.RECOVERABLE_AMT,
+      INT_CALC_DATE:formVal.INT_CALC_DATE,
+      RECOVERABLE_INT:formVal.RECOVERABLE_INT,
+      COURT_CASE_NO:formVal.COURT_CASE_NO,
+      REF_OLD_AC_TYPE:formVal.REF_OLD_AC_TYPE,
+      REF_OLD_AC_NO:formVal.REF_OLD_AC_NO,
+      ADVOCATE:formVal.ADVOCATE,
+      LOAN_STAGE:formVal.LOAN_STAGE,
+      COURT:formVal.COURT,
+      D_AC_REMARK:formVal.D_AC_REMARK,
 
-      //guarantor -securities
-
-      'MEMBER_TYPE': formVal.MEMBER_TYPE,
-      'MEMBER_NO': formVal.MEMBER_NO,
-      'NAME': formVal.NAME,
-      'EXP_DATE': formVal.EXP_DATE,
-      'AC_ADDR1': formVal.AC_ADDR1,
-      'AC_ADDR2': formVal.AC_ADDR2,
-      'AC_ADDR3': formVal.AC_ADDR3,
-      'CTCODE': formVal.CTCODE,
-      'SECURITY_CODE': formVal.SECURITY_CODE,
-      'SECURITY_VALUE': formVal.SECURITY_VALUE,
-      'G_AC_REMARK': formVal.G_AC_REMARK,
-
-      // dispute setails
-
-      'CASE_SUITE_DATE': formVal.CASE_SUITE_DATE,
-      'COURT_INT_RATE': formVal.COURT_INT_RATE,
-      'COURT_INSTALLMENT': formVal.COURT_INSTALLMENT,
-      'COURT_ORDER_DATE': formVal.COURT_ORDER_DATE,
-      'SUITE_AMT': formVal.SUITE_AMT,
-      'COURT_RESULT_DATE': formVal.COURT_RESULT_DATE,
-      'BRANCH_CODE': formVal.BRANCH_CODE,
-      'RECOVERABLE_AMT': formVal.RECOVERABLE_AMT,
-      'INT_CALC_DATE': formVal.INT_CALC_DATE,
-      'RECOVERABLE_INT': formVal.RECOVERABLE_INT,
-      'COURT_CASE_NO': formVal.COURT_CASE_NO,
-      'REF_OLD_AC_TYPE': formVal.REF_OLD_AC_TYPE,
-      'REF_OLD_AC_NO': formVal.REF_OLD_AC_NO,
-      'ADVOCATE': formVal.ADVOCATE,
-      'LOAN_STAGE': formVal.LOAN_STAGE,
-      'COURT': formVal.COURT,
-      'AC_REMARK': formVal.AC_REMARK,
-      // documents
-
-
+      // document
 
     }
     this.DisputeLoanMasterService.postData(dataToSend).subscribe(data1 => {
@@ -1026,9 +1079,35 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     }, (error) => {
       console.log(error)
     })
+
+    // addGuarantor() {
+    //   const formVal = this.angForm.value;
+    //   var object = {
+    //     AC_TYPE: formVal.AC_TYPE,
+    //     AC_ACNOTYPE: formVal.AC_ACNOTYPE,
+    //     GAC_CUSTID: formVal.GAC_CUSTID,
+    //     GAC_MEMBNO: formVal.GAC_MEMBNO,
+    //     GAC_MEMBTYPE: formVal.GAC_MEMBTYPE,
+    //     GAC_NAME: formVal.GAC_NAME,
+    //     GAC_HONO: formVal.GAC_HONO,
+    //     GAC_WARD: formVal.GAC_WARD,
+    //     GAC_ADDR: formVal.GAC_ADDR,
+    //     GAC_GALLI: formVal.GAC_GALLI,
+    //     GAC_AREA: formVal.GAC_AREA,
+    //     GAC_CTCODE: formVal.GAC_CTCODE,
+    //     GAC_PIN: formVal.GAC_PIN,
+    //     EXP_DATE: formVal.EXP_DATE
+    //   }
+    //   this.multiGuarantor.push(object);
+    //   this.resetGuarantor()
+    // }
     //To clear form
-    this.resetForm;
+      
+        this.resetForm();
+        this.multiCoBorrower = []
+        this.multiGuarantor = []
   }
+  
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
@@ -1036,106 +1115,119 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
     this.newbtnShow = true;
     this.DisputeLoanMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
-        // 'AC_ACNOTYPE': data.AC_ACNOTYPE,
-        // basic 
-        'AC_TYPE': data.AC_TYPE,
-        'AC_NO': data.AC_NO,
-        'REF_AC_TYPE': data.REF_AC_TYPE,
-        'REF_AC_NO': data.REF_AC_NO,
-        'AC_CUSTID': data.AC_CUSTID,
-        'AC_NAME': data.AC_NAME,
-        'AC_OPDATE': data.AC_OPDATE,
-        'AC_MEMBTYPE': data.AC_MEMBTYPE,
-        'AC_MEMBNO': data.AC_MEMBNO,
-        'AC_CAST': data.AC_CAST,
-        'AC_OCODE': data.AC_OCODE,
-        'AC_INTCATA': data.AC_INTCATA,
-        'AC_HEALTH': data.AC_HEALTH,
-        'AC_REPAYMODE': data.AC_REPAYMODE,
-        'AC_SANCTION_AMOUNT': data.AC_SANCTION_AMOUNT,
-        'AC_SANCTION_DATE': data.AC_SANCTION_DATE,
-        'AC_DRAWPOWER_AMT': data.AC_DRAWPOWER_AMT,
-        'AC_INSTALLMENT': data.AC_INSTALLMENT,
-        'AC_MONTHS': data.AC_MONTHS,
-        'AC_MORATORIUM_PERIOD': data.AC_MORATORIUM_PERIOD,
-        'AC_GRACE_PERIOD': data.AC_GRACE_PERIOD,
-        'AC_EXPIRE_DATE': data.AC_EXPIRE_DATE,
-        'AC_INTRATE': data.AC_INTRATE,
-        'AC_PENALINTRATE': data.AC_PENALINTRATE,
-        'EFFECT_DATE': data.EFFECT_DATE,
-
-        // other details
-        'AC_AUTHORITY': data.AC_AUTHORITY,
-        'AC_RECOMMEND_BY': data.AC_RECOMMEND_BY,
-        'AC_PRIORITY': data.AC_PRIORITY,
-        'AC_PURPOSE': data.AC_PURPOSE,
-        'AC_INDUSTRY': data.AC_INDUSTRY,
-        'AC_WEAKER': data.AC_WEAKER,
-        'AC_RELATION_TYPE': data.AC_RELATION_TYPE,
-        'AC_DIRECTOR': data.AC_DIRECTOR,
-        'AC_DIRECTOR_RELATION': data.AC_DIRECTOR_RELATION,
-        'AC_COREG_NO': data.AC_COREG_NO,
-        'AC_COREG_DATE': data.AC_COREG_DATE,
-        'AC_COREG_AMT': data.AC_COREG_AMT,
-        'AC_RESO_NO': data.AC_RESO_NO,
-        'AC_RESO_DATE': data.AC_RESO_DATE,
-
-        // address
-        'AC_HONO': data.AC_HONO,
-        'AC_WARD': data.AC_WARD,
-        'AC_GALLI': data.AC_GALLI,
-        'AC_AREA': data.AC_AREA,
-        'AC_ADDR': data.AC_ADDR,
-        'AC_CTCODE': data.AC_CTCODE,
-        'AC_PIN': data.AC_PIN,
-        'AC_PHNO': data.AC_PHNO,
-        'AC_MOBNO': data.AC_MOBNO,
-        'AC_EMAIL': data.AC_EMAIL,
-        'AC_ADDFLAG': data.AC_ADDFLAG,
-        'AC_THONO': data.AC_THONO,
-        'AC_TWARD': data.AC_TWARD,
-        'AC_TGALLI': data.AC_TGALLI,
-        'AC_TAREA': data.AC_TAREA,
-        'AC_TADDR': data.AC_TADDR,
-        'AC_TCTCODE': data.AC_TCTCODE,
-        'AC_TPIN': data.AC_TPIN,
-
-        //guarantor -securities
-
-        'MEMBER_TYPE': data.MEMBER_TYPE,
-        'MEMBER_NO': data.MEMBER_NO,
-        'NAME': data.NAME,
-        'EXP_DATE': data.EXP_DATE,
-        'AC_ADDR1': data.AC_ADDR1,
-        'AC_ADDR2': data.AC_ADDR2,
-        'AC_ADDR3': data.AC_ADDR3,
-        'CTCODE': data.CTCODE,
-        'SECURITY_CODE': data.SECURITY_CODE,
-        'SECURITY_VALUE': data.SECURITY_VALUE,
-        'G_AC_REMARK': data.G_AC_REMARK,
-        // dispute setails
-
-        'CASE_SUITE_DATE': data.CASE_SUITE_DATE,
-        'COURT_INT_RATE': data.COURT_INT_RATE,
-        'COURT_INSTALLMENT': data.COURT_INSTALLMENT,
-        'COURT_ORDER_DATE': data.COURT_ORDER_DATE,
-        'SUITE_AMT': data.SUITE_AMT,
-        'COURT_RESULT_DATE': data.COURT_RESULT_DATE,
-        'BRANCH_CODE': data.BRANCH_CODE,
-        'RECOVERABLE_AMT': data.RECOVERABLE_AMT,
-        'INT_CALC_DATE': data.INT_CALC_DATE,
-        'RECOVERABLE_INT': data.RECOVERABLE_INT,
-        'COURT_CASE_NO': data.COURT_CASE_NO,
-        'REF_OLD_AC_TYPE': data.REF_OLD_AC_TYPE,
-        'REF_OLD_AC_NO': data.REF_OLD_AC_NO,
-        'ADVOCATE': data.ADVOCATE,
-        'LOAN_STAGE': data.LOAN_STAGE,
-        'COURT': data.COURT,
-        'AC_REMARK': data.AC_REMARK,
-        // documents
-
-
+      this.getCustomer(data.AC_CUSTID)
+   
+    this.multiGuarantor = data.guaranterMaster
+    console.log("scheme", data.AC_TYPE)
+    
+      this.angForm.patchValue({
+      AC_ACNOTYPE:data.AC_ACNOTYPE,
+      
+      //main
+      AC_TYPE:data.AC_TYPE,
+      AC_NO:data.AC_NO,
+      REF_AC_TYPE:data.REF_AC_TYPE,
+      REF_AC_NO:data.REF_AC_NO,
+      AC_CUSTID:data.AC_CUSTID,
+      AC_NAME:data.AC_NAME,
+      
+      
+      // basic
+      AC_OPDATE:data.AC_OPDATE,
+      AC_MEMBTYPE:data.AC_MEMBTYPE,
+      AC_MEMBNO:data.AC_MEMBNO,
+      AC_CAST:data.AC_CAST,
+      AC_OCODE:data.AC_OCODE,
+      AC_INTCATA:data.AC_INTCATA,
+      AC_HEALTH:data.AC_HEALTH,
+      AC_REPAYMODE:data.AC_REPAYMODE,
+      AC_SANCTION_AMOUNT:data.AC_SANCTION_AMOUNT,
+      AC_SANCTION_DATE:data.AC_SANCTION_DATE,
+      AC_DRAWPOWER_AMT:data.AC_DRAWPOWER_AMT,
+      AC_INSTALLMENT:data.AC_INSTALLMENT,
+      AC_MONTHS:data.AC_MONTHS,
+      AC_MORATORIUM_PERIOD:data.AC_MORATORIUM_PERIOD,
+      AC_GRACE_PERIOD:data.AC_GRACE_PERIOD,
+      AC_EXPIRE_DATE:data.AC_EXPIRE_DATE,
+      AC_INTRATE:data.AC_INTRATE,
+      AC_PENALINTRATE:data.AC_PENALINTRATE,
+      EFFECT_DATE:data.EFFECT_DATE,
+      
+      
+      // other details
+      AC_AUTHORITY:data.AC_AUTHORITY,
+      AC_RECOMMEND_BY:data.AC_RECOMMEND_BY,
+      AC_PRIORITY:data.AC_PRIORITY,
+      AC_PURPOSE:data.AC_PURPOSE,
+      AC_INDUSTRY:data.AC_INDUSTRY,
+      AC_WEAKER:data.AC_WEAKER,
+      AC_RELATION_TYPE:data.AC_RELATION_TYPE,
+      AC_DIRECTOR:data.AC_DIRECTOR,
+      AC_DIRECTOR_RELATION:data.AC_DIRECTOR_RELATION,
+      AC_COREG_NO:data.AC_COREG_NO,
+      AC_COREG_DATE:data.AC_COREG_DATE,
+      AC_COREG_AMT:data.AC_COREG_AMT,
+      AC_RESO_NO:data.AC_RESO_NO,
+      AC_RESO_DATE:data.AC_RESO_DATE,
+      
+      // address
+      AC_HONO:data.AC_HONO,
+      AC_WARD:data.AC_WARD,
+      AC_ADDR:data.AC_ADDR,
+      AC_GALLI:data.AC_GALLI,
+      AC_AREA:data.AC_AREA,
+      AC_CTCODE:data.AC_CTCODE,
+      AC_PIN:data.AC_PIN,
+      AC_ADDFLAG:data.AC_ADDFLAG,
+      AC_THONO:data.AC_THONO,
+      AC_TWARD:data.AC_TWARD,
+      AC_TADDR:data.AC_TADDR,
+      AC_TGALLI:data.AC_TGALLI,
+      AC_TAREA:data.AC_TAREA,
+      AC_TCTCODE:data.AC_TCTCODE,
+      AC_TPIN:data.AC_TPIN,
+      AC_MOBILENO:data.AC_MOBILENO,
+      AC_PHONE_RES:data.AC_PHONE_RES,
+      AC_PHONE_OFFICE:data.AC_PHONE_OFFICE,
+      
+      
+      // securities
+      SECURITY_CODE:data.SECURITY_CODE,
+      SECURITY_VALUE:data.SECURITY_VALUE,
+      AC_REMARK:data.AC_REMARK,
+      
+      // Guarantor
+      GAC_CUSTID:data.GAC_CUSTID,
+      GAC_MEMBNO:data.GAC_MEMBNO,
+      GAC_MEMBTYPE:data.GAC_MEMBTYPE,
+      GAC_NAME:data.GAC_NAME,
+      EXP_DATE:data.EXP_DATE,
+      GAC_HONO:data.GAC_HONO,
+      GAC_WARD:data.GAC_WARD,
+      GAC_ADDR:data.GAC_ADDR,
+      GAC_GALLI:data.GAC_GALLI,
+      GAC_AREA:data.GAC_AREA,
+      GAC_CTCODE:data.GAC_CTCODE,
+      GAC_PIN:data.GAC_PIN,
+      
+      // Dispute Details
+      CASE_SUITE_DATE:data.CASE_SUITE_DATE,
+      COURT_INT_RATE:data.COURT_INT_RATE,
+      COURT_INSTALLMENT:data.COURT_INSTALLMENT,
+      COURT_ORDER_DATE:data.COURT_ORDER_DATE,
+      SUITE_AMT:data.SUITE_AMT,
+      COURT_RESULT_DATE:data.COURT_RESULT_DATE,
+      BRANCH_CODE:data.BRANCH_CODE,
+      RECOVERABLE_AMT:data.RECOVERABLE_AMT,
+      INT_CALC_DATE:data.INT_CALC_DATE,
+      RECOVERABLE_INT:data.RECOVERABLE_INT,
+      COURT_CASE_NO:data.COURT_CASE_NO,
+      REF_OLD_AC_TYPE:data.REF_OLD_AC_TYPE,
+      REF_OLD_AC_NO:data.REF_OLD_AC_NO,
+      ADVOCATE:data.ADVOCATE,
+      LOAN_STAGE:data.LOAN_STAGE,
+      COURT:data.COURT,
+      D_AC_REMARK:data.D_AC_REMARK,
 
       })
     })
@@ -1143,6 +1235,8 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
+    console.log(this.multiGuarantor)
+    data['GuarantorData'] = this.multiGuarantor
     data['id'] = this.updateID;
     this.DisputeLoanMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
@@ -1241,54 +1335,51 @@ export class DisputeLoanMasterComponent implements OnInit, AfterViewInit, OnDest
       console.log('get transfered data ', data)
       this.getCustomer(data.AC_CUSTID)
       this.angForm.patchValue({
-
-        // 'AC_ACNOTYPE': data.AC_ACNOTYPE,
-        'AC_TYPE': data.AC_TYPE,
-        'AC_NO': data.AC_NO,
+        AC_ACNOTYPE: data.AC_ACNOTYPE,
+        AC_NO: data.AC_NO,
+        AC_CUSTID: data.AC_CUSTID,
         AC_OPDATE: data.AC_OPDATE,
-        'AC_NAME': data.AC_NAME,
-        'AC_OPEN_OLD_DATE': data.AC_OPEN_OLD_DATE,
-        'REF_ACNO': data.REF_ACNO,
-        'AC_INTCATA': data.AC_INTCATA,
-        'AC_SANCTION_AMOUNT': data.AC_SANCTION_AMOUNT,
-        'AC_SANCTION_DATE': data.AC_SANCTION_DATE,
-        'AC_DRAWPOWER_AMT': data.AC_DRAWPOWER_AMT,
-        'AC_MONTHS': data.AC_MONTHS,
-        'AC_EXPIRE_DATE': data.AC_EXPIRE_DATE,
-        'AC_INTRATE': data.AC_INTRATE,
-        'AC_REPAYMODE': data.AC_REPAYMODE,
-        'INSTALLMENT_METHOD': data.INSTALLMENT_METHOD,
-        'AC_INSTALLMENT': data.AC_INSTALLMENT,
-        'AC_MORATORIUM_PERIOD': data.AC_MORATORIUM_PERIOD,
-        'AC_GRACE_PERIOD': data.AC_GRACE_PERIOD,
-        'AC_AUTHORITY': data.AC_AUTHORITY,
-        'AC_RECOMMEND_BY': data.AC_RECOMMEND_BY,
-        'AC_RECOVERY_CLERK': data.AC_RECOVERY_CLERK,
-        'AC_PRIORITY': data.AC_PRIORITY,
-        'AC_PRIORITY_SUB1': data.AC_PRIORITY_SUB1,
-        'AC_PRIORITY_SUB2': data.AC_PRIORITY_SUB2,
-        'AC_PRIORITY_SUB3': data.AC_PRIORITY_SUB3,
-        'AC_WEAKER': data.AC_WEAKER,
-        'AC_PURPOSE': data.AC_PURPOSE,
-        'AC_INDUSTRY': data.AC_INDUSTRY,
-        'AC_HEALTH': data.AC_HEALTH,
-        'AC_RELATION_TYPE': data.AC_RELATION_TYPE,
-        'AC_DIRECTOR': data.AC_DIRECTOR,
-        'AC_DIRECTOR_RELATION': data.AC_DIRECTOR_RELATION,
-        'AC_COREG_NO': data.AC_COREG_NO,
-        'AC_COREG_DATE': data.AC_COREG_DATE,
-        'AC_COREG_AMT': data.AC_COREG_AMT,
-        'AC_RESO_NO': data.AC_RESO_NO,
-        'AC_RESO_DATE': data.AC_RESO_DATE,
-        'AC_THONO': data.AC_THONO,
-        'AC_TWARD': data.AC_TWARD,
-        'AC_TADDR': data.AC_TADDR,
-        'AC_TGALLI': data.AC_TGALLI,
-        'AC_TAREA': data.AC_TAREA,
-        'AC_TCTCODE': data.AC_TCTCODE,
-        'AC_TPIN': data.AC_TPIN,
-        'EXP_DATE': data.EXP_DATE,
-
+        AC_OPEN_OLD_DATE: data.AC_OPEN_OLD_DATE,
+        REF_ACNO: data.REF_ACNO,
+        AC_INTCATA: data.AC_INTCATA,
+        AC_SANCTION_AMOUNT: data.AC_SANCTION_AMOUNT,
+        AC_SANCTION_DATE: data.AC_SANCTION_DATE,
+        AC_DRAWPOWER_AMT: data.AC_DRAWPOWER_AMT,
+        AC_MONTHS: data.AC_MONTHS,
+        AC_EXPIRE_DATE: data.AC_EXPIRE_DATE,
+        AC_INTRATE: data.AC_INTRATE,
+        AC_REPAYMODE: data.AC_REPAYMODE,
+        INSTALLMENT_METHOD: data.INSTALLMENT_METHOD,
+        AC_INSTALLMENT: data.AC_INSTALLMENT,
+        AC_MORATORIUM_PERIOD: data.AC_MORATORIUM_PERIOD,
+        AC_GRACE_PERIOD: data.AC_GRACE_PERIOD,
+        AC_AUTHORITY: data.AC_AUTHORITY,
+        AC_RECOMMEND_BY: data.AC_RECOMMEND_BY,
+        AC_RECOVERY_CLERK: data.AC_RECOVERY_CLERK,
+        AC_PRIORITY: data.AC_PRIORITY,
+        // AC_PRIORITY_SUB1: data.AC_PRIORITY_SUB1,
+        // AC_PRIORITY_SUB2: data.AC_PRIORITY_SUB2,
+        // AC_PRIORITY_SUB3: data.AC_PRIORITY_SUB3,
+        AC_WEAKER: data.AC_WEAKER,
+        AC_PURPOSE: data.AC_PURPOSE,
+        AC_INDUSTRY: data.AC_INDUSTRY,
+        AC_HEALTH: data.AC_HEALTH,
+        AC_RELATION_TYPE: data.AC_RELATION_TYPE,
+        AC_DIRECTOR: data.AC_DIRECTOR,
+        AC_DIRECTOR_RELATION: data.AC_DIRECTOR_RELATION,
+        AC_COREG_NO: data.AC_COREG_NO,
+        AC_COREG_DATE: data.AC_COREG_DATE,
+        AC_COREG_AMT: data.AC_COREG_AMT,
+        AC_RESO_NO: data.AC_RESO_NO,
+        AC_RESO_DATE: data.AC_RESO_DATE,
+        AC_ADDFLAG: data.AC_ADDFLAG,
+        AC_THONO: data.AC_THONO,
+        AC_TWARD: data.AC_TWARD,
+        AC_TADDR: data.AC_TADDR,
+        AC_TGALLI: data.AC_TGALLI,
+        AC_TAREA: data.AC_TAREA,
+        AC_TCTCODE: data.AC_TCTCODE,
+        AC_TPIN: data.AC_TPIN,
       })
     })
   }

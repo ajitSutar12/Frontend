@@ -47,12 +47,12 @@ interface deadstockinterface {
   DEPR_CATEGORY: number;
   OP_BAL_DATE: string;
   SUPPLIER_NAME: string;
+  OP_BALANCE: string;
+  OP_QUANTITY: number;
   PURCHASE_OP_QUANTITY: string;
   PURCHASE_RATE: string;
   PURCHASE_QUANTITY: string;
   PURCHASE_VALUE: string;
-  OP_BALANCE: string;
-  OP_QUANTITY: number;
   LAST_DEPR_DATE: Date;
   GL_ACNO: string;
 }
@@ -123,6 +123,8 @@ export class DeadStockMasterComponent
   DeprCategoryoption;
   GLACNooption: any[];
 
+  setdate: string;
+
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -184,6 +186,7 @@ export class DeadStockMasterComponent
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           },
         },
+      
         {
           title: "Item Type",
           data: "ITEM_TYPE",
@@ -212,6 +215,14 @@ export class DeadStockMasterComponent
           title: "SupplierName",
           data: "SUPPLIER_NAME",
         },
+        {
+          title: "Opening Amount",
+          data: "OP_BALANCE",
+        },
+        {
+          title: "Quantity",
+          data: "OP_QUANTITY",
+        },
 
         {
           title: "PURCHASE QUANTITY",
@@ -229,14 +240,7 @@ export class DeadStockMasterComponent
           title: "Purchase Value",
           data: "PURCHASE_VALUE",
         },
-        {
-          title: "Opening Amount",
-          data: "OP_BALANCE",
-        },
-        {
-          title: "Quantity",
-          data: "OP_QUANTITY",
-        },
+
         {
           title: "Last Depreciation Date",
           data: "LAST_DEPR_DATE",
@@ -263,12 +267,7 @@ export class DeadStockMasterComponent
       .subscribe((data) => {
         this.DeprCategoryoption = data;
       });
-    // this.DepriciationCatDropdownMaster.getDepriciationCatasterList()
-    //   .pipe(first())
-    //   .subscribe((data) => {
-    //     this.DeprCategoryoption = data;
-    //     console.log(data);
-    //   });
+  
     this.ACMasterDropdownService.getACMasterList()
       .pipe(first())
       .subscribe((data) => {
@@ -276,9 +275,6 @@ export class DeadStockMasterComponent
       });
     this.runTimer();
 
-    // this.dataSub = this.ItemCatMasterDropdownService.loadCharacters().subscribe((options) => {
-    //   this.characters = options;
-    // });
   }
 
   createForm() {
@@ -286,20 +282,49 @@ export class DeadStockMasterComponent
       ITEM_TYPE: ["", [Validators.required, Validators.pattern]],
       ITEM_CODE: [""],
       ITEM_NAME: ["", [Validators.required, Validators.pattern]],
-      PURCHASE_DATE: [""],
-      DEPR_CATEGORY: [""],
+      PURCHASE_DATE: ["", [Validators.required]],
+      DEPR_CATEGORY: ["", [Validators.required]],
       OP_BAL_DATE: ["", [Validators.required, Validators.pattern]],
       SUPPLIER_NAME: ["", [Validators.required, Validators.pattern]],
       PURCHASE_OP_QUANTITY: [""],
-      PURCHASE_RATE: ["", [Validators.required]],
+      PURCHASE_RATE: ["", [Validators.pattern]],
       PURCHASE_QUANTITY: ["", [Validators.pattern]],
-      PURCHASE_VALUE: ["", [Validators.required, Validators.pattern]],
-      OP_BALANCE: ["", [Validators.required, Validators.pattern]],
-      OP_QUANTITY: ["", [Validators.required]],
-      LAST_DEPR_DATE: ["", [Validators.required, Validators.pattern]],
+      PURCHASE_VALUE: ["", [Validators.pattern]],
+      OP_BALANCE: ["", [Validators.pattern]],
+      OP_QUANTITY: ["", [Validators.pattern]],
+      LAST_DEPR_DATE: ["", [Validators.pattern]],
       GL_ACNO: ["", [Validators.required]],
     });
   }
+
+
+  //for checking dates
+  checkdate(data: any) {
+    // debugger
+    // console.log(data.value);
+    //fetch purchasedate due date value
+    let purchasedate = document.getElementById( "PURCHASE_DATE" ) as HTMLInputElement;
+    this.setdate = purchasedate.value;
+
+    // let currentdate = document.getElementById("demo").innerHTML
+    const currentdate = new Date();
+  
+    if (data != "") {
+      // debugger
+      if (this.setdate > data) {
+        console.log("if condition is true ");
+        Swal.fire(
+          "Cancelled",
+          "purchasedate Due Date must be less than Mature due date",
+          "error"
+        );
+      } else {
+        console.log("else condition is true ");
+      }
+    }
+  }
+
+
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
@@ -324,14 +349,14 @@ export class DeadStockMasterComponent
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
+          dtInstance.ajax.reload();
         });
       },
       (error) => {
         console.log(error);
       }
     );
-   
+
     //To clear form
     this.angForm.reset();
   }
@@ -340,7 +365,7 @@ export class DeadStockMasterComponent
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
-    this.newbtnShow = false;
+    this.newbtnShow = true;
     this.deadstockmasterService.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -372,7 +397,7 @@ export class DeadStockMasterComponent
       this.updateShow = false;
       this.newbtnShow = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
+        dtInstance.ajax.reload();
       });
       this.angForm.reset();
     });
@@ -380,13 +405,13 @@ export class DeadStockMasterComponent
   addNewData() {
     this.showButton = true;
     this.updateShow = false;
-    this.newbtnShow = true;
+    this.newbtnShow = false;
     this.resetForm();
   }
-    // Reset Function
-    resetForm() {
-      this.createForm();
-    }
+  // Reset Function
+  resetForm() {
+    this.createForm();
+  }
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
@@ -433,7 +458,6 @@ export class DeadStockMasterComponent
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

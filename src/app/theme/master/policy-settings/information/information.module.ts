@@ -90,7 +90,7 @@ import { RiskCategoryDropdownService } from '../../../../shared/dropdownService/
 import { RiskCatMasterService } from './risk-catagory/risk-category.service';
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { SalaryDMasterdropdownService } from '../../../../shared/dropdownService/salary-division-master-dropdown.service'
-
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 
 // import { NgSelectModule } from '@ng-select/ng-select';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -114,6 +114,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   ],
   providers: [
+    SchemeAccountNoService,
     NarrationService,
     OwnBranchService,
     ClearingBranchService,

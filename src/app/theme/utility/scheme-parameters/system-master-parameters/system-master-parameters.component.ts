@@ -222,6 +222,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   OwnbranchMasterDropdown: any;
   ACMasterDropdown: any;
   Show: boolean = false;
+  newbtnShow: boolean;
   constructor(
     private http: HttpClient,
     public WeeklyHolidayService: WeeklyHolidayService,
@@ -933,7 +934,9 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     this.systemMasterParametersService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
     }, (error) => {
       console.log(error)
     })
@@ -944,6 +947,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.systemMasterParametersService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -1073,10 +1077,21 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      // to reload after insertion of data
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       this.resetForm();
     })
   }
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
+  // Reset Function
   resetForm() {
     this.createForm();
   }

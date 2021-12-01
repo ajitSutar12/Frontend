@@ -122,7 +122,54 @@
                         </div>
                     </div>
                   
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table
+                                    class="table table-striped table-bordered table-hover">
+                                    <tbody *ngIf="multiNominee?.length != 0">
+                                        <tr>
+                                            <th>Member no</th>
+                                            <th>Member name</th>
+                                            <th>Dividend Amount</th>
+                                            <th>Close Date</th>
+                                        </tr>
+                                        <tr
+                                            *ngFor="let data of multiNominee; let indexOfelement=index;">
+                                            <td>
+                                                <button
+                                                    class="btn btn-outline-primary btn-sm"
+                                                    id="editbtn"
+                                                    (click)="editNominee(indexOfelement)">Edit</button>
+                                                &nbsp;
+                                                <button id="delbtn"
+                                                    class="btn btn-outline-primary btn-sm"
+                                                    (click)="delNominee(indexOfelement)">Delete</button>
+
+                                            </td>
+                                            <td>{{data.AC_NO }}</td>
+                                            <td>{{data.AC_NAME }}</td>
                         
+                                                <td>
+                                                    <input type="text" name="DIVIDEND_AMOUNT " class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="DIVIDEND_AMOUNT " maxlength="20" title="Input allowed only  0-9" formControlName="DIVIDEND_AMOUNT ">
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="PENAL_INT_RATE" class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="PENAL_INT_RATE" maxlength="20" title="Input allowed only  0-9" formControlName="PENAL_INT_RATE">
+                                                </td>
+                                          
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="multiNominee?.length == 0">
+                                        <tr>
+                                            <td colspan="6" class="no-data-available">No
+                                                data!
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
                         <div class="row">
                             <table class="table table-striped table-bordered table-hover">

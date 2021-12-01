@@ -169,7 +169,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
-      S_ACNOTYPE: ['GS'],
+      S_ACNOTYPE: ['AG'],
       S_APPL: ['', [Validators.required, Validators.pattern]],
       S_NAME: ['', [Validators.required, Validators.pattern]],
       S_SHNAME: ['', [Validators.required, Validators.pattern]],

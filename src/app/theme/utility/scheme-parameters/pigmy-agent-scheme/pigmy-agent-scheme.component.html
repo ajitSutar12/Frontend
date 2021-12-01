@@ -9,11 +9,11 @@
             <form action="javascript:" [formGroup]="angForm">
                
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
-                                        required="" pattern="^[0-9]+$" maxlength="5"
+                                        required="" pattern="^[0-9]+$" maxlength="4" minlength="4"
                                         title="Input allowed 0-9. (Space)" formControlName="S_APPL">
                                     <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                                 </span>
@@ -91,8 +91,7 @@
                                                     (click)="Pigmy_commission($event)">
                                                     <label class="border-checkbox-label" for="checkbox1" >Is
                                                         Pigmy
-                                                        Commission Applicable ?<span class="required">
-                                                        </span></label>
+                                                        Commission Applicable ?</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -104,17 +103,16 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="MIN_INT_LIMIT" class="form-control"
-                                                            placeholder=" " id="MIN_INT_LIMIT" required=""
+                                                            placeholder=" " id="MIN_INT_LIMIT"
                                                             pattern="\d{1,20}(\.\d{2})?" maxlength="2"
                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                             formControlName="MIN_INT_LIMIT" disabled>
-                                                        <label for="MIN_INT_LIMIT">Minimum Interest Amount - Text
-                                                            Box<sub class="required">* </sub></label>
+                                                        <label for="MIN_INT_LIMIT">Minimum Interest Amount<sub class="required">* </sub></label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['MIN_INT_LIMIT'].invalid && (angForm.controls['MIN_INT_LIMIT'].dirty || angForm.controls['MIN_INT_LIMIT'].touched)" class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['MIN_INT_LIMIT'].errors?.pattern || angForm.controls['MIN_INT_LIMIT'].errors?.required">
-                                                        This field is required and Input allowed only 0-9 . (Space)
+                                                         Input allowed only 0-9 . (Space)
                                                     </div>
                                                 </div>
                                             </div>
@@ -136,8 +134,7 @@
                                                         <input class="border-checkbox" type="checkbox" id="checkbox1" formControlName="STAND_INSTRUCTION_ALLOW">
                                                         <label class="border-checkbox-label" for="checkbox1">Is
                                                             Standing
-                                                            Instruction Applicable ?<span class="required">
-                                                            </span></label>
+                                                            Instruction Applicable ?</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
@@ -145,7 +142,7 @@
                                                         <input class="border-checkbox" type="checkbox" id="checkbox2" formControlName="WITHDRAWAL_APPLICABLE">
                                                         <label class="border-checkbox-label" for="checkbox2">Is
                                                             Balance
-                                                            Entry Allow ?<span class="required"> </span></label>
+                                                            Entry Allow ?</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
@@ -154,7 +151,7 @@
                                                         <label class="border-checkbox-label" for="checkbox3">Is
                                                             Allow
                                                             Dormat
-                                                            Flag Updation ?<span class="required"> </span></label>
+                                                            Flag Updation ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -165,15 +162,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        
-             
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                        </div>
-                    
+                        <div class="col-sm-4">
+                          <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
+                          <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button> &nbsp;
+                          <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
+                      </div>
                     </div>
-                
             </form>
         </div>
         </div>

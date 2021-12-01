@@ -800,7 +800,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   //Method for delete data
-  delClickHandler(id: number) {
+  delClickHandler(id: number) { 
     Swal.fire({
       title: 'Are you sure?',
       text: "Do you want to delete Saving master data.",

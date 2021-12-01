@@ -53,7 +53,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="schemeType" [multiple]="false" maxlength="2" placeholder="Scheme Type*" required title="Compulsory Selection" formControlName="AC_ACNOTYPE">
+                                <ng-select [ngClass]="'ng-select'" [options]="schemeType"  [multiple]="false" maxlength="2" placeholder="Scheme Type*" required title="Compulsory Selection" formControlName="AC_ACNOTYPE">
                                 </ng-select>
 
                             </div>
@@ -65,7 +65,8 @@
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" placeholder="Scheme Code*" required title="Compulsory Selection" maxlength="5" formControlName="AC_TYPE">
+                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" placeholder="Scheme Code*"  [(ngModel)]="acno"
+                                (selected)="getIntroducer(acno)" required title="Compulsory Selection"  formControlName="AC_TYPE">
                                 </ng-select>
 
                             </div>
@@ -80,7 +81,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NO" class="form-control" placeholder=" " maxlength="15" minlength="15"
                                         id="AcNo" required=""  pattern="^[0-9]+$"
-                                        title="Input allowed only  0-9" formControlName="AC_NO">
+                                        title="Input allowed only  0-9" formControlName="AC_NO"
+                                        (selected)="getAC_NO($event)">
                                     <label for="AcNo">A/C No.<sub class="required">* </sub></label>
                                 </span>
                             </div>
