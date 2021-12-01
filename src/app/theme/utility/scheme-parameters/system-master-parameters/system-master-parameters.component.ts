@@ -14,10 +14,10 @@ import { DaysService } from '../../../../shared/elements/days.service';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { StatementTypeService } from '../../../../shared/elements/statement-type.service';
 //import { AlternateCodeService } from '../../../../shared/elements/alternatecode.service';
-import {OwnbranchMasterService} from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
-import {ACMasterDropdownService} from '../../../../shared/dropdownService/ac-master-dropdown.service';
-import {WeeklyHolidayService} from '../../../../shared/dropdownService/weekly-holiday.service';
-import {IntrestCalculationMethodService} from '../../../../shared/dropdownService/intrest-calculation-method-dropdown.service';
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service';
+import { WeeklyHolidayService } from '../../../../shared/dropdownService/weekly-holiday.service';
+import { IntrestCalculationMethodService } from '../../../../shared/dropdownService/intrest-calculation-method-dropdown.service';
 import { IOption } from 'ng-select';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -27,7 +27,7 @@ import { HttpClient } from '@angular/common/http';
 import { SystemMasterParametersService } from './system-master-parameters.service';
 import Swal from 'sweetalert2';
 import { first } from 'rxjs/operators';
-import{environment} from '../../../../../environments/environment'
+import { environment } from '../../../../../environments/environment'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -38,7 +38,7 @@ class DataTableResponse {
 interface SystemMasterParameters {
   SYSPARA_CODE: string;
   BANK_CODE: string;
-  BANK_NAME:string;
+  BANK_NAME: string;
   BRANCH_CODE: string;
 
 
@@ -172,8 +172,8 @@ interface SystemMasterParameters {
 })
 export class SystemMasterParametersComponent implements OnInit, AfterViewInit, OnDestroy {
 
-//api 
-url = environment.base_url
+  //api 
+  url = environment.base_url
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -194,8 +194,8 @@ url = environment.base_url
   currentJustify = 'start';
   active = 1;
   activeKeep = 1;
-    //filter variable
-filterData = {};
+  //filter variable
+  filterData = {};
   // Variables for search 
   filterObject: { name: string; type: string; }[];
   filter: any;
@@ -208,7 +208,7 @@ filterData = {};
 
   simpleOption: Array<IOption> = this.StatementTypeService.getCharacters();
   IntrestCalculationMethod: Array<IOption> = this.IntrestCalculationMethodService.getCharacters();
- WeeklyandHalfHoliday: Array<IOption> = this.WeeklyHolidayService.getCharacters();
+  WeeklyandHalfHoliday: Array<IOption> = this.WeeklyHolidayService.getCharacters();
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -219,15 +219,15 @@ filterData = {};
   selectedItems: any;
   FaceValueDividendTrue = true;
   OtherSettings_True = false;
-  OwnbranchMasterDropdown:any;
-  ACMasterDropdown:any;
+  OwnbranchMasterDropdown: any;
+  ACMasterDropdown: any;
   Show: boolean = false;
   constructor(
     private http: HttpClient,
-    public WeeklyHolidayService:WeeklyHolidayService,
-    public IntrestCalculationMethodService:IntrestCalculationMethodService,
-    public ACMasterDropdownService:ACMasterDropdownService,
-    public OwnbranchMasterService:OwnbranchMasterService,
+    public WeeklyHolidayService: WeeklyHolidayService,
+    public IntrestCalculationMethodService: IntrestCalculationMethodService,
+    public ACMasterDropdownService: ACMasterDropdownService,
+    public OwnbranchMasterService: OwnbranchMasterService,
     public StatementTypeService: StatementTypeService,
     public selectOptionService: SelectOptionService,
     public systemMasterParametersService: SystemMasterParametersService
@@ -265,7 +265,7 @@ filterData = {};
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            '/system-master-parameters',
+            this.url+'/system-master-parameters',
             dataTableParameters
           ).subscribe(resp => {
             this.systemParameters = resp.data;
@@ -284,344 +284,344 @@ filterData = {};
           }
         }, {
           title: 'Type',
-          data:'SYSPARA_CODE'
-        
+          data: 'SYSPARA_CODE'
+
         }, {
           title: 'Bank Code',
-         data:'BANK_CODE'
-        },{
+          data: 'BANK_CODE'
+        }, {
           title: 'Bank Name',
-          data:'BANK_NAME'
-        },  {
+          data: 'BANK_NAME'
+        }, {
           title: 'Branch Code',
-          data:'BRANCH_CODE'
-        },{
+          data: 'BRANCH_CODE'
+        }, {
           title: 'Bank Address',
-          data:'ADDRESS'
+          data: 'ADDRESS'
         }, {
           title: 'Bank Start Date',
-          data:'COMPANY_START_DATE'
+          data: 'COMPANY_START_DATE'
         }, {
           title: 'No. Of Employees',
-          data:'NO_OF_EMPLOYEES'
+          data: 'NO_OF_EMPLOYEES'
         }, {
           title: 'Accountant(Print-First)',
-          data:'ACCOUNTANT'
+          data: 'ACCOUNTANT'
         }, {
           title: 'General Manager (Print-Middle)',
-          data:'GENERAL_MANAGER'
+          data: 'GENERAL_MANAGER'
         }, {
           title: 'Chairman (Print-Last)',
-          data:'CHAIRMAN'
+          data: 'CHAIRMAN'
         }, {
           title: 'Officer Name',
-          data:'OFFICER_NAME'
+          data: 'OFFICER_NAME'
         }, {
           title: 'Officer Designation',
-          data:'OFFICER_DESIGNATION'
+          data: 'OFFICER_DESIGNATION'
         }, {
           title: 'RBI Licence No.',
-          data:'RBI_LICENCE_NO'
+          data: 'RBI_LICENCE_NO'
         }, {
           title: 'Manager Name',
-          data:'MANAGER_NAME'
+          data: 'MANAGER_NAME'
         }, {
           title: 'Branch City Name(English)',
-          data:'BRANCH_CITY_NAME'
+          data: 'BRANCH_CITY_NAME'
         }, {
           title: 'Company Code',
-          data:'COMPANY_CODE'
+          data: 'COMPANY_CODE'
         }, {
           title: 'DD Commission',
-          data:'DD_COMMISSION_ACNO'
+          data: 'DD_COMMISSION_ACNO'
         }, {
           title: 'Dividend GL',
-          data:'DIVIDEND_ACNO'
+          data: 'DIVIDEND_ACNO'
         }, {
           title: 'Bonus GL',
-          data:'BONUS_GLACNO'
+          data: 'BONUS_GLACNO'
         }, {
           title: 'Bills For Collection',
-          data:'BILL_FOR_COLLECTION_ACNO'
+          data: 'BILL_FOR_COLLECTION_ACNO'
         }, {
           title: 'Bills Receivable',
-          data:'BILL_RECEIVABLE_ACNO'
+          data: 'BILL_RECEIVABLE_ACNO'
         }, {
           title: 'BC BR Clearing Dr.',
-          data:'BCBR_DR_GLACNO'
+          data: 'BCBR_DR_GLACNO'
         }, {
           title: 'BC BR Head Office Sub Code',
-          data:'BCBR_DR_SUB_GLACNO'
+          data: 'BCBR_DR_SUB_GLACNO'
         }, {
           title: 'Clearing Suspence GL A/c',
-          data:'CLG_SUSPENCE_ACNO'
+          data: 'CLG_SUSPENCE_ACNO'
         }, {
           title: 'Inward Bill Collection GL A/c',
-          data:'INWARD_BILL_COLLECTION_ACNO'
+          data: 'INWARD_BILL_COLLECTION_ACNO'
         }, {
           title: 'Inward Bill Receivable GL A/c',
-          data:'INWARD_BILL_RECEIVABLE_ACNO'
+          data: 'INWARD_BILL_RECEIVABLE_ACNO'
         }, {
           title: 'Allow Recovery',
-          data:'IS_ALLOW_RECOVERY_DIFF'
+          data: 'IS_ALLOW_RECOVERY_DIFF'
         }, {
           title: 'Member No Wise Recovery',
-          data:'RECOVERY_METHOD'
+          data: 'RECOVERY_METHOD'
         }, {
           title: 'CustomerID Wise Recovery',
-          data:'RECOVERY_METHOD'
+          data: 'RECOVERY_METHOD'
         }, {
           title: 'Is Process For Process Month/Year',
-          data:'IS_PROCESS_FOR_MONTH'
+          data: 'IS_PROCESS_FOR_MONTH'
         }, {
           title: 'Recovery GL  A/c No.',
-          data:'RECOVERY_DR_ACNO'
+          data: 'RECOVERY_DR_ACNO'
         }, {
           title: 'Is Process Upto Current Date',
-          data:'IS_PROCESS_UPTO_TRANDATE'
+          data: 'IS_PROCESS_UPTO_TRANDATE'
         }, {
           title: 'Head Office Ac No',
-          data:'HO_GLACNO'
+          data: 'HO_GLACNO'
         }, {
           title: 'Bank Gaurantee Dr. A/c',
-          data:'BG_DR_ACNO'
+          data: 'BG_DR_ACNO'
         }, {
           title: 'Bank Gaurantee Cr. A/c',
-          data:'BG_CR_ACNO'
+          data: 'BG_CR_ACNO'
         }, {
           title: 'Pay Order A/c',
-          data:'PAY_ORDER_ACNO'
+          data: 'PAY_ORDER_ACNO'
         }, {
           title: 'Inward Bills Purchase A/c',
-          data:'INWARD_BILLS_PURCHASE_ACNO'
+          data: 'INWARD_BILLS_PURCHASE_ACNO'
         }, {
           title: 'Year End Profit Loss Transfer',
-          data:'YEAR_CLOSING_TRANSFER_ACNO'
+          data: 'YEAR_CLOSING_TRANSFER_ACNO'
         }, {
           title: 'Profit / Loss Print in B/S GL',
-          data:'PL_TRANSFER_ACNO'
+          data: 'PL_TRANSFER_ACNO'
         }, {
           title: 'Share Capital Statement No.',
-          data:'AUTHORIZED_SHARE_CAPITAL_CODE'
+          data: 'AUTHORIZED_SHARE_CAPITAL_CODE'
         }, {
           title: 'TDS Payable GL A/c',
-          data:'TDS_PAYABLE_GLACNO'
+          data: 'TDS_PAYABLE_GLACNO'
         }, {
           title: 'Surcharge GL A/c',
-          data:'SURCHARGE_GLACNO'
+          data: 'SURCHARGE_GLACNO'
         }, {
           title: 'Cheque Book Charges GL',
-          data:'CHEQUE_CHARGES_ACNO'
+          data: 'CHEQUE_CHARGES_ACNO'
         }, {
           title: 'Cheque Bounce Charges GL',
-          data:'CHEQUE_BOUNCE_ACNO'
+          data: 'CHEQUE_BOUNCE_ACNO'
         }, {
           title: 'Cheque Bounce Charges',
-          data:'CHEQUE_BOUNCE_CHARGES'
+          data: 'CHEQUE_BOUNCE_CHARGES'
         }, {
           title: 'MICR Charges GL A/c',
-          data:'MICR_CHARGES_ACNO'
+          data: 'MICR_CHARGES_ACNO'
         }, {
           title: 'O/W Charges',
-          data:'MICR_CHARGES_AMOUNT'
+          data: 'MICR_CHARGES_AMOUNT'
         }, {
           title: 'I/W Charges',
-          data:'MICR_CHARGES_INWORD_CLG'
+          data: 'MICR_CHARGES_INWORD_CLG'
         }, {
           title: 'Grace Period (Days)',
-          data:'GRACE_PERIOD'
+          data: 'GRACE_PERIOD'
         }, {
           title: 'Weekly Holiday ',
-          data:'WEEKLY_HOLIDAY'
+          data: 'WEEKLY_HOLIDAY'
         }, {
           title: 'Half Day',
-          data:'HALF_DAY'
+          data: 'HALF_DAY'
         }, {
           title: 'Interest Calculation Method',
-          data:'INT_CALC_METHOD'
+          data: 'INT_CALC_METHOD'
         }, {
           title: 'Moratorium Period',
-          data:'MORATORIUM_PERIOD'
+          data: 'MORATORIUM_PERIOD'
         }, {
           title: 'Sanctioned Cash Limit for',
-          data:'SANCTIONED_CASH_LIMIT'
+          data: 'SANCTIONED_CASH_LIMIT'
         }, {
           title: 'Pigmy Commission Method/Rule',
-          data:'IS_PGCOMMISSION_PERCALCULATION'
+          data: 'IS_PGCOMMISSION_PERCALCULATION'
         }, {
           title: 'Dividend Calculation Month No.',
-          data:'DIV_CALCU_MONTH'
+          data: 'DIV_CALCU_MONTH'
         }, {
           title: 'High Value Clearing Amount',
-          data:'HIGH_VALUE_CLEARING_AMT'
+          data: 'HIGH_VALUE_CLEARING_AMT'
         }, {
           title: 'NPA Method No',
-          data:'NPA_METHOD'
+          data: 'NPA_METHOD'
         }, {
           title: 'Sub Method No.',
-          data:'NPA_SUBMETHOD'
+          data: 'NPA_SUBMETHOD'
         }, {
           title: 'Dividend Payable for the last',
-          data:'DIV_PAYABLE_FOR_LAST_YEARS'
+          data: 'DIV_PAYABLE_FOR_LAST_YEARS'
         }, {
           title: 'Member Can Be Guarantor for No. of A/cs',
-          data:'MEMBER_FOR_GUR'
+          data: 'MEMBER_FOR_GUR'
         }, {
           title: 'S/W Lock Time/m',
-          data:'AUTO_LOCK_TIME'
+          data: 'AUTO_LOCK_TIME'
         }, {
           title: 'Password Expiry Days',
-          data:'PASSWORD_EXPIRE_DAYS'
+          data: 'PASSWORD_EXPIRE_DAYS'
         }, {
           title: 'Is Voucher Require in Clg. Tally',
-          data:'IS_ALLOW_CLG_TALLY_VOUCHER'
+          data: 'IS_ALLOW_CLG_TALLY_VOUCHER'
         }, {
           title: 'Denomination Require',
-          data:'DENOMINATION_REQUIRE'
+          data: 'DENOMINATION_REQUIRE'
         }, {
           title: 'Customer ID required',
-          data:'CUSTOMER_ID_REQUIRED'
+          data: 'CUSTOMER_ID_REQUIRED'
         }, {
           title: ' Is Clearing Date Add by 1 Day',
-          data:'IS_CLG_DATE_ADD'
+          data: 'IS_CLG_DATE_ADD'
         }, {
           title: ' Teller Mode',
-          data:'TELLER_MODE'
+          data: 'TELLER_MODE'
         }, {
           title: ' TDS Calculate required',
-          data:'IS_TDS_CALCULATE'
+          data: 'IS_TDS_CALCULATE'
         }, {
           title: ' Is Auto Clearing Effect',
-          data:'IS_AUTO_CLEARING_EFFECT'
+          data: 'IS_AUTO_CLEARING_EFFECT'
         }, {
           title: ' Allow Direct Entry to Scheme GL',
-          data:'IS_ALLOW_SCHEME_GL_ENTRY'
+          data: 'IS_ALLOW_SCHEME_GL_ENTRY'
         }, {
           title: ' Is NPA Auto Voucher Create',
-          data:'IS_AUTO_VOUCHER_NPA_OIR'
+          data: 'IS_AUTO_VOUCHER_NPA_OIR'
         }, {
           title: ' Auto Account Numbering',
-          data:'AUTO_NO'
+          data: 'AUTO_NO'
         }, {
           title: ' Token Not Applicable',
-          data:'TOKEN_NO_APPLICABLE'
+          data: 'TOKEN_NO_APPLICABLE'
         }, {
           title: ' Is HO Sub GL A/c Input Required',
-          data:'IS_HO_SUB_GLACNO_REQUIRED'
+          data: 'IS_HO_SUB_GLACNO_REQUIRED'
         }, {
           title: 'Master Approve Required',
-          data:'MASTER_APPROVAL_REQUIRED'
+          data: 'MASTER_APPROVAL_REQUIRED'
         }, {
           title: 'Auto Attach Deposit Ac Joint Names to Primary Name',
-          data:'MASTER_ATTACH_JOINT_NAMES'
+          data: 'MASTER_ATTACH_JOINT_NAMES'
         }, {
           title: ' Is Clearing option Required',
-          data:'IS_REQUIRE_CLEARING_OPTION'
+          data: 'IS_REQUIRE_CLEARING_OPTION'
         }, {
           title: 'Is Posting DD Preparation',
-          data:'IS_POSTING_DD_PREPARATION'
+          data: 'IS_POSTING_DD_PREPARATION'
         }, {
           title: 'Auto Attach Guardian Name to Primary Name',
-          data:'MASTER_ATTACH_GUARDIAN_NAMES'
+          data: 'MASTER_ATTACH_GUARDIAN_NAMES'
         }, {
           title: 'Is Allowed Multiple time User Login?',
-          data:'IS_ALLOW_USER_MULTI_LOGIN'
+          data: 'IS_ALLOW_USER_MULTI_LOGIN'
         }, {
           title: ' Auto Instruction Passing',
-          data:'IS_AUTO_INSTRUCTION_PASS'
+          data: 'IS_AUTO_INSTRUCTION_PASS'
         }, {
           title: 'Allow Pigmy Accounts Renewal',
-          data:'PIGMY_AC_RENEW_APPLY'
-        },  {
+          data: 'PIGMY_AC_RENEW_APPLY'
+        }, {
           title: 'Maintain Cheque Series',
-          data:'MAINTAIN_CHEQUE_SERIES'
-        },{
+          data: 'MAINTAIN_CHEQUE_SERIES'
+        }, {
           title: 'Ac Wise Receipt No Input In Pigmy Chart',
-          data:'IS_RECEIPTNO_IN_PIGMYCHART'
+          data: 'IS_RECEIPTNO_IN_PIGMYCHART'
         }, {
           title: 'Is Bankers Commission Voucher Required',
-          data:'IS_BANKERS_COMM_TRAN_REQD'
+          data: 'IS_BANKERS_COMM_TRAN_REQD'
         }, {
           title: 'Pigmy Auto Voucher Generation',
-          data:'PIGMY_IS_AUTO_VOUCHER'
+          data: 'PIGMY_IS_AUTO_VOUCHER'
         }, {
           title: 'Is Rebit Interest Rate Wise Calculation (Loan)',
-          data:'IS_REBIT_INTRATE_CAL'
+          data: 'IS_REBIT_INTRATE_CAL'
         }, {
           title: 'Is Required IBC/IBR Vouchers',
-          data:'IS_IBCIBR_VOUCH_REQD'
+          data: 'IS_IBCIBR_VOUCH_REQD'
         }, {
           title: ' MICR Charges Applicable',
-          data:'IS_MICR_CHARGES_APPL'
+          data: 'IS_MICR_CHARGES_APPL'
         }, {
           title: 'Allow to Change Loan Interest Amount',
-          data:'IS_ALLOW_LOANINT_CHANGE'
+          data: 'IS_ALLOW_LOANINT_CHANGE'
         }, {
           title: 'Depreciation With Half/Full Rate',
-          data:'DEPRECIATION_WITH_HALFFULLRATE'
+          data: 'DEPRECIATION_WITH_HALFFULLRATE'
         }, {
           title: 'Guarantors From Only A Type Members',
-          data:'IS_GURR_FROM_MEMBERS'
+          data: 'IS_GURR_FROM_MEMBERS'
         }, {
           title: 'Consider Renewal As Open For CC',
-          data:'IS_CONSIDER_CCRENEWAL_AS_OPEN'
+          data: 'IS_CONSIDER_CCRENEWAL_AS_OPEN'
         }, {
           title: ' Auto Certificate and Shares no. Update',
-          data:'IS_AUTO_UPDATE_SHARES_NO'
+          data: 'IS_AUTO_UPDATE_SHARES_NO'
         }, {
           title: ' Auto Post Daily Overdraft Interest',
-          data:'IS_AUTOPOSTDAILY_OVERDRAFT_INT'
+          data: 'IS_AUTOPOSTDAILY_OVERDRAFT_INT'
         }, {
           title: ' Allow To Maintain Recovery Differnce',
-          data:'IS_ALLOW_RECOVERY_DIFF'
+          data: 'IS_ALLOW_RECOVERY_DIFF'
         }, {
           title: ' Check Member Loan/Gauranter forwithdraw/closing',
-          data:'WITHDRW_CLOSING_FOR_GURMEMBERS'
+          data: 'WITHDRW_CLOSING_FOR_GURMEMBERS'
         }, {
           title: ' Scheme Wise Recovery Import/Expor',
-          data:'SCHMWISE_REC_IMPEXP'
+          data: 'SCHMWISE_REC_IMPEXP'
         }, {
           title: 'Previous Date',
-          data:'PREVIOUS_DATE'
+          data: 'PREVIOUS_DATE'
         }, {
           title: 'Current Date',
-          data:'CURRENT_DATE'
+          data: 'CURRENT_DATE'
         }, {
           title: 'Day Begin Executed',
-          data:'DAY_BEGIN_EXECUTED'
+          data: 'DAY_BEGIN_EXECUTED'
         }, {
           title: 'Day End Executed',
-          data:'DAY_END_EXECUTED'
+          data: 'DAY_END_EXECUTED'
         }, {
           title: ' Pigmy Previous Date',
-          data:'PIGMY_PREVIOUS_DATE'
+          data: 'PIGMY_PREVIOUS_DATE'
         }, {
           title: 'Pigmy Current Date',
-          data:'PIGMY_CURRENT_DATE'
+          data: 'PIGMY_CURRENT_DATE'
         }, {
           title: 'Day Begin Executed',
-          data:'PIGMY_DAY_BEGIN_EXECUTED'
+          data: 'PIGMY_DAY_BEGIN_EXECUTED'
         }, {
           title: 'Day End Executed',
-          data:'PIGMY_DAY_END_EXECUTED'
+          data: 'PIGMY_DAY_END_EXECUTED'
         }, {
           title: 'Back Day Open Options',
-          data:'BACK_DAY_OPTION'
+          data: 'BACK_DAY_OPTION'
         }, {
           title: ' Is Online Transactions?',
-          data:'ON_LINE'
+          data: 'ON_LINE'
         }, {
           title: 'Is Receipt Printing by Designing Method ?',
-          data:'IS_RECEIPT_PRINT_DESIGNMETHOD'
+          data: 'IS_RECEIPT_PRINT_DESIGNMETHOD'
         }, {
           title: 'Cash in Hand GL A/c Amount',
-          data:'CASH_IN_HAND_ACNO'
+          data: 'CASH_IN_HAND_ACNO'
         }, {
           title: 'Clearing House Member',
-          data:'CLG_HOUSE_METHOD'
+          data: 'CLG_HOUSE_METHOD'
         }, {
           title: 'No. of Lines Per Passbook',
-          data:'LINES_PER_PASSBOOKPAGE'
+          data: 'LINES_PER_PASSBOOKPAGE'
         },
 
 
@@ -633,12 +633,12 @@ filterData = {};
       this.characters = options;
     });
     this.OwnbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
-   
+
       this.OwnbranchMasterDropdown = data;
     })
 
     this.ACMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
-   
+
       this.ACMasterDropdown = data;
     })
   }
@@ -646,8 +646,8 @@ filterData = {};
     this.angForm = this.fb.group({
       SYSPARA_CODE: ['A'],
       BANK_CODE: ['', [Validators.pattern, Validators.required]],
-      BANK_NAME:['',[Validators.pattern, Validators.required]],
-     BRANCH_CODE: ['', [Validators.pattern, Validators.required]],
+      BANK_NAME: ['', [Validators.pattern, Validators.required]],
+      BRANCH_CODE: ['', [Validators.pattern, Validators.required]],
       //BRANCH_NAME:['',[Validators.pattern, Validators.required]],
       ADDRESS: ['', [Validators.pattern, Validators.required]],
       COMPANY_START_DATE: ['', [Validators.required]],
@@ -790,23 +790,23 @@ filterData = {};
     if ($event.target.checked) {
       this.Show = true;
     }
-    else  {
+    else {
       this.Show = false;
     }
-    
+
   }
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
 
       'SYSPARA_CODE': formVal.SYSPARA_CODE,
-      'BANK_NAME':formVal.BANK_NAME,
-      
+      'BANK_NAME': formVal.BANK_NAME,
+
 
       'BANK_CODE': formVal.BANK_CODE,
       'BRANCH_CODE': formVal.BRANCH_CODE,
       // 'BRANCH_NAME': formVal.BRANCH_NAME,
-    
+
       'ADDRESS': formVal.ADDRESS,
       'CHAIRMAN': formVal.CHAIRMAN,
       'ACCOUNTANT': formVal.ACCOUNTANT,
@@ -872,7 +872,7 @@ filterData = {};
       'NPA_SUBMETHOD': formVal.NPA_SUBMETHOD,
       'AUTO_LOCK_TIME': formVal.AUTO_LOCK_TIME,
       'PASSWORD_EXPIRE_DAYS': formVal.PASSWORD_EXPIRE_DAYS,
-      'IS_ALLOW_CLG_TALLY_VOUCHER':formVal.IS_ALLOW_CLG_TALLY_VOUCHER,
+      'IS_ALLOW_CLG_TALLY_VOUCHER': formVal.IS_ALLOW_CLG_TALLY_VOUCHER,
       'IS_CLG_DATE_ADD': formVal.IS_CLG_DATE_ADD,
       'IS_AUTO_CLEARING_EFFECT': formVal.IS_AUTO_CLEARING_EFFECT,
       'AUTO_NO': formVal.AUTO_NO,
@@ -947,7 +947,7 @@ filterData = {};
     this.systemMasterParametersService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
-        'SYSPARA_CODE':data.SYSPARA_CODE,
+        'SYSPARA_CODE': data.SYSPARA_CODE,
         'BANK_CODE': data.BANK_CODE,
         'BANK_NAME': data.BANK_NAME,
         'BRANCH_CODE': data.BRANCH_CODE,
@@ -1010,7 +1010,7 @@ filterData = {};
         'NPA_SUBMETHOD': data.NPA_SUBMETHOD,
         'AUTO_LOCK_TIME': data.AUTO_LOCK_TIME,
         'PASSWORD_EXPIRE_DAYS': data.PASSWORD_EXPIRE_DAYS,
-        'IS_ALLOW_CLG_TALLY_VOUCHER':data.IS_ALLOW_CLG_TALLY_VOUCHER,
+        'IS_ALLOW_CLG_TALLY_VOUCHER': data.IS_ALLOW_CLG_TALLY_VOUCHER,
         'IS_CLG_DATE_ADD': data.IS_CLG_DATE_ADD,
         'IS_AUTO_CLEARING_EFFECT': data.IS_AUTO_CLEARING_EFFECT,
         'AUTO_NO': data.AUTO_NO,
@@ -1063,7 +1063,7 @@ filterData = {};
       })
     })
   }
- 
+
 
   //Method for update data 
   updateData() {

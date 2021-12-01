@@ -25,8 +25,12 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 import { SubSalaryDMasterdropdownService } from '../../../../shared/dropdownService/subsalary-division-master-dropdown.service'
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service'
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { SalaryDMasterdropdownService } from '../../../../shared/dropdownService/salary-division-master-dropdown.service'
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { SharesSchemeService } from '../../../utility/scheme-parameters/shares-scheme/shares-scheme.service';
 import { environment } from '../../../../../environments/environment'
 import { first } from 'rxjs/operators';
+import { data } from 'jquery';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -42,6 +46,7 @@ interface ShareMaster {
   AC_NO: number
   AC_CUSTID: number
   EMP_NO: string
+  AC_NAME: string
   AC_JOIN_DATE: string
   AC_RETIRE_DATE: string
   MEMBERSHIP_BY: string
@@ -53,16 +58,17 @@ interface ShareMaster {
   AC_DIRECT: string
   AC_BRANCH: string
   SUB_SALARYDIVISION_CODE: string
+  AC_IS_RECOVERY: boolean
   AC_SBNO: string
   AC_RESNO: string
   AC_RESDT: string
   AC_INSTALLMENT: string
   REF_ACNO: string
   AC_NARR: string
-  AC_SHBALDATE: string
-  AC_OP_SHNO: string
-  AC_FACE_VALUE: string
-  AC_OP_BAL: string
+  // AC_SHBALDATE: string
+  // AC_OP_SHNO: string
+  // AC_FACE_VALUE: string
+  // AC_OP_BAL: string
   AC_DEV_NAME: string
   AC_DEV_WARD: string
   AC_DEV_ADD: string
@@ -162,7 +168,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   occupation: string // customer id from idmaster
   director: any[]//from directormaster
   branch_code: any[]//from ownbranchmaster
-  salary_div: string // customer id from idmaster
+  salary_div: any[] // salary division master
   sub_salary_div: any[] //information sub salary master
   selectedOption = '3';
   isDisabled = true;
@@ -185,6 +191,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private subSalaryDMasterdropdownService: SubSalaryDMasterdropdownService,
     private cityMasterService: cityMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private salaryDMasterdropdownService: SalaryDMasterdropdownService,
+    private systemParameter: SystemMasterParametersService,
+    private sharesSchemeService: SharesSchemeService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -199,7 +208,24 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
           dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
+
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -239,6 +265,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           data: 'AC_CUSTID'
         },
         {
+          title: 'Customer Name',
+          data: 'AC_NAME'
+        },
+        {
           title: 'Category',
           data: 'AC_CATG'
         },
@@ -246,22 +276,22 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Employee No',
           data: 'EMP_NO'
         },
-        {
-          title: 'Joining Date',
-          data: 'AC_JOIN_DATE'
-        },
-        {
-          title: 'Retirement Date',
-          data: 'AC_RETIRE_DATE'
-        },
-        {
-          title: 'Membership Type',
-          data: 'MEMBERSHIP_BY'
-        },
-        {
-          title: 'Sign Type',
-          data: 'AC_SIGN_TYPE'
-        },
+        // {
+        //   title: 'Joining Date',
+        //   data: 'AC_JOIN_DATE'
+        // },
+        // {
+        //   title: 'Retirement Date',
+        //   data: 'AC_RETIRE_DATE'
+        // },
+        // {
+        //   title: 'Membership Type',
+        //   data: 'MEMBERSHIP_BY'
+        // },
+        // {
+        //   title: 'Sign Type',
+        //   data: 'AC_SIGN_TYPE'
+        // },
         {
           title: 'Represent by',
           data: 'AC_SREPRESENT'
@@ -270,21 +300,25 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Open Date',
           data: 'AC_OPDATE'
         },
-        {
-          title: 'Expiry Date',
-          data: 'AC_EXPDT'
-        },
-        {
-          title: 'Death Date',
-          data: 'DEATH_DATE'
-        },
-        {
-          title: 'Director',
-          data: 'AC_DIRECT'
-        },
+        // {
+        //   title: 'Expiry Date',
+        //   data: 'AC_EXPDT'
+        // },
+        // {
+        //   title: 'Death Date',
+        //   data: 'DEATH_DATE'
+        // },
+        // {
+        //   title: 'Director',
+        //   data: 'AC_DIRECT'
+        // },
         {
           title: 'Branch Code',
           data: 'AC_BRANCH'
+        },
+        {
+          title: 'Salary Div',
+          data: 'AC_SALARYDIVISION_CODE'
         },
         {
           title: 'Sub Sal.Div',
@@ -294,14 +328,14 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Bank A/c No.',
           data: 'AC_SBNO'
         },
-        {
-          title: 'Reso. No.',
-          data: 'AC_RESNO'
-        },
-        {
-          title: 'Reso.Date',
-          data: 'AC_RESDT'
-        },
+        // {
+        //   title: 'Reso. No.',
+        //   data: 'AC_RESNO'
+        // },
+        // {
+        //   title: 'Reso.Date',
+        //   data: 'AC_RESDT'
+        // },
         {
           title: 'Installment',
           data: 'AC_INSTALLMENT'
@@ -310,50 +344,50 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Manual Reference Member No.',
           data: 'REF_ACNO'
         },
-        {
-          title: 'Reason / Remarks',
-          data: 'AC_NARR'
-        },
-        {
-          title: 'Shares Up to Date',
-          data: 'AC_SHBALDATE'
-        },
-        {
-          title: 'Total Shares',
-          data: 'AC_OP_SHNO'
-        },
-        {
-          title: 'Face Value',
-          data: 'AC_FACE_VALUE'
-        },
-        {
-          title: 'Total Amount',
-          data: 'AC_OP_BAL'
-        },
-        {
-          title: 'Name',
-          data: 'AC_DEV_NAME'
-        },
-        {
-          title: 'Ward',
-          data: 'AC_DEV_WARD'
-        },
-        {
-          title: 'Address',
-          data: 'AC_DEV_ADD'
-        },
-        {
-          title: 'Galli',
-          data: 'AC_DEV_GALLI'
-        },
-        {
-          title: 'Area',
-          data: 'AC_DEV_AREA'
-        },
-        {
-          title: 'City',
-          data: 'AC_DEV_CITYCODE'
-        },
+        // {
+        //   title: 'Reason / Remarks',
+        //   data: 'AC_NARR'
+        // },
+        // // {
+        // //   title: 'Shares Up to Date',
+        // //   data: 'AC_SHBALDATE'
+        // // },
+        // // {
+        // //   title: 'Total Shares',
+        // //   data: 'AC_OP_SHNO'
+        // // },
+        // // {
+        // //   title: 'Face Value',
+        // //   data: 'AC_FACE_VALUE'
+        // // },
+        // // {
+        // //   title: 'Total Amount',
+        // //   data: 'AC_OP_BAL'
+        // // },
+        // {
+        //   title: 'Name',
+        //   data: 'AC_DEV_NAME'
+        // },
+        // {
+        //   title: 'Ward',
+        //   data: 'AC_DEV_WARD'
+        // },
+        // {
+        //   title: 'Address',
+        //   data: 'AC_DEV_ADD'
+        // },
+        // {
+        //   title: 'Galli',
+        //   data: 'AC_DEV_GALLI'
+        // },
+        // {
+        //   title: 'Area',
+        //   data: 'AC_DEV_AREA'
+        // },
+        // {
+        //   title: 'City',
+        //   data: 'AC_DEV_CITYCODE'
+        // },
       ],
       dom: 'Blrtip',
     };
@@ -399,7 +433,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.Cust_ID = data;
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      this.scheme = data;
+      this.scheme = data
     })
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
       this.category = data;
@@ -409,6 +443,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     })
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
+    })
+    this.salaryDMasterdropdownService.getSalaryDMasterList().pipe(first()).subscribe(data => {
+      this.salary_div = data;
     })
     this.subSalaryDMasterdropdownService.getSubSalaryDMasterList().pipe(first()).subscribe(data => {
       this.sub_salary_div = data;
@@ -431,6 +468,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getCustomer(id) {
+    this.getSystemParaDate()
     this.customerIdService.getFormData(id).subscribe(data => {
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
@@ -447,11 +485,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_AREA: data.custAddress[0].AC_AREA,
         AC_CTCODE: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
-        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
         AC_MOBNO: data.AC_MOBILENO,
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,
-        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
         AC_THONO: data.custAddress.AC_THONO,
         AC_TWARD: data.custAddress.AC_TWARD,
         AC_TADDR: data.custAddress.AC_TADDR,
@@ -461,6 +497,55 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_TPIN: data.custAddress.AC_TPIN,
       })
     })
+  }
+
+  //set open date, appointed date and expiry date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      if (data.ON_LINE) {
+        this.angForm.controls['AC_OPDATE'].disable()
+      }
+      else {
+        this.angForm.controls['AC_OPDATE'].enable()
+      }
+      this.angForm.patchValue({
+        AC_OPDATE: data.CURRENT_DATE,
+      })
+    })
+  }
+
+  schemeCode: string = ''
+  getRetirementDate(schemeCode) {
+    console.log('scheme code', schemeCode.name)
+    this.sharesSchemeService.getFormDataBySchemeCode(schemeCode.name).subscribe(data => {
+      console.log('scheme code data', data.RETIREMENT_YEARS)
+      console.log('joining date', this.angForm.controls['AC_JOIN_DATE'].value)
+      var date = new Date(this.angForm.controls['AC_JOIN_DATE'].value);
+      // var date = this.angForm.controls['AC_JOIN_DATE'].value
+      console.log('scheme date', date)
+      // date.setDate(date.getDate() + data.RETIREMENT_YEARS);
+
+      var year = new Date(date).getFullYear();
+      var month = new Date(date).getMonth();
+      var day = new Date(date).getDate();
+      var date = new Date(year + data.RETIREMENT_YEARS, month, day);
+      
+      console.log(' retire date', date)
+      this.angForm.patchValue({
+        AC_RETIRE_DATE: date
+      })
+
+
+
+      
+    })
+
+
+    // addDays(days : number): Date{
+    //   var futureDate = new Date();
+    //   futureDate.setDate(futureDate.getDate() + days);
+    //   return futureDate;
+    // }
   }
 
   createForm() {
@@ -474,7 +559,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NAME: [''],
       //basic controls
       AC_CATG: ['', [Validators.required]],
-      EMP_NO: ['', [Validators.pattern]],
+      EMP_NO: [''],
       AC_MEM_BIRTH_DT: [''],
       AC_JOIN_DATE: [''],
       AC_RETIRE_DATE: [''],
@@ -513,7 +598,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_SBNO: [''],
       AC_RESNO: ['', [Validators.required, Validators.pattern]],
       AC_RESDT: ['', [Validators.required]],
-      AC_IS_RECOVERY: [''],
+      AC_IS_RECOVERY: [false],
       AC_INSTALLMENT: ['', [Validators.pattern]],
       REF_ACNO: ['', [Validators.pattern]],
       AC_NARR: ['', [Validators.pattern]],
@@ -532,10 +617,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NPIN: ['', [Validators.pattern]],
 
       //shares details under nominee tab
-      AC_SHBALDATE: [''],
-      AC_OP_SHNO: ['', [Validators.pattern]],
-      AC_FACE_VALUE: ['', [Validators.pattern]],
-      AC_OP_BAL: ['', [Validators.pattern]],
+      // AC_SHBALDATE: [''],
+      // AC_OP_SHNO: ['', [Validators.pattern]],
+      // AC_FACE_VALUE: ['', [Validators.pattern]],
+      // AC_OP_BAL: ['', [Validators.pattern]],
 
       //marathi details
       AC_DEV_NAME: ['', [Validators.pattern]],
@@ -555,8 +640,11 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
       'AC_CUSTID': formVal.AC_CUSTID,
+      'AC_NAME': formVal.AC_NAME,
       'AC_CATG': formVal.AC_CATG,
       'EMP_NO': formVal.EMP_NO,
+      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+      'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
       'AC_JOIN_DATE': formVal.AC_JOIN_DATE,
       'AC_OPDATE': formVal.AC_OPDATE,
       'AC_EXPDT': formVal.AC_EXPDT,
@@ -575,10 +663,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'REF_ACNO': formVal.REF_ACNO,
       'AC_NARR': formVal.AC_NARR,
       //shares details under nominee tab
-      'AC_SHBALDATE': formVal.AC_SHBALDATE,
-      'AC_OP_SHNO': formVal.AC_OP_SHNO,
-      'AC_FACE_VALUE': formVal.AC_FACE_VALUE,
-      'AC_OP_BAL': formVal.AC_OP_BAL,
+      // 'AC_SHBALDATE': formVal.AC_SHBALDATE,
+      // 'AC_OP_SHNO': formVal.AC_OP_SHNO,
+      // 'AC_FACE_VALUE': formVal.AC_FACE_VALUE,
+      // 'AC_OP_BAL': formVal.AC_OP_BAL,
 
       //marathi details
       'AC_DEV_NAME': formVal.AC_DEV_NAME,
@@ -621,6 +709,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_TYPE: data.AC_TYPE,
         'AC_NO': data.AC_NO,
         'AC_CATG': data.AC_CATG,
+        'AC_SALARYDIVISION_CODE': data.AC_SALARYDIVISION_CODE,
         'EMP_NO': data.EMP_NO,
         'AC_JOIN_DATE': data.AC_JOIN_DATE,
         'AC_RETIRE_DATE': data.AC_RETIRE_DATE,
@@ -642,22 +731,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_INSTALLMENT': data.AC_INSTALLMENT,
         'REF_ACNO': data.REF_ACNO,
         'AC_NARR': data.AC_NARR,
-        //nominee controls (NOMINEELINK table)
-        'AC_NNAME': data.AC_NNAME,
-        'AC_NRELA': data.AC_NRELA,
-        'AC_NDATE': data.AC_NDATE,
-        'AGE': data.AGE,
-        'ADDR1': data.ADDR1,
-        'ADDR2': data.ADDR2,
-        'ADDR3': data.ADDR3,
-        'CTCODE': data.CTCODE,
-        'PIN': data.PIN,
 
         //shares details under nominee tab
-        'AC_SHBALDATE': data.AC_SHBALDATE,
-        'AC_OP_SHNO': data.AC_OP_SHNO,
-        'AC_FACE_VALUE': data.AC_FACE_VALUE,
-        'AC_OP_BAL': data.AC_OP_BAL,
+        // 'AC_SHBALDATE': data.AC_SHBALDATE,
+        // 'AC_OP_SHNO': data.AC_OP_SHNO,
+        // 'AC_FACE_VALUE': data.AC_FACE_VALUE,
+        // 'AC_OP_BAL': data.AC_OP_BAL,
 
         //marathi details
         'AC_DEV_NAME': data.AC_DEV_NAME,
@@ -692,6 +771,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.multiNominee = []
     this.resetForm();
   }
 
@@ -786,6 +866,25 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.nomineeTrue = !this.nomineeTrue;
   }
 
+  //Nominee
+  addNominee() {
+    const formVal = this.angForm.value;
+    var object = {
+      AC_NNAME: formVal.AC_NNAME,
+      AC_NRELA: formVal.AC_NRELA,
+      AC_NDATE: formVal.AC_NDATE,
+      AGE: formVal.AGE,
+      AC_NHONO: formVal.AC_NHONO,
+      AC_NWARD: formVal.AC_NWARD,
+      AC_NADDR: formVal.AC_NADDR,
+      AC_NGALLI: formVal.AC_NGALLI,
+      AC_NAREA: formVal.AC_NAREA,
+      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NPIN: formVal.AC_NPIN,
+    }
+    this.multiNominee.push(object);
+    this.resetNominee()
+  }
   editNominee(id) {
     this.nomineeIndex = id
     this.nomineeID = this.multiNominee[id].id;

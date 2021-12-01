@@ -20,12 +20,15 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 import { SubSalaryDMasterdropdownService } from '../../../../shared/dropdownService/subsalary-division-master-dropdown.service'
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service'
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { SalaryDMasterdropdownService } from '../../../../shared/dropdownService/salary-division-master-dropdown.service'
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { SharesSchemeService } from '../../../utility/scheme-parameters/shares-scheme/shares-scheme.service';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
-}; 
+};
 @NgModule({
   imports: [
     CommonModule,
@@ -50,6 +53,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     cityMasterService,
     SubSalaryDMasterdropdownService,
     SchemeCodeDropdownService,
+    SalaryDMasterdropdownService,
+    SystemMasterParametersService,
+    SharesSchemeService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
