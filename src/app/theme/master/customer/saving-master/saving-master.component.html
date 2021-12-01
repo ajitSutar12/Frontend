@@ -196,7 +196,7 @@
                               </span>
                             </div>
                           </div>
-                          <div class="col-sm-3">
+                          <div class="col-sm">
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
                                 <input
@@ -268,48 +268,8 @@
                                 <label for="AC_BIRTH_DT">Birth Date</label>
                               </span>
                             </div>
-                          
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <div class="form-group input-group">
-                                  <span class="border-lable-flt">
-                                    <input
-                                      type="text"
-                                      name="REF_ACNO"
-                                      class="form-control"
-                                      placeholder=" "
-                                      id="REF_ACNO"
-                                      pattern="^[A-Za-z0-9\./ -]+$"
-                                      maxlength="50"
-                                      title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
-                                      formControlName="REF_ACNO"
-                                    />
-                                    <label for="REF_ACNO"
-                                      >Manual Ref.Member No.</label
-                                    >
-                                  </span>
-                                </div>
-                                </div>
-                                <div
-                                  class="form-group form-primary form-static-label"
-                                  *ngIf="
-                                    angForm.controls['REF_ACNO'].invalid &&
-                                    (angForm.controls['REF_ACNO'].dirty ||
-                                      angForm.controls['REF_ACNO'].touched)
-                                  "
-                                  class="alert alert-danger"
-                                >
-                                  <div
-                                    *ngIf="
-                                      angForm.controls['REF_ACNO'].errors?.pattern
-                                    "
-                                  >
-                                    Input allowed only A-Z a-z 0-9 - / . (Space)
-                                  </div>
-                                </div>
-                              </div>
-                          <div class="col-sm-3">
+                          </div>
+                          <div class="col-sm-2">
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
                                 <input
@@ -319,10 +279,48 @@
                                   placeholder=" "
                                   id="AC_CAST"
                                   formControlName="AC_CAST"
-                                  disabled
                                 />
                                 <label for="AC_CAST">Cast</label>
                               </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <div class="form-group input-group">
+                              <span class="border-lable-flt">
+                                <input
+                                  type="text"
+                                  name="REF_ACNO"
+                                  class="form-control"
+                                  placeholder=" "
+                                  id="REF_ACNO"
+                                  pattern="^[A-Za-z0-9\./ -]+$"
+                                  maxlength="50"
+                                  title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
+                                  formControlName="REF_ACNO"
+                                />
+                                <label for="REF_ACNO"
+                                  >Manual Ref.Member No.</label
+                                >
+                              </span>
+                            </div>
+                          </div>
+                          <div
+                            class="form-group form-primary form-static-label"
+                            *ngIf="
+                              angForm.controls['REF_ACNO'].invalid &&
+                              (angForm.controls['REF_ACNO'].dirty ||
+                                angForm.controls['REF_ACNO'].touched)
+                            "
+                            class="alert alert-danger"
+                          >
+                            <div
+                              *ngIf="
+                                angForm.controls['REF_ACNO'].errors?.pattern
+                              "
+                            >
+                              Input allowed only A-Z a-z 0-9 - / . (Space)
                             </div>
                           </div>
                           <div class="col-sm-3">
@@ -374,7 +372,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-sm">
+                          <div class="col-sm-3">
                             <div
                               class="form-group form-primary form-static-label"
                             >
@@ -410,9 +408,9 @@
                             </div>
                           </div>
                         </div>
+
                         <div class="row">
-                          
-                          <div class="col-sm">
+                          <div class="col-sm-3">
                             <div
                               class="form-group form-primary form-static-label"
                             >
@@ -447,7 +445,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-sm">
+                          <div class="col-sm-3">
                             <div
                               class="form-group form-primary form-static-label"
                             >
@@ -482,7 +480,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-sm">
+                          <div class="col-sm-2">
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
                                 <input
@@ -498,7 +496,7 @@
                               </span>
                             </div>
                           </div>
-                          <div class="col-sm">
+                          <div class="col-sm-2">
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
                                 <input
@@ -535,7 +533,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-sm">
+                          <div class="col-sm-2">
                             <div class="border-checkbox-section">
                               <div
                                 class="
@@ -559,9 +557,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row">
-                          
-                        </div>
+                        <div class="row"></div>
                       </div>
                     </ng-template>
                   </ngb-tab>
@@ -758,7 +754,6 @@
                           </div>
                         </div>
                         <div class="row">
-                          
                           <div class="col-sm-2">
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
@@ -867,7 +862,7 @@
                             </div>
                           </div>
                         </div>
-                       
+
                         <div class="row">
                           <div class="col-sm">
                             <h6 style="text-align: center; font-size: 16px">
@@ -1052,44 +1047,43 @@
                               </div>
                             </div>
                             <div class="col-sm">
-                                <div class="form-group input-group">
-                                  <span class="border-lable-flt">
-                                    <input
-                                      type="text"
-                                      name="AC_TADDR"
-                                      class="form-control"
-                                      placeholder=" "
-                                      pattern="^[A-Za-z0-9\./ -]+$"
-                                      title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
-                                      id="AC_TADDR"
-                                      formControlName="AC_TADDR"
-                                    />
-                                    <label for="AC_TADDR">Detail</label>
-                                  </span>
-                                </div>
+                              <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                  <input
+                                    type="text"
+                                    name="AC_TADDR"
+                                    class="form-control"
+                                    placeholder=" "
+                                    pattern="^[A-Za-z0-9\./ -]+$"
+                                    title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
+                                    id="AC_TADDR"
+                                    formControlName="AC_TADDR"
+                                  />
+                                  <label for="AC_TADDR">Detail</label>
+                                </span>
+                              </div>
+                              <div
+                                class="
+                                  form-group form-primary form-static-label
+                                "
+                                *ngIf="
+                                  angForm.controls['AC_TADDR'].invalid &&
+                                  (angForm.controls['AC_TADDR'].dirty ||
+                                    angForm.controls['AC_TADDR'].touched)
+                                "
+                                class="alert alert-danger"
+                              >
                                 <div
-                                  class="
-                                    form-group form-primary form-static-label
-                                  "
                                   *ngIf="
-                                    angForm.controls['AC_TADDR'].invalid &&
-                                    (angForm.controls['AC_TADDR'].dirty ||
-                                      angForm.controls['AC_TADDR'].touched)
+                                    angForm.controls['AC_TADDR'].errors?.pattern
                                   "
-                                  class="alert alert-danger"
                                 >
-                                  <div
-                                    *ngIf="
-                                      angForm.controls['AC_TADDR'].errors?.pattern
-                                    "
-                                  >
-                                    Input allowed only A-Z a-z 0-9 - / . (Space)
-                                  </div>
+                                  Input allowed only A-Z a-z 0-9 - / . (Space)
                                 </div>
                               </div>
+                            </div>
                           </div>
                           <div class="row">
-                            
                             <div class="col-sm-2">
                               <div
                                 class="
@@ -1242,7 +1236,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-sm-3">
+                          <div class="col-sm">
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
                                 <input
@@ -1283,6 +1277,8 @@
                         </div>
                         <div class="row">
                           <h6>Introducer</h6>
+                        </div>
+                        <div class="row">
                           <div class="col-sm-3">
                             <div
                               class="form-group form-primary form-static-label"
@@ -1328,9 +1324,7 @@
                               </ng-select>
                             </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-4">
+                          <div class="col-sm">
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
                                 <input
@@ -1365,6 +1359,9 @@
                               </div>
                             </div>
                           </div>
+                        </div>
+                        <div class="row">
+
                           <div class="col-sm-4">
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
@@ -1932,7 +1929,7 @@
                                       let indexOfelement = index
                                     "
                                   >
-                                    <td >
+                                    <td>
                                       <button
                                         class="btn btn-outline-primary btn-sm"
                                         id="editbtn"

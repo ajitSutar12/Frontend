@@ -3,7 +3,9 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewChild,Input,  Output,
+  ViewChild,
+  Input,
+  Output,
   EventEmitter,
 } from "@angular/core";
 import { Subject } from "rxjs";
@@ -28,11 +30,11 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface GovernmentMaster {
-  id:number;
-    AC_ACNOTYPE:string;
-    AC_TYPE:number;
-  AC_NO:number;
-  SECU_CODE:number;
+  id: number;
+  AC_ACNOTYPE: string;
+  AC_TYPE: number;
+  AC_NO: number;
+  SECU_CODE: number;
   SUBMISSION_DATE: Date;
   CERT_POLICY_DATE: Date;
   CERT_POLICY_NO: string;
@@ -55,12 +57,12 @@ interface GovernmentMaster {
 export class GovtSecurityAndLicComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-   //passing data form child to parent
-   @Output() newItemEvent = new EventEmitter<string>();
+  //passing data form child to parent
+  @Output() newItemEvent = new EventEmitter<string>();
 
-     //passing data from parent to child component
-     @Input() scheme:any;
-     @Input() Accountno:any;
+  //passing data from parent to child component
+  @Input() scheme: any;
+  @Input() Accountno: any;
   //api
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -97,7 +99,7 @@ export class GovtSecurityAndLicComponent
   //filter variable
   filterData = {};
   setdate: string;
-
+resetmaturedate:any;//reset maturedue date
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -237,8 +239,8 @@ export class GovtSecurityAndLicComponent
   submit(data: any) {
     const formVal = this.angForm.value;
     const dataToSend = {
-      AC_TYPE:this.scheme._value[0],
-      AC_NO:this.Accountno,
+      AC_TYPE: this.scheme._value[0],
+      AC_NO: this.Accountno,
       SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       CERT_POLICY_DATE: formVal.CERT_POLICY_DATE,
       CERT_POLICY_NO: formVal.CERT_POLICY_NO,
@@ -253,7 +255,7 @@ export class GovtSecurityAndLicComponent
       NOMINEE: formVal.NOMINEE,
       REMARK: formVal.REMARK,
     };
-    console.log("govt send:",dataToSend);
+    console.log("govt send:", dataToSend);
     this._govsecurity.postData(dataToSend).subscribe(
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -273,22 +275,20 @@ export class GovtSecurityAndLicComponent
     this.showButton = false;
     this.updateShow = true;
     this._govsecurity.getFormData(id).subscribe((data) => {
-       //sending values to parent
-       let dropdown: any = {};
-       dropdown.scheme = data.AC_TYPE;
-       dropdown.account = data.AC_NO.toString();
-       this.newItemEvent.emit(dropdown),
- 
-      this.updateID = data.id;
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      dropdown.account = data.AC_NO.toString();
+      this.newItemEvent.emit(dropdown), (this.updateID = data.id);
       this.angForm.patchValue({
-        AC_TYPE:this.scheme._value[0],
-        AC_NO:this.Accountno,
+        AC_TYPE: this.scheme._value[0],
+        AC_NO: this.Accountno,
         SUBMISSION_DATE: data.SUBMISSION_DATE,
         CERT_POLICY_DATE: data.CERT_POLICY_DATE,
-         CERT_POLICY_NO: data.CERT_POLICY_NO,
+        CERT_POLICY_NO: data.CERT_POLICY_NO,
         MARGIN: data.MARGIN,
         ASSURED_NAME: data.ASSURED_NAME,
-         PAIDUP_AMT: data.PAIDUP_AMT,
+        PAIDUP_AMT: data.PAIDUP_AMT,
         SUM_ASSURED: data.SUM_ASSURED,
         PREMIUM: data.PREMIUM,
         SURRENDER_VALUE: data.SURRENDER_VALUE,
@@ -301,17 +301,16 @@ export class GovtSecurityAndLicComponent
   }
 
   //check  if margin values are below 100
-  checkmargin(ele:any){ 
+  checkmargin(ele: any) {
     //check  if given value  is below 100
     console.log(ele);
-    if(ele <= 100){
-  console.log(ele);
-    }
-    else{
+    if (ele <= 100) {
+      console.log(ele);
+    } else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
-  
+
   updateData() {
     this.showButton = true;
     this.updateShow = false;
@@ -349,13 +348,14 @@ export class GovtSecurityAndLicComponent
     });
   }
   //for checking dates
-  checkdate(data: any) {
-    // debugger
+  checkdate(data: any) { 
+    debugger
     // console.log(data.value);
     //fetch premium due date value
     let premium = document.getElementById(
       "PREMIUM_DUE_DATE"
     ) as HTMLInputElement;
+    let mature = document.getElementById("maturity") as HTMLInputElement;
     this.setdate = premium.value;
 
     if (data != "") {
@@ -367,6 +367,8 @@ export class GovtSecurityAndLicComponent
           "Premium Due Date must be less than Mature due date",
           "error"
         );
+
+        this.resetmaturedate= "";
       } else {
         console.log("else condition is true ");
       }

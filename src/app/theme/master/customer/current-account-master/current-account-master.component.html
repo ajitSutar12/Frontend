@@ -9,7 +9,7 @@
             <div class="card-block">
                 <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
                                     placeholder="Scheme *" required title="Compulsory Selection"
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
                                     placeholder="Customer ID *" required title="Compulsory Selection"
@@ -59,7 +59,7 @@
                                     (click)="modalLarge.hide()">Close</button>
                             </div>
                         </app-modal-basic>
-                        <div class="col-sm-1">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_TITLE" class="form-control" placeholder=" "
@@ -68,7 +68,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
@@ -100,7 +100,7 @@
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_PROPRITOR_NAME"
@@ -121,7 +121,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_MEMBTYPE"
@@ -132,17 +132,17 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_MEMBNO" class="form-control"
-                                                                    placeholder=" " id="AC_MEMBNO"
+                                                                    placeholder=" " id="AC_MEMBNO" maxlength="15"
                                                                     formControlName="AC_MEMBNO" disabled>
                                                                 <label for="AC_MEMBNO">Member No.</label>
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_OPDATE" class="form-control"
@@ -161,9 +161,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_BIRTH_DT"
@@ -175,12 +173,15 @@
                                                             </span>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row">
+
                                                     <div class="col-sm-3">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="REF_ACNO" class="form-control"
                                                                     placeholder=" " id="REF_ACNO"
-                                                                    pattern="^[A-Za-z0-9\./ -]+$"
+                                                                    pattern="^[A-Za-z0-9\./ -]+$" maxlength="50"
                                                                     title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                     formControlName="REF_ACNO">
                                                                 <label for="REF_ACNO">Manual Ref.Member
@@ -205,7 +206,7 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_OCODE" class="form-control"
@@ -214,9 +215,7 @@
                                                                 <label for="AC_OCODE">Occupation</label>
                                                             </span>
                                                         </div>
-                                                    </div>                                                   
-                                                </div>
-                                                <div class="row">
+                                                    </div>
                                                     <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="category"
@@ -250,7 +249,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="bal_category"
                                                                 name="AC_BALCATG" [multiple]="false"
@@ -267,10 +268,8 @@
                                                                 This field is required
                                                             </div>
                                                         </div>
-                                                    </div>                                                  
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm">
+                                                    </div>
+                                                    <div class="col-sm-3">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="int_category"
                                                                 name="AC_INTCATA" [multiple]="false" required
@@ -288,7 +287,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_PANNO" class="form-control"
@@ -298,12 +297,12 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_SCHMAMT"
                                                                     class="form-control" placeholder=" " id="AC_SCHMAMT"
-                                                                    pattern="\d{1,20}(\.\d{2})?"
+                                                                    pattern="\d{1,20}(\.\d{2})?" maxlength="6"
                                                                     title="Input allowed only  0-9"
                                                                     formControlName="AC_SCHMAMT">
                                                                 <label for="AC_SCHMAMT">Installment Amount</label>
@@ -330,6 +329,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+
+
+
+
+                                                </div>
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
@@ -345,12 +350,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm">
+                                                    <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_HONO" class="form-control"
                                                                     placeholder=" " id="AC_HONO"
-                                                                    pattern="^[A-Za-z0-9\./ -]+$"
+                                                                    pattern="^[A-Za-z0-9\./ -]+$" maxlength="25"
                                                                     title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                     formControlName="AC_HONO" disabled>
                                                                 <label for="AC_HONO">House</label>
@@ -364,12 +369,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
+                                                    <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_WARD" class="form-control"
                                                                     placeholder=" " id="AC_WARD"
-                                                                    pattern="^[A-Za-z\./ -]+$"
+                                                                    pattern="^[A-Za-z\./ -]+$" maxlength="10"
                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                     formControlName="AC_WARD" disabled>
                                                                 <label for="AC_WARD">Ward</label>
@@ -383,12 +388,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
+                                                    <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_GALLI" class="form-control"
-                                                                    placeholder=" " id="AC_GALLI"
-                                                                    pattern="^[A-Za-z0-9\./ -]+$"
+                                                                    placeholder=" " id="AC_GALLI" maxlength="40"
                                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                     formControlName="AC_GALLI" disabled>
                                                                 <label for="AC_GALLI">Galli</label>
@@ -402,12 +406,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
+                                                    <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_AREA" class="form-control"
-                                                                    placeholder=" " id="AC_AREA"
-                                                                    pattern="^[A-Za-z\./ -]+$"
+                                                                    placeholder=" " id="AC_AREA" maxlength="60"
                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                     formControlName="AC_AREA" disabled>
                                                                 <label for="AC_AREA">Area</label>
@@ -421,13 +424,12 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_ADDR" class="form-control"
                                                                     placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
+                                                                    maxlength="100"
                                                                     title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                     id="AC_ADDR" formControlName="AC_ADDR" disabled>
                                                                 <label for="AC_ADDR">Detail</label>
@@ -441,7 +443,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_CTCODE" class="form-control"
@@ -454,8 +458,6 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
@@ -474,18 +476,18 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
+                                                    <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_PHNO" class="form-control"
                                                                     placeholder=" " id="AC_PHNO" pattern="^[0-9]+$"
                                                                     title="Input allowed only  0-9"
                                                                     formControlName="AC_PHNO" disabled>
-                                                                <label for="AC_PHNO">R</label>
+                                                                <label for="AC_PHNO">Residential</label>
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
+                                                    <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_MOBNO" class="form-control"
@@ -516,7 +518,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm">
                                                         <div class="border-checkbox-section">
                                                             <div
                                                                 class="border-checkbox-group border-checkbox-group-primary">
@@ -531,12 +533,13 @@
                                                 </div>
                                                 <ng-container *ngIf="tempAddress">
                                                     <div class="row">
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_THONO"
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_THONO" pattern="^[A-Za-z0-9\./ -]+$"
+                                                                        maxlength="25"
                                                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                         formControlName="AC_THONO">
                                                                     <label for="AC_THONO">House</label>
@@ -551,12 +554,13 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_TWARD"
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_TWARD" pattern="^[A-Za-z\./ -]+$"
+                                                                        maxlength="10"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                         formControlName="AC_TWARD">
                                                                     <label for="AC_TWARD">Ward</label>
@@ -571,12 +575,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_TGALLI"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_TGALLI" pattern="^[A-Za-z0-9\./ -]+$"
+                                                                        id="AC_TGALLI" maxlength="40"
                                                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                         formControlName="AC_TGALLI">
                                                                     <label for="AC_TGALLI">Galli</label>
@@ -591,12 +595,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_TAREA"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_TAREA" pattern="^[A-Za-z\./ -]+$"
+                                                                        id="AC_TAREA" maxlength="60"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                         formControlName="AC_TAREA">
                                                                     <label for="AC_TAREA">Area</label>
@@ -611,14 +615,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_TADDR"
                                                                         class="form-control" placeholder=" "
-                                                                        pattern="^[A-Za-z0-9\./ -]+$"
+                                                                        pattern="^[A-Za-z0-9\./ -]+$" maxlength="100"
                                                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                         id="AC_TADDR" formControlName="AC_TADDR">
                                                                     <label for="AC_TADDR">Detail</label>
@@ -633,6 +635,9 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
+
                                                         <div class="col-sm-2">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'" [options]="city"
@@ -672,7 +677,7 @@
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
-                                                    <div class="col-sm">
+                                                    <div class="col-sm-2">
                                                         <div class="border-checkbox-section">
                                                             <div
                                                                 class="border-checkbox-group border-checkbox-group-primary">
@@ -686,7 +691,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
+                                                    <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_MBDATE" class="form-control"
@@ -697,7 +702,7 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
+                                                    <div class="col-sm-4">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_GRDNAME"
@@ -742,7 +747,10 @@
                                                 </div>
                                                 <div class="row">
                                                     <h6>Introducer</h6>
-                                                    <div class="col-sm-3">
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="branch_code"
                                                                 [multiple]="false" placeholder="Branch"
@@ -750,7 +758,7 @@
                                                             </ng-select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="allScheme"
                                                                 [multiple]="false" placeholder="Account Type"
@@ -768,9 +776,7 @@
                                                             </ng-select>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_INTRNAME"
@@ -790,6 +796,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row">
+
                                                     <div class="col-sm-4">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
@@ -859,7 +868,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm">
+                                                                    <div class="col-sm-3">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AC_NRELA"
@@ -882,7 +891,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm">
+                                                                    <div class="col-sm-2">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AC_NDATE"
@@ -904,7 +913,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm">
+                                                                    <div class="col-sm-2">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AGE"
@@ -925,15 +934,14 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-sm">
+                                                                    <div class="col-sm-2">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AC_NHONO"
                                                                                     class="form-control" placeholder=" "
                                                                                     id="AC_NHONO"
                                                                                     pattern="^[A-Za-z0-9\./ -]+$"
+                                                                                    maxlength="25"
                                                                                     title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                     formControlName="AC_NHONO">
                                                                                 <label for="AC_NHONO">House</label>
@@ -949,13 +957,17 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm">
+                                                                </div>
+                                                                <div class="row">
+
+                                                                    <div class="col-sm-2">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AC_NWARD"
                                                                                     class="form-control" placeholder=" "
                                                                                     id="AC_NWARD"
                                                                                     pattern="^[A-Za-z\./ -]+$"
+                                                                                    maxlength="10"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                     formControlName="AC_NWARD">
                                                                                 <label for="AC_NWARD">Ward</label>
@@ -970,13 +982,12 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm">
+                                                                    <div class="col-sm-2">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AC_NGALLI"
                                                                                     class="form-control" placeholder=" "
-                                                                                    id="AC_NGALLI"
-                                                                                    pattern="^[A-Za-z0-9\./ -]+$"
+                                                                                    id="AC_NGALLI" maxlength="40"
                                                                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                                     formControlName="AC_NGALLI">
                                                                                 <label for="AC_NGALLI">Galli</label>
@@ -992,13 +1003,12 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm">
+                                                                    <div class="col-sm-2">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AC_NAREA"
                                                                                     class="form-control" placeholder=" "
-                                                                                    id="AC_NAREA"
-                                                                                    pattern="^[A-Za-z\./ -]+$"
+                                                                                    id="AC_NAREA" maxlength="60"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                     formControlName="AC_NAREA">
                                                                                 <label for="AC_NAREA">Area</label>
@@ -1013,14 +1023,13 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-sm-5">
+                                                                    <div class="col-sm">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AC_NADDR"
                                                                                     class="form-control" placeholder=" "
                                                                                     pattern="^[A-Za-z0-9\./ -]+$"
+                                                                                    maxlength="100"
                                                                                     title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                     id="AC_NADDR"
                                                                                     formControlName="AC_NADDR">
@@ -1037,6 +1046,9 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                </div>
+                                                                <div class="row">
+
                                                                     <div class="col-sm-2">
                                                                         <div
                                                                             class="form-group form-primary form-static-label">
@@ -1271,7 +1283,7 @@
                                                     <div class="col-sm">
                                                         <div *ngIf="PowerofAttorneyTrue">
                                                             <div class="row">
-                                                                <div class="col-sm-3">
+                                                                <div class="col-sm-4">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="ATTERONEY_NAME"
@@ -1295,7 +1307,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-sm-3">
+                                                                <div class="col-sm-2">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="DATE_APPOINTED"
@@ -1318,7 +1330,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-sm-3">
+                                                                <div class="col-sm-2">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="DATE_EXPIRY"
@@ -1472,7 +1484,8 @@
                                         <th><input type="text" placeholder="Search Scheme" name="AC_TYPE"></th>
                                         <th><input type="text" placeholder="Search Member No" name="AC_NO"></th>
                                         <th><input type="text" placeholder="Search Customer ID" name="AC_CUSTID"></th>
-                                        <th><input type="text" placeholder="Search Proprietor Name" name="AC_PROPRITOR_NAME"></th>
+                                        <th><input type="text" placeholder="Search Proprietor Name"
+                                                name="AC_PROPRITOR_NAME"></th>
                                         <th><input type="text" placeholder="Search Open Date" name="AC_OPDATE"></th>
                                         <th><input type="text" placeholder="Search Manual Ref.Member No"
                                                 name="REF_ACNO"></th>
