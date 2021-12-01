@@ -36,6 +36,7 @@ import { InterestRateForLoanandCCService } from '../../policy-settings/definatio
 import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
 import { RepayModeService } from '../../../../shared/dropdownService/repay-mode.service';
 import { IOption } from 'ng-select';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 // Handling datatable data
 class DataTableResponse {
@@ -213,6 +214,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     private securityMaster: SecurityMasterdropdownService,
     private InterestRateForLoanandCC: InterestRateForLoanandCCService,
     private prioritySectorMaster: PrioritySectorMasterService,
+    private systemParameter: SystemMasterParametersService,
     public router: Router
   ) { }
 
@@ -254,7 +256,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
             dataTableParameters
           ).subscribe(resp => {
             this.termLoanMaster = resp.data;
-            console.log(this.termLoanMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -595,6 +596,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
+      'AC_NAME':formVal.AC_NAME,
       'AC_CUSTID': formVal.AC_CUSTID,
       'AC_OPDATE': formVal.AC_OPDATE,
       'AC_OPEN_OLD_DATE': formVal.AC_OPEN_OLD_DATE,
@@ -668,16 +670,13 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.updateShow = true;
     this.newbtnShow = true;
     this.termLoanService.getFormData(id).subscribe(data => {
-      console.log('edit', data)
+  
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       // this.getgCustomer(data.GAC_CUSTID)
       // this.getCCustomer(data.CAC_CUSTID)
       this.multiCoBorrower = data.CoborrowerMaster,
-        console.log("data coborr", data.CoborrowerMaster)
-      console.log("multi coborr", this.multiCoBorrower)
       this.multiGuarantor = data.guaranterMaster
-      console.log("scheme", data.REF_ACNO)  
       // debugger
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
@@ -717,7 +716,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_RESO_NO: data.AC_RESO_NO,
         AC_RESO_DATE: data.AC_RESO_DATE,
       })
-      console.log("after patch", this.angForm)
     })
   }
   addNewData() {
@@ -729,14 +727,11 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
-    console.log(this.multiGuarantor)
-    console.log(this.multiCoBorrower)
 
     data['GuarantorData'] = this.multiGuarantor
     data['CoBorrowerData'] = this.multiCoBorrower
     data['id'] = this.updateID;
     this.termLoanService.updateData(data).subscribe(() => {
-      console.log(data)
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
@@ -785,7 +780,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
   getInterest(idi) {
     this.InterestRateForLoanandCC.getFormData(idi).subscribe(data => {
-      console.log('interest category', data)
       this.angForm.patchValue({
         AC_INTCATA: data.INT_CATEGORY,
         AC_INTRATE: data.INT_RATE,
@@ -795,7 +789,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   getPriority(idp) {
     this.prioritySectorMaster.getFormData(idp).subscribe(data => {
-      console.log("priority", data)
       this.angForm.patchValue({
         AC_PRIORITY: idp.toString(),
         AC_PRIORITY_SUB1: data.SUB1_CODE,
@@ -806,9 +799,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   getgCustomer(Gid) {
-    console.log('in getcustomer', Gid)
     this.customerIdService.getFormData(Gid).subscribe(data => {
-      console.log('get customer data', data)
       this.angForm.patchValue({
         GAC_CUSTID: Gid.toString(),
         GAC_MEMBNO: data.AC_MEMBNO,
@@ -880,7 +871,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   editCoBorrower(id) {
     this.coBorrowerIndex = id
     this.CoBorrowerupdateid = id
-    console.log('in edit nominee', this.multiCoBorrower[id].id)
     this.CoBorrowerID = this.multiCoBorrower[id].id;
     this.CoBorrowerTrue = true
     this.CoBorrowerShowButton = false;
@@ -901,7 +891,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   editGuarantor(id) {
     this.guarantorIndex = id
     this.Guarantorupdateid = id
-    console.log('in edit nominee', this.multiGuarantor[id].id)
     this.GuarantorID = this.multiGuarantor[id].id;
     this.GuarantorTrue = true
     this.GuarantorShowButton = false;
@@ -990,9 +979,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.angForm.controls['EXP_DATE'].reset();
   }
   getCCustomer(Cid) {
-    console.log('in getcustomer', Cid)
     this.customerIdService.getFormData(Cid).subscribe(data => {
-      console.log('get customer data', data)
       this.angForm.patchValue({
         CAC_CUSTID: Cid.toString(),
         CAC_NAME: data.AC_NAME,
@@ -1014,9 +1001,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.multiGuarantor.splice(id, 1)
   }
   getCustomer(id) {
-    console.log('in getcustomer', id)
+    this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
-      console.log('get customer data', data)
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
@@ -1110,4 +1096,14 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     });
   }
 
+    //set open date, appointed date and expiry date
+    getSystemParaDate() {
+      this.systemParameter.getFormData(1).subscribe(data => {
+        this.angForm.patchValue({
+          AC_OPDATE: data.CURRENT_DATE,
+          DATE_APPOINTED: data.CURRENT_DATE,
+          DATE_EXPIRY: data.CURRENT_DATE
+        })
+      })
+    }
 }

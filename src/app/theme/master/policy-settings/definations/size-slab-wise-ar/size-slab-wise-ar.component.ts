@@ -69,9 +69,13 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
  filterObject: { name: string; type: string; }[];
  filter: any;
  filterForm: FormGroup;
- // Variables for hide/show add and update button
+ // Variables for hide/show add and update and new button
  showButton: boolean = true;
  updateShow: boolean = false;
+ newbtnShow: boolean = false;
+ addShowButton: boolean = true
+ UpdateShowButton: boolean = false
+ multiField = [];
 
  //variable to get ID to update
  updateID: number = 0;
@@ -148,19 +152,7 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
         {
           title: 'Int.Category',
           data: 'INT_CATEGORY'
-        },{
-          title: 'Serial No',
-          data: 'SERIAL_NO'
-        },
-        {
-          title: 'Effect Date',
-          data: 'EFFECT_DATE'
-        },
-        {
-          title: 'Int.Rate',
-          data: 'INT_RATE'
         }
-      
       ],
       dom:'lrtip'
     
@@ -192,16 +184,14 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
       'ACNOTYPE': formVal.ACNOTYPE,
       'INT_CATEGORY': formVal.INT_CATEGORY,
       'Data':this.rowData,
- 
-    
-      
-    
+      'FieldData': this.multiField,
     }
     console.log(dataToSend);
     this.SizeSlabWiseService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
        //To clear form
     this.angForm.reset();
     }, (error) => {
@@ -210,16 +200,6 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
    
   }
 
-  Add() {
-
-    const formVal = this.angForm.value;
-    var object= {
-     
-      'EFFECT_DATE': formVal.EFFECT_DATE,
-      'INT_RATE': formVal.INT_RATE,
-    }
-    this.rowData.push(object);
-  }
     // Reset Function
     resetForm() {
       this.createForm();
@@ -295,19 +275,15 @@ delClickHandler(id: number) {
 }
     //Method for append data into fields
   editClickHandler(id) {
-    
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.SizeSlabWiseService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.multiField = data.rate
+      this.angForm.patchValue({
         'ACNOTYPE': data.ACNOTYPE,
-        'INT_CATEGORY': data.INT_CATEGORY,
-        'SERIAL_NO':data.SERIAL_NO,
-        'EFFECT_DATE': data.EFFECT_DATE,
-      'INT_RATE': data.INT_RATE,
-      
-        
+        'INT_CATEGORY': data.INT_CATEGORY
       })
     })
   }
@@ -317,11 +293,16 @@ delClickHandler(id: number) {
  updateData() {
   let data = this.angForm.value;
   data['id'] = this.updateID;
+  data['FieldData'] = this.multiField
   this.SizeSlabWiseService.updateData(data).subscribe(() => {
     Swal.fire('Success!', 'Record Updated Successfully !', 'success');
     this.showButton = true;
     this.updateShow = false;
-    this.rerender();
+    this.newbtnShow = false;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
+    this.multiField = []
     this.resetForm();
   })
 }
@@ -336,7 +317,58 @@ delClickHandler(id: number) {
     }, 1000);
 
   }
- 
+
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.multiField = [];
+    this.resetForm();
+  }
+addField() {
+    const formVal = this.angForm.value;
+    var object = {
+      EFFECT_DATE: formVal.EFFECT_DATE,
+      INT_RATE: formVal.INT_RATE,
+     
+    }
+    this.multiField.push(object);
+    console.log(this.multiField)
+    this.resetField()
+  }
+  resetField() {
+    this.angForm.controls['INT_RATE'].reset();
+    this.angForm.controls['EFFECT_DATE'].reset();
+  }
+  intIndex: number
+  intID: number
+  updateField() {
+    let index = this.intIndex;
+    this.addShowButton = true;
+    this.UpdateShowButton = false;
+    const formVal = this.angForm.value;
+    var object = {
+      EFFECT_DATE: formVal.EFFECT_DATE,
+      INT_RATE: formVal.INT_RATE,
+      id: this.intID
+    }
+    this.multiField[index] = object;
+    this.resetField()
+  }
+
+  editField(id) {
+    this.intIndex = id
+    this.intID = this.multiField[id].id;
+    this.addShowButton = false;
+    this.UpdateShowButton = true;
+    this.angForm.patchValue({
+      EFFECT_DATE: this.multiField[id].EFFECT_DATE,
+      INT_RATE: this.multiField[id].INT_RATE,
+    })
+  }
+  delField(id) {
+    this.multiField.splice(id, 1)
+  }
   
 
 }

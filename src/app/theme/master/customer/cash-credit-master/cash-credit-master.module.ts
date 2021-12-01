@@ -30,6 +30,8 @@ import { PrioritySectorMasterService } from '../../policy-settings/information/p
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -44,7 +46,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SharedModule,
     CustomerIdModule,
     PerfectScrollbarModule,
-    SharedModule
+    SharedModule,
+ 
   ],
   declarations: [CashCreditMasterComponent],
   providers: [CashCreditService,
@@ -65,6 +68,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AccountTypeService,
     SecurityMasterdropdownService,
     InterestRateForLoanandCCService,
-    PrioritySectorMasterService]
+    PrioritySectorMasterService,
+    SystemMasterParametersService]
 })
 export class CashCreditMasterModule { }

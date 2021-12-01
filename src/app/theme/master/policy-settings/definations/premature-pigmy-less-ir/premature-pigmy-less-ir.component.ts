@@ -65,9 +65,13 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
-  // Variables for hide/show add and update button
+  // Variables for hide/show add and update and new button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
+  addShowButton: boolean = true
+  UpdateShowButton: boolean = false
+  multiField = [];
   updateID: number = 0;
   schemeCode: any;
   //for search functionality
@@ -126,7 +130,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url +' /premature-pigmy-less-int-rate',
+            this.url +'/premature-pigmy-less-int-rate',
             dataTableParameters
           ).subscribe(resp => {
             this.prematurePigmy = resp.data;
@@ -150,23 +154,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
         {
           title: 'Scheme Type',
           data: 'AC_ACNOTYPE'
-        },
-        {
-          title: 'Sr No',
-          data: 'SERIAL_NO'
-        },
-        {
-          title: 'From Months',
-          data: 'FROM_MONTHS'
-        },
-        {
-          title: 'To Months',
-          data: 'TO_MONTHS'
-        },
-        {
-          title: 'Interest Rate',
-          data: 'LESS_INT_RATE'
-        },
+        }
       ],
       dom: 'Blrtip',
     };
@@ -188,35 +176,32 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     const dataToSend = {
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'EFFECT_DATE': formVal.EFFECT_DATE,
-      'SERIAL_NO': formVal.SERIAL_NO,
-      'FROM_MONTHS': formVal.FROM_MONTHS,
-      'TO_MONTHS': formVal.TO_MONTHS,
-      'LESS_INT_RATE': formVal.LESS_INT_RATE,
+      'FieldData': this.multiField,
     }
     this.prematurePigmyService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
     //To clear form
     this.resetForm();
+    this.multiField = []
   }
 
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.prematurePigmyService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
-        'AC_ACNOTYPE': data.AC_ACNOTYPE,
+      this.multiField = data.rate
+      this.angForm.patchValue({
         'EFFECT_DATE': data.EFFECT_DATE,
-        'SERIAL_NO': data.SERIAL_NO,
-        'FROM_MONTHS': data.FROM_MONTHS,
-        'TO_MONTHS': data.TO_MONTHS,
-        'LESS_INT_RATE': data.LESS_INT_RATE,
+        'AC_ACNOTYPE': data.AC_ACNOTYPE,
       })
     })
   }
@@ -225,11 +210,16 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   updateData(id) {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['FieldData'] = this.multiField
     this.prematurePigmyService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      this.multiField = []
       this.resetForm();
     })
   }
@@ -324,6 +314,59 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       this.dtTrigger.next();
     });
   }
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.multiField = [];
+    this.resetForm();
+  }
+  addField() {
+    const formVal = this.angForm.value;
+    var object = {
+      FROM_MONTHS: formVal.FROM_MONTHS,
+      TO_MONTHS: formVal.TO_MONTHS,
+      LESS_INT_RATE: formVal.LESS_INT_RATE,
+     
+    }
+    this.multiField.push(object);
+    console.log(this.multiField)
+    this.resetField()
+  }
+  resetField() {
+    this.angForm.controls['FROM_MONTHS'].reset();
+    this.angForm.controls['TO_MONTHS'].reset();
+    this.angForm.controls['LESS_INT_RATE'].reset();
+  }
+  intIndex: number
+  intID: number
+  updateField() {
+    let index = this.intIndex;
+    this.addShowButton = true;
+    this.UpdateShowButton = false;
+    const formVal = this.angForm.value;
+    var object = {
+      FROM_MONTHS: formVal.FROM_MONTHS,
+      TO_MONTHS: formVal.TO_MONTHS,
+      LESS_INT_RATE: formVal.LESS_INT_RATE,
+      id: this.intID
+    }
+    this.multiField[index] = object;
+    this.resetField()
+  }
 
-
+  editField(id) {
+    this.intIndex = id
+    this.intID = this.multiField[id].id;
+    this.addShowButton = false;
+    this.UpdateShowButton = true;
+    this.angForm.patchValue({
+      FROM_MONTHS: this.multiField[id].FROM_MONTHS,
+      TO_MONTHS: this.multiField[id].TO_MONTHS,
+      LESS_INT_RATE: this.multiField[id].LESS_INT_RATE,
+    })
+  }
+  delField(id) {
+    this.multiField.splice(id, 1)
+  }
 }

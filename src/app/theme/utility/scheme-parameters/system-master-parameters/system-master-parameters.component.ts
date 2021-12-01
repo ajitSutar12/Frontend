@@ -265,7 +265,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            this.url+'/system-master-parameters',
+            this.url + '/system-master-parameters',
             dataTableParameters
           ).subscribe(resp => {
             this.systemParameters = resp.data;

@@ -9,7 +9,7 @@
             <div class="card-block">
                 <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" placeholder="Scheme *" required title="Compulsory Selection" formControlName="AC_TYPE">
                                 </ng-select>
@@ -20,7 +20,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NO" class="form-control" placeholder=" " id="AC_NO"
@@ -29,7 +29,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false" placeholder="Customer ID *" required title="Compulsory Selection" formControlName="AC_CUSTID" [(ngModel)]="id" (selected)="getCustomer(id)" style="width: 90%;">
                                 </ng-select>
@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
@@ -98,7 +98,7 @@
                                                             <input type="text" name="AC_OPDATE" class="form-control"
                                                                 placeholder=" " id="AC_OPDATE" required=""
                                                                 max="9999-12-31" onfocus="(this.type='date')"
-                                                                formControlName="AC_OPDATE">
+                                                                formControlName="AC_OPDATE" disabled>
                                                             <label for="AC_OPDATE">Opening Date<sub class="required">*
                                                                 </sub></label>
                                                         </span>
@@ -151,8 +151,6 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
                                                 <div class="col-sm">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
@@ -163,6 +161,8 @@
                                                         </span>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-sm">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
@@ -203,8 +203,6 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
                                                 <div class="col-sm">
                                                     <div class="form-group form-primary form-static-label">
                                                         <ng-select [ngClass]="'ng-select'" [options]="intCat" [multiple]="false" placeholder="Interest Category *" required title="Compulsory Selection" formControlName="AC_INTCATA" [(ngModel)]="idi" (selected)="getInterest(idi)">
@@ -235,6 +233,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-sm">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
@@ -290,8 +290,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
                                                 <div class="col-sm">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
@@ -329,6 +327,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-sm">
                                                     <div class="form-group form-primary form-static-label">
                                                         <ng-select [ngClass]="'ng-select'" [options]="repayModeOption" [multiple]="false" placeholder="Repay Mode*" title="Compulsory Selection" formControlName="AC_REPAYMODE">
@@ -355,8 +355,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
                                                 <div class="col-sm">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
@@ -374,14 +372,14 @@
                                                             <input type="text" name="AC_MORATORIUM_PERIOD"
                                                                 class="form-control" placeholder=" "
                                                                 id="AC_MORATORIUM_PERIOD" pattern="^[0-9]+$"
-                                                                title="Input allowed only  0-9" disabled
+                                                                title="Input allowed only  0-9" maxlength="2"
                                                                 formControlName="AC_MORATORIUM_PERIOD">
                                                             <label for="AC_MORATORIUM_PERIOD">Moratorium
                                                                 Period(Months)</label>
                                                         </span>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_MORATORIUM_PERIOD'].invalid && (angForm.controls['AC_MORATORIUM_PERIOD'].dirty || angForm.controls['AC_MORATORIUM_PERIOD'].touched)" class="alert alert-danger">
-                                                        <div *ngIf="angForm.controls['AC_MORATORIUM_PERIOD'].errors?.pattern">
+                                                        <div *ngIf="angForm.controls['AC_MORATORIUM_PERIOD'].errors?.pattern || angForm.controls['AC_MORATORIUM_PERIOD'].errors?.maxlength">
                                                             Input allowed only 0-9
                                                         </div>
                                                     </div>
@@ -392,13 +390,13 @@
                                                             <input type="text" name="AC_GRACE_PERIOD"
                                                                 class="form-control" placeholder=" "
                                                                 id="AC_GRACE_PERIOD" pattern="^[0-9]+$"
-                                                                title="Input allowed only  0-9"
+                                                                title="Input allowed only  0-9" maxlength="3"
                                                                 formControlName="AC_GRACE_PERIOD">
                                                             <label for="AC_GRACE_PERIOD">Grace Period(Days)</label>
                                                         </span>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_GRACE_PERIOD'].invalid && (angForm.controls['AC_GRACE_PERIOD'].dirty || angForm.controls['AC_GRACE_PERIOD'].touched)" class="alert alert-danger">
-                                                        <div *ngIf="angForm.controls['AC_GRACE_PERIOD'].errors?.pattern">
+                                                        <div *ngIf="angForm.controls['AC_GRACE_PERIOD'].errors?.pattern || angForm.controls['AC_GRACE_PERIOD'].errors?.maxlength">
                                                             Input allowed only 0-9
                                                         </div>
                                                     </div>
@@ -456,18 +454,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm">
-                                                    <div class="border-checkbox-section">
-                                                        <div class="border-checkbox-group border-checkbox-group-primary">
-                                                            <input class="border-checkbox" type="checkbox" id="checkbox3" name="AC_IS_RECOVERY" [checked]="isWeaker == true">
-
-                                                            <label class="border-checkbox-label" for="checkbox3">Is
-                                                                Weaker A/c ?</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_PRIORITY_SUB1"
@@ -479,6 +465,8 @@
                                                         </span>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-sm">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
@@ -501,6 +489,16 @@
                                                                 formControlName="AC_PRIORITY_SUB3">
                                                             <label for="AC_PRIORITY_SUB3">Priority 3</label>
                                                         </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <div class="border-checkbox-section">
+                                                        <div class="border-checkbox-group border-checkbox-group-primary">
+                                                            <input class="border-checkbox" type="checkbox" id="checkbox3" name="AC_IS_RECOVERY" [checked]="isWeaker == true">
+
+                                                            <label class="border-checkbox-label" for="checkbox3">Is
+                                                                Weaker A/c ?</label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm">

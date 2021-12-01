@@ -73,6 +73,9 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
+  addShowButton: boolean = true
+  UpdateShowButton: boolean = false
+  multiField = [];
   updateID: number = 0;
   schemeCode: any;
   //for search functionality
@@ -171,69 +174,6 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
       dom: 'Blrtip',
     };
 
-    this.dtModalOptions = {
-      pagingType: 'full_numbers',
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.columns.forEach(element => {
-          if (element.search.value != '') {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters['filterData'] = this.filterData;
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        this.page = dataTableParameters.start / dataTableParameters.length;
-        this.http
-          .post<DataTableResponse>(
-            this.url + '/scheme-type-charges-definition',
-            dataTableParameters
-          ).subscribe(resp => {
-            this.schemeTypeChargesRate = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: []
-            });
-          });
-      },
-      columns: [
-        {
-          title: 'Action'
-        },
-        {
-          title: 'Sr.No',
-          data: 'SERIAL_NO'
-        },
-        {
-          title: 'From',
-          data: 'FROM_RANGE'
-        },
-        {
-          title: 'To',
-          data: 'TO_RANGE'
-        },
-        {
-          title: 'Charges Amount',
-          data: 'CHARGES_AMT'
-        },
-      ],
-      dom: 'lrtip',
-    };
     this.createForm();
     this.runTimer();
     this.dataSub = this.schemeTypeDropdown.loadCharacters().subscribe((options) => {
@@ -274,17 +214,15 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     const dataToSend = {
       'EFFECT_DATE': formVal.EFFECT_DATE,
       'ACNOTYPE': formVal.ACNOTYPE,
-      'SERIAL_NO': formVal.SERIAL_NO,
       'CHARGES_TYPE': formVal.CHARGES_TYPE,
-      'FROM_RANGE': formVal.FROM_RANGE,
-      'TO_RANGE': formVal.TO_RANGE,
-      'CHARGES_AMT': formVal.CHARGES_AMT,
       'CHARGES_GL_ACNO': formVal.CHARGES_GL_ACNO,
+      'FieldData': this.multiField,
     }
     this.schemeTypeChargesService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
@@ -299,14 +237,11 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     this.newbtnShow = true;
     this.schemeTypeChargesService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.multiField = data.rate
+      this.angForm.patchValue({
         'EFFECT_DATE': data.EFFECT_DATE,
         'ACNOTYPE': data.ACNOTYPE,
-        'SERIAL_NO': data.SERIAL_NO,
         'CHARGES_TYPE': data.CHARGES_TYPE,
-        'FROM_RANGE': data.FROM_RANGE,
-        'TO_RANGE': data.TO_RANGE,
-        'CHARGES_AMT': data.CHARGES_AMT,
         'CHARGES_GL_ACNO': data.CHARGES_GL_ACNO,
       })
     })
@@ -316,6 +251,7 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.multiField = [];
     this.resetForm();
   }
 
@@ -323,12 +259,16 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['FieldData'] = this.multiField
     this.schemeTypeChargesService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      this.multiField = []
       this.resetForm();
     })
   }
@@ -408,5 +348,54 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+ 
+  addField() {
+    const formVal = this.angForm.value;
+    var object = {
+      FROM_RANGE: formVal.FROM_RANGE,
+      TO_RANGE: formVal.TO_RANGE,
+      CHARGES_AMT: formVal.CHARGES_AMT,
+    }
+    this.multiField.push(object);
+    console.log(this.multiField)
+    this.resetField()
+  }
+  resetField() {
+    this.angForm.controls['FROM_RANGE'].reset();
+    this.angForm.controls['TO_RANGE'].reset();
+    this.angForm.controls['CHARGES_AMT'].reset();
+  }
+  intIndex: number
+  intID: number
+  updateField() {
+    let index = this.intIndex;
+    this.addShowButton = true;
+    this.UpdateShowButton = false;
+    const formVal = this.angForm.value;
+    var object = {
+      FROM_RANGE: formVal.FROM_RANGE,
+      TO_RANGE: formVal.TO_RANGE,
+      CHARGES_AMT: formVal.CHARGES_AMT,
+      id: this.intID
+    }
+    this.multiField[index] = object;
+    this.resetField()
+  }
+
+  editField(id) {
+    this.intIndex = id
+    this.intID = this.multiField[id].id;
+    this.addShowButton = false;
+    this.UpdateShowButton = true;
+    this.angForm.patchValue({
+      SERIAL_NO: this.multiField[id].SERIAL_NO,
+      FROM_RANGE: this.multiField[id].FROM_RANGE,
+      TO_RANGE: this.multiField[id].TO_RANGE,
+      CHARGES_AMT: this.multiField[id].CHARGES_AMT,
+    })
+  }
+  delField(id) {
+    this.multiField.splice(id, 1)
   }
 }

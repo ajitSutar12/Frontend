@@ -30,11 +30,7 @@ interface InterestRateForLoanandCC {
   ACNOTYPE: string
   INT_CATEGORY: string
   EFFECT_DATE: Date
-  FROM_AMOUNT: number
-  TO_AMOUNT: number
-  INT_RATE: number
-  PENAL_INT_RATE: number
-}
+ }
 
 @Component({
   selector: 'app-interest-rate-for-lacc',
@@ -73,7 +69,9 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
-
+  addShowButton: boolean = true
+  UpdateShowButton: boolean = false
+  multiField = [];
   //variable to get ID to update
   updateID: number = 0;
 
@@ -151,78 +149,15 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
         {
           title: 'Scheme Type',
           data: 'ACNOTYPE'
-        }, {
+        },
+         {
           title: 'Int.Category',
           data: 'INT_CATEGORY'
         },
-        {
-          title: 'From Amount',
-          data: 'FROM_AMOUNT'
-        },
-        {
-          title: 'Upto Amount',
-          data: 'TO_AMOUNT'
-        },
-        {
-          title: 'Interest Rate',
-          data: 'INT_RATE'
-        },
-        {
-          title: 'Penal Interest Rate',
-          data: 'PENAL_INT_RATE'
-        },
+                
       ],
       dom: 'Blrtip',
     };
-    // this.dtModalOptions = {
-    //   pagingType: 'full_numbers',
-    //   paging: true,
-    //   pageLength: 10,
-    //   serverSide: true,
-    //   processing: true,
-    //   ajax: (dataTableParameters: any, callback) => {
-    //     dataTableParameters.columns.forEach(element => {
-    //       if (element.search.value != '') {
-    //         let string = element.search.value;
-    //         this.filterData[element.data] = string;
-    //       } else {
-    //         let getColumnName = element.data;
-    //         let columnValue = element.value;
-    //         if (this.filterData.hasOwnProperty(element.data)) {
-    //           let value = this.filterData[getColumnName];
-    //           if (columnValue != undefined || value != undefined) {
-    //             delete this.filterData[element.data];
-    //           }
-    //         }
-    //       }
-    //     });
-    //     dataTableParameters['filterData'] = this.filterData;
-    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
-    //     dataTableParameters.maxNumber =
-    //       dataTableParameters.start + dataTableParameters.length;
-    //     this.page = dataTableParameters.start / dataTableParameters.length;
-    //     this.http
-    //       .post<DataTableResponse>(
-    //         'http://localhost:4000/interest-rate-for-loan-and-cc',
-    //         dataTableParameters
-    //       ).subscribe(resp => {
-    //         this.interestRateForLoanandCC = resp.data;
-    //         callback({
-    //           recordsTotal: resp.recordsTotal,
-    //           recordsFiltered: resp.recordsTotal,
-    //           data: []
-    //         });
-    //       });
-    //   },
-    //   columns: [
-    //     {
-    //       title: 'Action'
-    //     },
-
-
-    //   ],
-    //   dom: 'lrtip',
-    // };
     this.runTimer();
     this.dataSub = this.schemeTypeDropdownService.loadCharacters().subscribe((options) => {
       this.characters = options;
@@ -250,20 +185,20 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
       'EFFECT_DATE': formVal.EFFECT_DATE,
       'ACNOTYPE': formVal.ACNOTYPE,
       'INT_CATEGORY': formVal.INT_CATEGORY,
-      'FROM_AMOUNT': formVal.FROM_AMOUNT,
-      'TO_AMOUNT': formVal.TO_AMOUNT,
-      'INT_RATE': formVal.INT_RATE,
-      'PENAL_INT_RATE': formVal.PENAL_INT_RATE
+      'FieldData': this.multiField,
     }
     this.interestRateForLoanandCCService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
     //To clear form
     this.resetForm();
+    this.multiField = []
+
   }
 
   //Method for append data into fields
@@ -273,14 +208,12 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     this.newbtnShow = true;
     this.interestRateForLoanandCCService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.multiField = data.rate
+      this.angForm.patchValue({
         'EFFECT_DATE': data.EFFECT_DATE,
         'ACNOTYPE': data.ACNOTYPE,
         'INT_CATEGORY': data.INT_CATEGORY,
-        'FROM_AMOUNT': data.FROM_AMOUNT,
-        'TO_AMOUNT': data.TO_AMOUNT,
-        'INT_RATE': data.INT_RATE,
-        'PENAL_INT_RATE': data.PENAL_INT_RATE
+        
       })
     })
   }
@@ -289,12 +222,16 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    data['FieldData'] = this.multiField
     this.interestRateForLoanandCCService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      this.multiField = []
       this.resetForm();
     })
   }
@@ -303,6 +240,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.multiField = [];
     this.resetForm();
   }
 
@@ -386,5 +324,58 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
         clearInterval(timer);
       }
     }, 1000);
+  }
+
+  addField() {
+    const formVal = this.angForm.value;
+    var object = {
+      FROM_AMOUNT: formVal.FROM_AMOUNT,
+      TO_AMOUNT: formVal.TO_AMOUNT,
+      INT_RATE: formVal.INT_RATE,
+      PENAL_INT_RATE: formVal.PENAL_INT_RATE,
+     
+    }
+    this.multiField.push(object);
+    console.log(this.multiField)
+    this.resetField()
+  }
+  resetField() {
+    this.angForm.controls['FROM_AMOUNT'].reset();
+    this.angForm.controls['TO_AMOUNT'].reset();
+    this.angForm.controls['INT_RATE'].reset();
+    this.angForm.controls['PENAL_INT_RATE'].reset();
+  }
+  intIndex: number
+  intID: number
+  updateField() {
+    let index = this.intIndex;
+    this.addShowButton = true;
+    this.UpdateShowButton = false;
+    const formVal = this.angForm.value;
+    var object = {
+      FROM_AMOUNT: formVal.FROM_AMOUNT,
+      TO_AMOUNT: formVal.TO_AMOUNT,
+      INT_RATE: formVal.INT_RATE,
+      PENAL_INT_RATE: formVal.PENAL_INT_RATE,
+      id: this.intID
+    }
+    this.multiField[index] = object;
+    this.resetField()
+  }
+
+  editField(id) {
+    this.intIndex = id
+    this.intID = this.multiField[id].id;
+    this.addShowButton = false;
+    this.UpdateShowButton = true;
+    this.angForm.patchValue({
+      FROM_AMOUNT: this.multiField[id].FROM_AMOUNT,
+      TO_AMOUNT: this.multiField[id].TO_AMOUNT,
+      INT_RATE: this.multiField[id].INT_RATE,
+      PENAL_INT_RATE: this.multiField[id].PENAL_INT_RATE,
+    })
+  }
+  delField(id) {
+    this.multiField.splice(id, 1)
   }
 }

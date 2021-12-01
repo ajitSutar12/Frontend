@@ -139,8 +139,8 @@
                                                     <div class="col-sm-2">
                                                         <div class="border-checkbox-section">
                                                             <div class="border-checkbox-group border-checkbox-group-primary">
-                                                                <input class="border-checkbox" type="checkbox" id="AC_IS_RECOVERY" disabled formControlName="AC_IS_RECOVERY">
-                                                                <label class="border-checkbox-label" for="AC_IS_RECOVERY">Recovery<span class="required">
+                                                                <input class="border-checkbox" type="checkbox" id="IS_RECOVERY" formControlName="AC_IS_RECOVERY">
+                                                                <label class="border-checkbox-label" for="IS_RECOVERY">Recovery<span class="required">
                                                                     </span></label>
                                                             </div>
                                                         </div>
@@ -224,7 +224,7 @@
                                                 <div class="row">
                                                     <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
-                                                            <ng-select [ngClass]="'ng-select'" [options]="intCat" [multiple]="false" placeholder="Interest Category *" required title="Compulsory Selection" formControlName="AC_INTCATA" [(ngModel)]="id" (selected)="getInterest(id)">
+                                                            <ng-select [ngClass]="'ng-select'" [options]="intCat" [multiple]="false" placeholder="Interest Category *" required title="Compulsory Selection" formControlName="AC_INTCATA" [(ngModel)]="idi" (selected)="getInterest(idi)">
                                                             </ng-select>
                                                         </div>
                                                         <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_INTCATA'].invalid && (angForm.controls['AC_INTCATA'].dirty || angForm.controls['AC_INTCATA'].touched)" class="alert alert-danger">
@@ -431,18 +431,6 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm">
-                                                        <div class="border-checkbox-section">
-                                                            <div class="border-checkbox-group border-checkbox-group-primary">
-                                                                <input class="border-checkbox" type="checkbox" id="checkbox3" name="AC_IS_RECOVERY" [checked]="isWeaker == true">
-
-                                                                <label class="border-checkbox-label" for="checkbox3">Is
-                                                                    Weaker A/c ?</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_PRIORITY_SUB1"
@@ -454,6 +442,8 @@
                                                             </span>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
@@ -476,6 +466,16 @@
                                                                     formControlName="AC_PRIORITY_SUB3">
                                                                 <label for="AC_PRIORITY_SUB3">Priority 3</label>
                                                             </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="border-checkbox-section">
+                                                            <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" type="checkbox" id="checkbox3" name="AC_IS_RECOVERY" [checked]="isWeaker == true">
+
+                                                                <label class="border-checkbox-label" for="checkbox3">Is
+                                                                    Weaker A/c ?</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm">

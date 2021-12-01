@@ -134,7 +134,6 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
             this.url + '/pat-scheme-interest-rates',
             dataTableParameters
           ).subscribe(resp => {
-            console.log(resp.data)
             this.termDepositPatScheme = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -205,21 +204,20 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   }
   tableButton: boolean = true
   //Method for append data into fields
-  editClickHandler(data) {
+  editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
-    this.addShowButton = false
-    
-    this.termDepositPatSchemeService.getFormData(data).subscribe(data => {
-      console.log(data)
-      console.log(data.EFFECT_DATE)
+    this.addShowButton = true
+ 
+
+    this.termDepositPatSchemeService.getFormData(id).subscribe(data => {
+      this.multiField = data.rate
       this.updateID = data.id;
       this.angForm.patchValue({
         'EFFECT_DATE': data.EFFECT_DATE,
         'AC_TYPE': data.AC_TYPE,
-        'INT_CATEGORY': data.INT_CATEGORY,
-        // this.multiField = data.FieldData
+        'INT_CATEGORY': data.INT_CATEGORY
       })
     })
   }
@@ -239,6 +237,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       });
       this.multiField = []
       this.resetForm();
+    
     })
   }
 
@@ -311,6 +310,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   resetForm() {
     this.createForm();
   }
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();

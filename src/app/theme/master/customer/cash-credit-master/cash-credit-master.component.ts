@@ -15,6 +15,7 @@ import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownServ
 import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service';
 import { AuthorityMasterDropdownService } from '../../../../shared/dropdownService/authority-master-dropdown.service';
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
+import { DirectorMasterService } from '../../policy-settings/information/director-master/director-master.service';
 import { RecoveryClearkMasterDropdownService } from '../../../../shared/dropdownService/recovery-cleark-master-dropdown.service';
 import { PrioritySectorMasterDropdownService } from '../../../../shared/dropdownService/priority-sector-master-dropdown.service';
 import { WeakerMasterDropdownService } from '../../../../shared/dropdownService/weaker-master-dropdown.service';
@@ -29,6 +30,7 @@ import { PrioritySectorMasterService } from '../../policy-settings/information/p
 import { IOption } from 'ng-select';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs-compat';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 
 // Handling datatable data
 class DataTableResponse {
@@ -159,6 +161,7 @@ export class CashCreditMasterComponent implements OnInit {
   Cust_ID: any[] //customer id from idmaster
   GCust_ID: any[] //customer id from idmaster
   CCust_ID: any[] //customer id from idmaster
+  director: any[] //customer id from idmaster
   security: any[]
   // documentMaster: DocumentMaster[];
   id: string = '';
@@ -198,6 +201,7 @@ export class CashCreditMasterComponent implements OnInit {
     private securityMaster: SecurityMasterdropdownService,
     private InterestRateForLoanandCC: InterestRateForLoanandCCService,
     private prioritySectorMaster: PrioritySectorMasterService,
+    private systemParameter: SystemMasterParametersService,
     public router: Router
   ) { }
 
@@ -568,6 +572,7 @@ export class CashCreditMasterComponent implements OnInit {
       'AC_CUSTID': formVal.AC_CUSTID,
       'AC_OPDATE': formVal.AC_OPDATE,
       'AC_OPEN_OLD_DATE': formVal.AC_OPEN_OLD_DATE,
+      'AC_IS_RECOVERY':formVal.AC_IS_RECOVERY,
       // 'AC_DPACTYPE': formVal.AC_DPACTYPE,
       // 'AC_DPACNO': formVal.AC_DPACNO,
       'REF_ACNO': formVal.REF_ACNO,
@@ -643,6 +648,7 @@ export class CashCreditMasterComponent implements OnInit {
         'AC_CUSTID': data.AC_CUSTID,
         'AC_OPDATE': data.AC_OPDATE,
         'AC_OPEN_OLD_DATE': data.AC_OPEN_OLD_DATE,
+        'AC_IS_RECOVERY':data.AC_IS_RECOVERY,
         // 'AC_DPACTYPE': data.AC_DPACTYPE,
         // 'AC_DPACNO': data.AC_DPACNO,
         'REF_ACNO': data.REF_ACNO,
@@ -744,12 +750,13 @@ export class CashCreditMasterComponent implements OnInit {
       }
     })
   }
-  getInterest(id) {
+  getInterest(iid) {
 
-    this.InterestRateForLoanandCC.getFormData(id).subscribe(data => {
+    this.InterestRateForLoanandCC.getFormData(iid).subscribe(data => {
+      console.log("interest",data)
       this.angForm.patchValue({
-        INT_CATEGORY: id.toString(),
-        AC_INTRATE: data.INT_RATE,
+        AC_INTCATA: data.INT_CATEGORY,
+        AC_INTRATE: data.rate[0].INT_RATE,
       })
     })
   }
@@ -967,6 +974,7 @@ export class CashCreditMasterComponent implements OnInit {
     this.multiGuarantor.splice(id, 1)
   }
   getCustomer(id) {
+    this.getSystemParaDate() //function to set date
     console.log('in getcustomer', id)
     this.customerIdService.getFormData(id).subscribe(data => {
       console.log('get customer data', data)
@@ -989,13 +997,11 @@ export class CashCreditMasterComponent implements OnInit {
         AC_AREA: data.custAddress[0].AC_AREA,
         CITY_NAME: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
-        AC_PANNO: data.AC_PANNO,
-        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
+        AC_PANNO: data.AC_PANNO,      
         AC_MOBILENO: data.AC_MOBILENO,
         AC_PHONE_RES: data.AC_PHONE_RES,
         AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
         AC_EMAILID: data.AC_EMAILID,
-        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
         TDS_REQUIRED: data.TDS_REQUIRED,
         SMS_REQUIRED: data.SMS_REQUIRED,
         IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
@@ -1061,5 +1067,20 @@ export class CashCreditMasterComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  //set open date, appointed date and expiry date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      if (data.ON_LINE) {
+        this.angForm.controls['AC_OPDATE'].disable()
+      }
+      else  if (data.ON_LINE){
+        this.angForm.controls['AC_OPDATE'].enable()
+      }
+      this.angForm.patchValue({
+        AC_OPDATE: data.CURRENT_DATE,
+      })
+    })
   }
 }
