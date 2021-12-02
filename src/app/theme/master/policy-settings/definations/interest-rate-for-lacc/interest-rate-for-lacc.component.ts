@@ -30,7 +30,7 @@ interface InterestRateForLoanandCC {
   ACNOTYPE: string
   INT_CATEGORY: string
   EFFECT_DATE: Date
- }
+}
 
 @Component({
   selector: 'app-interest-rate-for-lacc',
@@ -127,7 +127,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
         this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
-            this.url+'/interest-rate-for-loan-and-cc',
+            this.url + '/interest-rate-for-loan-and-cc',
             dataTableParameters
           ).subscribe(resp => {
             this.interestRateForLoanandCC = resp.data;
@@ -150,11 +150,11 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
           title: 'Scheme Type',
           data: 'ACNOTYPE'
         },
-         {
+        {
           title: 'Int.Category',
           data: 'INT_CATEGORY'
         },
-                
+
       ],
       dom: 'Blrtip',
     };
@@ -213,7 +213,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
         'EFFECT_DATE': data.EFFECT_DATE,
         'ACNOTYPE': data.ACNOTYPE,
         'INT_CATEGORY': data.INT_CATEGORY,
-        
+
       })
     })
   }
@@ -242,6 +242,22 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     this.newbtnShow = false;
     this.multiField = [];
     this.resetForm();
+  }
+  //comparing from amount and to amount
+  compareamount() {
+    let fromamt = (document.getElementById("FROM_AMOUNT") as HTMLInputElement).value;
+    let toamt = (document.getElementById("TO_AMOUNT") as HTMLInputElement).value;
+    if(toamt != null){
+      if (fromamt > toamt) {
+        Swal.fire(
+          'Deleted!',
+          'Your data has been deleted.',
+          'warning'
+        );
+        (document.getElementById("TO_AMOUNT") as HTMLInputElement).value = ""
+      }
+    }
+   
   }
 
   //Method for delete data
@@ -333,7 +349,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
       TO_AMOUNT: formVal.TO_AMOUNT,
       INT_RATE: formVal.INT_RATE,
       PENAL_INT_RATE: formVal.PENAL_INT_RATE,
-     
+
     }
     this.multiField.push(object);
     console.log(this.multiField)

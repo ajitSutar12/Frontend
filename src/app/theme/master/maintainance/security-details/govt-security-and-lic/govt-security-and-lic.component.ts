@@ -349,7 +349,7 @@ resetmaturedate:any;//reset maturedue date
   }
   //for checking dates
   checkdate(data: any) { 
-    debugger
+    // debugger
     // console.log(data.value);
     //fetch premium due date value
     let premium = document.getElementById(

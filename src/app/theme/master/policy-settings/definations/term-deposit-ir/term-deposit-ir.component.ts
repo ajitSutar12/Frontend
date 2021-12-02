@@ -17,6 +17,7 @@ import { IntrestCategoryMasterDropdownService } from '../../../../../shared/drop
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -82,6 +83,13 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
   //filter variable
   filterData = {};
+
+  //variable for checkinput
+  fromdays:any;
+  todays:any;
+  frommonths:any;
+  tomonths:any;
+
 
 
   //scheme dropdown variables
@@ -190,8 +198,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       FROM_MONTHS: ['', [Validators.pattern]],
       TO_DAYS: ['', [Validators.pattern]],
       TO_MONTHS: ['', [Validators.pattern]],
-      INT_RATE: ['', [ Validators.pattern]],
-      PENAL_INT_RATE: ['', [ Validators.pattern]]
+      INT_RATE: ['', [Validators.pattern]],
+      PENAL_INT_RATE: ['', [Validators.pattern]]
     });
   }
   // Method to insert data into database through NestJS
@@ -211,9 +219,9 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     }, (error) => {
       console.log(error)
     })
-       //To clear form
-       this.resetForm();
-       this.multiField = []
+    //To clear form
+    this.resetForm();
+    this.multiField = []
   }
 
   //Method for append data into fields
@@ -223,7 +231,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     this.newbtnShow = true;
     this.addShowButton = true
     this.termDepositInterestRateService.getFormData(id).subscribe(data => {
-      console.log("edit",data)
+      console.log("edit", data)
       this.multiField = data.rate
       this.updateID = data.id;
       this.angForm.patchValue({
@@ -233,15 +241,33 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       })
     })
   }
+  checkinput() {
 
-   //Method for update data 
-   updateData() {
+    this.fromdays = (document.getElementById("Formdays") as HTMLInputElement).value;
+    this.todays = (document.getElementById("todays") as HTMLInputElement).value;
+    this.frommonths = (document.getElementById("FROM_months") as HTMLInputElement).value;
+    this.tomonths = (document.getElementById("TO_months") as HTMLInputElement).value;
+
+
+    if ((this.fromdays && this.todays) || (this.frommonths && this.tomonths) == "")  {
+      if((this.fromdays && this.todays) || (this.frommonths &&this.tomonths) == 0){
+        Swal.fire(
+          'Invalid Input',
+          'Please enter Days or Month range ',
+          'warning'
+        )
+      }
+      }
+
+  }
+  //Method for update data 
+  updateData() {
     let data = this.angForm.value;
     console.log("updatedata", data)
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField
     this.termDepositInterestRateService.updateData(data).subscribe(() => {
-      console.log("update",data)
+      console.log("update", data)
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
@@ -251,7 +277,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       });
       this.multiField = []
       this.resetForm();
-    
+
     })
   }
 

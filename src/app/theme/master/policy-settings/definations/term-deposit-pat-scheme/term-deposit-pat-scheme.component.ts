@@ -80,6 +80,11 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
 
   //filter variable
   filterData = {};
+   //variable for checkinput
+   days:any;
+  months:any;
+  
+ 
 
 
   //scheme dropdown variables
@@ -249,7 +254,21 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     this.multiField = [];
     this.resetForm();
   }
+//checking input for days and months
+  checkinput() {
 
+    this.days = (document.getElementById("DAYS") as HTMLInputElement).value;
+    this.months = (document.getElementById("MONTHS") as HTMLInputElement).value;
+
+
+    if ((this.days || this.months == "")|| (this.days || this.months == 0))  {
+      Swal.fire(
+        'Invalid Input',
+        'Please enter Days or Months ',
+        'warning'
+      )
+    }
+  }
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({

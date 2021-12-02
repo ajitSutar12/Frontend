@@ -147,6 +147,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   isTdsFormA: boolean = false;
   SUBMIT_DATE: boolean = false;
   enablefields: boolean = true;
+  datemax: any;//setting max date
 
   constructor(
     private http: HttpClient,
@@ -160,7 +161,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     private riskCategoryDropdown: RiskCategoryDropdownService,
     private documentMasterService: DocumentMasterDropdownService,
     public router: Router
-  ) {}
+  ) {  
+    this.setdate();
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -558,7 +561,38 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isTdsForm = false;
     this.isTdsFormA = false;
   }
+//set date 18 years before current date
+  setdate() {
+    debugger
+    const d = new Date();
+    let day = d.getDate();
 
+    const m = new Date().getMonth()
+
+    const year = new Date().getFullYear() - 18
+    this.datemax = year + "-" + m + "-" + day;
+    console.log(this.datemax);
+  }
+  //set date on keyup event
+  keyupdate(date:any){
+    debugger
+    const d = new Date();
+    console.log(d);
+    let day = d.getDate();
+
+    const m = new Date().getMonth()
+
+    const year = new Date().getFullYear() - 18;
+    this.datemax = year + "-" + m + "-" + day;
+
+  if(date != ""){
+    if(date >=  this.datemax ){
+      Swal.fire("Cancelled", "please input date below"+this.datemax, "error");
+
+    }
+  }
+    
+  }
   addNewData() {
     this.showButton = true;
     this.updateShow = false;
@@ -573,13 +607,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     if (ele.target.checked) {
       (document.getElementById("file" + id) as HTMLInputElement).disabled =
         false;
-        (document.getElementById("eyebutton" + id) as HTMLInputElement).disabled =
+      (document.getElementById("eyebutton" + id) as HTMLInputElement).disabled =
         false;
-        
+
     } else {
       (document.getElementById("file" + id) as HTMLInputElement).disabled =
         true;
-        (document.getElementById("eyeicon" + id) as HTMLInputElement).disabled =
+      (document.getElementById("eyeicon" + id) as HTMLInputElement).disabled =
         true;
     }
   }

@@ -176,12 +176,14 @@
                                 </div>
                             </div>
                         </div>
-                        
+                        <h1></h1>
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_BIRTH_DT" class="form-control" placeholder=" "
-                                        id="AC_BIRTH_DT" max="9999-12-31" onfocus="(this.type='date')"
+                                        id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')"
+                                        #date
+                                        (keyup)="keyupdate(date.value)"
                                         formControlName="AC_BIRTH_DT">
                                     <label for="AC_BIRTH_DT">Birth Date</label>
                                 </span>
@@ -355,7 +357,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="email" name="AC_EMAILID" class="form-control" placeholder=" "
-                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter valid Email"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.com$" title="Enter valid Email"
                                         id="AC_EMAILID" formControlName="AC_EMAILID">
                                     <label for="AC_EMAILID">Email</label>
                                 </span>
