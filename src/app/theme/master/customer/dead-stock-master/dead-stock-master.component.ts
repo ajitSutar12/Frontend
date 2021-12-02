@@ -70,6 +70,8 @@ export class DeadStockMasterComponent
   firstnumber: number;
   secondnumber: number;
 
+ //todays date
+  date = new Date;                       
   //api
   url = environment.base_url;
 
@@ -124,6 +126,7 @@ export class DeadStockMasterComponent
   GLACNooption: any[];
 
   setdate: string;
+  today: () => number;
 
   constructor(
     private fb: FormBuilder,
@@ -295,33 +298,6 @@ export class DeadStockMasterComponent
       LAST_DEPR_DATE: ["", [Validators.pattern]],
       GL_ACNO: ["", [Validators.required]],
     });
-  }
-
-
-  //for checking dates
-  checkdate(data: any) {
-    // debugger
-    // console.log(data.value);
-    //fetch purchasedate due date value
-    let purchasedate = document.getElementById( "PURCHASE_DATE" ) as HTMLInputElement;
-    this.setdate = purchasedate.value;
-
-    // let currentdate = document.getElementById("demo").innerHTML
-    const currentdate = new Date();
-  
-    if (data != "") {
-      // debugger
-      if (this.setdate > data) {
-        console.log("if condition is true ");
-        Swal.fire(
-          "Cancelled",
-          "purchasedate Due Date must be less than Mature due date",
-          "error"
-        );
-      } else {
-        console.log("else condition is true ");
-      }
-    }
   }
 
 

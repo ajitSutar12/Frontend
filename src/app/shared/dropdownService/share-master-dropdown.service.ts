@@ -13,7 +13,18 @@ export class ShareMasterDropdownService {
         return this.http.get<any>(this.url + '/share-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO + ' ' + element.AC_NAME + ' ', value: `${element.id}` };
+                    let obj = { label: element.AC_NO + ' ' + element.AC_NAME + ' ', value: `${element.id}` , name: element.AC_NAME};
+                    this.sharecodeObject.push(obj)
+                });
+                return this.sharecodeObject;
+            }));
+    }
+    public getGLAccountMasterNameList() {
+        this.sharecodeObject = []
+        return this.http.get<any>(this.url + '/share-master')
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NAME + ' ' + element.AC_NAME + ' ', value: `${element.AC_NAME}` , name: element.AC_NAME};
                     this.sharecodeObject.push(obj)
                 });
                 return this.sharecodeObject;

@@ -13,8 +13,13 @@ import{ SchemeCodeDropdownService} from '../../../../shared/dropdownService/sche
 import{ SalaryDMasterdropdownService} from '../../../../shared/dropdownService/salary-division-master-dropdown.service';
  import{ ShareMasterDropdownService} from '../../../../shared/dropdownService/share-master-dropdown.service';
 
+ import { ShareSchemeDropdownService } from '../../../../shared/dropdownService/share-scheme-dropdown.Service';
 
- import {ShareMasterService} from '../../customer/shares-master/shares-master.service'
+ import {ShareMasterService} from '../../customer/shares-master/shares-master.service';
+ 
+import { CustomerIdService } from '../../customer/customer-id/customer-id.service';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -30,7 +35,9 @@ import{ SalaryDMasterdropdownService} from '../../../../shared/dropdownService/s
      SchemeCodeDropdownService,
      SalaryDMasterdropdownService,
      ShareMasterDropdownService,
-     ShareMasterService
+     ShareMasterService,
+     ShareSchemeDropdownService,
+     CustomerIdService
     ]
 
 })

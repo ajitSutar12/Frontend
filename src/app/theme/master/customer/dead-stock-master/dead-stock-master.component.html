@@ -80,7 +80,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="PURCHASE_DATE" class="form-control" placeholder=" " id="PURCHASE_DATE"
-                    required="" value="" max="9999-12-31" onfocus="(this.type='date')"
+                    required="" value="" max="{{date | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')"
                     formControlName="PURCHASE_DATE" />
                   <label for="PURCHASE_DATE">Purchase Date<sub class="required">* </sub></label>
                 </span>
