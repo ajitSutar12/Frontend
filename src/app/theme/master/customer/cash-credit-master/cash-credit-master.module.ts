@@ -31,6 +31,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { DirectorMasterService } from '../../policy-settings/information/director-master/director-master.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -69,6 +70,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SecurityMasterdropdownService,
     InterestRateForLoanandCCService,
     PrioritySectorMasterService,
-    SystemMasterParametersService]
+    SystemMasterParametersService,
+    DirectorMasterService]
 })
 export class CashCreditMasterModule { }

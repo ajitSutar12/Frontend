@@ -15,7 +15,6 @@ import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownServ
 import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service';
 import { AuthorityMasterDropdownService } from '../../../../shared/dropdownService/authority-master-dropdown.service';
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
-import { DirectorMasterService } from '../../policy-settings/information/director-master/director-master.service';
 import { RecoveryClearkMasterDropdownService } from '../../../../shared/dropdownService/recovery-cleark-master-dropdown.service';
 import { PrioritySectorMasterDropdownService } from '../../../../shared/dropdownService/priority-sector-master-dropdown.service';
 import { WeakerMasterDropdownService } from '../../../../shared/dropdownService/weaker-master-dropdown.service';
@@ -133,10 +132,13 @@ export class CashCreditMasterComponent implements OnInit {
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
-  // Variables for hide/show add and update button
-  showButton: boolean = true;
-  updateShow: boolean = false;
-  newbtnShow: boolean = false;
+ // Variables for hide/show add and update and new button
+ showButton: boolean = true;
+ updateShow: boolean = false;
+ newbtnShow: boolean = false;
+ addShowButton: boolean = true
+ UpdateShowButton: boolean = false
+ multiSecurity = [];
   //variable to get ID to update
   updateID: number = 0;
   // Filter Variable
@@ -239,7 +241,7 @@ export class CashCreditMasterComponent implements OnInit {
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url + '/term-loan-master',
+            this.url + '/cash-credit-master',
             dataTableParameters
           ).subscribe(resp => {
             this.cashCreditMaster = resp.data;
@@ -429,6 +431,9 @@ export class CashCreditMasterComponent implements OnInit {
     this.directorMasterDropdown.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.Recommended = data;
     })
+    this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
+      this.director = data;
+    })
     this.recoveryClearkMaster.getRecoveryClearkMasterList().pipe(first()).subscribe(data => {
       this.Recovery = data;
     })
@@ -572,7 +577,7 @@ export class CashCreditMasterComponent implements OnInit {
       'AC_CUSTID': formVal.AC_CUSTID,
       'AC_OPDATE': formVal.AC_OPDATE,
       'AC_OPEN_OLD_DATE': formVal.AC_OPEN_OLD_DATE,
-      'AC_IS_RECOVERY':formVal.AC_IS_RECOVERY,
+      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
       // 'AC_DPACTYPE': formVal.AC_DPACTYPE,
       // 'AC_DPACNO': formVal.AC_DPACNO,
       'REF_ACNO': formVal.REF_ACNO,
@@ -611,9 +616,12 @@ export class CashCreditMasterComponent implements OnInit {
       'AC_TCTCODE': formVal.AC_TCTCODE,
       'AC_TPIN': formVal.AC_TPIN,
       'CoBorrowerData': this.multiCoBorrower,
-      'GuarantorData': this.multiGuarantor
-    }
+      'GuarantorData': this.multiGuarantor,
+      'SecurityData': this.multiSecurity,
 
+    }
+console.log("all data",dataToSend)
+console.log("security data",this.multiSecurity)
 
     this.cashCredit.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -638,17 +646,20 @@ export class CashCreditMasterComponent implements OnInit {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    
     this.cashCredit.getFormData(id).subscribe(data => {
+      this.getCustomer(data.AC_CUSTID)
+      this.multiSecurity = data.securityMaster
+      this.multiGuarantor = data.guaranterMaster
+      this.multiCoBorrower = data.CoborrowerMaster
       console.log('edit', data)
       this.updateID = data.id;
-      this.angForm.setValue({
-        'AC_ACNOTYPE': data.AC_ACNOTYPE,
+      this.angForm.patchValue({
         'AC_TYPE': data.AC_TYPE,
         'AC_NO': data.AC_NO,
-        'AC_CUSTID': data.AC_CUSTID,
         'AC_OPDATE': data.AC_OPDATE,
         'AC_OPEN_OLD_DATE': data.AC_OPEN_OLD_DATE,
-        'AC_IS_RECOVERY':data.AC_IS_RECOVERY,
+        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
         // 'AC_DPACTYPE': data.AC_DPACTYPE,
         // 'AC_DPACNO': data.AC_DPACNO,
         'REF_ACNO': data.REF_ACNO,
@@ -694,6 +705,9 @@ export class CashCreditMasterComponent implements OnInit {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.multiSecurity = [];
+    this.multiCoBorrower = [];
+    this.multiGuarantor = [];
     this.resetForm();
   }
   //Method for update data 
@@ -701,6 +715,7 @@ export class CashCreditMasterComponent implements OnInit {
     let data = this.angForm.value;
     data['GuarantorData'] = this.multiGuarantor
     data['CoBorrowerData'] = this.multiCoBorrower
+    data['SecurityData'] = this.multiSecurity
     data['id'] = this.updateID;
     this.cashCredit.updateData(data).subscribe(() => {
       console.log(data)
@@ -711,6 +726,7 @@ export class CashCreditMasterComponent implements OnInit {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
+      this.multiSecurity = []
       this.resetForm();
     })
   }
@@ -753,7 +769,7 @@ export class CashCreditMasterComponent implements OnInit {
   getInterest(iid) {
 
     this.InterestRateForLoanandCC.getFormData(iid).subscribe(data => {
-      console.log("interest",data)
+      console.log("interest", data)
       this.angForm.patchValue({
         AC_INTCATA: data.INT_CATEGORY,
         AC_INTRATE: data.rate[0].INT_RATE,
@@ -997,7 +1013,7 @@ export class CashCreditMasterComponent implements OnInit {
         AC_AREA: data.custAddress[0].AC_AREA,
         CITY_NAME: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
-        AC_PANNO: data.AC_PANNO,      
+        AC_PANNO: data.AC_PANNO,
         AC_MOBILENO: data.AC_MOBILENO,
         AC_PHONE_RES: data.AC_PHONE_RES,
         AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
@@ -1075,7 +1091,7 @@ export class CashCreditMasterComponent implements OnInit {
       if (data.ON_LINE) {
         this.angForm.controls['AC_OPDATE'].disable()
       }
-      else  if (data.ON_LINE){
+      else if (data.ON_LINE) {
         this.angForm.controls['AC_OPDATE'].enable()
       }
       this.angForm.patchValue({
@@ -1083,4 +1099,73 @@ export class CashCreditMasterComponent implements OnInit {
       })
     })
   }
+  AC_DIRECTOR = true
+  directorShow(event) {
+    if (event.value == 'Director') {
+
+      this.AC_DIRECTOR = false
+      // this.angForm.controls['AC_DIRECTOR'].enable();
+      this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
+    } else {
+      this.AC_DIRECTOR = true
+      // this.angForm.controls['AC_DIRECTOR'].disable();
+      this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
+    }
+  }
+  SECU_CODE
+  SECU_NAME
+  securityDetails(event) {
+    this.SECU_CODE = event.id
+    this.SECU_NAME = event.name
+  }
+
+  addField() {
+    const formVal = this.angForm.value;
+    var object = {
+      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
+      AC_TYPE: formVal.AC_TYPE,
+      AC_NO: formVal.AC_NO,
+      SECURITY_CODE:this.SECU_CODE,
+      SECURITY_VALUE:  this.SECU_NAME,
+
+    }
+    this.multiSecurity.push(object);
+    this.resetField()
+  }
+  resetField() {
+    this.angForm.controls['SECURITY_CODE'].reset();
+    this.angForm.controls['SECURITY_VALUE'].reset();
+  }
+  intIndex: number
+  intID: number
+  // updateField() {
+  //   let index = this.intIndex;
+  //   this.addShowButton = true;
+  //   this.UpdateShowButton = false;
+  //   const formVal = this.angForm.value;
+  //   var object = {
+  //     MONTHS: formVal.MONTHS,
+  //     DAYS: formVal.DAYS,
+  //     INT_RATE: formVal.INT_RATE,
+  //     id: this.intID
+  //   }
+  //   this.multiField[index] = object;
+  //   this.resetField()
+  // }
+
+  // editField(id) {
+  //   this.intIndex = id
+  //   this.intID = this.multiField[id].id;
+  //   this.addShowButton = false;
+  //   this.UpdateShowButton = true;
+  //   this.angForm.patchValue({
+  //     MONTHS: this.multiField[id].MONTHS,
+  //     DAYS: this.multiField[id].DAYS,
+  //     INT_RATE: this.multiField[id].INT_RATE,
+
+  //   })
+  // }
+  // delField(id) {
+  //   this.multiField.splice(id, 1)
+  // }
 }

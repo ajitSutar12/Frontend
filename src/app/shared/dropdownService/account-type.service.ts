@@ -6,10 +6,10 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class AccountTypeService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: '0', label: 'Other' },
-        { value: '1', label: 'Staff' },
-        { value: '2', label: 'Director' },
-        { value: '3', label: "Director's Relative" }       
+        { value: 'Other', label: 'Other' },
+        { value: 'Staff', label: 'Staff' },
+        { value: 'Director', label: 'Director' },
+        { value: 'DirectorsRelative', label: "Director's Relative" }       
     ];
        
     getCharacters(): Array<IOption> {

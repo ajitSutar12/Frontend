@@ -596,7 +596,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
-      'AC_NAME':formVal.AC_NAME,
+      'AC_NAME': formVal.AC_NAME,
       'AC_CUSTID': formVal.AC_CUSTID,
       'AC_OPDATE': formVal.AC_OPDATE,
       'AC_OPEN_OLD_DATE': formVal.AC_OPEN_OLD_DATE,
@@ -640,7 +640,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_TCTCODE': formVal.AC_TCTCODE,
       'AC_TPIN': formVal.AC_TPIN,
       'CoBorrowerData': this.multiCoBorrower,
-      'GuarantorData': this.multiGuarantor
+      'GuarantorData': this.multiGuarantor,
+           'SecurityData': this.multiSecurity,
+
     }
 
 
@@ -657,6 +659,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.resetForm();
     this.multiCoBorrower = []
     this.multiGuarantor = []
+    this.multiSecurity = [];
   }
 
   // Reset Function
@@ -670,13 +673,14 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.updateShow = true;
     this.newbtnShow = true;
     this.termLoanService.getFormData(id).subscribe(data => {
-  
+console.log("edit", data)
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       // this.getgCustomer(data.GAC_CUSTID)
       // this.getCCustomer(data.CAC_CUSTID)
+      this.multiSecurity = data.securityMaster
       this.multiCoBorrower = data.CoborrowerMaster,
-      this.multiGuarantor = data.guaranterMaster
+        this.multiGuarantor = data.guaranterMaster
       // debugger
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
@@ -722,6 +726,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.multiSecurity = [];
+    this.multiCoBorrower = [];
+    this.multiGuarantor = [];
     this.resetForm();
   }
   //Method for update data 
@@ -730,6 +737,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
     data['GuarantorData'] = this.multiGuarantor
     data['CoBorrowerData'] = this.multiCoBorrower
+    data['SecurityData'] = this.multiSecurity
     data['id'] = this.updateID;
     this.termLoanService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
@@ -739,6 +747,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
+      this.multiSecurity = [];
+      this.multiCoBorrower = [];
+      this.multiSecurity = []
       this.resetForm();
     })
   }
@@ -778,11 +789,13 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       }
     })
   }
-  getInterest(idi) {
-    this.InterestRateForLoanandCC.getFormData(idi).subscribe(data => {
+
+  getInterest(iid) {
+    this.InterestRateForLoanandCC.getFormData(iid).subscribe(data => {
+      console.log("interest", data)
       this.angForm.patchValue({
         AC_INTCATA: data.INT_CATEGORY,
-        AC_INTRATE: data.INT_RATE,
+        AC_INTRATE: data.rate[0].INT_RATE,
       })
     })
   }
@@ -1096,14 +1109,88 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     });
   }
 
-    //set open date, appointed date and expiry date
-    getSystemParaDate() {
-      this.systemParameter.getFormData(1).subscribe(data => {
-        this.angForm.patchValue({
-          AC_OPDATE: data.CURRENT_DATE,
-          DATE_APPOINTED: data.CURRENT_DATE,
-          DATE_EXPIRY: data.CURRENT_DATE
-        })
+  //set open date, appointed date and expiry date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        AC_OPDATE: data.CURRENT_DATE,
+        DATE_APPOINTED: data.CURRENT_DATE,
+        DATE_EXPIRY: data.CURRENT_DATE
       })
+    })
+  }
+
+  AC_DIRECTOR = true
+  directorShow(event) {
+    if (event.value == 'Director') {
+
+      this.AC_DIRECTOR = false
+      // this.angForm.controls['AC_DIRECTOR'].enable();
+      this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
+    } else {
+      this.AC_DIRECTOR = true
+      // this.angForm.controls['AC_DIRECTOR'].disable();
+      this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
     }
+  }
+
+  addShowButton: boolean = true
+  UpdateShowButton: boolean = false
+  multiSecurity = [];
+  SECU_CODE
+  SECU_NAME
+  securityDetails(event) {
+    this.SECU_CODE = event.id
+    this.SECU_NAME = event.name
+  }
+
+  addField() {
+    const formVal = this.angForm.value;
+    var object = {
+      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
+      AC_TYPE: formVal.AC_TYPE,
+      AC_NO: formVal.AC_NO,
+      SECURITY_CODE:this.SECU_CODE,
+      SECURITY_VALUE:  this.SECU_NAME,
+
+    }
+    this.multiSecurity.push(object);
+    this.resetField()
+  }
+  resetField() {
+    this.angForm.controls['SECURITY_CODE'].reset();
+    this.angForm.controls['SECURITY_VALUE'].reset();
+  }
+  intIndex: number
+  intID: number
+  // updateField() {
+  //   let index = this.intIndex;
+  //   this.addShowButton = true;
+  //   this.UpdateShowButton = false;
+  //   const formVal = this.angForm.value;
+  //   var object = {
+  //     MONTHS: formVal.MONTHS,
+  //     DAYS: formVal.DAYS,
+  //     INT_RATE: formVal.INT_RATE,
+  //     id: this.intID
+  //   }
+  //   this.multiField[index] = object;
+  //   this.resetField()
+  // }
+
+  // editField(id) {
+  //   this.intIndex = id
+  //   this.intID = this.multiField[id].id;
+  //   this.addShowButton = false;
+  //   this.UpdateShowButton = true;
+  //   this.angForm.patchValue({
+  //     MONTHS: this.multiField[id].MONTHS,
+  //     DAYS: this.multiField[id].DAYS,
+  //     INT_RATE: this.multiField[id].INT_RATE,
+
+  //   })
+  // }
+  // delField(id) {
+  //   this.multiField.splice(id, 1)
+  // }
 }

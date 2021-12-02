@@ -526,7 +526,7 @@
                                                     </div>
                                                     <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
-                                                            <ng-select [ngClass]="'ng-select'" [options]="account" [multiple]="false" placeholder="Account Type*" required title="Compulsory Selection" formControlName="AC_RELATION_TYPE">
+                                                            <ng-select [ngClass]="'ng-select'" [options]="account" [multiple]="false" placeholder="Account Type*" required title="Compulsory Selection" formControlName="AC_RELATION_TYPE" (selected)="directorShow($event)">
                                                             </ng-select>
                                                         </div>
                                                         <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_RELATION_TYPE'].invalid && (angForm.controls['AC_RELATION_TYPE'].dirty || angForm.controls['AC_RELATION_TYPE'].touched)" class="alert alert-danger">
@@ -537,7 +537,7 @@
                                                     </div>
                                                     <div class="col-sm">
                                                         <div class="form-group form-primary form-static-label">
-                                                            <ng-select [ngClass]="'ng-select'" [options]="director" [multiple]="false" placeholder="Director" formControlName="AC_DIRECTOR">
+                                                            <ng-select [ngClass]="'ng-select'" [options]="director" [multiple]="false" placeholder="Director" formControlName="AC_DIRECTOR" [disabled]="AC_DIRECTOR">
                                                             </ng-select>
                                                         </div>
                                                     </div>
@@ -548,7 +548,7 @@
                                                                     class="form-control" placeholder=" "
                                                                     id="AC_DIRECTOR_RELATION" pattern="^[A-Za-z\./ -]+$"
                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                    formControlName="AC_DIRECTOR_RELATION">
+                                                                    formControlName="AC_DIRECTOR_RELATION" disabled>
                                                                 <label for="AC_DIRECTOR_RELATION">Director
                                                                     Relation</label>
                                                             </span>
@@ -955,9 +955,9 @@
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
-                                                    <div class="col-sm-2">
+                                                    <div class="col-sm-3">
                                                         <div class="form-group form-primary form-static-label">
-                                                            <ng-select [ngClass]="'ng-select'" [options]="security" [multiple]="false" placeholder="Security Details" formControlName="SECURITY_CODE">
+                                                            <ng-select [ngClass]="'ng-select'" [options]="security" [multiple]="false" placeholder="Security Details" formControlName="SECURITY_CODE" (selected)="securityDetails($event)">
                                                             </ng-select>
                                                         </div>
                                                     </div>
@@ -974,27 +974,34 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-2">
-                                                        <button class="btn btn-primary ripple light">Add</button>
+                                                        <button type="button" class="btn btn-primary ripple light" *ngIf="addShowButton" (click)="addField()">Add </button>
+                                                        <button class="btn btn-primary ripple light" (click)="updateField()" *ngIf="UpdateShowButton">Update</button>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm">
+                                                    <div class="col-12">
                                                         <div class="table-responsive">
                                                             <table class="table table-striped table-bordered table-hover">
-                                                                <thead>
+                                                                <tbody *ngIf="multiSecurity?.length != 0">
                                                                     <tr>
-                                                                        <td>Action</td>
-                                                                        <td>Code</td>
-                                                                        <td>Description</td>
+                                                                        <th>Action</th>
+                                                                        <th>Code</th>
+                                                                        <th>Description</th>
                                                                     </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td> <button class="btn btn-primary ripple light">Edit</button>
-                                                                            <button class="btn btn-primary ripple light">Delete</button>
+                                                                    <tr *ngFor="let data of multiSecurity; let indexOfelement=index;">
+                                                                        <td>
+                                                                            <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editField(indexOfelement)">Edit</button> &nbsp;
+                                                                            <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delField(indexOfelement)">Delete</button>
+
                                                                         </td>
-                                                                        <td></td>
-                                                                        <td></td>
+                                                                        <td>{{data.SECURITY_CODE }}</td>
+                                                                        <td>{{data.SECURITY_VALUE }}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                                <tbody *ngIf="multiSecurity?.length == 0">
+                                                                    <tr>
+                                                                        <td colspan="6" class="no-data-available">No data!
+                                                                        </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -1523,7 +1530,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm">
                                 <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()">Add</button>
                                 <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button> &nbsp;
                                 <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>

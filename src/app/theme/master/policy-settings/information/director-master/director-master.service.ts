@@ -36,6 +36,10 @@ export class DirectorMasterService {
     return this.http.put(this.url + '/director-master/update', data);
   }
 
+  getData(): Observable<any> {
+    return this.http.get(this.url + '/director-master');
+  }
+
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http.delete(this.url + '/director-master/delete/' + id).pipe(catchError(this.handleError));
