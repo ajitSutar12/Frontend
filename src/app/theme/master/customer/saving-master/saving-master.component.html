@@ -1211,10 +1211,8 @@
                                     <th>City</th>
                                     <th>Pin code</th>
                                   </tr>
-                                  <tr *ngFor="
-                                      let data of multiNominee;
-                                      let indexOfelement = index
-                                    ">
+                                  <tr *ngFor="let data of multiNominee;
+                                      let indexOfelement = index">
                                     <td>
                                       <button class="btn btn-outline-primary btn-sm" id="editbtn"
                                         (click)="editNominee(indexOfelement)">
@@ -1576,10 +1574,10 @@
                         Edit
                       </button>
                     </td>
-                    <td [ngClass]="data.AC_CAST === '' ? 'td_center' : 'td_left'">
+                    <td [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_left'">
                       {{ data.AC_ACNOTYPE === "" ? "-" : data.AC_ACNOTYPE }}
                     </td>
-                    <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_left'">
+                    <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_right'">
                       {{ data.AC_TYPE === "" ? "-" : data.AC_TYPE }}
                     </td>
                     <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
@@ -1613,15 +1611,10 @@
                       ">
                       {{ data.AC_BALCATG === "" ? "-" : data.AC_BALCATG }}
                     </td>
-                    <td [ngClass]="
-                        data.AC_INTCATA === '' ? 'td_center' : 'td_left'
-                      ">
+                    <td [ngClass]="data.AC_INTCATA === '' ? 'td_center' : 'td_left'">
                       {{ data.AC_INTCATA === "" ? "-" : data.AC_INTCATA }}
                     </td>
-                    <td [ngClass]="
-                        data.AC_SCHMAMT === '' ? 'td_center' : 'td_left'
-                      ">
-                      {{ data.AC_SCHMAMT }}
+                    <td [ngClass]="data.AC_SCHMAMT === '' ? 'td_center' : 'td_left'">
                       {{ data.AC_SCHMAMT === "" ? "-" : data.AC_SCHMAMT }}
                     </td>
                     <td [ngClass]="data.AC_MINOR === '' ? 'td_center' : 'td_left'">

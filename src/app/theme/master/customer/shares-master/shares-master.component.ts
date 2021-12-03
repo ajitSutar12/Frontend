@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 //animation
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -156,7 +156,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //temp address flag variable
   tempAddress: boolean = true;
-
+  //variable to calculate retirement date
+  schemeCode: string = ''
   //Scheme type variable
   schemeType: string = 'SH'
   //Dropdown options
@@ -197,7 +198,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private systemParameter: SystemMasterParametersService,
     private sharesSchemeService: SharesSchemeService,
     private datePipe: DatePipe,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder) { this.setdate(); }
 
   ngOnInit(): void {
     this.createForm();
@@ -230,18 +231,18 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         });
         dataTableParameters['filterData'] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + '/share-master',
-            dataTableParameters
-          ).subscribe(resp => {
-            this.shareMaster = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: []
-            });
+        this.http.post<DataTableResponse>(
+          this.url + '/share-master',
+          dataTableParameters
+        ).subscribe(resp => {
+          this.shareMaster = resp.data;
+          console.log('this.shareMaster', this.shareMaster)
+          callback({
+            recordsTotal: resp.recordsTotal,
+            recordsFiltered: resp.recordsTotal,
+            data: []
           });
+        });
       },
       columnDefs: [{
         targets: '_all',
@@ -298,6 +299,14 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         {
           title: 'Represent by',
           data: 'AC_SREPRESENT'
+        },
+        {
+          title: 'Detail Address',
+          data: 'AC_ADDR'
+        },
+        {
+          title: 'City',
+          data: 'AC_CTCODE'
         },
         {
           title: 'Open Date',
@@ -476,13 +485,11 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.getCustomer(newCustomer);
     })
   }
-  address
+
   getCustomer(id) {
     this.getSystemParaDate()
     this.customerIdService.getFormData(id).subscribe(data => {
-      this.address = data
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
-      console.log('fetching address', this.address.custAddress)
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
@@ -502,7 +509,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_CTCODE: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
       })
-      if (this.address.custAddress[0].AC_ADDFLAG == false && this.address.custAddress[0].AC_ADDTYPE == 'P') {
+      if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {
         this.angForm.patchValue({
           AC_THONO: data.custAddress[1].AC_HONO,
           AC_TWARD: data.custAddress[1].AC_WARD,
@@ -530,8 +537,31 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     })
   }
+  datemax: any;//setting max date
+  //set date 18 years before current date
+  setdate() {
+    const d = new Date();
+    let day = d.getDate();
+    const m = new Date().getMonth()
+    const year = new Date().getFullYear() - 18
+    this.datemax = year + "-" + m + "-" + day;
+  }
+  //set date on keyup event
+  keyupdate(date: any) {
+    const d = new Date();
+    let day = d.getDate();
+    const m = new Date().getMonth()
+    const year = new Date().getFullYear() - 18;
+    this.datemax = year + "-" + m + "-" + day;
+    if (date != "") {
+      if (date >= this.datemax) {
+        Swal.fire("Cancelled", "please input date below" + this.datemax, "error");
 
-  schemeCode: string = ''
+      }
+    }
+  }
+
+
   getRetirementDate() {
     this.sharesSchemeService.getFormData(this.schemeCode).subscribe(data => {
       var joinDate = new Date(this.angForm.controls['AC_JOIN_DATE'].value)
