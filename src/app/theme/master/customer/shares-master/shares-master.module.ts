@@ -23,6 +23,7 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
 import { SalaryDMasterdropdownService } from '../../../../shared/dropdownService/salary-division-master-dropdown.service'
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { SharesSchemeService } from '../../../utility/scheme-parameters/shares-scheme/shares-scheme.service';
+import {DatePipe} from '@angular/common';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -62,6 +63,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
 
     },
+    DatePipe
   ],
   declarations: [SharesMasterComponent],
   bootstrap: [SharesMasterComponent]

@@ -25,4 +25,13 @@ ng-select.ng-select>div>div.single {
     color: #4680ff;
 }
 
-//table td padding
+//show entry float right css
+.dataTables_wrapper {
+    position: relative;
+    clear: both;
+    *zoom: 1;
+    zoom: 1;
+  }
+  .dataTables_wrapper .dataTables_length {
+    float: right;
+  }

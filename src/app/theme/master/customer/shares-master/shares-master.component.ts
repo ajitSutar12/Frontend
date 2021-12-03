@@ -8,6 +8,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 // Angular Datatable Directive  
 import { DataTableDirective } from 'angular-datatables';
+//date pipe
+import { DatePipe } from '@angular/common';
 // Service File For Handling CRUD Operation
 import { ShareMasterService } from './shares-master.service'
 // Used to Call API
@@ -194,6 +196,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private salaryDMasterdropdownService: SalaryDMasterdropdownService,
     private systemParameter: SystemMasterParametersService,
     private sharesSchemeService: SharesSchemeService,
+    private datePipe: DatePipe,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -457,6 +460,13 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
+    this.angForm.controls['AC_THONO'].reset()
+    this.angForm.controls['AC_TWARD'].reset()
+    this.angForm.controls['AC_TADDR'].reset()
+    this.angForm.controls['AC_TGALLI'].reset()
+    this.angForm.controls['AC_TAREA'].reset()
+    this.angForm.controls['AC_TCTCODE'].reset()
+    this.angForm.controls['AC_TPIN'].reset()
   }
 
   addNewCustomer(newCustomer) {
@@ -466,10 +476,13 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.getCustomer(newCustomer);
     })
   }
-
+  address
   getCustomer(id) {
     this.getSystemParaDate()
     this.customerIdService.getFormData(id).subscribe(data => {
+      this.address = data
+      this.tempAddress = data.custAddress[0].AC_ADDFLAG
+      console.log('fetching address', this.address.custAddress)
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
@@ -477,6 +490,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_CAST: data.AC_CAST,
         AC_OCODE: data.AC_OCODE,
         AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_MOBNO: data.AC_MOBILENO,
+        AC_PHNO: data.AC_PHONE_RES,
+        AC_EMAIL: data.AC_EMAILID,
         AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
         AC_HONO: data.custAddress[0].AC_HONO,
         AC_WARD: data.custAddress[0].AC_WARD,
@@ -485,17 +501,18 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_AREA: data.custAddress[0].AC_AREA,
         AC_CTCODE: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
-        AC_MOBNO: data.AC_MOBILENO,
-        AC_PHNO: data.AC_PHONE_RES,
-        AC_EMAIL: data.AC_EMAILID,
-        AC_THONO: data.custAddress.AC_THONO,
-        AC_TWARD: data.custAddress.AC_TWARD,
-        AC_TADDR: data.custAddress.AC_TADDR,
-        AC_TGALLI: data.custAddress.AC_TGALLI,
-        AC_TAREA: data.custAddress.AC_TAREA,
-        AC_TCTCODE: data.custAddress.AC_TCTCODE,
-        AC_TPIN: data.custAddress.AC_TPIN,
       })
+      if (this.address.custAddress[0].AC_ADDFLAG == false && this.address.custAddress[0].AC_ADDTYPE == 'P') {
+        this.angForm.patchValue({
+          AC_THONO: data.custAddress[1].AC_HONO,
+          AC_TWARD: data.custAddress[1].AC_WARD,
+          AC_TADDR: data.custAddress[1].AC_ADDR,
+          AC_TGALLI: data.custAddress[1].AC_GALLI,
+          AC_TAREA: data.custAddress[1].AC_AREA,
+          AC_TCTCODE: data.custAddress[1].AC_CTCODE,
+          AC_TPIN: data.custAddress[1].AC_PIN,
+        })
+      }
     })
   }
 
@@ -515,37 +532,19 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   schemeCode: string = ''
-  getRetirementDate(schemeCode) {
-    console.log('scheme code', schemeCode.name)
-    this.sharesSchemeService.getFormDataBySchemeCode(schemeCode.name).subscribe(data => {
-      console.log('scheme code data', data.RETIREMENT_YEARS)
-      console.log('joining date', this.angForm.controls['AC_JOIN_DATE'].value)
-      var date = new Date(this.angForm.controls['AC_JOIN_DATE'].value);
-      // var date = this.angForm.controls['AC_JOIN_DATE'].value
-      console.log('scheme date', date)
-      // date.setDate(date.getDate() + data.RETIREMENT_YEARS);
-
-      var year = new Date(date).getFullYear();
-      var month = new Date(date).getMonth();
-      var day = new Date(date).getDate();
-      var date = new Date(year + data.RETIREMENT_YEARS, month, day);
-      
-      console.log(' retire date', date)
+  getRetirementDate() {
+    this.sharesSchemeService.getFormData(this.schemeCode).subscribe(data => {
+      var joinDate = new Date(this.angForm.controls['AC_JOIN_DATE'].value)
+      var year = joinDate.getFullYear();
+      var month = new Date(joinDate).getMonth();
+      var day = new Date(joinDate).getDate();
+      var retire = year + Number(data.RETIREMENT_YEARS)
+      var date = new Date(retire, month, day);
+      var retireDate = this.datePipe.transform(date, "dd-MM-yyyy")
       this.angForm.patchValue({
-        AC_RETIRE_DATE: date
+        AC_RETIRE_DATE: retireDate
       })
-
-
-
-      
     })
-
-
-    // addDays(days : number): Date{
-    //   var futureDate = new Date();
-    //   futureDate.setDate(futureDate.getDate() + days);
-    //   return futureDate;
-    // }
   }
 
   createForm() {
@@ -573,7 +572,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_AREA: [''],
       AC_CTCODE: [''],
       AC_PIN: [''],
-      AC_ADDFLAG: [false],
+      AC_ADDFLAG: [true],
+      AC_ADDTYPE: ['P'],
       AC_THONO: ['', [Validators.pattern]],
       AC_TWARD: ['', [Validators.pattern]],
       AC_TADDR: ['', [Validators.pattern]],
@@ -631,10 +631,19 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_DEV_CITYCODE: [''],
     });
   }
-
+  addType: string
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
+
+    if (formVal.AC_ADDFLAG == true) {
+      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
+      this.addType = 'P'
+    }
+    else if (formVal.AC_ADDFLAG == false) {
+      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
+      this.addType = 'T'
+    }
     const dataToSend = {
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
@@ -662,6 +671,18 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
       'REF_ACNO': formVal.REF_ACNO,
       'AC_NARR': formVal.AC_NARR,
+      //temp address 
+
+      AC_ADDFLAG: formVal.AC_ADDFLAG,
+      AC_ADDTYPE: this.addType,
+      AC_THONO: formVal.AC_THONO,
+      AC_TWARD: formVal.AC_TWARD,
+      AC_TADDR: formVal.AC_TADDR,
+      AC_TGALLI: formVal.AC_TGALLI,
+      AC_TAREA: formVal.AC_TAREA,
+      AC_TCTCODE: formVal.AC_TCTCODE,
+      AC_TPIN: formVal.AC_TPIN,
+
       //shares details under nominee tab
       // 'AC_SHBALDATE': formVal.AC_SHBALDATE,
       // 'AC_OP_SHNO': formVal.AC_OP_SHNO,
@@ -678,9 +699,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //Nominee 
       'NomineeData': this.multiNominee
     }
+    console.log('datatosend', dataToSend)
     this.ShareMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      console.log('submit', data)
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -699,11 +720,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateShow = true;
     this.newbtnShow = true;
     this.ShareMasterService.getFormData(id).subscribe(data => {
-      console.log('edit', data)
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       //get nominee to edit
       this.multiNominee = data.nomineeDetails
+      console.log(data)
+
       this.angForm.patchValue({
         AC_ACNOTYPE: data.AC_ACNOTYPE,
         AC_TYPE: data.AC_TYPE,
@@ -752,6 +774,15 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
+    if (data.AC_ADDFLAG == true) {
+      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
+      this.addType = 'P'
+    }
+    else if (data.AC_ADDFLAG == false) {
+      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
+      this.addType = 'T'
+    }
+    data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
     data['id'] = this.updateID;
     this.ShareMasterService.updateData(data).subscribe(() => {

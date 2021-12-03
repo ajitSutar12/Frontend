@@ -13,7 +13,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
                                     placeholder="Scheme *" required title="Compulsory Selection"
-                                    formControlName="AC_TYPE"  (selected)="getRetirementDate($event)">
+                                    formControlName="AC_TYPE" [(ngModel)]="schemeCode">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -149,7 +149,8 @@
                                                                     class="form-control" placeholder=" "
                                                                     id="AC_JOIN_DATE" max="9999-12-31"
                                                                     onfocus="(this.type='date')"
-                                                                    formControlName="AC_JOIN_DATE">
+                                                                    formControlName="AC_JOIN_DATE"
+                                                                    (ngModelChange)="getRetirementDate()">
                                                                 <label for="AC_JOIN_DATE">Joining Date</label>
                                                             </span>
                                                         </div>
@@ -416,7 +417,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <ng-container *ngIf="tempAddress">
+                                            <ng-container *ngIf="!tempAddress">
                                                 <div class="row">
                                                     <div class="col-sm">
                                                         <div class="form-group input-group">
