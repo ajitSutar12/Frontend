@@ -1,30 +1,39 @@
 import { AfterViewInit,Component,OnDestroy,OnInit, ViewChild} from "@angular/core";
+
 //animation
 import { animate, style, transition, trigger } from "@angular/animations";
+
 import { Subject } from "rxjs";
+
 // Creating and maintaining form fields with validation
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
+
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
+
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
+
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
 import { IOption } from "ng-select";
 import { Subscription } from "rxjs/Subscription";
 import { first } from "rxjs/operators";
 import { environment } from "../../../../../environments/environment";
+
 // Service File For Handling CRUD Operation
 import { anamatGSMService } from "./anamat-gsm.service";
+
+//service file for fetching records from customer ID
+import { CustomerIdService } from "../customer-id/customer-id.service"; 
+
 //Service file of dropdown
 import { CustomerIDMasterDropdownService } from "../../../../shared/dropdownService/customer-id-master-dropdown.service";
 import { cityMasterService } from "../../../../shared/dropdownService/city-master-dropdown.service";
 import { SchemeCodeDropdownService } from "../../../../shared/dropdownService/scheme-code-dropdown.service";
-import { CustomerIdService } from "../customer-id/customer-id.service";
-import { data } from "jquery";
 import { PrefixMasterDropdownService } from "src/app/shared/dropdownService/prefix-master-dropdown.service";
 import {SystemMasterParametersService} from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service"
-import { FormControlName } from "ngx-custom-validators/node_modules/@angular/forms";
+
 
 // Handling datatable data
 class DataTableResponse {
@@ -37,7 +46,6 @@ class DataTableResponse {
 // For fetching values from backend
 interface anamatinf {
   //id:number
-  // AC_MONTHS: string;
   AC_ACNOTYPE: number;
   AC_TYPE: string;
   AC_NO: String;
@@ -76,29 +84,28 @@ interface anamatinf {
     ]),
   ],
 })
+
 export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
-  acType: string = '';
-  newCustomerID;
-  scheme: any[];
-
-  //api
-  url = environment.base_url;
-
-  basicTab;
-  otherTab;
+   //api
+   url = environment.base_url;
+  
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
+
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
-
   dtTrigger: Subject<any> = new Subject();
+
   // Store data from backend
   anamat: anamatinf[];
+
   // Created Form Group
   angForm: FormGroup;
+
   //Datatable variable
   dtExportButtonOptions: DataTables.Settings = {};
   Data: any;
+
   //variables for pagination
   page: number = 1;
   passenger: any;
@@ -107,48 +114,39 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   currentJustify = "start";
   active = 1;
   activeKeep = 1;
+
   // Variables for search
   filterObject: { name: string; type: string }[];
   filter: any;
   filterForm: FormGroup;
+
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
-
-  updateID: number = 0;
-
-  companyCode: any;
-  schemeCode: any;
-
+ 
   //for search functionality
   filterData = {};
 
+  // Dropdown Options
+  scheme: any[];//scheme code from schemast(S_ACNOTYPE)
   Cust_ID: any[]; //customer id from idmaster
+  city: any[];//city from customer id from idmaster
 
-  //title select variables
-  city: any[]; //city from customer id from idmaster
-  //   d: Array<IOption> = this.City3Service.getCharacters();
-  selectedOption = "3";
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = "3";
-  timeLeft = 5;
-
-  private dataSub: Subscription = null;
-
-  //Scheme type variable
-  schemeType: string = 'GS'
-
-  
-  //variable for checkbox and radio button
-  isRecovery: boolean = false;
-  isDEBIT: boolean = true;
-  id: any;
   prifix: any;
   AC_CUSTID: any;
 
+  // for new customer
+  newCustomerID;
   
+  updateID: number = 0;
+
+  //Scheme type variable
+  schemeType: string = 'GS'
+ 
+  timeLeft = 5;
+  
+  id: any = '';
 
   constructor(
     private fb: FormBuilder,
@@ -156,10 +154,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     private anamatGSMService: anamatGSMService,
     public customerIdService: CustomerIdService,
     private prefixMaster: PrefixMasterDropdownService,
-    // public accountCodeService: AccountcodeService,
-    private cityMasterService: cityMasterService,
-    private SchemeCodeDropdownService: SchemeCodeDropdownService,
-    private customerID: CustomerIDMasterDropdownService,//  private anamatGSMServiceDa: anamatGSMServiceDa,
+    private cityMasterService: cityMasterService, 
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private customerID: CustomerIDMasterDropdownService,
     private systemParameter:SystemMasterParametersService
   ) { }
 
@@ -303,21 +300,22 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     };
 
     this.runTimer();
+
     this.prefixMaster.getPrefixMasterList().pipe(first()).subscribe(data => {
       this.prifix = data;
     })
 
-    this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType)
-      .pipe(first())
-      .subscribe((data) => {
-        this.scheme = data;
-      });
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+      this.scheme = data
+    })
+
     this.cityMasterService
       .getcityList()
       .pipe(first())
       .subscribe((data) => {
         this.city = data;
       });
+
     this.customerID
       .getCustomerIDMasterList()
       .pipe(first())
@@ -340,7 +338,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 checkCUST_No(){
-  if (this.AC_CUSTID != ''){
+  if (this.AC_CUSTID = ''){
 console.log(this.AC_CUSTID)
   }
   else{
@@ -392,40 +390,7 @@ console.log(this.AC_CUSTID)
       console.log(data)
     })
   }
-  // getCustomer(id) {
-  //   this.customerIdService.getFormData(id).subscribe((data) => {
-  //     this.angForm.patchValue({
-  //       AC_CUSTID: id.toString(),
-  //       AC_TITLE: data.AC_TITLE,
-  //       AC_NAME: data.AC_NAME,
-  //       AC_CAST: data.AC_CAST,
-  //       AC_OCODE: data.AC_OCODE,
-  //       AC_MEMBTYPE: data.AC_MEMBTYPE,
-  //       AC_MEMBNO: data.AC_MEMBNO,
-  //       AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
-  //       AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
-  //       AC_HONO: data.custAddress[0].AC_HONO,
-  //       AC_WARD: data.custAddress[0].AC_WARD,
-  //       AC_ADDR: data.custAddress[0].AC_ADDR,
-  //       AC_GALLI: data.custAddress[0].AC_GALLI,
-  //       AC_AREA: data.custAddress[0].AC_AREA,
-  //       AC_CTCODE: data.custAddress[0].AC_CTCODE,
-  //       AC_PIN: data.custAddress[0].AC_PIN,
-  //       AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
-  //       AC_MOBNO: data.AC_MOBILENO,
-  //       AC_PHNO: data.AC_PHONE_RES,
-  //       AC_EMAIL: data.AC_EMAILID,
-  //       AC_IS_RECOVERY: data.AC_IS_RECOVERY,
-  //       AC_THONO: data.custAddress.AC_THONO,
-  //       AC_TWARD: data.custAddress.AC_TWARD,
-  //       AC_TADDR: data.custAddress.AC_TADDR,
-  //       AC_TGALLI: data.custAddress.AC_TGALLI,
-  //       AC_TAREA: data.custAddress.AC_TAREA,
-  //       AC_TCTCODE: data.custAddress.AC_TCTCODE,
-  //       AC_TPIN: data.custAddress.AC_TPIN,
-  //     });
-  //   });
-  // }
+ 
 
     //set open date, appointed date and expiry date
     getSystemParaDate() {
@@ -438,7 +403,6 @@ console.log(this.AC_CUSTID)
       })
     }
 
-    // DEBIT: new FormControlName('DEBIT');
   createForm() {
     this.angForm = this.fb.group({
       AC_ACNOTYPE: ['GS'],
@@ -458,10 +422,9 @@ console.log(this.AC_CUSTID)
       AC_PIN: [''],
       AC_OPDATE: ['',[Validators.required]],
       AC_IS_RECOVERY: [''],
-      // DEBIT:[''],
-     DEBIT: new FormControl('DEBIT') ,
+      DEBIT: new FormControl('Credit') ,
       AC_PARTICULAR: ['',[Validators.required,Validators.pattern]],
-      // AC_MONTHS: [''],
+     
     });
   }
   // Method to insert data into database through NestJS
@@ -472,23 +435,23 @@ console.log(this.AC_CUSTID)
       AC_TYPE: formVal.AC_TYPE,
       AC_NO: formVal.AC_NO,
       AC_CUSTID: formVal.AC_CUSTID,
-      AC_TITLE: formVal.AC_TITLE,
-      AC_NAME: formVal.AC_NAME,
-      AC_MEMBTYPE: formVal.AC_MEMBTYPE,
-      AC_MEMBNO: formVal.AC_MEMBNO,
-      AC_HONO: formVal.AC_HONO,
-      AC_WARD: formVal.AC_WARD,
-      AC_TADDR: formVal.AC_TADDR,
-      AC_TGALLI: formVal.AC_TGALLI,
-      AC_AREA: formVal.AC_AREA,
-      AC_CTCODE: formVal.AC_CTCODE,
-      AC_PIN: formVal.AC_PIN,
+      // AC_TITLE: formVal.AC_TITLE,
+      // AC_NAME: formVal.AC_NAME,
+      // AC_MEMBTYPE: formVal.AC_MEMBTYPE,
+      // AC_MEMBNO: formVal.AC_MEMBNO,
+      // AC_HONO: formVal.AC_HONO,
+      // AC_WARD: formVal.AC_WARD,
+      // AC_TADDR: formVal.AC_TADDR,
+      // AC_TGALLI: formVal.AC_TGALLI,
+      // AC_AREA: formVal.AC_AREA,
+      // AC_CTCODE: formVal.AC_CTCODE,
+      // AC_PIN: formVal.AC_PIN,
       AC_OPDATE: formVal.AC_OPDATE,
       Recovery: formVal.Recovery,
       DEBIT: formVal.DEBIT,
       AC_PARTICULAR: formVal.AC_PARTICULAR,
-      // AC_MONTHS: formVal.AC_MONTHS,
     };
+
     this.anamatGSMService.postData(dataToSend).subscribe(
       (data1) => {
         
@@ -515,31 +478,30 @@ console.log(this.AC_CUSTID)
     this.anamatGSMService.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
-      this.acType = "2";
       this.angForm.patchValue({
         AC_ACNOTYPE: data.AC_ACNOTYPE,
         AC_TYPE: data.AC_TYPE,
         AC_NO: data.AC_NO,
         AC_CUSTID: data.AC_CUSTID,
-        AC_TITLE: data.AC_TITLE,
-        AC_NAME: data.AC_NAME,
-        AC_MEMBTYPE: data.AC_MEMBTYPE,
-        AC_MEMBNO: data.AC_MEMBNO,
-        AC_HONO: data.AC_HONO,
-        AC_WARD: data.AC_WARD,
-        AC_TADDR: data.AC_TADDR,
-        AC_TGALLI: data.AC_TGALLI,
-        AC_AREA: data.AC_AREA,
-        AC_CTCODE: data.AC_CTCODE,
-        AC_PIN: data.AC_PIN,
+        // AC_TITLE: data.AC_TITLE,
+        // AC_NAME: data.AC_NAME,
+        // AC_MEMBTYPE: data.AC_MEMBTYPE,
+        // AC_MEMBNO: data.AC_MEMBNO,
+        // AC_HONO: data.AC_HONO,
+        // AC_WARD: data.AC_WARD,
+        // AC_TADDR: data.AC_TADDR,
+        // AC_TGALLI: data.AC_TGALLI,
+        // AC_AREA: data.AC_AREA,
+        // AC_CTCODE: data.AC_CTCODE,
+        // AC_PIN: data.AC_PIN,
         AC_OPDATE: data.AC_OPDATE,
         AC_IS_RECOVERY: data.AC_IS_RECOVERY,
         DEBIT: data.DEBIT,
         AC_PARTICULAR: data.AC_PARTICULAR,
-        // AC_MONTHS: data.AC_MONTHS,
       });
     });
   }
+
   //Method for update data
   updateData() {
     let data = this.angForm.value;
@@ -555,16 +517,19 @@ console.log(this.AC_CUSTID)
       this.angForm.reset();
     });
   }
+
   addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     this.resetForm();
   }
+
   // Reset Function
   resetForm() {
     this.createForm();
   }
+
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
@@ -607,10 +572,6 @@ console.log(this.AC_CUSTID)
       });
     });
   }
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -620,6 +581,13 @@ console.log(this.AC_CUSTID)
       this.dtTrigger.next();
     });
   }
+
+    
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
   runTimer() {
     const timer = setInterval(() => {
       this.timeLeft -= 1;

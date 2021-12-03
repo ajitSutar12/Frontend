@@ -13,7 +13,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
                                     placeholder="Scheme *" required title="Compulsory Selection"
-                                    formControlName="AC_TYPE" [(ngModel)]="acType" (selected)="acType">
+                                    formControlName="AC_TYPE">
                                 </ng-select>
                             </div>
 
@@ -313,7 +313,7 @@
                                 <div class="radio radio-inline">
                                     <label>
                                       
-                                        <input type="radio" name="DEBIT" formControlName="DEBIT" value="DEBIT" checked="true">
+                                        <input type="radio" name="DEBIT" formControlName="DEBIT" value="DEBIT">
                                     
                                         <i class="helper"></i>Debit
                                     </label>
@@ -354,7 +354,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <!-- [disabled]="angForm.invalid" -->
-                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid"
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" 
                             >Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
                              >Update</button> &nbsp;
@@ -383,9 +383,8 @@
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
 
-                                         <td>{{ data.AC_ACNOTYPE }}</td>
+                                        <td>{{ data.AC_ACNOTYPE }}</td>
                                         <td>{{ data.AC_TYPE }}</td>
-                                        
                                         <td>{{ data.AC_CUSTID }}</td>
                                         <td>{{ data.AC_NO }}</td>
                                         <td>{{ data.AC_TITLE }}</td>
@@ -414,15 +413,13 @@
                                 <tfoot>
                                     <tr>
                                         <th></th>
-                                       <th><input type="text" placeholder="Search scheme" name="AC_ACNOTYPE"></th> 
+                                        <th><input type="text" placeholder="Search scheme" name="AC_ACNOTYPE"></th> 
                                         <th><input type="text" placeholder="Search scheme" name="AC_TYPE"></th>
-                                       
                                         <th><input type="text" placeholder="Search CustomerID" name="AC_CUSTID"></th>
                                         <th><input type="text" placeholder="Search Account no" name="AC_NO"></th>
                                         <th><input type="text" placeholder="Search title" name="AC_TITLE"></th>
                                         <th><input type="text" placeholder="Search name" name="AC_NAME"></th>
-                                        <th><input type="text" placeholder="Search Member scheme" name="AC_MEMBTYPE">
-                                        </th>
+                                        <th><input type="text" placeholder="Search Member scheme" name="AC_MEMBTYPE"></th>
                                         <th><input type="text" placeholder="Search Member no" name="AC_MEMBNO"></th>
                                         <th><input type="text" placeholder="Search House" name="AC_HONO"></th>
                                         <th><input type="text" placeholder="Search Ward" name="AC_HONO"></th>
@@ -431,8 +428,7 @@
                                         <th><input type="text" placeholder="Search Area" name="AC_AREA"></th>
                                         <th><input type="text" placeholder="Search City" name="AC_CTCODE"></th>
                                         <th><input type="text" placeholder="Search Pincode" name="AC_PIN"></th>
-                                        <th><input type="text" placeholder="Search opening bal. date" name="AC_OPDATE">
-                                        </th>
+                                        <th><input type="text" placeholder="Search opening bal. date" name="AC_OPDATE"></th>
                                         <th><input type="text" placeholder="Search Recovery" name="Recovery"></th>
                                         <th><input type="text" placeholder="Search opening bal" name="DEBIT"></th>
                                         <th><input type="text" placeholder="Search AC_PARTICULAR" name="Reason">
