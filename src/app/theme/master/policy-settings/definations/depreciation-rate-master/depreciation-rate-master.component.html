@@ -38,7 +38,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="DEPR_RATE" class="form-control" placeholder=" "
-                                        id="DEPR_RATE" required="" pattern="\d{1,20}(\.\d{2})?"
+                                        id="DEPR_RATE" required=""  pattern="\d{1,2}(\.\d{2})?" 
+                                        #margin
+                                        (keyup)="checkmargin(margin.value)"
                                         title="Input allowed only  0-9" formControlName="DEPR_RATE">
                                     <label for="DEPR_RATE">Depreciation Rate<sub class="required">*
                                         </sub></label>

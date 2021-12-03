@@ -23,7 +23,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="SECU_NAME" class="form-control" placeholder=" "
                                         id="SECU_NAME" required="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="SECU_NAME">
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="60" formControlName="SECU_NAME">
                                     <label for="SECU_NAME">Description<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -40,7 +40,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="MARGIN" class="form-control" placeholder=" " id="MARGIN"
-                                        pattern="^[0-9]+$" title="Input allowed only  0-9" max="100" formControlName="MARGIN">
+                                        pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        #margin
+                                        (keyup)="checkmargin(margin.value)" max="100" formControlName="MARGIN">
                                     <label for="MARGIN">Margin(%)</label>
                                 </span>
                             </div>
@@ -63,7 +65,7 @@
                         <div class="col-sm">
                             <div class="border-checkbox-section">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox" name="FIRE_POLICY" id="checkbox2" value="checkbox" formControlName="FIRE_POLICY">
+                                    <input class="border-checkbox" type="checkbox" name="FIRE_POLICY" id="checkbox2" value="firepolicy"  formControlName="FIRE_POLICY">
                                     <label class="border-checkbox-label" for="checkbox2">Fire Policy</label>
                                 </div>
                             </div>

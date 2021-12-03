@@ -35,7 +35,11 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="prifix" name="AC_TITLE" [multiple]="false"
                                     placeholder="Title *" required title="Compulsory Selection"
@@ -68,11 +72,16 @@
                                 </div>
                             </div>
                         </div>
+<<<<<<< Updated upstream
 
                     </div>
 
                     <div class="row">
 
+=======
+                       
+                        
+>>>>>>> Stashed changes
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -111,7 +120,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
@@ -129,7 +138,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                       
+                        
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <ng-select [ngClass]="'ng-select'" [options]="castMaster" [multiple]="false"
@@ -138,11 +152,14 @@
                                 </span>
                             </div>
                         </div>
+<<<<<<< Updated upstream
 
 
                     </div>
                     <div class="row">
 
+=======
+>>>>>>> Stashed changes
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -201,20 +218,27 @@
                             </div>
                         </div>
                         <h1></h1>
+<<<<<<< Updated upstream
 
                         <div class="col-sm-2">
+=======
+                        <div class="col-sm">
+>>>>>>> Stashed changes
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_BIRTH_DT" class="form-control" placeholder=" "
-                                        id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')"
-                                        #date
-                                        (keyup)="keyupdate(date.value)"
+                                        id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                                       (focusout)="disabledate(date.value)"
                                         formControlName="AC_BIRTH_DT">
                                     <label for="AC_BIRTH_DT">Birth Date</label>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm">
+                       
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" formControlName="AC_HONO" name="AC_HONO" class="form-control"
@@ -231,9 +255,12 @@
                                 </div>
                             </div>
                         </div>
+<<<<<<< Updated upstream
                     </div>
 
                     <div class="row">
+=======
+>>>>>>> Stashed changes
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -252,7 +279,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_ADDR" class="form-control" placeholder=" "
@@ -288,7 +315,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_AREA" class="form-control" placeholder=" "

@@ -6,6 +6,7 @@ import {
   ViewChild,
   Output,
   EventEmitter,
+  ComponentFactoryResolver,
 } from "@angular/core";
 import { Observable, Subject, Subscriber } from "rxjs";
 // Creating and maintaining form fields with validation
@@ -29,6 +30,7 @@ import { FileUploader } from "ng2-file-upload";
 import { DocumentMasterDropdownService } from "../../../../shared/dropdownService/document-master-dropdown.service";
 import { environment } from "../../../../../environments/environment";
 import { Router } from "@angular/router";
+
 
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
@@ -91,6 +93,7 @@ interface CustomerMaster {
 export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() newCustomerEvent = new EventEmitter<string>();
   custData;
+  datemax: Date;
   addNewCustomer(value) {
     this.newCustomerEvent.emit(value);
   }
@@ -147,7 +150,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   isTdsFormA: boolean = false;
   SUBMIT_DATE: boolean = false;
   enablefields: boolean = true;
-  datemax: any;//setting max date
+  
 
   constructor(
     private http: HttpClient,
@@ -162,7 +165,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     private documentMasterService: DocumentMasterDropdownService,
     public router: Router
   ) {  
-    this.setdate();
+    this.datemax =new Date();
   }
 
   ngOnInit(): void {
@@ -554,6 +557,19 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetForm();
   }
 
+  //disabledate on keyup
+  disabledate(data:any){
+    debugger
+    console.log(data);
+    if(data != ""){
+      if(data > this.datemax){
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        (document.getElementById("AC_BIRTH_DT")as HTMLInputElement).value = ""
+            
+      }
+    } 
+  }
+
   // Reset Function
   resetForm() {
     this.createForm();
@@ -561,38 +577,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isTdsForm = false;
     this.isTdsFormA = false;
   }
-//set date 18 years before current date
-  setdate() {
-    debugger
-    const d = new Date();
-    let day = d.getDate();
 
-    const m = new Date().getMonth()
-
-    const year = new Date().getFullYear() - 18
-    this.datemax = year + "-" + m + "-" + day;
-    console.log(this.datemax);
-  }
-  //set date on keyup event
-  keyupdate(date:any){
-    debugger
-    const d = new Date();
-    console.log(d);
-    let day = d.getDate();
-
-    const m = new Date().getMonth()
-
-    const year = new Date().getFullYear() - 18;
-    this.datemax = year + "-" + m + "-" + day;
-
-  if(date != ""){
-    if(date >=  this.datemax ){
-      Swal.fire("Cancelled", "please input date below"+this.datemax, "error");
-
-    }
-  }
-    
-  }
+  
   addNewData() {
     this.showButton = true;
     this.updateShow = false;

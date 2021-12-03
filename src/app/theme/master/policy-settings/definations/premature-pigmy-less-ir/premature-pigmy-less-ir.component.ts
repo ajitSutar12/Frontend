@@ -223,7 +223,34 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       this.resetForm();
     })
   }
-
+//comparing from amount and to amount
+compareamount() {
+  debugger
+  let from = Number((document.getElementById("frommonths") as HTMLInputElement).value);
+  let to = Number((document.getElementById("tomonths") as HTMLInputElement).value);
+  if(to != 0){
+    if (from > to) {
+      Swal.fire(  
+        'Warning!',
+        'From Months should be less than To Months',
+        'warning'
+      );
+      (document.getElementById("tomonths") as HTMLInputElement).value = ""
+    }
+  }
+ 
+}
+ //check  if margin values are below 100
+ checkmargin(ele:any){ 
+  //check  if given value  is below 100
+  console.log(ele);
+  if(ele <= 100){
+console.log(ele);
+  }
+  else{
+    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+  }
+}
   // Method for delete data
   delClickHandler(id: number) {
     Swal.fire({

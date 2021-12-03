@@ -69,7 +69,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="TO_AMOUNT" class="form-control" placeholder=" "
-                                                id="TO_AMOUNT"pattern="\d{1,10}(\.\d{2})?" 
+                                                id="toamt"pattern="\d{1,10}(\.\d{2})?" 
                                                 (focusout)="compareamount()"title="Input allowed only 0-9"
                                                 formControlName="TO_AMOUNT">
                                             <label for="TO_AMOUNT">Upto Amount</label>
@@ -85,7 +85,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="INT_RATE" class="form-control" placeholder=" "
-                                                pattern="\d{1,2}(\.\d{2})?" id="INT_RATE" maxlength="20"
+                                                pattern="\d{1,2}(\.\d{2})?"   #rate (keyup)="checkmargin(rate.value)" id="INT_RATE" maxlength="20"
                                                 title="Input allowed only  0-9" formControlName="INT_RATE">
                                             <label for="INT_RATE">Interest Rate<sub class="required">*
                                                 </sub>
@@ -102,7 +102,8 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="PENAL_INT_RATE" class="form-control"
-                                                placeholder=" " pattern="\d{1,2}(\.\d{2})?" id="PENAL_INT_RATE"
+                                                placeholder=" " pattern="\d{1,2}(\.\d{2})?"  #margin
+                                                (keyup)="checkmargin(margin.value)" id="PENAL_INT_RATE"
                                                 maxlength="20" title="Input allowed only  0-9"
                                                 formControlName="PENAL_INT_RATE">
                                             <label for="PENAL_INT_RATE">Penal Interest Rate<sub class="required">*

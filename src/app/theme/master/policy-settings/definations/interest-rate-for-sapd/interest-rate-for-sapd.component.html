@@ -51,7 +51,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="INT_RATE" class="form-control" placeholder=" "
-                                        id="INT_RATE" required pattern="\d{0,2}(\.\d{1,2})?" title="Input allowed only  0-9"
+                                        id="INT_RATE" required pattern="\d{0,2}(\.\d{1,2})?"   #margin
+                                        (keyup)="checkmargin(margin.value)" title="Input allowed only  0-9"
                                         formControlName="INT_RATE">
                                     <label for="INT_RATE">Interest Rate<sub class="required">* </sub></label>
                                 </span>

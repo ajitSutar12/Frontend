@@ -77,6 +77,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
   page: number = 1;
   //filter variable
   filterData = {};
+  check:boolean= true;
 
   showDialog = false;
   @Input() visible: boolean;
@@ -207,7 +208,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
       SECU_NAME: ['', [Validators.pattern, Validators.required]],
       SECU_CODE: [''],
       MARGIN: ['', [Validators.pattern, Validators.max]],
-      FIRE_POLICY: [''],
+      FIRE_POLICY: new  FormControl('firepolicy'),
       MARKET_SHARE: [''],
       BOOK_DEBTS: [''],
       PLEDGE_STOCK: [''],
@@ -264,6 +265,17 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = false;
     this.resetForm();
   }
+   //check  if margin values are below 100
+checkmargin(ele:any){ 
+  //check  if given value  is below 100
+  console.log(ele);
+  if(ele <= 100){
+console.log(ele);
+  }
+  else{
+    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+  }
+}
 
   // Reset Function
   resetForm() {

@@ -254,20 +254,68 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     this.multiField = [];
     this.resetForm();
   }
+  //check  if percentage  is below 100
+  checkmargin(ele:any){ 
+    //check  if given value  is below 100
+    console.log(ele);
+    if(ele <= 100){
+  console.log(ele);
+    }
+    else{
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
+  }
+  disableinput() {
+    debugger
+    this.days = (document.getElementById("days") as HTMLInputElement);
+    this.months = (document.getElementById("months") as HTMLInputElement);
+
+  //for days input field
+    if (this.days.value != "") {
+     
+        this.months.disabled= true;
+    }
+    else{
+      this.months.disabled= false;
+    }
+    if(this.months.value != ""){
+      this.days.disabled = true;
+    }
+    else{
+      this.days.disabled = false;
+    }
+
+  }
+
 //checking input for days and months
   checkinput() {
+debugger
+    this.days = (document.getElementById("days") as HTMLInputElement).value;
+    this.months = (document.getElementById("months") as HTMLInputElement).value;
 
-    this.days = (document.getElementById("DAYS") as HTMLInputElement).value;
-    this.months = (document.getElementById("MONTHS") as HTMLInputElement).value;
 
-
-    if ((this.days || this.months == "")|| (this.days || this.months == 0))  {
+    if (this.days == "" &&  this.months == "")  {
       Swal.fire(
         'Invalid Input',
         'Please enter Days or Months ',
         'warning'
       )
-    }
+      }
+      else if (this.days == 0 ||  this.months == 0)  {
+        Swal.fire(
+          'Invalid Input',
+          'Days or Months value must not be equal to zero ',
+          'warning'
+        )
+        }
+    // else {
+    //   Swal.fire(
+    //     'Invalid Input',
+    //     'Days or Months  value must not be zero',
+    //     'warning'
+    //   )
+    // }
+  
   }
   //Method for delete data
   delClickHandler(id: number) {

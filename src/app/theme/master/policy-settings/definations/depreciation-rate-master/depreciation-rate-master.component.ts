@@ -200,6 +200,18 @@ export class DepreciationRateMasterComponent implements OnInit {
     })
   }
 
+  //check  if percentage  is below 100
+  checkmargin(ele:any){ 
+    //check  if given value  is below 100
+    console.log(ele);
+    if(ele <= 100){
+  console.log(ele);
+    }
+    else{
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
+  }
+  
   //Method for update data 
   updateData(id) {
     let data = this.angForm.value;

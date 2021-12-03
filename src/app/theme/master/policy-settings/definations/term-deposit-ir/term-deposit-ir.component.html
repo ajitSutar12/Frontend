@@ -56,6 +56,8 @@
                                             <input type="text" name="FROM_DAYS" class="form-control" placeholder=" "
                                                 id="Formdays" pattern="^[0-9]+$" title="Input allowed only 0-9"
                                                 #fromdays
+                                                (keyup)="disableinput()"
+                                                (focusout)="compareamountdays()"
                                                 min="1"
                                                maxlength="3"
                                                 formControlName="FROM_DAYS">
@@ -73,6 +75,8 @@
                                         <span class="border-lable-flt">
                                             <input type="text" name="TO_DAYS" class="form-control" placeholder=" "
                                                 id="todays" pattern="^[0-9]+$" title="Input allowed only 0-9"
+                                                (keyup)="disableinput()"
+                                                (focusout)="compareamountdays()"
                                                 maxlength="3"
                                                 formControlName="TO_DAYS">
                                             <label for="TO_DAYS">To Days</label>
@@ -89,6 +93,7 @@
                                         <span class="border-lable-flt">
                                             <input type="text" name="FROM_MONTHS" class="form-control" placeholder=" "
                                                 id="FROM_months" pattern="^[0-9]+$" title="Input allowed only 0-9"
+                                                (keyup)="disableinput()" (focusout)="compareamountmonths()"
                                                 maxlength="3"
                                                 formControlName="FROM_MONTHS">
                                             <label for="FROM_MONTHS">From Months</label>
@@ -106,6 +111,7 @@
                                         <span class="border-lable-flt">
                                             <input type="text" name="TO_MONTHS" class="form-control" placeholder=" "
                                                 id="TO_months" pattern="^[0-9]+$" title="Input allowed only 0-9"
+                                                (keyup)="disableinput()" (focusout)="compareamountmonths()"
                                                 maxlength="3"
                                                 formControlName="TO_MONTHS">
                                             <label for="TO_MONTHS">To Months</label>
@@ -144,7 +150,8 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="PENAL_INT_RATE" class="form-control"
-                                                placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="PENAL_INT_RATE"
+                                                placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="PENAL_INT_RATE" #rate
+                                                (keyup)="checkmargin(rate.value)"
                                                 maxlength="20" title="Input allowed only  0-9"
                                                 formControlName="PENAL_INT_RATE">
                                             <label for="PENAL_INT_RATE">Penal Interest Rate<sub class="required">*

@@ -243,22 +243,34 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     this.multiField = [];
     this.resetForm();
   }
-  //comparing from amount and to amount
-  compareamount() {
-    let fromamt = (document.getElementById("FROM_AMOUNT") as HTMLInputElement).value;
-    let toamt = (document.getElementById("TO_AMOUNT") as HTMLInputElement).value;
-    if(toamt != null){
-      if (fromamt > toamt) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'warning'
-        );
-        (document.getElementById("TO_AMOUNT") as HTMLInputElement).value = ""
-      }
-    }
-   
+  //check  if percentage  is below 100
+checkmargin(ele:any){ 
+  debugger
+  //check  if given value  is below 100
+  console.log(ele);
+  if(ele <= 100){
+console.log(ele);
   }
+  else{
+    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+  }
+}
+compareamount() {
+  debugger
+  let from = Number((document.getElementById("FROM_AMOUNT") as HTMLInputElement).value);
+  let to = Number((document.getElementById("toamt") as HTMLInputElement).value);
+  if(to != 0){
+    if (from > to) {
+      Swal.fire(
+        'Warning!',
+        'From Amount should be less than Upto Months',
+        'warning'
+      );
+      (document.getElementById("toamt") as HTMLInputElement).value = ""
+    }
+  }
+ 
+}
 
   //Method for delete data
   delClickHandler(id: number) {

@@ -51,7 +51,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="FROM_MONTHS" class="form-control" placeholder=" "
-                                                id="FROM_MONTHS" pattern="^[0-9]+$" title="Input allowed only 0-9"
+                                                id="frommonths"  (focusout)="compareamount()" pattern="^[0-9]+$" maxlength="3" title="Input allowed only 0-9"
                                                 formControlName="FROM_MONTHS">
                                             <label for="FROM_MONTHS">From Months</label>
                                         </span>
@@ -66,7 +66,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="TO_MONTHS" class="form-control" placeholder=" "
-                                                id="TO_MONTHS" pattern="^[0-9]+$" title="Input allowed only 0-9"
+                                                id="tomonths" (focusout)="compareamount()"  maxlength="3"  pattern="^[0-9]+$" title="Input allowed only 0-9"
                                                 formControlName="TO_MONTHS">
                                             <label for="TO_MONTHS">To Months</label>
                                         </span>
@@ -81,7 +81,8 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="LESS_INT_RATE" class="form-control" placeholder=" "
-                                                pattern="\d{1,20}(\.\d{2})?" id="LESS_INT_RATE" maxlength="20"
+                                                pattern="\d{1,2}(\.\d{2})?" id="LESS_INT_RATE" maxlength="20"  #margin
+                                                (keyup)="checkmargin(margin.value)"
                                                 title="Input allowed only  0-9" formControlName="LESS_INT_RATE">
                                             <label for="LESS_INT_RATE">Interest Rate<sub class="required">*
                                                 </sub>

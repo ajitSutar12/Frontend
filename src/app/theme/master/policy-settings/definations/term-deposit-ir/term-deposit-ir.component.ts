@@ -85,10 +85,10 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   filterData = {};
 
   //variable for checkinput
-  fromdays:any;
-  todays:any;
-  frommonths:any;
-  tomonths:any;
+  fromdays: any;
+  todays: any;
+  frommonths: any;
+  tomonths: any;
 
 
 
@@ -242,6 +242,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     })
   }
   checkinput() {
+    debugger
 
     this.fromdays = (document.getElementById("Formdays") as HTMLInputElement).value;
     this.todays = (document.getElementById("todays") as HTMLInputElement).value;
@@ -249,16 +250,100 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     this.tomonths = (document.getElementById("TO_months") as HTMLInputElement).value;
 
 
-    if ((this.fromdays && this.todays) || (this.frommonths && this.tomonths) == "")  {
-      if((this.fromdays && this.todays) || (this.frommonths &&this.tomonths) == 0){
-        Swal.fire(
-          'Invalid Input',
-          'Please enter Days or Month range ',
-          'warning'
-        )
-      }
-      }
+    if ((this.fromdays == "" && this.todays == "") || (this.fromdays == "" && this.todays == "")) {
 
+      Swal.fire(
+        'Invalid Input',
+        'Please enter Days or Month range ',
+        'warning'
+      )
+
+    }
+    if ((this.fromdays == 0 || this.todays == 0) || (this.fromdays == 0 || this.todays == 0)) {
+
+      Swal.fire(
+        'Invalid Input',
+        'Days or Month range  value should not be zero ',
+        'warning'
+      )
+
+    }
+
+  }
+
+  compareamountdays() {
+    debugger
+
+    let from = Number((document.getElementById("Formdays") as HTMLInputElement).value);
+    let to = Number((document.getElementById("todays") as HTMLInputElement).value);
+    if(to != 0){
+      if (from > to) {
+        Swal.fire(  
+          'Warning!',
+          'From Days should be less than To Days',
+          'warning'
+        );
+        (document.getElementById("todays") as HTMLInputElement).value = ""
+      }
+    }
+   
+  } 
+  compareamountmonths() {
+    debugger
+
+    let from = Number((document.getElementById("FROM_months") as HTMLInputElement).value);
+    let to = Number((document.getElementById("TO_months") as HTMLInputElement).value);
+    if(to != 0){
+      if (from > to) {
+        Swal.fire(  
+          'Warning!',
+          'From Months should be less than To Months',
+          'warning'
+        );
+        (document.getElementById("TO_months") as HTMLInputElement).value = ""
+      }
+    }
+   
+  } 
+
+  //check  if percentage  is below 100
+  checkmargin(ele:any){ 
+    //check  if given value  is below 100
+    console.log(ele);
+    if(ele <= 100){
+  console.log(ele);
+    }
+    else{
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
+  }
+
+  //disable input fields 
+  disableinput() {
+    this.fromdays = (document.getElementById("Formdays") as HTMLInputElement);
+    this.todays = (document.getElementById("todays") as HTMLInputElement);
+    this.frommonths = (document.getElementById("FROM_months") as HTMLInputElement);
+    this.tomonths = (document.getElementById("TO_months") as HTMLInputElement);
+
+  //for days input field
+    if (this.fromdays.value != "" || this.todays.value != "") {
+      this.frommonths.disabled = true;
+        this.tomonths.disabled= true;
+    }
+    else{
+      this.frommonths.disabled = false;
+      this.tomonths.disabled= false;
+    }
+
+  //for months input field
+    if (this.frommonths.value != "" || this.tomonths.value != "") {
+      this.fromdays.disabled = true;
+        this.todays.disabled= true;
+    }
+    else{
+      this.fromdays.disabled = false;
+      this.todays.disabled= false;
+    }
   }
   //Method for update data 
   updateData() {
