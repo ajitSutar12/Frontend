@@ -175,6 +175,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   GCust_ID: any //customer id from idmaster
   CCust_ID: any //customer id from idmaster
   security: any[]
+  director: any[]
   // documentMaster: DocumentMaster[];
   id: string = '';
   Gid: string = '';
@@ -449,6 +450,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.directorMasterDropdown.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.Recommended = data;
     })
+    this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
+      this.director = data;
+    })
     this.recoveryClearkMaster.getRecoveryClearkMasterList().pipe(first()).subscribe(data => {
       this.Recovery = data;
     })
@@ -601,6 +605,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_OPDATE': formVal.AC_OPDATE,
       'AC_OPEN_OLD_DATE': formVal.AC_OPEN_OLD_DATE,
       'REF_ACNO': formVal.REF_ACNO,
+      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
       'AC_INTCATA': formVal.AC_INTCATA,
       'AC_SANCTION_AMOUNT': formVal.AC_SANCTION_AMOUNT,
       'AC_SANCTION_DATE': formVal.AC_SANCTION_DATE,
@@ -641,7 +646,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_TPIN': formVal.AC_TPIN,
       'CoBorrowerData': this.multiCoBorrower,
       'GuarantorData': this.multiGuarantor,
-           'SecurityData': this.multiSecurity,
+      'SecurityData': this.multiSecurity,
 
     }
 
@@ -666,14 +671,15 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   resetForm() {
     this.createForm();
   }
-
+  columnShowButton: boolean = false
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.columnShowButton = true
     this.termLoanService.getFormData(id).subscribe(data => {
-console.log("edit", data)
+      console.log("edit", data)
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       // this.getgCustomer(data.GAC_CUSTID)
@@ -687,6 +693,7 @@ console.log("edit", data)
         AC_NO: data.AC_NO,
         AC_OPDATE: data.AC_OPDATE,
         AC_OPEN_OLD_DATE: data.AC_OPEN_OLD_DATE,
+        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
         REF_ACNO: data.REF_ACNO,
         AC_INTCATA: data.AC_INTCATA,
         AC_SANCTION_AMOUNT: data.AC_SANCTION_AMOUNT,
@@ -731,6 +738,7 @@ console.log("edit", data)
     this.multiGuarantor = [];
     this.resetForm();
   }
+
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
@@ -889,6 +897,7 @@ console.log("edit", data)
     this.CoBorrowerShowButton = false;
     this.CoBorrowerUpdateShow = true;
     this.angForm.patchValue({
+      // this.getCCustomer(data.CAC_CUSTID)
       CAC_CUSTID: this.multiCoBorrower[id].AC_CUSTID,
       CAC_NAME: this.multiCoBorrower[id].AC_NAME,
       CAC_HONO: this.multiCoBorrower[id].AC_HONO,
@@ -927,6 +936,7 @@ console.log("edit", data)
     let index = this.coBorrowerIndex;
     this.CoBorrowerShowButton = true;
     this.CoBorrowerUpdateShow = false;
+
     const formVal = this.angForm.value;
     var object = {
       CAC_CUSTID: formVal.CAC_CUSTID,
@@ -1036,12 +1046,10 @@ console.log("edit", data)
         AC_CTCODE: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
         AC_PANNO: data.AC_PANNO,
-        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
         AC_MOBILENO: data.AC_MOBILENO,
         AC_PHONE_RES: data.AC_PHONE_RES,
         AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
         AC_EMAILID: data.AC_EMAILID,
-        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
         TDS_REQUIRED: data.TDS_REQUIRED,
         SMS_REQUIRED: data.SMS_REQUIRED,
         IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
@@ -1114,8 +1122,7 @@ console.log("edit", data)
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
         AC_OPDATE: data.CURRENT_DATE,
-        DATE_APPOINTED: data.CURRENT_DATE,
-        DATE_EXPIRY: data.CURRENT_DATE
+        AC_COREG_DATE: data.CURRENT_DATE
       })
     })
   }
@@ -1125,11 +1132,16 @@ console.log("edit", data)
     if (event.value == 'Director') {
 
       this.AC_DIRECTOR = false
-      // this.angForm.controls['AC_DIRECTOR'].enable();
-      this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
+      this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
     } else {
       this.AC_DIRECTOR = true
       // this.angForm.controls['AC_DIRECTOR'].disable();
+      this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
+    }
+    if(event.value == 'DirectorsRelative'){
+      this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
+    }
+    else{
       this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
     }
   }
@@ -1145,13 +1157,14 @@ console.log("edit", data)
   }
 
   addField() {
+    this.columnShowButton = false
     const formVal = this.angForm.value;
     var object = {
       AC_ACNOTYPE: formVal.AC_ACNOTYPE,
       AC_TYPE: formVal.AC_TYPE,
       AC_NO: formVal.AC_NO,
-      SECURITY_CODE:this.SECU_CODE,
-      SECURITY_VALUE:  this.SECU_NAME,
+      SECURITY_CODE: this.SECU_CODE,
+      SECURITY_VALUE: this.SECU_NAME,
 
     }
     this.multiSecurity.push(object);
@@ -1163,34 +1176,37 @@ console.log("edit", data)
   }
   intIndex: number
   intID: number
-  // updateField() {
-  //   let index = this.intIndex;
-  //   this.addShowButton = true;
-  //   this.UpdateShowButton = false;
-  //   const formVal = this.angForm.value;
-  //   var object = {
-  //     MONTHS: formVal.MONTHS,
-  //     DAYS: formVal.DAYS,
-  //     INT_RATE: formVal.INT_RATE,
-  //     id: this.intID
-  //   }
-  //   this.multiField[index] = object;
-  //   this.resetField()
-  // }
+  updateField() {
+    let index = this.intIndex;
+    this.addShowButton = true;
+    this.UpdateShowButton = false;
+    const formVal = this.angForm.value;
+    var object = {
+      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
+      AC_TYPE: formVal.AC_TYPE,
+      AC_NO: formVal.AC_NO,
+      SECURITY_CODE: this.SECU_CODE,
+      SECURITY_VALUE: this.SECU_NAME,
+      id: this.intID
+    }
+    this.multiSecurity[index] = object;
+    this.resetField()
+  }
 
-  // editField(id) {
-  //   this.intIndex = id
-  //   this.intID = this.multiField[id].id;
-  //   this.addShowButton = false;
-  //   this.UpdateShowButton = true;
-  //   this.angForm.patchValue({
-  //     MONTHS: this.multiField[id].MONTHS,
-  //     DAYS: this.multiField[id].DAYS,
-  //     INT_RATE: this.multiField[id].INT_RATE,
-
-  //   })
-  // }
-  // delField(id) {
-  //   this.multiField.splice(id, 1)
-  // }
+  editField(id) {
+    this.intIndex = id
+    this.intID = this.multiSecurity[id].id;
+    this.addShowButton = false;
+    this.UpdateShowButton = true;
+    this.angForm.patchValue({
+      AC_ACNOTYPE: this.multiSecurity[id].AC_ACNOTYPE,
+      AC_TYPE: this.multiSecurity[id].AC_TYPE,
+      AC_NO: this.multiSecurity[id].AC_NO,
+      SECURITY_CODE: this.multiSecurity[id].this.SECU_CODE,
+      SECURITY_VALUE: this.multiSecurity[id].this.SECU_NAME,
+    })
+  }
+  delField(id) {
+    this.multiSecurity.splice(id, 1)
+  }
 }

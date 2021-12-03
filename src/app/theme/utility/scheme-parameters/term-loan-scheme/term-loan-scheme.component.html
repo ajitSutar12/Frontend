@@ -10,10 +10,11 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL" required=""
-                    pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="5" formControlName="S_APPL" />
-                  <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
-                </span>
+                                    <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
+                                        required="" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="5"
+                                        formControlName="S_APPL" />
+                                    <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['S_APPL'].invalid &&
@@ -32,11 +33,11 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
-                    pattern="^[A-Za-z\./ -]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
-                    formControlName="S_NAME" />
-                  <label for="S_NAME">Description<sub class="required">* </sub></label>
-                </span>
+                                    <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME"
+                                        required="" pattern="^[A-Za-z\./ -]+$" maxlength="90"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_NAME" />
+                                    <label for="S_NAME">Description<sub class="required">* </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['S_NAME'].invalid &&
@@ -55,11 +56,11 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME" required=""
-                    pattern="^[A-Za-z\./ -]+$" maxlength="10" title="Input allowed only  A-Z a-z  - / . (Space)"
-                    formControlName="S_SHNAME" />
-                  <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
-                </span>
+                                    <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
+                                        id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="10"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME" />
+                                    <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['S_SHNAME'].invalid &&
@@ -77,7 +78,9 @@
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false" placeholder="G.L. A/c No.*" required title="Compulsory Selection" formControlName="S_GLACNO">
+                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
+                                    placeholder="G.L. A/c No.*" required title="Compulsory Selection"
+                                    formControlName="S_GLACNO">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
@@ -94,7 +97,9 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false" placeholder="Interest GL A/c*" title="Compulsory Selection" formControlName="S_INT_ACNO">
+                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
+                                    placeholder="Interest GL A/c*" title="Compulsory Selection"
+                                    formControlName="S_INT_ACNO">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
@@ -109,13 +114,17 @@
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false" placeholder="Receivable Int. A/c" title="Compulsory Selection" formControlName="S_RECBL_PYBL_INT_ACNO" [required]="S_RECBL_PYBL_INT_ACNO">
+                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
+                                    placeholder="Receivable Int. A/c" title="Compulsory Selection"
+                                    formControlName="S_RECBL_PYBL_INT_ACNO" [required]="S_RECBL_PYBL_INT_ACNO">
                                 </ng-select>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false" placeholder="Penal Int. A/c" title="Compulsory Selection" formControlName="S_PENAL_ACNO" [required]="S_PENAL_ACNO">
+                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
+                                    placeholder="Penal Int. A/c" title="Compulsory Selection"
+                                    formControlName="S_PENAL_ACNO" [required]="S_PENAL_ACNO">
                                 </ng-select>
                             </div>
                         </div>
@@ -123,19 +132,25 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false" placeholder="Recble Penal Int. A/c" title="Compulsory Selection" formControlName="S_RECBL_PENAL_ACNO" [required]="S_RECBL_PENAL_ACNO">
+                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
+                                    placeholder="Recble Penal Int. A/c" title="Compulsory Selection"
+                                    formControlName="S_RECBL_PENAL_ACNO" [required]="S_RECBL_PENAL_ACNO">
                                 </ng-select>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false" placeholder="Recble Overdue Int." title="Compulsory Selection" formControlName="S_RECBL_ODUE_INT_ACNO" [required]="S_RECBL_ODUE_INT_ACNO">
+                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
+                                    placeholder="Recble Overdue Int." title="Compulsory Selection"
+                                    formControlName="S_RECBL_ODUE_INT_ACNO" [required]="S_RECBL_ODUE_INT_ACNO">
                                 </ng-select>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false" placeholder="Outstanding Int. A/c" title="Compulsory Selection" formControlName="S_OUTSTANDING_INT_ACNO">
+                                <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
+                                    placeholder="Outstanding Int. A/c" title="Compulsory Selection"
+                                    formControlName="S_OUTSTANDING_INT_ACNO">
                                 </ng-select>
                             </div>
                         </div>
@@ -148,37 +163,55 @@
                                     <ul class="basic-list">
                                         <li>
                                             <h6>
-                                                <a (click)="OpenLink(91)" routerLinkActive="active" [ngClass]="{ isActive: loanTypeTrue }" routerLink="/utility/schemeParameters" class="text-right f-w-600" id="pointer">
-                          Loan Type</a>
+                                                <a (click)="OpenLink(91)" routerLinkActive="active"
+                                                    [ngClass]="{ isActive: loanTypeTrue }"
+                                                    routerLink="/utility/schemeParameters" class="text-right f-w-600"
+                                                    id="pointer">
+                                                    Loan Type</a>
                                             </h6>
                                         </li>
                                         <li>
                                             <h6>
-                                                <a (click)="OpenLink(92)" routerLinkActive="active" [ngClass]="{ isActive: interestApplicableTrue }" routerLink="/utility/schemeParameters" class="text-right f-w-600" id="pointer">Interest Applicable</a>
+                                                <a (click)="OpenLink(92)" routerLinkActive="active"
+                                                    [ngClass]="{ isActive: interestApplicableTrue }"
+                                                    routerLink="/utility/schemeParameters" class="text-right f-w-600"
+                                                    id="pointer">Interest Applicable</a>
                                             </h6>
                                         </li>
                                         <li>
                                             <h6>
-                                                <a (click)="OpenLink(93)" routerLinkActive="active" [ngClass]="{ isActive: panelInterestTrue }" routerLink="/utility/schemeParameters" class="text-right f-w-600" id="pointer">
-                          Panel Interest Applicable</a>
+                                                <a (click)="OpenLink(93)" routerLinkActive="active"
+                                                    [ngClass]="{ isActive: panelInterestTrue }"
+                                                    routerLink="/utility/schemeParameters" class="text-right f-w-600"
+                                                    id="pointer">
+                                                    Panel Interest Applicable</a>
                                             </h6>
                                         </li>
                                         <li>
                                             <h6>
-                                                <a (click)="OpenLink(94)" routerLinkActive="active" [ngClass]="{ isActive: graceMoratoriumTrue }" routerLink="/utility/schemeParameters" class="text-right f-w-600" id="pointer">
-                          Grace/Moratorium Period</a>
+                                                <a (click)="OpenLink(94)" routerLinkActive="active"
+                                                    [ngClass]="{ isActive: graceMoratoriumTrue }"
+                                                    routerLink="/utility/schemeParameters" class="text-right f-w-600"
+                                                    id="pointer">
+                                                    Grace/Moratorium Period</a>
                                             </h6>
                                         </li>
                                         <li>
                                             <h6>
-                                                <a (click)="OpenLink(95)" routerLinkActive="active" [ngClass]="{ isActive: loanOtherSettingsTrue }" routerLink="/utility/schemeParameters" class="text-right f-w-600" id="pointer">
-                          Loan Other Settings</a>
+                                                <a (click)="OpenLink(95)" routerLinkActive="active"
+                                                    [ngClass]="{ isActive: loanOtherSettingsTrue }"
+                                                    routerLink="/utility/schemeParameters" class="text-right f-w-600"
+                                                    id="pointer">
+                                                    Loan Other Settings</a>
                                             </h6>
                                         </li>
                                         <li>
                                             <h6>
-                                                <a (click)="OpenLink(96)" routerLinkActive="active" [ngClass]="{ isActive: installmentSettingsTrue }" routerLink="/utility/schemeParameters" class="text-right f-w-600" id="pointer">
-                          Installment Settings</a>
+                                                <a (click)="OpenLink(96)" routerLinkActive="active"
+                                                    [ngClass]="{ isActive: installmentSettingsTrue }"
+                                                    routerLink="/utility/schemeParameters" class="text-right f-w-600"
+                                                    id="pointer">
+                                                    Installment Settings</a>
                                             </h6>
                                         </li>
                                     </ul>
@@ -198,10 +231,11 @@
                                                 <div class="col-sm">
                                                     <div class="radio radio-inline">
                                                         <label>
-                              <input type="radio" name="IS_DEPO_LOAN" value="IsDepositAgainstLoan" checked="checked"
-                                formControlName="IS_DEPO_LOAN" />
-                              <i class="helper"></i>Is Deposite Against Loan
-                            </label>
+                                                            <input type="radio" name="IS_DEPO_LOAN"
+                                                                value="IsDepositAgainstLoan" checked="checked"
+                                                                formControlName="IS_DEPO_LOAN" />
+                                                            <i class="helper"></i>Is Deposite Against Loan
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -209,10 +243,11 @@
                                                 <div class="col-sm">
                                                     <div class="radio radio-inline">
                                                         <label>
-                              <input type="radio" name="IS_DEPO_LOAN" value="IsGoldAgainstLoan"
-                                formControlName="IS_DEPO_LOAN" />
-                              <i class="helper"></i>Is Gold Against Loan
-                            </label>
+                                                            <input type="radio" name="IS_DEPO_LOAN"
+                                                                value="IsGoldAgainstLoan"
+                                                                formControlName="IS_DEPO_LOAN" />
+                                                            <i class="helper"></i>Is Gold Against Loan
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -220,10 +255,11 @@
                                                 <div class="col-sm">
                                                     <div class="radio radio-inline">
                                                         <label>
-                              <input type="radio" name="IS_DEPO_LOAN" value="Othertypeofloan"
-                                formControlName="IS_DEPO_LOAN" />
-                              <i class="helper"></i>Other type of loan
-                            </label>
+                                                            <input type="radio" name="IS_DEPO_LOAN"
+                                                                value="Othertypeofloan"
+                                                                formControlName="IS_DEPO_LOAN" />
+                                                            <i class="helper"></i>Other type of loan
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -244,21 +280,25 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="S_INT_APPLICABLE" formControlName="S_INT_APPLICABLE" (click)="isInterestApplicable($event)" />
-                                                        <label class="border-checkbox-label" for="S_INT_APPLICABLE">Is Interest Applicable ?
-                            </label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="S_INT_APPLICABLE" formControlName="S_INT_APPLICABLE"
+                                                            (click)="isInterestApplicable($event)" />
+                                                        <label class="border-checkbox-label" for="S_INT_APPLICABLE">Is
+                                                            Interest Applicable ?
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm">
                                                     <div class="
-                              border-checkbox-group
-                              border-checkbox-group-primary
-                            ">
-                                                        <input class="border-checkbox" type="checkbox" id="POST_TO_INDIVIDUAL_AC" formControlName="POST_TO_INDIVIDUAL_AC" disabled />
-                                                        <label class="border-checkbox-label" for="POST_TO_INDIVIDUAL_AC">Is Post Interest to A/c ?
-                            </label>
+                              border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="POST_TO_INDIVIDUAL_AC"
+                                                            formControlName="POST_TO_INDIVIDUAL_AC" disabled />
+                                                        <label class="border-checkbox-label"
+                                                            for="POST_TO_INDIVIDUAL_AC">Is Post Interest to A/c ?
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -271,9 +311,13 @@
                                 border-checkbox-group
                                 border-checkbox-group-primary
                               ">
-                                                            <input class="border-checkbox" type="checkbox" id="S_RECEIVABLE_INT_ALLOW" formControlName="S_RECEIVABLE_INT_ALLOW" (click)="IsReceivableIntAllowed($event)" disabled />
-                                                            <label class="border-checkbox-label" for="S_RECEIVABLE_INT_ALLOW">Is Receivable Int.
-                                Allowed ?</label>
+                                                            <input class="border-checkbox" type="checkbox"
+                                                                id="S_RECEIVABLE_INT_ALLOW"
+                                                                formControlName="S_RECEIVABLE_INT_ALLOW"
+                                                                (click)="IsReceivableIntAllowed($event)" disabled />
+                                                            <label class="border-checkbox-label"
+                                                                for="S_RECEIVABLE_INT_ALLOW">Is Receivable Int.
+                                                                Allowed ?</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -283,9 +327,12 @@
                                 border-checkbox-group
                                 border-checkbox-group-primary
                               ">
-                                                            <input class="border-checkbox" type="checkbox" id="IS_INT_ON_RECINT" formControlName="IS_INT_ON_RECINT" disabled />
-                                                            <label class="border-checkbox-label" for="IS_INT_ON_RECINT">Is Interest On Receivable
-                                Interest ?</label>
+                                                            <input class="border-checkbox" type="checkbox"
+                                                                id="IS_INT_ON_RECINT" formControlName="IS_INT_ON_RECINT"
+                                                                disabled />
+                                                            <label class="border-checkbox-label"
+                                                                for="IS_INT_ON_RECINT">Is Interest On Receivable
+                                                                Interest ?</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -295,9 +342,12 @@
                                 border-checkbox-group
                                 border-checkbox-group-primary
                               ">
-                                                            <input class="border-checkbox" type="checkbox" id="IS_INT_ON_OTHERAMT" formControlName="IS_INT_ON_OTHERAMT" disabled />
-                                                            <label class="border-checkbox-label" for="IS_INT_ON_OTHERAMT">Is Interest On Other
-                                Receivable Amt.?</label>
+                                                            <input class="border-checkbox" type="checkbox"
+                                                                id="IS_INT_ON_OTHERAMT"
+                                                                formControlName="IS_INT_ON_OTHERAMT" disabled />
+                                                            <label class="border-checkbox-label"
+                                                                for="IS_INT_ON_OTHERAMT">Is Interest On Other
+                                                                Receivable Amt.?</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -310,10 +360,13 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="IS_INTUPTODATE" formControlName="IS_INTUPTODATE" disabled />
-                                                        <label class="border-checkbox-label" for="IS_INTUPTODATE">Is Don't Post Interest After
-                              Expiry Date ?
-                            </label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="IS_INTUPTODATE" formControlName="IS_INTUPTODATE"
+                                                            disabled />
+                                                        <label class="border-checkbox-label" for="IS_INTUPTODATE">Is
+                                                            Don't Post Interest After
+                                                            Expiry Date ?
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -323,10 +376,13 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="IS_NO_POST_INT_AFT_OD" formControlName="IS_NO_POST_INT_AFT_OD" disabled />
-                                                        <label class="border-checkbox-label" for="IS_NO_POST_INT_AFT_OD">Is Don't Post Interest
-                              After OD ?
-                            </label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="IS_NO_POST_INT_AFT_OD"
+                                                            formControlName="IS_NO_POST_INT_AFT_OD" disabled />
+                                                        <label class="border-checkbox-label"
+                                                            for="IS_NO_POST_INT_AFT_OD">Is Don't Post Interest
+                                                            After OD ?
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -337,26 +393,29 @@
                                         <div class="form-radio">
                                             <div class="radio radio-inline">
                                                 <label>
-                          <input type="radio" value="StandardInterestCalculation" name="INTEREST_METHOD"
-                            id="INTEREST_METHOD" formControlName="INTEREST_METHOD" disabled />
-                          <i class="helper"></i>0- Standard Interest Calculation
-                        </label>
+                                                    <input type="radio" value="StandardInterestCalculation"
+                                                        name="INTEREST_METHOD" id="INTEREST_METHOD"
+                                                        formControlName="INTEREST_METHOD" disabled />
+                                                    <i class="helper"></i>0- Standard Interest Calculation
+                                                </label>
                                             </div>
                                             <div class="radio radio-inline">
                                                 <label>
-                          <input type="radio" value="InterestCalculationforHalf&FullMonth" id="INTEREST_METHOD1"
-                            name="INTEREST_METHOD" formControlName="INTEREST_METHOD" disabled />
-                          <i class="helper"></i>1- Interest Calculation for Half
-                          & Full Month
-                        </label>
+                                                    <input type="radio" value="InterestCalculationforHalf&FullMonth"
+                                                        id="INTEREST_METHOD1" name="INTEREST_METHOD"
+                                                        formControlName="INTEREST_METHOD" disabled />
+                                                    <i class="helper"></i>1- Interest Calculation for Half
+                                                    & Full Month
+                                                </label>
                                             </div>
                                             <div class="radio radio-inline">
                                                 <label>
-                          <input type="radio" value="InterestCalculationofNextMonth" id="INTEREST_METHOD2"
-                            name="INTEREST_METHOD" formControlName="INTEREST_METHOD" disabled />
-                          <i class="helper"></i>2 - Interest Calculation of Next
-                          Month
-                        </label>
+                                                    <input type="radio" value="InterestCalculationofNextMonth"
+                                                        id="INTEREST_METHOD2" name="INTEREST_METHOD"
+                                                        formControlName="INTEREST_METHOD" disabled />
+                                                    <i class="helper"></i>2 - Interest Calculation of Next
+                                                    Month
+                                                </label>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -366,11 +425,12 @@
                                             <div class="col-md-7">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                            <input type="text" name="MIN_INT_LIMIT" class="form-control" placeholder=" "
-                              id="MIN_INT_LIMIT" pattern="\d{2}(\.\d{2})?" title="Input allowed only . 0-9"
-                              formControlName="MIN_INT_LIMIT" disabled />
-                            <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
-                          </span>
+                                                        <input type="text" name="MIN_INT_LIMIT" class="form-control"
+                                                            placeholder=" " id="MIN_INT_LIMIT" pattern="\d{2}(\.\d{2})?"
+                                                            title="Input allowed only . 0-9"
+                                                            formControlName="MIN_INT_LIMIT" disabled />
+                                                        <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
+                                                    </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label" *ngIf="
                             angForm.controls['MIN_INT_LIMIT'].invalid &&
@@ -401,11 +461,14 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="S_PENAL_INT_APPLICABLE" formControlName="S_PENAL_INT_APPLICABLE" (click)="
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="S_PENAL_INT_APPLICABLE"
+                                                            formControlName="S_PENAL_INT_APPLICABLE" (click)="
                                 penalInterestCalculationApplicable($event)
                               " />
-                                                        <label class="border-checkbox-label" for="S_PENAL_INT_APPLICABLE">Penal Interest Calculation
-                              Applicable ?</label>
+                                                        <label class="border-checkbox-label"
+                                                            for="S_PENAL_INT_APPLICABLE">Penal Interest Calculation
+                                                            Applicable ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -415,9 +478,13 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="IS_POST_PENAL_TO_AC" formControlName="IS_POST_PENAL_TO_AC" (click)="postPenalInterestToAccount($event)" disabled />
-                                                        <label class="border-checkbox-label" for="IS_POST_PENAL_TO_AC">Post Penal Interest to
-                              Account ?</label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="IS_POST_PENAL_TO_AC"
+                                                            formControlName="IS_POST_PENAL_TO_AC"
+                                                            (click)="postPenalInterestToAccount($event)" disabled />
+                                                        <label class="border-checkbox-label"
+                                                            for="IS_POST_PENAL_TO_AC">Post Penal Interest to
+                                                            Account ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -427,9 +494,12 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="POST_PENALINT_IN_INTEREST" formControlName="POST_PENALINT_IN_INTEREST" disabled />
-                                                        <label class="border-checkbox-label" for="POST_PENALINT_IN_INTEREST">
-                              Add Penal Interest in Interest Amount ?</label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="POST_PENALINT_IN_INTEREST"
+                                                            formControlName="POST_PENALINT_IN_INTEREST" disabled />
+                                                        <label class="border-checkbox-label"
+                                                            for="POST_PENALINT_IN_INTEREST">
+                                                            Add Penal Interest in Interest Amount ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -439,12 +509,14 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="IS_REC_PENAL_APPL" formControlName="IS_REC_PENAL_APPL" disabled (click)="
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="IS_REC_PENAL_APPL" formControlName="IS_REC_PENAL_APPL"
+                                                            disabled (click)="
                                 isMaintainReceivablePenalInterestToAc($event)
                               " />
                                                         <label class="border-checkbox-label" for="IS_REC_PENAL_APPL">
-                              Is Maintain Receivable Penal Interest to A/c
-                            </label>
+                                                            Is Maintain Receivable Penal Interest to A/c
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -454,10 +526,13 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="IS_CAL_PENAL_AFTER_EXPIRY" formControlName="IS_CAL_PENAL_AFTER_EXPIRY" disabled />
-                                                        <label class="border-checkbox-label" for="IS_CAL_PENAL_AFTER_EXPIRY">
-                              Calculate Penal After Account Expiry ?
-                            </label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="IS_CAL_PENAL_AFTER_EXPIRY"
+                                                            formControlName="IS_CAL_PENAL_AFTER_EXPIRY" disabled />
+                                                        <label class="border-checkbox-label"
+                                                            for="IS_CAL_PENAL_AFTER_EXPIRY">
+                                                            Calculate Penal After Account Expiry ?
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -467,11 +542,12 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                            <input type="text" name="S_PENAL_INT_RATE" class="form-control" placeholder=" "
-                              id="S_PENAL_INT_RATE" pattern="\d{2}(\.\d{2})?" title="Input allowed only . 0-9"
-                              formControlName="S_PENAL_INT_RATE" />
-                            <label for="S_PENAL_INT_RATE">Penal Interest Rate %</label>
-                          </span>
+                                                        <input type="text" name="S_PENAL_INT_RATE" class="form-control"
+                                                            placeholder=" " id="S_PENAL_INT_RATE"
+                                                            pattern="\d{2}(\.\d{2})?" title="Input allowed only . 0-9"
+                                                            formControlName="S_PENAL_INT_RATE" />
+                                                        <label for="S_PENAL_INT_RATE">Penal Interest Rate %</label>
+                                                    </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label" *ngIf="
                             angForm.controls['S_PENAL_INT_RATE'].invalid &&
@@ -496,10 +572,11 @@
                                                 <div class="col-sm">
                                                     <div class="radio radio-inline">
                                                         <label>
-                              <input type="radio" value="AsperTransactionLID" name="PENAL_METHOD"
-                                formControlName="PENAL_METHOD" checked="checked" />
-                              <i class="helper"></i>(0) As per Transaction (LID)
-                            </label>
+                                                            <input type="radio" value="AsperTransactionLID"
+                                                                name="PENAL_METHOD" formControlName="PENAL_METHOD"
+                                                                checked="checked" />
+                                                            <i class="helper"></i>(0) As per Transaction (LID)
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -507,10 +584,11 @@
                                                 <div class="col-sm">
                                                     <div class="radio radio-inline">
                                                         <label>
-                              <input type="radio" name="PENAL_METHOD" value="AsperDueInstallment"
-                                formControlName="PENAL_METHOD" />
-                              <i class="helper"></i>(1) As per Due Installment
-                            </label>
+                                                            <input type="radio" name="PENAL_METHOD"
+                                                                value="AsperDueInstallment"
+                                                                formControlName="PENAL_METHOD" />
+                                                            <i class="helper"></i>(1) As per Due Installment
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -518,10 +596,11 @@
                                                 <div class="col-sm">
                                                     <div class="radio radio-inline">
                                                         <label>
-                              <input type="radio" name="PENAL_METHOD" value="AsperTransaction(LID)"
-                                formControlName="PENAL_METHOD" />
-                              <i class="helper"></i>(2) As per Transaction (LID)
-                            </label>
+                                                            <input type="radio" name="PENAL_METHOD"
+                                                                value="AsperTransaction(LID)"
+                                                                formControlName="PENAL_METHOD" />
+                                                            <i class="helper"></i>(2) As per Transaction (LID)
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -529,10 +608,11 @@
                                                 <div class="col-sm">
                                                     <div class="radio radio-inline">
                                                         <label>
-                              <input type="radio" name="PENAL_METHOD" value="AsperTransaction"
-                                formControlName="PENAL_METHOD" />
-                              <i class="helper"></i>(3) As per Transaction (BED)
-                            </label>
+                                                            <input type="radio" name="PENAL_METHOD"
+                                                                value="AsperTransaction"
+                                                                formControlName="PENAL_METHOD" />
+                                                            <i class="helper"></i>(3) As per Transaction (BED)
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -540,10 +620,11 @@
                                                 <div class="col-sm">
                                                     <div class="radio radio-inline">
                                                         <label>
-                              <input type="radio" name="PENAL_METHOD" value="AsperLastTrasaction"
-                                formControlName="PENAL_METHOD" />
-                              <i class="helper"></i>(4) As per Last Trasaction
-                            </label>
+                                                            <input type="radio" name="PENAL_METHOD"
+                                                                value="AsperLastTrasaction"
+                                                                formControlName="PENAL_METHOD" />
+                                                            <i class="helper"></i>(4) As per Last Trasaction
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -551,10 +632,11 @@
                                                 <div class="col-sm">
                                                     <div class="radio radio-inline">
                                                         <label>
-                              <input type="radio" name="PENAL_METHOD" value="AsperLedgerBalance"
-                                formControlName="PENAL_METHOD" />
-                              <i class="helper"></i>(5) As per Ledger Balance
-                            </label>
+                                                            <input type="radio" name="PENAL_METHOD"
+                                                                value="AsperLedgerBalance"
+                                                                formControlName="PENAL_METHOD" />
+                                                            <i class="helper"></i>(5) As per Ledger Balance
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -566,9 +648,11 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="S_DUE_LIST_ALLOW" formControlName="S_DUE_LIST_ALLOW" />
-                                                        <label class="border-checkbox-label" for="S_DUE_LIST_ALLOW">Calculate Overdue Only After A/c
-                              Expired ?</label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="S_DUE_LIST_ALLOW" formControlName="S_DUE_LIST_ALLOW" />
+                                                        <label class="border-checkbox-label"
+                                                            for="S_DUE_LIST_ALLOW">Calculate Overdue Only After A/c
+                                                            Expired ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -589,9 +673,12 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="GRACE_PERIOD_APPLICABLE" formControlName="GRACE_PERIOD_APPLICABLE" />
-                                                        <label class="border-checkbox-label" for="GRACE_PERIOD_APPLICABLE">Is Grace Period
-                              Applicable</label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="GRACE_PERIOD_APPLICABLE"
+                                                            formControlName="GRACE_PERIOD_APPLICABLE" />
+                                                        <label class="border-checkbox-label"
+                                                            for="GRACE_PERIOD_APPLICABLE">Is Grace Period
+                                                            Applicable</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -603,9 +690,12 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="MORATORIUM_APPLICABLE" formControlName="MORATORIUM_APPLICABLE" />
-                                                        <label class="border-checkbox-label" for="MORATORIUM_APPLICABLE">Is Moratorium Period
-                              Applicable</label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="MORATORIUM_APPLICABLE"
+                                                            formControlName="MORATORIUM_APPLICABLE" />
+                                                        <label class="border-checkbox-label"
+                                                            for="MORATORIUM_APPLICABLE">Is Moratorium Period
+                                                            Applicable</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -626,9 +716,12 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="STAND_INSTRUCTION_ALLOW" formControlName="STAND_INSTRUCTION_ALLOW" />
-                                                        <label class="border-checkbox-label" for="STAND_INSTRUCTION_ALLOW">Is Standing Instruction
-                              Applicable</label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="STAND_INSTRUCTION_ALLOW"
+                                                            formControlName="STAND_INSTRUCTION_ALLOW" />
+                                                        <label class="border-checkbox-label"
+                                                            for="STAND_INSTRUCTION_ALLOW">Is Standing Instruction
+                                                            Applicable</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -638,9 +731,12 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="BALANCE_ADD_APPLICABLE" formControlName="BALANCE_ADD_APPLICABLE" />
-                                                        <label class="border-checkbox-label" for="BALANCE_ADD_APPLICABLE">Is Balance Entry Allowed
-                              ?</label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="BALANCE_ADD_APPLICABLE"
+                                                            formControlName="BALANCE_ADD_APPLICABLE" />
+                                                        <label class="border-checkbox-label"
+                                                            for="BALANCE_ADD_APPLICABLE">Is Balance Entry Allowed
+                                                            ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -650,9 +746,12 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="IS_UNSECURED_LOAN" formControlName="IS_UNSECURED_LOAN" />
-                                                        <label class="border-checkbox-label" for="IS_UNSECURED_LOAN">Is Unsecured Loan Type
-                              ?</label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="IS_UNSECURED_LOAN"
+                                                            formControlName="IS_UNSECURED_LOAN" />
+                                                        <label class="border-checkbox-label" for="IS_UNSECURED_LOAN">Is
+                                                            Unsecured Loan Type
+                                                            ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -662,9 +761,12 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="IS_OVERDUE_CHARGES_APPLY" formControlName="IS_OVERDUE_CHARGES_APPLY" />
-                                                        <label class="border-checkbox-label" for="IS_OVERDUE_CHARGES_APPLY">Is Auto Post Overdue
-                              Charges in Day Begin ?</label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="IS_OVERDUE_CHARGES_APPLY"
+                                                            formControlName="IS_OVERDUE_CHARGES_APPLY" />
+                                                        <label class="border-checkbox-label"
+                                                            for="IS_OVERDUE_CHARGES_APPLY">Is Auto Post Overdue
+                                                            Charges in Day Begin ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -673,11 +775,13 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                            <input type="text" name="MAX_LOAN_LMT" class="form-control" placeholder=" "
-                              id="MAX_LOAN_LMT" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only . 0-9"
-                              formControlName="MAX_LOAN_LMT" />
-                            <label for="MAX_LOAN_LMT">Maximum Loan Limit</label>
-                          </span>
+                                                        <input type="text" name="MAX_LOAN_LMT" class="form-control"
+                                                            placeholder=" " id="MAX_LOAN_LMT"
+                                                            pattern="\d{1,20}(\.\d{2})?"
+                                                            title="Input allowed only . 0-9"
+                                                            formControlName="MAX_LOAN_LMT" />
+                                                        <label for="MAX_LOAN_LMT">Maximum Loan Limit</label>
+                                                    </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label" *ngIf="
                             angForm.controls['MAX_LOAN_LMT'].invalid &&
@@ -696,11 +800,13 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                            <input type="text" name="ROUNDOFF_FACTOR" class="form-control" placeholder=" "
-                              id="ROUNDOFF_FACTOR" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="2"
-                              formControlName="ROUNDOFF_FACTOR" />
-                            <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in Paise</label>
-                          </span>
+                                                        <input type="text" name="ROUNDOFF_FACTOR" class="form-control"
+                                                            placeholder=" " id="ROUNDOFF_FACTOR" pattern="^[0-9]+$"
+                                                            title="Input allowed only  0-9" maxlength="2"
+                                                            formControlName="ROUNDOFF_FACTOR" />
+                                                        <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in
+                                                            Paise</label>
+                                                    </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label" *ngIf="
                             angForm.controls['ROUNDOFF_FACTOR'].invalid &&
@@ -722,11 +828,14 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                            <input type="text" name="DEFAULT_LOAN_PERIOD" class="form-control" placeholder=" "
-                              id="DEFAULT_LOAN_PERIOD" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="3"
-                              formControlName="DEFAULT_LOAN_PERIOD" />
-                            <label for="DEFAULT_LOAN_PERIOD">Default Loan Period In Months.......</label>
-                          </span>
+                                                        <input type="text" name="DEFAULT_LOAN_PERIOD"
+                                                            class="form-control" placeholder=" "
+                                                            id="DEFAULT_LOAN_PERIOD" pattern="^[0-9]+$"
+                                                            title="Input allowed only  0-9" maxlength="3"
+                                                            formControlName="DEFAULT_LOAN_PERIOD" />
+                                                        <label for="DEFAULT_LOAN_PERIOD">Default Loan Period In
+                                                            Months.......</label>
+                                                    </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label" *ngIf="
                             angForm.controls['DEFAULT_LOAN_PERIOD'].invalid &&
@@ -751,9 +860,13 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="IS_LOAN_PERIOD_LOCK" formControlName="IS_LOAN_PERIOD_LOCK" (click)="isLoanPeriodLockAllowed($event)" />
-                                                        <label class="border-checkbox-label" for="IS_LOAN_PERIOD_LOCK">Is Loan Period Lock Allowed ?
-                            </label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="IS_LOAN_PERIOD_LOCK"
+                                                            formControlName="IS_LOAN_PERIOD_LOCK"
+                                                            (click)="isLoanPeriodLockAllowed($event)" />
+                                                        <label class="border-checkbox-label"
+                                                            for="IS_LOAN_PERIOD_LOCK">Is Loan Period Lock Allowed ?
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -762,11 +875,13 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                            <input type="text" name="MIN_LOAN_PERIOD" class="form-control" placeholder=" "
-                              id="MIN_LOAN_PERIOD" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="3"
-                              formControlName="MIN_LOAN_PERIOD" disabled />
-                            <label for="MIN_LOAN_PERIOD">Minimum Loan Period In Months</label>
-                          </span>
+                                                        <input type="text" name="MIN_LOAN_PERIOD" class="form-control"
+                                                            placeholder=" " id="MIN_LOAN_PERIOD" pattern="^[0-9]+$"
+                                                            title="Input allowed only  0-9" maxlength="3"
+                                                            formControlName="MIN_LOAN_PERIOD" disabled />
+                                                        <label for="MIN_LOAN_PERIOD">Minimum Loan Period In
+                                                            Months</label>
+                                                    </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label" *ngIf="
                             angForm.controls['MIN_LOAN_PERIOD'].invalid &&
@@ -788,11 +903,13 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                            <input type="text" name="MAX_LOAN_PERIOD" class="form-control" placeholder=" "
-                              id="MAX_LOAN_PERIOD" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="3"
-                              formControlName="MAX_LOAN_PERIOD" disabled />
-                            <label for="MAX_LOAN_PERIOD">Maximum Loan Period in Months</label>
-                          </span>
+                                                        <input type="text" name="MAX_LOAN_PERIOD" class="form-control"
+                                                            placeholder=" " id="MAX_LOAN_PERIOD" pattern="^[0-9]+$"
+                                                            title="Input allowed only  0-9" maxlength="3"
+                                                            formControlName="MAX_LOAN_PERIOD" disabled />
+                                                        <label for="MAX_LOAN_PERIOD">Maximum Loan Period in
+                                                            Months</label>
+                                                    </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label" *ngIf="
                             angForm.controls['MAX_LOAN_PERIOD'].invalid &&
@@ -826,15 +943,21 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="S_INSTTYPE" formControlName="S_INSTTYPE" (click)="isInstallmentApplicable($event)" />
-                                                        <label class="border-checkbox-label" for="S_INSTTYPE">Is Installment Applicable</label>
+                                                        <input class="border-checkbox" type="checkbox" id="S_INSTTYPE"
+                                                            formControlName="S_INSTTYPE"
+                                                            (click)="isInstallmentApplicable($event)" />
+                                                        <label class="border-checkbox-label" for="S_INSTTYPE">Is
+                                                            Installment Applicable</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-8">
-                                                <ng-select [ngClass]="'ng-select'" [options]="installmentMethod" [multiple]="false" placeholder="Installment Method" formControlName="INSTALLMENT_METHOD" [disabled]="INSTALLMENT_METHOD">
+                                                <ng-select [ngClass]="'ng-select'" [options]="installmentMethod"
+                                                    [multiple]="false" placeholder="Installment Method"
+                                                    formControlName="INSTALLMENT_METHOD"
+                                                    [disabled]="INSTALLMENT_METHOD">
                                                 </ng-select>
                                             </div>
                                         </div>
@@ -847,11 +970,14 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                            <input type="text" name="IS_OVERDUE_ON_INSTALLMENT" class="form-control" placeholder=" "
-                              max="3" maxlength="1" id="IS_OVERDUE_ON_INSTALLMENT" pattern="^[0-9]+$"
-                              title="Input allowed only  0-9" formControlName="IS_OVERDUE_ON_INSTALLMENT" />
-                            <label for="IS_OVERDUE_ON_INSTALLMENT">Overdue Rule Code (0-1-2-3)</label>
-                          </span>
+                                                        <input type="text" name="IS_OVERDUE_ON_INSTALLMENT"
+                                                            class="form-control" placeholder=" " max="3" maxlength="1"
+                                                            id="IS_OVERDUE_ON_INSTALLMENT" pattern="^[0-9]+$"
+                                                            title="Input allowed only  0-9"
+                                                            formControlName="IS_OVERDUE_ON_INSTALLMENT" />
+                                                        <label for="IS_OVERDUE_ON_INSTALLMENT">Overdue Rule Code
+                                                            (0-1-2-3)</label>
+                                                    </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label" *ngIf="
                             angForm.controls['IS_OVERDUE_ON_INSTALLMENT']
@@ -886,9 +1012,13 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="IS_SHOW_INT_AS_RECINT_IFDUEBAL" formControlName="IS_SHOW_INT_AS_RECINT_IFDUEBAL" (click)="postAsReceivableInterest($event)" />
-                                                        <label class="border-checkbox-label" for="IS_SHOW_INT_AS_RECINT_IFDUEBAL">Post as Receivable
-                              Interest if Account goes in Overdue ?</label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="IS_SHOW_INT_AS_RECINT_IFDUEBAL"
+                                                            formControlName="IS_SHOW_INT_AS_RECINT_IFDUEBAL"
+                                                            (click)="postAsReceivableInterest($event)" />
+                                                        <label class="border-checkbox-label"
+                                                            for="IS_SHOW_INT_AS_RECINT_IFDUEBAL">Post as Receivable
+                                                            Interest if Account goes in Overdue ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -902,11 +1032,14 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                            <input type="text" name="MIN_DUE_INSTALLMENTS" class="form-control" placeholder=" "
-                              id="MIN_DUE_INSTALLMENTS" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="2"
-                              formControlName="MIN_DUE_INSTALLMENTS" disabled />
-                            <label for="MIN_DUE_INSTALLMENTS">Minimum Overdue Installments</label>
-                          </span>
+                                                        <input type="text" name="MIN_DUE_INSTALLMENTS"
+                                                            class="form-control" placeholder=" "
+                                                            id="MIN_DUE_INSTALLMENTS" pattern="^[0-9]+$"
+                                                            title="Input allowed only  0-9" maxlength="2"
+                                                            formControlName="MIN_DUE_INSTALLMENTS" disabled />
+                                                        <label for="MIN_DUE_INSTALLMENTS">Minimum Overdue
+                                                            Installments</label>
+                                                    </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label" *ngIf="
                             angForm.controls['MIN_DUE_INSTALLMENTS'].invalid &&
@@ -936,8 +1069,11 @@
                               border-checkbox-group
                               border-checkbox-group-primary
                             ">
-                                                        <input class="border-checkbox" type="checkbox" id="MIN_DUE_INSTALLMENTS" formControlName="MIN_DUE_INSTALLMENTS" disabled />
-                                                        <label class="border-checkbox-label" for="MIN_DUE_INSTALLMENTS">Or After Expiry Date</label>
+                                                        <input class="border-checkbox" type="checkbox"
+                                                            id="MIN_DUE_INSTALLMENTS"
+                                                            formControlName="MIN_DUE_INSTALLMENTS" disabled />
+                                                        <label class="border-checkbox-label"
+                                                            for="MIN_DUE_INSTALLMENTS">Or After Expiry Date</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -949,12 +1085,13 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">
-                Add
-              </button>
+                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
+                                [disabled]="angForm.invalid">
+                                Add
+                            </button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
-                Update
-              </button>
+                                Update
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -969,13 +1106,15 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover">
+                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                                class="table table-striped table-bordered table-hover">
                                 <tbody *ngIf="termLoanMaster?.length != 0">
                                     <tr *ngFor="let data of termLoanMaster">
                                         <td>
-                                            <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">
-                        Edit
-                      </button>
+                                            <button class="btn btn-outline-primary btn-sm" id="editbtn"
+                                                (click)="editClickHandler(data.id)">
+                                                Edit
+                                            </button>
                                         </td>
                                         <td>{{ data.S_ACNOTYPE }}</td>
                                         <td>{{ data.S_APPL }}</td>
@@ -1052,132 +1191,180 @@
                                             <input type="text" placeholder="Search Interest GL A/c" name="S_INT_ACNO" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Receivable Int. A/c" name="S_RECBL_PYBL_INT_ACNO" />
+                                            <input type="text" placeholder="Search Receivable Int. A/c"
+                                                name="S_RECBL_PYBL_INT_ACNO" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Penal Int. A/c" name="S_PENAL_ACNO" />
+                                            <input type="text" placeholder="Search Penal Int. A/c"
+                                                name="S_PENAL_ACNO" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Recble Penal Int. A/c" name="S_RECBL_PENAL_ACNO" />
+                                            <input type="text" placeholder="Search Recble Penal Int. A/c"
+                                                name="S_RECBL_PENAL_ACNO" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Recble Overdue Int." name="S_RECBL_ODUE_INT_ACNO" />
+                                            <input type="text" placeholder="Search Recble Overdue Int."
+                                                name="S_RECBL_ODUE_INT_ACNO" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Outstanding Int. A/c" name="S_OUTSTANDING_INT_ACNO" />
+                                            <input type="text" placeholder="Search Outstanding Int. A/c"
+                                                name="S_OUTSTANDING_INT_ACNO" />
                                         </th>
 
                                         <th>
                                             <input type="text" placeholder="Search Loan Type ?" name="IS_DEPO_LOAN" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Is Interest Applicable ?" name="S_INT_APPLICABLE" />
+                                            <input type="text" placeholder="Search Is Interest Applicable ?"
+                                                name="S_INT_APPLICABLE" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Is Post Interest to A/c ?" name="POST_TO_INDIVIDUAL_AC" />
+                                            <input type="text" placeholder="Search Is Post Interest to A/c ?"
+                                                name="POST_TO_INDIVIDUAL_AC" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search  Receivable Int. Allowed?" name="S_RECEIVABLE_INT_ALLOW" />
+                                            <input type="text" placeholder="Search  Receivable Int. Allowed?"
+                                                name="S_RECEIVABLE_INT_ALLOW" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Is Interest On Receivable Interest ?" name="IS_INT_ON_RECINT" />
+                                            <input type="text" placeholder="Search Is Interest On Receivable Interest ?"
+                                                name="IS_INT_ON_RECINT" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Is Interest On Other Receivable Amt.?" name="IS_INT_ON_OTHERAMT" />
+                                            <input type="text"
+                                                placeholder="Search Is Interest On Other Receivable Amt.?"
+                                                name="IS_INT_ON_OTHERAMT" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Is Don't Post Interest After Expiry Date ?" name="IS_INTUPTODATE" />
+                                            <input type="text"
+                                                placeholder="Search Is Don't Post Interest After Expiry Date ?"
+                                                name="IS_INTUPTODATE" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Is Don't Post Interest After OD ?" name="IS_NO_POST_INT_AFT_OD" />
+                                            <input type="text" placeholder="Search Is Don't Post Interest After OD ?"
+                                                name="IS_NO_POST_INT_AFT_OD" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Interest Caculation Method" name="INTEREST_METHOD" />
+                                            <input type="text" placeholder="Search Interest Caculation Method"
+                                                name="INTEREST_METHOD" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Minimum Interest Amount" name="MIN_INT_LIMIT" />
+                                            <input type="text" placeholder="Search Minimum Interest Amount"
+                                                name="MIN_INT_LIMIT" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Penal Interest Calculation Applicable ?" name="S_PENAL_INT_APPLICABLE" />
+                                            <input type="text"
+                                                placeholder="Search Penal Interest Calculation Applicable ?"
+                                                name="S_PENAL_INT_APPLICABLE" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Post Penal Interest to Account ?" name="IS_POST_PENAL_TO_AC" />
+                                            <input type="text" placeholder="Search Post Penal Interest to Account ?"
+                                                name="IS_POST_PENAL_TO_AC" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Add Penal Interest in Interest Amount ?" name="POST_PENALINT_IN_INTEREST" />
+                                            <input type="text"
+                                                placeholder="Search Add Penal Interest in Interest Amount ?"
+                                                name="POST_PENALINT_IN_INTEREST" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search  Is Maintain Receivable Penal Interest to A/c" name="IS_REC_PENAL_APPL" />
+                                            <input type="text"
+                                                placeholder="Search  Is Maintain Receivable Penal Interest to A/c"
+                                                name="IS_REC_PENAL_APPL" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Calculate Penal After Account Expiry ?" name="IS_CAL_PENAL_AFTER_EXPIRY" />
+                                            <input type="text"
+                                                placeholder="Search Calculate Penal After Account Expiry ?"
+                                                name="IS_CAL_PENAL_AFTER_EXPIRY" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Penal Interest Rate % " name="S_PENAL_INT_RATE" />
+                                            <input type="text" placeholder="Search Penal Interest Rate % "
+                                                name="S_PENAL_INT_RATE" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Penal Interest Method" name="PENAL_METHOD" />
-                                        </th>
-
-                                        <th>
-                                            <input type="text" placeholder="Search Calculate Overdue Only After A/c Expired ?" name="S_DUE_LIST_ALLOW" />
-                                        </th>
-                                        <th>
-                                            <input type="text" placeholder="Search Is Grace Period Applicable" name="GRACE_PERIOD_APPLICABLE" />
-                                        </th>
-                                        <th>
-                                            <input type="text" placeholder="Search Is Moratorium Period Applicable" name="MORATORIUM_APPLICABLE" />
-                                        </th>
-                                        <th>
-                                            <input type="text" placeholder="Search Is Standing Instruction Applicable" name="STAND_INSTRUCTION_ALLOW" />
-                                        </th>
-                                        <th>
-                                            <input type="text" placeholder="Search Is Balance Entry Allowed ?" name="BALANCE_ADD_APPLICABLE" />
-                                        </th>
-                                        <th>
-                                            <input type="text" placeholder="Search Is Unsecured Loan Type ?" name="IS_UNSECURED_LOAN" />
-                                        </th>
-                                        <th>
-                                            <input type="text" placeholder="Search Is Auto Post Overdue Charges in Day Begin ?" name="IS_OVERDUE_CHARGES_APPLY" />
-                                        </th>
-                                        <th>
-                                            <input type="text" placeholder="Search Maximum Loan Limit" name="MAX_LOAN_LMT" />
-                                        </th>
-                                        <th>
-                                            <input type="text" placeholder="Search Interest Round Off Factor in Paise" name="ROUNDOFF_FACTOR" />
-                                        </th>
-                                        <th>
-                                            <input type="text" placeholder="Search Default Loan Period In Months" name="DEFAULT_LOAN_PERIOD" />
-                                        </th>
-                                        <th>
-                                            <input type="text" placeholder="Search Is Loan Period Lock Allowed ?" name="IS_LOAN_PERIOD_LOCK" />
+                                            <input type="text" placeholder="Search Penal Interest Method"
+                                                name="PENAL_METHOD" />
                                         </th>
 
                                         <th>
-                                            <input type="text" placeholder="Search Minimum Loan Period in Months" name="MIN_LOAN_PERIOD" />
+                                            <input type="text"
+                                                placeholder="Search Calculate Overdue Only After A/c Expired ?"
+                                                name="S_DUE_LIST_ALLOW" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Is Grace Period Applicable"
+                                                name="GRACE_PERIOD_APPLICABLE" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Is Moratorium Period Applicable"
+                                                name="MORATORIUM_APPLICABLE" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Is Standing Instruction Applicable"
+                                                name="STAND_INSTRUCTION_ALLOW" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Is Balance Entry Allowed ?"
+                                                name="BALANCE_ADD_APPLICABLE" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Is Unsecured Loan Type ?"
+                                                name="IS_UNSECURED_LOAN" />
+                                        </th>
+                                        <th>
+                                            <input type="text"
+                                                placeholder="Search Is Auto Post Overdue Charges in Day Begin ?"
+                                                name="IS_OVERDUE_CHARGES_APPLY" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Maximum Loan Limit"
+                                                name="MAX_LOAN_LMT" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Interest Round Off Factor in Paise"
+                                                name="ROUNDOFF_FACTOR" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Default Loan Period In Months"
+                                                name="DEFAULT_LOAN_PERIOD" />
+                                        </th>
+                                        <th>
+                                            <input type="text" placeholder="Search Is Loan Period Lock Allowed ?"
+                                                name="IS_LOAN_PERIOD_LOCK" />
                                         </th>
 
                                         <th>
-                                            <input type="text" placeholder="Search Maximum Loan Period in Months" name="MAX_LOAN_PERIOD" />
+                                            <input type="text" placeholder="Search Minimum Loan Period in Months"
+                                                name="MIN_LOAN_PERIOD" />
                                         </th>
 
                                         <th>
-                                            <input type="text" placeholder="Search Is Installment Applicable" name="S_INSTTYPE" />
+                                            <input type="text" placeholder="Search Maximum Loan Period in Months"
+                                                name="MAX_LOAN_PERIOD" />
                                         </th>
 
                                         <th>
-                                            <input type="text" placeholder="Search Installment Method" name="INSTALLMENT_METHOD" />
+                                            <input type="text" placeholder="Search Is Installment Applicable"
+                                                name="S_INSTTYPE" />
                                         </th>
 
                                         <th>
-                                            <input type="text" placeholder="Search Overdue Rule Code (0-1-2-3)" name="IS_OVERDUE_ON_INSTALLMENT" />
+                                            <input type="text" placeholder="Search Installment Method"
+                                                name="INSTALLMENT_METHOD" />
                                         </th>
 
                                         <th>
-                                            <input type="text" placeholder="Search Post as Receivable Interest if Account goes in Overdue ?" name="IS_SHOW_INT_AS_RECINT_IFDUEBAL" />
+                                            <input type="text" placeholder="Search Overdue Rule Code (0-1-2-3)"
+                                                name="IS_OVERDUE_ON_INSTALLMENT" />
+                                        </th>
+
+                                        <th>
+                                            <input type="text"
+                                                placeholder="Search Post as Receivable Interest if Account goes in Overdue ?"
+                                                name="IS_SHOW_INT_AS_RECINT_IFDUEBAL" />
                                         </th>
                                         <th>
-                                            <input type="text" placeholder="Search Or After Expiry Date" name="MIN_DUE_INSTALLMENTS" />
+                                            <input type="text" placeholder="Search Or After Expiry Date"
+                                                name="MIN_DUE_INSTALLMENTS" />
                                         </th>
                                     </tr>
                                 </tfoot>
