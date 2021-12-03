@@ -34,6 +34,10 @@ export class TermLoanSchemeService {
 
     return this.http.put(this.url + '/term-loan-scheme/update', data);
   }
+  getData(code:any): Observable<any> {
+    return this.http.get(this.url + '/term-loan-scheme/' + code).pipe(catchError(this.handleError));
+  }
+
 }
 
 

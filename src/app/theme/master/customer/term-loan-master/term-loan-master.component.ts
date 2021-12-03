@@ -37,6 +37,7 @@ import { PrioritySectorMasterService } from '../../policy-settings/information/p
 import { RepayModeService } from '../../../../shared/dropdownService/repay-mode.service';
 import { IOption } from 'ng-select';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TermLoanSchemeService } from '../../../utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service';
 
 // Handling datatable data
 class DataTableResponse {
@@ -114,7 +115,7 @@ interface TermLoanMaster {
 })
 
 export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy {
-
+  selected
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -182,13 +183,14 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   Cid: string = '';
   idp: string = '';
   idi: string = '';
+  code: string = '';
   repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
   installment: Array<IOption> = this.installmentMethodService.getCharacters();
   account: Array<IOption> = this.accountType.getCharacters();
-  selectedOption = '3';
+  selectedOption = 4;
   isDisabled = true;
   characters: Array<IOption>;
-  selectedCharacter = '3';
+  selectedCharacter = 4;
   timeLeft = 5;
 
   private dataSub: Subscription = null;
@@ -216,11 +218,15 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     private InterestRateForLoanandCC: InterestRateForLoanandCCService,
     private prioritySectorMaster: PrioritySectorMasterService,
     private systemParameter: SystemMasterParametersService,
+    private _TermLoanScheme: TermLoanSchemeService,
     public router: Router
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.createForm();
+
     // Fetching Server side data
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
@@ -478,7 +484,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.security = data;
     })
     this.runTimer();
+
     this.dataSub = this.repayModeService.loadCharacters().subscribe((options) => {
+
       this.characters = options;
     });
     this.dataSub = this.installmentMethodService.loadCharacters().subscribe((options) => {
@@ -799,6 +807,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   getInterest(iid) {
+    console.log("interest id",iid)
     this.InterestRateForLoanandCC.getFormData(iid).subscribe(data => {
       console.log("interest", data)
       this.angForm.patchValue({
@@ -1024,6 +1033,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.multiGuarantor.splice(id, 1)
   }
   getCustomer(id) {
+    // this.getDate()
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
       this.angForm.patchValue({
@@ -1122,10 +1132,18 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
         AC_OPDATE: data.CURRENT_DATE,
-        AC_COREG_DATE: data.CURRENT_DATE
       })
     })
   }
+
+  // getDate() {
+  //   this._TermLoanScheme.getData().subscribe(data => {
+  //     console.log(data)
+  //     if (data.S_INSTTYPE == false) {
+
+  //     }
+  //   })
+  // }
 
   AC_DIRECTOR = true
   directorShow(event) {
@@ -1138,10 +1156,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       // this.angForm.controls['AC_DIRECTOR'].disable();
       this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
     }
-    if(event.value == 'DirectorsRelative'){
+    if (event.value == 'DirectorsRelative') {
       this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
     }
-    else{
+    else {
       this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
     }
   }
@@ -1209,4 +1227,39 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   delField(id) {
     this.multiSecurity.splice(id, 1)
   }
+
+  repay: string
+  installmentType: string
+  getScheme(code) {
+    this._TermLoanScheme.getData(code).subscribe(data => {
+      console.log(data.INSTALLMENT_METHOD)
+      if (data.S_INT_APPLICABLE === true) {
+        this.repay = 'Monthly'
+        this.installmentType = data.INSTALLMENT_METHOD
+      }
+      else {
+        this.repay = 'OnMaturity'
+        this.installmentType = data.INSTALLMENT_METHOD
+      }
+    })
+  }
+
+  changeDate() {
+    this.angForm.patchValue({
+      AC_EXPIRE_DATE: this.angForm.controls['AC_OPDATE'].value,
+
+      AC_COREG_DATE: this.angForm.controls['AC_OPDATE'].value
+    })
+
+  }
+
+  changeAmt() {
+    this.angForm.patchValue({
+    
+      AC_COREG_AMT: this.angForm.controls['AC_SANCTION_AMOUNT'].value
+
+    })
+   
+  }
+
 }

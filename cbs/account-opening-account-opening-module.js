@@ -114,7 +114,7 @@ class OwnbranchMasterService {
         return this.http.get(this.url + '/own-branch-master')
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
             ele.forEach(element => {
-                let obj = { label: element.NAME, value: `${element.id}` };
+                let obj = { label: element.CODE + ' ' + element.NAME, value: `${element.id}` };
                 this.OwnbranchMasterObject.push(obj);
             });
             return this.OwnbranchMasterObject;
@@ -162,7 +162,7 @@ class SchemeCodeDropdownService {
         return this.http.get(this.url + '/scheme-parameters/' + scheme)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
             ele.forEach(element => {
-                let obj = { label: element.S_APPL + ' ' + element.S_NAME, value: `${element.id}` };
+                let obj = { label: element.S_APPL + ' ' + element.S_NAME, value: `${element.id}`, name: element.S_APPL };
                 this.schemeCodeObject.push(obj);
             });
             return this.schemeCodeObject;

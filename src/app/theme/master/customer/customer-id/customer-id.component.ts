@@ -588,7 +588,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //enabling and disabling fields of photo and adhar card checkbox
   Enablefields(data, id, ele) {
-    debugger;
+    // debugger;
     console.log(data);
     if (ele.target.checked) {
       (document.getElementById("file" + id) as HTMLInputElement).disabled =
@@ -803,7 +803,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   cardImageBase64: string;
 
   fileChangeEvent(event: Event, id, valueid) {
-    debugger;
+    // debugger;
     let arr = [];
     let me = this;
     let obj = {};
@@ -822,7 +822,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   viewImagePreview(ele: any) {
-    debugger;
+    // debugger;
     console.log(ele);
   }
 }

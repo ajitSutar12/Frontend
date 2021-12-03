@@ -135,7 +135,7 @@ class OwnbranchMasterService {
         return this.http.get(this.url + '/own-branch-master')
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
             ele.forEach(element => {
-                let obj = { label: element.NAME, value: `${element.id}` };
+                let obj = { label: element.CODE + ' ' + element.NAME, value: `${element.id}` };
                 this.OwnbranchMasterObject.push(obj);
             });
             return this.OwnbranchMasterObject;
@@ -303,115 +303,6 @@ Ac2Service.PLAYER_ONE = [
 Ac2Service.ɵfac = function Ac2Service_Factory(t) { return new (t || Ac2Service)(); };
 Ac2Service.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: Ac2Service, factory: Ac2Service.ɵfac });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](Ac2Service, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], null, null); })();
-
-
-/***/ }),
-
-/***/ "./src/app/shared/elements/goldsilver.service.ts":
-/*!*******************************************************!*\
-  !*** ./src/app/shared/elements/goldsilver.service.ts ***!
-  \*******************************************************/
-/*! exports provided: GoldsilverService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GoldsilverService", function() { return GoldsilverService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-class GoldsilverService {
-    getCharacters() {
-        return this.cloneOptions(GoldsilverService.PLAYER_ONE);
-    }
-    loadCharacters() {
-        return this.loadOptions(GoldsilverService.PLAYER_ONE);
-    }
-    getCharactersWithDisabled() {
-        const characters = this.cloneOptions(GoldsilverService.PLAYER_ONE);
-        characters[1].disabled = true;
-        characters[4].disabled = true;
-        return characters;
-    }
-    loadOptions(options) {
-        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
-            setTimeout(() => {
-                obs.next(this.cloneOptions(options));
-                obs.complete();
-            }, 5000);
-        });
-    }
-    cloneOptions(options) {
-        return options.map(option => ({ value: option.value, label: option.label }));
-    }
-}
-GoldsilverService.PLAYER_ONE = [
-    { value: '0', label: 'Gold' },
-    { value: '1', label: 'Silver' }
-];
-GoldsilverService.ɵfac = function GoldsilverService_Factory(t) { return new (t || GoldsilverService)(); };
-GoldsilverService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: GoldsilverService, factory: GoldsilverService.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](GoldsilverService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], null, null); })();
-
-
-/***/ }),
-
-/***/ "./src/app/shared/elements/insurance.service.ts":
-/*!******************************************************!*\
-  !*** ./src/app/shared/elements/insurance.service.ts ***!
-  \******************************************************/
-/*! exports provided: InsuranceService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InsuranceService", function() { return InsuranceService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-class InsuranceService {
-    getCharacters() {
-        return this.cloneOptions(InsuranceService.PLAYER_ONE);
-    }
-    loadCharacters() {
-        return this.loadOptions(InsuranceService.PLAYER_ONE);
-    }
-    getCharactersWithDisabled() {
-        const characters = this.cloneOptions(InsuranceService.PLAYER_ONE);
-        characters[1].disabled = true;
-        characters[4].disabled = true;
-        return characters;
-    }
-    loadOptions(options) {
-        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
-            setTimeout(() => {
-                obs.next(this.cloneOptions(options));
-                obs.complete();
-            }, 5000);
-        });
-    }
-    cloneOptions(options) {
-        return options.map(option => ({ value: option.value, label: option.label }));
-    }
-}
-InsuranceService.PLAYER_ONE = [
-    { value: '0', label: 'om' },
-    { value: '1', label: 'kkk' },
-    { value: '2', label: 'shrrrr' }
-];
-InsuranceService.ɵfac = function InsuranceService_Factory(t) { return new (t || InsuranceService)(); };
-InsuranceService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: InsuranceService, factory: InsuranceService.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](InsuranceService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
     }], null, null); })();
 
@@ -1001,7 +892,7 @@ class BookDebtsComponent {
         });
     }
     calculate() {
-        debugger;
+        // debugger;
         let debtopenid = Number(document.getElementById("DebtorsOpeningBalance").value);
         let addcreditid = Number(document.getElementById("AddCreditSales").value);
         let lessrecoveryid = Number(document.getElementById("LessRecoveries").value);
@@ -1412,18 +1303,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _shared_elements_insurance_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../shared/elements/insurance.service */ "./src/app/shared/elements/insurance.service.ts");
-/* harmony import */ var _customer_insurance_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./customer-insurance.service */ "./src/app/theme/master/maintainance/security-details/customer-insurance/customer-insurance.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-/* harmony import */ var _shared_dropdownService_insurance_master_dropdown_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../shared/dropdownService/insurance-master-dropdown.service */ "./src/app/shared/dropdownService/insurance-master-dropdown.service.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
+/* harmony import */ var _customer_insurance_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./customer-insurance.service */ "./src/app/theme/master/maintainance/security-details/customer-insurance/customer-insurance.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var _shared_dropdownService_insurance_master_dropdown_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../shared/dropdownService/insurance-master-dropdown.service */ "./src/app/shared/dropdownService/insurance-master-dropdown.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+/* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
 
 
 
 
 // Angular Datatable Directive
-
 
 
 
@@ -1583,9 +1472,8 @@ function CustomerInsuranceComponent_tbody_63_Template(rf, ctx) { if (rf & 1) {
 class DataTableResponse {
 }
 class CustomerInsuranceComponent {
-    constructor(fb, InsuranceService, _customerservice, http, _insurancedropdown) {
+    constructor(fb, _customerservice, http, _insurancedropdown) {
         this.fb = fb;
-        this.InsuranceService = InsuranceService;
         this._customerservice = _customerservice;
         this.http = http;
         this._insurancedropdown = _insurancedropdown;
@@ -1594,7 +1482,7 @@ class CustomerInsuranceComponent {
         //api
         this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].base_url;
         this.dtExportButtonOptions = {};
-        this.simpleOption = this.InsuranceService.getCharacters();
+        // simpleOption: Array<IOption> = this.InsuranceService.getCharacters();
         this.selectedOption = "3";
         this.isDisabled = true;
         this.selectedCharacter = "3";
@@ -1814,7 +1702,7 @@ class CustomerInsuranceComponent {
         });
     }
 }
-CustomerInsuranceComponent.ɵfac = function CustomerInsuranceComponent_Factory(t) { return new (t || CustomerInsuranceComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_shared_elements_insurance_service__WEBPACK_IMPORTED_MODULE_7__["InsuranceService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_customer_insurance_service__WEBPACK_IMPORTED_MODULE_8__["customerinsuranceService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_shared_dropdownService_insurance_master_dropdown_service__WEBPACK_IMPORTED_MODULE_10__["InsuranceMasterDropdownService"])); };
+CustomerInsuranceComponent.ɵfac = function CustomerInsuranceComponent_Factory(t) { return new (t || CustomerInsuranceComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_customer_insurance_service__WEBPACK_IMPORTED_MODULE_7__["customerinsuranceService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_shared_dropdownService_insurance_master_dropdown_service__WEBPACK_IMPORTED_MODULE_9__["InsuranceMasterDropdownService"])); };
 CustomerInsuranceComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: CustomerInsuranceComponent, selectors: [["app-customer-insurance"]], viewQuery: function CustomerInsuranceComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTableDirective"], true);
     } if (rf & 2) {
@@ -1969,7 +1857,7 @@ CustomerInsuranceComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", (ctx.customerMaster == null ? null : ctx.customerMaster.length) != 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", (ctx.customerMaster == null ? null : ctx.customerMaster.length) == 0);
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControlName"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["PatternValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["MaxLengthValidator"], ng_select__WEBPACK_IMPORTED_MODULE_12__["SelectComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgClass"], angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTableDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgForOf"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL21hc3Rlci9tYWludGFpbmFuY2Uvc2VjdXJpdHktZGV0YWlscy9jdXN0b21lci1pbnN1cmFuY2UvY3VzdG9tZXItaW5zdXJhbmNlLmNvbXBvbmVudC5zY3NzIn0= */"] });
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControlName"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["PatternValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["MaxLengthValidator"], ng_select__WEBPACK_IMPORTED_MODULE_11__["SelectComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["NgClass"], angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTableDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_10__["NgForOf"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL21hc3Rlci9tYWludGFpbmFuY2Uvc2VjdXJpdHktZGV0YWlscy9jdXN0b21lci1pbnN1cmFuY2UvY3VzdG9tZXItaW5zdXJhbmNlLmNvbXBvbmVudC5zY3NzIn0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](CustomerInsuranceComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -1977,7 +1865,7 @@ CustomerInsuranceComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
                 templateUrl: "./customer-insurance.component.html",
                 styleUrls: ["./customer-insurance.component.scss"],
             }]
-    }], function () { return [{ type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] }, { type: _shared_elements_insurance_service__WEBPACK_IMPORTED_MODULE_7__["InsuranceService"] }, { type: _customer_insurance_service__WEBPACK_IMPORTED_MODULE_8__["customerinsuranceService"] }, { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClient"] }, { type: _shared_dropdownService_insurance_master_dropdown_service__WEBPACK_IMPORTED_MODULE_10__["InsuranceMasterDropdownService"] }]; }, { newItemEvent: [{
+    }], function () { return [{ type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] }, { type: _customer_insurance_service__WEBPACK_IMPORTED_MODULE_7__["customerinsuranceService"] }, { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HttpClient"] }, { type: _shared_dropdownService_insurance_master_dropdown_service__WEBPACK_IMPORTED_MODULE_9__["InsuranceMasterDropdownService"] }]; }, { newItemEvent: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"]
         }], scheme: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"]
@@ -5377,8 +5265,7 @@ class GovtSecurityAndLicComponent {
             let dropdown = {};
             dropdown.scheme = data.AC_TYPE;
             dropdown.account = data.AC_NO.toString();
-            this.newItemEvent.emit(dropdown),
-                this.updateID = data.id;
+            this.newItemEvent.emit(dropdown), (this.updateID = data.id);
             this.angForm.patchValue({
                 AC_TYPE: this.scheme._value[0],
                 AC_NO: this.Accountno,
@@ -5451,12 +5338,14 @@ class GovtSecurityAndLicComponent {
         // console.log(data.value);
         //fetch premium due date value
         let premium = document.getElementById("PREMIUM_DUE_DATE");
+        let mature = document.getElementById("maturity");
         this.setdate = premium.value;
         if (data != "") {
             // debugger
             if (this.setdate > data) {
                 console.log("if condition is true ");
                 sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire("Cancelled", "Premium Due Date must be less than Mature due date", "error");
+                this.resetmaturedate = "";
             }
             else {
                 console.log("else condition is true ");
@@ -5502,7 +5391,7 @@ GovtSecurityAndLicComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["
     } if (rf & 2) {
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.dtElement = _t.first);
-    } }, inputs: { scheme: "scheme", Accountno: "Accountno" }, outputs: { newItemEvent: "newItemEvent" }, decls: 165, vars: 21, consts: [[1, "row"], [1, "col-12"], [1, "card"], [1, "card-header"], ["action", "javascript:", "novalidate", "", 3, "formGroup"], ["myform", "ngForm"], [1, "card-block"], [1, "col-sm"], [1, "form-group", "input-group"], [1, "border-lable-flt"], ["type", "text", "placeholder", " ", "id", "subm_date", "required", "", "max", "9999-12-31", "formControlName", "SUBMISSION_DATE", "onfocus", "(this.type='date')", 1, "form-control"], ["for", "subm_date"], [1, "required"], ["class", "form-group form-primary form-static-label", "class", "alert alert-danger", 4, "ngIf"], ["type", "text", "placeholder", " ", "id", "policy_due", "required", "", "max", "31-12-9999", "formControlName", "CERT_POLICY_DATE", "onfocus", "(this.type='date')", 1, "form-control"], ["for", "policy_due"], ["type", "text", "name", "policy_no", "placeholder", " ", "id", "policy_no", "required", "", "pattern", "^[0-9]+$", "maxlength", "50", "title", "Input allowed only  0-9", "formControlName", "CERT_POLICY_NO", 1, "form-control"], ["for", "policy_no"], ["type", "text", "name", "margin", "placeholder", " ", "id", "margin", "required", "", "pattern", "\\d{1,5}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "MARGIN", 1, "form-control", 3, "keyup"], ["margin", ""], ["for", "margin"], ["type", "text", "name", "name", "placeholder", " ", "id", "name", "pattern", "^[A-Za-z'\\.\\-\\s]+$", "maxlength", "90", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "ASSURED_NAME", 1, "form-control"], ["for", "name"], ["type", "text", "name", "PaidUpAmount", "placeholder", " ", "id", "PaidUpAmount", "pattern", "\\d{1,20}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "PAIDUP_AMT", 1, "form-control"], ["for", "PaidUpAmount"], ["type", "text", "name", "SumAssured", "placeholder", " ", "id", "SumAssured", "required", "", "pattern", "\\d{1,20}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "SUM_ASSURED", 1, "form-control"], ["for", "SumAssured"], ["type", "text", "name", "premium_amount", "placeholder", " ", "id", "premium_amount", "required", "", "pattern", "\\d{1,20}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "PREMIUM", 1, "form-control"], ["for", "premium_amount"], ["type", "text", "name", "SurrenderValue", "placeholder", " ", "id", "SurrenderValue", "pattern", "\\d{1,20}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "SURRENDER_VALUE", 1, "form-control"], ["for", "SurrenderValue"], ["type", "text", "placeholder", " ", "id", "PREMIUM_DUE_DATE", "required", "", "max", "9999-12-31", "name", "PREMIUM_DUE_DATE", "formControlName", "PREMIUM_DUE_DATE", "onfocus", "(this.type='date')", 1, "form-control"], ["for", "PREMIUM_DUE_DATE"], ["type", "text", "placeholder", " ", "id", "maturity_date", "required", "", "max", "9999-12-31", "name", "maturity_date", "formControlName", "MATURE_DUE_DATE", "onfocus", "(this.type='date')", "id", "date", 1, "form-control", 3, "min", "focusout"], ["maturity_date", ""], ["for", "maturity_date"], ["type", "text", "name", "nominee", "placeholder", " ", "id", "nominee", "maxlength", "90", "pattern", "^[A-Za-z'\\.\\-\\s]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "NOMINEE", 1, "form-control"], ["for", "nominee"], ["type", "text", "name", "remarks", "placeholder", " ", "id", "remarks", "pattern", "^[A-Za-z'\\.\\-\\s]+$", "maxlength", "90", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "REMARK", 1, "form-control"], ["for", "remarks"], ["class", "btn btn-primary ripple light", 3, "disabled", "click", 4, "ngIf"], ["class", "btn btn-primary ripple light", 3, "click", 4, "ngIf"], [1, "table-responsive"], ["datatable", "", 1, "table", "table-striped", "table-bordered", "table-hover", 3, "dtOptions", "dtTrigger"], [4, "ngIf"], ["type", "text", "placeholder", "Search Date of Submission", "name", "SUBMISSION_DATE"], ["type", "text", "placeholder", "Search Certicate / Policy Date", "name", "CERT_POLICY_DATE"], ["type", "text", "placeholder", "Search Certicate / Policy No.", "name", "CERT_POLICY_NO"], ["type", "text", "placeholder", "Search Margin %", "name", "MARGIN"], ["type", "text", "placeholder", "Search Name of Assured", "name", "ASSURED_NAME"], ["type", "text", "placeholder", "Search Paid up Amount", "name", "PAIDUP_AMT"], ["type", "text", "placeholder", "Search Sum Assured", "name", "SUM_ASSURED"], ["type", "text", "placeholder", "Search Premium Amount", "name", "PREMIUM"], ["type", "text", "placeholder", "Search Surrender Value", "name", "SURRENDER_VALUE"], ["type", "text", "placeholder", "Search Premium Due Date", "name", "PREMIUM_DUE_DATE"], ["type", "text", "placeholder", "Search Matured Due Date", "name", "MATURE_DUE_DATE"], ["type", "text", "placeholder", "Search Nominee", "name", "NOMINEE"], ["type", "text", "placeholder", "Search REMARK", "name", "REMARK"], [1, "alert", "alert-danger"], [1, "btn", "btn-primary", "ripple", "light", 3, "disabled", "click"], [1, "btn", "btn-primary", "ripple", "light", 3, "click"], [4, "ngFor", "ngForOf"], ["id", "editbtn", 1, "btn", "btn-outline-primary", "btn-sm", 3, "click"], ["colspan", "6", 1, "no-data-available"]], template: function GovtSecurityAndLicComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, inputs: { scheme: "scheme", Accountno: "Accountno" }, outputs: { newItemEvent: "newItemEvent" }, decls: 165, vars: 22, consts: [[1, "row"], [1, "col-12"], [1, "card"], [1, "card-header"], ["action", "javascript:", "novalidate", "", 3, "formGroup"], ["myform", "ngForm"], [1, "card-block"], [1, "col-sm"], [1, "form-group", "input-group"], [1, "border-lable-flt"], ["type", "text", "placeholder", " ", "id", "subm_date", "required", "", "max", "9999-12-31", "formControlName", "SUBMISSION_DATE", "onfocus", "(this.type='date')", 1, "form-control"], ["for", "subm_date"], [1, "required"], ["class", "form-group form-primary form-static-label", "class", "alert alert-danger", 4, "ngIf"], ["type", "text", "placeholder", " ", "id", "policy_due", "required", "", "max", "31-12-9999", "formControlName", "CERT_POLICY_DATE", "onfocus", "(this.type='date')", 1, "form-control"], ["for", "policy_due"], ["type", "text", "name", "policy_no", "placeholder", " ", "id", "policy_no", "required", "", "pattern", "^[0-9]+$", "maxlength", "50", "title", "Input allowed only  0-9", "formControlName", "CERT_POLICY_NO", 1, "form-control"], ["for", "policy_no"], ["type", "text", "name", "margin", "placeholder", " ", "id", "margin", "required", "", "pattern", "\\d{1,5}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "MARGIN", 1, "form-control", 3, "keyup"], ["margin", ""], ["for", "margin"], ["type", "text", "name", "name", "placeholder", " ", "id", "name", "pattern", "^[A-Za-z'\\.\\-\\s]+$", "maxlength", "90", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "ASSURED_NAME", 1, "form-control"], ["for", "name"], ["type", "text", "name", "PaidUpAmount", "placeholder", " ", "id", "PaidUpAmount", "pattern", "\\d{1,20}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "PAIDUP_AMT", 1, "form-control"], ["for", "PaidUpAmount"], ["type", "text", "name", "SumAssured", "placeholder", " ", "id", "SumAssured", "required", "", "pattern", "\\d{1,20}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "SUM_ASSURED", 1, "form-control"], ["for", "SumAssured"], ["type", "text", "name", "premium_amount", "placeholder", " ", "id", "premium_amount", "required", "", "pattern", "\\d{1,20}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "PREMIUM", 1, "form-control"], ["for", "premium_amount"], ["type", "text", "name", "SurrenderValue", "placeholder", " ", "id", "SurrenderValue", "pattern", "\\d{1,20}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "SURRENDER_VALUE", 1, "form-control"], ["for", "SurrenderValue"], ["type", "text", "placeholder", " ", "id", "PREMIUM_DUE_DATE", "required", "", "max", "9999-12-31", "name", "PREMIUM_DUE_DATE", "formControlName", "PREMIUM_DUE_DATE", "onfocus", "(this.type='date')", 1, "form-control"], ["for", "PREMIUM_DUE_DATE"], ["type", "text", "placeholder", " ", "id", "maturity", "required", "", "max", "9999-12-31", "name", "maturity_date", "formControlName", "MATURE_DUE_DATE", "onfocus", "(this.type='date')", "id", "date", 1, "form-control", 3, "min", "value", "focusout"], ["maturity_date", ""], ["for", "maturity_date"], ["type", "text", "name", "nominee", "placeholder", " ", "id", "nominee", "maxlength", "90", "pattern", "^[A-Za-z'\\.\\-\\s]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "NOMINEE", 1, "form-control"], ["for", "nominee"], ["type", "text", "name", "remarks", "placeholder", " ", "id", "remarks", "pattern", "^[A-Za-z'\\.\\-\\s]+$", "maxlength", "90", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "REMARK", 1, "form-control"], ["for", "remarks"], ["class", "btn btn-primary ripple light", 3, "disabled", "click", 4, "ngIf"], ["class", "btn btn-primary ripple light", 3, "click", 4, "ngIf"], [1, "table-responsive"], ["datatable", "", 1, "table", "table-striped", "table-bordered", "table-hover", 3, "dtOptions", "dtTrigger"], [4, "ngIf"], ["type", "text", "placeholder", "Search Date of Submission", "name", "SUBMISSION_DATE"], ["type", "text", "placeholder", "Search Certicate / Policy Date", "name", "CERT_POLICY_DATE"], ["type", "text", "placeholder", "Search Certicate / Policy No.", "name", "CERT_POLICY_NO"], ["type", "text", "placeholder", "Search Margin %", "name", "MARGIN"], ["type", "text", "placeholder", "Search Name of Assured", "name", "ASSURED_NAME"], ["type", "text", "placeholder", "Search Paid up Amount", "name", "PAIDUP_AMT"], ["type", "text", "placeholder", "Search Sum Assured", "name", "SUM_ASSURED"], ["type", "text", "placeholder", "Search Premium Amount", "name", "PREMIUM"], ["type", "text", "placeholder", "Search Surrender Value", "name", "SURRENDER_VALUE"], ["type", "text", "placeholder", "Search Premium Due Date", "name", "PREMIUM_DUE_DATE"], ["type", "text", "placeholder", "Search Matured Due Date", "name", "MATURE_DUE_DATE"], ["type", "text", "placeholder", "Search Nominee", "name", "NOMINEE"], ["type", "text", "placeholder", "Search REMARK", "name", "REMARK"], [1, "alert", "alert-danger"], [1, "btn", "btn-primary", "ripple", "light", 3, "disabled", "click"], [1, "btn", "btn-primary", "ripple", "light", 3, "click"], [4, "ngFor", "ngForOf"], ["id", "editbtn", 1, "btn", "btn-outline-primary", "btn-sm", 3, "click"], ["colspan", "6", 1, "no-data-available"]], template: function GovtSecurityAndLicComponent_Template(rf, ctx) { if (rf & 1) {
         const _r41 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
@@ -5790,7 +5679,7 @@ GovtSecurityAndLicComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](10);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.angForm.controls["PREMIUM_DUE_DATE"].invalid && (ctx.angForm.controls["PREMIUM_DUE_DATE"].dirty || ctx.angForm.controls["PREMIUM_DUE_DATE"].touched));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("min", ctx.setdate);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("min", ctx.setdate)("value", ctx.resetmaturedate);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.angForm.controls["MATURE_DUE_DATE"].invalid && (ctx.angForm.controls["MATURE_DUE_DATE"].dirty || ctx.angForm.controls["MATURE_DUE_DATE"].touched));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
@@ -12013,7 +11902,7 @@ SecurityDetailsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ�
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.bookDebtsTrue);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.pleadgeStockTrue);
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], ng_select__WEBPACK_IMPORTED_MODULE_5__["SelectComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgClass"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_7__["PerfectScrollbarComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkWithHref"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkActive"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _own_deposits_own_deposits_component__WEBPACK_IMPORTED_MODULE_8__["OwnDepositsComponent"], _other_security_other_security_component__WEBPACK_IMPORTED_MODULE_9__["OtherSecurityComponent"], _fire_policy_fire_policy_component__WEBPACK_IMPORTED_MODULE_10__["FirePolicyComponent"], _market_shares_market_shares_component__WEBPACK_IMPORTED_MODULE_11__["MarketSharesComponent"], _stock_statement_stock_statement_component__WEBPACK_IMPORTED_MODULE_12__["StockStatementComponent"], _govt_security_and_lic_govt_security_and_lic_component__WEBPACK_IMPORTED_MODULE_13__["GovtSecurityAndLicComponent"], _plant_and_machinery_plant_and_machinery_component__WEBPACK_IMPORTED_MODULE_14__["PlantAndMachineryComponent"], _furniture_and_fixture_furniture_and_fixture_component__WEBPACK_IMPORTED_MODULE_15__["FurnitureAndFixtureComponent"], _vehicle_vehicle_component__WEBPACK_IMPORTED_MODULE_16__["VehicleComponent"], _land_and_buildings_land_and_buildings_component__WEBPACK_IMPORTED_MODULE_17__["LandAndBuildingsComponent"], _gold_and_silver_gold_and_silver_component__WEBPACK_IMPORTED_MODULE_18__["GoldAndSilverComponent"], _other_security2_other_security2_component__WEBPACK_IMPORTED_MODULE_19__["OtherSecurity2Component"], _customer_insurance_customer_insurance_component__WEBPACK_IMPORTED_MODULE_20__["CustomerInsuranceComponent"], _book_debts_book_debts_component__WEBPACK_IMPORTED_MODULE_21__["BookDebtsComponent"], _pleadge_stock_pleadge_stock_component__WEBPACK_IMPORTED_MODULE_22__["PleadgeStockComponent"]], styles: [".required[_ngcontent-%COMP%] {\n  font-size: 20px;\n  color: red;\n}\n\n.isActive[_ngcontent-%COMP%] {\n  color: #398ae0d7;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL21haW50YWluYW5jZS9zZWN1cml0eS1kZXRhaWxzL3NlY3VyaXR5LWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsVUFBQTtBQUNKOztBQUVBO0VBQ0ksZ0JBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL21hc3Rlci9tYWludGFpbmFuY2Uvc2VjdXJpdHktZGV0YWlscy9zZWN1cml0eS1kZXRhaWxzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGZvbnQtc2l6ZTogMjBweDtcclxuICAgIGNvbG9yOiByZWQ7XHJcbn1cclxuXHJcbi5pc0FjdGl2ZSB7XHJcbiAgICBjb2xvcjogIzM5OGFlMGQ3O1xyXG59Il19 */"] });
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], ng_select__WEBPACK_IMPORTED_MODULE_5__["SelectComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgClass"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_7__["PerfectScrollbarComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkWithHref"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkActive"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _own_deposits_own_deposits_component__WEBPACK_IMPORTED_MODULE_8__["OwnDepositsComponent"], _other_security_other_security_component__WEBPACK_IMPORTED_MODULE_9__["OtherSecurityComponent"], _fire_policy_fire_policy_component__WEBPACK_IMPORTED_MODULE_10__["FirePolicyComponent"], _market_shares_market_shares_component__WEBPACK_IMPORTED_MODULE_11__["MarketSharesComponent"], _stock_statement_stock_statement_component__WEBPACK_IMPORTED_MODULE_12__["StockStatementComponent"], _govt_security_and_lic_govt_security_and_lic_component__WEBPACK_IMPORTED_MODULE_13__["GovtSecurityAndLicComponent"], _plant_and_machinery_plant_and_machinery_component__WEBPACK_IMPORTED_MODULE_14__["PlantAndMachineryComponent"], _furniture_and_fixture_furniture_and_fixture_component__WEBPACK_IMPORTED_MODULE_15__["FurnitureAndFixtureComponent"], _vehicle_vehicle_component__WEBPACK_IMPORTED_MODULE_16__["VehicleComponent"], _land_and_buildings_land_and_buildings_component__WEBPACK_IMPORTED_MODULE_17__["LandAndBuildingsComponent"], _gold_and_silver_gold_and_silver_component__WEBPACK_IMPORTED_MODULE_18__["GoldAndSilverComponent"], _other_security2_other_security2_component__WEBPACK_IMPORTED_MODULE_19__["OtherSecurity2Component"], _customer_insurance_customer_insurance_component__WEBPACK_IMPORTED_MODULE_20__["CustomerInsuranceComponent"], _book_debts_book_debts_component__WEBPACK_IMPORTED_MODULE_21__["BookDebtsComponent"], _pleadge_stock_pleadge_stock_component__WEBPACK_IMPORTED_MODULE_22__["PleadgeStockComponent"]], styles: [".required[_ngcontent-%COMP%] {\n  font-size: 20px;\n  color: red;\n}\n\n.isActive[_ngcontent-%COMP%] {\n  color: #398ae0d7;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL21haW50YWluYW5jZS9zZWN1cml0eS1kZXRhaWxzL3NlY3VyaXR5LWRldGFpbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFlO0VBQ2YsVUFBVTtBQUNkOztBQUVBO0VBQ0ksZ0JBQWdCO0FBQ3BCIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL21haW50YWluYW5jZS9zZWN1cml0eS1kZXRhaWxzL3NlY3VyaXR5LWRldGFpbHMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgZm9udC1zaXplOiAyMHB4O1xyXG4gICAgY29sb3I6IHJlZDtcclxufVxyXG5cclxuLmlzQWN0aXZlIHtcclxuICAgIGNvbG9yOiAjMzk4YWUwZDc7XHJcbn0iXX0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SecurityDetailsComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -12107,21 +11996,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
 /* harmony import */ var _other_security2_other_security2_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./other-security2/other-security2.component */ "./src/app/theme/master/maintainance/security-details/other-security2/other-security2.component.ts");
 /* harmony import */ var _shared_elements_gl_master_service__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../../../../shared/elements/gl-master.service */ "./src/app/shared/elements/gl-master.service.ts");
-/* harmony import */ var _shared_elements_goldsilver_service__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../../../../shared/elements/goldsilver.service */ "./src/app/shared/elements/goldsilver.service.ts");
-/* harmony import */ var _shared_elements_insurance_service__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../../../../shared/elements/insurance.service */ "./src/app/shared/elements/insurance.service.ts");
-/* harmony import */ var _shared_elements_ac1_service__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../../../../shared/elements/ac1.service */ "./src/app/shared/elements/ac1.service.ts");
-/* harmony import */ var _shared_elements_s1_service__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../../../../shared/elements/s1.service */ "./src/app/shared/elements/s1.service.ts");
-/* harmony import */ var _shared_elements_ac2_service__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../../../../shared/elements/ac2.service */ "./src/app/shared/elements/ac2.service.ts");
-/* harmony import */ var _shared_elements_s2_service__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ../../../../shared/elements/s2.service */ "./src/app/shared/elements/s2.service.ts");
-/* harmony import */ var _own_deposits_own_deposit_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./own-deposits/own-deposit.service */ "./src/app/theme/master/maintainance/security-details/own-deposits/own-deposit.service.ts");
-/* harmony import */ var _other_security_other_security_component_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./other-security/other-security.component.service */ "./src/app/theme/master/maintainance/security-details/other-security/other-security.component.service.ts");
-/* harmony import */ var _fire_policy_fire_policy_component_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./fire-policy/fire-policy.component.service */ "./src/app/theme/master/maintainance/security-details/fire-policy/fire-policy.component.service.ts");
-/* harmony import */ var _shared_dropdownService_own_branch_master_dropdown_service__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ../../../../shared/dropdownService/own-branch-master-dropdown.service */ "./src/app/shared/dropdownService/own-branch-master-dropdown.service.ts");
-/* harmony import */ var _shared_dropdownService_scheme_dropdown_service__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ../../../../shared/dropdownService/scheme-dropdown.service */ "./src/app/shared/dropdownService/scheme-dropdown.service.ts");
-/* harmony import */ var _security_details_market_shares_market_shares_component_service__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ../security-details/market-shares/market-shares.component.service */ "./src/app/theme/master/maintainance/security-details/market-shares/market-shares.component.service.ts");
-/* harmony import */ var _security_details_stock_statement_stock_statement_component_service__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ../security-details/stock-statement/stock-statement.component.service */ "./src/app/theme/master/maintainance/security-details/stock-statement/stock-statement.component.service.ts");
-/* harmony import */ var _security_details_govt_security_and_lic_govt_security_and_lic_component_service__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ../security-details/govt-security-and-lic/govt-security-and-lic.component.service */ "./src/app/theme/master/maintainance/security-details/govt-security-and-lic/govt-security-and-lic.component.service.ts");
+/* harmony import */ var _shared_elements_ac1_service__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../../../../shared/elements/ac1.service */ "./src/app/shared/elements/ac1.service.ts");
+/* harmony import */ var _shared_elements_s1_service__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../../../../shared/elements/s1.service */ "./src/app/shared/elements/s1.service.ts");
+/* harmony import */ var _shared_elements_ac2_service__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../../../../shared/elements/ac2.service */ "./src/app/shared/elements/ac2.service.ts");
+/* harmony import */ var _shared_elements_s2_service__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../../../../shared/elements/s2.service */ "./src/app/shared/elements/s2.service.ts");
+/* harmony import */ var _own_deposits_own_deposit_service__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./own-deposits/own-deposit.service */ "./src/app/theme/master/maintainance/security-details/own-deposits/own-deposit.service.ts");
+/* harmony import */ var _other_security_other_security_component_service__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./other-security/other-security.component.service */ "./src/app/theme/master/maintainance/security-details/other-security/other-security.component.service.ts");
+/* harmony import */ var _fire_policy_fire_policy_component_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./fire-policy/fire-policy.component.service */ "./src/app/theme/master/maintainance/security-details/fire-policy/fire-policy.component.service.ts");
+/* harmony import */ var _shared_dropdownService_own_branch_master_dropdown_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ../../../../shared/dropdownService/own-branch-master-dropdown.service */ "./src/app/shared/dropdownService/own-branch-master-dropdown.service.ts");
+/* harmony import */ var _shared_dropdownService_scheme_dropdown_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ../../../../shared/dropdownService/scheme-dropdown.service */ "./src/app/shared/dropdownService/scheme-dropdown.service.ts");
+/* harmony import */ var _security_details_market_shares_market_shares_component_service__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ../security-details/market-shares/market-shares.component.service */ "./src/app/theme/master/maintainance/security-details/market-shares/market-shares.component.service.ts");
+/* harmony import */ var _security_details_stock_statement_stock_statement_component_service__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ../security-details/stock-statement/stock-statement.component.service */ "./src/app/theme/master/maintainance/security-details/stock-statement/stock-statement.component.service.ts");
+/* harmony import */ var _security_details_govt_security_and_lic_govt_security_and_lic_component_service__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ../security-details/govt-security-and-lic/govt-security-and-lic.component.service */ "./src/app/theme/master/maintainance/security-details/govt-security-and-lic/govt-security-and-lic.component.service.ts");
+/* harmony import */ var _security_details_customer_insurance_customer_insurance_service__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ../security-details/customer-insurance/customer-insurance.service */ "./src/app/theme/master/maintainance/security-details/customer-insurance/customer-insurance.service.ts");
+/* harmony import */ var _security_details_gold_and_silver_gold_and_silver_service__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ../security-details/gold-and-silver/gold-and-silver.service */ "./src/app/theme/master/maintainance/security-details/gold-and-silver/gold-and-silver.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var _shared_dropdownService_goldsilver_service__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ../../../../shared/dropdownService/goldsilver.service */ "./src/app/shared/dropdownService/goldsilver.service.ts");
+/* harmony import */ var _shared_dropdownService_insurance_master_dropdown_service__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ../../../../shared/dropdownService/insurance-master-dropdown.service */ "./src/app/shared/dropdownService/insurance-master-dropdown.service.ts");
 
 
 
@@ -12146,6 +12037,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+// import { GoldsilverService } from "../../../../shared/elements/goldsilver.service";
+// import { InsuranceMasterDropdownService } from "../../../../shared/dropdownService/insurance-master-dropdown.service";
 
 
 
@@ -12171,25 +12066,28 @@ class SecurityDetailsModule {
 }
 SecurityDetailsModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: SecurityDetailsModule });
 SecurityDetailsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SecurityDetailsModule_Factory(t) { return new (t || SecurityDetailsModule)(); }, providers: [
-        _shared_elements_goldsilver_service__WEBPACK_IMPORTED_MODULE_25__["GoldsilverService"],
-        _shared_elements_insurance_service__WEBPACK_IMPORTED_MODULE_26__["InsuranceService"],
-        _shared_elements_ac1_service__WEBPACK_IMPORTED_MODULE_27__["Ac1Service"],
-        _shared_elements_s1_service__WEBPACK_IMPORTED_MODULE_28__["S1Service"],
-        _shared_elements_ac2_service__WEBPACK_IMPORTED_MODULE_29__["Ac2Service"],
-        _shared_elements_s2_service__WEBPACK_IMPORTED_MODULE_30__["S2Service"],
+        _shared_dropdownService_goldsilver_service__WEBPACK_IMPORTED_MODULE_40__["GoldsilverService"],
+        _shared_dropdownService_goldsilver_service__WEBPACK_IMPORTED_MODULE_40__["GoldsilverService"],
+        _shared_dropdownService_insurance_master_dropdown_service__WEBPACK_IMPORTED_MODULE_41__["InsuranceMasterDropdownService"],
+        _shared_elements_ac1_service__WEBPACK_IMPORTED_MODULE_25__["Ac1Service"],
+        _shared_elements_s1_service__WEBPACK_IMPORTED_MODULE_26__["S1Service"],
+        _shared_elements_ac2_service__WEBPACK_IMPORTED_MODULE_27__["Ac2Service"],
+        _shared_elements_s2_service__WEBPACK_IMPORTED_MODULE_28__["S2Service"],
         {
             provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_21__["PERFECT_SCROLLBAR_CONFIG"],
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
         },
         _shared_elements_gl_master_service__WEBPACK_IMPORTED_MODULE_24__["glMasterService"],
-        _own_deposits_own_deposit_service__WEBPACK_IMPORTED_MODULE_31__["OwnDepositsComponentService"],
-        _other_security_other_security_component_service__WEBPACK_IMPORTED_MODULE_32__["othersecuritycomponentservice"],
-        _fire_policy_fire_policy_component_service__WEBPACK_IMPORTED_MODULE_33__["firepolicycomponentservice"],
-        _shared_dropdownService_own_branch_master_dropdown_service__WEBPACK_IMPORTED_MODULE_34__["OwnbranchMasterService"],
-        _shared_dropdownService_scheme_dropdown_service__WEBPACK_IMPORTED_MODULE_35__["schemedropdownService"],
-        _security_details_market_shares_market_shares_component_service__WEBPACK_IMPORTED_MODULE_36__["marketsharesomponentservice"],
-        _security_details_stock_statement_stock_statement_component_service__WEBPACK_IMPORTED_MODULE_37__["stockcomponentservice"],
-        _security_details_govt_security_and_lic_govt_security_and_lic_component_service__WEBPACK_IMPORTED_MODULE_38__["governmentsecuritycomponentservice"]
+        _own_deposits_own_deposit_service__WEBPACK_IMPORTED_MODULE_29__["OwnDepositsComponentService"],
+        _other_security_other_security_component_service__WEBPACK_IMPORTED_MODULE_30__["othersecuritycomponentservice"],
+        _fire_policy_fire_policy_component_service__WEBPACK_IMPORTED_MODULE_31__["firepolicycomponentservice"],
+        _shared_dropdownService_own_branch_master_dropdown_service__WEBPACK_IMPORTED_MODULE_32__["OwnbranchMasterService"],
+        _shared_dropdownService_scheme_dropdown_service__WEBPACK_IMPORTED_MODULE_33__["schemedropdownService"],
+        _security_details_market_shares_market_shares_component_service__WEBPACK_IMPORTED_MODULE_34__["marketsharesomponentservice"],
+        _security_details_stock_statement_stock_statement_component_service__WEBPACK_IMPORTED_MODULE_35__["stockcomponentservice"],
+        _security_details_govt_security_and_lic_govt_security_and_lic_component_service__WEBPACK_IMPORTED_MODULE_36__["governmentsecuritycomponentservice"],
+        _security_details_customer_insurance_customer_insurance_service__WEBPACK_IMPORTED_MODULE_37__["customerinsuranceService"],
+        _security_details_gold_and_silver_gold_and_silver_service__WEBPACK_IMPORTED_MODULE_38__["goldandsilverService"]
     ], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_2__["DataTablesModule"],
@@ -12240,25 +12138,28 @@ SecurityDetailsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵde
                     _angular_forms__WEBPACK_IMPORTED_MODULE_39__["ReactiveFormsModule"],
                 ],
                 providers: [
-                    _shared_elements_goldsilver_service__WEBPACK_IMPORTED_MODULE_25__["GoldsilverService"],
-                    _shared_elements_insurance_service__WEBPACK_IMPORTED_MODULE_26__["InsuranceService"],
-                    _shared_elements_ac1_service__WEBPACK_IMPORTED_MODULE_27__["Ac1Service"],
-                    _shared_elements_s1_service__WEBPACK_IMPORTED_MODULE_28__["S1Service"],
-                    _shared_elements_ac2_service__WEBPACK_IMPORTED_MODULE_29__["Ac2Service"],
-                    _shared_elements_s2_service__WEBPACK_IMPORTED_MODULE_30__["S2Service"],
+                    _shared_dropdownService_goldsilver_service__WEBPACK_IMPORTED_MODULE_40__["GoldsilverService"],
+                    _shared_dropdownService_goldsilver_service__WEBPACK_IMPORTED_MODULE_40__["GoldsilverService"],
+                    _shared_dropdownService_insurance_master_dropdown_service__WEBPACK_IMPORTED_MODULE_41__["InsuranceMasterDropdownService"],
+                    _shared_elements_ac1_service__WEBPACK_IMPORTED_MODULE_25__["Ac1Service"],
+                    _shared_elements_s1_service__WEBPACK_IMPORTED_MODULE_26__["S1Service"],
+                    _shared_elements_ac2_service__WEBPACK_IMPORTED_MODULE_27__["Ac2Service"],
+                    _shared_elements_s2_service__WEBPACK_IMPORTED_MODULE_28__["S2Service"],
                     {
                         provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_21__["PERFECT_SCROLLBAR_CONFIG"],
                         useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
                     },
                     _shared_elements_gl_master_service__WEBPACK_IMPORTED_MODULE_24__["glMasterService"],
-                    _own_deposits_own_deposit_service__WEBPACK_IMPORTED_MODULE_31__["OwnDepositsComponentService"],
-                    _other_security_other_security_component_service__WEBPACK_IMPORTED_MODULE_32__["othersecuritycomponentservice"],
-                    _fire_policy_fire_policy_component_service__WEBPACK_IMPORTED_MODULE_33__["firepolicycomponentservice"],
-                    _shared_dropdownService_own_branch_master_dropdown_service__WEBPACK_IMPORTED_MODULE_34__["OwnbranchMasterService"],
-                    _shared_dropdownService_scheme_dropdown_service__WEBPACK_IMPORTED_MODULE_35__["schemedropdownService"],
-                    _security_details_market_shares_market_shares_component_service__WEBPACK_IMPORTED_MODULE_36__["marketsharesomponentservice"],
-                    _security_details_stock_statement_stock_statement_component_service__WEBPACK_IMPORTED_MODULE_37__["stockcomponentservice"],
-                    _security_details_govt_security_and_lic_govt_security_and_lic_component_service__WEBPACK_IMPORTED_MODULE_38__["governmentsecuritycomponentservice"]
+                    _own_deposits_own_deposit_service__WEBPACK_IMPORTED_MODULE_29__["OwnDepositsComponentService"],
+                    _other_security_other_security_component_service__WEBPACK_IMPORTED_MODULE_30__["othersecuritycomponentservice"],
+                    _fire_policy_fire_policy_component_service__WEBPACK_IMPORTED_MODULE_31__["firepolicycomponentservice"],
+                    _shared_dropdownService_own_branch_master_dropdown_service__WEBPACK_IMPORTED_MODULE_32__["OwnbranchMasterService"],
+                    _shared_dropdownService_scheme_dropdown_service__WEBPACK_IMPORTED_MODULE_33__["schemedropdownService"],
+                    _security_details_market_shares_market_shares_component_service__WEBPACK_IMPORTED_MODULE_34__["marketsharesomponentservice"],
+                    _security_details_stock_statement_stock_statement_component_service__WEBPACK_IMPORTED_MODULE_35__["stockcomponentservice"],
+                    _security_details_govt_security_and_lic_govt_security_and_lic_component_service__WEBPACK_IMPORTED_MODULE_36__["governmentsecuritycomponentservice"],
+                    _security_details_customer_insurance_customer_insurance_service__WEBPACK_IMPORTED_MODULE_37__["customerinsuranceService"],
+                    _security_details_gold_and_silver_gold_and_silver_service__WEBPACK_IMPORTED_MODULE_38__["goldandsilverService"]
                 ],
                 declarations: [
                     _security_details_component__WEBPACK_IMPORTED_MODULE_5__["SecurityDetailsComponent"],

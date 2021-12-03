@@ -14,8 +14,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class BalanceBookComponent {
-    constructor() { }
+    constructor() {
+        this.multiNominee = [];
+        this.showButton = true;
+    }
     ngOnInit() {
+        // Method to insert data into database through NestJS
+        // submit() {
+        //   const formVal = this.angForm.value;
+        //   const dataToSend = {
+        //     // 'NomineeData': this.multiNominee,
+        //   };
+        // }
     }
 }
 BalanceBookComponent.ɵfac = function BalanceBookComponent_Factory(t) { return new (t || BalanceBookComponent)(); };

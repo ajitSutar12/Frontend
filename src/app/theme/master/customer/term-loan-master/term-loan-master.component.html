@@ -11,8 +11,8 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
-                                    placeholder="Scheme *" required title="Compulsory Selection"
+                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" 
+                                    placeholder="Scheme *" required title="Compulsory Selection" [(ngModel)]="code" (selected)="getScheme(code)"
                                     formControlName="AC_TYPE">
                                 </ng-select>
                             </div>
@@ -111,7 +111,7 @@
                                                             <input type="text" name="AC_OPDATE" class="form-control"
                                                                 placeholder=" " id="AC_OPDATE" required=""
                                                                 max="9999-12-31" onfocus="(this.type='date')"
-                                                                formControlName="AC_OPDATE" disabled>
+                                                                formControlName="AC_OPDATE"  (ngModelChange)="changeDate()">
                                                             <label for="AC_OPDATE">Opening Date<sub class="required">*
                                                                 </sub></label>
                                                         </span>
@@ -248,7 +248,7 @@
                                                                 class="form-control" placeholder=" " 
                                                                 id="AC_SANCTION_AMOUNT" required="" pattern="^[0-9]+$"
                                                                 title="Input allowed only  0-9"
-                                                                formControlName="AC_SANCTION_AMOUNT">
+                                                                formControlName="AC_SANCTION_AMOUNT" (ngModelChange)="changeAmt()">
                                                             <label for="AC_SANCTION_AMOUNT">Sanction Limit<sub
                                                                     class="required">*
                                                                 </sub></label>
@@ -334,9 +334,9 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_EXPIRE_DATE"
                                                                 class="form-control" placeholder=" " id="AC_EXPIRE_DATE"
-                                                                required="" max="9999-12-31"
+                                                                required="" max="9999-12-31" 
                                                                 onfocus="(this.type='date')"
-                                                                formControlName="AC_EXPIRE_DATE">
+                                                                formControlName="AC_EXPIRE_DATE" >
                                                             <label for="AC_EXPIRE_DATE">Expiry Date<sub
                                                                     class="required">*
                                                                 </sub></label>
@@ -377,7 +377,7 @@
                                                 <div class="col-sm">
                                                     <div class="form-group form-primary form-static-label">
                                                         <ng-select [ngClass]="'ng-select'" [options]="repayModeOption"
-                                                            [multiple]="false" placeholder="Repay Mode*"
+                                                            [multiple]="false" placeholder="Repay Mode*" [(ngModel)]="repay"
                                                             title="Compulsory Selection" formControlName="AC_REPAYMODE">
                                                         </ng-select>
                                                     </div>
@@ -395,7 +395,7 @@
                                                 </div>
                                                 <div class="col-sm">
                                                     <div class="form-group form-primary form-static-label">
-                                                        <ng-select [ngClass]="'ng-select'" [options]="installment"
+                                                        <ng-select [ngClass]="'ng-select'" [options]="installment" [(ngModel)]="installmentType"
                                                             [multiple]="false" placeholder="Installment Type *" required
                                                             title="Compulsory Selection"
                                                             formControlName="INSTALLMENT_METHOD">

@@ -155,16 +155,30 @@ class DirectorMasterDropdownService {
         //  // director-master";
         this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].base_url;
         this.directorMasterObject = new Array();
+        this.directorObject = new Array();
     }
     getDirectorMasterList() {
         this.directorMasterObject = [];
         return this.http.get(this.url + '/director-master')
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
             ele.forEach(element => {
-                let obj = { label: element.NAME, value: `${element.id}` };
+                let obj = { label: element.NAME, value: `${element.id}`, name: element.IS_CURRENT_BODY_MEMBER };
                 this.directorMasterObject.push(obj);
             });
             return this.directorMasterObject;
+        }));
+    }
+    getDirectorMastertrueList() {
+        this.directorObject = [];
+        return this.http.get(this.url + '/director-master')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
+            ele.forEach(element => {
+                if (element.IS_CURRENT_BODY_MEMBER == true) {
+                    let obj = { label: element.NAME, value: `${element.id}` };
+                    this.directorObject.push(obj);
+                }
+            });
+            return this.directorObject;
         }));
     }
 }
@@ -500,7 +514,7 @@ class SchemeCodeDropdownService {
         return this.http.get(this.url + '/scheme-parameters/' + scheme)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
             ele.forEach(element => {
-                let obj = { label: element.S_APPL + ' ' + element.S_NAME, value: `${element.id}` };
+                let obj = { label: element.S_APPL + ' ' + element.S_NAME, value: `${element.id}`, name: element.S_APPL };
                 this.schemeCodeObject.push(obj);
             });
             return this.schemeCodeObject;
