@@ -7,6 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { glTypeService } from '../../../../shared/elements/gl-type.service';
 import { SelectModule } from 'ng-select';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -18,6 +20,11 @@ import { SelectModule } from 'ng-select';
     SelectModule
   ],
   declarations: [GlReportMasterComponent],
-  providers: [glTypeService]
+  
+  providers:[glTypeService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class GlReportMasterModule { }

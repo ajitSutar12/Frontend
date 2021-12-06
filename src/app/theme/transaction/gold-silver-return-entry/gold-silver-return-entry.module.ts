@@ -13,7 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from '../../../user-auth.interceptor';
 
 
 @NgModule({
@@ -28,7 +29,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
     
   ],
-  providers:[Scheme16Service,Scheme17Service],
+  providers:[Scheme16Service,Scheme17Service,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },],
   declarations: [ GoldSilverReturnEntryComponent]
 })
 export class  GoldSilverReturnEntryModule { }

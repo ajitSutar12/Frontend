@@ -5,7 +5,8 @@ import { ReceiptPrintingDComponent } from './receipt-printing-d.component';
 
 import { ReceiptPrintingDRoutingModule } from './receipt-printing-d-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 @NgModule({
@@ -14,6 +15,11 @@ import {SharedModule} from '../../../shared/shared.module';
     ReceiptPrintingDRoutingModule,
     SharedModule
   ],
-  declarations: [ReceiptPrintingDComponent]
+  declarations: [ReceiptPrintingDComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class ReceiptPrintingDModule { }

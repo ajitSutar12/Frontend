@@ -5,7 +5,8 @@ import { TermDepositeAcRenewalComponent } from './term-deposite-ac-renewal.compo
 import { TermDepositeAcRenewalRoutingModule } from './term-deposite-ac-renewal-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 @NgModule({
@@ -15,6 +16,11 @@ import {DataTablesModule} from 'angular-datatables';
     SharedModule,
     DataTablesModule
   ],
-  declarations: [TermDepositeAcRenewalComponent]
+  declarations: [TermDepositeAcRenewalComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class TermDepositeAcRenewalModule { }

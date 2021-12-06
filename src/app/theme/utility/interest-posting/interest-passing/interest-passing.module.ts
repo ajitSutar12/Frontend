@@ -13,7 +13,8 @@ import { EditInterestCalculationComponent } from './edit-interest-calculation/ed
 import { CalculateInterestPassingComponent } from './calculate-interest-passing/calculate-interest-passing.component';
 import { CalculateInterestUnpassingComponent } from './calculate-interest-unpassing/calculate-interest-unpassing.component';
 import { CalculateInterestDeletionComponent } from './calculate-interest-deletion/calculate-interest-deletion.component';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -28,7 +29,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
   ],
   declarations: [InterestPassingComponent, EditInterestCalculationComponent, CalculateInterestPassingComponent, CalculateInterestUnpassingComponent, CalculateInterestDeletionComponent]
 })

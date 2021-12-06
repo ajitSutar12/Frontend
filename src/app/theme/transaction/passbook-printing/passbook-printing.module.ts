@@ -6,7 +6,8 @@ import { PassbookPrintingRoutingModule } from './passbook-printing-routing.modul
 import {SharedModule} from '../../../shared/shared.module';
 // import { PassbookEntryPrintComponent } from './passbook-entry-print/passbook-entry-print.component';
 // import { PassbookIssueComponent } from './passbook-issue/passbook-issue.component';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 @NgModule({
@@ -15,6 +16,11 @@ import {SharedModule} from '../../../shared/shared.module';
     PassbookPrintingRoutingModule,
     SharedModule
   ],
-  declarations: [PassbookPrintingComponent]
+  declarations: [PassbookPrintingComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class PassbookPrintingModule { }

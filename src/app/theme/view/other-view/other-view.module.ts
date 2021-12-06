@@ -21,6 +21,8 @@ import { CdRationAnalysisComponent } from './cd-ration-analysis/cd-ration-analys
 import {DataTablesModule} from 'angular-datatables';
 import {SelectOptionService} from '../../../shared/elements/select-option.service';
 import {SelectModule} from 'ng-select';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -30,7 +32,12 @@ import {SelectModule} from 'ng-select';
     DataTablesModule,
     SelectModule
   ],
-  providers: [SelectOptionService],
+  providers: [SelectOptionService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },],
   declarations: [OtherViewComponent, InterestPaidHistoryComponent, BudgetViewComponent,  DepositLoanAnalysisComponent, RatioAnalysisComponent, ChequeBookDetailsComponent, DepositInterestProjectionComponent, UnclearChequeComponent, LoanProjectionComponent, LoanInstallmentInquiryComponent, MemberGuarantorViewComponent, LockerViewComponent, GraphLoanDepositPositionComponent, ComparitiveGraphLoanDepositPositionComponent, CdRationAnalysisComponent]
 })
 export class OtherViewModule { }

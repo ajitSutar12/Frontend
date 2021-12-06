@@ -9,7 +9,8 @@ import { S6Service } from '../../../../shared/elements/s6.service';
 import { Ac6Service } from '../../../../shared/elements/ac6.service';
 import { S17Service } from '../../../../shared/elements/s17.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,6 +22,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   declarations: [InterestPostingFlagUpdationComponent],
-  providers: [S6Service, Ac6Service, S17Service],
+  providers: [S6Service, Ac6Service, S17Service,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },],
 })
 export class InterestPostingFlagUpdationModule { }

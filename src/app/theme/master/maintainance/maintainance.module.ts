@@ -14,7 +14,8 @@ import {SharedModule} from '../../../shared/shared.module';
 import {SelectOptionService} from '../../../shared/elements/select-option.service'
 import {SelectModule} from 'ng-select';
 // import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 @NgModule({
@@ -27,6 +28,10 @@ import {SelectModule} from 'ng-select';
     // ReactiveFormsModule
   ],
   declarations: [MaintainanceComponent],
-  providers: [SelectOptionService]
+  providers: [SelectOptionService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class MaintainanceModule { }

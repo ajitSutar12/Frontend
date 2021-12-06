@@ -14,7 +14,8 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { BankService } from '../../policy-settings/information/bank-master/bank-master.service';
 import { InvestmentService } from './account-opening.service';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -31,7 +32,12 @@ import { InvestmentService } from './account-opening.service';
     OwnbranchMasterService,
     SchemeCodeDropdownService,
     BankService,
-    InvestmentService
+    InvestmentService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
   ]
 })
 export class AccountOpeningModule { }

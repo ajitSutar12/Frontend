@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { InterestPostingComponent } from './interest-posting.component';
 import { InterestPostingRoutingModule } from './interest-posting-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 @NgModule({
@@ -13,6 +14,11 @@ import {SharedModule} from '../../../shared/shared.module';
     InterestPostingRoutingModule,
     SharedModule
   ],
-  declarations: [InterestPostingComponent]
+  declarations: [InterestPostingComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class InterestPostingModule { }

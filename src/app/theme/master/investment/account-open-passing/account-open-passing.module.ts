@@ -7,6 +7,12 @@ import { Scheme1Service } from '../../../../shared/elements/scheme1.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectModule } from 'ng-select';
 import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+
+
+
+
 
 @NgModule({
   imports: [
@@ -19,6 +25,10 @@ import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
     ReactiveFormsModule
   ],
   declarations: [AccountOpenPassingComponent],
-  providers : [Scheme1Service]
+  providers : [Scheme1Service,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class AccountOpenPassingModule { }

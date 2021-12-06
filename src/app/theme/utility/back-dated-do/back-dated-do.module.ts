@@ -5,7 +5,8 @@ import { BackDatedDOComponent } from './back-dated-do.component';
 import { BackDatedDORoutingModule } from './back-dated-do-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 @NgModule({
@@ -15,6 +16,11 @@ import {DataTablesModule} from 'angular-datatables';
     SharedModule,
     DataTablesModule
   ],
-  declarations: [BackDatedDOComponent]
+  declarations: [BackDatedDOComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class BackDatedDOModule { }

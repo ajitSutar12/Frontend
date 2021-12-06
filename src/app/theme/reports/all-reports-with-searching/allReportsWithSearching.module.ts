@@ -6,7 +6,8 @@ import {SharedModule} from '../../../shared/shared.module';
 // import {ChartModule} from 'angular2-chartjs';
 import {DataTablesModule} from 'angular-datatables';
 import { FileUploadModule } from 'ng2-file-upload';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +17,11 @@ import { FileUploadModule } from 'ng2-file-upload';
     DataTablesModule,
     FileUploadModule
   ],
-  declarations: [AllReportsWithSearchingComponent]
+  declarations: [AllReportsWithSearchingComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class AllReportsWithSearchingModule  { }

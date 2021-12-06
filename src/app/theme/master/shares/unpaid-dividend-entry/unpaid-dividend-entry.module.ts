@@ -8,6 +8,11 @@ import { MembernoService } from '../../../../shared/elements/memberno.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+
+
+
 
 @NgModule({
   imports: [
@@ -20,6 +25,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   declarations: [UnpaidDividendEntryComponent],
-  providers: [Scheme1Service, MembernoService]
+  providers: [Scheme1Service, MembernoService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class UnpaidDividendEntryModule { }

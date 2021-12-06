@@ -5,7 +5,8 @@ import {MasterUnlockRoutingModule} from './masterUnlock-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 // import {ChartModule} from 'angular2-chartjs';
 import {DataTablesModule} from 'angular-datatables';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -13,6 +14,11 @@ import {DataTablesModule} from 'angular-datatables';
     SharedModule,
     DataTablesModule
   ],
-  declarations: [MasterUnlockComponent]
+  declarations: [MasterUnlockComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class MasterUnlockModule { }

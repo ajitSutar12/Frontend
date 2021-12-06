@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
@@ -203,12 +203,14 @@
                         </div>
                         <h1></h1>
                         <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_BIRTH_DT" class="form-control" placeholder=" "
                                         id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
-                                       (focusout)="disabledate(date.value)"
+                                       (focusout)="disabledate(date.value)"  
                                         formControlName="AC_BIRTH_DT">
+                                        
                                     <label for="AC_BIRTH_DT">Birth Date</label>
                                 </span>
                             </div>
@@ -252,11 +254,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_ADDR" class="form-control" placeholder=" "
-                                        pattern="^[A-Za-z0-9\./ -]+$"
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_ADDR"
                                         formControlName="AC_ADDR">
                                     <label for="AC_ADDR">Detail</label>

@@ -10,7 +10,8 @@ import {DeadstockmasterService} from './dead-stock-master.service'
 import { ItemCatMasterDropdownService} from '../../../../shared/dropdownService/item-category-master-dropdown.service';
 import { DepriciationCatDropdownMasterService} from '../../../../shared/dropdownService/depriciation-category-master-dropdown.service';
 import { ACMasterDropdownService} from '../../../../shared/dropdownService/ac-master-dropdown.service';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +29,12 @@ import { ACMasterDropdownService} from '../../../../shared/dropdownService/ac-ma
     DeadstockmasterService,
     ItemCatMasterDropdownService,
     DepriciationCatDropdownMasterService,
-    ACMasterDropdownService
+    ACMasterDropdownService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
   ]
 })
 export class DeadStockMasterModule { }

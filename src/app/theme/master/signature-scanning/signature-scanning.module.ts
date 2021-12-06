@@ -5,6 +5,11 @@ import { SignatureScanningComponent } from './signature-scanning.component';
 import { SignatureScanningRoutingModule } from './signature-scanning-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+
+
+
 
 
 
@@ -15,6 +20,11 @@ import {DataTablesModule} from 'angular-datatables';
     SharedModule,
     DataTablesModule
   ],
-  declarations: [SignatureScanningComponent]
+  declarations: [SignatureScanningComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class SignatureScanningModule { }

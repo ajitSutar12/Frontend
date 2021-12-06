@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { GlAccountsMasterService } from './gl-accounts-master.service'
 import { StatementCodeDropdownService } from '../../../../shared/dropdownService/statement-code-dropdown.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +22,11 @@ import { StatementCodeDropdownService } from '../../../../shared/dropdownService
     FormsModule, ReactiveFormsModule
   ],
   declarations: [GlAccountsMasterComponent],
-  providers: [GlAccountsMasterService, StatementCodeDropdownService]
+  providers: [GlAccountsMasterService, StatementCodeDropdownService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },]
 })
 export class GlAccountsMasterModule { }

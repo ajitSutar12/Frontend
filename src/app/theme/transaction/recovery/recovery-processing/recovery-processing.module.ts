@@ -6,7 +6,8 @@ import { RecoveryProcessingRoutingModule } from './recovery-processing-routing.m
 
 import {DataTablesModule} from 'angular-datatables';
 
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -14,6 +15,11 @@ import {DataTablesModule} from 'angular-datatables';
     RecoveryProcessingRoutingModule,
     DataTablesModule
   ],
-  declarations: [RecoveryProcessingComponent]
+  declarations: [RecoveryProcessingComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class RecoveryProcessingModule { }

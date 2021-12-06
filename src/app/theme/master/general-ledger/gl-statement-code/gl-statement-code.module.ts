@@ -11,6 +11,8 @@ import { AlternetCodeDropdownService } from '../../../../shared/dropdownService/
 import { SelectModule } from 'ng-select';
 import { DataTablesModule } from 'angular-datatables';
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -26,6 +28,12 @@ import { HttpClientModule } from '@angular/common/http';
 
   ],
   declarations: [GlStatementCodeComponent],
-  providers: [StatementTypeService, AlternetCodeDropdownService, GlStatementCodeService]
+  providers: [StatementTypeService, AlternetCodeDropdownService, GlStatementCodeService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class GlStatementCodeModule { }
+
+

@@ -7,6 +7,8 @@ import { BalanceUpdationComponent } from './balance-updation.component';
 import { BalanceUpdationService } from '../../../../shared/elements/balance-updation.service';
 import { DebitService } from '../../../../shared/elements/debit.service';
 import { SelectModule } from 'ng-select';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -17,6 +19,10 @@ import { SelectModule } from 'ng-select';
     FormsModule, ReactiveFormsModule
   ],
   declarations: [BalanceUpdationComponent],
-  providers: [BalanceUpdationService, DebitService]
+  providers: [BalanceUpdationService, DebitService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class BalanceUpdationModule { }

@@ -10,6 +10,8 @@ import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
 
 import { npcslabMasterService} from '../../../../shared/elements/npcslab-master.service';
 import {SelectModule} from 'ng-select';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor'
 
 @NgModule({
   imports: [
@@ -22,6 +24,10 @@ import {SelectModule} from 'ng-select';
    
   ],
   declarations: [NPAClassificationSlabMasterComponent],
-  providers: [npcslabMasterService]
+  providers: [npcslabMasterService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class NPAClassificationSlabMasterModule { }

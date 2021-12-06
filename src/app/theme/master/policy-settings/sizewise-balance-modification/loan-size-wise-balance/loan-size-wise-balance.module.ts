@@ -7,7 +7,8 @@ import { LoanSizeWiseBalanceRoutingModule } from './loan-size-wise-balance-routi
 import {DataTablesModule} from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from '../../../../../shared/shared.module';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from '../../../../../user-auth.interceptor';
 
 
 @NgModule({
@@ -18,6 +19,11 @@ import {SharedModule} from '../../../../../shared/shared.module';
     NgbModule,
     SharedModule  
   ],
-  declarations: [LoanSizeWiseBalanceComponent]
+  declarations: [LoanSizeWiseBalanceComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 }) 
 export class LoanSizeWiseBalanceModule { }

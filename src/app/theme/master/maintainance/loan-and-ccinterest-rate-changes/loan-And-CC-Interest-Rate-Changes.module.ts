@@ -10,6 +10,8 @@ import { S3Service } from '../../../../shared/elements/s3.service';
 import { Ac3Service } from '../../../../shared/elements/ac3.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoanAndCCInterestRateChangesService } from './loan-and-ccinterest-rate-changes.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -21,7 +23,11 @@ import { LoanAndCCInterestRateChangesService } from './loan-and-ccinterest-rate-
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [StatementTypeService, S3Service, Ac3Service, LoanAndCCInterestRateChangesService],
+  providers: [StatementTypeService, S3Service, Ac3Service, LoanAndCCInterestRateChangesService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },],
   declarations: [LoanAndCCInterestRateChangesComponent],
   bootstrap: [LoanAndCCInterestRateChangesComponent]
 })

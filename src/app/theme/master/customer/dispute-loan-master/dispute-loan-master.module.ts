@@ -36,7 +36,8 @@ import {CourtMasterDropdownService} from '../../../../shared/dropdownService/cou
 import { InstallmentMethodService } from '../../../../shared/dropdownService/installment-method.service';
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
 import { CustomeridService } from '../../../../shared/elements/customerid.service'
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor'
 import {TermLoanService} from '../term-loan-master/term-loan-master.service'
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -86,6 +87,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
 
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
     },
     ]
 })

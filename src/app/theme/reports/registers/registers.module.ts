@@ -4,6 +4,8 @@ import { RegistersComponent } from './registers.component';
 import {RegistersRoutingModule} from './registers-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 // import {ChartModule} from 'angular2-chartjs';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -11,6 +13,11 @@ import {SharedModule} from '../../../shared/shared.module';
     RegistersRoutingModule ,
     SharedModule
   ],
-  declarations: [RegistersComponent]
+  declarations: [RegistersComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class RegistersModule { }

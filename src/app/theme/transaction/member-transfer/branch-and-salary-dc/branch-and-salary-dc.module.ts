@@ -7,7 +7,8 @@ import { BranchAndSalaryDCRoutingModule } from './branch-and-salary-dc-routing.m
 
 import { BranchAndSalaryDCComponent } from './branch-and-salary-dc.component';
 import {DataTablesModule} from 'angular-datatables';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 @NgModule({
@@ -16,6 +17,11 @@ import {DataTablesModule} from 'angular-datatables';
     BranchAndSalaryDCRoutingModule,
     DataTablesModule
   ],
-  declarations: [BranchAndSalaryDCComponent]
+  declarations: [BranchAndSalaryDCComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class  BranchAndSalaryDCModule{ }

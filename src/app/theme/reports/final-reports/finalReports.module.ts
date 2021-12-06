@@ -4,7 +4,8 @@ import { FinalReportsComponent } from './final-reports.component';
 import {FinalReportsRoutingModule} from './finalReports-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 // import {ChartModule} from 'angular2-chartjs';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -12,6 +13,13 @@ import {SharedModule} from '../../../shared/shared.module';
     SharedModule
 
   ],
-  declarations: [FinalReportsComponent]
+  declarations: [FinalReportsComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },
+
+]
 })
 export class FinalReportsModule { }

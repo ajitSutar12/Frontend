@@ -4,7 +4,8 @@ import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReconciliationOTERoutingModule } from './reconciliation-ote-routing.module';
 import { ReconciliationOTEComponent } from './reconciliation-ote.component';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -12,6 +13,11 @@ import { ReconciliationOTEComponent } from './reconciliation-ote.component';
     DataTablesModule,
     FormsModule, ReactiveFormsModule
   ],
-  declarations: [ReconciliationOTEComponent, ReconciliationOTEComponent]
+  declarations: [ReconciliationOTEComponent, ReconciliationOTEComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class ReconciliationOTEModule { }

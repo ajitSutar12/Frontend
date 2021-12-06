@@ -7,6 +7,8 @@ import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
 
 import {DataTablesModule} from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -17,6 +19,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,ReactiveFormsModule
    
   ],
-  declarations: [TDReceiptTypeMasterComponent]
+  declarations: [TDReceiptTypeMasterComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class TDReceiptTypeMasterModule { }

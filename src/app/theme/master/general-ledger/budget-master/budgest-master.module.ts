@@ -6,6 +6,8 @@ import { BudgetMasterRoutingModule } from './budget-master-routing.module'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectModule } from 'ng-select';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -17,6 +19,11 @@ import { SelectModule } from 'ng-select';
     NgbModule,
     SelectModule
   ],
-  declarations: [BudgetMasterComponent]
+  declarations: [BudgetMasterComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class BudgetMasterModule { }

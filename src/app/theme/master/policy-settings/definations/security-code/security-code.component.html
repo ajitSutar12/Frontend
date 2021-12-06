@@ -40,7 +40,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="MARGIN" class="form-control" placeholder=" " id="MARGIN"
-                                        pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="3"
                                         #margin
                                         (keyup)="checkmargin(margin.value)" max="100" formControlName="MARGIN">
                                     <label for="MARGIN">Margin(%)</label>

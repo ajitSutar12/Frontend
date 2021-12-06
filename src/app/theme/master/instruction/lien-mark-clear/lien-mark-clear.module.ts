@@ -6,6 +6,8 @@ import { DataTablesModule } from 'angular-datatables';
 import { Scheme1Service } from '../../../../shared/elements/scheme1.service';
 import { AcountnoService } from '../../../../shared/elements/acountno.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -17,6 +19,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   declarations: [],
-  providers: [Scheme1Service, AcountnoService]
+  providers: [Scheme1Service, AcountnoService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },
+
+
+]
 })
 export class LienMarkClearModule { }

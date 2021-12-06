@@ -5,7 +5,8 @@ import { MasterCardComponent } from './master-card.component';
 import { MasterCardRoutingModule } from './master-card-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 
@@ -16,6 +17,11 @@ import {DataTablesModule} from 'angular-datatables';
     SharedModule,
     DataTablesModule
   ],
-  declarations: [MasterCardComponent]
+  declarations: [MasterCardComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class MasterCardModule { }

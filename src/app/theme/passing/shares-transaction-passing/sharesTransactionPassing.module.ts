@@ -10,6 +10,9 @@ import { FoundPaymentTransactionPassingComponent } from './found-payment-transac
 import { RebitInterestListComponent } from './rebit-interest-list/rebit-interest-list.component';
 // import {ChartModule} from 'angular2-chartjs';
 import {DataTablesModule} from 'angular-datatables';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { providers } from 'ng2-toasty';
 
 @NgModule({
   imports: [
@@ -18,6 +21,11 @@ import {DataTablesModule} from 'angular-datatables';
     SharedModule,
     DataTablesModule
   ],
-  declarations: [SharesTransactionPassingComponent, IssueNewSharesPassingComponent, SharesTransferPassingComponent, MembershipCancellationPassingComponent, FoundPaymentTransactionPassingComponent, RebitInterestListComponent]
+  declarations: [SharesTransactionPassingComponent, IssueNewSharesPassingComponent, SharesTransferPassingComponent, MembershipCancellationPassingComponent, FoundPaymentTransactionPassingComponent, RebitInterestListComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class SharesTransactionPassingModule { }

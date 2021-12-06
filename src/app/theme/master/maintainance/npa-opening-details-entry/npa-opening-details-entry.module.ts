@@ -11,6 +11,8 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NpaOpeningDetailsEntryService } from './npa-opening-details-entry.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -22,7 +24,11 @@ import { NpaOpeningDetailsEntryService } from './npa-opening-details-entry.servi
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [StatementTypeService, S5Service, Ac5Service, S16Service, NpaOpeningDetailsEntryService],
+  providers: [StatementTypeService, S5Service, Ac5Service, S16Service, NpaOpeningDetailsEntryService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },],
   declarations: [NpaOpeningDetailsEntryComponent],
   bootstrap: [NpaOpeningDetailsEntryComponent]
 })

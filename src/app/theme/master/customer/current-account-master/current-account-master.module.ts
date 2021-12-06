@@ -22,7 +22,8 @@ import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdow
 import { MinimumBalanceMasterDropdownService } from '../../../../shared/dropdownService/minimum-balance-master-dropdown.service'
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -39,6 +40,11 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
   providers: [CurrentAccountMasterService, CustomerIDMasterDropdownService, CustomerIdService,
     categoryMasterService, DirectorMasterDropdownService, OwnbranchMasterService, cityMasterService,
     SchemeCodeDropdownService, OperationMasterDropdownService, IntrestCategoryMasterDropdownService,
-    MinimumBalanceMasterDropdownService, SystemMasterParametersService, SchemeAccountNoService]
+    MinimumBalanceMasterDropdownService, SystemMasterParametersService, SchemeAccountNoService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },]
 })
 export class CurrentAccountMasterModule { }

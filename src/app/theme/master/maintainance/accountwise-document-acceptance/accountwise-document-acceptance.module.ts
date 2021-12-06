@@ -8,7 +8,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { S7Service } from '../../../../shared/elements/s7.service';
 import { Ac7Service } from '../../../../shared/elements/ac7.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,7 +20,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [S7Service, Ac7Service],
+  providers: [S7Service, Ac7Service,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },],
   declarations: [AccountwiseDocumentAcceptanceComponent]
 })
 export class AccountwiseDocumentAcceptanceModule { }

@@ -6,6 +6,8 @@ import {SharedModule} from '../../../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {DataTablesModule} from 'angular-datatables';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -17,6 +19,11 @@ import {DataTablesModule} from 'angular-datatables';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [TaskListComponent]
+  declarations: [TaskListComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class TaskListModule { }

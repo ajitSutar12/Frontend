@@ -48,7 +48,9 @@ import {customerinsuranceService} from '../security-details/customer-insurance/c
 import {goldandsilverService} from '../security-details/gold-and-silver/gold-and-silver.service'
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { GoldsilverService } from "../../../../shared/dropdownService/goldsilver.service";
-import{InsuranceMasterDropdownService } from '../../../../shared/dropdownService/insurance-master-dropdown.service'
+import{InsuranceMasterDropdownService } from '../../../../shared/dropdownService/insurance-master-dropdown.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -88,7 +90,16 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     stockcomponentservice,
     governmentsecuritycomponentservice,
     customerinsuranceService,
-    goldandsilverService
+    goldandsilverService,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
 
   ],
   declarations: [

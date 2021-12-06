@@ -13,7 +13,8 @@ import { Scheme15Service } from '../../../shared/elements/scheme15.service';
 import { OtherChargesGLAccountService } from '../../../shared/elements/OtherChargesGLAccount.service';
 import { NarrationService } from '../../../shared/elements/Narration.service';
 
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from '../../../user-auth.interceptor';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
@@ -32,7 +33,11 @@ import { NarrationService } from '../../../shared/elements/Narration.service';
 
     
   ],
-  providers:[Scheme14Service,Scheme15Service,OtherChargesGLAccountService,NarrationService],
+  providers:[Scheme14Service,Scheme15Service,OtherChargesGLAccountService,NarrationService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },],
   declarations: [ SavingsPigmyAccountClosingComponent]
 })
 export class  SavingsPigmyAccountClosingModule { }

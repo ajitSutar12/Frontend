@@ -9,7 +9,8 @@ import { TransactionTransferModeService } from '../../../shared/elements/transac
 import { SchemeTypeService } from '../../../shared/elements/scheme-type.service';
 import { SelectModule } from 'ng-select';
 import { FormsModule } from '@angular/forms';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +21,11 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   declarations: [VoucherEntryComponent],
-  providers:[TransactionCashModeService,TransactionTransferModeService,SchemeTypeService]
+  providers:[TransactionCashModeService,TransactionTransferModeService,SchemeTypeService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },]
 })
 export class VoucherEntryModule { }

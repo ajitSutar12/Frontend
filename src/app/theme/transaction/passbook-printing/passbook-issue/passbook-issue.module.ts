@@ -9,6 +9,8 @@ import { SelectModule } from 'ng-select';
 
 import {DataTablesModule} from 'angular-datatables';
 import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +20,11 @@ import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
     FormsModule,ReactiveFormsModule
   ],
   declarations: [PassbookIssueComponent],
-  providers:[Scheme10Service,Scheme11Service]
+  providers:[Scheme10Service,Scheme11Service,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },]
 })
 export class PassbookIssueModule { }

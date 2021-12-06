@@ -8,7 +8,8 @@ import { TrasferredMemberOBRoutingModule } from './trasferred-member-ob-routing.
 import { TrasferredMemberOBComponent } from './trasferred-member-ob.component';
 import {DataTablesModule} from 'angular-datatables';
 
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -16,6 +17,11 @@ import {DataTablesModule} from 'angular-datatables';
     TrasferredMemberOBRoutingModule,
     DataTablesModule
   ],
-  declarations: [TrasferredMemberOBComponent]
+  declarations: [TrasferredMemberOBComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class  TrasferredMemberOBModule{ }

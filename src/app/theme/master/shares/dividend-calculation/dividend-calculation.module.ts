@@ -9,6 +9,11 @@ import { MembernoService } from '../../../../shared/elements/memberno.service';
 import { BranchService } from '../../../../shared/elements/branch.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectModule } from 'ng-select';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+
+
+
 
 @NgModule({
   imports: [
@@ -21,7 +26,13 @@ import { SelectModule } from 'ng-select';
     ReactiveFormsModule
   ],
   declarations: [DividendCalculationComponent],
-  providers: [SchemeCodeService, MembernoService, BranchService]
+  providers: [SchemeCodeService, MembernoService, BranchService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },
+
+]
 
 })
 export class DividendCalculationModule { }

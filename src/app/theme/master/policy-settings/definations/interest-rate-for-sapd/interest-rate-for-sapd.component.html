@@ -8,7 +8,7 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Scheme*" required title="Compulsory Selection" formControlName="ACNOTYPE">
                                 </ng-select>
@@ -19,7 +19,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="interestcategory" [multiple]="false" placeholder="Int.Category *" required title="Compulsory Selection" formControlName="INT_CATEGORY">
                                 </ng-select>
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm col-lg-3">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="EFFECT_DATE" class="form-control" placeholder=" " required
@@ -45,13 +45,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="INT_RATE" class="form-control" placeholder=" "
-                                        id="INT_RATE" required pattern="\d{0,2}(\.\d{1,2})?"   #margin
+                                        id="INT_RATE" required pattern="\d{1,2}(\.\d{1,2})?"   #margin maxlength="5"
                                         (keyup)="checkmargin(margin.value)" title="Input allowed only  0-9"
                                         formControlName="INT_RATE">
                                     <label for="INT_RATE">Interest Rate<sub class="required">* </sub></label>
@@ -63,15 +61,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                        </div>
-                        <div class="col-sm-4">
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">New
                                 Interest Rate</button>
                         </div>
                     </div>
+                    
                 </div>
             </form>
         </div>

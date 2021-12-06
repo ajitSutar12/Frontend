@@ -72,6 +72,8 @@ import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdow
 import { StatementCodeDropdownService } from '../../../../shared/dropdownService/statement-code-dropdown.service';
 import { PercentageToWCapitalService } from '../../../../shared/dropdownService/percentage-to-W-Capital.service';
 import { DisplayToViewService } from '../../../../shared/dropdownService/display-to-view.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -136,6 +138,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
     ChargesTypeService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
   ],
   declarations: [DefinationsComponent, SchemeTypeChargesDComponent, TermDepositIRComponent, InterestRateForSAPDComponent, InterestRateForLACCComponent, TermDepositPatSchemeComponent, SecurityCodeComponent, ManagerViewGLPComponent, SchemeLinkingWithDComponent, DepreciationRateMasterComponent, PrematurePigmyLessIRComponent, TdsInterestRateComponent, SizeSlabWiseARComponent,]
 })

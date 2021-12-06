@@ -35,12 +35,12 @@ import { UserAuthInterceptor } from './user-auth.interceptor';
     HttpClientModule,
     HotkeyModule.forRoot(), // adding HotkeysModule
   ],
-  providers: [MenuItems,{
+  providers: [MenuItems,
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true
-    }
-  ],
+    },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

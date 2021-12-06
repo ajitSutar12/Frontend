@@ -10,7 +10,8 @@ import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
 import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
 
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -22,6 +23,11 @@ import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
     SelectModule
   ],
   declarations: [SharesLedgerViewComponent],
-  providers: [Scheme9Service,AccountnoService]
+  providers: [Scheme9Service,AccountnoService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },]
 })
 export class SharesLedgerViewModule { }

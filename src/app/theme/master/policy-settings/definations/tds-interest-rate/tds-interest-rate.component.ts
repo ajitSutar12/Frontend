@@ -205,6 +205,15 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
     })
   }
 
+   //method for adding hyphen in date
+   addhyphen(data: any) {
+    let result = data
+      .replace(/\D/g, "")
+      .split(/(?:([\d]{4}))/g)
+      .filter((s) => s.length > 0)
+      .join("-");
+    (document.getElementById("FIN_YEAR") as HTMLInputElement).value = result;
+  }
   //Method for update data 
   updateData(id) {
     let data = this.angForm.value;

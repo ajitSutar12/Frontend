@@ -7,7 +7,8 @@ import {DataTablesModule} from 'angular-datatables';
 import {FormsModule} from '@angular/forms';
 import { TblSearchingComponent } from './tbl-searching/tbl-searching.component';
 import {SharedModule} from '../../../shared/shared.module';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +17,11 @@ import {SharedModule} from '../../../shared/shared.module';
     FormsModule,
     DataTablesModule
   ],
-  declarations: [TblDatatableComponent, TblSearchingComponent]
+  declarations: [TblDatatableComponent, TblSearchingComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class TblDatatableModule { }

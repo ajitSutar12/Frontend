@@ -22,12 +22,18 @@ import { TransactionRoutingModule } from './transaction-routing.module';
 // import { MultiVoucherComponent } from './multi-voucher/multi-voucher.component';
 // import { VoucherEntryComponent } from './voucher-entry/voucher-entry.component';  
 
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     TransactionRoutingModule
-  ]
+  ],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class TransactionModule { }

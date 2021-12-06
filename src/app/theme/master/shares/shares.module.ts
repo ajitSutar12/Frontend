@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common';
 import { SharesComponent } from './shares.component';
 import { SharesRoutingModule } from './shares-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+
+
 
 
 @NgModule({
@@ -12,6 +16,11 @@ import {SharedModule} from '../../../shared/shared.module';
     SharesRoutingModule,
     SharedModule
   ],
-  declarations: [SharesComponent]
+  declarations: [SharesComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class SharesModule { }

@@ -53,7 +53,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="MONTHS" class="form-control" placeholder=" "
-                                                id="months" #month pattern="^[0-9]+$"  (keyup)="disableinput()" maxlength="3"   title="Input allowed only 0-9"
+                                                id="months" #month pattern="^[0-9]+$"   maxlength="3"   title="Input allowed only 0-9"
                                                 formControlName="MONTHS">
                                             <label for="MONTHS"> Months</label>
                                         </span>
@@ -68,13 +68,13 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="DAYS" class="form-control" placeholder=" "
-                                                id="days" pattern="^[0-9]+$"  #day (keyup)="disableinput()" title="Input allowed only 0-9"
+                                                id="days" pattern="^[0-9]+$"  maxlength="3" #day  title="Input allowed only 0-9"
                                                 formControlName="DAYS">
                                             <label for="DAYS">Days</label>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DAYS'].invalid && (angForm.controls['DAYS'].dirty || angForm.controls['DAYS'].touched)" class="alert alert-danger">
-                                        <div *ngIf="angForm.controls['DAYS'].errors?.pattern">
+                                        <div *ngIf="angForm.controls['DAYS'].errors?.pattern || angForm.controls['DAYS'].errors?.maxlength">
                                             Input allowed only 0-9
                                         </div>
                                     </div>
@@ -83,7 +83,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="INT_RATE" class="form-control" placeholder=" "
-                                            pattern="\d{1,2}(\.\d{2})?" id="INT_RATE" maxlength="20"
+                                            pattern="\d{1,2}(\.\d{2})?" id="INT_RATE" maxlength="5"
                                             #margin
                                             (keyup)="checkmargin(margin.value)"
                                             (keyup)="checkinput()"
@@ -140,7 +140,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">Add</button>
+                            <button class="btn btn-primary ripple light" [disabled] ="myform.invalid" (click)="submit()" *ngIf="showButton">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">New</button>
                         </div>

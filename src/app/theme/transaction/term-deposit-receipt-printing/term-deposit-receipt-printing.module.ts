@@ -10,7 +10,8 @@ import {SelectModule} from 'ng-select';
 import {ColorPickerModule} from 'ngx-color-picker';
 import {FormsModule} from '@angular/forms';
 import {DataTablesModule} from 'angular-datatables';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 
@@ -27,6 +28,11 @@ import {DataTablesModule} from 'angular-datatables';
     
     
   ],
-  declarations: [TermDepositReceiptPrintingComponent]
+  declarations: [TermDepositReceiptPrintingComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class TermDepositReceiptPrintingModule { }

@@ -9,6 +9,8 @@ import { DPMasterACNODropdownService } from '../../../../shared/dropdownService/
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service'
 import { FreezeAccountService } from './freeze-account.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +21,10 @@ import { FreezeAccountService } from './freeze-account.service';
     ReactiveFormsModule
   ],
   declarations: [],
-  providers: [freezeAccountService, SchemeCodeDropdownService, DPMasterACNODropdownService, FreezeAccountService,CustomerIDMasterDropdownService]
+  providers: [freezeAccountService, SchemeCodeDropdownService, DPMasterACNODropdownService, FreezeAccountService,CustomerIDMasterDropdownService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class FreezeAccountModule { }

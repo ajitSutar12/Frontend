@@ -11,11 +11,9 @@ import {  StatementTypeService} from '../../../shared/elements/statement-type.se
 import {SelectModule} from 'ng-select';
 import {DataTablesModule} from 'angular-datatables';
 import {FileUploadModule} from 'ng2-file-upload';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-
-
-
 
 @NgModule({
   imports: [
@@ -29,7 +27,12 @@ import {FileUploadModule} from 'ng2-file-upload';
 
     
   ],
-  providers:[StatementTypeService],
-  declarations: [ BatchVoucherComponent]
+  providers:[StatementTypeService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },],
+  declarations: [ BatchVoucherComponent],
+  
 })
 export class  BatchVoucherModule { }

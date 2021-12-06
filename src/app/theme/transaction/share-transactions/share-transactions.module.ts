@@ -15,7 +15,8 @@ import {DataTablesModule} from 'angular-datatables';
 
 import {SelectOptionService} from '../../../shared/elements/select-option.service';
 import {SelectModule} from 'ng-select';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,6 +26,11 @@ import {SelectModule} from 'ng-select';
     SelectModule
   ],
   declarations: [ShareTransactionsComponent, IssueNewSharesComponent, SharesTransferComponent, MembershipCancellationComponent, FoundPaymentTransactionComponent, OpeningSharesTransactionsEntryComponent, RebitInterestTransactionComponent],
-  providers: [SelectOptionService,glMasterService]
+  providers: [SelectOptionService,glMasterService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },]
 })
 export class ShareTransactionsModule { }

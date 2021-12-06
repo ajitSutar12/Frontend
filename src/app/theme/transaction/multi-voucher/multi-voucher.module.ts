@@ -10,7 +10,8 @@ import { SchemeCodeService } from '../../../shared/elements/scheme-code.service'
 import { AgentCodeService } from '../../../shared/elements/agent-code.service';
 import { TransactionModeService } from '../../../shared/elements/transaction-mode.service';
 
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SelectModule } from 'ng-select';
 import { FormsModule } from '@angular/forms';
 
@@ -24,6 +25,10 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   declarations: [MultiVoucherComponent],
-  providers:[SchemeTypeService,SchemeCodeService,AgentCodeService, TransactionModeService]
+  providers:[SchemeTypeService,SchemeCodeService,AgentCodeService, TransactionModeService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class MultiVoucherModule { }

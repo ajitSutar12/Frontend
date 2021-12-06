@@ -5,7 +5,8 @@ import { CalculateInterestUnpassingComponent } from './calculate-interest-unpass
 import { CalculateInterestUnpassingRoutingModule } from './calculate-interest-Unpassing-routing.module';
 import {SharedModule} from '../../../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from '../../../../../user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -14,6 +15,11 @@ import {DataTablesModule} from 'angular-datatables';
     SharedModule,
     DataTablesModule
   ],
-  declarations: [ CalculateInterestUnpassingComponent]
+  declarations: [ CalculateInterestUnpassingComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class CalculateInterestUnpassingModule { }

@@ -13,6 +13,12 @@ import { LoanInstallmentEditComponent } from './loan-installment-edit/loan-insta
 // import { SharesCancellationComponent } from './shares-cancellation/shares-cancellation.component';
 // import { SharescancellationComponent } from './sharescancellation/sharescancellation.component';
 import { SharesCancellationComponent } from './shares-cancellation/shares-cancellation.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+
+
+
+
 
 
 
@@ -23,6 +29,11 @@ import { SharesCancellationComponent } from './shares-cancellation/shares-cancel
     DataTablesModule
     
   ],
-  declarations: [MemberComponent,MemberComponent, MemberBalanceAdditionComponent, RecoveryInstallmentComponent, SharesBalanceAdditionComponent, BalanceAdditionSharesAccountwiseComponent, LoanInstallmentEditComponent, SharesCancellationComponent]
+  declarations: [MemberComponent,MemberComponent, MemberBalanceAdditionComponent, RecoveryInstallmentComponent, SharesBalanceAdditionComponent, BalanceAdditionSharesAccountwiseComponent, LoanInstallmentEditComponent, SharesCancellationComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class MemberModule { }

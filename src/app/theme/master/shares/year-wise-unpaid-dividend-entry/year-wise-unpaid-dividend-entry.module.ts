@@ -19,6 +19,11 @@ import{ SalaryDMasterdropdownService} from '../../../../shared/dropdownService/s
  
 import { CustomerIdService } from '../../customer/customer-id/customer-id.service';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+
+
+
 
 @NgModule({
   imports: [
@@ -37,7 +42,12 @@ import { CustomerIdService } from '../../customer/customer-id/customer-id.servic
      ShareMasterDropdownService,
      ShareMasterService,
      ShareSchemeDropdownService,
-     CustomerIdService
+     CustomerIdService,
+     {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
     ]
 
 })

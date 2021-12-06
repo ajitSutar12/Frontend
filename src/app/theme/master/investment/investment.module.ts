@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { InvestmentComponent } from './investment.component';
 import { InvestmentRoutingModule } from './investment-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 
@@ -13,6 +15,11 @@ import {SharedModule} from '../../../shared/shared.module';
     InvestmentRoutingModule,
     SharedModule
   ],
-  declarations: [InvestmentComponent]
+  declarations: [InvestmentComponent,],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class InvestmentModule { }

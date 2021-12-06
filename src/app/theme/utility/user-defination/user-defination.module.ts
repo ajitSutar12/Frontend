@@ -8,8 +8,7 @@ import { UserdefinationServiceD } from '../../../shared/dropdownService/user-def
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
 import { UserDefinationService } from './user-defination.service'
 import { DataTablesModule } from 'angular-datatables';
-import { SelectModule } from 'ng-select';
-import { HttpClientModule } from '@angular/common/http';
+import {SelectModule} from 'ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
@@ -21,16 +20,15 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     ReactiveFormsModule,
     DataTablesModule,
     SelectModule,
-    HttpClientModule
+  
 
   ],
   declarations: [UserDefinationComponent],
-  providers: [UserdefinationServiceD, UserDefinationService, OwnbranchMasterService,
+  providers:[UserdefinationServiceD,UserDefinationService,OwnbranchMasterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true
-    },
-  ]
+    },]
 })
 export class UserDefinationModule { }

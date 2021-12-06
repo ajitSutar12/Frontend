@@ -26,6 +26,8 @@ import { MinimumBalanceMasterDropdownService } from '../../../../shared/dropdown
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -69,7 +71,12 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
     },
 
     SystemMasterParametersService,
-    SchemeAccountNoService
+    SchemeAccountNoService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
   ]
 })
 export class SavingMasterModule { }

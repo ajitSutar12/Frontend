@@ -9,7 +9,8 @@ import {FileUploadModule} from 'ng2-file-upload';
 
 import {SelectModule} from 'ng-select';
 
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +21,11 @@ import {SelectModule} from 'ng-select';
     
     SelectModule
   ],
-  declarations: [RecoveryDataImportExportComponent]
+  declarations: [RecoveryDataImportExportComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class RecoveryDataImportExportModule { }

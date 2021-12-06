@@ -11,6 +11,8 @@ import { S19Service } from '../../../../shared/elements/s19.service'
 import { SelectModule } from 'ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -23,6 +25,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   declarations: [NotingChargesComponent],
-  providers: [SimService, S8Service, Ac8Service, S18Service, S19Service]
+  providers: [SimService, S8Service, Ac8Service, S18Service, S19Service,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class NotingChargesModule { }

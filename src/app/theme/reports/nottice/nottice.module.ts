@@ -4,6 +4,10 @@ import { NotticeComponent } from './nottice.component';
 import {NotticeRoutingModule} from './nottice-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 // import {ChartModule} from 'angular2-chartjs';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+
+
 
 @NgModule({
   imports: [
@@ -12,6 +16,11 @@ import {SharedModule} from '../../../shared/shared.module';
     SharedModule
 
   ],
-  declarations: [NotticeComponent]
+  declarations: [NotticeComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class NotticeModule { }

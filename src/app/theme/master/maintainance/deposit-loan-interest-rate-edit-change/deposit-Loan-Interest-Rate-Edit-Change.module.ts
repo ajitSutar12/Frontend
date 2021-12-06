@@ -9,6 +9,8 @@ import { S4Service } from '../../../../shared/elements/s4.service';
 import { Ac4Service } from '../../../../shared/elements/ac4.service';
 import { S15Service } from '../../../../shared/elements/s15.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -20,7 +22,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [S4Service, Ac4Service, S15Service],
+  providers: [S4Service, Ac4Service, S15Service,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },],
   declarations: [DepositLoanInterestRateEditChangeComponent]
 })
 export class DepositLoanInterestRateEditChangeModule { }

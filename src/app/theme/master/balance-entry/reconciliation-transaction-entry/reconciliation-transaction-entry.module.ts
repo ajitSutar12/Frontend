@@ -4,7 +4,8 @@ import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReconciliationTransactionEntryRoutingModule } from './reconciliation-transaction-entry-routing.module';
 import { ReconciliationTransactionEntryComponent } from './reconciliation-transaction-entry.component';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -12,6 +13,11 @@ import { ReconciliationTransactionEntryComponent } from './reconciliation-transa
     DataTablesModule,
     FormsModule, ReactiveFormsModule
   ],
-  declarations: [ReconciliationTransactionEntryComponent]
+  declarations: [ReconciliationTransactionEntryComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class ReconciliationTransactionEntryModule { }

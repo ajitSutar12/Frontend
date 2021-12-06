@@ -8,7 +8,8 @@ import { TitleService } from '../../../../shared/elements/title.service';
 import { AccountcodeService } from '../../../../shared/elements/accountcode.service';
 import { SelectModule } from 'ng-select';
 import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -20,6 +21,10 @@ import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
     FormsModule,ReactiveFormsModule   
   ],
   declarations: [TermDepositsMasterComponent],
-  providers:[TitleService,AccountcodeService]
+  providers:[TitleService,AccountcodeService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class  TermDepositsMasterModule { }

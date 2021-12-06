@@ -265,27 +265,27 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
-  disableinput() {
-    debugger
-    this.days = (document.getElementById("days") as HTMLInputElement);
-    this.months = (document.getElementById("months") as HTMLInputElement);
+  // disableinput() {
+  //   debugger
+  //   this.days = (document.getElementById("days") as HTMLInputElement);
+  //   this.months = (document.getElementById("months") as HTMLInputElement);
 
-  //for days input field
-    if (this.days.value != "") {
+  // //for days input field
+  //   if (this.days.value != "") {
      
-        this.months.disabled= true;
-    }
-    else{
-      this.months.disabled= false;
-    }
-    if(this.months.value != ""){
-      this.days.disabled = true;
-    }
-    else{
-      this.days.disabled = false;
-    }
+  //       this.months.disabled= true;
+  //   }
+  //   else{
+  //     this.months.disabled= false;
+  //   }
+  //   if(this.months.value != ""){
+  //     this.days.disabled = true;
+  //   }
+  //   else{
+  //     this.days.disabled = false;
+  //   }
 
-  }
+  // }
 
 //checking input for days and months
   checkinput() {
@@ -301,7 +301,7 @@ debugger
         'warning'
       )
       }
-      else if (this.days == 0 ||  this.months == 0)  {
+      else if (this.days == 0 && this.months == 0)  {
         Swal.fire(
           'Invalid Input',
           'Days or Months value must not be equal to zero ',

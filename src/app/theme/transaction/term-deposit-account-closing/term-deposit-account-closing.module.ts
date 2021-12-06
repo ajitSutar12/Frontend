@@ -8,6 +8,8 @@ import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SchemeCodeService } from '../../../shared/elements/scheme-code.service';
 import { AcountnoService } from '../../../shared/elements/acountno.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +20,11 @@ import { AcountnoService } from '../../../shared/elements/acountno.service';
     SelectModule
   ],
   declarations: [TermDepositAccountClosingComponent],
-  providers: [SchemeCodeService, AcountnoService]
+  providers: [SchemeCodeService, AcountnoService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },]
 })
 export class TermDepositAccountClosingModule { }

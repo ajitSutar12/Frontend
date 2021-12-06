@@ -18,6 +18,8 @@ import {SelectOptionService} from '../../../shared/elements/select-option.servic
 import {SelectModule} from 'ng-select';
 import {DataTablesModule} from 'angular-datatables';
 import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor'
 
 
 
@@ -32,6 +34,10 @@ import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
     ReactiveFormsModule 
   ],
   declarations: [InstructionComponent, OverDraftComponent, StandingInstructionComponent, InterestInstructionComponent, SpecialComponent, FreezeAccountComponent, ReminderInstructionComponent,  RevokeInterestInstructionComponent, RevokeSpecialInstructionComponent, LienMarkClearComponent, RevokeStandingInstructionsComponent],
-  providers: [SelectOptionService]
+  providers: [SelectOptionService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class InstructionModule { }

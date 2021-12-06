@@ -8,7 +8,8 @@ import { MemberTransferTransactiontRoutingModule } from './member-transfer-trans
 import { MemberTransferTransactionComponent } from './member-transfer-transaction.component';
 import {DataTablesModule} from 'angular-datatables';
 
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 @NgModule({
@@ -17,6 +18,11 @@ import {DataTablesModule} from 'angular-datatables';
     MemberTransferTransactiontRoutingModule,
     DataTablesModule
   ],
-  declarations: [MemberTransferTransactionComponent]
+  declarations: [MemberTransferTransactionComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class  MemberTransferTransactionModule { }

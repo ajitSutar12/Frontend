@@ -318,33 +318,33 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     }
   }
 
-  //disable input fields 
-  disableinput() {
-    this.fromdays = (document.getElementById("Formdays") as HTMLInputElement);
-    this.todays = (document.getElementById("todays") as HTMLInputElement);
-    this.frommonths = (document.getElementById("FROM_months") as HTMLInputElement);
-    this.tomonths = (document.getElementById("TO_months") as HTMLInputElement);
+  // //disable input fields 
+  // disableinput() {
+  //   this.fromdays = (document.getElementById("Formdays") as HTMLInputElement);
+  //   this.todays = (document.getElementById("todays") as HTMLInputElement);
+  //   this.frommonths = (document.getElementById("FROM_months") as HTMLInputElement);
+  //   this.tomonths = (document.getElementById("TO_months") as HTMLInputElement);
 
-  //for days input field
-    if (this.fromdays.value != "" || this.todays.value != "") {
-      this.frommonths.disabled = true;
-        this.tomonths.disabled= true;
-    }
-    else{
-      this.frommonths.disabled = false;
-      this.tomonths.disabled= false;
-    }
+  // //for days input field
+  //   if (this.fromdays.value != "" || this.todays.value != "") {
+  //     this.frommonths.disabled = true;
+  //       this.tomonths.disabled= true;
+  //   }
+  //   else{
+  //     this.frommonths.disabled = false;
+  //     this.tomonths.disabled= false;
+  //   }
 
-  //for months input field
-    if (this.frommonths.value != "" || this.tomonths.value != "") {
-      this.fromdays.disabled = true;
-        this.todays.disabled= true;
-    }
-    else{
-      this.fromdays.disabled = false;
-      this.todays.disabled= false;
-    }
-  }
+  // //for months input field
+  //   if (this.frommonths.value != "" || this.tomonths.value != "") {
+  //     this.fromdays.disabled = true;
+  //       this.todays.disabled= true;
+  //   }
+  //   else{
+  //     this.fromdays.disabled = false;
+  //     this.todays.disabled= false;
+  //   }
+  // }
   //Method for update data 
   updateData() {
     let data = this.angForm.value;

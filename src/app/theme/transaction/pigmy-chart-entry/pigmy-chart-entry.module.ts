@@ -11,7 +11,8 @@ import {FormsModule} from '@angular/forms';
 import {DataTablesModule} from 'angular-datatables';
 import { SchemeCodeService } from '../../../shared/elements/scheme-code.service';
 import { AgentCodeService } from '../../../shared/elements/agent-code.service';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 @NgModule({
   imports: [
@@ -25,6 +26,10 @@ import { AgentCodeService } from '../../../shared/elements/agent-code.service';
     SelectModule
   ],
   declarations: [PigmyChartEntryComponent],
-  providers: [SchemeCodeService, AgentCodeService]
+  providers: [SchemeCodeService, AgentCodeService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },],
 })
 export class PigmyChartEntryModule { }

@@ -6,7 +6,8 @@ import {DataTablesModule} from 'angular-datatables';
 
 import { BalanceOSCDARoutingModule } from './balance-oscda-routing.module';
 import { BalanceOSCDAComponent } from './balance-oscda.component';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 @NgModule({
@@ -16,6 +17,11 @@ import { BalanceOSCDAComponent } from './balance-oscda.component';
     DataTablesModule
     
   ],
-  declarations: [BalanceOSCDAComponent, BalanceOSCDAComponent]
+  declarations: [BalanceOSCDAComponent, BalanceOSCDAComponent],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class BalanceOSCDAModule { }

@@ -11,15 +11,15 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="FIN_YEAR" class="form-control" placeholder=" "
-                                        id="FIN_YEAR" required="" minlength="8" maxlength="8" pattern="^[0-9]+$"
+                                    <input type="text" name="FIN_YEAR" class="form-control" placeholder=" " #finyear
+                                        id="FIN_YEAR" required="" minlength="9" maxlength="9" pattern="^[0-9 -]+$" (keyup)="addhyphen(finyear.value)"
                                         title="Input allowed only  0-9" formControlName="FIN_YEAR">
                                     <label for="FIN_YEAR">Financial Year<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['FIN_YEAR'].invalid && (angForm.controls['FIN_YEAR'].dirty || angForm.controls['FIN_YEAR'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FIN_YEAR'].errors?.pattern || angForm.controls['FIN_YEAR'].errors?.minlength || angForm.controls['FIN_YEAR'].errors?.maxlength || angForm.controls['FIN_YEAR'].errors?.required">
-                                    This field is required and Input allowed only 0-9(8 digit between two years from and to (i.e.20212022))
+                                    This field is required and Input allowed only 0-9(8 digit between two years from and to (i.e.2021-2022))
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="INTEREST_AMOUNT" class="form-control" placeholder=" "
                                         id="INTEREST_AMOUNT" required="" 
-                                        pattern="\d{1,10}(\.\d{2})?" title="Input allowed only  0-9"
+                                        pattern="\d{1,10}(\.\d{2})?" title="Input allowed only  0-9" maxlength="13"
                                         formControlName="INTEREST_AMOUNT">
                                     <label for="INTEREST_AMOUNT">Interest Amount<sub class="required">* </sub></label>
                                 </span>
@@ -60,7 +60,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="TDS_RATE" class="form-control" placeholder=" "
-                                        id="TDS_RATE" required=""  pattern="\d{1,2}(\.\d{2})?" 
+                                        id="TDS_RATE" required=""  pattern="\d{1,2}(\.\d{2})?" maxlength="5"
                                         title="Input allowed only  0-9" formControlName="TDS_RATE">
                                     <label for="TDS_RATE">TDS Rate<sub class="required">* </sub></label>
                                 </span>
@@ -75,7 +75,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="SURCHARGE_RATE" class="form-control" placeholder=" "
-                                        id="SURCHARGE_RATE"  pattern="\d{1,2}(\.\d{2})?" 
+                                        id="SURCHARGE_RATE"  pattern="\d{1,2}(\.\d{2})?" maxlength="5"
                                         title="Input allowed only  0-9" formControlName="SURCHARGE_RATE">
                                     <label for="SURCHARGE_RATE">Surcharge Rate</label>
                                 </span>

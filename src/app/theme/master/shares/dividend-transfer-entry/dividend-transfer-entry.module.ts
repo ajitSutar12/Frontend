@@ -9,6 +9,10 @@ import { AcountnoService } from '../../../../shared/elements/acountno.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SelectModule } from 'ng-select';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+
+
 
 @NgModule({
   imports: [
@@ -21,6 +25,10 @@ import { SelectModule } from 'ng-select';
     ReactiveFormsModule
   ],
   declarations: [DividendTransferEntryComponent],
-  providers: [Scheme1Service, MembernoService, AcountnoService]
+  providers: [Scheme1Service, MembernoService, AcountnoService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class DividendTransferEntryModule { }
