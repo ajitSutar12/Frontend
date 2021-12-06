@@ -35,3 +35,38 @@ ng-select.ng-select>div>div.single {
   .dataTables_wrapper .dataTables_length {
     float: right;
   }
+  
+   input[type="text"]:focus {
+      border: 2px solid green;
+      outline: none;
+     }
+     
+     ng-select:focus {
+        border: 2px solid green;
+        outline: none;
+    }
+
+    input[type="date"]:focus {
+        border: 2px solid green;
+        outline: none;
+    }
+
+    input[type="checkbox"]:focus {
+        border: 2px solid green;
+        outline: none;
+    }
+
+    .below:focus{
+        border: 2px solid green;
+        outline: none;
+    }
+
+    .border-checkbox-label:focus{
+        border: 2px solid green;
+        outline: none;
+    }
+
+    // *:focus{
+    //     border: 2px solid green !important;
+    //     outline: none;
+    // }

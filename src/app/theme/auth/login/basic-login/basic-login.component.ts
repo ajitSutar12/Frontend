@@ -26,6 +26,7 @@ export class BasicLoginComponent implements OnInit {
       "password" : this.password
     }
     this._authService.login(dataObject).subscribe(data=>{
+      console.log(data);
       localStorage.setItem('token', data.access_token);
       localStorage.setItem('user',JSON.stringify(data.user));
       this.router.navigate(['/dashboard/default']);

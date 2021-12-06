@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { RoleMasterModule } from './role-master.module';
 import { RoleMasterService } from './role-master.service';
@@ -14,6 +14,7 @@ import { DataTableDirective } from 'angular-datatables';
 export class RoleMasterComponent implements OnInit {
   angForm: FormGroup;
   RoleList: any;
+  checked:boolean = true;
 
   roleId: number;
   updateButton: boolean = false;
@@ -48,13 +49,12 @@ export class RoleMasterComponent implements OnInit {
       columnDefs: [
         { orderable: false, targets: -1 }
       ]
-
     };
 
 
     this.angForm = this.fb.group({
       NAME: ['', [Validators.required, Validators.pattern]],
-      STATUS: ['', [Validators.pattern]],
+      STATUS: new FormControl('active'),
     })
   }
 

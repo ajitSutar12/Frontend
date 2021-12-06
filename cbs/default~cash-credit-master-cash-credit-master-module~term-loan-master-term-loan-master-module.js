@@ -190,7 +190,7 @@ class SecurityMasterdropdownService {
         return this.http.get(this.url + '/security-code')
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
             ele.forEach(element => {
-                let obj = { label: element.SECU_CODE + ' ' + element.SECU_NAME, value: `${element.id}`, name: element.SECU_NAME, id: element.SECU_CODE };
+                let obj = { label: element.SECU_CODE, value: `${element.id}` };
                 this.securityObject.push(obj);
             });
             return this.securityObject;
@@ -257,6 +257,9 @@ class InterestRateForLoanandCCService {
     //Deletion Operation
     deleteData(id) {
         return this.http.delete(this.url + '/interest-rate-for-loan-and-cc/delete/' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+    }
+    intData(INT_CATEGORY) {
+        return this.http.delete(this.url + '/interest-rate-for-loan-and-cc/delete/' + INT_CATEGORY).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     }
 }
 InterestRateForLoanandCCService.ɵfac = function InterestRateForLoanandCCService_Factory(t) { return new (t || InterestRateForLoanandCCService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"])); };

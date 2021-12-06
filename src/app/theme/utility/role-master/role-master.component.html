@@ -29,7 +29,7 @@
                                     <label>
                                         <input type="radio" name="STATUS"
                                             checked="checked" value="active"
-                                            formControlName="STATUS">
+                                            formControlName="STATUS" [attr.checked]="true">
                                         <i class="helper"></i>Active
                                     </label>
                                 </div>
@@ -61,7 +61,7 @@
                 Role Master List
             </div>
             <div class="card-body">
-                <table class="table table-striped" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                <table class="table table-striped" datatable [dtOptions]="dtOptions">
                     <thead>
                         <tr>
                         <th></th>

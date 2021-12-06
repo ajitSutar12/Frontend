@@ -126,6 +126,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth-routing.module */ "./src/app/theme/auth/auth-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared/shared.module */ "./src/app/shared/shared.module.ts");
 /* harmony import */ var _auth_guard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth.guard */ "./src/app/theme/auth/auth.guard.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var _auth_interceptor_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./auth.interceptor.service */ "./src/app/theme/auth/auth.interceptor.service.ts");
 
 
 
@@ -133,10 +135,17 @@ __webpack_require__.r(__webpack_exports__);
 // import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 
 
+
+
 class AuthModule {
 }
 AuthModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: AuthModule });
 AuthModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AuthModule_Factory(t) { return new (t || AuthModule)(); }, providers: [
+        {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: _auth_interceptor_service__WEBPACK_IMPORTED_MODULE_6__["AuthInterceptorServices"],
+            multi: true
+        },
         // { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
         // JwtHelperService,
         _auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]
@@ -158,6 +167,11 @@ AuthModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjecto
                 ],
                 declarations: [],
                 providers: [
+                    {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: _auth_interceptor_service__WEBPACK_IMPORTED_MODULE_6__["AuthInterceptorServices"],
+                        multi: true
+                    },
                     // { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
                     // JwtHelperService,
                     _auth_guard__WEBPACK_IMPORTED_MODULE_4__["AuthGuard"]

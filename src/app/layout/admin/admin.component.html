@@ -32,7 +32,7 @@
             <!--start bank name label  -->
             <li class="header-notification ripple light">
               <a href="javascript:">
-                <span>Branch Name Here</span>
+                <span style="font-size: 16px;font-weight: bold;">{{bankName}}</span>
                 <!-- <span>Kolhapur Urban Co-operative Bank PVT. LTD</span> -->
               </a>
             </li>
@@ -294,9 +294,9 @@
             <div class="pcoded-inner-navbar main-menu" appAccordion>
               <div class="">
                 <div class="main-menu-header">
-                  <!-- <img class="img-menu-user img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image"> -->
+                  <img class="img-menu-user" src="assets/images/comp.png" alt="User-Profile-Image">
                   <div class="user-details">
-                    <span id="more-details" (click)="toggleOpenedSidebar()"> Bank Name Here
+                    <span id="more-details" (click)="toggleOpenedSidebar()" style="font-weight: bold;"> {{barnchName}}
                       <!-- <i class="fa fa-caret-down m-l-10"></i> -->
                     </span>
                   </div>

@@ -117,6 +117,10 @@ const routes: Routes = [
         path: 'demandDraftDEI',
         loadChildren: () => import('./demand-draft-dei/demand-draft-dei.module').then(m => m.DemandDraftDEIModule)
       },
+      {
+        path: 'menulist',
+        loadChildren: ()=> import('./menulist/menulist.module').then(m=>m.MenulistModule)
+      }
     ]
   }
 ];

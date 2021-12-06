@@ -25,7 +25,7 @@ export class UserDefinationService {
   }
   // For append data
   getFormData(id: any): Observable<any> {
-    return this.http.get(this.url + '/' + id).pipe(catchError(this.handleError));
+    return this.http.get(this.url + '/user-defination/' + id).pipe(catchError(this.handleError));
   }
   //Updation Operation
   updateData(data): Observable<any> {
@@ -36,6 +36,10 @@ export class UserDefinationService {
     return this.http.delete(this.url + '/user-defination/delete/' + id).pipe(catchError(this.handleError));
   }
 
+  //update Role and Branch
+  updateRoleBranch(data: any): Observable<any>{
+    return this.http.post(this.url+'/user-defination/updateRoleBranch',data).pipe(catchError(this.handleError));
+  }
 
   //get user list
   getRoleList(): Observable<any> {

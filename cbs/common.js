@@ -1514,6 +1514,68 @@ SharesSchemeService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
 
 /***/ }),
 
+/***/ "./src/app/theme/utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service.ts":
+/*!**********************************************************************************************!*\
+  !*** ./src/app/theme/utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service.ts ***!
+  \**********************************************************************************************/
+/*! exports provided: TermLoanSchemeService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TermLoanSchemeService", function() { return TermLoanSchemeService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_Rx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/Rx */ "./node_modules/rxjs/Rx.js");
+/* harmony import */ var rxjs_Rx__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(rxjs_Rx__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+
+
+
+
+
+
+
+
+class TermLoanSchemeService {
+    constructor(http) {
+        this.http = http;
+        // API 
+        // // term-loan-scheme";
+        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].base_url;
+    }
+    //Insertion Operation
+    postData(data) {
+        return this.http.post(this.url + '/term-loan-scheme/insert', data).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((res) => res), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])((error) => {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Please Input Proper Data !');
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
+        }));
+    }
+    // For append data
+    getFormData(id) {
+        return this.http.get(this.url + '/term-loan-scheme/' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+    }
+    //Updation Operation
+    updateData(data) {
+        return this.http.put(this.url + '/term-loan-scheme/update', data);
+    }
+    getData(code) {
+        return this.http.get(this.url + '/term-loan-scheme/' + code).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+    }
+}
+TermLoanSchemeService.ɵfac = function TermLoanSchemeService_Factory(t) { return new (t || TermLoanSchemeService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"])); };
+TermLoanSchemeService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: TermLoanSchemeService, factory: TermLoanSchemeService.ɵfac });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](TermLoanSchemeService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"] }]; }, null); })();
+
+
+/***/ }),
+
 /***/ "./src/app/theme/utility/user-defination/user-defination.service.ts":
 /*!**************************************************************************!*\
   !*** ./src/app/theme/utility/user-defination/user-defination.service.ts ***!
@@ -1557,7 +1619,7 @@ class UserDefinationService {
     }
     // For append data
     getFormData(id) {
-        return this.http.get(this.url + '/' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+        return this.http.get(this.url + '/user-defination/' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     }
     //Updation Operation
     updateData(data) {
@@ -1566,6 +1628,10 @@ class UserDefinationService {
     //Deletion Operation
     deleteData(id) {
         return this.http.delete(this.url + '/user-defination/delete/' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+    }
+    //update Role and Branch
+    updateRoleBranch(data) {
+        return this.http.post(this.url + '/user-defination/updateRoleBranch', data).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     }
     //get user list
     getRoleList() {

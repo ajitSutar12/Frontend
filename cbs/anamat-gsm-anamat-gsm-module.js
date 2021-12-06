@@ -256,8 +256,8 @@ function AnamatGSMComponent_div_21_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_21_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_21_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_21_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -270,8 +270,8 @@ function AnamatGSMComponent_div_49_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_49_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_49_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_49_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -284,8 +284,8 @@ function AnamatGSMComponent_div_56_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_56_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_56_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_56_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -298,8 +298,8 @@ function AnamatGSMComponent_div_63_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_63_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_63_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_63_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -312,8 +312,8 @@ function AnamatGSMComponent_div_70_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_70_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_70_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_70_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r6 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -326,8 +326,8 @@ function AnamatGSMComponent_div_78_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_78_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_78_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_78_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -340,8 +340,8 @@ function AnamatGSMComponent_div_85_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_85_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_85_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_85_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -354,8 +354,8 @@ function AnamatGSMComponent_div_92_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_92_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_92_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_92_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -368,8 +368,8 @@ function AnamatGSMComponent_div_100_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_100_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_100_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_100_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r10 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -382,8 +382,8 @@ function AnamatGSMComponent_div_107_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_107_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_107_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_107_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r11 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -396,8 +396,8 @@ function AnamatGSMComponent_div_114_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_114_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_114_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_114_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r12 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -410,8 +410,8 @@ function AnamatGSMComponent_div_121_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_121_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_121_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_121_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -424,8 +424,8 @@ function AnamatGSMComponent_div_128_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_128_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_128_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_128_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r14 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -438,8 +438,8 @@ function AnamatGSMComponent_div_159_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_div_159_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 95);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_159_div_1_Template, 2, 0, "div", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 94);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_div_159_div_1_Template, 2, 0, "div", 74);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -448,24 +448,21 @@ function AnamatGSMComponent_div_159_Template(rf, ctx) { if (rf & 1) {
 } }
 function AnamatGSMComponent_button_162_Template(rf, ctx) { if (rf & 1) {
     const _r36 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 96);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 95);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AnamatGSMComponent_button_162_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r36); const ctx_r35 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r35.submit(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Add");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    const ctx_r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", ctx_r16.angForm.invalid);
 } }
 function AnamatGSMComponent_button_163_Template(rf, ctx) { if (rf & 1) {
     const _r38 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 97);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 95);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AnamatGSMComponent_button_163_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r38); const ctx_r37 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r37.updateData(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Update");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AnamatGSMComponent_button_165_Template(rf, ctx) { if (rf & 1) {
     const _r40 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 97);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 95);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AnamatGSMComponent_button_165_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r40); const ctx_r39 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r39.addNewData(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "New");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -474,7 +471,7 @@ function AnamatGSMComponent_tbody_174_tr_1_Template(rf, ctx) { if (rf & 1) {
     const _r44 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "tr");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "td");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "button", 99);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "button", 97);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AnamatGSMComponent_tbody_174_tr_1_Template_button_click_2_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r44); const data_r42 = ctx.$implicit; const ctx_r43 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r43.editClickHandler(data_r42.id); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "Edit");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -581,7 +578,7 @@ function AnamatGSMComponent_tbody_174_tr_1_Template(rf, ctx) { if (rf & 1) {
 } }
 function AnamatGSMComponent_tbody_174_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "tbody");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_tbody_174_tr_1_Template, 43, 19, "tr", 98);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, AnamatGSMComponent_tbody_174_tr_1_Template, 43, 19, "tr", 96);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r19 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
@@ -591,7 +588,7 @@ function AnamatGSMComponent_tbody_174_Template(rf, ctx) { if (rf & 1) {
 function AnamatGSMComponent_tbody_175_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "tbody");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "tr");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "td", 100);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "td", 98);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "No data!");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -601,20 +598,16 @@ function AnamatGSMComponent_tbody_175_Template(rf, ctx) { if (rf & 1) {
 class DataTableResponse {
 }
 class AnamatGSMComponent {
-    constructor(fb, http, anamatGSMService, customerIdService, prefixMaster, 
-    // public accountCodeService: AccountcodeService,
-    cityMasterService, SchemeCodeDropdownService, customerID, //  private anamatGSMServiceDa: anamatGSMServiceDa,
-    systemParameter) {
+    constructor(fb, http, anamatGSMService, customerIdService, prefixMaster, cityMasterService, schemeCodeDropdownService, customerID, systemParameter) {
         this.fb = fb;
         this.http = http;
         this.anamatGSMService = anamatGSMService;
         this.customerIdService = customerIdService;
         this.prefixMaster = prefixMaster;
         this.cityMasterService = cityMasterService;
-        this.SchemeCodeDropdownService = SchemeCodeDropdownService;
+        this.schemeCodeDropdownService = schemeCodeDropdownService;
         this.customerID = customerID;
         this.systemParameter = systemParameter;
-        this.acType = '';
         //api
         this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].base_url;
         this.dtOptions = {};
@@ -631,20 +624,13 @@ class AnamatGSMComponent {
         this.showButton = true;
         this.updateShow = false;
         this.newbtnShow = false;
-        this.updateID = 0;
         //for search functionality
         this.filterData = {};
-        //   d: Array<IOption> = this.City3Service.getCharacters();
-        this.selectedOption = "3";
-        this.isDisabled = true;
-        this.selectedCharacter = "3";
-        this.timeLeft = 5;
-        this.dataSub = null;
+        this.updateID = 0;
         //Scheme type variable
         this.schemeType = 'GS';
-        //variable for checkbox and radio button
-        this.isRecovery = false;
-        this.isDEBIT = true;
+        this.timeLeft = 5;
+        this.id = '';
     }
     ngOnInit() {
         this.createForm();
@@ -785,9 +771,7 @@ class AnamatGSMComponent {
         this.prefixMaster.getPrefixMasterList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
             this.prifix = data;
         });
-        this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])())
-            .subscribe((data) => {
+        this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
             this.scheme = data;
         });
         this.cityMasterService
@@ -813,7 +797,7 @@ class AnamatGSMComponent {
         }
     }
     checkCUST_No() {
-        if (this.AC_CUSTID != '') {
+        if (this.AC_CUSTID = '') {
             console.log(this.AC_CUSTID);
         }
         else {
@@ -863,40 +847,6 @@ class AnamatGSMComponent {
             console.log(data);
         });
     }
-    // getCustomer(id) {
-    //   this.customerIdService.getFormData(id).subscribe((data) => {
-    //     this.angForm.patchValue({
-    //       AC_CUSTID: id.toString(),
-    //       AC_TITLE: data.AC_TITLE,
-    //       AC_NAME: data.AC_NAME,
-    //       AC_CAST: data.AC_CAST,
-    //       AC_OCODE: data.AC_OCODE,
-    //       AC_MEMBTYPE: data.AC_MEMBTYPE,
-    //       AC_MEMBNO: data.AC_MEMBNO,
-    //       AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
-    //       AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
-    //       AC_HONO: data.custAddress[0].AC_HONO,
-    //       AC_WARD: data.custAddress[0].AC_WARD,
-    //       AC_ADDR: data.custAddress[0].AC_ADDR,
-    //       AC_GALLI: data.custAddress[0].AC_GALLI,
-    //       AC_AREA: data.custAddress[0].AC_AREA,
-    //       AC_CTCODE: data.custAddress[0].AC_CTCODE,
-    //       AC_PIN: data.custAddress[0].AC_PIN,
-    //       AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
-    //       AC_MOBNO: data.AC_MOBILENO,
-    //       AC_PHNO: data.AC_PHONE_RES,
-    //       AC_EMAIL: data.AC_EMAILID,
-    //       AC_IS_RECOVERY: data.AC_IS_RECOVERY,
-    //       AC_THONO: data.custAddress.AC_THONO,
-    //       AC_TWARD: data.custAddress.AC_TWARD,
-    //       AC_TADDR: data.custAddress.AC_TADDR,
-    //       AC_TGALLI: data.custAddress.AC_TGALLI,
-    //       AC_TAREA: data.custAddress.AC_TAREA,
-    //       AC_TCTCODE: data.custAddress.AC_TCTCODE,
-    //       AC_TPIN: data.custAddress.AC_TPIN,
-    //     });
-    //   });
-    // }
     //set open date, appointed date and expiry date
     getSystemParaDate() {
         this.systemParameter.getFormData(1).subscribe(data => {
@@ -907,7 +857,6 @@ class AnamatGSMComponent {
             });
         });
     }
-    // DEBIT: new FormControlName('DEBIT');
     createForm() {
         this.angForm = this.fb.group({
             AC_ACNOTYPE: ['GS'],
@@ -927,8 +876,7 @@ class AnamatGSMComponent {
             AC_PIN: [''],
             AC_OPDATE: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]],
             AC_IS_RECOVERY: [''],
-            // DEBIT:[''],
-            DEBIT: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('DEBIT'),
+            DEBIT: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"]('Credit'),
             AC_PARTICULAR: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern]],
         });
     }
@@ -940,17 +888,17 @@ class AnamatGSMComponent {
             AC_TYPE: formVal.AC_TYPE,
             AC_NO: formVal.AC_NO,
             AC_CUSTID: formVal.AC_CUSTID,
-            AC_TITLE: formVal.AC_TITLE,
-            AC_NAME: formVal.AC_NAME,
-            AC_MEMBTYPE: formVal.AC_MEMBTYPE,
-            AC_MEMBNO: formVal.AC_MEMBNO,
-            AC_HONO: formVal.AC_HONO,
-            AC_WARD: formVal.AC_WARD,
-            AC_TADDR: formVal.AC_TADDR,
-            AC_TGALLI: formVal.AC_TGALLI,
-            AC_AREA: formVal.AC_AREA,
-            AC_CTCODE: formVal.AC_CTCODE,
-            AC_PIN: formVal.AC_PIN,
+            // AC_TITLE: formVal.AC_TITLE,
+            // AC_NAME: formVal.AC_NAME,
+            // AC_MEMBTYPE: formVal.AC_MEMBTYPE,
+            // AC_MEMBNO: formVal.AC_MEMBNO,
+            // AC_HONO: formVal.AC_HONO,
+            // AC_WARD: formVal.AC_WARD,
+            // AC_TADDR: formVal.AC_TADDR,
+            // AC_TGALLI: formVal.AC_TGALLI,
+            // AC_AREA: formVal.AC_AREA,
+            // AC_CTCODE: formVal.AC_CTCODE,
+            // AC_PIN: formVal.AC_PIN,
             AC_OPDATE: formVal.AC_OPDATE,
             Recovery: formVal.Recovery,
             DEBIT: formVal.DEBIT,
@@ -976,23 +924,22 @@ class AnamatGSMComponent {
         this.anamatGSMService.getFormData(id).subscribe((data) => {
             this.updateID = data.id;
             this.getCustomer(data.AC_CUSTID);
-            this.acType = "2";
             this.angForm.patchValue({
                 AC_ACNOTYPE: data.AC_ACNOTYPE,
                 AC_TYPE: data.AC_TYPE,
                 AC_NO: data.AC_NO,
                 AC_CUSTID: data.AC_CUSTID,
-                AC_TITLE: data.AC_TITLE,
-                AC_NAME: data.AC_NAME,
-                AC_MEMBTYPE: data.AC_MEMBTYPE,
-                AC_MEMBNO: data.AC_MEMBNO,
-                AC_HONO: data.AC_HONO,
-                AC_WARD: data.AC_WARD,
-                AC_TADDR: data.AC_TADDR,
-                AC_TGALLI: data.AC_TGALLI,
-                AC_AREA: data.AC_AREA,
-                AC_CTCODE: data.AC_CTCODE,
-                AC_PIN: data.AC_PIN,
+                // AC_TITLE: data.AC_TITLE,
+                // AC_NAME: data.AC_NAME,
+                // AC_MEMBTYPE: data.AC_MEMBTYPE,
+                // AC_MEMBNO: data.AC_MEMBNO,
+                // AC_HONO: data.AC_HONO,
+                // AC_WARD: data.AC_WARD,
+                // AC_TADDR: data.AC_TADDR,
+                // AC_TGALLI: data.AC_TGALLI,
+                // AC_AREA: data.AC_AREA,
+                // AC_CTCODE: data.AC_CTCODE,
+                // AC_PIN: data.AC_PIN,
                 AC_OPDATE: data.AC_OPDATE,
                 AC_IS_RECOVERY: data.AC_IS_RECOVERY,
                 DEBIT: data.DEBIT,
@@ -1068,10 +1015,6 @@ class AnamatGSMComponent {
             });
         });
     }
-    ngOnDestroy() {
-        // Do not forget to unsubscribe the event
-        this.dtTrigger.unsubscribe();
-    }
     rerender() {
         this.dtElement.dtInstance.then((dtInstance) => {
             // Destroy the table first
@@ -1079,6 +1022,10 @@ class AnamatGSMComponent {
             // Call the dtTrigger to rerender again
             this.dtTrigger.next();
         });
+    }
+    ngOnDestroy() {
+        // Do not forget to unsubscribe the event
+        this.dtTrigger.unsubscribe();
     }
     runTimer() {
         const timer = setInterval(() => {
@@ -1095,7 +1042,7 @@ AnamatGSMComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
     } if (rf & 2) {
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.dtElement = _t.first);
-    } }, decls: 217, vars: 31, consts: [[1, "row"], [1, "col-12"], [1, "card"], [1, "card-header"], [2, "float", "right"], [1, "required"], [1, "card-block"], ["action", "javascript:", "novalidate", "", 3, "formGroup"], ["myform", "ngForm"], [1, "col-sm"], [1, "form-group", "form-primary", "form-static-label"], ["placeholder", "Scheme *", "required", "", "title", "Compulsory Selection", "formControlName", "AC_TYPE", 3, "ngClass", "options", "multiple", "ngModel", "ngModelChange", "selected"], ["placeholder", "Customer ID *", "required", "", "title", "Compulsory Selection", "formControlName", "AC_CUSTID", 2, "width", "90%", 3, "ngClass", "options", "multiple", "ngModel", "ngModelChange", "selected", "keyup"], ["id", "custicon", "placement", "bottom", "ngbTooltip", "Add New Customer", 1, "fa", "fa-fw", "fa-plus-circle", "field-icon", 3, "click"], ["class", "form-group form-primary form-static-label", "class", "alert alert-danger", 4, "ngIf"], [3, "dialogClass"], ["modalLarge", ""], [1, "app-modal-header"], [1, "modal-title"], ["type", "button", 1, "close", "basic-close", 3, "click"], ["aria-hidden", "true"], [1, "app-modal-body"], [2, "max-width", "800px", "max-height", "450px"], [3, "newCustomerEvent"], [1, "app-modal-footer"], ["type", "button", 1, "btn", "btn-primary", "ripple", "light", 3, "click"], [1, "form-group", "input-group"], [1, "border-lable-flt"], ["type", "text", "name", "AC_NO", "placeholder", " ", "id", "AC_NO", "value", "", "pattern", "^[0-9]+$", "title", "Input allowed only  0-9", "formControlName", "AC_NO", "disabled", "", 1, "form-control"], ["for", "AC_NO"], [1, "col-sm-2"], ["type", "text", "name", "Name", "placeholder", " ", "id", "AC_TITLE", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_TITLE", "disabled", "", 1, "form-control"], ["for", "AC_TITLE"], [1, "col-sm-5"], ["type", "text", "name", "Name", "placeholder", " ", "id", "AC_NAME", "required", "", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_NAME", "disabled", "", 1, "form-control"], ["for", "AC_NAME"], ["type", "text", "name", "AC_MEMBTYPE", "placeholder", " ", "id", "AC_MEMBTYPE", "value", "", "pattern", "^[0-9]+$", "title", "Input allowed only  0-9", "formControlName", "AC_MEMBTYPE", "disabled", "", 1, "form-control"], ["for", "AC_MEMBTYPE"], ["type", "text", "name", "AC_MEMBNO", "placeholder", " ", "id", "AC_MEMBNO", "value", "", "pattern", "^[0-9]+$", "title", "Input allowed only  0-9", "formControlName", "AC_MEMBNO", "disabled", "", 1, "form-control"], ["for", "AC_MEMBNO"], ["type", "text", "name", "AC_HONO", "placeholder", " ", "id", "AC_HONO", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_HONO", "disabled", "", 1, "form-control"], ["for", "AC_HONO"], ["type", "text", "name", "AC_WARD", "placeholder", " ", "id", "AC_WARD", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_WARD", "disabled", "", 1, "form-control"], ["for", "AC_WARD"], [1, "col-sm-6"], ["type", "text", "name", "AC_TADDR", "placeholder", " ", "id", "AC_TADDR", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_TADDR", "disabled", "", 1, "form-control"], ["for", "AC_TADDR"], ["type", "text", "name", "AC_TGALLI", "placeholder", " ", "id", "AC_TGALLI", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_TGALLI", "disabled", "", 1, "form-control"], ["for", "AC_TGALLI"], ["type", "text", "name", "AC_CTCODE", "placeholder", " ", "id", "AC_CTCODE", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_CTCODE", "disabled", "", 1, "form-control"], ["for", "AC_CTCODE"], ["type", "text", "name", "AC_AREA", "placeholder", " ", "id", "AC_AREA", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_AREA", "disabled", "", 1, "form-control"], ["for", "AC_AREA"], ["type", "text", "name", "AC_PIN", "placeholder", " ", "id", "AC_PIN", "value", "", "pattern", "^[0-9]+$", "title", "Input allowed only  0-9", "formControlName", "AC_PIN", "disabled", "", 1, "form-control"], ["for", "AC_PIN"], ["type", "text", "name", "AC_OPDATE", "placeholder", " ", "id", "AC_OPDATE", "max", "9999-12-31", "onfocus", "(this.type='date')", "formControlName", "AC_OPDATE", 1, "form-control"], ["for", "AC_OPDATE"], [1, "border-checkbox-section"], [1, "border-checkbox-group", "border-checkbox-group-primary"], ["type", "checkbox", "id", "AC_IS_RECOVERY", "value", "checkbox", "formControlName", "AC_IS_RECOVERY", 1, "border-checkbox"], ["for", "AC_IS_RECOVERY", 1, "border-checkbox-label"], [1, "col-md-1"], ["for", ""], [1, "col-sm-3"], [1, "form-radio"], [1, "radio", "radio-inline"], ["type", "radio", "name", "DEBIT", "formControlName", "DEBIT", "value", "DEBIT", "checked", "true"], [1, "helper"], ["type", "radio", "name", "DEBIT", "formControlName", "DEBIT", "value", "Credit"], ["type", "text", "name", "AC_PARTICULAR", "placeholder", " ", "id", "AC_PARTICULAR", "value", "", "pattern", "^[A-Za-z\\./ 0-9 -]+$", "title", "Input allowed only  A-Z a-z 0-9 - / . (Space)", "formControlName", "AC_PARTICULAR", 1, "form-control"], ["for", "AC_PARTICULAR"], ["class", "btn btn-primary ripple light", 3, "disabled", "click", 4, "ngIf"], ["class", "btn btn-primary ripple light", 3, "click", 4, "ngIf"], [1, "table-responsive"], ["datatable", "", 1, "table", "table-striped", "table-bordered", "table-hover", 3, "dtOptions", "dtTrigger"], [4, "ngIf"], ["type", "text", "placeholder", "Search scheme", "name", "AC_ACNOTYPE"], ["type", "text", "placeholder", "Search scheme", "name", "AC_TYPE"], ["type", "text", "placeholder", "Search CustomerID", "name", "AC_CUSTID"], ["type", "text", "placeholder", "Search Account no", "name", "AC_NO"], ["type", "text", "placeholder", "Search title", "name", "AC_TITLE"], ["type", "text", "placeholder", "Search name", "name", "AC_NAME"], ["type", "text", "placeholder", "Search Member scheme", "name", "AC_MEMBTYPE"], ["type", "text", "placeholder", "Search Member no", "name", "AC_MEMBNO"], ["type", "text", "placeholder", "Search House", "name", "AC_HONO"], ["type", "text", "placeholder", "Search Ward", "name", "AC_HONO"], ["type", "text", "placeholder", "Search Detail", "name", "AC_TADDR"], ["type", "text", "placeholder", "Search Galli", "name", "AC_TGALLI"], ["type", "text", "placeholder", "Search Area", "name", "AC_AREA"], ["type", "text", "placeholder", "Search City", "name", "AC_CTCODE"], ["type", "text", "placeholder", "Search Pincode", "name", "AC_PIN"], ["type", "text", "placeholder", "Search opening bal. date", "name", "AC_OPDATE"], ["type", "text", "placeholder", "Search Recovery", "name", "Recovery"], ["type", "text", "placeholder", "Search opening bal", "name", "DEBIT"], ["type", "text", "placeholder", "Search AC_PARTICULAR", "name", "Reason"], [1, "alert", "alert-danger"], [1, "btn", "btn-primary", "ripple", "light", 3, "disabled", "click"], [1, "btn", "btn-primary", "ripple", "light", 3, "click"], [4, "ngFor", "ngForOf"], ["id", "editbtn", 1, "btn", "btn-outline-primary", "btn-sm", 3, "click"], ["colspan", "6", 1, "no-data-available"]], template: function AnamatGSMComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 217, vars: 30, consts: [[1, "row"], [1, "col-12"], [1, "card"], [1, "card-header"], [2, "float", "right"], [1, "required"], [1, "card-block"], ["action", "javascript:", "novalidate", "", 3, "formGroup"], ["myform", "ngForm"], [1, "col-sm"], [1, "form-group", "form-primary", "form-static-label"], ["placeholder", "Scheme *", "required", "", "title", "Compulsory Selection", "formControlName", "AC_TYPE", 3, "ngClass", "options", "multiple"], ["placeholder", "Customer ID *", "required", "", "title", "Compulsory Selection", "formControlName", "AC_CUSTID", 2, "width", "90%", 3, "ngClass", "options", "multiple", "ngModel", "ngModelChange", "selected", "keyup"], ["id", "custicon", "placement", "bottom", "ngbTooltip", "Add New Customer", 1, "fa", "fa-fw", "fa-plus-circle", "field-icon", 3, "click"], ["class", "form-group form-primary form-static-label", "class", "alert alert-danger", 4, "ngIf"], [3, "dialogClass"], ["modalLarge", ""], [1, "app-modal-header"], [1, "modal-title"], ["type", "button", 1, "close", "basic-close", 3, "click"], ["aria-hidden", "true"], [1, "app-modal-body"], [2, "max-width", "800px", "max-height", "450px"], [3, "newCustomerEvent"], [1, "app-modal-footer"], ["type", "button", 1, "btn", "btn-primary", "ripple", "light", 3, "click"], [1, "form-group", "input-group"], [1, "border-lable-flt"], ["type", "text", "name", "AC_NO", "placeholder", " ", "id", "AC_NO", "value", "", "pattern", "^[0-9]+$", "title", "Input allowed only  0-9", "formControlName", "AC_NO", "disabled", "", 1, "form-control"], ["for", "AC_NO"], [1, "col-sm-2"], ["type", "text", "name", "Name", "placeholder", " ", "id", "AC_TITLE", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_TITLE", "disabled", "", 1, "form-control"], ["for", "AC_TITLE"], [1, "col-sm-5"], ["type", "text", "name", "Name", "placeholder", " ", "id", "AC_NAME", "required", "", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_NAME", "disabled", "", 1, "form-control"], ["for", "AC_NAME"], ["type", "text", "name", "AC_MEMBTYPE", "placeholder", " ", "id", "AC_MEMBTYPE", "value", "", "pattern", "^[0-9]+$", "title", "Input allowed only  0-9", "formControlName", "AC_MEMBTYPE", "disabled", "", 1, "form-control"], ["for", "AC_MEMBTYPE"], ["type", "text", "name", "AC_MEMBNO", "placeholder", " ", "id", "AC_MEMBNO", "value", "", "pattern", "^[0-9]+$", "title", "Input allowed only  0-9", "formControlName", "AC_MEMBNO", "disabled", "", 1, "form-control"], ["for", "AC_MEMBNO"], ["type", "text", "name", "AC_HONO", "placeholder", " ", "id", "AC_HONO", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_HONO", "disabled", "", 1, "form-control"], ["for", "AC_HONO"], ["type", "text", "name", "AC_WARD", "placeholder", " ", "id", "AC_WARD", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_WARD", "disabled", "", 1, "form-control"], ["for", "AC_WARD"], [1, "col-sm-6"], ["type", "text", "name", "AC_TADDR", "placeholder", " ", "id", "AC_TADDR", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_TADDR", "disabled", "", 1, "form-control"], ["for", "AC_TADDR"], ["type", "text", "name", "AC_TGALLI", "placeholder", " ", "id", "AC_TGALLI", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_TGALLI", "disabled", "", 1, "form-control"], ["for", "AC_TGALLI"], ["type", "text", "name", "AC_CTCODE", "placeholder", " ", "id", "AC_CTCODE", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_CTCODE", "disabled", "", 1, "form-control"], ["for", "AC_CTCODE"], ["type", "text", "name", "AC_AREA", "placeholder", " ", "id", "AC_AREA", "value", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_AREA", "disabled", "", 1, "form-control"], ["for", "AC_AREA"], ["type", "text", "name", "AC_PIN", "placeholder", " ", "id", "AC_PIN", "value", "", "pattern", "^[0-9]+$", "title", "Input allowed only  0-9", "formControlName", "AC_PIN", "disabled", "", 1, "form-control"], ["for", "AC_PIN"], ["type", "text", "name", "AC_OPDATE", "placeholder", " ", "id", "AC_OPDATE", "max", "9999-12-31", "onfocus", "(this.type='date')", "formControlName", "AC_OPDATE", 1, "form-control"], ["for", "AC_OPDATE"], [1, "border-checkbox-section"], [1, "border-checkbox-group", "border-checkbox-group-primary"], ["type", "checkbox", "id", "AC_IS_RECOVERY", "value", "checkbox", "formControlName", "AC_IS_RECOVERY", 1, "border-checkbox"], ["for", "AC_IS_RECOVERY", 1, "border-checkbox-label"], [1, "col-md-1"], ["for", ""], [1, "col-sm-3"], [1, "form-radio"], [1, "radio", "radio-inline"], ["type", "radio", "name", "DEBIT", "formControlName", "DEBIT", "value", "DEBIT"], [1, "helper"], ["type", "radio", "name", "DEBIT", "formControlName", "DEBIT", "value", "Credit"], ["type", "text", "name", "AC_PARTICULAR", "placeholder", " ", "id", "AC_PARTICULAR", "value", "", "pattern", "^[A-Za-z\\./ 0-9 -]+$", "title", "Input allowed only  A-Z a-z 0-9 - / . (Space)", "formControlName", "AC_PARTICULAR", 1, "form-control"], ["for", "AC_PARTICULAR"], ["class", "btn btn-primary ripple light", 3, "click", 4, "ngIf"], [1, "table-responsive"], ["datatable", "", 1, "table", "table-striped", "table-bordered", "table-hover", 3, "dtOptions", "dtTrigger"], [4, "ngIf"], ["type", "text", "placeholder", "Search scheme", "name", "AC_ACNOTYPE"], ["type", "text", "placeholder", "Search scheme", "name", "AC_TYPE"], ["type", "text", "placeholder", "Search CustomerID", "name", "AC_CUSTID"], ["type", "text", "placeholder", "Search Account no", "name", "AC_NO"], ["type", "text", "placeholder", "Search title", "name", "AC_TITLE"], ["type", "text", "placeholder", "Search name", "name", "AC_NAME"], ["type", "text", "placeholder", "Search Member scheme", "name", "AC_MEMBTYPE"], ["type", "text", "placeholder", "Search Member no", "name", "AC_MEMBNO"], ["type", "text", "placeholder", "Search House", "name", "AC_HONO"], ["type", "text", "placeholder", "Search Ward", "name", "AC_HONO"], ["type", "text", "placeholder", "Search Detail", "name", "AC_TADDR"], ["type", "text", "placeholder", "Search Galli", "name", "AC_TGALLI"], ["type", "text", "placeholder", "Search Area", "name", "AC_AREA"], ["type", "text", "placeholder", "Search City", "name", "AC_CTCODE"], ["type", "text", "placeholder", "Search Pincode", "name", "AC_PIN"], ["type", "text", "placeholder", "Search opening bal. date", "name", "AC_OPDATE"], ["type", "text", "placeholder", "Search Recovery", "name", "Recovery"], ["type", "text", "placeholder", "Search opening bal", "name", "DEBIT"], ["type", "text", "placeholder", "Search AC_PARTICULAR", "name", "Reason"], [1, "alert", "alert-danger"], [1, "btn", "btn-primary", "ripple", "light", 3, "click"], [4, "ngFor", "ngForOf"], ["id", "editbtn", 1, "btn", "btn-outline-primary", "btn-sm", 3, "click"], ["colspan", "6", 1, "no-data-available"]], template: function AnamatGSMComponent_Template(rf, ctx) { if (rf & 1) {
         const _r45 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
@@ -1116,9 +1063,7 @@ AnamatGSMComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "div", 9);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "div", 10);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "ng-select", 11);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function AnamatGSMComponent_Template_ng_select_ngModelChange_16_listener($event) { return ctx.acType = $event; })("selected", function AnamatGSMComponent_Template_ng_select_selected_16_listener() { return ctx.acType; });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](16, "ng-select", 11);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "div", 9);
@@ -1358,10 +1303,10 @@ AnamatGSMComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](160, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](161, "div", 9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](162, AnamatGSMComponent_button_162_Template, 2, 1, "button", 71);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](163, AnamatGSMComponent_button_163_Template, 2, 0, "button", 72);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](162, AnamatGSMComponent_button_162_Template, 2, 0, "button", 71);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](163, AnamatGSMComponent_button_163_Template, 2, 0, "button", 71);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](164, " \u00A0 ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](165, AnamatGSMComponent_button_165_Template, 2, 0, "button", 72);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](165, AnamatGSMComponent_button_165_Template, 2, 0, "button", 71);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -1375,69 +1320,69 @@ AnamatGSMComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](169, "div", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](170, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](171, "div", 9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](172, "div", 73);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](173, "table", 74);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](174, AnamatGSMComponent_tbody_174_Template, 2, 1, "tbody", 75);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](175, AnamatGSMComponent_tbody_175_Template, 4, 0, "tbody", 75);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](172, "div", 72);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](173, "table", 73);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](174, AnamatGSMComponent_tbody_174_Template, 2, 1, "tbody", 74);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](175, AnamatGSMComponent_tbody_175_Template, 4, 0, "tbody", 74);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](176, "tfoot");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](177, "tr");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](178, "th");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](179, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](180, "input", 76);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](180, "input", 75);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](181, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](182, "input", 77);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](182, "input", 76);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](183, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](184, "input", 78);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](184, "input", 77);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](185, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](186, "input", 79);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](186, "input", 78);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](187, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](188, "input", 80);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](188, "input", 79);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](189, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](190, "input", 81);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](190, "input", 80);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](191, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](192, "input", 82);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](192, "input", 81);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](193, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](194, "input", 83);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](194, "input", 82);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](195, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](196, "input", 84);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](196, "input", 83);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](197, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](198, "input", 85);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](198, "input", 84);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](199, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](200, "input", 86);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](200, "input", 85);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](201, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](202, "input", 87);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](202, "input", 86);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](203, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](204, "input", 88);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](204, "input", 87);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](205, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](206, "input", 89);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](206, "input", 88);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](207, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](208, "input", 90);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](208, "input", 89);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](209, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](210, "input", 91);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](210, "input", 90);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](211, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](212, "input", 92);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](212, "input", 91);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](213, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](214, "input", 93);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](214, "input", 92);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](215, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](216, "input", 94);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](216, "input", 93);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -1453,7 +1398,7 @@ AnamatGSMComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](11);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("formGroup", ctx.angForm);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", "ng-select")("options", ctx.scheme)("multiple", false)("ngModel", ctx.acType);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", "ng-select")("options", ctx.scheme)("multiple", false);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", "ng-select")("options", ctx.Cust_ID)("multiple", false)("ngModel", ctx.id);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);

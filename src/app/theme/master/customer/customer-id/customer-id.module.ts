@@ -16,6 +16,8 @@ import { RiskCategoryDropdownService } from '../../../../shared/dropdownService/
 import {DocumentMasterDropdownService } from '../../../../shared/dropdownService/document-master-dropdown.service';
 import { FileUploadModule } from 'ng2-file-upload';
 import { SharedModule } from '../../../../shared/shared.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 @NgModule({
   imports: [
     CommonModule,
@@ -37,7 +39,12 @@ import { SharedModule } from '../../../../shared/shared.module';
     SalaryDMasterdropdownService,
     cityMasterService,
     RiskCategoryDropdownService,
-    DocumentMasterDropdownService
+    DocumentMasterDropdownService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
   ]
 })
 export class CustomerIdModule { }

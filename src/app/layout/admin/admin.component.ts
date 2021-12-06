@@ -149,7 +149,10 @@ export class AdminComponent implements OnInit, OnDestroy {
   public menuItem: any;
   public menuListData: any;
 
-  public userData: any
+  public userData: any;
+
+  public barnchName : any;
+  public bankName: any;
 
   scroll = (): void => {
     const scrollPosition = window.pageYOffset;
@@ -253,10 +256,22 @@ export class AdminComponent implements OnInit, OnDestroy {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     this.userData = result;
-    let resultArray = result.Role.Rolehaspermission.Menus;
+
+    let menuData:string = '';
+    result.RoleDefine.forEach(ele=>{
+      if(menuData == ''){
+        menuData = ele.Role.Rolehaspermission.Menus
+      }else{
+        menuData = menuData + ','+ele.Role.Rolehaspermission.Menus
+      }
+    })
+    let resultArray = result.RoleDefine[0].Role.Rolehaspermission.Menus;
+
+    this.barnchName = result.branch.NAME;
+    this.bankName   = result.branch.syspara[0].BANK_NAME;
     //console.log(resultArray);
 
-    let arrayList1 = resultArray.split(',');
+    let arrayList1 = menuData.split(',');
     var arrayList = arrayList1.map(function (x) {
       return parseInt(x, 10);
     });

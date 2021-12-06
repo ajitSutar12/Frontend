@@ -120,6 +120,7 @@ class RoleMasterComponent {
     constructor(fb, _service) {
         this.fb = fb;
         this._service = _service;
+        this.checked = true;
         this.updateButton = false;
         this.addButton = true;
         this.dtOptions = {};
@@ -146,7 +147,7 @@ class RoleMasterComponent {
         };
         this.angForm = this.fb.group({
             NAME: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern]],
-            STATUS: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].pattern]],
+            STATUS: new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]('active'),
         });
     }
     //submit data
@@ -207,7 +208,7 @@ RoleMasterComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
     } if (rf & 2) {
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.datatableElement = _t.first);
-    } }, decls: 54, vars: 6, consts: [[1, "row"], [1, "col-12"], [1, "card"], [1, "card-header"], [1, "card-block"], ["novalidate", "", 3, "formGroup"], ["myform", "ngForm"], [1, "col-md-3"], [1, "form-group", "input-group"], [1, "border-lable-flt"], ["type", "text", "name", "NAME", "placeholder", " ", "id", "NAME", "required", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "NAME", 1, "form-control"], ["for", "F_NAME"], [1, "required"], [1, "col-md-1"], ["for", "status"], [1, "form-radio"], [1, "radio", "radio-inline"], ["type", "radio", "name", "STATUS", "checked", "checked", "value", "active", "formControlName", "STATUS"], [1, "helper"], ["type", "radio", "name", "STATUS", "checked", "checked", "value", "inactive", "formControlName", "STATUS"], ["class", "btn btn-primary ripple light", 3, "click", 4, "ngIf"], [1, "card-body"], ["datatable", "", 1, "table", "table-striped", 3, "dtOptions", "dtTrigger"], [4, "ngFor", "ngForOf"], [1, "btn", "btn-primary", "ripple", "light", 3, "click"], [1, "btn", "btn-info", 3, "click"]], template: function RoleMasterComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 54, vars: 6, consts: [[1, "row"], [1, "col-12"], [1, "card"], [1, "card-header"], [1, "card-block"], ["novalidate", "", 3, "formGroup"], ["myform", "ngForm"], [1, "col-md-3"], [1, "form-group", "input-group"], [1, "border-lable-flt"], ["type", "text", "name", "NAME", "placeholder", " ", "id", "NAME", "required", "", "pattern", "^[A-Za-z\\./ -]+$", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "NAME", 1, "form-control"], ["for", "F_NAME"], [1, "required"], [1, "col-md-1"], ["for", "status"], [1, "form-radio"], [1, "radio", "radio-inline"], ["type", "radio", "name", "STATUS", "checked", "checked", "value", "active", "formControlName", "STATUS"], [1, "helper"], ["type", "radio", "name", "STATUS", "checked", "checked", "value", "inactive", "formControlName", "STATUS"], ["class", "btn btn-primary ripple light", 3, "click", 4, "ngIf"], [1, "card-body"], ["datatable", "", 1, "table", "table-striped", 3, "dtOptions"], [4, "ngFor", "ngForOf"], [1, "btn", "btn-primary", "ripple", "light", 3, "click"], [1, "btn", "btn-info", 3, "click"]], template: function RoleMasterComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
@@ -298,12 +299,14 @@ RoleMasterComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("formGroup", ctx.angForm);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](27);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("checked", true);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.addButton);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.updateButton);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtOptions)("dtTrigger", ctx.dtTrigger);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtOptions);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](11);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.RoleList);
     } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["PatternValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RadioControlValueAccessor"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTableDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3V0aWxpdHkvcm9sZS1tYXN0ZXIvcm9sZS1tYXN0ZXIuY29tcG9uZW50LnNjc3MifQ== */"] });

@@ -3,7 +3,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Subject } from 'rxjs';
 // Creating and maintaining form fields with validation 
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
 // Angular Datatable Directive 
@@ -14,11 +14,11 @@ import { UserDefinationService } from './user-defination.service';
 import { HttpClient } from '@angular/common/http';
 // static dropdown
 import { UserdefinationServiceD } from '../../../shared/dropdownService/user-defination-dropdown.service';
-import { OwnbranchMasterService} from '../../../shared/dropdownService/own-branch-master-dropdown.service';
+import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { first } from 'rxjs/operators';
-import { environment} from '../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 // Handling datatable data
 class DataTableResponse {
@@ -39,6 +39,9 @@ interface userdefination {
   ROLE: string;
   USER_NAME: string;
   PASSWORD: string;
+
+
+
   STATUS: boolean;
   // USER_CREATED_AT:string;
 
@@ -63,6 +66,7 @@ export class UserDefinationComponent implements OnInit {
   userdef: userdefination[];
   // Created Form Group
   angForm: FormGroup;
+  angEditForm: FormGroup;
   //Datatable variable
   dtExportButtonOptions: DataTables.Settings = {};
   Data: any;
@@ -96,10 +100,16 @@ export class UserDefinationComponent implements OnInit {
   isDisabled = true;
   characters: Array<IOption>;
   selectedCharacter = '3';
+  selectedRole :any;
   timeLeft = 5;
-  barnchData:any;
+  barnchData: any;
+  userId: any;
+
+  showAdd: boolean = true;
+  showEdit: boolean = false;
 
   private dataSub: Subscription = null;
+  selectedRoleName: string;
 
 
   constructor(
@@ -107,13 +117,13 @@ export class UserDefinationComponent implements OnInit {
     private http: HttpClient,
     private userdefinationservice: UserDefinationService,
     private UserdefinationServiceD: UserdefinationServiceD,
-    private _branchMasterServices : OwnbranchMasterService
+    private _branchMasterServices: OwnbranchMasterService
 
   ) {
-    this._branchMasterServices.getOwnbranchList().subscribe(data=>{
+    this._branchMasterServices.getOwnbranchList().subscribe(data => {
       this.barnchData = data;
     })
-   }
+  }
 
   ngOnInit(): void {
 
@@ -155,7 +165,7 @@ export class UserDefinationComponent implements OnInit {
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url+'/user-defination',
+            this.url + '/user-defination',
             dataTableParameters
           ).subscribe(resp => {
             this.userdef = resp.data;
@@ -230,9 +240,13 @@ export class UserDefinationComponent implements OnInit {
     });
   }
   createForm() {
+
+    this.angEditForm = this.fb.group({
+      FULL_NAME: [''],
+      Edit_branchId: ['', [Validators.required]],
+      EDIT_ROLE: ['', [Validators.required]]
+    });
     this.angForm = this.fb.group({
-
-
       F_NAME: ['', [Validators.required, Validators.pattern]],
       L_NAME: ['', [Validators.pattern]],
       DOB: [''],
@@ -240,13 +254,10 @@ export class UserDefinationComponent implements OnInit {
       EMAIL: ['', [Validators.required, Validators.pattern]],
       ROLE: ['', [Validators.required]],
       USER_NAME: ['', [Validators.required, Validators.pattern]],
-      PASSWORD: ['', [Validators.required, Validators.pattern]],
-      STATUS: ['', [Validators.required]],
-      branchId: ['',[Validators.required]]
+      // PASSWORD: ['', [Validators.required, Validators.pattern]],
+      STATUS: new FormControl('active'),
+      branchId: ['', [Validators.required]]
       // USER_CREATED_AT: ['', [ Validators.pattern]],
-
-
-
     });
   }
   // Method to insert data into database through NestJS
@@ -260,11 +271,12 @@ export class UserDefinationComponent implements OnInit {
       'EMAIL': formVal.EMAIL,
       'roleId': formVal.ROLE,
       'USER_NAME': formVal.USER_NAME,
-      'PASSWORD': formVal.PASSWORD,
+      'PASSWORD': 'Admin@21',
       'STATUS': formVal.STATUS,
-      'branchId':formVal.branchId
+      'branchId': formVal.branchId
       // 'USER_CREATED_AT': formVal.USER_CREATED_AT,
     }
+
     this.userdefinationservice.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
@@ -278,24 +290,48 @@ export class UserDefinationComponent implements OnInit {
 
   //Method for append data into fields
   editClickHandler(id) {
-    this.showButton = false;
-    this.updateShow = true;
-    this.userdefinationservice.getFormData(id).subscribe(data => {
-      this.updateID = data.id;
-      this.angForm.setValue({
-        'F_NAME': data.F_NAME,
-        'L_NAME': data.L_NAME,
-        'DOB': data.DOB,
-        'MOB_NO': data.MOB_NO,
-        'EMAIL': data.EMAIL,
-        'ROLE': data.ROLE,
-        'USER_NAME': data.USER_NAME,
-        'PASSWORD': data.PASSWORD,
-        'STATUS': data.STATUS,
-        // 'USER_CREATED_AT': data.USER_CREATED_AT,
-
+    debugger
+    this.showAdd = false;
+    this.showEdit = true;
+    
+    this.userdefinationservice.getFormData(id).subscribe(data=>{
+      console.log(data);
+      let array = new Array;
+      let selectedRoleName = '';
+      data.RoleDefine.forEach(ele=>{
+        debugger
+        array.push(ele.RoleId.toString())
+        if(selectedRoleName == ''){
+          selectedRoleName = ele.Role.NAME;
+        }else{
+          selectedRoleName = selectedRoleName +', '+ele.Role.NAME;
+        }
+      })
+      this.selectedRoleName = selectedRoleName;
+      let list = array;
+      this.userId = data.id;
+      this.selectedRole = list;
+      this.angEditForm.patchValue({
+        'FULL_NAME' : data.F_NAME+' '+data.L_NAME,
+        'Edit_branchId' : data.branchId.toString(),
       })
     })
+    // this.userdefinationservice.getFormData(id).subscribe(data => {
+    //   this.updateID = data.id;
+    //   this.angForm.setValue({
+    //     'F_NAME': data.F_NAME,
+    //     'L_NAME': data.L_NAME,
+    //     'DOB': data.DOB,
+    //     'MOB_NO': data.MOB_NO,
+    //     'EMAIL': data.EMAIL,
+    //     // 'ROLE': data.ROLE,
+    //     'USER_NAME': data.USER_NAME,
+    //     // 'PASSWORD': data.PASSWORD,
+    //     'STATUS': data.STATUS,
+    //     // 'USER_CREATED_AT': data.USER_CREATED_AT,
+
+    //   })
+    // })
   }
   //Method for update data 
   updateData() {
@@ -387,6 +423,23 @@ export class UserDefinationComponent implements OnInit {
         clearInterval(timer);
       }
     }, 1000);
+  }
+
+
+  saveEdit(){
+    let data = this.angEditForm.value;
+    data['id'] = this.userId;
+    this.userdefinationservice.updateRoleBranch(data).subscribe(data=>{
+      Swal.fire('Success!', 'Role and Branch Update Successfully !', 'success');
+      this.rerender();
+    },err=>{
+      Swal.fire(err.error.error, err.error.message, 'error');
+    })
+  }
+
+  closeEditForm(){
+    this.showAdd = true;
+    this.showEdit = false;
   }
 }
 

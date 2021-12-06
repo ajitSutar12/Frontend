@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="showAdd">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-md">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="ROLE" [multiple]="false" placeholder="Role" formControlName="ROLE">
+                                <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [options]="ROLE" [multiple]="true" placeholder="Role" formControlName="ROLE">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ROLE'].invalid && (angForm.controls['ROLE'].dirty || angForm.controls['ROLE'].touched)" class="alert alert-danger">
@@ -109,8 +109,20 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <div class="col-md">
+                                <div class="form-group form-primary form-static-label" style="width: 108%;margin-left: -4%;">
+                                    <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [options]="barnchData" [multiple]="false" placeholder="Branch" formControlName="branchId">
+                                    </ng-select>
+                                </div>
+                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['branchId'].invalid && (angForm.controls['branchId'].dirty || angForm.controls['branchId'].touched)" class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['branchId'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-4">
                             <div class="form-group input-group">
-                                <!-- pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" -->
                                 <span class="border-lable-flt">
                                     <input type="text" name="PASSWORD" class="form-control" placeholder=" " maxlength="12" minlength="8"
                                          title="Enter password of minlength  and 8 maxlength 12 "
@@ -123,7 +135,7 @@
                                     Enter valid password
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-1">
                             <label for="status"> Status</label>
                         </div>
@@ -147,22 +159,9 @@
                                 </div>
                             </div>
                         </div>
-                    
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="col-md">
-                                <div class="form-group form-primary form-static-label" style="width: 108%;margin-left: -4%;">
-                                    <ng-select [ngClass]="'ng-select'" [options]="barnchData" [multiple]="false" placeholder="Branch" formControlName="branchId">
-                                    </ng-select>
-                                </div>
-                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['branchId'].invalid && (angForm.controls['branchId'].dirty || angForm.controls['branchId'].touched)" class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['branchId'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-sm">
@@ -175,6 +174,62 @@
                 </div>
             </form>
 
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="showEdit">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Edit Role and Branch</h5>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="angEditForm" novalidate>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="F_NAME" maxlength="2000" class="form-control"
+                                        placeholder=" " id="label-name" required="" pattern="^[A-Za-z\./ -]+$"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="FULL_NAME">
+                                    <label for="label-name">Full Name<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md">
+                                <div class="form-group form-primary form-static-label" style="width: 108%;margin-left: -4%;">
+                                    <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [options]="barnchData" [multiple]="false" placeholder="Branch" formControlName="Edit_branchId">
+                                    </ng-select>
+                                </div>
+                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['branchId'].invalid && (angForm.controls['branchId'].dirty || angForm.controls['branchId'].touched)" class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['branchId'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [(ngModel)]="selectedRole" [options]="ROLE" [multiple]="true" placeholder="Role" formControlName="EDIT_ROLE">
+                                </ng-select>
+                            </div>
+                            <label>Existing Role : {{selectedRoleName}}</label>
+                            
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ROLE'].invalid && (angForm.controls['ROLE'].dirty || angForm.controls['ROLE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['ROLE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary"(click)="saveEdit()" [disabled]="!angEditForm.valid">Save</button>
+                <span style="margin-left: 5px;"><button class="btn btn-primary" (click)="closeEditForm()">Cancel</button></span>
+            </div>
         </div>
     </div>
 </div>
@@ -197,7 +252,7 @@
                                         <td>{{ data.DOB }}</td>
                                         <td>{{ data.MOB_NO }}</td>
                                         <td>{{ data.EMAIL }}</td>
-                                        <td>{{ data.Role.NAME }}</td>
+                                        <td>{{ data.RoleDefine[0].Role.NAME }}</td>
                                         <td>{{ data.USER_NAME }}</td>
                                         <!-- <td>{{ data.PASSWORD }}</td> -->
                                         <td>{{ data.STATUS }}</td>

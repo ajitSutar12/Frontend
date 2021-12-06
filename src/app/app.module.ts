@@ -13,6 +13,9 @@ import { BreadcrumbsComponent } from './layout/admin/breadcrumbs/breadcrumbs.com
 import { HotkeyModule } from 'angular2-hotkeys';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HotKeysComponent } from './theme/hot-keys/hot-keys.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+// import { AuthInterceptorServices } from '../app/theme/auth/auth.interceptor.service';
+import { UserAuthInterceptor } from './user-auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,9 +32,15 @@ import { HotKeysComponent } from './theme/hot-keys/hot-keys.component';
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     HotkeyModule.forRoot(), // adding HotkeysModule
   ],
-  providers: [MenuItems],
+  providers: [MenuItems,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -501,43 +501,45 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
-      AC_NO: formVal.AC_NO,
-      AC_MEMBTYPE: formVal.AC_MEMBTYPE,
-      AC_MEMBNO: formVal.AC_MEMBNO,
-      AC_TITLE: formVal.AC_TITLE,
-      F_NAME: formVal.F_NAME,
-      M_NAME: formVal.M_NAME,
-      L_NAME: formVal.L_NAME,
-      AC_NAME: formVal.L_NAME + " " + formVal.F_NAME + " " + formVal.M_NAME,
-      AC_CAST: formVal.AC_CAST,
-      AC_OCODE: formVal.AC_OCODE,
-      AC_ADHARNO: formVal.AC_ADHARNO,
-      AC_RISKCATG: formVal.AC_RISKCATG,
-      AC_BIRTH_DT: formVal.AC_BIRTH_DT,
-      AC_SALARYDIVISION_CODE: formVal.AC_SALARYDIVISION_CODE,
-      AC_MOBILENO: formVal.AC_MOBILENO,
-      AC_PHONE_RES: formVal.AC_PHONE_RES,
-      AC_PANNO: formVal.AC_PANNO,
-      AC_PHONE_OFFICE: formVal.AC_PHONE_OFFICE,
-      AC_EMAILID: formVal.AC_EMAILID,
-      AC_IS_RECOVERY: formVal.AC_IS_RECOVERY,
-      TDS_REQUIRED: formVal.TDS_REQUIRED,
-      SMS_REQUIRED: formVal.SMS_REQUIRED,
-      IS_KYC_RECEIVED: formVal.IS_KYC_RECEIVED,
-      TDSDOCUMNET: formVal.TDSDOCUMNET,
-      AC_HONO: formVal.AC_HONO,
-      AC_WARD: formVal.AC_WARD,
-      AC_ADDR: formVal.AC_ADDR,
-      AC_GALLI: formVal.AC_GALLI,
-      AC_AREA: formVal.AC_AREA,
-      AC_CTCODE: formVal.AC_CTCODE,
-      AC_PIN: formVal.AC_PIN,
-      FIN_YEAR: formVal.FIN_YEAR,
-      SUBMIT_DATE: formVal.SUBMIT_DATE,
-      FORM_TYPE: formVal.FORM_TYPE,
-      TDS_RATE: formVal.TDS_RATE,
-      TDS_LIMIT: formVal.TDS_LIMIT,
-    };
+      'AC_NO': formVal.AC_NO,
+      'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
+      'AC_MEMBNO': formVal.AC_MEMBNO,
+      'AC_TITLE': formVal.AC_TITLE,
+      'F_NAME': formVal.F_NAME,
+      'M_NAME': formVal.M_NAME,
+      'L_NAME': formVal.L_NAME,
+      'AC_NAME': formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME,
+      'AC_CAST': formVal.AC_CAST,
+      'AC_OCODE': formVal.AC_OCODE,
+      'AC_ADHARNO': formVal.AC_ADHARNO,
+      'AC_RISKCATG': formVal.AC_RISKCATG,
+      'AC_BIRTH_DT': formVal.AC_BIRTH_DT,
+      'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
+      'AC_MOBILENO': formVal.AC_MOBILENO,
+      'AC_PHONE_RES': formVal.AC_PHONE_RES,
+      'AC_PANNO': formVal.AC_PANNO,
+      'AC_PHONE_OFFICE': formVal.AC_PHONE_OFFICE,
+      'AC_EMAILID': formVal.AC_EMAILID,
+      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+      'TDS_REQUIRED': formVal.TDS_REQUIRED,
+      'SMS_REQUIRED': formVal.SMS_REQUIRED,
+      'IS_KYC_RECEIVED': formVal.IS_KYC_RECEIVED,
+      'TDSDOCUMNET': formVal.TDSDOCUMNET,
+      'AC_HONO': formVal.AC_HONO,
+      'AC_WARD': formVal.AC_WARD,
+      'AC_ADDR': formVal.AC_ADDR,
+      'AC_GALLI': formVal.AC_GALLI,
+      'AC_AREA': formVal.AC_AREA,
+      'AC_CTCODE': formVal.AC_CTCODE,
+      'AC_PIN': formVal.AC_PIN,
+      'FIN_YEAR': formVal.FIN_YEAR,
+      'SUBMIT_DATE': formVal.SUBMIT_DATE,
+      'FORM_TYPE': formVal.FORM_TYPE,
+      'TDS_RATE': formVal.TDS_RATE,
+      'TDS_LIMIT': formVal.TDS_LIMIT,
+      'Document': this.imageObject
+    }
+
 
     this.customerIdService.postData(dataToSend).subscribe(
       (data) => {
@@ -811,13 +813,17 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async function () {
-      let result = await reader.result;
+      let result =  await reader.result;
+      // obj = {
+      //   "id" : valueid,
+      //   "path":result
+      // }
       obj[valueid] = result;
     };
-    this.imageObject.push(obj);
     reader.onerror = function (error) {
-      console.log("Error: ", error);
-    };
+      console.log('Error: ', error);
+    };      
+    this.imageObject.push(obj);
     console.log(this.imageObject);
   }
 

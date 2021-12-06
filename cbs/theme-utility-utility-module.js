@@ -132,6 +132,10 @@ const routes = [
                 path: 'demandDraftDEI',
                 loadChildren: () => Promise.all(/*! import() | demand-draft-dei-demand-draft-dei-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~all-reports-with-searching-allReportsWithSearching-module~anamat-gsm-anamat-gsm-module~batch~34724a2e"), __webpack_require__.e("default~day-book-ie-day-book-ie-module~dead-stock-transaction-dead-stock-transaction-module~demand-d~0b944824"), __webpack_require__.e("demand-draft-dei-demand-draft-dei-module")]).then(__webpack_require__.bind(null, /*! ./demand-draft-dei/demand-draft-dei.module */ "./src/app/theme/utility/demand-draft-dei/demand-draft-dei.module.ts")).then(m => m.DemandDraftDEIModule)
             },
+            {
+                path: 'menulist',
+                loadChildren: () => __webpack_require__.e(/*! import() | menulist-menulist-module */ "menulist-menulist-module").then(__webpack_require__.bind(null, /*! ./menulist/menulist.module */ "./src/app/theme/utility/menulist/menulist.module.ts")).then(m => m.MenulistModule)
+            }
         ]
     }
 ];
