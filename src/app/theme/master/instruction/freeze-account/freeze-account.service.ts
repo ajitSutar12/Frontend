@@ -18,7 +18,7 @@ export class FreezeAccountService {
 
     //Insertion Operation
     postData(data: any): Observable<any> {
-        return this.http.post(this.url + '/dp-master/insert', data).pipe(map((res) => res),
+        return this.http.post(this.url + '/freez-account/insert', data).pipe(map((res) => res),
             catchError((error) => {
                 Swal.fire('Please Input Proper Data !');
                 return throwError(error);
@@ -27,16 +27,16 @@ export class FreezeAccountService {
     }
     // For append data
     getFormData(id: any): Observable<any> {
-        return this.http.get(this.url + '/dp-master/' + id).pipe(catchError(this.handleError));
+        return this.http.get(this.url + '/freez-account/' + id).pipe(catchError(this.handleError));
     }
     //Updation Operation
     updateData(data): Observable<any> {
 
-        return this.http.put(this.url + '/dp-master/update', data);
+        return this.http.put(this.url + '/freez-account/update', data);
     }
     //Deletion Operation
     deleteData(id: any): Observable<any> {
-        return this.http.delete(this.url + '/dp-master/delete/' + id).pipe(catchError(this.handleError));
+        return this.http.delete(this.url + '/freez-account/delete/' + id).pipe(catchError(this.handleError));
     }
 }
 

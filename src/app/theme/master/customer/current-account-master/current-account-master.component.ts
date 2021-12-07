@@ -61,10 +61,10 @@ interface CurrentAccountMaster {
   AC_TCTCODE: number;
   AC_TPIN: number
   //minor and introducer
-  AC_MINOR: boolean
-  AC_MBDATE: Date
-  AC_GRDNAME: string
-  AC_GRDRELE: string
+  // AC_MINOR: boolean
+  // AC_MBDATE: Date
+  // AC_GRDNAME: string
+  // AC_GRDRELE: string
   AC_INTROBRANCH: string
   AC_INTROID: string
   AC_INTRACNO: string
@@ -127,6 +127,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   //filter variable
   filterData = {};
+
+  addType: string
 
   //display code according choice
   nomineeTrue: boolean = false;
@@ -272,6 +274,14 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           data: 'AC_CUSTID'
         },
         {
+          title: 'Detail Address',
+          data: 'AC_ADDR'
+        },
+        {
+          title: 'City',
+          data: 'AC_CTCODE'
+        },
+        {
           title: 'Proprietor Name',
           data: 'AC_PROPRITOR_NAME'
         },
@@ -283,62 +293,45 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           title: 'Manual Ref.Member No.',
           data: 'REF_ACNO'
         },
-        {
-          title: 'Category',
-          data: 'AC_CATG'
-        },
-        {
-          title: 'Operation',
-          data: 'AC_OPR_CODE'
-        },
-        {
-          title: 'Balance Category',
-          data: 'AC_BALCATG'
-        },
-        {
-          title: 'Interest Category',
-          data: 'AC_INTCATA'
-        },
-        {
-          title: 'Installment Amount ',
-          data: 'AC_SCHMAMT'
-        },
-        {
-          title: 'Minor Details',
-          data: 'AC_MINOR'
-        },
-        {
-          title: 'Birth Date',
-          data: 'AC_MBDATE'
-        },
-        {
-          title: 'Guardian Name',
-          data: 'AC_GRDNAME'
-        },
-        {
-          title: 'Relation',
-          data: 'AC_GRDRELE'
-        },
-        {
-          title: 'Branch',
-          data: 'AC_INTROBRANCH'
-        },
-        {
-          title: 'Account Type',
-          data: 'AC_INTROID'
-        },
-        {
-          title: 'Account code',
-          data: 'AC_INTRACNO'
-        },
-        {
-          title: 'Name',
-          data: 'AC_INTRNAME'
-        },
-        {
-          title: 'Signature Authority',
-          data: 'SIGNATURE_AUTHORITY'
-        },
+      
+      
+       
+        // {
+        //   title: 'Minor Details',
+        //   data: 'AC_MINOR'
+        // },
+        // {
+        //   title: 'Birth Date',
+        //   data: 'AC_MBDATE'
+        // },
+        // {
+        //   title: 'Guardian Name',
+        //   data: 'AC_GRDNAME'
+        // },
+        // {
+        //   title: 'Relation',
+        //   data: 'AC_GRDRELE'
+        // },
+        // {
+        //   title: 'Branch',
+        //   data: 'AC_INTROBRANCH'
+        // },
+        // {
+        //   title: 'Account Type',
+        //   data: 'AC_INTROID'
+        // },
+        // {
+        //   title: 'Account code',
+        //   data: 'AC_INTRACNO'
+        // },
+        // {
+        //   title: 'Name',
+        //   data: 'AC_INTRNAME'
+        // },
+        // {
+        //   title: 'Signature Authority',
+        //   data: 'SIGNATURE_AUTHORITY'
+        // },
       ],
       dom: 'Blrtip',
     };
@@ -416,6 +409,13 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   //function to toggle temp address field
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
+    this.angForm.controls['AC_THONO'].reset()
+    this.angForm.controls['AC_TWARD'].reset()
+    this.angForm.controls['AC_TADDR'].reset()
+    this.angForm.controls['AC_TGALLI'].reset()
+    this.angForm.controls['AC_TAREA'].reset()
+    this.angForm.controls['AC_TCTCODE'].reset()
+    this.angForm.controls['AC_TPIN'].reset()
   }
   //function to get new customer data
   addNewCustomer(newCustomer) {
@@ -439,20 +439,18 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   getCustomer(id) {
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
-      this.ageCalculator(data.AC_BIRTH_DT);
+      this.tempAddress = data.custAddress[0].AC_ADDFLAG
+      // this.ageCalculator(data.AC_BIRTH_DT);
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
         AC_CAST: data.AC_CAST,
         AC_OCODE: data.AC_OCODE,
-        AC_MEMBTYPE: data.AC_MEMBTYPE,
-        AC_MEMBNO: data.AC_MEMBNO,
-        AC_BIRTH_DT: data.AC_BIRTH_DT,
-        AC_MBDATE: data.AC_BIRTH_DT,
-        AC_PANNO: data.AC_PANNO,
-        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
-
+        AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_MOBNO: data.AC_MOBILENO,
+        AC_PHNO: data.AC_PHONE_RES,
+        AC_EMAIL: data.AC_EMAILID,
         AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
         AC_HONO: data.custAddress[0].AC_HONO,
         AC_WARD: data.custAddress[0].AC_WARD,
@@ -461,18 +459,18 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         AC_AREA: data.custAddress[0].AC_AREA,
         AC_CTCODE: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
-        AC_MOBNO: data.AC_MOBILENO,
-        AC_PHNO: data.AC_PHONE_RES,
-        AC_EMAIL: data.AC_EMAILID,
-
-        // AC_THONO: data.custAddress.custAddress[1].AC_THONO,
-        // AC_TWARD: data.custAddress.custAddress[1].AC_TWARD,
-        // AC_TADDR: data.custAddress.custAddress[1].AC_TADDR,
-        // AC_TGALLI: data.custAddress.custAddress[1].AC_TGALLI,
-        // AC_TAREA: data.custAddress.custAddress[1].AC_TAREA,
-        // AC_TCTCODE: data.custAddress.custAddress[1].AC_TCTCODE,
-        // AC_TPIN: data.custAddress.custAddress[1].AC_TPIN,
       })
+      if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {
+        this.angForm.patchValue({
+          AC_THONO: data.custAddress[1].AC_HONO,
+          AC_TWARD: data.custAddress[1].AC_WARD,
+          AC_TADDR: data.custAddress[1].AC_ADDR,
+          AC_TGALLI: data.custAddress[1].AC_GALLI,
+          AC_TAREA: data.custAddress[1].AC_AREA,
+          AC_TCTCODE: data.custAddress[1].AC_CTCODE,
+          AC_TPIN: data.custAddress[1].AC_PIN,
+        })
+      }
     })
   }
   //formcontrols with validation
@@ -509,7 +507,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       AC_AREA: [''],
       AC_CTCODE: [''],
       AC_PIN: [''],
-      AC_ADDFLAG: [],
+      AC_ADDFLAG: [true],
+      AC_ADDTYPE: ['P'],
       AC_THONO: ['', [Validators.pattern]],
       AC_TWARD: ['', [Validators.pattern]],
       AC_TADDR: ['', [Validators.pattern]],
@@ -522,10 +521,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       AC_EMAIL: [''],
 
       //minor and introducer
-      AC_MINOR: ['', []],
-      AC_MBDATE: ['', []],
-      AC_GRDNAME: ['', [Validators.pattern]],
-      AC_GRDRELE: ['', [Validators.pattern]],
+      // AC_MINOR: ['', []],
+      // AC_MBDATE: ['', []],
+      // AC_GRDNAME: ['', [Validators.pattern]],
+      // AC_GRDRELE: ['', [Validators.pattern]],
       AC_INTROBRANCH: ['', []],
       AC_INTROID: [''],
       AC_INTRACNO: [''],
@@ -574,8 +573,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
   }
 
-   //get account no according scheme for introducer
-   getIntroducer(acno) {
+  //get account no according scheme for introducer
+  getIntroducer(acno) {
     switch (acno) {
       case 'SB':
         console.log("saving");
@@ -666,6 +665,14 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
+    if (formVal.AC_ADDFLAG == true) {
+      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
+      this.addType = 'P'
+    }
+    else if (formVal.AC_ADDFLAG == false) {
+      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
+      this.addType = 'T'
+    }
     const dataToSend = {
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
@@ -680,20 +687,21 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       'AC_NAME': formVal.AC_NAME,
       'AC_SCHMAMT': formVal.AC_SCHMAMT,
       'REF_ACNO': formVal.REF_ACNO,
-      //address
-      'AC_ADDFLAG': formVal.AC_ADDFLAG,
-      'AC_THONO': formVal.AC_THONO,
-      'AC_TWARD': formVal.AC_TWARD,
-      'AC_TADDR': formVal.AC_TADDR,
-      'AC_TGALLI': formVal.AC_TGALLI,
-      'AC_TAREA': formVal.AC_TAREA,
-      'AC_TCTCODE': formVal.AC_TCTCODE,
-      'AC_TPIN': formVal.AC_TPIN,
+      //temp address 
+      AC_ADDFLAG: formVal.AC_ADDFLAG,
+      AC_ADDTYPE: this.addType,
+      AC_THONO: formVal.AC_THONO,
+      AC_TWARD: formVal.AC_TWARD,
+      AC_TADDR: formVal.AC_TADDR,
+      AC_TGALLI: formVal.AC_TGALLI,
+      AC_TAREA: formVal.AC_TAREA,
+      AC_TCTCODE: formVal.AC_TCTCODE,
+      AC_TPIN: formVal.AC_TPIN,
       //minor and introducer
-      'AC_MINOR': formVal.AC_MINOR,
-      'AC_MBDATE': formVal.AC_MBDATE,
-      'AC_GRDNAME': formVal.AC_GRDNAME,
-      'AC_GRDRELE': formVal.AC_GRDRELE,
+      // 'AC_MINOR': formVal.AC_MINOR,
+      // 'AC_MBDATE': formVal.AC_MBDATE,
+      // 'AC_GRDNAME': formVal.AC_GRDNAME,
+      // 'AC_GRDRELE': formVal.AC_GRDRELE,
       'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
       'AC_INTROID': formVal.AC_INTROID,
       'AC_INTRACNO': formVal.AC_INTRACNO,
@@ -751,20 +759,11 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'AC_OPDATE': data.AC_OPDATE,
         'AC_SCHMAMT': data.AC_SCHMAMT,
         'REF_ACNO': data.REF_ACNO,
-        //address
-        // 'AC_ADDFLAG': data.custAddress[1].AC_ADDFLAG,
-        // 'AC_THONO': data.custAddress[1].AC_THONO,
-        // 'AC_TWARD': data.custAddress[1].AC_TWARD,
-        // 'AC_TADDR': data.custAddress[1].AC_TADDR,
-        // 'AC_TGALLI': data.custAddress[1].AC_TGALLI,
-        // 'AC_TAREA': data.custAddress[1].AC_TAREA,
-        // 'AC_TCTCODE': data.custAddress[1].AC_TCTCODE,
-        // 'AC_TPIN': data.custAddress[1].AC_TPIN,
         //minor and introducer
-        'AC_MINOR': data.AC_MINOR,
-        'AC_MBDATE': data.AC_MBDATE,
-        'AC_GRDNAME': data.AC_GRDNAME,
-        'AC_GRDRELE': data.AC_GRDRELE,
+        // 'AC_MINOR': data.AC_MINOR,
+        // 'AC_MBDATE': data.AC_MBDATE,
+        // 'AC_GRDNAME': data.AC_GRDNAME,
+        // 'AC_GRDRELE': data.AC_GRDRELE,
         'AC_INTROBRANCH': data.AC_INTROBRANCH,
         'AC_INTROID': data.AC_INTROID,
         'AC_INTRACNO': data.AC_INTRACNO,
@@ -777,7 +776,15 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
-    console.log('update fun',data)
+    if (data.AC_ADDFLAG == true) {
+      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
+      this.addType = 'P'
+    }
+    else if (data.AC_ADDFLAG == false) {
+      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
+      this.addType = 'T'
+    }
+    data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
     data['JointAccountData'] = this.multiJointAC
     data['PowerOfAttorneyData'] = this.multiAttorney
@@ -892,26 +899,26 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   }
 
   //calculate age for minor details
-  ageCalculator(birthDate) {
-    let showAge: number
-    if (birthDate) {
-      const convertAge = new Date(birthDate);
-      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-      showAge = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-      if (showAge <= 18) {
-        this.angForm.controls['AC_MINOR'].setValue(true);
-        this.angForm.controls['AC_GRDNAME'].enable();
-        this.angForm.controls['AC_GRDRELE'].enable();
-        this.introducerReq = true
-      }
-      else if (showAge > 18) {
-        this.angForm.controls['AC_MINOR'].setValue(false);
-        this.angForm.controls['AC_GRDNAME'].disable();
-        this.angForm.controls['AC_GRDRELE'].disable();
-        this.introducerReq = false
-      }
-    }
-  }
+  // ageCalculator(birthDate) {
+  //   let showAge: number
+  //   if (birthDate) {
+  //     const convertAge = new Date(birthDate);
+  //     const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+  //     showAge = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+  //     if (showAge <= 18) {
+  //       this.angForm.controls['AC_MINOR'].setValue(true);
+  //       this.angForm.controls['AC_GRDNAME'].enable();
+  //       this.angForm.controls['AC_GRDRELE'].enable();
+  //       this.introducerReq = true
+  //     }
+  //     else if (showAge > 18) {
+  //       this.angForm.controls['AC_MINOR'].setValue(false);
+  //       this.angForm.controls['AC_GRDNAME'].disable();
+  //       this.angForm.controls['AC_GRDRELE'].disable();
+  //       this.introducerReq = false
+  //     }
+  //   }
+  // }
 
   //Nominee
   addNominee() {

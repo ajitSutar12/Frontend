@@ -6,10 +6,10 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class freezeAccountService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: '0', label: 'No Freeze' },
-        { value: '1', label: 'Total Amount' },
-        { value: '2', label: 'Only Withdrawal' },
-        { value: '3', label: 'Partial Amount' }       
+        { value: 'No Freeze', label: 'No Freeze' },
+        { value: 'Total Amount', label: 'Total Amount' },
+        { value: 'Only Withdrawal', label: 'Only Withdrawal' },
+        { value: 'Partial Amount', label: 'Partial Amount' }       
     ];
        
     getCharacters(): Array<IOption> {

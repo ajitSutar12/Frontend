@@ -154,12 +154,16 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //filter variable
   filterData = {};
 
+  addType: string
+  datemax: any;//setting max date
+
   //temp address flag variable
   tempAddress: boolean = true;
   //variable to calculate retirement date
   schemeCode: string = ''
   //Scheme type variable
   schemeType: string = 'SH'
+  shareSchemeType
   //Dropdown options
   scheme //scheme code from schemast(S_ACNOTYPE)
   Cust_ID: any[] //customer id from idmaster
@@ -260,6 +264,11 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Scheme',
           data: 'AC_TYPE'
         },
+        {
+          title: 'Bank AC NO',
+          data: 'BANKACNO'
+        },
+
         {
           title: 'Member No',
           data: 'AC_NO'
@@ -537,7 +546,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     })
   }
-  datemax: any;//setting max date
+
   //set date 18 years before current date
   setdate() {
     const d = new Date();
@@ -579,7 +588,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createForm() {
     this.angForm = this.fb.group({
-      //excel controls
       AC_TYPE: ['', [Validators.required]],
       AC_ACNOTYPE: ['SH'],
       AC_NO: [''],
@@ -587,7 +595,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_CUSTID: ['', [Validators.required]],
       AC_NAME: [''],
       //basic controls
-      AC_CATG: ['', [Validators.required]],
+      AC_CATG: ['0', [Validators.required]],
       EMP_NO: [''],
       AC_MEM_BIRTH_DT: [''],
       AC_JOIN_DATE: [''],
@@ -653,34 +661,33 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       // AC_OP_BAL: ['', [Validators.pattern]],
 
       //marathi details
-      AC_DEV_NAME: ['', [Validators.pattern]],
-      AC_DEV_WARD: ['', [Validators.pattern]],
-      AC_DEV_ADD: ['', [Validators.pattern]],
-      AC_DEV_GALLI: ['', [Validators.pattern]],
-      AC_DEV_AREA: ['', [Validators.pattern]],
+      AC_DEV_NAME: [''],
+      AC_DEV_WARD: [''],
+      AC_DEV_ADD: [''],
+      AC_DEV_GALLI: [''],
+      AC_DEV_AREA: [''],
       AC_DEV_CITYCODE: [''],
     });
   }
-  addType: string
+  getShareScheme(value) {
+    this.shareSchemeType = value.name
+  }
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
-
     if (formVal.AC_ADDFLAG == true) {
-      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
       this.addType = 'P'
     }
     else if (formVal.AC_ADDFLAG == false) {
-      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
       this.addType = 'T'
     }
     const dataToSend = {
+      'shareSchemeType': this.shareSchemeType,
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
-      'AC_NO': formVal.AC_NO,
       'AC_CUSTID': formVal.AC_CUSTID,
       'AC_NAME': formVal.AC_NAME,
-      'AC_CATG': formVal.AC_CATG,
+      'AC_CATG': parseInt(formVal.AC_CATG),
       'EMP_NO': formVal.EMP_NO,
       'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
       'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
@@ -702,7 +709,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'REF_ACNO': formVal.REF_ACNO,
       'AC_NARR': formVal.AC_NARR,
       //temp address 
-
       AC_ADDFLAG: formVal.AC_ADDFLAG,
       AC_ADDTYPE: this.addType,
       AC_THONO: formVal.AC_THONO,
@@ -758,9 +764,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.angForm.patchValue({
         AC_ACNOTYPE: data.AC_ACNOTYPE,
-        AC_TYPE: data.AC_TYPE,
+        AC_TYPE: data.AC_TYPE.toString(),
         'AC_NO': data.AC_NO,
-        'AC_CATG': data.AC_CATG,
+        'AC_CATG': data.AC_CATG.toString(),
         'AC_SALARYDIVISION_CODE': data.AC_SALARYDIVISION_CODE,
         'EMP_NO': data.EMP_NO,
         'AC_JOIN_DATE': data.AC_JOIN_DATE,

@@ -5,12 +5,11 @@ import { freezeAccountService } from '../../../../shared/dropdownService/freeze-
 import { SelectModule } from 'ng-select';
 import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DPMasterACNODropdownService } from '../../../../shared/dropdownService/dpmasterACNo-dropdown.service';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
-import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service'
 import { FreezeAccountService } from './freeze-account.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -21,10 +20,10 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     ReactiveFormsModule
   ],
   declarations: [],
-  providers: [freezeAccountService, SchemeCodeDropdownService, DPMasterACNODropdownService, FreezeAccountService,CustomerIDMasterDropdownService,{
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
-  },]
+  }, freezeAccountService, SchemeCodeDropdownService, SchemeAccountNoService, FreezeAccountService]
 })
 export class FreezeAccountModule { }

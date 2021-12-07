@@ -1,29 +1,19 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
 import { IOption } from "ng-select";
 import { Subscription } from "rxjs/Subscription";
-import { SchemeCodeService } from "../../../../shared/elements/scheme-code.service";
-import { AcountnoService } from "../../../../shared/elements/acountno.service";
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
+import { overdraftservice } from './over-draft.service';
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import Swal from "sweetalert2";
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
-} from "@angular/forms";
-import { overdraftservice } from "./over-draft.service";
+import { FormGroup, FormBuilder, Validators, FormControl, } from "@angular/forms";
+
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
-
+import { first } from 'rxjs/operators';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -45,7 +35,7 @@ interface OverMaster {
   templateUrl: "./over-draft.component.html",
   styleUrls: ["./over-draft.component.scss"],
 })
-export class OverDraftComponent implements OnInit {
+export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   //api
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -64,8 +54,9 @@ export class OverDraftComponent implements OnInit {
 
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
-  a: Array<IOption> = this.SchemeCodeService.getCharacters();
-  b: Array<IOption> = this.AcountnoService.getCharacters();
+  acno
+  allScheme // all scheme
+  schemeACNo //account no 
 
   selectedOption = "3";
   isDisabled = true;
@@ -77,99 +68,97 @@ export class OverDraftComponent implements OnInit {
 
   PeriodicallyOverDraftTrue = true;
   TemporaryOverDraftTrue = false;
+  periodoverdraft: boolean = false
 
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   page: number;
 
   constructor(
     private fb: FormBuilder,
-    public SchemeCodeService: SchemeCodeService,
-    public AcountnoService: AcountnoService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private schemeAccountNoService: SchemeAccountNoService,
     private _overdraft: overdraftservice,
     private http: HttpClient
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
 
-    this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/market-shares",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.overMaster = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
-        {
-          title: "Scheme Code",
-          data: "AC_TYPE",
-        },
-        {
-          title: "Account No",
-          data: "AC_NO",
-        },
-        {
-          title: "Account No",
-          data: "AC_NO",
-        },
-      ],
-      dom: "Blrtip",
-    };
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/over-draft",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.overMaster = resp.data;
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+    //     {
+    //       title: "Scheme Code",
+    //       data: "AC_TYPE",
+    //     },
+    //     {
+    //       title: "Account No",
+    //       data: "AC_NO",
+    //     },
+    //     {
+    //       title: "Account No",
+    //       data: "AC_NO",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
+    // };
 
-    this.dataSub = this.SchemeCodeService.loadCharacters().subscribe(
-      (options) => {
-        this.characters = options;
-      }
-    );
-    this.dataSub = this.AcountnoService.loadCharacters().subscribe(
-      (options) => {
-        this.characters = options;
-      }
-    );
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var filtered = data.filter(function (scheme) {
+        return (scheme.value == 'CA' || scheme.value == 'PG' || scheme.value == 'SB' || scheme.value == 'LN' || scheme.value == 'CC');
+      });
+      this.allScheme = filtered;
+    })
   }
 
   runTimer() {
@@ -186,10 +175,9 @@ export class OverDraftComponent implements OnInit {
       AC_TYPE: ["", [Validators.required]],
       AC_NO: ["", [Validators.required]],
       AC_SODAMT: [""],
-      AC_ODAMT: ["", [Validators.pattern, Validators.required]],
-      AC_ODDAYS: ["", [Validators.pattern, Validators.required]],
-      AC_ODDATE: ["", [Validators.required]],
-      // Date: ['', [Validators.required]]
+      AC_ODAMT: ["", [Validators.pattern,]],
+      AC_ODDAYS: ["", [Validators.pattern,]],
+      AC_ODDATE: ["", []],
     });
   }
 
@@ -207,7 +195,10 @@ export class OverDraftComponent implements OnInit {
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         // to reload after insertion of data
-        this.rerender();
+        // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        //   dtInstance.ajax.reload()
+        // });
+        // this.rerender()
       },
       (error) => {
         console.log(error);
@@ -221,6 +212,7 @@ export class OverDraftComponent implements OnInit {
   editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this._overdraft.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -238,15 +230,53 @@ export class OverDraftComponent implements OnInit {
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
     this._overdraft.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
+      this.newbtnShow = false;
       this.rerender();
       this.resetForm();
     });
+  }
+
+  //get account no according scheme 
+  getSchemeAcNO(acno) {
+    switch (acno) {
+      case 'SB':
+        this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'CA':
+        this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'LN':
+        this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'CC':
+        this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'PG':
+        this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+    }
   }
 
   /**
@@ -278,19 +308,19 @@ export class OverDraftComponent implements OnInit {
     });
   }
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.columns().every(function () {
-        const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
-          } else {
-            that.search(this["value"]).draw();
-          }
-        });
-      });
-    });
+    // this.dtTrigger.next();
+    // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    //   dtInstance.columns().every(function () {
+    //     const that = this;
+    //     $("input", this.footer()).on("keyup change", function () {
+    //       if (this["value"] != "") {
+    //         that.search(this["value"]).draw();
+    //       } else {
+    //         that.search(this["value"]).draw();
+    //       }
+    //     });
+    //   });
+    // });
   }
   // Reset Function
   resetForm() {
@@ -311,14 +341,17 @@ export class OverDraftComponent implements OnInit {
   }
 
   OpenLink(val) {
-    //
     if (val == 1) {
       this.PeriodicallyOverDraftTrue = true;
+      this.periodoverdraft = true
       this.TemporaryOverDraftTrue = false;
     }
     if (val == 2) {
       this.PeriodicallyOverDraftTrue = false;
+      this.periodoverdraft = false
       this.TemporaryOverDraftTrue = true;
+      this.angForm.controls['AC_ODDAYS'].reset()
+      this.angForm.controls['AC_ODDATE'].reset()
     }
   }
 }

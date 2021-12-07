@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { SelectModule } from 'ng-select';
 import { LienMarkClearRoutingModule } from './lien-mark-clear-routing.module'
 import { DataTablesModule } from 'angular-datatables';
-import { Scheme1Service } from '../../../../shared/elements/scheme1.service';
-import { AcountnoService } from '../../../../shared/elements/acountno.service'
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { lienService } from './lien-mark-clear.service'
 
 @NgModule({
   imports: [
@@ -19,13 +20,12 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     ReactiveFormsModule
   ],
   declarations: [],
-  providers: [Scheme1Service, AcountnoService,{
+  providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
   },
-
-
-]
+    lienService,
+    SchemeCodeDropdownService, SchemeAccountNoService]
 })
 export class LienMarkClearModule { }

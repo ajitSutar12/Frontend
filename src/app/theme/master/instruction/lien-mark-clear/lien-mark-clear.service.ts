@@ -5,19 +5,17 @@ import { HttpClient } from "@angular/common/http";
 import { catchError, map } from "rxjs/operators";
 import Swal from "sweetalert2";
 import { environment } from "../../../../../environments/environment";
-@Injectable({
-  providedIn: "root",
-})
+@Injectable()
 export class lienService {
   // Variable for handleError
   [x: string]: any;
   // API
   url = environment.base_url;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + "/market-shares/insert", data).pipe(
+    return this.http.post(this.url + '/lien-mark-clear/insert', data).pipe(
       map((res) => res),
       catchError((error) => {
         Swal.fire("Please Input Proper Data !");
@@ -27,18 +25,14 @@ export class lienService {
   }
   // For append data
   getFormData(id: any): Observable<any> {
-    return this.http
-      .get(this.url + "/market-shares/" + id)
-      .pipe(catchError(this.handleError));
+    return this.http.get(this.url + '/lien-mark-clear/' + id).pipe(catchError(this.handleError));
   }
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + "/market-shares/update", data);
+    return this.http.put(this.url + '/lien-mark-clear/update', data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
-    return this.http
-      .delete(this.url + "/market-shares/delete/" + id)
-      .pipe(catchError(this.handleError));
+    return this.http.delete(this.url + '/lien-mark-clear/delete/' + id).pipe(catchError(this.handleError));
   }
 }

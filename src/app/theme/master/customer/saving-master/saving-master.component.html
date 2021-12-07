@@ -535,7 +535,7 @@
                             </div>
                           </div>
                         </div>
-                        <ng-container *ngIf="tempAddress">
+                        <ng-container *ngIf="!tempAddress">
                           <div class="row">
                             <div class="col-sm-2">
                               <div class="form-group input-group">
@@ -1588,6 +1588,15 @@
                       ">
                       {{ data.AC_CUSTID === "" ? "-" : data.AC_CUSTID }}
                     </td>
+                    <td [ngClass]="data.idmaster.custAddress[0].AC_ADDR === '' ? 'td_center' : 'td_left'">
+                      {{ data.idmaster.custAddress[0].AC_ADDR === "" ? "-" :
+                      data.idmaster.custAddress[0].AC_ADDR }}
+                    </td>
+                    <!-- <td>{{data.idmaster.custAddress[0].AC_ADDR }}</td> -->
+                    <td [ngClass]="data.idmaster.custAddress[0].AC_CTCODE === '' ? 'td_center' : 'td_right'">
+                      {{ data.idmaster.custAddress[0].AC_CTCODE === "" ? "-" :
+                      data.idmaster.custAddress[0].AC_CTCODE }}
+                    </td>
                     <td [ngClass]="
                         data.AC_OPDATE === '' ? 'td_center' : 'td_center'
                       ">
@@ -1690,6 +1699,11 @@
                     <th>
                       <input type="text" placeholder="Search Customer ID" name="AC_CUSTID" />
                     </th>
+                    <th><input type="text" placeholder="Search Address" name="AC_ADDR">
+                    </th>
+                    <th><input type="text" placeholder="Search Address" name="AC_CTCODE">
+                    </th>
+
                     <th>
                       <input type="text" placeholder="Search Open Date" name="AC_OPDATE" />
                     </th>

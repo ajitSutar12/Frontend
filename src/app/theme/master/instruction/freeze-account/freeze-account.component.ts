@@ -3,8 +3,6 @@ import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { freezeAccountService } from '../../../../shared/dropdownService/freeze-account.service'
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
-import { DPMasterACNODropdownService } from '../../../../shared/dropdownService/dpmasterACNo-dropdown.service';
-import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service'
 import { FreezeAccountService } from './freeze-account.service'
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -14,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 // Angular Datatable Directive 
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { first } from 'rxjs/operators';
 // Handling datatable data
 class DataTableResponse {
@@ -27,7 +26,7 @@ class DataTableResponse {
 interface FreezAccount {
   AC_TYPE: string
   AC_NO: number
-  AC_CUSTID: string
+  // AC_CUSTID: string
   AC_FREEZE_STATUS: string
   AC_FREEZE_AMOUNT: number
   AC_FREEZE_DATE: Date
@@ -45,6 +44,8 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
   scheme
   Cust_ID
   acno
+  allScheme // all scheme
+  schemeACNo //account no 
   freezoption: Array<IOption> = this.freezeAccountService.getCharacters();
   selectedOption = '3';
   isDisabled = true;
@@ -83,102 +84,92 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
   newbtnShow: boolean = false;
   updateID: number = 0;
 
+  //todays date
+  date = new Date();
   // column search
   filterData = {};
 
-  //Scheme type variable
-  //deposit: SB,TD,CA,GS
-  //Loan: LN,CC
-  schemeType: string = 'SB'
-
   constructor(private fb: FormBuilder,
     private freezeAccountService: freezeAccountService,
-    private dpMasterACNODropdownService: DPMasterACNODropdownService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private FreezeAccountService: FreezeAccountService,
-    private customerIDMasterDropdownService: CustomerIDMasterDropdownService,
-    private http: HttpClient) { }
+    private schemeAccountNoService: SchemeAccountNoService,
+    private http: HttpClient) { this.setdate() }
 
   ngOnInit(): void {
     this.createForm();
-    this.dtExportButtonOptions = {
-      pagingType: 'full_numbers',
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
-        dataTableParameters['filterData'] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + '/dpmaster',
-            dataTableParameters
-          ).subscribe(resp => {
-            this.freezAccount = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: resp.data
-            });
-          });
-      },
-      columnDefs: [{
-        targets: '_all',
-        defaultContent: ""
-      }],
-      columns: [
-        {
-          title: 'Action',
-        },
-        {
-          title: 'Scheme',
-          data: 'AC_TYPE'
-        },
-        {
-          title: 'Account No',
-          data: 'AC_NO'
-        },
-        {
-          title: 'Customer ID',
-          data: 'AC_CUSTID'
-        },
-        {
-          title: 'Freeze Status',
-          data: 'AC_FREEZE_STATUS'
-        },
-        {
-          title: 'Freeze Amount',
-          data: 'AC_FREEZE_AMOUNT'
-        },
-        {
-          title: 'Freeze Date',
-          data: 'AC_FREEZE_DATE'
-        },
-        {
-          title: 'Remark',
-          data: 'AC_FREEZE_REASON'
-        }
+    // this.dtExportButtonOptions = {
+    //   pagingType: 'full_numbers',
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
+    //     dataTableParameters['filterData'] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + '/freez-account',
+    //         dataTableParameters
+    //       ).subscribe(resp => {
+    //         this.freezAccount = resp.data;
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: resp.data
+    //         });
+    //       });
+    //   },
+    //   columnDefs: [{
+    //     targets: '_all',
+    //     defaultContent: ""
+    //   }],
+    //   columns: [
+    //     {
+    //       title: 'Action',
+    //     },
+    //     {
+    //       title: 'Scheme',
+    //       data: 'AC_TYPE'
+    //     },
+    //     {
+    //       title: 'Account No',
+    //       data: 'AC_NO'
+    //     },
+    //     // {
+    //     //   title: 'Customer ID',
+    //     //   data: 'AC_CUSTID'
+    //     // },
+    //     {
+    //       title: 'Freeze Status',
+    //       data: 'AC_FREEZE_STATUS'
+    //     },
+    //     {
+    //       title: 'Freeze Amount',
+    //       data: 'AC_FREEZE_AMOUNT'
+    //     },
+    //     {
+    //       title: 'Freeze Date',
+    //       data: 'AC_FREEZE_DATE'
+    //     },
+    //     {
+    //       title: 'Remark',
+    //       data: 'AC_FREEZE_REASON'
+    //     }
 
-      ],
-      dom: 'Blrtip',
-    };
+    //   ],
+    //   dom: 'Blrtip',
+    // };
     this.runTimer();
     this.dataSub = this.freezeAccountService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
-    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      this.scheme = data;
-    })
-    this.dpMasterACNODropdownService.getACNOList().pipe(first()).subscribe(data => {
-      this.acno = data;
-    })
-    this.customerIDMasterDropdownService.getCustomerIDMasterList().pipe(first()).subscribe(data => {
-      this.Cust_ID = data;
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      this.allScheme = data;
     })
   }
 
@@ -195,7 +186,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
       AC_NO: ['', [Validators.required]],
-      AC_CUSTID: ['',],
+      // AC_CUSTID: ['',],
       AC_FREEZE_STATUS: ['', [Validators.required]],
       AC_FREEZE_AMOUNT: ['', [Validators.pattern]],
       AC_FREEZE_DATE: ['',],
@@ -208,7 +199,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     const dataToSend = {
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
-      'AC_CUSTID': formVal.AC_CUSTID,
+      // 'AC_CUSTID': formVal.AC_CUSTID,
       'AC_FREEZE_STATUS': formVal.AC_FREEZE_STATUS,
       'AC_FREEZE_AMOUNT': formVal.AC_FREEZE_AMOUNT,
       'AC_FREEZE_DATE': formVal.AC_FREEZE_DATE,
@@ -217,7 +208,9 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     this.FreezeAccountService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
@@ -234,7 +227,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
       this.angForm.setValue({
         'AC_TYPE': data.AC_TYPE,
         'AC_NO': data.AC_NO,
-        'AC_CUSTID': data.AC_CUSTID,
+        // 'AC_CUSTID': data.AC_CUSTID,
         'AC_FREEZE_STATUS': data.AC_FREEZE_STATUS,
         'AC_FREEZE_AMOUNT': data.AC_FREEZE_AMOUNT,
         'AC_FREEZE_DATE': data.AC_FREEZE_DATE,
@@ -242,6 +235,114 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
       })
     })
   }
+
+  //get account no according scheme 
+  getSchemeAcNO(acno) {
+    switch (acno) {
+      case 'SB':
+        console.log("saving");
+        this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'SH':
+        console.log("Share");
+        this.schemeAccountNoService.getShareSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'CA':
+        console.log("Current account");
+        this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'LN':
+        console.log("Term Loan");
+        this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'TD':
+        console.log("Term Deposit");
+        this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'DS':
+        console.log("Dispute Loan");
+        this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'CC':
+        console.log("Cash Credit Loan");
+        this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'GS':
+        console.log("anamat");
+        this.schemeAccountNoService.getAnamatSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'PG':
+        console.log("Pigmy account");
+        this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'AG':
+        console.log("Pigmy agent");
+        this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'IV':
+        console.log("Investment");
+        this.schemeAccountNoService.getInvestmentSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+    }
+  }
+
+  datemin: any;//setting max date
+  //set date 18 years before current date
+  setdate() {
+    const d = new Date();
+    let day = d.getDate();
+    const m = new Date().getMonth()
+    const year = new Date().getFullYear()
+    this.datemin = year + "-" + m + "-" + day;
+  }
+
+  //set date on keyup event
+  keyupdate(date: any) {
+    const d = new Date();
+    let day = d.getDate();
+    const m = new Date().getMonth()
+    const year = new Date().getFullYear();
+    this.datemin = year + "-" + m + "-" + day;
+    if (date != "") {
+      if (date < this.datemin) {
+        Swal.fire("Cancelled", "please input date below" + this.datemin, "error");
+        this.angForm.controls['AC_FREEZE_DATE'].reset()
+      }
+    }
+  }
+
 
   //function for delete button clicked
   delClickHandler(): void {
@@ -281,7 +382,10 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      // to reload after delete of data
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     })
   }
@@ -294,16 +398,21 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
   }
   freezStatus
   freezDeatils(freezStatus) {
-    if (freezStatus == '0') {
+    if (freezStatus == 'No Freeze') {
       this.angForm.controls['AC_FREEZE_AMOUNT'].disable()
+      this.angForm.controls['AC_FREEZE_AMOUNT'].reset()
       this.angForm.controls['AC_FREEZE_DATE'].disable()
+      this.angForm.controls['AC_FREEZE_DATE'].reset()
       this.angForm.controls['AC_FREEZE_REASON'].disable()
+      this.angForm.controls['AC_FREEZE_REASON'].reset()
     }
-    else if (freezStatus == '1') {
+    else if (freezStatus == 'Total Amount') {
       this.angForm.controls['AC_FREEZE_AMOUNT'].disable()
+      this.angForm.controls['AC_FREEZE_AMOUNT'].reset()
     }
-    else if (freezStatus == '2') {
+    else if (freezStatus == 'Only Withdrawal') {
       this.angForm.controls['AC_FREEZE_AMOUNT'].disable()
+      this.angForm.controls['AC_FREEZE_AMOUNT'].reset()
     }
     else {
       this.angForm.controls['AC_FREEZE_AMOUNT'].enable()
@@ -313,23 +422,23 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.columns().every(function () {
-        const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-          if (this['value'] != '') {
-            that
-              .search(this['value'])
-              .draw();
-          } else {
-            that
-              .search(this['value'])
-              .draw();
-          }
-        });
-      });
-    });
+    // this.dtTrigger.next();
+    // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    //   dtInstance.columns().every(function () {
+    //     const that = this;
+    //     $('input', this.footer()).on('keyup change', function () {
+    //       if (this['value'] != '') {
+    //         that
+    //           .search(this['value'])
+    //           .draw();
+    //       } else {
+    //         that
+    //           .search(this['value'])
+    //           .draw();
+    //       }
+    //     });
+    //   });
+    // });
   }
 
   // Reset Function

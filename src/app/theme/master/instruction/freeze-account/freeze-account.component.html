@@ -8,11 +8,11 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
-                                    placeholder="Scheme*" required title="Compulsory Selection"
-                                    formControlName="AC_TYPE">
+                                <ng-select [ngClass]="'ng-select'" [options]="allScheme" [multiple]="false"
+                                    placeholder="Scheme*" formControlName="AC_TYPE" [(ngModel)]="acno"
+                                    (selected)="getSchemeAcNO(acno)">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -23,9 +23,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="acno" [multiple]="false"
+                                <ng-select [ngClass]="'ng-select'" [options]="schemeACNo" [multiple]="false"
                                     placeholder="Account No*" required title="Compulsory Selection"
                                     formControlName="AC_NO">
                                 </ng-select>
@@ -38,16 +38,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <!-- <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
                                     placeholder="Customer ID" formControlName="AC_CUSTID">
                                 </ng-select>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row">
-                        <h6>Freeze Details</h6>
+                        <div class="col-sm-2">
+                            <h6>Freeze Details</h6>
+                        </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="freezoption" [multiple]="false"
@@ -85,8 +87,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" class="form-control" placeholder=" " id="AC_FREEZE_DATE"
-                                        max="9999-12-31" formControlName="AC_FREEZE_DATE"
-                                        onfocus="(this.type='date')" />
+                                        min="{{datemin | date:'yyyy-MM-dd'}}" max="9999-12-31" #date
+                                        formControlName="AC_FREEZE_DATE" onfocus="(this.type='date')"
+                                        (keyup)="keyupdate(date.value)" />
                                     <label for="AC_FREEZE_DATE">Freeze Date <sub class="required">*</sub></label>
                                 </span>
                             </div>
@@ -101,11 +104,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-5">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="To" class="form-control" placeholder=" "
-                                        id="AC_FREEZE_REASON" pattern="^[A-Za-z\./ -]+$"
+                                        id="AC_FREEZE_REASON" pattern="^[A-Za-z\./ -]+$" maxlength="4000"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         formControlName="AC_FREEZE_REASON">
                                     <label for="AC_FREEZE_REASON">Remark <sub class="required">*</sub></label>
@@ -115,18 +118,16 @@
                                 *ngIf="angForm.controls['AC_FREEZE_REASON'].invalid && (angForm.controls['AC_FREEZE_REASON'].dirty || angForm.controls['AC_FREEZE_REASON'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['AC_FREEZE_REASON'].errors?.pattern || angForm.controls['AC_FREEZE_REASON'].errors?.required">
+                                    *ngIf="angForm.controls['AC_FREEZE_REASON'].errors?.pattern || angForm.controls['AC_FREEZE_REASON'].errors?.maxlength || angForm.controls['AC_FREEZE_REASON'].errors?.required">
                                     This field is required and Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Add</button>
+                        <div class="col-sm-3">
+                            <button class="btn btn-primary ripple light" (click)="submit()" [disabled]="angForm.invalid"
+                                *ngIf="showButton">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
-                        </div>
-                        <div class="col-sm-2">
+                                *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-primary ripple light" (click)="addNewData()"
                                 *ngIf="newbtnShow">New</button>
                         </div>
@@ -136,7 +137,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-block">
@@ -149,12 +150,9 @@
                                     <tr *ngFor="let data of freezAccount">
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
                                                 (click)="editClickHandler(data.id)">Edit</button> &nbsp;
-                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" -->
-                                            <!-- (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
                                         <td>{{ data.AC_TYPE }}</td>
                                         <td>{{ data.AC_NO }}</td>
-                                        <td>{{ data.AC_CUSTID }}</td>
                                         <td>{{ data.AC_FREEZE_STATUS}}</td>
                                         <td>{{ data.AC_FREEZE_AMOUNT}}</td>
                                         <td>{{ data.AC_FREEZE_DATE }}</td>
@@ -171,7 +169,6 @@
                                         <th></th>
                                         <th><input type="text" placeholder="Search Scheme" name="AC_TYPE"></th>
                                         <th><input type="text" placeholder="Search Account No" name="AC_NO"></th>
-                                        <th><input type="text" placeholder="Search Customer ID" name="AC_CUSTID"></th>
                                         <th><input type="text" placeholder="Search Freeze Status"
                                                 name="AC_FREEZE_STATUS"></th>
                                         <th><input type="text" placeholder="Search Freeze Amount"
@@ -188,4 +185,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

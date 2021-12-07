@@ -1,26 +1,18 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, } from "@angular/core";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { Scheme1Service } from '../../../../shared/elements/scheme1.service';
-import { AcountnoService } from '../../../../shared/elements/acountno.service';
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import{lienService} from './lien-mark-clear.service'
+import { lienService } from './lien-mark-clear.service'
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
-
-
+import { first } from 'rxjs/operators';
 
 // Handling datatable data
 class DataTableResponse {
@@ -31,19 +23,17 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface LienMaster {
-  
-    
-    DEPO_AC_TYPE:string;
+  AC_NO: number
+  DEPO_AC_TYPE: string;
   DEPO_AC_NO: number;
-  SECU_CODE: number;
+  // SECU_CODE: number;
   LEDGER_BAL: number;
   DEPOSIT_AMT: number;
   RECEIPT_NO: number;
-  IS_LIEN_MARK_CLEAR:number;
+  IS_LIEN_MARK_CLEAR: number;
   AC_TYPE: string;
   BALANCE_OF_LOAN_ACCOUNT: number;
   AC_EXPIRE_DATE: Date;
-    
 }
 
 @Component({
@@ -51,23 +41,23 @@ interface LienMaster {
   templateUrl: './lien-mark-clear.component.html',
   styleUrls: ['./lien-mark-clear.component.scss']
 })
-export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy  {
-   //api 
-   url = environment.base_url;
-   // For reloading angular datatable after CRUD operation
-   @ViewChild(DataTableDirective, { static: false })
-   dtElement: DataTableDirective;
-   dtOptions: DataTables.Settings = {};
-   dtTrigger: Subject<any> = new Subject();
-   // Store data from backend
-   lienMaster:LienMaster[];
+export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
+  // For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  // Store data from backend
+  lienMaster: LienMaster[];
   angForm: FormGroup;
 
   //Datatable
   dtExportButtonOptions: any = {};
-
-  a: Array<IOption> = this.Scheme1Service.getCharacters();
-  b: Array<IOption> = this.AcountnoService.getCharacters();
+  acno
+  allScheme // all scheme
+  schemeACNo //account no 
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -89,66 +79,63 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
   filterData = {};
   page: number;
 
-  
-  constructor(private fb: FormBuilder, public Scheme1Service: Scheme1Service, public AcountnoService: AcountnoService,    private http: HttpClient,private _lien :lienService
-    ) { this.createForm(); }
+
+  constructor(private fb: FormBuilder, private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private schemeAccountNoService: SchemeAccountNoService, private http: HttpClient, private _lien: lienService) { }
 
   ngOnInit(): void {
-     this.createForm();
+    this.createForm();
     // Fetching Server side data
-
     this.dtExportButtonOptions = {
-      
-      
-        pagingType: "full_numbers",
-        paging: true,
-        pageLength: 10,
-        serverSide: true,
-        processing: true,
-        ajax: (dataTableParameters: any, callback) => {
-          dataTableParameters.minNumber = dataTableParameters.start + 1;
-          dataTableParameters.maxNumber =
-            dataTableParameters.start + dataTableParameters.length;
-          let datatableRequestParam: any;
-          this.page = dataTableParameters.start / dataTableParameters.length;
-  
-          dataTableParameters.columns.forEach((element) => {
-            if (element.search.value != "") {
-              let string = element.search.value;
-              this.filterData[element.data] = string;
-            } else {
-              let getColumnName = element.data;
-              let columnValue = element.value;
-              if (this.filterData.hasOwnProperty(element.data)) {
-                let value = this.filterData[getColumnName];
-                if (columnValue != undefined || value != undefined) {
-                  delete this.filterData[element.data];
-                }
+      pagingType: "full_numbers",
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+
+        dataTableParameters.columns.forEach((element) => {
+          if (element.search.value != "") {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
               }
             }
-          });
-          dataTableParameters["filterData"] = this.filterData;
-          this.http
-            .post<DataTableResponse>(
-              this.url + "/market-shares",
-              dataTableParameters
-            )
-            .subscribe((resp) => {
-              this.lienMaster= resp.data;
-              callback({
-                recordsTotal: resp.recordsTotal,
-                recordsFiltered: resp.recordsTotal,
-                data: [],
-              });
+          }
+        });
+        dataTableParameters["filterData"] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + '/lien-mark-clear',
+            dataTableParameters
+          )
+          .subscribe((resp) => {
+            this.lienMaster = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: [],
             });
-        },
-        columns: [
-          {
-            title: "Action",
-            render: function (data: any, type: any, full: any) {
-              return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-            },
+          });
+      },
+      columns: [
+        {
+          title: "Action",
+          render: function (data: any, type: any, full: any) {
+            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           },
+        },
         {
           title: 'Scheme',
           data: 'DEPO_AC_TYPE'
@@ -157,10 +144,10 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
           title: 'Account No',
           data: 'DEPO_AC_NO'
         },
-        {
-          title: 'Security Code',
-          data: 'SECU_CODE'
-        },
+        // {
+        //   title: 'Security Code',
+        //   data: 'SECU_CODE'
+        // },
         {
           title: 'Ledger Balance',
           data: 'LEDGER_BAL'
@@ -191,20 +178,16 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
         }
       ],
       dom: 'Blrtip',
-      
-     
     };
-
-
 
     this.runTimer();
 
-    this.dataSub = this.Scheme1Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.AcountnoService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var filtered = data.filter(function (scheme) {
+        return (scheme.value == 'TD' || scheme.value == 'PG' || scheme.value == 'SB');
+      });
+      this.allScheme = filtered;
+    })
   }
   runTimer() {
     const timer = setInterval(() => {
@@ -218,25 +201,48 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
 
   createForm() {
     this.angForm = this.fb.group({
-      DEPO_AC_TYPE: ['', [Validators.required]],
-      DEPO_AC_NO: ['', [Validators.required]],
-      SECU_CODE: ['', [Validators.pattern, Validators.required]],
+      DEPO_AC_TYPE: ['',],
+      DEPO_AC_NO: ['',],
+      // SECU_CODE: ['', [Validators.pattern, Validators.required]],
       LEDGER_BAL: [''],
-      DEPOSIT_AMT:[''],
-      RECEIPT_NO:[''],
-      IS_LIEN_MARK_CLEAR:[''],
-      AC_TYPE:[''],
-      BALANCE_OF_LOAN_ACCOUNT:[''],
-      AC_EXPIRE_DATE:[''],
+      DEPOSIT_AMT: [''],
+      RECEIPT_NO: [''],
+      IS_LIEN_MARK_CLEAR: [''],
+      AC_TYPE: [''],
+      BALANCE_OF_LOAN_ACCOUNT: [''],
+      AC_EXPIRE_DATE: [''],
     });
   }
 
+  //get account no according scheme 
+  getSchemeAcNO(acno) {
+    switch (acno) {
+      case 'SB':
+        this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+      case 'TD':
+        console.log("Term Deposit");
+        this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'PG':
+        console.log("Pigmy account");
+        this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+    }
+  }
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
       DEPO_AC_TYPE: formVal.DEPO_AC_TYPE,
       DEPO_AC_NO: formVal.DEPO_AC_NO,
-      SECU_CODE: formVal.SECU_CODE,
+      // SECU_CODE: formVal.SECU_CODE,
       LEDGER_BAL: formVal.LEDGER_BAL,
       DEPOSIT_AMT: formVal.DEPOSIT_AMT,
       RECEIPT_NO: formVal.RECEIPT_NO,
@@ -258,7 +264,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
     );
     //To clear form
     this.resetForm();
-  
+
   }
 
   //function for edit button clicked
@@ -269,8 +275,8 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
       this.updateID = data.id;
       this.angForm.setValue({
         DEPO_AC_TYPE: data.DEPO_AC_TYPE,
-        DEPO_AC_NO: data.DEPO_AC_NO,
-        SECU_CODE: data.SECU_CODE,
+        DEPO_AC_NO: data.DEPO_AC_NO.toString(),
+        // SECU_CODE: data.SECU_CODE,
         LEDGER_BAL: data.LEDGER_BAL,
         DEPOSIT_AMT: data.DEPOSIT_AMT,
         RECEIPT_NO: data.RECEIPT_NO,
@@ -298,11 +304,11 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
         this._lien.deleteData(id).subscribe((data1) => {
           Swal.fire("Deleted!", "Your data has been deleted.", "success");
         }),
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
+          Swal.fire(
+            'Deleted!',
+            'Your data has been deleted.',
+            'success'
+          )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {

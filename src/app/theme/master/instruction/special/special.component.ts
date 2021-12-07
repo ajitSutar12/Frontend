@@ -1,27 +1,21 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, } from "@angular/core";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
-import { ExucuteOnService } from '../../../../shared/elements/exucute-on.service';
-import { Scheme1Service } from '../../../../shared/elements/scheme1.service';
-import { AcountnoService } from '../../../../shared/elements/acountno.service';
+import { ExucuteOnService } from '../../../../shared/dropdownService/exucute-on.service';
 import Swal from 'sweetalert2';
-import { Observable } from 'rxjs/Observable';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import{ specialservice } from './special.service'
+import { specialservice } from './special.service'
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
-
-
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { first } from 'rxjs/operators';
+//date pipe
+import { DatePipe } from '@angular/common';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -31,7 +25,6 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface SpecialMaster {
-      
   INSTRUCTION_NO: number;
   INSTRUCTION_DATE: Date;
   TRAN_ACTYPE: string;
@@ -43,7 +36,6 @@ interface SpecialMaster {
   DETAILS: string;
 }
 
-
 @Component({
   selector: 'app-special',
   templateUrl: './special.component.html',
@@ -51,25 +43,24 @@ interface SpecialMaster {
 })
 export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   angForm: FormGroup;
-   //api 
-   url = environment.base_url;
-   // For reloading angular datatable after CRUD operation
-   @ViewChild(DataTableDirective, { static: false })
-   dtElement: DataTableDirective;
-   dtOptions: DataTables.Settings = {};
-   dtTrigger: Subject<any> = new Subject();
-   // Store data from backend
-   specialMaster: SpecialMaster[];
-     //filter variable
+  //api 
+  url = environment.base_url;
+  // For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  // Store data from backend
+  specialMaster: SpecialMaster[];
+  //filter variable
   filterData = {};
-
 
   //Datatable
   dtExportButtonOptions: any = {};
-
-  excuteonOption: Array<IOption> = this.ExucuteOnService.getCharacters();
-  a: Array<IOption> = this.Scheme1Service.getCharacters();
-  b: Array<IOption> = this.AcountnoService.getCharacters();
+  acno: any
+  excuteonOption: Array<IOption> = this.exucuteOnService.getCharacters();
+  allScheme // all scheme
+  schemeACNo //account no 
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -79,15 +70,17 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   private dataSub: Subscription = null;
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   //variable for checkbox and radio button 
   isIsRestrictTransactionEntry: boolean = false;
   page: number;
   updateID: any;
 
- 
-
-  constructor(private fb: FormBuilder, public ExucuteOnService: ExucuteOnService, public Scheme1Service: Scheme1Service, public AcountnoService: AcountnoService,    private http: HttpClient,private _special:specialservice
-    ) {  }
+  constructor(private fb: FormBuilder, private datePipe: DatePipe, public exucuteOnService: ExucuteOnService,
+    private schemeAccountNoService: SchemeAccountNoService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private http: HttpClient,
+    private _special: specialservice) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -123,11 +116,11 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
         dataTableParameters["filterData"] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url + "/market-shares",
+            this.url + "/special-instruction",
             dataTableParameters
           )
           .subscribe((resp) => {
-            this.specialMaster= resp.data;
+            this.specialMaster = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -138,11 +131,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       columns: [
         {
           title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
         },
-       
         {
           title: 'Instruction No',
           data: 'INSTRUCTION_NO'
@@ -165,7 +154,10 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Upto Date',
           data: 'TO_DATE'
         },
-       
+        {
+          title: 'Execute On',
+          data: 'DRCR_APPLY'
+        },
         {
           title: 'Is Restrict Transaction Entry',
           data: 'IS_RESTRICT'
@@ -175,24 +167,19 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Details',
           data: 'DETAILS'
         },
-       
+
       ],
       dom: 'Blrtip',
-     
-    };
 
+    };
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      this.allScheme = data;
+    })
 
     this.runTimer();
-    this.dataSub = this.ExucuteOnService.loadCharacters().subscribe((options) => {
+    this.dataSub = this.exucuteOnService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
-    this.dataSub = this.Scheme1Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.AcountnoService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-
   }
 
   runTimer() {
@@ -210,13 +197,26 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       INSTRUCTION_DATE: ['',],
       TRAN_ACTYPE: ['', [Validators.required]],
       TRAN_ACNO: ['', [Validators.required]],
-      // ExecuteOn: ['', [Validators.required]], 
-      FROM_DATE: ['',[Validators.required]],
-      TO_DATE: ['', [ Validators.required]],
+      FROM_DATE: ['', [Validators.required]],
+      TO_DATE: ['', [Validators.required]],
       DRCR_APPLY: ['', [Validators.required]],
       IS_RESTRICT: [''],
-      DETAILS: ['', [Validators.required,Validators.pattern]],
+      DETAILS: ['', [Validators.required]],
     });
+    let sysdate = new Date()
+    let sysDate = this.datePipe.transform(sysdate, "yyyy-MM-dd")
+    this.angForm.patchValue({
+      'INSTRUCTION_DATE': sysDate,
+      'FROM_DATE': sysDate,
+      'TO_DATE': sysDate
+    })
+  }
+
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
   }
 
   submit() {
@@ -234,9 +234,10 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     };
     this._special.postData(dataToSend).subscribe(
       (data1) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        // to reload after insertion of data
-        this.rerender();
+        // to reload after delete of data
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
       },
       (error) => {
         console.log(error);
@@ -252,6 +253,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this._special.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -274,15 +276,102 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
     this._special.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      // to reload after delete of data
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.resetForm();
     });
+  }
+
+  //get account no according scheme for introducer
+  getSchemeAcNO(acno) {
+    switch (acno) {
+      case 'SB':
+        console.log("saving");
+        this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'SH':
+        console.log("Share");
+        this.schemeAccountNoService.getShareSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'CA':
+        console.log("Current account");
+        this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'LN':
+        console.log("Term Loan");
+        this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'TD':
+        console.log("Term Deposit");
+        this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'DS':
+        console.log("Dispute Loan");
+        this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'CC':
+        console.log("Cash Credit Loan");
+        this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'GS':
+        console.log("anamat");
+        this.schemeAccountNoService.getAnamatSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'PG':
+        console.log("Pigmy account");
+        this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'AG':
+        console.log("Pigmy agent");
+        this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'IV':
+        console.log("Investment");
+        this.schemeAccountNoService.getInvestmentSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+    }
   }
 
   /**
@@ -307,11 +396,11 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
         this._special.deleteData(id).subscribe((data1) => {
           Swal.fire("Deleted!", "Your data has been deleted.", "success");
         }),
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
+          Swal.fire(
+            'Deleted!',
+            'Your data has been deleted.',
+            'success'
+          )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {

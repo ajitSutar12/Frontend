@@ -11,7 +11,6 @@ export class ExucuteOnService {
         { value: 'CreditEntry', label: 'Credit Entry' }
     ];
 
-
     getCharacters(): Array<IOption> {
         return this.cloneOptions(ExucuteOnService.PLAYER_ONE);
     }

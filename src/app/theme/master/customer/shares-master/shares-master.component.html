@@ -13,7 +13,8 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
                                     placeholder="Scheme *" required title="Compulsory Selection"
-                                    formControlName="AC_TYPE" [(ngModel)]="schemeCode">
+                                    formControlName="AC_TYPE" [(ngModel)]="schemeCode"
+                                    (selected)="getShareScheme($event)">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -426,16 +427,13 @@
                                                 <div class="row">
                                                     <div class="col-sm-5">
                                                         <div class="border-checkbox-section">
-                                                            <div class="
-                                                        border-checkbox-group
-                                                        border-checkbox-group-primary
-                                                      ">
+                                                            <div class="border-checkbox-group
+                                                        border-checkbox-group-primary">
                                                                 <input class="border-checkbox" type="checkbox"
                                                                     id="AC_ADDFLAG" formControlName="AC_ADDFLAG"
                                                                     (click)="tempAsPermanent()" />
                                                                 <label class="border-checkbox-label" for="AC_ADDFLAG">Is
-                                                                    Temporory Address same as
-                                                                    Permanent
+                                                                    Temporory Address same as Permanent
                                                                     Address</label>
                                                             </div>
                                                         </div>
@@ -1405,6 +1403,9 @@
                                         <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_right'">
                                             {{ data.AC_TYPE === "" ? "-" : data.AC_TYPE }}
                                         </td>
+                                        <td [ngClass]="data.BANKACNO === '' ? 'td_center' : 'td_right'">
+                                            {{ data.BANKACNO === "" ? "-" : data.BANKACNO }}
+                                        </td>
                                         <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
                                             {{ data.AC_NO === "" ? "-" : data.AC_NO }}
                                         </td>
@@ -1481,6 +1482,7 @@
                                         <th></th>
                                         <th><input type="text" placeholder="Search Scheme Type" name="AC_ACNOTYPE"></th>
                                         <th><input type="text" placeholder="Search Scheme" name="AC_TYPE"></th>
+                                        <th><input type="text" placeholder="Search Bank AC No" name="BANKACNO"></th>
                                         <th><input type="text" placeholder="Search Member No" name="AC_NO"></th>
                                         <th><input type="text" placeholder="Search Customer ID" name="AC_CUSTID"></th>
                                         <th><input type="text" placeholder="Search Customer Name" name="AC_NAME"></th>

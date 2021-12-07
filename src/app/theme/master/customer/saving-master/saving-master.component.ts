@@ -161,6 +161,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   DATE_APPOINTED = false
   ATTERONEY_NAME = false
 
+  addType: string
   //Scheme type variable
   schemeType: string = 'SB'
   //Dropdown options
@@ -269,6 +270,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         {
           title: 'Customer ID',
           data: 'AC_CUSTID'
+        },
+        {
+          title: 'Detail Address',
+          data: 'AC_ADDR'
+        },
+        {
+          title: 'City',
+          data: 'AC_CTCODE'
         },
         {
           title: 'Opening Date',
@@ -411,6 +420,13 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //function to toggle temp address field
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
+    this.angForm.controls['AC_THONO'].reset()
+    this.angForm.controls['AC_TWARD'].reset()
+    this.angForm.controls['AC_TADDR'].reset()
+    this.angForm.controls['AC_TGALLI'].reset()
+    this.angForm.controls['AC_TAREA'].reset()
+    this.angForm.controls['AC_TCTCODE'].reset()
+    this.angForm.controls['AC_TPIN'].reset()
   }
   //function to get new customer data
   addNewCustomer(newCustomer) {
@@ -434,6 +450,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   getCustomer(id) {
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
+      this.tempAddress = data.custAddress[0].AC_ADDFLAG
       this.ageCalculator(data.AC_BIRTH_DT);
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
@@ -441,13 +458,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_NAME: data.AC_NAME,
         AC_CAST: data.AC_CAST,
         AC_OCODE: data.AC_OCODE,
-        AC_MEMBTYPE: data.AC_MEMBTYPE,
-        AC_MEMBNO: data.AC_MEMBNO,
-        AC_BIRTH_DT: data.AC_BIRTH_DT,
-        AC_MBDATE: data.AC_BIRTH_DT,
-        AC_PANNO: data.AC_PANNO,
-        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
-
+        AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_MOBNO: data.AC_MOBILENO,
+        AC_PHNO: data.AC_PHONE_RES,
+        AC_EMAIL: data.AC_EMAILID,
         AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
         AC_HONO: data.custAddress[0].AC_HONO,
         AC_WARD: data.custAddress[0].AC_WARD,
@@ -456,18 +470,18 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_AREA: data.custAddress[0].AC_AREA,
         AC_CTCODE: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
-        AC_MOBNO: data.AC_MOBILENO,
-        AC_PHNO: data.AC_PHONE_RES,
-        AC_EMAIL: data.AC_EMAILID,
-
-        // AC_THONO: data.custAddress.custAddress[1].AC_THONO,
-        // AC_TWARD: data.custAddress.custAddress[1].AC_TWARD,
-        // AC_TADDR: data.custAddress.custAddress[1].AC_TADDR,
-        // AC_TGALLI: data.custAddress.custAddress[1].AC_TGALLI,
-        // AC_TAREA: data.custAddress.custAddress[1].AC_TAREA,
-        // AC_TCTCODE: data.custAddress.custAddress[1].AC_TCTCODE,
-        // AC_TPIN: data.custAddress.custAddress[1].AC_TPIN,
       })
+      if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {
+        this.angForm.patchValue({
+          AC_THONO: data.custAddress[1].AC_HONO,
+          AC_TWARD: data.custAddress[1].AC_WARD,
+          AC_TADDR: data.custAddress[1].AC_ADDR,
+          AC_TGALLI: data.custAddress[1].AC_GALLI,
+          AC_TAREA: data.custAddress[1].AC_AREA,
+          AC_TCTCODE: data.custAddress[1].AC_CTCODE,
+          AC_TPIN: data.custAddress[1].AC_PIN,
+        })
+      }
     })
   }
   //formcontrols with validation
@@ -496,6 +510,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_IS_RECOVERY: [''],
 
       //Address
+      AC_ADDFLAG: [true],
+      AC_ADDTYPE: ['P'],
       AC_HONO: ['',],
       AC_WARD: ['',],
       AC_ADDR: ['',],
@@ -503,7 +519,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_AREA: [''],
       AC_CTCODE: [''],
       AC_PIN: [''],
-      AC_ADDFLAG: [],
       AC_THONO: ['', [Validators.pattern]],
       AC_TWARD: ['', [Validators.pattern]],
       AC_TADDR: ['', [Validators.pattern]],
@@ -660,6 +675,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
+    if (formVal.AC_ADDFLAG == true) {
+      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
+      this.addType = 'P'
+    }
+    else if (formVal.AC_ADDFLAG == false) {
+      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
+      this.addType = 'T'
+    }
     const dataToSend = {
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
@@ -673,15 +696,16 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_NAME': formVal.AC_NAME,
       'AC_SCHMAMT': formVal.AC_SCHMAMT,
       'REF_ACNO': formVal.REF_ACNO,
-      //address
-      'AC_ADDFLAG': formVal.AC_ADDFLAG,
-      'AC_THONO': formVal.AC_THONO,
-      'AC_TWARD': formVal.AC_TWARD,
-      'AC_TADDR': formVal.AC_TADDR,
-      'AC_TGALLI': formVal.AC_TGALLI,
-      'AC_TAREA': formVal.AC_TAREA,
-      'AC_TCTCODE': formVal.AC_TCTCODE,
-      'AC_TPIN': formVal.AC_TPIN,
+      //temp address 
+      AC_ADDFLAG: formVal.AC_ADDFLAG,
+      AC_ADDTYPE: this.addType,
+      AC_THONO: formVal.AC_THONO,
+      AC_TWARD: formVal.AC_TWARD,
+      AC_TADDR: formVal.AC_TADDR,
+      AC_TGALLI: formVal.AC_TGALLI,
+      AC_TAREA: formVal.AC_TAREA,
+      AC_TCTCODE: formVal.AC_TCTCODE,
+      AC_TPIN: formVal.AC_TPIN,
       //minor and introducer
       'AC_MINOR': formVal.AC_MINOR,
       'AC_MBDATE': formVal.AC_MBDATE,
@@ -738,20 +762,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_CATG': data.AC_CATG,
         'AC_BALCATG': data.AC_BALCATG,
         'AC_OPR_CODE': data.AC_OPR_CODE,
-        // 'AC_CUSTID': data.AC_CUSTID,
         'AC_INTCATA': data.AC_INTCATA,
         'AC_OPDATE': data.AC_OPDATE,
         'AC_SCHMAMT': data.AC_SCHMAMT,
         'REF_ACNO': data.REF_ACNO,
-        //address
-        // 'AC_ADDFLAG': data.custAddress[1].AC_ADDFLAG,
-        // 'AC_THONO': data.custAddress[1].AC_THONO,
-        // 'AC_TWARD': data.custAddress[1].AC_TWARD,
-        // 'AC_TADDR': data.custAddress[1].AC_TADDR,
-        // 'AC_TGALLI': data.custAddress[1].AC_TGALLI,
-        // 'AC_TAREA': data.custAddress[1].AC_TAREA,
-        // 'AC_TCTCODE': data.custAddress[1].AC_TCTCODE,
-        // 'AC_TPIN': data.custAddress[1].AC_TPIN,
         //minor and introducer
         'AC_MINOR': data.AC_MINOR,
         'AC_MBDATE': data.AC_MBDATE,
@@ -769,6 +783,15 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
+    if (data.AC_ADDFLAG == true) {
+      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
+      this.addType = 'P'
+    }
+    else if (data.AC_ADDFLAG == false) {
+      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
+      this.addType = 'T'
+    }
+    data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
     data['JointAccountData'] = this.multiJointAC
     data['PowerOfAttorneyData'] = this.multiAttorney
@@ -800,7 +823,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   //Method for delete data
-  delClickHandler(id: number) { 
+  delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
       text: "Do you want to delete Saving master data.",

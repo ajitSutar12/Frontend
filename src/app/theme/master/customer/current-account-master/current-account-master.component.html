@@ -531,7 +531,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <ng-container *ngIf="tempAddress">
+                                                <ng-container *ngIf="!tempAddress">
                                                     <div class="row">
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
@@ -676,7 +676,7 @@
                                     <ngb-tab title="3.Introducer/Minor Details">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                     <div class="col-sm-2">
                                                         <div class="border-checkbox-section">
                                                             <div
@@ -744,7 +744,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="row">
                                                     <h6>Introducer</h6>
                                                 </div>
@@ -891,7 +891,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-2">
+                                                                    <div class="col-sm-3">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AC_NDATE"
@@ -1449,19 +1449,43 @@
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
                                                 (click)="editClickHandler(data.id)">Edit</button>
                                         </td>
-                                        <td>{{data.AC_ACNOTYPE}}</td>
-                                        <td>{{data.AC_TYPE }}</td>
-                                        <td>{{data.AC_NO }}</td>
-                                        <td>{{data.AC_CUSTID }}</td>
+                                        <td [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_left'">
+                                            {{ data.AC_ACNOTYPE === "" ? "-" : data.AC_ACNOTYPE }}
+                                        </td>
+                                        <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_right'">
+                                            {{ data.AC_TYPE === "" ? "-" : data.AC_TYPE }}
+                                        </td>
+                                        <td [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
+                                            {{ data.AC_NO === "" ? "-" : data.AC_NO }}
+                                        </td>
+                                        <td [ngClass]="
+                                          data.AC_CUSTID === '' ? 'td_center' : 'td_right'
+                                        ">
+                                            {{ data.AC_CUSTID === "" ? "-" : data.AC_CUSTID }}
+                                        </td>
+                                        <td
+                                            [ngClass]="data.idmaster.custAddress[0].AC_ADDR === '' ? 'td_center' : 'td_left'">
+                                            {{ data.idmaster.custAddress[0].AC_ADDR === "" ? "-" :
+                                            data.idmaster.custAddress[0].AC_ADDR }}
+                                        </td>
+                                        <!-- <td>{{data.idmaster.custAddress[0].AC_ADDR }}</td> -->
+                                        <td
+                                            [ngClass]="data.idmaster.custAddress[0].AC_CTCODE === '' ? 'td_center' : 'td_right'">
+                                            {{ data.idmaster.custAddress[0].AC_CTCODE === "" ? "-" :
+                                            data.idmaster.custAddress[0].AC_CTCODE }}
+                                        </td>
                                         <td>{{data.AC_PROPRITOR_NAME }}</td>
-                                        <td>{{data.AC_OPDATE }}</td>
-                                        <td>{{data.REF_ACNO }}</td>
-                                        <td>{{data.AC_CATG }}</td>
-                                        <td>{{data.AC_OPR_CODE }}</td>
-                                        <td>{{data.AC_BALCATG }}</td>
-                                        <td>{{data.AC_INTCATA }}</td>
-                                        <td>{{data.AC_SCHMAMT }}</td>
-                                        <td>{{data.AC_MINOR }}</td>
+                                        <td [ngClass]="
+                                        data.AC_OPDATE === '' ? 'td_center' : 'td_center'
+                                      ">
+                                            {{ data.AC_OPDATE === "" ? "-" : data.AC_OPDATE }}
+                                        </td>
+                                        <td [ngClass]="
+                                    data.REF_ACNO === '' ? 'td_center' : 'td_right'
+                                  ">
+                                            {{ data.REF_ACNO === "" ? "-" : data.REF_ACNO }}
+                                        </td>
+                                        <!-- <td>{{data.AC_MINOR }}</td>
                                         <td>{{data.AC_MBDATE }}</td>
                                         <td>{{data.AC_GRDNAME }}</td>
                                         <td>{{data.AC_GRDRELE }}</td>
@@ -1469,7 +1493,7 @@
                                         <td>{{data.AC_INTROID }}</td>
                                         <td>{{data.AC_INTRACNO }}</td>
                                         <td>{{data.AC_INTRNAME }}</td>
-                                        <td>{{data.SIGNATURE_AUTHORITY }}</td>
+                                        <td>{{data.SIGNATURE_AUTHORITY }}</td> -->
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="currentAccountMaster?.length == 0">
@@ -1489,7 +1513,7 @@
                                         <th><input type="text" placeholder="Search Open Date" name="AC_OPDATE"></th>
                                         <th><input type="text" placeholder="Search Manual Ref.Member No"
                                                 name="REF_ACNO"></th>
-                                        <th><input type="text" placeholder="Search Category" name="AC_CATG"></th>
+                                        <!-- <th><input type="text" placeholder="Search Category" name="AC_CATG"></th>
                                         <th><input type="text" placeholder="Search Operation" name="AC_OPR_CODE"></th>
                                         <th><input type="text" placeholder="Search Balance Category" name="AC_BALCATG">
                                         </th>
@@ -1508,7 +1532,7 @@
                                         </th>
                                         <th><input type="text" placeholder="Search Name" name="AC_INTRNAME"></th>
                                         <th><input type="text" placeholder="Search Signature Authority"
-                                                name="SIGNATURE_AUTHORITY"></th>
+                                                name="SIGNATURE_AUTHORITY"></th> -->
 
                                     </tr>
                                 </tfoot>
