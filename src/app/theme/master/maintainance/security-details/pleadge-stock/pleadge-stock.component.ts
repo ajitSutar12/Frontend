@@ -7,6 +7,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  ElementRef,
 } from "@angular/core";
 import Swal from "sweetalert2";
 import {
@@ -70,6 +71,7 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
   updateID: number; //variable for updating
   // Store data from backend
   pleadgeMaster: PleadgeMaster[];
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -311,6 +313,7 @@ console.log(ele);
     });
   }
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  ElementRef,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -27,16 +28,6 @@ class DataTableResponse {
 
 // For fetching values from backend
 interface Pigmyagent {
-  //id: number,
-  // S_ACNOTYPE:string;
-  // S_APPL: string;
-  // S_NAME: string;
-  // S_SHNAME:string;
-  // S_INT_APPLICABLE:number;
-  // MIN_INT_LIMIT:number;
-  // STAND_INSTRUCTION_ALLOW:number;
-  // WITHDRAWAL_APPLICABLE:number;
-  // BALANCE_ADD_APPLICABLE:number;
 
   S_ACNOTYPE: string;
   S_APPL: string;
@@ -58,6 +49,8 @@ export class PigmyAgentSchemeComponent
 {
   //api
   url = environment.base_url;
+  
+@ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -323,7 +316,21 @@ export class PigmyAgentSchemeComponent
   }
 
   ngAfterViewInit(): void {
+    
+this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $("input", this.footer()).on("keyup change", function () {
+          if (this["value"] != "") {
+            that.search(this["value"]).draw();
+          } else {
+            that.search(this["value"]).draw();
+          }
+        });
+      });
+    });
   }
 
   ngOnDestroy(): void {

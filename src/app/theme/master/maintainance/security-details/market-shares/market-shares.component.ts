@@ -6,6 +6,7 @@ import {
   ViewChild,Input,
   Output,
   EventEmitter,
+  ElementRef,
 } from "@angular/core";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
@@ -66,6 +67,9 @@ export class MarketSharesComponent implements OnInit, AfterViewInit, OnDestroy {
      @Input() Accountno:any;
   //api 
   url = environment.base_url;
+  //autofocus
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -326,6 +330,7 @@ console.log(ele);
     });
   }
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();//autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

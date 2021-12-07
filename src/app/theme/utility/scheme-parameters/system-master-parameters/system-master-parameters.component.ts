@@ -11,7 +11,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/first';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { DaysService } from '../../../../shared/elements/days.service';
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { StatementTypeService } from '../../../../shared/elements/statement-type.service';
 //import { AlternateCodeService } from '../../../../shared/elements/alternatecode.service';
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
@@ -174,6 +174,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
 
   //api 
   url = environment.base_url
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -1131,6 +1132,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     })
   }
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

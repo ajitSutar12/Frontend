@@ -7,6 +7,7 @@ import {
   Input,
     Output,
   EventEmitter,
+  ElementRef,
 } from "@angular/core";
 import Swal from "sweetalert2";
 // Used to Call API
@@ -65,6 +66,10 @@ export class OtherSecurityComponent
 
   // Store data from backend
   securitymasters: SecurityMaster[];
+
+  //for autofocus
+  @ViewChild("autofocus") myInputField: ElementRef;  //input field autofocus
+
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -266,6 +271,8 @@ console.log(ele);
     });
   }
   ngAfterViewInit(): void {
+
+    this.myInputField.nativeElement.focus();//autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

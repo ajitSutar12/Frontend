@@ -6,6 +6,7 @@ import {
   ViewChild,Input,
   Output,
 EventEmitter,
+ElementRef,
 } from "@angular/core";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
@@ -67,6 +68,9 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   updateShow: boolean = false;
   updateID: number;
   firemaster: FireMaster[];
+
+  //for autofocus
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -293,6 +297,9 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   ngAfterViewInit(): void {
+    
+    this.myInputField.nativeElement.focus();//autofocus
+    
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

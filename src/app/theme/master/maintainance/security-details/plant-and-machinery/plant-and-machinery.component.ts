@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,Input,Output,
   EventEmitter,
+  ElementRef,
 } from "@angular/core";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
@@ -72,6 +73,7 @@ export class PlantAndMachineryComponent
   updateID: number; //variable for updating
   // Store data from backend
   plantmasters: PlantMaster[];
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -327,6 +329,8 @@ console.log(ele);
     });
   }
   ngAfterViewInit(): void {
+    
+    this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

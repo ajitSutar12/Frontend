@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 //import { AlternateCodeService } from '../../../../shared/elements/alternatecode.service';
 import { IOption } from 'ng-select';
 // Creating and maintaining form fields with validation 
@@ -39,6 +39,7 @@ interface LockeScheme {
 export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   //api 
   url = environment.base_url;
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -243,7 +244,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.createForm();
   }
   //Method for delete data
-  /*  delClickHandler(id: number) {
+   delClickHandler(id: number) {
       Swal.fire({
         title: 'Are you sure?',
         text: "Do you want to delete bank master data.",
@@ -277,11 +278,25 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         }
       })
     }
-    */
+    
 
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
+    ngAfterViewInit(): void {
+      
+this.myInputField.nativeElement.focus();//for autofocus
+      this.dtTrigger.next();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.columns().every(function () {
+          const that = this;
+          $("input", this.footer()).on("keyup change", function () {
+            if (this["value"] != "") {
+              that.search(this["value"]).draw();
+            } else {
+              that.search(this["value"]).draw();
+            }
+          });
+        });
+      });
+    }
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

@@ -1,6 +1,6 @@
 
 import { DaysService } from '../../../../shared/dropdownService/days.service';
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { InstallmentBaseService } from '../../../../shared/dropdownService/installment-base.service';
 import { UnitOfTDPeriodService } from '../../../../shared/dropdownService/unit-of-td-period.service';
 import { IOption } from 'ng-select';
@@ -119,6 +119,7 @@ interface TermDepositScheme {
 export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   //api 
   url = environment.base_url;
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -1264,8 +1265,22 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       }
     })
   }
+
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $("input", this.footer()).on("keyup change", function () {
+          if (this["value"] != "") {
+            that.search(this["value"]).draw();
+          } else {
+            that.search(this["value"]).draw();
+          }
+        });
+      });
+    });
   }
 
   ngOnDestroy(): void {

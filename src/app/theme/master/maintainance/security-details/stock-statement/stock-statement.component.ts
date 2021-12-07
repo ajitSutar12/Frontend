@@ -7,6 +7,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  ElementRef,
 } from "@angular/core";
 import { Subject } from "rxjs";
 // Creating and maintaining form fields with validation
@@ -65,6 +66,7 @@ export class StockStatementComponent
   //api
   //api
   url = environment.base_url;
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -322,6 +324,8 @@ console.log(ele);
     });
   }
   ngAfterViewInit(): void {
+    
+    this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

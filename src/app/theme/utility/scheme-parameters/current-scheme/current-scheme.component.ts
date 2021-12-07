@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -57,6 +57,7 @@ interface CurrentScheme {
 export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   //api 
   url = environment.base_url;
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -503,7 +504,20 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $("input", this.footer()).on("keyup change", function () {
+          if (this["value"] != "") {
+            that.search(this["value"]).draw();
+          } else {
+            that.search(this["value"]).draw();
+          }
+        });
+      });
+    });
   }
 
   ngOnDestroy(): void {
