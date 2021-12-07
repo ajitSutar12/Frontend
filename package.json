@@ -57,6 +57,7 @@
         "jszip": "^3.5.0",
         "mousetrap": "^1.6.5",
         "ng-click-outside": "^6.0.0",
+        "ng-connection-service": "^1.0.4",
         "ng-select": "^1.0.2",
         "ng2-currency-mask": "^9.0.2",
         "ng2-dragula": "^1.5.0",

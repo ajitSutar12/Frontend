@@ -16,6 +16,8 @@ import { HotKeysComponent } from './theme/hot-keys/hot-keys.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { AuthInterceptorServices } from '../app/theme/auth/auth.interceptor.service';
 import { UserAuthInterceptor } from './user-auth.interceptor';
+import {ConnectionServiceModule} from 'ng-connection-service';   
+
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { UserAuthInterceptor } from './user-auth.interceptor';
     FormsModule,
     HttpClientModule,
     HotkeyModule.forRoot(), // adding HotkeysModule
+    ConnectionServiceModule  
   ],
   providers: [MenuItems,
     {
