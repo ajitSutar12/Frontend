@@ -29,6 +29,7 @@ import { CustomerIdModule } from '../customer-id/customer-id.module';
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
 
 import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
+import {DatePipe} from '@angular/common';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -79,7 +80,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PrioritySectorMasterService,
     cityMasterService,
     SystemMasterParametersService,
-    TermLoanSchemeService
+    TermLoanSchemeService,
+    DatePipe
   ]
 })
 export class TermLoanMasterModule { }

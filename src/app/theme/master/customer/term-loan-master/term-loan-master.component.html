@@ -11,9 +11,9 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" 
-                                    placeholder="Scheme *" required title="Compulsory Selection" [(ngModel)]="code" (selected)="getScheme(code)"
-                                    formControlName="AC_TYPE">
+                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
+                                    placeholder="Scheme *" required title="Compulsory Selection" [(ngModel)]="code"
+                                    (selected)="getScheme(code)" formControlName="AC_TYPE">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -105,13 +105,14 @@
                                     <ng-template ngbTabContent>
                                         <div [@fadeInOutTranslate] class="m-t-15">
                                             <div class="row">
-                                                <div class="col-sm">
+                                                <div class="col-sm-2">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_OPDATE" class="form-control"
                                                                 placeholder=" " id="AC_OPDATE" required=""
                                                                 max="9999-12-31" onfocus="(this.type='date')"
-                                                                formControlName="AC_OPDATE"  (ngModelChange)="changeDate()">
+                                                                formControlName="AC_OPDATE"
+                                                                (ngModelChange)="changeDate()">
                                                             <label for="AC_OPDATE">Opening Date<sub class="required">*
                                                                 </sub></label>
                                                         </span>
@@ -124,7 +125,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm">
+                                                <div class="col-sm-2">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_OPEN_OLD_DATE"
@@ -136,7 +137,7 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm">
+                                                <div class="col-sm-2">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_BIRTH_DT" class="form-control"
@@ -147,13 +148,12 @@
                                                         </span>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-2">
+                                                <div class="col-sm-1">
                                                     <div class="border-checkbox-section">
                                                         <div
                                                             class="border-checkbox-group border-checkbox-group-primary">
                                                             <input class="border-checkbox" type="checkbox"
-                                                                id="IS_RECOVERY" 
-                                                                formControlName="AC_IS_RECOVERY">
+                                                                id="IS_RECOVERY" formControlName="AC_IS_RECOVERY">
                                                             <label class="border-checkbox-label"
                                                                 for="IS_RECOVERY">Recovery<span class="required">
                                                                 </span></label>
@@ -229,8 +229,8 @@
                                                         <ng-select [ngClass]="'ng-select'" [options]="intCat"
                                                             [multiple]="false" placeholder="Interest Category *"
                                                             required title="Compulsory Selection"
-                                                            formControlName="AC_INTCATA" [(ngModel)]="idi"
-                                                            (selected)="getInterest(idi)">
+                                                            formControlName="AC_INTCATA" [(ngModel)]="AC_INTCATA"
+                                                            (selected)="getInterest(AC_INTCATA)">
                                                         </ng-select>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -245,10 +245,12 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_SANCTION_AMOUNT"
-                                                                class="form-control" placeholder=" " 
+                                                                class="form-control" placeholder=" "
                                                                 id="AC_SANCTION_AMOUNT" required="" pattern="^[0-9]+$"
                                                                 title="Input allowed only  0-9"
-                                                                formControlName="AC_SANCTION_AMOUNT" (ngModelChange)="changeAmt()">
+                                                                [(ngModel)]="sanctionAmt"
+                                                                formControlName="AC_SANCTION_AMOUNT"
+                                                                (ngModelChange)="changeAmt(); calculation()">
                                                             <label for="AC_SANCTION_AMOUNT">Sanction Limit<sub
                                                                     class="required">*
                                                                 </sub></label>
@@ -294,6 +296,7 @@
                                                                 class="form-control" placeholder=" "
                                                                 id="AC_DRAWPOWER_AMT" required="" pattern="^[0-9]+$"
                                                                 title="Input allowed only  0-9"
+                                                                [(ngModel)]="drawingPower" (focusout)="calculation()"
                                                                 formControlName="AC_DRAWPOWER_AMT">
                                                             <label for="AC_DRAWPOWER_AMT">Drawing Power<sub
                                                                     class="required">*
@@ -315,7 +318,8 @@
                                                             <input type="text" name="AC_MONTHS" class="form-control"
                                                                 placeholder=" " id="AC_MONTHS" required=""
                                                                 pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                                                formControlName="AC_MONTHS">
+                                                                [(ngModel)]="months" formControlName="AC_MONTHS"
+                                                                (change)="getPeriod(months); calculation()">
                                                             <label for="AC_MONTHS">Period(Months)<sub class="required">*
                                                                 </sub></label>
                                                         </span>
@@ -334,9 +338,9 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_EXPIRE_DATE"
                                                                 class="form-control" placeholder=" " id="AC_EXPIRE_DATE"
-                                                                required="" max="9999-12-31" 
+                                                                required="" max="9999-12-31"
                                                                 onfocus="(this.type='date')"
-                                                                formControlName="AC_EXPIRE_DATE" >
+                                                                formControlName="AC_EXPIRE_DATE">
                                                             <label for="AC_EXPIRE_DATE">Expiry Date<sub
                                                                     class="required">*
                                                                 </sub></label>
@@ -356,7 +360,8 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_INTRATE" class="form-control"
                                                                 placeholder=" " id="AC_INTRATE" required=""
-                                                                pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                                                [(ngModel)]="intRate" pattern="\d{3}(\.\d{1,2})?"
+                                                                title="Input allowed only  0-9"
                                                                 formControlName="AC_INTRATE">
                                                             <label for="AC_INTRATE">Interest Rate%<sub
                                                                     class="required">*
@@ -377,7 +382,8 @@
                                                 <div class="col-sm">
                                                     <div class="form-group form-primary form-static-label">
                                                         <ng-select [ngClass]="'ng-select'" [options]="repayModeOption"
-                                                            [multiple]="false" placeholder="Repay Mode*" [(ngModel)]="repay"
+                                                            [multiple]="false" placeholder="Repay Mode*"
+                                                            (selected)="calculation()" [(ngModel)]="repay"
                                                             title="Compulsory Selection" formControlName="AC_REPAYMODE">
                                                         </ng-select>
                                                     </div>
@@ -395,9 +401,10 @@
                                                 </div>
                                                 <div class="col-sm">
                                                     <div class="form-group form-primary form-static-label">
-                                                        <ng-select [ngClass]="'ng-select'" [options]="installment" [(ngModel)]="installmentType"
-                                                            [multiple]="false" placeholder="Installment Type *" required
-                                                            title="Compulsory Selection"
+                                                        <ng-select [ngClass]="'ng-select'" [options]="installment"
+                                                            [(ngModel)]="installmentType" [multiple]="false"
+                                                            placeholder="Installment Type *" required
+                                                            title="Compulsory Selection" (selected)="calculation()"
                                                             formControlName="INSTALLMENT_METHOD">
                                                         </ng-select>
                                                     </div>
@@ -1441,18 +1448,18 @@
                                                                                             (click)="delGuarantor(indexOfelement)">Delete</button>
 
                                                                                     </td>
-                                                                                    <td>{{data.GAC_CUSTID }}</td>
-                                                                                    <td>{{data.GAC_MEMBNO }}</td>
-                                                                                    <td>{{data.GAC_MEMBTYPE }}</td>
-                                                                                    <td>{{data.GAC_NAME }}</td>
+                                                                                    <td>{{data.AC_CUSTID }}</td>
+                                                                                    <td>{{data.AC_MEMBNO }}</td>
+                                                                                    <td>{{data.AC_MEMBTYPE }}</td>
+                                                                                    <td>{{data.AC_NAME }}</td>
                                                                                     <td>{{data.EXP_DATE }}</td>
-                                                                                    <td>{{data.GAC_HONO }}</td>
-                                                                                    <td>{{data.GAC_WARD }}</td>
-                                                                                    <td>{{data.GAC_ADDR }}</td>
-                                                                                    <td>{{data.GAC_GALLI }}</td>
-                                                                                    <td>{{data.GAC_AREA }}</td>
-                                                                                    <td>{{data.GAC_CTCODE }}</td>
-                                                                                    <td>{{data.GAC_PIN }}</td>
+                                                                                    <td>{{data.AC_HONO }}</td>
+                                                                                    <td>{{data.AC_WARD }}</td>
+                                                                                    <td>{{data.AC_ADDR }}</td>
+                                                                                    <td>{{data.AC_GALLI }}</td>
+                                                                                    <td>{{data.AC_AREA }}</td>
+                                                                                    <td>{{data.AC_CTCODE }}</td>
+                                                                                    <td>{{data.AC_PIN }}</td>
                                                                                 </tr>
                                                                             </tbody>
                                                                             <tbody *ngIf="multiGuarantor?.length == 0">

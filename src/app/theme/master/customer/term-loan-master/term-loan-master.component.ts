@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,7 +15,6 @@ import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { CustomerIdService } from '../customer-id/customer-id.service';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
-import { DocumentMasterDropdownService } from '../../../../shared/dropdownService/document-master-dropdown.service';
 import { environment } from '../../../../../environments/environment'
 import { Router } from '@angular/router'
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
@@ -38,7 +37,8 @@ import { RepayModeService } from '../../../../shared/dropdownService/repay-mode.
 import { IOption } from 'ng-select';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { TermLoanSchemeService } from '../../../utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service';
-
+//date pipe
+import { DatePipe } from '@angular/common';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -95,6 +95,7 @@ interface TermLoanMaster {
   AC_TAREA: string
   AC_TCTCODE: string
   AC_TPIN: number
+  AC_IS_RECOVERY: boolean
 }
 @Component({
   selector: 'app-term-loan-master',
@@ -184,6 +185,43 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   idp: string = '';
   idi: string = '';
   code: string = '';
+  addType: string
+  columnShowButton: boolean = false
+  date
+  temp
+  multiCoBorrower = [];
+  CoBorrowerShowButton: boolean = true
+  CoBorrowerUpdateShow: boolean = false
+  multiGuarantor = [];
+  GuarantorShowButton: boolean = true
+  GuarantorUpdateShow: boolean = false
+  CoBorrowerupdateid
+  CoBorrowerID
+  Guarantorupdateid
+  GuarantorID
+  coBorrowerIndex
+  guarantorIndex
+  tempAddress: boolean = true;
+  GuarantorTrue: boolean = false
+  CoBorrowerTrue: boolean = false
+  addShowButton: boolean = true
+  UpdateShowButton: boolean = false
+  multiSecurity = [];
+  SECU_CODE
+  SECU_NAME
+  intIndex: number
+  intID: number
+  AC_DIRECTOR = true
+  repay: string
+  installmentType: string
+  mon
+  result: any
+  drawingPower: number;
+  months: number
+  sanctionAmt
+  intRate: any
+  intResult: any
+
   repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
   installment: Array<IOption> = this.installmentMethodService.getCharacters();
   account: Array<IOption> = this.accountType.getCharacters();
@@ -219,6 +257,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     private prioritySectorMaster: PrioritySectorMasterService,
     private systemParameter: SystemMasterParametersService,
     private _TermLoanScheme: TermLoanSchemeService,
+    private datePipe: DatePipe,
+    private el: ElementRef,
     public router: Router
   ) {
 
@@ -526,19 +566,27 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_OPDATE: ['', [Validators.required]],
       AC_OPEN_OLD_DATE: [''],
       AC_BIRTH_DT: [''],
-      AC_IS_RECOVERY: [''],
+      AC_IS_RECOVERY: [false],
       AC_MEMBTYPE: [''],
       AC_MEMBNO: [''],
       REF_ACNO: [''],
       AC_CAST: [''],
       AC_OCODE: [''],
+      AC_ADDFLAG: [true],
+      AC_ADDTYPE: ['P'],
+      AC_THONO: ['', [Validators.pattern]],
+      AC_TWARD: ['', [Validators.pattern]],
+      AC_TADDR: ['', [Validators.pattern]],
+      AC_TGALLI: ['', [Validators.pattern]],
+      AC_TAREA: ['', [Validators.pattern]],
+      AC_TCTCODE: ['', [Validators.pattern]],
       AC_INTCATA: ['', [Validators.required]],
       AC_SANCTION_AMOUNT: ['', [Validators.required, Validators.pattern]],
       AC_SANCTION_DATE: ['', [Validators.required]],
       AC_DRAWPOWER_AMT: ['', [Validators.required, Validators.pattern]],
       AC_MONTHS: ['', [Validators.required, Validators.pattern]],
       AC_EXPIRE_DATE: ['', [Validators.required]],
-      AC_INTRATE: ['', [Validators.required, Validators.pattern]],
+      AC_INTRATE: ['', [Validators.required]],
       AC_REPAYMODE: ['', [Validators.required]],
       INSTALLMENT_METHOD: ['', [Validators.required]],
       AC_INSTALLMENT: [''],
@@ -584,13 +632,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       CAC_AREA: [''],
       CAC_CTCODE: [''],
       CAC_PIN: [''],
-      AC_ADDFLAG: [false],
-      AC_THONO: [''],
-      AC_TWARD: [''],
-      AC_TADDR: [''],
-      AC_TGALLI: [''],
-      AC_TAREA: [''],
-      AC_TCTCODE: [''],
       AC_TPIN: [''],
       AC_MOBILENO: [''],
       AC_PHONE_RES: [''],
@@ -604,6 +645,12 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
+    if (formVal.AC_ADDFLAG == true) {
+      this.addType = 'P'
+    }
+    else if (formVal.AC_ADDFLAG == false) {
+      this.addType = 'T'
+    }
     const dataToSend = {
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
@@ -645,19 +692,20 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_COREG_AMT': formVal.AC_COREG_AMT,
       'AC_RESO_NO': formVal.AC_RESO_NO,
       'AC_RESO_DATE': formVal.AC_RESO_DATE,
-      'AC_THONO': formVal.AC_THONO,
-      'AC_TWARD': formVal.AC_TWARD,
-      'AC_TADDR': formVal.AC_TADDR,
-      'AC_TGALLI': formVal.AC_TGALLI,
-      'AC_TAREA': formVal.AC_TAREA,
-      'AC_TCTCODE': formVal.AC_TCTCODE,
-      'AC_TPIN': formVal.AC_TPIN,
+      AC_ADDFLAG: formVal.AC_ADDFLAG,
+      AC_ADDTYPE: this.addType,
+      AC_THONO: formVal.AC_THONO,
+      AC_TWARD: formVal.AC_TWARD,
+      AC_TADDR: formVal.AC_TADDR,
+      AC_TGALLI: formVal.AC_TGALLI,
+      AC_TAREA: formVal.AC_TAREA,
+      AC_TCTCODE: formVal.AC_TCTCODE,
+      AC_TPIN: formVal.AC_TPIN,
       'CoBorrowerData': this.multiCoBorrower,
       'GuarantorData': this.multiGuarantor,
       'SecurityData': this.multiSecurity,
 
     }
-
 
     this.termLoanService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -679,7 +727,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   resetForm() {
     this.createForm();
   }
-  columnShowButton: boolean = false
+
+
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
@@ -695,7 +744,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.multiSecurity = data.securityMaster
       this.multiCoBorrower = data.CoborrowerMaster,
         this.multiGuarantor = data.guaranterMaster
-      // debugger
+      console.log("guaranterMaster", this.multiGuarantor)
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
         AC_NO: data.AC_NO,
@@ -750,7 +799,13 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
-
+    if (data.AC_ADDFLAG == true) {
+      this.addType = 'P'
+    }
+    else if (data.AC_ADDFLAG == false) {
+      this.addType = 'T'
+    }
+    data['AC_ADDTYPE'] = this.addType
     data['GuarantorData'] = this.multiGuarantor
     data['CoBorrowerData'] = this.multiCoBorrower
     data['SecurityData'] = this.multiSecurity
@@ -805,15 +860,26 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       }
     })
   }
+  getInterest(AC_INTCATA) {
+    this.temp = AC_INTCATA
+    this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
+      this.date = this.angForm.controls['AC_OPDATE'].value
+      if (data != typeof (undefined)) {
+        if (this.date == data[0].EFFECT_DATE) {
+          console.log("within if condition")
+          this.angForm.patchValue({
+            AC_INTCATA: data[0].INT_CATEGORY,
+            AC_INTRATE: data[0].rate[0].INT_RATE,
+          })
+        } else {
+          this.angForm.patchValue({
+            AC_INTCATA: data[1].INT_CATEGORY,
+            AC_INTRATE: 0
+          })
+        }
 
-  getInterest(iid) {
-    console.log("interest id",iid)
-    this.InterestRateForLoanandCC.getFormData(iid).subscribe(data => {
-      console.log("interest", data)
-      this.angForm.patchValue({
-        AC_INTCATA: data.INT_CATEGORY,
-        AC_INTRATE: data.rate[0].INT_RATE,
-      })
+
+      }
     })
   }
 
@@ -846,34 +912,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     })
   }
 
-  multiCoBorrower = [];
-  CoBorrowerShowButton: boolean = true
-  CoBorrowerUpdateShow: boolean = false
-  multiGuarantor = [];
-  GuarantorShowButton: boolean = true
-  GuarantorUpdateShow: boolean = false
-
-  addGuarantor() {
-    const formVal = this.angForm.value;
-    var object = {
-      AC_TYPE: formVal.AC_TYPE,
-      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
-      GAC_CUSTID: formVal.GAC_CUSTID,
-      GAC_MEMBNO: formVal.GAC_MEMBNO,
-      GAC_MEMBTYPE: formVal.GAC_MEMBTYPE,
-      GAC_NAME: formVal.GAC_NAME,
-      GAC_HONO: formVal.GAC_HONO,
-      GAC_WARD: formVal.GAC_WARD,
-      GAC_ADDR: formVal.GAC_ADDR,
-      GAC_GALLI: formVal.GAC_GALLI,
-      GAC_AREA: formVal.GAC_AREA,
-      GAC_CTCODE: formVal.GAC_CTCODE,
-      GAC_PIN: formVal.GAC_PIN,
-      EXP_DATE: formVal.EXP_DATE
-    }
-    this.multiGuarantor.push(object);
-    this.resetGuarantor()
-  }
   addCoBorrower() {
     const formVal = this.angForm.value;
     var object = {
@@ -893,11 +931,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.resetCoBorrower()
   }
 
-  CoBorrowerupdateid
-  CoBorrowerID
-  Guarantorupdateid
-  GuarantorID
-  coBorrowerIndex
   editCoBorrower(id) {
     this.coBorrowerIndex = id
     this.CoBorrowerupdateid = id
@@ -906,7 +939,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.CoBorrowerShowButton = false;
     this.CoBorrowerUpdateShow = true;
     this.angForm.patchValue({
-      // this.getCCustomer(data.CAC_CUSTID)
       CAC_CUSTID: this.multiCoBorrower[id].AC_CUSTID,
       CAC_NAME: this.multiCoBorrower[id].AC_NAME,
       CAC_HONO: this.multiCoBorrower[id].AC_HONO,
@@ -918,29 +950,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       CAC_PIN: this.multiCoBorrower[id].AC_PIN
     })
   }
-  guarantorIndex
-  editGuarantor(id) {
-    this.guarantorIndex = id
-    this.Guarantorupdateid = id
-    this.GuarantorID = this.multiGuarantor[id].id;
-    this.GuarantorTrue = true
-    this.GuarantorShowButton = false;
-    this.GuarantorUpdateShow = true;
-    this.angForm.patchValue({
-      GAC_CUSTID: this.multiGuarantor[id].GAC_CUSTID,
-      GAC_NAME: this.multiGuarantor[id].GAC_NAME,
-      GAC_MEMBNO: this.multiGuarantor[id].GAC_MEMBNO,
-      GAC_MEMBTYPE: this.multiGuarantor[id].GAC_MEMBTYPE,
-      GAC_HONO: this.multiGuarantor[id].GAC_HONO,
-      GAC_WARD: this.multiGuarantor[id].GAC_WARD,
-      GAC_ADDR: this.multiGuarantor[id].GAC_ADDR,
-      GAC_GALLI: this.multiGuarantor[id].GAC_GALLI,
-      GAC_AREA: this.multiGuarantor[id].GAC_AREA,
-      GAC_CTCODE: this.multiGuarantor[id].GAC_CTCODE,
-      EXP_DATE: this.multiGuarantor[id].EXP_DATE,
-      GAC_PIN: this.multiGuarantor[id].GAC_PIN
-    })
-  }
+
   updateCoBorrower() {
     let index = this.coBorrowerIndex;
     this.CoBorrowerShowButton = true;
@@ -962,29 +972,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.multiCoBorrower[index] = object;
     this.resetCoBorrower()
   }
-  updateGuarantor() {
-    let index = this.guarantorIndex;
-    this.GuarantorShowButton = true;
-    this.GuarantorUpdateShow = false;
-    const formVal = this.angForm.value;
-    var object = {
-      GAC_CUSTID: formVal.GAC_CUSTID,
-      GAC_MEMBNO: formVal.GAC_MEMBNO,
-      GAC_MEMBTYPE: formVal.GAC_MEMBTYPE,
-      GAC_NAME: formVal.GAC_NAME,
-      GAC_HONO: formVal.GAC_HONO,
-      GAC_WARD: formVal.GAC_WARD,
-      GAC_ADDR: formVal.GAC_ADDR,
-      GAC_GALLI: formVal.GAC_GALLI,
-      GAC_AREA: formVal.GAC_AREA,
-      GAC_CTCODE: formVal.GAC_CTCODE,
-      GAC_PIN: formVal.GAC_PIN,
-      EXP_DATE: formVal.EXP_DATE,
-      id: this.GuarantorID
-    }
-    this.multiGuarantor[index] = object;
-    this.resetGuarantor()
-  }
+
   resetCoBorrower() {
     this.angForm.controls['CAC_CUSTID'].reset();
     this.angForm.controls['CAC_NAME'].reset();
@@ -996,20 +984,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.angForm.controls['CAC_CTCODE'].reset();
     this.angForm.controls['CAC_PIN'].reset();
   }
-  resetGuarantor() {
-    this.angForm.controls['GAC_CUSTID'].reset();
-    this.angForm.controls['GAC_MEMBNO'].reset();
-    this.angForm.controls['GAC_MEMBTYPE'].reset();
-    this.angForm.controls['GAC_NAME'].reset();
-    this.angForm.controls['GAC_HONO'].reset();
-    this.angForm.controls['GAC_WARD'].reset();
-    this.angForm.controls['GAC_ADDR'].reset();
-    this.angForm.controls['GAC_GALLI'].reset();
-    this.angForm.controls['GAC_AREA'].reset();
-    this.angForm.controls['GAC_CTCODE'].reset();
-    this.angForm.controls['GAC_PIN'].reset();
-    this.angForm.controls['EXP_DATE'].reset();
-  }
+
   getCCustomer(Cid) {
     this.customerIdService.getFormData(Cid).subscribe(data => {
       this.angForm.patchValue({
@@ -1029,13 +1004,13 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   delCoBorrower(id) {
     this.multiCoBorrower.splice(id, 1)
   }
-  delGuarantor(id) {
-    this.multiGuarantor.splice(id, 1)
-  }
+
   getCustomer(id) {
     // this.getDate()
+    this.calculation()
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
+      this.tempAddress = data.custAddress[0].AC_ADDFLAG
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
@@ -1069,6 +1044,17 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         TDS_RATE: data.TDS_RATE,
         TDS_LIMIT: data.TDS_LIMIT,
       })
+      if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {
+        this.angForm.patchValue({
+          AC_THONO: data.custAddress[1].AC_HONO,
+          AC_TWARD: data.custAddress[1].AC_WARD,
+          AC_TADDR: data.custAddress[1].AC_ADDR,
+          AC_TGALLI: data.custAddress[1].AC_GALLI,
+          AC_TAREA: data.custAddress[1].AC_AREA,
+          AC_TCTCODE: data.custAddress[1].AC_CTCODE,
+          AC_TPIN: data.custAddress[1].AC_PIN,
+        })
+      }
     })
   }
 
@@ -1081,12 +1067,11 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   }
   //temp address flag variable
-  tempAddress: boolean = true;
+
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
   }
-  GuarantorTrue: boolean = false
-  CoBorrowerTrue: boolean = false
+
   OpenLink() {
     this.GuarantorTrue = !this.GuarantorTrue
   }
@@ -1136,16 +1121,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     })
   }
 
-  // getDate() {
-  //   this._TermLoanScheme.getData().subscribe(data => {
-  //     console.log(data)
-  //     if (data.S_INSTTYPE == false) {
-
-  //     }
-  //   })
-  // }
-
-  AC_DIRECTOR = true
   directorShow(event) {
     if (event.value == 'Director') {
 
@@ -1164,11 +1139,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
 
-  addShowButton: boolean = true
-  UpdateShowButton: boolean = false
-  multiSecurity = [];
-  SECU_CODE
-  SECU_NAME
   securityDetails(event) {
     this.SECU_CODE = event.id
     this.SECU_NAME = event.name
@@ -1192,8 +1162,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.angForm.controls['SECURITY_CODE'].reset();
     this.angForm.controls['SECURITY_VALUE'].reset();
   }
-  intIndex: number
-  intID: number
+
   updateField() {
     let index = this.intIndex;
     this.addShowButton = true;
@@ -1224,12 +1193,11 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       SECURITY_VALUE: this.multiSecurity[id].this.SECU_NAME,
     })
   }
+
   delField(id) {
     this.multiSecurity.splice(id, 1)
   }
 
-  repay: string
-  installmentType: string
   getScheme(code) {
     this._TermLoanScheme.getData(code).subscribe(data => {
       console.log(data.INSTALLMENT_METHOD)
@@ -1245,6 +1213,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   changeDate() {
+    this.getInterest(this.temp)
     this.angForm.patchValue({
       AC_EXPIRE_DATE: this.angForm.controls['AC_OPDATE'].value,
 
@@ -1255,11 +1224,263 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   changeAmt() {
     this.angForm.patchValue({
-    
+
       AC_COREG_AMT: this.angForm.controls['AC_SANCTION_AMOUNT'].value
 
     })
-   
+
   }
 
+  getPeriod(months) {
+    this.mon = months
+    var joinDate = new Date(this.angForm.controls['AC_OPDATE'].value)
+    var year = joinDate.getFullYear();
+    var month = new Date(joinDate).getMonth();
+    var day = new Date(joinDate).getDate();
+    var expiry = month + Number(this.mon)
+    var date = new Date(year, expiry, day);
+    var expiryDate = this.datePipe.transform(date, "dd-MM-yyyy")
+    this.angForm.patchValue({
+      AC_EXPIRE_DATE: expiryDate
+    })
+  }
+  month: number
+  calculation() {
+
+    if (this.repay == 'Monthly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+
+      this.result = Math.round((((this.drawingPower) / (this.months)) * 1)).toFixed(2);
+
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+
+    }
+    else if (this.repay == 'Quarterly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+
+      this.result = Math.round((((this.drawingPower) / (this.months)) * 3)).toFixed(2);
+
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+    else if (this.repay == 'HalfYearly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+
+      this.result = Math.round(((Math.floor(this.drawingPower) / Math.floor(this.months)) * 6)).toFixed(2);
+
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+    else if (this.repay == 'Yearly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+
+      this.result = Math.round(((Math.floor(this.drawingPower) / Math.floor(this.months)) * 12)).toFixed(2);
+
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+    else if (this.repay == 'OnMaturity' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+
+      this.result = Math.round(((Math.floor(this.drawingPower)))).toFixed(2);
+
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+
+    else if (this.repay == 'Monthly' && (this.installmentType == 'EMI')) {
+
+      this.month = Math.floor(this.months) / 1;
+      this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 1)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 1)))) ** (Math.floor(this.month) * (-1))))).toFixed(2);
+
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+    else if (this.repay == 'Quarterly' && (this.installmentType == 'EMI')) {
+
+      this.month = Math.floor(this.months) / 3;
+
+      this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 3)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 3)))) ** (Math.floor(this.month) * (-1))))).toFixed(2);
+
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+    else if (this.repay == 'HalfYearly' && (this.installmentType == 'EMI')) {
+
+      this.month = Math.floor(this.months) / 6;
+      this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 6)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 6)))) ** ((this.month) * (-1))))).toFixed(2);
+
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+    else if (this.repay == 'Yearly' && (this.installmentType == 'EMI')) {
+
+      this.month = Math.floor(this.months) / 12;
+      this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 12)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 12)))) ** (Math.floor(this.month) * (-1))))).toFixed(2);
+
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+    else if (this.repay == 'OnMaturity' && (this.installmentType == 'EMI')) {
+
+      this.angForm.patchValue({
+        AC_INSTALLMENT: 0
+      })
+    }
+    else if (this.repay == 'Monthly' && (this.installmentType == 'WithInterest')) {
+
+      this.intResult = (Math.floor(this.drawingPower) * Math.floor(this.intRate) / 1200).toFixed(2);
+      this.result = Math.round((((Math.floor(this.drawingPower) / Math.floor(this.months)) + Math.floor(this.intResult)) * 1)).toFixed(2);
+
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+    else if (this.repay == 'Quarterly' && (this.installmentType == 'WithInterest')) {
+
+      this.intResult = (Math.floor(this.drawingPower) * Math.floor(this.intRate) / 1200).toFixed(2);
+      this.result = Math.round((((Math.floor(this.drawingPower) / Math.floor(this.months)) + Math.floor(this.intResult)) * 3)).toFixed(2);
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+    else if (this.repay == 'HalfYearly' && (this.installmentType == 'WithInterest')) {
+
+      this.intResult = (this.drawingPower * this.intRate / 1200);
+      this.result = Math.round((((this.drawingPower / this.months) + this.intResult) * 6)).toFixed(2);
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+    else if (this.repay == 'Yearly' && (this.installmentType == 'WithInterest')) {
+
+      this.intResult = (this.drawingPower * this.intRate / 1200);
+      this.result = Math.round((((this.drawingPower / this.months) + this.intResult) * 12)).toFixed(2);
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+    else if (this.repay == 'OnMaturity' && (this.installmentType == 'WithInterest')) {
+
+      this.intResult = ((this.drawingPower) * (this.intRate) / 1200).toFixed(2);
+      this.result = Math.round(((((this.drawingPower) / (this.months)) + (this.intResult)) * 0)).toFixed(2);
+
+      this.angForm.patchValue({
+        AC_INSTALLMENT: this.result
+      })
+    }
+  }
+
+  addGuarantor() {
+    const formVal = this.angForm.value;
+    var object = {
+      AC_CUSTID: formVal.GAC_CUSTID,
+      AC_MEMBNO: formVal.GAC_MEMBNO,
+      AC_MEMBTYPE: formVal.GAC_MEMBTYPE,
+      AC_NAME: formVal.GAC_NAME,
+      EXP_DATE: formVal.EXP_DATE,
+      AC_HONO: formVal.GAC_HONO,
+      AC_WARD: formVal.GAC_WARD,
+      AC_ADDR: formVal.GAC_ADDR,
+      AC_GALLI: formVal.GAC_GALLI,
+      AC_AREA: formVal.GAC_AREA,
+      AC_CTCODE: formVal.GAC_CTCODE,
+      AC_PIN: formVal.GAC_PIN
+
+    }
+    this.multiGuarantor.push(object);
+    console.log(this.multiGuarantor)
+    this.resetField()
+  }
+
+  editGuarantor(id) {
+    this.intIndex = id
+    this.intID = this.multiGuarantor[id].id;
+    this.GuarantorShowButton = false;
+    this.GuarantorUpdateShow = true;
+    this.angForm.patchValue({
+
+      GAC_CUSTID: this.multiGuarantor[id].AC_CUSTID,
+      GAC_MEMBNO: this.multiGuarantor[id].AC_MEMBNO,
+      GAC_MEMBTYPE: this.multiGuarantor[id].AC_MEMBTYPE,
+      GAC_NAME: this.multiGuarantor[id].AC_NAME,
+      EXP_DATE: this.multiGuarantor[id].EXP_DATE,
+      GAC_HONO: this.multiGuarantor[id].AC_HONO,
+      GAC_WARD: this.multiGuarantor[id].AC_WARD,
+      GAC_ADDR: this.multiGuarantor[id].AC_ADDR,
+      GAC_GALLI: this.multiGuarantor[id].AC_GALLI,
+      GAC_AREA: this.multiGuarantor[id].AC_AREA,
+      GAC_CTCODE: this.multiGuarantor[id].AC_CTCODE,
+      GAC_PIN: this.multiGuarantor[id].AC_PIN
+    })
+  }
+
+  updateGuarantor() {
+    let index = this.intIndex;
+    this.GuarantorShowButton = true;
+    this.GuarantorUpdateShow = false;
+    const formVal = this.angForm.value;
+    var object = {
+      AC_CUSTID: formVal.GAC_CUSTID,
+      AC_MEMBNO: formVal.GAC_MEMBNO,
+      AC_MEMBTYPE: formVal.GAC_MEMBTYPE,
+      AC_NAME: formVal.GAC_NAME,
+      EXP_DATE: formVal.EXP_DATE,
+      AC_HONO: formVal.GAC_HONO,
+      AC_WARD: formVal.GAC_WARD,
+      AC_ADDR: formVal.GAC_ADDR,
+      AC_GALLI: formVal.GAC_GALLI,
+      AC_AREA: formVal.GAC_AREA,
+      AC_CTCODE: formVal.GAC_CTCODE,
+      AC_PIN: formVal.GAC_PIN,
+      id: this.intID
+    }
+    this.multiGuarantor[index] = object;
+    this.resetField()
+  }
+
+  delGuarantor(id) {
+    this.multiGuarantor.splice(id, 1)
+  }
+  // private regex: RegExp = new RegExp(/^\d*\.?\d{0,2}$/g);
+  // private specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Del', 'Delete'];
+  // @HostListener('keydown', ['$event'])
+  keyPressNumbers(event: KeyboardEvent) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57 )) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+    // console.log(this.el.nativeElement.value);
+    // // Allow Backspace, tab, end, and home keys
+    // if (this.specialKeys.indexOf(event.key) !== -1) {
+    //   return;
+    // }
+    // let current: string = this.el.nativeElement.value;
+    // const position = this.el.nativeElement.selectionStart;
+    // const next: string = [current.slice(0, position), event.key == 'Decimal' ? '.' : event.key, current.slice(position)].join('');
+    // if (next && !String(next).match(this.regex)) {
+    //   event.preventDefault();
+    // }
+
+   
+  }
+  // $(function(){
+
+  //   $('.number-only').keypress(function(e) {
+  //   if(isNaN(this.value+""+String.fromCharCode(e.charCode))) return false;
+  //   })
+  //   .on("cut copy paste",function(e){
+  //   e.preventDefault();
+  //   });
+  
+  // });
 }

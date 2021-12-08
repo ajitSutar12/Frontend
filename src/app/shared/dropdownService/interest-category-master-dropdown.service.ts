@@ -13,7 +13,7 @@ export class IntrestCategoryMasterDropdownService {
         return this.http.get<any>(this.url + '/interest-category-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.CODE + ' ' + element.NAME, value: `${element.id }` };
+                    let obj = { label: element.CODE + ' ' + element.NAME, value: `${element.id}`, name:  element.CODE };
                     this.intrestCategoryMasterObject.push(obj)
                 });
                 return this.intrestCategoryMasterObject;

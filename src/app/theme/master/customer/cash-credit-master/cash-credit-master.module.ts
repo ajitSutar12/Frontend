@@ -36,6 +36,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
+import { DatePipe } from '@angular/common';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -75,10 +76,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PrioritySectorMasterService,
     SystemMasterParametersService,
     DirectorMasterService,
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true
     },]
+   
 })
 export class CashCreditMasterModule { }

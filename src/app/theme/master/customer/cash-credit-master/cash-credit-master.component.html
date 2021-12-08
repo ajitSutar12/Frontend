@@ -100,13 +100,15 @@
                                                                 <input type="text" name="AC_OPDATE" class="form-control"
                                                                     placeholder=" " id="AC_OPDATE" required=""
                                                                     max="9999-12-31" onfocus="(this.type='date')"
-                                                                    formControlName="AC_OPDATE">
-                                                                <label for="AC_OPDATE">Opening Date<sub
-                                                                        class="required">*
+                                                                    formControlName="AC_OPDATE"
+                                                                    (ngModelChange)="changeDate()">
+                                                                <label for="AC_OPDATE">Opening Date<sub class="required">*
                                                                     </sub></label>
                                                             </span>
                                                         </div>
-                                                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_OPDATE'].invalid && (angForm.controls['AC_OPDATE'].dirty || angForm.controls['AC_OPDATE'].touched)" class="alert alert-danger">
+                                                        <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['AC_OPDATE'].invalid && (angForm.controls['AC_OPDATE'].dirty || angForm.controls['AC_OPDATE'].touched)"
+                                                            class="alert alert-danger">
                                                             <div *ngIf="angForm.controls['AC_OPDATE'].errors?.required">
                                                                 This field is required
                                                             </div>
@@ -127,20 +129,22 @@
                                                     <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input type="text" name="AC_BIRTH_DT"
-                                                                    class="form-control" placeholder=" "
-                                                                    id="AC_BIRTH_DT" max="9999-12-31"
+                                                                <input type="text" name="AC_BIRTH_DT" class="form-control"
+                                                                    placeholder=" " id="AC_BIRTH_DT" max="9999-12-31"
                                                                     onfocus="(this.type='date')"
                                                                     formControlName="AC_BIRTH_DT" disabled>
                                                                 <label for="AC_BIRTH_DT">Birth Date</label>
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-2">
+                                                    <div class="col-sm">
                                                         <div class="border-checkbox-section">
-                                                            <div class="border-checkbox-group border-checkbox-group-primary">
-                                                                <input class="border-checkbox" type="checkbox" id="IS_RECOVERY" formControlName="AC_IS_RECOVERY">
-                                                                <label class="border-checkbox-label" for="IS_RECOVERY">Recovery<span class="required">
+                                                            <div
+                                                                class="border-checkbox-group border-checkbox-group-primary">
+                                                                <input class="border-checkbox" type="checkbox"
+                                                                    id="IS_RECOVERY" formControlName="AC_IS_RECOVERY">
+                                                                <label class="border-checkbox-label"
+                                                                    for="IS_RECOVERY">Recovery<span class="required">
                                                                     </span></label>
                                                             </div>
                                                         </div>
@@ -148,11 +152,20 @@
                                                     <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input type="text" name="AC_MEMBTYPE"
-                                                                    class="form-control" placeholder=" "
-                                                                    id="AC_MEMBTYPE" formControlName="AC_MEMBTYPE"
-                                                                    disabled>
+                                                                <input type="text" name="AC_MEMBTYPE" class="form-control"
+                                                                    placeholder=" " id="AC_MEMBTYPE"
+                                                                    formControlName="AC_MEMBTYPE" disabled>
                                                                 <label for="AC_MEMBTYPE">Member Scheme </label>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="AC_MEMBNO" class="form-control"
+                                                                    placeholder=" " id="AC_MEMBNO"
+                                                                    formControlName="AC_MEMBNO" disabled>
+                                                                <label for="AC_MEMBNO">Member No </label>
                                                             </span>
                                                         </div>
                                                     </div>

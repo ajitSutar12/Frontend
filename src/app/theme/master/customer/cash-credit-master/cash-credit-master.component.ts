@@ -30,6 +30,7 @@ import { IOption } from 'ng-select';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs-compat';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { DatePipe } from '@angular/common';
 
 // Handling datatable data
 class DataTableResponse {
@@ -170,7 +171,7 @@ export class CashCreditMasterComponent implements OnInit {
   Gid: string = '';
   Cid: string = '';
   idp: string = '';
-
+  addType: string
   //Scheme type variable
   schemeType: string = 'CC'
 
@@ -204,6 +205,7 @@ export class CashCreditMasterComponent implements OnInit {
     private InterestRateForLoanandCC: InterestRateForLoanandCCService,
     private prioritySectorMaster: PrioritySectorMasterService,
     private systemParameter: SystemMasterParametersService,
+    private datePipe: DatePipe,
     public router: Router
   ) { }
 
@@ -550,7 +552,8 @@ export class CashCreditMasterComponent implements OnInit {
       CAC_AREA: [''],
       CAC_CTCODE: [''],
       CAC_PIN: [''],
-      AC_ADDFLAG: [false],
+      AC_ADDFLAG: [true],
+      AC_ADDTYPE: ['P'],
       AC_THONO: [''],
       AC_TWARD: [''],
       AC_TADDR: [''],
@@ -570,6 +573,12 @@ export class CashCreditMasterComponent implements OnInit {
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
+    if (formVal.AC_ADDFLAG == true) {
+      this.addType = 'P'
+    }
+    else if (formVal.AC_ADDFLAG == false) {
+      this.addType = 'T'
+    }
     const dataToSend = {
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
@@ -608,13 +617,15 @@ export class CashCreditMasterComponent implements OnInit {
       'AC_COREG_AMT': formVal.AC_COREG_AMT,
       'AC_RESO_NO': formVal.AC_RESO_NO,
       'AC_RESO_DATE': formVal.AC_RESO_DATE,
-      'AC_THONO': formVal.AC_THONO,
-      'AC_TWARD': formVal.AC_TWARD,
-      'AC_TADDR': formVal.AC_TADDR,
-      'AC_TGALLI': formVal.AC_TGALLI,
-      'AC_TAREA': formVal.AC_TAREA,
-      'AC_TCTCODE': formVal.AC_TCTCODE,
-      'AC_TPIN': formVal.AC_TPIN,
+      AC_ADDFLAG: formVal.AC_ADDFLAG,
+      AC_ADDTYPE: this.addType,
+      AC_THONO: formVal.AC_THONO,
+      AC_TWARD: formVal.AC_TWARD,
+      AC_TADDR: formVal.AC_TADDR,
+      AC_TGALLI: formVal.AC_TGALLI,
+      AC_TAREA: formVal.AC_TAREA,
+      AC_TCTCODE: formVal.AC_TCTCODE,
+      AC_TPIN: formVal.AC_TPIN,
       'CoBorrowerData': this.multiCoBorrower,
       'GuarantorData': this.multiGuarantor,
       'SecurityData': this.multiSecurity,
@@ -713,6 +724,13 @@ console.log("security data",this.multiSecurity)
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
+    if (data.AC_ADDFLAG == true) {
+      this.addType = 'P'
+    }
+    else if (data.AC_ADDFLAG == false) {
+      this.addType = 'T'
+    }
+    data['AC_ADDTYPE'] = this.addType
     data['GuarantorData'] = this.multiGuarantor
     data['CoBorrowerData'] = this.multiCoBorrower
     data['SecurityData'] = this.multiSecurity
@@ -726,6 +744,8 @@ console.log("security data",this.multiSecurity)
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
+      this.multiSecurity = [];
+      this.multiCoBorrower = [];
       this.multiSecurity = []
       this.resetForm();
     })
@@ -766,14 +786,28 @@ console.log("security data",this.multiSecurity)
       }
     })
   }
-  getInterest(iid) {
+  temp
+  date
+  getInterest(AC_INTCATA) {
+    this.temp = AC_INTCATA
+    this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
+      this.date = this.angForm.controls['AC_OPDATE'].value
+      if (data != typeof (undefined)) {
+        if (this.date == data[0].EFFECT_DATE) {
+          console.log("within if condition")
+          this.angForm.patchValue({
+            AC_INTCATA: data[0].INT_CATEGORY,
+            AC_INTRATE: data[0].rate[0].INT_RATE,
+          })
+        } else {
+          this.angForm.patchValue({
+            AC_INTCATA: data[1].INT_CATEGORY,
+            AC_INTRATE: 0
+          })
+        }
 
-    this.InterestRateForLoanandCC.getFormData(iid).subscribe(data => {
-      console.log("interest", data)
-      this.angForm.patchValue({
-        AC_INTCATA: data.INT_CATEGORY,
-        AC_INTRATE: data.rate[0].INT_RATE,
-      })
+
+      }
     })
   }
 
