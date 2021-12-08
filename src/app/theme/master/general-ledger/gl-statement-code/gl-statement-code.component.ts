@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ElementRef , } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { StatementTypeService } from '../../../../shared/dropdownService/statement-type.service';
@@ -34,6 +34,7 @@ interface GlStatementCodeMaster {
 })
 
 export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild("statement_head") myInputField: ElementRef;//autofocus input field
   //api 
   url = environment.base_url;
 
@@ -305,6 +306,8 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
+
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

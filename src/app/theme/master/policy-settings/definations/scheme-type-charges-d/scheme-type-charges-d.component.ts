@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -40,6 +40,7 @@ interface SchemeTypeChargesRate {
   styleUrls: ['./scheme-type-charges-d.component.scss'],
 })
 export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -310,6 +311,7 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   }
 
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

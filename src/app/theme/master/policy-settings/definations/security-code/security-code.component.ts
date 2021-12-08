@@ -1,6 +1,6 @@
 
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { SecurityCodeService } from './security-code.service';
@@ -48,8 +48,7 @@ interface SecurityCode {
   styleUrls: ['./security-code.component.scss'],
 })
 export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   //api 
   url = environment.base_url;
 
@@ -282,6 +281,7 @@ console.log(ele);
     this.createForm();
   }
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

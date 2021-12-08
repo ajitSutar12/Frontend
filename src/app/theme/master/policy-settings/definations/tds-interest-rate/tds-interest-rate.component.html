@@ -12,7 +12,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="FIN_YEAR" class="form-control" placeholder=" " #finyear
-                                        id="FIN_YEAR" required="" minlength="9" maxlength="9" pattern="^[0-9 -]+$" (keyup)="addhyphen(finyear.value)"
+                                    #autofocus id="FIN_YEAR" required="" minlength="9" maxlength="9" pattern="^[0-9 -]+$" (keyup)="addhyphen(finyear.value)"
                                         title="Input allowed only  0-9" formControlName="FIN_YEAR">
                                     <label for="FIN_YEAR">Financial Year<sub class="required">* </sub></label>
                                 </span>

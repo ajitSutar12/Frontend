@@ -85,6 +85,9 @@ File: style.scss
 // outlineTextbox custom scss
 @import "partials/outlineTextbox.scss";
 
+ng-select.ng-select > div > div.single{
+	height: 100% !important;
+}
 .td_right{
 	text-align: right;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import {
   FormGroup,
   FormBuilder,
@@ -26,6 +26,8 @@ interface budget {
   styleUrls: ["./budget-master.component.scss"],
 })
 export class BudgetMasterComponent implements OnInit {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
   url =environment.base_url
   angForm: FormGroup;
   timeLeft: number;
@@ -167,6 +169,9 @@ export class BudgetMasterComponent implements OnInit {
        this.resetForm();
     })
   }
+  ngAfterViewInit() {
+    this.myInputField.nativeElement.focus();
+    }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first

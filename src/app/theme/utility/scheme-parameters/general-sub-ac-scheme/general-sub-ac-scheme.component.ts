@@ -38,10 +38,12 @@ interface GeneralMaster {
   styleUrls: ['./general-sub-ac-scheme.component.scss']
 })
 export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
   //api 
   url = environment.base_url;
   
-@ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -237,7 +239,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();//for autofocus
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

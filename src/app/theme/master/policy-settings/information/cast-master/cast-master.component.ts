@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
 // Creating and maintaining form fields with validation 
@@ -32,6 +32,8 @@ interface CastMaster {
   styleUrls: ['./cast-master.component.scss']
 })
 export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -232,6 +234,7 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

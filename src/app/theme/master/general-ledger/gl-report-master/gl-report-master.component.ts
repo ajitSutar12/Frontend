@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import {
   FormGroup,
   FormBuilder,
@@ -82,6 +82,8 @@ interface reportinterface {
   ],
 })
 export class GlReportMasterComponent implements OnInit {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
   url =environment.base_url;
   angForm: FormGroup;
 
@@ -736,6 +738,9 @@ export class GlReportMasterComponent implements OnInit {
        this.resetForm();
     })
   }
+  ngAfterViewInit() {
+    this.myInputField.nativeElement.focus();
+    }
      // Reset Function
      resetForm() {
       this.createForm();

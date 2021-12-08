@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <!-- <ng-container *ngIf="showModalStatus"> -->
-                        <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
+                        <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
                             <div class="app-modal-header">
                                 <h4 class="modal-title">Customer ID </h4>
                                 <button type="button" class="close basic-close" (click)="modalLarge.hide()">
@@ -52,7 +52,7 @@
                                 </button>
                             </div>
                             <div class="app-modal-body">
-                                <perfect-scrollbar style="max-width: 800px; max-height: 450px;">
+                                <perfect-scrollbar >
                                     <app-customer-id (newCustomerEvent)="addNewCustomer($event)"></app-customer-id>
                                 </perfect-scrollbar>
                             </div>
@@ -323,7 +323,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
+                                                    <div class="col-sm-4">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_ADDR" class="form-control"
@@ -404,7 +404,7 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm">
+                                                    <div class="col-sm-4">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_EMAIL" class="form-control"

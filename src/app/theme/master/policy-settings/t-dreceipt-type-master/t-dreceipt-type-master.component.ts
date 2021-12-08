@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -31,6 +31,7 @@ interface receiptinterface{
   ]
 })
 export class TDReceiptTypeMasterComponent implements OnInit {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   angForm: FormGroup;
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
@@ -175,6 +176,7 @@ export class TDReceiptTypeMasterComponent implements OnInit {
       }
     })
   }
+  
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -182,6 +184,10 @@ export class TDReceiptTypeMasterComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+  ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
+    
   }
     // Reset Function
     resetForm() {

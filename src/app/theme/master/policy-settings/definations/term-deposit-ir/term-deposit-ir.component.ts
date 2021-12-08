@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -44,7 +44,10 @@ interface TermDepositInterestRate {
   styleUrls: ['./term-deposit-ir.component.scss'],
 })
 export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
   //api 
+  
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -411,6 +414,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
@@ -449,18 +453,32 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   addField() {
-    const formVal = this.angForm.value;
-    var object = {
-      FROM_DAYS: formVal.FROM_DAYS,
-      FROM_MONTHS: formVal.FROM_MONTHS,
-      TO_DAYS: formVal.TO_DAYS,
-      TO_MONTHS: formVal.TO_MONTHS,
-      INT_RATE: formVal.INT_RATE,
-      PENAL_INT_RATE: formVal.PENAL_INT_RATE,
+    debugger 
+    let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
+    let penint = (document.getElementById("PENAL_INT_RATE") as HTMLInputElement).value;
+    if(intrate || penint == ""){
+      Swal.fire(
+        'Warning',
+        'Please input Interest rate and Penal Interest rate',
+        'warning'
+      )
     }
-    this.multiField.push(object);
-    console.log(this.multiField)
-    this.resetField()
+     if(intrate && penint != "")
+    {
+      const formVal = this.angForm.value;
+      var object = {
+        FROM_DAYS: formVal.FROM_DAYS,
+        FROM_MONTHS: formVal.FROM_MONTHS,
+        TO_DAYS: formVal.TO_DAYS,
+        TO_MONTHS: formVal.TO_MONTHS,
+        INT_RATE: formVal.INT_RATE,
+        PENAL_INT_RATE: formVal.PENAL_INT_RATE,
+      }
+      this.multiField.push(object);
+      console.log(this.multiField)
+      this.resetField()
+    }
+    
   }
   resetField() {
     this.angForm.controls['FROM_DAYS'].reset();

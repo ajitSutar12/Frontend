@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -33,6 +33,8 @@ interface LockerSizeMaster {
   styleUrls: ['./locker-size-master.component.scss']
 })
 export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -246,6 +248,7 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

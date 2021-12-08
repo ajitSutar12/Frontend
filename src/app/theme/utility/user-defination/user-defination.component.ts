@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Subject } from 'rxjs';
@@ -54,7 +54,7 @@ interface userdefination {
   styleUrls: ['./user-defination.component.scss']
 })
 export class UserDefinationComponent implements OnInit {
-
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -383,6 +383,7 @@ export class UserDefinationComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

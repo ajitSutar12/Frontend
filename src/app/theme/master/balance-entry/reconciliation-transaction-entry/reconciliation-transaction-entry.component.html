@@ -12,7 +12,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="A_BALCODE" class="form-control" placeholder=" "
-                                        id="GLAccount" required="" value="{{ message.GLAccount }}" pattern="^[0-9]+$"
+                                    #autofocus  id="GLAccount" required="" value="{{ message.GLAccount }}" pattern="^[0-9]+$"
                                         title="Input allowed only  0-9" formControlName="GLAccount">
                                     <label for="GLAccount">GL Account <sub class="required">* </sub> </label>
                                 </span>
@@ -41,7 +41,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="A_BALCODE" class="form-control" placeholder=" "
-                                        id="BranchCode" value="{{ message.BranchCode }}" formControlName="BranchCode">
+                                     id="BranchCode" value="{{ message.BranchCode }}" formControlName="BranchCode">
                                     <label for="BranchCode">Branch Code</label>
                                 </span>
                             </div>

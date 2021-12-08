@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -41,6 +41,8 @@ interface TermDepositPatScheme {
   styleUrls: ['./term-deposit-pat-scheme.component.scss'],
 })
 export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -354,6 +356,7 @@ debugger
   }
 
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
@@ -402,6 +405,16 @@ debugger
   }
 
   addField() {
+    let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
+    if(intrate == ""){
+      Swal.fire(
+        'Warning',
+        'Please input Interest rate.',
+        'warning'
+      )
+    }
+    else if(intrate != "")
+    {
     const formVal = this.angForm.value;
     var object = {
       MONTHS: formVal.MONTHS,
@@ -410,7 +423,8 @@ debugger
 
     }
     this.multiField.push(object);
-    this.resetField()
+    this.resetField();
+  }
   }
   resetField() {
     this.angForm.controls['MONTHS'].reset();

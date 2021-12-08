@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { npcslabMasterService } from '../../../../shared/elements/npcslab-master.service';
@@ -21,6 +21,8 @@ interface receiptinterface{
   styleUrls: ['./n-paclassification-slab-master.component.scss']
 })
 export class NPAClassificationSlabMasterComponent implements OnInit {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
   dtElement: DataTableDirective;
@@ -194,6 +196,10 @@ export class NPAClassificationSlabMasterComponent implements OnInit {
         )
       }
     })
+  }
+  ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
+    
   }
   runTimer() {
     const timer = setInterval(() => {

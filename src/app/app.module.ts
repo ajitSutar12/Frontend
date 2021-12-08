@@ -25,7 +25,8 @@ import {ConnectionServiceModule} from 'ng-connection-service';
     AdminComponent,
     AuthComponent,
     BreadcrumbsComponent,
-    HotKeysComponent
+    HotKeysComponent,
+  
   ],
   imports: [
     BrowserModule,

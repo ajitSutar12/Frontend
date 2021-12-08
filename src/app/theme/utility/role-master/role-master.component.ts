@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { RoleMasterModule } from './role-master.module';
@@ -12,6 +12,8 @@ import { DataTableDirective } from 'angular-datatables';
   styleUrls: ['./role-master.component.scss']
 })
 export class RoleMasterComponent implements OnInit {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
   angForm: FormGroup;
   RoleList: any;
   checked:boolean = true;
@@ -105,6 +107,7 @@ export class RoleMasterComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
   }
 

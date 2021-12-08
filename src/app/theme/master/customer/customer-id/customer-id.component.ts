@@ -6,6 +6,7 @@ import {
   ViewChild,
   Output,
   EventEmitter,
+  ElementRef ,
   ComponentFactoryResolver,
 } from "@angular/core";
 import { Observable, Subject, Subscriber } from "rxjs";
@@ -92,8 +93,9 @@ interface CustomerMaster {
 })
 export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() newCustomerEvent = new EventEmitter<string>();
+  @ViewChild("lastname") myInputField: ElementRef;
   custData;
-  datemax: Date;
+  datemax: any;
   addNewCustomer(value) {
     this.newCustomerEvent.emit(value);
   }
@@ -151,6 +153,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   SUBMIT_DATE: boolean = false;
   enablefields: boolean = true;
   
+  
+  
 
   constructor(
     private http: HttpClient,
@@ -165,8 +169,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     private documentMasterService: DocumentMasterDropdownService,
     public router: Router
   ) {  
-    this.datemax =new Date();
-  }
+    // this.datemax =new Date() ;
+    this.datemax = new Date().getFullYear()+'-'+("0"+new Date().getDate()).slice(-2)+'-'+("0"+(new Date().getMonth()+1)).slice(-2);
+    console.log(this.datemax)
+  } 
 
   ngOnInit(): void {
     this.createForm();
@@ -561,12 +567,24 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //disabledate on keyup
   disabledate(data:any){
-    debugger
+    
     console.log(data);
     if(data != ""){
       if(data > this.datemax){
         Swal.fire("Invalid Input", "Please insert valid date ", "warning");
         (document.getElementById("AC_BIRTH_DT")as HTMLInputElement).value = ""
+            
+      }
+    } 
+  }
+  //disabledate on keyup
+  disablesubdate(data:any){
+    debugger
+    console.log(this.datemax);
+    if(data != ""){
+      if(data > this.datemax){
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        (document.getElementById("SUBMIT_DATE")as HTMLInputElement).value = ""
             
       }
     } 
@@ -595,14 +613,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     if (ele.target.checked) {
       (document.getElementById("file" + id) as HTMLInputElement).disabled =
         false;
-      (document.getElementById("eyebutton" + id) as HTMLInputElement).disabled =
-        false;
+      // (document.getElementById("eyebutton" + id) as HTMLInputElement).disabled =
+      //   false;
 
     } else {
       (document.getElementById("file" + id) as HTMLInputElement).disabled =
         true;
-      (document.getElementById("eyeicon" + id) as HTMLInputElement).disabled =
-        true;
+      // (document.getElementById("eyeicon" + id) as HTMLInputElement).disabled =
+      //   true;
     }
   }
 
@@ -729,6 +747,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

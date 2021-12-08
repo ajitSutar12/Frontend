@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { BalanceUpdationService } from '../../../../shared/elements/balance-updation.service';
@@ -13,6 +13,8 @@ import Swal from 'sweetalert2';
 })
 
 export class BalanceUpdationComponent implements OnInit {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+
   angForm: FormGroup;
 
   dtExportButtonOptions: any = {};
@@ -168,7 +170,10 @@ export class BalanceUpdationComponent implements OnInit {
       DebitCredit: [''],
     });
   }
+ngAfterViewInit():void{
+  this.myInputField.nativeElement.focus();
 
+}
   submit() {
     console.log(this.angForm.valid);
     if (this.angForm.valid) {

@@ -67,6 +67,7 @@ interface savingscheme {
   styleUrls: ["./saving-scheme.component.scss"],
 })
 export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+
   //api
   url = environment.base_url;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus

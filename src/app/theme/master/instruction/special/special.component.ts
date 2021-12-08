@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
 import { IOption } from 'ng-select';
@@ -42,6 +49,7 @@ interface SpecialMaster {
   styleUrls: ['./special.component.scss']
 })
 export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   angForm: FormGroup;
   //api 
   url = environment.base_url;
@@ -413,6 +421,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

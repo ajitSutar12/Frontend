@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -42,6 +42,7 @@ interface SalaryMaster {
 })
 export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //api 
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -299,6 +300,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
     })
   }
   ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

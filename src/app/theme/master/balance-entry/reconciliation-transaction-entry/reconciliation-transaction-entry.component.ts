@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 
 export class ReconciliationTransactionEntryComponent implements OnInit {
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   angForm: FormGroup;
 
@@ -219,6 +220,10 @@ export class ReconciliationTransactionEntryComponent implements OnInit {
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+  }
+  ngAfterViewInit(): void {
+    this.myInputField.nativeElement.focus();
+
   }
 }
 

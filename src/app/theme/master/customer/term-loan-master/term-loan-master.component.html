@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
+                        <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
                             <div class="app-modal-header">
                                 <h4 class="modal-title">Customer ID </h4>
                                 <button type="button" class="close basic-close" (click)="modalLarge.hide()">
@@ -59,7 +59,7 @@
                                 </button>
                             </div>
                             <div class="app-modal-body">
-                                <perfect-scrollbar style="max-width: 800px; max-height: 450px;">
+                                <perfect-scrollbar >
                                     <app-customer-id (newCustomerEvent)="newCustomer($event)"></app-customer-id>
                                 </perfect-scrollbar>
                             </div>

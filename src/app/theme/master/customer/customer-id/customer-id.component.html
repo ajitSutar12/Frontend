@@ -40,7 +40,7 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="prifix" name="AC_TITLE" [multiple]="false"
+                                <ng-select  [ngClass]="'ng-select'" [options]="prifix" name="AC_TITLE" [multiple]="false"
                                     placeholder="Title *" required title="Compulsory Selection"
                                     formControlName="AC_TITLE">
                                 </ng-select>
@@ -56,9 +56,9 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
-                                        required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase"
-                                        [(ngModel)]="lname" title="Input allowed only A-Z" formControlName="L_NAME">
+                                    <input  type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
+                                         #lastname required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase;"
+                                        [(ngModel)]="lname" title = "Input allowed only A-Z" formControlName="L_NAME">
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -76,7 +76,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
+                                    <input  type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
                                         required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase"
                                         [(ngModel)]="fname" title="Input allowed only A-Z" formControlName="F_NAME">
                                     <label for="F_NAME">First Name<sub class="required">* </sub></label>
@@ -350,7 +350,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_MOBILENO" class="form-control" placeholder=" "
-                                        pattern="[7-9 0]{1}[0-9]{9}" title="Input allowed only  0-9" id="AC_MOBILENO"
+                                        pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9" id="AC_MOBILENO"
                                         maxlength="11" minlength="10" formControlName="AC_MOBILENO">
                                     <label for="AC_MOBILENO">Mobile Number</label>
                                 </span>
@@ -368,7 +368,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PHONE_RES" class="form-control" placeholder=" "
-                                        pattern="[7-9 0]{1}[0-9]{9}" title="Input allowed only  0-9" id="AC_PHONE_RES"
+                                    pattern="[7-9 0]{1}[0-9]{9,10}"  title="Input allowed only  0-9" id="AC_PHONE_RES"
                                         maxlength="11" minlength="10" formControlName="AC_PHONE_RES">
                                     <label for="AC_PHONE_RES">Residential No.</label>
                                 </span>
@@ -386,7 +386,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PHONE_OFFICE" class="form-control" placeholder=" "
-                                        pattern="[7-9 0]{1}[0-9]{9}" title="Input allowed only  0-9"
+                                    pattern="[7-9 0]{1}[0-9]{9,10}"  title="Input allowed only  0-9"
                                         id="AC_PHONE_OFFICE" maxlength="11" minlength="10"
                                         formControlName="AC_PHONE_OFFICE">
                                     <label for="AC_PHONE_OFFICE">Office(O)</label>
@@ -501,7 +501,10 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input class="form-control" type="text" onfocus="(this.type='date')"
-                                        id="SUBMIT_DATE" max="9999-12-31" formControlName="SUBMIT_DATE" placeholder=" "
+                                        id="SUBMIT_DATE" max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="SUBMIT_DATE"    
+                                        #subdate   
+                                        (focusout)="disablesubdate(subdate.value)" 
+                                         placeholder=" "
                                         [required]="SUBMIT_DATE">
                                     <label for="SUBMIT_DATE">Submission Date<sub class="required">
                                             *</sub></label>
@@ -619,7 +622,7 @@
                                                                 <div class="row">
                                                                     <div class="col-sm">
                                                                         <input type="file" name="file"
-                                                                            [id]="'file'+indexOfelement" disabled
+                                                                            [id]="'file'+indexOfelement" 
                                                                             (change)="fileChangeEvent($event, indexOfelement,data.value)">
                                                                     </div>
                                                                     <!-- <div class="col-sm-2">
@@ -663,7 +666,7 @@
                             <button class="btn btn-primary ripple light" *ngIf="newbtnShow"
                                 (click)="addNewData()">New</button>
                         </div>
-                    </div>
+                     </div>
                 </form>
             </div>
         </div>
