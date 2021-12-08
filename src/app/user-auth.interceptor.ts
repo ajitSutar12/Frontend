@@ -22,7 +22,7 @@ export class UserAuthInterceptor implements HttpInterceptor {
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.createOnline$().subscribe(async function(isOnline) {
-      debugger
+      // debugger
       let data =  await isOnline;
       if(data == false){
         Swal.fire("Warning!", "Please check your internet connection !", "warning");        
