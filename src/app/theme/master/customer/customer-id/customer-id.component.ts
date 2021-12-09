@@ -7,6 +7,7 @@ import {
   Output,
   EventEmitter,
   ElementRef ,
+  ChangeDetectorRef,
   ComponentFactoryResolver,
 } from "@angular/core";
 import { Observable, Subject, Subscriber } from "rxjs";
@@ -31,6 +32,9 @@ import { FileUploader } from "ng2-file-upload";
 import { DocumentMasterDropdownService } from "../../../../shared/dropdownService/document-master-dropdown.service";
 import { environment } from "../../../../../environments/environment";
 import { Router } from "@angular/router";
+import { NgSelectComponent } from "@ng-select/ng-select/lib/ng-select.component";
+import { ConnectionServiceModule } from "ng-connection-service";
+import{StrictNumberOnlyDirective} from '../../../../restrictinput';
 
 
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -93,7 +97,7 @@ interface CustomerMaster {
 })
 export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() newCustomerEvent = new EventEmitter<string>();
-  @ViewChild("lastname") myInputField: ElementRef;
+  @ViewChild('ngSelect') ngSelect: NgSelectComponent;
   custData;
   datemax: any;
   addNewCustomer(value) {
@@ -152,6 +156,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   isTdsFormA: boolean = false;
   SUBMIT_DATE: boolean = false;
   enablefields: boolean = true;
+  hasFocus :boolean =false;
   
   
   
@@ -171,7 +176,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {  
     // this.datemax =new Date() ;
     this.datemax = new Date().getFullYear()+'-'+("0"+new Date().getDate()).slice(-2)+'-'+("0"+(new Date().getMonth()+1)).slice(-2);
-    console.log(this.datemax)
+    console.log(this.datemax);
+    // (document.getElementById("title")as HTMLInputElement).focus();
+
   } 
 
   ngOnInit(): void {
@@ -577,6 +584,21 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     } 
   }
+  //method for force only numbers input
+  onlyNumberKey(evt) {
+    debugger
+          
+    // Only ASCII character in that range allowed
+    let ASCIICode = (evt.which) ? evt.which : evt.keyCode;
+    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)){
+      return true;
+    }
+    else{
+     return false;
+    }
+        // evt.preventDefault();
+    // return true;
+}
   //disabledate on keyup
   disablesubdate(data:any){
     debugger
@@ -634,6 +656,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
+ 
   //method to add space
   addSpace(data: any) {
     let result = data
@@ -647,12 +670,33 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //method for adding hyphen in date
   addhyphen(data: any) {
-    let result = data
-      .replace(/\D/g, "")
-      .split(/(?:([\d]{4}))/g)
-      .filter((s) => s.length > 0)
-      .join("-");
-    (document.getElementById("FIN_YEAR") as HTMLInputElement).value = result;
+    debugger
+    // let result = data
+    //   .replace(/\D/g, "")
+    //   .split(/(?:([\d]{4}))/g)
+    //   .filter((s) => s.length > 0)
+    //   .join("-");
+    
+    let date = new Date().getFullYear() + 1;
+  
+
+    let result = Number((document.getElementById("FIN_YEAR")as HTMLInputElement).value);
+    console.log(result);
+    if(result > date){
+      Swal.fire("Warning!", "please enter valid Year ", "warning");
+      (document.getElementById("FIN_YEAR")as HTMLInputElement).value = "";
+     
+    }
+    else{
+      if(data.length == 4){
+        result += 1;
+        console.log(result);
+        (document.getElementById("FIN_YEAR")as HTMLInputElement).value = data + "-" + result;
+      }
+     
+    }
+   
+    // (document.getElementById("FIN_YEAR") as HTMLInputElement).value = result;
   }
 
   //Method for append data into fields
@@ -747,8 +791,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
-    this.dtTrigger.next();
+    // this.ngSelect.focus();
+      this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
         const that = this;

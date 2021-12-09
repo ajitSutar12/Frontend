@@ -69,7 +69,7 @@ ReceiptPrintingDComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "receipt-printing-d works!");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    } }, styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdXRpbGl0eS9yZWNlaXB0LXByaW50aW5nLWQvcmVjZWlwdC1wcmludGluZy1kLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdXRpbGl0eS9yZWNlaXB0LXByaW50aW5nLWQvcmVjZWlwdC1wcmludGluZy1kLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"] });
+    } }, styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdXRpbGl0eS9yZWNlaXB0LXByaW50aW5nLWQvcmVjZWlwdC1wcmludGluZy1kLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdXRpbGl0eS9yZWNlaXB0LXByaW50aW5nLWQvcmVjZWlwdC1wcmludGluZy1kLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](ReceiptPrintingDComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -97,6 +97,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _receipt_printing_d_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./receipt-printing-d.component */ "./src/app/theme/utility/receipt-printing-d/receipt-printing-d.component.ts");
 /* harmony import */ var _receipt_printing_d_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./receipt-printing-d-routing.module */ "./src/app/theme/utility/receipt-printing-d/receipt-printing-d-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -106,7 +110,11 @@ __webpack_require__.r(__webpack_exports__);
 class ReceiptPrintingDModule {
 }
 ReceiptPrintingDModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: ReceiptPrintingDModule });
-ReceiptPrintingDModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function ReceiptPrintingDModule_Factory(t) { return new (t || ReceiptPrintingDModule)(); }, imports: [[
+ReceiptPrintingDModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function ReceiptPrintingDModule_Factory(t) { return new (t || ReceiptPrintingDModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _receipt_printing_d_routing_module__WEBPACK_IMPORTED_MODULE_3__["ReceiptPrintingDRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -122,7 +130,12 @@ ReceiptPrintingDModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
                     _receipt_printing_d_routing_module__WEBPACK_IMPORTED_MODULE_3__["ReceiptPrintingDRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                 ],
-                declarations: [_receipt_printing_d_component__WEBPACK_IMPORTED_MODULE_2__["ReceiptPrintingDComponent"]]
+                declarations: [_receipt_printing_d_component__WEBPACK_IMPORTED_MODULE_2__["ReceiptPrintingDComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

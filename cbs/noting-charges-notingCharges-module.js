@@ -919,6 +919,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/__ivy_ngcc__/fesm2015/ng-bootstrap.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -936,7 +940,11 @@ __webpack_require__.r(__webpack_exports__);
 class NotingChargesModule {
 }
 NotingChargesModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: NotingChargesModule });
-NotingChargesModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function NotingChargesModule_Factory(t) { return new (t || NotingChargesModule)(); }, providers: [_shared_elements_sim_service__WEBPACK_IMPORTED_MODULE_5__["SimService"], _shared_elements_s8_service__WEBPACK_IMPORTED_MODULE_6__["S8Service"], _shared_elements_ac8_service__WEBPACK_IMPORTED_MODULE_7__["Ac8Service"], _shared_elements_s18_service__WEBPACK_IMPORTED_MODULE_8__["S18Service"], _shared_elements_s19_service__WEBPACK_IMPORTED_MODULE_9__["S19Service"]], imports: [[
+NotingChargesModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function NotingChargesModule_Factory(t) { return new (t || NotingChargesModule)(); }, providers: [_shared_elements_sim_service__WEBPACK_IMPORTED_MODULE_5__["SimService"], _shared_elements_s8_service__WEBPACK_IMPORTED_MODULE_6__["S8Service"], _shared_elements_ac8_service__WEBPACK_IMPORTED_MODULE_7__["Ac8Service"], _shared_elements_s18_service__WEBPACK_IMPORTED_MODULE_8__["S18Service"], _shared_elements_s19_service__WEBPACK_IMPORTED_MODULE_9__["S19Service"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_14__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _notingCharges_routing_module__WEBPACK_IMPORTED_MODULE_3__["NotingChargesRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"],
@@ -965,7 +973,11 @@ NotingChargesModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
                     _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"]
                 ],
                 declarations: [_noting_charges_component__WEBPACK_IMPORTED_MODULE_2__["NotingChargesComponent"]],
-                providers: [_shared_elements_sim_service__WEBPACK_IMPORTED_MODULE_5__["SimService"], _shared_elements_s8_service__WEBPACK_IMPORTED_MODULE_6__["S8Service"], _shared_elements_ac8_service__WEBPACK_IMPORTED_MODULE_7__["Ac8Service"], _shared_elements_s18_service__WEBPACK_IMPORTED_MODULE_8__["S18Service"], _shared_elements_s19_service__WEBPACK_IMPORTED_MODULE_9__["S19Service"]]
+                providers: [_shared_elements_sim_service__WEBPACK_IMPORTED_MODULE_5__["SimService"], _shared_elements_s8_service__WEBPACK_IMPORTED_MODULE_6__["S8Service"], _shared_elements_ac8_service__WEBPACK_IMPORTED_MODULE_7__["Ac8Service"], _shared_elements_s18_service__WEBPACK_IMPORTED_MODULE_8__["S18Service"], _shared_elements_s19_service__WEBPACK_IMPORTED_MODULE_9__["S19Service"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_14__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

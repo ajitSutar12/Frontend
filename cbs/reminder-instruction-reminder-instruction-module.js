@@ -64,6 +64,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_elements_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../shared/elements/user.service */ "./src/app/shared/elements/user.service.ts");
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -76,7 +80,11 @@ __webpack_require__.r(__webpack_exports__);
 class ReminderInstructionModule {
 }
 ReminderInstructionModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: ReminderInstructionModule });
-ReminderInstructionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function ReminderInstructionModule_Factory(t) { return new (t || ReminderInstructionModule)(); }, providers: [_shared_elements_reminder_instruction_service__WEBPACK_IMPORTED_MODULE_4__["reminderInstructionService"], _shared_elements_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]], imports: [[
+ReminderInstructionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function ReminderInstructionModule_Factory(t) { return new (t || ReminderInstructionModule)(); }, providers: [_shared_elements_reminder_instruction_service__WEBPACK_IMPORTED_MODULE_4__["reminderInstructionService"], _shared_elements_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_9__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _reminder_instruction_routing_module__WEBPACK_IMPORTED_MODULE_2__["ReminderInstructionRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_3__["DataTablesModule"],
@@ -102,7 +110,11 @@ ReminderInstructionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
                     _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ReactiveFormsModule"]
                 ],
                 declarations: [],
-                providers: [_shared_elements_reminder_instruction_service__WEBPACK_IMPORTED_MODULE_4__["reminderInstructionService"], _shared_elements_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]]
+                providers: [_shared_elements_reminder_instruction_service__WEBPACK_IMPORTED_MODULE_4__["reminderInstructionService"], _shared_elements_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_9__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

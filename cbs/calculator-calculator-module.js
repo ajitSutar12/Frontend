@@ -97,6 +97,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _calculator_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./calculator.component */ "./src/app/theme/utility/calculator/calculator.component.ts");
 /* harmony import */ var _calculator_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./calculator-routing.module */ "./src/app/theme/utility/calculator/calculator-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -106,7 +110,11 @@ __webpack_require__.r(__webpack_exports__);
 class CalculatorModule {
 }
 CalculatorModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: CalculatorModule });
-CalculatorModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function CalculatorModule_Factory(t) { return new (t || CalculatorModule)(); }, imports: [[
+CalculatorModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function CalculatorModule_Factory(t) { return new (t || CalculatorModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _calculator_routing_module__WEBPACK_IMPORTED_MODULE_3__["CalculatorRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -122,7 +130,12 @@ CalculatorModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineI
                     _calculator_routing_module__WEBPACK_IMPORTED_MODULE_3__["CalculatorRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                 ],
-                declarations: [_calculator_component__WEBPACK_IMPORTED_MODULE_2__["CalculatorComponent"]]
+                declarations: [_calculator_component__WEBPACK_IMPORTED_MODULE_2__["CalculatorComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

@@ -30,27 +30,27 @@ const routes = [
         children: [
             {
                 path: 'dividendCalculation',
-                loadChildren: () => Promise.all(/*! import() | dividend-calculation-dividend-calculation-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("dividend-calculation-dividend-calculation-module")]).then(__webpack_require__.bind(null, /*! ./dividend-calculation/dividend-calculation.module */ "./src/app/theme/master/shares/dividend-calculation/dividend-calculation.module.ts")).then(m => m.DividendCalculationModule)
+                loadChildren: () => Promise.all(/*! import() | dividend-calculation-dividend-calculation-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("dividend-calculation-dividend-calculation-module")]).then(__webpack_require__.bind(null, /*! ./dividend-calculation/dividend-calculation.module */ "./src/app/theme/master/shares/dividend-calculation/dividend-calculation.module.ts")).then(m => m.DividendCalculationModule)
             },
             {
                 path: 'dividendPosting',
-                loadChildren: () => Promise.all(/*! import() | dividend-posting-dividend-posting-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("dividend-posting-dividend-posting-module")]).then(__webpack_require__.bind(null, /*! ./dividend-posting/dividend-posting.module */ "./src/app/theme/master/shares/dividend-posting/dividend-posting.module.ts")).then(m => m.DividendPostingModule)
+                loadChildren: () => Promise.all(/*! import() | dividend-posting-dividend-posting-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("dividend-posting-dividend-posting-module")]).then(__webpack_require__.bind(null, /*! ./dividend-posting/dividend-posting.module */ "./src/app/theme/master/shares/dividend-posting/dividend-posting.module.ts")).then(m => m.DividendPostingModule)
             },
             {
                 path: 'dividendTransferEntry',
-                loadChildren: () => Promise.all(/*! import() | dividend-transfer-entry-dividend-transfer-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("dividend-transfer-entry-dividend-transfer-entry-module")]).then(__webpack_require__.bind(null, /*! ./dividend-transfer-entry/dividend-transfer-entry.module */ "./src/app/theme/master/shares/dividend-transfer-entry/dividend-transfer-entry.module.ts")).then(m => m.DividendTransferEntryModule)
+                loadChildren: () => Promise.all(/*! import() | dividend-transfer-entry-dividend-transfer-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("dividend-transfer-entry-dividend-transfer-entry-module")]).then(__webpack_require__.bind(null, /*! ./dividend-transfer-entry/dividend-transfer-entry.module */ "./src/app/theme/master/shares/dividend-transfer-entry/dividend-transfer-entry.module.ts")).then(m => m.DividendTransferEntryModule)
             },
             {
                 path: 'dividendTransferPosting',
-                loadChildren: () => Promise.all(/*! import() | dividend-transfer-posting-dividend-transfer-posting-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("dividend-transfer-posting-dividend-transfer-posting-module")]).then(__webpack_require__.bind(null, /*! ./dividend-transfer-posting/dividend-transfer-posting.module */ "./src/app/theme/master/shares/dividend-transfer-posting/dividend-transfer-posting.module.ts")).then(m => m.DividendTransferPostingModule)
+                loadChildren: () => Promise.all(/*! import() | dividend-transfer-posting-dividend-transfer-posting-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("dividend-transfer-posting-dividend-transfer-posting-module")]).then(__webpack_require__.bind(null, /*! ./dividend-transfer-posting/dividend-transfer-posting.module */ "./src/app/theme/master/shares/dividend-transfer-posting/dividend-transfer-posting.module.ts")).then(m => m.DividendTransferPostingModule)
             },
             {
                 path: 'unpaidDividendEntry',
-                loadChildren: () => Promise.all(/*! import() | unpaid-dividend-entry-unpaid-dividend-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("unpaid-dividend-entry-unpaid-dividend-entry-module")]).then(__webpack_require__.bind(null, /*! ./unpaid-dividend-entry/unpaid-dividend-entry.module */ "./src/app/theme/master/shares/unpaid-dividend-entry/unpaid-dividend-entry.module.ts")).then(m => m.UnpaidDividendEntryModule)
+                loadChildren: () => Promise.all(/*! import() | unpaid-dividend-entry-unpaid-dividend-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("unpaid-dividend-entry-unpaid-dividend-entry-module")]).then(__webpack_require__.bind(null, /*! ./unpaid-dividend-entry/unpaid-dividend-entry.module */ "./src/app/theme/master/shares/unpaid-dividend-entry/unpaid-dividend-entry.module.ts")).then(m => m.UnpaidDividendEntryModule)
             },
             {
                 path: 'yearWiseUnpaidDividendEntry',
-                loadChildren: () => Promise.all(/*! import() | year-wise-unpaid-dividend-entry-year-wise-unpaid-dividend-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("common"), __webpack_require__.e("year-wise-unpaid-dividend-entry-year-wise-unpaid-dividend-entry-module")]).then(__webpack_require__.bind(null, /*! ./year-wise-unpaid-dividend-entry/year-wise-unpaid-dividend-entry.module */ "./src/app/theme/master/shares/year-wise-unpaid-dividend-entry/year-wise-unpaid-dividend-entry.module.ts")).then(m => m.YearWiseUnpaidDividendEntryModule)
+                loadChildren: () => Promise.all(/*! import() | year-wise-unpaid-dividend-entry-year-wise-unpaid-dividend-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("common"), __webpack_require__.e("year-wise-unpaid-dividend-entry-year-wise-unpaid-dividend-entry-module")]).then(__webpack_require__.bind(null, /*! ./year-wise-unpaid-dividend-entry/year-wise-unpaid-dividend-entry.module */ "./src/app/theme/master/shares/year-wise-unpaid-dividend-entry/year-wise-unpaid-dividend-entry.module.ts")).then(m => m.YearWiseUnpaidDividendEntryModule)
             },
         ]
     }
@@ -64,7 +64,7 @@ SharesRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
                 imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
-                exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
+                exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]],
             }]
     }], null, null); })();
 
@@ -122,6 +122,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shares_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shares.component */ "./src/app/theme/master/shares/shares.component.ts");
 /* harmony import */ var _shares_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shares-routing.module */ "./src/app/theme/master/shares/shares-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -131,7 +135,11 @@ __webpack_require__.r(__webpack_exports__);
 class SharesModule {
 }
 SharesModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: SharesModule });
-SharesModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SharesModule_Factory(t) { return new (t || SharesModule)(); }, imports: [[
+SharesModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SharesModule_Factory(t) { return new (t || SharesModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _shares_routing_module__WEBPACK_IMPORTED_MODULE_3__["SharesRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -147,7 +155,12 @@ SharesModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjec
                     _shares_routing_module__WEBPACK_IMPORTED_MODULE_3__["SharesRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                 ],
-                declarations: [_shares_component__WEBPACK_IMPORTED_MODULE_2__["SharesComponent"]]
+                declarations: [_shares_component__WEBPACK_IMPORTED_MODULE_2__["SharesComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

@@ -122,6 +122,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cash_denomination_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cash-denomination.component */ "./src/app/theme/transaction/cash-denomination/cash-denomination.component.ts");
 /* harmony import */ var _cash_denomination_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cash-denomination-routing.module */ "./src/app/theme/transaction/cash-denomination/cash-denomination-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -131,7 +135,11 @@ __webpack_require__.r(__webpack_exports__);
 class CashDenominationModule {
 }
 CashDenominationModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: CashDenominationModule });
-CashDenominationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function CashDenominationModule_Factory(t) { return new (t || CashDenominationModule)(); }, imports: [[
+CashDenominationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function CashDenominationModule_Factory(t) { return new (t || CashDenominationModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _cash_denomination_routing_module__WEBPACK_IMPORTED_MODULE_3__["CashDenominationRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -147,7 +155,12 @@ CashDenominationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
                     _cash_denomination_routing_module__WEBPACK_IMPORTED_MODULE_3__["CashDenominationRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                 ],
-                declarations: [_cash_denomination_component__WEBPACK_IMPORTED_MODULE_2__["CashDenominationComponent"]]
+                declarations: [_cash_denomination_component__WEBPACK_IMPORTED_MODULE_2__["CashDenominationComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

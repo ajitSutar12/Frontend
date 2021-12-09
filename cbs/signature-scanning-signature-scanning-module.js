@@ -245,7 +245,7 @@ SignatureScanningComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", (ctx.persons == null ? null : ctx.persons.length) != 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", (ctx.persons == null ? null : ctx.persons.length) == 0);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTableDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"]], styles: [".required[_ngcontent-%COMP%] {\n  font-size: 20px;\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL3NpZ25hdHVyZS1zY2FubmluZy9zaWduYXR1cmUtc2Nhbm5pbmcuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxlQUFlO0VBQ2IsVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL3NpZ25hdHVyZS1zY2FubmluZy9zaWduYXR1cmUtc2Nhbm5pbmcuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gIGZvbnQtc2l6ZTogMjBweDtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTableDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"]], styles: [".required[_ngcontent-%COMP%] {\n  font-size: 20px;\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL3NpZ25hdHVyZS1zY2FubmluZy9zaWduYXR1cmUtc2Nhbm5pbmcuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxlQUFBO0VBQ0UsVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL3NpZ25hdHVyZS1zY2FubmluZy9zaWduYXR1cmUtc2Nhbm5pbmcuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gIGZvbnQtc2l6ZTogMjBweDtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SignatureScanningComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -274,6 +274,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _signature_scanning_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./signature-scanning-routing.module */ "./src/app/theme/master/signature-scanning/signature-scanning-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -284,7 +288,11 @@ __webpack_require__.r(__webpack_exports__);
 class SignatureScanningModule {
 }
 SignatureScanningModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: SignatureScanningModule });
-SignatureScanningModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SignatureScanningModule_Factory(t) { return new (t || SignatureScanningModule)(); }, imports: [[
+SignatureScanningModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SignatureScanningModule_Factory(t) { return new (t || SignatureScanningModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _signature_scanning_routing_module__WEBPACK_IMPORTED_MODULE_3__["SignatureScanningRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
@@ -303,7 +311,12 @@ SignatureScanningModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_5__["DataTablesModule"]
                 ],
-                declarations: [_signature_scanning_component__WEBPACK_IMPORTED_MODULE_2__["SignatureScanningComponent"]]
+                declarations: [_signature_scanning_component__WEBPACK_IMPORTED_MODULE_2__["SignatureScanningComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

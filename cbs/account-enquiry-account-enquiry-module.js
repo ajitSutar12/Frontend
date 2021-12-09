@@ -183,7 +183,7 @@ AccountEnquiryComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](42);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdmlldy9hY2NvdW50LWVucXVpcnkvYWNjb3VudC1lbnF1aXJ5LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdmlldy9hY2NvdW50LWVucXVpcnkvYWNjb3VudC1lbnF1aXJ5LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdmlldy9hY2NvdW50LWVucXVpcnkvYWNjb3VudC1lbnF1aXJ5LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdmlldy9hY2NvdW50LWVucXVpcnkvYWNjb3VudC1lbnF1aXJ5LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AccountEnquiryComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -211,6 +211,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _account_enquiry_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./account-enquiry.component */ "./src/app/theme/view/account-enquiry/account-enquiry.component.ts");
 /* harmony import */ var _account_enquiry_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./account-enquiry-routing.module */ "./src/app/theme/view/account-enquiry/account-enquiry-routing.module.ts");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -220,7 +224,11 @@ __webpack_require__.r(__webpack_exports__);
 class AccountEnquiryModule {
 }
 AccountEnquiryModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: AccountEnquiryModule });
-AccountEnquiryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AccountEnquiryModule_Factory(t) { return new (t || AccountEnquiryModule)(); }, imports: [[
+AccountEnquiryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AccountEnquiryModule_Factory(t) { return new (t || AccountEnquiryModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _account_enquiry_routing_module__WEBPACK_IMPORTED_MODULE_3__["AccountEnquiryRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
@@ -236,7 +244,12 @@ AccountEnquiryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
                     _account_enquiry_routing_module__WEBPACK_IMPORTED_MODULE_3__["AccountEnquiryRoutingModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
                 ],
-                declarations: [_account_enquiry_component__WEBPACK_IMPORTED_MODULE_2__["AccountEnquiryComponent"]]
+                declarations: [_account_enquiry_component__WEBPACK_IMPORTED_MODULE_2__["AccountEnquiryComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

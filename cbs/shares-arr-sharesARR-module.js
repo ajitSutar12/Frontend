@@ -97,17 +97,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shares_arr_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shares-arr.component */ "./src/app/theme/reports/shares-arr/shares-arr.component.ts");
 /* harmony import */ var _sharesARR_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sharesARR-routing.module */ "./src/app/theme/reports/shares-arr/sharesARR-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
-
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
 
 
 // import {ChartModule} from 'angular2-chartjs';
+
+
+
 class SharesARRModule {
 }
 SharesARRModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: SharesARRModule });
-SharesARRModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SharesARRModule_Factory(t) { return new (t || SharesARRModule)(); }, imports: [[
+SharesARRModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SharesARRModule_Factory(t) { return new (t || SharesARRModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _sharesARR_routing_module__WEBPACK_IMPORTED_MODULE_3__["SharesARRRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -123,7 +131,12 @@ SharesARRModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineIn
                     _sharesARR_routing_module__WEBPACK_IMPORTED_MODULE_3__["SharesARRRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                 ],
-                declarations: [_shares_arr_component__WEBPACK_IMPORTED_MODULE_2__["SharesARRComponent"]]
+                declarations: [_shares_arr_component__WEBPACK_IMPORTED_MODULE_2__["SharesARRComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

@@ -195,17 +195,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _daily_reports_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./daily-reports.component */ "./src/app/theme/reports/daily-reports/daily-reports.component.ts");
 /* harmony import */ var _dailyReports_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dailyReports-routing.module */ "./src/app/theme/reports/daily-reports/dailyReports-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
-
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
 
 
 // import {ChartModule} from 'angular2-chartjs';
+
+
+
 class DailyReportsModule {
 }
 DailyReportsModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: DailyReportsModule });
-DailyReportsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DailyReportsModule_Factory(t) { return new (t || DailyReportsModule)(); }, imports: [[
+DailyReportsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DailyReportsModule_Factory(t) { return new (t || DailyReportsModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _dailyReports_routing_module__WEBPACK_IMPORTED_MODULE_3__["DailyReportsRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -225,7 +233,12 @@ DailyReportsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                     // ChartModule
                 ],
-                declarations: [_daily_reports_component__WEBPACK_IMPORTED_MODULE_2__["DailyReportsComponent"]]
+                declarations: [_daily_reports_component__WEBPACK_IMPORTED_MODULE_2__["DailyReportsComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

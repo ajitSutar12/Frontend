@@ -178,6 +178,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_elements_ac3_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../shared/elements/ac3.service */ "./src/app/shared/elements/ac3.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
 /* harmony import */ var _loan_and_ccinterest_rate_changes_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./loan-and-ccinterest-rate-changes.service */ "./src/app/theme/master/maintainance/loan-and-ccinterest-rate-changes/loan-and-ccinterest-rate-changes.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -194,7 +198,11 @@ __webpack_require__.r(__webpack_exports__);
 class LoanAndCCInterestRateChangesModule {
 }
 LoanAndCCInterestRateChangesModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: LoanAndCCInterestRateChangesModule, bootstrap: [_loan_and_ccinterest_rate_changes_component__WEBPACK_IMPORTED_MODULE_2__["LoanAndCCInterestRateChangesComponent"]] });
-LoanAndCCInterestRateChangesModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function LoanAndCCInterestRateChangesModule_Factory(t) { return new (t || LoanAndCCInterestRateChangesModule)(); }, providers: [_shared_elements_statment_type_service__WEBPACK_IMPORTED_MODULE_5__["StatementTypeService"], _shared_elements_s3_service__WEBPACK_IMPORTED_MODULE_8__["S3Service"], _shared_elements_ac3_service__WEBPACK_IMPORTED_MODULE_9__["Ac3Service"], _loan_and_ccinterest_rate_changes_service__WEBPACK_IMPORTED_MODULE_11__["LoanAndCCInterestRateChangesService"]], imports: [[
+LoanAndCCInterestRateChangesModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function LoanAndCCInterestRateChangesModule_Factory(t) { return new (t || LoanAndCCInterestRateChangesModule)(); }, providers: [_shared_elements_statment_type_service__WEBPACK_IMPORTED_MODULE_5__["StatementTypeService"], _shared_elements_s3_service__WEBPACK_IMPORTED_MODULE_8__["S3Service"], _shared_elements_ac3_service__WEBPACK_IMPORTED_MODULE_9__["Ac3Service"], _loan_and_ccinterest_rate_changes_service__WEBPACK_IMPORTED_MODULE_11__["LoanAndCCInterestRateChangesService"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_13__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_7__["NgbModule"],
             _loan_And_CC_Interest_Rate_Changes_routing_module__WEBPACK_IMPORTED_MODULE_3__["LoanAndCCInterestRateChangesRoutingModule"],
@@ -222,7 +230,11 @@ LoanAndCCInterestRateChangesModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODUL
                     _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"],
                     _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ReactiveFormsModule"]
                 ],
-                providers: [_shared_elements_statment_type_service__WEBPACK_IMPORTED_MODULE_5__["StatementTypeService"], _shared_elements_s3_service__WEBPACK_IMPORTED_MODULE_8__["S3Service"], _shared_elements_ac3_service__WEBPACK_IMPORTED_MODULE_9__["Ac3Service"], _loan_and_ccinterest_rate_changes_service__WEBPACK_IMPORTED_MODULE_11__["LoanAndCCInterestRateChangesService"]],
+                providers: [_shared_elements_statment_type_service__WEBPACK_IMPORTED_MODULE_5__["StatementTypeService"], _shared_elements_s3_service__WEBPACK_IMPORTED_MODULE_8__["S3Service"], _shared_elements_ac3_service__WEBPACK_IMPORTED_MODULE_9__["Ac3Service"], _loan_and_ccinterest_rate_changes_service__WEBPACK_IMPORTED_MODULE_11__["LoanAndCCInterestRateChangesService"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_13__["UserAuthInterceptor"],
+                        multi: true
+                    },],
                 declarations: [_loan_and_ccinterest_rate_changes_component__WEBPACK_IMPORTED_MODULE_2__["LoanAndCCInterestRateChangesComponent"]],
                 bootstrap: [_loan_and_ccinterest_rate_changes_component__WEBPACK_IMPORTED_MODULE_2__["LoanAndCCInterestRateChangesComponent"]]
             }]

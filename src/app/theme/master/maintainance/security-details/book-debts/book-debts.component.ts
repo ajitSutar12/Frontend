@@ -354,40 +354,46 @@ console.log(ele);
       this.dtTrigger.next();
     });
   }
-  calculate() {
-    // debugger;
+  calculateopening() {
+    debugger;
     let debtopenid = Number((document.getElementById(
       "DebtorsOpeningBalance"
     ) as HTMLInputElement).value);
 
-    
-
+    // if (debtopenid && addcreditid && lessrecoveryid && LessOveragedDebtorsid != null) {
+    //   this.bookdebts =
+    //   debtopenid +
+    //   addcreditid -
+    //   lessrecoveryid -
+    //   LessOveragedDebtorsid;
+    // } 
+    if(debtopenid != null){
+      this.bookdebts += debtopenid;
+    }
+  }
+  calculateaddcredit(){
     let addcreditid = Number((document.getElementById(
       "AddCreditSales"
     ) as HTMLInputElement).value);
+    if(addcreditid != null){
+        this.bookdebts += addcreditid;
+      }
     
-
+  }
+  calculatelessrecovery(){
     let lessrecoveryid = Number((document.getElementById(
       "LessRecoveries"
     ) as HTMLInputElement).value);
-
-
-  
-
+    if(lessrecoveryid != null){
+        this.bookdebts -= lessrecoveryid;
+      }
+  }
+  calculatelessdebtors(){
     let LessOveragedDebtorsid =Number ((document.getElementById(
       "LessOveragedDebtors"
     ) as HTMLInputElement).value);
-
-
-
-    if (debtopenid && addcreditid && lessrecoveryid && LessOveragedDebtorsid != null) {
-      this.bookdebts =
-      debtopenid +
-      addcreditid -
-      lessrecoveryid -
-      LessOveragedDebtorsid;
-    } 
-   
-  
+    if(LessOveragedDebtorsid != null){
+        this.bookdebts -= LessOveragedDebtorsid;
+      }
   }
 }

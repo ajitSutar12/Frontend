@@ -4803,7 +4803,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_dropdownService_installment_method_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ../../../../shared/dropdownService/installment-method.service */ "./src/app/shared/dropdownService/installment-method.service.ts");
 /* harmony import */ var _shared_dropdownService_city_master_dropdown_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ../../../../shared/dropdownService/city-master-dropdown.service */ "./src/app/shared/dropdownService/city-master-dropdown.service.ts");
 /* harmony import */ var _shared_elements_customerid_service__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ../../../../shared/elements/customerid.service */ "./src/app/shared/elements/customerid.service.ts");
-/* harmony import */ var _term_loan_master_term_loan_master_service__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ../term-loan-master/term-loan-master.service */ "./src/app/theme/master/customer/term-loan-master/term-loan-master.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+/* harmony import */ var _term_loan_master_term_loan_master_service__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ../term-loan-master/term-loan-master.service */ "./src/app/theme/master/customer/term-loan-master/term-loan-master.service.ts");
 
 
 
@@ -4822,6 +4824,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // dynamic dropdown
+
+
 
 
 
@@ -4862,7 +4866,7 @@ DisputeLoanMasterModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
         _shared_dropdownService_occupation_master_dropdown_service__WEBPACK_IMPORTED_MODULE_20__["OccupationMasterService"],
         _shared_dropdownService_health_master_dropdown_service__WEBPACK_IMPORTED_MODULE_21__["HealthMasterDropdownService"],
         _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_22__["SchemeCodeDropdownService"],
-        _term_loan_master_term_loan_master_service__WEBPACK_IMPORTED_MODULE_35__["TermLoanService"],
+        _term_loan_master_term_loan_master_service__WEBPACK_IMPORTED_MODULE_37__["TermLoanService"],
         _shared_dropdownService_authority_master_dropdown_service__WEBPACK_IMPORTED_MODULE_23__["AuthorityMasterDropdownService"],
         _shared_dropdownService_priority_sector_master_dropdown_service__WEBPACK_IMPORTED_MODULE_24__["PrioritySectorMasterDropdownService"],
         _shared_dropdownService_purpose_master_dropdown_service__WEBPACK_IMPORTED_MODULE_25__["PurposeMasterDropdownService"],
@@ -4878,6 +4882,11 @@ DisputeLoanMasterModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
         {
             provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_14__["PERFECT_SCROLLBAR_CONFIG"],
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+        },
+        {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_35__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_36__["UserAuthInterceptor"],
+            multi: true
         },
     ], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
@@ -4927,7 +4936,7 @@ DisputeLoanMasterModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
                     _shared_dropdownService_occupation_master_dropdown_service__WEBPACK_IMPORTED_MODULE_20__["OccupationMasterService"],
                     _shared_dropdownService_health_master_dropdown_service__WEBPACK_IMPORTED_MODULE_21__["HealthMasterDropdownService"],
                     _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_22__["SchemeCodeDropdownService"],
-                    _term_loan_master_term_loan_master_service__WEBPACK_IMPORTED_MODULE_35__["TermLoanService"],
+                    _term_loan_master_term_loan_master_service__WEBPACK_IMPORTED_MODULE_37__["TermLoanService"],
                     _shared_dropdownService_authority_master_dropdown_service__WEBPACK_IMPORTED_MODULE_23__["AuthorityMasterDropdownService"],
                     _shared_dropdownService_priority_sector_master_dropdown_service__WEBPACK_IMPORTED_MODULE_24__["PrioritySectorMasterDropdownService"],
                     _shared_dropdownService_purpose_master_dropdown_service__WEBPACK_IMPORTED_MODULE_25__["PurposeMasterDropdownService"],
@@ -4943,6 +4952,11 @@ DisputeLoanMasterModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
                     {
                         provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_14__["PERFECT_SCROLLBAR_CONFIG"],
                         useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+                    },
+                    {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_35__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_36__["UserAuthInterceptor"],
+                        multi: true
                     },
                 ]
             }]

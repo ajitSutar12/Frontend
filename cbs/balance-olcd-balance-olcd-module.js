@@ -212,7 +212,7 @@ BalanceOLCDComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](61);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  font-size: 20px;\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvYmFsYW5jZS1vbGNkL2JhbGFuY2Utb2xjZC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQWU7RUFDYixVQUFVO0FBQ2QiLCJmaWxlIjoic3JjL2FwcC90aGVtZS9tYXN0ZXIvYmFsYW5jZS1lbnRyeS9iYWxhbmNlLW9sY2QvYmFsYW5jZS1vbGNkLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICBmb250LXNpemU6IDIwcHg7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gIH0iXX0= */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  font-size: 20px;\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvYmFsYW5jZS1vbGNkL2JhbGFuY2Utb2xjZC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQUE7RUFDRSxVQUFBO0FBQ0oiLCJmaWxlIjoic3JjL2FwcC90aGVtZS9tYXN0ZXIvYmFsYW5jZS1lbnRyeS9iYWxhbmNlLW9sY2QvYmFsYW5jZS1vbGNkLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICBmb250LXNpemU6IDIwcHg7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gIH0iXX0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](BalanceOLCDComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -240,6 +240,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
 /* harmony import */ var _balance_olcd_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./balance-olcd-routing.module */ "./src/app/theme/master/balance-entry/balance-olcd/balance-olcd-routing.module.ts");
 /* harmony import */ var _balance_olcd_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./balance-olcd.component */ "./src/app/theme/master/balance-entry/balance-olcd/balance-olcd.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -249,7 +253,11 @@ __webpack_require__.r(__webpack_exports__);
 class BalanceOLCDModule {
 }
 BalanceOLCDModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: BalanceOLCDModule });
-BalanceOLCDModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function BalanceOLCDModule_Factory(t) { return new (t || BalanceOLCDModule)(); }, imports: [[
+BalanceOLCDModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function BalanceOLCDModule_Factory(t) { return new (t || BalanceOLCDModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _balance_olcd_routing_module__WEBPACK_IMPORTED_MODULE_3__["BalanceOLCDRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_2__["DataTablesModule"]
@@ -265,7 +273,12 @@ BalanceOLCDModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
                     _balance_olcd_routing_module__WEBPACK_IMPORTED_MODULE_3__["BalanceOLCDRoutingModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_2__["DataTablesModule"]
                 ],
-                declarations: [_balance_olcd_component__WEBPACK_IMPORTED_MODULE_4__["BalanceOLCDComponent"], _balance_olcd_component__WEBPACK_IMPORTED_MODULE_4__["BalanceOLCDComponent"]]
+                declarations: [_balance_olcd_component__WEBPACK_IMPORTED_MODULE_4__["BalanceOLCDComponent"], _balance_olcd_component__WEBPACK_IMPORTED_MODULE_4__["BalanceOLCDComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

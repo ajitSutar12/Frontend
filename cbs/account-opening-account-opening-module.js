@@ -1265,6 +1265,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../shared/dropdownService/scheme-code-dropdown.service */ "./src/app/shared/dropdownService/scheme-code-dropdown.service.ts");
 /* harmony import */ var _policy_settings_information_bank_master_bank_master_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../policy-settings/information/bank-master/bank-master.service */ "./src/app/theme/master/policy-settings/information/bank-master/bank-master.service.ts");
 /* harmony import */ var _account_opening_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./account-opening.service */ "./src/app/theme/master/customer/account-opening/account-opening.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -1290,7 +1294,12 @@ AccountOpeningModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
         _shared_dropdownService_own_branch_master_dropdown_service__WEBPACK_IMPORTED_MODULE_12__["OwnbranchMasterService"],
         _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_13__["SchemeCodeDropdownService"],
         _policy_settings_information_bank_master_bank_master_service__WEBPACK_IMPORTED_MODULE_14__["BankService"],
-        _account_opening_service__WEBPACK_IMPORTED_MODULE_15__["InvestmentService"]
+        _account_opening_service__WEBPACK_IMPORTED_MODULE_15__["InvestmentService"],
+        {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_17__["UserAuthInterceptor"],
+            multi: true
+        },
     ], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"],
@@ -1325,7 +1334,12 @@ AccountOpeningModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
                     _shared_dropdownService_own_branch_master_dropdown_service__WEBPACK_IMPORTED_MODULE_12__["OwnbranchMasterService"],
                     _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_13__["SchemeCodeDropdownService"],
                     _policy_settings_information_bank_master_bank_master_service__WEBPACK_IMPORTED_MODULE_14__["BankService"],
-                    _account_opening_service__WEBPACK_IMPORTED_MODULE_15__["InvestmentService"]
+                    _account_opening_service__WEBPACK_IMPORTED_MODULE_15__["InvestmentService"],
+                    {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_17__["UserAuthInterceptor"],
+                        multi: true
+                    },
                 ]
             }]
     }], null, null); })();

@@ -26,7 +26,7 @@ const routes = [
         children: [
             {
                 path: 'simple',
-                loadChildren: () => Promise.all(/*! import() | basic-login-basic-login-module */[__webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("basic-login-basic-login-module")]).then(__webpack_require__.bind(null, /*! ./basic-login/basic-login.module */ "./src/app/theme/auth/login/basic-login/basic-login.module.ts")).then(m => m.BasicLoginModule)
+                loadChildren: () => __webpack_require__.e(/*! import() | basic-login-basic-login-module */ "basic-login-basic-login-module").then(__webpack_require__.bind(null, /*! ./basic-login/basic-login.module */ "./src/app/theme/auth/login/basic-login/basic-login.module.ts")).then(m => m.BasicLoginModule)
             },
             {
                 path: 'header-footer',

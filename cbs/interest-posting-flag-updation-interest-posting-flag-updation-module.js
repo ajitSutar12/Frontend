@@ -590,6 +590,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_elements_ac6_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../shared/elements/ac6.service */ "./src/app/shared/elements/ac6.service.ts");
 /* harmony import */ var _shared_elements_s17_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../shared/elements/s17.service */ "./src/app/shared/elements/s17.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -605,7 +609,11 @@ __webpack_require__.r(__webpack_exports__);
 class InterestPostingFlagUpdationModule {
 }
 InterestPostingFlagUpdationModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: InterestPostingFlagUpdationModule });
-InterestPostingFlagUpdationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function InterestPostingFlagUpdationModule_Factory(t) { return new (t || InterestPostingFlagUpdationModule)(); }, providers: [_shared_elements_s6_service__WEBPACK_IMPORTED_MODULE_7__["S6Service"], _shared_elements_ac6_service__WEBPACK_IMPORTED_MODULE_8__["Ac6Service"], _shared_elements_s17_service__WEBPACK_IMPORTED_MODULE_9__["S17Service"]], imports: [[
+InterestPostingFlagUpdationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function InterestPostingFlagUpdationModule_Factory(t) { return new (t || InterestPostingFlagUpdationModule)(); }, providers: [_shared_elements_s6_service__WEBPACK_IMPORTED_MODULE_7__["S6Service"], _shared_elements_ac6_service__WEBPACK_IMPORTED_MODULE_8__["Ac6Service"], _shared_elements_s17_service__WEBPACK_IMPORTED_MODULE_9__["S17Service"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_12__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _interest_posting_flag_updation_routing_module__WEBPACK_IMPORTED_MODULE_5__["InterestPostingFlagUpdationRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_6__["DataTablesModule"],
@@ -634,7 +642,11 @@ InterestPostingFlagUpdationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE
                     _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ReactiveFormsModule"]
                 ],
                 declarations: [_interest_posting_flag_updation_component__WEBPACK_IMPORTED_MODULE_4__["InterestPostingFlagUpdationComponent"]],
-                providers: [_shared_elements_s6_service__WEBPACK_IMPORTED_MODULE_7__["S6Service"], _shared_elements_ac6_service__WEBPACK_IMPORTED_MODULE_8__["Ac6Service"], _shared_elements_s17_service__WEBPACK_IMPORTED_MODULE_9__["S17Service"]],
+                providers: [_shared_elements_s6_service__WEBPACK_IMPORTED_MODULE_7__["S6Service"], _shared_elements_ac6_service__WEBPACK_IMPORTED_MODULE_8__["Ac6Service"], _shared_elements_s17_service__WEBPACK_IMPORTED_MODULE_9__["S17Service"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_12__["UserAuthInterceptor"],
+                        multi: true
+                    },],
             }]
     }], null, null); })();
 

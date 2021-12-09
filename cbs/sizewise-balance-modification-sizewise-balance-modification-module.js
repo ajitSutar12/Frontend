@@ -1697,6 +1697,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 /* harmony import */ var _sizewise_balance_modification_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sizewise-balance-modification.component */ "./src/app/theme/master/policy-settings/sizewise-balance-modification/sizewise-balance-modification.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -1717,13 +1721,22 @@ const routes = [
 class SizewiseBalanceModificationRoutingModule {
 }
 SizewiseBalanceModificationRoutingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: SizewiseBalanceModificationRoutingModule });
-SizewiseBalanceModificationRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SizewiseBalanceModificationRoutingModule_Factory(t) { return new (t || SizewiseBalanceModificationRoutingModule)(); }, imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] });
+SizewiseBalanceModificationRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SizewiseBalanceModificationRoutingModule_Factory(t) { return new (t || SizewiseBalanceModificationRoutingModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_4__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](SizewiseBalanceModificationRoutingModule, { imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]], exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SizewiseBalanceModificationRoutingModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
                 imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
-                exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
+                exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_4__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 
@@ -1895,6 +1908,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
 /* harmony import */ var _deposit_size_wise_balance_deposit_size_wise_balance_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./deposit-size-wise-balance/deposit-size-wise-balance.component */ "./src/app/theme/master/policy-settings/sizewise-balance-modification/deposit-size-wise-balance/deposit-size-wise-balance.component.ts");
 /* harmony import */ var _loan_size_wise_balance_loan_size_wise_balance_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./loan-size-wise-balance/loan-size-wise-balance.component */ "./src/app/theme/master/policy-settings/sizewise-balance-modification/loan-size-wise-balance/loan-size-wise-balance.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -1920,6 +1937,11 @@ SizewiseBalanceModificationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE
         {
             provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_6__["PERFECT_SCROLLBAR_CONFIG"],
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+        },
+        {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_14__["UserAuthInterceptor"],
+            multi: true
         },
     ], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
@@ -1965,6 +1987,11 @@ SizewiseBalanceModificationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE
                     {
                         provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_6__["PERFECT_SCROLLBAR_CONFIG"],
                         useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+                    },
+                    {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_14__["UserAuthInterceptor"],
+                        multi: true
                     },
                 ],
                 declarations: [_sizewise_balance_modification_component__WEBPACK_IMPORTED_MODULE_8__["SizewiseBalanceModificationComponent"], _deposit_size_wise_balance_deposit_size_wise_balance_component__WEBPACK_IMPORTED_MODULE_11__["DepositSizeWiseBalanceComponent"], _loan_size_wise_balance_loan_size_wise_balance_component__WEBPACK_IMPORTED_MODULE_12__["LoanSizeWiseBalanceComponent"]],

@@ -213,7 +213,7 @@ InterestCalculationComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](61);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdXRpbGl0eS9pbnRlcmVzdC1wb3N0aW5nL2ludGVyZXN0LWNhbGN1bGF0aW9uL2ludGVyZXN0LWNhbGN1bGF0aW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdXRpbGl0eS9pbnRlcmVzdC1wb3N0aW5nL2ludGVyZXN0LWNhbGN1bGF0aW9uL2ludGVyZXN0LWNhbGN1bGF0aW9uLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdXRpbGl0eS9pbnRlcmVzdC1wb3N0aW5nL2ludGVyZXN0LWNhbGN1bGF0aW9uL2ludGVyZXN0LWNhbGN1bGF0aW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdXRpbGl0eS9pbnRlcmVzdC1wb3N0aW5nL2ludGVyZXN0LWNhbGN1bGF0aW9uL2ludGVyZXN0LWNhbGN1bGF0aW9uLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](InterestCalculationComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -241,6 +241,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _interest_calculation_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./interest-calculation.component */ "./src/app/theme/utility/interest-posting/interest-calculation/interest-calculation.component.ts");
 /* harmony import */ var _interest_calculation_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./interest-calculation-routing.module */ "./src/app/theme/utility/interest-posting/interest-calculation/interest-calculation-routing.module.ts");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -250,7 +254,11 @@ __webpack_require__.r(__webpack_exports__);
 class InterestCalculationModule {
 }
 InterestCalculationModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: InterestCalculationModule });
-InterestCalculationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function InterestCalculationModule_Factory(t) { return new (t || InterestCalculationModule)(); }, imports: [[
+InterestCalculationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function InterestCalculationModule_Factory(t) { return new (t || InterestCalculationModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _interest_calculation_routing_module__WEBPACK_IMPORTED_MODULE_3__["InterestCalculationRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
@@ -266,7 +274,12 @@ InterestCalculationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
                     _interest_calculation_routing_module__WEBPACK_IMPORTED_MODULE_3__["InterestCalculationRoutingModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
                 ],
-                declarations: [_interest_calculation_component__WEBPACK_IMPORTED_MODULE_2__["InterestCalculationComponent"]]
+                declarations: [_interest_calculation_component__WEBPACK_IMPORTED_MODULE_2__["InterestCalculationComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

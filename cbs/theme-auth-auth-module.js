@@ -111,6 +111,71 @@ AuthGuard.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjecta
 
 /***/ }),
 
+/***/ "./src/app/theme/auth/auth.interceptor.service.ts":
+/*!********************************************************!*\
+  !*** ./src/app/theme/auth/auth.interceptor.service.ts ***!
+  \********************************************************/
+/*! exports provided: AuthInterceptorServices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthInterceptorServices", function() { return AuthInterceptorServices; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var ng_connection_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ng-connection-service */ "./node_modules/ng-connection-service/__ivy_ngcc__/fesm2015/ng-connection-service.js");
+
+
+
+
+
+class AuthInterceptorServices {
+    constructor(connectionService) {
+        this.connectionService = connectionService;
+        this.isConnected = true;
+    }
+    intercept(request, next) {
+        this.connectionService.monitor().subscribe(isConnected => {
+            this.isConnected = isConnected;
+            if (this.isConnected) {
+                this.noInternetConnection = false;
+                const token = localStorage.getItem('token');
+                if (token) {
+                    request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
+                }
+                if (!request.headers.has('Content-Type')) {
+                    request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+                }
+                request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+                return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])((event) => {
+                    if (event instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpResponse"]) {
+                        // console.log('event--->>>', event);
+                    }
+                    return event;
+                }));
+            }
+            else {
+                this.noInternetConnection = true;
+                alert('please check internet conntion');
+                return;
+            }
+        });
+        return;
+    }
+}
+AuthInterceptorServices.ɵfac = function AuthInterceptorServices_Factory(t) { return new (t || AuthInterceptorServices)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](ng_connection_service__WEBPACK_IMPORTED_MODULE_3__["ConnectionService"])); };
+AuthInterceptorServices.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: AuthInterceptorServices, factory: AuthInterceptorServices.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AuthInterceptorServices, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return [{ type: ng_connection_service__WEBPACK_IMPORTED_MODULE_3__["ConnectionService"] }]; }, null); })();
+
+
+/***/ }),
+
 /***/ "./src/app/theme/auth/auth.module.ts":
 /*!*******************************************!*\
   !*** ./src/app/theme/auth/auth.module.ts ***!

@@ -237,7 +237,7 @@ TrasferredMemberOBComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](78);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vbWVtYmVyLXRyYW5zZmVyL3RyYXNmZXJyZWQtbWVtYmVyLW9iL3RyYXNmZXJyZWQtbWVtYmVyLW9iLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vbWVtYmVyLXRyYW5zZmVyL3RyYXNmZXJyZWQtbWVtYmVyLW9iL3RyYXNmZXJyZWQtbWVtYmVyLW9iLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vbWVtYmVyLXRyYW5zZmVyL3RyYXNmZXJyZWQtbWVtYmVyLW9iL3RyYXNmZXJyZWQtbWVtYmVyLW9iLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vbWVtYmVyLXRyYW5zZmVyL3RyYXNmZXJyZWQtbWVtYmVyLW9iL3RyYXNmZXJyZWQtbWVtYmVyLW9iLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](TrasferredMemberOBComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -265,6 +265,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _trasferred_member_ob_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./trasferred-member-ob-routing.module */ "./src/app/theme/transaction/member-transfer/trasferred-member-ob/trasferred-member-ob-routing.module.ts");
 /* harmony import */ var _trasferred_member_ob_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./trasferred-member-ob.component */ "./src/app/theme/transaction/member-transfer/trasferred-member-ob/trasferred-member-ob.component.ts");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -274,7 +278,11 @@ __webpack_require__.r(__webpack_exports__);
 class TrasferredMemberOBModule {
 }
 TrasferredMemberOBModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: TrasferredMemberOBModule });
-TrasferredMemberOBModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function TrasferredMemberOBModule_Factory(t) { return new (t || TrasferredMemberOBModule)(); }, imports: [[
+TrasferredMemberOBModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function TrasferredMemberOBModule_Factory(t) { return new (t || TrasferredMemberOBModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _trasferred_member_ob_routing_module__WEBPACK_IMPORTED_MODULE_2__["TrasferredMemberOBRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
@@ -290,7 +298,12 @@ TrasferredMemberOBModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ�
                     _trasferred_member_ob_routing_module__WEBPACK_IMPORTED_MODULE_2__["TrasferredMemberOBRoutingModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
                 ],
-                declarations: [_trasferred_member_ob_component__WEBPACK_IMPORTED_MODULE_3__["TrasferredMemberOBComponent"]]
+                declarations: [_trasferred_member_ob_component__WEBPACK_IMPORTED_MODULE_3__["TrasferredMemberOBComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

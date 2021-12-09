@@ -647,7 +647,7 @@ TermDepositeAcRenewalComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0_
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](347);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vdGVybS1kZXBvc2l0ZS1hYy1yZW5ld2FsL3Rlcm0tZGVwb3NpdGUtYWMtcmVuZXdhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQVU7QUFDZCIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3RyYW5zYWN0aW9uL3Rlcm0tZGVwb3NpdGUtYWMtcmVuZXdhbC90ZXJtLWRlcG9zaXRlLWFjLXJlbmV3YWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuIH0iXX0= */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vdGVybS1kZXBvc2l0ZS1hYy1yZW5ld2FsL3Rlcm0tZGVwb3NpdGUtYWMtcmVuZXdhbC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3RyYW5zYWN0aW9uL3Rlcm0tZGVwb3NpdGUtYWMtcmVuZXdhbC90ZXJtLWRlcG9zaXRlLWFjLXJlbmV3YWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuIH0iXX0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](TermDepositeAcRenewalComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -676,6 +676,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _term_deposite_ac_renewal_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./term-deposite-ac-renewal-routing.module */ "./src/app/theme/transaction/term-deposite-ac-renewal/term-deposite-ac-renewal-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -686,7 +690,11 @@ __webpack_require__.r(__webpack_exports__);
 class TermDepositeAcRenewalModule {
 }
 TermDepositeAcRenewalModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: TermDepositeAcRenewalModule });
-TermDepositeAcRenewalModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function TermDepositeAcRenewalModule_Factory(t) { return new (t || TermDepositeAcRenewalModule)(); }, imports: [[
+TermDepositeAcRenewalModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function TermDepositeAcRenewalModule_Factory(t) { return new (t || TermDepositeAcRenewalModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _term_deposite_ac_renewal_routing_module__WEBPACK_IMPORTED_MODULE_3__["TermDepositeAcRenewalRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
@@ -705,7 +713,12 @@ TermDepositeAcRenewalModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_5__["DataTablesModule"]
                 ],
-                declarations: [_term_deposite_ac_renewal_component__WEBPACK_IMPORTED_MODULE_2__["TermDepositeAcRenewalComponent"]]
+                declarations: [_term_deposite_ac_renewal_component__WEBPACK_IMPORTED_MODULE_2__["TermDepositeAcRenewalComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

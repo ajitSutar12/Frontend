@@ -278,7 +278,7 @@ DemandDraftDEIComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("uploader", ctx.uploader);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](19);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__["FileSelectDirective"], angular_datatables__WEBPACK_IMPORTED_MODULE_3__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdXRpbGl0eS9kZW1hbmQtZHJhZnQtZGVpL2RlbWFuZC1kcmFmdC1kZWkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFVO0FBQ2QiLCJmaWxlIjoic3JjL2FwcC90aGVtZS91dGlsaXR5L2RlbWFuZC1kcmFmdC1kZWkvZGVtYW5kLWRyYWZ0LWRlaS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZXF1aXJlZCB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gfSJdfQ== */"], changeDetection: 0 });
+    } }, directives: [ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__["FileSelectDirective"], angular_datatables__WEBPACK_IMPORTED_MODULE_3__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdXRpbGl0eS9kZW1hbmQtZHJhZnQtZGVpL2RlbWFuZC1kcmFmdC1kZWkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFBO0FBQ0oiLCJmaWxlIjoic3JjL2FwcC90aGVtZS91dGlsaXR5L2RlbWFuZC1kcmFmdC1kZWkvZGVtYW5kLWRyYWZ0LWRlaS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZXF1aXJlZCB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gfSJdfQ== */"], changeDetection: 0 });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](DemandDraftDEIComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -311,6 +311,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/__ivy_ngcc__/fesm2015/ng2-file-upload.js");
 /* harmony import */ var _shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../shared/elements/select-option.service */ "./src/app/shared/elements/select-option.service.ts");
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -324,7 +328,12 @@ __webpack_require__.r(__webpack_exports__);
 class DemandDraftDEIModule {
 }
 DemandDraftDEIModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: DemandDraftDEIModule });
-DemandDraftDEIModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DemandDraftDEIModule_Factory(t) { return new (t || DemandDraftDEIModule)(); }, providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_7__["SelectOptionService"]], imports: [[
+DemandDraftDEIModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DemandDraftDEIModule_Factory(t) { return new (t || DemandDraftDEIModule)(); }, providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_7__["SelectOptionService"],
+        {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _demand_draft_dei_routing_module__WEBPACK_IMPORTED_MODULE_3__["DemandDraftDEIRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
@@ -349,7 +358,12 @@ DemandDraftDEIModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
                     ng2_file_upload__WEBPACK_IMPORTED_MODULE_6__["FileUploadModule"],
                     ng_select__WEBPACK_IMPORTED_MODULE_8__["SelectModule"]
                 ],
-                providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_7__["SelectOptionService"]],
+                providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_7__["SelectOptionService"],
+                    {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+                        multi: true
+                    },],
                 declarations: [_demand_draft_dei_component__WEBPACK_IMPORTED_MODULE_2__["DemandDraftDEIComponent"]]
             }]
     }], null, null); })();

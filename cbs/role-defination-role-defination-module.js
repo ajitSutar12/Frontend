@@ -282,7 +282,7 @@ RoleDefinationComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("config", ctx.config)("items", ctx.items);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](20);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.RoleResult);
-    } }, directives: [ng_select__WEBPACK_IMPORTED_MODULE_7__["SelectComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgClass"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgModel"], ngx_treeview__WEBPACK_IMPORTED_MODULE_1__["TreeviewComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgForOf"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdXRpbGl0eS9yb2xlLWRlZmluYXRpb24vcm9sZS1kZWZpbmF0aW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdXRpbGl0eS9yb2xlLWRlZmluYXRpb24vcm9sZS1kZWZpbmF0aW9uLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcbiAgICBjb2xvcjogcmVkO1xuIH0iXX0= */"] });
+    } }, directives: [ng_select__WEBPACK_IMPORTED_MODULE_7__["SelectComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgClass"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NgModel"], ngx_treeview__WEBPACK_IMPORTED_MODULE_1__["TreeviewComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgForOf"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdXRpbGl0eS9yb2xlLWRlZmluYXRpb24vcm9sZS1kZWZpbmF0aW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdXRpbGl0eS9yb2xlLWRlZmluYXRpb24vcm9sZS1kZWZpbmF0aW9uLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](RoleDefinationComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -320,7 +320,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _user_defination_user_defination_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../user-defination/user-defination.service */ "./src/app/theme/utility/user-defination/user-defination.service.ts");
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
-/* harmony import */ var ngx_treeview__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngx-treeview */ "./node_modules/ngx-treeview/__ivy_ngcc__/fesm2015/ngx-treeview.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+/* harmony import */ var ngx_treeview__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ngx-treeview */ "./node_modules/ngx-treeview/__ivy_ngcc__/fesm2015/ngx-treeview.js");
+
+
 
 
 
@@ -336,12 +340,17 @@ __webpack_require__.r(__webpack_exports__);
 class RoleDefinationModule {
 }
 RoleDefinationModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: RoleDefinationModule });
-RoleDefinationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function RoleDefinationModule_Factory(t) { return new (t || RoleDefinationModule)(); }, providers: [_user_defination_user_defination_service__WEBPACK_IMPORTED_MODULE_6__["UserDefinationService"]], imports: [[
+RoleDefinationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function RoleDefinationModule_Factory(t) { return new (t || RoleDefinationModule)(); }, providers: [_user_defination_user_defination_service__WEBPACK_IMPORTED_MODULE_6__["UserDefinationService"],
+        {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _role_defination_routing_module__WEBPACK_IMPORTED_MODULE_4__["RoleDefinatioRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_5__["SharedModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
-            ngx_treeview__WEBPACK_IMPORTED_MODULE_9__["TreeviewModule"].forRoot(),
+            ngx_treeview__WEBPACK_IMPORTED_MODULE_11__["TreeviewModule"].forRoot(),
             _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
             ng_select__WEBPACK_IMPORTED_MODULE_7__["SelectModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_8__["DataTablesModule"]
@@ -349,7 +358,7 @@ RoleDefinationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](RoleDefinationModule, { declarations: [_role_defination_component__WEBPACK_IMPORTED_MODULE_3__["RoleDefinationComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
         _role_defination_routing_module__WEBPACK_IMPORTED_MODULE_4__["RoleDefinatioRoutingModule"],
         _shared_shared_module__WEBPACK_IMPORTED_MODULE_5__["SharedModule"],
-        _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], ngx_treeview__WEBPACK_IMPORTED_MODULE_9__["TreeviewModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
+        _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"], ngx_treeview__WEBPACK_IMPORTED_MODULE_11__["TreeviewModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
         ng_select__WEBPACK_IMPORTED_MODULE_7__["SelectModule"],
         angular_datatables__WEBPACK_IMPORTED_MODULE_8__["DataTablesModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](RoleDefinationModule, [{
@@ -360,13 +369,18 @@ RoleDefinationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
                     _role_defination_routing_module__WEBPACK_IMPORTED_MODULE_4__["RoleDefinatioRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_5__["SharedModule"],
                     _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
-                    ngx_treeview__WEBPACK_IMPORTED_MODULE_9__["TreeviewModule"].forRoot(),
+                    ngx_treeview__WEBPACK_IMPORTED_MODULE_11__["TreeviewModule"].forRoot(),
                     _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                     ng_select__WEBPACK_IMPORTED_MODULE_7__["SelectModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_8__["DataTablesModule"]
                 ],
                 declarations: [_role_defination_component__WEBPACK_IMPORTED_MODULE_3__["RoleDefinationComponent"]],
-                providers: [_user_defination_user_defination_service__WEBPACK_IMPORTED_MODULE_6__["UserDefinationService"]]
+                providers: [_user_defination_user_defination_service__WEBPACK_IMPORTED_MODULE_6__["UserDefinationService"],
+                    {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

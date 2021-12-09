@@ -709,7 +709,7 @@ BatchVoucherComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵde
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions1);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_13__["NgIf"], angular_datatables__WEBPACK_IMPORTED_MODULE_14__["DataTableDirective"], ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__["FileSelectDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vYmF0Y2gtdm91Y2hlci9iYXRjaC12b3VjaGVyLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vYmF0Y2gtdm91Y2hlci9iYXRjaC12b3VjaGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_13__["NgIf"], angular_datatables__WEBPACK_IMPORTED_MODULE_14__["DataTableDirective"], ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__["FileSelectDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vYmF0Y2gtdm91Y2hlci9iYXRjaC12b3VjaGVyLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vYmF0Y2gtdm91Y2hlci9iYXRjaC12b3VjaGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](BatchVoucherComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -742,6 +742,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/__ivy_ngcc__/fesm2015/ng2-file-upload.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -756,7 +760,11 @@ __webpack_require__.r(__webpack_exports__);
 class BatchVoucherModule {
 }
 BatchVoucherModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: BatchVoucherModule });
-BatchVoucherModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function BatchVoucherModule_Factory(t) { return new (t || BatchVoucherModule)(); }, providers: [_shared_elements_statement_type_service__WEBPACK_IMPORTED_MODULE_5__["StatementTypeService"]], imports: [[
+BatchVoucherModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function BatchVoucherModule_Factory(t) { return new (t || BatchVoucherModule)(); }, providers: [_shared_elements_statement_type_service__WEBPACK_IMPORTED_MODULE_5__["StatementTypeService"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _batch_voucher_routing_module__WEBPACK_IMPORTED_MODULE_3__["BatchVoucherRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_7__["DataTablesModule"],
@@ -784,8 +792,12 @@ BatchVoucherModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
                     // BrowserAnimationsModule,
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
                 ],
-                providers: [_shared_elements_statement_type_service__WEBPACK_IMPORTED_MODULE_5__["StatementTypeService"]],
-                declarations: [_batch_voucher_component__WEBPACK_IMPORTED_MODULE_2__["BatchVoucherComponent"]]
+                providers: [_shared_elements_statement_type_service__WEBPACK_IMPORTED_MODULE_5__["StatementTypeService"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+                        multi: true
+                    },],
+                declarations: [_batch_voucher_component__WEBPACK_IMPORTED_MODULE_2__["BatchVoucherComponent"]],
             }]
     }], null, null); })();
 

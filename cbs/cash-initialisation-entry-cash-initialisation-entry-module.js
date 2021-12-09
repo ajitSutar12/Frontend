@@ -229,7 +229,7 @@ CashInitialisationEntryComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](72);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vY2FzaC1kZW5vbWluYXRpb24vY2FzaC1pbml0aWFsaXNhdGlvbi1lbnRyeS9jYXNoLWluaXRpYWxpc2F0aW9uLWVudHJ5LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vY2FzaC1kZW5vbWluYXRpb24vY2FzaC1pbml0aWFsaXNhdGlvbi1lbnRyeS9jYXNoLWluaXRpYWxpc2F0aW9uLWVudHJ5LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vY2FzaC1kZW5vbWluYXRpb24vY2FzaC1pbml0aWFsaXNhdGlvbi1lbnRyeS9jYXNoLWluaXRpYWxpc2F0aW9uLWVudHJ5LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vY2FzaC1kZW5vbWluYXRpb24vY2FzaC1pbml0aWFsaXNhdGlvbi1lbnRyeS9jYXNoLWluaXRpYWxpc2F0aW9uLWVudHJ5LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](CashInitialisationEntryComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -257,6 +257,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cash_initialisation_entry_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cash-initialisation-entry.component */ "./src/app/theme/transaction/cash-denomination/cash-initialisation-entry/cash-initialisation-entry.component.ts");
 /* harmony import */ var _cash_initialisation_entry_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cash-initialisation-entry-routing.module */ "./src/app/theme/transaction/cash-denomination/cash-initialisation-entry/cash-initialisation-entry-routing.module.ts");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -266,7 +270,11 @@ __webpack_require__.r(__webpack_exports__);
 class CashInitialisationEntryModule {
 }
 CashInitialisationEntryModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: CashInitialisationEntryModule });
-CashInitialisationEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function CashInitialisationEntryModule_Factory(t) { return new (t || CashInitialisationEntryModule)(); }, imports: [[
+CashInitialisationEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function CashInitialisationEntryModule_Factory(t) { return new (t || CashInitialisationEntryModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _cash_initialisation_entry_routing_module__WEBPACK_IMPORTED_MODULE_3__["CashInitialisationEntryRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
@@ -282,7 +290,12 @@ CashInitialisationEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__
                     _cash_initialisation_entry_routing_module__WEBPACK_IMPORTED_MODULE_3__["CashInitialisationEntryRoutingModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
                 ],
-                declarations: [_cash_initialisation_entry_component__WEBPACK_IMPORTED_MODULE_2__["CashInitialisationEntryComponent"]]
+                declarations: [_cash_initialisation_entry_component__WEBPACK_IMPORTED_MODULE_2__["CashInitialisationEntryComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

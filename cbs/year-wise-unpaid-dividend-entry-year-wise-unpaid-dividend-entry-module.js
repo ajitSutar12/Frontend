@@ -1100,6 +1100,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_dropdownService_share_scheme_dropdown_Service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../shared/dropdownService/share-scheme-dropdown.Service */ "./src/app/shared/dropdownService/share-scheme-dropdown.Service.ts");
 /* harmony import */ var _customer_shares_master_shares_master_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../customer/shares-master/shares-master.service */ "./src/app/theme/master/customer/shares-master/shares-master.service.ts");
 /* harmony import */ var _customer_customer_id_customer_id_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../customer/customer-id/customer-id.service */ "./src/app/theme/master/customer/customer-id/customer-id.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -1125,7 +1129,12 @@ YearWiseUnpaidDividendEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE
         _shared_dropdownService_share_master_dropdown_service__WEBPACK_IMPORTED_MODULE_11__["ShareMasterDropdownService"],
         _customer_shares_master_shares_master_service__WEBPACK_IMPORTED_MODULE_13__["ShareMasterService"],
         _shared_dropdownService_share_scheme_dropdown_Service__WEBPACK_IMPORTED_MODULE_12__["ShareSchemeDropdownService"],
-        _customer_customer_id_customer_id_service__WEBPACK_IMPORTED_MODULE_14__["CustomerIdService"]
+        _customer_customer_id_customer_id_service__WEBPACK_IMPORTED_MODULE_14__["CustomerIdService"],
+        {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_16__["UserAuthInterceptor"],
+            multi: true
+        },
     ], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _year_wise_unpaid_dividend_entry_routing_module__WEBPACK_IMPORTED_MODULE_3__["YearWiseUnpaidDividendEntryRoutingModule"],
@@ -1161,7 +1170,12 @@ YearWiseUnpaidDividendEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE
                     _shared_dropdownService_share_master_dropdown_service__WEBPACK_IMPORTED_MODULE_11__["ShareMasterDropdownService"],
                     _customer_shares_master_shares_master_service__WEBPACK_IMPORTED_MODULE_13__["ShareMasterService"],
                     _shared_dropdownService_share_scheme_dropdown_Service__WEBPACK_IMPORTED_MODULE_12__["ShareSchemeDropdownService"],
-                    _customer_customer_id_customer_id_service__WEBPACK_IMPORTED_MODULE_14__["CustomerIdService"]
+                    _customer_customer_id_customer_id_service__WEBPACK_IMPORTED_MODULE_14__["CustomerIdService"],
+                    {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_16__["UserAuthInterceptor"],
+                        multi: true
+                    },
                 ]
             }]
     }], null, null); })();

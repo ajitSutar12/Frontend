@@ -198,7 +198,7 @@ CashOutDenominationComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](51);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vY2FzaC1kZW5vbWluYXRpb24vY2FzaC1vdXQtZGVub21pbmF0aW9uL2Nhc2gtb3V0LWRlbm9taW5hdGlvbi5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQVU7QUFDZCIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3RyYW5zYWN0aW9uL2Nhc2gtZGVub21pbmF0aW9uL2Nhc2gtb3V0LWRlbm9taW5hdGlvbi9jYXNoLW91dC1kZW5vbWluYXRpb24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vY2FzaC1kZW5vbWluYXRpb24vY2FzaC1vdXQtZGVub21pbmF0aW9uL2Nhc2gtb3V0LWRlbm9taW5hdGlvbi5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3RyYW5zYWN0aW9uL2Nhc2gtZGVub21pbmF0aW9uL2Nhc2gtb3V0LWRlbm9taW5hdGlvbi9jYXNoLW91dC1kZW5vbWluYXRpb24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](CashOutDenominationComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -226,6 +226,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cash_out_denomination_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cash-out-denomination.component */ "./src/app/theme/transaction/cash-denomination/cash-out-denomination/cash-out-denomination.component.ts");
 /* harmony import */ var _cash_out_denomination_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cash-out-denomination-routing.module */ "./src/app/theme/transaction/cash-denomination/cash-out-denomination/cash-out-denomination-routing.module.ts");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -235,7 +239,11 @@ __webpack_require__.r(__webpack_exports__);
 class CashOutDenominationModule {
 }
 CashOutDenominationModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: CashOutDenominationModule });
-CashOutDenominationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function CashOutDenominationModule_Factory(t) { return new (t || CashOutDenominationModule)(); }, imports: [[
+CashOutDenominationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function CashOutDenominationModule_Factory(t) { return new (t || CashOutDenominationModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _cash_out_denomination_routing_module__WEBPACK_IMPORTED_MODULE_3__["CashOutDenominationRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
@@ -251,7 +259,12 @@ CashOutDenominationModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
                     _cash_out_denomination_routing_module__WEBPACK_IMPORTED_MODULE_3__["CashOutDenominationRoutingModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
                 ],
-                declarations: [_cash_out_denomination_component__WEBPACK_IMPORTED_MODULE_2__["CashOutDenominationComponent"]]
+                declarations: [_cash_out_denomination_component__WEBPACK_IMPORTED_MODULE_2__["CashOutDenominationComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

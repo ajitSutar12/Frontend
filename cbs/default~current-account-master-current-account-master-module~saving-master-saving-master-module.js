@@ -31,7 +31,7 @@ class IntrestCategoryMasterDropdownService {
         return this.http.get(this.url + '/interest-category-master')
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
             ele.forEach(element => {
-                let obj = { label: element.CODE + ' ' + element.NAME, value: `${element.id}` };
+                let obj = { label: element.CODE + ' ' + element.NAME, value: `${element.id}`, name: element.CODE };
                 this.intrestCategoryMasterObject.push(obj);
             });
             return this.intrestCategoryMasterObject;

@@ -287,7 +287,7 @@ MemberWBAComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](108);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyLXdiYS9tZW1iZXItd2JhLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyLXdiYS9tZW1iZXItd2JhLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyLXdiYS9tZW1iZXItd2JhLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyLXdiYS9tZW1iZXItd2JhLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MemberWBAComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -312,9 +312,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MemberWBAModule", function() { return MemberWBAModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _member_wba_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./member-wba-routing.module */ "./src/app/theme/master/balance-entry/member-wba/member-wba-routing.module.ts");
-/* harmony import */ var _member_wba_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./member-wba.component */ "./src/app/theme/master/balance-entry/member-wba/member-wba.component.ts");
-/* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+/* harmony import */ var _member_wba_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./member-wba-routing.module */ "./src/app/theme/master/balance-entry/member-wba/member-wba-routing.module.ts");
+/* harmony import */ var _member_wba_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./member-wba.component */ "./src/app/theme/master/balance-entry/member-wba/member-wba.component.ts");
+/* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+
+
 
 
 
@@ -324,23 +328,32 @@ __webpack_require__.r(__webpack_exports__);
 class MemberWBAModule {
 }
 MemberWBAModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: MemberWBAModule });
-MemberWBAModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function MemberWBAModule_Factory(t) { return new (t || MemberWBAModule)(); }, imports: [[
+MemberWBAModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function MemberWBAModule_Factory(t) { return new (t || MemberWBAModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_3__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-            _member_wba_routing_module__WEBPACK_IMPORTED_MODULE_2__["MemberWBARoutingModule"],
-            angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
+            _member_wba_routing_module__WEBPACK_IMPORTED_MODULE_4__["MemberWBARoutingModule"],
+            angular_datatables__WEBPACK_IMPORTED_MODULE_6__["DataTablesModule"]
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](MemberWBAModule, { declarations: [_member_wba_component__WEBPACK_IMPORTED_MODULE_3__["MemberWBAComponent"], _member_wba_component__WEBPACK_IMPORTED_MODULE_3__["MemberWBAComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-        _member_wba_routing_module__WEBPACK_IMPORTED_MODULE_2__["MemberWBARoutingModule"],
-        angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]] }); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](MemberWBAModule, { declarations: [_member_wba_component__WEBPACK_IMPORTED_MODULE_5__["MemberWBAComponent"], _member_wba_component__WEBPACK_IMPORTED_MODULE_5__["MemberWBAComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+        _member_wba_routing_module__WEBPACK_IMPORTED_MODULE_4__["MemberWBARoutingModule"],
+        angular_datatables__WEBPACK_IMPORTED_MODULE_6__["DataTablesModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MemberWBAModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
                 imports: [
                     _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-                    _member_wba_routing_module__WEBPACK_IMPORTED_MODULE_2__["MemberWBARoutingModule"],
-                    angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
+                    _member_wba_routing_module__WEBPACK_IMPORTED_MODULE_4__["MemberWBARoutingModule"],
+                    angular_datatables__WEBPACK_IMPORTED_MODULE_6__["DataTablesModule"]
                 ],
-                declarations: [_member_wba_component__WEBPACK_IMPORTED_MODULE_3__["MemberWBAComponent"], _member_wba_component__WEBPACK_IMPORTED_MODULE_3__["MemberWBAComponent"]]
+                declarations: [_member_wba_component__WEBPACK_IMPORTED_MODULE_5__["MemberWBAComponent"], _member_wba_component__WEBPACK_IMPORTED_MODULE_5__["MemberWBAComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_3__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

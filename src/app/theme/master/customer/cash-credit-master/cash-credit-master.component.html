@@ -698,7 +698,7 @@
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_ADDR" class="form-control"
-                                                                    placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
+                                                                    placeholder=" " 
                                                                     title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                     id="AC_ADDR" formControlName="AC_ADDR" disabled>
                                                                 <label for="AC_ADDR">Detail</label>
@@ -828,7 +828,6 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_TADDR"
                                                                         class="form-control" placeholder=" "
-                                                                        pattern="^[A-Za-z0-9\./ -]+$"
                                                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                         id="AC_TADDR" formControlName="AC_TADDR">
                                                                     <label for="AC_TADDR">Detail</label>
@@ -1162,7 +1161,7 @@
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="GAC_ADDR"
                                                                                     class="form-control" placeholder=" "
-                                                                                    pattern="^[A-Za-z0-9\./ -]+$"
+                                                                                    
                                                                                     disabled
                                                                                     title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                                     id="GAC_ADDR"
@@ -1387,7 +1386,6 @@
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="CAC_ADDR"
                                                                                     class="form-control" placeholder=" "
-                                                                                    pattern="^[A-Za-z0-9\./ -]+$"
                                                                                     title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                                     id="CAC_ADDR"
                                                                                     formControlName="CAC_ADDR">
@@ -1546,7 +1544,7 @@
                             <div class="col-sm">
                                 <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()">Add</button>
                                 <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button> &nbsp;
-                                <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">New</button>
+                                <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
                             </div>
                         </div>
                     </div>

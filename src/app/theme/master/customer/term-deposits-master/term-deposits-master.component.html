@@ -557,7 +557,7 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <textarea type="text" name="address1" class="form-control"
-                                                                placeholder=" " pattern="^[A-Za-z\./ -]+$"
+                                                                placeholder=" " 
                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                 id="Address1" value="{{ message.address1 }}"
                                                                 formControlName="address1"></textarea>
@@ -575,7 +575,7 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <textarea type="text" name="address2" class="form-control"
-                                                                placeholder=" " pattern="^[A-Za-z\./ -]+$"
+                                                                placeholder=" "
                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                 id="Address2" value="{{ message.address2 }}"
                                                                 formControlName="address2"></textarea>
@@ -593,7 +593,7 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <textarea type="text" name="address3" class="form-control"
-                                                                placeholder=" " pattern="^[A-Za-z\./ -]+$"
+                                                                placeholder=" " 
                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                 id="Address3" value="{{ message.address3 }}"
                                                                 formControlName="address3"></textarea>
@@ -610,7 +610,7 @@
 
                                             </div>
                                             <div class="row">
-                                                <div class="col-md">
+                                                <div class="col-sm-4">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <ng-select [ngClass]="'ng-select'" [options]="accountOption"
@@ -628,7 +628,7 @@
 
                                                 </div>
 
-                                                <div class="col-md">
+                                                <div class="col-sm-2">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="Pin" class="form-control"
@@ -661,7 +661,7 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <textarea type="text" name="address4" class="form-control"
-                                                                placeholder=" " pattern="^[A-Za-z\./ -]+$"
+                                                                placeholder=" " 
                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                 id="Address4" value="{{ message.address4 }}"
                                                                 formControlName="address4"></textarea>
@@ -679,7 +679,7 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <textarea type="text" name="address5" class="form-control"
-                                                                placeholder=" " pattern="^[A-Za-z\./ -]+$"
+                                                                placeholder=" " 
                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                 id="Address5" value="{{ message.address5 }}"
                                                                 formControlName="address5"></textarea>
@@ -697,7 +697,7 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <textarea type="text" name="address6" class="form-control"
-                                                                placeholder=" " pattern="^[A-Za-z\./ -]+$"
+                                                                placeholder=" " 
                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                 id="Address6" value="{{ message.address6 }}"
                                                                 formControlName="address6"></textarea>
@@ -755,7 +755,7 @@
                                                                 placeholder=" " id="label-name" value="{{ message.R }}"
                                                                 pattern="^[0-9]+$" title="Input allowed only  0-9"
                                                                 formControlName="R">
-                                                            <label for="label-name">R</label>
+                                                            <label for="label-name">Residential No.</label>
                                                         </span>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['R'].invalid && (angForm.controls['R'].dirty || angForm.controls['R'].touched)" class="alert alert-danger">
@@ -774,7 +774,7 @@
                                                                 placeholder=" " id="O" value="{{ message.O }}"
                                                                 pattern="^[0-9]+$" title="Input allowed only  0-9"
                                                                 formControlName="O">
-                                                            <label for="O">(O)</label>
+                                                            <label for="O">Office No.</label>
                                                         </span>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['O'].invalid && (angForm.controls['O'].dirty || angForm.controls['O'].touched)" class="alert alert-danger">
@@ -792,7 +792,7 @@
                                                                 maxlength="10" minlength="10" pattern="^[0-9]+$"
                                                                 title="Input allowed only  0-9"
                                                                 formControlName="Mobile">
-                                                            <label for="Mobile">(Mobile)</label>
+                                                            <label for="Mobile">Mobile No.</label>
                                                         </span>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Mobile'].invalid && (angForm.controls['Mobile'].dirty || angForm.controls['Mobile'].touched)" class="alert alert-danger">
@@ -1106,7 +1106,7 @@
                                                                     <span class="border-lable-flt">
                                                                         <textarea type="text" name="address"
                                                                             class="form-control" placeholder=" "
-                                                                            pattern="^[A-Za-z\./ -]+$"
+                                                                 
                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                             id="Address7"
                                                                             value="{{ message.address }}"
@@ -1126,7 +1126,7 @@
                                                                     <span class="border-lable-flt">
                                                                         <textarea type="text" name="address"
                                                                             class="form-control" placeholder=" "
-                                                                            pattern="^[A-Za-z\./ -]+$"
+                                                                           
                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                             id="Address8" 
                                                                             value="{{ message.address }}"
@@ -1148,7 +1148,6 @@
                                                                     <span class="border-lable-flt">
                                                                         <textarea type="text" name="address"
                                                                             class="form-control" placeholder=" "
-                                                                            pattern="^[A-Za-z\./ -]+$"
                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                             id="Address9" 
                                                                             value="{{ message.address }}"

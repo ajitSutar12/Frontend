@@ -26,7 +26,7 @@ const routes = [
         children: [
             {
                 path: 'balanceUpdation',
-                loadChildren: () => Promise.all(/*! import() | balance-updation-balance-updation-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("balance-updation-balance-updation-module")]).then(__webpack_require__.bind(null, /*! ./balance-updation/balance-updation.module */ "./src/app/theme/master/balance-entry/balance-updation/balance-updation.module.ts")).then(m => m.BalanceUpdationModule)
+                loadChildren: () => Promise.all(/*! import() | balance-updation-balance-updation-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("balance-updation-balance-updation-module")]).then(__webpack_require__.bind(null, /*! ./balance-updation/balance-updation.module */ "./src/app/theme/master/balance-entry/balance-updation/balance-updation.module.ts")).then(m => m.BalanceUpdationModule)
             },
             {
                 path: 'balanceOSCDA',
@@ -50,15 +50,15 @@ const routes = [
             },
             {
                 path: 'reconciliationOTE',
-                loadChildren: () => Promise.all(/*! import() | reconciliation-ote-reconciliation-ote-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("reconciliation-ote-reconciliation-ote-module")]).then(__webpack_require__.bind(null, /*! ./reconciliation-ote/reconciliation-ote.module */ "./src/app/theme/master/balance-entry/reconciliation-ote/reconciliation-ote.module.ts")).then(m => m.ReconciliationOTEModule)
+                loadChildren: () => Promise.all(/*! import() | reconciliation-ote-reconciliation-ote-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("reconciliation-ote-reconciliation-ote-module")]).then(__webpack_require__.bind(null, /*! ./reconciliation-ote/reconciliation-ote.module */ "./src/app/theme/master/balance-entry/reconciliation-ote/reconciliation-ote.module.ts")).then(m => m.ReconciliationOTEModule)
             },
             {
                 path: 'reconciliationTE',
-                loadChildren: () => Promise.all(/*! import() | reconciliation-transaction-entry-reconciliation-transaction-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("reconciliation-transaction-entry-reconciliation-transaction-entry-module")]).then(__webpack_require__.bind(null, /*! ./reconciliation-transaction-entry/reconciliation-transaction-entry.module */ "./src/app/theme/master/balance-entry/reconciliation-transaction-entry/reconciliation-transaction-entry.module.ts")).then(m => m.ReconciliationTransactionEntryModule)
+                loadChildren: () => Promise.all(/*! import() | reconciliation-transaction-entry-reconciliation-transaction-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("reconciliation-transaction-entry-reconciliation-transaction-entry-module")]).then(__webpack_require__.bind(null, /*! ./reconciliation-transaction-entry/reconciliation-transaction-entry.module */ "./src/app/theme/master/balance-entry/reconciliation-transaction-entry/reconciliation-transaction-entry.module.ts")).then(m => m.ReconciliationTransactionEntryModule)
             },
             {
                 path: 'loanieacdu',
-                loadChildren: () => Promise.all(/*! import() | loan-installment-edit-and-close-date-updation-loan-installment-edit-and-close-date-updation-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("loan-installment-edit-and-close-date-updation-loan-installment-edit-and-close-date-updation-module")]).then(__webpack_require__.bind(null, /*! ./loan-installment-edit-and-close-date-updation/loan-installment-edit-and-close-date-updation.module */ "./src/app/theme/master/balance-entry/loan-installment-edit-and-close-date-updation/loan-installment-edit-and-close-date-updation.module.ts")).then(m => m.ReconciliationTransactionEntryModule)
+                loadChildren: () => Promise.all(/*! import() | loan-installment-edit-and-close-date-updation-loan-installment-edit-and-close-date-updation-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("loan-installment-edit-and-close-date-updation-loan-installment-edit-and-close-date-updation-module")]).then(__webpack_require__.bind(null, /*! ./loan-installment-edit-and-close-date-updation/loan-installment-edit-and-close-date-updation.module */ "./src/app/theme/master/balance-entry/loan-installment-edit-and-close-date-updation/loan-installment-edit-and-close-date-updation.module.ts")).then(m => m.ReconciliationTransactionEntryModule)
             },
         ]
     }
@@ -102,7 +102,7 @@ BalanceEntryComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵde
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "balance-entry works!");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    } }, styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvYmFsYW5jZS1lbnRyeS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQVU7QUFDZCIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL21hc3Rlci9iYWxhbmNlLWVudHJ5L2JhbGFuY2UtZW50cnkuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
+    } }, styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvYmFsYW5jZS1lbnRyeS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL21hc3Rlci9iYWxhbmNlLWVudHJ5L2JhbGFuY2UtZW50cnkuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](BalanceEntryComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -130,7 +130,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _balance_entry_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./balance-entry.component */ "./src/app/theme/master/balance-entry/balance-entry.component.ts");
 /* harmony import */ var _balance_entry_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./balance-entry-routing.module */ "./src/app/theme/master/balance-entry/balance-entry-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
-
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
@@ -138,10 +139,17 @@ __webpack_require__.r(__webpack_exports__);
 
 // import { LoanInstallmentEditAndCloseDateUpdationComponent } from './loan-installment-edit-and-close-date-updation/loan-installment-edit-and-close-date-updation.component';
 // import { ReconciliationTransactionEntryComponent } from './reconciliation-transaction-entry/reconciliation-transaction-entry.component';
+
+
+
 class BalanceEntryModule {
 }
 BalanceEntryModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: BalanceEntryModule });
-BalanceEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function BalanceEntryModule_Factory(t) { return new (t || BalanceEntryModule)(); }, imports: [[
+BalanceEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function BalanceEntryModule_Factory(t) { return new (t || BalanceEntryModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _balance_entry_routing_module__WEBPACK_IMPORTED_MODULE_3__["BalanceEntryRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -157,7 +165,12 @@ BalanceEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
                     _balance_entry_routing_module__WEBPACK_IMPORTED_MODULE_3__["BalanceEntryRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                 ],
-                declarations: [_balance_entry_component__WEBPACK_IMPORTED_MODULE_2__["BalanceEntryComponent"]]
+                declarations: [_balance_entry_component__WEBPACK_IMPORTED_MODULE_2__["BalanceEntryComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

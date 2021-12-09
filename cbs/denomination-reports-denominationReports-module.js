@@ -97,17 +97,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _denomination_reports_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./denomination-reports.component */ "./src/app/theme/reports/denomination-reports/denomination-reports.component.ts");
 /* harmony import */ var _denominationReports_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./denominationReports-routing.module */ "./src/app/theme/reports/denomination-reports/denominationReports-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
-
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
 
 
 // import {ChartModule} from 'angular2-chartjs';
+
+
+
 class DenominationReportsModule {
 }
 DenominationReportsModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: DenominationReportsModule });
-DenominationReportsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DenominationReportsModule_Factory(t) { return new (t || DenominationReportsModule)(); }, imports: [[
+DenominationReportsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DenominationReportsModule_Factory(t) { return new (t || DenominationReportsModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },
+    ], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _denominationReports_routing_module__WEBPACK_IMPORTED_MODULE_3__["DenominationReportsRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -123,7 +132,13 @@ DenominationReportsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
                     _denominationReports_routing_module__WEBPACK_IMPORTED_MODULE_3__["DenominationReportsRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                 ],
-                declarations: [_denomination_reports_component__WEBPACK_IMPORTED_MODULE_2__["DenominationReportsComponent"]]
+                declarations: [_denomination_reports_component__WEBPACK_IMPORTED_MODULE_2__["DenominationReportsComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },
+                ]
             }]
     }], null, null); })();
 

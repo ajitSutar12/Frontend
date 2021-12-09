@@ -26,23 +26,23 @@ const routes = [
         children: [
             {
                 path: 'transactionEntry',
-                loadChildren: () => Promise.all(/*! import() | transaction-entry-transaction-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("transaction-entry-transaction-entry-module")]).then(__webpack_require__.bind(null, /*! ./transaction-entry/transaction-entry.module */ "./src/app/theme/master/investment/transaction-entry/transaction-entry.module.ts")).then(m => m.TransactionEntryModule)
+                loadChildren: () => Promise.all(/*! import() | transaction-entry-transaction-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("transaction-entry-transaction-entry-module")]).then(__webpack_require__.bind(null, /*! ./transaction-entry/transaction-entry.module */ "./src/app/theme/master/investment/transaction-entry/transaction-entry.module.ts")).then(m => m.TransactionEntryModule)
             },
             {
                 path: 'accountClosing',
-                loadChildren: () => Promise.all(/*! import() | account-closing-account-closing-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("account-closing-account-closing-module")]).then(__webpack_require__.bind(null, /*! ./account-closing/account-closing.module */ "./src/app/theme/master/investment/account-closing/account-closing.module.ts")).then(m => m.AccountClosingModule)
+                loadChildren: () => Promise.all(/*! import() | account-closing-account-closing-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("account-closing-account-closing-module")]).then(__webpack_require__.bind(null, /*! ./account-closing/account-closing.module */ "./src/app/theme/master/investment/account-closing/account-closing.module.ts")).then(m => m.AccountClosingModule)
             },
             {
                 path: 'accountOpenPassing',
-                loadChildren: () => Promise.all(/*! import() | account-open-passing-account-open-passing-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("account-open-passing-account-open-passing-module")]).then(__webpack_require__.bind(null, /*! ./account-open-passing/account-open-passing.module */ "./src/app/theme/master/investment/account-open-passing/account-open-passing.module.ts")).then(m => m.AccountOpenPassingModule)
+                loadChildren: () => Promise.all(/*! import() | account-open-passing-account-open-passing-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("account-open-passing-account-open-passing-module")]).then(__webpack_require__.bind(null, /*! ./account-open-passing/account-open-passing.module */ "./src/app/theme/master/investment/account-open-passing/account-open-passing.module.ts")).then(m => m.AccountOpenPassingModule)
             },
             {
                 path: 'transactionPassing',
-                loadChildren: () => Promise.all(/*! import() | transaction-passing-transaction-passing-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("transaction-passing-transaction-passing-module")]).then(__webpack_require__.bind(null, /*! ./transaction-passing/transaction-passing.module */ "./src/app/theme/master/investment/transaction-passing/transaction-passing.module.ts")).then(m => m.TransactionPassingModule)
+                loadChildren: () => Promise.all(/*! import() | transaction-passing-transaction-passing-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("transaction-passing-transaction-passing-module")]).then(__webpack_require__.bind(null, /*! ./transaction-passing/transaction-passing.module */ "./src/app/theme/master/investment/transaction-passing/transaction-passing.module.ts")).then(m => m.TransactionPassingModule)
             },
             {
                 path: 'accountClosePassing',
-                loadChildren: () => Promise.all(/*! import() | account-close-passing-account-close-passing-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("account-close-passing-account-close-passing-module")]).then(__webpack_require__.bind(null, /*! ./account-close-passing/account-close-passing.module */ "./src/app/theme/master/investment/account-close-passing/account-close-passing.module.ts")).then(m => m.AccountClosePassingModule)
+                loadChildren: () => Promise.all(/*! import() | account-close-passing-account-close-passing-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("account-close-passing-account-close-passing-module")]).then(__webpack_require__.bind(null, /*! ./account-close-passing/account-close-passing.module */ "./src/app/theme/master/investment/account-close-passing/account-close-passing.module.ts")).then(m => m.AccountClosePassingModule)
             },
         ]
     }
@@ -114,6 +114,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _investment_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./investment.component */ "./src/app/theme/master/investment/investment.component.ts");
 /* harmony import */ var _investment_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./investment-routing.module */ "./src/app/theme/master/investment/investment-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -123,7 +127,11 @@ __webpack_require__.r(__webpack_exports__);
 class InvestmentModule {
 }
 InvestmentModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: InvestmentModule });
-InvestmentModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function InvestmentModule_Factory(t) { return new (t || InvestmentModule)(); }, imports: [[
+InvestmentModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function InvestmentModule_Factory(t) { return new (t || InvestmentModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _investment_routing_module__WEBPACK_IMPORTED_MODULE_3__["InvestmentRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -139,7 +147,12 @@ InvestmentModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineI
                     _investment_routing_module__WEBPACK_IMPORTED_MODULE_3__["InvestmentRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                 ],
-                declarations: [_investment_component__WEBPACK_IMPORTED_MODULE_2__["InvestmentComponent"]]
+                declarations: [_investment_component__WEBPACK_IMPORTED_MODULE_2__["InvestmentComponent"],],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

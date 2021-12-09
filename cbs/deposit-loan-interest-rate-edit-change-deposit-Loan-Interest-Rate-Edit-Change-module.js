@@ -232,6 +232,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_elements_ac4_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../shared/elements/ac4.service */ "./src/app/shared/elements/ac4.service.ts");
 /* harmony import */ var _shared_elements_s15_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../shared/elements/s15.service */ "./src/app/shared/elements/s15.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -247,7 +251,11 @@ __webpack_require__.r(__webpack_exports__);
 class DepositLoanInterestRateEditChangeModule {
 }
 DepositLoanInterestRateEditChangeModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: DepositLoanInterestRateEditChangeModule });
-DepositLoanInterestRateEditChangeModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DepositLoanInterestRateEditChangeModule_Factory(t) { return new (t || DepositLoanInterestRateEditChangeModule)(); }, providers: [_shared_elements_s4_service__WEBPACK_IMPORTED_MODULE_7__["S4Service"], _shared_elements_ac4_service__WEBPACK_IMPORTED_MODULE_8__["Ac4Service"], _shared_elements_s15_service__WEBPACK_IMPORTED_MODULE_9__["S15Service"]], imports: [[
+DepositLoanInterestRateEditChangeModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DepositLoanInterestRateEditChangeModule_Factory(t) { return new (t || DepositLoanInterestRateEditChangeModule)(); }, providers: [_shared_elements_s4_service__WEBPACK_IMPORTED_MODULE_7__["S4Service"], _shared_elements_ac4_service__WEBPACK_IMPORTED_MODULE_8__["Ac4Service"], _shared_elements_s15_service__WEBPACK_IMPORTED_MODULE_9__["S15Service"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_12__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _deposit_Loan_Interest_Rate_Edit_Change_routing_module__WEBPACK_IMPORTED_MODULE_3__["DepositLoanInterestRateEditChangeRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"],
@@ -275,7 +283,11 @@ DepositLoanInterestRateEditChangeModule.ɵinj = _angular_core__WEBPACK_IMPORTED_
                     _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"],
                     _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ReactiveFormsModule"]
                 ],
-                providers: [_shared_elements_s4_service__WEBPACK_IMPORTED_MODULE_7__["S4Service"], _shared_elements_ac4_service__WEBPACK_IMPORTED_MODULE_8__["Ac4Service"], _shared_elements_s15_service__WEBPACK_IMPORTED_MODULE_9__["S15Service"]],
+                providers: [_shared_elements_s4_service__WEBPACK_IMPORTED_MODULE_7__["S4Service"], _shared_elements_ac4_service__WEBPACK_IMPORTED_MODULE_8__["Ac4Service"], _shared_elements_s15_service__WEBPACK_IMPORTED_MODULE_9__["S15Service"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_12__["UserAuthInterceptor"],
+                        multi: true
+                    },],
                 declarations: [_deposit_loan_interest_rate_edit_change_component__WEBPACK_IMPORTED_MODULE_2__["DepositLoanInterestRateEditChangeComponent"]]
             }]
     }], null, null); })();
@@ -860,7 +872,7 @@ DepositLoanInterestRateEditChangeComponent.ɵcmp = _angular_core__WEBPACK_IMPORT
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.GuarantorTrue);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions1);
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroupDirective"], ng_select__WEBPACK_IMPORTED_MODULE_7__["SelectComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControlName"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["PatternValidator"], _angular_router__WEBPACK_IMPORTED_MODULE_9__["RouterLinkActive"], angular_datatables__WEBPACK_IMPORTED_MODULE_10__["DataTableDirective"]], styles: ["#up[_ngcontent-%COMP%] {\n  margin-bottom: 13px;\n}\n\n.btn[_ngcontent-%COMP%] {\n  margin: 3px;\n  color: white;\n}\n\n.btn[_ngcontent-%COMP%]:hover {\n  color: white;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL21haW50YWluYW5jZS9kZXBvc2l0LWxvYW4taW50ZXJlc3QtcmF0ZS1lZGl0LWNoYW5nZS9kZXBvc2l0LWxvYW4taW50ZXJlc3QtcmF0ZS1lZGl0LWNoYW5nZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLG1CQUFtQjtBQUN2Qjs7QUFFQTtFQUNJLFdBQVc7RUFDWCxZQUFZO0FBQ2hCOztBQUVBO0VBQ0ksWUFBWTtBQUNoQiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL21hc3Rlci9tYWludGFpbmFuY2UvZGVwb3NpdC1sb2FuLWludGVyZXN0LXJhdGUtZWRpdC1jaGFuZ2UvZGVwb3NpdC1sb2FuLWludGVyZXN0LXJhdGUtZWRpdC1jaGFuZ2UuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjdXAge1xyXG4gICAgbWFyZ2luLWJvdHRvbTogMTNweDtcclxufVxyXG5cclxuLmJ0biB7XHJcbiAgICBtYXJnaW46IDNweDtcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxufVxyXG5cclxuLmJ0bjpob3ZlciB7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbn0iXX0= */"] });
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroupDirective"], ng_select__WEBPACK_IMPORTED_MODULE_7__["SelectComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControlName"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_8__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["PatternValidator"], _angular_router__WEBPACK_IMPORTED_MODULE_9__["RouterLinkActive"], angular_datatables__WEBPACK_IMPORTED_MODULE_10__["DataTableDirective"]], styles: ["#up[_ngcontent-%COMP%] {\n  margin-bottom: 13px;\n}\n\n.btn[_ngcontent-%COMP%] {\n  margin: 3px;\n  color: white;\n}\n\n.btn[_ngcontent-%COMP%]:hover {\n  color: white;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL21haW50YWluYW5jZS9kZXBvc2l0LWxvYW4taW50ZXJlc3QtcmF0ZS1lZGl0LWNoYW5nZS9kZXBvc2l0LWxvYW4taW50ZXJlc3QtcmF0ZS1lZGl0LWNoYW5nZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLG1CQUFBO0FBQ0o7O0FBRUE7RUFDSSxXQUFBO0VBQ0EsWUFBQTtBQUNKOztBQUVBO0VBQ0ksWUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL21haW50YWluYW5jZS9kZXBvc2l0LWxvYW4taW50ZXJlc3QtcmF0ZS1lZGl0LWNoYW5nZS9kZXBvc2l0LWxvYW4taW50ZXJlc3QtcmF0ZS1lZGl0LWNoYW5nZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIiN1cCB7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAxM3B4O1xyXG59XHJcblxyXG4uYnRuIHtcclxuICAgIG1hcmdpbjogM3B4O1xyXG4gICAgY29sb3I6IHdoaXRlO1xyXG59XHJcblxyXG4uYnRuOmhvdmVyIHtcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxufSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](DepositLoanInterestRateEditChangeComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{

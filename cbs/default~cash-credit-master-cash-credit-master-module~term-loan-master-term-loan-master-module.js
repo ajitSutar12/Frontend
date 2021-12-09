@@ -259,7 +259,7 @@ class InterestRateForLoanandCCService {
         return this.http.delete(this.url + '/interest-rate-for-loan-and-cc/delete/' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     }
     intData(INT_CATEGORY) {
-        return this.http.delete(this.url + '/interest-rate-for-loan-and-cc/delete/' + INT_CATEGORY).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+        return this.http.get(this.url + '/interest-rate-for-loan-and-cc/int/' + INT_CATEGORY).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     }
 }
 InterestRateForLoanandCCService.ɵfac = function InterestRateForLoanandCCService_Factory(t) { return new (t || InterestRateForLoanandCCService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"])); };

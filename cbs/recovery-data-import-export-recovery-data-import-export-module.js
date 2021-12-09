@@ -244,7 +244,7 @@ RecoveryDataImportExportComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](81);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vcmVjb3ZlcnkvcmVjb3ZlcnktZGF0YS1pbXBvcnQtZXhwb3J0L3JlY292ZXJ5LWRhdGEtaW1wb3J0LWV4cG9ydC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQVU7QUFDZCIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3RyYW5zYWN0aW9uL3JlY292ZXJ5L3JlY292ZXJ5LWRhdGEtaW1wb3J0LWV4cG9ydC9yZWNvdmVyeS1kYXRhLWltcG9ydC1leHBvcnQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vcmVjb3ZlcnkvcmVjb3ZlcnktZGF0YS1pbXBvcnQtZXhwb3J0L3JlY292ZXJ5LWRhdGEtaW1wb3J0LWV4cG9ydC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3RyYW5zYWN0aW9uL3JlY292ZXJ5L3JlY292ZXJ5LWRhdGEtaW1wb3J0LWV4cG9ydC9yZWNvdmVyeS1kYXRhLWltcG9ydC1leHBvcnQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](RecoveryDataImportExportComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -274,6 +274,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/__ivy_ngcc__/fesm2015/ng2-file-upload.js");
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -285,7 +289,11 @@ __webpack_require__.r(__webpack_exports__);
 class RecoveryDataImportExportModule {
 }
 RecoveryDataImportExportModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: RecoveryDataImportExportModule });
-RecoveryDataImportExportModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function RecoveryDataImportExportModule_Factory(t) { return new (t || RecoveryDataImportExportModule)(); }, imports: [[
+RecoveryDataImportExportModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function RecoveryDataImportExportModule_Factory(t) { return new (t || RecoveryDataImportExportModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _recovery_data_import_export_routing_module__WEBPACK_IMPORTED_MODULE_3__["RecoveryDataImportExportRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"],
@@ -307,7 +315,12 @@ RecoveryDataImportExportModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0_
                     ng2_file_upload__WEBPACK_IMPORTED_MODULE_5__["FileUploadModule"],
                     ng_select__WEBPACK_IMPORTED_MODULE_6__["SelectModule"]
                 ],
-                declarations: [_recovery_data_import_export_component__WEBPACK_IMPORTED_MODULE_2__["RecoveryDataImportExportComponent"]]
+                declarations: [_recovery_data_import_export_component__WEBPACK_IMPORTED_MODULE_2__["RecoveryDataImportExportComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

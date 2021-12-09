@@ -64,8 +64,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _interest_instruction_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./interest-instruction-routing.module */ "./src/app/theme/master/instruction/interest-instruction/interest-instruction-routing.module.ts");
 /* harmony import */ var _shared_elements_frequency_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../shared/elements/frequency.service */ "./src/app/shared/elements/frequency.service.ts");
 /* harmony import */ var _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/elements/scheme1.service */ "./src/app/shared/elements/scheme1.service.ts");
-/* harmony import */ var _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../shared/elements/acountno.service */ "./src/app/shared/elements/acountno.service.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+/* harmony import */ var _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../shared/elements/acountno.service */ "./src/app/shared/elements/acountno.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+
+
 
 
 
@@ -80,22 +84,27 @@ __webpack_require__.r(__webpack_exports__);
 class InterestInstructionModule {
 }
 InterestInstructionModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineNgModule"]({ type: InterestInstructionModule });
-InterestInstructionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjector"]({ factory: function InterestInstructionModule_Factory(t) { return new (t || InterestInstructionModule)(); }, providers: [_shared_elements_frequency_service__WEBPACK_IMPORTED_MODULE_6__["FrequencyService"], _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_7__["Scheme1Service"], _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_8__["AcountnoService"]], imports: [[
+InterestInstructionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjector"]({ factory: function InterestInstructionModule_Factory(t) { return new (t || InterestInstructionModule)(); }, providers: [_shared_elements_frequency_service__WEBPACK_IMPORTED_MODULE_6__["FrequencyService"], _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_7__["Scheme1Service"], _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_10__["AcountnoService"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_9__["UserAuthInterceptor"],
+            multi: true
+        },
+    ], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_0__["DataTablesModule"],
             ng_select__WEBPACK_IMPORTED_MODULE_1__["SelectModule"],
             _interest_instruction_routing_module__WEBPACK_IMPORTED_MODULE_5__["InterestInstructionRoutingModule"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_9__["FormsModule"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_9__["ReactiveFormsModule"]
+            _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ReactiveFormsModule"]
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵsetNgModuleScope"](InterestInstructionModule, { imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
         src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
         angular_datatables__WEBPACK_IMPORTED_MODULE_0__["DataTablesModule"],
         ng_select__WEBPACK_IMPORTED_MODULE_1__["SelectModule"],
         _interest_instruction_routing_module__WEBPACK_IMPORTED_MODULE_5__["InterestInstructionRoutingModule"],
-        _angular_forms__WEBPACK_IMPORTED_MODULE_9__["FormsModule"],
-        _angular_forms__WEBPACK_IMPORTED_MODULE_9__["ReactiveFormsModule"]] }); })();
+        _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"],
+        _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ReactiveFormsModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵsetClassMetadata"](InterestInstructionModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["NgModule"],
         args: [{
@@ -105,10 +114,15 @@ InterestInstructionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵ
                     angular_datatables__WEBPACK_IMPORTED_MODULE_0__["DataTablesModule"],
                     ng_select__WEBPACK_IMPORTED_MODULE_1__["SelectModule"],
                     _interest_instruction_routing_module__WEBPACK_IMPORTED_MODULE_5__["InterestInstructionRoutingModule"],
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_9__["FormsModule"],
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_9__["ReactiveFormsModule"]
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"],
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ReactiveFormsModule"]
                 ],
-                providers: [_shared_elements_frequency_service__WEBPACK_IMPORTED_MODULE_6__["FrequencyService"], _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_7__["Scheme1Service"], _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_8__["AcountnoService"]],
+                providers: [_shared_elements_frequency_service__WEBPACK_IMPORTED_MODULE_6__["FrequencyService"], _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_7__["Scheme1Service"], _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_10__["AcountnoService"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_9__["UserAuthInterceptor"],
+                        multi: true
+                    },
+                ],
                 declarations: []
             }]
     }], null, null); })();

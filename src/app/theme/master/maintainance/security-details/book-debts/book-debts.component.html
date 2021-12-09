@@ -50,7 +50,7 @@
                                   <input type="text" name="DebtorsOpeningBalance" class="form-control" placeholder=" "
                                       id="DebtorsOpeningBalance" required=""
                                       pattern="\d{1,20}(\.\d{2})?"
-                                      (focusout)="calculate()"
+                                      (focusout)="calculateopening()"
                                       title="Input allowed only  0-9" formControlName="DEBTORS_OP_BAL" >
                                   <label for="DebtorsOpeningBalance">Debtors Opening Balance<sub class="required">*
                                       </sub></label>
@@ -72,7 +72,7 @@
                               <span class="border-lable-flt">
                                   <input type="text" name="AddCreditSales" class="form-control" placeholder=" "
                                       id="AddCreditSales" pattern="\d{1,20}(\.\d{2})?"
-                                      title="Input allowed only  0-9" formControlName="CREDIT_SALE" (focusout)="calculate()">
+                                      title="Input allowed only  0-9" formControlName="CREDIT_SALE" (focusout)="calculateaddcredit()">
                                   <label for="AddCreditSales">Add Credit Sales</label>
                               </span>
                           </div>
@@ -92,7 +92,7 @@
                               <span class="border-lable-flt">
                                   <input type="text" name="LessRecoveries" class="form-control" placeholder=" "
                                       id="LessRecoveries"   pattern="\d{1,20}(\.\d{2})?"
-                                      title="Input allowed only  0-9" formControlName="RECOVERY" (focusout)="calculate()">
+                                      title="Input allowed only  0-9" formControlName="RECOVERY" (focusout)="calculatelessrecovery()">
                                   <label for="LessRecoveries">Less Recoveries</label>
                               </span>
                           </div>
@@ -113,7 +113,7 @@
                                   <input type="text" name="LessOveragedDebtors" class="form-control" placeholder=" "
                                       id="LessOveragedDebtors"
                                       pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
-                                      formControlName="OVERAGED_DEBTORS" (focusout)="calculate()" >
+                                      formControlName="OVERAGED_DEBTORS" (focusout)="calculatelessdebtors()" >
                                   <label for="LessOveragedDebtors">Less Overaged Debtors</label>
                               </span>
                           </div>
@@ -134,9 +134,10 @@
                               <span class="border-lable-flt">
                                   <input type="text" name="DebtorsClosingBalance" class="form-control" placeholder=" "
                                       id="DebtorsClosingBalance" required=""
+                                        [value]= "bookdebts"
                                       pattern="\d{1,20}(\.\d{2})?"
                                       disabled
-                                      title="Input allowed only  0-9" [value]="bookdebts" formControlName="CLOSE_BAL" >
+                                      title="Input allowed only  0-9" value="bookdebts" formControlName="CLOSE_BAL" >
                                   <label for="DebtorsClosingBalance">Debtors Closing Balance<sub class="required">*
                                       </sub></label>
                               </span>

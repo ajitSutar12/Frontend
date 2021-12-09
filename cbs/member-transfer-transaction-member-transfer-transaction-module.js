@@ -237,7 +237,7 @@ MemberTransferTransactionComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODUL
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](78);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vbWVtYmVyLXRyYW5zZmVyL21lbWJlci10cmFuc2Zlci10cmFuc2FjdGlvbi9tZW1iZXItdHJhbnNmZXItdHJhbnNhY3Rpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFVO0FBQ2QiLCJmaWxlIjoic3JjL2FwcC90aGVtZS90cmFuc2FjdGlvbi9tZW1iZXItdHJhbnNmZXIvbWVtYmVyLXRyYW5zZmVyLXRyYW5zYWN0aW9uL21lbWJlci10cmFuc2Zlci10cmFuc2FjdGlvbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZXF1aXJlZCB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gIH0iXX0= */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vbWVtYmVyLXRyYW5zZmVyL21lbWJlci10cmFuc2Zlci10cmFuc2FjdGlvbi9tZW1iZXItdHJhbnNmZXItdHJhbnNhY3Rpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFBO0FBQ0oiLCJmaWxlIjoic3JjL2FwcC90aGVtZS90cmFuc2FjdGlvbi9tZW1iZXItdHJhbnNmZXIvbWVtYmVyLXRyYW5zZmVyLXRyYW5zYWN0aW9uL21lbWJlci10cmFuc2Zlci10cmFuc2FjdGlvbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZXF1aXJlZCB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gIH0iXX0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MemberTransferTransactionComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -265,6 +265,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _member_transfer_transaction_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./member-transfer-transaction-routing.module */ "./src/app/theme/transaction/member-transfer/member-transfer-transaction/member-transfer-transaction-routing.module.ts");
 /* harmony import */ var _member_transfer_transaction_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./member-transfer-transaction.component */ "./src/app/theme/transaction/member-transfer/member-transfer-transaction/member-transfer-transaction.component.ts");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -274,7 +278,11 @@ __webpack_require__.r(__webpack_exports__);
 class MemberTransferTransactionModule {
 }
 MemberTransferTransactionModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: MemberTransferTransactionModule });
-MemberTransferTransactionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function MemberTransferTransactionModule_Factory(t) { return new (t || MemberTransferTransactionModule)(); }, imports: [[
+MemberTransferTransactionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function MemberTransferTransactionModule_Factory(t) { return new (t || MemberTransferTransactionModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _member_transfer_transaction_routing_module__WEBPACK_IMPORTED_MODULE_2__["MemberTransferTransactiontRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
@@ -290,7 +298,12 @@ MemberTransferTransactionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0
                     _member_transfer_transaction_routing_module__WEBPACK_IMPORTED_MODULE_2__["MemberTransferTransactiontRoutingModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
                 ],
-                declarations: [_member_transfer_transaction_component__WEBPACK_IMPORTED_MODULE_3__["MemberTransferTransactionComponent"]]
+                declarations: [_member_transfer_transaction_component__WEBPACK_IMPORTED_MODULE_3__["MemberTransferTransactionComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

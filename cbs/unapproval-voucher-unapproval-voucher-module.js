@@ -368,7 +368,7 @@ UnapprovalVoucherComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", "ng-select")("options", ctx.simpleOption)("multiple", true);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](56);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [ng_select__WEBPACK_IMPORTED_MODULE_10__["SelectComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgClass"], angular_datatables__WEBPACK_IMPORTED_MODULE_12__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvcGFzc2luZy91bmFwcHJvdmFsL3VuYXBwcm92YWwtdm91Y2hlci91bmFwcHJvdmFsLXZvdWNoZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFVO0FBQ2QiLCJmaWxlIjoic3JjL2FwcC90aGVtZS9wYXNzaW5nL3VuYXBwcm92YWwvdW5hcHByb3ZhbC12b3VjaGVyL3VuYXBwcm92YWwtdm91Y2hlci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZXF1aXJlZCB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gfSJdfQ== */"] });
+    } }, directives: [ng_select__WEBPACK_IMPORTED_MODULE_10__["SelectComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_11__["NgClass"], angular_datatables__WEBPACK_IMPORTED_MODULE_12__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvcGFzc2luZy91bmFwcHJvdmFsL3VuYXBwcm92YWwtdm91Y2hlci91bmFwcHJvdmFsLXZvdWNoZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFBO0FBQ0oiLCJmaWxlIjoic3JjL2FwcC90aGVtZS9wYXNzaW5nL3VuYXBwcm92YWwvdW5hcHByb3ZhbC12b3VjaGVyL3VuYXBwcm92YWwtdm91Y2hlci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZXF1aXJlZCB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gfSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](UnapprovalVoucherComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -398,6 +398,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../shared/elements/select-option.service */ "./src/app/shared/elements/select-option.service.ts");
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -409,7 +413,11 @@ __webpack_require__.r(__webpack_exports__);
 class UnapprovalVoucheModule {
 }
 UnapprovalVoucheModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: UnapprovalVoucheModule });
-UnapprovalVoucheModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function UnapprovalVoucheModule_Factory(t) { return new (t || UnapprovalVoucheModule)(); }, providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_4__["SelectOptionService"]], imports: [[
+UnapprovalVoucheModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function UnapprovalVoucheModule_Factory(t) { return new (t || UnapprovalVoucheModule)(); }, providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_4__["SelectOptionService"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _unapproval_voucher_routing_module__WEBPACK_IMPORTED_MODULE_3__["UnapprovalVoucherRoutingModule"],
             ng_select__WEBPACK_IMPORTED_MODULE_5__["SelectModule"],
@@ -429,7 +437,11 @@ UnapprovalVoucheModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
                     angular_datatables__WEBPACK_IMPORTED_MODULE_6__["DataTablesModule"]
                 ],
                 declarations: [_unapproval_voucher_component__WEBPACK_IMPORTED_MODULE_2__["UnapprovalVoucherComponent"]],
-                providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_4__["SelectOptionService"]]
+                providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_4__["SelectOptionService"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

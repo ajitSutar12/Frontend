@@ -26,7 +26,7 @@ const routes = [
         children: [
             {
                 path: 'depositReceiptPrint',
-                loadChildren: () => Promise.all(/*! import() | deposit-receipt-print-deposit-receipt-print-module */[__webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("common"), __webpack_require__.e("deposit-receipt-print-deposit-receipt-print-module")]).then(__webpack_require__.bind(null, /*! ./deposit-receipt-print/deposit-receipt-print.module */ "./src/app/theme/transaction/term-deposit-receipt-printing/deposit-receipt-print/deposit-receipt-print.module.ts")).then(m => m.DepositReceiptPrintModule)
+                loadChildren: () => Promise.all(/*! import() | deposit-receipt-print-deposit-receipt-print-module */[__webpack_require__.e("common"), __webpack_require__.e("deposit-receipt-print-deposit-receipt-print-module")]).then(__webpack_require__.bind(null, /*! ./deposit-receipt-print/deposit-receipt-print.module */ "./src/app/theme/transaction/term-deposit-receipt-printing/deposit-receipt-print/deposit-receipt-print.module.ts")).then(m => m.DepositReceiptPrintModule)
             },
         ]
     }
@@ -72,7 +72,7 @@ class TermDepositReceiptPrintingComponent {
     }
 }
 TermDepositReceiptPrintingComponent.ɵfac = function TermDepositReceiptPrintingComponent_Factory(t) { return new (t || TermDepositReceiptPrintingComponent)(); };
-TermDepositReceiptPrintingComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: TermDepositReceiptPrintingComponent, selectors: [["app-term-deposit-receipt-printing"]], decls: 0, vars: 0, template: function TermDepositReceiptPrintingComponent_Template(rf, ctx) { }, styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vdGVybS1kZXBvc2l0LXJlY2VpcHQtcHJpbnRpbmcvdGVybS1kZXBvc2l0LXJlY2VpcHQtcHJpbnRpbmcuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFVO0FBQ2QiLCJmaWxlIjoic3JjL2FwcC90aGVtZS90cmFuc2FjdGlvbi90ZXJtLWRlcG9zaXQtcmVjZWlwdC1wcmludGluZy90ZXJtLWRlcG9zaXQtcmVjZWlwdC1wcmludGluZy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZXF1aXJlZCB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gfSJdfQ== */"] });
+TermDepositReceiptPrintingComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: TermDepositReceiptPrintingComponent, selectors: [["app-term-deposit-receipt-printing"]], decls: 0, vars: 0, template: function TermDepositReceiptPrintingComponent_Template(rf, ctx) { }, styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vdGVybS1kZXBvc2l0LXJlY2VpcHQtcHJpbnRpbmcvdGVybS1kZXBvc2l0LXJlY2VpcHQtcHJpbnRpbmcuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFBO0FBQ0oiLCJmaWxlIjoic3JjL2FwcC90aGVtZS90cmFuc2FjdGlvbi90ZXJtLWRlcG9zaXQtcmVjZWlwdC1wcmludGluZy90ZXJtLWRlcG9zaXQtcmVjZWlwdC1wcmludGluZy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZXF1aXJlZCB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gfSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](TermDepositReceiptPrintingComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -105,6 +105,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_color_picker__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-color-picker */ "./node_modules/ngx-color-picker/__ivy_ngcc__/fesm2015/ngx-color-picker.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -119,7 +123,11 @@ __webpack_require__.r(__webpack_exports__);
 class TermDepositReceiptPrintingModule {
 }
 TermDepositReceiptPrintingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: TermDepositReceiptPrintingModule });
-TermDepositReceiptPrintingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function TermDepositReceiptPrintingModule_Factory(t) { return new (t || TermDepositReceiptPrintingModule)(); }, imports: [[
+TermDepositReceiptPrintingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function TermDepositReceiptPrintingModule_Factory(t) { return new (t || TermDepositReceiptPrintingModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_11__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _term_deposit_receipt_printing_routing_module__WEBPACK_IMPORTED_MODULE_3__["TermDepositReceiptPrintingRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
@@ -150,7 +158,12 @@ TermDepositReceiptPrintingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_
                     _angular_forms__WEBPACK_IMPORTED_MODULE_8__["FormsModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_9__["DataTablesModule"]
                 ],
-                declarations: [_term_deposit_receipt_printing_component__WEBPACK_IMPORTED_MODULE_2__["TermDepositReceiptPrintingComponent"]]
+                declarations: [_term_deposit_receipt_printing_component__WEBPACK_IMPORTED_MODULE_2__["TermDepositReceiptPrintingComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_10__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_11__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

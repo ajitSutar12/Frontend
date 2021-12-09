@@ -191,7 +191,7 @@ CashierToSafeVaultComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](47);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vY2FzaC1kZW5vbWluYXRpb24vY2FzaGllci10by1zYWZlLXZhdWx0L2Nhc2hpZXItdG8tc2FmZS12YXVsdC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQVU7QUFDZCIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3RyYW5zYWN0aW9uL2Nhc2gtZGVub21pbmF0aW9uL2Nhc2hpZXItdG8tc2FmZS12YXVsdC9jYXNoaWVyLXRvLXNhZmUtdmF1bHQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vY2FzaC1kZW5vbWluYXRpb24vY2FzaGllci10by1zYWZlLXZhdWx0L2Nhc2hpZXItdG8tc2FmZS12YXVsdC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3RyYW5zYWN0aW9uL2Nhc2gtZGVub21pbmF0aW9uL2Nhc2hpZXItdG8tc2FmZS12YXVsdC9jYXNoaWVyLXRvLXNhZmUtdmF1bHQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](CashierToSafeVaultComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -219,6 +219,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cashier_to_safe_vault_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cashier-to-safe-vault.component */ "./src/app/theme/transaction/cash-denomination/cashier-to-safe-vault/cashier-to-safe-vault.component.ts");
 /* harmony import */ var _cashier_to_safe_vault_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cashier-to-safe-vault-routing.module */ "./src/app/theme/transaction/cash-denomination/cashier-to-safe-vault/cashier-to-safe-vault-routing.module.ts");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -228,7 +232,11 @@ __webpack_require__.r(__webpack_exports__);
 class CashierToSafeVaultModule {
 }
 CashierToSafeVaultModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: CashierToSafeVaultModule });
-CashierToSafeVaultModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function CashierToSafeVaultModule_Factory(t) { return new (t || CashierToSafeVaultModule)(); }, imports: [[
+CashierToSafeVaultModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function CashierToSafeVaultModule_Factory(t) { return new (t || CashierToSafeVaultModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _cashier_to_safe_vault_routing_module__WEBPACK_IMPORTED_MODULE_3__["CashierToSafeVaultRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
@@ -244,7 +252,12 @@ CashierToSafeVaultModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ�
                     _cashier_to_safe_vault_routing_module__WEBPACK_IMPORTED_MODULE_3__["CashierToSafeVaultRoutingModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
                 ],
-                declarations: [_cashier_to_safe_vault_component__WEBPACK_IMPORTED_MODULE_2__["CashierToSafeVaultComponent"]]
+                declarations: [_cashier_to_safe_vault_component__WEBPACK_IMPORTED_MODULE_2__["CashierToSafeVaultComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

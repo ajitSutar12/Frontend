@@ -58,13 +58,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpecialModule", function() { return SpecialModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _shared_elements_exucute_on_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../shared/elements/exucute-on.service */ "./src/app/shared/elements/exucute-on.service.ts");
+/* harmony import */ var _shared_dropdownService_exucute_on_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../shared/dropdownService/exucute-on.service */ "./src/app/shared/dropdownService/exucute-on.service.ts");
 /* harmony import */ var _special_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./special-routing.module */ "./src/app/theme/master/instruction/special/special-routing.module.ts");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
-/* harmony import */ var _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../shared/elements/scheme1.service */ "./src/app/shared/elements/scheme1.service.ts");
-/* harmony import */ var _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/elements/acountno.service */ "./src/app/shared/elements/acountno.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var _special_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./special.service */ "./src/app/theme/master/instruction/special/special.service.ts");
+/* harmony import */ var _shared_dropdownService_schemeAccountNo_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../shared/dropdownService/schemeAccountNo.service */ "./src/app/shared/dropdownService/schemeAccountNo.service.ts");
+/* harmony import */ var _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../shared/dropdownService/scheme-code-dropdown.service */ "./src/app/shared/dropdownService/scheme-code-dropdown.service.ts");
+
+
+
+
 
 
 
@@ -78,13 +85,19 @@ __webpack_require__.r(__webpack_exports__);
 class SpecialModule {
 }
 SpecialModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: SpecialModule });
-SpecialModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SpecialModule_Factory(t) { return new (t || SpecialModule)(); }, providers: [_shared_elements_exucute_on_service__WEBPACK_IMPORTED_MODULE_2__["ExucuteOnService"], _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_6__["Scheme1Service"], _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_7__["AcountnoService"]], imports: [[
+SpecialModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SpecialModule_Factory(t) { return new (t || SpecialModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__["UserAuthInterceptor"],
+            multi: true
+        }, _angular_common__WEBPACK_IMPORTED_MODULE_1__["DatePipe"],
+        _special_service__WEBPACK_IMPORTED_MODULE_9__["specialservice"],
+        _shared_dropdownService_exucute_on_service__WEBPACK_IMPORTED_MODULE_2__["ExucuteOnService"], _shared_dropdownService_schemeAccountNo_service__WEBPACK_IMPORTED_MODULE_10__["SchemeAccountNoService"], _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_11__["SchemeCodeDropdownService"]], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"],
             _special_routing_module__WEBPACK_IMPORTED_MODULE_3__["SpecialRoutingModule"],
             ng_select__WEBPACK_IMPORTED_MODULE_5__["SelectModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_8__["FormsModule"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_8__["ReactiveFormsModule"]
+            _angular_forms__WEBPACK_IMPORTED_MODULE_8__["ReactiveFormsModule"],
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](SpecialModule, { imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
         angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"],
@@ -101,10 +114,16 @@ SpecialModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInje
                     _special_routing_module__WEBPACK_IMPORTED_MODULE_3__["SpecialRoutingModule"],
                     ng_select__WEBPACK_IMPORTED_MODULE_5__["SelectModule"],
                     _angular_forms__WEBPACK_IMPORTED_MODULE_8__["FormsModule"],
-                    _angular_forms__WEBPACK_IMPORTED_MODULE_8__["ReactiveFormsModule"]
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_8__["ReactiveFormsModule"],
                 ],
                 declarations: [],
-                providers: [_shared_elements_exucute_on_service__WEBPACK_IMPORTED_MODULE_2__["ExucuteOnService"], _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_6__["Scheme1Service"], _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_7__["AcountnoService"]]
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__["UserAuthInterceptor"],
+                        multi: true
+                    }, _angular_common__WEBPACK_IMPORTED_MODULE_1__["DatePipe"],
+                    _special_service__WEBPACK_IMPORTED_MODULE_9__["specialservice"],
+                    _shared_dropdownService_exucute_on_service__WEBPACK_IMPORTED_MODULE_2__["ExucuteOnService"], _shared_dropdownService_schemeAccountNo_service__WEBPACK_IMPORTED_MODULE_10__["SchemeAccountNoService"], _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_11__["SchemeCodeDropdownService"]]
             }]
     }], null, null); })();
 

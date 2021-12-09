@@ -65,6 +65,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../shared/elements/scheme1.service */ "./src/app/shared/elements/scheme1.service.ts");
 /* harmony import */ var _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/elements/acountno.service */ "./src/app/shared/elements/acountno.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -78,7 +82,11 @@ __webpack_require__.r(__webpack_exports__);
 class RevokeInterestInstructionModule {
 }
 RevokeInterestInstructionModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: RevokeInterestInstructionModule });
-RevokeInterestInstructionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function RevokeInterestInstructionModule_Factory(t) { return new (t || RevokeInterestInstructionModule)(); }, providers: [_shared_elements_revoke_interest_service__WEBPACK_IMPORTED_MODULE_4__["revokeInterestService"], _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_6__["Scheme1Service"], _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_7__["AcountnoService"]], imports: [[
+RevokeInterestInstructionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function RevokeInterestInstructionModule_Factory(t) { return new (t || RevokeInterestInstructionModule)(); }, providers: [_shared_elements_revoke_interest_service__WEBPACK_IMPORTED_MODULE_4__["revokeInterestService"], _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_6__["Scheme1Service"], _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_7__["AcountnoService"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_3__["DataTablesModule"],
             ng_select__WEBPACK_IMPORTED_MODULE_5__["SelectModule"],
@@ -104,7 +112,11 @@ RevokeInterestInstructionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0
                     _angular_forms__WEBPACK_IMPORTED_MODULE_8__["ReactiveFormsModule"]
                 ],
                 declarations: [],
-                providers: [_shared_elements_revoke_interest_service__WEBPACK_IMPORTED_MODULE_4__["revokeInterestService"], _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_6__["Scheme1Service"], _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_7__["AcountnoService"]]
+                providers: [_shared_elements_revoke_interest_service__WEBPACK_IMPORTED_MODULE_4__["revokeInterestService"], _shared_elements_scheme1_service__WEBPACK_IMPORTED_MODULE_6__["Scheme1Service"], _shared_elements_acountno_service__WEBPACK_IMPORTED_MODULE_7__["AcountnoService"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

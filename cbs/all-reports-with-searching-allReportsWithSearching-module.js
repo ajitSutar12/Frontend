@@ -326,6 +326,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/__ivy_ngcc__/fesm2015/ng2-file-upload.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
@@ -335,10 +337,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 class AllReportsWithSearchingModule {
 }
 AllReportsWithSearchingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: AllReportsWithSearchingModule });
-AllReportsWithSearchingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AllReportsWithSearchingModule_Factory(t) { return new (t || AllReportsWithSearchingModule)(); }, imports: [[
+AllReportsWithSearchingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function AllReportsWithSearchingModule_Factory(t) { return new (t || AllReportsWithSearchingModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _allReportsWithSearching_routing_module__WEBPACK_IMPORTED_MODULE_3__["allReportsWithSearchingRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
@@ -363,7 +371,12 @@ AllReportsWithSearchingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__
                     angular_datatables__WEBPACK_IMPORTED_MODULE_5__["DataTablesModule"],
                     ng2_file_upload__WEBPACK_IMPORTED_MODULE_6__["FileUploadModule"]
                 ],
-                declarations: [_all_reports_with_searching_component__WEBPACK_IMPORTED_MODULE_2__["AllReportsWithSearchingComponent"]]
+                declarations: [_all_reports_with_searching_component__WEBPACK_IMPORTED_MODULE_2__["AllReportsWithSearchingComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

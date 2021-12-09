@@ -107,17 +107,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _balance_book_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./balance-book.component */ "./src/app/theme/reports/balance-book/balance-book.component.ts");
 /* harmony import */ var _balanceBook_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./balanceBook-routing.module */ "./src/app/theme/reports/balance-book/balanceBook-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
-
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
 
 
 // import {ChartModule} from 'angular2-chartjs';
+
+
+
 class BalanceBookModule {
 }
 BalanceBookModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: BalanceBookModule });
-BalanceBookModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function BalanceBookModule_Factory(t) { return new (t || BalanceBookModule)(); }, imports: [[
+BalanceBookModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function BalanceBookModule_Factory(t) { return new (t || BalanceBookModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _balanceBook_routing_module__WEBPACK_IMPORTED_MODULE_3__["BalanceBookRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -133,7 +141,12 @@ BalanceBookModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
                     _balanceBook_routing_module__WEBPACK_IMPORTED_MODULE_3__["BalanceBookRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                 ],
-                declarations: [_balance_book_component__WEBPACK_IMPORTED_MODULE_2__["BalanceBookComponent"]]
+                declarations: [_balance_book_component__WEBPACK_IMPORTED_MODULE_2__["BalanceBookComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

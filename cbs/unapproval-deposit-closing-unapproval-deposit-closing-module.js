@@ -559,7 +559,7 @@ UnapprovalDepositClosingComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](272);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvcGFzc2luZy91bmFwcHJvdmFsL3VuYXBwcm92YWwtZGVwb3NpdC1jbG9zaW5nL3VuYXBwcm92YWwtZGVwb3NpdC1jbG9zaW5nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvcGFzc2luZy91bmFwcHJvdmFsL3VuYXBwcm92YWwtZGVwb3NpdC1jbG9zaW5nL3VuYXBwcm92YWwtZGVwb3NpdC1jbG9zaW5nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvcGFzc2luZy91bmFwcHJvdmFsL3VuYXBwcm92YWwtZGVwb3NpdC1jbG9zaW5nL3VuYXBwcm92YWwtZGVwb3NpdC1jbG9zaW5nLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvcGFzc2luZy91bmFwcHJvdmFsL3VuYXBwcm92YWwtZGVwb3NpdC1jbG9zaW5nL3VuYXBwcm92YWwtZGVwb3NpdC1jbG9zaW5nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](UnapprovalDepositClosingComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -587,6 +587,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _unapproval_deposit_closing_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./unapproval-deposit-closing.component */ "./src/app/theme/passing/unapproval/unapproval-deposit-closing/unapproval-deposit-closing.component.ts");
 /* harmony import */ var _unapproval_deposit_closing_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./unapproval-deposit-closing-routing.module */ "./src/app/theme/passing/unapproval/unapproval-deposit-closing/unapproval-deposit-closing-routing.module.ts");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -596,7 +600,11 @@ __webpack_require__.r(__webpack_exports__);
 class UnapprovalDepositClosingModule {
 }
 UnapprovalDepositClosingModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: UnapprovalDepositClosingModule });
-UnapprovalDepositClosingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function UnapprovalDepositClosingModule_Factory(t) { return new (t || UnapprovalDepositClosingModule)(); }, imports: [[
+UnapprovalDepositClosingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function UnapprovalDepositClosingModule_Factory(t) { return new (t || UnapprovalDepositClosingModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _unapproval_deposit_closing_routing_module__WEBPACK_IMPORTED_MODULE_3__["UnapprovalDepositClosingRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
@@ -612,7 +620,12 @@ UnapprovalDepositClosingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0_
                     _unapproval_deposit_closing_routing_module__WEBPACK_IMPORTED_MODULE_3__["UnapprovalDepositClosingRoutingModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
                 ],
-                declarations: [_unapproval_deposit_closing_component__WEBPACK_IMPORTED_MODULE_2__["UnapprovalDepositClosingComponent"]]
+                declarations: [_unapproval_deposit_closing_component__WEBPACK_IMPORTED_MODULE_2__["UnapprovalDepositClosingComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

@@ -496,7 +496,7 @@ PigmyChartEntryComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ�
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](8);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions1);
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_12__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_12__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_12__["NgForm"], ng_select__WEBPACK_IMPORTED_MODULE_13__["SelectComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_14__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_14__["NgIf"], angular_datatables__WEBPACK_IMPORTED_MODULE_15__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vcGlnbXktY2hhcnQtZW50cnkvcGlnbXktY2hhcnQtZW50cnkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFVO0FBQ2QiLCJmaWxlIjoic3JjL2FwcC90aGVtZS90cmFuc2FjdGlvbi9waWdteS1jaGFydC1lbnRyeS9waWdteS1jaGFydC1lbnRyeS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZXF1aXJlZCB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gfSJdfQ== */"] });
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_12__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_12__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_12__["NgForm"], ng_select__WEBPACK_IMPORTED_MODULE_13__["SelectComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_14__["NgClass"], _angular_common__WEBPACK_IMPORTED_MODULE_14__["NgIf"], angular_datatables__WEBPACK_IMPORTED_MODULE_15__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vcGlnbXktY2hhcnQtZW50cnkvcGlnbXktY2hhcnQtZW50cnkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFBO0FBQ0oiLCJmaWxlIjoic3JjL2FwcC90aGVtZS90cmFuc2FjdGlvbi9waWdteS1jaGFydC1lbnRyeS9waWdteS1jaGFydC1lbnRyeS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZXF1aXJlZCB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gfSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](PigmyChartEntryComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -531,6 +531,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
 /* harmony import */ var _shared_elements_scheme_code_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../shared/elements/scheme-code.service */ "./src/app/shared/elements/scheme-code.service.ts");
 /* harmony import */ var _shared_elements_agent_code_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../shared/elements/agent-code.service */ "./src/app/shared/elements/agent-code.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -547,7 +551,11 @@ __webpack_require__.r(__webpack_exports__);
 class PigmyChartEntryModule {
 }
 PigmyChartEntryModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: PigmyChartEntryModule });
-PigmyChartEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function PigmyChartEntryModule_Factory(t) { return new (t || PigmyChartEntryModule)(); }, providers: [_shared_elements_scheme_code_service__WEBPACK_IMPORTED_MODULE_10__["SchemeCodeService"], _shared_elements_agent_code_service__WEBPACK_IMPORTED_MODULE_11__["AgentCodeService"]], imports: [[
+PigmyChartEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function PigmyChartEntryModule_Factory(t) { return new (t || PigmyChartEntryModule)(); }, providers: [_shared_elements_scheme_code_service__WEBPACK_IMPORTED_MODULE_10__["SchemeCodeService"], _shared_elements_agent_code_service__WEBPACK_IMPORTED_MODULE_11__["AgentCodeService"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_13__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModule"],
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _pigmy_chart_entry_routing_module__WEBPACK_IMPORTED_MODULE_3__["PigmyChartEntryRoutingModule"],
@@ -579,7 +587,11 @@ PigmyChartEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵde
                     ng_select__WEBPACK_IMPORTED_MODULE_6__["SelectModule"]
                 ],
                 declarations: [_pigmy_chart_entry_component__WEBPACK_IMPORTED_MODULE_2__["PigmyChartEntryComponent"]],
-                providers: [_shared_elements_scheme_code_service__WEBPACK_IMPORTED_MODULE_10__["SchemeCodeService"], _shared_elements_agent_code_service__WEBPACK_IMPORTED_MODULE_11__["AgentCodeService"]]
+                providers: [_shared_elements_scheme_code_service__WEBPACK_IMPORTED_MODULE_10__["SchemeCodeService"], _shared_elements_agent_code_service__WEBPACK_IMPORTED_MODULE_11__["AgentCodeService"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_13__["UserAuthInterceptor"],
+                        multi: true
+                    },],
             }]
     }], null, null); })();
 

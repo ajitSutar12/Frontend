@@ -103,7 +103,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dividend_pay_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dividend-pay.component */ "./src/app/theme/transaction/dividend-pay/dividend-pay.component.ts");
 /* harmony import */ var _dividend_pay_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dividend-pay-routing.module */ "./src/app/theme/transaction/dividend-pay/dividend-pay-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
-
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
@@ -111,10 +112,17 @@ __webpack_require__.r(__webpack_exports__);
 
 //import { DividendPaidMarkSDComponent } from './dividend-paid-mark-sd/dividend-paid-mark-sd.component';
 //import { DividendPaidSDComponent } from './dividend-paid-sd/dividend-paid-sd.component';
+
+
+
 class DividendPayModule {
 }
 DividendPayModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: DividendPayModule });
-DividendPayModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DividendPayModule_Factory(t) { return new (t || DividendPayModule)(); }, imports: [[
+DividendPayModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DividendPayModule_Factory(t) { return new (t || DividendPayModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _dividend_pay_routing_module__WEBPACK_IMPORTED_MODULE_3__["DividendPayRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -130,7 +138,12 @@ DividendPayModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
                     _dividend_pay_routing_module__WEBPACK_IMPORTED_MODULE_3__["DividendPayRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                 ],
-                declarations: [_dividend_pay_component__WEBPACK_IMPORTED_MODULE_2__["DividendPayComponent"]]
+                declarations: [_dividend_pay_component__WEBPACK_IMPORTED_MODULE_2__["DividendPayComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

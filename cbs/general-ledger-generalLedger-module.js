@@ -62,15 +62,15 @@ const routes = [
         children: [
             {
                 path: 'gl-statement-code',
-                loadChildren: () => Promise.all(/*! import() | gl-statement-code-gl-statement-code-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("gl-statement-code-gl-statement-code-module")]).then(__webpack_require__.bind(null, /*! ./gl-statement-code/gl-statement-code.module */ "./src/app/theme/master/general-ledger/gl-statement-code/gl-statement-code.module.ts")).then(m => m.GlStatementCodeModule)
+                loadChildren: () => Promise.all(/*! import() | gl-statement-code-gl-statement-code-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("gl-statement-code-gl-statement-code-module")]).then(__webpack_require__.bind(null, /*! ./gl-statement-code/gl-statement-code.module */ "./src/app/theme/master/general-ledger/gl-statement-code/gl-statement-code.module.ts")).then(m => m.GlStatementCodeModule)
             },
             {
                 path: 'gl-accounts-master',
-                loadChildren: () => Promise.all(/*! import() | gl-accounts-master-gl-account-master-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("common"), __webpack_require__.e("gl-accounts-master-gl-account-master-module")]).then(__webpack_require__.bind(null, /*! ./gl-accounts-master/gl-account-master.module */ "./src/app/theme/master/general-ledger/gl-accounts-master/gl-account-master.module.ts")).then(m => m.GlAccountsMasterModule)
+                loadChildren: () => Promise.all(/*! import() | gl-accounts-master-gl-account-master-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("common"), __webpack_require__.e("gl-accounts-master-gl-account-master-module")]).then(__webpack_require__.bind(null, /*! ./gl-accounts-master/gl-account-master.module */ "./src/app/theme/master/general-ledger/gl-accounts-master/gl-account-master.module.ts")).then(m => m.GlAccountsMasterModule)
             },
             {
                 path: 'gl-report-master',
-                loadChildren: () => Promise.all(/*! import() | gl-report-master-gl-report-master-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("gl-report-master-gl-report-master-module")]).then(__webpack_require__.bind(null, /*! ./gl-report-master/gl-report-master.module */ "./src/app/theme/master/general-ledger/gl-report-master/gl-report-master.module.ts")).then(m => m.GlReportMasterModule)
+                loadChildren: () => Promise.all(/*! import() | gl-report-master-gl-report-master-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("gl-report-master-gl-report-master-module")]).then(__webpack_require__.bind(null, /*! ./gl-report-master/gl-report-master.module */ "./src/app/theme/master/general-ledger/gl-report-master/gl-report-master.module.ts")).then(m => m.GlReportMasterModule)
             },
             {
                 path: 'gl-report-linking',
@@ -78,7 +78,7 @@ const routes = [
             },
             {
                 path: 'budget-master',
-                loadChildren: () => Promise.all(/*! import() | budget-master-budgest-master-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("budget-master-budgest-master-module")]).then(__webpack_require__.bind(null, /*! ./budget-master/budgest-master.module */ "./src/app/theme/master/general-ledger/budget-master/budgest-master.module.ts")).then(m => m.BudgetMasterModule)
+                loadChildren: () => Promise.all(/*! import() | budget-master-budgest-master-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("budget-master-budgest-master-module")]).then(__webpack_require__.bind(null, /*! ./budget-master/budgest-master.module */ "./src/app/theme/master/general-ledger/budget-master/budgest-master.module.ts")).then(m => m.BudgetMasterModule)
             },
         ]
     }
@@ -116,6 +116,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
 /* harmony import */ var _shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../shared/elements/select-option.service */ "./src/app/shared/elements/select-option.service.ts");
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -127,7 +131,12 @@ __webpack_require__.r(__webpack_exports__);
 class GeneralLedgerModule {
 }
 GeneralLedgerModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: GeneralLedgerModule });
-GeneralLedgerModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function GeneralLedgerModule_Factory(t) { return new (t || GeneralLedgerModule)(); }, providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_5__["SelectOptionService"]], imports: [[
+GeneralLedgerModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function GeneralLedgerModule_Factory(t) { return new (t || GeneralLedgerModule)(); }, providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_5__["SelectOptionService"],
+        {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _generalLedger_routing_module__WEBPACK_IMPORTED_MODULE_3__["GeneralLedgerRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
@@ -147,7 +156,12 @@ GeneralLedgerModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
                     ng_select__WEBPACK_IMPORTED_MODULE_6__["SelectModule"]
                 ],
                 declarations: [_general_ledger_component__WEBPACK_IMPORTED_MODULE_2__["GeneralLedgerComponent"]],
-                providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_5__["SelectOptionService"]]
+                providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_5__["SelectOptionService"],
+                    {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

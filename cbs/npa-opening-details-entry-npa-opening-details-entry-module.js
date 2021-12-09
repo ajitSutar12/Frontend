@@ -678,6 +678,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/__ivy_ngcc__/fesm2015/ng-bootstrap.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
 /* harmony import */ var _npa_opening_details_entry_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./npa-opening-details-entry.service */ "./src/app/theme/master/maintainance/npa-opening-details-entry/npa-opening-details-entry.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -695,7 +699,11 @@ __webpack_require__.r(__webpack_exports__);
 class NpaOpeningDetailsEntryModule {
 }
 NpaOpeningDetailsEntryModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: NpaOpeningDetailsEntryModule, bootstrap: [_npa_opening_details_entry_component__WEBPACK_IMPORTED_MODULE_2__["NpaOpeningDetailsEntryComponent"]] });
-NpaOpeningDetailsEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function NpaOpeningDetailsEntryModule_Factory(t) { return new (t || NpaOpeningDetailsEntryModule)(); }, providers: [_shared_elements_statment_type_service__WEBPACK_IMPORTED_MODULE_5__["StatementTypeService"], _shared_elements_s5_service__WEBPACK_IMPORTED_MODULE_6__["S5Service"], _shared_elements_ac5_service__WEBPACK_IMPORTED_MODULE_7__["Ac5Service"], _shared_elements_s16_service__WEBPACK_IMPORTED_MODULE_8__["S16Service"], _npa_opening_details_entry_service__WEBPACK_IMPORTED_MODULE_12__["NpaOpeningDetailsEntryService"]], imports: [[
+NpaOpeningDetailsEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function NpaOpeningDetailsEntryModule_Factory(t) { return new (t || NpaOpeningDetailsEntryModule)(); }, providers: [_shared_elements_statment_type_service__WEBPACK_IMPORTED_MODULE_5__["StatementTypeService"], _shared_elements_s5_service__WEBPACK_IMPORTED_MODULE_6__["S5Service"], _shared_elements_ac5_service__WEBPACK_IMPORTED_MODULE_7__["Ac5Service"], _shared_elements_s16_service__WEBPACK_IMPORTED_MODULE_8__["S16Service"], _npa_opening_details_entry_service__WEBPACK_IMPORTED_MODULE_12__["NpaOpeningDetailsEntryService"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_14__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_10__["NgbModule"],
             _npa_opening_details_entry_routing_module__WEBPACK_IMPORTED_MODULE_3__["NpaOpeningDetailsEntryRoutingModule"],
@@ -723,7 +731,11 @@ NpaOpeningDetailsEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
                     _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"],
                     _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ReactiveFormsModule"]
                 ],
-                providers: [_shared_elements_statment_type_service__WEBPACK_IMPORTED_MODULE_5__["StatementTypeService"], _shared_elements_s5_service__WEBPACK_IMPORTED_MODULE_6__["S5Service"], _shared_elements_ac5_service__WEBPACK_IMPORTED_MODULE_7__["Ac5Service"], _shared_elements_s16_service__WEBPACK_IMPORTED_MODULE_8__["S16Service"], _npa_opening_details_entry_service__WEBPACK_IMPORTED_MODULE_12__["NpaOpeningDetailsEntryService"]],
+                providers: [_shared_elements_statment_type_service__WEBPACK_IMPORTED_MODULE_5__["StatementTypeService"], _shared_elements_s5_service__WEBPACK_IMPORTED_MODULE_6__["S5Service"], _shared_elements_ac5_service__WEBPACK_IMPORTED_MODULE_7__["Ac5Service"], _shared_elements_s16_service__WEBPACK_IMPORTED_MODULE_8__["S16Service"], _npa_opening_details_entry_service__WEBPACK_IMPORTED_MODULE_12__["NpaOpeningDetailsEntryService"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_14__["UserAuthInterceptor"],
+                        multi: true
+                    },],
                 declarations: [_npa_opening_details_entry_component__WEBPACK_IMPORTED_MODULE_2__["NpaOpeningDetailsEntryComponent"]],
                 bootstrap: [_npa_opening_details_entry_component__WEBPACK_IMPORTED_MODULE_2__["NpaOpeningDetailsEntryComponent"]]
             }]

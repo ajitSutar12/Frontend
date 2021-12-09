@@ -271,7 +271,7 @@ DividendPaidSDComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵ
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](102);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vZGl2aWRlbmQtcGF5L2RpdmlkZW5kLXBhaWQtc2QvZGl2aWRlbmQtcGFpZC1zZC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQVU7QUFDZCIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3RyYW5zYWN0aW9uL2RpdmlkZW5kLXBheS9kaXZpZGVuZC1wYWlkLXNkL2RpdmlkZW5kLXBhaWQtc2QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdHJhbnNhY3Rpb24vZGl2aWRlbmQtcGF5L2RpdmlkZW5kLXBhaWQtc2QvZGl2aWRlbmQtcGFpZC1zZC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3RyYW5zYWN0aW9uL2RpdmlkZW5kLXBheS9kaXZpZGVuZC1wYWlkLXNkL2RpdmlkZW5kLXBhaWQtc2QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](DividendPaidSDComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -297,8 +297,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var _dividend_paid_sd_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dividend-paid-sd-routing.module */ "./src/app/theme/transaction/dividend-pay/dividend-paid-sd/dividend-paid-sd-routing.module.ts");
-/* harmony import */ var _dividend_paid_sd_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dividend-paid-sd.component */ "./src/app/theme/transaction/dividend-pay/dividend-paid-sd/dividend-paid-sd.component.ts");
-/* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+/* harmony import */ var _dividend_paid_sd_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dividend-paid-sd.component */ "./src/app/theme/transaction/dividend-pay/dividend-paid-sd/dividend-paid-sd.component.ts");
+/* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+
+
 
 
 
@@ -308,23 +312,32 @@ __webpack_require__.r(__webpack_exports__);
 class DividendPaidSDModule {
 }
 DividendPaidSDModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: DividendPaidSDModule });
-DividendPaidSDModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DividendPaidSDModule_Factory(t) { return new (t || DividendPaidSDModule)(); }, imports: [[
+DividendPaidSDModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DividendPaidSDModule_Factory(t) { return new (t || DividendPaidSDModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_4__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _dividend_paid_sd_routing_module__WEBPACK_IMPORTED_MODULE_2__["DividendPaidSDRoutingModule"],
-            angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
+            angular_datatables__WEBPACK_IMPORTED_MODULE_6__["DataTablesModule"]
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](DividendPaidSDModule, { declarations: [_dividend_paid_sd_component__WEBPACK_IMPORTED_MODULE_3__["DividendPaidSDComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](DividendPaidSDModule, { declarations: [_dividend_paid_sd_component__WEBPACK_IMPORTED_MODULE_5__["DividendPaidSDComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
         _dividend_paid_sd_routing_module__WEBPACK_IMPORTED_MODULE_2__["DividendPaidSDRoutingModule"],
-        angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]] }); })();
+        angular_datatables__WEBPACK_IMPORTED_MODULE_6__["DataTablesModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](DividendPaidSDModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
                 imports: [
                     _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                     _dividend_paid_sd_routing_module__WEBPACK_IMPORTED_MODULE_2__["DividendPaidSDRoutingModule"],
-                    angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
+                    angular_datatables__WEBPACK_IMPORTED_MODULE_6__["DataTablesModule"]
                 ],
-                declarations: [_dividend_paid_sd_component__WEBPACK_IMPORTED_MODULE_3__["DividendPaidSDComponent"]]
+                declarations: [_dividend_paid_sd_component__WEBPACK_IMPORTED_MODULE_5__["DividendPaidSDComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_4__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

@@ -40,8 +40,8 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select  [ngClass]="'ng-select'" [options]="prifix" name="AC_TITLE" [multiple]="false"
-                                    placeholder="Title *" required title="Compulsory Selection"
+                                <ng-select  [ngClass]="'ng-select'" [options]="prifix" name="AC_TITLE" [multiple]="false" id="title"
+                                    placeholder="Title *" required title="Compulsory Selection"  
                                     formControlName="AC_TITLE">
                                 </ng-select>
                             </div>
@@ -57,9 +57,10 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input  type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
-                                         #lastname required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase;"
+                                         required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase;" #lastname
                                         [(ngModel)]="lname" title = "Input allowed only A-Z" formControlName="L_NAME">
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
+                                    
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -222,7 +223,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" formControlName="AC_HONO" name="AC_HONO" class="form-control"
-                                        placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
+                                        placeholder=" " 
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_HONO">
                                     <label for="AC_HONO">House</label>
                                 </span>
@@ -274,7 +275,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_GALLI" class="form-control" placeholder=" "
-                                        pattern="^[A-Za-z0-9\./ -]+$"
+                                        
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_GALLI"
                                         formControlName="AC_GALLI">
                                     <label for="AC_GALLI">Galli</label>
@@ -292,7 +293,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_AREA" class="form-control" placeholder=" "
-                                        pattern="^[A-Za-z0-9\./ -]+$"
+                                      
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_AREA"
                                         formControlName="AC_AREA">
                                     <label for="AC_AREA">Area</label>
@@ -323,8 +324,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PIN" class="form-control" placeholder=" "
+                            
                                         pattern="^[1-9][0-9]{5}" title=" Input allowed only  0-9" maxlength="6"
-                                        minlength="6" id="AC_PIN" formControlName="AC_PIN">
+                                        minlength="6" id="AC_PIN" formControlName="AC_PIN" NumberOnly >
                                     <label for="AC_PIN">Pin Code</label>
                                 </span>
                             </div>
@@ -368,7 +370,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PHONE_RES" class="form-control" placeholder=" "
-                                    pattern="[7-9 0]{1}[0-9]{9,10}"  title="Input allowed only  0-9" id="AC_PHONE_RES"
+                                    pattern="[7-9 0]{1}[0-9]{9,10}"  title="Input allowed only  0-9" id="AC_PHONE_RES"  
                                         maxlength="11" minlength="10" formControlName="AC_PHONE_RES">
                                     <label for="AC_PHONE_RES">Residential No.</label>
                                 </span>
@@ -501,7 +503,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input class="form-control" type="text" onfocus="(this.type='date')"
-                                        id="SUBMIT_DATE" max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="SUBMIT_DATE"    
+                                        id="SUBMIT_DATE" max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="SUBMIT_DATE"  
+                                        max="{{datemax | date:'yyyy-MM-dd'}}"    
                                         #subdate   
                                         (focusout)="disablesubdate(subdate.value)" 
                                          placeholder=" "
@@ -664,7 +667,7 @@
                         </div>
                         <div class="col-sm-2">
                             <button class="btn btn-primary ripple light" *ngIf="newbtnShow"
-                                (click)="addNewData()">New</button>
+                                (click)="addNewData()">Cancel</button>
                         </div>
                      </div>
                 </form>

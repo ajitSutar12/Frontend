@@ -39,7 +39,7 @@ FreezeAccountRoutingModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
                 imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
-                exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
+                exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]],
             }]
     }], null, null); })();
 
@@ -63,10 +63,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
 /* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
-/* harmony import */ var _shared_dropdownService_dpmasterACNo_dropdown_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/dropdownService/dpmasterACNo-dropdown.service */ "./src/app/shared/dropdownService/dpmasterACNo-dropdown.service.ts");
-/* harmony import */ var _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../shared/dropdownService/scheme-code-dropdown.service */ "./src/app/shared/dropdownService/scheme-code-dropdown.service.ts");
-/* harmony import */ var _shared_dropdownService_customer_id_master_dropdown_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../shared/dropdownService/customer-id-master-dropdown.service */ "./src/app/shared/dropdownService/customer-id-master-dropdown.service.ts");
-/* harmony import */ var _freeze_account_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./freeze-account.service */ "./src/app/theme/master/instruction/freeze-account/freeze-account.service.ts");
+/* harmony import */ var _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../shared/dropdownService/scheme-code-dropdown.service */ "./src/app/shared/dropdownService/scheme-code-dropdown.service.ts");
+/* harmony import */ var _freeze_account_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./freeze-account.service */ "./src/app/theme/master/instruction/freeze-account/freeze-account.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+/* harmony import */ var _shared_dropdownService_schemeAccountNo_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../shared/dropdownService/schemeAccountNo.service */ "./src/app/shared/dropdownService/schemeAccountNo.service.ts");
+
 
 
 
@@ -82,7 +84,11 @@ __webpack_require__.r(__webpack_exports__);
 class FreezeAccountModule {
 }
 FreezeAccountModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: FreezeAccountModule });
-FreezeAccountModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function FreezeAccountModule_Factory(t) { return new (t || FreezeAccountModule)(); }, providers: [_shared_dropdownService_freeze_account_service__WEBPACK_IMPORTED_MODULE_3__["freezeAccountService"], _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_8__["SchemeCodeDropdownService"], _shared_dropdownService_dpmasterACNo_dropdown_service__WEBPACK_IMPORTED_MODULE_7__["DPMasterACNODropdownService"], _freeze_account_service__WEBPACK_IMPORTED_MODULE_10__["FreezeAccountService"], _shared_dropdownService_customer_id_master_dropdown_service__WEBPACK_IMPORTED_MODULE_9__["CustomerIDMasterDropdownService"]], imports: [[
+FreezeAccountModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function FreezeAccountModule_Factory(t) { return new (t || FreezeAccountModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+            multi: true
+        }, _shared_dropdownService_freeze_account_service__WEBPACK_IMPORTED_MODULE_3__["freezeAccountService"], _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_7__["SchemeCodeDropdownService"], _shared_dropdownService_schemeAccountNo_service__WEBPACK_IMPORTED_MODULE_11__["SchemeAccountNoService"], _freeze_account_service__WEBPACK_IMPORTED_MODULE_8__["FreezeAccountService"]], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             ng_select__WEBPACK_IMPORTED_MODULE_4__["SelectModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_5__["DataTablesModule"],
@@ -108,7 +114,11 @@ FreezeAccountModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefi
                     _angular_forms__WEBPACK_IMPORTED_MODULE_6__["ReactiveFormsModule"]
                 ],
                 declarations: [],
-                providers: [_shared_dropdownService_freeze_account_service__WEBPACK_IMPORTED_MODULE_3__["freezeAccountService"], _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_8__["SchemeCodeDropdownService"], _shared_dropdownService_dpmasterACNo_dropdown_service__WEBPACK_IMPORTED_MODULE_7__["DPMasterACNODropdownService"], _freeze_account_service__WEBPACK_IMPORTED_MODULE_10__["FreezeAccountService"], _shared_dropdownService_customer_id_master_dropdown_service__WEBPACK_IMPORTED_MODULE_9__["CustomerIDMasterDropdownService"]]
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+                        multi: true
+                    }, _shared_dropdownService_freeze_account_service__WEBPACK_IMPORTED_MODULE_3__["freezeAccountService"], _shared_dropdownService_scheme_code_dropdown_service__WEBPACK_IMPORTED_MODULE_7__["SchemeCodeDropdownService"], _shared_dropdownService_schemeAccountNo_service__WEBPACK_IMPORTED_MODULE_11__["SchemeAccountNoService"], _freeze_account_service__WEBPACK_IMPORTED_MODULE_8__["FreezeAccountService"]]
             }]
     }], null, null); })();
 

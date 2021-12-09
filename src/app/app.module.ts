@@ -16,7 +16,8 @@ import { HotKeysComponent } from './theme/hot-keys/hot-keys.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { AuthInterceptorServices } from '../app/theme/auth/auth.interceptor.service';
 import { UserAuthInterceptor } from './user-auth.interceptor';
-import {ConnectionServiceModule} from 'ng-connection-service';   
+import {ConnectionServiceModule} from 'ng-connection-service';  
+import{StrictNumberOnlyDirective} from'././restrictinput';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import {ConnectionServiceModule} from 'ng-connection-service';
     AuthComponent,
     BreadcrumbsComponent,
     HotKeysComponent,
+    StrictNumberOnlyDirective
   
   ],
   imports: [

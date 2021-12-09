@@ -98,17 +98,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mis_reports_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mis-reports.component */ "./src/app/theme/reports/mis-reports/mis-reports.component.ts");
 /* harmony import */ var _misReports_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./misReports-routing.module */ "./src/app/theme/reports/mis-reports/misReports-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
-
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
 
 
 // import {ChartModule} from 'angular2-chartjs';
+
+
+
 class MisReportsModule {
 }
 MisReportsModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: MisReportsModule });
-MisReportsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function MisReportsModule_Factory(t) { return new (t || MisReportsModule)(); }, imports: [[
+MisReportsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function MisReportsModule_Factory(t) { return new (t || MisReportsModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },
+    ], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _misReports_routing_module__WEBPACK_IMPORTED_MODULE_3__["MisReportsRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -124,7 +133,13 @@ MisReportsModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineI
                     _misReports_routing_module__WEBPACK_IMPORTED_MODULE_3__["MisReportsRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                 ],
-                declarations: [_mis_reports_component__WEBPACK_IMPORTED_MODULE_2__["MisReportsComponent"]]
+                declarations: [_mis_reports_component__WEBPACK_IMPORTED_MODULE_2__["MisReportsComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },
+                ]
             }]
     }], null, null); })();
 

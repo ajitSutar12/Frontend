@@ -73,6 +73,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var _bootstrap_table_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./bootstrap-table-routing.module */ "./src/app/theme/table/bootstrap-table/bootstrap-table-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -81,7 +85,11 @@ __webpack_require__.r(__webpack_exports__);
 class BootstrapTableModule {
 }
 BootstrapTableModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: BootstrapTableModule });
-BootstrapTableModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function BootstrapTableModule_Factory(t) { return new (t || BootstrapTableModule)(); }, imports: [[
+BootstrapTableModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function BootstrapTableModule_Factory(t) { return new (t || BootstrapTableModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_5__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _bootstrap_table_routing_module__WEBPACK_IMPORTED_MODULE_2__["BootstrapTableRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"]
@@ -97,7 +105,12 @@ BootstrapTableModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
                     _bootstrap_table_routing_module__WEBPACK_IMPORTED_MODULE_2__["BootstrapTableRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"]
                 ],
-                declarations: []
+                declarations: [],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_5__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

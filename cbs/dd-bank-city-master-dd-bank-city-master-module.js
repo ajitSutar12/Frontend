@@ -177,7 +177,7 @@ DDBankCityMasterComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵ
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](39);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2RkLWJhbmstY2l0eS1tYXN0ZXIvZGQtYmFuay1jaXR5LW1hc3Rlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQVU7QUFDZCIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL21hc3Rlci9kZC1iYW5rLWNpdHktbWFzdGVyL2RkLWJhbmstY2l0eS1tYXN0ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2RkLWJhbmstY2l0eS1tYXN0ZXIvZGQtYmFuay1jaXR5LW1hc3Rlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL21hc3Rlci9kZC1iYW5rLWNpdHktbWFzdGVyL2RkLWJhbmstY2l0eS1tYXN0ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](DDBankCityMasterComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -205,7 +205,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dd_bank_city_master_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dd-bank-city-master.component */ "./src/app/theme/master/dd-bank-city-master/dd-bank-city-master.component.ts");
 /* harmony import */ var _dd_bank_city_master_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dd-bank-city-master-routing.module */ "./src/app/theme/master/dd-bank-city-master/dd-bank-city-master-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
-/* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+/* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+
+
 
 
 
@@ -216,16 +220,20 @@ __webpack_require__.r(__webpack_exports__);
 class DDBankCityMasterModule {
 }
 DDBankCityMasterModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: DDBankCityMasterModule });
-DDBankCityMasterModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DDBankCityMasterModule_Factory(t) { return new (t || DDBankCityMasterModule)(); }, imports: [[
+DDBankCityMasterModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function DDBankCityMasterModule_Factory(t) { return new (t || DDBankCityMasterModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _dd_bank_city_master_routing_module__WEBPACK_IMPORTED_MODULE_3__["DDBankCityMasterRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
-            angular_datatables__WEBPACK_IMPORTED_MODULE_5__["DataTablesModule"]
+            angular_datatables__WEBPACK_IMPORTED_MODULE_7__["DataTablesModule"]
         ]] });
 (function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](DDBankCityMasterModule, { declarations: [_dd_bank_city_master_component__WEBPACK_IMPORTED_MODULE_2__["DDBankCityMasterComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
         _dd_bank_city_master_routing_module__WEBPACK_IMPORTED_MODULE_3__["DDBankCityMasterRoutingModule"],
         _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
-        angular_datatables__WEBPACK_IMPORTED_MODULE_5__["DataTablesModule"]] }); })();
+        angular_datatables__WEBPACK_IMPORTED_MODULE_7__["DataTablesModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](DDBankCityMasterModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
@@ -233,9 +241,14 @@ DDBankCityMasterModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
                     _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                     _dd_bank_city_master_routing_module__WEBPACK_IMPORTED_MODULE_3__["DDBankCityMasterRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
-                    angular_datatables__WEBPACK_IMPORTED_MODULE_5__["DataTablesModule"]
+                    angular_datatables__WEBPACK_IMPORTED_MODULE_7__["DataTablesModule"]
                 ],
-                declarations: [_dd_bank_city_master_component__WEBPACK_IMPORTED_MODULE_2__["DDBankCityMasterComponent"]]
+                declarations: [_dd_bank_city_master_component__WEBPACK_IMPORTED_MODULE_2__["DDBankCityMasterComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

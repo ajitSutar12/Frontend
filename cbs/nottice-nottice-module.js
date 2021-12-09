@@ -97,17 +97,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nottice_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nottice.component */ "./src/app/theme/reports/nottice/nottice.component.ts");
 /* harmony import */ var _nottice_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./nottice-routing.module */ "./src/app/theme/reports/nottice/nottice-routing.module.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
-
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
 
 
 // import {ChartModule} from 'angular2-chartjs';
+
+
+
 class NotticeModule {
 }
 NotticeModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: NotticeModule });
-NotticeModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function NotticeModule_Factory(t) { return new (t || NotticeModule)(); }, imports: [[
+NotticeModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function NotticeModule_Factory(t) { return new (t || NotticeModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _nottice_routing_module__WEBPACK_IMPORTED_MODULE_3__["NotticeRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
@@ -123,7 +131,12 @@ NotticeModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInje
                     _nottice_routing_module__WEBPACK_IMPORTED_MODULE_3__["NotticeRoutingModule"],
                     _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
                 ],
-                declarations: [_nottice_component__WEBPACK_IMPORTED_MODULE_2__["NotticeComponent"]]
+                declarations: [_nottice_component__WEBPACK_IMPORTED_MODULE_2__["NotticeComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

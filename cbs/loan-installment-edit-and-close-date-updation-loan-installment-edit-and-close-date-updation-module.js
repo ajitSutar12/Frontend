@@ -463,6 +463,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _loan_installment_edit_and_close_date_updation_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./loan-installment-edit-and-close-date-updation.component */ "./src/app/theme/master/balance-entry/loan-installment-edit-and-close-date-updation/loan-installment-edit-and-close-date-updation.component.ts");
 /* harmony import */ var _shared_elements_scheme_code_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../shared/elements/scheme-code.service */ "./src/app/shared/elements/scheme-code.service.ts");
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -475,7 +479,11 @@ __webpack_require__.r(__webpack_exports__);
 class ReconciliationTransactionEntryModule {
 }
 ReconciliationTransactionEntryModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: ReconciliationTransactionEntryModule });
-ReconciliationTransactionEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function ReconciliationTransactionEntryModule_Factory(t) { return new (t || ReconciliationTransactionEntryModule)(); }, providers: [_shared_elements_scheme_code_service__WEBPACK_IMPORTED_MODULE_6__["SchemeCodeService"]], imports: [[
+ReconciliationTransactionEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function ReconciliationTransactionEntryModule_Factory(t) { return new (t || ReconciliationTransactionEntryModule)(); }, providers: [_shared_elements_scheme_code_service__WEBPACK_IMPORTED_MODULE_6__["SchemeCodeService"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_9__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _loan_installment_edit_and_close_date_updation_routing_module__WEBPACK_IMPORTED_MODULE_4__["LoanInstallmentEditAndCloseDateUpdationRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_2__["DataTablesModule"],
@@ -498,7 +506,11 @@ ReconciliationTransactionEntryModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MOD
                     ng_select__WEBPACK_IMPORTED_MODULE_7__["SelectModule"]
                 ],
                 declarations: [_loan_installment_edit_and_close_date_updation_component__WEBPACK_IMPORTED_MODULE_5__["LoanInstallmentEditAndCloseDateUpdationComponent"]],
-                providers: [_shared_elements_scheme_code_service__WEBPACK_IMPORTED_MODULE_6__["SchemeCodeService"]]
+                providers: [_shared_elements_scheme_code_service__WEBPACK_IMPORTED_MODULE_6__["SchemeCodeService"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_9__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

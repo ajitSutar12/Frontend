@@ -114,6 +114,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../shared/elements/select-option.service */ "./src/app/shared/elements/select-option.service.ts");
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/__ivy_ngcc__/fesm2015/ng-bootstrap.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
@@ -129,10 +131,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 class UnapprovalModule {
 }
 UnapprovalModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: UnapprovalModule });
-UnapprovalModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function UnapprovalModule_Factory(t) { return new (t || UnapprovalModule)(); }, providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_6__["SelectOptionService"]], imports: [[
+UnapprovalModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function UnapprovalModule_Factory(t) { return new (t || UnapprovalModule)(); }, providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_6__["SelectOptionService"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _unapproval_routing_module__WEBPACK_IMPORTED_MODULE_3__["UnapprovalRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
@@ -158,7 +166,11 @@ UnapprovalModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineI
                     _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_8__["NgbModule"]
                 ],
                 declarations: [_unapproval_component__WEBPACK_IMPORTED_MODULE_2__["UnapprovalComponent"]],
-                providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_6__["SelectOptionService"]]
+                providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_6__["SelectOptionService"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

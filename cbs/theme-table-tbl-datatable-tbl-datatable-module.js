@@ -690,6 +690,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
 /* harmony import */ var _tbl_searching_tbl_searching_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tbl-searching/tbl-searching.component */ "./src/app/theme/table/tbl-datatable/tbl-searching/tbl-searching.component.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -702,7 +706,11 @@ __webpack_require__.r(__webpack_exports__);
 class TblDatatableModule {
 }
 TblDatatableModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: TblDatatableModule });
-TblDatatableModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function TblDatatableModule_Factory(t) { return new (t || TblDatatableModule)(); }, imports: [[
+TblDatatableModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function TblDatatableModule_Factory(t) { return new (t || TblDatatableModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_9__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _tbl_datatable_routing_module__WEBPACK_IMPORTED_MODULE_2__["TblDatatableRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_7__["SharedModule"],
@@ -724,7 +732,12 @@ TblDatatableModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
                     _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"]
                 ],
-                declarations: [_tbl_datatable_component__WEBPACK_IMPORTED_MODULE_3__["TblDatatableComponent"], _tbl_searching_tbl_searching_component__WEBPACK_IMPORTED_MODULE_6__["TblSearchingComponent"]]
+                declarations: [_tbl_datatable_component__WEBPACK_IMPORTED_MODULE_3__["TblDatatableComponent"], _tbl_searching_tbl_searching_component__WEBPACK_IMPORTED_MODULE_6__["TblSearchingComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_9__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

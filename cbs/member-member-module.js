@@ -209,7 +209,7 @@ BalanceAdditionSharesAccountwiseComponent.ɵcmp = _angular_core__WEBPACK_IMPORTE
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](89);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL2JhbGFuY2UtYWRkaXRpb24tc2hhcmVzLWFjY291bnR3aXNlL2JhbGFuY2UtYWRkaXRpb24tc2hhcmVzLWFjY291bnR3aXNlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL2JhbGFuY2UtYWRkaXRpb24tc2hhcmVzLWFjY291bnR3aXNlL2JhbGFuY2UtYWRkaXRpb24tc2hhcmVzLWFjY291bnR3aXNlLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL2JhbGFuY2UtYWRkaXRpb24tc2hhcmVzLWFjY291bnR3aXNlL2JhbGFuY2UtYWRkaXRpb24tc2hhcmVzLWFjY291bnR3aXNlLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL2JhbGFuY2UtYWRkaXRpb24tc2hhcmVzLWFjY291bnR3aXNlL2JhbGFuY2UtYWRkaXRpb24tc2hhcmVzLWFjY291bnR3aXNlLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](BalanceAdditionSharesAccountwiseComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -370,7 +370,7 @@ LoanInstallmentEditComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](50);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL2xvYW4taW5zdGFsbG1lbnQtZWRpdC9sb2FuLWluc3RhbGxtZW50LWVkaXQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFVO0FBQ2QiLCJmaWxlIjoic3JjL2FwcC90aGVtZS9tYXN0ZXIvYmFsYW5jZS1lbnRyeS9tZW1iZXIvbG9hbi1pbnN0YWxsbWVudC1lZGl0L2xvYW4taW5zdGFsbG1lbnQtZWRpdC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZXF1aXJlZCB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gIH0iXX0= */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL2xvYW4taW5zdGFsbG1lbnQtZWRpdC9sb2FuLWluc3RhbGxtZW50LWVkaXQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFBO0FBQ0oiLCJmaWxlIjoic3JjL2FwcC90aGVtZS9tYXN0ZXIvYmFsYW5jZS1lbnRyeS9tZW1iZXIvbG9hbi1pbnN0YWxsbWVudC1lZGl0L2xvYW4taW5zdGFsbG1lbnQtZWRpdC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5yZXF1aXJlZCB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gIH0iXX0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](LoanInstallmentEditComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -516,7 +516,7 @@ MemberBalanceAdditionComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0_
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](39);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL21lbWJlci1iYWxhbmNlLWFkZGl0aW9uL21lbWJlci1iYWxhbmNlLWFkZGl0aW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL21lbWJlci1iYWxhbmNlLWFkZGl0aW9uL21lbWJlci1iYWxhbmNlLWFkZGl0aW9uLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL21lbWJlci1iYWxhbmNlLWFkZGl0aW9uL21lbWJlci1iYWxhbmNlLWFkZGl0aW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL21lbWJlci1iYWxhbmNlLWFkZGl0aW9uL21lbWJlci1iYWxhbmNlLWFkZGl0aW9uLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MemberBalanceAdditionComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -787,7 +787,7 @@ MemberComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineCo
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.loaninstallmenteditTrue);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.sharescancellationTrue);
-    } }, directives: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLinkActive"], _angular_common__WEBPACK_IMPORTED_MODULE_2__["NgIf"], _member_balance_addition_member_balance_addition_component__WEBPACK_IMPORTED_MODULE_3__["MemberBalanceAdditionComponent"], _recovery_installment_recovery_installment_component__WEBPACK_IMPORTED_MODULE_4__["RecoveryInstallmentComponent"], _shares_balance_addition_shares_balance_addition_component__WEBPACK_IMPORTED_MODULE_5__["SharesBalanceAdditionComponent"], _balance_addition_shares_accountwise_balance_addition_shares_accountwise_component__WEBPACK_IMPORTED_MODULE_6__["BalanceAdditionSharesAccountwiseComponent"], _loan_installment_edit_loan_installment_edit_component__WEBPACK_IMPORTED_MODULE_7__["LoanInstallmentEditComponent"], _shares_cancellation_shares_cancellation_component__WEBPACK_IMPORTED_MODULE_8__["SharesCancellationComponent"]], styles: ["#pointer[_ngcontent-%COMP%] {\n  cursor: pointer;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL21lbWJlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGVBQWU7QUFDbkIiLCJmaWxlIjoic3JjL2FwcC90aGVtZS9tYXN0ZXIvYmFsYW5jZS1lbnRyeS9tZW1iZXIvbWVtYmVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI3BvaW50ZXIge1xyXG4gICAgY3Vyc29yOiBwb2ludGVyO1xyXG59Il19 */"] });
+    } }, directives: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterLinkActive"], _angular_common__WEBPACK_IMPORTED_MODULE_2__["NgIf"], _member_balance_addition_member_balance_addition_component__WEBPACK_IMPORTED_MODULE_3__["MemberBalanceAdditionComponent"], _recovery_installment_recovery_installment_component__WEBPACK_IMPORTED_MODULE_4__["RecoveryInstallmentComponent"], _shares_balance_addition_shares_balance_addition_component__WEBPACK_IMPORTED_MODULE_5__["SharesBalanceAdditionComponent"], _balance_addition_shares_accountwise_balance_addition_shares_accountwise_component__WEBPACK_IMPORTED_MODULE_6__["BalanceAdditionSharesAccountwiseComponent"], _loan_installment_edit_loan_installment_edit_component__WEBPACK_IMPORTED_MODULE_7__["LoanInstallmentEditComponent"], _shares_cancellation_shares_cancellation_component__WEBPACK_IMPORTED_MODULE_8__["SharesCancellationComponent"]], styles: ["#pointer[_ngcontent-%COMP%] {\n  cursor: pointer;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL21lbWJlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGVBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL21hc3Rlci9iYWxhbmNlLWVudHJ5L21lbWJlci9tZW1iZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjcG9pbnRlciB7XHJcbiAgICBjdXJzb3I6IHBvaW50ZXI7XHJcbn0iXX0= */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MemberComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -821,6 +821,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _balance_addition_shares_accountwise_balance_addition_shares_accountwise_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./balance-addition-shares-accountwise/balance-addition-shares-accountwise.component */ "./src/app/theme/master/balance-entry/member/balance-addition-shares-accountwise/balance-addition-shares-accountwise.component.ts");
 /* harmony import */ var _loan_installment_edit_loan_installment_edit_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./loan-installment-edit/loan-installment-edit.component */ "./src/app/theme/master/balance-entry/member/loan-installment-edit/loan-installment-edit.component.ts");
 /* harmony import */ var _shares_cancellation_shares_cancellation_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./shares-cancellation/shares-cancellation.component */ "./src/app/theme/master/balance-entry/member/shares-cancellation/shares-cancellation.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
@@ -835,10 +837,16 @@ __webpack_require__.r(__webpack_exports__);
 // import { SharescancellationComponent } from './sharescancellation/sharescancellation.component';
 
 
+
+
 class MemberModule {
 }
 MemberModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: MemberModule });
-MemberModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function MemberModule_Factory(t) { return new (t || MemberModule)(); }, imports: [[
+MemberModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function MemberModule_Factory(t) { return new (t || MemberModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_12__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _member_routing_module__WEBPACK_IMPORTED_MODULE_3__["MemberRoutingModule"],
             angular_datatables__WEBPACK_IMPORTED_MODULE_2__["DataTablesModule"]
@@ -854,7 +862,12 @@ MemberModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjec
                     _member_routing_module__WEBPACK_IMPORTED_MODULE_3__["MemberRoutingModule"],
                     angular_datatables__WEBPACK_IMPORTED_MODULE_2__["DataTablesModule"]
                 ],
-                declarations: [_member_component__WEBPACK_IMPORTED_MODULE_4__["MemberComponent"], _member_component__WEBPACK_IMPORTED_MODULE_4__["MemberComponent"], _member_balance_addition_member_balance_addition_component__WEBPACK_IMPORTED_MODULE_5__["MemberBalanceAdditionComponent"], _recovery_installment_recovery_installment_component__WEBPACK_IMPORTED_MODULE_6__["RecoveryInstallmentComponent"], _shares_balance_addition_shares_balance_addition_component__WEBPACK_IMPORTED_MODULE_7__["SharesBalanceAdditionComponent"], _balance_addition_shares_accountwise_balance_addition_shares_accountwise_component__WEBPACK_IMPORTED_MODULE_8__["BalanceAdditionSharesAccountwiseComponent"], _loan_installment_edit_loan_installment_edit_component__WEBPACK_IMPORTED_MODULE_9__["LoanInstallmentEditComponent"], _shares_cancellation_shares_cancellation_component__WEBPACK_IMPORTED_MODULE_10__["SharesCancellationComponent"]]
+                declarations: [_member_component__WEBPACK_IMPORTED_MODULE_4__["MemberComponent"], _member_component__WEBPACK_IMPORTED_MODULE_4__["MemberComponent"], _member_balance_addition_member_balance_addition_component__WEBPACK_IMPORTED_MODULE_5__["MemberBalanceAdditionComponent"], _recovery_installment_recovery_installment_component__WEBPACK_IMPORTED_MODULE_6__["RecoveryInstallmentComponent"], _shares_balance_addition_shares_balance_addition_component__WEBPACK_IMPORTED_MODULE_7__["SharesBalanceAdditionComponent"], _balance_addition_shares_accountwise_balance_addition_shares_accountwise_component__WEBPACK_IMPORTED_MODULE_8__["BalanceAdditionSharesAccountwiseComponent"], _loan_installment_edit_loan_installment_edit_component__WEBPACK_IMPORTED_MODULE_9__["LoanInstallmentEditComponent"], _shares_cancellation_shares_cancellation_component__WEBPACK_IMPORTED_MODULE_10__["SharesCancellationComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_12__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 
@@ -994,7 +1007,7 @@ RecoveryInstallmentComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__[
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](39);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL3JlY292ZXJ5LWluc3RhbGxtZW50L3JlY292ZXJ5LWluc3RhbGxtZW50LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL3JlY292ZXJ5LWluc3RhbGxtZW50L3JlY292ZXJ5LWluc3RhbGxtZW50LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL3JlY292ZXJ5LWluc3RhbGxtZW50L3JlY292ZXJ5LWluc3RhbGxtZW50LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL3JlY292ZXJ5LWluc3RhbGxtZW50L3JlY292ZXJ5LWluc3RhbGxtZW50LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](RecoveryInstallmentComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -1166,7 +1179,7 @@ SharesBalanceAdditionComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0_
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](56);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL3NoYXJlcy1iYWxhbmNlLWFkZGl0aW9uL3NoYXJlcy1iYWxhbmNlLWFkZGl0aW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL3NoYXJlcy1iYWxhbmNlLWFkZGl0aW9uL3NoYXJlcy1iYWxhbmNlLWFkZGl0aW9uLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL3NoYXJlcy1iYWxhbmNlLWFkZGl0aW9uL3NoYXJlcy1iYWxhbmNlLWFkZGl0aW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL3NoYXJlcy1iYWxhbmNlLWFkZGl0aW9uL3NoYXJlcy1iYWxhbmNlLWFkZGl0aW9uLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiAgfSJdfQ== */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SharesBalanceAdditionComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -1327,7 +1340,7 @@ SharesCancellationComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](50);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL3NoYXJlcy1jYW5jZWxsYXRpb24vc2hhcmVzLWNhbmNlbGxhdGlvbi5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQVU7QUFDZCIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL21hc3Rlci9iYWxhbmNlLWVudHJ5L21lbWJlci9zaGFyZXMtY2FuY2VsbGF0aW9uL3NoYXJlcy1jYW5jZWxsYXRpb24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
+    } }, directives: [angular_datatables__WEBPACK_IMPORTED_MODULE_1__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvbWFzdGVyL2JhbGFuY2UtZW50cnkvbWVtYmVyL3NoYXJlcy1jYW5jZWxsYXRpb24vc2hhcmVzLWNhbmNlbGxhdGlvbi5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL21hc3Rlci9iYWxhbmNlLWVudHJ5L21lbWJlci9zaGFyZXMtY2FuY2VsbGF0aW9uL3NoYXJlcy1jYW5jZWxsYXRpb24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuICB9Il19 */"] });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SharesCancellationComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{

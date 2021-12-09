@@ -26,15 +26,15 @@ const routes = [
         children: [
             {
                 path: 'voucherEntry',
-                loadChildren: () => Promise.all(/*! import() | voucher-entry-voucher-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("voucher-entry-voucher-entry-module")]).then(__webpack_require__.bind(null, /*! ./voucher-entry/voucher-entry.module */ "./src/app/theme/transaction/voucher-entry/voucher-entry.module.ts")).then(m => m.VoucherEntryModule)
+                loadChildren: () => Promise.all(/*! import() | voucher-entry-voucher-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("voucher-entry-voucher-entry-module")]).then(__webpack_require__.bind(null, /*! ./voucher-entry/voucher-entry.module */ "./src/app/theme/transaction/voucher-entry/voucher-entry.module.ts")).then(m => m.VoucherEntryModule)
             },
             {
                 path: 'multiVoucher',
-                loadChildren: () => Promise.all(/*! import() | multi-voucher-multi-voucher-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("multi-voucher-multi-voucher-module")]).then(__webpack_require__.bind(null, /*! ./multi-voucher/multi-voucher.module */ "./src/app/theme/transaction/multi-voucher/multi-voucher.module.ts")).then(m => m.MultiVoucherModule)
+                loadChildren: () => Promise.all(/*! import() | multi-voucher-multi-voucher-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("multi-voucher-multi-voucher-module")]).then(__webpack_require__.bind(null, /*! ./multi-voucher/multi-voucher.module */ "./src/app/theme/transaction/multi-voucher/multi-voucher.module.ts")).then(m => m.MultiVoucherModule)
             },
             {
                 path: 'batchVoucher',
-                loadChildren: () => Promise.all(/*! import() | batch-voucher-batch-voucher-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~all-reports-with-searching-allReportsWithSearching-module~anamat-gsm-anamat-gsm-module~batch~34724a2e"), __webpack_require__.e("common"), __webpack_require__.e("batch-voucher-batch-voucher-module")]).then(__webpack_require__.bind(null, /*! ./batch-voucher/batch-voucher.module */ "./src/app/theme/transaction/batch-voucher/batch-voucher.module.ts")).then(m => m.BatchVoucherModule)
+                loadChildren: () => Promise.all(/*! import() | batch-voucher-batch-voucher-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~all-reports-with-searching-allReportsWithSearching-module~anamat-gsm-anamat-gsm-module~batch~34724a2e"), __webpack_require__.e("common"), __webpack_require__.e("batch-voucher-batch-voucher-module")]).then(__webpack_require__.bind(null, /*! ./batch-voucher/batch-voucher.module */ "./src/app/theme/transaction/batch-voucher/batch-voucher.module.ts")).then(m => m.BatchVoucherModule)
             },
             {
                 path: 'memberDAPDT',
@@ -58,7 +58,7 @@ const routes = [
             },
             {
                 path: 'pigmyChartEntry',
-                loadChildren: () => Promise.all(/*! import() | pigmy-chart-entry-pigmy-chart-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~definations-definations-module~demo-demo-module~form-picker-form-picker-module~pigmy-chart-e~5951f87c"), __webpack_require__.e("common"), __webpack_require__.e("pigmy-chart-entry-pigmy-chart-entry-module")]).then(__webpack_require__.bind(null, /*! ./pigmy-chart-entry/pigmy-chart-entry.module */ "./src/app/theme/transaction/pigmy-chart-entry/pigmy-chart-entry.module.ts")).then(m => m.PigmyChartEntryModule)
+                loadChildren: () => Promise.all(/*! import() | pigmy-chart-entry-pigmy-chart-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~definations-definations-module~demo-demo-module~form-picker-form-picker-module~pigmy-chart-e~5951f87c"), __webpack_require__.e("common"), __webpack_require__.e("pigmy-chart-entry-pigmy-chart-entry-module")]).then(__webpack_require__.bind(null, /*! ./pigmy-chart-entry/pigmy-chart-entry.module */ "./src/app/theme/transaction/pigmy-chart-entry/pigmy-chart-entry.module.ts")).then(m => m.PigmyChartEntryModule)
             },
             {
                 path: 'dividendPay',
@@ -66,15 +66,15 @@ const routes = [
             },
             {
                 path: 'cashCreditAcRenewal',
-                loadChildren: () => Promise.all(/*! import() | cash-credit-ac-renewal-cash-credit-ac-renewal-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("common"), __webpack_require__.e("cash-credit-ac-renewal-cash-credit-ac-renewal-module")]).then(__webpack_require__.bind(null, /*! ./cash-credit-ac-renewal/cash-credit-ac-renewal.module */ "./src/app/theme/transaction/cash-credit-ac-renewal/cash-credit-ac-renewal.module.ts")).then(m => m.CashCreditAcRenewalModule)
+                loadChildren: () => Promise.all(/*! import() | cash-credit-ac-renewal-cash-credit-ac-renewal-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("common"), __webpack_require__.e("cash-credit-ac-renewal-cash-credit-ac-renewal-module")]).then(__webpack_require__.bind(null, /*! ./cash-credit-ac-renewal/cash-credit-ac-renewal.module */ "./src/app/theme/transaction/cash-credit-ac-renewal/cash-credit-ac-renewal.module.ts")).then(m => m.CashCreditAcRenewalModule)
             },
             {
                 path: 'shareTransactions',
-                loadChildren: () => Promise.all(/*! import() | share-transactions-share-transactions-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~day-book-ie-day-book-ie-module~dead-stock-transaction-dead-stock-transaction-module~demand-d~0b944824"), __webpack_require__.e("common"), __webpack_require__.e("share-transactions-share-transactions-module")]).then(__webpack_require__.bind(null, /*! ./share-transactions/share-transactions.module */ "./src/app/theme/transaction/share-transactions/share-transactions.module.ts")).then(m => m.ShareTransactionsModule)
+                loadChildren: () => Promise.all(/*! import() | share-transactions-share-transactions-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~day-book-ie-day-book-ie-module~dead-stock-transaction-dead-stock-transaction-module~demand-d~0b944824"), __webpack_require__.e("common"), __webpack_require__.e("share-transactions-share-transactions-module")]).then(__webpack_require__.bind(null, /*! ./share-transactions/share-transactions.module */ "./src/app/theme/transaction/share-transactions/share-transactions.module.ts")).then(m => m.ShareTransactionsModule)
             },
             {
                 path: 'termDepositAccountClosing',
-                loadChildren: () => Promise.all(/*! import() | term-deposit-account-closing-term-deposit-account-closing-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("term-deposit-account-closing-term-deposit-account-closing-module")]).then(__webpack_require__.bind(null, /*! ./term-deposit-account-closing/term-deposit-account-closing.module */ "./src/app/theme/transaction/term-deposit-account-closing/term-deposit-account-closing.module.ts")).then(m => m.TermDepositAccountClosingModule)
+                loadChildren: () => Promise.all(/*! import() | term-deposit-account-closing-term-deposit-account-closing-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("term-deposit-account-closing-term-deposit-account-closing-module")]).then(__webpack_require__.bind(null, /*! ./term-deposit-account-closing/term-deposit-account-closing.module */ "./src/app/theme/transaction/term-deposit-account-closing/term-deposit-account-closing.module.ts")).then(m => m.TermDepositAccountClosingModule)
             },
             {
                 path: 'TermDepositeAcRenewal',
@@ -136,7 +136,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var _transaction_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./transaction-routing.module */ "./src/app/theme/transaction/transaction-routing.module.ts");
-
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
@@ -158,10 +159,17 @@ __webpack_require__.r(__webpack_exports__);
 // import { MemberDAPDTComponent } from './member-dapdt/member-dapdt.component';
 // import { MultiVoucherComponent } from './multi-voucher/multi-voucher.component';
 // import { VoucherEntryComponent } from './voucher-entry/voucher-entry.component';  
+
+
+
 class TransactionModule {
 }
 TransactionModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: TransactionModule });
-TransactionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function TransactionModule_Factory(t) { return new (t || TransactionModule)(); }, imports: [[
+TransactionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function TransactionModule_Factory(t) { return new (t || TransactionModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_4__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _transaction_routing_module__WEBPACK_IMPORTED_MODULE_2__["TransactionRoutingModule"]
         ]] });
@@ -174,7 +182,12 @@ TransactionModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
                 imports: [
                     _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                     _transaction_routing_module__WEBPACK_IMPORTED_MODULE_2__["TransactionRoutingModule"]
-                ]
+                ],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_4__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

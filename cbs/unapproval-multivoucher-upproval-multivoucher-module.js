@@ -653,7 +653,7 @@ UnapprovalMultivoucherComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](31);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbTabset"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbTab"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbTabContent"], angular_datatables__WEBPACK_IMPORTED_MODULE_3__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvcGFzc2luZy91bmFwcHJvdmFsL3VuYXBwcm92YWwtbXVsdGl2b3VjaGVyL3VuYXBwcm92YWwtbXVsdGl2b3VjaGVyLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBVTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvcGFzc2luZy91bmFwcHJvdmFsL3VuYXBwcm92YWwtbXVsdGl2b3VjaGVyL3VuYXBwcm92YWwtbXVsdGl2b3VjaGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"], data: { animation: [
+    } }, directives: [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbTabset"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbTab"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_2__["NgbTabContent"], angular_datatables__WEBPACK_IMPORTED_MODULE_3__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvcGFzc2luZy91bmFwcHJvdmFsL3VuYXBwcm92YWwtbXVsdGl2b3VjaGVyL3VuYXBwcm92YWwtbXVsdGl2b3VjaGVyLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtBQUNKIiwiZmlsZSI6InNyYy9hcHAvdGhlbWUvcGFzc2luZy91bmFwcHJvdmFsL3VuYXBwcm92YWwtbXVsdGl2b3VjaGVyL3VuYXBwcm92YWwtbXVsdGl2b3VjaGVyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnJlcXVpcmVkIHtcclxuICAgIGNvbG9yOiByZWQ7XHJcbiB9Il19 */"], data: { animation: [
             Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["trigger"])('fadeInOutTranslate', [
                 Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["transition"])(':enter', [
                     Object(_angular_animations__WEBPACK_IMPORTED_MODULE_1__["style"])({ opacity: 0 }),
@@ -701,10 +701,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UnapprovalMultivoucherrModule", function() { return UnapprovalMultivoucherrModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
-/* harmony import */ var _unapproval_multivoucher_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./unapproval-multivoucher.component */ "./src/app/theme/passing/unapproval/unapproval-multivoucher/unapproval-multivoucher.component.ts");
-/* harmony import */ var _unapproval_multivoucher_routing_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./unapproval-multivoucher-routing.module */ "./src/app/theme/passing/unapproval/unapproval-multivoucher/unapproval-multivoucher-routing.module.ts");
-/* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
-/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/__ivy_ngcc__/fesm2015/ng-bootstrap.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+/* harmony import */ var _unapproval_multivoucher_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./unapproval-multivoucher.component */ "./src/app/theme/passing/unapproval/unapproval-multivoucher/unapproval-multivoucher.component.ts");
+/* harmony import */ var _unapproval_multivoucher_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./unapproval-multivoucher-routing.module */ "./src/app/theme/passing/unapproval/unapproval-multivoucher/unapproval-multivoucher-routing.module.ts");
+/* harmony import */ var angular_datatables__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! angular-datatables */ "./node_modules/angular-datatables/__ivy_ngcc__/index.js");
+/* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/__ivy_ngcc__/fesm2015/ng-bootstrap.js");
+
+
 
 
 
@@ -715,26 +719,35 @@ __webpack_require__.r(__webpack_exports__);
 class UnapprovalMultivoucherrModule {
 }
 UnapprovalMultivoucherrModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: UnapprovalMultivoucherrModule });
-UnapprovalMultivoucherrModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function UnapprovalMultivoucherrModule_Factory(t) { return new (t || UnapprovalMultivoucherrModule)(); }, imports: [[
+UnapprovalMultivoucherrModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function UnapprovalMultivoucherrModule_Factory(t) { return new (t || UnapprovalMultivoucherrModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_3__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-            _unapproval_multivoucher_routing_module__WEBPACK_IMPORTED_MODULE_3__["UnapprovalMultivoucherrRoutingModule"],
-            angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"],
-            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModule"]
+            _unapproval_multivoucher_routing_module__WEBPACK_IMPORTED_MODULE_5__["UnapprovalMultivoucherrRoutingModule"],
+            angular_datatables__WEBPACK_IMPORTED_MODULE_6__["DataTablesModule"],
+            _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_7__["NgbModule"]
         ]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](UnapprovalMultivoucherrModule, { declarations: [_unapproval_multivoucher_component__WEBPACK_IMPORTED_MODULE_2__["UnapprovalMultivoucherComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-        _unapproval_multivoucher_routing_module__WEBPACK_IMPORTED_MODULE_3__["UnapprovalMultivoucherrRoutingModule"],
-        angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"],
-        _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModule"]] }); })();
+(function () { (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsetNgModuleScope"](UnapprovalMultivoucherrModule, { declarations: [_unapproval_multivoucher_component__WEBPACK_IMPORTED_MODULE_4__["UnapprovalMultivoucherComponent"]], imports: [_angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+        _unapproval_multivoucher_routing_module__WEBPACK_IMPORTED_MODULE_5__["UnapprovalMultivoucherrRoutingModule"],
+        angular_datatables__WEBPACK_IMPORTED_MODULE_6__["DataTablesModule"],
+        _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_7__["NgbModule"]] }); })();
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](UnapprovalMultivoucherrModule, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"],
         args: [{
                 imports: [
                     _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
-                    _unapproval_multivoucher_routing_module__WEBPACK_IMPORTED_MODULE_3__["UnapprovalMultivoucherrRoutingModule"],
-                    angular_datatables__WEBPACK_IMPORTED_MODULE_4__["DataTablesModule"],
-                    _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_5__["NgbModule"]
+                    _unapproval_multivoucher_routing_module__WEBPACK_IMPORTED_MODULE_5__["UnapprovalMultivoucherrRoutingModule"],
+                    angular_datatables__WEBPACK_IMPORTED_MODULE_6__["DataTablesModule"],
+                    _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_7__["NgbModule"]
                 ],
-                declarations: [_unapproval_multivoucher_component__WEBPACK_IMPORTED_MODULE_2__["UnapprovalMultivoucherComponent"]]
+                declarations: [_unapproval_multivoucher_component__WEBPACK_IMPORTED_MODULE_4__["UnapprovalMultivoucherComponent"]],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_3__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

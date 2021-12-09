@@ -70,15 +70,15 @@ const routes = [
             },
             {
                 path: 'roleDefination',
-                loadChildren: () => Promise.all(/*! import() | role-defination-role-defination-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("default~demo1-demo1-module~role-defination-role-defination-module"), __webpack_require__.e("common"), __webpack_require__.e("role-defination-role-defination-module")]).then(__webpack_require__.bind(null, /*! ./role-defination/role-defination.module */ "./src/app/theme/utility/role-defination/role-defination.module.ts")).then(m => m.RoleDefinationModule)
+                loadChildren: () => Promise.all(/*! import() | role-defination-role-defination-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("default~demo1-demo1-module~role-defination-role-defination-module"), __webpack_require__.e("common"), __webpack_require__.e("role-defination-role-defination-module")]).then(__webpack_require__.bind(null, /*! ./role-defination/role-defination.module */ "./src/app/theme/utility/role-defination/role-defination.module.ts")).then(m => m.RoleDefinationModule)
             },
             {
                 path: 'roleMaster',
-                loadChildren: () => Promise.all(/*! import() | role-master-role-master-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("role-master-role-master-module")]).then(__webpack_require__.bind(null, /*! ./role-master/role-master.module */ "./src/app/theme/utility/role-master/role-master.module.ts")).then(m => m.RoleMasterModule)
+                loadChildren: () => Promise.all(/*! import() | role-master-role-master-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("role-master-role-master-module")]).then(__webpack_require__.bind(null, /*! ./role-master/role-master.module */ "./src/app/theme/utility/role-master/role-master.module.ts")).then(m => m.RoleMasterModule)
             },
             {
                 path: 'userDefination',
-                loadChildren: () => Promise.all(/*! import() | user-defination-user-defination-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("common"), __webpack_require__.e("user-defination-user-defination-module")]).then(__webpack_require__.bind(null, /*! ./user-defination/user-defination.module */ "./src/app/theme/utility/user-defination/user-defination.module.ts")).then(m => m.UserDefinationModule)
+                loadChildren: () => Promise.all(/*! import() | user-defination-user-defination-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("common"), __webpack_require__.e("user-defination-user-defination-module")]).then(__webpack_require__.bind(null, /*! ./user-defination/user-defination.module */ "./src/app/theme/utility/user-defination/user-defination.module.ts")).then(m => m.UserDefinationModule)
             },
             {
                 path: 'cashierUM',
@@ -102,7 +102,7 @@ const routes = [
             },
             {
                 path: 'schemeParameters',
-                loadChildren: () => Promise.all(/*! import() | scheme-parameters-scheme-parameter-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("default~day-book-ie-day-book-ie-module~dead-stock-transaction-dead-stock-transaction-module~demand-d~0b944824"), __webpack_require__.e("common"), __webpack_require__.e("scheme-parameters-scheme-parameter-module")]).then(__webpack_require__.bind(null, /*! ./scheme-parameters/scheme-parameter.module */ "./src/app/theme/utility/scheme-parameters/scheme-parameter.module.ts")).then(m => m.SchemeParametersModule)
+                loadChildren: () => Promise.all(/*! import() | scheme-parameters-scheme-parameter-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("default~day-book-ie-day-book-ie-module~dead-stock-transaction-dead-stock-transaction-module~demand-d~0b944824"), __webpack_require__.e("common"), __webpack_require__.e("scheme-parameters-scheme-parameter-module")]).then(__webpack_require__.bind(null, /*! ./scheme-parameters/scheme-parameter.module */ "./src/app/theme/utility/scheme-parameters/scheme-parameter.module.ts")).then(m => m.SchemeParametersModule)
             },
             {
                 path: 'calculator',
@@ -168,6 +168,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var _utility_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utility-routing.module */ "./src/app/theme/utility/utility-routing.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -175,7 +179,11 @@ __webpack_require__.r(__webpack_exports__);
 class UtilityModule {
 }
 UtilityModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: UtilityModule });
-UtilityModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function UtilityModule_Factory(t) { return new (t || UtilityModule)(); }, imports: [[
+UtilityModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function UtilityModule_Factory(t) { return new (t || UtilityModule)(); }, providers: [{
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_4__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _utility_routing_module__WEBPACK_IMPORTED_MODULE_2__["UtilityRoutingModule"],
         ]] });
@@ -188,7 +196,12 @@ UtilityModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInje
                 imports: [
                     _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                     _utility_routing_module__WEBPACK_IMPORTED_MODULE_2__["UtilityRoutingModule"],
-                ]
+                ],
+                providers: [{
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_4__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

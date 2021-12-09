@@ -27,31 +27,31 @@ const routes = [
         children: [
             {
                 path: 'securityDetails',
-                loadChildren: () => Promise.all(/*! import() | security-details-securityDetails-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("default~definations-definations-module~demo-demo-module~form-picker-form-picker-module~pigmy-chart-e~5951f87c"), __webpack_require__.e("common"), __webpack_require__.e("security-details-securityDetails-module")]).then(__webpack_require__.bind(null, /*! ./security-details/securityDetails.module */ "./src/app/theme/master/maintainance/security-details/securityDetails.module.ts")).then(m => m.SecurityDetailsModule)
+                loadChildren: () => Promise.all(/*! import() | security-details-securityDetails-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("default~definations-definations-module~demo-demo-module~form-picker-form-picker-module~pigmy-chart-e~5951f87c"), __webpack_require__.e("common"), __webpack_require__.e("security-details-securityDetails-module")]).then(__webpack_require__.bind(null, /*! ./security-details/securityDetails.module */ "./src/app/theme/master/maintainance/security-details/securityDetails.module.ts")).then(m => m.SecurityDetailsModule)
             },
             {
                 path: 'loanAndCCInterestRateChanges',
-                loadChildren: () => Promise.all(/*! import() | loan-and-ccinterest-rate-changes-loan-And-CC-Interest-Rate-Changes-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("common"), __webpack_require__.e("loan-and-ccinterest-rate-changes-loan-And-CC-Interest-Rate-Changes-module")]).then(__webpack_require__.bind(null, /*! ./loan-and-ccinterest-rate-changes/loan-And-CC-Interest-Rate-Changes.module */ "./src/app/theme/master/maintainance/loan-and-ccinterest-rate-changes/loan-And-CC-Interest-Rate-Changes.module.ts")).then(m => m.LoanAndCCInterestRateChangesModule)
+                loadChildren: () => Promise.all(/*! import() | loan-and-ccinterest-rate-changes-loan-And-CC-Interest-Rate-Changes-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("common"), __webpack_require__.e("loan-and-ccinterest-rate-changes-loan-And-CC-Interest-Rate-Changes-module")]).then(__webpack_require__.bind(null, /*! ./loan-and-ccinterest-rate-changes/loan-And-CC-Interest-Rate-Changes.module */ "./src/app/theme/master/maintainance/loan-and-ccinterest-rate-changes/loan-And-CC-Interest-Rate-Changes.module.ts")).then(m => m.LoanAndCCInterestRateChangesModule)
             },
             {
                 path: 'depositLoanInterestRateEditChange',
-                loadChildren: () => Promise.all(/*! import() | deposit-loan-interest-rate-edit-change-deposit-Loan-Interest-Rate-Edit-Change-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("deposit-loan-interest-rate-edit-change-deposit-Loan-Interest-Rate-Edit-Change-module")]).then(__webpack_require__.bind(null, /*! ./deposit-loan-interest-rate-edit-change/deposit-Loan-Interest-Rate-Edit-Change.module */ "./src/app/theme/master/maintainance/deposit-loan-interest-rate-edit-change/deposit-Loan-Interest-Rate-Edit-Change.module.ts")).then(m => m.DepositLoanInterestRateEditChangeModule)
+                loadChildren: () => Promise.all(/*! import() | deposit-loan-interest-rate-edit-change-deposit-Loan-Interest-Rate-Edit-Change-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("deposit-loan-interest-rate-edit-change-deposit-Loan-Interest-Rate-Edit-Change-module")]).then(__webpack_require__.bind(null, /*! ./deposit-loan-interest-rate-edit-change/deposit-Loan-Interest-Rate-Edit-Change.module */ "./src/app/theme/master/maintainance/deposit-loan-interest-rate-edit-change/deposit-Loan-Interest-Rate-Edit-Change.module.ts")).then(m => m.DepositLoanInterestRateEditChangeModule)
             },
             {
                 path: 'npaOpeningDetailsEntry',
-                loadChildren: () => Promise.all(/*! import() | npa-opening-details-entry-npa-opening-details-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("common"), __webpack_require__.e("npa-opening-details-entry-npa-opening-details-entry-module")]).then(__webpack_require__.bind(null, /*! ./npa-opening-details-entry/npa-opening-details-entry.module */ "./src/app/theme/master/maintainance/npa-opening-details-entry/npa-opening-details-entry.module.ts")).then(m => m.NpaOpeningDetailsEntryModule)
+                loadChildren: () => Promise.all(/*! import() | npa-opening-details-entry-npa-opening-details-entry-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("common"), __webpack_require__.e("npa-opening-details-entry-npa-opening-details-entry-module")]).then(__webpack_require__.bind(null, /*! ./npa-opening-details-entry/npa-opening-details-entry.module */ "./src/app/theme/master/maintainance/npa-opening-details-entry/npa-opening-details-entry.module.ts")).then(m => m.NpaOpeningDetailsEntryModule)
             },
             {
                 path: 'interestPostingFlagUpdation',
-                loadChildren: () => Promise.all(/*! import() | interest-posting-flag-updation-interest-posting-flag-updation-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("interest-posting-flag-updation-interest-posting-flag-updation-module")]).then(__webpack_require__.bind(null, /*! ./interest-posting-flag-updation/interest-posting-flag-updation.module */ "./src/app/theme/master/maintainance/interest-posting-flag-updation/interest-posting-flag-updation.module.ts")).then(m => m.InterestPostingFlagUpdationModule)
+                loadChildren: () => Promise.all(/*! import() | interest-posting-flag-updation-interest-posting-flag-updation-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("interest-posting-flag-updation-interest-posting-flag-updation-module")]).then(__webpack_require__.bind(null, /*! ./interest-posting-flag-updation/interest-posting-flag-updation.module */ "./src/app/theme/master/maintainance/interest-posting-flag-updation/interest-posting-flag-updation.module.ts")).then(m => m.InterestPostingFlagUpdationModule)
             },
             {
                 path: 'accountwiseDocumentAcceptance',
-                loadChildren: () => Promise.all(/*! import() | accountwise-document-acceptance-accountwise-document-acceptance-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("accountwise-document-acceptance-accountwise-document-acceptance-module")]).then(__webpack_require__.bind(null, /*! ./accountwise-document-acceptance/accountwise-document-acceptance.module */ "./src/app/theme/master/maintainance/accountwise-document-acceptance/accountwise-document-acceptance.module.ts")).then(m => m.AccountwiseDocumentAcceptanceModule)
+                loadChildren: () => Promise.all(/*! import() | accountwise-document-acceptance-accountwise-document-acceptance-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("accountwise-document-acceptance-accountwise-document-acceptance-module")]).then(__webpack_require__.bind(null, /*! ./accountwise-document-acceptance/accountwise-document-acceptance.module */ "./src/app/theme/master/maintainance/accountwise-document-acceptance/accountwise-document-acceptance.module.ts")).then(m => m.AccountwiseDocumentAcceptanceModule)
             },
             {
                 path: 'notingCharges',
-                loadChildren: () => Promise.all(/*! import() | noting-charges-notingCharges-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~1fdade7b"), __webpack_require__.e("noting-charges-notingCharges-module")]).then(__webpack_require__.bind(null, /*! ./noting-charges/notingCharges.module */ "./src/app/theme/master/maintainance/noting-charges/notingCharges.module.ts")).then(m => m.NotingChargesModule)
+                loadChildren: () => Promise.all(/*! import() | noting-charges-notingCharges-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("noting-charges-notingCharges-module")]).then(__webpack_require__.bind(null, /*! ./noting-charges/notingCharges.module */ "./src/app/theme/master/maintainance/noting-charges/notingCharges.module.ts")).then(m => m.NotingChargesModule)
             },
         ]
     }
@@ -125,6 +125,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/shared.module */ "./src/app/shared/shared.module.ts");
 /* harmony import */ var _shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../shared/elements/select-option.service */ "./src/app/shared/elements/select-option.service.ts");
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 
 
 
@@ -139,12 +141,18 @@ __webpack_require__.r(__webpack_exports__);
 // import { SecurityDetailsComponent } from './security-details/security-details.component';
 
 
-
 // import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
+
+
+
 class MaintainanceModule {
 }
 MaintainanceModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: MaintainanceModule });
-MaintainanceModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function MaintainanceModule_Factory(t) { return new (t || MaintainanceModule)(); }, providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_5__["SelectOptionService"]], imports: [[
+MaintainanceModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function MaintainanceModule_Factory(t) { return new (t || MaintainanceModule)(); }, providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_5__["SelectOptionService"], {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _maintainance_routing_module__WEBPACK_IMPORTED_MODULE_3__["MaintainanceRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
@@ -171,7 +179,11 @@ MaintainanceModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
                     // ReactiveFormsModule
                 ],
                 declarations: [_maintainance_component__WEBPACK_IMPORTED_MODULE_2__["MaintainanceComponent"]],
-                providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_5__["SelectOptionService"]]
+                providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_5__["SelectOptionService"], {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_8__["UserAuthInterceptor"],
+                        multi: true
+                    },]
             }]
     }], null, null); })();
 

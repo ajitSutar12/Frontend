@@ -290,7 +290,7 @@ SharesDataEIComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵde
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("uploader", ctx.uploader);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](19);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("dtOptions", ctx.dtExportButtonOptions);
-    } }, directives: [ng_select__WEBPACK_IMPORTED_MODULE_3__["SelectComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgClass"], ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__["FileSelectDirective"], angular_datatables__WEBPACK_IMPORTED_MODULE_5__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdXRpbGl0eS9zaGFyZXMtZGF0YS1laS9zaGFyZXMtZGF0YS1laS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQVU7QUFDZCIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3V0aWxpdHkvc2hhcmVzLWRhdGEtZWkvc2hhcmVzLWRhdGEtZWkuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuIH0iXX0= */"], changeDetection: 0 });
+    } }, directives: [ng_select__WEBPACK_IMPORTED_MODULE_3__["SelectComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgClass"], ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__["FileSelectDirective"], angular_datatables__WEBPACK_IMPORTED_MODULE_5__["DataTableDirective"]], styles: [".required[_ngcontent-%COMP%] {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGhlbWUvdXRpbGl0eS9zaGFyZXMtZGF0YS1laS9zaGFyZXMtZGF0YS1laS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFVBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3RoZW1lL3V0aWxpdHkvc2hhcmVzLWRhdGEtZWkvc2hhcmVzLWRhdGEtZWkuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWlyZWQge1xyXG4gICAgY29sb3I6IHJlZDtcclxuIH0iXX0= */"], changeDetection: 0 });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SharesDataEIComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
@@ -323,6 +323,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/__ivy_ngcc__/fesm2015/ng2-file-upload.js");
 /* harmony import */ var _shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../shared/elements/select-option.service */ "./src/app/shared/elements/select-option.service.ts");
 /* harmony import */ var ng_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ng-select */ "./node_modules/ng-select/__ivy_ngcc__/fesm2015/ng-select.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+/* harmony import */ var src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
+
+
 
 
 
@@ -336,7 +340,12 @@ __webpack_require__.r(__webpack_exports__);
 class SharesDataEIModule {
 }
 SharesDataEIModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineNgModule"]({ type: SharesDataEIModule });
-SharesDataEIModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SharesDataEIModule_Factory(t) { return new (t || SharesDataEIModule)(); }, providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_7__["SelectOptionService"]], imports: [[
+SharesDataEIModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjector"]({ factory: function SharesDataEIModule_Factory(t) { return new (t || SharesDataEIModule)(); }, providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_7__["SelectOptionService"],
+        {
+            provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+            useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+            multi: true
+        },], imports: [[
             _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
             _shares_data_ei_routing_module__WEBPACK_IMPORTED_MODULE_3__["SharesDataEIRoutingModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"],
@@ -361,7 +370,12 @@ SharesDataEIModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
                     ng2_file_upload__WEBPACK_IMPORTED_MODULE_6__["FileUploadModule"],
                     ng_select__WEBPACK_IMPORTED_MODULE_8__["SelectModule"]
                 ],
-                providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_7__["SelectOptionService"]],
+                providers: [_shared_elements_select_option_service__WEBPACK_IMPORTED_MODULE_7__["SelectOptionService"],
+                    {
+                        provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HTTP_INTERCEPTORS"],
+                        useClass: src_app_user_auth_interceptor__WEBPACK_IMPORTED_MODULE_10__["UserAuthInterceptor"],
+                        multi: true
+                    },],
                 declarations: [_shares_data_ei_component__WEBPACK_IMPORTED_MODULE_2__["SharesDataEIComponent"]]
             }]
     }], null, null); })();
