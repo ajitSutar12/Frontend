@@ -22,6 +22,7 @@ import { landandbuildingsService } from "./land-and-buildings.service";
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
+import { Router } from "@angular/router";
 
 // Handling datatable data
 class DataTableResponse {
@@ -54,8 +55,10 @@ interface LandMaster {
 })
 export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
-  @Output() newItemEvent = new EventEmitter<string>();
-
+  @Output() newLandBuldingEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newLandBuldingEvent.emit(value);
+  }
   //passing data from parent to child component
    @Input() scheme:any;
    @Input() Accountno:any;
@@ -84,7 +87,8 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _land: landandbuildingsService
+    private _land: landandbuildingsService,
+    public router: Router
   ) {
     this.createForm();
   }
@@ -223,9 +227,14 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
       REG_NO: formVal.REG_NO,
     };
     this._land.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         // to reload after insertion of data
+        let info = []
+        info.push(data.id)
+        info.push("landBuilding")
+
+        this.newItemEvent(info);
         this.rerender();
       },
       (error) => {
@@ -258,7 +267,6 @@ console.log(ele);
         let dropdown: any = {};
         dropdown.scheme = data.AC_TYPE;
         dropdown.account = data.AC_NO.toString();
-        this.newItemEvent.emit(dropdown),
   
       this.angForm.patchValue({
         AC_TYPE:this.scheme._value[0],

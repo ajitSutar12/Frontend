@@ -1,22 +1,40 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
+import { environment } from '../../../../../environments/environment'
+
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
+
 // Angular Datatable Directive  
 import { DataTableDirective } from 'angular-datatables';
+
 // Service File For Handling CRUD Operation
 import { TermLoanService } from './term-loan-master.service';
+
 //animation
 import { animate, style, transition, trigger } from '@angular/animations';
-// Used to Call API
+
+// Http Client
 import { HttpClient } from '@angular/common/http';
-import { first } from 'rxjs/operators';
-import { CustomerIdService } from '../customer-id/customer-id.service';
-import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
-import { environment } from '../../../../../environments/environment'
+
+// Router File
 import { Router } from '@angular/router'
+
+//Service Files
+import { CustomerIdService } from '../customer-id/customer-id.service';
+import { InterestRateForLoanandCCService } from '../../policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
+import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TermLoanSchemeService } from '../../../utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service';
+import { SecurityCodeService } from '../../policy-settings/definations/security-code/security-code.service';
+
+// Dropdown Files
+import { IOption } from 'ng-select';
+import { first } from 'rxjs/operators';
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service';
 import { InstallmentMethodService } from '../../../../shared/dropdownService/installment-method.service';
@@ -31,14 +49,11 @@ import { HealthMasterDropdownService } from '../../../../shared/dropdownService/
 import { AccountTypeService } from '../../../../shared/dropdownService/account-type.service';
 import { SecurityMasterdropdownService } from '../../../../shared/dropdownService/security-master-dropdown.service';
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
-import { InterestRateForLoanandCCService } from '../../policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
-import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
 import { RepayModeService } from '../../../../shared/dropdownService/repay-mode.service';
-import { IOption } from 'ng-select';
-import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TermLoanSchemeService } from '../../../utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service';
+
 //date pipe
 import { DatePipe } from '@angular/common';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -222,6 +237,37 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   intRate: any
   intResult: any
 
+  security_id: number
+  scheme1: any
+  BOOK_DEBTS: boolean = false
+  CUST_INSURANCE: boolean = false
+  FIRE_POLICY: boolean = false
+  FURNITURE_FIXTURE: boolean = false
+  GOLD_SILVER: boolean = false
+  GOVT_SECU_LIC: boolean = false
+  LAND_BUILDING: boolean = false
+  MARKET_SHARE: boolean = false
+  OTHER_SECURITY: boolean = false
+  OWN_DEPOSIT: boolean = false
+  PLANT_MACHINARY: boolean = false
+  PLEDGE_STOCK: boolean = false
+  STOCK_STATEMENT: boolean = false
+  VEHICLE: boolean = false
+  bookid = []
+  insuranceid = []
+  firepolicyid = []
+  furnitureid = []
+  goldid = []
+  govtid = []
+  landid = []
+  marketid = []
+  otherid = []
+  ownid = []
+  plantid = []
+  pledgeid = []
+  stockid = []
+  vehicleid = []
+
   repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
   installment: Array<IOption> = this.installmentMethodService.getCharacters();
   account: Array<IOption> = this.accountType.getCharacters();
@@ -258,6 +304,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     private systemParameter: SystemMasterParametersService,
     private _TermLoanScheme: TermLoanSchemeService,
     private datePipe: DatePipe,
+    private _SecurityCode: SecurityCodeService,
     private el: ElementRef,
     public router: Router
   ) {
@@ -265,6 +312,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   ngOnInit(): void {
+
+    //Call CreateForm Function
+
     this.createForm();
 
     // Fetching Server side data
@@ -478,65 +528,82 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       dom: 'Blrtip',
     };
 
-
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
     })
+
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
       this.GCust_ID = data;
       this.CCust_ID = data;
     })
+
     this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.intCat = data;
     })
+
     this.authorityMasterDropdown.getAuthorityMasterList().pipe(first()).subscribe(data => {
       this.sanction = data;
     })
+
     this.directorMasterDropdown.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.Recommended = data;
     })
+
     this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
       this.director = data;
     })
+
     this.recoveryClearkMaster.getRecoveryClearkMasterList().pipe(first()).subscribe(data => {
       this.Recovery = data;
     })
+
     this.prioritySector.getPrioritySectorMasterList().pipe(first()).subscribe(data => {
       this.priority = data;
     })
+
     this.weakerMaster.getWeakerMasterList().pipe(first()).subscribe(data => {
       this.weaker = data;
     })
+
     this.purposeMaster.getPurposeMasterList().pipe(first()).subscribe(data => {
       this.purpose = data;
     })
+
     this.industryMaster.getIndustaryMasterList().pipe(first()).subscribe(data => {
       this.industry = data;
     })
+
     this.healthMaster.getHealthMasterList().pipe(first()).subscribe(data => {
       this.health = data;
     })
+
     this.cityMaster.getcityList().pipe(first()).subscribe(data => {
       this.city = data;
     })
+
     this.securityMaster.getsecurityMasterList().pipe(first()).subscribe(data => {
       this.security = data;
     })
+
     this.runTimer();
 
     this.dataSub = this.repayModeService.loadCharacters().subscribe((options) => {
 
       this.characters = options;
     });
+
     this.dataSub = this.installmentMethodService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
+
     this.dataSub = this.accountType.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
 
   };
+
+  // runTimer function
 
   runTimer() {
     const timer = setInterval(() => {
@@ -546,6 +613,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       }
     }, 1000);
   }
+
+  // Create form Method
 
   createForm() {
     this.angForm = this.fb.group({
@@ -618,20 +687,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_AREA: [''],
       AC_CTCODE: [''],
       AC_PIN: [''],
-      GAC_HONO: [''],
-      GAC_WARD: [''],
-      GAC_ADDR: [''],
-      GAC_GALLI: [''],
-      GAC_AREA: [''],
-      GAC_CTCODE: [''],
-      GAC_PIN: [''],
-      CAC_HONO: [''],
-      CAC_WARD: [''],
-      CAC_ADDR: [''],
-      CAC_GALLI: [''],
-      CAC_AREA: [''],
-      CAC_CTCODE: [''],
-      CAC_PIN: [''],
       AC_TPIN: [''],
       AC_MOBILENO: [''],
       AC_PHONE_RES: [''],
@@ -643,14 +698,18 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   // Method to insert data into database through NestJS
+
   submit() {
+
     const formVal = this.angForm.value;
+
     if (formVal.AC_ADDFLAG == true) {
       this.addType = 'P'
     }
     else if (formVal.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
+
     const dataToSend = {
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
@@ -704,6 +763,20 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'CoBorrowerData': this.multiCoBorrower,
       'GuarantorData': this.multiGuarantor,
       'SecurityData': this.multiSecurity,
+      'BookDebts': this.bookid,
+      'CustomerInsurance': this.insuranceid,
+      'FirePolicy': this.firepolicyid,
+      'Furniture': this.furnitureid,
+      'GoldSilver': this.goldid,
+      'Goverment': this.govtid,
+      'LandBuilding': this.landid,
+      'MarketShare': this.marketid,
+      'OtherSecurity': this.otherid,
+      'OwnDeposit': this.ownid,
+      'PlantMachinary': this.plantid,
+      'PleadgeStock': this.pledgeid,
+      'StockStatement': this.stockid,
+      'Vehicle': this.vehicleid,
 
     }
 
@@ -721,30 +794,44 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.multiCoBorrower = []
     this.multiGuarantor = []
     this.multiSecurity = [];
+    this.bookid = []
+    this.insuranceid = []
+    this.firepolicyid = []
+    this.furnitureid = []
+    this.goldid = []
+    this.govtid = []
+    this.landid = []
+    this.marketid = []
+    this.otherid = []
+    this.ownid = []
+    this.plantid = []
+    this.pledgeid = []
+    this.stockid = []
+    this.vehicleid = []
   }
 
   // Reset Function
+
   resetForm() {
     this.createForm();
+    this.resetGuarantor()
+    this.resetCoBorrower()
+    this.resetField()
   }
 
-
   //Method for append data into fields
+
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.columnShowButton = true
     this.termLoanService.getFormData(id).subscribe(data => {
-      console.log("edit", data)
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
-      // this.getgCustomer(data.GAC_CUSTID)
-      // this.getCCustomer(data.CAC_CUSTID)
       this.multiSecurity = data.securityMaster
       this.multiCoBorrower = data.CoborrowerMaster,
         this.multiGuarantor = data.guaranterMaster
-      console.log("guaranterMaster", this.multiGuarantor)
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
         AC_NO: data.AC_NO,
@@ -786,6 +873,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       })
     })
   }
+
+  // Method For New Button
+
   addNewData() {
     this.showButton = true;
     this.updateShow = false;
@@ -797,6 +887,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   //Method for update data 
+
   updateData() {
     let data = this.angForm.value;
     if (data.AC_ADDFLAG == true) {
@@ -826,6 +917,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   //Method for delete data
+
   delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
@@ -860,150 +952,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       }
     })
   }
-  getInterest(AC_INTCATA) {
-    this.temp = AC_INTCATA
-    this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
-      this.date = this.angForm.controls['AC_OPDATE'].value
-      if (data != typeof (undefined)) {
-        if (this.date == data[0].EFFECT_DATE) {
-          console.log("within if condition")
-          this.angForm.patchValue({
-            AC_INTCATA: data[0].INT_CATEGORY,
-            AC_INTRATE: data[0].rate[0].INT_RATE,
-          })
-        } else {
-          this.angForm.patchValue({
-            AC_INTCATA: data[1].INT_CATEGORY,
-            AC_INTRATE: 0
-          })
-        }
 
-
-      }
-    })
-  }
-
-  getPriority(idp) {
-    this.prioritySectorMaster.getFormData(idp).subscribe(data => {
-      this.angForm.patchValue({
-        AC_PRIORITY: idp.toString(),
-        AC_PRIORITY_SUB1: data.SUB1_CODE,
-        AC_PRIORITY_SUB2: data.SUB2_CODE,
-        AC_PRIORITY_SUB3: data.SUB3_CODE,
-      })
-    })
-  }
-
-  getgCustomer(Gid) {
-    this.customerIdService.getFormData(Gid).subscribe(data => {
-      this.angForm.patchValue({
-        GAC_CUSTID: Gid.toString(),
-        GAC_MEMBNO: data.AC_MEMBNO,
-        GAC_MEMBTYPE: data.AC_MEMBTYPE,
-        GAC_NAME: data.AC_NAME,
-        GAC_HONO: data.custAddress[0].AC_HONO,
-        GAC_WARD: data.custAddress[0].AC_WARD,
-        GAC_ADDR: data.custAddress[0].AC_ADDR,
-        GAC_GALLI: data.custAddress[0].AC_GALLI,
-        GAC_AREA: data.custAddress[0].AC_AREA,
-        GCITY_NAME: data.custAddress[0].AC_CTCODE,
-        GAC_PIN: data.custAddress[0].AC_PIN,
-      })
-    })
-  }
-
-  addCoBorrower() {
-    const formVal = this.angForm.value;
-    var object = {
-      AC_TYPE: formVal.AC_TYPE,
-      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
-      CAC_CUSTID: formVal.CAC_CUSTID,
-      CAC_NAME: formVal.CAC_NAME,
-      CAC_HONO: formVal.CAC_HONO,
-      CAC_WARD: formVal.CAC_WARD,
-      CAC_ADDR: formVal.CAC_ADDR,
-      CAC_GALLI: formVal.CAC_GALLI,
-      CAC_AREA: formVal.CAC_AREA,
-      CAC_CTCODE: formVal.CAC_CTCODE,
-      CAC_PIN: formVal.CAC_PIN
-    }
-    this.multiCoBorrower.push(object);
-    this.resetCoBorrower()
-  }
-
-  editCoBorrower(id) {
-    this.coBorrowerIndex = id
-    this.CoBorrowerupdateid = id
-    this.CoBorrowerID = this.multiCoBorrower[id].id;
-    this.CoBorrowerTrue = true
-    this.CoBorrowerShowButton = false;
-    this.CoBorrowerUpdateShow = true;
-    this.angForm.patchValue({
-      CAC_CUSTID: this.multiCoBorrower[id].AC_CUSTID,
-      CAC_NAME: this.multiCoBorrower[id].AC_NAME,
-      CAC_HONO: this.multiCoBorrower[id].AC_HONO,
-      CAC_WARD: this.multiCoBorrower[id].AC_WARD,
-      CAC_ADDR: this.multiCoBorrower[id].AC_ADDR,
-      CAC_GALLI: this.multiCoBorrower[id].AC_GALLI,
-      CAC_AREA: this.multiCoBorrower[id].AC_AREA,
-      CAC_CTCODE: this.multiCoBorrower[id].AC_CTCODE,
-      CAC_PIN: this.multiCoBorrower[id].AC_PIN
-    })
-  }
-
-  updateCoBorrower() {
-    let index = this.coBorrowerIndex;
-    this.CoBorrowerShowButton = true;
-    this.CoBorrowerUpdateShow = false;
-
-    const formVal = this.angForm.value;
-    var object = {
-      CAC_CUSTID: formVal.CAC_CUSTID,
-      CAC_NAME: formVal.CAC_NAME,
-      CAC_HONO: formVal.CAC_HONO,
-      CAC_WARD: formVal.CAC_WARD,
-      CAC_ADDR: formVal.CAC_ADDR,
-      CAC_GALLI: formVal.CAC_GALLI,
-      CAC_AREA: formVal.CAC_AREA,
-      CAC_CTCODE: formVal.CAC_CTCODE,
-      CAC_PIN: formVal.CAC_PIN,
-      id: this.CoBorrowerID
-    }
-    this.multiCoBorrower[index] = object;
-    this.resetCoBorrower()
-  }
-
-  resetCoBorrower() {
-    this.angForm.controls['CAC_CUSTID'].reset();
-    this.angForm.controls['CAC_NAME'].reset();
-    this.angForm.controls['CAC_HONO'].reset();
-    this.angForm.controls['CAC_WARD'].reset();
-    this.angForm.controls['CAC_ADDR'].reset();
-    this.angForm.controls['CAC_GALLI'].reset();
-    this.angForm.controls['CAC_AREA'].reset();
-    this.angForm.controls['CAC_CTCODE'].reset();
-    this.angForm.controls['CAC_PIN'].reset();
-  }
-
-  getCCustomer(Cid) {
-    this.customerIdService.getFormData(Cid).subscribe(data => {
-      this.angForm.patchValue({
-        CAC_CUSTID: Cid.toString(),
-        CAC_NAME: data.AC_NAME,
-        CAC_HONO: data.custAddress[0].AC_HONO,
-        CAC_WARD: data.custAddress[0].AC_WARD,
-        CAC_ADDR: data.custAddress[0].AC_ADDR,
-        CAC_GALLI: data.custAddress[0].AC_GALLI,
-        CAC_AREA: data.custAddress[0].AC_AREA,
-        CCITY_NAME: data.custAddress[0].AC_CTCODE,
-        CAC_PIN: data.custAddress[0].AC_PIN,
-
-      })
-    })
-  }
-  delCoBorrower(id) {
-    this.multiCoBorrower.splice(id, 1)
-  }
+  // Method for Get Customer Data
 
   getCustomer(id) {
     // this.getDate()
@@ -1058,61 +1008,24 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     })
   }
 
+  // Event for Customer Module
+
   newCustomer(newCustomer) {
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
       this.id = newCustomer;
       this.getCustomer(newCustomer);
     })
-
   }
+
   //temp address flag variable
 
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
   }
 
-  OpenLink() {
-    this.GuarantorTrue = !this.GuarantorTrue
-  }
-  OpenCoBorr() {
-    this.CoBorrowerTrue = !this.CoBorrowerTrue
-  }
-
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.columns().every(function () {
-        const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-          if (this['value'] != '') {
-            that
-              .search(this['value'])
-              .draw();
-          } else {
-            that
-              .search(this['value'])
-              .draw();
-          }
-        });
-      });
-    });
-  }
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
-
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
-  }
-
   //set open date, appointed date and expiry date
+
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
@@ -1121,86 +1034,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     })
   }
 
-  directorShow(event) {
-    if (event.value == 'Director') {
-
-      this.AC_DIRECTOR = false
-      this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
-    } else {
-      this.AC_DIRECTOR = true
-      // this.angForm.controls['AC_DIRECTOR'].disable();
-      this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
-    }
-    if (event.value == 'DirectorsRelative') {
-      this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
-    }
-    else {
-      this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
-    }
-  }
-
-  securityDetails(event) {
-    this.SECU_CODE = event.id
-    this.SECU_NAME = event.name
-  }
-
-  addField() {
-    this.columnShowButton = false
-    const formVal = this.angForm.value;
-    var object = {
-      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
-      AC_TYPE: formVal.AC_TYPE,
-      AC_NO: formVal.AC_NO,
-      SECURITY_CODE: this.SECU_CODE,
-      SECURITY_VALUE: this.SECU_NAME,
-
-    }
-    this.multiSecurity.push(object);
-    this.resetField()
-  }
-  resetField() {
-    this.angForm.controls['SECURITY_CODE'].reset();
-    this.angForm.controls['SECURITY_VALUE'].reset();
-  }
-
-  updateField() {
-    let index = this.intIndex;
-    this.addShowButton = true;
-    this.UpdateShowButton = false;
-    const formVal = this.angForm.value;
-    var object = {
-      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
-      AC_TYPE: formVal.AC_TYPE,
-      AC_NO: formVal.AC_NO,
-      SECURITY_CODE: this.SECU_CODE,
-      SECURITY_VALUE: this.SECU_NAME,
-      id: this.intID
-    }
-    this.multiSecurity[index] = object;
-    this.resetField()
-  }
-
-  editField(id) {
-    this.intIndex = id
-    this.intID = this.multiSecurity[id].id;
-    this.addShowButton = false;
-    this.UpdateShowButton = true;
-    this.angForm.patchValue({
-      AC_ACNOTYPE: this.multiSecurity[id].AC_ACNOTYPE,
-      AC_TYPE: this.multiSecurity[id].AC_TYPE,
-      AC_NO: this.multiSecurity[id].AC_NO,
-      SECURITY_CODE: this.multiSecurity[id].this.SECU_CODE,
-      SECURITY_VALUE: this.multiSecurity[id].this.SECU_NAME,
-    })
-  }
-
-  delField(id) {
-    this.multiSecurity.splice(id, 1)
-  }
+  //Method for set value for repay mode and installment type
 
   getScheme(code) {
     this._TermLoanScheme.getData(code).subscribe(data => {
-      console.log(data.INSTALLMENT_METHOD)
       if (data.S_INT_APPLICABLE === true) {
         this.repay = 'Monthly'
         this.installmentType = data.INSTALLMENT_METHOD
@@ -1210,7 +1047,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.installmentType = data.INSTALLMENT_METHOD
       }
     })
+    this.scheme1 = this.angForm.controls['AC_TYPE'].value;
   }
+
+  // Method for set opeing date to expiry date and registration date
 
   changeDate() {
     this.getInterest(this.temp)
@@ -1222,6 +1062,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   }
 
+  // Method for set sanction amount to registration amount and registration date
+
   changeAmt() {
     this.angForm.patchValue({
 
@@ -1231,22 +1073,39 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   }
 
-  getPeriod(months) {
-    this.mon = months
-    var joinDate = new Date(this.angForm.controls['AC_OPDATE'].value)
-    var year = joinDate.getFullYear();
-    var month = new Date(joinDate).getMonth();
-    var day = new Date(joinDate).getDate();
-    var expiry = month + Number(this.mon)
-    var date = new Date(year, expiry, day);
-    var expiryDate = this.datePipe.transform(date, "dd-MM-yyyy")
-    this.angForm.patchValue({
-      AC_EXPIRE_DATE: expiryDate
+  // Set Priorities
+
+  getPriority(idp) {
+    this.prioritySectorMaster.getFormData(idp).subscribe(data => {
+      this.angForm.patchValue({
+        AC_PRIORITY: idp.toString(),
+        AC_PRIORITY_SUB1: data.SUB1_CODE,
+        AC_PRIORITY_SUB2: data.SUB2_CODE,
+        AC_PRIORITY_SUB3: data.SUB3_CODE,
+      })
     })
   }
-  month: number
+
+  // Method for Show and hide option wise field
+  directorShow(event) {
+    if (event.value == 'Director') {
+      this.AC_DIRECTOR = false
+    }
+    else if (event.value == 'DirectorsRelative') {
+      this.AC_DIRECTOR = false
+      this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
+    }
+    else {
+      this.AC_DIRECTOR = true
+      this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
+    }
+  }
+
+  // Method for Calculate Instllment
   calculation() {
 
+    this.months = this.angForm.controls['AC_MONTHS'].value
+    console.log('this.months', this.months)
     if (this.repay == 'Monthly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
 
       this.result = Math.round((((this.drawingPower) / (this.months)) * 1)).toFixed(2);
@@ -1376,111 +1235,427 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
 
+  // Start Security tab
+
+  // Add Security
+
+  addField() {
+    const formVal = this.angForm.value;
+    var object = {
+      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
+      AC_TYPE: formVal.AC_TYPE,
+      AC_NO: formVal.AC_NO,
+      SECURITY_CODE: this.SECU_CODE,
+      SECURITY_VALUE: this.SECU_NAME,
+    }
+    this.multiSecurity.push(object);
+    this.resetField()
+  }
+
+  // Delete Security
+  delField(id) {
+    this.multiSecurity.splice(id, 1)
+  }
+
+  // Reset Security
+  resetField() {
+    this.angForm.controls['SECURITY_CODE'].reset();
+    this.angForm.controls['SECURITY_VALUE'].reset();
+  }
+
+  securityDetails(event) {
+    this.SECU_CODE = event.id
+    this.SECU_NAME = event.name
+  }
+
+  // Security Event
+  newItemEvent(newvalue) {
+
+    this.security_id = newvalue[0];
+
+    if (newvalue[1] == "book") {
+      this.bookid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "customerInsurance") {
+      this.insuranceid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "firePolicy") {
+      this.firepolicyid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "furniture") {
+      this.furnitureid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "goldSilver") {
+      this.goldid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "govSecurity") {
+      this.govtid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "landBuilding") {
+      this.landid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "marketShare") {
+      this.marketid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "otherSecurity") {
+      this.otherid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "ownDeposit") {
+      this.ownid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "plantMachinary") {
+      this.plantid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "pleadge") {
+      this.pledgeid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "stockStatement") {
+      this.stockid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "vehicle") {
+      this.vehicleid.push(this.security_id);
+    }
+  }
+
+  // Show security Detals Components
+  showSecurity(code) {
+
+    this._SecurityCode.getFormData(code).subscribe(data => {
+
+      if (data.BOOK_DEBTS == true) {
+        this.BOOK_DEBTS = true
+      } else {
+        this.BOOK_DEBTS = false
+      }
+
+      if (data.CUST_INSURANCE == true) {
+        this.CUST_INSURANCE = true
+      } else {
+        this.CUST_INSURANCE = false
+      }
+
+      if (data.FIRE_POLICY == true) {
+        this.FIRE_POLICY = true
+      } else {
+        this.FIRE_POLICY = false
+      }
+
+      if (data.FURNITURE_FIXTURE == true) {
+        this.FURNITURE_FIXTURE = true
+      }
+      else {
+        this.FURNITURE_FIXTURE = false
+      }
+
+      if (data.GOLD_SILVER == true) {
+        this.GOLD_SILVER = true
+      }
+      else {
+        this.GOLD_SILVER = false
+      }
+
+      if (data.GOVT_SECU_LIC == true) {
+        this.GOVT_SECU_LIC = true
+      } else {
+        this.GOVT_SECU_LIC = false
+      }
+
+      if (data.LAND_BUILDING == true) {
+        this.LAND_BUILDING = true
+      } else {
+        this.LAND_BUILDING = false
+      }
+
+      if (data.MARKET_SHARE == true) {
+        this.MARKET_SHARE = true
+      } else {
+        this.MARKET_SHARE = false
+      }
+
+      if (data.OTHER_SECURITY == true) {
+        this.OTHER_SECURITY = true
+      } else {
+        this.OTHER_SECURITY = false
+      }
+
+      if (data.OWN_DEPOSIT == true) {
+        this.OWN_DEPOSIT = true
+      } else {
+        this.OWN_DEPOSIT = false
+      }
+
+      if (data.PLANT_MACHINARY == true) {
+        this.PLANT_MACHINARY = true
+      } else {
+        this.PLANT_MACHINARY = false
+      }
+
+      if (data.PLEDGE_STOCK == true) {
+        this.PLEDGE_STOCK = true
+      } else {
+        this.PLEDGE_STOCK = false
+      }
+
+      if (data.STOCK_STATEMENT == true) {
+        this.STOCK_STATEMENT = true
+      } else {
+        this.STOCK_STATEMENT = false
+      }
+
+      if (data.VEHICLE == true) {
+        this.VEHICLE = true
+      } else {
+        this.VEHICLE = false
+      }
+    });
+  }
+  // End Security tab
+
+  // Start Guarantor tab
+
+  //Open Guarantor Form
+  OpenLink() {
+    this.GuarantorTrue = !this.GuarantorTrue
+  }
+
+  // Get Guarantor Customer Id 
+  getgCustomer(Gid) {
+    this.customerIdService.getFormData(Gid).subscribe(data => {
+      this.angForm.patchValue({
+        GAC_CUSTID: Gid.toString(),
+        GAC_MEMBNO: data.AC_MEMBNO,
+        GAC_MEMBTYPE: data.AC_MEMBTYPE,
+        GAC_NAME: data.AC_NAME,
+      })
+    })
+  }
+
+  // Add Guarantor
   addGuarantor() {
     const formVal = this.angForm.value;
     var object = {
-      AC_CUSTID: formVal.GAC_CUSTID,
+      GAC_CUSTID: formVal.GAC_CUSTID,
       AC_MEMBNO: formVal.GAC_MEMBNO,
       AC_MEMBTYPE: formVal.GAC_MEMBTYPE,
       AC_NAME: formVal.GAC_NAME,
       EXP_DATE: formVal.EXP_DATE,
-      AC_HONO: formVal.GAC_HONO,
-      AC_WARD: formVal.GAC_WARD,
-      AC_ADDR: formVal.GAC_ADDR,
-      AC_GALLI: formVal.GAC_GALLI,
-      AC_AREA: formVal.GAC_AREA,
-      AC_CTCODE: formVal.GAC_CTCODE,
-      AC_PIN: formVal.GAC_PIN
-
     }
     this.multiGuarantor.push(object);
-    console.log(this.multiGuarantor)
-    this.resetField()
+    this.resetGuarantor()
   }
 
+  // Edit Guarantor
   editGuarantor(id) {
     this.intIndex = id
     this.intID = this.multiGuarantor[id].id;
     this.GuarantorShowButton = false;
     this.GuarantorUpdateShow = true;
     this.angForm.patchValue({
-
-      GAC_CUSTID: this.multiGuarantor[id].AC_CUSTID,
+      GAC_CUSTID: this.multiGuarantor[id].GAC_CUSTID,
       GAC_MEMBNO: this.multiGuarantor[id].AC_MEMBNO,
       GAC_MEMBTYPE: this.multiGuarantor[id].AC_MEMBTYPE,
       GAC_NAME: this.multiGuarantor[id].AC_NAME,
       EXP_DATE: this.multiGuarantor[id].EXP_DATE,
-      GAC_HONO: this.multiGuarantor[id].AC_HONO,
-      GAC_WARD: this.multiGuarantor[id].AC_WARD,
-      GAC_ADDR: this.multiGuarantor[id].AC_ADDR,
-      GAC_GALLI: this.multiGuarantor[id].AC_GALLI,
-      GAC_AREA: this.multiGuarantor[id].AC_AREA,
-      GAC_CTCODE: this.multiGuarantor[id].AC_CTCODE,
-      GAC_PIN: this.multiGuarantor[id].AC_PIN
     })
   }
 
+  // Update Guarantor
   updateGuarantor() {
     let index = this.intIndex;
     this.GuarantorShowButton = true;
     this.GuarantorUpdateShow = false;
     const formVal = this.angForm.value;
     var object = {
-      AC_CUSTID: formVal.GAC_CUSTID,
+      GAC_CUSTID: formVal.GAC_CUSTID,
       AC_MEMBNO: formVal.GAC_MEMBNO,
       AC_MEMBTYPE: formVal.GAC_MEMBTYPE,
       AC_NAME: formVal.GAC_NAME,
       EXP_DATE: formVal.EXP_DATE,
-      AC_HONO: formVal.GAC_HONO,
-      AC_WARD: formVal.GAC_WARD,
-      AC_ADDR: formVal.GAC_ADDR,
-      AC_GALLI: formVal.GAC_GALLI,
-      AC_AREA: formVal.GAC_AREA,
-      AC_CTCODE: formVal.GAC_CTCODE,
-      AC_PIN: formVal.GAC_PIN,
       id: this.intID
     }
     this.multiGuarantor[index] = object;
-    this.resetField()
+    this.resetGuarantor()
   }
 
+  // Delete Guarantor
   delGuarantor(id) {
     this.multiGuarantor.splice(id, 1)
   }
-  // private regex: RegExp = new RegExp(/^\d*\.?\d{0,2}$/g);
-  // private specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Del', 'Delete'];
-  // @HostListener('keydown', ['$event'])
-  keyPressNumbers(event: KeyboardEvent) {
-    var charCode = (event.which) ? event.which : event.keyCode;
-    // Only Numbers 0-9
-    if ((charCode < 48 || charCode > 57 )) {
-      event.preventDefault();
-      return false;
-    } else {
-      return true;
-    }
-    // console.log(this.el.nativeElement.value);
-    // // Allow Backspace, tab, end, and home keys
-    // if (this.specialKeys.indexOf(event.key) !== -1) {
-    //   return;
-    // }
-    // let current: string = this.el.nativeElement.value;
-    // const position = this.el.nativeElement.selectionStart;
-    // const next: string = [current.slice(0, position), event.key == 'Decimal' ? '.' : event.key, current.slice(position)].join('');
-    // if (next && !String(next).match(this.regex)) {
-    //   event.preventDefault();
-    // }
 
-   
+  // Reset Guarantor
+  resetGuarantor() {
+    this.angForm.controls['GAC_CUSTID'].reset();
+    this.angForm.controls['GAC_MEMBNO'].reset();
+    this.angForm.controls['GAC_MEMBTYPE'].reset();
+    this.angForm.controls['GAC_NAME'].reset();
+    this.angForm.controls['EXP_DATE'].reset();
   }
-  // $(function(){
 
-  //   $('.number-only').keypress(function(e) {
-  //   if(isNaN(this.value+""+String.fromCharCode(e.charCode))) return false;
-  //   })
-  //   .on("cut copy paste",function(e){
-  //   e.preventDefault();
-  //   });
-  
-  // });
+  // End Guarantor tab
+
+  //  Start CoBorrower tab
+
+  //Open CoBorrower Form
+  OpenCoBorr() {
+    this.CoBorrowerTrue = !this.CoBorrowerTrue
+  }
+
+  // Get CoBorrower Customer Id 
+  getCCustomer(Cid) {
+    this.customerIdService.getFormData(Cid).subscribe(data => {
+      this.angForm.patchValue({
+        CAC_CUSTID: Cid.toString(),
+        CAC_NAME: data.AC_NAME,
+      })
+    })
+  }
+
+  // Add CoBorrower 
+  addCoBorrower() {
+    const formVal = this.angForm.value;
+    var object = {
+      CAC_CUSTID: formVal.CAC_CUSTID,
+      AC_NAME: formVal.CAC_NAME,
+    }
+    this.multiCoBorrower.push(object);
+    this.resetCoBorrower()
+  }
+
+  // Edit CoBorrower 
+  editCoBorrower(id) {
+    this.coBorrowerIndex = id
+    this.CoBorrowerupdateid = id
+    this.CoBorrowerID = this.multiCoBorrower[id].id;
+    this.CoBorrowerTrue = true
+    this.CoBorrowerShowButton = false;
+    this.CoBorrowerUpdateShow = true;
+    this.angForm.patchValue({
+      CAC_CUSTID: this.multiCoBorrower[id].CAC_CUSTID,
+      CAC_NAME: this.multiCoBorrower[id].AC_NAME,
+    })
+  }
+
+  // Update CoBorrower 
+  updateCoBorrower() {
+    let index = this.coBorrowerIndex;
+    this.CoBorrowerShowButton = true;
+    this.CoBorrowerUpdateShow = false;
+
+    const formVal = this.angForm.value;
+    var object = {
+      CAC_CUSTID: formVal.CAC_CUSTID,
+      AC_NAME: formVal.CAC_NAME,
+      id: this.CoBorrowerID
+    }
+    this.multiCoBorrower[index] = object;
+    this.resetCoBorrower()
+  }
+
+  // Delete CoBorrower 
+  delCoBorrower(id) {
+    this.multiCoBorrower.splice(id, 1)
+  }
+
+  // Reset CoBorrower 
+  resetCoBorrower() {
+    this.angForm.controls['CAC_CUSTID'].reset();
+    this.angForm.controls['CAC_NAME'].reset();
+  }
+
+  // End CoBorrower tab
+
+  getInterest(AC_INTCATA) {
+    this.temp = AC_INTCATA
+    this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
+      this.date = this.angForm.controls['AC_OPDATE'].value
+      if (data != typeof (undefined)) {
+        if (this.date == data[0].EFFECT_DATE) {
+          this.angForm.patchValue({
+            AC_INTCATA: data[0].INT_CATEGORY,
+            AC_INTRATE: data[0].rate[0].INT_RATE,
+          })
+        } else {
+          this.angForm.patchValue({
+            AC_INTCATA: data[1].INT_CATEGORY,
+            AC_INTRATE: 0
+          })
+        }
+      }
+    })
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
+
+  getExpiryDate() {
+    let months = this.angForm.controls['AC_MONTHS'].value
+    if (this.angForm.controls['AC_OPEN_OLD_DATE'].value != '') {
+      var expiryDt = new Date(this.angForm.controls['AC_OPEN_OLD_DATE'].value)
+      var year = expiryDt.getFullYear();
+      var month = new Date(expiryDt).getMonth();
+      var day = new Date(expiryDt).getDate();
+      var expiry = month + Number(months)
+      var date = new Date(year, expiry, day);
+      var expiryDate = this.datePipe.transform(date, "dd-MM-yyyy")
+      this.angForm.patchValue({
+        AC_EXPIRE_DATE: expiryDate
+      })
+    }
+    else {
+      var expiryDt = new Date(this.angForm.controls['AC_OPDATE'].value)
+      var year = expiryDt.getFullYear();
+      var month = new Date(expiryDt).getMonth();
+      var day = new Date(expiryDt).getDate();
+      var expiry = month + Number(months)
+      var date = new Date(year, expiry, day);
+      var expiryDate = this.datePipe.transform(date, "dd-MM-yyyy")
+      this.angForm.patchValue({
+        AC_EXPIRE_DATE: expiryDate
+      })
+    }
+  }
+  month: number
 }

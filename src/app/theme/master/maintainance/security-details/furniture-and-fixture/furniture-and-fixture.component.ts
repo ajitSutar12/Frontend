@@ -21,6 +21,7 @@ import { furnitureandfixtureservice } from "./furniture-and-fixture.service";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../../../../environments/environment";
+import { Router } from "@angular/router";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -51,11 +52,12 @@ interface FurnitureMaster {
   styleUrls: ["./furniture-and-fixture.component.scss"],
 })
 export class FurnitureAndFixtureComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+  implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
-  @Output() newItemEvent = new EventEmitter<string>();
-
+  @Output() newfurnitureFixEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newfurnitureFixEvent.emit(value);
+  }
   //passing data from parent to child component
   @Input() scheme: any;
   @Input() Accountno: any;
@@ -81,7 +83,8 @@ export class FurnitureAndFixtureComponent
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _furniture: furnitureandfixtureservice
+    private _furniture: furnitureandfixtureservice,
+    public router: Router
   ) {
     this.createForm();
   }
@@ -210,8 +213,14 @@ export class FurnitureAndFixtureComponent
       REMARK: formVal.REMARK,
     };
     this._furniture.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        let info = []
+        info.push(data.id)
+        info.push("furniture")
+
+        this.newItemEvent(info);
+        
         // to reload after insertion of data
         this.rerender();
       },
@@ -224,29 +233,28 @@ export class FurnitureAndFixtureComponent
   }
 
   //check  if margin values are below 100
-checkmargin(ele:any){ 
-  //check  if given value  is below 100
-  console.log(ele);
-  if(ele <= 100){
-console.log(ele);
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
+    console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
+    }
+    else {
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
   }
-  else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
-  }
-}
 
   //function for edit button clicked
   editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
     this._furniture.getFormData(id).subscribe((data) => {
-          //sending values to parent
-          let dropdown: any = {};
-          dropdown.scheme = data.AC_TYPE;
-          dropdown.account = data.AC_NO.toString();
-          this.newItemEvent.emit(dropdown),
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      dropdown.account = data.AC_NO.toString();
 
-      this.updateID = data.id;
+        this.updateID = data.id;
       this.angForm.patchValue({
         AC_TYPE: this.scheme._value[0],
         AC_NO: this.Accountno,

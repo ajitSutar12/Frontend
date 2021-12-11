@@ -35,6 +35,10 @@ export class SecurityCodeService {
   deleteData(id: any): Observable<any> {
     return this.http.delete(this.url + '/security-code/delete/' + id).pipe(catchError(this.handleError));
   }
+
+  getData(): Observable<any> {
+    return this.http.get(this.url + '/security-code/').pipe(catchError(this.handleError));
+  }
 }
 
 

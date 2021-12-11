@@ -1,18 +1,43 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { animate, style, transition, trigger } from '@angular/animations';
-import { Subscription } from 'rxjs/Subscription';
-import Swal from 'sweetalert2';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-// Used to Call API
-import { HttpClient } from '@angular/common/http';
-import { first } from 'rxjs/operators';
-import { CustomerIdService } from '../customer-id/customer-id.service';
-import { CashCreditService } from './cash-credit-master.service';
-import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import { environment } from '../../../../../environments/environment'
+
+// Creating and maintaining form fields with validation 
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+// Displaying Sweet Alert
+import Swal from 'sweetalert2';
+
+// Angular Datatable Directive  
+import { DataTableDirective } from 'angular-datatables';
+
+// Service File For Handling CRUD Operation
+import { CashCreditService } from './cash-credit-master.service';
+
+//animation
+import { animate, style, transition, trigger } from '@angular/animations';
+
+// Http Client
+import { HttpClient } from '@angular/common/http';
+
+// Router File
 import { Router } from '@angular/router'
+
+//Service Files
+import { CustomerIdService } from '../customer-id/customer-id.service';
+import { InterestRateForLoanandCCService } from '../../policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
+import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TermLoanSchemeService } from '../../../utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service';
+import { SecurityCodeService } from '../../policy-settings/definations/security-code/security-code.service';
+
+// Dropdown Files
+import { IOption } from 'ng-select';
+import { first } from 'rxjs/operators';
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service';
+import { InstallmentMethodService } from '../../../../shared/dropdownService/installment-method.service';
 import { AuthorityMasterDropdownService } from '../../../../shared/dropdownService/authority-master-dropdown.service';
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
 import { RecoveryClearkMasterDropdownService } from '../../../../shared/dropdownService/recovery-cleark-master-dropdown.service';
@@ -24,12 +49,9 @@ import { HealthMasterDropdownService } from '../../../../shared/dropdownService/
 import { AccountTypeService } from '../../../../shared/dropdownService/account-type.service';
 import { SecurityMasterdropdownService } from '../../../../shared/dropdownService/security-master-dropdown.service';
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
-import { InterestRateForLoanandCCService } from '../../policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
-import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
-import { IOption } from 'ng-select';
-import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs-compat';
-import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { RepayModeService } from '../../../../shared/dropdownService/repay-mode.service';
+
+//date pipe
 import { DatePipe } from '@angular/common';
 
 // Handling datatable data
@@ -84,8 +106,7 @@ interface CashCreditMaster {
   AC_TAREA: string
   AC_TCTCODE: string
   AC_TPIN: number
-  // AC_DPACTYPE: string
-  // AC_DPACNO: string
+  AC_IS_RECOVERY: boolean
 }
 @Component({
   selector: 'app-cash-credit-master',
@@ -106,6 +127,7 @@ interface CashCreditMaster {
 })
 
 export class CashCreditMasterComponent implements OnInit {
+  selected
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -133,15 +155,16 @@ export class CashCreditMasterComponent implements OnInit {
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
- // Variables for hide/show add and update and new button
- showButton: boolean = true;
- updateShow: boolean = false;
- newbtnShow: boolean = false;
- addShowButton: boolean = true
- UpdateShowButton: boolean = false
- multiSecurity = [];
+  // Variables for hide/show add and update button
+  showButton: boolean = true;
+  updateShow: boolean = false;
+  newbtnShow: boolean = false;
   //variable to get ID to update
   updateID: number = 0;
+
+  //Scheme type variable
+  schemeType: string = 'CC'
+
   // Filter Variable
   filterData = {};
   prifix: any[];
@@ -162,35 +185,105 @@ export class CashCreditMasterComponent implements OnInit {
   industry: any[]
   scheme: any[] //scheme code from schemast(S_ACNOTYPE)
   Cust_ID: any[] //customer id from idmaster
-  GCust_ID: any[] //customer id from idmaster
-  CCust_ID: any[] //customer id from idmaster
-  director: any[] //customer id from idmaster
+  GCust_ID: any //customer id from idmaster
+  CCust_ID: any //customer id from idmaster
   security: any[]
+  director: any[]
   // documentMaster: DocumentMaster[];
   id: string = '';
   Gid: string = '';
   Cid: string = '';
   idp: string = '';
+  idi: string = '';
+  code: string = '';
   addType: string
-  //Scheme type variable
-  schemeType: string = 'CC'
+  columnShowButton: boolean = false
+  date
+  temp
+  multiCoBorrower = [];
+  CoBorrowerShowButton: boolean = true
+  CoBorrowerUpdateShow: boolean = false
+  multiGuarantor = [];
+  GuarantorShowButton: boolean = true
+  GuarantorUpdateShow: boolean = false
+  CoBorrowerupdateid
+  CoBorrowerID
+  Guarantorupdateid
+  GuarantorID
+  coBorrowerIndex
+  guarantorIndex
+  tempAddress: boolean = true;
+  GuarantorTrue: boolean = false
+  CoBorrowerTrue: boolean = false
+  addShowButton: boolean = true
+  UpdateShowButton: boolean = false
+  multiSecurity = [];
+  SECU_CODE
+  SECU_NAME
+  intIndex: number
+  intID: number
+  AC_DIRECTOR = true
+  repay: string
+  installmentType: string
+  mon
+  result: any
+  drawingPower: number;
+  months: number
+  sanctionAmt
+  intRate: any
+  intResult: any
 
+  security_id: number
+  scheme1: any
+  BOOK_DEBTS: boolean = false
+  CUST_INSURANCE: boolean = false
+  FIRE_POLICY: boolean = false
+  FURNITURE_FIXTURE: boolean = false
+  GOLD_SILVER: boolean = false
+  GOVT_SECU_LIC: boolean = false
+  LAND_BUILDING: boolean = false
+  MARKET_SHARE: boolean = false
+  OTHER_SECURITY: boolean = false
+  OWN_DEPOSIT: boolean = false
+  PLANT_MACHINARY: boolean = false
+  PLEDGE_STOCK: boolean = false
+  STOCK_STATEMENT: boolean = false
+  VEHICLE: boolean = false
+  bookid = []
+  insuranceid = []
+  firepolicyid = []
+  furnitureid = []
+  goldid = []
+  govtid = []
+  landid = []
+  marketid = []
+  otherid = []
+  ownid = []
+  plantid = []
+  pledgeid = []
+  stockid = []
+  vehicleid = []
+
+  repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
+  installment: Array<IOption> = this.installmentMethodService.getCharacters();
   account: Array<IOption> = this.accountType.getCharacters();
-  selectedOption = '3';
+  selectedOption = 4;
   isDisabled = true;
   characters: Array<IOption>;
-  selectedCharacter = '3';
+  selectedCharacter = 4;
   timeLeft = 5;
 
   private dataSub: Subscription = null;
   constructor(
     private http: HttpClient,
-    private cashCredit: CashCreditService,
+    private cashCreditService: CashCreditService,
     private customerIdService: CustomerIdService,
     private fb: FormBuilder,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private customerID: CustomerIDMasterDropdownService,
     private interstCate: IntrestCategoryMasterDropdownService,
+    private repayModeService: RepayModeService,
+    private installmentMethodService: InstallmentMethodService,
     private authorityMasterDropdown: AuthorityMasterDropdownService,
     private directorMasterDropdown: DirectorMasterDropdownService,
     private recoveryClearkMaster: RecoveryClearkMasterDropdownService,
@@ -205,12 +298,21 @@ export class CashCreditMasterComponent implements OnInit {
     private InterestRateForLoanandCC: InterestRateForLoanandCCService,
     private prioritySectorMaster: PrioritySectorMasterService,
     private systemParameter: SystemMasterParametersService,
+    private _TermLoanScheme: TermLoanSchemeService,
     private datePipe: DatePipe,
+    private _SecurityCode: SecurityCodeService,
+    private el: ElementRef,
     public router: Router
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
+
+    //Call CreateForm Function
+
     this.createForm();
+
     // Fetching Server side data
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
@@ -247,7 +349,6 @@ export class CashCreditMasterComponent implements OnInit {
             dataTableParameters
           ).subscribe(resp => {
             this.cashCreditMaster = resp.data;
-            // console.log(this.customerMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -291,14 +392,6 @@ export class CashCreditMasterComponent implements OnInit {
           title: 'Renewal Date',
           data: 'AC_OPEN_OLD_DATE'
         },
-        // {
-        //   title: 'Deposit Scheme',
-        //   data: 'AC_DPACTYPE'
-        // },
-        // {
-        //   title: 'Deposit A/c No.',
-        //   data: 'AC_DPACNO'
-        // },
         {
           title: 'Manual Reference Member No.',
           data: 'REF_ACNO'
@@ -415,58 +508,82 @@ export class CashCreditMasterComponent implements OnInit {
       dom: 'Blrtip',
     };
 
-
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
     })
+
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
       this.GCust_ID = data;
       this.CCust_ID = data;
     })
+
     this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.intCat = data;
     })
+
     this.authorityMasterDropdown.getAuthorityMasterList().pipe(first()).subscribe(data => {
       this.sanction = data;
     })
+
     this.directorMasterDropdown.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.Recommended = data;
     })
+
     this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
       this.director = data;
     })
+
     this.recoveryClearkMaster.getRecoveryClearkMasterList().pipe(first()).subscribe(data => {
       this.Recovery = data;
     })
+
     this.prioritySector.getPrioritySectorMasterList().pipe(first()).subscribe(data => {
       this.priority = data;
     })
+
     this.weakerMaster.getWeakerMasterList().pipe(first()).subscribe(data => {
       this.weaker = data;
     })
+
     this.purposeMaster.getPurposeMasterList().pipe(first()).subscribe(data => {
       this.purpose = data;
     })
+
     this.industryMaster.getIndustaryMasterList().pipe(first()).subscribe(data => {
       this.industry = data;
     })
+
     this.healthMaster.getHealthMasterList().pipe(first()).subscribe(data => {
       this.health = data;
     })
+
     this.cityMaster.getcityList().pipe(first()).subscribe(data => {
       this.city = data;
     })
+
     this.securityMaster.getsecurityMasterList().pipe(first()).subscribe(data => {
       this.security = data;
     })
+
     this.runTimer();
+
+    this.dataSub = this.repayModeService.loadCharacters().subscribe((options) => {
+
+      this.characters = options;
+    });
+
+    this.dataSub = this.installmentMethodService.loadCharacters().subscribe((options) => {
+      this.characters = options;
+    });
 
     this.dataSub = this.accountType.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
 
   };
+
+  // runTimer function
 
   runTimer() {
     const timer = setInterval(() => {
@@ -476,6 +593,8 @@ export class CashCreditMasterComponent implements OnInit {
       }
     }, 1000);
   }
+
+  // Create form Method
 
   createForm() {
     this.angForm = this.fb.group({
@@ -489,8 +608,6 @@ export class CashCreditMasterComponent implements OnInit {
       AC_ACNOTYPE: ['CC'],
       AC_TYPE: ['', [Validators.required]],
       AC_NO: [''],
-      // AC_DPACTYPE: [''],
-      // AC_DPACNO: [''],
       AC_TITLE: [''],
       AC_NAME: [''],
       GAC_NAME: [''],
@@ -498,19 +615,27 @@ export class CashCreditMasterComponent implements OnInit {
       AC_OPDATE: ['', [Validators.required]],
       AC_OPEN_OLD_DATE: [''],
       AC_BIRTH_DT: [''],
-      AC_IS_RECOVERY: [''],
+      AC_IS_RECOVERY: [false],
       AC_MEMBTYPE: [''],
       AC_MEMBNO: [''],
       REF_ACNO: [''],
       AC_CAST: [''],
       AC_OCODE: [''],
+      AC_ADDFLAG: [true],
+      AC_ADDTYPE: ['P'],
+      AC_THONO: ['', [Validators.pattern]],
+      AC_TWARD: ['', [Validators.pattern]],
+      AC_TADDR: ['', [Validators.pattern]],
+      AC_TGALLI: ['', [Validators.pattern]],
+      AC_TAREA: ['', [Validators.pattern]],
+      AC_TCTCODE: ['', [Validators.pattern]],
       AC_INTCATA: ['', [Validators.required]],
       AC_SANCTION_AMOUNT: ['', [Validators.required, Validators.pattern]],
       AC_SANCTION_DATE: ['', [Validators.required]],
       AC_DRAWPOWER_AMT: ['', [Validators.required, Validators.pattern]],
       AC_MONTHS: ['', [Validators.required, Validators.pattern]],
       AC_EXPIRE_DATE: ['', [Validators.required]],
-      AC_INTRATE: ['', [Validators.required, Validators.pattern]],
+      AC_INTRATE: ['', [Validators.required]],
       AC_INSTALLMENT: [''],
       AC_AUTHORITY: ['', [Validators.required]],
       AC_RECOMMEND_BY: ['', [Validators.required]],
@@ -538,28 +663,6 @@ export class CashCreditMasterComponent implements OnInit {
       AC_AREA: [''],
       AC_CTCODE: [''],
       AC_PIN: [''],
-      GAC_HONO: [''],
-      GAC_WARD: [''],
-      GAC_ADDR: [''],
-      GAC_GALLI: [''],
-      GAC_AREA: [''],
-      GAC_CTCODE: [''],
-      GAC_PIN: [''],
-      CAC_HONO: [''],
-      CAC_WARD: [''],
-      CAC_ADDR: [''],
-      CAC_GALLI: [''],
-      CAC_AREA: [''],
-      CAC_CTCODE: [''],
-      CAC_PIN: [''],
-      AC_ADDFLAG: [true],
-      AC_ADDTYPE: ['P'],
-      AC_THONO: [''],
-      AC_TWARD: [''],
-      AC_TADDR: [''],
-      AC_TGALLI: [''],
-      AC_TAREA: [''],
-      AC_TCTCODE: [''],
       AC_TPIN: [''],
       AC_MOBILENO: [''],
       AC_PHONE_RES: [''],
@@ -571,25 +674,28 @@ export class CashCreditMasterComponent implements OnInit {
   }
 
   // Method to insert data into database through NestJS
+
   submit() {
+
     const formVal = this.angForm.value;
+
     if (formVal.AC_ADDFLAG == true) {
       this.addType = 'P'
     }
     else if (formVal.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
+
     const dataToSend = {
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
+      'AC_NAME': formVal.AC_NAME,
       'AC_CUSTID': formVal.AC_CUSTID,
       'AC_OPDATE': formVal.AC_OPDATE,
       'AC_OPEN_OLD_DATE': formVal.AC_OPEN_OLD_DATE,
-      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
-      // 'AC_DPACTYPE': formVal.AC_DPACTYPE,
-      // 'AC_DPACNO': formVal.AC_DPACNO,
       'REF_ACNO': formVal.REF_ACNO,
+      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
       'AC_INTCATA': formVal.AC_INTCATA,
       'AC_SANCTION_AMOUNT': formVal.AC_SANCTION_AMOUNT,
       'AC_SANCTION_DATE': formVal.AC_SANCTION_DATE,
@@ -629,12 +735,24 @@ export class CashCreditMasterComponent implements OnInit {
       'CoBorrowerData': this.multiCoBorrower,
       'GuarantorData': this.multiGuarantor,
       'SecurityData': this.multiSecurity,
+      'BookDebts': this.bookid,
+      'CustomerInsurance': this.insuranceid,
+      'FirePolicy': this.firepolicyid,
+      'Furniture': this.furnitureid,
+      'GoldSilver': this.goldid,
+      'Goverment': this.govtid,
+      'LandBuilding': this.landid,
+      'MarketShare': this.marketid,
+      'OtherSecurity': this.otherid,
+      'OwnDeposit': this.ownid,
+      'PlantMachinary': this.plantid,
+      'PleadgeStock': this.pledgeid,
+      'StockStatement': this.stockid,
+      'Vehicle': this.vehicleid,
 
     }
-console.log("all data",dataToSend)
-console.log("security data",this.multiSecurity)
 
-    this.cashCredit.postData(dataToSend).subscribe(data => {
+    this.cashCreditService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -645,72 +763,86 @@ console.log("security data",this.multiSecurity)
 
     //To clear form
     this.resetForm();
+    this.multiCoBorrower = []
+    this.multiGuarantor = []
+    this.multiSecurity = [];
+    this.bookid = []
+    this.insuranceid = []
+    this.firepolicyid = []
+    this.furnitureid = []
+    this.goldid = []
+    this.govtid = []
+    this.landid = []
+    this.marketid = []
+    this.otherid = []
+    this.ownid = []
+    this.plantid = []
+    this.pledgeid = []
+    this.stockid = []
+    this.vehicleid = []
   }
 
   // Reset Function
+
   resetForm() {
     this.createForm();
+    this.resetGuarantor()
+    this.resetCoBorrower()
+    this.resetField()
   }
 
   //Method for append data into fields
+
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
-    
-    this.cashCredit.getFormData(id).subscribe(data => {
+    this.columnShowButton = true
+    this.cashCreditService.getFormData(id).subscribe(data => {
+      this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       this.multiSecurity = data.securityMaster
-      this.multiGuarantor = data.guaranterMaster
-      this.multiCoBorrower = data.CoborrowerMaster
-      console.log('edit', data)
-      this.updateID = data.id;
+      this.multiCoBorrower = data.CoborrowerMaster,
+        this.multiGuarantor = data.guaranterMaster
       this.angForm.patchValue({
-        'AC_TYPE': data.AC_TYPE,
-        'AC_NO': data.AC_NO,
-        'AC_OPDATE': data.AC_OPDATE,
-        'AC_OPEN_OLD_DATE': data.AC_OPEN_OLD_DATE,
-        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
-        // 'AC_DPACTYPE': data.AC_DPACTYPE,
-        // 'AC_DPACNO': data.AC_DPACNO,
-        'REF_ACNO': data.REF_ACNO,
-        'AC_INTCATA': data.AC_INTCATA,
-        'AC_SANCTION_AMOUNT': data.AC_SANCTION_AMOUNT,
-        'AC_SANCTION_DATE': data.AC_SANCTION_DATE,
-        'AC_DRAWPOWER_AMT': data.AC_DRAWPOWER_AMT,
-        'AC_MONTHS': data.AC_MONTHS,
-        'AC_EXPIRE_DATE': data.AC_EXPIRE_DATE,
-        'AC_INTRATE': data.AC_INTRATE,
-        'AC_INSTALLMENT': data.AC_INSTALLMENT,
-        'AC_AUTHORITY': data.AC_AUTHORITY,
-        'AC_RECOMMEND_BY': data.AC_RECOMMEND_BY,
-        'AC_RECOVERY_CLERK': data.AC_RECOVERY_CLERK,
-        'AC_PRIORITY': data.AC_PRIORITY,
-        'AC_PRIORITY_SUB1': data.AC_PRIORITY_SUB1,
-        'AC_PRIORITY_SUB2': data.AC_PRIORITY_SUB2,
-        'AC_PRIORITY_SUB3': data.AC_PRIORITY_SUB3,
-        'AC_WEAKER': data.AC_WEAKER,
-        'AC_PURPOSE': data.AC_PURPOSE,
-        'AC_INDUSTRY': data.AC_INDUSTRY,
-        'AC_HEALTH': data.AC_HEALTH,
-        'AC_RELATION_TYPE': data.AC_RELATION_TYPE,
-        'AC_DIRECTOR': data.AC_DIRECTOR,
-        'AC_DIRECTOR_RELATION': data.AC_DIRECTOR_RELATION,
-        'AC_COREG_NO': data.AC_COREG_NO,
-        'AC_COREG_DATE': data.AC_COREG_DATE,
-        'AC_COREG_AMT': data.AC_COREG_AMT,
-        'AC_RESO_NO': data.AC_RESO_NO,
-        'AC_RESO_DATE': data.AC_RESO_DATE,
-        'AC_THONO': data.custAddress[1].AC_THONO,
-        'AC_TWARD': data.custAddress[1].AC_TWARD,
-        'AC_TADDR': data.custAddress[1].AC_TADDR,
-        'AC_TGALLI': data.custAddress[1].AC_TGALLI,
-        'AC_TAREA': data.custAddress[1].AC_TAREA,
-        'AC_TCTCODE': data.custAddress[1].AC_TCTCODE,
-        'AC_TPIN': data.custAddress[1].AC_TPIN,
+        AC_TYPE: data.AC_TYPE,
+        AC_NO: data.AC_NO,
+        AC_OPDATE: data.AC_OPDATE,
+        AC_OPEN_OLD_DATE: data.AC_OPEN_OLD_DATE,
+        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+        REF_ACNO: data.REF_ACNO,
+        AC_INTCATA: data.AC_INTCATA,
+        AC_SANCTION_AMOUNT: data.AC_SANCTION_AMOUNT,
+        AC_SANCTION_DATE: data.AC_SANCTION_DATE,
+        AC_DRAWPOWER_AMT: data.AC_DRAWPOWER_AMT,
+        AC_MONTHS: data.AC_MONTHS,
+        AC_EXPIRE_DATE: data.AC_EXPIRE_DATE,
+        AC_INTRATE: data.AC_INTRATE,
+        AC_INSTALLMENT: data.AC_INSTALLMENT,
+        AC_AUTHORITY: data.AC_AUTHORITY,
+        AC_RECOMMEND_BY: data.AC_RECOMMEND_BY,
+        AC_RECOVERY_CLERK: data.AC_RECOVERY_CLERK,
+        AC_PRIORITY: data.AC_PRIORITY,
+        AC_PRIORITY_SUB1: data.AC_PRIORITY_SUB1,
+        AC_PRIORITY_SUB2: data.AC_PRIORITY_SUB2,
+        AC_PRIORITY_SUB3: data.AC_PRIORITY_SUB3,
+        AC_WEAKER: data.AC_WEAKER,
+        AC_PURPOSE: data.AC_PURPOSE,
+        AC_INDUSTRY: data.AC_INDUSTRY,
+        AC_HEALTH: data.AC_HEALTH,
+        AC_RELATION_TYPE: data.AC_RELATION_TYPE,
+        AC_DIRECTOR: data.AC_DIRECTOR,
+        AC_DIRECTOR_RELATION: data.AC_DIRECTOR_RELATION,
+        AC_COREG_NO: data.AC_COREG_NO,
+        AC_COREG_DATE: data.AC_COREG_DATE,
+        AC_COREG_AMT: data.AC_COREG_AMT,
+        AC_RESO_NO: data.AC_RESO_NO,
+        AC_RESO_DATE: data.AC_RESO_DATE,
       })
     })
   }
+
+  // Method For New Button
 
   addNewData() {
     this.showButton = true;
@@ -721,7 +853,9 @@ console.log("security data",this.multiSecurity)
     this.multiGuarantor = [];
     this.resetForm();
   }
+
   //Method for update data 
+
   updateData() {
     let data = this.angForm.value;
     if (data.AC_ADDFLAG == true) {
@@ -735,8 +869,7 @@ console.log("security data",this.multiSecurity)
     data['CoBorrowerData'] = this.multiCoBorrower
     data['SecurityData'] = this.multiSecurity
     data['id'] = this.updateID;
-    this.cashCredit.updateData(data).subscribe(() => {
-      console.log(data)
+    this.cashCreditService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
@@ -752,6 +885,7 @@ console.log("security data",this.multiSecurity)
   }
 
   //Method for delete data
+
   delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
@@ -763,7 +897,7 @@ console.log("security data",this.multiSecurity)
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.cashCredit.deleteData(id).subscribe(data1 => {
+        this.cashCreditService.deleteData(id).subscribe(data1 => {
           this.cashCreditMaster = data1;
           Swal.fire(
             'Deleted!',
@@ -786,248 +920,15 @@ console.log("security data",this.multiSecurity)
       }
     })
   }
-  temp
-  date
-  getInterest(AC_INTCATA) {
-    this.temp = AC_INTCATA
-    this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
-      this.date = this.angForm.controls['AC_OPDATE'].value
-      if (data != typeof (undefined)) {
-        if (this.date == data[0].EFFECT_DATE) {
-          console.log("within if condition")
-          this.angForm.patchValue({
-            AC_INTCATA: data[0].INT_CATEGORY,
-            AC_INTRATE: data[0].rate[0].INT_RATE,
-          })
-        } else {
-          this.angForm.patchValue({
-            AC_INTCATA: data[1].INT_CATEGORY,
-            AC_INTRATE: 0
-          })
-        }
 
+  // Method for Get Customer Data
 
-      }
-    })
-  }
-
-  getPriority(idp) {
-    this.prioritySectorMaster.getFormData(idp).subscribe(data => {
-      console.log("priority", data)
-      this.angForm.patchValue({
-        AC_PRIORITY: idp.toString(),
-        AC_PRIORITY_SUB1: data.SUB1_CODE,
-        AC_PRIORITY_SUB2: data.SUB2_CODE,
-        AC_PRIORITY_SUB3: data.SUB3_CODE,
-      })
-    })
-  }
-
-  getgCustomer(Gid) {
-    console.log('in getcustomer', Gid)
-    this.customerIdService.getFormData(Gid).subscribe(data => {
-      console.log('get customer data', data)
-      this.angForm.patchValue({
-        GAC_CUSTID: Gid.toString(),
-        GAC_MEMBNO: data.AC_MEMBNO,
-        GAC_MEMBTYPE: data.AC_MEMBTYPE,
-        GAC_NAME: data.AC_NAME,
-        GAC_HONO: data.custAddress[0].AC_HONO,
-        GAC_WARD: data.custAddress[0].AC_WARD,
-        GAC_TADDR: data.custAddress[0].AC_TADDR,
-        GAC_TGALLI: data.custAddress[0].AC_TGALLI,
-        GAC_AREA: data.custAddress[0].AC_AREA,
-        GCITY_NAME: data.custAddress[0].AC_CTCODE,
-        GAC_PIN: data.custAddress[0].AC_PIN,
-      })
-    })
-  }
-
-  multiCoBorrower = [];
-  CoBorrowerShowButton: boolean = true
-  CoBorrowerUpdateShow: boolean = false
-  multiGuarantor = [];
-  GuarantorShowButton: boolean = true
-  GuarantorUpdateShow: boolean = false
-
-  addGuarantor() {
-    const formVal = this.angForm.value;
-    var object = {
-      GAC_CUSTID: formVal.GAC_CUSTID,
-      GAC_MEMBNO: formVal.GAC_MEMBNO,
-      GAC_MEMBTYPE: formVal.GAC_MEMBTYPE,
-      GAC_NAME: formVal.GAC_NAME,
-      GAC_HONO: formVal.GAC_HONO,
-      GAC_WARD: formVal.GAC_WARD,
-      GAC_ADDR: formVal.GAC_ADDR,
-      GAC_GALLI: formVal.GAC_GALLI,
-      GAC_AREA: formVal.GAC_AREA,
-      GAC_CTCODE: formVal.GAC_CTCODE,
-      GAC_PIN: formVal.GAC_PIN,
-      EXP_DATE: formVal.EXP_DATE
-    }
-    this.multiGuarantor.push(object);
-    this.resetGuarantor()
-  }
-  addCoBorrower() {
-    const formVal = this.angForm.value;
-    var object = {
-      CAC_CUSTID: formVal.CAC_CUSTID,
-      CAC_NAME: formVal.CAC_NAME,
-      CAC_HONO: formVal.CAC_HONO,
-      CAC_WARD: formVal.CAC_WARD,
-      CAC_ADDR: formVal.CAC_ADDR,
-      CAC_GALLI: formVal.CAC_GALLI,
-      CAC_AREA: formVal.CAC_AREA,
-      CAC_CTCODE: formVal.CAC_CTCODE,
-      CAC_PIN: formVal.CAC_PIN
-    }
-    this.multiCoBorrower.push(object);
-    this.resetCoBorrower()
-  }
-
-  CoBorrowerupdateid
-  CoBorrowerID
-  Guarantorupdateid
-  GuarantorID
-  editCoBorrower(id) {
-    this.CoBorrowerupdateid = id
-    console.log('in edit nominee', this.multiCoBorrower[id].id)
-    this.CoBorrowerID = this.multiCoBorrower[id].id;
-    this.CoBorrowerTrue = true
-    this.CoBorrowerShowButton = false;
-    this.CoBorrowerUpdateShow = true;
-    this.angForm.patchValue({
-      CAC_CUSTID: this.multiCoBorrower[id].CAC_CUSTID,
-      CAC_NAME: this.multiCoBorrower[id].CAC_NAME,
-      CAC_HONO: this.multiCoBorrower[id].CAC_HONO,
-      CAC_WARD: this.multiCoBorrower[id].CAC_WARD,
-      CAC_ADDR: this.multiCoBorrower[id].CAC_ADDR,
-      CAC_GALLI: this.multiCoBorrower[id].CAC_GALLI,
-      CAC_AREA: this.multiCoBorrower[id].CAC_AREA,
-      CAC_CTCODE: this.multiCoBorrower[id].CAC_CTCODE,
-      CAC_PIN: this.multiCoBorrower[id].CAC_PIN
-    })
-  }
-  editGuarantor(id) {
-    this.Guarantorupdateid = id
-    console.log('in edit nominee', this.multiGuarantor[id].id)
-    this.GuarantorID = this.multiGuarantor[id].id;
-    this.GuarantorTrue = true
-    this.GuarantorShowButton = false;
-    this.GuarantorUpdateShow = true;
-    this.angForm.patchValue({
-      GAC_CUSTID: this.multiGuarantor[id].GAC_CUSTID,
-      GAC_NAME: this.multiGuarantor[id].GAC_NAME,
-      GAC_MEMBNO: this.multiGuarantor[id].GAC_MEMBNO,
-      GAC_MEMBTYPE: this.multiGuarantor[id].GAC_MEMBTYPE,
-      GAC_HONO: this.multiGuarantor[id].GAC_HONO,
-      GAC_WARD: this.multiGuarantor[id].GAC_WARD,
-      GAC_ADDR: this.multiGuarantor[id].GAC_ADDR,
-      GAC_GALLI: this.multiGuarantor[id].GAC_GALLI,
-      GAC_AREA: this.multiGuarantor[id].GAC_AREA,
-      GAC_CTCODE: this.multiGuarantor[id].GAC_CTCODE,
-      EXP_DATE: this.multiGuarantor[id].EXP_DATE,
-      GAC_PIN: this.multiGuarantor[id].GAC_PIN
-    })
-  }
-  updateCoBorrower() {
-    let index = this.CoBorrowerID;
-    this.CoBorrowerShowButton = true;
-    this.CoBorrowerUpdateShow = false;
-    const formVal = this.angForm.value;
-    var object = {
-      CAC_CUSTID: formVal.CAC_CUSTID,
-      CAC_NAME: formVal.CAC_NAME,
-      CAC_HONO: formVal.CAC_HONO,
-      CAC_WARD: formVal.CAC_WARD,
-      CAC_ADDR: formVal.CAC_ADDR,
-      CAC_GALLI: formVal.CAC_GALLI,
-      CAC_AREA: formVal.CAC_AREA,
-      CAC_CTCODE: formVal.CAC_CTCODE,
-      CAC_PIN: formVal.CAC_PIN,
-      id: this.CoBorrowerID
-    }
-    this.multiCoBorrower[this.CoBorrowerupdateid] = object;
-    this.resetCoBorrower()
-  }
-  updateGuarantor() {
-    let index = this.GuarantorID;
-    this.GuarantorShowButton = true;
-    this.GuarantorUpdateShow = false;
-    const formVal = this.angForm.value;
-    var object = {
-      GAC_CUSTID: formVal.GAC_CUSTID,
-      GAC_MEMBNO: formVal.GAC_MEMBNO,
-      GAC_MEMBTYPE: formVal.GAC_MEMBTYPE,
-      GAC_NAME: formVal.GAC_NAME,
-      GAC_HONO: formVal.GAC_HONO,
-      GAC_WARD: formVal.GAC_WARD,
-      GAC_ADDR: formVal.GAC_ADDR,
-      GAC_GALLI: formVal.GAC_GALLI,
-      GAC_AREA: formVal.GAC_AREA,
-      GAC_CTCODE: formVal.GAC_CTCODE,
-      GAC_PIN: formVal.GAC_PIN,
-      EXP_DATE: formVal.EXP_DATE,
-      id: this.GuarantorID
-    }
-    this.multiGuarantor[this.Guarantorupdateid] = object;
-    this.resetGuarantor()
-  }
-  resetCoBorrower() {
-    this.angForm.controls['CAC_CUSTID'].reset();
-    this.angForm.controls['CAC_NAME'].reset();
-    this.angForm.controls['CAC_HONO'].reset();
-    this.angForm.controls['CAC_WARD'].reset();
-    this.angForm.controls['CAC_ADDR'].reset();
-    this.angForm.controls['CAC_GALLI'].reset();
-    this.angForm.controls['CAC_AREA'].reset();
-    this.angForm.controls['CAC_CTCODE'].reset();
-    this.angForm.controls['CAC_PIN'].reset();
-  }
-  resetGuarantor() {
-    this.angForm.controls['GAC_CUSTID'].reset();
-    this.angForm.controls['GAC_MEMBNO'].reset();
-    this.angForm.controls['GAC_MEMBTYPE'].reset();
-    this.angForm.controls['GAC_NAME'].reset();
-    this.angForm.controls['GAC_HONO'].reset();
-    this.angForm.controls['GAC_WARD'].reset();
-    this.angForm.controls['GAC_ADDR'].reset();
-    this.angForm.controls['GAC_GALLI'].reset();
-    this.angForm.controls['GAC_AREA'].reset();
-    this.angForm.controls['GAC_CTCODE'].reset();
-    this.angForm.controls['GAC_PIN'].reset();
-    this.angForm.controls['EXP_DATE'].reset();
-  }
-  getCCustomer(Cid) {
-    console.log('in getcustomer', Cid)
-    this.customerIdService.getFormData(Cid).subscribe(data => {
-      console.log('get customer data', data)
-      this.angForm.patchValue({
-        CAC_CUSTID: Cid.toString(),
-        CAC_NAME: data.AC_NAME,
-        CAC_HONO: data.custAddress[0].AC_HONO,
-        CAC_WARD: data.custAddress[0].AC_WARD,
-        CAC_TADDR: data.custAddress[0].AC_TADDR,
-        CAC_TGALLI: data.custAddress[0].AC_TGALLI,
-        CAC_AREA: data.custAddress[0].AC_AREA,
-        CCITY_NAME: data.custAddress[0].AC_CTCODE,
-        CAC_PIN: data.custAddress[0].AC_PIN,
-
-      })
-    })
-  }
-  delCoBorrower(id) {
-    this.multiCoBorrower.splice(id, 1)
-  }
-  delGuarantor(id) {
-    this.multiGuarantor.splice(id, 1)
-  }
   getCustomer(id) {
+    // this.getDate()
+    // this.calculation()
     this.getSystemParaDate() //function to set date
-    console.log('in getcustomer', id)
     this.customerIdService.getFormData(id).subscribe(data => {
-      console.log('get customer data', data)
+      this.tempAddress = data.custAddress[0].AC_ADDFLAG
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
@@ -1042,10 +943,10 @@ console.log("security data",this.multiSecurity)
         AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
         AC_HONO: data.custAddress[0].AC_HONO,
         AC_WARD: data.custAddress[0].AC_WARD,
-        AC_TADDR: data.custAddress[0].AC_TADDR,
-        AC_TGALLI: data.custAddress[0].AC_TGALLI,
+        AC_ADDR: data.custAddress[0].AC_ADDR,
+        AC_GALLI: data.custAddress[0].AC_GALLI,
         AC_AREA: data.custAddress[0].AC_AREA,
-        CITY_NAME: data.custAddress[0].AC_CTCODE,
+        AC_CTCODE: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
         AC_PANNO: data.AC_PANNO,
         AC_MOBILENO: data.AC_MOBILENO,
@@ -1061,8 +962,21 @@ console.log("security data",this.multiSecurity)
         TDS_RATE: data.TDS_RATE,
         TDS_LIMIT: data.TDS_LIMIT,
       })
+      if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {
+        this.angForm.patchValue({
+          AC_THONO: data.custAddress[1].AC_HONO,
+          AC_TWARD: data.custAddress[1].AC_WARD,
+          AC_TADDR: data.custAddress[1].AC_ADDR,
+          AC_TGALLI: data.custAddress[1].AC_GALLI,
+          AC_TAREA: data.custAddress[1].AC_AREA,
+          AC_TCTCODE: data.custAddress[1].AC_CTCODE,
+          AC_TPIN: data.custAddress[1].AC_PIN,
+        })
+      }
     })
   }
+
+  // Event for Customer Module
 
   newCustomer(newCustomer) {
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
@@ -1070,20 +984,575 @@ console.log("security data",this.multiSecurity)
       this.id = newCustomer;
       this.getCustomer(newCustomer);
     })
-
   }
+
   //temp address flag variable
-  tempAddress: boolean = true;
+
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
   }
-  GuarantorTrue: boolean = false
-  CoBorrowerTrue: boolean = false
+
+  //set open date, appointed date and expiry date
+
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        AC_OPDATE: data.CURRENT_DATE,
+      })
+    })
+  }
+
+  //Method for set value for repay mode and installment type
+
+  getScheme(code) {
+    this.scheme1 = this.angForm.controls['AC_TYPE'].value;
+  }
+
+  // Method for set opeing date to expiry date and registration date
+
+  changeDate() {
+    this.getInterest(this.temp)
+    this.angForm.patchValue({
+      AC_EXPIRE_DATE: this.angForm.controls['AC_OPDATE'].value,
+
+      AC_COREG_DATE: this.angForm.controls['AC_OPDATE'].value
+    })
+
+  }
+
+  // Method for set sanction amount to registration amount and registration date
+
+  changeAmt() {
+    this.angForm.patchValue({
+
+      AC_COREG_AMT: this.angForm.controls['AC_SANCTION_AMOUNT'].value
+
+    })
+
+  }
+
+  // Set Priorities
+
+  getPriority(idp) {
+    this.prioritySectorMaster.getFormData(idp).subscribe(data => {
+      this.angForm.patchValue({
+        AC_PRIORITY: idp.toString(),
+        AC_PRIORITY_SUB1: data.SUB1_CODE,
+        AC_PRIORITY_SUB2: data.SUB2_CODE,
+        AC_PRIORITY_SUB3: data.SUB3_CODE,
+      })
+    })
+  }
+
+  // Method for Show and hide option wise field
+  directorShow(event) {
+    if (event.value == 'Director') {
+      this.AC_DIRECTOR = false
+    }
+    else if (event.value == 'DirectorsRelative') {
+      this.AC_DIRECTOR = false
+      this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
+    }
+    else {
+      this.AC_DIRECTOR = true
+      this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
+    }
+  }
+
+  // Method for Calculate Instllment
+  // calculation() {
+
+  //   this.months = this.angForm.controls['AC_MONTHS'].value
+  //   console.log('this.months', this.months)
+  //   if (this.repay == 'Monthly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+
+  //     this.result = Math.round((((this.drawingPower) / (this.months)) * 1)).toFixed(2);
+
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+
+  //   }
+  //   else if (this.repay == 'Quarterly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+
+  //     this.result = Math.round((((this.drawingPower) / (this.months)) * 3)).toFixed(2);
+
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+  //   else if (this.repay == 'HalfYearly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+
+  //     this.result = Math.round(((Math.floor(this.drawingPower) / Math.floor(this.months)) * 6)).toFixed(2);
+
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+  //   else if (this.repay == 'Yearly' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+
+  //     this.result = Math.round(((Math.floor(this.drawingPower) / Math.floor(this.months)) * 12)).toFixed(2);
+
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+  //   else if (this.repay == 'OnMaturity' && (this.installmentType == 'Plain' || this.installmentType == 'Reducing')) {
+
+  //     this.result = Math.round(((Math.floor(this.drawingPower)))).toFixed(2);
+
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+
+  //   else if (this.repay == 'Monthly' && (this.installmentType == 'EMI')) {
+
+  //     this.month = Math.floor(this.months) / 1;
+  //     this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 1)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 1)))) ** (Math.floor(this.month) * (-1))))).toFixed(2);
+
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+  //   else if (this.repay == 'Quarterly' && (this.installmentType == 'EMI')) {
+
+  //     this.month = Math.floor(this.months) / 3;
+
+  //     this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 3)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 3)))) ** (Math.floor(this.month) * (-1))))).toFixed(2);
+
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+  //   else if (this.repay == 'HalfYearly' && (this.installmentType == 'EMI')) {
+
+  //     this.month = Math.floor(this.months) / 6;
+  //     this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 6)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 6)))) ** ((this.month) * (-1))))).toFixed(2);
+
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+  //   else if (this.repay == 'Yearly' && (this.installmentType == 'EMI')) {
+
+  //     this.month = Math.floor(this.months) / 12;
+  //     this.result = Math.round(Math.floor(this.drawingPower) * ((Math.floor(this.intRate) / (1200 / 12)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 12)))) ** (Math.floor(this.month) * (-1))))).toFixed(2);
+
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+  //   else if (this.repay == 'OnMaturity' && (this.installmentType == 'EMI')) {
+
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: 0
+  //     })
+  //   }
+  //   else if (this.repay == 'Monthly' && (this.installmentType == 'WithInterest')) {
+
+  //     this.intResult = (Math.floor(this.drawingPower) * Math.floor(this.intRate) / 1200).toFixed(2);
+  //     this.result = Math.round((((Math.floor(this.drawingPower) / Math.floor(this.months)) + Math.floor(this.intResult)) * 1)).toFixed(2);
+
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+  //   else if (this.repay == 'Quarterly' && (this.installmentType == 'WithInterest')) {
+
+  //     this.intResult = (Math.floor(this.drawingPower) * Math.floor(this.intRate) / 1200).toFixed(2);
+  //     this.result = Math.round((((Math.floor(this.drawingPower) / Math.floor(this.months)) + Math.floor(this.intResult)) * 3)).toFixed(2);
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+  //   else if (this.repay == 'HalfYearly' && (this.installmentType == 'WithInterest')) {
+
+  //     this.intResult = (this.drawingPower * this.intRate / 1200);
+  //     this.result = Math.round((((this.drawingPower / this.months) + this.intResult) * 6)).toFixed(2);
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+  //   else if (this.repay == 'Yearly' && (this.installmentType == 'WithInterest')) {
+
+  //     this.intResult = (this.drawingPower * this.intRate / 1200);
+  //     this.result = Math.round((((this.drawingPower / this.months) + this.intResult) * 12)).toFixed(2);
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+  //   else if (this.repay == 'OnMaturity' && (this.installmentType == 'WithInterest')) {
+
+  //     this.intResult = ((this.drawingPower) * (this.intRate) / 1200).toFixed(2);
+  //     this.result = Math.round(((((this.drawingPower) / (this.months)) + (this.intResult)) * 0)).toFixed(2);
+
+  //     this.angForm.patchValue({
+  //       AC_INSTALLMENT: this.result
+  //     })
+  //   }
+  // }
+
+  // Start Security tab
+
+  // Add Security
+
+  addField() {
+    const formVal = this.angForm.value;
+    var object = {
+      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
+      AC_TYPE: formVal.AC_TYPE,
+      AC_NO: formVal.AC_NO,
+      SECURITY_CODE: this.SECU_CODE,
+      SECURITY_VALUE: this.SECU_NAME,
+    }
+    this.multiSecurity.push(object);
+    this.resetField()
+  }
+
+  // Delete Security
+  delField(id) {
+    this.multiSecurity.splice(id, 1)
+  }
+
+  // Reset Security
+  resetField() {
+    this.angForm.controls['SECURITY_CODE'].reset();
+    this.angForm.controls['SECURITY_VALUE'].reset();
+  }
+
+  securityDetails(event) {
+    this.SECU_CODE = event.id
+    this.SECU_NAME = event.name
+  }
+
+  // Security Event
+  newItemEvent(newvalue) {
+
+    this.security_id = newvalue[0];
+
+    if (newvalue[1] == "book") {
+      this.bookid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "customerInsurance") {
+      this.insuranceid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "firePolicy") {
+      this.firepolicyid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "furniture") {
+      this.furnitureid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "goldSilver") {
+      this.goldid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "govSecurity") {
+      this.govtid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "landBuilding") {
+      this.landid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "marketShare") {
+      this.marketid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "otherSecurity") {
+      this.otherid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "ownDeposit") {
+      this.ownid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "plantMachinary") {
+      this.plantid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "pleadge") {
+      this.pledgeid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "stockStatement") {
+      this.stockid.push(this.security_id);
+    }
+
+    if (newvalue[1] == "vehicle") {
+      this.vehicleid.push(this.security_id);
+    }
+  }
+
+  // Show security Detals Components
+  showSecurity(code) {
+
+    this._SecurityCode.getFormData(code).subscribe(data => {
+
+      if (data.BOOK_DEBTS == true) {
+        this.BOOK_DEBTS = true
+      } else {
+        this.BOOK_DEBTS = false
+      }
+
+      if (data.CUST_INSURANCE == true) {
+        this.CUST_INSURANCE = true
+      } else {
+        this.CUST_INSURANCE = false
+      }
+
+      if (data.FIRE_POLICY == true) {
+        this.FIRE_POLICY = true
+      } else {
+        this.FIRE_POLICY = false
+      }
+
+      if (data.FURNITURE_FIXTURE == true) {
+        this.FURNITURE_FIXTURE = true
+      }
+      else {
+        this.FURNITURE_FIXTURE = false
+      }
+
+      if (data.GOLD_SILVER == true) {
+        this.GOLD_SILVER = true
+      }
+      else {
+        this.GOLD_SILVER = false
+      }
+
+      if (data.GOVT_SECU_LIC == true) {
+        this.GOVT_SECU_LIC = true
+      } else {
+        this.GOVT_SECU_LIC = false
+      }
+
+      if (data.LAND_BUILDING == true) {
+        this.LAND_BUILDING = true
+      } else {
+        this.LAND_BUILDING = false
+      }
+
+      if (data.MARKET_SHARE == true) {
+        this.MARKET_SHARE = true
+      } else {
+        this.MARKET_SHARE = false
+      }
+
+      if (data.OTHER_SECURITY == true) {
+        this.OTHER_SECURITY = true
+      } else {
+        this.OTHER_SECURITY = false
+      }
+
+      if (data.OWN_DEPOSIT == true) {
+        this.OWN_DEPOSIT = true
+      } else {
+        this.OWN_DEPOSIT = false
+      }
+
+      if (data.PLANT_MACHINARY == true) {
+        this.PLANT_MACHINARY = true
+      } else {
+        this.PLANT_MACHINARY = false
+      }
+
+      if (data.PLEDGE_STOCK == true) {
+        this.PLEDGE_STOCK = true
+      } else {
+        this.PLEDGE_STOCK = false
+      }
+
+      if (data.STOCK_STATEMENT == true) {
+        this.STOCK_STATEMENT = true
+      } else {
+        this.STOCK_STATEMENT = false
+      }
+
+      if (data.VEHICLE == true) {
+        this.VEHICLE = true
+      } else {
+        this.VEHICLE = false
+      }
+    });
+  }
+  // End Security tab
+
+  // Start Guarantor tab
+
+  //Open Guarantor Form
   OpenLink() {
     this.GuarantorTrue = !this.GuarantorTrue
   }
+
+  // Get Guarantor Customer Id 
+  getgCustomer(Gid) {
+    this.customerIdService.getFormData(Gid).subscribe(data => {
+      this.angForm.patchValue({
+        GAC_CUSTID: Gid.toString(),
+        GAC_MEMBNO: data.AC_MEMBNO,
+        GAC_MEMBTYPE: data.AC_MEMBTYPE,
+        GAC_NAME: data.AC_NAME,
+      })
+    })
+  }
+
+  // Add Guarantor
+  addGuarantor() {
+    const formVal = this.angForm.value;
+    var object = {
+      GAC_CUSTID: formVal.GAC_CUSTID,
+      AC_MEMBNO: formVal.GAC_MEMBNO,
+      AC_MEMBTYPE: formVal.GAC_MEMBTYPE,
+      AC_NAME: formVal.GAC_NAME,
+      EXP_DATE: formVal.EXP_DATE,
+    }
+    this.multiGuarantor.push(object);
+    this.resetGuarantor()
+  }
+
+  // Edit Guarantor
+  editGuarantor(id) {
+    this.intIndex = id
+    this.intID = this.multiGuarantor[id].id;
+    this.GuarantorShowButton = false;
+    this.GuarantorUpdateShow = true;
+    this.angForm.patchValue({
+      GAC_CUSTID: this.multiGuarantor[id].GAC_CUSTID,
+      GAC_MEMBNO: this.multiGuarantor[id].AC_MEMBNO,
+      GAC_MEMBTYPE: this.multiGuarantor[id].AC_MEMBTYPE,
+      GAC_NAME: this.multiGuarantor[id].AC_NAME,
+      EXP_DATE: this.multiGuarantor[id].EXP_DATE,
+    })
+  }
+
+  // Update Guarantor
+  updateGuarantor() {
+    let index = this.intIndex;
+    this.GuarantorShowButton = true;
+    this.GuarantorUpdateShow = false;
+    const formVal = this.angForm.value;
+    var object = {
+      GAC_CUSTID: formVal.GAC_CUSTID,
+      AC_MEMBNO: formVal.GAC_MEMBNO,
+      AC_MEMBTYPE: formVal.GAC_MEMBTYPE,
+      AC_NAME: formVal.GAC_NAME,
+      EXP_DATE: formVal.EXP_DATE,
+      id: this.intID
+    }
+    this.multiGuarantor[index] = object;
+    this.resetGuarantor()
+  }
+
+  // Delete Guarantor
+  delGuarantor(id) {
+    this.multiGuarantor.splice(id, 1)
+  }
+
+  // Reset Guarantor
+  resetGuarantor() {
+    this.angForm.controls['GAC_CUSTID'].reset();
+    this.angForm.controls['GAC_MEMBNO'].reset();
+    this.angForm.controls['GAC_MEMBTYPE'].reset();
+    this.angForm.controls['GAC_NAME'].reset();
+    this.angForm.controls['EXP_DATE'].reset();
+  }
+
+  // End Guarantor tab
+
+  //  Start CoBorrower tab
+
+  //Open CoBorrower Form
   OpenCoBorr() {
     this.CoBorrowerTrue = !this.CoBorrowerTrue
+  }
+
+  // Get CoBorrower Customer Id 
+  getCCustomer(Cid) {
+    this.customerIdService.getFormData(Cid).subscribe(data => {
+      this.angForm.patchValue({
+        CAC_CUSTID: Cid.toString(),
+        CAC_NAME: data.AC_NAME,
+      })
+    })
+  }
+
+  // Add CoBorrower 
+  addCoBorrower() {
+    const formVal = this.angForm.value;
+    var object = {
+      CAC_CUSTID: formVal.CAC_CUSTID,
+      AC_NAME: formVal.CAC_NAME,
+    }
+    this.multiCoBorrower.push(object);
+    this.resetCoBorrower()
+  }
+
+  // Edit CoBorrower 
+  editCoBorrower(id) {
+    this.coBorrowerIndex = id
+    this.CoBorrowerupdateid = id
+    this.CoBorrowerID = this.multiCoBorrower[id].id;
+    this.CoBorrowerTrue = true
+    this.CoBorrowerShowButton = false;
+    this.CoBorrowerUpdateShow = true;
+    this.angForm.patchValue({
+      CAC_CUSTID: this.multiCoBorrower[id].CAC_CUSTID,
+      CAC_NAME: this.multiCoBorrower[id].AC_NAME,
+    })
+  }
+
+  // Update CoBorrower 
+  updateCoBorrower() {
+    let index = this.coBorrowerIndex;
+    this.CoBorrowerShowButton = true;
+    this.CoBorrowerUpdateShow = false;
+
+    const formVal = this.angForm.value;
+    var object = {
+      CAC_CUSTID: formVal.CAC_CUSTID,
+      AC_NAME: formVal.CAC_NAME,
+      id: this.CoBorrowerID
+    }
+    this.multiCoBorrower[index] = object;
+    this.resetCoBorrower()
+  }
+
+  // Delete CoBorrower 
+  delCoBorrower(id) {
+    this.multiCoBorrower.splice(id, 1)
+  }
+
+  // Reset CoBorrower 
+  resetCoBorrower() {
+    this.angForm.controls['CAC_CUSTID'].reset();
+    this.angForm.controls['CAC_NAME'].reset();
+  }
+
+  // End CoBorrower tab
+
+  getInterest(AC_INTCATA) {
+    this.temp = AC_INTCATA
+    this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
+      this.date = this.angForm.controls['AC_OPDATE'].value
+      if (data != typeof (undefined)) {
+        if (this.date == data[0].EFFECT_DATE) {
+          this.angForm.patchValue({
+            AC_INTCATA: data[0].INT_CATEGORY,
+            AC_INTRATE: data[0].rate[0].INT_RATE,
+          })
+        } else {
+          this.angForm.patchValue({
+            AC_INTCATA: data[1].INT_CATEGORY,
+            AC_INTRATE: 0
+          })
+        }
+      }
+    })
   }
 
   ngAfterViewInit(): void {
@@ -1119,87 +1588,32 @@ console.log("security data",this.multiSecurity)
     });
   }
 
-  //set open date, appointed date and expiry date
-  getSystemParaDate() {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      if (data.ON_LINE) {
-        this.angForm.controls['AC_OPDATE'].disable()
-      }
-      else if (data.ON_LINE) {
-        this.angForm.controls['AC_OPDATE'].enable()
-      }
+  getExpiryDate() {
+    let months = this.angForm.controls['AC_MONTHS'].value
+    if (this.angForm.controls['AC_OPEN_OLD_DATE'].value != '') {
+      var expiryDt = new Date(this.angForm.controls['AC_OPEN_OLD_DATE'].value)
+      var year = expiryDt.getFullYear();
+      var month = new Date(expiryDt).getMonth();
+      var day = new Date(expiryDt).getDate();
+      var expiry = month + Number(months)
+      var date = new Date(year, expiry, day);
+      var expiryDate = this.datePipe.transform(date, "dd-MM-yyyy")
       this.angForm.patchValue({
-        AC_OPDATE: data.CURRENT_DATE,
+        AC_EXPIRE_DATE: expiryDate
       })
-    })
-  }
-  AC_DIRECTOR = true
-  directorShow(event) {
-    if (event.value == 'Director') {
-
-      this.AC_DIRECTOR = false
-      // this.angForm.controls['AC_DIRECTOR'].enable();
-      this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
-    } else {
-      this.AC_DIRECTOR = true
-      // this.angForm.controls['AC_DIRECTOR'].disable();
-      this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
+    }
+    else {
+      var expiryDt = new Date(this.angForm.controls['AC_OPDATE'].value)
+      var year = expiryDt.getFullYear();
+      var month = new Date(expiryDt).getMonth();
+      var day = new Date(expiryDt).getDate();
+      var expiry = month + Number(months)
+      var date = new Date(year, expiry, day);
+      var expiryDate = this.datePipe.transform(date, "dd-MM-yyyy")
+      this.angForm.patchValue({
+        AC_EXPIRE_DATE: expiryDate
+      })
     }
   }
-  SECU_CODE
-  SECU_NAME
-  securityDetails(event) {
-    this.SECU_CODE = event.id
-    this.SECU_NAME = event.name
-  }
-
-  addField() {
-    const formVal = this.angForm.value;
-    var object = {
-      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
-      AC_TYPE: formVal.AC_TYPE,
-      AC_NO: formVal.AC_NO,
-      SECURITY_CODE:this.SECU_CODE,
-      SECURITY_VALUE:  this.SECU_NAME,
-
-    }
-    this.multiSecurity.push(object);
-    this.resetField()
-  }
-  resetField() {
-    this.angForm.controls['SECURITY_CODE'].reset();
-    this.angForm.controls['SECURITY_VALUE'].reset();
-  }
-  intIndex: number
-  intID: number
-  // updateField() {
-  //   let index = this.intIndex;
-  //   this.addShowButton = true;
-  //   this.UpdateShowButton = false;
-  //   const formVal = this.angForm.value;
-  //   var object = {
-  //     MONTHS: formVal.MONTHS,
-  //     DAYS: formVal.DAYS,
-  //     INT_RATE: formVal.INT_RATE,
-  //     id: this.intID
-  //   }
-  //   this.multiField[index] = object;
-  //   this.resetField()
-  // }
-
-  // editField(id) {
-  //   this.intIndex = id
-  //   this.intID = this.multiField[id].id;
-  //   this.addShowButton = false;
-  //   this.UpdateShowButton = true;
-  //   this.angForm.patchValue({
-  //     MONTHS: this.multiField[id].MONTHS,
-  //     DAYS: this.multiField[id].DAYS,
-  //     INT_RATE: this.multiField[id].INT_RATE,
-
-  //   })
-  // }
-  // delField(id) {
-  //   this.multiField.splice(id, 1)
-  // }
+  month: number
 }

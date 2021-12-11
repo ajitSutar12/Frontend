@@ -1,355 +1,307 @@
-<div class="row"> 
-  <div class="col-12">
-      <div class="card">
-          <div class="card-header">
-              <h5>Book Debts</h5>
-              <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
-          </div>
-          <form action="javascript:" [formGroup]="angForm" novalidate  #myform="ngForm">
-              <div class="card-block">
-                  <div class="row">
-                      <div class="col-sm">
-                          <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                  <input type="text" class="form-control" placeholder=" " id="subm_date" required=""
-                                      max="31-12-9999" formControlName="SUBMISSION_DATE" 
-                                      onfocus="(this.type='date')" #autofocus />
-                                  <label for="subm_date">Submission Date<sub class="required">* </sub></label>
-                              </span>
-                          </div>
-                          <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SUBMISSION_DATE'].invalid && (angForm.controls['SUBMISSION_DATE'].dirty || angForm.controls['SUBMISSION_DATE'].touched)" class="alert alert-danger">
-                              <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
-                                  This field is required
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-sm">
-                          <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                  <input type="text" class="form-control" placeholder=" " id="stmt_date" required=""
-                                      max="9999-12-31" formControlName="STATEMENT_DATE" 
-                                      onfocus="(this.type='date')" id="date" />
-                                  <label for="stmt_date">Statement Date<sub class="required">* </sub></label>
-                              </span>
-                          </div>
-                          <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['STATEMENT_DATE'].invalid && (angForm.controls['STATEMENT_DATE'].dirty || angForm.controls['STATEMENT_DATE'].touched)" class="alert alert-danger">
-                              <div *ngIf="angForm.controls['STATEMENT_DATE'].errors?.required">
-                                  This field is required
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                 
-                  <div class="row">
-                      <div class="col-sm">
-                          <h6>Debtors Opening Balance</h6>
-                      </div>
-                      <div class="col-sm">
-                          <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                  <input type="text" name="DebtorsOpeningBalance" class="form-control" placeholder=" "
-                                      id="DebtorsOpeningBalance" required=""
-                                      pattern="\d{1,20}(\.\d{2})?"
-                                      (focusout)="calculateopening()"
-                                      title="Input allowed only  0-9" formControlName="DEBTORS_OP_BAL" >
-                                  <label for="DebtorsOpeningBalance">Debtors Opening Balance<sub class="required">*
-                                      </sub></label>
-                              </span>
-                          </div>
-                          <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DEBTORS_OP_BAL'].invalid && (angForm.controls['DEBTORS_OP_BAL'].dirty || angForm.controls['DEBTORS_OP_BAL'].touched)" class="alert alert-danger">
-                              <div *ngIf="angForm.controls['DEBTORS_OP_BAL'].errors?.pattern || angForm.controls['DEBTORS_OP_BAL'].errors?.required">
-                                  This field is required and Input allowed only 0-9
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm">
-                          <h6>Add Credit Sales</h6>
-                      </div>
-                      <div class="col-sm">
-                          <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                  <input type="text" name="AddCreditSales" class="form-control" placeholder=" "
-                                      id="AddCreditSales" pattern="\d{1,20}(\.\d{2})?"
-                                      title="Input allowed only  0-9" formControlName="CREDIT_SALE" (focusout)="calculateaddcredit()">
-                                  <label for="AddCreditSales">Add Credit Sales</label>
-                              </span>
-                          </div>
-                          <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CREDIT_SALE'].invalid && (angForm.controls['CREDIT_SALE'].dirty || angForm.controls['CREDIT_SALE'].touched)" class="alert alert-danger">
-                              <div *ngIf="angForm.controls['CREDIT_SALE'].errors?.pattern">
-                                  Input allowed only 0-9
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm">
-                          <h6>Less Recoveries</h6>
-                      </div>
-                      <div class="col-sm">
-                          <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                  <input type="text" name="LessRecoveries" class="form-control" placeholder=" "
-                                      id="LessRecoveries"   pattern="\d{1,20}(\.\d{2})?"
-                                      title="Input allowed only  0-9" formControlName="RECOVERY" (focusout)="calculatelessrecovery()">
-                                  <label for="LessRecoveries">Less Recoveries</label>
-                              </span>
-                          </div>
-                          <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['RECOVERY'].invalid && (angForm.controls['RECOVERY'].dirty || angForm.controls['RECOVERY'].touched)" class="alert alert-danger">
-                              <div *ngIf="angForm.controls['RECOVERY'].errors?.pattern">
-                                  Input allowed only 0-9
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm">
-                          <h6>Less Overaged Debtors</h6>
-                      </div>
-                      <div class="col-sm">
-                          <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                  <input type="text" name="LessOveragedDebtors" class="form-control" placeholder=" "
-                                      id="LessOveragedDebtors"
-                                      pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
-                                      formControlName="OVERAGED_DEBTORS" (focusout)="calculatelessdebtors()" >
-                                  <label for="LessOveragedDebtors">Less Overaged Debtors</label>
-                              </span>
-                          </div>
-                          <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['OVERAGED_DEBTORS'].invalid && (angForm.controls['OVERAGED_DEBTORS'].dirty || angForm.controls['OVERAGED_DEBTORS'].touched)" class="alert alert-danger">
-                              <div *ngIf="angForm.controls['OVERAGED_DEBTORS'].errors?.pattern">
-                                  Input allowed only 0-9
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm">
-                          <h6>Debtors Closing Balance</h6>
-                      </div>
-                      <div class="col-sm">
-
-                          <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                  <input type="text" name="DebtorsClosingBalance" class="form-control" placeholder=" "
-                                      id="DebtorsClosingBalance" required=""
-                                        [value]= "bookdebts"
-                                      pattern="\d{1,20}(\.\d{2})?"
-                                      disabled
-                                      title="Input allowed only  0-9" value="bookdebts" formControlName="CLOSE_BAL" >
-                                  <label for="DebtorsClosingBalance">Debtors Closing Balance<sub class="required">*
-                                      </sub></label>
-                              </span>
-                          </div>
-                         
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm">
-                          <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                  <input type="text" name="CreditorsOutstanding" class="form-control" placeholder=" "
-                                      id="CreditorsOutstanding" required="" 
-                                      pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
-                                      formControlName="CRD_OUTSTAND_BAL">
-                                  <label for="CreditorsOutstanding">Creditors Outstanding<sub class="required">*
-                                      </sub></label>
-                              </span>
-                          </div>
-                          <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CRD_OUTSTAND_BAL'].invalid && (angForm.controls['CRD_OUTSTAND_BAL'].dirty || angForm.controls['CRD_OUTSTAND_BAL'].touched)" class="alert alert-danger">
-                              <div *ngIf="angForm.controls['CRD_OUTSTAND_BAL'].errors?.pattern || angForm.controls['CRD_OUTSTAND_BAL'].errors?.required">
-                                  This field is required and Input allowed only 0-9
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-sm">
-                          <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                  <input type="text" name="Margin" class="form-control" placeholder=" " id="Margin"
-                                  #margin
-                                  (keyup)="checkmargin(margin.value)"  pattern="\d{1,5}(\.\d{2})?" title="Input allowed only  0-9"
-                                      formControlName="MARGIN">
-                                  <label for="Margin">Margin % </label>
-                              </span>
-                          </div>
-                          <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['MARGIN'].invalid && (angForm.controls['MARGIN'].dirty || angForm.controls['MARGIN'].touched)" class="alert alert-danger">
-                              <div *ngIf="angForm.controls['MARGIN'].errors?.pattern">
-                                  Input allowed only 0-9
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-sm">
-                          <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                  <input type="text" name="remarks" class="form-control" placeholder=" " id="remarks"
-                                      required="" pattern="^[A-Za-z'\.\-\s]+$"
-                                      maxlength="90"
-                                      title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="REMARK">
-                                  <label for="remarks">REMARK</label>
-                              </span>
-                          </div>
-                          <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['REMARK'].invalid && (angForm.controls['REMARK'].dirty || angForm.controls['REMARK'].touched)" class="alert alert-danger">
-                              <div *ngIf="angForm.controls['REMARK'].errors?.pattern || angForm.controls['REMARK'].errors?.required">
-                                  Input allowed only A-Z a-z - / . (Space)
-                              </div>
-                          </div>
-                      </div>
-                      
-                  </div>
-                  <div class="row">
-                    <!-- [disabled]="angForm.invalid -->
-                      <div class="col-sm">
-                          <button
-                            class="btn btn-primary ripple light"
-                            (click)="submit()"
-                            *ngIf="showButton"
-                         
-                          >
-                         
-                            Add
-                          </button>
-                          <button
-                            class="btn btn-primary ripple light"
-                            (click)="updateData()"
-                            *ngIf="updateShow"
-                          >
-                            Update
-                          </button>
-                        </div>
-                  </div>
-
-              </div>
-          </form>
-      </div>
-  </div>
-</div>
 <div class="row">
   <div class="col-12">
     <div class="card">
-      <div class="card-block">
-        <div class="row">
-          <div class="col-sm">
-            <div class="table-responsive">
-              <table
-                datatable
-                [dtOptions]="dtExportButtonOptions"
-                [dtTrigger]="dtTrigger"
-                class="table table-striped table-bordered table-hover"
-              >
-                <tbody *ngIf="bookMaster?.length != 0">
-                  <tr *ngFor="let data of bookMaster">
-                    <td>
-                      <button
-                        class="btn btn-outline-primary btn-sm"
-                        id="editbtn"
-                        (click)="editClickHandler(data.id)"
-                      >
-                        Edit
-                      </button>
-                      &nbsp;
-                      <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
-                    </td>
+      <div class="card-header">
+        <h5>Book Debts</h5>
+        <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
+      </div>
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-sm">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" class="form-control" placeholder=" " id="subm_date" required="" max="31-12-9999"
+                    formControlName="SUBMISSION_DATE" onfocus="(this.type='date')" #autofocus />
+                  <label for="subm_date">Submission Date<sub class="required">* </sub></label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['SUBMISSION_DATE'].invalid && (angForm.controls['SUBMISSION_DATE'].dirty || angForm.controls['SUBMISSION_DATE'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
+                  This field is required
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" class="form-control" placeholder=" " id="stmt_date" required="" max="9999-12-31"
+                    formControlName="STATEMENT_DATE" onfocus="(this.type='date')" id="date" />
+                  <label for="stmt_date">Statement Date<sub class="required">* </sub></label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['STATEMENT_DATE'].invalid && (angForm.controls['STATEMENT_DATE'].dirty || angForm.controls['STATEMENT_DATE'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['STATEMENT_DATE'].errors?.required">
+                  This field is required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <h6>Debtors Opening Balance</h6>
+            </div>
+            <div class="col-sm">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="DebtorsOpeningBalance" class="form-control" placeholder=" "
+                    id="DebtorsOpeningBalance" required="" pattern="\d{1,20}(\.\d{2})?" (focusout)="calculateopening()"
+                    title="Input allowed only  0-9" formControlName="DEBTORS_OP_BAL">
+                  <label for="DebtorsOpeningBalance">Debtors Opening Balance<sub class="required">*
+                    </sub></label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['DEBTORS_OP_BAL'].invalid && (angForm.controls['DEBTORS_OP_BAL'].dirty || angForm.controls['DEBTORS_OP_BAL'].touched)"
+                class="alert alert-danger">
+                <div
+                  *ngIf="angForm.controls['DEBTORS_OP_BAL'].errors?.pattern || angForm.controls['DEBTORS_OP_BAL'].errors?.required">
+                  This field is required and Input allowed only 0-9
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <h6>Add Credit Sales</h6>
+            </div>
+            <div class="col-sm">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="AddCreditSales" class="form-control" placeholder=" " id="AddCreditSales"
+                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="CREDIT_SALE"
+                    (focusout)="calculateaddcredit()">
+                  <label for="AddCreditSales">Add Credit Sales</label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['CREDIT_SALE'].invalid && (angForm.controls['CREDIT_SALE'].dirty || angForm.controls['CREDIT_SALE'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['CREDIT_SALE'].errors?.pattern">
+                  Input allowed only 0-9
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <h6>Less Recoveries</h6>
+            </div>
+            <div class="col-sm">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="LessRecoveries" class="form-control" placeholder=" " id="LessRecoveries"
+                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="RECOVERY"
+                    (focusout)="calculatelessrecovery()">
+                  <label for="LessRecoveries">Less Recoveries</label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['RECOVERY'].invalid && (angForm.controls['RECOVERY'].dirty || angForm.controls['RECOVERY'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['RECOVERY'].errors?.pattern">
+                  Input allowed only 0-9
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <h6>Less Overaged Debtors</h6>
+            </div>
+            <div class="col-sm">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="LessOveragedDebtors" class="form-control" placeholder=" "
+                    id="LessOveragedDebtors" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
+                    formControlName="OVERAGED_DEBTORS" (focusout)="calculatelessdebtors()">
+                  <label for="LessOveragedDebtors">Less Overaged Debtors</label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['OVERAGED_DEBTORS'].invalid && (angForm.controls['OVERAGED_DEBTORS'].dirty || angForm.controls['OVERAGED_DEBTORS'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['OVERAGED_DEBTORS'].errors?.pattern">
+                  Input allowed only 0-9
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <h6>Debtors Closing Balance</h6>
+            </div>
+            <div class="col-sm">
 
-                    <td>{{ data.SUBMISSION_DATE }}</td>
-                    <td>{{ data.STATEMENT_DATE }}</td>
-                    <td>{{ data.DEBTORS_OP_BAL }}</td>
-                    <td>{{ data.CREDIT_SALE }}</td>
-                    <td>{{ data.RECOVERY }}</td>
-                    <td>{{ data.OVERAGED_DEBTORS }}</td>
-                    <td>{{ data.CLOSE_BAL }}</td>
-                    <td>{{ data.CRD_OUTSTAND_BAL }}</td>
-                    <td>{{ data.MARGIN}}</td>
-                    <td>{{ data.REMARK }}</td>
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="DebtorsClosingBalance" class="form-control" placeholder=" "
+                    id="DebtorsClosingBalance" required="" [value]="bookdebts" pattern="\d{1,20}(\.\d{2})?" disabled
+                    title="Input allowed only  0-9" value="bookdebts" formControlName="CLOSE_BAL">
+                  <label for="DebtorsClosingBalance">Debtors Closing Balance<sub class="required">*
+                    </sub></label>
+                </span>
+              </div>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="CreditorsOutstanding" class="form-control" placeholder=" "
+                    id="CreditorsOutstanding" required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
+                    formControlName="CRD_OUTSTAND_BAL">
+                  <label for="CreditorsOutstanding">Creditors Outstanding<sub class="required">*
+                    </sub></label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['CRD_OUTSTAND_BAL'].invalid && (angForm.controls['CRD_OUTSTAND_BAL'].dirty || angForm.controls['CRD_OUTSTAND_BAL'].touched)"
+                class="alert alert-danger">
+                <div
+                  *ngIf="angForm.controls['CRD_OUTSTAND_BAL'].errors?.pattern || angForm.controls['CRD_OUTSTAND_BAL'].errors?.required">
+                  This field is required and Input allowed only 0-9
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="Margin" class="form-control" placeholder=" " id="Margin" #margin
+                    (keyup)="checkmargin(margin.value)" pattern="\d{1,5}(\.\d{2})?" title="Input allowed only  0-9"
+                    formControlName="MARGIN">
+                  <label for="Margin">Margin % </label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['MARGIN'].invalid && (angForm.controls['MARGIN'].dirty || angForm.controls['MARGIN'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['MARGIN'].errors?.pattern">
+                  Input allowed only 0-9
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" name="remarks" class="form-control" placeholder=" " id="remarks" required=""
+                    pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
+                    formControlName="REMARK">
+                  <label for="remarks">REMARK</label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['REMARK'].invalid && (angForm.controls['REMARK'].dirty || angForm.controls['REMARK'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['REMARK'].errors?.pattern || angForm.controls['REMARK'].errors?.required">
+                  Input allowed only A-Z a-z - / . (Space)
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <!-- [disabled]="angForm.invalid -->
+            <div class="col-sm">
+              <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+
+                Add
+              </button>
+              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                Update
+              </button>
+            </div>
+          </div>
+
+        </div>
+    </form>
+  </div>
+</div>
+<ng-container *ngIf='router.url==="/master/Maintainance/securityDetails"'>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-sm">
+              <div class="table-responsive">
+                <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                  class="table table-striped table-bordered table-hover">
+                  <tbody *ngIf="bookMaster?.length != 0">
+                    <tr *ngFor="let data of bookMaster">
+                      <td>
+                        <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">
+                          Edit
+                        </button>
+                        &nbsp;
+                        <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
+                      </td>
+
+                      <td>{{ data.SUBMISSION_DATE }}</td>
+                      <td>{{ data.STATEMENT_DATE }}</td>
+                      <td>{{ data.DEBTORS_OP_BAL }}</td>
+                      <td>{{ data.CREDIT_SALE }}</td>
+                      <td>{{ data.RECOVERY }}</td>
+                      <td>{{ data.OVERAGED_DEBTORS }}</td>
+                      <td>{{ data.CLOSE_BAL }}</td>
+                      <td>{{ data.CRD_OUTSTAND_BAL }}</td>
+                      <td>{{ data.MARGIN}}</td>
+                      <td>{{ data.REMARK }}</td>
 
 
-                  </tr>
-                </tbody>
-                <tbody *ngIf="bookMaster?.length == 0">
-                  <tr>
-                    <td colspan="6" class="no-data-available">No data!</td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th></th>
-                    <th>
-                      <input
-                        type="text"
-                        placeholder="Search Submission Date"
-                        name="SUBMISSION_DATE"
-                      />
-                    </th>
-                    <th>
-                      <input
-                        type="text"
-                        placeholder="Search Statement Date"
-                        name="STATEMENT_DATE"
-                      />
-                    </th>
-                    <th>
-                      <input
-                        type="text"
-                        placeholder="Search Creditors Outstanding"
-                        name="CRD_OUTSTAND_BAL"
-                      />
-                    </th>
-                    <th>
-                      <input
-                        type="text"
-                        placeholder="Search Margin % "
-                        name="MARGIN"
-                      />
-                    </th>
-                    <th>
-                      <input
-                        type="text"
-                        placeholder="Search REMARK"
-                        name="REMARK"
-                      />
-                    </th>
-                    <th>
-                      <input
-                        type="text"
-                        placeholder="Search Debtors Opening Balance"
-                        name="DEBTORS_OP_BAL"
-                      />
-                    </th>
-                    <th>
-                      <input
-                        type="text"
-                        placeholder="Search Add Credit Sales"
-                        name="CREDIT_SALE"
-                      />
-                    </th>
-                    <th>
-                      <input
-                        type="text"
-                        placeholder="Search Less Recoveries"
-                        name="RECOVERY"
-                      />
-                    </th>
-                    <th>
-                      <input
-                        type="text"
-                        placeholder="SearchLess Overaged Debtors"
-                        name="OVERAGED_DEBTORS"
-                      />
-                    </th>
-                    <th>
-                      <input
-                        type="text"
-                        placeholder="Search Debtors Closing Balance"
-                        name="CLOSE_BAL"
-                      />
-                    </th>
-                  </tr>
-                </tfoot>
-              </table>
+                    </tr>
+                  </tbody>
+                  <tbody *ngIf="bookMaster?.length == 0">
+                    <tr>
+                      <td colspan="6" class="no-data-available">No data!</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th></th>
+                      <th>
+                        <input type="text" placeholder="Search Submission Date" name="SUBMISSION_DATE" />
+                      </th>
+                      <th>
+                        <input type="text" placeholder="Search Statement Date" name="STATEMENT_DATE" />
+                      </th>
+                      <th>
+                        <input type="text" placeholder="Search Creditors Outstanding" name="CRD_OUTSTAND_BAL" />
+                      </th>
+                      <th>
+                        <input type="text" placeholder="Search Margin % " name="MARGIN" />
+                      </th>
+                      <th>
+                        <input type="text" placeholder="Search REMARK" name="REMARK" />
+                      </th>
+                      <th>
+                        <input type="text" placeholder="Search Debtors Opening Balance" name="DEBTORS_OP_BAL" />
+                      </th>
+                      <th>
+                        <input type="text" placeholder="Search Add Credit Sales" name="CREDIT_SALE" />
+                      </th>
+                      <th>
+                        <input type="text" placeholder="Search Less Recoveries" name="RECOVERY" />
+                      </th>
+                      <th>
+                        <input type="text" placeholder="SearchLess Overaged Debtors" name="OVERAGED_DEBTORS" />
+                      </th>
+                      <th>
+                        <input type="text" placeholder="Search Debtors Closing Balance" name="CLOSE_BAL" />
+                      </th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</ng-container>

@@ -23,6 +23,7 @@ import { Subject } from "rxjs";
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
+import { Router } from "@angular/router";
 
 // Handling datatable data
 class DataTableResponse {
@@ -60,8 +61,10 @@ export class GoldAndSilverComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   //passing data form child to parent
-  @Output() newItemEvent = new EventEmitter<string>();
-
+  @Output() newGoldsilverEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newGoldsilverEvent.emit(value);
+  }
    //passing data from parent to child component
    @Input() scheme:any;
    @Input() Accountno:any;
@@ -99,7 +102,8 @@ export class GoldAndSilverComponent
     private fb: FormBuilder,
     public _goldsilverService: goldandsilverService,
     private _golddrop: GoldsilverService,
-    private http: HttpClient
+    private http: HttpClient,
+    public router: Router
   ) {}
 
   ngOnInit(): void {
@@ -274,8 +278,13 @@ export class GoldAndSilverComponent
     };
     console.log(dataToSend);
     this._goldsilverService.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        let info = []
+        info.push(data.id)
+        info.push("goldSilver")
+
+        this.newItemEvent(info);
         // to reload after insertion of data
         this.rerender();
       },
@@ -307,7 +316,6 @@ console.log(ele);
        let dropdown: any = {};
        dropdown.scheme = data.AC_TYPE;
        dropdown.account = data.AC_NO.toString();
-       this.newItemEvent.emit(dropdown),
 
       this.updateID = data.id;
       this.angForm.patchValue({

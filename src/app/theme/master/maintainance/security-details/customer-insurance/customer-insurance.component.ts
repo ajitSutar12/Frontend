@@ -20,11 +20,12 @@ import {
 import { customerinsuranceService } from "./customer-insurance.service";
 import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
-import{InsuranceMasterDropdownService } from '../../../../../shared/dropdownService/insurance-master-dropdown.service'
+import { InsuranceMasterDropdownService } from '../../../../../shared/dropdownService/insurance-master-dropdown.service'
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
 import { first } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 // Handling datatable data
 class DataTableResponse {
@@ -35,9 +36,9 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface CustomerMaster {
-  id:number;
-    AC_ACNOTYPE:string;
-    AC_TYPE:number;
+  id: number;
+  AC_ACNOTYPE: string;
+  AC_TYPE: number;
   INSURANCE_DATE: Date;
   POLICY_NO: number;
   INSU_COMPANY_CODE: number;
@@ -50,13 +51,15 @@ interface CustomerMaster {
   templateUrl: "./customer-insurance.component.html",
   styleUrls: ["./customer-insurance.component.scss"],
 })
-export class CustomerInsuranceComponent implements OnInit, AfterViewInit,OnDestroy {
-   //passing data form child to parent
-   @Output() newItemEvent = new EventEmitter<string>();
-
+export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDestroy {
+  //passing data form child to parent
+  @Output() newcustomerInsuranceEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newcustomerInsuranceEvent.emit(value);
+  }
   //passing data from parent to child component
-     @Input() scheme:any;
-     @Input() Accountno:any;
+  @Input() scheme: any;
+  @Input() Accountno: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -80,15 +83,16 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit,OnDestr
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   page: number;
-  filterData={};
+  filterData = {};
   insuranceoption
 
   constructor(
     private fb: FormBuilder,
     private _customerservice: customerinsuranceService,
     private http: HttpClient,
-    private _insurancedropdown:InsuranceMasterDropdownService
-  ) {}
+    private _insurancedropdown: InsuranceMasterDropdownService,
+    public router: Router
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -170,7 +174,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit,OnDestr
     this._insurancedropdown.getInsuranceMasterList().pipe(first()).subscribe(data => {
       this.insuranceoption = data;
     })
-   
+
   }
 
   runTimer() {
@@ -195,8 +199,8 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit,OnDestr
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
-      AC_TYPE:this.scheme._value[0],
-      AC_NO:this.Accountno,
+      AC_TYPE: this.scheme._value[0],
+      AC_NO: this.Accountno,
       INSURANCE_DATE: formVal.INSURANCE_DATE,
       POLICY_NO: formVal.POLICY_NO,
       INSU_COMPANY_CODE: formVal.INSU_COMPANY_CODE,
@@ -205,8 +209,14 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit,OnDestr
     };
     console.log(dataToSend);
     this._customerservice.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        let info = []
+        info.push(data.id)
+        info.push("customerInsurance")
+
+        this.newItemEvent(info);
+        // console.log("book id", info)
         // to reload after insertion of data
         this.rerender();
       },
@@ -220,22 +230,22 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit,OnDestr
 
   //function for edit button clicked
   editClickHandler(id: any): void {
-   
+
     this.showButton = false;
     this.updateShow = true;
     this._customerservice.getFormData(id).subscribe((data) => {
       debugger
       //sending values to parent
-       let dropdown: any = {};
-       dropdown.scheme = data.AC_TYPE;
-       dropdown.account = data.AC_NO.toString();
-       this.newItemEvent.emit(dropdown),
-      this.updateID = data.id;
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      dropdown.account = data.AC_NO.toString();
+    
+        this.updateID = data.id;
       this.angForm.patchValue({
 
-      
-        AC_TYPE:this.scheme._value[0],
-        AC_NO:this.Accountno,
+
+        AC_TYPE: this.scheme._value[0],
+        AC_NO: this.Accountno,
         INSURANCE_DATE: data.INSURANCE_DATE,
         POLICY_NO: data.POLICY_NO,
         INSU_COMPANY_CODE: data.INSU_COMPANY_CODE,
@@ -281,7 +291,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit,OnDestr
     });
   }
   ngAfterViewInit(): void {
-    
+
     this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

@@ -21,6 +21,7 @@ import { governmentsecuritycomponentservice } from "../govt-security-and-lic/gov
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../../../../environments/environment";
+import { Router } from "@angular/router";
 
 // Handling datatable data
 class DataTableResponse {
@@ -59,8 +60,10 @@ export class GovtSecurityAndLicComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
   //passing data form child to parent
-  @Output() newItemEvent = new EventEmitter<string>();
-
+  @Output() newgovtSecurityEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newgovtSecurityEvent.emit(value);
+  }
   //passing data from parent to child component
   @Input() scheme: any;
   @Input() Accountno: any;
@@ -105,8 +108,8 @@ resetmaturedate:any;//reset maturedue date
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-
-    private _govsecurity: governmentsecuritycomponentservice
+    private _govsecurity: governmentsecuritycomponentservice,
+    public router: Router
   ) {}
 
   ngOnInit(): void {
@@ -259,8 +262,14 @@ resetmaturedate:any;//reset maturedue date
     };
     console.log("govt send:", dataToSend);
     this._govsecurity.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+
+        let info = []
+        info.push(data.id)
+        info.push("govSecurity")
+
+        this.newItemEvent(info);
         // to reload after insertion of data
         this.rerender();
       },
@@ -281,7 +290,7 @@ resetmaturedate:any;//reset maturedue date
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
       dropdown.account = data.AC_NO.toString();
-      this.newItemEvent.emit(dropdown), (this.updateID = data.id);
+       (this.updateID = data.id);
       this.angForm.patchValue({
         AC_TYPE: this.scheme._value[0],
         AC_NO: this.Accountno,

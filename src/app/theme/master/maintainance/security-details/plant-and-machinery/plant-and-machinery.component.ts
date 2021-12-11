@@ -4,7 +4,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewChild,Input,Output,
+  ViewChild, Input, Output,
   EventEmitter,
   ElementRef,
 } from "@angular/core";
@@ -23,6 +23,7 @@ import { plantmachineryService } from "./plant-and-machinery.service";
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
+import { Router } from "@angular/router";
 
 // Handling datatable data
 class DataTableResponse {
@@ -33,9 +34,9 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface PlantMaster {
-  id:number;
-    AC_ACNOTYPE:string;
-    AC_TYPE:number;
+  id: number;
+  AC_ACNOTYPE: string;
+  AC_TYPE: number;
   SUBMISSION_DATE: Date;
   MACHINE_NAME: string;
   MACHINE_TYPE: string;
@@ -54,14 +55,15 @@ interface PlantMaster {
   styleUrls: ["./plant-and-machinery.component.scss"],
 })
 export class PlantAndMachineryComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
-    //passing data form child to parent
-    @Output() newItemEvent = new EventEmitter<string>();
-
-   //passing data from parent to child component
- @Input() scheme:any;
- @Input() Accountno:any;
+  implements OnInit, AfterViewInit, OnDestroy {
+  //passing data form child to parent
+  @Output() newPlantandMachiEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newPlantandMachiEvent.emit(value);
+  }
+  //passing data from parent to child component
+  @Input() scheme: any;
+  @Input() Accountno: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -80,13 +82,14 @@ export class PlantAndMachineryComponent
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   page: number;
-  filterData= {};
+  filterData = {};
 
   constructor(
     private fb: FormBuilder,
     private _plant: plantmachineryService,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    public router: Router
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -188,7 +191,7 @@ export class PlantAndMachineryComponent
         },
       ],
       dom: "Blrtip",
-     
+
       // //row click handler code
       // rowCallback: (row: Node, data: any[] | Object, index: number) => {
       //   const self = this;
@@ -222,8 +225,8 @@ export class PlantAndMachineryComponent
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
-      AC_TYPE:this.scheme._value[0],
-      AC_NO:this.Accountno,
+      AC_TYPE: this.scheme._value[0],
+      AC_NO: this.Accountno,
       SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       MACHINE_NAME: formVal.MACHINE_NAME,
       MACHINE_TYPE: formVal.MACHINE_TYPE,
@@ -237,8 +240,13 @@ export class PlantAndMachineryComponent
       REMARK: formVal.REMARK,
     };
     this._plant.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        let info = []
+        info.push(data.id)
+        info.push("plantMachinary")
+
+        this.newItemEvent(info);
         // to reload after insertion of data
         this.rerender();
       },
@@ -250,17 +258,17 @@ export class PlantAndMachineryComponent
     this.resetForm();
   }
 
-    //check  if margin values are below 100
-checkmargin(ele:any){ 
-  //check  if given value  is below 100
-  console.log(ele);
-  if(ele <= 100){
-console.log(ele);
+  //check  if margin values are below 100
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
+    console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
+    }
+    else {
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
   }
-  else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
-  }
-}
 
   //function for edit button clicked
   editClickHandler(id: any): void {
@@ -272,24 +280,24 @@ console.log(ele);
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
       dropdown.account = data.AC_NO.toString();
-      this.newItemEvent.emit(dropdown),
 
-      this.angForm.patchValue({
-        
-        AC_TYPE:this.scheme._value[0],
-        AC_NO:this.Accountno,
-        SUBMISSION_DATE: data.SUBMISSION_DATE,
-        MACHINE_NAME: data.MACHINE_NAME,
-        MACHINE_TYPE: data.MACHINE_TYPE,
-        DISTINCTIVE_NO: data.DISTINCTIVE_NO,
-        SPECIFICATION: data.SPECIFICATION,
-        AQUISITION_DATE: data.AQUISITION_DATE,
-        NEW_EQUIPEMENT: data.NEW_EQUIPEMENT,
-        SUPPLIER_NAME: data.SUPPLIER_NAME,
-        PURCHASE_PRICE: data.PURCHASE_PRICE,
-        MARGIN: data.MARGIN,
-        REMARK: data.REMARK,
-      });
+
+        this.angForm.patchValue({
+
+          AC_TYPE: this.scheme._value[0],
+          AC_NO: this.Accountno,
+          SUBMISSION_DATE: data.SUBMISSION_DATE,
+          MACHINE_NAME: data.MACHINE_NAME,
+          MACHINE_TYPE: data.MACHINE_TYPE,
+          DISTINCTIVE_NO: data.DISTINCTIVE_NO,
+          SPECIFICATION: data.SPECIFICATION,
+          AQUISITION_DATE: data.AQUISITION_DATE,
+          NEW_EQUIPEMENT: data.NEW_EQUIPEMENT,
+          SUPPLIER_NAME: data.SUPPLIER_NAME,
+          PURCHASE_PRICE: data.PURCHASE_PRICE,
+          MARGIN: data.MARGIN,
+          REMARK: data.REMARK,
+        });
     });
   }
 
@@ -329,7 +337,7 @@ console.log(ele);
     });
   }
   ngAfterViewInit(): void {
-    
+
     this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

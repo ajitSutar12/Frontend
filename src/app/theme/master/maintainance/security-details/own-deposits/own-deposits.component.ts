@@ -30,6 +30,7 @@ import { OwnbranchMasterService } from "../../../../../shared/dropdownService/ow
 import { first } from "rxjs/operators";
 import { schemedropdownService } from "../../../../../shared/dropdownService/scheme-dropdown.service";
 import { environment } from "src/environments/environment";
+import { Router } from "@angular/router";
 
 // Handling datatable data
 class DataTableResponse {
@@ -63,8 +64,10 @@ interface DepositeMaster {
 })
 export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
-  @Output() newItemEvent = new EventEmitter<string>();
-
+  @Output() newOwnDepositEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newOwnDepositEvent.emit(value);
+  }
   //passing data from parent to child component
   @Input() scheme: any;
   @Input() Accountno: any;
@@ -109,7 +112,8 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     private _deposite: OwnDepositsComponentService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private _sheme: schemedropdownService,
-    private http: HttpClient
+    private http: HttpClient,
+    public router: Router
   ) {
     this.createForm();
   }
@@ -274,8 +278,13 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log("own deposit",dataToSend);
 
     this._deposite.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        let info = []
+        info.push(data.id)
+        info.push("ownDeposit")
+
+        this.newItemEvent(info);
         // to reload after insertion of data
         this.rerender();
       },
@@ -304,7 +313,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
       dropdown.account = data.AC_NO.toString();
-      this.newItemEvent.emit(dropdown),
+
 
         this.angForm.patchValue({
           BRANCH_CODE: data.BRANCH_CODE,

@@ -22,6 +22,7 @@ import { marketsharesomponentservice } from "./market-shares.component.service";
 import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
+import { Router } from "@angular/router";
 
 
 
@@ -60,8 +61,10 @@ interface MarketMaster {
 export class MarketSharesComponent implements OnInit, AfterViewInit, OnDestroy {
   
   //passing data form child to parent
-  @Output() newItemEvent = new EventEmitter<string>();
-
+  @Output() newmarketShareEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newmarketShareEvent.emit(value);
+  }
   //passing data from parent to child component
      @Input() scheme:any;
      @Input() Accountno:any;
@@ -108,7 +111,8 @@ marketmaster: MarketMaster[];
   constructor(
     private fb: FormBuilder,
     private _marketservice: marketsharesomponentservice,
-    private http: HttpClient
+    private http: HttpClient,
+    public router: Router
   ) {
     
   }
@@ -241,9 +245,15 @@ marketmaster: MarketMaster[];
       RELEASE_BY: formVal.RELEASE_BY,
     };
     this._marketservice.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        let info = []
+        info.push(data.id)
+        info.push("marketShare")
+
+        this.newItemEvent(info);
         // to reload after insertion of data
+
         this.rerender();
       },
       (error) => {
@@ -264,8 +274,6 @@ marketmaster: MarketMaster[];
   let dropdown: any = {};
   dropdown.scheme = data.AC_TYPE;
   dropdown.account = data.AC_NO.toString();
-  this.newItemEvent.emit(dropdown),
-
       this.updateID = data.id;
       this.angForm.patchValue({
         AC_TYPE:this.scheme._value[0],

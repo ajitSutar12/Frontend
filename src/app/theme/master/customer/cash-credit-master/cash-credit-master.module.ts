@@ -34,6 +34,10 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 import { DirectorMasterService } from '../../policy-settings/information/director-master/director-master.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
+import { SecurityCodeService } from '../../policy-settings/definations/security-code/security-code.service';
+import { TermLoanSchemeService } from '../../../utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service';
+import { SecurityDetailsModule } from '../../maintainance/security-details/securityDetails.module';
 
 
 import { DatePipe } from '@angular/common';
@@ -52,7 +56,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CustomerIdModule,
     PerfectScrollbarModule,
     SharedModule,
- 
+    SecurityDetailsModule
   ],
   declarations: [CashCreditMasterComponent],
   providers: [CashCreditService,
@@ -77,11 +81,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SystemMasterParametersService,
     DirectorMasterService,
     DatePipe,
+    TermLoanSchemeService,
+    SecurityCodeService,
+    cityMasterService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true
     },]
-   
+
 })
 export class CashCreditMasterModule { }

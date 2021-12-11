@@ -3,10 +3,10 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewChild,Input,
+  ViewChild, Input,
   Output,
-EventEmitter,
-ElementRef,
+  EventEmitter,
+  ElementRef,
 } from "@angular/core";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
@@ -23,6 +23,7 @@ import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
 
 import { Subject } from "rxjs";
+import { Router } from "@angular/router";
 
 // Handling datatable data
 class DataTableResponse {
@@ -33,10 +34,10 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface FireMaster {
-  id:number;
-    AC_ACNOTYPE:string;
-    AC_TYPE:number;
-    AC_NO:number;
+  id: number;
+  AC_ACNOTYPE: string;
+  AC_TYPE: number;
+  AC_NO: number;
   SUBMISSION_DATE: Date;
   POLICY_DUE_DATE: Date;
   POLICY_NO: string;
@@ -47,7 +48,7 @@ interface FireMaster {
   CITY: string;
   PREMIUM: number;
   PREMIUM_DUE_DATE: Date;
-  SECURITY_TYPE:string;
+  SECURITY_TYPE: string;
 }
 @Component({
   selector: "app-fire-policy",
@@ -56,12 +57,15 @@ interface FireMaster {
 })
 export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
-  @Output() newItemEvent = new EventEmitter<string>();
-   //passing data from parent to child component
-   @Input() scheme:any;
-   @Input() Accountno:any;
- //api
- url = environment.base_url;
+  @Output() newfirePolicyEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newfirePolicyEvent.emit(value);
+  }
+  //passing data from parent to child component
+  @Input() scheme: any;
+  @Input() Accountno: any;
+  //api
+  url = environment.base_url;
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
   showButton: boolean = true;
@@ -76,11 +80,12 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
   page: number;
-  filterData= {};
+  filterData = {};
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _fire: firepolicycomponentservice
+    private _fire: firepolicycomponentservice,
+    public router: Router
   ) {
     this.createForm();
   }
@@ -139,7 +144,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
             return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           },
         },
-     
+
         {
           title: "Submission Date",
           data: "SUBMISSION_DATE",
@@ -182,7 +187,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       ],
       dom: "Blrtip",
-      
+
     };
   }
 
@@ -204,8 +209,8 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
-      AC_TYPE:this.scheme._value[0],
-      AC_NO:this.Accountno,
+      AC_TYPE: this.scheme._value[0],
+      AC_NO: this.Accountno,
       SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       POLICY_DUE_DATE: formVal.POLICY_DUE_DATE,
       POLICY_NO: formVal.POLICY_NO,
@@ -218,8 +223,13 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
       ADDRESS: formVal.ADDRESS,
     };
     this._fire.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        let info = []
+        info.push(data.id)
+        info.push("firePolicy")
+
+        this.newItemEvent(info);
         // to reload after insertion of data
         this.rerender();
       },
@@ -236,16 +246,15 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showButton = false;
     this.updateShow = true;
     this._fire.getFormData(id).subscribe((data) => {
-           //sending values to parent
-           let dropdown: any = {};
-           dropdown.scheme = data.AC_TYPE;
-           dropdown.account = data.AC_NO.toString();
-           this.newItemEvent.emit(dropdown),
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      dropdown.account = data.AC_NO.toString();
 
-      this.updateID = data.id;
+        this.updateID = data.id;
       this.angForm.patchValue({
-        AC_TYPE:this.scheme._value[0],
-        AC_NO:this.Accountno,
+        AC_TYPE: this.scheme._value[0],
+        AC_NO: this.Accountno,
         SUBMISSION_DATE: data.SUBMISSION_DATE,
         POLICY_DUE_DATE: data.POLICY_DUE_DATE,
         POLICY_NO: data.POLICY_NO,
@@ -297,9 +306,9 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   ngAfterViewInit(): void {
-    
+
     this.myInputField.nativeElement.focus();//autofocus
-    
+
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
@@ -331,5 +340,5 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dtTrigger.next();
     });
   }
-  
+
 }

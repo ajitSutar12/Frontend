@@ -12,7 +12,7 @@ export class SecurityMasterdropdownService {
         return this.http.get<any>(this.url + '/security-code')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.SECU_CODE, value: `${element.id }`};
+                    let obj = { label: element.SECU_CODE + ' ' + element.SECU_NAME, value: `${element.id}`, name: element.SECU_NAME, id: element.SECU_CODE };
                     this.securityObject.push(obj)
                 });
                 return this.securityObject;

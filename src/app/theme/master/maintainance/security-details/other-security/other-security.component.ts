@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
   Input,
-    Output,
+  Output,
   EventEmitter,
   ElementRef,
 } from "@angular/core";
@@ -23,6 +23,7 @@ import { Subject } from "rxjs";
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
+import { Router } from "@angular/router";
 
 // Handling datatable data
 class DataTableResponse {
@@ -48,11 +49,12 @@ interface SecurityMaster {
   styleUrls: ["./other-security.component.scss"],
 })
 export class OtherSecurityComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{ 
+  implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
-  @Output() newItemEvent = new EventEmitter<string>();
-
+  @Output() newOtherSecurityEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newOtherSecurityEvent.emit(value);
+  }
   //passing data from parent to child component
   @Input() scheme: any;
   @Input() Accountno: any;
@@ -81,8 +83,9 @@ export class OtherSecurityComponent
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _security: othersecuritycomponentservice
-  ) {}
+    private _security: othersecuritycomponentservice,
+    public router: Router
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -167,8 +170,8 @@ export class OtherSecurityComponent
 
   createForm() {
     this.angForm = this.fb.group({
-      AC_TYPE:[''],
-      AC_NO:[''],
+      AC_TYPE: [''],
+      AC_NO: [''],
       SUBMISSION_DATE: ["", [Validators.required]],
       SHORT_DETAILS: ["", [Validators.pattern, Validators.required]],
       TOTAL_VALUE: ["", [Validators.pattern, Validators.required]],
@@ -189,8 +192,13 @@ export class OtherSecurityComponent
     };
     console.log("in submit", dataToSend);
     this._security.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        let info = []
+        info.push(data.id)
+        info.push("otherSecurity")
+
+        this.newItemEvent(info);
         // to reload after insertion of data
         this.rerender();
       },
@@ -204,17 +212,16 @@ export class OtherSecurityComponent
 
   //function for edit button clicked
   editClickHandler(id: any): void {
-  
+
     this.showButton = false;
     this.updateShow = true;
     this._security.getFormData(id).subscribe((data) => {
-       //sending values to parent
-       let dropdown: any = {};
-       dropdown.scheme = data.AC_TYPE;
-       dropdown.account = data.AC_NO.toString();
-       this.newItemEvent.emit(dropdown),
- 
-      this.updateID = data.id;
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      dropdown.account = data.AC_NO.toString();
+
+        this.updateID = data.id;
       console.log(this.updateID)
       this.angForm.patchValue({
         AC_TYPE: this.scheme._value[0],
@@ -228,16 +235,16 @@ export class OtherSecurityComponent
     });
   }
   //check  if margin values are below 100
-checkmargin(ele:any){ 
-  //check  if given value  is below 100
-  console.log(ele);
-  if(ele <= 100){
-console.log(ele);
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
+    console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
+    }
+    else {
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
   }
-  else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
-  }
-}
 
   updateData() {
     this.showButton = true;

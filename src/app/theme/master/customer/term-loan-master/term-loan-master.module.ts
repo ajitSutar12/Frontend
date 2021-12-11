@@ -27,7 +27,7 @@ import { SecurityMasterdropdownService } from '../../../../shared/dropdownServic
 import { InterestRateForLoanandCCService } from '../../policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
 import { CustomerIdModule } from '../customer-id/customer-id.module';
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
-
+import { SecurityCodeService } from '../../policy-settings/definations/security-code/security-code.service';
 import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
 import {DatePipe} from '@angular/common';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -35,6 +35,8 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { TermLoanSchemeService } from '../../../utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service';
+import { SecurityDetailsModule } from '../../maintainance/security-details/securityDetails.module';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -49,9 +51,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule,
     CustomerIdModule,
     PerfectScrollbarModule,
-    SharedModule
+    SharedModule,
+    SecurityDetailsModule
   ],
-  declarations: [TermLoanMasterComponent],
+  declarations: [TermLoanMasterComponent, 
+
+  ],
+    
   providers: [
     {
 
@@ -81,7 +87,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     cityMasterService,
     SystemMasterParametersService,
     TermLoanSchemeService,
-    DatePipe
+    DatePipe,
+    SecurityCodeService
   ]
 })
 export class TermLoanMasterModule { }

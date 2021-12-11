@@ -23,6 +23,7 @@ import { Subject } from "rxjs";
 import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
 import { first } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 // Handling datatable data
 class DataTableResponse {
@@ -56,9 +57,11 @@ interface PleadgeMaster {
   styleUrls: ["./pleadge-stock.component.scss"],
 })
 export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
- //passing data form child to parent
- @Output() newItemEvent = new EventEmitter<string>();
-
+  //passing data form child to parent
+  @Output() newPleadgeEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newPleadgeEvent.emit(value);
+  }
   //passing data from parent to child component
   @Input() scheme: any;
   @Input() Accountno: any;
@@ -83,8 +86,9 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _pleadge: pleadgestockService
-  ) {}
+    private _pleadge: pleadgestockService,
+    public router: Router
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -224,8 +228,13 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
     };
 
     this._pleadge.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        let info = []
+        info.push(data.id)
+        info.push("pleadge")
+
+        this.newItemEvent(info);
         // to reload after insertion of data
         this.rerender();
       },
@@ -236,44 +245,43 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
     //To clear form
     this.resetForm();
   }
- //check  if margin values are below 100
- checkmargin(ele:any){ 
-  //check  if given value  is below 100
-  console.log(ele);
-  if(ele <= 100){
-console.log(ele);
+  //check  if margin values are below 100
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
+    console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
+    }
+    else {
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
   }
-  else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
-  }
-}
   //function for edit button clicked
   editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
     this._pleadge.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
-       //sending values to parent
-       let dropdown: any = {};
-       dropdown.scheme = data.AC_TYPE;
-       dropdown.account = data.AC_NO.toString();
-       this.newItemEvent.emit(dropdown),
- 
-      this.angForm.patchValue({
-        AC_TYPE: this.scheme._value[0],
-        AC_NO: this.Accountno,
-        SUBMISSION_DATE: data.SUBMISSION_DATE,
-        STORAGE_MEMO_NO: data.STORAGE_MEMO_NO,
-        STORAGE_DATE: data.STORAGE_DATE,
-        GOODS_QTY: data.GOODS_QTY,
-        MANUF_MILL: data.MANUF_MILL,
-        DISCRIPTION: data.DISCRIPTION,
-        BALANCE_QTY: data.BALANCE_QTY,
-        RATE: data.RATE,
-        VALUE: data.VALUE,
-        MARGIN: data.MARGIN,
-        REMARK: data.REMARK,
-      });
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      dropdown.account = data.AC_NO.toString();
+
+        this.angForm.patchValue({
+          AC_TYPE: this.scheme._value[0],
+          AC_NO: this.Accountno,
+          SUBMISSION_DATE: data.SUBMISSION_DATE,
+          STORAGE_MEMO_NO: data.STORAGE_MEMO_NO,
+          STORAGE_DATE: data.STORAGE_DATE,
+          GOODS_QTY: data.GOODS_QTY,
+          MANUF_MILL: data.MANUF_MILL,
+          DISCRIPTION: data.DISCRIPTION,
+          BALANCE_QTY: data.BALANCE_QTY,
+          RATE: data.RATE,
+          VALUE: data.VALUE,
+          MARGIN: data.MARGIN,
+          REMARK: data.REMARK,
+        });
     });
   }
 

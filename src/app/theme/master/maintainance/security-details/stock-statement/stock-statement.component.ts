@@ -21,6 +21,7 @@ import { stockcomponentservice } from "./stock-statement.component.service";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../../../../environments/environment";
+import { Router } from "@angular/router";
 
 // Handling datatable data
 class DataTableResponse {
@@ -55,11 +56,12 @@ interface StockMaster {
   styleUrls: ["./stock-statement.component.scss"],
 })
 export class StockStatementComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+  implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
-  @Output() newItemEvent = new EventEmitter<string>();
-
+  @Output() newStockEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newStockEvent.emit(value);
+  }
   //passing data from parent to child component
   @Input() scheme: any;
   @Input() Accountno: any;
@@ -104,8 +106,9 @@ export class StockStatementComponent
   constructor(
     private fb: FormBuilder,
     private _stock: stockcomponentservice,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    public router: Router
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -232,10 +235,14 @@ export class StockStatementComponent
       REMARK: formVal.REMARK,
       LEDGER_Bal: formVal.LEDGER_Bal,
     };
-    console.log("submit:", dataToSend.RAW_MARGIN);
     this._stock.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        let info = []
+        info.push(data.id)
+        info.push("stockStatement")
+
+        this.newItemEvent(info);
         // to reload after insertion of data
         this.rerender();
       },
@@ -246,18 +253,18 @@ export class StockStatementComponent
     //To clear form
     this.resetForm();
   }
- //check  if margin values are below 100
- checkmargin(ele:any){ 
-   debugger
-  //check  if given value  is below 100
-  console.log(ele);
-  if(ele <= 100){
-console.log(ele);
+  //check  if margin values are below 100
+  checkmargin(ele: any) {
+    debugger
+    //check  if given value  is below 100
+    console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
+    }
+    else {
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
   }
-  else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
-  }
-}
   //function for edit button clicked
   editClickHandler(id: any): void {
     this.showButton = false;
@@ -267,8 +274,7 @@ console.log(ele);
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
       dropdown.account = data.AC_NO.toString();
-
-      this.newItemEvent.emit(dropdown), (this.updateID = data.id);
+      (this.updateID = data.id);
       this.angForm.patchValue({
         AC_TYPE: this.scheme._value[0],
         AC_NO: this.Accountno,
@@ -324,7 +330,7 @@ console.log(ele);
     });
   }
   ngAfterViewInit(): void {
-    
+
     this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

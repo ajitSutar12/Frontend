@@ -16,7 +16,7 @@ export class CashCreditService {
 
     //Insertion Operation
     postData(data: any): Observable<any> {
-        return this.http.post(this.url + '/term-loan-master/insert', data).pipe(map((res) => res),
+        return this.http.post(this.url + '/cash-credit-master/insert', data).pipe(map((res) => res),
             catchError((error) => {
                 Swal.fire('Please Input Proper Data!');
                 return throwError(error);
@@ -25,15 +25,15 @@ export class CashCreditService {
     }
     // For append data
     getFormData(id: any): Observable<any> {
-        return this.http.get(this.url + '/term-loan-master/' + id).pipe(catchError(this.handleError));
+        return this.http.get(this.url + '/cash-credit-master/' + id).pipe(catchError(this.handleError));
     }
     //Updation Operation
     updateData(data): Observable<any> {
-        return this.http.put(this.url + '/term-loan-master/update', data);
+        return this.http.put(this.url + '/cash-credit-master/update', data);
     }
     //Deletion Operation
     deleteData(id: any): Observable<any> {
-        return this.http.delete(this.url + '/term-loan-master/delete/' + id).pipe(catchError(this.handleError));
+        return this.http.delete(this.url + '/cash-credit-master/delete/' + id).pipe(catchError(this.handleError));
     }  
 }
 

@@ -24,6 +24,8 @@ import { first } from "rxjs/operators";
 import { BookdebtsService } from "./book-debts.service";
 import { isNullOrUndefined } from "@swimlane/ngx-datatable";
 import { data } from "jquery";
+import { Router } from "@angular/router";
+
 
 // Handling datatable data
 class DataTableResponse {
@@ -34,9 +36,9 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface BookMaster {
-  id:number;
-    AC_ACNOTYPE:string;
-    AC_TYPE:number;
+  id: number;
+  AC_ACNOTYPE: string;
+  AC_TYPE: number;
   SUBMISSION_DATE: Date;
   STATEMENT_DATE: Date;
   DEBTORS_OP_BAL: number;
@@ -56,11 +58,13 @@ interface BookMaster {
 })
 export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
-  @Output() newItemEvent = new EventEmitter<string>();
-
+  @Output() newbookEvent = new EventEmitter<string>();
+  newItemEvent(value) {
+    this.newbookEvent.emit(value);
+  }
   //passing data from parent to child component
-    @Input() scheme:any;
-    @Input() Accountno:any;
+  @Input() scheme: any;
+  @Input() Accountno: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -70,7 +74,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   updateID: number; //variable for updating
   // Store data from backend
   bookMaster: BookMaster[];
-  
+
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -78,7 +82,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   page: number;
-  filterData= {};
+  filterData = {};
   //variables for calculating debtors closing balance
   debtopen: number = 0;
   addcredit: number = 0;
@@ -90,8 +94,9 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _book: BookdebtsService
-  ) {}
+    private _book: BookdebtsService,
+    public router: Router
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -132,7 +137,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
           )
           .subscribe((resp) => {
             this.bookMaster = resp.data;
-            console.log("datable response",resp.data);
+            console.log("datable response", resp.data);
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -208,17 +213,17 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submit() {
-    debugger
-    let closingbalid = (document.getElementById("DebtorsClosingBalance")as HTMLInputElement).value;
-    
+    // debugger
+    let closingbalid = (document.getElementById("DebtorsClosingBalance") as HTMLInputElement).value;
+
     this.angForm.patchValue({
-      CLOSE_BAL:closingbalid,
-     
+      CLOSE_BAL: closingbalid,
+
     });
     const formVal = this.angForm.value;
     const dataToSend = {
-      AC_TYPE:this.scheme._value[0],
-      AC_NO:this.Accountno,
+      AC_TYPE: this.scheme._value[0],
+      AC_NO: this.Accountno,
       SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       STATEMENT_DATE: formVal.STATEMENT_DATE,
       DEBTORS_OP_BAL: formVal.DEBTORS_OP_BAL,
@@ -232,10 +237,18 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     };
     console.log(dataToSend);
     this._book.postData(dataToSend).subscribe(
-      (data1) => {
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         // to reload after insertion of data
-        this.rerender();
+        let info = []
+        info.push(data.id)
+        info.push("book")
+
+        this.newItemEvent(info);
+        console.log("book id", info)
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
       },
       (error) => {
         console.log(error);
@@ -245,17 +258,17 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetForm();
   }
 
-   //check  if margin values are below 100
-checkmargin(ele:any){ 
-  //check  if given value  is below 100
-  console.log(ele);
-  if(ele <= 100){
-console.log(ele);
+  //check  if margin values are below 100
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
+    console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
+    }
+    else {
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
   }
-  else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
-  }
-}
 
   //function for edit button clicked
   editClickHandler(id: any): void {
@@ -263,26 +276,25 @@ console.log(ele);
     this.updateShow = true;
     this._book.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
-       //sending values to parent
-       let dropdown: any = {};
-       dropdown.scheme = data.AC_TYPE;
-       dropdown.account = data.AC_NO.toString();
-       this.newItemEvent.emit(dropdown),
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      dropdown.account = data.AC_NO.toString();
 
-      this.angForm.patchValue({
-        AC_TYPE:this.scheme._value[0],
-        AC_NO:this.Accountno,
-        SUBMISSION_DATE: data.SUBMISSION_DATE,
-        STATEMENT_DATE: data.STATEMENT_DATE,
-        DEBTORS_OP_BAL: data.DEBTORS_OP_BAL,
-        CREDIT_SALE: data.CREDIT_SALE,
-        RECOVERY: data.RECOVERY,
-        OVERAGED_DEBTORS: data.OVERAGED_DEBTORS,
-        CLOSE_BAL: data.CLOSE_BAL,
-        CRD_OUTSTAND_BAL: data.CRD_OUTSTAND_BAL,
-        MARGIN: data.MARGIN,
-        REMARK: data.REMARK,
-      });
+        this.angForm.patchValue({
+          AC_TYPE: this.scheme._value[0],
+          AC_NO: this.Accountno,
+          SUBMISSION_DATE: data.SUBMISSION_DATE,
+          STATEMENT_DATE: data.STATEMENT_DATE,
+          DEBTORS_OP_BAL: data.DEBTORS_OP_BAL,
+          CREDIT_SALE: data.CREDIT_SALE,
+          RECOVERY: data.RECOVERY,
+          OVERAGED_DEBTORS: data.OVERAGED_DEBTORS,
+          CLOSE_BAL: data.CLOSE_BAL,
+          CRD_OUTSTAND_BAL: data.CRD_OUTSTAND_BAL,
+          MARGIN: data.MARGIN,
+          REMARK: data.REMARK,
+        });
     });
   }
 
