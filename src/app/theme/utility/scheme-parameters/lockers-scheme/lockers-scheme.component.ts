@@ -74,6 +74,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   //Dropdown option variable
   acMaster: any
   filterData={} 
+  newbtnShow: boolean;
 
   constructor(
     private http: HttpClient,
@@ -215,6 +216,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.lockersSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -238,12 +240,19 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
+      this.newbtnShow = false;
       this.rerender();
       this.resetForm();
     })
   }
   resetForm() {
     this.createForm();
+  }
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
   }
   //Method for delete data
    delClickHandler(id: number) {
@@ -283,17 +292,20 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     
 
     ngAfterViewInit(): void {
-      
-this.myInputField.nativeElement.focus();//for autofocus
+      this.myInputField.nativeElement.focus();
       this.dtTrigger.next();
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.columns().every(function () {
           const that = this;
-          $("input", this.footer()).on("keyup change", function () {
-            if (this["value"] != "") {
-              that.search(this["value"]).draw();
+          $('input', this.footer()).on('keyup change', function () {
+            if (this['value'] != '') {
+              that
+                .search(this['value'])
+                .draw();
             } else {
-              that.search(this["value"]).draw();
+              that
+                .search(this['value'])
+                .draw();
             }
           });
         });

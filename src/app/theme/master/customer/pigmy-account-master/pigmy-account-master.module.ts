@@ -30,10 +30,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
-<<<<<<< Updated upstream
 import { DatePipe } from '@angular/common';
-=======
->>>>>>> Stashed changes
 import { PigmyAccountMasterService } from './pigmy-account-master.service'
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
@@ -66,10 +63,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
 
     },
-<<<<<<< Updated upstream
     DatePipe
-=======
->>>>>>> Stashed changes
   ]
 })
 export class PigmyAccountMasterModule { }

@@ -139,6 +139,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   //variable to get ID to update
   updateID: number = 0;
   filterData={};
+  newbtnShow: boolean;
 
   constructor(public installmentMethodService: InstallmentMethodService,
     private acMasterDropdownService: ACMasterDropdownService,
@@ -577,6 +578,8 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    
+    this.newbtnShow = true;
     this.termLoanSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -638,11 +641,18 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
+      
+    this.newbtnShow = false;
       this.rerender();
       this.resetForm();
     })
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   resetForm() {
     this.createForm();
   }

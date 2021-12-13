@@ -15,7 +15,7 @@
       >
         <div class="card-block">
           <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input
@@ -56,7 +56,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input
@@ -324,10 +324,10 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
+        
+          <div class="row">
           <div class="col-4">
-            <div class="card">
+            
               <div class="card-block">
                 <div class="col-md-12">
                   <perfect-scrollbar
@@ -468,7 +468,7 @@
                   </perfect-scrollbar>
                 </div>
               </div>
-            </div>
+            
           </div>
           <div class="col-sm-8">
             <div *ngIf="depositeSchemeTypeTrue">
@@ -2723,24 +2723,22 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
-              <button
-                class="btn btn-primary ripple light"
-                *ngIf="showButton"
-                (click)="submit()"
-                [disabled]="angForm.invalid"
-              >
-                Add
-              </button>
-              <button
-                class="btn btn-primary ripple light"
-                (click)="updateData()"
-                *ngIf="updateShow"
-              >
-                Update
-              </button>
-            </div>
+           
           </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-9">
+
+            </div>
+            <div class="col-sm">
+                <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
+                    [disabled]="angForm.invalid">Add</button>
+                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+                    [disabled]="angForm.invalid">Update</button> &nbsp;
+                <button class="btn btn-primary ripple light" *ngIf="newbtnShow"
+                    (click)="addNewData()">Cancel</button>
+            </div>
+        </div>
         </div>
       </form>
     </div>

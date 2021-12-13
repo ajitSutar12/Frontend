@@ -8,12 +8,12 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
                                         required="" pattern="^[0-9]+$" maxlength="3" minlength="3" min="401" max="499"
-                                        title="Input allowed only 0-9"
+                                        title="Input allowed only 0-9" #autofocus
                                         formControlName="S_APPL">
                                     <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                                 </span>
@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-7">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_NAME" class="form-control" placeholder=" "
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
@@ -319,8 +319,8 @@
                                         <h5> Standing Instruction</h5>
                                     </div>
                                     <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-sm">
+                                        
+                                            <div class="row">
                                                 <div class="border-checkbox-section">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
@@ -330,7 +330,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm">
+                                            <div class="row">
                                                 <div class="border-checkbox-section">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
@@ -341,7 +341,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm">
+                                            <div class="row">
                                                 <div class="border-checkbox-section">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
@@ -350,9 +350,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm">
+                                            <div class="row">
                                                 <div class="border-checkbox-section">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
@@ -362,7 +360,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm">
+                                            <div class="row">
                                                 <div class="border-checkbox-section">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
@@ -373,11 +371,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <label></label>
-                                        </div>
-                                        <div class="row">
+                                            <div class="row">
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -397,7 +391,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -418,6 +412,9 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            
+                                        </div>
+                                        <div class="row">
                                             <div class="col-sm">
                                                 <div class="border-checkbox-section">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
@@ -552,13 +549,15 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-9">
-                            <label></label>
-                        </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
+
+                        </div> 
+                        <div class="col-sm">
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
                                 [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+                                [disabled]="angForm.invalid">Update</button> &nbsp;
+                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow"
+                                (click)="addNewData()">Cancel</button>
                         </div>
                     </div>
                 </div>

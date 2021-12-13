@@ -9,12 +9,12 @@
                 <form action="javascript:" [formGroup]="angForm">
 
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
                                         required="" pattern="^[0-9]+$" maxlength="3" minlength="3" min="401" max="499"
-                                        title="Input allowed 0-9. (Space)" formControlName="S_APPL">
+                                        title="Input allowed 0-9. (Space)" formControlName="S_APPL" #autofocus>
                                     <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
@@ -182,7 +182,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-9">
+
+                        </div> 
+                        <div class="col-sm">
                             <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
                                 [disabled]="angForm.invalid">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"

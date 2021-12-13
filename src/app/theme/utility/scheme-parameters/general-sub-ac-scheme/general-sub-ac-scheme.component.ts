@@ -78,6 +78,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
   //Dropdown option variable
   acMaster: any
   filterData = {};
+  newbtnShow: boolean;
 
   constructor(public generalSubAcSchemeService: GeneralSubAcSchemeService,
     private acMasterDropdownService: ACMasterDropdownService,
@@ -209,6 +210,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.generalSubAcSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -230,6 +232,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
+      this.newbtnShow = false;
       this.rerender();
       this.resetForm();
     })
@@ -238,7 +241,12 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
   resetForm() {
     this.createForm();
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   ngAfterViewInit(): void {
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();

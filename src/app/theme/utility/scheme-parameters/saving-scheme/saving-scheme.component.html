@@ -15,7 +15,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL" required=""
                     pattern="^[0-9]+$" maxlength="3" minlength="3" min="101" max="150" title="Input allowed only 0-9"
-                    formControlName="S_APPL" />
+                    formControlName="S_APPL" #autofocus/>
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -516,7 +516,10 @@
           </div>
 
           <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-9">
+
+            </div>
+            <div class="col-sm">
               <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
                 [disabled]="angForm.invalid">Add</button>
               <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"

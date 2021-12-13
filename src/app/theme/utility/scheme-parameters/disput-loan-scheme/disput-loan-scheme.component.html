@@ -8,12 +8,12 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
                                         required pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="3" minlength="3"
-                                        formControlName="S_APPL">
+                                        formControlName="S_APPL" #autofocus>
                                     <label for="S_APPL">Scheme Code<sub class="required">*
                                         </sub></label>
                                 </span>
@@ -22,12 +22,12 @@
                                 *ngIf="angForm.controls['S_APPL'].invalid && (angForm.controls['S_APPL'].dirty || angForm.controls['S_APPL'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['S_APPL'].errors?.pattern || angForm.controls['S_APPL'].errors?.required || angForm.controls['S_APPL'].errors?.maxlength">
+                                    *ngIf="angForm.controls['S_APPL'].errors?.pattern || angForm.controls['S_APPL'].errors?.required ||angForm.controls['S_APPL'].errors?.minlength || angForm.controls['S_APPL'].errors?.maxlength">
                                     This field is required and Input allowed only 0-9
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-7">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME"
@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
@@ -65,6 +65,9 @@
                                 </div>
                             </div>
                         </div>
+                        
+                    </div>
+                    <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
@@ -80,8 +83,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
@@ -105,6 +106,9 @@
                                 </ng-select>
                             </div>
                         </div>
+
+                    </div>
+                    <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
@@ -113,8 +117,6 @@
                                 </ng-select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
@@ -126,12 +128,15 @@
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
-                                    placeholder="Recble Overdue Int." title="Compulsory Selection"
+                                    placeholder="Recble Overdue Int. *" title="Compulsory Selection"
                                     formControlName="S_RECBL_ODUE_INT_ACNO" [required]="S_RECBL_ODUE_INT_ACNO">
                                 </ng-select>
                             </div>
                         </div>
-                        <div class="col-sm">
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Outstanding Int. A/c" title="Compulsory Selection"
@@ -186,6 +191,8 @@
                         </div>
                         <!-- selected list form card -->
                         <div class="col-sm">
+
+                            <!-- loan type -->
                             <div *ngIf="LoanTypeTrue">
                                 <div class="card">
                                     <div class="card-header">
@@ -234,6 +241,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- End of loan type -->
+
+                            <!-- Interest Applicable -->
                             <div *ngIf="InterestApplicable_True">
                                 <div class="card">
                                     <div class="card-header">
@@ -316,7 +326,7 @@
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="MIN_INT_LIMIT" class="form-control"
                                                             placeholder=" " id="MIN_INT_LIMIT" pattern="\d{2}(\.\d{2})?"
-                                                            title="Input allowed only . 0-9"
+                                                            title="Input allowed only . 0-9" maxlength="2"
                                                             formControlName="MIN_INT_LIMIT">
                                                         <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
                                                     </span>
@@ -334,6 +344,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--End of  Interest Applicable -->
+
+                            <!--Panel Interest Applicable  -->
                             <div *ngIf="PanelInterestApplicableTrue">
                                 <div class="card">
                                     <div class="card-header">
@@ -392,7 +405,7 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="S_PENAL_INT_RATE" class="form-control"
-                                                            placeholder=" " id="S_PENAL_INT_RATE"
+                                                            placeholder=" " id="S_PENAL_INT_RATE" maxlength="5"
                                                             pattern="\d{2}(\.\d{2})?" title="Input allowed only . 0-9"
                                                             formControlName="S_PENAL_INT_RATE">
                                                         <label for="S_PENAL_INT_RATE">Penal Interest Rate % </label>
@@ -456,6 +469,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- end of Panel Interest Applicable  -->
+
+                            <!-- Grace / Moratorium Period -->
                             <div *ngIf=" Grace_MoratoriumPeriodTrue">
                                 <div class="card">
                                     <div class="card-header">
@@ -493,6 +509,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- End of Grace / Moratorium Period -->
+
+                            <!-- Loan Other Settings -->
                             <div *ngIf="LoanOtherSettingsTrue">
                                 <div class="card">
                                     <div class="card-header">
@@ -557,7 +576,7 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="ROUNDOFF_FACTOR" class="form-control"
-                                                            placeholder=" " id="ROUNDOFF_FACTOR" pattern="^[0-9]+$"
+                                                            placeholder=" " id="ROUNDOFF_FACTOR" pattern="^[0-9]+$" maxlength="2"
                                                             title="Input allowed only  0-9"
                                                             formControlName="ROUNDOFF_FACTOR">
                                                         <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in
@@ -577,6 +596,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--  End of Loan Other Settings-->
+
+                            <!--Installment Settings  -->
                             <div *ngIf="InstallmentSettingsTrue">
                                 <div class="card">
                                     <div class="card-header">
@@ -625,7 +647,7 @@
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['IS_OVERDUE_ON_INSTALLMENT'].errors?.pattern || angForm.controls['IS_OVERDUE_ON_INSTALLMENT'].errors?.max || angForm.controls['IS_OVERDUE_ON_INSTALLMENT'].errors?.maxlength">
-                                                        Input allowed only 0-9
+                                                        Input allowed only (0-1-2-3)
                                                     </div>
                                                 </div>
                                             </div>
@@ -654,7 +676,7 @@
                                                         <input type="text" name="MIN_DUE_INSTALLMENTS"
                                                             class="form-control" placeholder=" "
                                                             id="MIN_DUE_INSTALLMENTS" pattern="^[0-9]+$"
-                                                            title="Input allowed only  0-9"
+                                                            title="Input allowed only  0-9" maxlength="2"
                                                             formControlName="MIN_DUE_INSTALLMENTS" disabled>
                                                         <label for="MIN_DUE_INSTALLMENTS">Minimum Overdue
                                                             Installments</label>
@@ -688,10 +710,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--End of Installment Settings -->
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-9">
+
+                        </div>
+                        <div class="col-sm">
                           <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
                             [disabled]="angForm.invalid">Add</button>
                           <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"

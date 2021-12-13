@@ -13,7 +13,7 @@
             <div class="col-md-3">
               <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="schemetype" [multiple]="false" placeholder="Scheme Type*"
-                  required title="Compulsory Selection" formControlName="S_ACNOTYPE" #autofocus>
+                  required title="Compulsory Selection" formControlName="S_ACNOTYPE" >
                 </ng-select>
               </div>
             </div>
@@ -344,7 +344,10 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-9">
+
+            </div>
+            <div class="col-sm">
               <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
                 [disabled]="angForm.invalid">Add</button>
               <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"

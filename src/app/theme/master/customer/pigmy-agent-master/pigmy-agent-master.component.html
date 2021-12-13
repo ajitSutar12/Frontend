@@ -39,8 +39,7 @@
                                     (selected)="getCustomer(id)" style="width: 90%;">
                                 </ng-select>
                                 <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
-                                    (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer">
-                                </span>
+                                    (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer"></span>
                             </div>
 
                             <div class="form-group form-primary form-static-label"
@@ -61,6 +60,27 @@
                             </div>
                             <div class="app-modal-body">
                                 <perfect-scrollbar style="max-width: 800px; max-height: 450px;">
+                                    <app-customer-id (newCustomerEvent)="addNewCustomer($event)">
+                                    </app-customer-id>
+                                </perfect-scrollbar>
+                            </div>
+
+                            <div class="app-modal-footer">
+                                <button type="button" class="btn btn-primary ripple light"
+                                    (click)="modalLarge.hide()">Close</button>
+                            </div>
+                        </app-modal-basic>
+
+                        <!-- <ng-container *ngIf="showModalStatus"> -->
+                        <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
+                            <div class="app-modal-header">
+                                <h4 class="modal-title">Customer ID </h4>
+                                <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="app-modal-body">
+                                <perfect-scrollbar>
                                     <app-customer-id (newCustomerEvent)="addNewCustomer($event)">
                                     </app-customer-id>
                                 </perfect-scrollbar>

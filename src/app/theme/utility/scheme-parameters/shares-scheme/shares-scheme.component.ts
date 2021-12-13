@@ -96,6 +96,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   FaceValueDividendTrue = true;
   OtherSettings_True = false;
   filterData={};
+  newbtnShow: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -329,6 +330,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.sharesSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -362,9 +364,16 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
+      this.newbtnShow = false;
       this.rerender();
       this.resetForm();
     })
+  }
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
   }
   resetForm() {
     this.createForm();
@@ -405,17 +414,20 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
   ngAfterViewInit(): void {
-    
-this.myInputField.nativeElement.focus();//for autofocus
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });
