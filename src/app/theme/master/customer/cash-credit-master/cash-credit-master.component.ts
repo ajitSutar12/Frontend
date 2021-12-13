@@ -1206,9 +1206,28 @@ export class CashCreditMasterComponent implements OnInit {
       SECURITY_CODE: this.SECU_CODE,
       SECURITY_VALUE: this.SECU_NAME,
     }
-    this.multiSecurity.push(object);
+    console.log("security", object.SECURITY_CODE)
+    if (object.SECURITY_CODE != undefined) {
+      if (this.multiSecurity.length == 0) {
+        this.multiSecurity.push(object);
+      }
+      else {
+        this.multiSecurity.forEach(async (element) => {
+          console.log("element", element)
+          if (object.SECURITY_CODE != element.SECURITY_CODE) {
+            this.multiSecurity.push(object);
+          } else {
+            Swal.fire("This Security is Already Added", "error");
+
+          }
+        })
+      }
+    } else {
+      Swal.fire("Please Select Security Code", "error");
+    }
     this.resetField()
   }
+
 
   // Delete Security
   delField(id) {
@@ -1411,7 +1430,29 @@ export class CashCreditMasterComponent implements OnInit {
       AC_NAME: formVal.GAC_NAME,
       EXP_DATE: formVal.EXP_DATE,
     }
-    this.multiGuarantor.push(object);
+    if (object.GAC_CUSTID != undefined) {
+      if (this.id != this.Cid) {
+        if (this.multiGuarantor.length == 0) {
+          this.multiGuarantor.push(object);
+        }
+        else {
+          this.multiGuarantor.forEach(async (element) => {
+            console.log("element", element)
+            if (object.GAC_CUSTID != element.GAC_CUSTID) {
+              this.multiGuarantor.push(object);
+            } else {
+              Swal.fire("This Customer is Already Guarantor", "error");
+
+            }
+          })
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+      }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
     this.resetGuarantor()
   }
 
@@ -1488,7 +1529,30 @@ export class CashCreditMasterComponent implements OnInit {
       CAC_CUSTID: formVal.CAC_CUSTID,
       AC_NAME: formVal.CAC_NAME,
     }
-    this.multiCoBorrower.push(object);
+    if (object.CAC_CUSTID != undefined) {
+      if (this.id != this.Cid) {
+        if (this.multiCoBorrower.length == 0) {
+          this.multiCoBorrower.push(object);
+        }
+        else {
+          this.multiCoBorrower.forEach(async (element) => {
+            console.log("element", element)
+            if (object.CAC_CUSTID != element.CAC_CUSTID) {
+              this.multiCoBorrower.push(object);
+            } else {
+              Swal.fire("This Customer is Already CoBorrower", "error");
+
+            }
+          })
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+      }
+    }
+    else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
     this.resetCoBorrower()
   }
 

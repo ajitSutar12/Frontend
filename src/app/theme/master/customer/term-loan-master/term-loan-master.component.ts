@@ -169,6 +169,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   //Scheme type variable
   schemeType: string = 'LN'
 
+
   // Filter Variable
   filterData = {};
   prifix: any[];
@@ -956,7 +957,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   // Method for Get Customer Data
 
   getCustomer(id) {
-    // this.getDate()
     this.calculation()
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
@@ -1248,7 +1248,25 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       SECURITY_CODE: this.SECU_CODE,
       SECURITY_VALUE: this.SECU_NAME,
     }
-    this.multiSecurity.push(object);
+    console.log("security", object.SECURITY_CODE)
+    if (object.SECURITY_CODE != undefined) {
+      if (this.multiSecurity.length == 0) {
+        this.multiSecurity.push(object);
+      }
+      else {
+        this.multiSecurity.forEach(async (element) => {
+          console.log("element", element)
+          if (object.SECURITY_CODE != element.SECURITY_CODE) {
+            this.multiSecurity.push(object);
+          } else {
+            Swal.fire("This Security is Already Added", "error");
+
+          }
+        })
+      }
+    } else {
+      Swal.fire("Please Select Security Code", "error");
+    }
     this.resetField()
   }
 
@@ -1453,7 +1471,29 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_NAME: formVal.GAC_NAME,
       EXP_DATE: formVal.EXP_DATE,
     }
-    this.multiGuarantor.push(object);
+    if (object.GAC_CUSTID != undefined) {
+      if (this.id != this.Cid) {
+        if (this.multiGuarantor.length == 0) {
+          this.multiGuarantor.push(object);
+        }
+        else {
+          this.multiGuarantor.forEach(async (element) => {
+            console.log("element", element)
+            if (object.GAC_CUSTID != element.GAC_CUSTID) {
+              this.multiGuarantor.push(object);
+            } else {
+              Swal.fire("This Customer is Already Guarantor", "error");
+
+            }
+          })
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+      }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
     this.resetGuarantor()
   }
 
@@ -1530,7 +1570,30 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       CAC_CUSTID: formVal.CAC_CUSTID,
       AC_NAME: formVal.CAC_NAME,
     }
-    this.multiCoBorrower.push(object);
+    if (object.CAC_CUSTID != undefined) {
+      if (this.id != this.Cid) {
+        if (this.multiCoBorrower.length == 0) {
+          this.multiCoBorrower.push(object);
+        }
+        else {
+          this.multiCoBorrower.forEach(async (element) => {
+            console.log("element", element)
+            if (object.CAC_CUSTID != element.CAC_CUSTID) {
+              this.multiCoBorrower.push(object);
+            } else {
+              Swal.fire("This Customer is Already CoBorrower", "error");
+
+            }
+          })
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+      }
+    }
+    else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
     this.resetCoBorrower()
   }
 
@@ -1576,10 +1639,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   // End CoBorrower tab
-
-  getInterest(AC_INTCATA) {
-    this.temp = AC_INTCATA
-    this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
+  int_category: any
+  getInterest(int_category) {
+    this.temp = int_category
+    this.InterestRateForLoanandCC.intData(int_category).subscribe(data => {
       this.date = this.angForm.controls['AC_OPDATE'].value
       if (data != typeof (undefined)) {
         if (this.date == data[0].EFFECT_DATE) {
@@ -1594,6 +1657,29 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           })
         }
       }
+
+      // if (data != typeof (undefined)) {
+      //   data.forEach(async (element) => {
+      //     if (this.date == element.EFFECT_DATE) {
+
+      //       this.angForm.patchValue({
+      //         AC_INTCATA: element.INT_CATEGORY,
+      //         AC_INTRATE: element.rate.INT_RATE,
+      //       })
+      //     }
+      //   })
+        // if (this.date == data[0].EFFECT_DATE) {
+        //   this.angForm.patchValue({
+        //     AC_INTCATA: data[0].INT_CATEGORY,
+        //     AC_INTRATE: data[0].rate[0].INT_RATE,
+        //   })
+        // } else {
+        //   this.angForm.patchValue({
+        //     AC_INTCATA: data[1].INT_CATEGORY,
+        //     AC_INTRATE: 0
+        //   })
+        // }
+    //   }
     })
   }
 

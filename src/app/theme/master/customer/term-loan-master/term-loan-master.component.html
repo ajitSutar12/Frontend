@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
+                        <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
                             <div class="app-modal-header">
                                 <h4 class="modal-title">Customer ID </h4>
                                 <button type="button" class="close basic-close" (click)="modalLarge.hide()">
@@ -59,7 +59,7 @@
                                 </button>
                             </div>
                             <div class="app-modal-body">
-                                <perfect-scrollbar >
+                                <perfect-scrollbar style="max-width: 800px; max-height: 450px;">
                                     <app-customer-id (newCustomerEvent)="newCustomer($event)"></app-customer-id>
                                 </perfect-scrollbar>
                             </div>
@@ -219,8 +219,8 @@
                                                         <ng-select [ngClass]="'ng-select'" [options]="intCat"
                                                             [multiple]="false" placeholder="Interest Category *"
                                                             required title="Compulsory Selection"
-                                                            formControlName="AC_INTCATA" [(ngModel)]="AC_INTCATA"
-                                                            (selected)="getInterest(AC_INTCATA)">
+                                                            formControlName="AC_INTCATA" [(ngModel)]="int_category"
+                                                            (selected)="getInterest(int_category)">
                                                         </ng-select>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -810,7 +810,7 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_WARD" class="form-control"
-                                                                placeholder=" "
+                                                                placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
                                                                 title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                 id="AC_WARD" formControlName="AC_WARD" disabled>
                                                             <label for="AC_WARD">Ward</label>
@@ -828,7 +828,7 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_ADDR" class="form-control"
-                                                                placeholder=" " 
+                                                                placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
                                                                 title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                 id="AC_ADDR" formControlName="AC_ADDR" disabled>
                                                             <label for="AC_ADDR">Detail</label>
@@ -849,7 +849,7 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_GALLI" class="form-control"
-                                                                placeholder=" " 
+                                                                placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
                                                                 title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                 id="AC_GALLI" formControlName="AC_GALLI" disabled>
                                                             <label for="AC_GALLI">Galli</label>
@@ -867,7 +867,7 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_AREA" class="form-control"
-                                                                placeholder=" " 
+                                                                placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
                                                                 title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                 id="AC_AREA" formControlName="AC_AREA" disabled>
                                                             <label for="AC_AREA">Area</label>
@@ -953,7 +953,7 @@
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_TWARD" class="form-control"
-                                                                    placeholder=" " 
+                                                                    placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
                                                                     title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                     id="AC_TWARD" formControlName="AC_TWARD">
                                                                 <label for="AC_TWARD">Ward</label>
@@ -971,7 +971,7 @@
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_TADDR" class="form-control"
-                                                                    placeholder=" "
+                                                                    placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
                                                                     title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                     id="AC_TADDR" formControlName="AC_TADDR">
                                                                 <label for="AC_TADDR">Detail</label>
@@ -991,7 +991,7 @@
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_TGALLI" class="form-control"
-                                                                    placeholder=" " 
+                                                                    placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
                                                                     title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                     id="AC_TGALLI" formControlName="AC_TGALLI">
                                                                 <label for="AC_TGALLI">Galli</label>
@@ -1009,7 +1009,7 @@
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="AC_TAREA" class="form-control"
-                                                                    placeholder=" " 
+                                                                    placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
                                                                     title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                     id="AC_TAREA" formControlName="AC_TAREA">
                                                                 <label for="AC_TAREA">Area</label>
@@ -1404,101 +1404,6 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text"
-                                                                                formControlName="GAC_HONO"
-                                                                                name="GAC_HONO" class="form-control"
-                                                                                placeholder=" "
-                                                                                pattern="^[A-Za-z0-9\./ -]+$" disabled
-                                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                                                                id="GAC_HONO">
-                                                                            <label for="GAC_HONO">House</label>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text" name="GAC_WARD"
-                                                                                class="form-control" placeholder=" "
-                                                                                 disabled
-                                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                                                                id="GAC_WARD"
-                                                                                formControlName="GAC_WARD">
-                                                                            <label for="GAC_WARD">Ward</label>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-5">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text" name="GAC_ADDR"
-                                                                                class="form-control" placeholder=" "
-                                                                                 disabled
-                                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                                                                id="GAC_ADDR"
-                                                                                formControlName="GAC_ADDR">
-                                                                            <label for="GAC_ADDR">Detail</label>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text" name="GAC_GALLI"
-                                                                                class="form-control" placeholder=" "
-                                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                                                                id="GAC_GALLI" disabled
-                                                                                formControlName="GAC_GALLI">
-                                                                            <label for="GAC_GALLI">Galli</label>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text" name="GAC_AREA"
-                                                                                class="form-control" placeholder=" "
-                                                                                 disabled
-                                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                                                                id="GAC_AREA" formControlName="AC_AREA">
-                                                                            <label for="GAC_AREA">Area</label>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text" name="GAC_CTCODE"
-                                                                                class="form-control" placeholder=" "
-                                                                                id="GAC_CTCODE"
-                                                                                pattern="^[A-Za-z\./ -]+$"
-                                                                                formControlName="GAC_CTCODE"
-                                                                                title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                disabled>
-                                                                            <label for="CITY_NAME">City</label>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text" name="GAC_PIN"
-                                                                                class="form-control" placeholder=" "
-                                                                                pattern="^[0-9]+$" disabled
-                                                                                title=" Input allowed only  0-9"
-                                                                                maxlength="6" minlength="6" id="GAC_PIN"
-                                                                                formControlName="GAC_PIN">
-                                                                            <label for="GAC_PIN">Pin Code</label>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-2">
                                                                     <button type="button"
                                                                         class="btn btn-primary ripple light"
                                                                         *ngIf="GuarantorShowButton"
@@ -1627,153 +1532,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text"
-                                                                                formControlName="CAC_HONO"
-                                                                                name="CAC_HONO" class="form-control"
-                                                                                placeholder=" "
-                                                                                pattern="^[A-Za-z0-9\./ -]+$"
-                                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                                                                id="CAC_HONO">
-                                                                            <label for="CAC_HONO">House</label>
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="form-group form-primary form-static-label"
-                                                                        *ngIf="angForm.controls['CAC_HONO'].invalid && (angForm.controls['CAC_HONO'].dirty || angForm.controls['CAC_HONO'].touched)"
-                                                                        class="alert alert-danger">
-                                                                        <div
-                                                                            *ngIf="angForm.controls['CAC_HONO'].errors?.pattern">
-                                                                            Input allowed only A-Z a-z 0-9 - / . (Space)
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text" name="CAC_WARD"
-                                                                                class="form-control" placeholder=" "
-                                                                            
-                                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                                                                id="CAC_WARD"
-                                                                                formControlName="CAC_WARD">
-                                                                            <label for="CAC_WARD">Ward</label>
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="form-group form-primary form-static-label"
-                                                                        *ngIf="angForm.controls['CAC_WARD'].invalid && (angForm.controls['CAC_WARD'].dirty || angForm.controls['CAC_WARD'].touched)"
-                                                                        class="alert alert-danger">
-                                                                        <div
-                                                                            *ngIf="angForm.controls['CAC_WARD'].errors?.pattern">
-                                                                            Input allowed only A-Z a-z 0-9 - / . (Space)
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-7">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text" name="CAC_ADDR"
-                                                                                class="form-control" placeholder=" "
-                                                                               
-                                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                                                                id="CAC_ADDR"
-                                                                                formControlName="CAC_ADDR">
-                                                                            <label for="CAC_ADDR">Detail</label>
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="form-group form-primary form-static-label"
-                                                                        *ngIf="angForm.controls['CAC_ADDR'].invalid && (angForm.controls['CAC_ADDR'].dirty || angForm.controls['CAC_ADDR'].touched)"
-                                                                        class="alert alert-danger">
-                                                                        <div
-                                                                            *ngIf="angForm.controls['CAC_ADDR'].errors?.pattern">
-                                                                            Input allowed only A-Z a-z 0-9 - / . (Space)
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text" name="CAC_GALLI"
-                                                                                class="form-control" placeholder=" "
-                                                                            
-                                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                                                                id="CAC_GALLI"
-                                                                                formControlName="CAC_GALLI">
-                                                                            <label for="CAC_GALLI">Galli</label>
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="form-group form-primary form-static-label"
-                                                                        *ngIf="angForm.controls['CAC_GALLI'].invalid && (angForm.controls['CAC_GALLI'].dirty || angForm.controls['CAC_GALLI'].touched)"
-                                                                        class="alert alert-danger">
-                                                                        <div
-                                                                            *ngIf="angForm.controls['CAC_GALLI'].errors?.pattern">
-                                                                            Input allowed only A-Z a-z 0-9 - / . (Space)
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text" name="CAC_AREA"
-                                                                                class="form-control" placeholder=" "
-                                                                               
-                                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                                                                id="CAC_AREA"
-                                                                                formControlName="CAC_AREA">
-                                                                            <label for="CAC_AREA">Area</label>
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="form-group form-primary form-static-label"
-                                                                        *ngIf="angForm.controls['CAC_AREA'].invalid && (angForm.controls['CAC_AREA'].dirty || angForm.controls['CAC_AREA'].touched)"
-                                                                        class="alert alert-danger">
-                                                                        <div
-                                                                            *ngIf="angForm.controls['CAC_AREA'].errors?.pattern">
-                                                                            Input allowed only A-Z a-z 0-9 - / . (Space)
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <ng-select [ngClass]="'ng-select'"
-                                                                                [options]="city" [multiple]="false"
-                                                                                placeholder="City"
-                                                                                formControlName="CAC_CTCODE">
-                                                                            </ng-select>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm">
-                                                                    <div class="form-group input-group">
-                                                                        <span class="border-lable-flt">
-                                                                            <input type="text" name="CAC_PIN"
-                                                                                class="form-control" placeholder=" "
-                                                                                pattern="^[0-9]+$"
-                                                                                title=" Input allowed only  0-9"
-                                                                                maxlength="6" minlength="6" id="CAC_PIN"
-                                                                                formControlName="CAC_PIN">
-                                                                            <label for="CAC_PIN">Pin Code</label>
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="form-group form-primary form-static-label"
-                                                                        *ngIf="angForm.controls['CAC_PIN'].invalid && (angForm.controls['CAC_PIN'].dirty || angForm.controls['CAC_PIN'].touched)"
-                                                                        class="alert alert-danger">
-                                                                        <div
-                                                                            *ngIf="angForm.controls['CAC_PIN'].errors?.pattern || angForm.controls['CAC_PIN'].errors?.minlength|| angForm.controls['CAC_PIN'].errors?.maxlength">
-                                                                            Input allowed only 0-9
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-2">
+                                                                <div class="col-sm-3">
                                                                     <button type="button"
                                                                         class="btn btn-primary ripple light"
                                                                         *ngIf="CoBorrowerShowButton"
@@ -1855,7 +1614,7 @@
                             <button class="btn btn-primary ripple light" (click)="updateData()"
                                 *ngIf="updateShow">Update</button> &nbsp;
                             <button class="btn btn-primary ripple light" *ngIf="newbtnShow"
-                                (click)="addNewData()">Cancel</button>
+                                (click)="addNewData()">New</button>
                         </div>
                     </div>
                 </form>
