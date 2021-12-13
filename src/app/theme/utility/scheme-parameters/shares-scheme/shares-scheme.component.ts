@@ -260,7 +260,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   createForm() {
     this.angForm = this.fb.group({
       S_ACNOTYPE: ['SH'],
-      S_APPL: ['', [Validators.required, Validators.pattern]],
+      S_APPL: ["", [Validators.required,Validators.pattern, Validators.min(901),Validators.max(999)]],
       S_SHNAME: ['', [Validators.required, Validators.pattern]],
       S_NAME: ['', [Validators.required, Validators.pattern]],
       S_GLACNO: [''],

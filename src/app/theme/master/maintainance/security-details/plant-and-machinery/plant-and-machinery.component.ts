@@ -58,6 +58,8 @@ export class PlantAndMachineryComponent
   implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
   @Output() newPlantandMachiEvent = new EventEmitter<string>();
+  datemax: string;
+  newbtnShow: boolean;
   newItemEvent(value) {
     this.newPlantandMachiEvent.emit(value);
   }
@@ -89,7 +91,11 @@ export class PlantAndMachineryComponent
     private _plant: plantmachineryService,
     private http: HttpClient,
     public router: Router
-  ) { }
+  ) {
+    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
+   }
 
   ngOnInit(): void {
     this.createForm();
@@ -274,6 +280,7 @@ export class PlantAndMachineryComponent
   editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this._plant.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
       //sending values to parent
@@ -304,6 +311,7 @@ export class PlantAndMachineryComponent
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
     this._plant.updateData(data).subscribe(() => {
@@ -314,7 +322,12 @@ export class PlantAndMachineryComponent
       this.resetForm();
     });
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //function for delete button clicked
   delClickHandler(id: any): void {
     Swal.fire({

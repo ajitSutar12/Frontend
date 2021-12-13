@@ -89,13 +89,18 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   selectedCharacter = '3';
   timeLeft = 5;
   private dataSub: Subscription = null;
-
+  //for date 
+  datemax: any;
   constructor(
     private http: HttpClient,
     private interestRateForLoanandCCService: InterestRateForLoanandCCService,
     private schemeTypeDropdownService: SchemeTypeDropdownService,
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder) {
+      this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+      console.log(this.datemax);
+    
+     }
 
   ngOnInit(): void {
     this.createForm();
@@ -180,6 +185,18 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
       PENAL_INT_RATE: ['', [Validators.required, Validators.pattern]],
     });
   }
+      //disabledate on keyup
+      disabledate(data:any){
+    
+        console.log(data);
+        if(data != ""){
+          if(data > this.datemax){
+            Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+            (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
+                
+          }
+        } 
+      }
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
@@ -247,7 +264,6 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   }
   //check  if percentage  is below 100
 checkmargin(ele:any){ 
-  debugger
   //check  if given value  is below 100
   console.log(ele);
   if(ele <= 100){
@@ -258,7 +274,6 @@ console.log(ele);
   }
 }
 compareamount() {
-  debugger
   let from = Number((document.getElementById("FROM_AMOUNT") as HTMLInputElement).value);
   let to = Number((document.getElementById("toamt") as HTMLInputElement).value);
   if(to != 0){

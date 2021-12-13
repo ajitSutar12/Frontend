@@ -11,8 +11,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
-                                        required="" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="5"
-                                        formControlName="S_APPL" #autofocus/>
+                                        required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        maxlength="3" minlength="3" min="501" max="599"
+                                        formControlName="S_APPL" />
                                     <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -21,12 +22,13 @@
                   (angForm.controls['S_APPL'].dirty ||
                     angForm.controls['S_APPL'].touched)
                 " class="alert alert-danger">
-                                <div *ngIf="
-                    angForm.controls['S_APPL'].errors?.pattern ||
+                <div *ngIf="
                     angForm.controls['S_APPL'].errors?.required ||
-                    angForm.controls['S_APPL'].errors?.maxlength
+                    angForm.controls['S_APPL'].errors?.pattern ||
+                    angForm.controls['S_APPL'].errors?.min || 
+                    angForm.controls['S_APPL'].errors?.max
                   ">
-                                    This field is required and Input allowed only 0-9
+                                    This field is required and valid range 501 to 599
                                 </div>
                             </div>
                         </div>

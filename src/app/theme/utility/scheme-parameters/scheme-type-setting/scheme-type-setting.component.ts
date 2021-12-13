@@ -67,7 +67,7 @@ export class SchemeTypeSettingComponent
   //api
   url = environment.base_url;
   
-@ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -147,7 +147,6 @@ export class SchemeTypeSettingComponent
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-
         dataTableParameters.columns.forEach((element) => {
           if (element.search.value != "") {
             let string = element.search.value;
@@ -177,6 +176,52 @@ export class SchemeTypeSettingComponent
             });
           });
       },
+
+
+    // this.createForm();
+    // // Fetching Server side data
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
+
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/scheme-type",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.schemetypes = resp.data;
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
       columns: [
         {
           title: "Action",
@@ -414,7 +459,7 @@ export class SchemeTypeSettingComponent
     });
   }
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();//for autofocus
+    // this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

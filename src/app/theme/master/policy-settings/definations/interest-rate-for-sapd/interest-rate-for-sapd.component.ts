@@ -17,6 +17,7 @@ import { IntrestCategoryMasterDropdownService } from '../../../../../shared/drop
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -78,21 +79,32 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
 
 
   //scheme dropdown variables
-  interestcategory: any[];
-    simpleOption: Array<IOption> = this.schemeTypeDropdownService.getCharacters();
-  selectedOption = '3';
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = '3';
+    //Scheme type variable
+    schemeType: string = 'SB , PG'
+   interestcategory: any[];
+  //   simpleOption: Array<IOption> = this.schemeTypeDropdownService.getCharacters();
+  // selectedOption = '3';
+  // isDisabled = true;
+  // characters: Array<IOption>;
+  // selectedCharacter = '3';
   timeLeft = 5;
   private dataSub: Subscription = null;
-
+  //for date 
+  datemax: any;
+  // dropdown
+  allScheme: any[];
   constructor(
     private http: HttpClient,
     private savingandPigmyInterestRatesService: SavingandPigmyInterestRatesService,
     private schemeTypeDropdownService: SchemeTypeDropdownService,
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
-    private fb: FormBuilder) { }
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private fb: FormBuilder) {
+          // this.datemax =new Date() ;
+          this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+          console.log(this.datemax);
+        
+     }
 
   ngOnInit(): void {
     this.createForm();
@@ -160,9 +172,12 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       dom: 'Blrtip',
     };
     this.runTimer();
-    this.dataSub = this.schemeTypeDropdownService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var filtered = data.filter(function (scheme) {
+        return (scheme.value == 'PG' || scheme.value == 'SB');
+      });
+      this.allScheme = filtered;
+    })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;
     })
@@ -176,6 +191,18 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       INT_RATE: ['', [Validators.required, Validators.pattern]],
     });
   }
+      //disabledate on keyup
+      disabledate(data:any){
+    
+        console.log(data);
+        if(data != ""){
+          if(data > this.datemax){
+            Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+            (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
+                
+          }
+        } 
+      }
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;

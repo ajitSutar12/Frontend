@@ -17,6 +17,8 @@ import { IntrestCategoryMasterDropdownService } from '../../../../../shared/drop
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 
 // Handling datatable data
 class DataTableResponse {
@@ -93,24 +95,30 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   frommonths: any;
   tomonths: any;
 
-
+  //for date 
+  datemax: any;
 
   //scheme dropdown variables
-  interestcategory;
-  simpleOption: Array<IOption> = this.schemeTypeDropdownService.getCharacters();
-  selectedOption = '3';
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = '3';
+  //Scheme type variable
+  schemeType: string = 'SB'
   timeLeft = 5;
   private dataSub: Subscription = null;
-
+  delbtn: boolean;
+  interestcategory: any[];
+  scheme: any[];
+   
+    
   constructor(
     private http: HttpClient,
     private termDepositInterestRateService: TermDepositInterestRateService,
-    private schemeTypeDropdownService: SchemeTypeDropdownService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
-    private fb: FormBuilder) { }
+    private systemParameter: SystemMasterParametersService,
+    private fb: FormBuilder) {
+      this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+      console.log(this.datemax);
+    
+     }
 
   ngOnInit(): void {
     this.createForm();
@@ -175,9 +183,10 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     };
 
     this.runTimer();
-    this.dataSub = this.schemeTypeDropdownService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
+
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+      this.scheme = data;
+    })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;
     })
@@ -245,7 +254,6 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     })
   }
   checkinput() {
-    debugger
 
     this.fromdays = (document.getElementById("Formdays") as HTMLInputElement).value;
     this.todays = (document.getElementById("todays") as HTMLInputElement).value;
@@ -275,7 +283,6 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   compareamountdays() {
-    debugger
 
     let from = Number((document.getElementById("Formdays") as HTMLInputElement).value);
     let to = Number((document.getElementById("todays") as HTMLInputElement).value);
@@ -292,7 +299,6 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
    
   } 
   compareamountmonths() {
-    debugger
 
     let from = Number((document.getElementById("FROM_months") as HTMLInputElement).value);
     let to = Number((document.getElementById("TO_months") as HTMLInputElement).value);
@@ -320,7 +326,28 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
-
+  //disabledate on keyup
+  disabledate(data:any){
+    
+    console.log(data);
+    if(data != ""){
+      if(data > this.datemax){
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
+            
+      }
+    } 
+  }
+    //set open date, appointed date and expiry date
+    getSystemParaDate() {
+      this.systemParameter.getFormData(1).subscribe(data => {
+        this.angForm.patchValue({
+          AC_OPDATE: data.CURRENT_DATE,
+          DATE_APPOINTED: data.CURRENT_DATE,
+          DATE_EXPIRY: data.CURRENT_DATE
+        })
+      })
+    }
   // //disable input fields 
   // disableinput() {
   //   this.fromdays = (document.getElementById("Formdays") as HTMLInputElement);
@@ -452,17 +479,23 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     });
   }
 
-  addField() {
-    debugger 
+  addField() { 
+    debugger
     let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
     let penint = (document.getElementById("PENAL_INT_RATE") as HTMLInputElement).value;
-    if(intrate || penint == ""){
+    if(intrate == " "){
       Swal.fire(
         'Warning',
-        'Please input Interest rate and Penal Interest rate',
+        'Please input Interest rate ',
         'warning'
       )
     }
+    if(penint==" "){
+      Swal.fire('Please add panel interest')
+    }
+
+
+
      if(intrate && penint != "")
     {
       const formVal = this.angForm.value;
@@ -476,6 +509,9 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       }
       this.multiField.push(object);
       console.log(this.multiField)
+      Swal.fire(
+      'Data Added'
+      )
       this.resetField()
     }
     
@@ -513,6 +549,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     this.intID = this.multiField[id].id;
     this.addShowButton = false;
     this.UpdateShowButton = true;
+    this.delbtn=false;
     this.angForm.patchValue({
       FROM_DAYS: this.multiField[id].FROM_DAYS,
       FROM_MONTHS: this.multiField[id].FROM_MONTHS,

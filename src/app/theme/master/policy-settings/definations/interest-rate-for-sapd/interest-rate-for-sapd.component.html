@@ -10,7 +10,7 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Scheme*" required title="Compulsory Selection" formControlName="ACNOTYPE">
+                                <ng-select [ngClass]="'ng-select'" [options]="allScheme" [multiple]="false" placeholder="Scheme*" required title="Compulsory Selection" formControlName="ACNOTYPE">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)" class="alert alert-danger">
@@ -34,7 +34,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="EFFECT_DATE" class="form-control" placeholder=" " required
-                                        max="9999-12-31" id="EFFECT_DATE" onfocus="(this.type='date')"
+                                         max="{{datemax | date:'yyyy-MM-dd'}}"                                       
+                                        onfocus="(this.type='date')" #date
+                                       (focusout)="disabledate(date.value)"  id="EFFECT_DATE" 
                                         formControlName="EFFECT_DATE">
                                     <label for="EFFECT_DATE">Effective Date<sub class="required">* </sub></label>
                                 </span>
@@ -64,8 +66,7 @@
                         <div class="col-sm-3">
                             <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>&nbsp;
-                            <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">Cancel
-                                Interest Rate</button>
+                            <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">Cancel</button>
                         </div>
                     </div>
                     

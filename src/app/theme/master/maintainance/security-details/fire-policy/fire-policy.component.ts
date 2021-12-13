@@ -21,9 +21,12 @@ import { firepolicycomponentservice } from "./fire-policy.component.service";
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
-
+import { IOption } from "ng-select";
+import { Subscription } from "rxjs/Subscription";
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
+import { first } from "rxjs/operators";
+import { InsuranceMasterDropdownService } from "../../../../../shared/dropdownService/insurance-master-dropdown.service";
 
 // Handling datatable data
 class DataTableResponse {
@@ -58,6 +61,9 @@ interface FireMaster {
 export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
   @Output() newfirePolicyEvent = new EventEmitter<string>();
+  datemax: string;
+  insuranceNo: any;
+  newbtnShow: boolean;
   newItemEvent(value) {
     this.newfirePolicyEvent.emit(value);
   }
@@ -85,9 +91,12 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     private fb: FormBuilder,
     private http: HttpClient,
     private _fire: firepolicycomponentservice,
-    public router: Router
+    public router: Router,
+    private _insurancedropdownservice: InsuranceMasterDropdownService,
   ) {
-    this.createForm();
+         this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
   }
 
   ngOnInit(): void {
@@ -189,6 +198,9 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
       dom: "Blrtip",
 
     };
+    this._insurancedropdownservice.getInsuranceMasterList().pipe(first()).subscribe(data => {
+      this.insuranceNo = data;
+    })
   }
 
   createForm() {
@@ -245,6 +257,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this._fire.getFormData(id).subscribe((data) => {
       //sending values to parent
       let dropdown: any = {};
@@ -272,6 +285,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
     this._fire.updateData(data).subscribe(() => {
@@ -282,7 +296,12 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
       this.resetForm();
     });
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //function for delete button clicked
   delClickHandler(id: any): void {
     Swal.fire({

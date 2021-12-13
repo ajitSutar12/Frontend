@@ -21,10 +21,15 @@ import { CustomerIdService } from '../customer-id/customer-id.service';
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+<<<<<<< Updated upstream
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 //date pipe
 import { DatePipe } from '@angular/common';
+=======
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+>>>>>>> Stashed changes
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -161,6 +166,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   addType: string
   acno
 
+  addType: string
+
   @Input() visible: boolean;
   public config: any;
   StatementCodeDropdown: any[];
@@ -184,7 +191,10 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   nomineeTrue: boolean = false;
   //Scheme type variable
   schemeType: string = 'PG'
+<<<<<<< Updated upstream
   agentSchemeCode: string = 'AG'
+=======
+>>>>>>> Stashed changes
 
   JointAccountsTrue = false;
   PowerofAttorneyTrue = false;
@@ -193,7 +203,11 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
   dtdocumentOptions: any = {};
 
+<<<<<<< Updated upstream
   agentno
+=======
+
+>>>>>>> Stashed changes
   constructor(private fb: FormBuilder,
     public categoryMasterService: categoryMasterService,
     public IntrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
@@ -207,8 +221,12 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     public OwnbranchMasterService: OwnbranchMasterService,
     public SchemeCodeDropdownService: SchemeCodeDropdownService,
     private customerID: CustomerIDMasterDropdownService,
+<<<<<<< Updated upstream
     private systemParameter: SystemMasterParametersService,
     private datePipe: DatePipe,) { }
+=======
+    private systemParameter: SystemMasterParametersService,) { }
+>>>>>>> Stashed changes
 
 
 
@@ -305,6 +323,14 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
           title: 'Renewal Date',
           data: 'AC_RENEW_DATE'
         },
+<<<<<<< Updated upstream
+=======
+
+        {
+          title: 'Last Int Date',
+          data: 'AC_LINTEDT'
+        },
+>>>>>>> Stashed changes
         {
           title: 'Expiry Date',
           data: 'AC_EXPDT'
@@ -452,9 +478,12 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.schemeCode = data;
     })
+<<<<<<< Updated upstream
     this.SchemeCodeDropdownService.getSchemeCodeList(this.agentSchemeCode).pipe(first()).subscribe(data => {
       this.AgentScheme = data;
     })
+=======
+>>>>>>> Stashed changes
   }
   runTimer() {
     const timer = setInterval(() => {
@@ -633,11 +662,20 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       }
     }
   }
+<<<<<<< Updated upstream
   //set open date
+=======
+  //set open date, appointed date and expiry date
+>>>>>>> Stashed changes
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
         AC_OPDATE: data.CURRENT_DATE,
+<<<<<<< Updated upstream
+=======
+        DATE_APPOINTED: data.CURRENT_DATE,
+        DATE_EXPIRY: data.CURRENT_DATE
+>>>>>>> Stashed changes
       })
     })
   }
@@ -758,6 +796,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
 
+<<<<<<< Updated upstream
   //get account no according scheme for  pigmy agent
   getAgentAC(agentno) {
     switch (agentno) {
@@ -769,6 +808,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
 
+=======
+>>>>>>> Stashed changes
   //get introducer name according account no
   getIntroducerName(value: any) {
     this.angForm.patchValue({
@@ -781,9 +822,17 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   submit() {
     const formVal = this.angForm.value;
     if (formVal.AC_ADDFLAG == true) {
+<<<<<<< Updated upstream
       this.addType = 'P'
     }
     else if (formVal.AC_ADDFLAG == false) {
+=======
+      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
+      this.addType = 'P'
+    }
+    else if (formVal.AC_ADDFLAG == false) {
+      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
+>>>>>>> Stashed changes
       this.addType = 'T'
     }
     const dataToSend = {
@@ -797,6 +846,10 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       'AC_MEMBNO': formVal.AC_MEMBNO,
       'AC_OPDATE': formVal.AC_OPDATE,
       'AC_RENEW_DATE': formVal.AC_RENEW_DATE,
+<<<<<<< Updated upstream
+=======
+      'AC_LINTEDT': formVal.AC_LINTEDT,
+>>>>>>> Stashed changes
       'AC_EXPDT': formVal.AC_EXPDT,
       'AC_OCODE': formVal.AC_OCODE,
       'AC_CATG': formVal.AC_CATG,
@@ -977,6 +1030,12 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       }
     })
   }
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
   // Reset Function
   resetForm() {
     this.createForm();
@@ -1018,6 +1077,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
+<<<<<<< Updated upstream
   //Joint ac
   addJointAcccount() {
     const formVal = this.angForm.value;
@@ -1059,6 +1119,13 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.controls['JOINT_ACNAME'].reset();
     this.angForm.controls['OPERATOR'].reset();
   }
+=======
+
+
+
+
+
+>>>>>>> Stashed changes
   addNominee() {
     const formVal = this.angForm.value;
     var object = {
@@ -1144,6 +1211,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.controls['AC_NCTCODE'].reset();
     this.angForm.controls['AC_NPIN'].reset();
   }
+
 }
 
 

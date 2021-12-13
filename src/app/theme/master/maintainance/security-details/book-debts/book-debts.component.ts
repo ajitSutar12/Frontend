@@ -59,6 +59,8 @@ interface BookMaster {
 export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
   @Output() newbookEvent = new EventEmitter<string>();
+  datemax: any;
+  newbtnShow: boolean;
   newItemEvent(value) {
     this.newbookEvent.emit(value);
   }
@@ -96,7 +98,11 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     private http: HttpClient,
     private _book: BookdebtsService,
     public router: Router
-  ) { }
+  ) {
+    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
+   }
 
   ngOnInit(): void {
     this.createForm();
@@ -274,6 +280,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this._book.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
       //sending values to parent
@@ -301,6 +308,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
     this._book.updateData(data).subscribe(() => {
@@ -311,7 +319,12 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.resetForm();
     });
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //function for delete button clicked
   delClickHandler(id: any): void {
     Swal.fire({

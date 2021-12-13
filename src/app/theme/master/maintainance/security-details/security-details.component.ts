@@ -5,8 +5,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { S1Service } from '../../../../shared/elements/s1.service';
 import { Ac1Service } from '../../../../shared/elements/ac1.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { first } from 'rxjs/operators';
 import { schemedropdownService } from 'src/app/shared/dropdownService/scheme-dropdown.service';
 import {environment} from'../../../../../environments/environment'
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 
 @Component({
   selector: 'app-security-details',
@@ -18,7 +21,7 @@ scheme:any;
 Accountno:any;
 schemeedit:any;
 accountedit:any;
-
+acno:any;
 
 
   angForm: FormGroup;
@@ -41,6 +44,8 @@ accountedit:any;
   updateShow: boolean = false;
   //Datatable
   dtExportButtonOptions: any = {};
+    //Scheme type variable
+    schemeType: string = 'LN,CC'
   //title select variables
   simpleOption: Array<IOption> = this.S1Service.getCharacters();
   Ac: Array<IOption> = this.Ac1Service.getCharacters();
@@ -52,7 +57,15 @@ accountedit:any;
   timeLeft = 5;
 
   private dataSub: Subscription = null;
-  constructor(private fb: FormBuilder, private_router: Router, public S1Service: S1Service, public Ac1Service: Ac1Service) { this.createForm() }
+  schemeACNo: any;
+  constructor(
+    private fb: FormBuilder,
+     private_router: Router, 
+     public S1Service: S1Service, 
+     public Ac1Service: Ac1Service,
+     
+    public schemeCodeDropdownService: SchemeCodeDropdownService,
+    private schemeAccountNoService: SchemeAccountNoService,) { }
   ngOnInit(): void {
     this.dtExportButtonOptions = {
       ajax: 'fake-data/datatable-data.json',
@@ -93,13 +106,37 @@ accountedit:any;
 
 
     this.runTimer();
-    this.dataSub = this.S1Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.Ac1Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+      this.scheme = data;
+    })
+    // this.dataSub = this.S1Service.loadCharacters().subscribe((options) => {
+    //   this.characters = options;
+    // });
+    // this.dataSub = this.Ac1Service.loadCharacters().subscribe((options) => {
+    //   this.characters = options;
+    // });
   }
+  //get account no according scheme for introducer
+  getAccountno(acno) {
+    switch (acno) {
+
+      case 'LN':
+        console.log("Term Loan");
+        this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+        case 'CC':
+          console.log("Cash Credit Loan");
+          this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+  
+        }
+      }
+
+
 
   runTimer() {
     const timer = setInterval(() => {

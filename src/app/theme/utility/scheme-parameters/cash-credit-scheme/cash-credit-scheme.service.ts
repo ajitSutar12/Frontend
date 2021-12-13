@@ -36,6 +36,8 @@ export class CashcreditService {
   // deleteData(id: any): Observable<any> {
   //   return this.http.delete(this.url + '/delete/' + id).pipe(catchError(this.handleError));
   // }
+
+
 }
 
 

@@ -174,7 +174,8 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
   createForm() {
     this.angForm = this.fb.group({
       S_ACNOTYPE: ['GS'],
-      S_APPL: ['', [Validators.required, Validators.pattern]],
+
+      S_APPL: ["", [Validators.required,Validators.pattern, Validators.min(801),Validators.max(899)]],
       S_NAME: ['', [Validators.required, Validators.pattern]],
       S_SHNAME: ['', [Validators.required, Validators.pattern]],
       S_GLACNO: ['', [Validators.required, Validators.pattern]],
@@ -244,11 +245,15 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

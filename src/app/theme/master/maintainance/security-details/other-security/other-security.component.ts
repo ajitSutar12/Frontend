@@ -52,6 +52,8 @@ export class OtherSecurityComponent
   implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
   @Output() newOtherSecurityEvent = new EventEmitter<string>();
+  datemax: string;
+  newbtnShow: boolean;
   newItemEvent(value) {
     this.newOtherSecurityEvent.emit(value);
   }
@@ -85,7 +87,11 @@ export class OtherSecurityComponent
     private http: HttpClient,
     private _security: othersecuritycomponentservice,
     public router: Router
-  ) { }
+  ) {
+    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
+   }
 
   ngOnInit(): void {
     this.createForm();
@@ -215,6 +221,7 @@ export class OtherSecurityComponent
 
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this._security.getFormData(id).subscribe((data) => {
       //sending values to parent
       let dropdown: any = {};
@@ -249,6 +256,7 @@ export class OtherSecurityComponent
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
     this._security.updateData(data).subscribe(() => {
@@ -258,6 +266,12 @@ export class OtherSecurityComponent
       this.rerender();
       this.resetForm();
     });
+  }
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
   }
   //function for delete button clicked
   delClickHandler(info: any): void {

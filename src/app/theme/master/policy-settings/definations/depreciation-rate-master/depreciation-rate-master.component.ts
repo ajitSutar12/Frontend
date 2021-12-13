@@ -75,13 +75,21 @@ export class DepreciationRateMasterComponent implements OnInit {
   //for search functionality
   filterData = {};
   category: any[];
+  //for date 
+  datemax: any;
 
+
+  
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     // for dropdown
     public categoryMaster: DepriciationCatDropdownMasterService,
     private dereciationService: DereciationService) {
+          // this.datemax =new Date() ;
+          this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+          console.log(this.datemax);
+        
   }
 
   ngOnInit(): void {
@@ -167,6 +175,20 @@ export class DepreciationRateMasterComponent implements OnInit {
       DEPR_RATE: [''],
     });
   }
+
+
+    //disabledate on keyup
+    disabledate(data:any){
+    
+      console.log(data);
+      if(data != ""){
+        if(data > this.datemax){
+          Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+          (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
+              
+        }
+      } 
+    }
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;

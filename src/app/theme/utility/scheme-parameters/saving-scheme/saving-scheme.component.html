@@ -14,7 +14,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL" required=""
-                    pattern="^[0-9]+$" maxlength="4" minlength="4" title="Input allowed only 0-9" formControlName="S_APPL" #autofocus/>
+                    pattern="^[0-9]+$" maxlength="3" minlength="3" min="101" max="150" title="Input allowed only 0-9"
+                    formControlName="S_APPL" />
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -25,10 +26,14 @@
                 " class="alert alert-danger">
                 <div *ngIf="
                     angForm.controls['S_APPL'].errors?.required ||
-                    angForm.controls['S_APPL'].errors?.pattern
+                    angForm.controls['S_APPL'].errors?.pattern ||
+                    angForm.controls['S_APPL'].errors?.min || 
+                    angForm.controls['S_APPL'].errors?.max
                   ">
-                  This field is required and Input allowed only 0-9
+                  This field is required and valid range 101 to 150
                 </div>
+
+
               </div>
             </div>
             <div class="col-sm">
@@ -54,14 +59,14 @@
                 </div>
               </div>
             </div>
-          
+
           </div>
           <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME" maxlength="15" required=""
-                    pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
+                  <input type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME" maxlength="15"
+                    required="" pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_SHNAME" />
                   <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
                 </span>
@@ -94,7 +99,7 @@
                 </ng-select>
               </div>
             </div>
-           
+
           </div>
           <div class="row">
             <div class="col-sm-3">
@@ -171,8 +176,8 @@
                           </div>
                         </div>
                       </div>
-                      
-                   
+
+
                     </div>
                     <div class="row">
                       <div class="col-sm">
@@ -182,7 +187,8 @@
                             ">
                             <input class="border-checkbox" type="checkbox" id="IS_DAYBASE_INT_CALCULATION"
                               formControlName="IS_DAYBASE_INT_CALCULATION" disabled />
-                            <label class="border-checkbox-label" for="IS_DAYBASE_INT_CALCULATION">Is Day Base Interest Calculation 
+                            <label class="border-checkbox-label" for="IS_DAYBASE_INT_CALCULATION">Is Day Base Interest
+                              Calculation
                               ?</label>
                           </div>
                         </div>
@@ -197,7 +203,7 @@
                               name="S_PRODUCT_DAY_BASE" pattern="^[0-9]+$" title="Input allowed only  0-9" max="31"
                               (change)="isProductDayBase(S_PRODUCT_DAY_BASE)" disabled />
                             <label for="S_PRODUCT_DAY_BASE">Product Base Start Day
-                              </label>
+                            </label>
                           </span>
                         </div>
                         <div class="form-group form-primary form-static-label" *ngIf="
@@ -212,7 +218,7 @@
                                 ?.min ||
                               angForm.controls['S_PRODUCT_DAY_BASE'].errors?.max
                             ">
-                             Input allowed only 0-9
+                            Input allowed only 0-9
                           </div>
                         </div>
                       </div>
@@ -264,7 +270,7 @@
                               angForm.controls['S_PRODUCT_DAY_BASE_END'].errors
                                 ?.max
                             ">
-                             Input allowed only 0-9
+                            Input allowed only 0-9
                           </div>
                         </div>
                       </div>
@@ -520,7 +526,7 @@
           </div>
         </form>
       </div>
-     
+
     </div>
   </div>
 </div>

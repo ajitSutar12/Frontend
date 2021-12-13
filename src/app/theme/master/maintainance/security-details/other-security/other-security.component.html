@@ -8,7 +8,7 @@
       <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" class="form-control" placeholder=" " id="subm_date" required="" max="31-12-9999"
@@ -49,7 +49,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+
+          </div>
+          <div class="row">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="total_value" class="form-control" placeholder=" " id="total_value"
@@ -71,9 +74,7 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="margin" class="form-control" placeholder=" " #margin
@@ -92,7 +93,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-6">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="security_details" class="form-control" placeholder=" " id="security_details"
@@ -115,14 +116,13 @@
               </div>
             </div>
             <div class="col-sm">
-              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
-                [disabled]="angForm.invalid">
-                Add
-              </button>
-              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
-                Update
-              </button>
-            </div>
+              <!-- [disabled]="angForm.invalid" -->
+              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" 
+              >Add</button>
+              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+               >Update</button> &nbsp;
+              <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+          </div>
           </div>
         </div>
       </form>

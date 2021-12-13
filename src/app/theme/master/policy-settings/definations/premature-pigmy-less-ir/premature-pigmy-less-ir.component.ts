@@ -88,13 +88,17 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   timeLeft = 5;
 
   private dataSub: Subscription = null;
-
+  //for date 
+  datemax: any;
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     // for dropdown
     public SchemeTypes: SchemeTypeDropdownService,
     private prematurePigmyService: PrematurePigmyService) {
+      this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+      console.log(this.datemax);
+    
   }
 
   ngOnInit(): void {
@@ -171,6 +175,18 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       LESS_INT_RATE: ['']
     });
   }
+      //disabledate on keyup
+      disabledate(data:any){
+    
+        console.log(data);
+        if(data != ""){
+          if(data > this.datemax){
+            Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+            (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
+                
+          }
+        } 
+      }
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
@@ -226,7 +242,6 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   }
 //comparing from amount and to amount
 compareamount() {
-  debugger
   let from = Number((document.getElementById("frommonths") as HTMLInputElement).value);
   let to = Number((document.getElementById("tomonths") as HTMLInputElement).value);
   if(to != 0){

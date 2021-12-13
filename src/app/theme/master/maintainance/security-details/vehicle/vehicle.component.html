@@ -8,10 +8,10 @@
       <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="subm_date" required="" max="31-12-9999"
+                  <input type="text" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                     formControlName="SUBMISSION_DATE" onfocus="(this.type='date')" #autofocus />
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
@@ -26,11 +26,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" class="form-control" placeholder=" " id="RTORegistrationDate" required=""
-                    max="9999-12-31" formControlName="RTO_REG_DATE" onfocus="(this.type='date')" />
+                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="RTO_REG_DATE" onfocus="(this.type='date')" />
                   <label for="RTORegistrationDate">RTO Registration Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -67,6 +67,9 @@
                 </div>
               </div>
             </div>
+            
+          </div>
+          <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
@@ -89,8 +92,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
@@ -114,7 +115,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="ChasisNumber" class="form-control" placeholder=" " id="ChasisNumber"
@@ -137,7 +138,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" class="form-control" placeholder=" " id="DateofAcquisition" required=""
-                    max="9999-12-31" formControlName="AQUISITION_DATE" onfocus="(this.type='date')" id="date" />
+                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="AQUISITION_DATE" onfocus="(this.type='date')" id="date" />
                   <label for="DateofAcquisition">Date of Acquisition</label>
                 </span>
               </div>
@@ -180,7 +181,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="PurchasePrice" class="form-control" placeholder=" " id="PurchasePrice"
@@ -202,7 +203,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="margin" class="form-control" placeholder=" " id="margin" #margin
@@ -221,7 +222,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="remarks" class="form-control" placeholder=" " id="remarks"
@@ -240,18 +244,16 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
             <div class="col-sm">
-              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit(angForm.value)"
-                [disabled]="angForm.invalid">
-                Add
-              </button>
-              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
-                Update
-              </button>
-            </div>
+              
+              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid"
+              >Add</button>
+              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+               >Update</button> &nbsp;
+              <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
           </div>
+          </div>
+          
         </div>
       </form>
     </div>

@@ -11,7 +11,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="date" required="" max="31-12-9999"
+                  <input type="text" class="form-control" placeholder=" " id="date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                     formControlName="SUBMISSION_DATE" onfocus="(this.type='date')" id="date" #autofocus />
                   <label for="date">Submission Date<sub class="required">* </sub></label>
                 </span>
@@ -27,7 +27,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="policy_due" required="" max="9999-12-31"
+                  <input type="text" class="form-control" placeholder=" " id="policy_due" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                     formControlName="POLICY_DUE_DATE" onfocus="(this.type='date')" />
                   <label for="policy_due">Policy Due Date<sub class="required">* </sub></label>
                 </span>
@@ -96,7 +96,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <!-- <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="INSU_CO_CODE" class="form-control" placeholder=" " id="INSU_CO_CODE"
@@ -113,7 +113,23 @@
                   This field is required and Input allowed only 0-9
                 </div>
               </div>
-            </div>
+            </div> -->
+            <div class="col-sm-3">
+              <div class="form-group form-primary form-static-label">
+                  <ng-select [ngClass]="'ng-select'" [options]="insuranceNo" [multiple]="false"
+                      placeholder="Insurance Code *" required title="Compulsory Selection"
+                      formControlName="INSU_CO_CODE">
+                  </ng-select>
+               
+              </div>
+              <div class="form-group form-primary form-static-label"
+                  *ngIf="angForm.controls['INSU_CO_CODE'].invalid && (angForm.controls['INSU_CO_CODE'].dirty || angForm.controls['INSU_CO_CODE'].touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="angForm.controls['INSU_CO_CODE'].errors?.required">
+                      This field is required
+                  </div>
+              </div>
+          </div>
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
@@ -191,10 +207,13 @@
                 </div>
               </div>
               <div class="col-sm">
-                <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
-                  [disabled]="angForm.invalid">Add</button>
-                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-              </div>
+                <!-- [disabled]="angForm.invalid" -->
+                <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" 
+                >Add</button>
+                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+                 >Update</button> &nbsp;
+                <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+            </div>
             </div>
 
           </div>

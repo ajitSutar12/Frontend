@@ -207,7 +207,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_BIRTH_DT" class="form-control" placeholder=" "
-                                        id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                                        id="AC_BIRTH_DT" 
+                                        max="{{datemax | date:'yyyy-MM-dd'}}"
+                                        onfocus="(this.type='date')" #date
                                        (focusout)="disabledate(date.value)"  
                                         formControlName="AC_BIRTH_DT">
                                         

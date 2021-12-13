@@ -8,11 +8,11 @@
       <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" class="form-control" placeholder=" " id="InsuranceDate" required=""
-                    max="9999-12-31" formControlName="INSURANCE_DATE" onfocus="(this.type='date')" #autofocus />
+                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="INSURANCE_DATE" onfocus="(this.type='date')" #autofocus />
                   <label for="InsuranceDate">Insurance Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -26,11 +26,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="PolicyNo" class="form-control" placeholder=" " id="label-name" required=""
-                    pattern="^[0-9]+$" maxlength="50" title="Input allowed only 0-9" formControlName="POLICY_NO" />
+                    pattern="^[A-Z a-z 0-9 / - .]+$" maxlength="50" title="Input allowed only 0-9" formControlName="POLICY_NO" />
                   <label for="PolicyNo">Policy No<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -69,7 +69,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" class="form-control" placeholder=" " id="InsuranceExpiryDate" required=""
-                    max="9999-12-31" formControlName="INSU_EXP_DATE" onfocus="(this.type='date')" />
+                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="INSU_EXP_DATE" onfocus="(this.type='date')" />
                   <label for="InsuranceExpiryDate">Insurance Expiry Date<sub class="required">* </sub></label>
                 </span>
               </div>

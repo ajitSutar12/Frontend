@@ -32,6 +32,10 @@ import { schemedropdownService } from "../../../../../shared/dropdownService/sch
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 
+
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -65,6 +69,9 @@ interface DepositeMaster {
 export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
   @Output() newOwnDepositEvent = new EventEmitter<string>();
+  datemax: string;
+  newbtnShow: boolean;
+
   newItemEvent(value) {
     this.newOwnDepositEvent.emit(value);
   }
@@ -99,11 +106,13 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject();
   //filter variable
   filterData = {};
-
+  ACNo: any[];
   //Dropdown option variable
   branchOption: any;
   obj: any = { type: "own deposite form" };
   page: number;
+      //Scheme type variable
+      schemeType: string = 'TD'
 
   constructor(
     private fb: FormBuilder,
@@ -113,9 +122,14 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     private _ownbranchmasterservice: OwnbranchMasterService,
     private _sheme: schemedropdownService,
     private http: HttpClient,
-    public router: Router
+    public router: Router,
+    
+    public schemeCodeDropdownService: SchemeCodeDropdownService,
+    private schemeAccountNoService: SchemeAccountNoService,
   ) {
-    this.createForm();
+    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
   }
 
   ngOnInit(): void {
@@ -216,18 +230,13 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       dom: "Blrtip",
     };
     this.runTimer();
-    this._ownbranchmasterservice
-      .getOwnbranchList()
-      .pipe(first())
-      .subscribe((data) => {
-        this.branchOption = data;
-      });
-    this._sheme
-      .getschemelsit(this.obj)
-      .pipe(first())
-      .subscribe((data) => {
-        this.simpleOption = data;
-      });
+    console.log("Term Deposit");
+    this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+      this.ACNo = data;
+    })
+      this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+        this.scheme = data;
+      })
   }
 
   runTimer() {
@@ -299,11 +308,9 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //function for edit button clicked
   editClickHandler(id: any): void {
-
-    
-
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this._deposite.getFormData(id).subscribe((data) => {
       
       this.updateID = data.id;
@@ -333,6 +340,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
     this._deposite.updateData(data).subscribe(() => {
@@ -342,6 +350,13 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.rerender();
       this.resetForm();
     });
+  }
+
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
   }
 
   //function for delete button clicked

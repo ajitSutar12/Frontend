@@ -9,6 +9,7 @@ export class SchemeCodeDropdownService {
     // // scheme-parameters";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
+
     public getSchemeCodeList(scheme) {
         this.schemeCodeObject = []
         return this.http.get<any>(this.url + '/scheme-parameters/' + scheme)
@@ -33,4 +34,16 @@ export class SchemeCodeDropdownService {
                 return this.schemeObject;
             }));
     }
+
+    public getTermDepositeScheme(){
+        return this.http.get<any>(this.url + '/scheme-parameters/')
+        .pipe(map(ele => {
+            ele.forEach(element => {
+                let obj = { label: element.S_ACNOTYPE + ' ' + element.S_APPL, value: `${element.id}` };
+                this.schemeObject.push(obj)
+            });
+            return this.schemeObject;
+        }));
+    }
+    
 }

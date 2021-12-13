@@ -54,6 +54,8 @@ interface CustomerMaster {
 export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
   @Output() newcustomerInsuranceEvent = new EventEmitter<string>();
+  datemax: string;
+  newbtnShow: boolean;
   newItemEvent(value) {
     this.newcustomerInsuranceEvent.emit(value);
   }
@@ -92,7 +94,11 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     private http: HttpClient,
     private _insurancedropdown: InsuranceMasterDropdownService,
     public router: Router
-  ) { }
+  ) { 
+    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -233,6 +239,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
 
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this._customerservice.getFormData(id).subscribe((data) => {
       debugger
       //sending values to parent
@@ -258,6 +265,8 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    
+    this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
     this._customerservice.updateData(data).subscribe(() => {
@@ -268,7 +277,12 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
       this.resetForm();
     });
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //function for delete button clicked
   delClickHandler(id: any): void {
     Swal.fire({

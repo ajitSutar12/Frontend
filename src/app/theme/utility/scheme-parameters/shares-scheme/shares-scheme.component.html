@@ -28,7 +28,8 @@
                     #autofocus
                     pattern="^[0-9]+$"
                     title="Input allowed only  0-9"
-                    maxlength="5"
+                    maxlength="3" minlength="3"
+                    min="901" max="999"
                     formControlName="S_APPL"
                     #autofocus
                   />
@@ -47,13 +48,13 @@
                 "
                 class="alert alert-danger"
               >
-                <div
-                  *ngIf="
-                    angForm.controls['S_APPL'].errors?.required ||
-                    angForm.controls['S_APPL'].errors?.pattern
-                  "
-                >
-                  This field is required and Input allowed only 0-9
+              <div *ngIf="
+              angForm.controls['S_APPL'].errors?.required ||
+              angForm.controls['S_APPL'].errors?.pattern ||
+              angForm.controls['S_APPL'].errors?.min || 
+              angForm.controls['S_APPL'].errors?.max
+            ">
+                  This field is required and valid range 901 to 999
                 </div>
               </div>
             </div>

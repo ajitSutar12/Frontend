@@ -103,6 +103,7 @@
                                 </div>
                             </div>
                         </div>
+<<<<<<< Updated upstream
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
@@ -119,6 +120,21 @@
                             <label style="color: #1e5bc5">JOINT ACCOUNT</label>
                         </div>
                     </div>
+=======
+
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+                            Add
+                        </button>
+                        <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                            Update</button>&nbsp;
+                        <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                            New
+                        </button>
+                    </div>
+
+>>>>>>> Stashed changes
                     <div class="row">
                         <div class="col-12">
                             <div class="card-block">
@@ -444,6 +460,408 @@
                                                         <h6 style="text-align: center; font-size: 16px">
                                                             --------- Permanent Address ---------
                                                         </h6>
+<<<<<<< Updated upstream
+=======
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="AC_HONO" class="form-control"
+                                                                    placeholder=" " id="AC_HONO"
+                                                                    pattern="^[A-Za-z0-9\./ -]+$" maxlength="25"
+                                                                    title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
+                                                                    formControlName="AC_HONO" disabled />
+                                                                <label for="AC_HONO">House</label>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-primary form-static-label" *ngIf="
+                                                    angForm.controls['AC_HONO'].invalid &&
+                                                    (angForm.controls['AC_HONO'].dirty ||
+                                                      angForm.controls['AC_HONO'].touched)
+                                                  " class="alert alert-danger">
+                                                            <div *ngIf="
+                                                      angForm.controls['AC_HONO'].errors?.pattern
+                                                    ">
+                                                                Input allowed only A-Z a-z 0-9 - / . (Space)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="AC_WARD" class="form-control"
+                                                                    placeholder=" " id="AC_WARD"
+                                                                    pattern="^[A-Za-z\./ -]+$" maxlength="10"
+                                                                    title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                    formControlName="AC_WARD" disabled />
+                                                                <label for="AC_WARD">Ward</label>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-primary form-static-label" *ngIf="
+                                                    angForm.controls['AC_WARD'].invalid &&
+                                                    (angForm.controls['AC_WARD'].dirty ||
+                                                      angForm.controls['AC_WARD'].touched)
+                                                  " class="alert alert-danger">
+                                                            <div *ngIf="
+                                                      angForm.controls['AC_WARD'].errors?.pattern
+                                                    ">
+                                                                Input allowed only A-Z a-z - / . (Space)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="AC_GALLI" class="form-control"
+                                                                    placeholder=" " id="AC_GALLI" maxlength="40"
+                                                                    title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                                    formControlName="AC_GALLI" disabled />
+                                                                <label for="AC_GALLI">Galli</label>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-primary form-static-label" *ngIf="
+                                                    angForm.controls['AC_GALLI'].invalid &&
+                                                    (angForm.controls['AC_GALLI'].dirty ||
+                                                      angForm.controls['AC_GALLI'].touched)
+                                                  " class="alert alert-danger">
+                                                            <div *ngIf="
+                                                      angForm.controls['AC_GALLI'].errors?.pattern
+                                                    ">
+                                                                Input allowed only A-Z a-z 0-9 - / . (Space)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="AC_AREA" class="form-control"
+                                                                    placeholder=" " id="AC_AREA" maxlength="60"
+                                                                    pattern="^[A-Za-z\./ -]+$"
+                                                                    title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                    formControlName="AC_AREA" disabled />
+                                                                <label for="AC_AREA">Area</label>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-primary form-static-label" *ngIf="
+                                                    angForm.controls['AC_AREA'].invalid &&
+                                                    (angForm.controls['AC_AREA'].dirty ||
+                                                      angForm.controls['AC_AREA'].touched)
+                                                  " class="alert alert-danger">
+                                                            <div *ngIf="
+                                                      angForm.controls['AC_AREA'].errors?.pattern
+                                                    ">
+                                                                Input allowed only A-Z a-z - / . (Space)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="AC_ADDR" class="form-control"
+                                                                    placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
+                                                                    title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
+                                                                    id="AC_ADDR" formControlName="AC_ADDR" disabled />
+                                                                <label for="AC_ADDR">Detail</label>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-primary form-static-label" *ngIf="
+                                                    angForm.controls['AC_ADDR'].invalid &&
+                                                    (angForm.controls['AC_ADDR'].dirty ||
+                                                      angForm.controls['AC_ADDR'].touched)
+                                                  " class="alert alert-danger">
+                                                            <div *ngIf="
+                                                      angForm.controls['AC_ADDR'].errors?.pattern
+                                                    ">
+                                                                Input allowed only A-Z a-z 0-9 - / . (Space)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="AC_CTCODE" class="form-control"
+                                                                    placeholder=" " id="AC_CTCODE"
+                                                                    pattern="^[A-Za-z\./ -]+$"
+                                                                    formControlName="AC_CTCODE"
+                                                                    title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                    disabled />
+                                                                <label for="AC_CTCODE">City</label>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="AC_PIN" class="form-control"
+                                                                    placeholder=" " id="AC_PIN" pattern="^[0-9]+$"
+                                                                    title="Input allowed only  0-9"
+                                                                    formControlName="AC_PIN" disabled />
+                                                                <label for="AC_PIN">Pin Code</label>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-group form-primary form-static-label" *ngIf="
+                                                    angForm.controls['AC_PIN'].invalid &&
+                                                    (angForm.controls['AC_PIN'].dirty ||
+                                                      angForm.controls['AC_PIN'].touched)
+                                                  " class="alert alert-danger">
+                                                            <div *ngIf="
+                                                      angForm.controls['AC_PIN'].errors?.pattern
+                                                    ">
+                                                                Input allowed only 0-9
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="AC_PHNO" class="form-control"
+                                                                    placeholder=" " id="AC_PHNO" pattern="^[0-9]+$"
+                                                                    title="Input allowed only  0-9"
+                                                                    formControlName="AC_PHNO" disabled />
+                                                                <label for="AC_PHNO">Residential</label>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="AC_MOBNO" class="form-control"
+                                                                    placeholder=" " id="AC_MOBNO" pattern="^[0-9]+$"
+                                                                    title="Input allowed only  0-9"
+                                                                    formControlName="AC_MOBNO" disabled />
+                                                                <label for="AC_MOBNO">Mobile</label>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="AC_EMAIL" class="form-control"
+                                                                    placeholder=" "
+                                                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                                                    title="Enter valid Email" id="AC_EMAIL"
+                                                                    formControlName="AC_EMAIL" disabled />
+                                                                <label for="AC_EMAIL">Email</label>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <h6 style="text-align: center; font-size: 16px">
+                                                            --------- Temporory Address ---------
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <div class="border-checkbox-section">
+                                                            <div class="
+                                                      border-checkbox-group
+                                                      border-checkbox-group-primary
+                                                    ">
+                                                                <input class="border-checkbox" type="checkbox"
+                                                                    id="AC_ADDFLAG" formControlName="AC_ADDFLAG"
+                                                                    (click)="tempAsPermanent()" />
+                                                                <label class="border-checkbox-label" for="AC_ADDFLAG">Is
+                                                                    Temporory Address same as
+                                                                    Permanent
+                                                                    Address</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <ng-container *ngIf="!tempAddress">
+                                                    <div class="row">
+                                                        <div class="col-sm-2">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="AC_THONO"
+                                                                        class="form-control" placeholder=" "
+                                                                        id="AC_THONO" pattern="^[A-Za-z0-9\./ -]+$"
+                                                                        maxlength="25"
+                                                                        title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
+                                                                        formControlName="AC_THONO" />
+                                                                    <label for="AC_THONO">House</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="
+                                                      form-group form-primary form-static-label
+                                                    " *ngIf="
+                                                      angForm.controls['AC_THONO'].invalid &&
+                                                      (angForm.controls['AC_THONO'].dirty ||
+                                                        angForm.controls['AC_THONO'].touched)
+                                                    " class="alert alert-danger">
+                                                                <div *ngIf="
+                                                        angForm.controls['AC_THONO'].errors?.pattern
+                                                      ">
+                                                                    Input allowed only A-Z a-z 0-9 - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="AC_TWARD"
+                                                                        class="form-control" placeholder=" "
+                                                                        id="AC_TWARD" pattern="^[A-Za-z\./ -]+$"
+                                                                        maxlength="10"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        formControlName="AC_TWARD" />
+                                                                    <label for="AC_TWARD">Ward</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="
+                                                      form-group form-primary form-static-label
+                                                    " *ngIf="
+                                                      angForm.controls['AC_TWARD'].invalid &&
+                                                      (angForm.controls['AC_TWARD'].dirty ||
+                                                        angForm.controls['AC_TWARD'].touched)
+                                                    " class="alert alert-danger">
+                                                                <div *ngIf="
+                                                        angForm.controls['AC_TWARD'].errors?.pattern
+                                                      ">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="AC_TGALLI"
+                                                                        class="form-control" placeholder=" "
+                                                                        id="AC_TGALLI" pattern="^[A-Za-z0-9\./ -]+$"
+                                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                                        formControlName="AC_TGALLI" />
+                                                                    <label for="AC_TGALLI">Galli</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="
+                                                      form-group form-primary form-static-label
+                                                    " *ngIf="
+                                                      angForm.controls['AC_TGALLI'].invalid &&
+                                                      (angForm.controls['AC_TGALLI'].dirty ||
+                                                        angForm.controls['AC_TGALLI'].touched)
+                                                    " class="alert alert-danger">
+                                                                <div *ngIf="
+                                                        angForm.controls['AC_TGALLI'].errors
+                                                          ?.pattern
+                                                      ">
+                                                                    Input allowed only A-Z a-z 0-9 - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="AC_TAREA"
+                                                                        class="form-control" placeholder=" "
+                                                                        id="AC_TAREA" pattern="^[A-Za-z\./ -]+$"
+                                                                        maxlength="60"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        formControlName="AC_TAREA" />
+                                                                    <label for="AC_TAREA">Area</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="
+                                                      form-group form-primary form-static-label
+                                                    " *ngIf="
+                                                      angForm.controls['AC_TAREA'].invalid &&
+                                                      (angForm.controls['AC_TAREA'].dirty ||
+                                                        angForm.controls['AC_TAREA'].touched)
+                                                    " class="alert alert-danger">
+                                                                <div *ngIf="
+                                                        angForm.controls['AC_TAREA'].errors?.pattern
+                                                      ">
+                                                                    Input allowed only A-Z a-z - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="AC_TADDR"
+                                                                        class="form-control" placeholder=" "
+                                                                        pattern="^[A-Za-z0-9\./ -]+$"
+                                                                        title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
+                                                                        id="AC_TADDR" formControlName="AC_TADDR" />
+                                                                    <label for="AC_TADDR">Detail</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="
+                                                      form-group form-primary form-static-label
+                                                    " *ngIf="
+                                                      angForm.controls['AC_TADDR'].invalid &&
+                                                      (angForm.controls['AC_TADDR'].dirty ||
+                                                        angForm.controls['AC_TADDR'].touched)
+                                                    " class="alert alert-danger">
+                                                                <div *ngIf="
+                                                        angForm.controls['AC_TADDR'].errors?.pattern
+                                                      ">
+                                                                    Input allowed only A-Z a-z 0-9 - / . (Space)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-2">
+                                                            <div class="
+                                                      form-group form-primary form-static-label
+                                                    ">
+                                                                <ng-select [ngClass]="'ng-select'" [options]="city"
+                                                                    [multiple]="false" placeholder="City"
+                                                                    formControlName="AC_TCTCODE">
+                                                                </ng-select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="AC_TPIN"
+                                                                        class="form-control" placeholder=" "
+                                                                        id="AC_TPIN" pattern="^[0-9]+$" minlength="6"
+                                                                        maxlength="6" title="Input allowed only  0-9"
+                                                                        formControlName="AC_TPIN" />
+                                                                    <label for="AC_TPIN">Pin Code</label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="
+                                                      form-group form-primary form-static-label
+                                                    " *ngIf="
+                                                      angForm.controls['AC_TPIN'].invalid &&
+                                                      (angForm.controls['AC_TPIN'].dirty ||
+                                                        angForm.controls['AC_TPIN'].touched)
+                                                    " class="alert alert-danger">
+                                                                <div *ngIf="
+                                                        angForm.controls['AC_TPIN'].errors
+                                                          ?.pattern ||
+                                                        angForm.controls['AC_TPIN'].errors
+                                                          ?.minlength ||
+                                                        angForm.controls['AC_TPIN'].errors
+                                                          ?.maxlength
+                                                      ">
+                                                                    Input allowed only 0-9
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </ng-template>
+                                    </ngb-tab>
+                                    <!-- <ngb-tab title="2.Address">
+                                        <ng-template ngbTabContent>
+                                            <div [@fadeInOutTranslate] class="m-t-15">
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <h6 style="text-align: center;font-size: 16px;">---------
+                                                            Permanent Address ---------</h6>
+>>>>>>> Stashed changes
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -834,15 +1252,22 @@
                                                 </ng-container>
                                             </div>
                                         </ng-template>
-                                    </ngb-tab>
+                                    </ngb-tab> -->
                                     <ngb-tab title="3.Introducer/Minor Details">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="row">
                                                     <div class="col-sm-2">
                                                         <div class="border-checkbox-section">
+<<<<<<< Updated upstream
                                                             <div class="border-checkbox-group
                                   border-checkbox-group-primary">
+=======
+                                                            <div class="
+                                  border-checkbox-group
+                                  border-checkbox-group-primary
+                                ">
+>>>>>>> Stashed changes
                                                                 <input class="border-checkbox" type="checkbox"
                                                                     id="ac_minor" name="AC_MINOR"
                                                                     [checked]="MINOR == true" formControlName="AC_MINOR"
@@ -1317,6 +1742,7 @@
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
+<<<<<<< Updated upstream
                                                             </table>
                                                         </div>
                                                     </div>
@@ -1442,6 +1868,8 @@
                                                                         <td class="no-data-available">No data!</td>
                                                                     </tr>
                                                                 </tbody>
+=======
+>>>>>>> Stashed changes
                                                             </table>
                                                         </div>
                                                     </div>

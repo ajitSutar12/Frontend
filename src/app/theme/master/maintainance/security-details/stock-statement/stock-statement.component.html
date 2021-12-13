@@ -11,7 +11,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="subm_date" required="" max="9999-12-31"
+                  <input type="text" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                     formControlName="SUBMISSION_DATE" #autofocus onfocus="(this.type='date')" />
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
@@ -29,7 +29,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="stmt_date" required="" max="9999-12-31"
+                  <input type="text" class="form-control" placeholder=" " id="stmt_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                     formControlName="STATEMENT_DATE" onfocus="(this.type='date')" />
                   <label for="stmt_date">Statement Date<sub class="required">* </sub></label>
                 </span>
@@ -185,14 +185,13 @@
               </div>
             </div>
             <div class="col-sm">
-              <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid"
-                (click)="submit(angForm.value)">
-                Add
-              </button>
-              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
-                Update
-              </button>
-            </div>
+              <!-- [disabled]="angForm.invalid" -->
+              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" 
+              >Add</button>
+              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+               >Update</button> &nbsp;
+              <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+          </div>
           </div>
         </div>
       </form>

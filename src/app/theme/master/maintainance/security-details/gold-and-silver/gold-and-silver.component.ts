@@ -62,6 +62,7 @@ export class GoldAndSilverComponent
 {
   //passing data form child to parent
   @Output() newGoldsilverEvent = new EventEmitter<string>();
+  newbtnShow: boolean;
   newItemEvent(value) {
     this.newGoldsilverEvent.emit(value);
   }
@@ -311,6 +312,7 @@ console.log(ele);
   editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this._goldsilverService.getFormData(id).subscribe((data) => {
        //sending values to parent
        let dropdown: any = {};
@@ -341,6 +343,7 @@ console.log(ele);
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
     this._goldsilverService.updateData(data).subscribe(() => {
@@ -351,7 +354,12 @@ console.log(ele);
       this.resetForm();
     });
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //function for delete button clicked
   delClickHandler(id: any): void {
     Swal.fire({

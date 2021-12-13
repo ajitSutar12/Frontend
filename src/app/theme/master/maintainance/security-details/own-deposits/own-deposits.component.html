@@ -9,23 +9,23 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="branchOption" [multiple]="false"
                                     placeholder="Branch*" required title="Compulsory Selection"
                                     formControlName="BRANCH_CODE">
                                 </ng-select>
-                                <!-- <label>{{message.scheme}}</label> -->
+                               
                             </div>
 
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
+                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
                                     placeholder="Scheme *" required title="Compulsory Selection"
                                     formControlName="DEPO_AC_TYPE">
                                 </ng-select>
-                                <!-- <label>{{message.scheme}}</label> -->
+                             
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['DEPO_AC_TYPE'].invalid && (angForm.controls['DEPO_AC_TYPE'].dirty || angForm.controls['DEPO_AC_TYPE'].touched)"
@@ -37,11 +37,11 @@
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="Ac" [multiple]="false"
+                                <ng-select [ngClass]="'ng-select'" [options]="ACNo" [multiple]="false"
                                     placeholder="Account No. *" required title="Compulsory Selection"
                                     formControlName="DEPO_AC_NO">
                                 </ng-select>
-                                <!-- <label>{{.acc_no}}</label> -->
+                             
 
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -52,11 +52,15 @@
                                 </div>
                             </div>
                         </div>
+
+                        
+                    </div>
+                    <div class="row">
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" class="form-control" placeholder=" " id="subm_date" required=""
-                                        max="9999-12-31" formControlName="SUBMISSION_DATE"
+                                        max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="SUBMISSION_DATE"
                                         onfocus="(this.type='date')" />
                                     <label for="subm_date">Date of Submission<sub class="required">* </sub></label>
                                 </span>
@@ -69,8 +73,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -102,23 +104,6 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="remarks" class="form-control" placeholder=" " id="remarks"
-                                        pattern="^[A-Za-z'\.\-\s]+$" maxlength="90"
-                                        title="Input allowed only  A-Z a-z 0-9  - / . (Space)" formControlName="REMARK">
-                                    <label for="remarks">Remarks</label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['REMARK'].invalid && (angForm.controls['REMARK'].dirty || angForm.controls['REMARK'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['REMARK'].errors?.pattern">
-                                    Input allowed only A-Z a-z - / . (Space)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
                                     <input type="text" class="form-control" placeholder=" " id="maturity_date"
                                         max="31-12-9999" formControlName="MATURITY_DATE" onfocus="(this.type='date')"
                                         id="date" disabled />
@@ -127,9 +112,21 @@
                             </div>
 
                         </div>
+                        <div class="col-sm">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="LedgerBal" class="form-control" placeholder=" "
+                                        id="LedgerBal" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        formControlName="LEDGER_Bal" disabled>
+                                    <label for="LedgerBal">Ledger Balance</label>
+                                </span>
+                            </div>
+
+                        </div>
+
                     </div>
                     <div class="row mt-2">
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
 
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -147,23 +144,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+
+                        <div class="col-sm-8">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="LedgerBal" class="form-control" placeholder=" "
-                                        id="LedgerBal" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        formControlName="LEDGER_Bal" disabled>
-                                    <label for="LedgerBal">Ledger Balance</label>
+                                    <input type="text" name="remarks" class="form-control" placeholder=" " id="remarks"
+                                        pattern="^[A-Za-z'\.\-\s]+$" maxlength="90"
+                                        title="Input allowed only  A-Z a-z 0-9  - / . (Space)" formControlName="REMARK">
+                                    <label for="remarks">Remarks</label>
                                 </span>
                             </div>
-
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['REMARK'].invalid && (angForm.controls['REMARK'].dirty || angForm.controls['REMARK'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['REMARK'].errors?.pattern">
+                                    Input allowed only A-Z a-z - / . (Space)
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton"
-                                (click)="submit()">Add</button>
                             <!-- [disabled]="angForm.invalid" -->
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
+                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" 
+                            >Add</button>
+                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+                             >Update</button> &nbsp;
+                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
                         </div>
                     </div>
 

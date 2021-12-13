@@ -75,6 +75,10 @@ import { DisplayToViewService } from '../../../../shared/dropdownService/display
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import {TermemeDepositeSchMasterDropdownService} from 'src/app//shared/dropdownService/term_deposit_scheme-dropdown.service'
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -132,6 +136,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     StatementCodeDropdownService,
     PercentageToWCapitalService,
     DisplayToViewService,
+    SystemMasterParametersService,
+    SchemeCodeDropdownService,
+    TermemeDepositeSchMasterDropdownService,
 
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

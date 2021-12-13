@@ -14,6 +14,7 @@ import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 //Service file of dropdown
 import { IntrestCategoryMasterDropdownService } from '../../../../../shared/dropdownService/interest-category-master-dropdown.service'
+import { TermemeDepositeSchMasterDropdownService } from '../../../../../shared/dropdownService/term_deposit_scheme-dropdown.service'
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
@@ -82,29 +83,33 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
 
   //filter variable
   filterData = {};
-   //variable for checkinput
-   days:any;
-  months:any;
-  
- 
+  //variable for checkinput
+  days: any;
+  months: any;
+
+
+  //for date 
+  datemax: any;
 
 
   //scheme dropdown variables
   interestcategory;
-  simpleOption: Array<IOption> = this.schemeTypeDropdownService.getCharacters();
-  selectedOption = '3';
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = '3';
+  scheme: any;
+
   timeLeft = 5;
   private dataSub: Subscription = null;
+
 
   constructor(
     private http: HttpClient,
     private termDepositPatSchemeService: TermDepositPatSchemeService,
-    private schemeTypeDropdownService: SchemeTypeDropdownService,
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
-    private fb: FormBuilder) { }
+    private TermemeDepositeSchMasterDropdownService: TermemeDepositeSchMasterDropdownService,
+    private fb: FormBuilder) {
+    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -168,9 +173,13 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       dom: 'Blrtip',
     };
     this.runTimer();
-    this.dataSub = this.schemeTypeDropdownService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
+    // this.dataSub = this.schemeTypeDropdownService.loadCharacters().subscribe((options) => {
+    //   this.characters = options;
+    // });
+    this.TermemeDepositeSchMasterDropdownService.getTermdepositeschemeMasterList().pipe(first()).subscribe(data => {
+      this.scheme = data;
+      console.log(data)
+    })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;
     })
@@ -187,6 +196,24 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
 
     });
   }
+  //disabledate on keyup
+  disabledate(data: any) {
+
+    console.log(data);
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
+
+      }
+    }
+  }
+
+  // if value present in datatable
+ 
+
+
+
 
   // Method to insert data into database through NestJS
   submit() {
@@ -216,7 +243,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     this.updateShow = true;
     this.newbtnShow = true;
     this.addShowButton = true
- 
+
 
     this.termDepositPatSchemeService.getFormData(id).subscribe(data => {
       this.multiField = data.rate
@@ -244,7 +271,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       });
       this.multiField = []
       this.resetForm();
-    
+
     })
   }
 
@@ -257,59 +284,39 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     this.resetForm();
   }
   //check  if percentage  is below 100
-  checkmargin(ele:any){ 
+  checkmargin(ele: any) {
     //check  if given value  is below 100
     console.log(ele);
-    if(ele <= 100){
-  console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
     }
-    else{
+    else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
-  // disableinput() {
-  //   debugger
-  //   this.days = (document.getElementById("days") as HTMLInputElement);
-  //   this.months = (document.getElementById("months") as HTMLInputElement);
 
-  // //for days input field
-  //   if (this.days.value != "") {
-     
-  //       this.months.disabled= true;
-  //   }
-  //   else{
-  //     this.months.disabled= false;
-  //   }
-  //   if(this.months.value != ""){
-  //     this.days.disabled = true;
-  //   }
-  //   else{
-  //     this.days.disabled = false;
-  //   }
 
-  // }
-
-//checking input for days and months
+  //checking input for days and months
   checkinput() {
-debugger
+
     this.days = (document.getElementById("days") as HTMLInputElement).value;
     this.months = (document.getElementById("months") as HTMLInputElement).value;
 
 
-    if (this.days == "" &&  this.months == "")  {
+    if (this.days == "" && this.months == "") {
       Swal.fire(
         'Invalid Input',
         'Please enter Days or Months ',
         'warning'
       )
-      }
-      else if (this.days == 0 && this.months == 0)  {
-        Swal.fire(
-          'Invalid Input',
-          'Days or Months value must not be equal to zero ',
-          'warning'
-        )
-        }
+    }
+    else if (this.days == 0 && this.months == 0) {
+      Swal.fire(
+        'Invalid Input',
+        'Days or Months value must not be equal to zero ',
+        'warning'
+      )
+    }
     // else {
     //   Swal.fire(
     //     'Invalid Input',
@@ -317,7 +324,7 @@ debugger
     //     'warning'
     //   )
     // }
-  
+
   }
   //Method for delete data
   delClickHandler(id: number) {
@@ -406,31 +413,32 @@ debugger
 
   addField() {
     let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
-    if(intrate == ""){
+    if (intrate == "") {
       Swal.fire(
         'Warning',
         'Please input Interest rate.',
         'warning'
       )
     }
-    else if(intrate != "")
-    {
-    const formVal = this.angForm.value;
-    var object = {
-      MONTHS: formVal.MONTHS,
-      DAYS: formVal.DAYS,
-      INT_RATE: formVal.INT_RATE,
+    else if (intrate != "") {
+      const formVal = this.angForm.value;
+      var object = {
+        MONTHS: formVal.MONTHS,
+        DAYS: formVal.DAYS,
+        INT_RATE: formVal.INT_RATE,
 
+      }
+      this.multiField.push(object);
+      this.resetField();
     }
-    this.multiField.push(object);
-    this.resetField();
   }
-  }
+
   resetField() {
     this.angForm.controls['MONTHS'].reset();
     this.angForm.controls['DAYS'].reset();
     this.angForm.controls['INT_RATE'].reset();
   }
+
   intIndex: number
   intID: number
   updateField() {
@@ -460,8 +468,10 @@ debugger
 
     })
   }
+
   delField(id) {
     this.multiField.splice(id, 1)
   }
+
 
 }

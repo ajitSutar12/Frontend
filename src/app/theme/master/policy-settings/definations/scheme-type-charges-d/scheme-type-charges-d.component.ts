@@ -93,6 +93,10 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   timeLeft = 5;
   private dataSub: Subscription = null;
   accontType: any;
+
+    //for date 
+    datemax: any;
+
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -101,6 +105,9 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     private schemeTypeDropdown: SchemeTypeDropdownService,
     private schemeTypeChargesService: SchemeTypeChargesService,
     private aCMasterService: ACMasterDropdownService) {
+      this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+      console.log(this.datemax);
+     
   }
 
   ngOnInit(): void {
@@ -209,6 +216,18 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
       CHARGES_GL_ACNO: ['', [Validators.required]],
     });
   }
+      //disabledate on keyup
+      disabledate(data:any){
+    
+        console.log(data);
+        if(data != ""){
+          if(data > this.datemax){
+            Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+            (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
+                
+          }
+        } 
+      }
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;

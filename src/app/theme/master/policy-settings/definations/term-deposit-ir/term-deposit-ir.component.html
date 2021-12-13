@@ -12,8 +12,11 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="EFFECT_DATE" class="form-control" placeholder=" "
-                                    #autofocus  id="EFFECT_DATE" required max="9999-12-31" maxlength="10" minlength="4"
-                                        id="date" onfocus="(this.type='date')" formControlName="EFFECT_DATE">
+                                    #autofocus  id="EFFECT_DATE" required                                       
+                                     max="{{datemax | date:'yyyy-MM-dd'}}"
+                                        onfocus="(this.type='date')" #date
+                                       (focusout)="disabledate(date.value)"  
+                                        id="date"  formControlName="EFFECT_DATE">
                                     <label for="date">Effective Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -26,7 +29,7 @@
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" placeholder="Scheme*" required title="Compulsory Selection" formControlName="ACNOTYPE">
+                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" placeholder="Scheme*" required title="Compulsory Selection" formControlName="ACNOTYPE">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)" class="alert alert-danger">
@@ -168,7 +171,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm">
-                                    <button type="button" class="btn btn-primary ripple light" *ngIf="addShowButton" (click)="addField()">Add </button>
+                                    <button type="button" class="btn btn-primary ripple light" *ngIf="addShowButton" (click)="addField()">Add </button>&nbsp;
                                     <button class="btn btn-primary ripple light" (click)="updateField()" *ngIf="UpdateShowButton">Update</button>
                                 </div>
                             </div>
@@ -182,6 +185,7 @@
                                         <table class="table table-striped table-bordered table-hover">
                                             <tbody *ngIf="multiField?.length != 0">
                                                 <tr>
+                                                    
                                                     <td>Action</td>
                                                     <td>From Days</td>
                                                     <td>From Months</td>
@@ -195,6 +199,7 @@
                                                         <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editField(indexOfelement)">Edit</button> &nbsp;
                                                         <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delField(indexOfelement)">Delete</button>
                                                     </td>
+                                                    
                                                     <td>{{data.FROM_DAYS }}</td>
                                                     <td>{{data.FROM_MONTHS }}</td>
                                                     <td>{{data.TO_DAYS }}</td>

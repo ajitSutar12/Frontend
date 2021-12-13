@@ -176,9 +176,9 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
       this.characters = options;
     });
 
-    this.alternateCode.getAlternetCodeList().pipe(first()).subscribe(data => {
-      this.alternate = data;
-    })
+//     this.alternateCode.getAlternetCodeList().pipe(first()).subscribe(data => {
+//       this.alternate = data;
+//  })
 
 
   }
@@ -223,8 +223,10 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
       });
     }, (error) => {
     })
+ 
     //To clear form
     this.resetForm();
+    
 
   }
   addNewData(){
@@ -337,6 +339,9 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   // Reset Function
   resetForm() {
     this.createForm();
+    this.alternateCode.getAlternetCodeList().pipe(first()).subscribe(data => {
+      this.alternate = data;
+ })
   }
 
   rerender(): void {

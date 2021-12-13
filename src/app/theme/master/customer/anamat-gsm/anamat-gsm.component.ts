@@ -346,7 +346,6 @@ console.log(this.AC_CUSTID)
   }
 }
 
-
   addNewCustomer(newCustomer) {
     this.customerID
       .getCustomerIDMasterList()
@@ -357,6 +356,7 @@ console.log(this.AC_CUSTID)
         this.getCustomer(newCustomer);
       });
   }
+
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
       this.angForm.patchValue({
@@ -391,7 +391,6 @@ console.log(this.AC_CUSTID)
     })
   }
  
-
     //set open date, appointed date and expiry date
     getSystemParaDate() {
       this.systemParameter.getFormData(1).subscribe(data => {
@@ -427,6 +426,7 @@ console.log(this.AC_CUSTID)
      
     });
   }
+  
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;

@@ -781,7 +781,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
   createForm() {
     this.angForm = this.fb.group({
       S_ACNOTYPE: ['TD'],
-      S_APPL: ['', [Validators.required]],
+      S_APPL: ["", [Validators.required,Validators.pattern, Validators.min(201),Validators.max(299)]],
       S_SHNAME: ['', [Validators.pattern, Validators.required]],
       S_NAME: ['', [Validators.pattern, Validators.required]],
       S_GLACNO: ['', [Validators.required]],
@@ -1267,16 +1267,20 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();//for autofocus
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

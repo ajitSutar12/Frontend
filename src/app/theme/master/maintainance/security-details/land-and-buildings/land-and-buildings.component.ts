@@ -56,6 +56,8 @@ interface LandMaster {
 export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestroy {
   //passing data form child to parent
   @Output() newLandBuldingEvent = new EventEmitter<string>();
+  datemax: string;
+  newbtnShow: boolean;
   newItemEvent(value) {
     this.newLandBuldingEvent.emit(value);
   }
@@ -90,7 +92,9 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
     private _land: landandbuildingsService,
     public router: Router
   ) {
-    this.createForm();
+    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
   }
 
   ngOnInit(): void {
@@ -261,6 +265,7 @@ console.log(ele);
   editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this._land.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
         //sending values to parent
@@ -288,6 +293,7 @@ console.log(ele);
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
     this._land.updateData(data).subscribe(() => {
@@ -298,7 +304,12 @@ console.log(ele);
       this.resetForm();
     });
   }
-
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //function for delete button clicked
   delClickHandler(id: any): void {
     Swal.fire({

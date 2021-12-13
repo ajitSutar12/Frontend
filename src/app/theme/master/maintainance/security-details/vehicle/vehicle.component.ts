@@ -57,6 +57,8 @@ interface VehicleMaster {
 export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
    //passing data form child to parent
    @Output() newVehicalEvent = new EventEmitter<string>();
+  datemax: string;
+  newbtnShow: boolean;
    newItemEvent(value) {
      this.newVehicalEvent.emit(value);
    }
@@ -91,7 +93,9 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
     private _vehicle: VehicleService,
     public router: Router
   ) {
-    
+    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
   }
 
   ngOnInit(): void {
@@ -272,6 +276,7 @@ console.log(ele);
   editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this._vehicle.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
 
@@ -299,32 +304,18 @@ console.log(ele);
       });
     });
   }
-
-  //function for delete button clicked
-  delClickHandler(id: any): void {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to delete Submission Date  data",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#229954",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this._vehicle.deleteData(id).subscribe((data1) => {
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
-        }),
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
-      }
-    });
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
   }
+
 
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
     this._vehicle.updateData(data).subscribe(() => {
@@ -335,6 +326,27 @@ console.log(ele);
       this.resetForm();
     });
   }
+    //function for delete button clicked
+    delClickHandler(id: any): void {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want to delete Submission Date  data",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#229954",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this._vehicle.deleteData(id).subscribe((data1) => {
+            Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          }),
+            Swal.fire("Deleted!", "Your data has been deleted.", "success");
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire("Cancelled", "Your data is safe.", "error");
+        }
+      });
+    }
   ngAfterViewInit(): void {
     this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();

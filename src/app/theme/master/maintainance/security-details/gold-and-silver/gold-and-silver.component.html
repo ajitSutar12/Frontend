@@ -24,7 +24,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" class="form-control" placeholder=" " id="subm_date" required="" max="31-12-9999"
@@ -66,11 +66,11 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="GoldBoxNo" class="form-control" placeholder=" " id="GoldBoxNo" required=""
-                    pattern="^[0-9]+$" maxlength="20" title="Input allowed only  0-9" formControlName="GOLD_BOX_NO" />
+                    pattern="^[A-Z a-z 0-9 / . -]+$" maxlength="20" title="Input allowed only  0-9" formControlName="GOLD_BOX_NO" />
                   <label for="GoldBoxNo">Gold Box No.<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -87,7 +87,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="margin" class="form-control" placeholder=" " id="margin" #margin
@@ -196,14 +196,12 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="TotalAmount" class="form-control" placeholder=" " id="TotalAmount"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="TOTAL_VALUE"
-                    value="{{ ClearWeight * rate}}" disabled />
+                    value="{{ ClearWeight * rate}}"/>
                   <label for="TotalAmount">Total Value</label>
                 </span>
               </div>
@@ -217,6 +215,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="row">
+            
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
@@ -263,7 +264,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-8">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="relation" class="form-control" placeholder=" " id="relation"
@@ -283,14 +284,13 @@
               </div>
             </div>
             <div class="col-sm">
-              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit(angForm.value)"
-                [disabled]="angForm.invalid">
-                Add
-              </button>
-              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
-                Update
-              </button>
-            </div>
+              <!-- [disabled]="angForm.invalid" -->
+              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" 
+              >Add</button>
+              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+               >Update</button> &nbsp;
+              <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+          </div>
           </div>
         </div>
       </form>

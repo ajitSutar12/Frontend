@@ -27,8 +27,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="EFFECT_DATE" class="form-control" placeholder=" "
-                                        id="EFFECT_DATE" required="" max="9999-12-31" id="EFFECT_DATE"
-                                        onfocus="(this.type='date')" formControlName="EFFECT_DATE">
+                                        id="EFFECT_DATE" required=""  max="{{datemax | date:'yyyy-MM-dd'}}"
+                                        onfocus="(this.type='date')" #date
+                                       (focusout)="disabledate(date.value)"  id="EFFECT_DATE" formControlName="EFFECT_DATE">
                                     <label for="date">Effective Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
