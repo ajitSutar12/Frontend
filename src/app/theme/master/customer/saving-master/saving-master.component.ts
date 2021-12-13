@@ -587,77 +587,66 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   getIntroducer(acno) {
     switch (acno) {
       case 'SB':
-        console.log("saving");
         this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'SH':
-        console.log("Share");
         this.schemeAccountNoService.getShareSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'CA':
-        console.log("Current account");
         this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'LN':
-        console.log("Term Loan");
         this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'TD':
-        console.log("Term Deposit");
         this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'DS':
-        console.log("Dispute Loan");
         this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'CC':
-        console.log("Cash Credit Loan");
         this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'GS':
-        console.log("anamat");
         this.schemeAccountNoService.getAnamatSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'PG':
-        console.log("Pigmy account");
         this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'AG':
-        console.log("Pigmy agent");
         this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'IV':
-        console.log("Investment");
         this.schemeAccountNoService.getInvestmentSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
@@ -676,11 +665,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   submit() {
     const formVal = this.angForm.value;
     if (formVal.AC_ADDFLAG == true) {
-      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
       this.addType = 'P'
     }
     else if (formVal.AC_ADDFLAG == false) {
-      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
       this.addType = 'T'
     }
     const dataToSend = {
@@ -696,6 +683,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_NAME': formVal.AC_NAME,
       'AC_SCHMAMT': formVal.AC_SCHMAMT,
       'REF_ACNO': formVal.REF_ACNO,
+      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
       //temp address 
       AC_ADDFLAG: formVal.AC_ADDFLAG,
       AC_ADDTYPE: this.addType,
@@ -746,7 +734,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateShow = true;
     this.newbtnShow = true;
     this.savingMasterService.getFormData(id).subscribe(data => {
-      console.log('edit', data)
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       //get nominee to edit
@@ -766,6 +753,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_OPDATE': data.AC_OPDATE,
         'AC_SCHMAMT': data.AC_SCHMAMT,
         'REF_ACNO': data.REF_ACNO,
+        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
         //minor and introducer
         'AC_MINOR': data.AC_MINOR,
         'AC_MBDATE': data.AC_MBDATE,
@@ -795,7 +783,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['NomineeData'] = this.multiNominee
     data['JointAccountData'] = this.multiJointAC
     data['PowerOfAttorneyData'] = this.multiAttorney
-    console.log(" data['PowerOfAttorneyData']", data['PowerOfAttorneyData'])
     data['id'] = this.updateID;
     this.savingMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');

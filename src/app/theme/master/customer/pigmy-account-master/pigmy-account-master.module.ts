@@ -26,17 +26,14 @@ import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdow
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { PigmyAccountMasterService } from './pigmy-account-master.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-
-
-
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
-
+import { DatePipe } from '@angular/common';
+import { PigmyAccountMasterService } from './pigmy-account-master.service'
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -52,22 +49,21 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   ],
   declarations: [PigmyAccountMasterComponent],
-  providers: [SchemeCodeService,
+  providers: [
     SchemeCodeService, OwnbranchMasterService,
-    , CustomerIdService, CustomerIDMasterDropdownService, cityMasterService,
-    SchemeCodeDropdownService, OperationMasterDropdownService, categoryMasterService,
-    IntrestCategoryMasterDropdownService, PigmyAccountMasterService,
+    , CustomerIdService, CustomerIDMasterDropdownService,
+    cityMasterService,
+    SchemeCodeDropdownService,
+    OperationMasterDropdownService, categoryMasterService,
+    IntrestCategoryMasterDropdownService, SystemMasterParametersService, SchemeAccountNoService,
+    PigmyAccountMasterService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
 
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: UserAuthInterceptor,
-      multi: true
-    },
+    DatePipe
   ]
 })
 export class PigmyAccountMasterModule { }

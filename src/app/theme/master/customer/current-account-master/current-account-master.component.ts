@@ -687,6 +687,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       'AC_NAME': formVal.AC_NAME,
       'AC_SCHMAMT': formVal.AC_SCHMAMT,
       'REF_ACNO': formVal.REF_ACNO,
+      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
       //temp address 
       AC_ADDFLAG: formVal.AC_ADDFLAG,
       AC_ADDTYPE: this.addType,
@@ -759,6 +760,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'AC_OPDATE': data.AC_OPDATE,
         'AC_SCHMAMT': data.AC_SCHMAMT,
         'REF_ACNO': data.REF_ACNO,
+        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
         //minor and introducer
         // 'AC_MINOR': data.AC_MINOR,
         // 'AC_MBDATE': data.AC_MBDATE,

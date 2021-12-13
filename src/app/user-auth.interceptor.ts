@@ -16,19 +16,18 @@ import Swal from "sweetalert2";
 export class UserAuthInterceptor implements HttpInterceptor {
 
 
-  constructor(){
-    
+  constructor() {
+
 
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.createOnline$().subscribe(async function(isOnline) {
-      // debugger
-      let data =  await isOnline;
-      if(data == false){
-        Swal.fire("Warning!", "Please check your internet connection !", "warning");        
+    this.createOnline$().subscribe(async function (isOnline) {
+      let data = await isOnline;
+      if (data == false) {
+        Swal.fire("Warning!", "Please check your internet connection !", "warning");
         return false;
       }
-      
+
     });
     let token = localStorage.getItem('token');
     req = req.clone({
@@ -42,7 +41,7 @@ export class UserAuthInterceptor implements HttpInterceptor {
     return next.handle(req);
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.createOnline$().subscribe(isOnline => console.log(isOnline));
   }
 
@@ -51,8 +50,8 @@ export class UserAuthInterceptor implements HttpInterceptor {
       fromEvent(window, 'offline').pipe(map(() => false)),
       fromEvent(window, 'online').pipe(map(() => true)),
       new Observable((sub: Observer<boolean>) => {
-      sub.next(navigator.onLine);
-      sub.complete();
+        sub.next(navigator.onLine);
+        sub.complete();
       }));
-    }
+  }
 }

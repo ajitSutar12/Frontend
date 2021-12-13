@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { lienService } from './lien-mark-clear.service'
+import { LienMarkClearComponent } from './lien-mark-clear.component'
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { lienService } from './lien-mark-clear.service'
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [],
+  declarations: [LienMarkClearComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

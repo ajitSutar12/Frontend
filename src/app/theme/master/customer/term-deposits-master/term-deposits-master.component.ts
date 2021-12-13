@@ -1,12 +1,85 @@
-import { Component, OnInit } from '@angular/core';
+
 import { animate, style, transition, trigger } from '@angular/animations';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { TitleService } from '../../../../shared/elements/title.service';
 import Swal from 'sweetalert2';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+
 import { AccountcodeService } from '../../../../shared/elements/accountcode.service';
-import{environment} from '../../../../../environments/environment'
+import { first } from 'rxjs/operators';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
+
+import { TermDepositMasterService } from './term-deposits-master.service';
+// for dropdown
+import { CastMasterService } from '../../../../shared/dropdownService/cast-master-dropdown.service';
+import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service';
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
+import { OperationMasterDropdownService } from '../../../../shared/dropdownService/operation-master-dropdown.service';
+import { categoryMasterService } from '../../../../shared/dropdownService/category-master-dropdown.service';
+import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service';
+import { CustomerIdService } from '../customer-id/customer-id.service';
+import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+//date pipe
+import { DatePipe } from '@angular/common';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
+// Used to Call API
+import { HttpClient } from '@angular/common/http';
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+// For fetching values from backend
+interface TermDepositMaster {
+  AC_ACNOTYPE: string;
+  AC_TYPE: string;
+  AC_NO: number;
+  AC_INTRATE: string;
+  AC_CUSTID: number;
+  REF_ACNO: string;
+  AC_OPDATE: string;
+  AC_BIRTH_DT: string;
+  AC_OCODE: string;
+  AC_CATG: string;
+  AC_OPR_CODE: string;
+  AC_INTCATA: string;
+  AC_IS_RECOVERY: boolean;
+  AC_REF_RECEIPTNO
+  AC_ASON_DATE: string;
+  AC_MONTHS: string
+
+  AC_EXPDT: string;
+  AC_SCHMAMT: string;
+  AC_MATUAMT: string;
+  IS_DISCOUNTED_INT_RATE: boolean;
+  //address
+  AC_ADDFLAG: boolean
+  AC_THONO: string;
+  AC_TWARD: string;
+  AC_TADDR: string;
+  AC_TGALLI: string;
+  AC_TAREA: string;
+  AC_TCTCODE: string;
+  AC_TPIN: string
+  //minor and introducer
+  AC_MINOR: boolean
+  AC_MBDATE: string
+  AC_GRDNAME: string
+  AC_GRDRELE: string
+  AC_INTROBRANCH: string
+  AC_INTROID: string
+  AC_INTRACNO: string
+  AC_INTRNAME: string
+  SIGNATURE_AUTHORITY: string
+}
 
 @Component({
   selector: 'app-term-deposits-master',
@@ -25,300 +98,283 @@ import{environment} from '../../../../../environments/environment'
     ])
   ]
 })
-export class TermDepositsMasterComponent implements OnInit {
-url = environment.base_url;
+export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api 
+  url = environment.base_url;
+  // For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
   angForm: FormGroup;
+  dtExportButtonOptions: any = {};
+  dtExportOptions: any = {}
 
-  createForm() {
-    this.angForm = this.fb.group({
-      
-      Scheme: ['',[Validators.required]],
-      AccountNo: ['',[Validators.pattern]],
-      InterestRate: ['',[Validators.pattern]],
-      CustomerID: ['',[Validators.pattern,Validators.required]],
-      Title: ['',[Validators.required]],
-      Name: ['',[Validators.pattern,Validators.required]],
-      LastIntDate: ['',[Validators.required]],
-      UnclearBalance: ['',[Validators.pattern,Validators.required]],
-      Member_Balance: ['',[Validators.pattern]],
-      MemberScheme:['',[Validators.pattern,Validators.required]],
-      LastTranDate: ['',[Validators.pattern]],
-      Member_No: ['',[Validators.pattern,Validators.required]],
-      Opening_Date: ['',[Validators.pattern,Validators.required]],
-      Birth_Date: ['',[Validators.pattern]],
-      ManualRefMemberNo: ['',[Validators.pattern]],
-      Cast: ['',[Validators.pattern,Validators.required]],
-      Occupation: ['',[Validators.pattern,Validators.required]],
-      Category: ['',[Validators.pattern,Validators.required]],
-      Operation: ['',[Validators.required]],
-      Balance_Category: ['',[Validators.pattern,Validators.required]],
-      Interest_Category: ['',[Validators.required]],
-      pan_no: ['',[Validators.pattern]],
-      Receipt_No:['',[Validators.pattern]],
-      Month:['',[Validators.pattern]],
-      Days:['',[Validators.pattern]],
-      Maturity_Date:[''],
-      Deposit_Amount:['',[Validators.pattern]],
-      Maturity_Amount:['',[Validators.pattern]],
-      Int_Rate:['',[Validators.pattern]],
-      address1: ['',[Validators.pattern]],
-      address2: ['',[Validators.pattern]],
-      address3: ['',[Validators.pattern]],
-      address4: ['',[Validators.pattern]],
-      address5: ['',[Validators.pattern]],
-      address6: ['',[Validators.pattern]],
-      City_Code: ['',[Validators.required]],
-      City_Code2: ['',[Validators.required]],
-      Pin: ['',[Validators.pattern]],
-      R:['',[Validators.pattern]],
-      O:['',[Validators.pattern]],
-      birthDate:[''],
-      Guardian_Name: ['',[Validators.pattern]],
-      Relation: ['',[Validators.pattern]],
-      Branch: [''],
-      Account_Type: [''],
-      Account_Code: [''],
-      Name1: ['',[Validators.pattern]],
-      Signature_Authority: ['',[Validators.pattern]],
-      Name2: ['',[Validators.pattern,Validators.required]],
-      AttorneyName: ['',[Validators.pattern,Validators.required]],
-      Relation1: ['',[Validators.pattern]],
-      address7: ['',[Validators.pattern]],
-      address8: ['',[Validators.pattern]],
-      address9: ['',[Validators.pattern]],
-      Mobile:['',[Validators.pattern, Validators.maxLength(10), Validators.minLength(10)]],
-      Nomination_Date: ['',[Validators.pattern,Validators.required]],
-      Age: ['',[Validators.pattern]],
-      NomineeAge: ['',[Validators.pattern]],
-      City: ['',[Validators.pattern,Validators.required]],
-      JointName: ['',[Validators.pattern,Validators.required]],
-      City1: ['',[Validators.pattern,Validators.required]],
-      Pin2:['',[Validators.pattern]],
-      NomineePin:['',[Validators.pattern]],
-      Name3: ['',[Validators.pattern,Validators.required]],
-      Name4: ['',[Validators.pattern,Validators.required]],
-      Appointed_on:['',[Validators.required]],
-      Expiry_Date:['',[Validators.required]],
-      NomineeCity:['',[Validators.required]],
-      LedgerBalance: ['',],
-      FreezeStatus: [''],
-      AccountLienMarked: [''],
-      InterestInstruction: [''],
-      Acstatus: [''],
-      AsOnDate:['']
-      // AC_CUSTID: ['', Validators.pattern,Validators.required],
-      // Account: [''],
-      
-    });
-  }
-  submit(){
-    console.log(this.angForm.valid);
-  
-    if(this.angForm.valid){
-      console.log(this.angForm.value);
-    }
-  }
-  //variable for checkbox 
-  isRecovery: boolean = false; //return boolean value and display unchecked checkbox in basic tab
-  isDiscounted: boolean = false; //return boolean value and display unchecked checkbox in basic tab
-  isMinor: boolean = false; //return boolean value and display unchecked checkbox in Minor tab
-  isPowerofAttorney: boolean = false; //return boolean value and display unchecked checkbox in Nominee/Joint a/cs/Attorney tab
-  
-  dtExportButtonOptions: any = {}; //Datatable variable for main form
-  dtnomineeOptions: any = {};   //Datatable variable for nominee tab
-  dtjointAccountsOptions: any = {};  //Datatable variable for Joint account
-  dtpowerofAttorneyOptions:any={};    //Datatable variable for Power of Attorney 
-  dtdocumentOptions: any = {}; //Datatable variable for document tab
 
-  //display code according choice
-  NomineeTrue:boolean = false;
-  JointAccountsTrue: boolean = false;
-  PowerofAttorneyTrue: boolean=  false;
-
-  OpenLink(val) {
-    if (val == 1) {
-      this.NomineeTrue = true;
-      this.JointAccountsTrue = false;
-      this.PowerofAttorneyTrue = false;
-    }
-    if (val == 2) {
-      this.JointAccountsTrue = true;
-      this.NomineeTrue = false;
-      this.PowerofAttorneyTrue = false;
-    }
-    if (val == 3) {
-      this.PowerofAttorneyTrue = true;
-      this.JointAccountsTrue = false;
-      this.NomineeTrue = false;
-    }
-  }
-  //title select variables
-  titleOption: Array<IOption> = this.TitleService.getCharacters();
-  accountOption: Array<IOption> = this.AccountcodeService.getCharacters();
-  selectedOption = '3';
+  //Scheme type variable
+  schemeType: string = 'TD'
+  addType: string
   isDisabled = true;
   characters: Array<IOption>;
   selectedCharacter = '3';
   timeLeft = 5;
+  termDepositMaster: TermDepositMaster[];
   private dataSub: Subscription = null;
-
-  //variables for  add and update button
+  // Variables for search 
+  filterObject: { name: string; type: string; }[];
+  filter: any;
+  filterForm: FormGroup;
+  // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
+  introducerReq: boolean = false
+  //variable to get ID to update
+  updateID: number = 0;
+  page: number = 1;
+  //filter variable
+  filterData = {};
+  counter = 1;
+  obj: any;
+  rowData = [];
+  CastMasterDropdown: any[];
+  OwnbranchMasterDropdown: any[];
+  showDialog = false;
+  SchemeCodeDropdownDropdown: any[];
+  categoryMasterdropdown: any[];
 
-  //object created to get data when row is clicked
-  message = {
-    Scheme: "",
-    AccountNo: "",
-    LastIntDate: "",
-    CustomerID: "",
-    Title: "",
-    Name: "",
-    InterestRate:"",
-    AccountLienMarked: "",
-    InterestInstruction: "",
-    FreezeStatus: "",
-    Acstatus: "",
-    LastTranDate: "",
-    LedgerBalance: ""
-  };
+  @Input() visible: boolean;
+  public config: any;
+  scheme //scheme code from schemast(S_ACNOTYPE)
+  StatementCodeDropdown: any[];
+  intrestCategoryMaster: any[];
+  OperationMasterDropdown: any[];
+  selectedOption = '3';
+  cityMasterServiceDropdown: any[];
+  IntrestCategoryMasterDropdown: any[];
+  // isDisabled = true;
 
-  //function executes when edit button clicked
-  editClickHandler(info: any): void {
-    this.message.Scheme = info.Scheme;
-    this.message.AccountNo = info.AccountNo;
-    this.message.LastIntDate = info.LastIntDate;
-    this.message.CustomerID = info.CustomerID;
-    this.message.Title = info.Title;
-    this.message.Name = info.Name;
-    this.message.InterestRate = info.InterestRate;
-    this.message.AccountLienMarked = info.AccountLienMarked;
-    this.message.InterestInstruction = info.InterestInstruction;
-    this.message.FreezeStatus = info.FreezeStatus;
-    this.message.Acstatus = info.Acstatus;
-    this.message.LastTranDate = info.LastTranDate;
-    this.message.LedgerBalance = info.LedgerBalance;
-    this.showButton = false;
-    this.updateShow = true;
-  }
+  //temp address flag variable
+  tempAddress: boolean = true;
+  Cust_ID: any[]
+  id: string = '';
+  introducerACNo //account no for introducer
+  acno
 
-  //function execute when delete button clicked
-  delClickHandler(info:any):void  {
-    this.message.Scheme=info.Scheme;
-        Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Scheme." + this.message.Scheme + "  data", 
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
-      }
-    })
-  }
+  //nominee, joint ac and attorney variables 
+  nomineeShowButton: boolean = true
+  nomineeUpdateShow: boolean = false
+  nomineeID: number
+  nomineeIndex: number
+  jointACID: number
+  jointIndex: number
+  attorneyID: number
+  attorneyIndex: number
+  multiNominee = [];
+  multiJointAC = [];
+  multiAttorney = [];
+  //display code according choice
+  nomineeTrue: boolean = false;
+  JointAccountsTrue: boolean = false;
+  PowerofAttorneyTrue: boolean = false;
 
-  constructor(public TitleService: TitleService,public AccountcodeService: AccountcodeService,private fb: FormBuilder) {  this.createForm(); }
+  jointShowButton: boolean = true
+  jointUpdateShow: boolean = false
+  attorneyShowButton: boolean = true
+  attorneyUpdateShow: boolean = false
+  //add required validation to attorney fields
+  DATE_EXPIRY = false
+  DATE_APPOINTED = false
+  ATTERONEY_NAME = false
+
+  //variable for checkbox and radio button 
+  isOperation: boolean = false
+
+  dtNomineeOptions: any = {};
+  dtJointOptions: any = {};
+  dtPowerOptions: any = {};
+  dtdocumentOptions: any = {};
+
+  constructor(public TitleService: TitleService,
+    public AccountcodeService: AccountcodeService,
+    private fb: FormBuilder,
+    private customerID: CustomerIDMasterDropdownService,
+    public customerIdService: CustomerIdService,
+    public TermDepositMasterService: TermDepositMasterService,
+    private systemParameter: SystemMasterParametersService,
+    public categoryMasterService: categoryMasterService,
+    public IntrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
+    public OperationMasterDropdownService: OperationMasterDropdownService,
+    public CastMasterService: CastMasterService,
+    public cityMasterService: cityMasterService,
+    private http: HttpClient,
+    public OwnbranchMasterService: OwnbranchMasterService,
+    public SchemeCodeDropdownService: SchemeCodeDropdownService,
+    private datePipe: DatePipe,
+    private schemeAccountNoService: SchemeAccountNoService,) { }
 
   ngOnInit(): void {
-
+    this.createForm();
     this.dtExportButtonOptions = {
-      ajax: 'fake-data/term-deposit-master.json',
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        dataTableParameters['filterData'] = this.filterData;
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+        this.http
+          .post<DataTableResponse>(
+            this.url + '/term-deposits-master',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.termDepositMaster = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
+            });
+          });
+      },
+      columnDefs: [{
+        targets: '_all',
+        defaultContent: ""
+      }],
       columns: [
         {
           title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
         },
         {
-          data: 'Scheme',
-          title: 'Scheme'
+          title: 'Scheme Type',
+          data: 'AC_ACNOTYPE'
         },
         {
-          data: 'Account',
-          title: 'Account'
+          title: 'Scheme',
+          data: 'AC_TYPE'
         },
         {
-          data: 'CustomerID',
-          title: 'Customer ID'
+          title: 'Account No',
+          data: 'AC_NO'
         },
         {
-          data: 'Title',
-          title: 'Title'
+          title: 'Customer ID',
+          data: 'AC_CUSTID'
         },
         {
-          data: 'Name',  
-          title: 'Name'
+          title: 'Opening Date',
+          data: 'AC_OPDATE'
         },
         {
-          data: 'InterestRate',
-          title: 'Interest Rate'
+          title: 'Manual Reference Member No.',
+          data: 'REF_ACNO'
         },
         {
-          data: 'LastTranDate',
-          title: 'Last Tran. Date'
+          title: 'Birth Date',
+          data: 'AC_MBDATE'
         },
         {
-          data: 'LastIntDate',
-          title: 'Last Int. Date'
+          title: 'Category',
+          data: 'AC_CATG'
         },
         {
-          data: 'AccountLienMarked',
-          title: 'Account Lien Marked?'
+          title: 'Operation',
+          data: 'AC_OPR_CODE'
         },
         {
-          data: 'InterestInstruction',
-          title: 'Interest Instruction '
+          title: 'Interest Category',
+          data: 'AC_INTCATA'
         },
         {
-          data: 'FreezeStatus',
-          title: 'Freeze Status '
+          title: 'Recovery',
+          data: 'AC_IS_RECOVERY'
         },
         {
-          data: 'Acstatus',
-          title: 'A/c Status'
+          title: 'Receipt No.',
+          data: 'AC_REF_RECEIPTNO'
         },
         {
-          data: 'LedgerBalance',
-          title: 'Ledger Balance'
-        }
+          title: 'As On Date',
+          data: 'AC_RENEAC_ASON_DATEW_DATE'
+        },
+        {
+          title: 'Period',
+          data: 'AC_MONTHS'
+        },
+        {
+          title: 'Maturity Date',
+          data: 'AC_EXPDT'
+        },
+        {
+          title: 'Deposit Amount',
+          data: 'AC_SCHMAMT'
+        },
+        {
+          title: 'Maturity Amount',
+          data: 'AC_MATUAMT'
+        },
+        {
+          title: 'Is Discounted Interest Applicable?',
+          data: 'IS_DISCOUNTED_INT_RATE'
+        },
+        {
+          title: 'Minor Details',
+          data: 'AC_MINOR'
+        },
+        {
+          title: 'Birth Date',
+          data: 'AC_MBDATE'
+        },
+        {
+          title: 'Guardian Name',
+          data: 'AC_GRDNAME'
+        },
+        {
+          title: 'Relation',
+          data: 'AC_GRDRELE'
+        },
+        {
+          title: 'Branch',
+          data: 'AC_INTROBRANCH'
+        },
+        {
+          title: 'Account Type',
+          data: 'AC_INTROID'
+        },
+        {
+          title: 'Account code',
+          data: 'AC_INTRACNO'
+        },
+        {
+          title: 'Name',
+          data: 'AC_INTRNAME'
+        },
+        {
+          title: 'Signature Authority',
+          data: 'SIGNATURE_AUTHORITY'
+        },
       ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
+      dom: 'Blrtip',
     };
+
     this.dtdocumentOptions = {
       ajax: 'fake-data/documents.json',
       columns: [
@@ -349,175 +405,41 @@ url = environment.base_url;
         'csv'
       ],
 
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
-    this.dtnomineeOptions = {
-      ajax: 'fake-data/nominee.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          data: 'Name',
-          title: 'Code'
-        },
-        {
-          data: 'Relation',
-          title: 'Relation'
-        },
-        {
-          data: 'Age',
-          title: 'Age'
-        },
-        {
-          data: 'NominationDate',
-          title: 'Nomination Date'
-        },
-        {
-          data: 'Address1',
-          title: 'Address1'
-        },
-        {
-          data: 'Address2',
-          title: 'Address2'
-        },
-        {
-          data: 'Address3',
-          title: 'Address3'
-        },
-        {
-          data: 'City',
-          title: 'City'
-        },
-        {
-          data: 'Pin',
-          title: 'Pin'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
 
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
     };
-    this.dtjointAccountsOptions = {
-      ajax: 'fake-data/joint-accounts.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          data: 'Name',
-          title: 'Name'
-        },
-        {
-          data: 'IsOperative',
-          title: 'IsOperative'
-        }
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
 
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
-    this.dtpowerofAttorneyOptions = {
-      ajax: 'fake-data/power-of-attorney.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          data: 'Name',
-          title: 'Name'
-        },
-        {
-          data: 'DateAppointed',
-          title: 'Date Appointed'
-        },
-        {
-          data: 'ExpiryDate',
-          title: 'Expiry Date'
-        }
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
     this.runTimer();
-    this.dataSub = this.TitleService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.AccountcodeService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+      this.Cust_ID = data;
+    })
+    this.SchemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      this.SchemeCodeDropdownDropdown = data;
+    })
+    this.CastMasterService.getcastList().pipe(first()).subscribe(data => {
+
+      this.CastMasterDropdown = data;
+    })
+    this.OwnbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.OwnbranchMasterDropdown = data;
+    })
+    this.cityMasterService.getcityList().pipe(first()).subscribe(data => {
+      this.cityMasterServiceDropdown = data;
+    })
+    this.OperationMasterDropdownService.getOperationMasterList().pipe(first()).subscribe(data => {
+      this.OperationMasterDropdown = data;
+    })
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+      this.Cust_ID = data;
+    })
+    this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
+      this.categoryMasterdropdown = data;
+    })
+    this.IntrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
+      this.IntrestCategoryMasterDropdown = data;
+    })
+    this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+      this.scheme = data;
+    })
   }
   runTimer() {
     const timer = setInterval(() => {
@@ -527,9 +449,730 @@ url = environment.base_url;
       }
     }, 1000);
   }
-  //function toggle update to add button
+
+  createForm() {
+    this.angForm = this.fb.group({
+      AC_TYPE: ['', [Validators.required]],
+      AC_ACNOTYPE: ['TD'],
+      AC_NO: [''],
+      AC_INTRATE: ['', [Validators.pattern]],
+      AC_CUSTID: ['', [Validators.required, Validators.pattern]],
+      AC_TITLE: [''],
+      AC_NAME: [''],
+      AC_MEMBTYPE: [''],
+      AC_MEMBNO: [''],
+      AC_OPDATE: ['', [Validators.required]],
+      REF_ACNO: ['', [Validators.pattern]],
+      AC_CAST: ['', [Validators.required]],
+      AC_OCODE: ['', [Validators.required]],
+      AC_CATG: ['', [Validators.required]],
+      AC_OPR_CODE: ['', [Validators.required]],
+      AC_INTCATA: ['', [Validators.required]],
+      AC_PANNO: ['', [Validators.pattern]],
+      AC_IS_RECOVERY: [false],
+      AC_REF_RECEIPTNO: ['', [Validators.pattern]],
+      AC_ASON_DATE: [],
+      AC_MONTHS: ['', [Validators.pattern, Validators.required]],
+      AC_DAYS: [],
+      AC_EXPDT: ['', [Validators.required]],
+      AC_SCHMAMT: ['', [Validators.pattern, Validators.required]],
+      AC_MATUAMT: ['', [Validators.pattern]],
+      IS_DISCOUNTED_INT_RATE: [''],
+      AC_BIRTH_DT: [''],
+      AC_RENEW_DATE: [''],
+      AC_HONO: ['', [Validators.pattern]],
+      AC_WARD: ['', [Validators.pattern]],
+      AC_GALLI: ['', [Validators.pattern]],
+      AC_AREA: ['', [Validators.pattern]],
+      AC_ADDR: [''],
+      AC_CTCODE: ['', [Validators.required]],
+      AC_TCTCODE: ['', [Validators.required]],
+      AC_PIN: ['', [Validators.pattern]],
+      AC_EMAIL: [''],
+      AC_MOBNO: [''],
+      AC_PHNO: [''],
+      AC_ADDFLAG: [true],
+      AC_ADDTYPE: ['P'],
+      AC_THONO: ['', [Validators.pattern]],
+      AC_TWARD: ['', [Validators.pattern]],
+      AC_TGALLI: ['', [Validators.pattern]],
+      AC_TAREA: ['', [Validators.pattern]],
+      AC_TADDR: [''],
+      AC_TPIN: ['', [Validators.pattern]],
+      AC_PHONE_RES: ['', [Validators.pattern]],
+      AC_PHONE_OFFICE: ['', [Validators.pattern]],
+      AC_MOBILENO: ['', [Validators.pattern, Validators.maxLength(10), Validators.minLength(10)]],
+      //minor and introducer
+      AC_MINOR: ['', []],
+      AC_MBDATE: ['', []],
+      AC_GRDNAME: ['', [Validators.pattern]],
+      AC_GRDRELE: ['', [Validators.pattern]],
+      AC_INTROBRANCH: ['', []],
+      AC_INTROID: [''],
+      AC_INTRACNO: [''],
+      AC_INTRNAME: ['', [Validators.pattern]],
+      SIGNATURE_AUTHORITY: ['', [Validators.pattern]],
+
+
+      //nominee controls (NOMINEELINK table)
+      AC_NNAME: ['', [Validators.pattern]],
+      AC_NRELA: ['', [Validators.pattern]],
+      AC_NDATE: ['',],
+      AGE: ['', [Validators.pattern]],
+      AC_NHONO: ['', [Validators.pattern]],
+      AC_NWARD: ['', [Validators.pattern]],
+      AC_NADDR: ['', [Validators.pattern]],
+      AC_NGALLI: ['', [Validators.pattern]],
+      AC_NAREA: ['', [Validators.pattern]],
+      AC_NCTCODE: ['', [Validators.pattern]],
+      AC_NPIN: ['', [Validators.pattern]],
+
+      //joint ac
+      JOINT_ACNAME: ['', [Validators.pattern]],
+      OPERATOR: [true],
+
+      //attorney
+      ATTERONEY_NAME: ['', []],
+      DATE_APPOINTED: ['', []],
+      DATE_EXPIRY: ['', []],
+    });
+  }
+
+  //nominee, joint account and attorney selection display
+  OpenLink(val) {
+    if (val == 1) {
+      this.nomineeTrue = !this.nomineeTrue;
+      this.JointAccountsTrue = false;
+      this.PowerofAttorneyTrue = false;
+    }
+    if (val == 2) {
+      this.JointAccountsTrue = !this.JointAccountsTrue;
+      this.nomineeTrue = false;
+      this.PowerofAttorneyTrue = false;
+    }
+    if (val == 3) {
+      this.PowerofAttorneyTrue = !this.PowerofAttorneyTrue;
+      this.JointAccountsTrue = false;
+      this.nomineeTrue = false;
+    }
+  }
+
+  addNewCustomer(newCustomer) {
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+      this.Cust_ID = data;
+      this.id = newCustomer;
+      this.getCustomer(newCustomer);
+    })
+  }
+
+  //function to toggle temp address field
+  tempAsPermanent() {
+    this.tempAddress = !this.tempAddress;
+    // this.angForm.controls['AC_THONO'].reset()
+    // this.angForm.controls['AC_TWARD'].reset()
+    // this.angForm.controls['AC_TADDR'].reset()
+    // this.angForm.controls['AC_TGALLI'].reset()
+    // this.angForm.controls['AC_TAREA'].reset()
+    // this.angForm.controls['AC_TCTCODE'].reset()
+    // this.angForm.controls['AC_TPIN'].reset()
+  }
+
+  //calculate age for minor details
+  ageCalculator(birthDate) {
+    let showAge: number
+    if (birthDate) {
+      const convertAge = new Date(birthDate);
+      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+      showAge = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+      if (showAge <= 18) {
+        this.angForm.controls['AC_MINOR'].setValue(true);
+        this.angForm.controls['AC_GRDNAME'].enable();
+        this.angForm.controls['AC_GRDRELE'].enable();
+        this.introducerReq = true
+      }
+      else if (showAge > 18) {
+        this.angForm.controls['AC_MINOR'].setValue(false);
+        this.angForm.controls['AC_GRDNAME'].disable();
+        this.angForm.controls['AC_GRDRELE'].disable();
+        this.introducerReq = false
+      }
+    }
+  }
+
+  //set open date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        AC_OPDATE: data.CURRENT_DATE,
+        AC_ASON_DATE: data.CURRENT_DATE,
+      })
+    })
+  }
+  //get maturity date
+  getMaturityDate() {
+    let months = this.angForm.controls['AC_MONTHS'].value
+    let days = this.angForm.controls['AC_DAYS'].value
+    var maturityDt = new Date(this.angForm.controls['AC_ASON_DATE'].value)
+    var year = maturityDt.getFullYear();
+    var month = new Date(maturityDt).getMonth();
+    var day = new Date(maturityDt).getDate();
+    var maturityMonth = month + Number(months)
+    var maturityDay = day + Number(days)
+    var date = new Date(year, maturityMonth, maturityDay);
+    var maturityDate = this.datePipe.transform(date, "dd-MM-yyyy")
+    this.angForm.patchValue({
+      AC_EXPDT: maturityDate
+    })
+  }
+
+  //get account no according scheme for introducer
+  getIntroducer(acno) {
+    switch (acno) {
+      case 'SB':
+        this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'SH':
+        this.schemeAccountNoService.getShareSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CA':
+        this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'LN':
+        this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'TD':
+        this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'DS':
+        this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CC':
+        this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'GS':
+        this.schemeAccountNoService.getAnamatSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'PG':
+        this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'AG':
+        this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'IV':
+        this.schemeAccountNoService.getInvestmentSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+    }
+  }
+
+  //get introducer name according account no
+  getIntroducerName(value: any) {
+    this.angForm.patchValue({
+      AC_INTRNAME: value.name
+    })
+  }
+
+  getCustomer(id) {
+    this.getSystemParaDate() //function to set date
+    this.customerIdService.getFormData(id).subscribe(data => {
+      this.tempAddress = data.custAddress[0].AC_ADDFLAG
+      this.ageCalculator(data.AC_BIRTH_DT);
+      this.angForm.patchValue({
+        AC_CUSTID: id.toString(),
+        AC_TITLE: data.AC_TITLE,
+        AC_NAME: data.AC_NAME,
+        AC_CAST: data.AC_CAST,
+        AC_OCODE: data.AC_OCODE,
+        AC_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_MBDATE: data.AC_BIRTH_DT,
+        AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
+        AC_HONO: data.custAddress[0].AC_HONO,
+        AC_WARD: data.custAddress[0].AC_WARD,
+        AC_ADDR: data.custAddress[0].AC_ADDR,
+        AC_GALLI: data.custAddress[0].AC_GALLI,
+        AC_AREA: data.custAddress[0].AC_AREA,
+        AC_CTCODE: data.custAddress[0].AC_CTCODE,
+        AC_PIN: data.custAddress[0].AC_PIN,
+        AC_MOBNO: data.custAddress[0].AC_MOBILENO,
+        AC_PHNO: data.custAddress[0].AC_PHONE_RES,
+        AC_EMAIL: data.custAddress[0].AC_EMAILID,
+      })
+      if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {
+        this.angForm.patchValue({
+          AC_THONO: data.custAddress[1].AC_HONO,
+          AC_TWARD: data.custAddress[1].AC_WARD,
+          AC_TADDR: data.custAddress[1].AC_ADDR,
+          AC_TGALLI: data.custAddress[1].AC_GALLI,
+          AC_TAREA: data.custAddress[1].AC_AREA,
+          AC_TCTCODE: data.custAddress[1].AC_CTCODE,
+          AC_TPIN: data.custAddress[1].AC_PIN,
+        })
+      }
+    })
+  }
+
+  // Method to insert data into database through NestJS
+  submit() {
+    const formVal = this.angForm.value;
+    if (formVal.AC_ADDFLAG == true) {
+      this.addType = 'P'
+    }
+    else if (formVal.AC_ADDFLAG == false) {
+      this.addType = 'T'
+    }
+    const dataToSend = {
+      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+      'AC_TYPE': formVal.AC_TYPE,
+      'AC_NO': formVal.AC_NO,
+      // 'AC_INTRATE':formVal.AC_INTRATE,
+      'AC_CUSTID': formVal.AC_CUSTID,
+      'REF_ACNO': formVal.REF_ACNO,
+      'AC_OPDATE': formVal.AC_OPDATE,
+      'AC_CATG': formVal.AC_CATG,
+      'AC_OPR_CODE': formVal.AC_OPR_CODE,
+      'AC_INTCATA': formVal.AC_INTCATA,
+      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+      'AC_REF_RECEIPTNO': formVal.AC_REF_RECEIPTNO,
+      'AC_ASON_DATE': formVal.AC_ASON_DATE,
+      'AC_MONTHS': formVal.AC_MONTHS,
+      'AC_EXPDT': formVal.AC_EXPDT,
+      'AC_SCHMAMT': formVal.AC_SCHMAMT,
+      'AC_MATUAMT': formVal.AC_MATUAMT,
+      'IS_DISCOUNTED_INT_RATE': formVal.IS_DISCOUNTED_INT_RATE,
+
+      //temp address 
+      AC_ADDFLAG: formVal.AC_ADDFLAG,
+      AC_ADDTYPE: this.addType,
+      AC_THONO: formVal.AC_THONO,
+      AC_TWARD: formVal.AC_TWARD,
+      AC_TADDR: formVal.AC_TADDR,
+      AC_TGALLI: formVal.AC_TGALLI,
+      AC_TAREA: formVal.AC_TAREA,
+      AC_TCTCODE: formVal.AC_TCTCODE,
+      AC_TPIN: formVal.AC_TPIN,
+      //minor and introducer
+      'AC_MINOR': formVal.AC_MINOR,
+      'AC_MBDATE': formVal.AC_MBDATE,
+      'AC_GRDNAME': formVal.AC_GRDNAME,
+      'AC_GRDRELE': formVal.AC_GRDRELE,
+      'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
+      'AC_INTROID': formVal.AC_INTROID,
+      'AC_INTRACNO': formVal.AC_INTRACNO,
+      'AC_INTRNAME': formVal.AC_INTRNAME,
+      'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+      //nominee
+      'NomineeData': this.multiNominee,
+      //Joint Account
+      'JointAccountData': this.multiJointAC,
+      //Attorney
+      'PowerOfAttorneyData': this.multiAttorney
+
+    }
+    console.log(dataToSend);
+    this.TermDepositMasterService.postData(dataToSend).subscribe(data1 => {
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      // to reload after insertion of data
+      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+
+    }, (error) => {
+      console.log(error)
+    })
+    //To clear form
+    this.resetForm();
+    this.multiNominee = []
+    this.multiJointAC = []
+    this.multiAttorney = []
+  }
+  //Method for append data into fields
+  editClickHandler(id) {
+    this.showButton = false;
+    this.updateShow = true;
+    this.newbtnShow = true;
+    this.TermDepositMasterService.getFormData(id).subscribe(data => {
+      this.updateID = data.id;
+      this.getCustomer(data.AC_CUSTID)
+      //get nominee to edit
+      this.multiNominee = data.nomineeDetails
+      //get joint accounts to edit
+      this.multiJointAC = data.jointAccounts
+      //get attorney to edit
+      this.multiAttorney = data.powerOfAttorney
+      this.angForm.patchValue({
+        AC_TYPE: data.AC_TYPE,
+        'AC_NO': data.AC_NO,
+        'AC_SHORT_NAME': data.AC_SHORT_NAME,
+        'AC_AGE': data.AC_AGE,
+        'REF_ACNO': data.REF_ACNO,
+        'AC_OPDATE': data.AC_OPDATE,
+        'AC_RENEW_DATE': data.AC_RENEW_DATE,
+        'AC_EXPDT': data.AC_EXPDT,
+        'AC_CATG': data.AC_CATG,
+        AC_INTCATA: data.AC_INTCATA,
+        'AC_MONTHS': data.AC_MONTHS,
+        'AC_SCHMAMT': data.AC_SCHMAMT,
+        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
+        'AC_REF_RECEIPTNO': data.AC_REF_RECEIPTNO,
+        'AC_ASON_DATE': data.AC_ASON_DATE,
+        'AC_MATUAMT': data.AC_MATUAMT,
+        'IS_DISCOUNTED_INT_RATE': data.IS_DISCOUNTED_INT_RATE,
+        //minor and introducer
+        'AC_MINOR': data.AC_MINOR,
+        'AC_MBDATE': data.AC_MBDATE,
+        'AC_GRDNAME': data.AC_GRDNAME,
+        'AC_GRDRELE': data.AC_GRDRELE,
+        AC_INTROBRANCH: data.AC_INTROBRANCH,
+        AC_INTROID: data.AC_INTROID,
+        AC_INTRACNO: data.AC_INTRACNO,
+        'AC_INTRNAME': data.AC_INTRNAME,
+        'PG_COMM_TYPE': data.PG_COMM_TYPE,
+        'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
+      })
+    })
+  }
+  //Method for update data 
   updateData() {
+    let data = this.angForm.value;
+    if (data.AC_ADDFLAG == true) {
+      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
+      this.addType = 'P'
+    }
+    else if (data.AC_ADDFLAG == false) {
+      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
+      this.addType = 'T'
+    }
+    data['AC_ADDTYPE'] = this.addType
+    data['NomineeData'] = this.multiNominee
+    data['JointAccountData'] = this.multiJointAC
+    data['PowerOfAttorneyData'] = this.multiAttorney
+    data['id'] = this.updateID;
+    this.TermDepositMasterService.updateData(data).subscribe(() => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.showButton = true;
+      this.updateShow = false;
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      this.multiNominee = []
+      this.multiJointAC = []
+      this.multiAttorney = []
+      this.resetForm();
+    })
+  }
+
+  //Method for delete data
+  delClickHandler(id: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you want to delete Share master data.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#229954',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.TermDepositMasterService.deleteData(id).subscribe(data1 => {
+          this.termDepositMaster = data1;
+          Swal.fire(
+            'Deleted!',
+            'Your data has been deleted.',
+            'success'
+          )
+        }), (error) => {
+          console.log(error)
+        }
+        // to reload after delete of data
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelled',
+          'Your data is safe.',
+          'error'
+        )
+      }
+    })
+  }
+
+  // Reset Function
+  resetForm() {
+    this.createForm();
+    this.resetNominee();
+    this.resetJointAC()
+    this.resetAttorney()
+    this.PowerofAttorneyTrue = false
+    this.JointAccountsTrue = false
+    this.nomineeTrue = false
+  }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
+
+  addNominee() {
+    const formVal = this.angForm.value;
+    var object = {
+      AC_NNAME: formVal.AC_NNAME,
+      AC_NRELA: formVal.AC_NRELA,
+      AC_NDATE: formVal.AC_NDATE,
+      AGE: formVal.AGE,
+      AC_NHONO: formVal.AC_NHONO,
+      AC_NWARD: formVal.AC_NWARD,
+      AC_NADDR: formVal.AC_NADDR,
+      AC_NGALLI: formVal.AC_NGALLI,
+      AC_NAREA: formVal.AC_NAREA,
+      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NPIN: formVal.AC_NPIN,
+    }
+    this.multiNominee.push(object);
+    this.resetNominee()
+  }
+  editNominee(id) {
+    this.nomineeIndex = id
+    this.nomineeID = this.multiNominee[id].id;
+    this.nomineeTrue = true
+    this.nomineeShowButton = false;
+    this.nomineeUpdateShow = true;
+    this.angForm.patchValue({
+      AC_NNAME: this.multiNominee[id].AC_NNAME,
+      AC_NRELA: this.multiNominee[id].AC_NRELA,
+      AC_NDATE: this.multiNominee[id].AC_NDATE,
+      AGE: this.multiNominee[id].AGE,
+      AC_NHONO: this.multiNominee[id].AC_NHONO,
+      AC_NWARD: this.multiNominee[id].AC_NWARD,
+      AC_NADDR: this.multiNominee[id].AC_NADDR,
+      AC_NGALLI: this.multiNominee[id].AC_NGALLI,
+      AC_NAREA: this.multiNominee[id].AC_NAREA,
+      AC_NCTCODE: this.multiNominee[id].AC_NCTCODE,
+      AC_NPIN: this.multiNominee[id].AC_NPIN,
+    })
+  }
+
+  updateNominee() {
+    let index = this.nomineeIndex;
+    const formVal = this.angForm.value;
+    var object = {
+      AC_NNAME: formVal.AC_NNAME,
+      AC_NRELA: formVal.AC_NRELA,
+      AC_NDATE: formVal.AC_NDATE,
+      AGE: formVal.AGE,
+      AC_NHONO: formVal.AC_NHONO,
+      AC_NWARD: formVal.AC_NWARD,
+      AC_NADDR: formVal.AC_NADDR,
+      AC_NGALLI: formVal.AC_NGALLI,
+      AC_NAREA: formVal.AC_NAREA,
+      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NPIN: formVal.AC_NPIN,
+      id: this.nomineeID
+    }
+    this.multiNominee[index] = object;
+    this.nomineeShowButton = true;
+    this.nomineeUpdateShow = false;
+    this.resetNominee()
+  }
+  delNominee(id) {
+    this.multiNominee.splice(id, 1)
+  }
+
+  //reset function while update
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
+    this.newbtnShow = false;
+    this.multiNominee = []
+    this.multiJointAC = []
+    this.multiAttorney = []
+    this.resetForm();
   }
+
+  resetNominee() {
+    this.angForm.controls['AC_NNAME'].reset();
+    this.angForm.controls['AC_NRELA'].reset();
+    this.angForm.controls['AC_NDATE'].reset();
+    this.angForm.controls['AGE'].reset();
+    this.angForm.controls['AC_NHONO'].reset();
+    this.angForm.controls['AC_NWARD'].reset();
+    this.angForm.controls['AC_NADDR'].reset();
+    this.angForm.controls['AC_NGALLI'].reset();
+    this.angForm.controls['AC_NAREA'].reset();
+    this.angForm.controls['AC_NCTCODE'].reset();
+    this.angForm.controls['AC_NPIN'].reset();
+  }
+
+  //Joint ac
+  addJointAcccount() {
+    const formVal = this.angForm.value;
+    var object = {
+      JOINT_ACNAME: formVal.JOINT_ACNAME,
+      OPERATOR: formVal.OPERATOR
+    }
+    this.multiJointAC.push(object);
+    this.resetJointAC()
+  }
+  editJointAc(id) {
+    this.jointIndex = id
+    this.jointACID = this.multiJointAC[id].id;
+    this.JointAccountsTrue = true
+    this.jointShowButton = false;
+    this.jointUpdateShow = true;
+    this.angForm.patchValue({
+      JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      OPERATOR: this.multiJointAC[id].OPERATOR
+    })
+  }
+  updateJointAcccount() {
+    let index = this.jointIndex;
+    this.jointShowButton = true;
+    this.jointUpdateShow = false;
+    const formVal = this.angForm.value;
+    var object = {
+      JOINT_ACNAME: formVal.JOINT_ACNAME,
+      OPERATOR: formVal.OPERATOR,
+      id: this.jointACID
+    }
+    this.multiJointAC[index] = object;
+    this.resetJointAC()
+  }
+  delJointAc(id) {
+    this.multiJointAC.splice(id, 1)
+  }
+
+  resetJointAC() {
+    this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.controls['OPERATOR'].reset();
+  }
+
+  //power of attorney
+  addAttorney() {
+    const formVal = this.angForm.value;
+    var object = {
+      ATTERONEY_NAME: formVal.ATTERONEY_NAME,
+      DATE_APPOINTED: formVal.DATE_APPOINTED,
+      DATE_EXPIRY: formVal.DATE_EXPIRY
+    }
+    this.multiAttorney.push(object);
+    this.resetAttorney()
+  }
+
+  ispowerof($event) {
+    if ($event.target.checked) {
+      this.PowerofAttorneyTrue = true
+      this.DATE_EXPIRY = true
+      this.DATE_APPOINTED = true
+      this.ATTERONEY_NAME = true
+    }
+    else {
+      this.PowerofAttorneyTrue = false
+      this.DATE_EXPIRY = false
+      this.DATE_APPOINTED = false
+      this.ATTERONEY_NAME = false
+    }
+  }
+
+  editAttorney(id) {
+    this.attorneyIndex = id
+    this.attorneyID = this.multiAttorney[id].id;
+    this.PowerofAttorneyTrue = true
+    this.attorneyShowButton = false;
+    this.attorneyUpdateShow = true;
+    this.angForm.patchValue({
+      ATTERONEY_NAME: this.multiAttorney[id].ATTERONEY_NAME,
+      DATE_APPOINTED: this.multiAttorney[id].DATE_APPOINTED,
+      DATE_EXPIRY: this.multiAttorney[id].DATE_EXPIRY
+    })
+  }
+
+  updateAttorney() {
+    let index = this.attorneyIndex;
+    this.attorneyShowButton = true;
+    this.attorneyUpdateShow = false;
+    const formVal = this.angForm.value;
+    var object = {
+      ATTERONEY_NAME: formVal.ATTERONEY_NAME,
+      DATE_APPOINTED: formVal.DATE_APPOINTED,
+      DATE_EXPIRY: formVal.DATE_EXPIRY,
+      id: this.attorneyID
+    }
+    this.multiAttorney[index] = object;
+    this.resetAttorney()
+  }
+
+  delAttorney(id) {
+    this.multiAttorney.splice(id, 1)
+  }
+
+  resetAttorney() {
+    this.angForm.controls['ATTERONEY_NAME'].reset();
+    this.angForm.controls['DATE_APPOINTED'].reset();
+    this.angForm.controls['DATE_EXPIRY'].reset();
+  }
+
 }

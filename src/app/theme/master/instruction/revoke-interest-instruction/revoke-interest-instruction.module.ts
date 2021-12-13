@@ -9,6 +9,7 @@ import { AcountnoService } from '../../../../shared/elements/acountno.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { RevokeInterestInstructionComponent } from './revoke-interest-instruction.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [],
+  declarations: [RevokeInterestInstructionComponent],
   providers: [revokeInterestService, Scheme1Service, AcountnoService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

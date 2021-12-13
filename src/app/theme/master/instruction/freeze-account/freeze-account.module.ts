@@ -10,6 +10,7 @@ import { FreezeAccountService } from './freeze-account.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+import { FreezeAccountComponent } from './freeze-account.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -19,7 +20,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [],
+  declarations: [FreezeAccountComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

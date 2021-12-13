@@ -45,8 +45,7 @@ interface Pigmyagent {
   styleUrls: ["./pigmy-agent-scheme.component.scss"],
 })
 export class PigmyAgentSchemeComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+  implements OnInit, AfterViewInit, OnDestroy {
   //api
   url = environment.base_url;
   
@@ -200,7 +199,7 @@ export class PigmyAgentSchemeComponent
   }
   createForm() {
     this.angForm = this.fb.group({
-      S_ACNOTYPE: ["PG"],
+      S_ACNOTYPE: ["AG"],
       S_APPL: ["", [Validators.required, Validators.pattern]],
       S_NAME: ["", [Validators.required, Validators.pattern]],
       S_SHNAME: ["", [Validators.required, Validators.pattern]],

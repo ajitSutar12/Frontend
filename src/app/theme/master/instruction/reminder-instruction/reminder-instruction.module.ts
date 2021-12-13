@@ -8,6 +8,7 @@ import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { ReminderInstructionComponent } from './reminder-instruction.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [],
+  declarations: [ReminderInstructionComponent],
   providers: [reminderInstructionService, UserService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

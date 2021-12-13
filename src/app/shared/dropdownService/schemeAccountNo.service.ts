@@ -58,7 +58,7 @@ export class SchemeAccountNoService {
 
     public getTermDepositSchemeList() {
         this.schemeObject = []
-        return this.http.get<any>(this.url + '/term-deposit-master/')
+        return this.http.get<any>(this.url + '/term-deposits-master/')
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NO, value: `${element.AC_NO}`, name: element.AC_NAME };
@@ -115,7 +115,7 @@ export class SchemeAccountNoService {
     }
     public getPigmyAgentSchemeList() {
         this.schemeObject = []
-        return this.http.get<any>(this.url + '/pigmy-agent/')
+        return this.http.get<any>(this.url + '/pigmy-agent-master/')
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NO, value: `${element.AC_NO}`, name: element.AC_NAME };

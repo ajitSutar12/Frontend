@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { overdraftservice } from './over-draft.service';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+import { OverDraftComponent } from './over-draft.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +22,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [],
+  declarations: [OverDraftComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

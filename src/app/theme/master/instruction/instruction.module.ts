@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { InstructionComponent } from './instruction.component';
 import { InstructionRoutingModule } from './instruction-routing.module'
-import {SharedModule} from '../../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 import { OverDraftComponent } from './over-draft/over-draft.component';
 import { StandingInstructionComponent } from './standing-instruction/standing-instruction.component';
 import { InterestInstructionComponent } from './interest-instruction/interest-instruction.component';
@@ -14,10 +14,10 @@ import { RevokeStandingInstructionsComponent } from './revoke-standing-instructi
 import { RevokeInterestInstructionComponent } from './revoke-interest-instruction/revoke-interest-instruction.component';
 import { RevokeSpecialInstructionComponent } from './revoke-special-instruction/revoke-special-instruction.component';
 import { LienMarkClearComponent } from './lien-mark-clear/lien-mark-clear.component';
-import {SelectOptionService} from '../../../shared/elements/select-option.service'
-import {SelectModule} from 'ng-select';
-import {DataTablesModule} from 'angular-datatables';
-import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
+import { SelectOptionService } from '../../../shared/elements/select-option.service'
+import { SelectModule } from 'ng-select';
+import { DataTablesModule } from 'angular-datatables';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor'
 
@@ -31,10 +31,10 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor'
     SelectModule,
     DataTablesModule,
     FormsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule
   ],
-  declarations: [InstructionComponent, OverDraftComponent, StandingInstructionComponent, InterestInstructionComponent, SpecialComponent, FreezeAccountComponent, ReminderInstructionComponent,  RevokeInterestInstructionComponent, RevokeSpecialInstructionComponent, LienMarkClearComponent, RevokeStandingInstructionsComponent],
-  providers: [SelectOptionService,{
+  declarations: [InstructionComponent],
+  providers: [SelectOptionService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

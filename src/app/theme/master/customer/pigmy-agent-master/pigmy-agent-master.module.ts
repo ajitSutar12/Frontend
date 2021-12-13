@@ -4,18 +4,9 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PigmyAgentMasterRoutingModule } from './pigmy-agent-master-routing.module';
 import { PigmyAgentMasterComponent } from './pigmy-agent-master.component';
-import { TitleService } from '../../../../shared/elements/title.service';
-import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
-import { CustomeridService } from '../../../../shared/elements/customerid.service';
-import { CitycodeService } from '../../../../shared/elements/citycode.service';
-import { SchemeTypeService } from '../../../../shared/elements/scheme-type.service';
-import { BranchService } from '../../../../shared/elements/branch.service';
-import { CastService } from '../../../../shared/elements/cast.service';
 import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { SignTypeDropdownService } from '../../../../shared/dropdownService/sign-type-dropdown.service'
-
 import { SharedModule } from '../../../../shared/shared.module';
 import { CustomerIdModule } from '../customer-id/customer-id.module';
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
@@ -31,16 +22,13 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { PigmyAgentMasterService } from './pigmy-agent-master.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-
-
-
-
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
+import { DatePipe } from '@angular/common';
+import { PigmyAgentMasterService } from './pigmy-agent-master.service'
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -55,11 +43,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   ],
   declarations: [PigmyAgentMasterComponent],
-  providers: [TitleService,
-    SchemeCodeService, OwnbranchMasterService,
-    SignTypeDropdownService, CustomerIdService, CustomeridService,
-    CitycodeService, SchemeTypeService, BranchService,
-    CastService
+  providers: [OwnbranchMasterService,
+    SignTypeDropdownService, CustomerIdService,
     , {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
@@ -71,13 +56,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MembershipTypeDropdownService,
     DirectorMasterDropdownService,
     SubSalaryDMasterdropdownService,
-    cityMasterService,
+    cityMasterService, SystemMasterParametersService, SchemeAccountNoService,
     SchemeCodeDropdownService,
     PigmyAgentMasterService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: UserAuthInterceptor,
-      multi: true
-    },]
+    DatePipe]
 })
 export class PigmyAgentMasterModule { }

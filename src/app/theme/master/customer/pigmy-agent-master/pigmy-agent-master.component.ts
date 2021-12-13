@@ -2,35 +2,27 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
-import { TitleService } from '../../../../shared/elements/title.service';
-import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
-import { CustomeridService } from '../../../../shared/elements/customerid.service';
-import { CitycodeService } from '../../../../shared/elements/citycode.service';
-import { SchemeTypeService } from '../../../../shared/elements/scheme-type.service';
-import { BranchService } from '../../../../shared/elements/branch.service';
-import { CastService } from '../../../../shared/elements/cast.service';
-
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AfterViewInit, Component, Input, OnDestroy, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
-
 import { PigmyAgentMasterService } from './pigmy-agent-master.service';
 // for dropdown
 import { CastMasterService } from '../../../../shared/dropdownService/cast-master-dropdown.service';
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
-
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import Swal from 'sweetalert2';
-
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-import { id } from '@swimlane/ngx-datatable';
 import { first } from 'rxjs/operators';
 import { CustomerIdService } from '../customer-id/customer-id.service';
 import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
 import { environment } from 'src/environments/environment';
+//date pipe
+import { DatePipe } from '@angular/common';
 
 // Handling datatable data
 class DataTableResponse {
@@ -41,33 +33,31 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface PigmyAgentMaster {
-
   AC_TYPE: string;
+  AC_ACNOTYPE: string;
   AC_NO: number;
   AC_CUSTID: number;
   AC_OPDATE: string;
+  AC_NAME: string;
   PIGMY_ACTYPE: string;
   AC_INTROBRANCH: string;
   AC_INTROID: string;
   AC_INTRACNO: string;
   AC_INTRNAME: string;
+  SIGNATURE_AUTHORITY: string;
+  AC_NNAME: string;
+  AC_NRELA: string;
+  AC_NDATE: string;
+  AGE: number;
+  AC_ADDFLAG: boolean;
+  AC_NHONO: string;
+  AC_NWARD: string;
+  AC_NADDR: string;
+  AC_NGALLI: string;
+  AC_NAREA: string;
+  AC_NCTCODE: string;
+  AC_NPIN: number;
 }
-interface Nominee {
-  //nominee controls (NOMINEELINK table)
-  AC_NNAME: string
-  AC_NRELA: string
-  AC_NDATE: Date
-  AGE: number
-  AC_NHONO: String
-  AC_NWARD: string
-  AC_NADDR: string
-  AC_NGALLI: string
-  AC_NAREA: string
-  AC_NCTCODE: string
-  AC_NPIN: number
-
-}
-
 @Component({
   selector: 'app-pigmy-agent-master',
   templateUrl: './pigmy-agent-master.component.html',
@@ -98,7 +88,11 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   dtTrigger: Subject<any> = new Subject();
   // For reloading angular datatable after CRUD operation
   @ViewChild('modalLarge') modalLarge: ElementRef;
-
+  //Scheme type variable
+  schemeType: string = 'AG'
+  pgScheme: string = 'PG'
+  //Dropdown options
+  scheme //scheme code from schemast(S_ACNOTYPE)
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
   dtExportOptions: any = {}
@@ -115,13 +109,12 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   nomineeTrue: boolean = false;
   //title select variables
   nomineeIndex: number
-
+  introducerACNo //account no for introducer
   isDisabled = true;
   characters: Array<IOption>;
   selectedCharacter = '3';
   timeLeft = 5;
   pigmyAgentMaster: PigmyAgentMaster[];
-  nominee: Nominee[];
   private dataSub: Subscription = null;
   // Variables for search 
   filterObject: { name: string; type: string; }[];
@@ -130,9 +123,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-
-  //Scheme type variable
-  schemeType: string = 'AG'
 
   //variable to get ID to update
   updateID: number = 0;
@@ -151,50 +141,33 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   intrestCategoryMaster: any[];
   cityMasterServiceDropdown: any[];
   SchemeCodeDropdownDropdown: any[];
+  PGSchemeCode: any[];
   //for modal
   showModalStatus: boolean = false;
   showDialog = false;
   @Input() visible: boolean;
   public config: any;
 
-  //Select option for title
-  titleOption: Array<IOption> = this.TitleService.getCharacters();
-  scheme: Array<IOption> = this.schemeCodeService.getCharacters();
-  // CustomerID: Array<IOption> = this.customerIdService.getCharacters();
-  Cast: Array<IOption> = this.castService.getCharacters();
-  PimgyScheme: Array<IOption> = this.schemeTypeService.getCharacters();
-  City_Code: Array<IOption> = this.cityCodeService.getCharacters();
-  IScheme: Array<IOption> = this.schemeCodeService.getCharacters();
-  branch: Array<IOption> = this.branchService.getCharacters();
-  ncity: Array<IOption> = this.cityCodeService.getCharacters();
   selectedOption = '3';
-
-  // isDisabled = true;
-
-  //temp address flag variable
 
   id: string = '';
   NomineeTrue: boolean = false;
-
-  //object created to get data when row is clicked
-
-  constructor(public TitleService: TitleService,
+  constructor(
     private customerID: CustomerIDMasterDropdownService,
-    public SchemeCodeDropdownService: SchemeCodeDropdownService,
+    public schemeCodeDropdownService: SchemeCodeDropdownService,
     public PigmyAgentMasterService: PigmyAgentMasterService,
     public CastMasterService: CastMasterService,
     public OwnbranchMasterService: OwnbranchMasterService,
     public cityMasterService: cityMasterService,
-    public schemeCodeService: SchemeCodeService,
+    private datePipe: DatePipe,
     public customerIdService: CustomerIdService,
-    public cityCodeService: CitycodeService,
-    public schemeTypeService: SchemeTypeService,
-    public branchService: BranchService,
-    public castService: CastService,
+    private systemParameter: SystemMasterParametersService,
+    private schemeAccountNoService: SchemeAccountNoService,
     private http: HttpClient,
-    private fb: FormBuilder) { this.createForm(); }
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.createForm();
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
@@ -202,6 +175,12 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       serverSide: true,
       processing: true,
       ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+
         dataTableParameters.columns.forEach(element => {
           if (element.search.value != '') {
             let string = element.search.value;
@@ -218,17 +197,12 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
           }
         });
         dataTableParameters['filterData'] = this.filterData;
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        this.page = dataTableParameters.start / dataTableParameters.length;
         this.http
           .post<DataTableResponse>(
             this.url + '/pigmy-agent-master',
             dataTableParameters
           ).subscribe(resp => {
             this.pigmyAgentMaster = resp.data;
-            console.log('fetch', resp.data)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -243,15 +217,11 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       columns: [
         {
           title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          title: 'Type',
+        }, {
+          title: 'Scheme Type',
           data: 'AC_ACNOTYPE'
-        },
-        {
+        }
+        , {
           title: 'Scheme',
           data: 'AC_TYPE'
         },
@@ -289,11 +259,13 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         {
           title: 'Name',
           data: 'AC_INTRNAME'
+        },
+        {
+          title: 'Signature Authority',
+          data: 'SIGNATURE_AUTHORITY'
         }
       ],
       dom: 'Blrtip',
-
-
 
     };
 
@@ -305,96 +277,32 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
       this.OwnbranchMasterDropdown = data;
     })
-    this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       this.SchemeCodeDropdownDropdown = data;
     })
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+      this.scheme = data;
+    })
+    this.schemeCodeDropdownService.getSchemeCodeList(this.pgScheme).pipe(first()).subscribe(data => {
+      this.PGSchemeCode = data;
+    })
     this.cityMasterService.getcityList().pipe(first()).subscribe(data => {
-
       this.cityMasterServiceDropdown = data;
     })
-    // this.dtnomineeOptions = {
-    //   ajax: 'fake-data/nominee.json',
-    //   columns: [
-    //     {
-    //       title: 'Action',
-    //       render: function (data: any, type: any, full: any) {
-    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-    //       }
-    //     },
-    //     {
-    //       data: 'Name',
-    //       title: 'Code'
-    //     },
-    //     {
-    //       data: 'Relation',
-    //       title: 'Relation'
-    //     },
-    //     {
-    //       data: 'Age',
-    //       title: 'Age'
-    //     },
-    //     {
-    //       data: 'NominationDate',
-    //       title: 'Nomination Date'
-    //     },
-    //     {
-    //       data: 'Address1',
-    //       title: 'Address1'
-    //     },
-    //     {
-    //       data: 'Address2',
-    //       title: 'Address2'
-    //     },
-    //     {
-    //       data: 'Address3',
-    //       title: 'Address3'
-    //     },
-    //     {
-    //       data: 'City',
-    //       title: 'City'
-    //     },
-    //     {
-    //       data: 'Pin',
-    //       title: 'Pin'
-    //     },
-    //   ],
-    //   dom: 'Bfrtip',
-    //   buttons: [
-    //     'copy',
-    //     'print',
-    //     'excel',
-    //     'csv'
-    //   ],
-
-    //   //row click handler code
-    //   rowCallback: (row: Node, data: any[] | Object, index: number) => {
-    //     const self = this;
-    //     $('td', row).off('click');
-    //     $('td', row).on('click', '#editbtn', () => {
-    //       self.editClickHandler(data);
-    //     });
-    //     $('td', row).on('click', '#delbtn', () => {
-    //       self.delClickHandler(data);
-    //     });
-    //     return row;
-    //   }
-    // };
     this.runTimer();
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
     })
-    this.runTimer();
-    this.dataSub = this.TitleService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
   }
-  //show customer modal
-  showModal() {
-    debugger
-    this.showModalStatus = true;
+  //set open date, appointed date and expiry date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        AC_OPDATE: data.CURRENT_DATE,
+      })
+    })
   }
-
   addNewCustomer(newCustomer) {
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
@@ -407,12 +315,9 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.tempAddress = !this.tempAddress;
   }
 
-
-
   getCustomer(id) {
-    console.log('in getcustomer', id)
+    this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
-      console.log('get customer data', data)
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
@@ -428,18 +333,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         AC_AREA: data.custAddress[0].AC_AREA,
         AC_CTCODE: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
-        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
-        AC_MOBNO: data.AC_MOBILENO,
-        AC_PHNO: data.AC_PHONE_RES,
-        AC_EMAIL: data.AC_EMAILID,
-        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
-        AC_THONO: data.custAddress.AC_THONO,
-        AC_TWARD: data.custAddress.AC_TWARD,
-        AC_TADDR: data.custAddress.AC_TADDR,
-        AC_TGALLI: data.custAddress.AC_TGALLI,
-        AC_TAREA: data.custAddress.AC_TAREA,
-        AC_TCTCODE: data.custAddress.AC_TCTCODE,
-        AC_TPIN: data.custAddress.AC_TPIN,
       })
     })
   }
@@ -461,8 +354,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   createForm() {
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
-      AC_NO: ['',],
       AC_ACNOTYPE: ['AG'],
+      AC_NO: ['',],
       AC_CUSTID: ['', [Validators.required]],
       AC_TITLE: ['', [Validators.required]],
       AC_NAME: ['', [Validators.pattern, Validators.required]],
@@ -478,18 +371,20 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       AC_PHONE_RES: ['', [Validators.pattern]],
       AC_PHONE_OFFICE: ['', [Validators.pattern]],
       AC_MOBILENO: ['', [Validators.pattern]],
-      AC_INTRACNO: ['', [Validators.pattern]],
-      AC_CTCODE: [''],
+      // AC_INTRACNO: ['', [Validators.pattern]],
 
-      AC_INTROBRANCH: [''],
+      AC_CTCODE: [''],
+      AC_INTROBRANCH: ['', []],
       AC_INTROID: [''],
+      AC_INTRACNO: [''],
       AC_INTRNAME: ['', [Validators.pattern]],
+      SIGNATURE_AUTHORITY: ['', [Validators.pattern]],
 
       //nominee controls (NOMINEELINK table)
       AC_NNAME: ['', [Validators.pattern]],
       AC_NRELA: ['', [Validators.pattern]],
       AC_NDATE: ['',],
-      AGE: ['', [Validators.pattern]],
+      AGE: ['', [Validators.pattern,Validators.min(1),Validators.max(100)]],
       AC_NHONO: ['', [Validators.pattern]],
       AC_NWARD: ['', [Validators.pattern]],
       AC_NADDR: ['', [Validators.pattern]],
@@ -499,15 +394,97 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       AC_NPIN: ['', [Validators.pattern]],
 
     });
+    let sysdate = new Date()
+    let sysDate = this.datePipe.transform(sysdate, "yyyy-MM-dd")
+    this.angForm.patchValue({
+      'AC_NDATE': sysDate,
+    })
   }
 
+  //get account no according scheme for introducer
+  getIntroducer(acno) {
+    switch (acno) {
+      case 'SB':
+        this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'SH':
+        this.schemeAccountNoService.getShareSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CA':
+        this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'LN':
+        this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'TD':
+        this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'DS':
+        this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CC':
+        this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'GS':
+        this.schemeAccountNoService.getAnamatSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'PG':
+        this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'AG':
+        this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'IV':
+        this.schemeAccountNoService.getInvestmentSchemeList().pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+    }
+  }
+
+  //get introducer name according account no
+  getIntroducerName(value: any) {
+    this.angForm.patchValue({
+      AC_INTRNAME: value.name
+    })
+  }
 
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
+      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_NO': formVal.AC_NO,
       'AC_CUSTID': formVal.AC_CUSTID,
       'AC_OPDATE': formVal.AC_OPDATE,
@@ -516,9 +493,10 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
       'AC_INTROID': formVal.AC_INTROID,
       'AC_INTRNAME': formVal.AC_INTRNAME,
+      'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
       'NomineeData': this.multiNominee
+
     }
-    console.log(dataToSend);
     this.PigmyAgentMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
@@ -560,6 +538,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     });
   }
 
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
@@ -582,24 +561,20 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.updateShow = true;
     this.newbtnShow = true;
     this.PigmyAgentMasterService.getFormData(id).subscribe(data => {
-      console.log('edit', data)
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       this.multiNominee = data.nomineeDetails
-
       this.angForm.patchValue({
-
         AC_TYPE: data.AC_TYPE,
-        'AC_NO': data.AC_NO,
         'AC_ACNOTYPE': data.AC_ACNOTYPE,
-
+        'AC_NO': data.AC_NO,
         'AC_OPDATE': data.AC_OPDATE,
         PIGMY_ACTYPE: data.PIGMY_ACTYPE,
         AC_INTRACNO: data.AC_INTRACNO,
         AC_INTROBRANCH: data.AC_INTROBRANCH,
         AC_INTROID: data.AC_INTROID,
         'AC_INTRNAME': data.AC_INTRNAME,
-
+        'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
         //nominee controls (NOMINEELINK table)
         'AC_NNAME': data.AC_NNAME,
         'AC_NRELA': data.AC_NRELA,
@@ -644,7 +619,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to delete Pigmy agent master data.",
+      text: "Do you want to delete Share master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -724,7 +699,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
   updateNominee() {
     let index = this.nomineeIndex;
-    console.log('update nominee', index)
     const formVal = this.angForm.value;
     var object = {
       AC_NNAME: formVal.AC_NNAME,

@@ -11,6 +11,7 @@ import { specialservice } from './special.service'
 import { DatePipe } from '@angular/common';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { SpecialComponent } from './special.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
     ReactiveFormsModule,
 
   ],
-  declarations: [],
+  declarations: [SpecialComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
