@@ -1533,29 +1533,31 @@
                     <div [@fadeInOutTranslate] class="m-t-15">
                       <div class="col-sm-4">
                         <div class="form-group form-primary form-static-label">
-                          <label>Interest Instruction</label>
+                          <label><h6>Interest Instruction</h6></label>
                           <span class="fa fa-fw fa-plus-circle field-icon" id="icon" (click)="modalLarge.show()"
                             placement="bottom" ngbTooltip="Add Interest Instruction"></span>
                         </div>
                       </div>
-                      <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
-                        <div class="app-modal-header">
-                          <h4 class="modal-title">Interest Instruction</h4>
-                          <button type="button" class="close basic-close" (click)="modalLarge.hide()">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="app-modal-body">
-                          <perfect-scrollbar style="max-width: 800px; max-height: 450px">
-                            <app-interest-instruction> </app-interest-instruction>
-                          </perfect-scrollbar>
-                        </div>
-                        <div class="app-modal-footer">
-                          <button type="button" class="btn btn-primary ripple light" (click)="modalLarge.hide()">
-                            Close
-                          </button>
-                        </div>
-                      </app-modal-basic>
+                      <div class="col-sm-2">
+                        <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
+                          <div class="app-modal-header">
+                            <h4 class="modal-title">Interest Instruction</h4>
+                            <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="app-modal-body">
+                            <perfect-scrollbar style="max-width: 800px; max-height: 450px">
+                              <app-interest-instruction> </app-interest-instruction>
+                            </perfect-scrollbar>
+                          </div>
+                          <div class="app-modal-footer">
+                            <button type="button" class="btn btn-primary ripple light" (click)="modalLarge.hide()">
+                              Close
+                            </button>
+                          </div>
+                        </app-modal-basic>
+                      </div>
                     </div>
                   </ng-template>
                 </ngb-tab>
