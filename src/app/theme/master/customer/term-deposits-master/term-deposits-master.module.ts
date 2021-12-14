@@ -24,6 +24,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { TermDepositMasterService } from './term-deposits-master.service'
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { TermDepositSchemeService } from '../../../utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service'
 import { DatePipe } from '@angular/common';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { InterestInstructionModule } from '../../instruction/interest-instruction/interest-instruction.module'
@@ -51,6 +52,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     OperationMasterDropdownService, categoryMasterService,
     IntrestCategoryMasterDropdownService, AccountcodeService,
     TitleService,
+    TermDepositSchemeService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
