@@ -84,9 +84,9 @@
                                                 (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-                                        <td>{{ data.SIZE_SR_NO}}</td>
-                                        <td>{{ data.SIZE_NAME}}</td>
-                                        <td>{{ data.RENT}}</td>
+                                        <td class="td_right">{{ data.SIZE_SR_NO}}</td>
+                                        <td class="td_right">{{ data.SIZE_NAME}}</td>
+                                        <td class="td_right">{{ data.RENT}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="lockerSizeMaster?.length == 0">

@@ -463,7 +463,7 @@
                             [disabled]="angForm.invalid">Update</button> &nbsp;
                           <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
                         </div>
-                      </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -489,20 +489,20 @@
                                         <td>{{data.S_APPL }}</td>
                                         <td>{{data.S_NAME }}</td>
                                         <td>{{data.S_SHNAME }}</td>
-                                        <td>{{data.S_GLACNO }}</td>
-                                        <td>{{data.S_INT_ACNO }}</td>
+                                        <td class="td_right">{{data.S_GLACNO }}</td>
+                                        <td class="td_right">{{data.S_INT_ACNO }}</td>
                                         <td>{{data.S_INT_APPLICABLE }}</td>
-                                        <td>{{data.POST_TO_INDIVIDUAL_AC }}</td>
+                                        <td class="td_right">{{data.POST_TO_INDIVIDUAL_AC }}</td>
                                         <td>{{data.S_PRODUCT_DAY_BASE }}</td>
                                         <td>{{data.S_PRODUCT_DAY_BASE_END }}</td>
-                                        <td>{{data.MIN_INT_LIMIT }}</td>
+                                        <td class="td_right">{{data.MIN_INT_LIMIT }}</td>
                                         <td>{{data.STAND_INSTRUCTION_ALLOW }}</td>
-                                        <td>{{data.ROUNDOFF_FACTOR }}</td>
-                                        <td>{{data.CHEQUEBOOK_MIN_BAL }}</td>
+                                        <td class="td_right">{{data.ROUNDOFF_FACTOR }}</td>
+                                        <td class="td_right">{{data.CHEQUEBOOK_MIN_BAL }}</td>
                                         <td>{{data.BALANCE_ADD_APPLICABLE }}</td>
                                         <td>{{data.DORMANT_FLAG_APPLICABLE }}</td>
-                                        <td>{{data.OVERDRAFT_INTEREST_APPLICABLE}}</td>
-                                        <td>{{data.OVERDRAFT_INTEREST_RATE }}</td>
+                                        <td class="td_right">{{data.OVERDRAFT_INTEREST_APPLICABLE}}</td>
+                                        <td class="td_right">{{data.OVERDRAFT_INTEREST_RATE }}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="currentScheme?.length == 0">

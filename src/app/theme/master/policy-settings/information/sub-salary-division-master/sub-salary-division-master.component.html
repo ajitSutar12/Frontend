@@ -8,18 +8,7 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md">
-                            <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="division" [multiple]="false" placeholder="Division Code *" required title="Compulsory Selection" formControlName="SAL_CODE" [(ngModel)]="id" (selected)="checkId(id)">
-                                </ng-select>
-                            </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SAL_CODE'].invalid && (angForm.controls['SAL_CODE'].dirty || angForm.controls['SAL_CODE'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['SAL_CODE'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md">
+                        <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="CODE" class="form-control" placeholder=" " id="CODE"
@@ -30,7 +19,19 @@
                             </div>
 
                         </div>
-                        <div class="col-md">
+                        <div class="col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="division" [multiple]="false" placeholder="Division Code *" required title="Compulsory Selection" formControlName="SAL_CODE" [(ngModel)]="id" (selected)="checkId(id)">
+                                </ng-select>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['SAL_CODE'].invalid && (angForm.controls['SAL_CODE'].dirty || angForm.controls['SAL_CODE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['SAL_CODE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-7">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="NAME" class="form-control" placeholder=" " id="NAME"
@@ -99,7 +100,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_EMAILID" class="form-control" placeholder=" "
-                                        id="AC_EMAILID" pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="100"
+                                        id="AC_EMAILID" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.com$" title="Enter valid Email" maxlength="100"
                                         formControlName="AC_EMAILID">
                                     <label for="AC_EMAILID">Email ID</label>
                                 </span>
@@ -129,7 +130,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="MOBNO" class="form-control" placeholder=" "
-                                        id="MOBNO" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="10" minlength="10"
+                                        id="MOBNO" pattern="[6-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9" maxlength="11" minlength="10"
                                         formControlName="MOBNO">
                                     <label for="MOBNO">Telephone (Mob)</label>
                                 </span>
@@ -164,15 +165,15 @@
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-                                        <td>{{ data.SAL_CODE }}</td>
-                                        <td>{{ data.CODE }}</td>
+                                        <td class="td_right">{{ data.SAL_CODE }}</td>
+                                        <td class="td_right">{{ data.CODE }}</td>
                                         <td>{{ data.NAME }}</td>
                                         <td>{{data.AT_POST}}</td>
                                         <td>{{data.TALUKA_NAME}}</td>
                                         <td>{{data.DISTRICT_NAME}}</td>
                                         <td>{{data.AC_EMAILID}}</td>
-                                        <td>{{data.PHNO}}</td>
-                                        <td>{{data.MOBNO}}</td>
+                                        <td class="td_right">{{data.PHNO}}</td>
+                                        <td class="td_right">{{data.MOBNO}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="subsalarymasters?.length == 0">

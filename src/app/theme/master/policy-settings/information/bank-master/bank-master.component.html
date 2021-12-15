@@ -8,7 +8,7 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md">
+                        <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="BANK_CODE" class="form-control" placeholder=" "
@@ -18,7 +18,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-md-6">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="BANK_NAME" class="form-control" placeholder=" "
@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="BANK_SHORTNAME" class="form-control" placeholder=" "
@@ -51,8 +51,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm">
-                            <h6>Clearing House Details</h6>
+                        <div class="col-md">
+                            <h6><b>Clearing House Details :</b></h6>
                             <br>
                         </div>
                         <div class="col-md">
@@ -74,7 +74,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="BANKCODE" class="form-control" placeholder=" "
-                                        id="CBankCode" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="2"
+                                        id="CBankCode" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="3"
                                         formControlName="BANKCODE">
                                     <label for="CBankCode">Bank Code</label>
                                 </span>
@@ -86,9 +86,13 @@
                             </div>
                         </div>
                     </div>
-                    <h6>DD Details</h6>
+                    
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-md-2">
+                            <h6><b>DD Details :</b></h6>
+                            <br>
+                        </div>
+                        <div class="col-md">
                             <div class="border-checkbox-section">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" name="DD_APPLICABLE" id="checkbox1" value="checkbox" formControlName="DD_APPLICABLE">
@@ -129,6 +133,7 @@
                     </div>
                     <br>
                     <div class="row">
+                        
                         <div class="col-sm">
                             <div class="border-checkbox-section">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
@@ -160,6 +165,9 @@
                     <br>
                     <div class="row">
                         <div class="col-sm">
+
+                        </div>
+                        <div class="col-sm-3">
                             <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>&nbsp;
                             <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
@@ -183,7 +191,7 @@
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-                                        <td>{{ data.BANK_CODE }}</td>
+                                        <td  class="td_right">{{ data.BANK_CODE }}</td>
                                         <td>{{ data.BANK_NAME }}</td>
                                         <td>{{ data.BANK_SHORTNAME }}</td>
                                         <td>{{ data.LEDGER_CODE }}</td>

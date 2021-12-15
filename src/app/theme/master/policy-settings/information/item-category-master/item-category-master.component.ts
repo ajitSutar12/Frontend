@@ -65,6 +65,7 @@ export class ItemCategoryMasterComponent implements OnInit, AfterViewInit, OnDes
 
   // column filter
   filterData = {};
+  newbtnShow: boolean;
 
   constructor(
     private http: HttpClient,
@@ -173,6 +174,7 @@ export class ItemCategoryMasterComponent implements OnInit, AfterViewInit, OnDes
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.itemCategoryMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -189,11 +191,17 @@ export class ItemCategoryMasterComponent implements OnInit, AfterViewInit, OnDes
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
+      this.newbtnShow = false;
       this.rerender();
       this.resetForm();
     })
   }
-
+  addNewData(){
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({

@@ -62,7 +62,7 @@ const routes = [
         children: [
             {
                 path: 'gl-statement-code',
-                loadChildren: () => Promise.all(/*! import() | gl-statement-code-gl-statement-code-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("gl-statement-code-gl-statement-code-module")]).then(__webpack_require__.bind(null, /*! ./gl-statement-code/gl-statement-code.module */ "./src/app/theme/master/general-ledger/gl-statement-code/gl-statement-code.module.ts")).then(m => m.GlStatementCodeModule)
+                loadChildren: () => Promise.all(/*! import() | gl-statement-code-gl-statement-code-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~2f043d06"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~1bb213db"), __webpack_require__.e("gl-statement-code-gl-statement-code-module")]).then(__webpack_require__.bind(null, /*! ./gl-statement-code/gl-statement-code.module */ "./src/app/theme/master/general-ledger/gl-statement-code/gl-statement-code.module.ts")).then(m => m.GlStatementCodeModule)
             },
             {
                 path: 'gl-accounts-master',

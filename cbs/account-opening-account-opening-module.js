@@ -179,12 +179,78 @@ class SchemeCodeDropdownService {
             return this.schemeObject;
         }));
     }
+    getTermDepositeScheme() {
+        return this.http.get(this.url + '/scheme-parameters/')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
+            ele.forEach(element => {
+                let obj = { label: element.S_ACNOTYPE + ' ' + element.S_APPL, value: `${element.id}` };
+                this.schemeObject.push(obj);
+            });
+            return this.schemeObject;
+        }));
+    }
 }
 SchemeCodeDropdownService.ɵfac = function SchemeCodeDropdownService_Factory(t) { return new (t || SchemeCodeDropdownService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
 SchemeCodeDropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: SchemeCodeDropdownService, factory: SchemeCodeDropdownService.ɵfac });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SchemeCodeDropdownService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
     }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/shared/elements/scheme1.service.ts":
+/*!****************************************************!*\
+  !*** ./src/app/shared/elements/scheme1.service.ts ***!
+  \****************************************************/
+/*! exports provided: Scheme1Service */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Scheme1Service", function() { return Scheme1Service; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+class Scheme1Service {
+    getCharacters() {
+        return this.cloneOptions(Scheme1Service.PLAYER_ONE);
+    }
+    loadCharacters() {
+        return this.loadOptions(Scheme1Service.PLAYER_ONE);
+    }
+    getCharactersWithDisabled() {
+        const characters = this.cloneOptions(Scheme1Service.PLAYER_ONE);
+        characters[1].disabled = true;
+        characters[4].disabled = true;
+        return characters;
+    }
+    loadOptions(options) {
+        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
+            setTimeout(() => {
+                obs.next(this.cloneOptions(options));
+                obs.complete();
+            }, 5000);
+        });
+    }
+    cloneOptions(options) {
+        return options.map(option => ({ value: option.value, label: option.label }));
+    }
+}
+Scheme1Service.PLAYER_ONE = [
+    { value: '0', label: '111' },
+    { value: '1', label: '222' },
+    { value: '2', label: '333' },
+    { value: '3', label: 'NA' }
+];
+Scheme1Service.ɵfac = function Scheme1Service_Factory(t) { return new (t || Scheme1Service)(); };
+Scheme1Service.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: Scheme1Service, factory: Scheme1Service.ɵfac });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](Scheme1Service, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+    }], null, null); })();
 
 
 /***/ }),
@@ -466,7 +532,7 @@ function AccountOpeningComponent_button_133_Template(rf, ctx) { if (rf & 1) {
     const _r35 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 65);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AccountOpeningComponent_button_133_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r35); const ctx_r34 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r34.addNewData(); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "New");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Cancel");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function AccountOpeningComponent_tbody_142_tr_1_Template(rf, ctx) { if (rf & 1) {

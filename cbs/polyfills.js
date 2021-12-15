@@ -3249,7 +3249,7 @@ window.global = window;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\CBS ZIP FOLDER\12-11-2021\Frontend\src\polyfills.ts */"./src/polyfills.ts");
+module.exports = __webpack_require__(/*! G:\0.Full-version 9-12-2021\Frontend\src\polyfills.ts */"./src/polyfills.ts");
 
 
 /***/ })

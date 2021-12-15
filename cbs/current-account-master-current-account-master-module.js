@@ -1,102 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["current-account-master-current-account-master-module"],{
 
-/***/ "./src/app/shared/dropdownService/category-master-dropdown.service.ts":
-/*!****************************************************************************!*\
-  !*** ./src/app/shared/dropdownService/category-master-dropdown.service.ts ***!
-  \****************************************************************************/
-/*! exports provided: categoryMasterService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "categoryMasterService", function() { return categoryMasterService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-
-
-
-
-
-class categoryMasterService {
-    constructor(http) {
-        this.http = http;
-        this.categoryMasterObject = new Array();
-        // API 
-        // // category-master"; 
-        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].base_url;
-    }
-    getcategoryList() {
-        this.categoryMasterObject = [];
-        return this.http.get(this.url + '/category-master')
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
-            ele.forEach(element => {
-                let obj = { label: element.NAME, value: `${element.id}` };
-                this.categoryMasterObject.push(obj);
-            });
-            return this.categoryMasterObject;
-        }));
-    }
-}
-categoryMasterService.ɵfac = function categoryMasterService_Factory(t) { return new (t || categoryMasterService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
-categoryMasterService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: categoryMasterService, factory: categoryMasterService.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](categoryMasterService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
-
-
-/***/ }),
-
-/***/ "./src/app/shared/dropdownService/customer-id-master-dropdown.service.ts":
-/*!*******************************************************************************!*\
-  !*** ./src/app/shared/dropdownService/customer-id-master-dropdown.service.ts ***!
-  \*******************************************************************************/
-/*! exports provided: CustomerIDMasterDropdownService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomerIDMasterDropdownService", function() { return CustomerIDMasterDropdownService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-
-
-
-
-
-class CustomerIDMasterDropdownService {
-    constructor(http) {
-        this.http = http;
-        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].base_url;
-        this.customerIDMasterObject = new Array();
-    }
-    loadCharacters() {
-        throw new Error('Method not implemented.');
-    }
-    getCustomerIDMasterList() {
-        this.customerIDMasterObject = [];
-        return this.http.get(this.url + '/customer-id')
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
-            ele.forEach(element => {
-                let obj = { label: element.AC_NO + ' ' + element.AC_NAME, value: `${element.id}` };
-                this.customerIDMasterObject.push(obj);
-            });
-            return this.customerIDMasterObject;
-        }));
-    }
-}
-CustomerIDMasterDropdownService.ɵfac = function CustomerIDMasterDropdownService_Factory(t) { return new (t || CustomerIDMasterDropdownService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
-CustomerIDMasterDropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: CustomerIDMasterDropdownService, factory: CustomerIDMasterDropdownService.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](CustomerIDMasterDropdownService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
-
-
-/***/ }),
-
 /***/ "./src/app/shared/dropdownService/director-master-dropdown.service.ts":
 /*!****************************************************************************!*\
   !*** ./src/app/shared/dropdownService/director-master-dropdown.service.ts ***!
@@ -152,113 +55,6 @@ class DirectorMasterDropdownService {
 DirectorMasterDropdownService.ɵfac = function DirectorMasterDropdownService_Factory(t) { return new (t || DirectorMasterDropdownService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
 DirectorMasterDropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: DirectorMasterDropdownService, factory: DirectorMasterDropdownService.ɵfac });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](DirectorMasterDropdownService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
-
-
-/***/ }),
-
-/***/ "./src/app/shared/dropdownService/own-branch-master-dropdown.service.ts":
-/*!******************************************************************************!*\
-  !*** ./src/app/shared/dropdownService/own-branch-master-dropdown.service.ts ***!
-  \******************************************************************************/
-/*! exports provided: OwnbranchMasterService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OwnbranchMasterService", function() { return OwnbranchMasterService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-
-
-
-
-
-class OwnbranchMasterService {
-    constructor(http) {
-        this.http = http;
-        this.OwnbranchMasterObject = new Array();
-        // API 
-        //// own-branch-master"; 
-        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].base_url;
-    }
-    getOwnbranchList() {
-        this.OwnbranchMasterObject = [];
-        return this.http.get(this.url + '/own-branch-master')
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
-            ele.forEach(element => {
-                let obj = { label: element.CODE + ' ' + element.NAME, value: `${element.id}` };
-                this.OwnbranchMasterObject.push(obj);
-            });
-            return this.OwnbranchMasterObject;
-        }));
-    }
-}
-OwnbranchMasterService.ɵfac = function OwnbranchMasterService_Factory(t) { return new (t || OwnbranchMasterService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
-OwnbranchMasterService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: OwnbranchMasterService, factory: OwnbranchMasterService.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](OwnbranchMasterService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
-
-
-/***/ }),
-
-/***/ "./src/app/shared/dropdownService/scheme-code-dropdown.service.ts":
-/*!************************************************************************!*\
-  !*** ./src/app/shared/dropdownService/scheme-code-dropdown.service.ts ***!
-  \************************************************************************/
-/*! exports provided: SchemeCodeDropdownService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SchemeCodeDropdownService", function() { return SchemeCodeDropdownService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-
-
-
-
-
-class SchemeCodeDropdownService {
-    constructor(http) {
-        this.http = http;
-        this.schemeCodeObject = new Array();
-        this.schemeObject = new Array();
-        // // scheme-parameters";
-        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].base_url;
-    }
-    getSchemeCodeList(scheme) {
-        this.schemeCodeObject = [];
-        return this.http.get(this.url + '/scheme-parameters/' + scheme)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
-            ele.forEach(element => {
-                let obj = { label: element.S_APPL + ' ' + element.S_NAME, value: `${element.id}`, name: element.S_APPL };
-                this.schemeCodeObject.push(obj);
-            });
-            return this.schemeCodeObject;
-        }));
-    }
-    getAllSchemeList() {
-        this.schemeObject = [];
-        return this.http.get(this.url + '/scheme-parameters/')
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
-            ele.forEach(element => {
-                let obj = { label: element.S_ACNOTYPE + ' ' + element.S_NAME, value: `${element.S_ACNOTYPE}` };
-                this.schemeObject.push(obj);
-            });
-            return this.schemeObject;
-        }));
-    }
-}
-SchemeCodeDropdownService.ɵfac = function SchemeCodeDropdownService_Factory(t) { return new (t || SchemeCodeDropdownService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
-SchemeCodeDropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: SchemeCodeDropdownService, factory: SchemeCodeDropdownService.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SchemeCodeDropdownService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
     }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
 
@@ -433,7 +229,7 @@ function CurrentAccountMasterComponent_button_53_Template(rf, ctx) { if (rf & 1)
     const _r22 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 53);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function CurrentAccountMasterComponent_button_53_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r22); const ctx_r21 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r21.addNewData(); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "New");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Cancel");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function CurrentAccountMasterComponent_div_54_Template(rf, ctx) { if (rf & 1) {
@@ -2750,6 +2546,7 @@ class CurrentAccountMasterComponent {
             'AC_NAME': formVal.AC_NAME,
             'AC_SCHMAMT': formVal.AC_SCHMAMT,
             'REF_ACNO': formVal.REF_ACNO,
+            'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
             //temp address 
             AC_ADDFLAG: formVal.AC_ADDFLAG,
             AC_ADDTYPE: this.addType,
@@ -2820,6 +2617,7 @@ class CurrentAccountMasterComponent {
                 'AC_OPDATE': data.AC_OPDATE,
                 'AC_SCHMAMT': data.AC_SCHMAMT,
                 'REF_ACNO': data.REF_ACNO,
+                'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
                 //minor and introducer
                 // 'AC_MINOR': data.AC_MINOR,
                 // 'AC_MBDATE': data.AC_MBDATE,

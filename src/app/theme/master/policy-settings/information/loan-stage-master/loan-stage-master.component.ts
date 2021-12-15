@@ -67,6 +67,7 @@ export class LoanStageMasterComponent implements OnInit, AfterViewInit, OnDestro
   updateID: number = 0;
   //filter variable
   filterData = {};
+  newbtnShow: boolean;
 
 
   constructor(
@@ -161,6 +162,7 @@ export class LoanStageMasterComponent implements OnInit, AfterViewInit, OnDestro
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.loanstageService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -177,9 +179,17 @@ export class LoanStageMasterComponent implements OnInit, AfterViewInit, OnDestro
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
+      this.newbtnShow = false;
       this.rerender();
       this.resetForm();
     })
+  }
+
+  addNewData(){
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
   }
   //Method for delete data
   delClickHandler(id: number) {

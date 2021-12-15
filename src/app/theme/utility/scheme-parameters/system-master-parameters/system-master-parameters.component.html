@@ -18,7 +18,7 @@
                                                 <div class="card-block">
 
                                                     <div class="row">
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="BANK_CODE"
@@ -39,7 +39,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-7">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="BANK_NAME"
@@ -62,7 +62,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <ng-select [ngClass]="'ng-select'"
                                                                     [options]="OwnbranchMasterDropdown"
@@ -82,17 +82,34 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <!-- <div class="col-sm-3">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <ng-select [ngClass]="'ng-select'" [options]="OwnbranchMasterDropdown" [multiple]="false"
+                                                                    placeholder="Branch*" required title="Compulsory Selection"
+                                                                    formControlName="BRANCH_CODE">
+                                                                </ng-select>
+                                                               
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                                            class="alert alert-danger">
+                                                            <div
+                                                                *ngIf=" angForm.controls['BRANCH_CODE'].errors?.required || angForm.controls['BRANCH_CODE'].errors?.maxlength">
+                                                                This field is required
+                                                            </div>
+                                                        </div>
+                                                        </div> -->
 
                                                     </div>
                                                      <div class="row">
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-7">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <textarea type="text" name="ADDRESS"
                                                                         class="form-control" placeholder=" "
-                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        pattern="^[A-Za-z\./ - 0-9]+$"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                        id="ADDRESS" maxlength="4000"
+                                                                        id="ADDRESS" maxlength="100"
                                                                         formControlName="ADDRESS"></textarea>
                                                                     <label for="ADDRESS">Bank Address<sub
                                                                             class="required">* </sub></label>
@@ -108,12 +125,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="COMPANY_START_DATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="COMPANY_START_DATE" max="9999-12-31"
+                                                                        id="COMPANY_START_DATE" max="{{datemax | date:'yyyy-MM-dd'}}"
                                                                         onfocus="(this.type='date')"
                                                                         formControlName="COMPANY_START_DATE">
                                                                     <label for="COMPANY_START_DATE">Bank Start
@@ -129,7 +146,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="NO_OF_EMPLOYEES"
@@ -158,7 +175,7 @@
 
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md">
+                                                        <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="ACCOUNTANT"
@@ -181,7 +198,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md">
+                                                        <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="GENERAL_MANAGER"
@@ -206,7 +223,7 @@
                                                             </div>
 
                                                         </div>
-                                                        <div class="col-md">
+                                                        <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="CHAIRMAN"
@@ -236,7 +253,7 @@
 
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md">
+                                                        <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="OFFICER_NAME"
@@ -259,7 +276,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md">
+                                                        <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="OFFICER_DESIGNATION"
@@ -285,7 +302,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md">
+                                                        <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="RBI_LICENCE_NO"
@@ -315,7 +332,7 @@
 
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md">
+                                                        <div class="col-sm-6">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="MANAGER_NAME"
@@ -338,7 +355,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="BRANCH_CITY_NAME"
@@ -363,7 +380,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="COMPANY_CODE"
@@ -2005,15 +2022,15 @@
                                                 <div class="card-block">
 
                                                     <div class="row">
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="PREVIOUS_DATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="PREVIOUS_DATE" max="9999-12-31"
+                                                                        id="PREVIOUS_DATE" max="{{datemax | date:'yyyy-MM-dd'}}"
                                                                         onfocus="(this.type='date')"
                                                                         formControlName="PREVIOUS_DATE">
-                                                                    <label for="PREVIOUS_DATE">Previous Date</label>
+                                                                    <label for="PREVIOUS_DATE">Previous Date <sub class="required">* </sub></label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -2025,15 +2042,15 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="CURRENT_DATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="CURRENT_DATE" max="9999-12-31"
+                                                                        id="CURRENT_DATE" max="{{datemax | date:'yyyy-MM-dd'}}"
                                                                         onfocus="(this.type='date')"
                                                                         formControlName="CURRENT_DATE">
-                                                                    <label for="CURRENT_DATE"> Current Date</label>
+                                                                    <label for="CURRENT_DATE"> Current Date<sub class="required">* </sub></label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -2046,44 +2063,58 @@
                                                             </div>
                                                         </div>
 
-
+                                                        <!-- <div class="col-sm">
+                                                            <div class="form-radio">
+                                                                <div class="radio radio-inline">
+                                                                    <label>
+                                                                        <input type="radio" id="DAY_BEGIN_EXECUTED"
+                                                                            value="DayBeginExecuted" name="DAY_BEGIN_EXECUTED"
+                                                                            formControlName="DAY_BEGIN_EXECUTED">
+                                                                        <i class="helper"></i>Day Begin Executed<sub class="required">* </sub>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="radio radio-inline">
+                                                                    <label>
+                                                                        <input type="radio" id="DAY_END_EXECUTED"
+                                                                            value="DayEndExecuted" name="DAY_END_EXECUTED"
+                                                                            formControlName="DAY_END_EXECUTED">
+                                                                        <i class="helper"></i>Day End Executed<sub class="required">* </sub>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
                                                         <div class="col-sm">
                                                             <div class="form-radio">
                                                                 <div class="radio radio-inline">
                                                                     <label>
-                                                                        <input type="radio" value="DayBeginExecuted"
-                                                                            name="DAY_BEGIN_EXECUTED"
+                                                                        <input type="radio" id="DAY_BEGIN_EXECUTED"
+                                                                            value="DayBeginExecuted" name="DAY_BEGIN_EXECUTED"
                                                                             formControlName="DAY_BEGIN_EXECUTED">
-                                                                        <i class="helper"></i>Day Begin Executed<span
-                                                                            class="required">
-                                                                        </span>
+                                                                        <i class="helper"></i>Day Begin Executed<sub class="required">* </sub>
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio radio-inline">
                                                                     <label>
-                                                                        <input type="radio" value="DayEndExecuted"
-                                                                            name="DAY_END_EXECUTED"
-                                                                            formControlName="DAY_END_EXECUTED">
-                                                                        <i class="helper"></i>Day End Executed<span
-                                                                            class="required">
-                                                                        </span>
+                                                                        <input type="radio" id="DAY_BEGIN_EXECUTED"
+                                                                            value="DayEndExecuted" name="DAY_BEGIN_EXECUTED"
+                                                                            formControlName="DAY_BEGIN_EXECUTED">
+                                                                        <i class="helper"></i>Day End Executed<sub class="required">* </sub>
                                                                     </label>
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="PIGMY_PREVIOUS_DATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="PIGMY_PREVIOUS_DATE" max="9999-12-31"
+                                                                        id="PIGMY_PREVIOUS_DATE" max="{{datemax | date:'yyyy-MM-dd'}}"
                                                                         onfocus="(this.type='date')"
                                                                         formControlName="PIGMY_PREVIOUS_DATE">
                                                                     <label for="PIGMY_PREVIOUS_DATE"> Pigmy Previous
-                                                                        Date</label>
+                                                                        Date<sub class="required">* </sub></label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -2095,16 +2126,16 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm">
+                                                        <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="PIGMY_CURRENT_DATE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="PIGMY_CURRENT_DATE" max="9999-12-31"
+                                                                        id="PIGMY_CURRENT_DATE" max="{{datemax | date:'yyyy-MM-dd'}}"
                                                                         onfocus="(this.type='date')"
                                                                         formControlName="PIGMY_CURRENT_DATE">
                                                                     <label for="PIGMY_CURRENT_DATE">Pigmy Current
-                                                                        Date</label>
+                                                                        Date <sub class="required">* </sub></label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -2121,29 +2152,24 @@
                                                             <div class="form-radio">
                                                                 <div class="radio radio-inline">
                                                                     <label>
-                                                                        <input type="radio" value="DayBeginExecuted"
-                                                                            name="PIGMY_DAY_BEGIN_EXECUTED"
+                                                                        <input type="radio" id="PIGMY_DAY_BEGIN_EXECUTED"
+                                                                            value="DayBeginExecuted" name="PIGMY_DAY_BEGIN_EXECUTED"
                                                                             formControlName="PIGMY_DAY_BEGIN_EXECUTED">
-                                                                        <i class="helper"></i>Day Begin Executed<span
-                                                                            class="required">
-                                                                        </span>
+                                                                        <i class="helper"></i>Day Begin Executed<sub class="required">* </sub>
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio radio-inline">
                                                                     <label>
-                                                                        <input type="radio" value="DayEndExecuted"
-                                                                            name="PIGMY_DAY_END_EXECUTED"
-                                                                            formControlName="PIGMY_DAY_END_EXECUTED">
-                                                                        <i class="helper"></i>Day End Executed<span
-                                                                            class="required">
-                                                                        </span>
+                                                                        <input type="radio" id="PIGMY_DAY_BEGIN_EXECUTED"
+                                                                            value="DayEndExecuted" name="PIGMY_DAY_BEGIN_EXECUTED"
+                                                                            formControlName="PIGMY_DAY_BEGIN_EXECUTED">
+                                                                        <i class="helper"></i>Day End Executed<sub class="required">* </sub>
                                                                     </label>
                                                                 </div>
-
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-block">
+                                                   
                                                         <div class="row">
                                                             <div class="col-sm">
                                                                 <div class="form-group form-primary form-static-label">
@@ -2188,9 +2214,9 @@
                                                             </div>
 
                                                         </div>
-                                                    </div>
+                                                   
 
-                                                    <div class="card-block">
+                                                    
                                                         <div class="row">
                                                             <div class="col-sm">
                                                                 <div class="form-group form-primary form-static-label">
@@ -2257,7 +2283,7 @@
                                                             </div>
 
                                                         </div>
-                                                    </div>
+                                                    
                                                     
 
 
@@ -2270,6 +2296,7 @@
                         </ngb-tab>
 
                     </ngb-tabset>
+
                     <div class="row">
                         <div class="col-sm-9">
 
@@ -2281,7 +2308,7 @@
                             [disabled]="angForm.invalid">Update</button> &nbsp;
                           <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
                         </div>
-                      </div>
+                    </div>
                 </div>
             </form>
 

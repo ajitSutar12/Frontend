@@ -69,6 +69,21 @@ exports.map = map;
 
 /***/ }),
 
+/***/ "./node_modules/rxjs/add/operator/map.js":
+/*!***********************************************!*\
+  !*** ./node_modules/rxjs/add/operator/map.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(/*! rxjs-compat/add/operator/map */ "./node_modules/rxjs-compat/add/operator/map.js");
+//# sourceMappingURL=map.js.map
+
+/***/ }),
+
 /***/ "./src/app/theme/master/signature-scanning/signature-scanning-routing.module.ts":
 /*!**************************************************************************************!*\
   !*** ./src/app/theme/master/signature-scanning/signature-scanning-routing.module.ts ***!

@@ -807,7 +807,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       S_PRODUCT_DAY_BASE: [0, [Validators.max(31)]],
       S_PRODUCT_DAY_BASE_END: [''],
       IS_PRODUCTUPTODATE: ['', [Validators.pattern]],
-      IS_START_WITH_MONTHS: [',[Validators.pattern]'],
+      IS_START_WITH_MONTHS: ['',[Validators.pattern]],
       IS_PRODUCT_BAL_BASE: [''],
       IS_DAYSBASE_INSTRUCTION: ['', [Validators.pattern]],
       IS_INTUPTODATE: ['', [Validators.pattern]],
@@ -1133,9 +1133,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         'S_PAYABLE_INT_ALLOW': data.S_PAYABLE_INT_ALLOW,
         'IS_INT_ON_DEPO_AMT': data.IS_INT_ON_DEPO_AMT,
         'MIN_INT_LIMIT': data.MIN_INT_LIMIT,
-
         'IS_INTUPTODATE': data.IS_INTUPTODATE,
-
         'ROUNDOFF_FACTOR': data.ROUNDOFF_FACTOR,
         'S_INTCALTP': data.S_INTCALTP,
         'S_PRODUCT_DAY_BASE': data.S_PRODUCT_DAY_BASE,
@@ -1196,9 +1194,9 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         'LESS_PREMATURE_INT_RATE': data.LESS_PREMATURE_INT_RATE,
         'PREMATURE_INTRATE_ASPER': data.PREMATURE_INTRATE_ASPER,
         'AFTER_MATURE_INT_RATE': data.AFTER_MATURE_INT_RATE,
-        'TD_RECEIPT_METHOD': data.TD_RECEIPT_METHOD
-
-
+        'TD_RECEIPT_METHOD': data.TD_RECEIPT_METHOD,
+  
+  
 
       })
     })

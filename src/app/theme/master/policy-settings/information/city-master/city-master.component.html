@@ -8,7 +8,7 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md">
+                        <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="CITY_CODE" class="form-control" placeholder=" " maxlength="4"
@@ -137,7 +137,7 @@
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
 
-                                        <td>{{ data.CITY_CODE }}</td>
+                                        <td  class="td_right">{{ data.CITY_CODE }}</td>
                                         <td>{{ data.CITY_NAME }}</td>
                                         <td>{{ data.DISTANCE }}</td>
                                         <td>{{ data.TALUKA_CODE }}</td>

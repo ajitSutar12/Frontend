@@ -98,10 +98,10 @@
                                                 (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-                                        <td>{{ data.RACK_NO}}</td>
-                                        <td>{{ data.LOCKER_NO}}</td>
-                                        <td>{{ data.KEY_NO}}</td>
-                                        <td>{{ data.SIZE_SR_NO}}</td>
+                                        <td class="td_right">{{ data.RACK_NO}}</td>
+                                        <td class="td_right">{{ data.LOCKER_NO}}</td>
+                                        <td class="td_right">{{ data.KEY_NO}}</td>
+                                        <td class="td_right">{{ data.SIZE_SR_NO}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="lockerRackWiseMaster?.length == 0">

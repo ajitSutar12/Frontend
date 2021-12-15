@@ -45,7 +45,7 @@ const routes = [{
             },
             {
                 path: 'Instruction',
-                loadChildren: () => Promise.all(/*! import() | instruction-instruction-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("default~day-book-ie-day-book-ie-module~dead-stock-transaction-dead-stock-transaction-module~demand-d~0b944824"), __webpack_require__.e("common"), __webpack_require__.e("instruction-instruction-module")]).then(__webpack_require__.bind(null, /*! ./instruction/instruction.module */ "./src/app/theme/master/instruction/instruction.module.ts")).then(m => m.InstructionModule)
+                loadChildren: () => Promise.all(/*! import() | instruction-instruction-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("default~day-book-ie-day-book-ie-module~dead-stock-transaction-dead-stock-transaction-module~demand-d~0b944824"), __webpack_require__.e("instruction-instruction-module")]).then(__webpack_require__.bind(null, /*! ./instruction/instruction.module */ "./src/app/theme/master/instruction/instruction.module.ts")).then(m => m.InstructionModule)
             },
             {
                 path: 'Investment',
@@ -57,7 +57,7 @@ const routes = [{
             },
             {
                 path: 'SignatureScanning',
-                loadChildren: () => Promise.all(/*! import() | signature-scanning-signature-scanning-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("common"), __webpack_require__.e("signature-scanning-signature-scanning-module")]).then(__webpack_require__.bind(null, /*! ./signature-scanning/signature-scanning.module */ "./src/app/theme/master/signature-scanning/signature-scanning.module.ts")).then(m => m.SignatureScanningModule)
+                loadChildren: () => Promise.all(/*! import() | signature-scanning-signature-scanning-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("signature-scanning-signature-scanning-module")]).then(__webpack_require__.bind(null, /*! ./signature-scanning/signature-scanning.module */ "./src/app/theme/master/signature-scanning/signature-scanning.module.ts")).then(m => m.SignatureScanningModule)
             },
             {
                 path: 'DDBankCityMaster',

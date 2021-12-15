@@ -1,5 +1,100 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["saving-master-saving-master-module"],{
 
+/***/ "./node_modules/rxjs-compat/Observable.js":
+/*!************************************************!*\
+  !*** ./node_modules/rxjs-compat/Observable.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var rxjs_1 = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+exports.Observable = rxjs_1.Observable;
+//# sourceMappingURL=Observable.js.map
+
+/***/ }),
+
+/***/ "./node_modules/rxjs/Observable.js":
+/*!*****************************************!*\
+  !*** ./node_modules/rxjs/Observable.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+__export(__webpack_require__(/*! rxjs-compat/Observable */ "./node_modules/rxjs-compat/Observable.js"));
+//# sourceMappingURL=Observable.js.map
+
+/***/ }),
+
+/***/ "./src/app/shared/dropdownService/director-master-dropdown.service.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/shared/dropdownService/director-master-dropdown.service.ts ***!
+  \****************************************************************************/
+/*! exports provided: DirectorMasterDropdownService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DirectorMasterDropdownService", function() { return DirectorMasterDropdownService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+
+
+
+
+
+class DirectorMasterDropdownService {
+    constructor(http) {
+        this.http = http;
+        //  // director-master";
+        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].base_url;
+        this.directorMasterObject = new Array();
+        this.directorObject = new Array();
+    }
+    getDirectorMasterList() {
+        this.directorMasterObject = [];
+        return this.http.get(this.url + '/director-master')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
+            ele.forEach(element => {
+                let obj = { label: element.NAME, value: `${element.id}`, name: element.IS_CURRENT_BODY_MEMBER };
+                this.directorMasterObject.push(obj);
+            });
+            return this.directorMasterObject;
+        }));
+    }
+    getDirectorMastertrueList() {
+        this.directorObject = [];
+        return this.http.get(this.url + '/director-master')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
+            ele.forEach(element => {
+                if (element.IS_CURRENT_BODY_MEMBER == true) {
+                    let obj = { label: element.NAME, value: `${element.id}` };
+                    this.directorObject.push(obj);
+                }
+            });
+            return this.directorObject;
+        }));
+    }
+}
+DirectorMasterDropdownService.ɵfac = function DirectorMasterDropdownService_Factory(t) { return new (t || DirectorMasterDropdownService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
+DirectorMasterDropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: DirectorMasterDropdownService, factory: DirectorMasterDropdownService.ɵfac });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](DirectorMasterDropdownService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
+
+
+/***/ }),
+
 /***/ "./src/app/theme/master/customer/saving-master/saving-master-routing.module.ts":
 /*!*************************************************************************************!*\
   !*** ./src/app/theme/master/customer/saving-master/saving-master-routing.module.ts ***!
@@ -169,7 +264,7 @@ function SavingMasterComponent_button_53_Template(rf, ctx) { if (rf & 1) {
     const _r22 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 67);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function SavingMasterComponent_button_53_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r22); const ctx_r21 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r21.addNewData(); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, " New ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, " Cancel ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function SavingMasterComponent_div_54_Template(rf, ctx) { if (rf & 1) {
@@ -2587,67 +2682,56 @@ class SavingMasterComponent {
     getIntroducer(acno) {
         switch (acno) {
             case 'SB':
-                console.log("saving");
                 this.schemeAccountNoService.getSavingSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(data => {
                     this.introducerACNo = data;
                 });
                 break;
             case 'SH':
-                console.log("Share");
                 this.schemeAccountNoService.getShareSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(data => {
                     this.introducerACNo = data;
                 });
                 break;
             case 'CA':
-                console.log("Current account");
                 this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(data => {
                     this.introducerACNo = data;
                 });
                 break;
             case 'LN':
-                console.log("Term Loan");
                 this.schemeAccountNoService.getTermLoanSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(data => {
                     this.introducerACNo = data;
                 });
                 break;
             case 'TD':
-                console.log("Term Deposit");
                 this.schemeAccountNoService.getTermDepositSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(data => {
                     this.introducerACNo = data;
                 });
                 break;
             case 'DS':
-                console.log("Dispute Loan");
                 this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(data => {
                     this.introducerACNo = data;
                 });
                 break;
             case 'CC':
-                console.log("Cash Credit Loan");
                 this.schemeAccountNoService.getCashCreditSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(data => {
                     this.introducerACNo = data;
                 });
                 break;
             case 'GS':
-                console.log("anamat");
                 this.schemeAccountNoService.getAnamatSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(data => {
                     this.introducerACNo = data;
                 });
                 break;
             case 'PG':
-                console.log("Pigmy account");
                 this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(data => {
                     this.introducerACNo = data;
                 });
                 break;
             case 'AG':
-                console.log("Pigmy agent");
                 this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(data => {
                     this.introducerACNo = data;
                 });
                 break;
             case 'IV':
-                console.log("Investment");
                 this.schemeAccountNoService.getInvestmentSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["first"])()).subscribe(data => {
                     this.introducerACNo = data;
                 });
@@ -2664,11 +2748,9 @@ class SavingMasterComponent {
     submit() {
         const formVal = this.angForm.value;
         if (formVal.AC_ADDFLAG == true) {
-            console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG);
             this.addType = 'P';
         }
         else if (formVal.AC_ADDFLAG == false) {
-            console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG);
             this.addType = 'T';
         }
         const dataToSend = {
@@ -2684,6 +2766,7 @@ class SavingMasterComponent {
             'AC_NAME': formVal.AC_NAME,
             'AC_SCHMAMT': formVal.AC_SCHMAMT,
             'REF_ACNO': formVal.REF_ACNO,
+            'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
             //temp address 
             AC_ADDFLAG: formVal.AC_ADDFLAG,
             AC_ADDTYPE: this.addType,
@@ -2732,7 +2815,6 @@ class SavingMasterComponent {
         this.updateShow = true;
         this.newbtnShow = true;
         this.savingMasterService.getFormData(id).subscribe(data => {
-            console.log('edit', data);
             this.updateID = data.id;
             this.getCustomer(data.AC_CUSTID);
             //get nominee to edit
@@ -2752,6 +2834,7 @@ class SavingMasterComponent {
                 'AC_OPDATE': data.AC_OPDATE,
                 'AC_SCHMAMT': data.AC_SCHMAMT,
                 'REF_ACNO': data.REF_ACNO,
+                'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
                 //minor and introducer
                 'AC_MINOR': data.AC_MINOR,
                 'AC_MBDATE': data.AC_MBDATE,
@@ -2780,7 +2863,6 @@ class SavingMasterComponent {
         data['NomineeData'] = this.multiNominee;
         data['JointAccountData'] = this.multiJointAC;
         data['PowerOfAttorneyData'] = this.multiAttorney;
-        console.log(" data['PowerOfAttorneyData']", data['PowerOfAttorneyData']);
         data['id'] = this.updateID;
         this.savingMasterService.updateData(data).subscribe(() => {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Success!', 'Record Updated Successfully !', 'success');

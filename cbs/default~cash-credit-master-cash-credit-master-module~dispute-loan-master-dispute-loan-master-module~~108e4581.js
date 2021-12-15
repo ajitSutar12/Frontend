@@ -482,65 +482,6 @@ PurposeMasterDropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__
 
 /***/ }),
 
-/***/ "./src/app/shared/dropdownService/scheme-code-dropdown.service.ts":
-/*!************************************************************************!*\
-  !*** ./src/app/shared/dropdownService/scheme-code-dropdown.service.ts ***!
-  \************************************************************************/
-/*! exports provided: SchemeCodeDropdownService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SchemeCodeDropdownService", function() { return SchemeCodeDropdownService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-
-
-
-
-
-class SchemeCodeDropdownService {
-    constructor(http) {
-        this.http = http;
-        this.schemeCodeObject = new Array();
-        this.schemeObject = new Array();
-        // // scheme-parameters";
-        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].base_url;
-    }
-    getSchemeCodeList(scheme) {
-        this.schemeCodeObject = [];
-        return this.http.get(this.url + '/scheme-parameters/' + scheme)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
-            ele.forEach(element => {
-                let obj = { label: element.S_APPL + ' ' + element.S_NAME, value: `${element.id}`, name: element.S_APPL };
-                this.schemeCodeObject.push(obj);
-            });
-            return this.schemeCodeObject;
-        }));
-    }
-    getAllSchemeList() {
-        this.schemeObject = [];
-        return this.http.get(this.url + '/scheme-parameters/')
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
-            ele.forEach(element => {
-                let obj = { label: element.S_ACNOTYPE + ' ' + element.S_NAME, value: `${element.S_ACNOTYPE}` };
-                this.schemeObject.push(obj);
-            });
-            return this.schemeObject;
-        }));
-    }
-}
-SchemeCodeDropdownService.ɵfac = function SchemeCodeDropdownService_Factory(t) { return new (t || SchemeCodeDropdownService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
-SchemeCodeDropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: SchemeCodeDropdownService, factory: SchemeCodeDropdownService.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SchemeCodeDropdownService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
-
-
-/***/ }),
-
 /***/ "./src/app/shared/dropdownService/weaker-master-dropdown.service.ts":
 /*!**************************************************************************!*\
   !*** ./src/app/shared/dropdownService/weaker-master-dropdown.service.ts ***!

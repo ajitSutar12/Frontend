@@ -181,6 +181,36 @@ exports.map = map;
 
 /***/ }),
 
+/***/ "./node_modules/rxjs/add/operator/catch.js":
+/*!*************************************************!*\
+  !*** ./node_modules/rxjs/add/operator/catch.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(/*! rxjs-compat/add/operator/catch */ "./node_modules/rxjs-compat/add/operator/catch.js");
+//# sourceMappingURL=catch.js.map
+
+/***/ }),
+
+/***/ "./node_modules/rxjs/add/operator/map.js":
+/*!***********************************************!*\
+  !*** ./node_modules/rxjs/add/operator/map.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(/*! rxjs-compat/add/operator/map */ "./node_modules/rxjs-compat/add/operator/map.js");
+//# sourceMappingURL=map.js.map
+
+/***/ }),
+
 /***/ "./src/app/theme/task/task-details/task-details-routing.module.ts":
 /*!************************************************************************!*\
   !*** ./src/app/theme/task/task-details/task-details-routing.module.ts ***!

@@ -151,7 +151,7 @@ const routes = [
             },
             {
                 path: 'file-upload-ui',
-                loadChildren: () => Promise.all(/*! import() | theme-extension-file-upload-ui-file-upload-ui-module */[__webpack_require__.e("default~all-reports-with-searching-allReportsWithSearching-module~anamat-gsm-anamat-gsm-module~batch~34724a2e"), __webpack_require__.e("theme-extension-file-upload-ui-file-upload-ui-module")]).then(__webpack_require__.bind(null, /*! ./theme/extension/file-upload-ui/file-upload-ui.module */ "./src/app/theme/extension/file-upload-ui/file-upload-ui.module.ts")).then(m => m.FileUploadUiModule)
+                loadChildren: () => Promise.all(/*! import() | theme-extension-file-upload-ui-file-upload-ui-module */[__webpack_require__.e("default~all-reports-with-searching-allReportsWithSearching-module~anamat-gsm-anamat-gsm-module~batch~a705dd27"), __webpack_require__.e("theme-extension-file-upload-ui-file-upload-ui-module")]).then(__webpack_require__.bind(null, /*! ./theme/extension/file-upload-ui/file-upload-ui.module */ "./src/app/theme/extension/file-upload-ui/file-upload-ui.module.ts")).then(m => m.FileUploadUiModule)
             },
             {
                 path: 'full-event-calendar',
@@ -177,7 +177,7 @@ const routes = [
         children: [
             {
                 path: 'auth',
-                loadChildren: () => Promise.all(/*! import() | theme-auth-auth-module */[__webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~c85ad180"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~34151e30"), __webpack_require__.e("theme-auth-auth-module")]).then(__webpack_require__.bind(null, /*! ./theme/auth/auth.module */ "./src/app/theme/auth/auth.module.ts")).then(m => m.AuthModule)
+                loadChildren: () => Promise.all(/*! import() | theme-auth-auth-module */[__webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~batch-voucher-batch-vouc~2f043d06"), __webpack_require__.e("default~account-opening-account-opening-module~anamat-gsm-anamat-gsm-module~cash-credit-master-cash-~1bb213db"), __webpack_require__.e("theme-auth-auth-module")]).then(__webpack_require__.bind(null, /*! ./theme/auth/auth.module */ "./src/app/theme/auth/auth.module.ts")).then(m => m.AuthModule)
             },
             {
                 path: 'maintenance/error',
@@ -334,6 +334,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
 /* harmony import */ var _user_auth_interceptor__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./user-auth.interceptor */ "./src/app/user-auth.interceptor.ts");
 /* harmony import */ var ng_connection_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ng-connection-service */ "./node_modules/ng-connection-service/__ivy_ngcc__/fesm2015/ng-connection-service.js");
+/* harmony import */ var _restrictinput__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ././restrictinput */ "./src/app/restrictinput.ts");
 
 
 
@@ -349,6 +350,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // import { AuthInterceptorServices } from '../app/theme/auth/auth.interceptor.service';
+
 
 
 
@@ -376,7 +378,8 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector
         _layout_admin_admin_component__WEBPACK_IMPORTED_MODULE_4__["AdminComponent"],
         _layout_auth_auth_component__WEBPACK_IMPORTED_MODULE_5__["AuthComponent"],
         _layout_admin_breadcrumbs_breadcrumbs_component__WEBPACK_IMPORTED_MODULE_9__["BreadcrumbsComponent"],
-        _theme_hot_keys_hot_keys_component__WEBPACK_IMPORTED_MODULE_12__["HotKeysComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
+        _theme_hot_keys_hot_keys_component__WEBPACK_IMPORTED_MODULE_12__["HotKeysComponent"],
+        _restrictinput__WEBPACK_IMPORTED_MODULE_16__["StrictNumberOnlyDirective"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
         _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"],
         _app_routing_module__WEBPACK_IMPORTED_MODULE_2__["AppRoutingModule"],
         _shared_shared_module__WEBPACK_IMPORTED_MODULE_7__["SharedModule"],
@@ -393,6 +396,7 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector
                     _layout_auth_auth_component__WEBPACK_IMPORTED_MODULE_5__["AuthComponent"],
                     _layout_admin_breadcrumbs_breadcrumbs_component__WEBPACK_IMPORTED_MODULE_9__["BreadcrumbsComponent"],
                     _theme_hot_keys_hot_keys_component__WEBPACK_IMPORTED_MODULE_12__["HotKeysComponent"],
+                    _restrictinput__WEBPACK_IMPORTED_MODULE_16__["StrictNumberOnlyDirective"]
                 ],
                 imports: [
                     _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -1943,6 +1947,77 @@ AuthComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComp
                 styleUrls: ['./auth.component.scss']
             }]
     }], function () { return []; }, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/restrictinput.ts":
+/*!**********************************!*\
+  !*** ./src/app/restrictinput.ts ***!
+  \**********************************/
+/*! exports provided: StrictNumberOnlyDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StrictNumberOnlyDirective", function() { return StrictNumberOnlyDirective; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+
+
+class StrictNumberOnlyDirective {
+    constructor(elementRef) {
+        this.elementRef = elementRef;
+        //private regex: RegExp = new RegExp('^[0-9]*$');
+        this.regex = new RegExp(/^[0-9]+(\.[0-9]*){0,1}$/g); //Decimal Number
+        this.specialKeys = ['Backspace', 'ArrowLeft', 'ArrowRight'];
+    }
+    /**
+     * Key board action
+     * @param event
+     */
+    onKeyDown(event) {
+        debugger;
+        if (this.specialKeys.indexOf(event.key) !== -1) {
+            return;
+        }
+        const inputValue = this.elementRef.nativeElement.value.concat(event.key);
+        console.log(event.key);
+        if (inputValue && !String(inputValue).match(this.regex)) {
+            event.preventDefault();
+        }
+        return;
+    }
+    /**
+     * Copy Paste action
+     * @param event
+     */
+    onPaste(event) {
+        const clipboardData = (event.originalEvent || event).clipboardData.getData('text/plain');
+        if (clipboardData) {
+            const regEx = new RegExp('^[0-9]*$');
+            if (!regEx.test(clipboardData)) {
+                event.preventDefault();
+            }
+        }
+        return;
+    }
+}
+StrictNumberOnlyDirective.ɵfac = function StrictNumberOnlyDirective_Factory(t) { return new (t || StrictNumberOnlyDirective)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])); };
+StrictNumberOnlyDirective.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineDirective"]({ type: StrictNumberOnlyDirective, selectors: [["", "NumberOnly", ""]], hostBindings: function StrictNumberOnlyDirective_HostBindings(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("keydown", function StrictNumberOnlyDirective_keydown_HostBindingHandler($event) { return ctx.onKeyDown($event); })("paste", function StrictNumberOnlyDirective_paste_HostBindingHandler($event) { return ctx.onPaste($event); });
+    } } });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](StrictNumberOnlyDirective, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"],
+        args: [{
+                selector: '[NumberOnly]'
+            }]
+    }], function () { return [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }]; }, { onKeyDown: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"],
+            args: ['keydown', ['$event']]
+        }], onPaste: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"],
+            args: ['paste', ['$event']]
+        }] }); })();
 
 
 /***/ }),
@@ -4419,7 +4494,6 @@ class UserAuthInterceptor {
     intercept(req, next) {
         this.createOnline$().subscribe(function (isOnline) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-                debugger;
                 let data = yield isOnline;
                 if (data == false) {
                     sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire("Warning!", "Please check your internet connection !", "warning");
@@ -4471,8 +4545,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    base_url: 'http://134.209.159.164:4000'
-    // base_url : 'http://localhost:4000'
+    //  base_url : 'http://134.209.159.164:4000'
+    base_url: 'http://localhost:4000'
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -4519,7 +4593,7 @@ _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["platformBrowser"]().boot
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\CBS ZIP FOLDER\12-11-2021\Frontend\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! G:\0.Full-version 9-12-2021\Frontend\src\main.ts */"./src/main.ts");
 
 
 /***/ })

@@ -241,7 +241,7 @@ function GlStatementCodeComponent_button_48_Template(rf, ctx) { if (rf & 1) {
     const _r16 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GlStatementCodeComponent_button_48_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r16); const ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r15.addNewData(); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "New");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Cancel");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 function GlStatementCodeComponent_tbody_57_tr_1_Template(rf, ctx) { if (rf & 1) {
@@ -417,9 +417,9 @@ class GlStatementCodeComponent {
         this.dataSub = this.StatementTypeService.loadCharacters().subscribe((options) => {
             this.characters = options;
         });
-        this.alternateCode.getAlternetCodeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
-            this.alternate = data;
-        });
+        //     this.alternateCode.getAlternetCodeList().pipe(first()).subscribe(data => {
+        //       this.alternate = data;
+        //  })
     }
     runTimer() {
         const timer = setInterval(() => {
@@ -549,6 +549,9 @@ class GlStatementCodeComponent {
     // Reset Function
     resetForm() {
         this.createForm();
+        this.alternateCode.getAlternetCodeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
+            this.alternate = data;
+        });
     }
     rerender() {
         this.dtElement.dtInstance.then((dtInstance) => {

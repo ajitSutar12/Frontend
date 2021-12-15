@@ -34,6 +34,62 @@ __export(__webpack_require__(/*! rxjs-compat/Observable */ "./node_modules/rxjs-
 
 /***/ }),
 
+/***/ "./src/app/shared/elements/acountno.service.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/shared/elements/acountno.service.ts ***!
+  \*****************************************************/
+/*! exports provided: AcountnoService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AcountnoService", function() { return AcountnoService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+class AcountnoService {
+    getCharacters() {
+        return this.cloneOptions(AcountnoService.PLAYER_ONE);
+    }
+    loadCharacters() {
+        return this.loadOptions(AcountnoService.PLAYER_ONE);
+    }
+    getCharactersWithDisabled() {
+        const characters = this.cloneOptions(AcountnoService.PLAYER_ONE);
+        characters[1].disabled = true;
+        characters[4].disabled = true;
+        return characters;
+    }
+    loadOptions(options) {
+        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
+            setTimeout(() => {
+                obs.next(this.cloneOptions(options));
+                obs.complete();
+            }, 5000);
+        });
+    }
+    cloneOptions(options) {
+        return options.map(option => ({ value: option.value, label: option.label }));
+    }
+}
+AcountnoService.PLAYER_ONE = [
+    { value: '0', label: '12314142' },
+    { value: '1', label: '2142434' },
+    { value: '2', label: '2232323' },
+    { value: '3', label: '454545' }
+];
+AcountnoService.ɵfac = function AcountnoService_Factory(t) { return new (t || AcountnoService)(); };
+AcountnoService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: AcountnoService, factory: AcountnoService.ɵfac });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AcountnoService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+    }], null, null); })();
+
+
+/***/ }),
+
 /***/ "./src/app/theme/transaction/term-deposit-account-closing/term-deposit-account-closing-routing.module.ts":
 /*!***************************************************************************************************************!*\
   !*** ./src/app/theme/transaction/term-deposit-account-closing/term-deposit-account-closing-routing.module.ts ***!

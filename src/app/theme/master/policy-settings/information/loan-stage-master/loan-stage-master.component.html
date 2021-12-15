@@ -8,7 +8,7 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md">
+                        <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="CODE" class="form-control" placeholder=" " disabled
@@ -19,7 +19,7 @@
                             </div>
 
                         </div>
-                        <div class="col-md">
+                        <div class="col-md-6">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="NAME" class="form-control" placeholder=" " id="Description"
@@ -37,12 +37,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
-                        </div>
+                        <div class="col-sm">
+                            <button
+                              class="btn btn-primary ripple light"
+                              (click)="submit()"
+                              *ngIf="showButton"
+                              [disabled]="angForm.invalid"
+                            >
+                              Add
+                            </button>
+                            <button
+                              class="btn btn-primary ripple light"
+                              (click)="updateData()"
+                              *ngIf="updateShow"
+                            >
+                              Update</button
+                            >&nbsp;
+                            <button
+                              class="btn btn-primary ripple light"
+                              *ngIf="newbtnShow"
+                              [disabled]="angForm.invalid"
+                              (click)="addNewData()"
+                            >
+                              Cancel
+                            </button>
+                          </div>
                     </div>
 
                 </div>
@@ -66,7 +85,7 @@
                                                 (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-                                        <td>{{ data.CODE }}</td>
+                                        <td  class="td_right">{{ data.CODE }}</td>
                                         <td>{{ data.NAME }}</td>
                                     </tr>
                                 </tbody>

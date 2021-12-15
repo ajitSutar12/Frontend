@@ -10,11 +10,11 @@
       <div class="card-block">
         <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
           <div class="row">
-            <div class="col-sm">
+            <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL" required=""
-                    pattern="^[0-9]+$" maxlength="5" title="Input allowed only 0-9" formControlName="S_APPL" #autofocus/>
+                    pattern="^[0-9]+$" maxlength="3" title="Input allowed only 0-9" formControlName="S_APPL" #autofocus/>
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -31,7 +31,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-7">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="S_NAME" class="form-control" placeholder=" " id="Description" required=""
@@ -55,7 +55,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME" required=""

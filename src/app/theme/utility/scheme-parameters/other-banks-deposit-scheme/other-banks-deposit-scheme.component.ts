@@ -42,8 +42,8 @@ interface OtherBankDepositScheme {
   S_CASH_INT_ACNO: string
   INTEREST_RULE: string
    IS_RECURRING_TYPE: string
-   IS_CALLDEPOSIT_TYPE: string
-   REINVESTMENT: string
+  //  IS_CALLDEPOSIT_TYPE: string
+  //  REINVESTMENT: string
   S_INT_APPLICABLE: boolean
   POST_TO_INDIVIDUAL_AC: boolean
   S_PAYABLE_INT_ALLOW: boolean
@@ -473,8 +473,8 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
       S_CASH_INT_ACNO: [''],
       INTEREST_RULE: [''],
        IS_RECURRING_TYPE: [''],
-      IS_CALLDEPOSIT_TYPE: [''],
-       REINVESTMENT: [''],
+      // IS_CALLDEPOSIT_TYPE: [''],
+      //  REINVESTMENT: [''],
       S_INT_APPLICABLE: [false],
       POST_TO_INDIVIDUAL_AC: [false],
       S_PAYABLE_INT_ALLOW: [false],
@@ -538,7 +538,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
       'S_CASH_INT_ACNO': formVal.S_CASH_INT_ACNO,
       'INTEREST_RULE': formVal.INTEREST_RULE,
       'IS_RECURRING_TYPE': formVal.IS_RECURRING_TYPE,
-      // 'IS_CALLDEPOSIT_TYPE': formVal.IS_CALLDEPOSIT_TYPE,
+      //  'IS_CALLDEPOSIT_TYPE': formVal.IS_CALLDEPOSIT_TYPE,
       //  'REINVESTMENT': formVal.REINVESTMENT,
       'S_INT_APPLICABLE': formVal.S_INT_APPLICABLE,
       'POST_TO_INDIVIDUAL_AC': formVal.POST_TO_INDIVIDUAL_AC,
@@ -617,7 +617,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
         'INTEREST_RULE': data.INTEREST_RULE,
          'IS_RECURRING_TYPE': data.IS_RECURRING_TYPE,
         // 'IS_CALLDEPOSIT_TYPE': data.IS_CALLDEPOSIT_TYPE,
-        // 'REINVESTMENT': data.REINVESTMENT,
+        //  'REINVESTMENT': data.REINVESTMENT,
         'S_INT_APPLICABLE': data.S_INT_APPLICABLE,
         'POST_TO_INDIVIDUAL_AC': data.POST_TO_INDIVIDUAL_AC,
         'S_PAYABLE_INT_ALLOW': data.S_PAYABLE_INT_ALLOW,

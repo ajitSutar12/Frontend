@@ -8,7 +8,7 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-7">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME"
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
@@ -69,7 +69,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="G.L. A/c No. *" required title="Compulsory Selection"

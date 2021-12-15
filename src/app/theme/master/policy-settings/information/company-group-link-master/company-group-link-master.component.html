@@ -9,7 +9,7 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="companyCode" [multiple]="false" placeholder="Company Code*" required title="Compulsory Selection" maxlength="5" formControlName="COMP_CODE">
                                 </ng-select>
@@ -32,7 +32,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md">
+                        <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="footer-email" class="form-control" placeholder=" "
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="footer-email" class="form-control" placeholder=" "
@@ -64,7 +64,25 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
+                                        maxlength="6" id="ToAC" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        formControlName="TO_AC">
+                                    <label for="ToAC">To A/c.</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TO_AC'].invalid && (angForm.controls['TO_AC'].dirty || angForm.controls['TO_AC'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['TO_AC'].errors?.pattern|| angForm.controls['NAME'].errors?.maxlength">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+
+                        </div>
+                        <div class="col-sm-3">
                             <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>&nbsp;
                             <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
@@ -94,10 +112,10 @@
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
 
-                                        <td>{{ data.COMP_CODE }}</td>
-                                        <td>{{ data.CODE }}</td>
-                                        <td>{{ data.FROM_AC }}</td>
-                                        <td>{{ data.TO_AC }}</td>
+                                        <td  class="td_right">{{ data.COMP_CODE }}</td>
+                                        <td  class="td_right"> {{ data.CODE }}</td>
+                                        <td  class="td_right">{{ data.FROM_AC }}</td>
+                                        <td  class="td_right">{{ data.TO_AC }}</td>
 
 
                                     </tr>

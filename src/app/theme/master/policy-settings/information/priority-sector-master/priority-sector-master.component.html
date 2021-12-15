@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md">
+                        <div class="col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="Account" class="form-control" placeholder=" " maxlength="4"
@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-md-5">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="NAME" class="form-control" placeholder=" " maxlength="300"
@@ -126,11 +126,11 @@
                                                 (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-                                        <td>{{ data.CODE }}</td>
-                                        <td>{{ data.SUB1_CODE }}</td>
-                                        <td>{{ data.SUB2_CODE }}</td>
-                                        <td>{{ data.SUB3_CODE }}</td>
-                                        <td>{{ data.NAME }}</td>
+                                        <td class="td_right">{{ data.CODE }}</td>
+                                        <td class="td_right">{{ data.SUB1_CODE }}</td>
+                                        <td class="td_right">{{ data.SUB2_CODE }}</td>
+                                        <td class="td_right">{{ data.SUB3_CODE }}</td>
+                                        <td class="td_right">{{ data.NAME }}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="prioritySectorMaster?.length == 0">

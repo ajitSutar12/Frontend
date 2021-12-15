@@ -15,126 +15,6 @@ __webpack_require__(/*! rxjs-compat/add/observable/interval */ "./node_modules/r
 
 /***/ }),
 
-/***/ "./node_modules/rxjs/add/observable/of.js":
-/*!************************************************!*\
-  !*** ./node_modules/rxjs/add/observable/of.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(/*! rxjs-compat/add/observable/of */ "./node_modules/rxjs-compat/add/observable/of.js");
-//# sourceMappingURL=of.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/add/operator/catch.js":
-/*!*************************************************!*\
-  !*** ./node_modules/rxjs/add/operator/catch.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(/*! rxjs-compat/add/operator/catch */ "./node_modules/rxjs-compat/add/operator/catch.js");
-//# sourceMappingURL=catch.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/add/operator/debounceTime.js":
-/*!********************************************************!*\
-  !*** ./node_modules/rxjs/add/operator/debounceTime.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(/*! rxjs-compat/add/operator/debounceTime */ "./node_modules/rxjs-compat/add/operator/debounceTime.js");
-//# sourceMappingURL=debounceTime.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/add/operator/distinctUntilChanged.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/rxjs/add/operator/distinctUntilChanged.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(/*! rxjs-compat/add/operator/distinctUntilChanged */ "./node_modules/rxjs-compat/add/operator/distinctUntilChanged.js");
-//# sourceMappingURL=distinctUntilChanged.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/add/operator/do.js":
-/*!**********************************************!*\
-  !*** ./node_modules/rxjs/add/operator/do.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(/*! rxjs-compat/add/operator/do */ "./node_modules/rxjs-compat/add/operator/do.js");
-//# sourceMappingURL=do.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/add/operator/first.js":
-/*!*************************************************!*\
-  !*** ./node_modules/rxjs/add/operator/first.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(/*! rxjs-compat/add/operator/first */ "./node_modules/rxjs-compat/add/operator/first.js");
-//# sourceMappingURL=first.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/add/operator/map.js":
-/*!***********************************************!*\
-  !*** ./node_modules/rxjs/add/operator/map.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(/*! rxjs-compat/add/operator/map */ "./node_modules/rxjs-compat/add/operator/map.js");
-//# sourceMappingURL=map.js.map
-
-/***/ }),
-
-/***/ "./node_modules/rxjs/add/operator/switchMap.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/rxjs/add/operator/switchMap.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(/*! rxjs-compat/add/operator/switchMap */ "./node_modules/rxjs-compat/add/operator/switchMap.js");
-//# sourceMappingURL=switchMap.js.map
-
-/***/ }),
-
 /***/ "./src/app/shared/dropdownService/ac-master-dropdown.service.ts":
 /*!**********************************************************************!*\
   !*** ./src/app/shared/dropdownService/ac-master-dropdown.service.ts ***!
@@ -228,6 +108,107 @@ DepriciationCatDropdownMasterService.ɵprov = _angular_core__WEBPACK_IMPORTED_MO
 
 /***/ }),
 
+/***/ "./src/app/shared/dropdownService/membership-type-dropdown.service.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/shared/dropdownService/membership-type-dropdown.service.ts ***!
+  \****************************************************************************/
+/*! exports provided: MembershipTypeDropdownService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MembershipTypeDropdownService", function() { return MembershipTypeDropdownService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+class MembershipTypeDropdownService {
+    getCharacters() {
+        return this.cloneOptions(MembershipTypeDropdownService.PLAYER_ONE);
+    }
+    loadCharacters() {
+        return this.loadOptions(MembershipTypeDropdownService.PLAYER_ONE);
+    }
+    getCharactersWithDisabled() {
+        const characters = this.cloneOptions(MembershipTypeDropdownService.PLAYER_ONE);
+        characters[1].disabled = true;
+        characters[4].disabled = true;
+        return characters;
+    }
+    loadOptions(options) {
+        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
+            setTimeout(() => {
+                obs.next(this.cloneOptions(options));
+                obs.complete();
+            }, 5000);
+        });
+    }
+    cloneOptions(options) {
+        return options.map(option => ({ value: option.value, label: option.label }));
+    }
+}
+MembershipTypeDropdownService.PLAYER_ONE = [
+    { value: 'Direct', label: 'Direct' },
+    { value: 'Transfer', label: 'Transfer' },
+];
+MembershipTypeDropdownService.ɵfac = function MembershipTypeDropdownService_Factory(t) { return new (t || MembershipTypeDropdownService)(); };
+MembershipTypeDropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: MembershipTypeDropdownService, factory: MembershipTypeDropdownService.ɵfac });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MembershipTypeDropdownService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+    }], null, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/shared/dropdownService/minimum-balance-master-dropdown.service.ts":
+/*!***********************************************************************************!*\
+  !*** ./src/app/shared/dropdownService/minimum-balance-master-dropdown.service.ts ***!
+  \***********************************************************************************/
+/*! exports provided: MinimumBalanceMasterDropdownService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinimumBalanceMasterDropdownService", function() { return MinimumBalanceMasterDropdownService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+
+
+
+
+
+class MinimumBalanceMasterDropdownService {
+    constructor(http) {
+        this.http = http;
+        this.minimumBalancrMasterObject = new Array();
+        // url = 'http://localhost:4000/minimum-balance-master';
+        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].base_url;
+    }
+    getMinimumBalanceMasterList() {
+        this.minimumBalancrMasterObject = [];
+        return this.http.get(this.url + '/minimum-balance-master')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
+            ele.forEach(element => {
+                let obj = { label: element.BC_NAME, value: `${element.id}` };
+                this.minimumBalancrMasterObject.push(obj);
+            });
+            return this.minimumBalancrMasterObject;
+        }));
+    }
+}
+MinimumBalanceMasterDropdownService.ɵfac = function MinimumBalanceMasterDropdownService_Factory(t) { return new (t || MinimumBalanceMasterDropdownService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
+MinimumBalanceMasterDropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: MinimumBalanceMasterDropdownService, factory: MinimumBalanceMasterDropdownService.ɵfac });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MinimumBalanceMasterDropdownService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
+
+
+/***/ }),
+
 /***/ "./src/app/shared/dropdownService/scheme-type-dropdown.service.ts":
 /*!************************************************************************!*\
   !*** ./src/app/shared/dropdownService/scheme-type-dropdown.service.ts ***!
@@ -293,6 +274,65 @@ SchemeTypeDropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["�
 
 /***/ }),
 
+/***/ "./src/app/shared/dropdownService/sign-type-dropdown.service.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/shared/dropdownService/sign-type-dropdown.service.ts ***!
+  \**********************************************************************/
+/*! exports provided: SignTypeDropdownService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignTypeDropdownService", function() { return SignTypeDropdownService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+class SignTypeDropdownService {
+    getCharacters() {
+        return this.cloneOptions(SignTypeDropdownService.PLAYER_ONE);
+    }
+    loadCharacters() {
+        return this.loadOptions(SignTypeDropdownService.PLAYER_ONE);
+    }
+    getCharactersWithDisabled() {
+        const characters = this.cloneOptions(SignTypeDropdownService.PLAYER_ONE);
+        characters[1].disabled = true;
+        characters[4].disabled = true;
+        return characters;
+    }
+    loadOptions(options) {
+        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
+            setTimeout(() => {
+                obs.next(this.cloneOptions(options));
+                obs.complete();
+            }, 5000);
+        });
+    }
+    cloneOptions(options) {
+        return options.map(option => ({ value: option.value, label: option.label }));
+    }
+}
+SignTypeDropdownService.PLAYER_ONE = [
+    { value: 'Thumb', label: 'Thumb' },
+    { value: 'ShortEnglish', label: 'Short English' },
+    { value: 'FullEnglish', label: 'Full English' },
+    { value: 'ShortMarathi', label: 'Short Marathi' },
+    { value: 'FullMarathi', label: 'Full Marathi' },
+    { value: 'Kannada', label: 'Kannada' },
+    { value: 'Others', label: 'Others' },
+];
+SignTypeDropdownService.ɵfac = function SignTypeDropdownService_Factory(t) { return new (t || SignTypeDropdownService)(); };
+SignTypeDropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: SignTypeDropdownService, factory: SignTypeDropdownService.ɵfac });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SignTypeDropdownService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+    }], null, null); })();
+
+
+/***/ }),
+
 /***/ "./src/app/shared/dropdownService/statement-code-dropdown.service.ts":
 /*!***************************************************************************!*\
   !*** ./src/app/shared/dropdownService/statement-code-dropdown.service.ts ***!
@@ -333,6 +373,53 @@ class StatementCodeDropdownService {
 StatementCodeDropdownService.ɵfac = function StatementCodeDropdownService_Factory(t) { return new (t || StatementCodeDropdownService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
 StatementCodeDropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: StatementCodeDropdownService, factory: StatementCodeDropdownService.ɵfac });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](StatementCodeDropdownService, [{
+        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
+    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
+
+
+/***/ }),
+
+/***/ "./src/app/shared/dropdownService/subsalary-division-master-dropdown.service.ts":
+/*!**************************************************************************************!*\
+  !*** ./src/app/shared/dropdownService/subsalary-division-master-dropdown.service.ts ***!
+  \**************************************************************************************/
+/*! exports provided: SubSalaryDMasterdropdownService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SubSalaryDMasterdropdownService", function() { return SubSalaryDMasterdropdownService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
+
+
+
+
+
+class SubSalaryDMasterdropdownService {
+    constructor(http) {
+        this.http = http;
+        this.subSalaryObject = new Array();
+        // // salary-division-master";
+        this.url = _environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].base_url;
+    }
+    getSubSalaryDMasterList() {
+        this.subSalaryObject = [];
+        return this.http.get(this.url + '/salary-division-master')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(ele => {
+            ele.forEach(element => {
+                let obj = { label: element.NAME, value: `${element.id}` };
+                this.subSalaryObject.push(obj);
+            });
+            return this.subSalaryObject;
+        }));
+    }
+}
+SubSalaryDMasterdropdownService.ɵfac = function SubSalaryDMasterdropdownService_Factory(t) { return new (t || SubSalaryDMasterdropdownService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"])); };
+SubSalaryDMasterdropdownService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: SubSalaryDMasterdropdownService, factory: SubSalaryDMasterdropdownService.ɵfac });
+/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SubSalaryDMasterdropdownService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
     }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }]; }, null); })();
 
@@ -388,62 +475,6 @@ A1Service.PLAYER_ONE = [
 A1Service.ɵfac = function A1Service_Factory(t) { return new (t || A1Service)(); };
 A1Service.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: A1Service, factory: A1Service.ɵfac });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](A1Service, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], null, null); })();
-
-
-/***/ }),
-
-/***/ "./src/app/shared/elements/acountno.service.ts":
-/*!*****************************************************!*\
-  !*** ./src/app/shared/elements/acountno.service.ts ***!
-  \*****************************************************/
-/*! exports provided: AcountnoService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AcountnoService", function() { return AcountnoService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-class AcountnoService {
-    getCharacters() {
-        return this.cloneOptions(AcountnoService.PLAYER_ONE);
-    }
-    loadCharacters() {
-        return this.loadOptions(AcountnoService.PLAYER_ONE);
-    }
-    getCharactersWithDisabled() {
-        const characters = this.cloneOptions(AcountnoService.PLAYER_ONE);
-        characters[1].disabled = true;
-        characters[4].disabled = true;
-        return characters;
-    }
-    loadOptions(options) {
-        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
-            setTimeout(() => {
-                obs.next(this.cloneOptions(options));
-                obs.complete();
-            }, 5000);
-        });
-    }
-    cloneOptions(options) {
-        return options.map(option => ({ value: option.value, label: option.label }));
-    }
-}
-AcountnoService.PLAYER_ONE = [
-    { value: '0', label: '12314142' },
-    { value: '1', label: '2142434' },
-    { value: '2', label: '2232323' },
-    { value: '3', label: '454545' }
-];
-AcountnoService.ɵfac = function AcountnoService_Factory(t) { return new (t || AcountnoService)(); };
-AcountnoService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: AcountnoService, factory: AcountnoService.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](AcountnoService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
     }], null, null); })();
 
@@ -619,62 +650,6 @@ CustomeridService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
 
 /***/ }),
 
-/***/ "./src/app/shared/elements/gl-master.service.ts":
-/*!******************************************************!*\
-  !*** ./src/app/shared/elements/gl-master.service.ts ***!
-  \******************************************************/
-/*! exports provided: glMasterService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "glMasterService", function() { return glMasterService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-class glMasterService {
-    getCharacters() {
-        return this.cloneOptions(glMasterService.PLAYER_ONE);
-    }
-    loadCharacters() {
-        return this.loadOptions(glMasterService.PLAYER_ONE);
-    }
-    getCharactersWithDisabled() {
-        const characters = this.cloneOptions(glMasterService.PLAYER_ONE);
-        characters[1].disabled = true;
-        characters[4].disabled = true;
-        return characters;
-    }
-    loadOptions(options) {
-        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
-            setTimeout(() => {
-                obs.next(this.cloneOptions(options));
-                obs.complete();
-            }, 5000);
-        });
-    }
-    cloneOptions(options) {
-        return options.map(option => ({ value: option.value, label: option.label }));
-    }
-}
-glMasterService.PLAYER_ONE = [
-    { value: '0', label: 'a' },
-    { value: '1', label: 'b' },
-    { value: '2', label: 'c' },
-    { value: '3', label: 'd' }
-];
-glMasterService.ɵfac = function glMasterService_Factory(t) { return new (t || glMasterService)(); };
-glMasterService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: glMasterService, factory: glMasterService.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](glMasterService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], null, null); })();
-
-
-/***/ }),
-
 /***/ "./src/app/shared/elements/memberno.service.ts":
 /*!*****************************************************!*\
   !*** ./src/app/shared/elements/memberno.service.ts ***!
@@ -724,61 +699,6 @@ MembernoService.PLAYER_ONE = [
 MembernoService.ɵfac = function MembernoService_Factory(t) { return new (t || MembernoService)(); };
 MembernoService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: MembernoService, factory: MembernoService.ɵfac });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](MembernoService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], null, null); })();
-
-
-/***/ }),
-
-/***/ "./src/app/shared/elements/s1.service.ts":
-/*!***********************************************!*\
-  !*** ./src/app/shared/elements/s1.service.ts ***!
-  \***********************************************/
-/*! exports provided: S1Service */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "S1Service", function() { return S1Service; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-class S1Service {
-    getCharacters() {
-        return this.cloneOptions(S1Service.PLAYER_ONE);
-    }
-    loadCharacters() {
-        return this.loadOptions(S1Service.PLAYER_ONE);
-    }
-    getCharactersWithDisabled() {
-        const characters = this.cloneOptions(S1Service.PLAYER_ONE);
-        characters[1].disabled = true;
-        characters[4].disabled = true;
-        return characters;
-    }
-    loadOptions(options) {
-        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
-            setTimeout(() => {
-                obs.next(this.cloneOptions(options));
-                obs.complete();
-            }, 5000);
-        });
-    }
-    cloneOptions(options) {
-        return options.map(option => ({ value: option.value, label: option.label }));
-    }
-}
-S1Service.PLAYER_ONE = [
-    { value: '0', label: '1' },
-    { value: '1', label: '2' },
-    { value: '2', label: '3' }
-];
-S1Service.ɵfac = function S1Service_Factory(t) { return new (t || S1Service)(); };
-S1Service.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: S1Service, factory: S1Service.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](S1Service, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
     }], null, null); })();
 
@@ -900,62 +820,6 @@ SchemeTypeService.PLAYER_ONE = [
 SchemeTypeService.ɵfac = function SchemeTypeService_Factory(t) { return new (t || SchemeTypeService)(); };
 SchemeTypeService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: SchemeTypeService, factory: SchemeTypeService.ɵfac });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SchemeTypeService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], null, null); })();
-
-
-/***/ }),
-
-/***/ "./src/app/shared/elements/scheme1.service.ts":
-/*!****************************************************!*\
-  !*** ./src/app/shared/elements/scheme1.service.ts ***!
-  \****************************************************/
-/*! exports provided: Scheme1Service */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Scheme1Service", function() { return Scheme1Service; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs/Observable.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-class Scheme1Service {
-    getCharacters() {
-        return this.cloneOptions(Scheme1Service.PLAYER_ONE);
-    }
-    loadCharacters() {
-        return this.loadOptions(Scheme1Service.PLAYER_ONE);
-    }
-    getCharactersWithDisabled() {
-        const characters = this.cloneOptions(Scheme1Service.PLAYER_ONE);
-        characters[1].disabled = true;
-        characters[4].disabled = true;
-        return characters;
-    }
-    loadOptions(options) {
-        return new rxjs_Observable__WEBPACK_IMPORTED_MODULE_1__["Observable"]((obs) => {
-            setTimeout(() => {
-                obs.next(this.cloneOptions(options));
-                obs.complete();
-            }, 5000);
-        });
-    }
-    cloneOptions(options) {
-        return options.map(option => ({ value: option.value, label: option.label }));
-    }
-}
-Scheme1Service.PLAYER_ONE = [
-    { value: '0', label: '111' },
-    { value: '1', label: '222' },
-    { value: '2', label: '333' },
-    { value: '3', label: 'NA' }
-];
-Scheme1Service.ɵfac = function Scheme1Service_Factory(t) { return new (t || Scheme1Service)(); };
-Scheme1Service.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: Scheme1Service, factory: Scheme1Service.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](Scheme1Service, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
     }], null, null); })();
 
@@ -1508,68 +1372,6 @@ class SharesSchemeService {
 SharesSchemeService.ɵfac = function SharesSchemeService_Factory(t) { return new (t || SharesSchemeService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"])); };
 SharesSchemeService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: SharesSchemeService, factory: SharesSchemeService.ɵfac });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SharesSchemeService, [{
-        type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
-    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"] }]; }, null); })();
-
-
-/***/ }),
-
-/***/ "./src/app/theme/utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service.ts":
-/*!**********************************************************************************************!*\
-  !*** ./src/app/theme/utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service.ts ***!
-  \**********************************************************************************************/
-/*! exports provided: TermLoanSchemeService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TermLoanSchemeService", function() { return TermLoanSchemeService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var rxjs_Rx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/Rx */ "./node_modules/rxjs/Rx.js");
-/* harmony import */ var rxjs_Rx__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(rxjs_Rx__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-
-
-
-
-
-
-
-
-class TermLoanSchemeService {
-    constructor(http) {
-        this.http = http;
-        // API 
-        // // term-loan-scheme";
-        this.url = src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].base_url;
-    }
-    //Insertion Operation
-    postData(data) {
-        return this.http.post(this.url + '/term-loan-scheme/insert', data).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((res) => res), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])((error) => {
-            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Please Input Proper Data !');
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
-        }));
-    }
-    // For append data
-    getFormData(id) {
-        return this.http.get(this.url + '/term-loan-scheme/' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
-    }
-    //Updation Operation
-    updateData(data) {
-        return this.http.put(this.url + '/term-loan-scheme/update', data);
-    }
-    getData(code) {
-        return this.http.get(this.url + '/term-loan-scheme/' + code).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
-    }
-}
-TermLoanSchemeService.ɵfac = function TermLoanSchemeService_Factory(t) { return new (t || TermLoanSchemeService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"])); };
-TermLoanSchemeService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: TermLoanSchemeService, factory: TermLoanSchemeService.ɵfac });
-/*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](TermLoanSchemeService, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"]
     }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"] }]; }, null); })();
 

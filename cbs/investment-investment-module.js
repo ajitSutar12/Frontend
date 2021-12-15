@@ -34,7 +34,7 @@ const routes = [
             },
             {
                 path: 'accountOpenPassing',
-                loadChildren: () => Promise.all(/*! import() | account-open-passing-account-open-passing-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("common"), __webpack_require__.e("account-open-passing-account-open-passing-module")]).then(__webpack_require__.bind(null, /*! ./account-open-passing/account-open-passing.module */ "./src/app/theme/master/investment/account-open-passing/account-open-passing.module.ts")).then(m => m.AccountOpenPassingModule)
+                loadChildren: () => Promise.all(/*! import() | account-open-passing-account-open-passing-module */[__webpack_require__.e("default~accept-d-accept-d-module~account-close-passing-account-close-passing-module~account-closing-~60d487c1"), __webpack_require__.e("default~account-close-passing-account-close-passing-module~account-closing-account-closing-module~ac~3f7b7e67"), __webpack_require__.e("account-open-passing-account-open-passing-module")]).then(__webpack_require__.bind(null, /*! ./account-open-passing/account-open-passing.module */ "./src/app/theme/master/investment/account-open-passing/account-open-passing.module.ts")).then(m => m.AccountOpenPassingModule)
             },
             {
                 path: 'transactionPassing',
