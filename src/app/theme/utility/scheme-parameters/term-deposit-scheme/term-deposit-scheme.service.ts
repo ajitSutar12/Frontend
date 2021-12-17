@@ -40,6 +40,9 @@ export class TermDepositSchemeService {
     return this.http.delete(this.url + '/term-deposit-scheme/delete/' + id).pipe(catchError(this.handleError));
   }
 
+  getAllData(): Observable<any> {
+    return this.http.get(this.url + '/term-deposit-scheme/').pipe(catchError(this.handleError));
+  }
   
 }
 

@@ -1053,6 +1053,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   // Method for set opeing date to expiry date and registration date
 
   changeDate() {
+    // this.setCategory(this.temp)
     this.getInterest(this.temp)
     this.angForm.patchValue({
       AC_EXPIRE_DATE: this.angForm.controls['AC_OPDATE'].value,
@@ -1639,10 +1640,45 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   // End CoBorrower tab
-  int_category: any
-  getInterest(int_category) {
-    this.temp = int_category
+
+
+
+  setCategory(int_category) {
     this.InterestRateForLoanandCC.intData(int_category).subscribe(data => {
+      this.date = this.angForm.controls['AC_OPDATE'].value
+      if (data != typeof (undefined)) {
+        data.forEach(async (element) => {
+         debugger
+          if (this.date == element.EFFECT_DATE) {
+            console.log("element", element)
+            console.log("if true")
+            this.angForm.patchValue({
+              AC_INTCATA: element.INT_CATEGORY,
+              AC_INTRATE: element.rate[0].INT_RATE,
+            })
+          } else if (element.EFFECT_DATE > this.date) {
+            console.log("element", element)
+            console.log("else if 1st true")
+            this.angForm.patchValue({
+              AC_INTCATA: element.INT_CATEGORY,
+              AC_INTRATE: element.rate[0].INT_RATE,
+            })
+          }else if (element.EFFECT_DATE > this.date < element.EFFECT_DATE) {
+            console.log("element", element)
+            console.log("else if 2nd true")
+            this.angForm.patchValue({
+              AC_INTCATA: element.INT_CATEGORY,
+              AC_INTRATE: element.rate[0].INT_RATE,
+            })
+          }
+        })
+      }
+    })
+  }
+
+  getInterest(AC_INTCATA) {
+    this.temp = AC_INTCATA
+    this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
       this.date = this.angForm.controls['AC_OPDATE'].value
       if (data != typeof (undefined)) {
         if (this.date == data[0].EFFECT_DATE) {
@@ -1657,31 +1693,42 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           })
         }
       }
-
-      // if (data != typeof (undefined)) {
-      //   data.forEach(async (element) => {
-      //     if (this.date == element.EFFECT_DATE) {
-
-      //       this.angForm.patchValue({
-      //         AC_INTCATA: element.INT_CATEGORY,
-      //         AC_INTRATE: element.rate.INT_RATE,
-      //       })
-      //     }
-      //   })
-        // if (this.date == data[0].EFFECT_DATE) {
-        //   this.angForm.patchValue({
-        //     AC_INTCATA: data[0].INT_CATEGORY,
-        //     AC_INTRATE: data[0].rate[0].INT_RATE,
-        //   })
-        // } else {
-        //   this.angForm.patchValue({
-        //     AC_INTCATA: data[1].INT_CATEGORY,
-        //     AC_INTRATE: 0
-        //   })
-        // }
-    //   }
     })
   }
+  int_category: any
+  // getInterest(int_category) {
+  //   this.temp = int_category
+  //   this.InterestRateForLoanandCC.intData(int_category).subscribe(data => {
+  //     this.date = this.angForm.controls['AC_OPDATE'].value
+
+  //     const formVal = this.angForm.value;
+  //     if (data != typeof (undefined)) {
+  //       data.forEach(async (element) => {
+  //         if (this.date == element.EFFECT_DATE) {
+  //           console.log("category element", element)
+  //           this.angForm.patchValue({
+  //             AC_INTCATA: element.INT_CATEGORY,
+  //             AC_INTRATE: element.rate[0].INT_RATE,
+  //           })
+  //         } 
+  //         else {
+
+  //         }
+  //       })
+  //       // if (this.date == data[0].EFFECT_DATE) {
+  //       //   this.angForm.patchValue({
+  //       //     AC_INTCATA: data[0].INT_CATEGORY,
+  //       //     AC_INTRATE: data[0].rate[0].INT_RATE,
+  //       //   })
+  //       // } else {
+  //       //   this.angForm.patchValue({
+  //       //     AC_INTCATA: data[1].INT_CATEGORY,
+  //       //     AC_INTRATE: 0
+  //       //   })
+  //       // }
+  //     }
+  //   })
+  // }
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
