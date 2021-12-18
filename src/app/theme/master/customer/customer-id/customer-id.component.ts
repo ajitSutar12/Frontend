@@ -512,6 +512,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit() {
+    debugger
     const formVal = this.angForm.value;
     const dataToSend = {
       'AC_NO': formVal.AC_NO,

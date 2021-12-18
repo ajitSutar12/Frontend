@@ -25,16 +25,12 @@ export class RoleMasterComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false })
   datatableElement!: DataTableDirective;
   dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private fb: FormBuilder,
     private _service: RoleMasterService
   ) {
-    this._service.getRoleList().subscribe(data => {
-      this.RoleList = data;
-      this.rerender()
-      // this.dtTrigger.next();
-    })
+    
   }
 
   ngOnDestroy(): void {
@@ -43,6 +39,11 @@ export class RoleMasterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._service.getRoleList().subscribe(data => {
+      this.RoleList = data;
+      // this.rerender()
+      // this.dtTrigger.next();
+    })
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -99,7 +100,8 @@ export class RoleMasterComponent implements OnInit {
       this.angForm.reset();
       this._service.getRoleList().subscribe(data => {
         this.RoleList = data;
-        this.rerender();
+        // this.rerender();
+        this.dtTrigger.next();
       })
     }, err => {
       Swal.fire(err.error.error, err.error.message, 'error');

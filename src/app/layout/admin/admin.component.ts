@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 import { MenuItems } from '../../shared/menu-items/menu-items';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-admin',
@@ -153,6 +154,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   public barnchName : any;
   public bankName: any;
+  public profilePath: any;
 
   scroll = (): void => {
     const scrollPosition = window.pageYOffset;
@@ -256,7 +258,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     this.userData = result;
-
+    
     let menuData:string = '';
     result.RoleDefine.forEach(ele=>{
       if(menuData == ''){
@@ -269,6 +271,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     this.barnchName = result.branch.NAME;
     this.bankName   = result.branch.syspara[0].BANK_NAME;
+    this.profilePath = environment.base_url+'/'+result.PROFILE_PATH;
     //console.log(resultArray);
 
     let arrayList1 = menuData.split(',');

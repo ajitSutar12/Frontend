@@ -27,7 +27,6 @@ export class UserAuthInterceptor implements HttpInterceptor {
         Swal.fire("Warning!", "Please check your internet connection !", "warning");
         return false;
       }
-
     });
     let token = localStorage.getItem('token');
     req = req.clone({

@@ -1,6 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {HttpClient} from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { UserService } from '../user.service';
+import { environment } from '../../../../environments/environment';
+import Swal from 'sweetalert2';
+
+
 
 
 @Component({
@@ -31,6 +37,8 @@ export class UserProfileComponent implements OnInit {
 
   public editor;
   public editorContent: string;
+  selectedImagePreview: string = '';
+  showImage : boolean = false;
   public editorConfig = {
     placeholder: 'About Your Self'
   };
@@ -40,12 +48,45 @@ export class UserProfileComponent implements OnInit {
   public filterQuery = '';
   public sortBy = '';
   public sortOrder = 'desc';
+  angForm: FormGroup;
+  angEditForm: FormGroup;
   profitChartOption: any;
+  imgBase64:any;
+  profilePath :any;
+  id:any;
+  fullName : any;
+  Email :any;
 
-  constructor(public httpClient: HttpClient) {
+  constructor(public httpClient: HttpClient,private fb: FormBuilder,private _userService : UserService) {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    this.profilePath = environment.base_url+'/'+result.PROFILE_PATH;
+    this.id = result.id;
   }
 
   ngOnInit() {
+    this._userService.getUserDetails(this.id).subscribe(data=>{
+      console.log(data);
+      let userObject = data;
+      this.fullName = data.F_NAME+' '+data.L_NAME;
+      this.Email    = data.EMAIL;
+      this.angEditForm.patchValue({
+        firstName : userObject.F_NAME,
+        LastName  : userObject.L_NAME,
+        email     : userObject.EMAIL,
+        phone     : userObject.MOB_NO,
+      })
+    })
+    this.angEditForm = this.fb.group({
+      firstName: [''],
+      // middleName: [''],
+      LastName: [''],
+      email: [''],
+      phone: [''],
+      currentPassword: [''],
+      newPassword: [''],
+      confirmPassword: [''],
+    });
 
     setTimeout(() => {
       this.editorContent = 'But I must explain to you how all this mistaken idea of denouncing pleasure and praising ';
@@ -151,6 +192,43 @@ export class UserProfileComponent implements OnInit {
 
   onContentChanged({ quill, html, text }) {
     console.log('quill content is changed!', quill, html, text);
+  }
+
+  selectedImage(ele:any){
+    let data;
+    if (ele.target.files && ele.target.files[0]) {
+      var reader = new FileReader();
+      reader.onload = (event: any) => {
+          this.showImage = true;
+          this.selectedImagePreview = event.target.result;
+          this.imgBase64 = reader.result;
+          console.log(data);
+      }
+      reader.readAsDataURL(ele.target.files[0]);
+    }
+  }
+
+  updateProfile(){
+    debugger
+    let updateObject =  this.angEditForm.value;
+    let user = JSON.parse(localStorage.getItem('user')) ;
+
+    if(updateObject.newPassword !='' && updateObject.confirmPassword !=''){
+      if(updateObject.newPassword != updateObject.confirmPassword){
+        Swal.fire('Error!', 'New password and Confirm password not matched', 'error');
+        throw Error("");
+      } 
+    }
+
+    updateObject['imgbase64'] =  this.imgBase64;   
+    updateObject['id'] = user.id;
+    
+    this._userService.updateUser(updateObject).subscribe(data=>{
+
+    },err=>{
+      Swal.fire('Error!',err.error.message,'error');
+
+    })
   }
 
 }

@@ -61,14 +61,14 @@
                 Role Master List
             </div>
             <div class="card-body">
-                <table class="table table-striped" datatable [dtOptions]="dtOptions">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
                     <thead>
-                        <tr>
-                        <th></th>
-                        <th>ID</th>
-                        <th>NAME</th>
-                        <th>Status</th>
-                        </tr>
+                      <tr>
+                        <th>Sr No.</th>
+                        <th>Application ID</th>
+                        <th>Application Date</th>
+                        <th>Amount</th>
+                      </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of RoleList">
@@ -77,8 +77,9 @@
                             <td>{{item.NAME}}</td>
                             <td>{{item.STATUS}}</td>
                         </tr>
+                      
                     </tbody>
-                </table>
+                  </table>
             </div>
         </div>
     </div>

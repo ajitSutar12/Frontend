@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { AuthService} from '../../auth.service';
+import { AuthService } from '../../auth.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-basic-login',
@@ -14,37 +15,48 @@ export class BasicLoginComponent implements OnInit {
   isInvalidPassword: boolean = false;
   mobileno: string;
   password: string;
- passType: string = 'password';
-  constructor(private router: Router,private _authService : AuthService) { }
+  passType: string = 'password';
+  resetPassword : boolean = false;
+  constructor(private router: Router, private _authService: AuthService) { }
 
   ngOnInit() {
     document.querySelector('body').setAttribute('themebg-pattern', 'theme1');
   }
-  login(){
+  login() {
     let dataObject = {
-      "username" : this.mobileno,
-      "password" : this.password
+      "username": this.mobileno,
+      "password": this.password
     }
-    this._authService.login(dataObject).subscribe(data=>{
+    this._authService.login(dataObject).subscribe(data => {
       console.log(data);
       localStorage.setItem('token', data.access_token);
-      localStorage.setItem('user',JSON.stringify(data.user));
-      this.router.navigate(['/dashboard/default']);
-    },err=>{
+      localStorage.setItem('user', JSON.stringify(data.user));
+      let passwordExpDate = data.user.EXP_DATE;
+      let nowDate = moment().format('YYYY-MM-DD');
+      let dateData = moment(passwordExpDate).format('YYYY-MM-DD');
+      console.log(dateData);
+      console.log(nowDate);
+      if (moment(dateData).isAfter(nowDate)) {
+        this.router.navigate(['/dashboard/default']);
+      } else {
+        this.resetPassword = true;
+        Swal.fire('Error!', 'Your password is expired please reset your password', 'error');
+      }
+    }, err => {
       Swal.fire({
-          title: '',
-          text: "Please Check Your Mobile Number And Password",
-          icon: 'error',
-          confirmButtonColor: '#229954',
-          confirmButtonText: 'OK'
-        })
+        title: '',
+        text: "Please Check Your Mobile Number And Password",
+        icon: 'error',
+        confirmButtonColor: '#229954',
+        confirmButtonText: 'OK'
+      })
     })
   }
-  showHidePassword(){
-    if(this.passType == 'password'){
+  showHidePassword() {
+    if (this.passType == 'password') {
       this.passType = 'text';
     }
-    else{
+    else {
       this.passType = 'password';
     }
   }

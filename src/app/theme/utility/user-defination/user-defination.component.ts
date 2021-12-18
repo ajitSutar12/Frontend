@@ -100,7 +100,7 @@ export class UserDefinationComponent implements OnInit {
   isDisabled = true;
   characters: Array<IOption>;
   selectedCharacter = '3';
-  selectedRole :any;
+  selectedRole :Array<string> = ['1'];;
   timeLeft = 5;
   barnchData: any;
   userId: any;
