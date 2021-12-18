@@ -97,6 +97,7 @@ interface CustomerMaster {
 })
 export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() newCustomerEvent = new EventEmitter<string>();
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   @ViewChild('ngSelect') ngSelect: NgSelectComponent;
   custData;
   datemax: any;
@@ -174,11 +175,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     private documentMasterService: DocumentMasterDropdownService,
     public router: Router
   ) {  
-    // this.datemax =new Date() ;
-    this.datemax = new Date().getFullYear()+'-'+("0"+new Date().getDate()).slice(-2)+'-'+("0"+(new Date().getMonth()+1)).slice(-2);
-    console.log(this.datemax);
-    // (document.getElementById("title")as HTMLInputElement).focus();
-
+       // this.datemax =new Date() ;
+       this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+       console.log(this.datemax);
+      
   } 
 
   ngOnInit(): void {
@@ -488,7 +488,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_ADDR: ["", [Validators.pattern]],
       AC_GALLI: ["", [Validators.pattern]],
       AC_AREA: ["", [Validators.pattern]],
-      AC_CTCODE: [""],
+      AC_CTCODE: ["",[Validators.required]],
       AC_PIN: ["", [Validators.pattern]],
       AC_SALARYDIVISION_CODE: [""],
       AC_PANNO: ["", [Validators.pattern]],
@@ -512,7 +512,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit() {
-    debugger
     const formVal = this.angForm.value;
     const dataToSend = {
       'AC_NO': formVal.AC_NO,
@@ -580,14 +579,31 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     if(data != ""){
       if(data > this.datemax){
         Swal.fire("Invalid Input", "Please insert valid date ", "warning");
-        (document.getElementById("AC_BIRTH_DT")as HTMLInputElement).value = ""
+        (document.getElementById("AC_BIRTH_DT")as HTMLInputElement).value = "";
             
       }
     } 
+    else{
+       this.myInputField.nativeElement.focus('AC_BIRTH_DT');
+      // this.angForm.get('AC_BIRTH_DT').nativeElement.focus();
+    }
   }
+    //disabledate on keyup
+    disablesubdate(data:any){
+    
+      console.log(this.datemax);
+      if(data != ""){
+        if(data > this.datemax){
+          Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+          (document.getElementById("SUBMIT_DATE")as HTMLInputElement).value = ""
+              
+        }
+      } 
+    }
+  
   //method for force only numbers input
   onlyNumberKey(evt) {
-    debugger
+  
           
     // Only ASCII character in that range allowed
     let ASCIICode = (evt.which) ? evt.which : evt.keyCode;
@@ -600,18 +616,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         // evt.preventDefault();
     // return true;
 }
-  //disabledate on keyup
-  disablesubdate(data:any){
-    debugger
-    console.log(this.datemax);
-    if(data != ""){
-      if(data > this.datemax){
-        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
-        (document.getElementById("SUBMIT_DATE")as HTMLInputElement).value = ""
-            
-      }
-    } 
-  }
 
   // Reset Function
   resetForm() {
@@ -671,7 +675,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //method for adding hyphen in date
   addhyphen(data: any) {
-    debugger
+ 
     // let result = data
     //   .replace(/\D/g, "")
     //   .split(/(?:([\d]{4}))/g)
@@ -792,7 +796,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // this.ngSelect.focus();
+    //  this.ngSelect.focus();
       this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
@@ -819,6 +823,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  ngfocus(){
+    this.ngSelect.focus();
   }
 
   isKYC($event) {

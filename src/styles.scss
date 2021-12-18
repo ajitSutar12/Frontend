@@ -36,7 +36,7 @@ ng-select.ng-select>div>div.single {
     float: right;
   }
   
-   input[type="text"]:focus {
+   input[type="text"]:focus , se {
       border: 2px solid green;
       outline: none;
      }
@@ -55,6 +55,10 @@ ng-select.ng-select>div>div.single {
         border: 2px solid green;
         outline: none;
     }
+    input[type="email"]:focus {
+        border: 2px solid green;
+        outline: none;
+    }
 
     .below:focus{
         border: 2px solid green;
@@ -65,6 +69,20 @@ ng-select.ng-select>div>div.single {
         border: 2px solid green;
         outline: none;
     }
+
+
+    // .form-a:focus{
+    //     border: 2px solid #0f87f7;
+    //     outline: blue;
+    // }
+    // .form-primary:focus{
+    //     border: 2px solid #0f87f7;
+    //     outline: blue;
+    // }
+    // .ng-select:focus-visible{
+    //     border: 2px solid #0f87f7;
+    //     outline: blue;
+    // }
 
     // *:focus{
     //     border: 2px solid green !important;

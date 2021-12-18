@@ -41,7 +41,7 @@
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select  [ngClass]="'ng-select'" [options]="prifix" name="AC_TITLE" [multiple]="false" id="title"
-                                    placeholder="Title *" required title="Compulsory Selection"  
+                                    placeholder="Title *" required title="Compulsory Selection"  onload="ngfocus()"
                                     formControlName="AC_TITLE">
                                 </ng-select>
                             </div>
@@ -117,18 +117,11 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
                                         pattern="^[A-Za-z\./ -]+$" style="text-transform:uppercase" disabled
-                                        value="{{lname + ' ' + fname + ' ' + mname}}"
-                                        title="Input allowed only  A-Z a-z (Space)" formControlName="AC_NAME">
-                                    <label for="AC_NAME">Full Name<sub class="required">* </sub></label>
+                                        value="{{lname + ' ' + fname + ' ' + mname}}" formControlName="AC_NAME">
+                                    <label for="AC_NAME">Full Name</label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_NAME'].invalid && (angForm.controls['AC_NAME'].dirty || angForm.controls['AC_NAME'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_NAME'].errors?.pattern">
-                                    This field is required and Input allowed only A-Z a-z (Space)
-                                </div>
-                            </div>
+                           
                         </div>
                        
                         
@@ -208,9 +201,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_BIRTH_DT" class="form-control" placeholder=" "
                                         id="AC_BIRTH_DT" 
-                                        max="{{datemax | date:'yyyy-MM-dd'}}"
-                                        onfocus="(this.type='date')" #date
-                                       (focusout)="disabledate(date.value)"  
+                                        max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"  
                                         formControlName="AC_BIRTH_DT">
                                         
                                     <label for="AC_BIRTH_DT">Birth Date</label>
@@ -317,10 +308,18 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <ng-select [ngClass]="'ng-select'" [options]="city" [multiple]="false"
-                                        placeholder="City" formControlName="AC_CTCODE">
+                                        placeholder="City *" formControlName="AC_CTCODE" required>
                                     </ng-select>
                                 </span>
                             </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_CTCODE'].invalid && (angForm.controls['AC_CTCODE'].dirty || angForm.controls['AC_CTCODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_CTCODE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
                         </div>
                         <div class="col-sm">
                             <div class="form-group input-group">
@@ -433,7 +432,7 @@
                                     <input class="border-checkbox" type="checkbox" id="TDS_REQUIRED"
                                         formControlName="TDS_REQUIRED">
                                     <label class="border-checkbox-label" for="TDS_REQUIRED">TDS Calculation
-                                        Required?<span class="required"> *</span></label>
+                                        Required?</label>
                                 </div>
                             </div>
                         </div>
@@ -443,7 +442,7 @@
                                     <input class="border-checkbox" type="checkbox" id="IRTDSDFY" value="IRTDSDFY"
                                         (click)="isReceivedTds($event)" formControlName="TDSDOCUMNET">
                                     <label class="border-checkbox-label" for="IRTDSDFY">Is Received TDS Document for
-                                        Year 2020-2021<span class="required"> *</span></label>
+                                        Year 2020-2021</label>
                                 </div>
                             </div>
                         </div>
@@ -452,8 +451,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="SMS_REQUIRED"
                                         formControlName="SMS_REQUIRED">
-                                    <label class="border-checkbox-label" for="SMS_REQUIRED">SMS Facility Required ?<span
-                                            class="required"> *</span></label>
+                                    <label class="border-checkbox-label" for="SMS_REQUIRED">SMS Facility Required ?</label>
                                 </div>
                             </div>
                         </div>
@@ -462,8 +460,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="IS_KYC_RECEIVED"
                                         formControlName="IS_KYC_RECEIVED" (click)="isKYC($event)">
-                                    <label class="border-checkbox-label" for="IS_KYC_RECEIVED">KYC<span
-                                            class="required">*</span></label>
+                                    <label class="border-checkbox-label" for="IS_KYC_RECEIVED">KYC</label>
                                 </div>
                             </div>
                         </div>
@@ -686,16 +683,14 @@
                         <div class="col-sm">
                             <div class="table-responsive">
                                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-                                    class="table table-striped table-bordered table-hover">
+                                    class="table table-striped table-bordered table-hover compact">
                                     <tbody *ngIf="customerMaster?.length != 0">
                                         <tr *ngFor="let data of customerMaster">
                                             <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
                                                     (click)="editClickHandler(data.id)">Edit</button>
-                                            </td>
+                                            </td> 
                                             <td class="td_right">{{data.AC_NO}}</td>
-                                            <td class="td_right"
-                                                [ngClass]="data.AC_MEMBNO === '' ? 'td_center' : 'td_right'">
-                                                {{data.AC_MEMBNO === ''? '-' : data.AC_MEMBNO}}</td>
+                                            <td class="td_right" [ngClass]="data.AC_MEMBNO === '' ? 'td_center' : 'td_right'">{{data.AC_MEMBNO === ''? '-' : data.AC_MEMBNO}}</td>
                                             <td [ngClass]="data.AC_MEMBTYPE === '' ? 'td_center' : 'td_right'">
                                                 {{data.AC_MEMBTYPE === ''? '-' : data.AC_MEMBTYPE}}</td>
                                             <td>{{data.AC_TITLE}}</td>

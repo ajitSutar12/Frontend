@@ -20,7 +20,7 @@ import { WeeklyHolidayService } from '../../../../shared/dropdownService/weekly-
 import { IntrestCalculationMethodService } from '../../../../shared/dropdownService/intrest-calculation-method-dropdown.service';
 import { IOption } from 'ng-select';
 // Creating and maintaining form fields with validation 
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs-compat';
 import { DataTableDirective } from 'angular-datatables';
 import { HttpClient } from '@angular/common/http';
@@ -52,8 +52,8 @@ interface SystemMasterParameters {
   OFFICER_DESIGNATION: string;
   RBI_LICENCE_NO: string;
   MANAGER_NAME: string;
-  BRANCH_CITY_NAME: string;
-  COMPANY_CODE: string;
+  // BRANCH_CITY_NAME: string;
+  // COMPANY_CODE: string;
   DD_COMMISSION_ACNO: string;
   DIVIDEND_ACNO: string;
   BONUS_GLACNO: string;
@@ -65,10 +65,10 @@ interface SystemMasterParameters {
   INWARD_BILL_COLLECTION_ACNO: string;
   INWARD_BILL_RECEIVABLE_ACNO: string;
   IS_ALLOW_RECOVERY: string;
-  RECOVERY_METHOD: string;
-  IS_PROCESS_FOR_MONTH: string;
-  RECOVERY_DR_ACNO: string
-  IS_PROCESS_UPTO_TRANDATE: string
+  RECOVERY_METHOD: boolean;
+  IS_PROCESS_FOR_MONTH: boolean;
+  RECOVERY_DR_ACNO: string;
+  IS_PROCESS_UPTO_TRANDATE: boolean;
   HO_GLACNO: string;
   BG_DR_ACNO: string;
   BG_CR_ACNO: string;
@@ -101,41 +101,41 @@ interface SystemMasterParameters {
   NPA_SUBMETHOD: string;
   AUTO_LOCK_TIME: string;
   PASSWORD_EXPIRE_DAYS: string;
-  IS_ALLOW_CLG_TALLY_VOUCHER: string;
-  IS_CLG_DATE_ADD: string;
-  IS_AUTO_CLEARING_EFFECT: string;
-  AUTO_NO: string;
-  MASTER_APPROVAL_REQUIRED: string;
-  IS_POSTING_DD_PREPARATION: string;
-  IS_AUTO_INSTRUCTION_PASS: string;
-  MAINTAIN_CHEQUE_SERIES: string;
-  PIGMY_IS_AUTO_VOUCHER: string;
-  IS_MICR_CHARGES_APPL: string;
-  IS_GURR_FROM_MEMBERS: string;
-  IS_AUTOPOSTDAILY_OVERDRAFT_INT: string;
-  SCHMWISE_REC_IMPEXP: string;
-  DENOMINATION_REQUIRE: string;
-  TELLER_MODE: string;
-  IS_ALLOW_SCHEME_GL_ENTRY: string;
-  TOKEN_NO_APPLICABLE: string;
-  MASTER_ATTACH_JOINT_NAMES: string;
-  MASTER_ATTACH_GUARDIAN_NAMES: string;
-  PIGMY_AC_RENEW_APPLY: string;
-  IS_RECEIPTNO_IN_PIGMYCHART: string;
-  IS_REBIT_INTRATE_CAL: string;
-  IS_ALLOW_LOANINT_CHANGE: string;
-  IS_CONSIDER_CCRENEWAL_AS_OPEN: string;
-  IS_ALLOW_RECOVERY_DIFF: string;
-  CUSTOMER_ID_REQUIRED: string;
-  IS_TDS_CALCULATE: string;
-  IS_AUTO_VOUCHER_NPA_OIR: string;
-  IS_HO_SUB_GLACNO_REQUIRED: string;
-  IS_REQUIRE_CLEARING_OPTION: string;
-  IS_ALLOW_USER_MULTI_LOGIN: string;
-  IS_BANKERS_COMM_TRAN_REQD: string;
-  IS_IBCIBR_VOUCH_REQD: string;
-  DEPRECIATION_WITH_HALFFULLRATE: string;
-  IS_AUTO_UPDATE_SHARES_NO: string;
+  IS_ALLOW_CLG_TALLY_VOUCHER: boolean;//checkbox
+  IS_CLG_DATE_ADD: boolean;
+  IS_AUTO_CLEARING_EFFECT: boolean;
+  AUTO_NO: boolean;
+  MASTER_APPROVAL_REQUIRED: boolean;
+  IS_POSTING_DD_PREPARATION: boolean;
+  IS_AUTO_INSTRUCTION_PASS: boolean;
+  MAINTAIN_CHEQUE_SERIES: boolean;
+  PIGMY_IS_AUTO_VOUCHER: boolean;
+  IS_MICR_CHARGES_APPL: boolean;
+  IS_GURR_FROM_MEMBERS: boolean;
+  IS_AUTOPOSTDAILY_OVERDRAFT_INT: boolean;
+  SCHMWISE_REC_IMPEXP: boolean;
+  DENOMINATION_REQUIRE: boolean;
+  TELLER_MODE: boolean;
+  IS_ALLOW_SCHEME_GL_ENTRY: boolean;
+  TOKEN_NO_APPLICABLE: boolean;
+  MASTER_ATTACH_JOINT_NAMES: boolean;
+  MASTER_ATTACH_GUARDIAN_NAMES: boolean;
+  PIGMY_AC_RENEW_APPLY: boolean;
+  IS_RECEIPTNO_IN_PIGMYCHART: boolean;
+  IS_REBIT_INTRATE_CAL: boolean;
+  IS_ALLOW_LOANINT_CHANGE: boolean;
+  IS_CONSIDER_CCRENEWAL_AS_OPEN: boolean;
+  IS_ALLOW_RECOVERY_DIFF: boolean;
+  // CUSTOMER_ID_REQUIRED: string;
+  IS_TDS_CALCULATE: boolean;
+  IS_AUTO_VOUCHER_NPA_OIR: boolean;
+  IS_HO_SUB_GLACNO_REQUIRED: boolean;
+  IS_REQUIRE_CLEARING_OPTION: boolean;
+  IS_ALLOW_USER_MULTI_LOGIN: boolean;
+  IS_BANKERS_COMM_TRAN_REQD: boolean;
+  IS_IBCIBR_VOUCH_REQD: boolean;
+  DEPRECIATION_WITH_HALFFULLRATE: boolean;
+  IS_AUTO_UPDATE_SHARES_NO: boolean;
   WITHDRW_CLOSING_FOR_GURMEMBERS: string;
   PREVIOUS_DATE: string;
   CURRENT_DATE: string;
@@ -146,9 +146,9 @@ interface SystemMasterParameters {
   PIGMY_DAY_BEGIN_EXECUTED: string;
   PIGMY_DAY_END_EXECUTED: string;
   CASH_IN_HAND_ACNO: string;
-  BACK_DAY_OPTION: string;
-  ON_LINE: string;
-  IS_RECEIPT_PRINT_DESIGNMETHOD: string;
+  // BACK_DAY_OPTION: string;
+  ON_LINE: boolean;
+  IS_RECEIPT_PRINT_DESIGNMETHOD: boolean;
   CLG_HOUSE_METHOD: string;
   LINES_PER_PASSBOOKPAGE: string;
 
@@ -332,13 +332,8 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         }, {
           title: 'Manager Name',
           data: 'MANAGER_NAME'
-        }, {
-          title: 'Branch City Name(English)',
-          data: 'BRANCH_CITY_NAME'
-        }, {
-          title: 'Company Code',
-          data: 'COMPANY_CODE'
-        }, {
+        },
+         {
           title: 'DD Commission',
           data: 'DD_COMMISSION_ACNO'
         }, {
@@ -485,10 +480,8 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         }, {
           title: 'Denomination Require',
           data: 'DENOMINATION_REQUIRE'
-        }, {
-          title: 'Customer ID required',
-          data: 'CUSTOMER_ID_REQUIRED'
-        }, {
+        }, 
+         {
           title: ' Is Clearing Date Add by 1 Day',
           data: 'IS_CLG_DATE_ADD'
         }, {
@@ -611,10 +604,8 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         }, {
           title: 'Day End Executed',
           data: 'PIGMY_DAY_END_EXECUTED'
-        }, {
-          title: 'Back Day Open Options',
-          data: 'BACK_DAY_OPTION'
-        }, {
+        },
+        {
           title: ' Is Online Transactions?',
           data: 'ON_LINE'
         }, {
@@ -649,6 +640,25 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       this.ACMasterDropdown = data;
     })
   }
+
+
+  // enable-disable checkbox event
+  ON_LINE($event) {
+    if ($event.target.checked) {
+      document.getElementById("PREVIOUS_DATE").setAttribute("disabled", "true");
+      document.getElementById("CURRENT_DATE").setAttribute("disabled", "true");
+      document.getElementById("PIGMY_PREVIOUS_DATE").setAttribute("disabled", "true");
+      document.getElementById("PIGMY_CURRENT_DATE").setAttribute("disabled", "true");
+    } else {
+
+      document.getElementById("PREVIOUS_DATE") .removeAttribute("disabled");
+      document.getElementById("CURRENT_DATE").removeAttribute("disabled");
+      document.getElementById("PIGMY_PREVIOUS_DATE").removeAttribute("disabled");
+      document.getElementById("PIGMY_CURRENT_DATE").removeAttribute("disabled");
+    }
+  }
+
+
   createForm() {
     this.angForm = this.fb.group({
       SYSPARA_CODE: ['A'],
@@ -666,8 +676,8 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       OFFICER_DESIGNATION: ['', [Validators.pattern, Validators.required]],
       RBI_LICENCE_NO: ['', [Validators.pattern, Validators.required]],
       MANAGER_NAME: ['', [Validators.pattern, Validators.required]],
-      BRANCH_CITY_NAME: ['', [Validators.pattern, Validators.required]],
-      COMPANY_CODE: ['', [Validators.pattern, Validators.required]],
+      // BRANCH_CITY_NAME: ['', [Validators.pattern, Validators.required]],
+      // COMPANY_CODE: ['', [Validators.pattern, Validators.required]],
       DD_COMMISSION_ACNO: [''],
       DIVIDEND_ACNO: ['', [Validators.required]],
       BONUS_GLACNO: ['', [Validators.required]],
@@ -743,7 +753,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       IS_ALLOW_LOANINT_CHANGE: [''],
       IS_CONSIDER_CCRENEWAL_AS_OPEN: [''],
       IS_ALLOW_RECOVERY_DIFF: [''],
-      CUSTOMER_ID_REQUIRED: [''],
+      // CUSTOMER_ID_REQUIRED: [''],
       IS_TDS_CALCULATE: [''],
       IS_AUTO_VOUCHER_NPA_OIR: [''],
       IS_HO_SUB_GLACNO_REQUIRED: [''],
@@ -759,14 +769,14 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
 
       PREVIOUS_DATE: ['', [Validators.required]],
       CURRENT_DATE: ['', [Validators.required]],
-      DAY_BEGIN_EXECUTED: [''],
+      DAY_BEGIN_EXECUTED: new FormControl('DayBeginExecuted'),
       DAY_END_EXECUTED: [''],
       PIGMY_PREVIOUS_DATE: ['', [Validators.required]],
       PIGMY_CURRENT_DATE: ['', [Validators.required]],
-      PIGMY_DAY_BEGIN_EXECUTED: [''],
+      PIGMY_DAY_BEGIN_EXECUTED: new FormControl('DayBeginExecuted'),
       PIGMY_DAY_END_EXECUTED: [''],
       CASH_IN_HAND_ACNO: ['', [Validators.required]],
-      BACK_DAY_OPTION: [''],
+      // BACK_DAY_OPTION: [''],
       ON_LINE: [''],
       IS_RECEIPT_PRINT_DESIGNMETHOD: [''],
       CLG_HOUSE_METHOD: ['', [Validators.required]],
@@ -825,8 +835,8 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       'OFFICER_DESIGNATION': formVal.OFFICER_DESIGNATION,
       'RBI_LICENCE_NO': formVal.RBI_LICENCE_NO,
       'MANAGER_NAME': formVal.MANAGER_NAME,
-      'BRANCH_CITY_NAME': formVal.BRANCH_CITY_NAME,
-      'COMPANY_CODE': formVal.COMPANY_CODE,
+      // 'BRANCH_CITY_NAME': formVal.BRANCH_CITY_NAME,
+      // 'COMPANY_CODE': formVal.COMPANY_CODE,
 
 
       'DD_COMMISSION_ACNO': formVal.DD_COMMISSION_ACNO,
@@ -904,7 +914,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       'IS_ALLOW_LOANINT_CHANGE': formVal.IS_ALLOW_LOANINT_CHANGE,
       'IS_CONSIDER_CCRENEWAL_AS_OPEN': formVal.IS_CONSIDER_CCRENEWAL_AS_OPEN,
       'IS_ALLOW_RECOVERY_DIFF': formVal.IS_ALLOW_RECOVERY_DIFF,
-      'CUSTOMER_ID_REQUIRED': formVal.CUSTOMER_ID_REQUIRED,
+      // 'CUSTOMER_ID_REQUIRED': formVal.CUSTOMER_ID_REQUIRED,
       'IS_TDS_CALCULATE': formVal.IS_TDS_CALCULATE,
       'IS_AUTO_VOUCHER_NPA_OIR': formVal.IS_AUTO_VOUCHER_NPA_OIR,
       'IS_HO_SUB_GLACNO_REQUIRED': formVal.IS_HO_SUB_GLACNO_REQUIRED,
@@ -927,7 +937,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       'PIGMY_DAY_BEGIN_EXECUTED': formVal.PIGMY_DAY_BEGIN_EXECUTED,
       'PIGMY_DAY_END_EXECUTED': formVal.PIGMY_DAY_END_EXECUTED,
       'CASH_IN_HAND_ACNO': formVal.CASH_IN_HAND_ACNO,
-      'BACK_DAY_OPTION': formVal.BACK_DAY_OPTION,
+      // 'BACK_DAY_OPTION': formVal.BACK_DAY_OPTION,
       'ON_LINE': formVal.ON_LINE,
       'IS_RECEIPT_PRINT_DESIGNMETHOD': formVal.IS_RECEIPT_PRINT_DESIGNMETHOD,
       'CLG_HOUSE_METHOD': formVal.CLG_HOUSE_METHOD,
@@ -978,8 +988,8 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
           'OFFICER_DESIGNATION': data.OFFICER_DESIGNATION,
           'RBI_LICENCE_NO': data.RBI_LICENCE_NO,
           'MANAGER_NAME': data.MANAGER_NAME,
-          'BRANCH_CITY_NAME': data.BRANCH_CITY_NAME,
-          'COMPANY_CODE': data.COMPANY_CODE,
+          // 'BRANCH_CITY_NAME': data.BRANCH_CITY_NAME,
+          // 'COMPANY_CODE': data.COMPANY_CODE,
     
     
           'DD_COMMISSION_ACNO': data.DD_COMMISSION_ACNO,
@@ -1057,7 +1067,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
           'IS_ALLOW_LOANINT_CHANGE': data.IS_ALLOW_LOANINT_CHANGE,
           'IS_CONSIDER_CCRENEWAL_AS_OPEN': data.IS_CONSIDER_CCRENEWAL_AS_OPEN,
           'IS_ALLOW_RECOVERY_DIFF': data.IS_ALLOW_RECOVERY_DIFF,
-          'CUSTOMER_ID_REQUIRED': data.CUSTOMER_ID_REQUIRED,
+          // 'CUSTOMER_ID_REQUIRED': data.CUSTOMER_ID_REQUIRED,
           'IS_TDS_CALCULATE': data.IS_TDS_CALCULATE,
           'IS_AUTO_VOUCHER_NPA_OIR': data.IS_AUTO_VOUCHER_NPA_OIR,
           'IS_HO_SUB_GLACNO_REQUIRED': data.IS_HO_SUB_GLACNO_REQUIRED,
@@ -1080,7 +1090,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
           'PIGMY_DAY_BEGIN_EXECUTED': data.PIGMY_DAY_BEGIN_EXECUTED,
           'PIGMY_DAY_END_EXECUTED': data.PIGMY_DAY_END_EXECUTED,
           'CASH_IN_HAND_ACNO': data.CASH_IN_HAND_ACNO,
-          'BACK_DAY_OPTION': data.BACK_DAY_OPTION,
+          // 'BACK_DAY_OPTION': data.BACK_DAY_OPTION,
           'ON_LINE': data.ON_LINE,
           'IS_RECEIPT_PRINT_DESIGNMETHOD': data.IS_RECEIPT_PRINT_DESIGNMETHOD,
           'CLG_HOUSE_METHOD': data.CLG_HOUSE_METHOD,
@@ -1090,130 +1100,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         })
       })
   }
-  // editClickHandler(id) {
-  //   this.showButton = false;
-  //   this.updateShow = true;
-  //   this.newbtnShow = true;
-  //   this.systemMasterParametersService.getFormData(id).subscribe(data => {
-  //     this.updateID = data.id;
-  //     this.angForm.setValue({
-  //       'SYSPARA_CODE': data.SYSPARA_CODE,
-  //       'BANK_CODE': data.BANK_CODE,
-  //       'BANK_NAME': data.BANK_NAME,
-  //       'BRANCH_CODE': data.BRANCH_CODE,
-  //       // 'BRANCH_NAME': data.BRANCH_NAME,
-  //       'ADDRESS': data.ADDRESS,
-  //       'CHAIRMAN': data.CHAIRMAN,
-  //       'ACCOUNTANT': data.ACCOUNTANT,
-  //       'GENERAL_MANAGER': data.GENERAL_MANAGER,
-  //       'COMPANY_START_DATE': data.COMPANY_START_DATE,
-  //       'NO_OF_EMPLOYEES': data.NO_OF_EMPLOYEES,
-  //       'OFFICER_NAME': data.OFFICER_NAME,
-  //       'OFFICER_DESIGNATION': data.OFFICER_DESIGNATION,
-  //       'RBI_LICENCE_NO': data.RBI_LICENCE_NO,
-  //       'MANAGER_NAME': data.MANAGER_NAME,
-  //       'BRANCH_CITY_NAME': data.BRANCH_CITY_NAME,
-  //       'COMPANY_CODE': data.COMPANY_CODE,
-  //       'DD_COMMISSION_ACNO': data.DD_COMMISSION_ACNO,
-  //       'DIVIDEND_ACNO': data.DIVIDEND_ACNO,
-  //       'BONUS_GLACNO': data.BONUS_GLACNO,
-  //       'BILL_RECEIVABLE_ACNO': data.BILL_RECEIVABLE_ACNO,
-  //       'BILL_FOR_COLLECTION_ACNO': data.BILL_FOR_COLLECTION_ACNO,
-  //       'BCBR_DR_GLACNO': data.BCBR_DR_GLACNO,
-  //       'BCBR_DR_SUB_GLACNO': data.BCBR_DR_SUB_GLACNO,
-  //       'CLG_SUSPENCE_ACNO': data.CLG_SUSPENCE_ACNO,
-  //       'INWARD_BILL_COLLECTION_ACNO': data.INWARD_BILL_COLLECTION_ACNO,
-  //       'INWARD_BILL_RECEIVABLE_ACNO': data.INWARD_BILL_RECEIVABLE_ACNO,
-  //       'IS_ALLOW_RECOVERY': data.IS_ALLOW_RECOVERY,
-  //       'RECOVERY_METHOD': data.RECOVERY_METHOD,
-  //       'IS_PROCESS_FOR_MONTH': data.IS_PROCESS_FOR_MONTH,
-  //       'RECOVERY_DR_ACNO': data.RECOVERY_DR_ACNO,
-  //       'IS_PROCESS_UPTO_TRANDATE': data.IS_PROCESS_UPTO_TRANDATE,
-  //       'HO_GLACNO': data.HO_GLACNO,
-  //       'BG_DR_ACNO': data.BG_DR_ACNO,
-  //       'BG_CR_ACNO': data.BG_CR_ACNO,
-  //       'PAY_ORDER_ACNO': data.PAY_ORDER_ACNO,
-  //       'INWARD_BILLS_PURCHASE_ACNO': data.INWARD_BILLS_PURCHASE_ACNO,
-  //       'YEAR_CLOSING_TRANSFER_ACNO': data.YEAR_CLOSING_TRANSFER_ACNO,
-  //       'PL_TRANSFER_ACNO': data.PL_TRANSFER_ACNO,
-  //       'AUTHORIZED_SHARE_CAPITAL_CODE': data.AUTHORIZED_SHARE_CAPITAL_CODE,
-  //       'TDS_PAYABLE_GLACNO': data.TDS_PAYABLE_GLACNO,
-  //       'SURCHARGE_GLACNO': data.SURCHARGE_GLACNO,
-  //       'CHEQUE_CHARGES_ACNO': data.CHEQUE_CHARGES_ACNO,
-  //       'CHEQUE_BOUNCE_ACNO': data.CHEQUE_BOUNCE_ACNO,
-  //       'CHEQUE_BOUNCE_CHARGES': data.CHEQUE_BOUNCE_CHARGES,
-  //       'MICR_CHARGES_ACNO': data.MICR_CHARGES_ACNO,
-  //       'MICR_CHARGES_AMOUNT': data.MICR_CHARGES_AMOUNT,
-  //       'MICR_CHARGES_INWORD_CLG': data.MICR_CHARGES_INWORD_CLG,
-  //       'GRACE_PERIOD': data.GRACE_PERIOD,
-  //       'MORATORIUM_PERIOD': data.MORATORIUM_PERIOD,
-  //       'DIV_CALCU_MONTH': data.DIV_CALCU_MONTH,
-  //       'DIV_PAYABLE_FOR_LAST_YEARS': data.DIV_PAYABLE_FOR_LAST_YEARS,
-  //       'WEEKLY_HOLIDAY': data.WEEKLY_HOLIDAY,
-  //       'HALF_DAY': data.HALF_DAY,
-  //       'SANCTIONED_CASH_LIMIT': data.SANCTIONED_CASH_LIMIT,
-  //       'HIGH_VALUE_CLEARING_AMT': data.HIGH_VALUE_CLEARING_AMT,
-  //       'MEMBER_FOR_GUR': data.MEMBER_FOR_GUR,
-  //       'INT_CALC_METHOD': data.INT_CALC_METHOD,
-  //       'IS_PGCOMMISSION_PERCALCULATION': data.IS_PGCOMMISSION_PERCALCULATION,
-  //       'NPA_METHOD': data.NPA_METHOD,
-  //       'NPA_SUBMETHOD': data.NPA_SUBMETHOD,
-  //       'AUTO_LOCK_TIME': data.AUTO_LOCK_TIME,
-  //       'PASSWORD_EXPIRE_DAYS': data.PASSWORD_EXPIRE_DAYS,
-  //       'IS_ALLOW_CLG_TALLY_VOUCHER': data.IS_ALLOW_CLG_TALLY_VOUCHER,
-  //       'IS_CLG_DATE_ADD': data.IS_CLG_DATE_ADD,
-  //       'IS_AUTO_CLEARING_EFFECT': data.IS_AUTO_CLEARING_EFFECT,
-  //       'AUTO_NO': data.AUTO_NO,
-  //       'MASTER_APPROVAL_REQUIRED': data.MASTER_APPROVAL_REQUIRED,
-  //       'IS_POSTING_DD_PREPARATION': data.IS_POSTING_DD_PREPARATION,
-  //       'IS_AUTO_INSTRUCTION_PASS': data.IS_AUTO_INSTRUCTION_PASS,
-  //       'MAINTAIN_CHEQUE_SERIES': data.MAINTAIN_CHEQUE_SERIES,
-  //       'PIGMY_IS_AUTO_VOUCHER': data.PIGMY_IS_AUTO_VOUCHER,
-  //       'IS_MICR_CHARGES_APPL': data.IS_MICR_CHARGES_APPL,
-  //       'IS_GURR_FROM_MEMBERS': data.IS_GURR_FROM_MEMBERS,
-  //       'IS_AUTOPOSTDAILY_OVERDRAFT_INT': data.IS_AUTOPOSTDAILY_OVERDRAFT_INT,
-  //       'SCHMWISE_REC_IMPEXP': data.SCHMWISE_REC_IMPEXP,
-  //       'DENOMINATION_REQUIRE': data.DENOMINATION_REQUIRE,
-  //       'TELLER_MODE': data.TELLER_MODE,
-  //       'IS_ALLOW_SCHEME_GL_ENTRY': data.IS_ALLOW_SCHEME_GL_ENTRY,
-  //       'TOKEN_NO_APPLICABLE': data.TOKEN_NO_APPLICABLE,
-  //       'MASTER_ATTACH_JOINT_NAMES': data.MASTER_ATTACH_JOINT_NAMES,
-  //       'MASTER_ATTACH_GUARDIAN_NAMES': data.MASTER_ATTACH_GUARDIAN_NAMES,
-  //       'PIGMY_AC_RENEW_APPLY': data.PIGMY_AC_RENEW_APPLY,
-  //       'IS_RECEIPTNO_IN_PIGMYCHART': data.IS_RECEIPTNO_IN_PIGMYCHART,
-  //       'IS_REBIT_INTRATE_CAL': data.IS_REBIT_INTRATE_CAL,
-  //       'IS_ALLOW_LOANINT_CHANGE': data.IS_ALLOW_LOANINT_CHANGE,
-  //       'IS_CONSIDER_CCRENEWAL_AS_OPEN': data.IS_CONSIDER_CCRENEWAL_AS_OPEN,
-  //       'IS_ALLOW_RECOVERY_DIFF': data.IS_ALLOW_RECOVERY_DIFF,
-  //       'CUSTOMER_ID_REQUIRED': data.CUSTOMER_ID_REQUIRED,
-  //       'IS_TDS_CALCULATE': data.IS_TDS_CALCULATE,
-  //       'IS_AUTO_VOUCHER_NPA_OIR': data.IS_AUTO_VOUCHER_NPA_OIR,
-  //       'IS_HO_SUB_GLACNO_REQUIRED': data.IS_HO_SUB_GLACNO_REQUIRED,
-  //       'IS_REQUIRE_CLEARING_OPTION': data.IS_REQUIRE_CLEARING_OPTION,
-  //       'IS_ALLOW_USER_MULTI_LOGIN': data.IS_ALLOW_USER_MULTI_LOGIN,
-  //       'IS_BANKERS_COMM_TRAN_REQD': data.IS_BANKERS_COMM_TRAN_REQD,
-  //       'IS_IBCIBR_VOUCH_REQD': data.IS_IBCIBR_VOUCH_REQD,
-  //       'DEPRECIATION_WITH_HALFFULLRATE': data.DEPRECIATION_WITH_HALFFULLRATE,
-  //       'IS_AUTO_UPDATE_SHARES_NO': data.IS_AUTO_UPDATE_SHARES_NO,
-  //       'WITHDRW_CLOSING_FOR_GURMEMBERS': data.WITHDRW_CLOSING_FOR_GURMEMBERS,
-  //       'PREVIOUS_DATE': data.PREVIOUS_DATE,
-  //       'CURRENT_DATE': data.CURRENT_DATE,
-  //       'DAY_BEGIN_EXECUTED': data.DAY_BEGIN_EXECUTED,
-  //       'DAY_END_EXECUTED': data.DAY_END_EXECUTED,
-  //       'PIGMY_PREVIOUS_DATE': data.PIGMY_PREVIOUS_DATE,
-  //       'PIGMY_CURRENT_DATE': data.PIGMY_CURRENT_DATE,
-  //       'PIGMY_DAY_BEGIN_EXECUTED': data.PIGMY_DAY_BEGIN_EXECUTED,
-  //       'PIGMY_DAY_END_EXECUTED': data.PIGMY_DAY_END_EXECUTED,
-  //       'CASH_IN_HAND_ACNO': data.CASH_IN_HAND_ACNO,
-  //       'BACK_DAY_OPTION': data.BACK_DAY_OPTION,
-  //       'ON_LINE': data.ON_LINE,
-  //       'IS_RECEIPT_PRINT_DESIGNMETHOD': data.IS_RECEIPT_PRINT_DESIGNMETHOD,
-  //       'CLG_HOUSE_METHOD': data.CLG_HOUSE_METHOD,
-  //       'LINES_PER_PASSBOOKPAGE': data.LINES_PER_PASSBOOKPAGE,
-  //     })
-  //   })
-  // }
-
+  
 
   //Method for update data 
   updateData() {

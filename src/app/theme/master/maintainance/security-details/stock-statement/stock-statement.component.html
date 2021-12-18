@@ -207,7 +207,11 @@
             <div class="col-sm">
               <div class="table-responsive">
                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+<<<<<<< Updated upstream
                   class="table table-striped table-bordered table-hover">
+=======
+                  class="table table-striped table-bordered table-hover compact">
+>>>>>>> Stashed changes
                   <tbody *ngIf="stockmasters?.length != 0">
                     <tr *ngFor="let data of stockmasters">
                       <td>
@@ -218,6 +222,7 @@
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
 
+<<<<<<< Updated upstream
                       <td>{{ data.SUBMISSION_DATE }}</td>
                       <td>{{ data.STATEMENT_DATE }}</td>
                       <td>{{ data.RAW_MATERIAL }}</td>
@@ -226,6 +231,16 @@
                       <td>{{ data.WORK_MARGIN }}</td>
                       <td>{{ data.FINISHED_GOODS }}</td>
                       <td>{{ data.FINISHED_MARGIN }}</td>
+=======
+                      <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
+                      <td class="td_right">{{ data.STATEMENT_DATE }}</td>
+                      <td class="td_right">{{ data.RAW_MATERIAL }}</td>
+                      <td class="td_right">{{ data.RAW_MARGIN }}</td>
+                      <td>{{ data.WORK_PROGRESS }}</td>
+                      <td class="td_right">{{ data.WORK_MARGIN }}</td>
+                      <td>{{ data.FINISHED_GOODS }}</td>
+                      <td class="td_right">{{ data.FINISHED_MARGIN }}</td>
+>>>>>>> Stashed changes
                       <td>{{ data.REMARK }}</td>
                     </tr>
                   </tbody>

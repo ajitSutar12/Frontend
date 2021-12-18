@@ -231,7 +231,11 @@
             <div class="col-sm">
               <div class="table-responsive">
                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+<<<<<<< Updated upstream
                   class="table table-striped table-bordered table-hover">
+=======
+                  class="table table-striped table-bordered table-hover compact">
+>>>>>>> Stashed changes
                   <tbody *ngIf="firemaster?.length != 0">
                     <tr *ngFor="let data of firemaster">
                       <td>
@@ -242,6 +246,7 @@
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
 
+<<<<<<< Updated upstream
                       <td>{{ data.SUBMISSION_DATE }}</td>
                       <td>{{ data.POLICY_DUE_DATE }}</td>
                       <td>{{ data.POLICY_NO }}</td>
@@ -251,6 +256,17 @@
                       <td>{{ data.CITY }}</td>
                       <td>{{ data.PREMIUM }}</td>
                       <td>{{ data.PREMIUM_DUE_DATE }}</td>
+=======
+                      <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
+                      <td class="td_right">{{ data.POLICY_DUE_DATE }}</td>
+                      <td class="td_right">{{ data.POLICY_NO }}</td>
+                      <td class="td_right">{{ data.POLICY_AMT }}</td>
+                      <td class="td_right">{{ data.POLICY_NATURE }}</td>
+                      <td class="td_right">{{ data.INSU_CO_CODE }}</td>
+                      <td>{{ data.CITY }}</td>
+                      <td class="td_right">{{ data.PREMIUM }}</td>
+                      <td class="td_right">{{ data.PREMIUM_DUE_DATE }}</td>
+>>>>>>> Stashed changes
                       <td>{{ data.ADDRESS }}</td>
 
 

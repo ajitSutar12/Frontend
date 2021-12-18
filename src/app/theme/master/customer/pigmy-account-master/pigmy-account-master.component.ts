@@ -196,6 +196,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   dtdocumentOptions: any = {};
 
   agentno
+  datemax: string;
   constructor(private fb: FormBuilder,
     public categoryMasterService: categoryMasterService,
     public IntrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
@@ -210,7 +211,12 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     public SchemeCodeDropdownService: SchemeCodeDropdownService,
     private customerID: CustomerIDMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
-    private datePipe: DatePipe,) { }
+    private datePipe: DatePipe,) {
+          // this.datemax =new Date() ;
+          this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+          console.log(this.datemax);
+       
+     }
 
 
 

@@ -279,6 +279,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   timeLeft = 5;
 
   private dataSub: Subscription = null;
+  datemax: any;
   constructor(
     private http: HttpClient,
     private termLoanService: TermLoanService,
@@ -1034,6 +1035,19 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     })
   }
 
+
+    //disabledate on keyup
+    disabledate(data:any){
+    
+      console.log(data);
+      if(data != ""){
+        if(data > this.datemax){
+          Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+          (document.getElementById("AC_OPDATE")as HTMLInputElement).value = ""
+              
+        }
+      } 
+    }
   //Method for set value for repay mode and installment type
 
   getScheme(code) {

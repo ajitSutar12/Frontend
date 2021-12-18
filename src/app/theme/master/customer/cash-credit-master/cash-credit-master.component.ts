@@ -274,6 +274,7 @@ export class CashCreditMasterComponent implements OnInit {
   timeLeft = 5;
 
   private dataSub: Subscription = null;
+  datemax: string;
   constructor(
     private http: HttpClient,
     private cashCreditService: CashCreditService,
@@ -304,6 +305,7 @@ export class CashCreditMasterComponent implements OnInit {
     private el: ElementRef,
     public router: Router
   ) {
+    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
 
   }
 
@@ -672,6 +674,7 @@ export class CashCreditMasterComponent implements OnInit {
       GAC_MEMBTYPE: [''],
     });
   }
+
 
   // Method to insert data into database through NestJS
 

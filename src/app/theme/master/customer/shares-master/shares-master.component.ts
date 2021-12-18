@@ -202,7 +202,13 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private systemParameter: SystemMasterParametersService,
     private sharesSchemeService: SharesSchemeService,
     private datePipe: DatePipe,
-    private fb: FormBuilder) { this.setdate(); }
+    private fb: FormBuilder) { 
+      this.setdate();
+        // this.datemax =new Date() ;
+        this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+        console.log(this.datemax);
+       
+     }
 
   ngOnInit(): void {
     this.createForm();
@@ -532,6 +538,18 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
+    //disabledate on keyup
+    disabledate(data:any){
+    
+      console.log(data);
+      if(data != ""){
+        if(data > this.datemax){
+          Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+          (document.getElementById("AC_OPDATE")as HTMLInputElement).value = ""
+              
+        }
+      } 
+    }
   //set open date, appointed date and expiry date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {

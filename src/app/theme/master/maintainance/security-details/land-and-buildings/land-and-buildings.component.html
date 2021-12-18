@@ -245,7 +245,11 @@
             <div class="col-sm">
               <div class="table-responsive">
                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+<<<<<<< Updated upstream
                   class="table table-striped table-bordered table-hover">
+=======
+                  class="table table-striped table-bordered table-hover compact">
+>>>>>>> Stashed changes
                   <tbody *ngIf="landMasters?.length != 0">
                     <tr *ngFor="let data of landMasters">
                       <td>
@@ -256,6 +260,7 @@
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
 
+<<<<<<< Updated upstream
                       <td>{{ data.SUBMISSION_DATE }}</td>
                       <td>{{ data.VALUE }}</td>
                       <td>{{ data.LOCATION }}</td>
@@ -266,6 +271,18 @@
                       <td>{{ data.CITY_SURVEY_NO }}</td>
                       <td>{{ data.CITY_SURVEY_DATE }}</td>
                       <td>{{ data.REG_NO }}</td>
+=======
+                      <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
+                      <td class="td_right">{{ data.VALUE }}</td>
+                      <td>{{ data.LOCATION }}</td>
+                      <td>{{ data.AREA }}</td>
+                     <td class="td_right">{{ data.UNIT_AREA }}</td>
+                     <td class="td_right">{{ data.MARGIN }}</td>
+                      <td>{{ data.REMARK }}</td>
+                      <td class="td_right">{{ data.CITY_SURVEY_NO }}</td>
+                      <td class="td_right">{{ data.CITY_SURVEY_DATE }}</td>
+                      <td class="td_right">{{ data.REG_NO }}</td>
+>>>>>>> Stashed changes
                     </tr>
                   </tbody>
                   <tbody *ngIf="landMasters?.length == 0">

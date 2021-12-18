@@ -520,3 +520,4 @@ export class SchemeTypeSettingComponent
     }
   }
 }
+

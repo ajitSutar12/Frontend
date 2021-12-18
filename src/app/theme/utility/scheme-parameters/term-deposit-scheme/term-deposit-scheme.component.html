@@ -292,8 +292,8 @@
                       <div class="radio radio-inline">
                         <label>
                           <input type="radio" value="Compounding" name="INTEREST_RULE"
-                            formControlName="INTEREST_RULE" />
-                          <i class="helper"></i>?... Pat Deposits<span class="required">
+                            formControlName="INTEREST_RULE" (click)="INTEREST_RULE($event)"/>
+                          <i class="helper"></i> Pat Deposits<span class="required">
                           </span>
                         </label>
                       </div>
@@ -1853,7 +1853,7 @@
                       <input type="text" placeholder="Search Mature But Not Paid GL" name="MATURED_BUT_NOT_PAID_GLAC" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Search ?... Pat Deposits" name="INTEREST_RULE" />
+                      <input type="text" placeholder="Search Pat Deposits" name="INTEREST_RULE" />
                     </th>
                     <th>
                       <input type="text" placeholder="Search Recurring Deposits" name="IS_RECURRING_TYPE" />

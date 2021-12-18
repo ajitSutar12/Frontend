@@ -116,28 +116,21 @@
                         </div>
                     </div>
                     <div class="row">
-<<<<<<< Updated upstream
-                        <div class="col-sm-8">
 
-                        </div>
-                        <div class="col-sm-4">
-=======
                         <div class="col-sm-9">
 
                         </div>
                         <div class="col-sm">
->>>>>>> Stashed changes
+
                           <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
                             [disabled]="angForm.invalid">Add</button>
                           <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
                             [disabled]="angForm.invalid">Update</button> &nbsp;
                           <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
                         </div>
-<<<<<<< Updated upstream
+
                     </div>
-=======
-                      </div>
->>>>>>> Stashed changes
+
                 </div>
 
             </form>
@@ -162,14 +155,14 @@
                                                 (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
                                         <td>{{ data.S_ACNOTYPE }}</td>
-                                        <td>{{ data.S_APPL }}</td>
+                                        <td class="td_right">{{ data.S_APPL }}</td>
                                         <td>{{ data.S_NAME }}</td>
                                         <td>{{ data.S_SHNAME }}</td>
                                         
-                                        <td>{{ data.S_GLACNO }}</td>
-                                        <td>{{ data.LOCKER_RENT_ACNO }}</td>
-                                        <td>{{ data.LOCKER_RECBL_RENT_ACNO }}</td>
-                                        <td>{{ data.LOCKER_DEPOSIT_APPLICABLE }}</td>
+                                        <td class="td_right">{{ data.S_GLACNO }}</td>
+                                        <td class="td_right">{{ data.LOCKER_RENT_ACNO }}</td>
+                                        <td class="td_right">{{ data.LOCKER_RECBL_RENT_ACNO }}</td>
+                                        <td class="td_right">{{ data.LOCKER_DEPOSIT_APPLICABLE }}</td>
 
                                     </tr>
 

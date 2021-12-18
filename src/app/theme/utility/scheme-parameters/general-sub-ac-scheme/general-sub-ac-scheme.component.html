@@ -166,11 +166,11 @@
                                                 (click)="editClickHandler(data.id)">Edit</button>
                                         </td>
                                         <td> {{data.S_ACNOTYPE}} </td>
-                                        <td> {{data.S_APPL}} </td>
+                                        <td class="td_right"> {{data.S_APPL}} </td>
                                         <td> {{data.S_NAME}}</td>
                                         <td> {{data.S_SHNAME}}</td>
-                                        <td> {{data.S_GLACNO}}</td>
-                                        <td> {{data.BALANCE_ADD_APPLICABLE}}</td>
+                                        <td class="td_right"> {{data.S_GLACNO}}</td>
+                                        <td class="td_right"> {{data.BALANCE_ADD_APPLICABLE}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="generalMaster?.length == 0">

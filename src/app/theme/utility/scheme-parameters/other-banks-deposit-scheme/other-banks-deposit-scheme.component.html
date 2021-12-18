@@ -1206,20 +1206,20 @@
                                                 (click)="delClickHandler(data.id)">Delete</button> -->
                     </td>
                     <td>{{ data.S_ACNOTYPE }}</td>
-                    <td>{{ data.S_APPL }}</td>
+                    <td class="td_right">{{ data.S_APPL }}</td>
                     <td>{{ data.S_NAME }}</td>
                     <td>{{ data.S_SHNAME }}</td>
-                    <td>{{ data.S_GLACNO }}</td>
-                    <td>{{ data.S_INT_ACNO }}</td>
-                    <td>{{ data.S_RECBL_PYBL_INT_ACNO }}</td>
-                    <td>{{ data.S_PENAL_ACNO }}</td>
-                    <td>{{ data.S_RECBL_PENAL_ACNO }}</td>
-                    <td>{{ data.S_CASH_INT_ACNO }}</td>
+                    <td class="td_right">{{ data.S_GLACNO }}</td>
+                    <td class="td_right">{{ data.S_INT_ACNO }}</td>
+                    <td class="td_right">{{ data.S_RECBL_PYBL_INT_ACNO }}</td>
+                    <td class="td_right">{{ data.S_PENAL_ACNO }}</td>
+                    <td class="td_right">{{ data.S_RECBL_PENAL_ACNO }}</td>
+                    <td class="td_right">{{ data.S_CASH_INT_ACNO }}</td>
                     <td>{{ data.INTEREST_RULE }}</td>
                     <td>{{ data.S_INT_APPLICABLE }}</td>
                     <td>{{ data.POST_TO_INDIVIDUAL_AC }}</td>
                     <td>{{ data.S_PAYABLE_INT_ALLOW }}</td>
-                    <td>{{ data.MIN_INT_LIMIT }}</td>
+                    <td class="td_right">{{ data.MIN_INT_LIMIT }}</td>
                     <td>{{ data.S_INTCALTP }}</td>
                     <td>{{ data.IS_INTUPTODATE }}</td>
                     <td>{{ data.S_INTCALC_METHOD }}</td>
@@ -1256,7 +1256,7 @@
                     <td>{{ data.RECEIPT_NO_INPUT }}</td>
                     <td>{{ data.WITHDRAWAL_APPLICABLE }}</td>
                     <td>{{ data.BALANCE_ADD_APPLICABLE }}</td>
-                    <td>{{ data.LESS_PREMATURE_INT_RATE }}</td>
+                    <td class="td_right">{{ data.LESS_PREMATURE_INT_RATE }}</td>
                   </tr>
                 </tbody>
                 <tbody *ngIf="otherBankDepositScheme?.length == 0">

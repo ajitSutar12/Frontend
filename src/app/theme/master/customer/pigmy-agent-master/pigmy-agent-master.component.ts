@@ -152,6 +152,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
   id: string = '';
   NomineeTrue: boolean = false;
+  datemax: string;
   constructor(
     private customerID: CustomerIDMasterDropdownService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -164,7 +165,12 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
     private http: HttpClient,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder) { 
+              // this.datemax =new Date() ;
+              this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+              console.log(this.datemax);
+           
+    }
 
   ngOnInit(): void {
     this.createForm();

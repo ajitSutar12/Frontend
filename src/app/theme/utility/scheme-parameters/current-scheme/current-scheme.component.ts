@@ -287,6 +287,17 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     })
   }
 
+    //check  if margin values are below 100
+    checkinterest(ele:any){ 
+  //check  if given value  is below 100
+  console.log(ele);
+  if(ele <= 100){
+console.log(ele);
+  }
+  else{
+    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+  }
+}
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;

@@ -53,7 +53,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
-                                        id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="15"
+                                        id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="10"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
                                     <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
                                 </span>
@@ -272,7 +272,7 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="MIN_INT_LIMIT" class="form-control"
-                                                            placeholder=" " id="MIN_INT_LIMIT"
+                                                            placeholder=" " id="MIN_INT_LIMIT" #MIN_INT_LIMIT (keyup)="checkinterest(MIN_INT_LIMIT.value)"
                                                             pattern="\d{1,2}(\.\d{2})?" title="Input allowed only  0-9"
                                                             formControlName="MIN_INT_LIMIT" disabled>
                                                         <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
@@ -485,24 +485,42 @@
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
                                                 (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-                                        <td>{{data.S_ACNOTYPE }}</td>
-                                        <td>{{data.S_APPL }}</td>
-                                        <td>{{data.S_NAME }}</td>
-                                        <td>{{data.S_SHNAME }}</td>
-                                        <td class="td_right">{{data.S_GLACNO }}</td>
-                                        <td class="td_right">{{data.S_INT_ACNO }}</td>
-                                        <td>{{data.S_INT_APPLICABLE }}</td>
-                                        <td class="td_right">{{data.POST_TO_INDIVIDUAL_AC }}</td>
-                                        <td>{{data.S_PRODUCT_DAY_BASE }}</td>
-                                        <td>{{data.S_PRODUCT_DAY_BASE_END }}</td>
-                                        <td class="td_right">{{data.MIN_INT_LIMIT }}</td>
-                                        <td>{{data.STAND_INSTRUCTION_ALLOW }}</td>
-                                        <td class="td_right">{{data.ROUNDOFF_FACTOR }}</td>
-                                        <td class="td_right">{{data.CHEQUEBOOK_MIN_BAL }}</td>
-                                        <td>{{data.BALANCE_ADD_APPLICABLE }}</td>
-                                        <td>{{data.DORMANT_FLAG_APPLICABLE }}</td>
-                                        <td class="td_right">{{data.OVERDRAFT_INTEREST_APPLICABLE}}</td>
-                                        <td class="td_right">{{data.OVERDRAFT_INTEREST_RATE }}</td>
+                                        <td [ngClass]="data.S_ACNOTYPE === '' ? 'td_center' : 'td_left'">{{data.S_ACNOTYPE === ''? '-' : data.S_ACNOTYPE}}</td>
+                                        
+                                        <td class="td_right" [ngClass]="data.S_APPL === '' ? 'td_center' : 'td_right'">{{data.S_APPL === ''? '-' : data.S_APPL}}</td>
+                                      
+                                        <td [ngClass]="data.S_NAME === '' ? 'td_center' : 'td_left'">{{data.S_NAME === ''? '-' : data.S_NAME}}</td>
+                                    
+                                        <td [ngClass]="data.S_SHNAME === '' ? 'td_center' : 'td_left'">{{data.S_SHNAME === ''? '-' : data.S_SHNAME}}</td>
+                                       
+                                        <td [ngClass]="data.S_GLACNO === '' ? 'td_center' : 'td_left'">{{data.S_GLACNO === ''? '-' : data.S_GLACNO}}</td>
+                                        
+                                        <td [ngClass]="data.S_INT_ACNO === '' ? 'td_center' : 'td_left'">{{data.S_INT_ACNO === ''? '-' : data.S_INT_ACNO}}</td>
+                                     
+                                        <td class="td_right" [ngClass]="data.S_INT_APPLICABLE === '' ? 'td_center' : 'td_right'">{{data.S_INT_APPLICABLE === ''? '-' : data.S_INT_APPLICABLE}}</td>
+                                      
+                                        <td [ngClass]="data.POST_TO_INDIVIDUAL_AC === '' ? 'td_center' : 'td_left'">{{data.POST_TO_INDIVIDUAL_AC === ''? '-' : data.POST_TO_INDIVIDUAL_AC}}</td>
+                                        
+                                        <td [ngClass]="data.S_PRODUCT_DAY_BASE === '' ? 'td_center' : 'td_left'">{{data.S_PRODUCT_DAY_BASE === ''? '-' : data.S_PRODUCT_DAY_BASE}}</td>
+                                     
+                                        <td [ngClass]="data.S_PRODUCT_DAY_BASE_END === '' ? 'td_center' : 'td_left'">{{data.S_PRODUCT_DAY_BASE_END === ''? '-' : data.S_PRODUCT_DAY_BASE_END}}</td>
+                                        
+                                        <td class="td_right" [ngClass]="data.MIN_INT_LIMIT === '' ? 'td_center' : 'td_right'">{{data.MIN_INT_LIMIT === ''? '-' : data.MIN_INT_LIMIT}}</td>
+                                        
+                                        <td [ngClass]="data.STAND_INSTRUCTION_ALLOW === '' ? 'td_center' : 'td_left'">{{data.STAND_INSTRUCTION_ALLOW === ''? '-' : data.STAND_INSTRUCTION_ALLOW}}</td>
+                                        
+                                        <td class="td_right" [ngClass]="data.ROUNDOFF_FACTOR === '' ? 'td_center' : 'td_right'">{{data.ROUNDOFF_FACTOR === ''? '-' : data.ROUNDOFF_FACTOR}}</td>
+                                        
+                                        <td class="td_right" [ngClass]="data.CHEQUEBOOK_MIN_BAL === '' ? 'td_center' : 'td_right'">{{data.CHEQUEBOOK_MIN_BAL === ''? '-' : data.CHEQUEBOOK_MIN_BAL}}</td>
+                                        
+                                        <td class="td_right" [ngClass]="data.BALANCE_ADD_APPLICABLE === '' ? 'td_center' : 'td_right'">{{data.BALANCE_ADD_APPLICABLE === ''? '-' : data.BALANCE_ADD_APPLICABLE}}</td>
+                                        
+                                        <td [ngClass]="data.DORMANT_FLAG_APPLICABLE === '' ? 'td_center' : 'td_left'">{{data.DORMANT_FLAG_APPLICABLE === ''? '-' : data.DORMANT_FLAG_APPLICABLE}}</td>
+                                        
+                                        <td [ngClass]="data.OVERDRAFT_INTEREST_APPLICABLE === '' ? 'td_center' : 'td_left'">{{data.OVERDRAFT_INTEREST_APPLICABLE === ''? '-' : data.OVERDRAFT_INTEREST_APPLICABLE}}</td>
+                                        
+                                        <td class="td_right" [ngClass]="data.OVERDRAFT_INTEREST_RATE === '' ? 'td_center' : 'td_right'">{{data.OVERDRAFT_INTEREST_RATE === ''? '-' : data.OVERDRAFT_INTEREST_RATE}}</td>
+                                       
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="currentScheme?.length == 0">

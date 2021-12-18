@@ -643,37 +643,68 @@
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
                                         <td>{{ data.S_ACNOTYPE}}</td>
-                                        <td>{{ data.S_APPL }}</td>
-                                        <td>{{ data.S_NAME }}</td>
-                                        <td>{{ data.S_SHNAME }}</td>
-                                        <td class="td_right">{{ data.S_GLACNO }}</td>
-                                        <td class="td_right">{{ data.S_INT_ACNO }}</td>
-                                        <td class="td_right">{{ data.S_RECBL_PYBL_INT_ACNO }}</td>
-                                        <td class="td_right">{{ data.S_PENAL_ACNO }}</td>
-                                        <td class="td_right">{{ data.S_RECBL_PENAL_ACNO }}</td>
-                                        <td class="td_right">{{ data.S_RECBL_ODUE_INT_ACNO}}</td>
-                                        <td>{{ data.S_INT_APPLICABLE }}</td>
-                                        <td>{{ data.POST_TO_INDIVIDUAL_AC }}</td>
-                                        <td>{{ data.S_RECEIVABLE_INT_ALLOW }}</td>
-                                        <td>{{ data.IS_SHOW_INT_AS_RECINT_IFDUEBAL }}</td>
-                                        <td>{{ data.IS_INTUPTODATE }}</td>
-                                        <td>{{ data.IS_NO_POST_INT_AFT_OD }}</td>
-                                        <td class="td_right">{{ data.MIN_INT_LIMIT }}</td>
-                                        <td class="td_right">{{ data.ROUNDOFF_FACTOR }}</td>
-                                        <td>{{ data.S_PENAL_INT_APPLICABLE}}</td>
-                                        <td>{{ data.IS_POST_PENAL_TO_AC }}</td>
-                                        <td class="td_right">{{ data.POST_PENALINT_IN_INTEREST }}</td>
-                                        <td>{{ data.IS_CAL_EXTRAPENAL_FOR_CC }}</td>
-                                        <td class="td_right">{{ data.S_PENAL_INT_RATE }}</td>
-                                        <td>{{ data.OVERDRAFT_INTEREST_APPLICABLE }}</td>
-                                        <td>{{ data.OVERDRAFT_INTEREST_RATE }}</td>
-                                        <td class="td_right">{{ data.ODPENALTY_ON_EXPIRED_LEDGERBAL }}</td>
-                                        <td>{{ data.INT_INSTRUCTION_ALLOW}}</td>
-                                        <td>{{ data.STAND_INSTRUCTION_ALLOW }}</td>
-                                        <td>{{ data.BALANCE_ADD_APPLICABLE }}</td>
-                                        <td class="td_right">{{ data.CHEQUEBOOK_MIN_BAL }}</td>
-                                        <td>{{ data.IS_DEPO_LOAN }}</td>
-                                        <td>{{ data.IS_GOLDLOAN }}</td>
+                                        <td class="td_right" [ngClass]="data.S_APPL === '' ? 'td_center' : 'td_right'">{{data.S_APPL === ''? '-' : data.S_APPL}}</td>
+                                
+                                        <td [ngClass]="data.S_NAME === '' ? 'td_center' : 'td_left'">{{data.S_NAME === ''? '-' : data.S_NAME}}</td>
+                                        
+                                        <td [ngClass]="data.S_SHNAME === '' ? 'td_center' : 'td_left'">{{data.S_SHNAME === ''? '-' : data.S_SHNAME}}</td>
+                                      
+                                        <td class="td_right" [ngClass]="data.S_GLACNO === '' ? 'td_center' : 'td_right'">{{data.S_GLACNO === ''? '-' : data.S_GLACNO}}</td>
+                                      
+                                        <td class="td_right" [ngClass]="data.S_INT_ACNO === '' ? 'td_center' : 'td_right'">{{data.S_INT_ACNO === ''? '-' : data.S_INT_ACNO}}</td>
+                                    
+                                        <td class="td_right" [ngClass]="data.S_RECBL_PYBL_INT_ACNO === '' ? 'td_center' : 'td_right'">{{data.S_RECBL_PYBL_INT_ACNO === ''? '-' : data.S_RECBL_PYBL_INT_ACNO}}</td>
+                                  
+                                        <td class="td_right" [ngClass]="data.S_PENAL_ACNO === '' ? 'td_center' : 'td_right'">{{data.S_PENAL_ACNO === ''? '-' : data.S_PENAL_ACNO}}</td>
+                                      
+                                        <td class="td_right" [ngClass]="data.S_RECBL_PENAL_ACNO === '' ? 'td_center' : 'td_right'">{{data.S_RECBL_PENAL_ACNO === ''? '-' : data.S_RECBL_PENAL_ACNO}}</td>
+                                      
+                                        <td class="td_right" [ngClass]="data.S_RECBL_ODUE_INT_ACNO === '' ? 'td_center' : 'td_left'">{{data.S_RECBL_ODUE_INT_ACNO === ''? '-' : data.S_RECBL_ODUE_INT_ACNO}}</td>
+                                     
+                                        <td [ngClass]="data.S_INT_APPLICABLE === '' ? 'td_center' : 'td_left'">{{data.S_INT_APPLICABLE === ''? '-' : data.S_INT_APPLICABLE}}</td>
+                                   
+                                        <td [ngClass]="data.POST_TO_INDIVIDUAL_AC === '' ? 'td_center' : 'td_left'">{{data.POST_TO_INDIVIDUAL_AC === ''? '-' : data.POST_TO_INDIVIDUAL_AC}}</td>
+                                    
+                                        <td [ngClass]="data.S_RECEIVABLE_INT_ALLOW === '' ? 'td_center' : 'td_left'">{{data.S_RECEIVABLE_INT_ALLOW === ''? '-' : data.S_RECEIVABLE_INT_ALLOW}}</td>
+                                    
+                                        <td [ngClass]="data.IS_SHOW_INT_AS_RECINT_IFDUEBAL === '' ? 'td_center' : 'td_left'">{{data.IS_SHOW_INT_AS_RECINT_IFDUEBAL === ''? '-' : data.IS_SHOW_INT_AS_RECINT_IFDUEBAL}}</td>
+                                   
+                                        <td [ngClass]="data.IS_INTUPTODATE === '' ? 'td_center' : 'td_left'">{{data.IS_INTUPTODATE === ''? '-' : data.IS_INTUPTODATE}}</td>
+                                     
+                                        <td [ngClass]="data.IS_NO_POST_INT_AFT_OD === '' ? 'td_center' : 'td_left'">{{data.IS_NO_POST_INT_AFT_OD === ''? '-' : data.IS_NO_POST_INT_AFT_OD}}</td>
+                                    
+                                        <td class="td_right" [ngClass]="data.MIN_INT_LIMIT === '' ? 'td_center' : 'td_right'">{{data.MIN_INT_LIMIT === ''? '-' : data.MIN_INT_LIMIT}}</td>
+                                       
+                                        <td class="td_right" [ngClass]="data.ROUNDOFF_FACTOR === '' ? 'td_center' : 'td_right'">{{data.ROUNDOFF_FACTOR === ''? '-' : data.ROUNDOFF_FACTOR}}</td>
+                                    
+                                        <td [ngClass]="data.S_PENAL_INT_APPLICABLE === '' ? 'td_center' : 'td_left'">{{data.S_PENAL_INT_APPLICABLE === ''? '-' : data.S_PENAL_INT_APPLICABLE}}</td>
+                                      
+                                        <td [ngClass]="data.IS_POST_PENAL_TO_AC === '' ? 'td_center' : 'td_left'">{{data.IS_POST_PENAL_TO_AC === ''? '-' : data.IS_POST_PENAL_TO_AC}}</td>
+                                        
+                                        <td [ngClass]="data.POST_PENALINT_IN_INTEREST === '' ? 'td_center' : 'td_left'">{{data.POST_PENALINT_IN_INTEREST === ''? '-' : data.POST_PENALINT_IN_INTEREST}}</td>
+                                     
+                                        <td [ngClass]="data.IS_CAL_EXTRAPENAL_FOR_CC === '' ? 'td_center' : 'td_left'">{{data.IS_CAL_EXTRAPENAL_FOR_CC === ''? '-' : data.IS_CAL_EXTRAPENAL_FOR_CC}}</td>
+                                     
+                                        <td class="td_right" [ngClass]="data.S_PENAL_INT_RATE === '' ? 'td_center' : 'td_right'">{{data.S_PENAL_INT_RATE === ''? '-' : data.S_PENAL_INT_RATE}}</td>
+                                      
+                                        <td [ngClass]="data.OVERDRAFT_INTEREST_APPLICABLE === '' ? 'td_center' : 'td_left'">{{data.OVERDRAFT_INTEREST_APPLICABLE === ''? '-' : data.OVERDRAFT_INTEREST_APPLICABLE}}</td>
+                                        
+                                        <td [ngClass]="data.OVERDRAFT_INTEREST_RATE === '' ? 'td_center' : 'td_left'">{{data.OVERDRAFT_INTEREST_RATE === ''? '-' : data.ODPENALTY_ON_EXPIRED_LEDGERBAL}}</td>
+                                        
+                                        <td [ngClass]="data.ODPENALTY_ON_EXPIRED_LEDGERBAL === '' ? 'td_center' : 'td_left'">{{data.ODPENALTY_ON_EXPIRED_LEDGERBAL === ''? '-' : data.SUPPLIER_NAME}}</td>
+                                        
+                                        <td [ngClass]="data.INT_INSTRUCTION_ALLOW === '' ? 'td_center' : 'td_left'">{{data.INT_INSTRUCTION_ALLOW === ''? '-' : data.INT_INSTRUCTION_ALLOW}}</td>
+                                     
+                                        <td [ngClass]="data.STAND_INSTRUCTION_ALLOW === '' ? 'td_center' : 'td_left'">{{data.STAND_INSTRUCTION_ALLOW === ''? '-' : data.STAND_INSTRUCTION_ALLOW}}</td>
+                                     
+                                        <td [ngClass]="data.BALANCE_ADD_APPLICABLE === '' ? 'td_center' : 'td_left'">{{data.BALANCE_ADD_APPLICABLE === ''? '-' : data.BALANCE_ADD_APPLICABLE}}</td>
+                                     
+                                        <td class="td_right" [ngClass]="data.CHEQUEBOOK_MIN_BAL === '' ? 'td_center' : 'td_left'">{{data.CHEQUEBOOK_MIN_BAL === ''? '-' : data.CHEQUEBOOK_MIN_BAL}}</td>
+                                    
+                                        <td [ngClass]="data.IS_DEPO_LOAN === '' ? 'td_center' : 'td_left'">{{data.IS_DEPO_LOAN === ''? '-' : data.IS_DEPO_LOAN}}</td>
+                                     
+                                        <td [ngClass]="data.IS_GOLDLOAN === '' ? 'td_center' : 'td_left'">{{data.IS_GOLDLOAN === ''? '-' : data.IS_GOLDLOAN}}</td>
+                                       
                                         <!-- <td>{{ data.BALANCE_ADD_APPLICABLE }}</td> -->
                                     </tr>
                                 </tbody>

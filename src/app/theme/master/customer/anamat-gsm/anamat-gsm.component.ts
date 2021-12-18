@@ -147,6 +147,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   timeLeft = 5;
   
   id: any = '';
+  datemax: any;
 
   constructor(
     private fb: FormBuilder,
@@ -158,7 +159,10 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private customerID: CustomerIDMasterDropdownService,
     private systemParameter:SystemMasterParametersService
-  ) { }
+  ) {
+    
+     this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+   }
 
   ngOnInit(): void {
     this.createForm();
@@ -401,7 +405,19 @@ console.log(this.AC_CUSTID)
         })
       })
     }
-
+  
+    //disabledate on keyup
+    disabledate(data:any){
+  
+      console.log(data);
+      if(data != ""){
+        if(data > this.datemax){
+          Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+          (document.getElementById("AC_CTCODE")as HTMLInputElement).value = ""
+              
+        }
+      } 
+    }
   createForm() {
     this.angForm = this.fb.group({
       AC_ACNOTYPE: ['GS'],
@@ -421,12 +437,11 @@ console.log(this.AC_CUSTID)
       AC_PIN: [''],
       AC_OPDATE: ['',[Validators.required]],
       AC_IS_RECOVERY: [''],
-      DEBIT: new FormControl('Credit') ,
+      DEBIT: new FormControl('Credit'),
       AC_PARTICULAR: ['',[Validators.required,Validators.pattern]],
      
     });
   }
-  
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;

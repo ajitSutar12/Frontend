@@ -20,7 +20,7 @@ export class cityMasterService {
         return this.http.get<any>(this.url + '/city-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.CITY_CODE+' '+element.CITY_NAME, value: `${element.id}` };
+                    let obj = { label:element.CITY_NAME, value: `${element.NAME}` };
                     this.cityMasterObject.push(obj)
                 });
                 return this.cityMasterObject;

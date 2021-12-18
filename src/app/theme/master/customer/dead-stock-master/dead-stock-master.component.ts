@@ -127,6 +127,7 @@ export class DeadStockMasterComponent
 
   setdate: string;
   today: () => number;
+  datemax: string;
 
   constructor(
     private fb: FormBuilder,
@@ -135,7 +136,12 @@ export class DeadStockMasterComponent
     private ItemCatMasterDropdownService: ItemCatMasterDropdownService,
     private DepriciationCatDropdownMaster: DepriciationCatDropdownMasterService,
     private ACMasterDropdownService: ACMasterDropdownService
-  ) {}
+  ) {
+              // this.datemax =new Date() ;
+              this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+              console.log(this.datemax);
+            
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -299,7 +305,18 @@ export class DeadStockMasterComponent
       GL_ACNO: ["", [Validators.required]],
     });
   }
+  //disabledate on keyup
+  disabledate(data: any) {
 
+    console.log(data);
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
+
+      }
+    }
+  }
 
   // Method to insert data into database through NestJS
   submit() {
@@ -363,6 +380,7 @@ export class DeadStockMasterComponent
       });
     });
   }
+
   //Method for update data
   updateData() {
     let data = this.angForm.value;
@@ -378,6 +396,7 @@ export class DeadStockMasterComponent
       this.angForm.reset();
     });
   }
+
   addNewData() {
     this.showButton = true;
     this.updateShow = false;
@@ -430,6 +449,7 @@ export class DeadStockMasterComponent
       });
     });
   }
+  
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();

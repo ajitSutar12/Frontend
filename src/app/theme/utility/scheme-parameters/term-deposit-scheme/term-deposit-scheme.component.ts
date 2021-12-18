@@ -776,7 +776,17 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       document.getElementById('POST_PENALINT_IN_INTEREST').removeAttribute("disabled");
 
     }
+  }
 
+  INTEREST_RULE($event){
+    if ($event.target.checked) {
+      document.getElementById('IS_CAL_MATURITY_AMT').setAttribute("disabled", "true");
+      document.getElementById('FIXED_MATURITY_AMT').setAttribute("disabled", "true");
+    }
+    // else{
+    //   document.getElementById('IS_CAL_MATURITY_AMT').removeAttribute("disabled");
+    //   document.getElementById('FIXED_MATURITY_AMT').removeAttribute("disabled");
+    // }
   }
   createForm() {
     this.angForm = this.fb.group({

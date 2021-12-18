@@ -185,6 +185,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   timeLeft = 5;
   id: string = '';
   private dataSub: Subscription = null;
+  datemax: any;
 
   constructor(
     private http: HttpClient,
@@ -201,7 +202,12 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private minimumBalanceMasterDropdownService: MinimumBalanceMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder) { 
+       // this.datemax =new Date() ;
+       this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+       console.log(this.datemax);
+      
+    }
 
   ngOnInit(): void {
     this.createForm();
@@ -446,6 +452,18 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     })
   }
+    //disabledate on keyup
+    disabledate(data:any){
+    
+      console.log(data);
+      if(data != ""){
+        if(data > this.datemax){
+          Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+          (document.getElementById("AC_OPDATE")as HTMLInputElement).value = ""
+              
+        }
+      } 
+    }
   //function to get existing customer data according selection
   getCustomer(id) {
     this.getSystemParaDate() //function to set date

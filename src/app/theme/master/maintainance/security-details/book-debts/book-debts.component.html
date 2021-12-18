@@ -229,8 +229,13 @@
             <div class="col-sm">
               <div class="table-responsive">
                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+<<<<<<< Updated upstream
                   class="table table-striped table-bordered table-hover">
                   <tbody *ngIf="bookMaster?.length != 0">
+=======
+                  class="table table-striped table-bordered table-hover compact">
+                  <tbody *ngIf="bookMaster?.length != 0"> 
+>>>>>>> Stashed changes
                     <tr *ngFor="let data of bookMaster">
                       <td>
                         <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">
@@ -240,6 +245,7 @@
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
 
+<<<<<<< Updated upstream
                       <td>{{ data.SUBMISSION_DATE }}</td>
                       <td>{{ data.STATEMENT_DATE }}</td>
                       <td>{{ data.DEBTORS_OP_BAL }}</td>
@@ -250,6 +256,24 @@
                       <td>{{ data.CRD_OUTSTAND_BAL }}</td>
                       <td>{{ data.MARGIN}}</td>
                       <td>{{ data.REMARK }}</td>
+=======
+                      <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
+                      <td class="td_right">{{ data.STATEMENT_DATE }}</td>
+                      <td class="td_right">{{ data.DEBTORS_OP_BAL }}</td>
+                      <td class="td_right" [ngClass]="data.CREDIT_SALE === '' ? 'td_center' : 'td_right'">{{data.CREDIT_SALE === ''? '-' : data.CREDIT_SALE}}</td>
+                      <!-- <td class="td_right">{{ data.CREDIT_SALE }}</td> -->
+                      <td [ngClass]="data.RECOVERY === '' ? 'td_center' : 'td_right'">{{data.RECOVERY === ''? '-' : data.RECOVERY}}</td>
+                      <!-- <td class="td_right">{{ data.RECOVERY }}</td> -->
+                      <td class="td_right" [ngClass]="data.OVERAGED_DEBTORS === '' ? 'td_center' : 'td_right'">{{data.OVERAGED_DEBTORS === ''? '-' : data.OVERAGED_DEBTORS}}</td>                      
+                      <!-- <td class="td_right">{{ data.OVERAGED_DEBTORS }}</td> -->
+                      <td>{{ data.CLOSE_BAL }}</td>
+                      <td class="td_right" [ngClass]="data.CRD_OUTSTAND_BAL === '' ? 'td_center' : 'td_right'">{{data.CRD_OUTSTAND_BAL === ''? '-' : data.CRD_OUTSTAND_BAL}}</td>                      
+                      <!-- <td class="td_right">{{ data.CRD_OUTSTAND_BAL }}</td> -->
+                      <td class="td_right" [ngClass]="data.MARGIN === '' ? 'td_center' : 'td_right'">{{data.MARGIN === ''? '-' : data.MARGIN}}</td>
+                      <!-- <td class="td_right">{{ data.MARGIN}}</td> -->
+                      <td [ngClass]="data.REMARK === '' ? 'td_center' : 'td_right'">{{data.REMARK === ''? '-' : data.REMARK}}</td>
+                      <!-- <td>{{ data.REMARK }}</td> -->
+>>>>>>> Stashed changes
 
 
                     </tr>

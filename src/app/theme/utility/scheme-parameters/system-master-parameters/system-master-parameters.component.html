@@ -9,6 +9,7 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <ngb-tabset>
+                    <!--Bank Details  -->
                         <ngb-tab title="1 Bank Details">
                             <ng-template ngbTabContent>
                                 <div [@fadeInOutTranslate] class="m-t-15">
@@ -23,7 +24,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="BANK_CODE"
                                                                         class="form-control" placeholder=" "
-                                                                        #autofocus id="BANK_CODE" maxlength="4" pattern="^[0-9]+$"
+                                                                        #autofocus id="BANK_CODE" maxlength="3" pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="BANK_CODE" #autofocus>
                                                                     <label for="BANK_CODE">Bank Code<sub
@@ -82,25 +83,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- <div class="col-sm-3">
-                                                            <div class="form-group form-primary form-static-label">
-                                                                <ng-select [ngClass]="'ng-select'" [options]="OwnbranchMasterDropdown" [multiple]="false"
-                                                                    placeholder="Branch*" required title="Compulsory Selection"
-                                                                    formControlName="BRANCH_CODE">
-                                                                </ng-select>
-                                                               
-                                                            </div>
-                                                            <div class="form-group form-primary form-static-label"
-                                                            *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
-                                                            class="alert alert-danger">
-                                                            <div
-                                                                *ngIf=" angForm.controls['BRANCH_CODE'].errors?.required || angForm.controls['BRANCH_CODE'].errors?.maxlength">
-                                                                This field is required
-                                                            </div>
-                                                        </div>
-                                                        </div> -->
-
-                                                    </div>
+                                                     </div>
                                                      <div class="row">
                                                         <div class="col-sm-7">
                                                             <div class="form-group input-group">
@@ -355,7 +338,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-3">
+                                                        <!-- <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="BRANCH_CITY_NAME"
@@ -403,7 +386,7 @@
                                                                     a-z - / . (Space)
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
 
 
@@ -414,7 +397,8 @@
                                 </div>
                             </ng-template>
                         </ngb-tab>
-
+                    <!--End of Bank Details -->
+                    <!--GL Account 1 -->
                         <ngb-tab title="2 GL Account">
                             <ng-template ngbTabContent>
                                 <div [@fadeInOutTranslate] class="m-t-15">
@@ -562,84 +546,57 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-block" *ngIf="Show">
-                                                        <div class="row">
-
-                                                            <div class="col-sm">
-                                                                <div class="form-radio">
-                                                                    <div class="radio radio-inline">
-                                                                        <label>
-                                                                            <input type="radio"
-                                                                                value="MemberNoWiseRecovery"
-                                                                                name="RECOVERY_METHOD"
-                                                                                formControlName="RECOVERY_METHOD"
+                                                    <div class="card">
+                                                        <div class="card-block" *ngIf="Show">
+                                                            <div class="row">
+    
+                                                                <div class="col-sm">
+                                                                    <div class="form-radio">
+                                                                        <div class="radio radio-inline">
+                                                                            <label>
+                                                                                <input type="radio"
+                                                                                    value="MemberNoWiseRecovery"
+                                                                                    name="RECOVERY_METHOD"
+                                                                                    formControlName="RECOVERY_METHOD"
+                                                                                    >
+                                                                                <i class="helper"></i>Member No Wise Recovery<span class="required"> </span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm">
+                                                                    <div class="form-radio">
+                                                                        <div class="radio radio-inline">
+                                                                            <label>
+                                                                                <input type="radio"
+                                                                                    value="CustomeIDWiseRecovery"
+                                                                                    name="RECOVERY_METHOD"
+                                                                                    formControlName="RECOVERY_METHOD"
+                                                                                    >
+                                                                                <i class="helper"></i>CustomerID Wise
+                                                                                Recovery<span class="required"> </span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+    
+                                                                </div>
+                                                                <div class="col-sm">
+                                                                    <div class="border-checkbox-section">
+                                                                        <div
+                                                                            class="border-checkbox-group border-checkbox-group-primary">
+                                                                            <input class="border-checkbox" type="checkbox"
+                                                                                name="IS_PROCESS_FOR_MONTH"
+                                                                                id="IS_PROCESS_FOR_MONTH"
+                                                                                formControlName="IS_PROCESS_FOR_MONTH"
                                                                                 >
-                                                                            <i class="helper"></i>Member No Wise
-                                                                            Recovery<span class="required"> </span>
-                                                                        </label>
+                                                                            <label class="border-checkbox-label"
+                                                                                for="IS_PROCESS_FOR_MONTH">Is Process For
+                                                                                Process
+                                                                                Month/Year
+                                                                            </label>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-sm">
-                                                                <div class="form-radio">
-                                                                    <div class="radio radio-inline">
-                                                                        <label>
-                                                                            <input type="radio"
-                                                                                value="CustomeIDWiseRecovery"
-                                                                                name="RECOVERY_METHOD"
-                                                                                formControlName="RECOVERY_METHOD"
-                                                                                >
-                                                                            <i class="helper"></i>CustomerID Wise
-                                                                            Recovery<span class="required"> </span>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="col-sm">
-                                                                <div class="border-checkbox-section">
-                                                                    <div
-                                                                        class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input class="border-checkbox" type="checkbox"
-                                                                            name="IS_PROCESS_FOR_MONTH"
-                                                                            id="IS_PROCESS_FOR_MONTH"
-                                                                            formControlName="IS_PROCESS_FOR_MONTH"
-                                                                            >
-                                                                        <label class="border-checkbox-label"
-                                                                            for="IS_PROCESS_FOR_MONTH">Is Process For
-                                                                            Process
-                                                                            Month/Year
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-
-                                                            <div class="col-sm">
-                                                                <div class="form-group input-group">
-                                                                    <span class="border-lable-flt">
-                                                                        <input type="text" name="RECOVERY_DR_ACNO"
-                                                                            class="form-control" placeholder=" "
-                                                                            id="RECOVERY_DR_ACNO" pattern="^[0-9]+$"
-                                                                            title="Input allowed only  0-9"
-                                                                            maxlength="6"
-                                                                            formControlName="RECOVERY_DR_ACNO" >
-                                                                        <label for="RECOVERY_DR_ACNO">Recovery GL
-                                                                            A/c No.<sub class="required">*</sub></label>
-                                                                    </span>
-                                                                </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['RECOVERY_DR_ACNO'].invalid && (angForm.controls['RECOVERY_DR_ACNO'].dirty || angForm.controls['RECOVERY_DR_ACNO'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf=" angForm.controls['RECOVERY_DR_ACNO'].errors?.required || angForm.controls['RECOVERY_DR_ACNO'].errors?.pattern ||angForm.controls['RECOVERY_DR_ACNO'].errors?.maxlength">
-                                                                        This field is required and Input allowed only
-                                                                        0-9
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm">
                                                                 <div class="col-sm">
                                                                     <div class="border-checkbox-section">
                                                                         <div
@@ -659,12 +616,50 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
                                                             </div>
-
+                                                            <div class="row">
+    
+                                                                <!-- <div class="col-sm-5">
+                                                                    <div class="form-group input-group">
+                                                                        <span class="border-lable-flt">
+                                                                            <input type="text" name="RECOVERY_DR_ACNO"
+                                                                                class="form-control" placeholder=" "
+                                                                                id="RECOVERY_DR_ACNO" pattern="^[0-9]+$"
+                                                                                title="Input allowed only  0-9"
+                                                                                maxlength="6"
+                                                                                formControlName="RECOVERY_DR_ACNO" >
+                                                                            <label for="RECOVERY_DR_ACNO">Recovery GL A/c No.<sub class="required">*</sub></label>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="form-group form-primary form-static-label"
+                                                                        *ngIf="angForm.controls['RECOVERY_DR_ACNO'].invalid && (angForm.controls['RECOVERY_DR_ACNO'].dirty || angForm.controls['RECOVERY_DR_ACNO'].touched)"
+                                                                        class="alert alert-danger">
+                                                                        <div
+                                                                            *ngIf=" angForm.controls['RECOVERY_DR_ACNO'].errors?.required || angForm.controls['RECOVERY_DR_ACNO'].errors?.pattern ||angForm.controls['RECOVERY_DR_ACNO'].errors?.maxlength">
+                                                                            This field is required and Input allowed only
+                                                                            0-9
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+                                                                <div class="col-sm-5">
+                                                                    <div class="form-group form-primary form-static-label">
+                                                                        <ng-select [ngClass]="'ng-select'"
+                                                                            [options]="ACMasterDropdown" [multiple]="false"
+                                                                            placeholder="Recovery GL A/c No."
+                                                                            title="Compulsory Selection"
+                                                                            formControlName="RECOVERY_DR_ACNO">
+                                                                        </ng-select>
+                                                                    </div>
+                                                                </div>  
+                                                                    
+    
+                                                                
+    
+                                                            </div>
+    
                                                         </div>
-
                                                     </div>
+                                                    
 
                                                 </div>
                                             </div>
@@ -673,7 +668,8 @@
                                 </div>
                             </ng-template>
                         </ngb-tab>
-
+                    <!--End of  GL Account 1 -->
+                    <!--GL Account 2 -->
                         <ngb-tab title="3 GL Account">
                             <ng-template ngbTabContent>
                                 <div [@fadeInOutTranslate] class="m-t-15">
@@ -959,7 +955,8 @@
                                 </div>
                             </ng-template>
                         </ngb-tab>
-
+                    <!--End of  GL Account 2 -->
+                    <!--Flag Setting-->
                         <ngb-tab title="4 Flag Setting">
                             <ng-template ngbTabContent>
                                 <div [@fadeInOutTranslate] class="m-t-15">
@@ -1357,7 +1354,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-sm">
+                                                                            <!-- <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
                                                                                         class="border-checkbox-group border-checkbox-group-primary">
@@ -1373,10 +1370,7 @@
                                                                                         </label>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
-
-                                                                        </div>
-                                                                        <div class="row">
+                                                                            </div> -->
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1395,6 +1389,9 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1430,9 +1427,6 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-                                                                        </div>
-                                                                        <div class="row">
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1451,6 +1445,10 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
+                                                                        </div>
+                                                                        <div class="row">
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1486,9 +1484,6 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-                                                                        </div>
-                                                                        <div class="row">
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1505,6 +1500,10 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
+                                                                        </div>
+                                                                        <div class="row">
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1540,10 +1539,6 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-
-                                                                        </div>
-                                                                        <div class="row">
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1561,6 +1556,11 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
+
+                                                                        </div>
+                                                                        <div class="row">
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1596,10 +1596,6 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-
-                                                                        </div>
-                                                                        <div class="row">
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1617,6 +1613,11 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
+
+                                                                        </div>
+                                                                        <div class="row">
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1653,9 +1654,6 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-                                                                        </div>
-                                                                        <div class="row">
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1673,6 +1671,10 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
+                                                                        </div>
+                                                                        <div class="row">
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1707,10 +1709,6 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-                                                                        </div>
-                                                                        <div class="row">
-
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1729,6 +1727,11 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
+                                                                        </div>
+                                                                        <div class="row">
+
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1765,9 +1768,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="row">
-
+                                                                            
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1786,6 +1787,9 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                        </div>
+                                                                        <div class="row">
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1820,10 +1824,6 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-                                                                        </div>
-                                                                        <div class="row">
-
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1842,6 +1842,11 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
+                                                                        </div>
+                                                                        <div class="row">
+
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1878,10 +1883,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-                                                                        </div>
-                                                                        <div class="row">
-
+                                                                            
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1900,6 +1902,10 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
+                                                                        </div>
+                                                                        <div class="row">
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1936,10 +1942,6 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-                                                                        </div>
-                                                                        <div class="row">
-
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -1958,6 +1960,11 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
+                                                                        </div>
+                                                                        <div class="row">
+
+
                                                                             <div class="col-sm">
                                                                                 <div class="border-checkbox-section">
                                                                                     <div
@@ -2012,7 +2019,8 @@
                                 </div>
                             </ng-template>
                         </ngb-tab>
-
+                    <!--End Flag Setting-->
+                    <!--Admin Options-->
                         <ngb-tab title="5 Admin Options">
                             <ng-template ngbTabContent>
                                 <div [@fadeInOutTranslate] class="m-t-15">
@@ -2063,26 +2071,6 @@
                                                             </div>
                                                         </div>
 
-                                                        <!-- <div class="col-sm">
-                                                            <div class="form-radio">
-                                                                <div class="radio radio-inline">
-                                                                    <label>
-                                                                        <input type="radio" id="DAY_BEGIN_EXECUTED"
-                                                                            value="DayBeginExecuted" name="DAY_BEGIN_EXECUTED"
-                                                                            formControlName="DAY_BEGIN_EXECUTED">
-                                                                        <i class="helper"></i>Day Begin Executed<sub class="required">* </sub>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="radio radio-inline">
-                                                                    <label>
-                                                                        <input type="radio" id="DAY_END_EXECUTED"
-                                                                            value="DayEndExecuted" name="DAY_END_EXECUTED"
-                                                                            formControlName="DAY_END_EXECUTED">
-                                                                        <i class="helper"></i>Day End Executed<sub class="required">* </sub>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div> -->
                                                         <div class="col-sm">
                                                             <div class="form-radio">
                                                                 <div class="radio radio-inline">
@@ -2171,7 +2159,7 @@
                                                     </div>
                                                    
                                                         <div class="row">
-                                                            <div class="col-sm">
+                                                            <!-- <div class="col-sm">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <ng-select [ngClass]="'ng-select'"
                                                                         [options]="ACMasterDropdown" [multiple]="false"
@@ -2180,16 +2168,14 @@
                                                                         formControlName="BACK_DAY_OPTION">
                                                                     </ng-select>
                                                                 </div>
-
-
-                                                            </div>
+                                                            </div> -->
                                                             <div class="col-sm">
                                                                 <div class="border-checkbox-section">
                                                                     <div
                                                                         class="border-checkbox-group border-checkbox-group-primary">
                                                                         <input class="border-checkbox" type="checkbox"
                                                                             name="ON_LINE" id="ON_LINE"
-                                                                            formControlName="ON_LINE">
+                                                                            formControlName="ON_LINE" (click)="ON_LINE($event)">
                                                                         <label class="border-checkbox-label"
                                                                             for="ON_LINE">
                                                                             Is Online Transactions?
@@ -2293,8 +2279,8 @@
                                     </div>
                                 </div>
                             </ng-template>
-                        </ngb-tab>
-
+                       </ngb-tab>
+                    <!--End of Admin Options-->
                     </ngb-tabset>
 
                     <div class="row">
@@ -2346,8 +2332,7 @@
                                         <td>{{ data.OFFICER_DESIGNATION }}</td>
                                         <td>{{ data.RBI_LICENCE_NO }}</td>
                                         <td>{{ data.MANAGER_NAME }}</td>
-                                        <td>{{ data.BRANCH_CITY_NAME }}</td>
-                                        <td>{{ data.COMPANY_CODE }}</td>
+                                       
                                         <td>{{ data.DD_COMMISSION_ACNO }}</td>
                                         <td>{{ data.DIVIDEND_ACNO }}</td>
                                         <td>{{ data.BONUS_GLACNO }}</td>
@@ -2360,7 +2345,7 @@
                                         <td>{{ data.INWARD_BILL_RECEIVABLE_ACNO }}</td>
                                         <td>{{ data.IS_ALLOW_RECOVERY_DIFF }}</td>
                                         <td>{{ data.RECOVERY_METHOD }}</td>
-                                        <td>{{ data.RECOVERY_METHOD }}</td>
+                                        
                                         <td>{{ data.IS_PROCESS_FOR_MONTH }}</td>
                                         <td>{{ data.RECOVERY_DR_ACNO }}</td>
                                         <td>{{ data.IS_PROCESS_UPTO_TRANDATE }}</td>
@@ -2400,7 +2385,6 @@
 
                                         <td>{{ data.IS_ALLOW_CLG_TALLY_VOUCHER }}</td>
                                         <td>{{ data.DENOMINATION_REQUIRE }}</td>
-                                        <td>{{ data.CUSTOMER_ID_REQUIRED }}</td>
                                         <td>{{ data.IS_CLG_DATE_ADD }}</td>
                                         <td>{{ data.TELLER_MODE }}</td>
                                         <td>{{ data.IS_TDS_CALCULATE }}</td>
@@ -2443,11 +2427,11 @@
                                         <td>{{ data.PIGMY_CURRENT_DATE }}</td>
                                         <td>{{ data.PIGMY_DAY_BEGIN_EXECUTED }}</td>
                                         <td>{{ data.PIGMY_DAY_END_EXECUTED }}</td>
-                                        <td>{{ data.BACK_DAY_OPTION }}</td>
                                         <td>{{ data.ON_LINE }}</td>
                                         <td>{{ data.IS_RECEIPT_PRINT_DESIGNMETHOD }}</td>
                                         <td>{{ data.CASH_IN_HAND_ACNO }}</td>
                                         <td>{{ data.CLG_HOUSE_METHOD }}</td>
+                                        
                                         <td>{{ data.LINES_PER_PASSBOOKPAGE }}</td>
 
                                     </tr>
@@ -2480,9 +2464,9 @@
                                                 name="OFFICER_DESIGNATION"></th>
                                         <th><input type="text" placeholder="RBI Licence No." name="RBI_LICENCE_NO"></th>
                                         <th><input type="text" placeholder="Manager Name" name="MANAGER_NAME"></th>
-                                        <th><input type="text" placeholder="Branch City Name" name="BRANCH_CITY_NAME">
+                                        <!-- <th><input type="text" placeholder="Branch City Name" name="BRANCH_CITY_NAME">
                                         </th>
-                                        <th><input type="text" placeholder="Company Code" name="COMPANY_CODE"></th>
+                                        <th><input type="text" placeholder="Company Code" name="COMPANY_CODE"></th> -->
                                         <th><input type="text" placeholder="DD Commission" name="DD_COMMISSION_ACNO">
                                         </th>
                                         <th><input type="text" placeholder="Dividend GL" name="DIVIDEND_ACNO"></th>
@@ -2505,8 +2489,8 @@
                                                 name="IS_ALLOW_RECOVERY_DIFF"></th>
                                         <th><input type="text" placeholder="Member No Wise Recovery"
                                                 name="RECOVERY_METHOD"></th>
-                                        <th><input type="text" placeholder="CustomerID Wise Recovery"
-                                                name="RECOVERY_METHOD"></th>
+                                        <!-- <th><input type="text" placeholder="CustomerID Wise Recovery"
+                                                name="RECOVERY_METHOD"></th> -->
                                         <th><input type="text" placeholder="Is Process For Process Month/Year"
                                                 name="IS_PROCESS_FOR_MONTH"></th>
 
@@ -2574,8 +2558,8 @@
                                                 name="IS_ALLOW_CLG_TALLY_VOUCHER"></th>
                                         <th><input type="text" placeholder="Denomination Require"
                                                 name="DENOMINATION_REQUIRE"></th>
-                                        <th><input type="text" placeholder="Customer ID required'"
-                                                name="CUSTOMER_ID_REQUIRED"></th>
+                                        <!-- <th><input type="text" placeholder="Customer ID required'"
+                                                name="CUSTOMER_ID_REQUIRED"></th> -->
                                         <th><input type="text" placeholder="Is Clearing Date Add by 1 Day"
                                                 name="IS_CLG_DATE_ADD"></th>
                                         <th><input type="text" placeholder="Teller Mode" name="TELLER_MODE"></th>
@@ -2658,8 +2642,8 @@
                                                 name="PIGMY_DAY_BEGIN_EXECUTED"></th>
                                         <th><input type="text" placeholder="Day End Executed"
                                                 name="PIGMY_DAY_END_EXECUTED"></th>
-                                        <th><input type="text" placeholder="Back Day Open Options"
-                                                name="BACK_DAY_OPTION"></th>
+                                        <!-- <th><input type="text" placeholder="Back Day Open Options"
+                                                name="BACK_DAY_OPTION"></th> -->
                                         <th><input type="text" placeholder="Is Online Transactions?" name="ON_LINE">
                                         </th>
                                         <th><input type="text" placeholder="Is Receipt Printing by Designing Method ?"
