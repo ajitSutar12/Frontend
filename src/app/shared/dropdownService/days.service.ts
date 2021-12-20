@@ -6,11 +6,11 @@ import { IOption } from 'ng-select';
 @Injectable()
 export class DaysService {
     public static readonly PLAYER_ONE: Array<IOption> = [
-        { value: '0', label: 'Days' },
-        { value: '1', label: 'Monthly' },
-        { value: '2', label: 'Quarterly' },
-        { value: '3', label: 'Half Yearly' },
-        { value: '4', label: 'Yearly' }
+        { value: 'Days', label: 'Days' },
+        { value: 'Monthly', label: 'Monthly' },
+        { value: 'Quarterly', label: 'Quarterly' },
+        { value: 'HalfYearly', label: 'Half Yearly' },
+        { value: 'Yearly', label: 'Yearly' }
     ];
 
     getCharacters(): Array<IOption> {

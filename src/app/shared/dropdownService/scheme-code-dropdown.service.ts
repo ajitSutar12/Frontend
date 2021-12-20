@@ -45,5 +45,15 @@ export class SchemeCodeDropdownService {
             return this.schemeObject;
         }));
     }
+    public getTdReceiptScheme(){
+        return this.http.get<any>(this.url + '/scheme-parameters/')
+        .pipe(map(ele => {
+            ele.forEach(element => {
+                let obj = { label: element.RECEIPT_TYPE, value: `${element.id}` };
+                this.schemeObject.push(obj)
+            });
+            return this.schemeObject;
+        }));
+    }
     
 }

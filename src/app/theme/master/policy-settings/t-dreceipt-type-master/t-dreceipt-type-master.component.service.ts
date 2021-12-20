@@ -26,6 +26,7 @@ export class TDReceiptService {
   getFormData(id: any): Observable<any> {
     return this.http.get(this.url + '/td-receipt-type/' + id).pipe(catchError(this.handleError));
   }
+  
   //Updation Operation
   updateData(data): Observable<any> {
     return this.http.put(this.url + '/td-receipt-type/update', data);

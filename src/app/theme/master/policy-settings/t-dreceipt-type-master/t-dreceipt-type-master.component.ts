@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { IOption } from 'ng-select';
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
 // Creating and maintaining form fields with validation 
@@ -10,7 +11,9 @@ import { DataTableDirective } from 'angular-datatables';
 import { HttpClient } from '@angular/common/http';
 // Service File For Handling CRUD Operation
 import { TDReceiptService } from './t-dreceipt-type-master.component.service';
+import { TdReceiptService } from '../../../../shared/dropdownService/tdReceipt-type.service';
 import { environment } from '../../../../../environments/environment'
+import { first } from 'rxjs/operators';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -44,6 +47,7 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   updateShow: boolean = false;
   newbtnShow: boolean = false;
 
+  // tdMaster: any[]
   //variable to get ID to update
   updateID: number = 0;
 
@@ -55,8 +59,20 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   // Store data from backend
   tdReceipt: TDReceiptinterface[];
 
+  selectedValue = ""
+  receipt: number
+   //title select variables
+   tdMaster: Array<IOption> = this._tdReceiptService.getCharacters();
+   selectedOption = '3';
+   isDisabled = true;
+   characters: Array<IOption>;
+   selectedCharacter = '3';
+   timeLeft = 5;
+   private dataSub: Subscription = null;
 
-  constructor(private fb: FormBuilder, private _receipt: TDReceiptService, private http: HttpClient,) { }
+  constructor(private fb: FormBuilder, private _receipt: TDReceiptService,
+    private http: HttpClient,
+    private _tdReceiptService: TdReceiptService,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -121,21 +137,39 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
       ],
       dom: 'Blrtip',
     };
-  }
 
-  createForm() {
-    this.angForm = this.fb.group({
-      LAST_RECEIPT_NO: ['', [Validators.required, Validators.pattern]],
-      RECEIPT_TYPE: ['', [Validators.required, Validators.pattern]]
+    this.runTimer();
+    this.dataSub = this._tdReceiptService.loadCharacters().subscribe((options) => {
+      this.characters = options;
     });
   }
+
+  runTimer() {
+    const timer = setInterval(() => {
+      this.timeLeft -= 1;
+      if (this.timeLeft === 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+
+  }
+  createForm() {
+    this.angForm = this.fb.group({
+      LAST_RECEIPT_NO: [, [Validators.pattern]],
+      RECEIPT_TYPE: ['', [Validators.required]]
+    });
+  }
+
   submit() {
     const formVal = this.angForm.value;
+    this.receipt = this.angForm.controls['LAST_RECEIPT_NO'].value + 1;
+    console.log(this.receipt)
     const dataToSend = {
-      'LAST_RECEIPT_NO': formVal.LAST_RECEIPT_NO,
-      'RECEIPT_TYPE': formVal.RECEIPT_TYPE,
+      'LAST_RECEIPT_NO': this.receipt,
+      'RECEIPT_TYPE': formVal.RECEIPT_TYPE
     };
-    // console.log(this.angForm.value);
+    console.log(this.angForm.value);
+    console.log(dataToSend,"dataToSend");
     this._receipt.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -208,7 +242,7 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
       }
     })
   }
-  
+
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -255,4 +289,31 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
     this.dtTrigger.unsubscribe();
   }
 
+ 
+  getValue(event) {
+    debugger
+    this.http.get<any>(
+      this.url + '/td-receipt-type',
+    ).subscribe(resp => {
+      console.log("resp", resp)
+      if (resp.length != 0) {
+        // resp.forEach(async (element) => {
+        if (event.value == resp[0].RECEIPT_TYPE) {
+          console.log("RECEIPT_TYPE", resp[0].RECEIPT_TYPE)
+          this.angForm.patchValue({
+            LAST_RECEIPT_NO: resp[0].LAST_RECEIPT_NO
+          })
+        } else {
+          this.angForm.patchValue({
+            LAST_RECEIPT_NO: 0
+          })
+        }
+      }
+      else {
+        this.angForm.patchValue({
+          LAST_RECEIPT_NO: 0
+        })
+      }
+    })
+  }
 }

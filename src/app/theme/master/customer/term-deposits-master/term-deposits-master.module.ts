@@ -28,6 +28,7 @@ import { TermDepositSchemeService } from '../../../utility/scheme-parameters/ter
 import { DatePipe } from '@angular/common';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { InterestInstructionModule } from '../../instruction/interest-instruction/interest-instruction.module'
+import { InterestInstructionService } from '../../instruction/interest-instruction/interest-instruction.service'
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -53,6 +54,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     IntrestCategoryMasterDropdownService, AccountcodeService,
     TitleService,
     TermDepositSchemeService,
+    InterestInstructionService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,

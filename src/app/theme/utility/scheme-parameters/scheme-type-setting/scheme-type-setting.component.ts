@@ -459,7 +459,6 @@ export class SchemeTypeSettingComponent
     });
   }
   ngAfterViewInit(): void {
-    // this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {

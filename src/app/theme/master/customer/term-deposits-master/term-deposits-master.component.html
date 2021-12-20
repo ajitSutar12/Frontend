@@ -303,8 +303,8 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_MONTHS" class="form-control" placeholder=" " id="AC_MONTHS"
-                                maxlength="3" pattern="^[0-9]+$" 
-                                formControlName="AC_MONTHS" (ngModelChange)="getMaturityDate()" disabled>
+                                maxlength="3" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                formControlName="AC_MONTHS" (ngModelChange)="getMaturityDate()">
                               <label for="AC_MONTHS">Months<sub class="required">*
                                 </sub></label>
                             </span>
@@ -322,8 +322,8 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_DAYS" class="form-control" placeholder=" " id="AC_DAYS"
-                                pattern="^[0-9]+$" maxlength="4"
-                                formControlName="AC_DAYS" (ngModelChange)="getMaturityDate()" disabled>
+                                pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="4"
+                                formControlName="AC_DAYS" (ngModelChange)="getMaturityDate()">
                               <label for="AC_DAYS">Days</label>
                             </span>
                           </div>
@@ -368,8 +368,26 @@
                         <div class="col-sm-3">
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
+                              <input type="text" name="AC_INTRATE" class="form-control" placeholder=" " id="AC_INTRATE"
+                                required='' pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                formControlName="AC_INTRATE" (ngModelChange)="calculation()">
+                              <label for="AC_INTRATE">Interest Rate%<sub class="required">* </sub></label>
+                            </span>
+                          </div>
+                          <div class="form-group form-primary form-static-label"
+                            *ngIf="angForm.controls['AC_INTRATE'].invalid && (angForm.controls['AC_INTRATE'].dirty || angForm.controls['AC_INTRATE'].touched)"
+                            class="alert alert-danger">
+                            <div
+                              *ngIf="angForm.controls['AC_INTRATE'].errors?.pattern || angForm.controls['AC_INTRATE'].errors?.required">
+                              This feild is required and Input allowed only 0-9
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group input-group">
+                            <span class="border-lable-flt">
                               <input type="text" name="AC_MATUAMT" class="form-control" placeholder=" " id="AC_MATUAMT"
-                                pattern="^[0-9]+$" maxlength="13"
+                                pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="13"
                                 pattern="\d{1,10}(\.\d{2})?" formControlName="AC_MATUAMT" disabled>
                               <label for="AC_MATUAMT">Maturity Amount</label>
                             </span>
@@ -383,24 +401,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-sm-3">
-                          <div class="form-group input-group">
-                            <span class="border-lable-flt">
-                              <input type="text" name="AC_INTRATE" class="form-control" placeholder=" " id="AC_INTRATE"
-                                required='' pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                formControlName="AC_INTRATE">
-                              <label for="AC_INTRATE">Interest Rate%<sub class="required">* </sub></label>
-                            </span>
-                          </div>
-                          <div class="form-group form-primary form-static-label"
-                            *ngIf="angForm.controls['AC_INTRATE'].invalid && (angForm.controls['AC_INTRATE'].dirty || angForm.controls['AC_INTRATE'].touched)"
-                            class="alert alert-danger">
-                            <div
-                              *ngIf="angForm.controls['AC_INTRATE'].errors?.pattern || angForm.controls['AC_INTRATE'].errors?.required">
-                              This feild is required and Input allowed only 0-9
-                            </div>
-                          </div>
-                        </div>
+
                         <div class="col-sm">
                           <div class="border-checkbox-section">
                             <div class="border-checkbox-group border-checkbox-group-primary">
@@ -1533,31 +1534,32 @@
                     <div [@fadeInOutTranslate] class="m-t-15">
                       <div class="col-sm-4">
                         <div class="form-group form-primary form-static-label">
-                          <label><h6>Interest Instruction</h6></label>
+                          <label>
+                            <h6>Interest Instruction</h6>
+                          </label>
                           <span class="fa fa-fw fa-plus-circle field-icon" id="icon" (click)="modalLarge.show()"
                             placement="bottom" ngbTooltip="Add Interest Instruction"></span>
                         </div>
                       </div>
-                      <div class="col-sm-2">
-                        <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
-                          <div class="app-modal-header">
-                            <h4 class="modal-title">Interest Instruction</h4>
-                            <button type="button" class="close basic-close" (click)="modalLarge.hide()">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="app-modal-body">
-                            <perfect-scrollbar style="max-width: 800px; max-height: 450px">
-                              <app-interest-instruction> </app-interest-instruction>
-                            </perfect-scrollbar>
-                          </div>
-                          <div class="app-modal-footer">
-                            <button type="button" class="btn btn-primary ripple light" (click)="modalLarge.hide()">
-                              Close
-                            </button>
-                          </div>
-                        </app-modal-basic>
-                      </div>
+                      <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
+                        <div class="app-modal-header">
+                          <h4 class="modal-title">Interest Instruction</h4>
+                          <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="app-modal-body">
+                          <!-- <perfect-scrollbar style="max-width: 10%; max-height: 450px"> -->
+                          <app-interest-instruction> </app-interest-instruction>
+                          <!-- </perfect-scrollbar> -->
+                        </div>
+                        <div class="app-modal-footer">
+                          <button type="button" class="btn btn-primary ripple light" (click)="modalLarge.hide()">
+                            Close
+                          </button>
+                        </div>
+                      </app-modal-basic>
+
                     </div>
                   </ng-template>
                 </ngb-tab>

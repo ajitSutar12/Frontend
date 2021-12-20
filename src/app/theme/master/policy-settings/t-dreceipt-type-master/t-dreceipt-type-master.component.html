@@ -9,20 +9,17 @@
                 <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-3">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="RECEIPT_TYPE" class="form-control" placeholder=" "
-                                        id="RECEIPT_TYPE" required="" pattern="^[A-Za-z\./ -]+$" maxlength="3"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        formControlName="RECEIPT_TYPE">
-                                    <label for="RECEIPT_TYPE">Receipt Type<sub class="required">* </sub></label>
-                                </span>
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" [options]="tdMaster" [multiple]="false"
+                                    placeholder="Receipt Type *" required title="Compulsory Selection"
+                                    [(ngModel)]="selectedValue" (selected)="getValue($event)"
+                                    formControlName="RECEIPT_TYPE">
+                                </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['RECEIPT_TYPE'].invalid && (angForm.controls['RECEIPT_TYPE'].dirty || angForm.controls['RECEIPT_TYPE'].touched)"
                                 class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['RECEIPT_TYPE'].errors?.pattern || angForm.controls['RECEIPT_TYPE'].errors?.required || angForm.controls['RECEIPT_TYPE'].errors?.maxlength">
+                                <div *ngIf="angForm.controls['RECEIPT_TYPE'].errors?.required">
                                     This field is required and Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
@@ -31,7 +28,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="LAST_RECEIPT_NO" class="form-control" placeholder=" "
-                                        id="LAST_RECEIPT_NO" required="" pattern="^[0-9]+$" maxlength="10"
+                                        id="LAST_RECEIPT_NO" pattern="^[0-9]+$" maxlength="10"
                                         title="Input allowed only  0-9" formControlName="LAST_RECEIPT_NO">
                                     <label for="LAST_RECEIPT_NO">Last Receipt No.<sub class="required">* </sub></label>
                                 </span>
@@ -40,7 +37,7 @@
                                 *ngIf="angForm.controls['LAST_RECEIPT_NO'].invalid && (angForm.controls['LAST_RECEIPT_NO'].dirty || angForm.controls['LAST_RECEIPT_NO'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['LAST_RECEIPT_NO'].errors?.pattern || angForm.controls['LAST_RECEIPT_NO'].errors?.required || angForm.controls['LAST_RECEIPT_NO'].errors?.maxlength">
+                                    *ngIf="angForm.controls['LAST_RECEIPT_NO'].errors?.pattern || angForm.controls['LAST_RECEIPT_NO'].errors?.maxlength">
                                     This field is required and Input allowed only 0-9
                                 </div>
                             </div>

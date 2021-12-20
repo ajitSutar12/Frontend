@@ -24,6 +24,7 @@ import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownServ
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { TermDepositSchemeService } from '../../../utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service'
+import { InterestInstructionService } from '../../instruction/interest-instruction/interest-instruction.service'
 import { Moment } from 'moment/moment';
 //date pipe
 import { DatePipe } from '@angular/common';
@@ -33,6 +34,7 @@ import { environment } from 'src/environments/environment';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 // Handling datatable data
+import * as moment from 'moment';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -214,7 +216,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     public SchemeCodeDropdownService: SchemeCodeDropdownService,
     private datePipe: DatePipe,
     private schemeAccountNoService: SchemeAccountNoService,
-    private _termDepositScheme: TermDepositSchemeService) { }
+    private _termDepositScheme: TermDepositSchemeService,
+    private _InterestInstruction: InterestInstructionService,
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -611,12 +615,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       })
     })
   }
-
+  result: number
   //get maturity date
   getMaturityDate() {
 
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
-      console.log(data, "getMaturityDate")
+      // console.log(data, "getMaturityDate")
 
       if (data.S_INTASON == true) {
         document.getElementById('AC_ASON_DATE').removeAttribute("disabled");
@@ -650,8 +654,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
         let start = this.angForm.controls['AC_ASON_DATE'].value
         let end = this.angForm.controls['AC_EXPDT'].value
-        console.log(start, "start date")
-        console.log(end, "end date")
+        // console.log(start, "start date")
+        // console.log(end, "end date")
         if (start && end) {
           var years = end.diff(start, 'years');
 
@@ -662,7 +666,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           start.add(years, 'years').add(months, 'months');
           var days = end.diff(start, 'days')
 
-          console.log(year + months + days, "calculate")
+          // console.log(year + months + days, "calculate")
           this.angForm.patchValue({
             AC_MONTHS: months,
             AC_DAYS: days
@@ -686,7 +690,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       }
       else if (data.UNIT_OF_PERIOD == "DAYS") {
         if (this.angForm.controls['AC_DAYS'].value < data.MIN_DAYS) {
-          console.log(this.angForm.controls['AC_DAYS'])
+          // console.log(this.angForm.controls['AC_DAYS'])
         } else {
           Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS, "error");
           this.angForm.controls['AC_DAYS'].reset
@@ -694,7 +698,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       }
       else if (data.UNIT_OF_PERIOD == "MONTHS") {
         if (this.angForm.controls['AC_MONTHS'].value < data.MIN_MONTH) {
-          console.log(this.angForm.controls['AC_MONTHS'])
+          // console.log(this.angForm.controls['AC_MONTHS'])
         } else {
           Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH, "error");
           this.angForm.controls['AC_MONTHS'].reset
@@ -703,7 +707,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
       if (data.UNIT_OF_PERIOD == "Both" && data.IS_AUTO_PERIOD_CALCULATE == true) {
         if (this.angForm.controls['AC_MONTHS'].value < data.MIN_MONTH && this.angForm.controls['AC_DAYS'].value < data.MIN_DAYS) {
-          console.log(this.angForm.controls['AC_DAYS'], this.angForm.controls['AC_MONTHS'].value)
+          // console.log(this.angForm.controls['AC_DAYS'], this.angForm.controls['AC_MONTHS'].value)
         } else {
           Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
           this.angForm.controls['AC_MONTHS'].reset
@@ -740,11 +744,292 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
         }
       }
+
+      if (data.RECEIPT_TYPE != null) {
+        this._InterestInstruction.getFormData(this.selectedValue).subscribe(data => {
+
+        })
+
+      }
+      if (data.INTEREST_RULE == "Compounding") {
+        if (data.S_INTCALTP == "CalculationOnDays") {
+          if (data.S_INTCALC_METHOD == "SimpleInterest") {
+            this.simpleInterestCalculation()
+          } else if (data.S_INTCALC_METHOD == "CompountInterest") {
+            this.installmentType = data.COMPOUND_INT_BASIS
+            this.compoundInterestCalculation()
+          }
+          else {
+            this.angForm.patchValue({
+              AC_MATUAMT: 0
+            })
+          }
+        }
+      }
+    })
+  }
+  //simple interest
+  installmentType
+  simpleInterestCalculation() {
+    var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+    var date2 = this.angForm.controls['AC_EXPDT'].value;
+
+    date1 = moment(date1).format('DD.MM.YYYY');
+
+    var startDate = moment(date1, "DD.MM.YYYY");
+    var endDate = moment(date2, "DD.MM.YYYY");
+
+    var result = endDate.diff(startDate, 'days');
+    this.result = Math.round(Math.floor(this.angForm.controls['AC_SCHMAMT'].value) * (Math.floor(result)) * Math.floor(this.angForm.controls['AC_INTRATE'].value) / 36500 + Math.floor(this.angForm.controls['AC_SCHMAMT'].value))
+    this.angForm.patchValue({
+      AC_MATUAMT: this.result
+    })
+  }
+  //compound interest
+  i: number
+  total = 0
+  compoundInterestCalculation() {
+    // console.log(this.installmentType)
+
+    var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 1;
+    var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+    var date2 = this.angForm.controls['AC_EXPDT'].value;
+
+    date1 = moment(date1).format('DD.MM.YYYY');
+
+    var startDate = moment(date1, "DD.MM.YYYY");
+    var endDate = moment(date2, "DD.MM.YYYY");
+
+    var result = endDate.diff(startDate, 'days');
+    var amount = this.angForm.controls['AC_SCHMAMT'].value
+    var maturityAmount = this.angForm.controls['AC_MATUAMT'].value
+
+    for (this.i = 1; this.i <= Quarters; this.i++) {
+      let totalInterest: number
+      var sample = parseFloat(amount);
+      var totalInt = (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * Math.trunc((result) / (Quarters)) / 36500).toFixed(10)
+      totalInterest = Number(totalInt)
+      amount = (parseFloat(amount) + (totalInterest)).toFixed(10)
+
+      totalInterest = 0
+
+      // console.log("totalInterest", totalInterest)
+    }
+
+    maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
+
+    this.angForm.patchValue({
+      AC_MATUAMT: maturityAmount
+    })
+
+  }
+
+  //Interest Calculation Type		
+  // Months and Days Base	
+  // Start with Months + Days	
+
+  monthProductBaseSimpleInterest() {
+    var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+    var date2 = this.angForm.controls['AC_EXPDT'].value;
+
+    date1 = moment(date1).format('DD.MM.YYYY');
+
+    var b = moment(date1, "DD.MM.YYYY");
+    var a = moment(date2, "DD.MM.YYYY");
+
+    var months = a.diff(b, 'months');
+    b.add(months, 'months');
+
+    var days = a.diff(b, 'days');
+
+    console.log(months + ' months ' + days + ' days');
+
+    var tmpAmt1 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * months) / (12 * 100)))
+    var tmpAmt2 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * days) / (365 * 100)))
+    var Interest = (tmpAmt1 + tmpAmt2)
+    var Maturity = Math.round(Number(this.angForm.controls['AC_SCHMAMT'].value) + Interest)
+    console.log("Maturity", Maturity)
+    this.angForm.patchValue({
+      AC_MATUAMT: Maturity
     })
   }
 
+  monthProductBaseCompound() {
+
+    var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 3;
+    var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+    var date2 = this.angForm.controls['AC_EXPDT'].value;
+
+    date1 = moment(date1).format('DD.MM.YYYY');
+
+    var b = moment(date1, "DD.MM.YYYY");
+    var a = moment(date2, "DD.MM.YYYY");
+
+    var months = a.diff(b, 'months');
+    b.add(months, 'months');
+
+    var days = a.diff(b, 'days');
+
+    console.log(months + ' months ' + days + ' days');
+    console.log("this.angForm.controls['AC_EXPDT'].value", this.angForm.controls['AC_EXPDT'].value)
+
+    var End = moment(date2, "DD.MM.YYYY").subtract(1, 'days');
+    var EndDate = End.format("DD-MM-YYYY");
+
+    var Start = moment(date1, "DD.MM.YYYY").subtract(1, 'days');
+    var StartDate = Start.format("DD-MM-YYYY");
+
+    var CurrentDate = this.angForm.controls['AC_ASON_DATE'].value
+    console.log(EndDate + ' EndDate ' + StartDate + ' StartDate');
+    var lngMonths = 0;
+    var lngDays = 0;
+    var VcumPeriod = 0;
+    var IntAmount = 0
+    var vmonth = moment(date1, "DD.MM.YYYY").add(1, 'days');
+    var Mth = vmonth.format("DD-MM-YYYY");
+    var vMth = new Date(Mth).getMonth();
+    console.log("vMth", vMth)
+    var PeriodEndDate = EndDate
+    VcumPeriod = 12
+
+    var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+    var year = oneDate.format('YYYY');
+    console.log("year ", year + "CurrentDate " + CurrentDate)
+    PeriodEndDate = moment([year, "09", "30"]).format('YYYY-MM-DD')
+    console.log(PeriodEndDate, "PeriodEndDate")
+    if (CurrentDate >= EndDate) {
+
+    } else {
+      this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
+        if (data.S_INTCALC_METHOD == true) {
+          if (data.COMPOUND_INT_BASIS == "Yearly") {
+            PeriodEndDate = EndDate
+            VcumPeriod = 12
+          } else if (data.COMPOUND_INT_BASIS == "HalfYearly") {
+            if (vMth >= 4 && vMth <= 9) {
+              var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+              var year = oneDate.format('YYYY');
+              console.log("year ", year + "CurrentDate " + CurrentDate)
+              PeriodEndDate = moment([year, "09", "30"]).format('YYYY-MM-DD')
+            } else {
+              var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+              var year = oneDate.format('YYYY');
+              console.log("year ", year + "CurrentDate " + CurrentDate)
+              PeriodEndDate = moment([year, "03", "31"]).format('YYYY-MM-DD')
+              if (PeriodEndDate < CurrentDate) {
+                var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+                var year = oneDate.format('YYYY');
+                console.log("year ", year + "CurrentDate " + CurrentDate)
+                var PeriodEnd = moment([year, "03", "31"]).format('YYYY-MM-DD')
+                var Period = moment(PeriodEnd, 'YYYY-MM-DD').add(1, 'days');
+                PeriodEndDate = Period.toString()
+              }
+            }
+            VcumPeriod = 6
+
+          } else if (data.COMPOUND_INT_BASIS == "Quarterly") {
+            if (vMth >= 1 && vMth <= 3) {
+              var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+              var year = oneDate.format('YYYY');
+              console.log("year ", year + "CurrentDate " + CurrentDate)
+              PeriodEndDate = moment([year, "03", "31"]).format('YYYY-MM-DD')
+              if (PeriodEndDate < CurrentDate) {
+                var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+                var year = oneDate.format('YYYY');
+                console.log("year ", year + "CurrentDate " + CurrentDate)
+                var PeriodEnd = moment([year, "03", "31"]).format('YYYY-MM-DD')
+                var Period = moment(PeriodEnd, 'YYYY-MM-DD').add(1, 'days');
+                PeriodEndDate = Period.toString()
+              }
+            } else if (vMth >= 4 && vMth <= 6) {
+              var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+              var year = oneDate.format('YYYY');
+              console.log("year ", year + "CurrentDate " + CurrentDate)
+              PeriodEndDate = moment([year, "06", "30"]).format('YYYY-MM-DD')
+            } else if (vMth >= 7 && vMth <= 9) {
+              var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+              var year = oneDate.format('YYYY');
+              console.log("year ", year + "CurrentDate " + CurrentDate)
+              PeriodEndDate = moment([year, "09", "30"]).format('YYYY-MM-DD')
+            } else {
+              var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+              var year = oneDate.format('YYYY');
+              console.log("year ", year + "CurrentDate " + CurrentDate)
+              PeriodEndDate = moment([year, "12", "30"]).format('YYYY-MM-DD')
+            }
+            VcumPeriod = 3
+          } else if (data.COMPOUND_INT_BASIS == "Monthly") {
+            var current = new Date(CurrentDate)
+            let year = current.getFullYear();
+            var month = new Date(CurrentDate).getMonth();
+            var day = new Date(current).getDate();
+            var exe_day = month + 1
+            var nextDate = new Date(year, exe_day, day);
+            var lastDay = new Date(current.getFullYear(), nextDate.getMonth() + 1, 0);
+            var nextExeDate = this.datePipe.transform(lastDay, "yyyy-MM-dd")
+            VcumPeriod = 3
+          } else if (data.COMPOUND_INT_BASIS == "Monthly") {
+            if (data.COMPOUND_INT_DAYS <= 0) {
+              Swal.fire('You Must Assign Valid Compound Basis Days For The Scheme Please Contact To Software Engineer')
+            }
+            VcumPeriod = 0
+          } else {
+            Swal.fire('You Must Assign Valid Compound Basis Days For The Scheme Please Contact To Software Engineer')
+          }
+
+          if (PeriodEndDate > EndDate) {
+            PeriodEndDate = EndDate
+          }
 
 
+        }
+      })
+    }
+
+
+
+
+
+  }
+
+  recurringSimpleInterest() {
+
+    var noOfInstallment = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 1;
+    var amount = this.angForm.controls['AC_SCHMAMT'].value
+    var rate = this.angForm.controls['AC_INTRATE'].value
+    var Interest = (noOfInstallment * noOfInstallment + noOfInstallment) / 2 * amount * rate / 1200
+    console.log(Interest, "Interest")
+    var maturity = (Number(amount) * Number(noOfInstallment)) + Number(Interest)
+    console.log(maturity, "Interestmaturity")
+  }
+
+  recurringCompoundInterest() {
+
+    var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+    var date2 = this.angForm.controls['AC_EXPDT'].value;
+
+    date1 = moment(date1).format('DD.MM.YYYY');
+
+    var b = moment(date1, "DD.MM.YYYY");
+    var a = moment(date2, "DD.MM.YYYY");
+
+    var months = a.diff(b, 'months');
+    b.add(months, 'months');
+
+    var days = a.diff(b, 'days');
+
+    console.log(months + ' months ' + days + ' days');
+    var amount = this.angForm.controls['AC_SCHMAMT'].value
+    var rate = this.angForm.controls['AC_INTRATE'].value
+    var noOfInstallment = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 1;
+    var totalInterest = 0
+
+    for (this.i = 1; this.i <= noOfInstallment; this.i++) {
+      totalInterest = Math.round((totalInterest + (amount * ((1 + (rate * 1) / (12 * 100)) ** (this.i / 1)) - amount)))
+    }
+    var maturity = (Number(amount) * Number(noOfInstallment)) + Number(totalInterest)
+    console.log(maturity, "Interestmaturity")
+  }
   //get account no according scheme for introducer
   getIntroducer(acno) {
     switch (acno) {
@@ -824,7 +1109,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   getCustomer(id) {
-
+    this.compoundInterestCalculation()
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
@@ -920,7 +1205,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       'PowerOfAttorneyData': this.multiAttorney
 
     }
-    console.log(dataToSend);
+    // console.log(dataToSend);
     this.TermDepositMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
@@ -988,11 +1273,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updateData() {
     let data = this.angForm.value;
     if (data.AC_ADDFLAG == true) {
-      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
+      // console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
       this.addType = 'P'
     }
     else if (data.AC_ADDFLAG == false) {
-      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
+      // console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
       this.addType = 'T'
     }
     data['AC_ADDTYPE'] = this.addType
@@ -1304,27 +1589,28 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   selectedValue = ""
   setMaturityDate() {
     this.schemedata(this.selectedValue)
-    this.angForm.patchValue({
-      AC_MATUAMT: this.angForm.controls['AC_SCHMAMT'].value
-    })
+    // this.angForm.patchValue({
+    //   AC_MATUAMT: this.angForm.controls['AC_SCHMAMT'].value
+    // })
   }
   // data scheme master
   schemedata(id) {
     this._termDepositScheme.getFormData(id).subscribe(data => {
 
-      console.log("term deposit scheme data", data)
-      console.log("term deposit scheme data1", data.IS_CAL_MATURITY_AMT)
+      // console.log("term deposit scheme data", data)
+      // console.log("term deposit scheme data1", data.IS_CAL_MATURITY_AMT)
+      this.recurringCompoundInterest()
       if (data.IS_CAL_MATURITY_AMT != true) {
-        console.log("false", data.IS_CAL_MATURITY_AMT)
-        this.setMaturityDate()
+        // console.log("false", data.IS_CAL_MATURITY_AMT)
+        // this.setMaturityDate()
+        // this.simpleInterestCalculation()
+        // this.compoundInterestCalculation()
       }
       else {
         // call calculation function
-        console.log("true", data.IS_CAL_MATURITY_AMT)
+        // console.log("true", data.IS_CAL_MATURITY_AMT)
+        // this.simpleInterestCalculation()
       }
-
-
     })
-
   }
 }
