@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { UserService } from '../user.service';
 import { environment } from '../../../../environments/environment';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 
 
@@ -57,7 +58,7 @@ export class UserProfileComponent implements OnInit {
   fullName : any;
   Email :any;
 
-  constructor(public httpClient: HttpClient,private fb: FormBuilder,private _userService : UserService) {
+  constructor(public httpClient: HttpClient,private fb: FormBuilder,private _userService : UserService,private router: Router) {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     this.profilePath = environment.base_url+'/'+result.PROFILE_PATH;
@@ -224,7 +225,8 @@ export class UserProfileComponent implements OnInit {
     updateObject['id'] = user.id;
     
     this._userService.updateUser(updateObject).subscribe(data=>{
-
+      Swal.fire('Success!', 'Profile update successfully please login again', 'success');
+      this.router.navigate(['/dashboard/default']);
     },err=>{
       Swal.fire('Error!',err.error.message,'error');
 

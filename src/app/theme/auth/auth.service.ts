@@ -26,4 +26,8 @@ export class AuthService {
       };        
       return this.http.post<any>(this.base_url+'/auth/login', article, options);
     } 
+
+    resetPassword(data :any):Observable<any>{
+      return this.http.post<any>(this.base_url+'/user-defination/resetpassword', data);
+    }
   }

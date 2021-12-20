@@ -64,9 +64,10 @@
                                                 <a [routerLink]="['/auth/resetpassword']" class="text-right f-w-600"> 
                                                     Reset Password?</a>
                                             </div>
-                                            <div class="forgot-phone text-right f-right">
+                                            <div class="forgot-phone text-right f-right" *ngIf="forgetPassword">
                                                 <a [routerLink]="['/auth/forgot']" class="text-right f-w-600"> Forgot
                                                     Password?</a>
+                                                <!-- <a [routerLink]="['/']" class="text-right f-w-600">Reset Password</a> -->
                                             </div>
                                         </div>
                                     </div>

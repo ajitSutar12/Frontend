@@ -17,6 +17,7 @@ export class BasicLoginComponent implements OnInit {
   password: string;
   passType: string = 'password';
   resetPassword : boolean = false;
+  forgetPassword: boolean = true;
   constructor(private router: Router, private _authService: AuthService) { }
 
   ngOnInit() {
@@ -40,6 +41,7 @@ export class BasicLoginComponent implements OnInit {
         this.router.navigate(['/dashboard/default']);
       } else {
         this.resetPassword = true;
+        this.forgetPassword = false;
         Swal.fire('Error!', 'Your password is expired please reset your password', 'error');
       }
     }, err => {

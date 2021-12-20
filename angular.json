@@ -52,7 +52,8 @@
                             "src//assets/icon/icofont/css/icofont.scss",
                             "src/scss/style.scss",
                             "src/styles.scss",
-                            "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css"
+                            "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css",
+                            "node_modules/select2/dist/css/select2.min.css"
 
                         ],
                         "scripts": [
@@ -66,7 +67,9 @@
                             "node_modules/datatables.net-buttons/js/buttons.print.js",
                             "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js",
                             "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
-                            "node_modules/datatables.net-select/js/dataTables.select.js"
+                            "node_modules/datatables.net-select/js/dataTables.select.js",
+                            "node_modules/jquery/dist/jquery.js",
+                            "node_modules/select2/dist/js/select2.min.js"
                         ]
                     },
                     "configurations": {
