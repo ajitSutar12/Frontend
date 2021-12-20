@@ -580,13 +580,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       if(data > this.datemax){
         Swal.fire("Invalid Input", "Please insert valid date ", "warning");
         (document.getElementById("AC_BIRTH_DT")as HTMLInputElement).value = "";
-            
+        this.myInputField.nativeElement.focus('AC_BIRTH_DT');
       }
     } 
-    else{
-       this.myInputField.nativeElement.focus('AC_BIRTH_DT');
-      // this.angForm.get('AC_BIRTH_DT').nativeElement.focus();
-    }
+    // else{
+    //   //  this.myInputField.nativeElement.focus('AC_BIRTH_DT');
+    //   // this.angForm.get('AC_BIRTH_DT').nativeElement.focus();
+    // }
   }
     //disabledate on keyup
     disablesubdate(data:any){

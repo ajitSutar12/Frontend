@@ -459,7 +459,7 @@ $radio-bg-color: $primary-color, $warning-color, $default-color, $danger-color, 
             -webkit-animation: check linear 0.5s;
             animation: check linear 0.5s;
             opacity: 1;
-            border-color:black;
+            border-color:rgb(241, 13, 13);
 
             .border-checkbox-label {
                 &:before {
@@ -503,6 +503,10 @@ $radio-bg-color: $primary-color, $warning-color, $default-color, $danger-color, 
                 left: 0;
             }
         }
+    }
+
+    .border-checkbox:focus{
+        border-color: 5px solid gold;
     }
 
     .border-checkbox {

@@ -69,7 +69,10 @@ ng-select.ng-select>div>div.single {
         border: 2px solid green;
         outline: none;
     }
-
+    .border-checkbox:checked {
+        margin-left: 25px;
+        border: 2px solid blue;
+      }
 
     // .form-a:focus{
     //     border: 2px solid #0f87f7;
