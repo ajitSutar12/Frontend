@@ -18,6 +18,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from './user-auth.interceptor';
 import {ConnectionServiceModule} from 'ng-connection-service';  
 import{StrictNumberOnlyDirective} from'././restrictinput';
+import { NgPasswordValidatorModule } from 'ng-password-validator';
+
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import{StrictNumberOnlyDirective} from'././restrictinput';
     FormsModule,
     HttpClientModule,
     HotkeyModule.forRoot(), // adding HotkeysModule
-    ConnectionServiceModule  
+    ConnectionServiceModule ,
+    NgPasswordValidatorModule 
   ],
   providers: [MenuItems,
     {

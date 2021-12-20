@@ -4,13 +4,16 @@ import { ResetpasswordComponent } from './resetpassword.component';
 import {ResetpasswordRoutingModule} from './resetpassword-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { NgPasswordValidatorModule } from 'ng-password-validator';
+
 
 @NgModule({
   imports: [
     CommonModule,
     ResetpasswordRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    NgPasswordValidatorModule
   ],
   declarations: [ResetpasswordComponent]
 })
