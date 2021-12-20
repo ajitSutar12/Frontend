@@ -66,8 +66,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private dataSub: Subscription = null;
 
-  PeriodicallyOverDraftTrue = true;
-  TemporaryOverDraftTrue = false;
+  PeriodicallyOverDraftTrue: boolean = true;
+  TemporaryOverDraftTrue: boolean = false;
   periodoverdraft: boolean = false
 
   showButton: boolean = true;
@@ -346,7 +346,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       this.periodoverdraft = true
       this.TemporaryOverDraftTrue = false;
     }
-    if (val == 2) {
+    if (val == 2) {      
+      this.angForm.controls['AC_ODAMT'].reset()
       this.PeriodicallyOverDraftTrue = false;
       this.periodoverdraft = false
       this.TemporaryOverDraftTrue = true;

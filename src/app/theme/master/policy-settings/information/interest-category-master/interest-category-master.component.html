@@ -7,28 +7,14 @@
           <sub class="required">* </sub>: Required Fields
         </h6>
       </div>
-      <form
-        action="javascript:"
-        [formGroup]="angForm"
-        novalidate
-        #myform="ngForm"
-      >
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-md-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input
-                    type="text"
-                    name="Account"
-                    class="form-control"
-                    placeholder=" "
-                    id="CODE"
-                    pattern="^[0-9]+$"
-                    title="Input allowed only  0-9"
-                    formControlName="CODE"
-                    disabled
-                  />
+                  <input type="text" name="Account" class="form-control" placeholder=" " id="CODE" pattern="^[0-9]+$"
+                    title="Input allowed only  0-9" formControlName="CODE" disabled />
                   <label for="CODE">Interest Category Code</label>
                 </span>
               </div>
@@ -36,52 +22,30 @@
             <div class="col-md-6">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input
-                    type="text"
-                    #autofocus
-                    name="NAME"
-                    class="form-control"
-                    placeholder=" "
-                    id="NAME"
-                    required
-                    pattern="^[A-Za-z\./ -]+$"
-                    maxlength="100"
-                    title="Input allowed only  A-Z a-z  - / . (Space)"
-                    formControlName="NAME"
-                  />
-                  <label for="NAME"
-                    >Description<sub class="required">* </sub></label
-                  >
+                  <input type="text" #autofocus name="NAME" class="form-control" placeholder=" " id="NAME" required
+                    pattern="^[A-Za-z\./ -]+$" maxlength="100" title="Input allowed only  A-Z a-z  - / . (Space)"
+                    formControlName="NAME" />
+                  <label for="NAME">Description<sub class="required">* </sub></label>
                 </span>
               </div>
-              <div
-                class="form-group form-primary form-static-label"
-                *ngIf="
+              <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['NAME'].invalid &&
                   (angForm.controls['NAME'].dirty ||
                     angForm.controls['NAME'].touched)
-                "
-                class="alert alert-danger"
-              >
-                <div
-                  *ngIf="
+                " class="alert alert-danger">
+                <div *ngIf="
                     angForm.controls['NAME'].errors?.pattern ||
                     angForm.controls['NAME'].errors?.required ||
                     angForm.controls['NAME'].errors?.maxlength
-                  "
-                >
+                  ">
                   This field is required and Input allowed only A-Z a-z - / .
                   (Space)
                 </div>
               </div>
             </div>
             <div class="col-sm">
-              <button
-                class="btn btn-primary ripple light"
-                (click)="submit()"
-                *ngIf="showButton"
-                [disabled]="angForm.invalid"
-              >
+              <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
+                [disabled]="angForm.invalid">
                 Add
               </button>
               <button
@@ -122,11 +86,7 @@
                 <tbody *ngIf="intrestCatagoryMaster?.length != 0">
                   <tr *ngFor="let data of intrestCatagoryMaster">
                     <td>
-                      <button
-                        class="btn btn-outline-primary btn-sm"
-                        id="editbtn"
-                        (click)="editClickHandler(data.id)"
-                      >
+                      <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">
                         Edit
                       </button>
                       &nbsp;
@@ -146,18 +106,10 @@
                   <tr>
                     <th></th>
                     <th>
-                      <input
-                        type="text"
-                        placeholder="Search Interest Category Code"
-                        name="CODE"
-                      />
+                      <input type="text" placeholder="Search Interest Category Code" name="CODE" />
                     </th>
                     <th>
-                      <input
-                        type="text"
-                        placeholder="Search Description"
-                        name="NAME"
-                      />
+                      <input type="text" placeholder="Search Description" name="NAME" />
                     </th>
                   </tr>
                 </tfoot>

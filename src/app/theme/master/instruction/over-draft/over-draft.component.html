@@ -47,7 +47,6 @@
                                         <h6>
                                             <a (click)="OpenLink(1)" routerLinkActive="active"
                                                 class="text-right f-w-600" id="pointer">
-
                                                 <div class="form-radio">
                                                     <div class="radio radio-inline">
                                                         <label>
@@ -88,8 +87,7 @@
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="To" class="form-control"
                                                             placeholder=" " id="Over" pattern="\d{1,7}(\.\d{2})?"
-                                                            title="Input allowed only  0-9" formControlName="AC_ODAMT"
-                                                            [required]="periodoverdraft">
+                                                            title="Input allowed only  0-9" formControlName="AC_ODAMT">
                                                         <label for="Over">Over DRaft Amount<sub
                                                                 class="required">*</sub></label>
                                                     </span>
@@ -151,6 +149,7 @@
                                                 <span class="border-lable-flt">
                                                     <input type="text" name="To" class="form-control" placeholder=" "
                                                         id="To" pattern="\d{1,7}(\.\d{2})?"
+                                                        [required]="TemporaryOverDraftTrue"
                                                         title="Input allowed only  0-9" formControlName="AC_ODAMT">
                                                     <label for="To">Over Draft Amount <sub
                                                             class="required">*</sub></label>

@@ -1,5 +1,6 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["revoke-standing-instructions-revoke-standing-instructions-module"],{
 
+<<<<<<< Updated upstream
 /***/ "./src/app/shared/elements/acountno.service.ts":
 /*!*****************************************************!*\
   !*** ./src/app/shared/elements/acountno.service.ts ***!
@@ -56,6 +57,8 @@ AcountnoService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineI
 
 /***/ }),
 
+=======
+>>>>>>> Stashed changes
 /***/ "./src/app/shared/elements/revoke-standing.service.ts":
 /*!************************************************************!*\
   !*** ./src/app/shared/elements/revoke-standing.service.ts ***!
@@ -113,6 +116,7 @@ revokeStandingService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
 
 /***/ }),
 
+<<<<<<< Updated upstream
 /***/ "./src/app/shared/elements/scheme1.service.ts":
 /*!****************************************************!*\
   !*** ./src/app/shared/elements/scheme1.service.ts ***!
@@ -169,6 +173,8 @@ Scheme1Service.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineIn
 
 /***/ }),
 
+=======
+>>>>>>> Stashed changes
 /***/ "./src/app/theme/master/instruction/revoke-standing-instructions/revoke-standing-instructions-routing.module.ts":
 /*!**********************************************************************************************************************!*\
   !*** ./src/app/theme/master/instruction/revoke-standing-instructions/revoke-standing-instructions-routing.module.ts ***!

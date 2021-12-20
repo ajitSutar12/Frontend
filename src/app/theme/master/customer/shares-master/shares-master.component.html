@@ -52,7 +52,7 @@
                                 </button>
                             </div>
                             <div class="app-modal-body">
-                                <perfect-scrollbar >
+                                <perfect-scrollbar>
                                     <app-customer-id (newCustomerEvent)="addNewCustomer($event)"></app-customer-id>
                                 </perfect-scrollbar>
                             </div>
@@ -434,8 +434,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_THONO"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_THONO" 
-                                                                        maxlength="25"
+                                                                        id="AC_THONO" maxlength="25"
                                                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                         formControlName="AC_THONO" />
                                                                     <label for="AC_THONO">House</label>
@@ -486,7 +485,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_TGALLI"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_TGALLI" 
+                                                                        id="AC_TGALLI"
                                                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                         formControlName="AC_TGALLI" />
                                                                     <label for="AC_TGALLI">Galli</label>
@@ -512,8 +511,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_TAREA"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_TAREA" 
-                                                                        maxlength="60"
+                                                                        id="AC_TAREA" maxlength="60"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                         formControlName="AC_TAREA" />
                                                                     <label for="AC_TAREA">Area</label>
@@ -538,7 +536,6 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_TADDR"
                                                                         class="form-control" placeholder=" "
-                                                                        
                                                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                         id="AC_TADDR" formControlName="AC_TADDR" />
                                                                     <label for="AC_TADDR">Detail</label>
@@ -893,7 +890,8 @@
                                                                                     id="AC_NNAME" maxlength="50"
                                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                    formControlName="AC_NNAME">
+                                                                                    formControlName="AC_NNAME"
+                                                                                    [required]="nomineeTrue">
                                                                                 <label for="AC_NNAME">Name<sub
                                                                                         class="required">*
                                                                                     </sub></label>
@@ -903,7 +901,7 @@
                                                                             *ngIf="angForm.controls['AC_NNAME'].invalid && (angForm.controls['AC_NNAME'].dirty || angForm.controls['AC_NNAME'].touched)"
                                                                             class="alert alert-danger">
                                                                             <div
-                                                                                *ngIf="angForm.controls['AC_NNAME'].errors?.pattern|| angForm.controls['AC_NNAME'].errors?.maxlength">
+                                                                                *ngIf="angForm.controls['AC_NNAME'].errors?.pattern || angForm.controls['AC_NNAME'].errors?.maxlength || angForm.controls['AC_NNAME'].errors?.required">
                                                                                 Input allowed only A-Z a-z - / . (Space)
                                                                             </div>
                                                                         </div>
@@ -916,7 +914,8 @@
                                                                                     id="AC_NRELA" maxlength="15"
                                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                    formControlName="AC_NRELA">
+                                                                                    formControlName="AC_NRELA"
+                                                                                    [required]="nomineeTrue">
                                                                                 <label for="label-name">Relation<sub
                                                                                         class="required">*
                                                                                     </sub></label>
@@ -926,7 +925,7 @@
                                                                             *ngIf="angForm.controls['AC_NRELA'].invalid && (angForm.controls['AC_NRELA'].dirty || angForm.controls['AC_NRELA'].touched)"
                                                                             class="alert alert-danger">
                                                                             <div
-                                                                                *ngIf="angForm.controls['AC_NRELA'].errors?.pattern|| angForm.controls['AC_NRELA'].errors?.maxlength">
+                                                                                *ngIf="angForm.controls['AC_NRELA'].errors?.pattern|| angForm.controls['AC_NRELA'].errors?.maxlength ||  angForm.controls['AC_NRELA'].errors?.required">
                                                                                 Input allowed only A-Z a-z - / . (Space)
                                                                             </div>
                                                                         </div>
@@ -938,7 +937,8 @@
                                                                                     class="form-control" placeholder=" "
                                                                                     id="AC_NDATE" max="9999-12-31"
                                                                                     onfocus="(this.type='date')"
-                                                                                    formControlName="AC_NDATE">
+                                                                                    formControlName="AC_NDATE"
+                                                                                    [required]="nomineeTrue">
                                                                                 <label for="AC_NDATE">Nomination
                                                                                     Date<sub class="required">*
                                                                                     </sub></label>
@@ -982,7 +982,6 @@
                                                                                 <input type="text" name="AC_NHONO"
                                                                                     class="form-control" placeholder=" "
                                                                                     id="AC_NHONO" maxlength="25"
-                                                                                    
                                                                                     title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                     formControlName="AC_NHONO">
                                                                                 <label for="AC_NHONO">House</label>
@@ -1025,7 +1024,6 @@
                                                                                 <input type="text" name="AC_NGALLI"
                                                                                     class="form-control" placeholder=" "
                                                                                     id="AC_NGALLI" maxlength="40"
-                                                                                   
                                                                                     title="Input allowed only  A-Z a-z 0-9 - / , . (Space)"
                                                                                     formControlName="AC_NGALLI">
                                                                                 <label for="AC_NGALLI">Galli</label>
@@ -1047,7 +1045,6 @@
                                                                                 <input type="text" name="AC_NAREA"
                                                                                     class="form-control" placeholder=" "
                                                                                     id="AC_NAREA" maxlength="60"
-                                                                                   
                                                                                     title="Input allowed only  A-Z a-z  - / , . (Space)"
                                                                                     formControlName="AC_NAREA">
                                                                                 <label for="AC_NAREA">Area</label>
@@ -1070,7 +1067,6 @@
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AC_NADDR"
                                                                                     class="form-control" placeholder=" "
-                                                                                   
                                                                                     maxlength="100"
                                                                                     title="Input allowed only  A-Z a-z 0-9  - / , . (Space)"
                                                                                     id="AC_NADDR"

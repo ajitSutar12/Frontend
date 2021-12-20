@@ -54,7 +54,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="freezoption" [multiple]="false"
                                     placeholder="Freeze Status *" required title="Compulsory Selection"
-                                    [(ngModel)]="freezStatus" (ngModelChange)="freezDeatils(freezStatus)"
+                                    [(ngModel)]="freezStatus" (selected)="freezDeatils(freezStatus)"
                                     formControlName="AC_FREEZE_STATUS">
                                 </ng-select>
                             </div>

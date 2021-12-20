@@ -161,7 +161,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   addType: string
   acno
 
- 
+
 
   @Input() visible: boolean;
   public config: any;
@@ -179,6 +179,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   tempAddress: boolean = true;
   Cust_ID: any[]
   id: string = '';
+  jointID: string = '';
   //add required validation to attorney fields
   DATE_EXPIRY = false
   DATE_APPOINTED = false
@@ -192,7 +193,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   PowerofAttorneyTrue = false;
   //variable for checkbox and radio button 
   isOperation: boolean = false
-
+  joint_Cust_ID: any[] //customer id from idmaster
   dtdocumentOptions: any = {};
 
   agentno
@@ -450,6 +451,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     })
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
+      this.joint_Cust_ID = data;
     })
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
       this.categoryMasterdropdown = data;
@@ -546,6 +548,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_NPIN: ['', [Validators.pattern]],
 
       //joint ac
+      JOINT_AC_CUSTID: [''],
       JOINT_ACNAME: ['', [Validators.pattern]],
       OPERATOR: [true],
 
@@ -1027,13 +1030,40 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   //Joint ac
+  getJointCustomer(id) {
+    this.customerIdService.getFormData(id).subscribe(data => {
+      this.angForm.patchValue({
+        JOINT_ACNAME: data.AC_NAME
+      })
+    })
+  }
   addJointAcccount() {
     const formVal = this.angForm.value;
     var object = {
+      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
       OPERATOR: formVal.OPERATOR
     }
-    this.multiJointAC.push(object);
+    if (object.JOINT_AC_CUSTID != undefined) {
+      if (this.id != this.jointID) {
+        if (this.multiJointAC.length == 0) {
+          this.multiJointAC.push(object);
+        }
+        else {         
+          if(this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)){
+            Swal.fire("This Customer is Already Joint Account Holder", "error");
+          }
+          else{
+            this.multiJointAC.push(object);
+          }         
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+      }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
     this.resetJointAC()
   }
   editJointAc(id) {
@@ -1043,6 +1073,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.jointShowButton = false;
     this.jointUpdateShow = true;
     this.angForm.patchValue({
+      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID,
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
@@ -1053,6 +1084,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.jointUpdateShow = false;
     const formVal = this.angForm.value;
     var object = {
+      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
@@ -1063,7 +1095,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   delJointAc(id) {
     this.multiJointAC.splice(id, 1)
   }
+
   resetJointAC() {
+    this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
     this.angForm.controls['OPERATOR'].reset();
   }
@@ -1082,7 +1116,23 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
     }
-    this.multiNominee.push(object);
+    if (object.AC_NNAME != '' && object.AC_NNAME != null) {
+      if ((object.AC_NRELA != '' && object.AC_NDATE != '') || (object.AC_NRELA != null && object.AC_NDATE != null)) {
+        if (this.multiNominee.length == 0) {
+          this.multiNominee.push(object);
+        }
+        else {
+          if (this.multiNominee.find(ob => ob['AC_NNAME'] === formVal.AC_NNAME)) {
+            Swal.fire("Already Nominee for this Account", "error");
+          }
+          else {
+            this.multiNominee.push(object);
+          }
+        }
+      }
+    } else {
+      Swal.fire("Please Insert Record", "error");
+    }
     this.resetNominee()
   }
   editNominee(id) {

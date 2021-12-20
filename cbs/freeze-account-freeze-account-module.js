@@ -608,17 +608,30 @@ class FreezeAccountComponent {
             AC_NO: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
             // AC_CUSTID: ['',],
             AC_FREEZE_STATUS: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
+<<<<<<< Updated upstream
             AC_FREEZE_AMOUNT: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern]],
+=======
+            AC_FREEZE_AMOUNT: [0, [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern]],
+>>>>>>> Stashed changes
             AC_FREEZE_DATE: ['',],
             AC_FREEZE_REASON: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern]]
         });
     }
     submit() {
         const formVal = this.angForm.value;
+<<<<<<< Updated upstream
         const dataToSend = {
             'AC_TYPE': formVal.AC_TYPE,
             'AC_NO': formVal.AC_NO,
             // 'AC_CUSTID': formVal.AC_CUSTID,
+=======
+        if (formVal.AC_FREEZE_STATUS == 'No Freeze' || formVal.AC_FREEZE_STATUS == 'Total Amount' || formVal.AC_FREEZE_STATUS == 'Only Withdrawal') {
+            formVal.AC_FREEZE_AMOUNT = 0;
+        }
+        const dataToSend = {
+            'AC_TYPE': formVal.AC_TYPE,
+            'AC_NO': formVal.AC_NO,
+>>>>>>> Stashed changes
             'AC_FREEZE_STATUS': formVal.AC_FREEZE_STATUS,
             'AC_FREEZE_AMOUNT': formVal.AC_FREEZE_AMOUNT,
             'AC_FREEZE_DATE': formVal.AC_FREEZE_DATE,
@@ -626,10 +639,13 @@ class FreezeAccountComponent {
         };
         this.FreezeAccountService.postData(dataToSend).subscribe(data => {
             sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Success!', 'Data Added Successfully !', 'success');
+<<<<<<< Updated upstream
             // to reload after insertion of data
             this.dtElement.dtInstance.then((dtInstance) => {
                 dtInstance.ajax.reload();
             });
+=======
+>>>>>>> Stashed changes
         }, (error) => {
             console.log(error);
         });
@@ -657,67 +673,100 @@ class FreezeAccountComponent {
     getSchemeAcNO(acno) {
         switch (acno) {
             case 'SB':
+<<<<<<< Updated upstream
                 console.log("saving");
+=======
+>>>>>>> Stashed changes
                 this.schemeAccountNoService.getSavingSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
                     this.schemeACNo = data;
                 });
                 break;
             case 'SH':
+<<<<<<< Updated upstream
                 console.log("Share");
+=======
+>>>>>>> Stashed changes
                 this.schemeAccountNoService.getShareSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
                     this.schemeACNo = data;
                 });
                 break;
             case 'CA':
+<<<<<<< Updated upstream
                 console.log("Current account");
+=======
+>>>>>>> Stashed changes
                 this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
                     this.schemeACNo = data;
                 });
                 break;
             case 'LN':
+<<<<<<< Updated upstream
                 console.log("Term Loan");
+=======
+>>>>>>> Stashed changes
                 this.schemeAccountNoService.getTermLoanSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
                     this.schemeACNo = data;
                 });
                 break;
             case 'TD':
+<<<<<<< Updated upstream
                 console.log("Term Deposit");
+=======
+>>>>>>> Stashed changes
                 this.schemeAccountNoService.getTermDepositSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
                     this.schemeACNo = data;
                 });
                 break;
             case 'DS':
+<<<<<<< Updated upstream
                 console.log("Dispute Loan");
+=======
+>>>>>>> Stashed changes
                 this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
                     this.schemeACNo = data;
                 });
                 break;
             case 'CC':
+<<<<<<< Updated upstream
                 console.log("Cash Credit Loan");
+=======
+>>>>>>> Stashed changes
                 this.schemeAccountNoService.getCashCreditSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
                     this.schemeACNo = data;
                 });
                 break;
             case 'GS':
+<<<<<<< Updated upstream
                 console.log("anamat");
+=======
+>>>>>>> Stashed changes
                 this.schemeAccountNoService.getAnamatSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
                     this.schemeACNo = data;
                 });
                 break;
             case 'PG':
+<<<<<<< Updated upstream
                 console.log("Pigmy account");
+=======
+>>>>>>> Stashed changes
                 this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
                     this.schemeACNo = data;
                 });
                 break;
             case 'AG':
+<<<<<<< Updated upstream
                 console.log("Pigmy agent");
+=======
+>>>>>>> Stashed changes
                 this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
                     this.schemeACNo = data;
                 });
                 break;
             case 'IV':
+<<<<<<< Updated upstream
                 console.log("Investment");
+=======
+>>>>>>> Stashed changes
                 this.schemeAccountNoService.getInvestmentSchemeList().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["first"])()).subscribe(data => {
                     this.schemeACNo = data;
                 });
@@ -811,6 +860,7 @@ class FreezeAccountComponent {
         }
     }
     ngAfterViewInit() {
+<<<<<<< Updated upstream
         // this.dtTrigger.next();
         // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         //   dtInstance.columns().every(function () {
@@ -828,6 +878,25 @@ class FreezeAccountComponent {
         //     });
         //   });
         // });
+=======
+        this.dtTrigger.next();
+        // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // dtInstance.columns().every(function () {
+        //   const that = this;
+        //   $('input', this.footer()).on('keyup change', function () {
+        //     if (this['value'] != '') {
+        //       that
+        //         .search(this['value'])
+        //         .draw();
+        //     } else {
+        //       that
+        //         .search(this['value'])
+        //         .draw();
+        //     }
+        //   });
+        // });
+        // });
+>>>>>>> Stashed changes
     }
     // Reset Function
     resetForm() {
@@ -852,7 +921,11 @@ FreezeAccountComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
     } if (rf & 2) {
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.dtElement = _t.first);
+<<<<<<< Updated upstream
     } }, decls: 63, vars: 25, consts: [[1, "row"], [1, "col-12"], [1, "card"], [1, "card-header"], [2, "float", "right"], [1, "required"], ["action", "javascript:", "novalidate", "", 3, "formGroup"], ["myform", "ngForm"], [1, "card-block"], [1, "col-sm-4"], [1, "form-group", "form-primary", "form-static-label"], ["placeholder", "Scheme*", "formControlName", "AC_TYPE", 3, "ngClass", "options", "multiple", "ngModel", "ngModelChange", "selected"], ["class", "form-group form-primary form-static-label", "class", "alert alert-danger", 4, "ngIf"], ["placeholder", "Account No*", "required", "", "title", "Compulsory Selection", "formControlName", "AC_NO", 3, "ngClass", "options", "multiple"], [1, "col-sm-2"], [1, "col-sm"], ["placeholder", "Freeze Status *", "required", "", "title", "Compulsory Selection", "formControlName", "AC_FREEZE_STATUS", 3, "ngClass", "options", "multiple", "ngModel", "ngModelChange"], [1, "form-group", "input-group"], [1, "border-lable-flt"], ["type", "text", "name", "AC_FREEZE_AMOUNT", "placeholder", " ", "id", "AC_FREEZE_AMOUNT", "pattern", "^[0-9]+$", "title", "Input allowed only  0-9", "formControlName", "AC_FREEZE_AMOUNT", 1, "form-control"], ["for", "AC_FREEZE_AMOUNT"], ["type", "text", "placeholder", " ", "id", "AC_FREEZE_DATE", "max", "9999-12-31", "formControlName", "AC_FREEZE_DATE", "onfocus", "(this.type='date')", 1, "form-control", 3, "min", "keyup"], ["date", ""], ["for", "AC_FREEZE_DATE"], [1, "col-sm-5"], ["type", "text", "name", "To", "placeholder", " ", "id", "AC_FREEZE_REASON", "pattern", "^[A-Za-z\\./ -]+$", "maxlength", "4000", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_FREEZE_REASON", 1, "form-control"], ["for", "AC_FREEZE_REASON"], [1, "col-sm-3"], ["class", "btn btn-primary ripple light", 3, "disabled", "click", 4, "ngIf"], ["class", "btn btn-primary ripple light", 3, "click", 4, "ngIf"], [1, "alert", "alert-danger"], [4, "ngIf"], [1, "btn", "btn-primary", "ripple", "light", 3, "disabled", "click"], [1, "btn", "btn-primary", "ripple", "light", 3, "click"]], template: function FreezeAccountComponent_Template(rf, ctx) { if (rf & 1) {
+=======
+    } }, decls: 63, vars: 25, consts: [[1, "row"], [1, "col-12"], [1, "card"], [1, "card-header"], [2, "float", "right"], [1, "required"], ["action", "javascript:", "novalidate", "", 3, "formGroup"], ["myform", "ngForm"], [1, "card-block"], [1, "col-sm-4"], [1, "form-group", "form-primary", "form-static-label"], ["placeholder", "Scheme*", "formControlName", "AC_TYPE", 3, "ngClass", "options", "multiple", "ngModel", "ngModelChange", "selected"], ["class", "form-group form-primary form-static-label", "class", "alert alert-danger", 4, "ngIf"], ["placeholder", "Account No*", "required", "", "title", "Compulsory Selection", "formControlName", "AC_NO", 3, "ngClass", "options", "multiple"], [1, "col-sm-2"], [1, "col-sm"], ["placeholder", "Freeze Status *", "required", "", "title", "Compulsory Selection", "formControlName", "AC_FREEZE_STATUS", 3, "ngClass", "options", "multiple", "ngModel", "ngModelChange", "selected"], [1, "form-group", "input-group"], [1, "border-lable-flt"], ["type", "text", "name", "AC_FREEZE_AMOUNT", "placeholder", " ", "id", "AC_FREEZE_AMOUNT", "pattern", "^[0-9]+$", "title", "Input allowed only  0-9", "formControlName", "AC_FREEZE_AMOUNT", 1, "form-control"], ["for", "AC_FREEZE_AMOUNT"], ["type", "text", "placeholder", " ", "id", "AC_FREEZE_DATE", "max", "9999-12-31", "formControlName", "AC_FREEZE_DATE", "onfocus", "(this.type='date')", 1, "form-control", 3, "min", "keyup"], ["date", ""], ["for", "AC_FREEZE_DATE"], [1, "col-sm-5"], ["type", "text", "name", "To", "placeholder", " ", "id", "AC_FREEZE_REASON", "pattern", "^[A-Za-z\\./ -]+$", "maxlength", "4000", "title", "Input allowed only  A-Z a-z  - / . (Space)", "formControlName", "AC_FREEZE_REASON", 1, "form-control"], ["for", "AC_FREEZE_REASON"], [1, "col-sm-3"], ["class", "btn btn-primary ripple light", 3, "disabled", "click", 4, "ngIf"], ["class", "btn btn-primary ripple light", 3, "click", 4, "ngIf"], [1, "alert", "alert-danger"], [4, "ngIf"], [1, "btn", "btn-primary", "ripple", "light", 3, "disabled", "click"], [1, "btn", "btn-primary", "ripple", "light", 3, "click"]], template: function FreezeAccountComponent_Template(rf, ctx) { if (rf & 1) {
+>>>>>>> Stashed changes
         const _r23 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
@@ -895,7 +968,11 @@ FreezeAccountComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵd
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "div", 15);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "div", 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](28, "ng-select", 16);
+<<<<<<< Updated upstream
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function FreezeAccountComponent_Template_ng_select_ngModelChange_28_listener($event) { return ctx.freezStatus = $event; })("ngModelChange", function FreezeAccountComponent_Template_ng_select_ngModelChange_28_listener() { return ctx.freezDeatils(ctx.freezStatus); });
+=======
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngModelChange", function FreezeAccountComponent_Template_ng_select_ngModelChange_28_listener($event) { return ctx.freezStatus = $event; })("selected", function FreezeAccountComponent_Template_ng_select_selected_28_listener() { return ctx.freezDeatils(ctx.freezStatus); });
+>>>>>>> Stashed changes
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](29, FreezeAccountComponent_div_29_Template, 2, 1, "div", 12);

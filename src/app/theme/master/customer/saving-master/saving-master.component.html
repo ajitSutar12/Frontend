@@ -1256,12 +1256,21 @@
                             <div *ngIf="JointAccountsTrue">
                               <div class="row">
                                 <div class="col-sm">
+                                  <div class="form-group form-primary form-static-label">
+                                    <ng-select [ngClass]="'ng-select'" [options]="joint_Cust_ID" [multiple]="false"
+                                      placeholder="Customer ID *" title="Compulsory Selection"
+                                      formControlName="JOINT_AC_CUSTID" [(ngModel)]="jointID"
+                                      (selected)="getJointCustomer(jointID)">
+                                    </ng-select>
+                                  </div>
+                                </div>
+                                <div class="col-sm">
                                   <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                       <input type="text" name="JOINT_ACNAME" class="form-control" placeholder=" "
                                         id="JOINT_ACNAME" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        formControlName="JOINT_ACNAME" />
+                                        formControlName="JOINT_ACNAME" disabled />
                                       <label for="JOINT_ACNAME">Name<sub class="required">*
                                         </sub></label>
                                     </span>
@@ -1322,6 +1331,7 @@
                                 <tbody *ngIf="multiJointAC?.length != 0">
                                   <tr>
                                     <th>Action</th>
+                                    <th>Customer ID</th>
                                     <th>Name</th>
                                     <th>Operation</th>
                                   </tr>
@@ -1340,6 +1350,7 @@
                                         Delete
                                       </button>
                                     </td>
+                                    <td>{{ data.JOINT_AC_CUSTID }}</td>
                                     <td>{{ data.JOINT_ACNAME }}</td>
                                     <td>{{ data.OPERATOR }}</td>
                                   </tr>

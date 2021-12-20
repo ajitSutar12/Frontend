@@ -63,12 +63,12 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
 
   //variable to get ID to update
   updateID: number = 0;
   //filter variable
   filterData = {};
-  newbtnShow: boolean;
 
   constructor(
     private http: HttpClient,

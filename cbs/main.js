@@ -4545,8 +4545,14 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
+<<<<<<< Updated upstream
     //  base_url : 'http://134.209.159.164:4000'
     base_url: 'http://localhost:4000'
+=======
+    // base_url : 'http://134.209.159.164:4000'
+    // base_url : 'http://localhost:4000'
+    base_url: 'http://139.59.86.29:4000'
+>>>>>>> Stashed changes
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -4593,7 +4599,11 @@ _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["platformBrowser"]().boot
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< Updated upstream
 module.exports = __webpack_require__(/*! G:\0.Full-version 9-12-2021\Frontend\src\main.ts */"./src/main.ts");
+=======
+module.exports = __webpack_require__(/*! D:\CBS project\Frontend\src\main.ts */"./src/main.ts");
+>>>>>>> Stashed changes
 
 
 /***/ })

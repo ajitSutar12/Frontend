@@ -1248,12 +1248,21 @@
                           <div *ngIf="JointAccountsTrue">
                             <div class="row">
                               <div class="col-sm">
+                                <div class="form-group form-primary form-static-label">
+                                  <ng-select [ngClass]="'ng-select'" [options]="joint_Cust_ID" [multiple]="false"
+                                    placeholder="Customer ID *" title="Compulsory Selection"
+                                    formControlName="JOINT_AC_CUSTID" [(ngModel)]="jointID"
+                                    (selected)="getJointCustomer(jointID)">
+                                  </ng-select>
+                                </div>
+                              </div>
+                              <div class="col-sm">
                                 <div class="form-group input-group">
                                   <span class="border-lable-flt">
                                     <input type="text" name="JOINT_ACNAME" class="form-control" placeholder=" "
                                       id="JOINT_ACNAME" pattern="^[A-Za-z\./ -]+$"
-                                      title="Input allowed only  A-Z a-z  - / . (Space)"
-                                      formControlName="JOINT_ACNAME" />
+                                      title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="JOINT_ACNAME"
+                                      disabled />
                                     <label for="JOINT_ACNAME">Name<sub class="required">*
                                       </sub></label>
                                   </span>
@@ -1559,7 +1568,6 @@
                           </button>
                         </div>
                       </app-modal-basic>
-
                     </div>
                   </ng-template>
                 </ngb-tab>

@@ -34,7 +34,11 @@ const routes = [
             },
             {
                 path: 'standingInstruction',
+<<<<<<< Updated upstream
                 loadChildren: () => __webpack_require__.e(/*! import() | standing-instruction-standing-instruction-module */ "standing-instruction-standing-instruction-module").then(__webpack_require__.bind(null, /*! ./standing-instruction/standing-instruction.module */ "./src/app/theme/master/instruction/standing-instruction/standing-instruction.module.ts")).then(m => m.StandingInstructionModule)
+=======
+                loadChildren: () => Promise.all(/*! import() | standing-instruction-standing-instruction-module */[__webpack_require__.e("common"), __webpack_require__.e("standing-instruction-standing-instruction-module")]).then(__webpack_require__.bind(null, /*! ./standing-instruction/standing-instruction.module */ "./src/app/theme/master/instruction/standing-instruction/standing-instruction.module.ts")).then(m => m.StandingInstructionModule)
+>>>>>>> Stashed changes
             },
             {
                 path: 'interestInstruction',
@@ -54,6 +58,7 @@ const routes = [
             },
             {
                 path: 'revokeStandingInstructions',
+<<<<<<< Updated upstream
                 loadChildren: () => __webpack_require__.e(/*! import() | revoke-standing-instructions-revoke-standing-instructions-module */ "revoke-standing-instructions-revoke-standing-instructions-module").then(__webpack_require__.bind(null, /*! ./revoke-standing-instructions/revoke-standing-instructions.module */ "./src/app/theme/master/instruction/revoke-standing-instructions/revoke-standing-instructions.module.ts")).then(m => m.RevokeStandingInstructionsModule)
             },
             {
@@ -63,6 +68,17 @@ const routes = [
             {
                 path: 'revokeSpecialInstruction',
                 loadChildren: () => __webpack_require__.e(/*! import() | revoke-special-instruction-revoke-special-instruction-module */ "revoke-special-instruction-revoke-special-instruction-module").then(__webpack_require__.bind(null, /*! ./revoke-special-instruction/revoke-special-instruction.module */ "./src/app/theme/master/instruction/revoke-special-instruction/revoke-special-instruction.module.ts")).then(m => m.RevokeSpecialInstructionModule)
+=======
+                loadChildren: () => Promise.all(/*! import() | revoke-standing-instructions-revoke-standing-instructions-module */[__webpack_require__.e("common"), __webpack_require__.e("revoke-standing-instructions-revoke-standing-instructions-module")]).then(__webpack_require__.bind(null, /*! ./revoke-standing-instructions/revoke-standing-instructions.module */ "./src/app/theme/master/instruction/revoke-standing-instructions/revoke-standing-instructions.module.ts")).then(m => m.RevokeStandingInstructionsModule)
+            },
+            {
+                path: 'revokeInterestInstruction',
+                loadChildren: () => Promise.all(/*! import() | revoke-interest-instruction-revoke-interest-instruction-module */[__webpack_require__.e("common"), __webpack_require__.e("revoke-interest-instruction-revoke-interest-instruction-module")]).then(__webpack_require__.bind(null, /*! ./revoke-interest-instruction/revoke-interest-instruction.module */ "./src/app/theme/master/instruction/revoke-interest-instruction/revoke-interest-instruction.module.ts")).then(m => m.RevokeInterestInstructionModule)
+            },
+            {
+                path: 'revokeSpecialInstruction',
+                loadChildren: () => Promise.all(/*! import() | revoke-special-instruction-revoke-special-instruction-module */[__webpack_require__.e("common"), __webpack_require__.e("revoke-special-instruction-revoke-special-instruction-module")]).then(__webpack_require__.bind(null, /*! ./revoke-special-instruction/revoke-special-instruction.module */ "./src/app/theme/master/instruction/revoke-special-instruction/revoke-special-instruction.module.ts")).then(m => m.RevokeSpecialInstructionModule)
+>>>>>>> Stashed changes
             },
             {
                 path: 'lienMarkClear',

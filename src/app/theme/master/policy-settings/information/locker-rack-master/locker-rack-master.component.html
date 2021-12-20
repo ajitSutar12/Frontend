@@ -21,8 +21,8 @@
                         <div class="col-md-6">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="RACK_DESC" class="form-control" placeholder=" "
-                                    #autofocus  id="RACK_DESC" required="" pattern="^[A-Za-z\*#./ -]+$" maxlength="50"
+                                    <input type="text" name="RACK_DESC" class="form-control" placeholder=" " #autofocus
+                                        id="RACK_DESC" required="" pattern="^[A-Za-z\*#./ -]+$" maxlength="50"
                                         title="Input allowed only  A-Z a-z  - * # / . (Space)"
                                         formControlName="RACK_DESC">
                                     <label for="RACK_DESC">Rack Description<sub class="required">* </sub></label>
@@ -85,7 +85,7 @@
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
                                 [disabled]="angForm.invalid">Update</button>&nbsp;
                             <button class="btn btn-primary ripple light" (click)="addNewData()"
-                                *ngIf="newbtnShow">New</button>
+                                *ngIf="newbtnShow">Cancel</button>
                         </div>
                     </div>
                 </form>

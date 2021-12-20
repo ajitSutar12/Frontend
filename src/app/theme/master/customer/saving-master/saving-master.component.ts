@@ -167,6 +167,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Dropdown options
   scheme //scheme code from schemast(S_ACNOTYPE)
   Cust_ID: any[] //customer id from idmaster
+  joint_Cust_ID: any[] //customer id from idmaster
   category: any[] //from category master
   city //city from customer id from idmaster
   cast: string // customer id from idmaster
@@ -184,6 +185,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedCharacter = '3';
   timeLeft = 5;
   id: string = '';
+  jointID: string = '';
   private dataSub: Subscription = null;
   datemax: any;
 
@@ -385,6 +387,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.runTimer();
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
+      this.joint_Cust_ID = data;
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
@@ -573,6 +576,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NPIN: ['', [Validators.pattern]],
 
       //joint ac
+      JOINT_AC_CUSTID: [''],
       JOINT_ACNAME: ['', [Validators.pattern]],
       OPERATOR: [true],
 
@@ -948,7 +952,23 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
     }
-    this.multiNominee.push(object);
+    if (object.AC_NNAME != '' && object.AC_NNAME != null) {
+      if ((object.AC_NRELA != '' && object.AC_NDATE != '') || (object.AC_NRELA != null && object.AC_NDATE != null)) {
+        if (this.multiNominee.length == 0) {
+          this.multiNominee.push(object);
+        }
+        else {
+          if (this.multiNominee.find(ob => ob['AC_NNAME'] === formVal.AC_NNAME)) {
+            Swal.fire("Already Nominee for this Account", "error");
+          }
+          else {
+            this.multiNominee.push(object);
+          }
+        }
+      }
+    } else {
+      Swal.fire("Please Insert Record", "error");
+    }
     this.resetNominee()
   }
 
@@ -1014,14 +1034,42 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.controls['AC_NPIN'].reset();
   }
 
+  getJointCustomer(id) {
+    this.customerIdService.getFormData(id).subscribe(data => {
+      this.angForm.patchValue({
+        JOINT_ACNAME: data.AC_NAME
+      })
+    })
+  }
+
   //Joint ac
   addJointAcccount() {
     const formVal = this.angForm.value;
     var object = {
+      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
       OPERATOR: formVal.OPERATOR
     }
-    this.multiJointAC.push(object);
+    if (object.JOINT_AC_CUSTID != undefined) {
+      if (this.id != this.jointID) {
+        if (this.multiJointAC.length == 0) {
+          this.multiJointAC.push(object);
+        }
+        else {
+          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
+            Swal.fire("This Customer is Already Joint Account Holder", "error");
+          }
+          else {
+            this.multiJointAC.push(object);
+          }
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+      }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
     this.resetJointAC()
   }
   editJointAc(id) {
@@ -1031,6 +1079,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.jointShowButton = false;
     this.jointUpdateShow = true;
     this.angForm.patchValue({
+      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID,
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
@@ -1041,6 +1090,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.jointUpdateShow = false;
     const formVal = this.angForm.value;
     var object = {
+      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
@@ -1053,6 +1103,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   resetJointAC() {
+    this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
     this.angForm.controls['OPERATOR'].reset();
   }

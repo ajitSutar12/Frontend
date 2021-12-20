@@ -146,6 +146,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   showDialog = false;
   SchemeCodeDropdownDropdown: any[];
   categoryMasterdropdown: any[];
+  joint_Cust_ID: any[] //customer id from idmaster
 
   @Input() visible: boolean;
   public config: any;
@@ -162,6 +163,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   tempAddress: boolean = true;
   Cust_ID: any[]
   id: string = '';
+  jointID: string = '';
   introducerACNo //account no for introducer
   acno
 
@@ -418,6 +420,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.runTimer();
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
+      this.joint_Cust_ID = data;
     })
     this.SchemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.SchemeCodeDropdownDropdown = data;
@@ -535,6 +538,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_NPIN: ['', [Validators.pattern]],
 
       //joint ac
+      JOINT_AC_CUSTID: [''],
       JOINT_ACNAME: ['', [Validators.pattern]],
       OPERATOR: [true],
 
@@ -1399,7 +1403,23 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
     }
-    this.multiNominee.push(object);
+    if (object.AC_NNAME != '' && object.AC_NNAME != null) {
+      if ((object.AC_NRELA != '' && object.AC_NDATE != '') || (object.AC_NRELA != null && object.AC_NDATE != null)) {
+        if (this.multiNominee.length == 0) {
+          this.multiNominee.push(object);
+        }
+        else {
+          if (this.multiNominee.find(ob => ob['AC_NNAME'] === formVal.AC_NNAME)) {
+            Swal.fire("Already Nominee for this Account", "error");
+          }
+          else {
+            this.multiNominee.push(object);
+          }
+        }
+      }
+    } else {
+      Swal.fire("Please Insert Record", "error");
+    }
     this.resetNominee()
   }
 
@@ -1475,14 +1495,41 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.controls['AC_NPIN'].reset();
   }
 
-  //Joint ac
+   //Joint ac
+   getJointCustomer(id) {
+    this.customerIdService.getFormData(id).subscribe(data => {
+      this.angForm.patchValue({
+        JOINT_ACNAME: data.AC_NAME
+      })
+    })
+  }
   addJointAcccount() {
     const formVal = this.angForm.value;
     var object = {
+      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
       OPERATOR: formVal.OPERATOR
     }
-    this.multiJointAC.push(object);
+    if (object.JOINT_AC_CUSTID != undefined) {
+      if (this.id != this.jointID) {
+        if (this.multiJointAC.length == 0) {
+          this.multiJointAC.push(object);
+        }
+        else {         
+          if(this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)){
+            Swal.fire("This Customer is Already Joint Account Holder", "error");
+          }
+          else{
+            this.multiJointAC.push(object);
+          }         
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+      }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
     this.resetJointAC()
   }
 
@@ -1493,6 +1540,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.jointShowButton = false;
     this.jointUpdateShow = true;
     this.angForm.patchValue({
+      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID,
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
@@ -1504,6 +1552,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.jointUpdateShow = false;
     const formVal = this.angForm.value;
     var object = {
+      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
@@ -1517,6 +1566,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   resetJointAC() {
+    this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
     this.angForm.controls['OPERATOR'].reset();
   }

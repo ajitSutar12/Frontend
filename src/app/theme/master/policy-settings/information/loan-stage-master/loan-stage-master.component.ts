@@ -63,11 +63,11 @@ export class LoanStageMasterComponent implements OnInit, AfterViewInit, OnDestro
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   //variable to get Id to update
   updateID: number = 0;
   //filter variable
   filterData = {};
-  newbtnShow: boolean;
 
 
   constructor(

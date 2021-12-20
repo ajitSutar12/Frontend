@@ -13,7 +13,7 @@ export class ShareMasterDropdownService {
         return this.http.get<any>(this.url + '/share-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO + ' ' + element.AC_NAME + ' ', value: `${element.id}` , name: element.AC_NAME};
+                    let obj = { label: element.AC_NO + ' ' + element.AC_NAME + ' ', value: `${element.id}`, name: element.AC_NAME };
                     this.sharecodeObject.push(obj)
                 });
                 return this.sharecodeObject;
@@ -24,7 +24,18 @@ export class ShareMasterDropdownService {
         return this.http.get<any>(this.url + '/share-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NAME + ' ' + element.AC_NAME + ' ', value: `${element.AC_NAME}` , name: element.AC_NAME};
+                    let obj = { label: element.AC_NAME + ' ' + element.AC_NAME + ' ', value: `${element.AC_NAME}`, name: element.AC_NAME };
+                    this.sharecodeObject.push(obj)
+                });
+                return this.sharecodeObject;
+            }));
+    }
+    public getShareAccountMasterNameList() {
+        this.sharecodeObject = []
+        return this.http.get<any>(this.url + '/share-master')
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: `${element.id}` };
                     this.sharecodeObject.push(obj)
                 });
                 return this.sharecodeObject;

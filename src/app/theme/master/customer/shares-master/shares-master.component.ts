@@ -967,7 +967,23 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
     }
-    this.multiNominee.push(object);
+    if (object.AC_NNAME != '' && object.AC_NNAME != null) {
+      if ((object.AC_NRELA != '' && object.AC_NDATE != '') || (object.AC_NRELA != null && object.AC_NDATE != null)) {
+        if (this.multiNominee.length == 0) {
+          this.multiNominee.push(object);
+        }
+        else {
+          if (this.multiNominee.find(ob => ob['AC_NNAME'] === formVal.AC_NNAME)) {
+            Swal.fire("Already Nominee for this Account", "error");
+          }
+          else {
+            this.multiNominee.push(object);
+          }
+        }
+      }
+    } else {
+      Swal.fire("Please Insert Record", "error");
+    }
     this.resetNominee()
   }
   editNominee(id) {

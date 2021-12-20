@@ -627,11 +627,19 @@ module.exports = content.locals || {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< Updated upstream
 __webpack_require__(/*! G:\0.Full-version 9-12-2021\Frontend\node_modules\font-awesome-scss\scss\font-awesome.scss */"./node_modules/font-awesome-scss/scss/font-awesome.scss");
 __webpack_require__(/*! G:\0.Full-version 9-12-2021\Frontend\src\assets\icon\icofont\css\icofont.scss */"./src/assets/icon/icofont/css/icofont.scss");
 __webpack_require__(/*! G:\0.Full-version 9-12-2021\Frontend\src\scss\style.scss */"./src/scss/style.scss");
 __webpack_require__(/*! G:\0.Full-version 9-12-2021\Frontend\src\styles.scss */"./src/styles.scss");
 module.exports = __webpack_require__(/*! G:\0.Full-version 9-12-2021\Frontend\node_modules\datatables.net-colreorder-dt\css\colReorder.dataTables.css */"./node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css");
+=======
+__webpack_require__(/*! D:\CBS project\Frontend\node_modules\font-awesome-scss\scss\font-awesome.scss */"./node_modules/font-awesome-scss/scss/font-awesome.scss");
+__webpack_require__(/*! D:\CBS project\Frontend\src\assets\icon\icofont\css\icofont.scss */"./src/assets/icon/icofont/css/icofont.scss");
+__webpack_require__(/*! D:\CBS project\Frontend\src\scss\style.scss */"./src/scss/style.scss");
+__webpack_require__(/*! D:\CBS project\Frontend\src\styles.scss */"./src/styles.scss");
+module.exports = __webpack_require__(/*! D:\CBS project\Frontend\node_modules\datatables.net-colreorder-dt\css\colReorder.dataTables.css */"./node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css");
+>>>>>>> Stashed changes
 
 
 /***/ })

@@ -84,6 +84,8 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
   newbtnShow: boolean = false;
   updateID: number = 0;
 
+  datemin: any;//setting max date
+  freezStatus
   //todays date
   date = new Date();
   // column search
@@ -188,7 +190,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
       AC_NO: ['', [Validators.required]],
       // AC_CUSTID: ['',],
       AC_FREEZE_STATUS: ['', [Validators.required]],
-      AC_FREEZE_AMOUNT: ['', [Validators.pattern]],
+      AC_FREEZE_AMOUNT: [0, [Validators.pattern]],
       AC_FREEZE_DATE: ['',],
       AC_FREEZE_REASON: ['', [Validators.pattern]]
     });
@@ -196,10 +198,12 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
 
   submit() {
     const formVal = this.angForm.value;
+    if (formVal.AC_FREEZE_STATUS == 'No Freeze' || formVal.AC_FREEZE_STATUS == 'Total Amount' || formVal.AC_FREEZE_STATUS == 'Only Withdrawal') {
+      formVal.AC_FREEZE_AMOUNT = 0
+    }
     const dataToSend = {
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
-      // 'AC_CUSTID': formVal.AC_CUSTID,
       'AC_FREEZE_STATUS': formVal.AC_FREEZE_STATUS,
       'AC_FREEZE_AMOUNT': formVal.AC_FREEZE_AMOUNT,
       'AC_FREEZE_DATE': formVal.AC_FREEZE_DATE,
@@ -207,10 +211,6 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     }
     this.FreezeAccountService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
     }, (error) => {
       console.log(error)
     })
@@ -240,77 +240,66 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
   getSchemeAcNO(acno) {
     switch (acno) {
       case 'SB':
-        console.log("saving");
         this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'SH':
-        console.log("Share");
         this.schemeAccountNoService.getShareSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'CA':
-        console.log("Current account");
         this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'LN':
-        console.log("Term Loan");
         this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'TD':
-        console.log("Term Deposit");
         this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'DS':
-        console.log("Dispute Loan");
         this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'CC':
-        console.log("Cash Credit Loan");
         this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'GS':
-        console.log("anamat");
         this.schemeAccountNoService.getAnamatSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'PG':
-        console.log("Pigmy account");
         this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'AG':
-        console.log("Pigmy agent");
         this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'IV':
-        console.log("Investment");
         this.schemeAccountNoService.getInvestmentSchemeList().pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
@@ -318,7 +307,6 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     }
   }
 
-  datemin: any;//setting max date
   //set date 18 years before current date
   setdate() {
     const d = new Date();
@@ -342,7 +330,6 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
       }
     }
   }
-
 
   //function for delete button clicked
   delClickHandler(): void {
@@ -396,7 +383,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     this.newbtnShow = false;
     this.resetForm();
   }
-  freezStatus
+
   freezDeatils(freezStatus) {
     if (freezStatus == 'No Freeze') {
       this.angForm.controls['AC_FREEZE_AMOUNT'].disable()
@@ -422,22 +409,22 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit(): void {
-    // this.dtTrigger.next();
+    this.dtTrigger.next();
     // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-    //   dtInstance.columns().every(function () {
-    //     const that = this;
-    //     $('input', this.footer()).on('keyup change', function () {
-    //       if (this['value'] != '') {
-    //         that
-    //           .search(this['value'])
-    //           .draw();
-    //       } else {
-    //         that
-    //           .search(this['value'])
-    //           .draw();
-    //       }
-    //     });
+    // dtInstance.columns().every(function () {
+    //   const that = this;
+    //   $('input', this.footer()).on('keyup change', function () {
+    //     if (this['value'] != '') {
+    //       that
+    //         .search(this['value'])
+    //         .draw();
+    //     } else {
+    //       that
+    //         .search(this['value'])
+    //         .draw();
+    //     }
     //   });
+    // });
     // });
   }
 

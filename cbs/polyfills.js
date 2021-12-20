@@ -3249,7 +3249,11 @@ window.global = window;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< Updated upstream
 module.exports = __webpack_require__(/*! G:\0.Full-version 9-12-2021\Frontend\src\polyfills.ts */"./src/polyfills.ts");
+=======
+module.exports = __webpack_require__(/*! D:\CBS project\Frontend\src\polyfills.ts */"./src/polyfills.ts");
+>>>>>>> Stashed changes
 
 
 /***/ })

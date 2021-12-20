@@ -434,9 +434,13 @@ function OverDraftComponent_div_46_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+<<<<<<< Updated upstream
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("required", ctx_r3.periodoverdraft);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+=======
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](10);
+>>>>>>> Stashed changes
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r3.angForm.controls["AC_ODAMT"].invalid && (ctx_r3.angForm.controls["AC_ODAMT"].dirty || ctx_r3.angForm.controls["AC_ODAMT"].touched));
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("required", ctx_r3.periodoverdraft);
@@ -482,7 +486,13 @@ function OverDraftComponent_div_47_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+<<<<<<< Updated upstream
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](10);
+=======
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("required", ctx_r4.TemporaryOverDraftTrue);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+>>>>>>> Stashed changes
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r4.angForm.controls["AC_ODAMT"].invalid && (ctx_r4.angForm.controls["AC_ODAMT"].dirty || ctx_r4.angForm.controls["AC_ODAMT"].touched));
 } }
 function OverDraftComponent_button_49_Template(rf, ctx) { if (rf & 1) {
@@ -785,6 +795,10 @@ class OverDraftComponent {
             this.TemporaryOverDraftTrue = false;
         }
         if (val == 2) {
+<<<<<<< Updated upstream
+=======
+            this.angForm.controls['AC_ODAMT'].reset();
+>>>>>>> Stashed changes
             this.PeriodicallyOverDraftTrue = false;
             this.periodoverdraft = false;
             this.TemporaryOverDraftTrue = true;
@@ -799,7 +813,11 @@ OverDraftComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
     } if (rf & 2) {
         var _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.dtElement = _t.first);
+<<<<<<< Updated upstream
     } }, decls: 53, vars: 15, consts: [[1, "row"], [1, "col-12"], [1, "card"], [1, "card-header"], [2, "float", "right"], [1, "required"], [1, "card-block"], ["action", "javascript:", "novalidate", "", 3, "formGroup"], ["myform", "ngForm"], [1, "col-sm-4"], [1, "form-group", "form-primary", "form-static-label"], ["placeholder", "Scheme*", "formControlName", "AC_TYPE", 3, "ngClass", "options", "multiple", "ngModel", "ngModelChange", "selected"], ["class", "form-group form-primary form-static-label", "class", "alert alert-danger", 4, "ngIf"], ["placeholder", "Account No*", "required", "", "title", "Compulsory Selection", "formControlName", "AC_NO", 3, "ngClass", "options", "multiple"], [1, "col-sm-3"], [1, "basic-list"], ["routerLinkActive", "active", "id", "pointer", 1, "text-right", "f-w-600", 3, "click"], [1, "form-radio"], [1, "radio", "radio-inline"], ["type", "radio", "name", "AC_SODAMT", "formControlName", "AC_SODAMT", "value", "PeriodicallyOverDraft", "checked", "true"], [1, "helper"], ["type", "radio", "name", "AC_SODAMT", "formControlName", "AC_SODAMT", "value", "TemporaryOverDraft"], [1, "col-sm-9"], [4, "ngIf"], ["class", "btn btn-primary ripple light", 3, "disabled", "click", 4, "ngIf"], ["class", "btn btn-primary ripple light", 3, "click", 4, "ngIf"], [1, "alert", "alert-danger"], [1, "col-sm"], [1, "form-group", "input-group"], [1, "border-lable-flt"], ["type", "text", "name", "To", "placeholder", " ", "id", "Over", "pattern", "\\d{1,7}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "AC_ODAMT", 1, "form-control", 3, "required"], ["for", "Over"], ["type", "text", "name", "To", "placeholder", " ", "id", "Over1", "pattern", "^[0-9]+$", "maxlength", "3", "title", "Input allowed only  0-9", "formControlName", "AC_ODDAYS", 1, "form-control", 3, "required"], ["for", "Over1"], ["type", "text", "placeholder", " ", "id", "Date", "max", "9999-12-31", "formControlName", "AC_ODDATE", "onfocus", "(this.type='date')", 1, "form-control", 3, "required"], ["for", "Date"], [1, "col-sm-5"], ["type", "text", "name", "To", "placeholder", " ", "id", "To", "pattern", "\\d{1,7}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "AC_ODAMT", 1, "form-control"], ["for", "To"], [1, "btn", "btn-primary", "ripple", "light", 3, "disabled", "click"], [1, "btn", "btn-primary", "ripple", "light", 3, "click"]], template: function OverDraftComponent_Template(rf, ctx) { if (rf & 1) {
+=======
+    } }, decls: 53, vars: 15, consts: [[1, "row"], [1, "col-12"], [1, "card"], [1, "card-header"], [2, "float", "right"], [1, "required"], [1, "card-block"], ["action", "javascript:", "novalidate", "", 3, "formGroup"], ["myform", "ngForm"], [1, "col-sm-4"], [1, "form-group", "form-primary", "form-static-label"], ["placeholder", "Scheme*", "formControlName", "AC_TYPE", 3, "ngClass", "options", "multiple", "ngModel", "ngModelChange", "selected"], ["class", "form-group form-primary form-static-label", "class", "alert alert-danger", 4, "ngIf"], ["placeholder", "Account No*", "required", "", "title", "Compulsory Selection", "formControlName", "AC_NO", 3, "ngClass", "options", "multiple"], [1, "col-sm-3"], [1, "basic-list"], ["routerLinkActive", "active", "id", "pointer", 1, "text-right", "f-w-600", 3, "click"], [1, "form-radio"], [1, "radio", "radio-inline"], ["type", "radio", "name", "AC_SODAMT", "formControlName", "AC_SODAMT", "value", "PeriodicallyOverDraft", "checked", "true"], [1, "helper"], ["type", "radio", "name", "AC_SODAMT", "formControlName", "AC_SODAMT", "value", "TemporaryOverDraft"], [1, "col-sm-9"], [4, "ngIf"], ["class", "btn btn-primary ripple light", 3, "disabled", "click", 4, "ngIf"], ["class", "btn btn-primary ripple light", 3, "click", 4, "ngIf"], [1, "alert", "alert-danger"], [1, "col-sm"], [1, "form-group", "input-group"], [1, "border-lable-flt"], ["type", "text", "name", "To", "placeholder", " ", "id", "Over", "pattern", "\\d{1,7}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "AC_ODAMT", 1, "form-control"], ["for", "Over"], ["type", "text", "name", "To", "placeholder", " ", "id", "Over1", "pattern", "^[0-9]+$", "maxlength", "3", "title", "Input allowed only  0-9", "formControlName", "AC_ODDAYS", 1, "form-control", 3, "required"], ["for", "Over1"], ["type", "text", "placeholder", " ", "id", "Date", "max", "9999-12-31", "formControlName", "AC_ODDATE", "onfocus", "(this.type='date')", 1, "form-control", 3, "required"], ["for", "Date"], [1, "col-sm-5"], ["type", "text", "name", "To", "placeholder", " ", "id", "To", "pattern", "\\d{1,7}(\\.\\d{2})?", "title", "Input allowed only  0-9", "formControlName", "AC_ODAMT", 1, "form-control", 3, "required"], ["for", "To"], [1, "btn", "btn-primary", "ripple", "light", 3, "disabled", "click"], [1, "btn", "btn-primary", "ripple", "light", 3, "click"]], template: function OverDraftComponent_Template(rf, ctx) { if (rf & 1) {
+>>>>>>> Stashed changes
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
@@ -872,9 +890,15 @@ OverDraftComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefin
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](44, "div", 22);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](45, "div", 6);
+<<<<<<< Updated upstream
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](46, OverDraftComponent_div_46_Template, 29, 6, "div", 23);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](47, OverDraftComponent_div_47_Template, 11, 1, "div", 23);
+=======
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](46, OverDraftComponent_div_46_Template, 29, 5, "div", 23);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](47, OverDraftComponent_div_47_Template, 11, 2, "div", 23);
+>>>>>>> Stashed changes
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
