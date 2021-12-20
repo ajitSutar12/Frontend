@@ -52,7 +52,6 @@ interface ShareMaster {
   AC_JOIN_DATE: string
   AC_RETIRE_DATE: string
   MEMBERSHIP_BY: string
-  AC_SIGN_TYPE: string
   AC_SREPRESENT: string
   AC_OPDATE: string
   AC_EXPDT: string
@@ -202,13 +201,11 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private systemParameter: SystemMasterParametersService,
     private sharesSchemeService: SharesSchemeService,
     private datePipe: DatePipe,
-    private fb: FormBuilder) { 
-      this.setdate();
-        // this.datemax =new Date() ;
-        this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-        console.log(this.datemax);
-       
-     }
+    private fb: FormBuilder) {
+    this.setdate();
+    // this.datemax =new Date() ;
+    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -246,7 +243,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           dataTableParameters
         ).subscribe(resp => {
           this.shareMaster = resp.data;
-          console.log('this.shareMaster', this.shareMaster)
           callback({
             recordsTotal: resp.recordsTotal,
             recordsFiltered: resp.recordsTotal,
@@ -307,10 +303,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         //   title: 'Membership Type',
         //   data: 'MEMBERSHIP_BY'
         // },
-        // {
-        //   title: 'Sign Type',
-        //   data: 'AC_SIGN_TYPE'
-        // },
+        // {      
         {
           title: 'Represent by',
           data: 'AC_SREPRESENT'
@@ -439,14 +432,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       ],
       dom: 'Blrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-
     };
 
     this.runTimer();
@@ -504,6 +489,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   getCustomer(id) {
     this.getSystemParaDate()
     this.customerIdService.getFormData(id).subscribe(data => {
+      console.log('in get customer', data)
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
@@ -538,18 +524,16 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
-    //disabledate on keyup
-    disabledate(data:any){
-    
-      console.log(data);
-      if(data != ""){
-        if(data > this.datemax){
-          Swal.fire("Invalid Input", "Please insert valid date ", "warning");
-          (document.getElementById("AC_OPDATE")as HTMLInputElement).value = ""
-              
-        }
-      } 
+  //disabledate on keyup
+  disabledate(data: any) {
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        (document.getElementById("AC_OPDATE") as HTMLInputElement).value = ""
+
+      }
     }
+  }
   //set open date, appointed date and expiry date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -614,12 +598,11 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NAME: [''],
       //basic controls
       AC_CATG: ['0', [Validators.required]],
-      EMP_NO: [''],
+      EMP_NO: ['', [Validators.pattern]],
       AC_MEM_BIRTH_DT: [''],
       AC_JOIN_DATE: [''],
       AC_RETIRE_DATE: [''],
       MEMBERSHIP_BY: ['', [Validators.required]],
-      AC_SIGN_TYPE: ['', [Validators.required]],
       AC_SREPRESENT: ['', [Validators.pattern]],
       AC_HONO: ['',],
       AC_WARD: ['',],
@@ -651,7 +634,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_BRANCH: ['', [Validators.required]],
       AC_SALARYDIVISION_CODE: [''],
       SUB_SALARYDIVISION_CODE: [''],
-      AC_SBNO: [''],
+      AC_SBNO: ['', [Validators.pattern]],
       AC_RESNO: ['', [Validators.required, Validators.pattern]],
       AC_RESDT: ['', [Validators.required]],
       AC_IS_RECOVERY: [false],
@@ -663,7 +646,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NNAME: ['', [Validators.pattern]],
       AC_NRELA: ['', [Validators.pattern]],
       AC_NDATE: ['',],
-      AGE: ['', [Validators.pattern]],
+      AGE: ['', [Validators.pattern, Validators.min(1), Validators.max(100)]],
       AC_NHONO: ['', [Validators.pattern]],
       AC_NWARD: ['', [Validators.pattern]],
       AC_NADDR: ['', [Validators.pattern]],
@@ -717,7 +700,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'AC_BRANCH': formVal.AC_BRANCH,
       'AC_RETIRE_DATE': formVal.AC_RETIRE_DATE,
       'MEMBERSHIP_BY': formVal.MEMBERSHIP_BY,
-      'AC_SIGN_TYPE': formVal.AC_SIGN_TYPE,
       'AC_SREPRESENT': formVal.AC_SREPRESENT,
       'SUB_SALARYDIVISION_CODE': formVal.SUB_SALARYDIVISION_CODE,
       'AC_SBNO': formVal.AC_SBNO,
@@ -753,7 +735,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //Nominee 
       'NomineeData': this.multiNominee
     }
-    console.log('datatosend', dataToSend)
     this.ShareMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
@@ -778,8 +759,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.getCustomer(data.AC_CUSTID)
       //get nominee to edit
       this.multiNominee = data.nomineeDetails
-      console.log(data)
-
       this.angForm.patchValue({
         AC_ACNOTYPE: data.AC_ACNOTYPE,
         AC_TYPE: data.AC_TYPE.toString(),
@@ -790,7 +769,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_JOIN_DATE': data.AC_JOIN_DATE,
         'AC_RETIRE_DATE': data.AC_RETIRE_DATE,
         'MEMBERSHIP_BY': data.MEMBERSHIP_BY,
-        'AC_SIGN_TYPE': data.AC_SIGN_TYPE,
         'AC_SREPRESENT': data.AC_SREPRESENT,
 
         //other controls
@@ -829,11 +807,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   updateData() {
     let data = this.angForm.value;
     if (data.AC_ADDFLAG == true) {
-      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
       this.addType = 'P'
     }
     else if (data.AC_ADDFLAG == false) {
-      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
       this.addType = 'T'
     }
     data['AC_ADDTYPE'] = this.addType
@@ -967,22 +943,26 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
     }
-    if (object.AC_NNAME != '' && object.AC_NNAME != null) {
-      if ((object.AC_NRELA != '' && object.AC_NDATE != '') || (object.AC_NRELA != null && object.AC_NDATE != null)) {
-        if (this.multiNominee.length == 0) {
-          this.multiNominee.push(object);
+    if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Nominee");
+    }
+    else if (formVal.AC_NNAME != "") {
+      if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+        Swal.fire("Please Insert Mandatory Record For Nominee");
+      } else if (formVal.AC_NRELA != "") {
+        if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
+          Swal.fire("Please Insert Mandatory Record For Nominee");
         }
         else {
-          if (this.multiNominee.find(ob => ob['AC_NNAME'] === formVal.AC_NNAME)) {
-            Swal.fire("Already Nominee for this Account", "error");
-          }
-          else {
-            this.multiNominee.push(object);
-          }
+          this.multiNominee.push(object);
         }
       }
-    } else {
-      Swal.fire("Please Insert Record", "error");
+      else {
+        this.multiNominee.push(object);
+      }
+    }
+    else {
+      this.multiNominee.push(object);
     }
     this.resetNominee()
   }

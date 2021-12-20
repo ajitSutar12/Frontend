@@ -69,19 +69,19 @@
                 </div>
               </div>
             </div>
-          
+
 
 
           </div>
-          
+
 
           <div class="row">
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="PURCHASE_DATE" class="form-control" placeholder=" " id="PURCHASE_DATE"
-                    required="" value=""max="{{datemax | date:'yyyy-MM-dd'}}" #date (focusout)="disabledate(date.value)"  onfocus="(this.type='date')"
-                    formControlName="PURCHASE_DATE" />
+                    required="" value="" max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                    (focusout)="disabledate(date.value)" onfocus="(this.type='date')" formControlName="PURCHASE_DATE" />
                   <label for="PURCHASE_DATE">Purchase Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -117,7 +117,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="OP_BAL_DATE" class="form-control" placeholder=" " id="OP_BAL_DATE" value=""
-                  max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)" formControlName="OP_BAL_DATE" required=""/>
+                    max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                    (focusout)="disabledate(date.value)" formControlName="OP_BAL_DATE" required="" />
                   <label for="OP_BAL_DATE">Op. Balance Date</label>
                 </span>
               </div>
@@ -126,12 +127,12 @@
               (angForm.controls['OP_BAL_DATE'].dirty ||
                 angForm.controls['OP_BAL_DATE'].touched)
             " class="alert alert-danger">
-            <div *ngIf="angForm.controls['OP_BAL_DATE'].errors?.required">
-              This field is required
+                <div *ngIf="angForm.controls['OP_BAL_DATE'].errors?.required">
+                  This field is required
+                </div>
+              </div>
             </div>
-          </div>
-            </div>
-           
+
           </div>
 
           <div class="row">
@@ -174,8 +175,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="Account" class="form-control" placeholder=" " id="OP_BALANCE" value=""
-                    pattern="\d{1,20}(\.\d{2})?" maxlength="13"
-                    title="Input allowed only  0-9" formControlName="OP_BALANCE" />
+                    pattern="\d{1,20}(\.\d{2})?" maxlength="13" title="Input allowed only  0-9"
+                    formControlName="OP_BALANCE" />
                   <label for="OP_BALANCE">Opening Amount</label>
                 </span>
               </div>
@@ -185,7 +186,7 @@
                     angForm.controls['OP_BALANCE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['OP_BALANCE'].errors?.pattern">
-                  Input allowed only  0-9
+                  Input allowed only 0-9
                 </div>
               </div>
             </div>
@@ -193,7 +194,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="OP_QUANTITY" class="form-control" placeholder=" "  id="OP_QUANTITY" value=""
+                  <input type="text" name="OP_QUANTITY" class="form-control" placeholder=" " id="OP_QUANTITY" value=""
                     pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="4" formControlName="OP_QUANTITY" />
                   <label for="OP_QUANTITY">Quantity</label>
                 </span>
@@ -203,10 +204,10 @@
               (angForm.controls['OP_QUANTITY'].dirty ||
                 angForm.controls['OP_QUANTITY'].touched)
             " class="alert alert-danger">
-            <div *ngIf="angForm.controls['OP_QUANTITY'].errors?.pattern">
-              Input allowed only  0-9
-            </div>
-          </div>
+                <div *ngIf="angForm.controls['OP_QUANTITY'].errors?.pattern">
+                  Input allowed only 0-9
+                </div>
+              </div>
             </div>
 
 
@@ -218,8 +219,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="Account" class="form-control" placeholder=" " id="PURCHASE_RATE" value=""
-                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" maxlength="13" formControlName="PURCHASE_RATE"
-                    ng-init="firstnumber=0" [(ngModel)]="firstnumber" />
+                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" maxlength="13"
+                    formControlName="PURCHASE_RATE" ng-init="firstnumber=0" [(ngModel)]="firstnumber" />
                   <label for="PURCHASE_RATE">Purchase Rate</label>
                 </span>
               </div>
@@ -228,17 +229,17 @@
               (angForm.controls['PURCHASE_RATE'].dirty ||
                 angForm.controls['PURCHASE_RATE'].touched)
             " class="alert alert-danger">
-            <div *ngIf="angForm.controls['PURCHASE_RATE'].errors?.pattern">
-              Input allowed only  0-9
-            </div>
-          </div>
+                <div *ngIf="angForm.controls['PURCHASE_RATE'].errors?.pattern">
+                  Input allowed only 0-9
+                </div>
+              </div>
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="Account" class="form-control" placeholder=" " id="PURCHASE_OP_QUANTITY"
-                    value="" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="4" formControlName="PURCHASE_OP_QUANTITY"
-                    ng-init="secondnumber=0" [(ngModel)]="secondnumber" />
+                    value="" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="4"
+                    formControlName="PURCHASE_OP_QUANTITY" ng-init="secondnumber=0" [(ngModel)]="secondnumber" />
                   <label for="PURCHASE_OP_QUANTITY">Purchase Qty</label>
                 </span>
               </div>
@@ -247,10 +248,10 @@
               (angForm.controls['PURCHASE_OP_QUANTITY'].dirty ||
                 angForm.controls['PURCHASE_OP_QUANTITY'].touched)
             " class="alert alert-danger">
-            <div *ngIf="angForm.controls['PURCHASE_OP_QUANTITY'].errors?.pattern">
-              Input allowed only  0-9
-            </div>
-          </div>
+                <div *ngIf="angForm.controls['PURCHASE_OP_QUANTITY'].errors?.pattern">
+                  Input allowed only 0-9
+                </div>
+              </div>
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
@@ -267,10 +268,10 @@
               (angForm.controls['PURCHASE_VALUE'].dirty ||
                 angForm.controls['PURCHASE_VALUE'].touched)
             " class="alert alert-danger">
-            <div *ngIf="angForm.controls['PURCHASE_VALUE'].errors?.pattern">
-              Input allowed only  0-9
-            </div>
-          </div>
+                <div *ngIf="angForm.controls['PURCHASE_VALUE'].errors?.pattern">
+                  Input allowed only 0-9
+                </div>
+              </div>
 
             </div>
 
@@ -278,7 +279,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="lastdep_Date" class="form-control" placeholder=" " id="LAST_DEPR_DATE"
-                    value="" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"  formControlName="LAST_DEPR_DATE" />
+                    value="" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                    (focusout)="disabledate(date.value)" formControlName="LAST_DEPR_DATE" />
                   <label for="LAST_DEPR_DATE">Last Depreciation Date</label>
                 </span>
               </div>
@@ -287,10 +289,10 @@
               (angForm.controls['LAST_DEPR_DATE'].dirty ||
                 angForm.controls['LAST_DEPR_DATE'].touched)
             " class="alert alert-danger">
-            <div *ngIf="angForm.controls['LAST_DEPR_DATE'].errors?.pattern">
-              Input allowed only  0-9
-            </div>
-          </div>
+                <div *ngIf="angForm.controls['LAST_DEPR_DATE'].errors?.pattern">
+                  Input allowed only 0-9
+                </div>
+              </div>
             </div>
 
 
@@ -315,15 +317,23 @@
             <div class="col-sm-5">
               <label></label>
             </div>
-            <div class="col-sm">
-              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()">Add</button>
-              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-              &nbsp;
-              <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
-            </div>
           </div>
 
         </form>
+      </div>
+      <div class="card-footer">
+        <div class="row" style="float: right;">
+          <div class="col-sm">
+            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+              Add
+            </button>
+            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+              Update</button>&nbsp;
+            <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -345,35 +355,50 @@
                         (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                     </td>
-                    <td [ngClass]="data.ITEM_TYPE === '' ? 'td_center' : 'td_left'">{{data.ITEM_TYPE === ''? '-' : data.ITEM_TYPE}}</td>
+                    <td [ngClass]="data.ITEM_TYPE === '' ? 'td_center' : 'td_left'">{{data.ITEM_TYPE === ''? '-' :
+                      data.ITEM_TYPE}}</td>
                     <!-- <td>{{ data.ITEM_TYPE }}</td> -->
-                    <td class="td_right" [ngClass]="data.ITEM_CODE === '' ? 'td_center' : 'td_right'">{{data.ITEM_CODE === ''? '-' : data.ITEM_CODE}}</td>
+                    <td class="td_right" [ngClass]="data.ITEM_CODE === '' ? 'td_center' : 'td_right'">{{data.ITEM_CODE
+                      === ''? '-' : data.ITEM_CODE}}</td>
                     <!-- <td>{{ data.ITEM_CODE }}</td> -->
-                    <td [ngClass]="data.ITEM_NAME === '' ? 'td_center' : 'td_left'">{{data.ITEM_NAME === ''? '-' : data.ITEM_NAME}}</td>
+                    <td [ngClass]="data.ITEM_NAME === '' ? 'td_center' : 'td_left'">{{data.ITEM_NAME === ''? '-' :
+                      data.ITEM_NAME}}</td>
                     <!-- <td>{{ data.ITEM_NAME }}</td> -->
-                    <td class="td_right" [ngClass]="data.PURCHASE_DATE === '' ? 'td_center' : 'td_right'">{{data.PURCHASE_DATE === ''? '-' : data.PURCHASE_DATE}}</td>
+                    <td class="td_right" [ngClass]="data.PURCHASE_DATE === '' ? 'td_center' : 'td_right'">
+                      {{data.PURCHASE_DATE === ''? '-' : data.PURCHASE_DATE}}</td>
                     <!-- <td>{{ data.PURCHASE_DATE }}</td> -->
-                    <td [ngClass]="data.DEPR_CATEGORY === '' ? 'td_center' : 'td_left'">{{data.DEPR_CATEGORY === ''? '-' : data.DEPR_CATEGORY}}</td>
+                    <td [ngClass]="data.DEPR_CATEGORY === '' ? 'td_center' : 'td_left'">{{data.DEPR_CATEGORY === ''? '-'
+                      : data.DEPR_CATEGORY}}</td>
                     <!-- <td>{{ data.DEPR_CATEGORY }}</td> -->
-                    <td class="td_right" [ngClass]="data.OP_BAL_DATE === '' ? 'td_center' : 'td_right'">{{data.OP_BAL_DATE === ''? '-' : data.OP_BAL_DATE}}</td>
+                    <td class="td_right" [ngClass]="data.OP_BAL_DATE === '' ? 'td_center' : 'td_right'">
+                      {{data.OP_BAL_DATE === ''? '-' : data.OP_BAL_DATE}}</td>
                     <!-- <td>{{ data.OP_BAL_DATE }}</td> -->
-                    <td [ngClass]="data.SUPPLIER_NAME === '' ? 'td_center' : 'td_left'">{{data.SUPPLIER_NAME === ''? '-' : data.SUPPLIER_NAME}}</td>
+                    <td [ngClass]="data.SUPPLIER_NAME === '' ? 'td_center' : 'td_left'">{{data.SUPPLIER_NAME === ''? '-'
+                      : data.SUPPLIER_NAME}}</td>
                     <!-- <td>{{ data.SUPPLIER_NAME }}</td> -->
-                    <td class="td_right" [ngClass]="data.OP_BALANCE === '' ? 'td_center' : 'td_right'">{{data.OP_BALANCE === ''? '-' : data.OP_BALANCE}}</td>
+                    <td class="td_right" [ngClass]="data.OP_BALANCE === '' ? 'td_center' : 'td_right'">{{data.OP_BALANCE
+                      === ''? '-' : data.OP_BALANCE}}</td>
                     <!-- <td>{{ data.OP_BALANCE }}</td> -->
-                    <td class="td_right" [ngClass]="data.OP_QUANTITY === '' ? 'td_center' : 'td_right'">{{data.OP_QUANTITY === ''? '-' : data.OP_QUANTITY}}</td>
+                    <td class="td_right" [ngClass]="data.OP_QUANTITY === '' ? 'td_center' : 'td_right'">
+                      {{data.OP_QUANTITY === ''? '-' : data.OP_QUANTITY}}</td>
                     <!-- <td>{{ data.OP_QUANTITY }}</td> -->
-                    <td class="td_right" [ngClass]="data.PURCHASE_RATE === '' ? 'td_center' : 'td_right'">{{data.PURCHASE_RATE === ''? '-' : data.PURCHASE_RATE}}</td>
+                    <td class="td_right" [ngClass]="data.PURCHASE_RATE === '' ? 'td_center' : 'td_right'">
+                      {{data.PURCHASE_RATE === ''? '-' : data.PURCHASE_RATE}}</td>
                     <!-- <td>{{ data.PURCHASE_RATE }}</td> -->
-                    <td class="td_right" [ngClass]="data.PURCHASE_QUANTITY === '' ? 'td_center' : 'td_right'">{{data.PURCHASE_QUANTITY === ''? '-' : data.PURCHASE_QUANTITY}}</td>
+                    <td class="td_right" [ngClass]="data.PURCHASE_QUANTITY === '' ? 'td_center' : 'td_right'">
+                      {{data.PURCHASE_QUANTITY === ''? '-' : data.PURCHASE_QUANTITY}}</td>
                     <!-- <td>{{ data.PURCHASE_QUANTITY }}</td> -->
-                    <td class="td_right" [ngClass]="data.PURCHASE_OP_QUANTITY === '' ? 'td_center' : 'td_right'">{{data.PURCHASE_OP_QUANTITY === ''? '-' : data.PURCHASE_OP_QUANTITY}}</td>
+                    <td class="td_right" [ngClass]="data.PURCHASE_OP_QUANTITY === '' ? 'td_center' : 'td_right'">
+                      {{data.PURCHASE_OP_QUANTITY === ''? '-' : data.PURCHASE_OP_QUANTITY}}</td>
                     <!-- <td>{{data.PURCHASE_OP_QUANTITY}}</td> -->
-                    <td class="td_right" [ngClass]="data.PURCHASE_VALUE === '' ? 'td_center' : 'td_right'">{{data.PURCHASE_VALUE === ''? '-' : data.PURCHASE_VALUE}}</td>
+                    <td class="td_right" [ngClass]="data.PURCHASE_VALUE === '' ? 'td_center' : 'td_right'">
+                      {{data.PURCHASE_VALUE === ''? '-' : data.PURCHASE_VALUE}}</td>
                     <!-- <td>{{ data.PURCHASE_VALUE }}</td> -->
-                    <td class="td_right" [ngClass]="data.LAST_DEPR_DATE === '' ? 'td_center' : 'td_right'">{{data.LAST_DEPR_DATE === ''? '-' : data.LAST_DEPR_DATE}}</td>
+                    <td class="td_right" [ngClass]="data.LAST_DEPR_DATE === '' ? 'td_center' : 'td_right'">
+                      {{data.LAST_DEPR_DATE === ''? '-' : data.LAST_DEPR_DATE}}</td>
                     <!-- <td>{{ data.LAST_DEPR_DATE }}</td> -->
-                    <td class="td_right" [ngClass]="data.GL_ACNO === '' ? 'td_center' : 'td_right'">{{data.GL_ACNO === ''? '-' : data.GL_ACNO}}</td>
+                    <td class="td_right" [ngClass]="data.GL_ACNO === '' ? 'td_center' : 'td_right'">{{data.GL_ACNO ===
+                      ''? '-' : data.GL_ACNO}}</td>
                     <!-- <td>{{ data.GL_ACNO }}</td> -->
                   </tr>
                 </tbody>

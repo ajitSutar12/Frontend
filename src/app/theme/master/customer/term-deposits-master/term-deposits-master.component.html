@@ -26,7 +26,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="AC_NO" class="form-control" placeholder=" " id="AC_NO" pattern="^[0-9]+$"
-                     disabled formControlName="AC_NO">
+                    disabled formControlName="AC_NO">
                   <label for="AC_NO">Account No</label>
                 </span>
               </div>
@@ -86,8 +86,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME" required=""
-                    pattern="^[A-Za-z\./ -]+$" disabled
-                    formControlName="AC_NAME">
+                    pattern="^[A-Za-z\./ -]+$" disabled formControlName="AC_NAME">
                   <label for="AC_NAME">Name <sub class="required">*</sub></label>
                 </span>
               </div>
@@ -99,12 +98,6 @@
                   This field is required and Input allowed only A-Z a-z - / . (Space)
                 </div>
               </div>
-            </div>
-            <div class="col-sm-3">
-              <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">Add</button>
-              <button class="btn btn-primary ripple light" (click)="updateData()"
-                *ngIf="updateShow">Update</button>&nbsp;
-              <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">New</button>
             </div>
           </div>
           <div class="row">
@@ -136,8 +129,8 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_OPDATE" class="form-control" placeholder=" " id="AC_OPDATE"
-                                required="" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"  
-                                formControlName="AC_OPDATE">
+                                required="" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                                (focusout)="disabledate(date.value)" formControlName="AC_OPDATE">
                               <label for="AC_OPDATE">Opening Date<sub class="required">*
                                 </sub></label>
                             </span>
@@ -185,8 +178,7 @@
                             <span class="border-lable-flt">
                               <input type="text" name="AC_BIRTH_DT" class="form-control" placeholder=" "
                                 id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')"
-                                #date (focusout)="disabledate(date.value)"  
-                                formControlName="AC_BIRTH_DT">
+                                #date (focusout)="disabledate(date.value)" formControlName="AC_BIRTH_DT">
                               <label for="AC_BIRTH_DT">Birth Date</label>
                             </span>
                           </div>
@@ -272,7 +264,7 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_PANNO" class="form-control" placeholder=" " id="AC_PANNO"
-                                pattern="^[0-9]+$"  disabled formControlName="AC_PANNO">
+                                pattern="^[0-9]+$" disabled formControlName="AC_PANNO">
                               <label for="AC_PANNO">PAN No.</label>
                             </span>
                           </div>
@@ -440,8 +432,7 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_HONO" class="form-control" placeholder=" " id="AC_HONO"
-                                pattern="^[A-Za-z0-9\./ -]+$" 
-                                formControlName="AC_HONO" disabled>
+                                pattern="^[A-Za-z0-9\./ -]+$" formControlName="AC_HONO" disabled>
                               <label for="AC_HONO">House</label>
                             </span>
                           </div>
@@ -457,8 +448,7 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_WARD" class="form-control" placeholder=" " id="AC_WARD"
-                                pattern="^[A-Za-z\./ -]+$"
-                                formControlName="AC_WARD" disabled>
+                                pattern="^[A-Za-z\./ -]+$" formControlName="AC_WARD" disabled>
                               <label for="AC_WARD">Ward</label>
                             </span>
                           </div>
@@ -474,8 +464,7 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_GALLI" class="form-control" placeholder=" " id="AC_GALLI"
-                                pattern="^[A-Za-z0-9\./ -]+$"
-                                formControlName="AC_GALLI" disabled>
+                                pattern="^[A-Za-z0-9\./ -]+$" formControlName="AC_GALLI" disabled>
                               <label for="AC_GALLI">Galli</label>
                             </span>
                           </div>
@@ -491,8 +480,7 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_AREA" class="form-control" placeholder=" " id="AC_AREA"
-                                pattern="^[A-Za-z\./ -]+$" 
-                                formControlName="AC_AREA" disabled>
+                                pattern="^[A-Za-z\./ -]+$" formControlName="AC_AREA" disabled>
                               <label for="AC_AREA">Area</label>
                             </span>
                           </div>
@@ -510,8 +498,7 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_ADDR" class="form-control" placeholder=" "
-                                pattern="^[A-Za-z0-9\./ -]+$"
-                                id="AC_ADDR" formControlName="AC_ADDR" disabled>
+                                pattern="^[A-Za-z0-9\./ -]+$" id="AC_ADDR" formControlName="AC_ADDR" disabled>
                               <label for="AC_ADDR">Detail</label>
                             </span>
                           </div>
@@ -735,8 +722,8 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_MBDATE" class="form-control" placeholder=" " id="AC_MBDATE"
-                              max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"  
-                               formControlName="AC_MBDATE" disabled>
+                                max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                                (focusout)="disabledate(date.value)" formControlName="AC_MBDATE" disabled>
                               <label for="AC_MBDATE">Birth Date</label>
                             </span>
                           </div>
@@ -924,8 +911,8 @@
                                   <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                       <input type="text" name="AC_NDATE" class="form-control" placeholder=" "
-                                        id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"  
-                                        formControlName="AC_NDATE" />
+                                        id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')"
+                                        #date (focusout)="disabledate(date.value)" formControlName="AC_NDATE" />
                                       <label for="AC_NDATE">Nomination Date<sub class="required">*
                                         </sub></label>
                                     </span>
@@ -951,8 +938,8 @@
                                   <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                       <input type="text" name="AGE" class="form-control" placeholder=" "
-                                        pattern="^[0-9]+$" minlength="1" maxlength="3" title="Input allowed only 0-9"
-                                        id="AGE" formControlName="AGE" />
+                                        pattern="^[0-9]+$" min="1" max="100" title="Input allowed only 0-9" id="AGE"
+                                        formControlName="AGE" />
                                       <label for="AGE">Age</label>
                                     </span>
                                   </div>
@@ -969,9 +956,9 @@
                                           angForm.controls['AGE'].errors
                                             ?.pattern ||
                                           angForm.controls['AGE'].errors
-                                            ?.minlength ||
+                                            ?.min ||
                                           angForm.controls['AGE'].errors
-                                            ?.maxlength
+                                            ?.max
                                         ">
                                       This fiels is required
                                     </div>
@@ -1416,7 +1403,9 @@
                                 <div class="form-group input-group">
                                   <span class="border-lable-flt">
                                     <input type="text" name="DATE_APPOINTED" class="form-control" placeholder=" "
-                                      id="DATE_APPOINTED" [required]="DATE_APPOINTED" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"   formControlName="DATE_APPOINTED" />
+                                      id="DATE_APPOINTED" [required]="DATE_APPOINTED"
+                                      max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                                      (focusout)="disabledate(date.value)" formControlName="DATE_APPOINTED" />
                                     <label for="DATE_APPOINTED">Appointed on<sub class="required">*
                                       </sub></label>
                                   </span>
@@ -1575,6 +1564,20 @@
             </div>
           </div>
         </form>
+      </div>
+      <div class="card-footer">
+        <div class="row" style="float: right;">
+          <div class="col-sm">
+            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+              Add
+            </button>
+            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+              Update</button>&nbsp;
+            <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

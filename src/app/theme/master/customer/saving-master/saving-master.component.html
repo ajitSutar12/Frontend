@@ -82,16 +82,6 @@
                 </span>
               </div>
             </div>
-            <div class="col-sm">
-              <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
-                Add
-              </button>
-              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
-                Update</button>&nbsp;
-              <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
-                Cancel
-              </button>
-            </div>
             <div class="col-sm-2" *ngIf="multiJointAC?.length != 0">
               <label style="color: #1e5bc5">JOINT ACCOUNT</label>
             </div>
@@ -128,8 +118,8 @@
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
                                 <input type="text" name="AC_OPDATE" class="form-control" placeholder=" " id="AC_OPDATE"
-                                  required max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"  
-                                   formControlName="AC_OPDATE" />
+                                  required max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                                  (focusout)="disabledate(date.value)" formControlName="AC_OPDATE" />
                                 <label for="AC_OPDATE">Opening Date<sub class="required">*
                                   </sub></label>
                               </span>
@@ -150,9 +140,8 @@
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
                                 <input type="text" name="AC_BIRTH_DT" class="form-control" placeholder=" "
-                                  id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" 
-                                  #date (focusout)="disabledate(date.value)"  
-                                  formControlName="AC_BIRTH_DT" disabled />
+                                  id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')"
+                                  #date (focusout)="disabledate(date.value)" formControlName="AC_BIRTH_DT" disabled />
                                 <label for="AC_BIRTH_DT">Birth Date</label>
                               </span>
                             </div>
@@ -708,8 +697,8 @@
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
                                 <input type="text" name="AC_MBDATE" class="form-control" placeholder=" " id="AC_MBDATE"
-                                max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"  
-                                 formControlName="AC_MBDATE" disabled />
+                                  max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                                  (focusout)="disabledate(date.value)" formControlName="AC_MBDATE" disabled />
                                 <label for="AC_MBDATE">Birth Date</label>
                               </span>
                             </div>
@@ -929,8 +918,8 @@
                                     <div class="form-group input-group">
                                       <span class="border-lable-flt">
                                         <input type="text" name="AC_NDATE" class="form-control" placeholder=" "
-                                          id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" 
-                                          #date (focusout)="disabledate(date.value)"  
+                                          id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}"
+                                          onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"
                                           formControlName="AC_NDATE" />
                                         <label for="AC_NDATE">Nomination Date<sub class="required">*
                                           </sub></label>
@@ -957,7 +946,7 @@
                                     <div class="form-group input-group">
                                       <span class="border-lable-flt">
                                         <input type="text" name="AGE" class="form-control" placeholder=" "
-                                          pattern="^[0-9]+$" minlength="1" maxlength="3" title="Input allowed only 0-9"
+                                          pattern="^[0-9]+$" min="1" max="100" title="Input allowed only 0-9"
                                           id="AGE" formControlName="AGE" />
                                         <label for="AGE">Age</label>
                                       </span>
@@ -975,9 +964,9 @@
                                           angForm.controls['AGE'].errors
                                             ?.pattern ||
                                           angForm.controls['AGE'].errors
-                                            ?.minlength ||
+                                            ?.min ||
                                           angForm.controls['AGE'].errors
-                                            ?.maxlength
+                                            ?.max
                                         ">
                                         This fiels is required
                                       </div>
@@ -1426,9 +1415,9 @@
                                   <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                       <input type="text" name="DATE_APPOINTED" class="form-control" placeholder=" "
-                                        id="DATE_APPOINTED" [required]="DATE_APPOINTED" max="{{datemax | date:'yyyy-MM-dd'}}"
-                                        onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"  
-                                        formControlName="DATE_APPOINTED" />
+                                        id="DATE_APPOINTED" [required]="DATE_APPOINTED"
+                                        max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                                        (focusout)="disabledate(date.value)" formControlName="DATE_APPOINTED" />
                                       <label for="DATE_APPOINTED">Appointed on<sub class="required">*
                                         </sub></label>
                                     </span>
@@ -1557,6 +1546,20 @@
           </div>
           <!-- End of tab Forms -->
         </form>
+      </div>
+      <div class="card-footer">
+        <div class="row" style="float: right;">
+          <div class="col-sm">
+            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+              Add
+            </button>
+            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+              Update</button>&nbsp;
+            <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

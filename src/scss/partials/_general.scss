@@ -181,7 +181,7 @@ strong {
     transition: all 0.3s ease-in-out;
     .card-footer {
         border-top: none;
-        padding: 15px 20px;
+        padding: 10px 25px;
         border-radius: 0 0 5px 5px;
     }
     .card-header {
@@ -273,6 +273,7 @@ strong {
     }
     .card-block {
         padding: 20px;
+        padding-bottom: 0px;
         table {
             tr {
                 padding-bottom: 20px;

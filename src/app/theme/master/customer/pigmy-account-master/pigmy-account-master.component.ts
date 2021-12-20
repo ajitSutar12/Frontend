@@ -1029,6 +1029,15 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.multiNominee = []
+    this.multiJointAC = []
+    this.resetForm();
+  }
+
   //Joint ac
   getJointCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
@@ -1095,12 +1104,12 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   delJointAc(id) {
     this.multiJointAC.splice(id, 1)
   }
-
   resetJointAC() {
     this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
     this.angForm.controls['OPERATOR'].reset();
   }
+  //nominee
   addNominee() {
     const formVal = this.angForm.value;
     var object = {
@@ -1116,22 +1125,26 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
     }
-    if (object.AC_NNAME != '' && object.AC_NNAME != null) {
-      if ((object.AC_NRELA != '' && object.AC_NDATE != '') || (object.AC_NRELA != null && object.AC_NDATE != null)) {
-        if (this.multiNominee.length == 0) {
-          this.multiNominee.push(object);
+    if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Nominee");
+    }
+    else if (formVal.AC_NNAME != "") {
+      if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+        Swal.fire("Please Insert Mandatory Record For Nominee");
+      } else if (formVal.AC_NRELA != "") {
+        if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
+          Swal.fire("Please Insert Mandatory Record For Nominee");
         }
         else {
-          if (this.multiNominee.find(ob => ob['AC_NNAME'] === formVal.AC_NNAME)) {
-            Swal.fire("Already Nominee for this Account", "error");
-          }
-          else {
-            this.multiNominee.push(object);
-          }
+          this.multiNominee.push(object);
         }
       }
-    } else {
-      Swal.fire("Please Insert Record", "error");
+      else {
+        this.multiNominee.push(object);
+      }
+    }
+    else {
+      this.multiNominee.push(object);
     }
     this.resetNominee()
   }
@@ -1180,15 +1193,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   delNominee(id) {
     this.multiNominee.splice(id, 1)
-  }
-  addNewData() {
-    this.showButton = true;
-    this.updateShow = false;
-    this.newbtnShow = false;
-    this.multiNominee = []
-    this.multiJointAC = []
-    this.resetForm();
-  }
+  }  
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
     this.angForm.controls['AC_NRELA'].reset();
@@ -1202,7 +1207,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.controls['AC_NCTCODE'].reset();
     this.angForm.controls['AC_NPIN'].reset();
   }
-
 }
 
 

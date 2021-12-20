@@ -77,14 +77,6 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <button class="btn btn-primary ripple light" (click)="submit()"
-                                *ngIf="showButton">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>&nbsp;
-                            <button class="btn btn-primary ripple light" (click)="addNewData()"
-                                *ngIf="newbtnShow">Cancel</button>
-                        </div>
                         <div class="col-sm-2" *ngIf="multiJointAC?.length != 0">
                             <label style="color: #1e5bc5 ">JOINT ACCOUNT</label>
                         </div>
@@ -661,7 +653,7 @@
                                     </ngb-tab>
                                     <!-- End of Address tab -->
                                     <!-- start of Introducer/Minor Details tab  -->
-                                    <ngb-tab title="3.Introducer/Minor Details">
+                                    <ngb-tab title="3.Introducer Details">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <!-- <div class="row">
@@ -907,8 +899,8 @@
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AGE"
                                                                                     class="form-control" placeholder=" "
-                                                                                    pattern="^[0-9]+$" minlength="1"
-                                                                                    maxlength="3"
+                                                                                    pattern="^[0-9]+$" min="1"
+                                                                                    max="100"
                                                                                     title="Input allowed only 0-9"
                                                                                     id="AGE" formControlName="AGE">
                                                                                 <label for="AGE">Age</label>
@@ -918,7 +910,7 @@
                                                                             *ngIf="angForm.controls['AGE'].invalid && (angForm.controls['AGE'].dirty || angForm.controls['AGE'].touched)"
                                                                             class="alert alert-danger">
                                                                             <div
-                                                                                *ngIf="angForm.controls['AGE'].errors?.pattern || angForm.controls['AGE'].errors?.minlength || angForm.controls['AGE'].errors?.maxlength">
+                                                                                *ngIf="angForm.controls['AGE'].errors?.pattern || angForm.controls['AGE'].errors?.min || angForm.controls['AGE'].errors?.max">
                                                                                 This fiels is required
                                                                             </div>
                                                                         </div>
@@ -1433,6 +1425,20 @@
                     </div>
                     <!-- End of tab Forms -->
                 </form>
+            </div>
+            <div class="card-footer">
+                <div class="row" style="float: right;">
+                    <div class="col-sm">
+                        <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+                            Add
+                        </button>
+                        <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                            Update</button>&nbsp;
+                        <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

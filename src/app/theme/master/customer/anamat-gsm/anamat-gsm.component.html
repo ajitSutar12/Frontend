@@ -334,27 +334,26 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <!-- [disabled]="angForm.invalid" -->
-                            <button class="btn btn-primary ripple light" *ngIf="showButton"
-                                (click)="submit()">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button> &nbsp;
-                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow"
-                                (click)="addNewData()">Cancel</button>
-                        </div>
-                    </div>
+                    </div>                   
                 </form>
             </div>
+            <div class="card-footer">
+                <div class="row" style="float: right;">
+                    <div class="col-sm">
+                        <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+                            Add
+                        </button>
+                        <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                            Update</button>&nbsp;
+                        <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div> 
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-12">
         <div class="card">

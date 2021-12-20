@@ -40,9 +40,9 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select  [ngClass]="'ng-select'" [options]="prifix" name="AC_TITLE" [multiple]="false" id="title"
-                                    placeholder="Title *" required title="Compulsory Selection"  onload="ngfocus()"
-                                    formControlName="AC_TITLE">
+                                <ng-select [ngClass]="'ng-select'" [options]="prifix" name="AC_TITLE" [multiple]="false"
+                                    id="title" placeholder="Title *" required title="Compulsory Selection"
+                                    onload="ngfocus()" formControlName="AC_TITLE">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -56,11 +56,12 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input  type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
-                                         required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase;" #lastname
-                                        [(ngModel)]="lname" title = "Input allowed only A-Z" formControlName="L_NAME">
+                                    <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
+                                        required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase;"
+                                        #lastname [(ngModel)]="lname" title="Input allowed only A-Z"
+                                        formControlName="L_NAME">
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
-                                    
+
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -72,12 +73,12 @@
                                 </div>
                             </div>
                         </div>
-                       
-                        
+
+
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input  type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
+                                    <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
                                         required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase"
                                         [(ngModel)]="fname" title="Input allowed only A-Z" formControlName="F_NAME">
                                     <label for="F_NAME">First Name<sub class="required">* </sub></label>
@@ -121,10 +122,10 @@
                                     <label for="AC_NAME">Full Name</label>
                                 </span>
                             </div>
-                           
+
                         </div>
-                       
-                        
+
+
 
                     </div>
                     <div class="row">
@@ -194,30 +195,30 @@
                                 </div>
                             </div>
                         </div>
-                      
-                      
+
+
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_BIRTH_DT" class="form-control" placeholder=" "
-                                        id="AC_BIRTH_DT" 
-                                        max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"  
-                                        formControlName="AC_BIRTH_DT">
-                                        
+                                        id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                        (focusout)="disabledate(date.value)" formControlName="AC_BIRTH_DT"
+                                        onfocus="(this.type='date')" >
+                                    <!-- onfocus="(this.type='date')" -->
                                     <label for="AC_BIRTH_DT">Birth Date</label>
                                 </span>
                             </div>
                         </div>
-                       
+
                     </div>
-                   
+
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" formControlName="AC_HONO" name="AC_HONO" class="form-control"
-                                        placeholder=" " 
-                                        title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_HONO">
+                                        placeholder=" " title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
+                                        id="AC_HONO">
                                     <label for="AC_HONO">House</label>
                                 </span>
                             </div>
@@ -268,7 +269,6 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_GALLI" class="form-control" placeholder=" "
-                                        
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_GALLI"
                                         formControlName="AC_GALLI">
                                     <label for="AC_GALLI">Galli</label>
@@ -286,7 +286,6 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_AREA" class="form-control" placeholder=" "
-                                      
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_AREA"
                                         formControlName="AC_AREA">
                                     <label for="AC_AREA">Area</label>
@@ -325,9 +324,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PIN" class="form-control" placeholder=" "
-                            
                                         pattern="^[1-9][0-9]{5}" title=" Input allowed only  0-9" maxlength="6"
-                                        minlength="6" id="AC_PIN" formControlName="AC_PIN" NumberOnly >
+                                        minlength="6" id="AC_PIN" formControlName="AC_PIN" NumberOnly>
                                     <label for="AC_PIN">Pin Code</label>
                                 </span>
                             </div>
@@ -371,9 +369,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PHONE_RES" class="form-control" placeholder=" "
-                                    pattern="[7-9 0]{1}[0-9]{9,10}"  title="Input allowed only  0-9" id="AC_PHONE_RES"  
-                                        maxlength="11" minlength="10" formControlName="AC_PHONE_RES">
-                                    <label for="AC_PHONE_RES">Residential No.</label>
+                                        pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9"
+                                        id="AC_PHONE_RES" maxlength="11" minlength="10" formControlName="AC_PHONE_RES">
+                                    <label for="AC_PHONE_RES">Res No/Mob No</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -389,10 +387,10 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PHONE_OFFICE" class="form-control" placeholder=" "
-                                    pattern="[7-9 0]{1}[0-9]{9,10}"  title="Input allowed only  0-9"
+                                        pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9"
                                         id="AC_PHONE_OFFICE" maxlength="11" minlength="10"
                                         formControlName="AC_PHONE_OFFICE">
-                                    <label for="AC_PHONE_OFFICE">Office(O)</label>
+                                    <label for="AC_PHONE_OFFICE">Office(O)/Mob No</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -451,7 +449,8 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="SMS_REQUIRED"
                                         formControlName="SMS_REQUIRED">
-                                    <label class="border-checkbox-label" for="SMS_REQUIRED">SMS Facility Required ?</label>
+                                    <label class="border-checkbox-label" for="SMS_REQUIRED">SMS Facility Required
+                                        ?</label>
                                 </div>
                             </div>
                         </div>
@@ -502,11 +501,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input class="form-control" type="text" onfocus="(this.type='date')"
-                                        id="SUBMIT_DATE" max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="SUBMIT_DATE"  
-                                        max="{{datemax | date:'yyyy-MM-dd'}}"    
-                                        #subdate   
-                                        (focusout)="disablesubdate(subdate.value)" 
-                                         placeholder=" "
+                                        id="SUBMIT_DATE" max="{{datemax | date:'yyyy-MM-dd'}}"
+                                        formControlName="SUBMIT_DATE" max="{{datemax | date:'yyyy-MM-dd'}}" #subdate
+                                        (focusout)="disablesubdate(subdate.value)" placeholder=" "
                                         [required]="SUBMIT_DATE">
                                     <label for="SUBMIT_DATE">Submission Date<sub class="required">
                                             *</sub></label>
@@ -587,13 +584,11 @@
                         </div>
                     </div>
                     <div class="row" *ngIf="isDocument">
-
                         <div class="col-sm">
                             <div class="card">
                                 <div class="card-block">
                                     <div class="row">
                                         <div class="col-sm">
-
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-hover"
                                                     [dtOptions]="dtExportOptions" [dtTrigger]="dtTrigger">
@@ -605,7 +600,6 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody *ngIf="documentMaster?.length != 0">
-
                                                         <tr
                                                             *ngFor="let data of documentMaster; let indexOfelement=index;">
                                                             <td style="align-items: center;">
@@ -624,7 +618,7 @@
                                                                 <div class="row">
                                                                     <div class="col-sm">
                                                                         <input type="file" name="file"
-                                                                            [id]="'file'+indexOfelement" 
+                                                                            [id]="'file'+indexOfelement"
                                                                             (change)="fileChangeEvent($event, indexOfelement,data.value)">
                                                                     </div>
                                                                     <!-- <div class="col-sm-2">
@@ -656,20 +650,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Add</button>
-                            <!-- <button class="btn btn-primary ripple light" (click)="addNewCustomer(angForm.value)" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button> -->
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
-                                [disabled]="angForm.invalid">Update</button>
-                        </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow"
-                                (click)="addNewData()">Cancel</button>
-                        </div>
-                     </div>
                 </form>
+            </div>
+            <div class="card-footer">
+                <div class="row" style="float: right;">
+                    <div class="col-sm">
+                        <!-- <button class="btn btn-primary ripple light" (click)="addNewCustomer(angForm.value)" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button> -->
+                        <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
+                            [disabled]="angForm.invalid">
+                            Add
+                        </button>
+                        <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+                            [disabled]="angForm.invalid">
+                            Update</button>&nbsp;
+                        <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -679,7 +677,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-block">
-                    <div class="row"> 
+                    <div class="row">
                         <div class="col-sm">
                             <div class="table-responsive">
                                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
@@ -688,9 +686,11 @@
                                         <tr *ngFor="let data of customerMaster">
                                             <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
                                                     (click)="editClickHandler(data.id)">Edit</button>
-                                            </td> 
+                                            </td>
                                             <td class="td_right">{{data.AC_NO}}</td>
-                                            <td class="td_right" [ngClass]="data.AC_MEMBNO === '' ? 'td_center' : 'td_right'">{{data.AC_MEMBNO === ''? '-' : data.AC_MEMBNO}}</td>
+                                            <td class="td_right"
+                                                [ngClass]="data.AC_MEMBNO === '' ? 'td_center' : 'td_right'">
+                                                {{data.AC_MEMBNO === ''? '-' : data.AC_MEMBNO}}</td>
                                             <td [ngClass]="data.AC_MEMBTYPE === '' ? 'td_center' : 'td_right'">
                                                 {{data.AC_MEMBTYPE === ''? '-' : data.AC_MEMBTYPE}}</td>
                                             <td>{{data.AC_TITLE}}</td>

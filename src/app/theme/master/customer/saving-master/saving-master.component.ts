@@ -204,12 +204,12 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private minimumBalanceMasterDropdownService: MinimumBalanceMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private fb: FormBuilder) { 
-       // this.datemax =new Date() ;
-       this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-       console.log(this.datemax);
-      
-    }
+    private fb: FormBuilder) {
+    // this.datemax =new Date() ;
+    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -455,18 +455,18 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     })
   }
-    //disabledate on keyup
-    disabledate(data:any){
-    
-      console.log(data);
-      if(data != ""){
-        if(data > this.datemax){
-          Swal.fire("Invalid Input", "Please insert valid date ", "warning");
-          (document.getElementById("AC_OPDATE")as HTMLInputElement).value = ""
-              
-        }
-      } 
+  //disabledate on keyup
+  disabledate(data: any) {
+
+    console.log(data);
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        (document.getElementById("AC_OPDATE") as HTMLInputElement).value = ""
+
+      }
     }
+  }
   //function to get existing customer data according selection
   getCustomer(id) {
     this.getSystemParaDate() //function to set date
@@ -566,7 +566,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NNAME: ['', [Validators.pattern]],
       AC_NRELA: ['', [Validators.pattern]],
       AC_NDATE: ['',],
-      AGE: ['', [Validators.pattern]],
+      AGE: ['', [Validators.pattern, Validators.min(1), Validators.max(100)]],
       AC_NHONO: ['', [Validators.pattern]],
       AC_NWARD: ['', [Validators.pattern]],
       AC_NADDR: ['', [Validators.pattern]],
@@ -952,22 +952,26 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
     }
-    if (object.AC_NNAME != '' && object.AC_NNAME != null) {
-      if ((object.AC_NRELA != '' && object.AC_NDATE != '') || (object.AC_NRELA != null && object.AC_NDATE != null)) {
-        if (this.multiNominee.length == 0) {
-          this.multiNominee.push(object);
+    if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Nominee");
+    }
+    else if (formVal.AC_NNAME != "") {
+      if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+        Swal.fire("Please Insert Mandatory Record For Nominee");
+      } else if (formVal.AC_NRELA != "") {
+        if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
+          Swal.fire("Please Insert Mandatory Record For Nominee");
         }
         else {
-          if (this.multiNominee.find(ob => ob['AC_NNAME'] === formVal.AC_NNAME)) {
-            Swal.fire("Already Nominee for this Account", "error");
-          }
-          else {
-            this.multiNominee.push(object);
-          }
+          this.multiNominee.push(object);
         }
       }
-    } else {
-      Swal.fire("Please Insert Record", "error");
+      else {
+        this.multiNominee.push(object);
+      }
+    }
+    else {
+      this.multiNominee.push(object);
     }
     this.resetNominee()
   }
@@ -1034,6 +1038,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.controls['AC_NPIN'].reset();
   }
 
+  //Joint ac
   getJointCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
       this.angForm.patchValue({
@@ -1042,7 +1047,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
-  //Joint ac
   addJointAcccount() {
     const formVal = this.angForm.value;
     var object = {
@@ -1072,6 +1076,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.resetJointAC()
   }
+
   editJointAc(id) {
     this.jointIndex = id
     this.jointACID = this.multiJointAC[id].id;
@@ -1084,6 +1089,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
+
   updateJointAcccount() {
     let index = this.jointIndex;
     this.jointShowButton = true;
@@ -1098,6 +1104,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.multiJointAC[index] = object;
     this.resetJointAC()
   }
+
   delJointAc(id) {
     this.multiJointAC.splice(id, 1)
   }
@@ -1116,7 +1123,26 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       DATE_APPOINTED: formVal.DATE_APPOINTED,
       DATE_EXPIRY: formVal.DATE_EXPIRY
     }
-    this.multiAttorney.push(object);
+    if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+    } else if (formVal.ATTERONEY_NAME != "") {
+      if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
+        Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+      } else if (formVal.DATE_APPOINTED != "") {
+        if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
+          Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+        }
+        else {
+          this.multiAttorney.push(object);
+        }
+      }
+      else {
+        this.multiAttorney.push(object);
+      }
+    }
+    else {
+      this.multiAttorney.push(object);
+    }
     this.resetAttorney()
   }
 

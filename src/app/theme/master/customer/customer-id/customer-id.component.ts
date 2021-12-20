@@ -6,7 +6,7 @@ import {
   ViewChild,
   Output,
   EventEmitter,
-  ElementRef ,
+  ElementRef,
   ChangeDetectorRef,
   ComponentFactoryResolver,
 } from "@angular/core";
@@ -34,7 +34,7 @@ import { environment } from "../../../../../environments/environment";
 import { Router } from "@angular/router";
 import { NgSelectComponent } from "@ng-select/ng-select/lib/ng-select.component";
 import { ConnectionServiceModule } from "ng-connection-service";
-import{StrictNumberOnlyDirective} from '../../../../restrictinput';
+import { StrictNumberOnlyDirective } from '../../../../restrictinput';
 
 
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -157,10 +157,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   isTdsFormA: boolean = false;
   SUBMIT_DATE: boolean = false;
   enablefields: boolean = true;
-  hasFocus :boolean =false;
-  
-  
-  
+  hasFocus: boolean = false;
+
+  today: Date;
+
 
   constructor(
     private http: HttpClient,
@@ -174,12 +174,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     private riskCategoryDropdown: RiskCategoryDropdownService,
     private documentMasterService: DocumentMasterDropdownService,
     public router: Router
-  ) {  
-       // this.datemax =new Date() ;
-       this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-       console.log(this.datemax);
-      
-  } 
+  ) {
+    // this.datemax =new Date() ;
+    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -488,7 +487,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_ADDR: ["", [Validators.pattern]],
       AC_GALLI: ["", [Validators.pattern]],
       AC_AREA: ["", [Validators.pattern]],
-      AC_CTCODE: ["",[Validators.required]],
+      AC_CTCODE: ["", [Validators.required]],
       AC_PIN: ["", [Validators.pattern]],
       AC_SALARYDIVISION_CODE: [""],
       AC_PANNO: ["", [Validators.pattern]],
@@ -570,14 +569,15 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
     //To clear form
     this.resetForm();
+    this.imageObject = []
   }
 
   //disabledate on keyup
-  disabledate(data:any){
-    
+  disabledate(data: any) {
+
     console.log(data);
-    if(data != ""){
-      if(data > this.datemax){
+    if (data != "") {
+      if (data > this.datemax) {
         Swal.fire("Invalid Input", "Please insert valid date ", "warning");
         (document.getElementById("AC_BIRTH_DT")as HTMLInputElement).value = "";
         this.myInputField.nativeElement.focus('AC_BIRTH_DT');
@@ -588,34 +588,34 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     //   // this.angForm.get('AC_BIRTH_DT').nativeElement.focus();
     // }
   }
-    //disabledate on keyup
-    disablesubdate(data:any){
-    
-      console.log(this.datemax);
-      if(data != ""){
-        if(data > this.datemax){
-          Swal.fire("Invalid Input", "Please insert valid date ", "warning");
-          (document.getElementById("SUBMIT_DATE")as HTMLInputElement).value = ""
-              
-        }
-      } 
+  //disabledate on keyup
+  disablesubdate(data: any) {
+
+    console.log(this.datemax);
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        (document.getElementById("SUBMIT_DATE") as HTMLInputElement).value = ""
+
+      }
     }
-  
+  }
+
   //method for force only numbers input
   onlyNumberKey(evt) {
-  
-          
+
+
     // Only ASCII character in that range allowed
     let ASCIICode = (evt.which) ? evt.which : evt.keyCode;
-    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)){
+    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) {
       return true;
     }
-    else{
-     return false;
+    else {
+      return false;
     }
-        // evt.preventDefault();
+    // evt.preventDefault();
     // return true;
-}
+  }
 
   // Reset Function
   resetForm() {
@@ -625,7 +625,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isTdsFormA = false;
   }
 
-  
+
   addNewData() {
     this.showButton = true;
     this.updateShow = false;
@@ -660,7 +660,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
- 
+
   //method to add space
   addSpace(data: any) {
     let result = data
@@ -674,32 +674,32 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //method for adding hyphen in date
   addhyphen(data: any) {
- 
+
     // let result = data
     //   .replace(/\D/g, "")
     //   .split(/(?:([\d]{4}))/g)
     //   .filter((s) => s.length > 0)
     //   .join("-");
-    
-    let date = new Date().getFullYear() + 1;
-  
 
-    let result = Number((document.getElementById("FIN_YEAR")as HTMLInputElement).value);
+    let date = new Date().getFullYear() + 1;
+
+
+    let result = Number((document.getElementById("FIN_YEAR") as HTMLInputElement).value);
     console.log(result);
-    if(result > date){
+    if (result > date) {
       Swal.fire("Warning!", "please enter valid Year ", "warning");
-      (document.getElementById("FIN_YEAR")as HTMLInputElement).value = "";
-     
+      (document.getElementById("FIN_YEAR") as HTMLInputElement).value = "";
+
     }
-    else{
-      if(data.length == 4){
+    else {
+      if (data.length == 4) {
         result += 1;
         console.log(result);
-        (document.getElementById("FIN_YEAR")as HTMLInputElement).value = data + "-" + result;
+        (document.getElementById("FIN_YEAR") as HTMLInputElement).value = data + "-" + result;
       }
-     
+
     }
-   
+
     // (document.getElementById("FIN_YEAR") as HTMLInputElement).value = result;
   }
 
@@ -796,7 +796,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     //  this.ngSelect.focus();
-      this.dtTrigger.next();
+    this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
         const that = this;
@@ -824,7 +824,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  ngfocus(){
+  ngfocus() {
     this.ngSelect.focus();
   }
 
@@ -883,7 +883,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async function () {
-      let result =  await reader.result;
+      let result = await reader.result;
       // obj = {
       //   "id" : valueid,
       //   "path":result
@@ -892,7 +892,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     };
     reader.onerror = function (error) {
       console.log('Error: ', error);
-    };      
+    };
     this.imageObject.push(obj);
     console.log(this.imageObject);
   }

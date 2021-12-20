@@ -908,7 +908,6 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_GALLI"
                                                                         class="form-control" placeholder=" "
-                                                                      
                                                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                         id="AC_GALLI" formControlName="AC_GALLI">
                                                                     <label for="AC_GALLI">Galli</label>
@@ -928,7 +927,6 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_AREA"
                                                                         class="form-control" placeholder=" "
-                                                
                                                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                         id="AC_AREA" formControlName="AC_AREA">
                                                                     <label for="AC_AREA">Area</label>
@@ -1040,7 +1038,6 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" name="AC_TADDR"
                                                                             class="form-control" placeholder=" "
-                                                                         
                                                                             title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                             id="AC_TADDR" formControlName="AC_TADDR">
                                                                         <label for="AC_TADDR">Detail</label>
@@ -1062,7 +1059,6 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" name="AC_TGALLI"
                                                                             class="form-control" placeholder=" "
-                                                                           
                                                                             title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                             id="AC_TGALLI" formControlName="AC_TGALLI">
                                                                         <label for="AC_TGALLI">Galli</label>
@@ -1082,7 +1078,6 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" name="AC_TAREA"
                                                                             class="form-control" placeholder=" "
-                                    
                                                                             title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                             id="AC_TAREA" formControlName="AC_TAREA">
                                                                         <label for="AC_TAREA">Area</label>
@@ -1400,7 +1395,6 @@
                                                                                     <input type="text" name="GAC_ADDR"
                                                                                         class="form-control"
                                                                                         placeholder=" "
-                                                                                     
                                                                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                                         id="GAC_ADDR"
                                                                                         formControlName="GAC_ADDR">
@@ -1416,7 +1410,6 @@
                                                                                     <input type="text" name="GAC_GALLI"
                                                                                         class="form-control"
                                                                                         placeholder=" "
-                                                                                    
                                                                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                                         id="GAC_GALLI"
                                                                                         formControlName="GAC_GALLI">
@@ -1915,24 +1908,22 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-sm">
-                                <!-- [disabled]="angForm.invalid" -->
-                                <button class="btn btn-primary ripple light" *ngIf="showButton">Add</button>
-                                <button class="btn btn-primary ripple light" (click)="updateData()"
-                                    *ngIf="updateShow">Update</button>
-                                <!-- [disabled]="angForm.invalid" -->
-                            </div>
-                            <div class="col-sm-2">
-                                <button class="btn btn-primary ripple light" (click)="addNewData()"
-                                    *ngIf="newbtnShow">Cancel
-                                </button>
-                            </div>
-                        </div>
-
                     </div>
                 </form>
+            </div>
+            <div class="card-footer">
+                <div class="row" style="float: right;">
+                    <div class="col-sm">
+                        <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+                            Add
+                        </button>
+                        <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                            Update</button>&nbsp;
+                        <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -2109,15 +2100,23 @@
                                             <th><input type="text" placeholder="Search Effective Date"
                                                     name="EFFECT_DATE"></th>
 
-                                            <th><input type="text" placeholder="Search Authority" name="AC_AUTHORITY"></th>
-                                            <th><input type="text" placeholder="Search Recommended By" name="AC_RECOMMEND_BY"></th>
-                                            <th><input type="text" placeholder="Search Priority" name="AC_PRIORITY"></th>
+                                            <th><input type="text" placeholder="Search Authority" name="AC_AUTHORITY">
+                                            </th>
+                                            <th><input type="text" placeholder="Search Recommended By"
+                                                    name="AC_RECOMMEND_BY"></th>
+                                            <th><input type="text" placeholder="Search Priority" name="AC_PRIORITY">
+                                            </th>
                                             <th><input type="text" placeholder="Search Purpose" name="AC_PURPOSE"></th>
-                                            <th><input type="text" placeholder="Search Industry" name="AC_INDUSTRY"></th>
-                                            <th><input type="text" placeholder="Search Weaker Section" name="AC_WEAKER"></th>
-                                            <th><input type="text" placeholder="Search Account Type" name="AC_RELATION_TYPE"></th>
-                                            <th><input type="text" placeholder="Search Director" name="AC_DIRECTOR"></th>
-                                            <th><input type="text" placeholder="Search Director Relation " name="AC_DIRECTOR_RELATION"></th>
+                                            <th><input type="text" placeholder="Search Industry" name="AC_INDUSTRY">
+                                            </th>
+                                            <th><input type="text" placeholder="Search Weaker Section" name="AC_WEAKER">
+                                            </th>
+                                            <th><input type="text" placeholder="Search Account Type"
+                                                    name="AC_RELATION_TYPE"></th>
+                                            <th><input type="text" placeholder="Search Director" name="AC_DIRECTOR">
+                                            </th>
+                                            <th><input type="text" placeholder="Search Director Relation "
+                                                    name="AC_DIRECTOR_RELATION"></th>
                                             <th><input type="text" placeholder="Search No" name="AC_COREG_NO"></th>
                                             <th><input type="text" placeholder="Search Date" name="AC_COREG_DATE"></th>
                                             <th><input type="text" placeholder="Search Amount" name="AC_COREG_AMT"></th>
@@ -2132,53 +2131,86 @@
                                             <th><input type="text" placeholder="Search City" name="AC_CTCODE"></th>
                                             <th><input type="text" placeholder="Search Pin Code" name="AC_PIN"></th>
                                             <th></th>
-                                            <th><input type="text" placeholder="Search temp House no" name="AC_THONO"></th>
+                                            <th><input type="text" placeholder="Search temp House no" name="AC_THONO">
+                                            </th>
                                             <th><input type="text" placeholder="Search temp ward " name="AC_TWARD"></th>
                                             <th><input type="text" placeholder="Search Email" name="AC_EMAIL"></th>
-                                            <th><input type="text" placeholder="Search temp details" name="AC_TADDR"></th>
+                                            <th><input type="text" placeholder="Search temp details" name="AC_TADDR">
+                                            </th>
                                             <th><input type="text" placeholder="Search Galli" name="AC_TGALLI"></th>
                                             <th><input type="text" placeholder="Search Area" name="AC_TAREA"></th>
                                             <th><input type="text" placeholder="Search City" name="AC_TCTCODE"></th>
                                             <th><input type="text" placeholder="Search Pin Code" name="AC_TPIN"></th>
                                             <th><input type="text" placeholder="Search Mob no" name="AC_MOBILENO"></th>
-                                            <th><input type="text" placeholder="Search phone no" name="AC_PHONE_RES"></th>
-                                            <th><input type="text" placeholder="Search office phno" name="AC_PHONE_OFFICE"></th>
-                                           
-                                            
-                                            <th><input type="text" placeholder="Search Security details" name="SECURITY_CODE"></th>
-                                            <th><input type="text" placeholder="Search Total Security Amount" name="SECURITY_VALUE"></th>
+                                            <th><input type="text" placeholder="Search phone no" name="AC_PHONE_RES">
+                                            </th>
+                                            <th><input type="text" placeholder="Search office phno"
+                                                    name="AC_PHONE_OFFICE"></th>
+
+
+                                            <th><input type="text" placeholder="Search Security details"
+                                                    name="SECURITY_CODE"></th>
+                                            <th><input type="text" placeholder="Search Total Security Amount"
+                                                    name="SECURITY_VALUE"></th>
                                             <th><input type="text" placeholder="Search AC_REMARK" name="AC_REMARK"></th>
 
-                                            <th><input type="text" placeholder="Search Guarantor CUST ID" name="GAC_CUSTID"></th>
-                                            <th><input type="text" placeholder="Search Guarantor Member Code" name="GAC_MEMBNO"></th>
-                                            <th><input type="text" placeholder="Search Guarantor member type" name="GAC_MEMBTYPE"></th>
-                                            <th><input type="text" placeholder="Search Guarantor name" name="GAC_NAME"></th>
-                                            <th><input type="text" placeholder="Search expirary date" name="EXP_DATE"></th>
-                                            <th><input type="text" placeholder="Search Guarantor house no" name="GAC_HONO"></th>
-                                            <th><input type="text" placeholder="Search Guarantor ward" name="GAC_WARD"></th>
-                                            <th><input type="text" placeholder="Search Guarantor address details" name="GAC_ADDR"></th>
-                                            <th><input type="text" placeholder="Search Guarantor Galli" name="GAC_GALLI"></th>
-                                            <th><input type="text" placeholder="Search Guarantor area" name="GAC_AREA"></th>
-                                            <th><input type="text" placeholder="Search Guarantor city" name="GAC_CTCODE"></th>
-                                            <th><input type="text" placeholder="Search Guarantor pin no" name="GAC_PIN"></th>
+                                            <th><input type="text" placeholder="Search Guarantor CUST ID"
+                                                    name="GAC_CUSTID"></th>
+                                            <th><input type="text" placeholder="Search Guarantor Member Code"
+                                                    name="GAC_MEMBNO"></th>
+                                            <th><input type="text" placeholder="Search Guarantor member type"
+                                                    name="GAC_MEMBTYPE"></th>
+                                            <th><input type="text" placeholder="Search Guarantor name" name="GAC_NAME">
+                                            </th>
+                                            <th><input type="text" placeholder="Search expirary date" name="EXP_DATE">
+                                            </th>
+                                            <th><input type="text" placeholder="Search Guarantor house no"
+                                                    name="GAC_HONO"></th>
+                                            <th><input type="text" placeholder="Search Guarantor ward" name="GAC_WARD">
+                                            </th>
+                                            <th><input type="text" placeholder="Search Guarantor address details"
+                                                    name="GAC_ADDR"></th>
+                                            <th><input type="text" placeholder="Search Guarantor Galli"
+                                                    name="GAC_GALLI"></th>
+                                            <th><input type="text" placeholder="Search Guarantor area" name="GAC_AREA">
+                                            </th>
+                                            <th><input type="text" placeholder="Search Guarantor city"
+                                                    name="GAC_CTCODE"></th>
+                                            <th><input type="text" placeholder="Search Guarantor pin no" name="GAC_PIN">
+                                            </th>
 
-                                            <th><input type="text" placeholder="Search Suite Date" name="CASE_SUITE_DATE"></th>
-                                            <th><input type="text" placeholder="Search Court Interest Rate" name="COURT_INT_RATE"></th>
-                                            <th><input type="text" placeholder="Search Court Installment" name="COURT_INSTALLMENT"></th>
-                                            <th><input type="text" placeholder="Search Court Order Date" name="COURT_ORDER_DATE"></th>
-                                            <th><input type="text" placeholder="Search Suite Amount" name="SUITE_AMT"></th>
-                                            <th><input type="text" placeholder="Search Result Date" name="COURT_RESULT_DATE"></th>
-                                            <th><input type="text" placeholder="Search Branch Code" name="BRANCH_CODE"></th>
-                                            <th><input type="text" placeholder="Search Recoverable Amount" name="RECOVERABLE_AMT"></th>
-                                            <th><input type="text" placeholder="Search Int. Calculation Date" name="INT_CALC_DATE"></th>
-                                            <th><input type="text" placeholder="Search Recoverable Interest" name="RECOVERABLE_INT"></th>
-                                            <th><input type="text" placeholder="Search Case No" name="COURT_CASE_NO"></th>
-                                            <th><input type="text" placeholder="Search Old Scheme/ A/c type" name="REF_OLD_AC_TYPE"></th>
-                                            <th><input type="text" placeholder="Search Old Scheme/ A/c No." name="REF_OLD_AC_NO"></th>
+                                            <th><input type="text" placeholder="Search Suite Date"
+                                                    name="CASE_SUITE_DATE"></th>
+                                            <th><input type="text" placeholder="Search Court Interest Rate"
+                                                    name="COURT_INT_RATE"></th>
+                                            <th><input type="text" placeholder="Search Court Installment"
+                                                    name="COURT_INSTALLMENT"></th>
+                                            <th><input type="text" placeholder="Search Court Order Date"
+                                                    name="COURT_ORDER_DATE"></th>
+                                            <th><input type="text" placeholder="Search Suite Amount" name="SUITE_AMT">
+                                            </th>
+                                            <th><input type="text" placeholder="Search Result Date"
+                                                    name="COURT_RESULT_DATE"></th>
+                                            <th><input type="text" placeholder="Search Branch Code" name="BRANCH_CODE">
+                                            </th>
+                                            <th><input type="text" placeholder="Search Recoverable Amount"
+                                                    name="RECOVERABLE_AMT"></th>
+                                            <th><input type="text" placeholder="Search Int. Calculation Date"
+                                                    name="INT_CALC_DATE"></th>
+                                            <th><input type="text" placeholder="Search Recoverable Interest"
+                                                    name="RECOVERABLE_INT"></th>
+                                            <th><input type="text" placeholder="Search Case No" name="COURT_CASE_NO">
+                                            </th>
+                                            <th><input type="text" placeholder="Search Old Scheme/ A/c type"
+                                                    name="REF_OLD_AC_TYPE"></th>
+                                            <th><input type="text" placeholder="Search Old Scheme/ A/c No."
+                                                    name="REF_OLD_AC_NO"></th>
                                             <th><input type="text" placeholder="Search Advocate" name="ADVOCATE"></th>
-                                            <th><input type="text" placeholder="Search Loan Stage" name="LOAN_STAGE"></th>
+                                            <th><input type="text" placeholder="Search Loan Stage" name="LOAN_STAGE">
+                                            </th>
                                             <th><input type="text" placeholder="Search Court" name="COURT"></th>
-                                            <th><input type="text" placeholder="Search Remark" name="AC_REMARK"></th> -->
+                                            <th><input type="text" placeholder="Search Remark" name="AC_REMARK"></th>
+                                            -->
 
                                         </tr>
                                     </tfoot>

@@ -206,12 +206,12 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     private minimumBalanceMasterDropdownService: MinimumBalanceMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private fb: FormBuilder) { 
-        // this.datemax =new Date() ;
-        this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-        console.log(this.datemax);
-               
-    }
+    private fb: FormBuilder) {
+    // this.datemax =new Date() ;
+    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -544,7 +544,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       AC_NNAME: ['', [Validators.pattern]],
       AC_NRELA: ['', [Validators.pattern]],
       AC_NDATE: ['',],
-      AGE: ['', [Validators.pattern]],
+      AGE: ['', [Validators.pattern, Validators.min(1), Validators.max(100)]],
       AC_NHONO: ['', [Validators.pattern]],
       AC_NWARD: ['', [Validators.pattern]],
       AC_NADDR: ['', [Validators.pattern]],
@@ -948,22 +948,26 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
     }
-    if (object.AC_NNAME != '' && object.AC_NNAME != null) {
-      if ((object.AC_NRELA != '' && object.AC_NDATE != '') || (object.AC_NRELA != null && object.AC_NDATE != null)) {
-        if (this.multiNominee.length == 0) {
-          this.multiNominee.push(object);
+    if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Nominee");
+    }
+    else if (formVal.AC_NNAME != "") {
+      if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+        Swal.fire("Please Insert Mandatory Record For Nominee");
+      } else if (formVal.AC_NRELA != "") {
+        if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
+          Swal.fire("Please Insert Mandatory Record For Nominee");
         }
         else {
-          if (this.multiNominee.find(ob => ob['AC_NNAME'] === formVal.AC_NNAME)) {
-            Swal.fire("Already Nominee for this Account", "error");
-          }
-          else {
-            this.multiNominee.push(object);
-          }
+          this.multiNominee.push(object);
         }
       }
-    } else {
-      Swal.fire("Please Insert Record", "error");
+      else {
+        this.multiNominee.push(object);
+      }
+    }
+    else {
+      this.multiNominee.push(object);
     }
     this.resetNominee()
   }
@@ -1050,13 +1054,13 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         if (this.multiJointAC.length == 0) {
           this.multiJointAC.push(object);
         }
-        else {         
-          if(this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)){
+        else {
+          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
             Swal.fire("This Customer is Already Joint Account Holder", "error");
           }
-          else{
+          else {
             this.multiJointAC.push(object);
-          }         
+          }
         }
       }
       else {
@@ -1111,7 +1115,26 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       DATE_APPOINTED: formVal.DATE_APPOINTED,
       DATE_EXPIRY: formVal.DATE_EXPIRY
     }
-    this.multiAttorney.push(object);
+    if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+    } else if (formVal.ATTERONEY_NAME != "") {
+      if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
+        Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+      } else if (formVal.DATE_APPOINTED != "") {
+        if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
+          Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+        }
+        else {
+          this.multiAttorney.push(object);
+        }
+      }
+      else {
+        this.multiAttorney.push(object);
+      }
+    }
+    else {
+      this.multiAttorney.push(object);
+    }
     this.resetAttorney()
   }
 

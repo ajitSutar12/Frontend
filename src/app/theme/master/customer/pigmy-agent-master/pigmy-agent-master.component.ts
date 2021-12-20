@@ -165,12 +165,12 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
     private http: HttpClient,
-    private fb: FormBuilder) { 
-              // this.datemax =new Date() ;
-              this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-              console.log(this.datemax);
-           
-    }
+    private fb: FormBuilder) {
+    // this.datemax =new Date() ;
+    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -390,7 +390,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       AC_NNAME: ['', [Validators.pattern]],
       AC_NRELA: ['', [Validators.pattern]],
       AC_NDATE: ['',],
-      AGE: ['', [Validators.pattern,Validators.min(1),Validators.max(100)]],
+      AGE: ['', [Validators.pattern, Validators.min(1), Validators.max(100)]],
       AC_NHONO: ['', [Validators.pattern]],
       AC_NWARD: ['', [Validators.pattern]],
       AC_NADDR: ['', [Validators.pattern]],
@@ -519,7 +519,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.multiNominee = []
   }
 
-
   // Reset Function
   resetForm() {
     this.createForm();
@@ -544,11 +543,9 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     });
   }
 
-
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
-
   }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -558,7 +555,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       this.dtTrigger.next();
     });
   }
-
 
   //Method for append data into fields
   editClickHandler(id) {
@@ -658,10 +654,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       }
     })
   }
-
-
-
-
+  //nominee
   addNominee() {
     const formVal = this.angForm.value;
     var object = {
@@ -677,9 +670,28 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
     }
-    this.multiNominee.push(object);
+    if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Nominee");
+    }
+    else if (formVal.AC_NNAME != "") {
+      if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+        Swal.fire("Please Insert Mandatory Record For Nominee");
+      } else if (formVal.AC_NRELA != "") {
+        if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
+          Swal.fire("Please Insert Mandatory Record For Nominee");
+        }
+        else {
+          this.multiNominee.push(object);
+        }
+      }
+      else {
+        this.multiNominee.push(object);
+      }
+    }
+    else {
+      this.multiNominee.push(object);
+    }
     this.resetNominee()
-
   }
 
   editNominee(id) {
