@@ -289,7 +289,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
           data: 'MATURED_BUT_NOT_PAID_GLAC'
         }, {
 
-          title: '?... Pat Deposits',
+          title: 'Pat Deposits',
           data: 'INTEREST_RULE'
         }, {
           title: 'Recurring Deposits',
@@ -778,16 +778,17 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     }
   }
 
-  INTEREST_RULE($event){
+  PatDeposits($event){
     if ($event.target.checked) {
-      document.getElementById('IS_CAL_MATURITY_AMT').setAttribute("disabled", "true");
-      document.getElementById('FIXED_MATURITY_AMT').setAttribute("disabled", "true");
+      document.getElementById('IS_CAL_MATURITY_AMT').setAttribute("checked", "true");
+      document.getElementById('FIXED_MATURITY_AMT').setAttribute("checked", "true");
     }
-    // else{
-    //   document.getElementById('IS_CAL_MATURITY_AMT').removeAttribute("disabled");
-    //   document.getElementById('FIXED_MATURITY_AMT').removeAttribute("disabled");
-    // }
+    else{
+      document.getElementById('IS_CAL_MATURITY_AMT').setAttribute("checked", "false");
+      document.getElementById('FIXED_MATURITY_AMT').setAttribute("checked", "false");
+    }
   }
+  
   createForm() {
     this.angForm = this.fb.group({
       S_ACNOTYPE: ['TD'],

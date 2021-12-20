@@ -199,7 +199,7 @@
         </div>
         <div class="row">
           <div class="col-4">
-            <div class="card">
+           
               <div class="card-block">
                 <div class="col-md-12">
                   <perfect-scrollbar style="max-width: 600px; max-height: 350px">
@@ -278,7 +278,7 @@
                   </perfect-scrollbar>
                 </div>
               </div>
-            </div>
+            
           </div>
           <div class="col-sm-8">
             <div *ngIf="depositeSchemeTypeTrue">
@@ -291,8 +291,8 @@
                     <div class="row">
                       <div class="radio radio-inline">
                         <label>
-                          <input type="radio" value="Compounding" name="INTEREST_RULE"
-                            formControlName="INTEREST_RULE" (click)="INTEREST_RULE($event)"/>
+                          <input type="radio" value="Compounding" name="INTEREST_RULE" formControlName="INTEREST_RULE"
+                            (click)="PatDeposits($event)" />
                           <i class="helper"></i> Pat Deposits<span class="required">
                           </span>
                         </label>
@@ -1012,7 +1012,7 @@
                           border-checkbox-group border-checkbox-group-primary
                         ">
                         <input class="border-checkbox" type="checkbox" disabled name="IS_CAL_MATURITY_AMT"
-                          id="IS_CAL_MATURITY_AMT" formControlName="IS_CAL_MATURITY_AMT" />
+                          id="IS_CAL_MATURITY_AMT" formControlName="IS_CAL_MATURITY_AMT" checked/>
                         <label class="border-checkbox-label" for="IS_CAL_MATURITY_AMT">
                           Is Calculated Maturity Amt.In Master
                         </label>
@@ -1027,7 +1027,7 @@
                           border-checkbox-group border-checkbox-group-primary
                         ">
                         <input class="border-checkbox" type="checkbox" name="FIXED_MATURITY_AMT" disabled
-                          id="FIXED_MATURITY_AMT" formControlName="FIXED_MATURITY_AMT" />
+                          id="FIXED_MATURITY_AMT" formControlName="FIXED_MATURITY_AMT" checked/>
                         <label class="border-checkbox-label" for="FIXED_MATURITY_AMT">
                           Is Fixed Maturity Amount in Payment
                         </label>
@@ -1670,14 +1670,24 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm">
-                <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
+            <div class="card-block">
+              <div class="row">
+                <div class="col-sm-8">
+                
+                </div>
+                <div class="col-sm">
+                  <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
                     [disabled]="angForm.invalid">Add</button>
-                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
+                  <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
                     [disabled]="angForm.invalid">Update</button> &nbsp;
-                <button class="btn btn-primary ripple light" *ngIf="newbtnShow"
-                    (click)="addNewData()">Cancel</button>
+                  <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+                </div>
+              </div>
+
             </div>
+            
+
+            
           </div>
         </div>
       </form>

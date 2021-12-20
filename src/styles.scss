@@ -65,14 +65,27 @@ ng-select.ng-select>div>div.single {
         outline: none;
     }
 
-    .border-checkbox-label:focus{
-        border: 2px solid green;
-        outline: none;
-    }
-    .border-checkbox:checked {
-        margin-left: 25px;
-        border: 2px solid blue;
-      }
+    // .border-checkbox-label:focus{
+    //     border: 2px solid green;
+    //     outline: none;
+    // }
+    // .border-checkbox::after {
+    //     margin-left: 25px;
+    //     border: 2px solid blue;
+    //   }
+      
+    //   input[type="checkbox"]:focus-visible {
+    //     outline-offset: 2px;
+    //     outline: -webkit-focus-ring-color auto 1px;
+    // }
+      
+// input[type=checkbox] {
+// 	opacity: 0;
+//   }
+  
+//   input[type=checkbox]:focus {
+// 	 opacity: 5;
+//   }
 
     // .form-a:focus{
     //     border: 2px solid #0f87f7;

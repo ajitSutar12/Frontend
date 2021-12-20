@@ -36,7 +36,8 @@
                                             title="Please Enter Mobile Number">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Your Mobile Number</label>
-                                        <label class="invalid" *ngIf="isInvalidNumber">Invalid Number</label>
+                                        <label class="invalid">Invalid Number</label>
+                                        <!-- *ngIf="isInvalidNumber" -->
                                     </div>
                                     <div class="form-group form-primary form-static-label">
                                         <input [type]="passType" name="password" [(ngModel)]="password"

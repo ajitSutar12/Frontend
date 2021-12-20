@@ -109,7 +109,9 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_OPDATE" class="form-control"
                                                                 placeholder=" " id="AC_OPDATE" required=""
-                                                                max="9999-12-31" onfocus="(this.type='date')"
+                                                                max="{{datemax | date:'yyyy-MM-dd'}}"
+                                                                onfocus="(this.type='date')" #date
+                                                                (focusout)="disabledate(AC_OPDATE)"
                                                                 formControlName="AC_OPDATE"
                                                                 (ngModelChange)="changeDate()">
                                                             <label for="AC_OPDATE">Opening Date<sub class="required">*
@@ -129,8 +131,10 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_OPEN_OLD_DATE"
                                                                 class="form-control" placeholder=" "
-                                                                id="AC_OPEN_OLD_DATE" max="9999-12-31"
-                                                                onfocus="(this.type='date')"
+                                                                id="AC_OPEN_OLD_DATE"
+                                                                max="{{datemax | date:'yyyy-MM-dd'}}"
+                                                                onfocus="(this.type='date')" #date
+                                                                (focusout)="disabledate(date.value)"
                                                                 (ngModelChange)="getExpiryDate()"
                                                                 formControlName="AC_OPEN_OLD_DATE">
                                                             <label for="AC_OPEN_OLD_DATE">Renewal Date</label>
@@ -141,8 +145,10 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_BIRTH_DT" class="form-control"
-                                                                placeholder=" " id="AC_BIRTH_DT" max="9999-12-31"
-                                                                onfocus="(this.type='date')"
+                                                                placeholder=" " id="AC_BIRTH_DT"
+                                                                max="{{datemax | date:'yyyy-MM-dd'}}"
+                                                                onfocus="(this.type='date')" #date
+                                                                (focusout)="disabledate(date.value)"
                                                                 formControlName="AC_BIRTH_DT" disabled>
                                                             <label for="AC_BIRTH_DT">Birth Date</label>
                                                         </span>
@@ -194,9 +200,7 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_CAST" class="form-control"
                                                                 placeholder=" " id="AC_CAST" pattern="^[A-Za-z\./ -]+$"
-                                                                formControlName="AC_CAST"
-                                                                title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                disabled>
+                                                                formControlName="AC_CAST" disabled>
                                                             <label for="AC_CAST">Cast</label>
                                                         </span>
                                                     </div>
@@ -206,7 +210,6 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_OCODE" class="form-control"
                                                                 placeholder=" " id="AC_OCODE" pattern="^[A-Za-z\./ -]+$"
-                                                                title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                 formControlName="AC_OCODE" disabled>
                                                             <label for="AC_OCODE">Occupation</label>
                                                         </span>
@@ -260,8 +263,10 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_SANCTION_DATE"
                                                                 class="form-control" placeholder=" "
-                                                                id="AC_SANCTION_DATE" required="" max="9999-12-31"
-                                                                onfocus="(this.type='date')"
+                                                                id="AC_SANCTION_DATE" required=""
+                                                                max="{{datemax | date:'yyyy-MM-dd'}}"
+                                                                onfocus="(this.type='date')" #date
+                                                                (focusout)="disabledate(date.value)"
                                                                 formControlName="AC_SANCTION_DATE">
                                                             <label for="AC_SANCTION_DATE">Sanction Date<sub
                                                                     class="required">*
@@ -468,8 +473,7 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_PRIORITY_SUB1"
                                                                 class="form-control" placeholder=" "
-                                                                id="AC_PRIORITY_SUB1" pattern="^[0-9]+$"
-                                                                title="Input allowed only  0-9" disabled
+                                                                id="AC_PRIORITY_SUB1" pattern="^[0-9]+$" disabled
                                                                 formControlName="AC_PRIORITY_SUB1">
                                                             <label for="AC_PRIORITY_SUB1">Priority 1</label>
                                                         </span>
@@ -482,8 +486,7 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_PRIORITY_SUB2"
                                                                 class="form-control" placeholder=" "
-                                                                id="AC_PRIORITY_SUB2" pattern="^[0-9]+$"
-                                                                title="Input allowed only  0-9" disabled
+                                                                id="AC_PRIORITY_SUB2" pattern="^[0-9]+$" disabled
                                                                 formControlName="AC_PRIORITY_SUB2">
                                                             <label for="AC_PRIORITY_SUB2">Priority 2</label>
                                                         </span>
@@ -494,8 +497,7 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_PRIORITY_SUB3"
                                                                 class="form-control" placeholder=" "
-                                                                id="AC_PRIORITY_SUB3" pattern="^[0-9]+$"
-                                                                title="Input allowed only  0-9" disabled
+                                                                id="AC_PRIORITY_SUB3" pattern="^[0-9]+$" disabled
                                                                 formControlName="AC_PRIORITY_SUB3">
                                                             <label for="AC_PRIORITY_SUB3">Priority 3</label>
                                                         </span>
@@ -642,8 +644,10 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_COREG_DATE" class="form-control"
-                                                                placeholder=" " id="AC_COREG_DATE" max="9999-12-31"
-                                                                onfocus="(this.type='date')"
+                                                                placeholder=" " id="AC_COREG_DATE"
+                                                                max="{{datemax | date:'yyyy-MM-dd'}}"
+                                                                onfocus="(this.type='date')" #date
+                                                                (focusout)="disabledate(date.value)"
                                                                 formControlName="AC_COREG_DATE">
                                                             <label for="AC_COREG_DATE">Date</label>
                                                         </span>
@@ -693,8 +697,10 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_RESO_DATE" class="form-control"
-                                                                placeholder=" " id="AC_RESO_DATE" max="9999-12-31"
-                                                                onfocus="(this.type='date')"
+                                                                placeholder=" " id="AC_RESO_DATE"
+                                                                max="{{datemax | date:'yyyy-MM-dd'}}"
+                                                                onfocus="(this.type='date')" #date
+                                                                (focusout)="disabledate(date.value)"
                                                                 formControlName="AC_RESO_DATE">
                                                             <label for="AC_RESO_DATE">Date</label>
                                                         </span>
@@ -715,9 +721,7 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" formControlName="AC_HONO" name="AC_HONO"
                                                                 class="form-control" placeholder=" "
-                                                                pattern="^[A-Za-z0-9\./ -]+$"
-                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                                                id="AC_HONO" disabled>
+                                                                pattern="^[A-Za-z0-9\./ -]+$" id="AC_HONO" disabled>
                                                             <label for="AC_HONO">House</label>
                                                         </span>
                                                     </div>
@@ -734,7 +738,6 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_WARD" class="form-control"
                                                                 placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
-                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                 id="AC_WARD" formControlName="AC_WARD" disabled>
                                                             <label for="AC_WARD">Ward</label>
                                                         </span>
@@ -752,7 +755,6 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_ADDR" class="form-control"
                                                                 placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
-                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                 id="AC_ADDR" formControlName="AC_ADDR" disabled>
                                                             <label for="AC_ADDR">Detail</label>
                                                         </span>
@@ -773,7 +775,6 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_GALLI" class="form-control"
                                                                 placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
-                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                 id="AC_GALLI" formControlName="AC_GALLI" disabled>
                                                             <label for="AC_GALLI">Galli</label>
                                                         </span>
@@ -791,7 +792,6 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_AREA" class="form-control"
                                                                 placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
-                                                                title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
                                                                 id="AC_AREA" formControlName="AC_AREA" disabled>
                                                             <label for="AC_AREA">Area</label>
                                                         </span>
@@ -810,7 +810,6 @@
                                                             <input type="text" name="AC_CTCODE" class="form-control"
                                                                 placeholder=" " id="AC_CTCODE"
                                                                 pattern="^[A-Za-z\./ -]+$" formControlName="AC_CTCODE"
-                                                                title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                 disabled>
                                                             <label for="AC_CTCODE">City</label>
                                                         </span>
@@ -820,8 +819,7 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_PIN" class="form-control"
-                                                                placeholder=" " pattern="^[0-9]+$"
-                                                                title=" Input allowed only  0-9" maxlength="6"
+                                                                placeholder=" " pattern="^[0-9]+$" maxlength="6"
                                                                 minlength="6" id="AC_PIN" formControlName="AC_PIN"
                                                                 disabled>
                                                             <label for="AC_PIN">Pin Code</label>
@@ -1003,8 +1001,7 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_PHONE_RES" class="form-control"
-                                                                placeholder=" " pattern="^[0-9]+$"
-                                                                title="Input allowed only  0-9" id="AC_PHONE_RES"
+                                                                placeholder=" " pattern="^[0-9]+$" id="AC_PHONE_RES"
                                                                 maxlength="10" minlength="10"
                                                                 formControlName="AC_PHONE_RES" disabled>
                                                             <label for="AC_PHONE_RES">Residential(R)</label>
@@ -1024,8 +1021,7 @@
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="AC_PHONE_OFFICE"
                                                                 class="form-control" placeholder=" " pattern="^[0-9]+$"
-                                                                title="Input allowed only  0-9" id="AC_PHONE_OFFICE"
-                                                                maxlength="10" minlength="10"
+                                                                id="AC_PHONE_OFFICE" maxlength="10" minlength="10"
                                                                 formControlName="AC_PHONE_OFFICE" disabled>
                                                             <label for="AC_PHONE_OFFICE">Office(O)</label>
                                                         </span>
@@ -1280,7 +1276,6 @@
                                                                                 class="form-control" placeholder=" "
                                                                                 id="GAC_MEMBNO"
                                                                                 pattern="^[A-Za-z\./ -]+$" disabled
-                                                                                title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                 formControlName="GAC_MEMBNO">
                                                                             <label for="GAC_MEMBNO">Member No</label>
                                                                         </span>
@@ -1293,7 +1288,6 @@
                                                                                 class="form-control" placeholder=" "
                                                                                 id="GAC_MEMBTYPE"
                                                                                 pattern="^[A-Za-z\./ -]+$" disabled
-                                                                                title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                 formControlName="GAC_MEMBTYPE">
                                                                             <label for="GAC_MEMBTYPE">Member
                                                                                 Scheme</label>
@@ -1306,9 +1300,7 @@
                                                                             <input type="text" name="GAC_NAME"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="GAC_NAME" pattern="^[A-Za-z\./ -]+$"
-                                                                                disabled
-                                                                                title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                formControlName="GAC_NAME">
+                                                                                disabled formControlName="GAC_NAME">
                                                                             <label for="GAC_NAME">Full Name</label>
                                                                         </span>
                                                                     </div>
@@ -1341,7 +1333,7 @@
                                                                 <div class="col-12">
                                                                     <div class="table-responsive">
                                                                         <table
-                                                                            class="table table-striped table-bordered table-hover">
+                                                                            class="table table-striped table-bordered table-hover compact">
                                                                             <tbody *ngIf="multiGuarantor?.length != 0">
                                                                                 <tr>
                                                                                     <th>Action</th>
@@ -1438,9 +1430,7 @@
                                                                             <input type="text" name="CAC_NAME"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="CAC_NAME" pattern="^[A-Za-z\./ -]+$"
-                                                                                disabled
-                                                                                title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                formControlName="CAC_NAME">
+                                                                                disabled formControlName="CAC_NAME">
                                                                             <label for="CAC_NAME">Full Name<sub
                                                                                     class="required">* </sub></label>
                                                                         </span>
@@ -1470,7 +1460,7 @@
                                                                 <div class="col-12">
                                                                     <div class="table-responsive">
                                                                         <table
-                                                                            class="table table-striped table-bordered table-hover">
+                                                                            class="table table-striped table-bordered table-hover compact">
                                                                             <tbody *ngIf="multiCoBorrower?.length != 0">
                                                                                 <tr>
                                                                                     <th>Action</th>
@@ -1557,20 +1547,31 @@
                     <div class="col-sm">
                         <div class="table-responsive">
                             <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-                                class="table table-striped table-bordered table-hover">
+                                class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="cashCreditMaster?.length != 0">
                                     <tr *ngFor="let data of cashCreditMaster">
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
                                                 (click)="editClickHandler(data.id)">Edit</button>
                                         </td>
                                         <td>{{data.AC_ACNOTYPE}}</td>
-                                        <td>{{data.AC_TYPE}}</td>
-                                        <td>{{data.AC_NO}}</td>
-                                        <td>{{data.AC_CUSTID}}</td>
-                                        <td>{{data.AC_NAME}}</td>
-                                        <td>{{data.AC_OPDATE}}</td>
-                                        <td>{{data.AC_OPEN_OLD_DATE}}</td>
-                                        <td>{{data.REF_ACNO}}</td>
+                                        <td class="td_right" [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_right'">
+                                            {{data.AC_TYPE === ''? '-' : data.AC_TYPE}}</td>
+                                        <td class="td_right" [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
+                                            {{data.AC_NO === ''? '-' : data.AC_NO}}</td>
+                                        <td class="td_right"
+                                            [ngClass]="data.AC_CUSTID === '' ? 'td_center' : 'td_right'">
+                                            {{data.AC_CUSTID === ''? '-' : data.AC_CUSTID}}</td>
+                                        <td [ngClass]="data.AC_NAME === '' ? 'td_center' : 'td_right'">{{data.AC_NAME
+                                            === ''? '-' : data.AC_NAME}}</td>
+                                        <td class="td_right"
+                                            [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_right'">
+                                            {{data.AC_OPDATE === ''? '-' : data.AC_OPDATE}}</td>
+                                        <td class="td_right"
+                                            [ngClass]="data.AC_OPEN_OLD_DATE === '' ? 'td_center' : 'td_right'">
+                                            {{data.AC_OPEN_OLD_DATE === ''? '-' : data.AC_OPEN_OLD_DATE}}</td>
+                                        <td class="td_right"
+                                            [ngClass]="data.REF_ACNO === '' ? 'td_center' : 'td_right'">{{data.REF_ACNO
+                                            === ''? '-' : data.REF_ACNO}}</td>
                                         <td>{{data.AC_INTCATA}}</td>
                                         <td class="td_right"
                                             [ngClass]="data.AC_SANCTION_AMOUNT === '' ? 'td_center' : 'td_right'">
@@ -1647,59 +1648,41 @@
                                 <tfoot>
                                     <tr>
                                         <th></th>
-                                        <th><input type="text" placeholder="Search Type" name="AC_ACNOTYPE"></th>
-                                        <th><input type="text" placeholder="Search Scheme" name="AC_TYPE"></th>
-                                        <th><input type="text" placeholder="Search Account No" name="AC_NO"></th>
-                                        <th><input type="text" placeholder="Search Customer ID" name="AC_CUSTID"></th>
-                                        <th><input type="text" placeholder="Search Name" name="AC_NAME"></th>
-                                        <th><input type="text" placeholder="Search Opening Date" name="AC_OPDATE"></th>
-                                        <th><input type="text" placeholder="Search Renewal Date"
-                                                name="AC_OPEN_OLD_DATE"></th>
-                                        <th><input type="text" placeholder="Search Manual Reference Member No."
-                                                name="REF_ACNO"></th>
-                                        <th><input type="text" placeholder="Search Interest Category" name="AC_INTCATA">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Sanction Limit"
-                                                name="AC_SANCTION_AMOUNT"></th>
-                                        <th><input type="text" placeholder="Search Sanction Date"
-                                                name="AC_SANCTION_DATE"></th>
-                                        <th><input type="text" placeholder="Search Drawing Power"
-                                                name="AC_DRAWPOWER_AMT"></th>
-                                        <th><input type="text" placeholder="Search Period" name="AC_MONTHS"></th>
-                                        <th><input type="text" placeholder="Search Expiry Date" name="AC_EXPIRE_DATE">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Interest Rate" name="AC_INTRATE">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Installment" name="AC_INSTALLMENT">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Sanction Authority"
-                                                name="AC_AUTHORITY"></th>
-                                        <th><input type="text" placeholder="Search Recommended By"
-                                                name="AC_RECOMMEND_BY"></th>
-                                        <th><input type="text" placeholder="Search Recovery Cleark"
-                                                name="AC_RECOVERY_CLERK"></th>
-                                        <th><input type="text" placeholder="Search Priority" name="AC_PRIORITY"></th>
-                                        <th><input type="text" placeholder="Search Priority 1" name="AC_PRIORITY_SUB1">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Priority 2" name="AC_PRIORITY_SUB2">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Priority 3" name="AC_PRIORITY_SUB3">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Weaker Section" name="AC_WEAKER">
-                                        </th>
-                                        <th><input type="text" placeholder="Search Purpose" name="AC_PURPOSE"></th>
-                                        <th><input type="text" placeholder="Search Industry" name="AC_INDUSTRY"></th>
-                                        <th><input type="text" placeholder="Search Health Code" name="AC_HEALTH"></th>
-                                        <th><input type="text" placeholder="Search Account Type"
-                                                name="AC_RELATION_TYPE"></th>
-                                        <th><input type="text" placeholder="Search Director" name="AC_DIRECTOR"></th>
-                                        <th><input type="text" placeholder="Search Director Relation"
-                                                name="AC_DIRECTOR_RELATION"></th>
-                                        <th><input type="text" placeholder="Search No" name="AC_COREG_NO"></th>
-                                        <th><input type="text" placeholder="Search Date" name="AC_COREG_DATE"></th>
-                                        <th><input type="text" placeholder="Search Amount" name="AC_COREG_AMT"></th>
-                                        <th><input type="text" placeholder="Search No" name="AC_RESO_NO"></th>
-                                        <th><input type="text" placeholder="Search Date" name="AC_RESO_DATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Type" name="AC_ACNOTYPE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Scheme" name="AC_TYPE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Account No" name="AC_NO"></th>
+                                        <th><input type="text" class="form-control" placeholder="Customer ID" name="AC_CUSTID"></th>
+                                        <th><input type="text" class="form-control" placeholder="Name" name="AC_NAME"></th>
+                                        <th><input type="text" class="form-control" placeholder="Opening Date" name="AC_OPDATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Renewal Date" name="AC_OPEN_OLD_DATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Manual Reference Member No."name="REF_ACNO"></th>
+                                        <th><input type="text" class="form-control" placeholder="Interest Category" name="AC_INTCATA"></th>
+                                        <th><input type="text" class="form-control" placeholder="Sanction Limit"name="AC_SANCTION_AMOUNT"></th>
+                                        <th><input type="text" class="form-control" placeholder="Sanction Date" name="AC_SANCTION_DATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Drawing Power" name="AC_DRAWPOWER_AMT"></th>
+                                        <th><input type="text" class="form-control" placeholder="Period" name="AC_MONTHS"></th>
+                                        <th><input type="text" class="form-control" placeholder="Expiry Date" name="AC_EXPIRE_DATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Interest Rate" name="AC_INTRATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Installment" name="AC_INSTALLMENT"></th>
+                                        <th><input type="text" class="form-control" placeholder="Sanction Authority" name="AC_AUTHORITY"></th>
+                                        <th><input type="text" class="form-control" placeholder="Recommended By" name="AC_RECOMMEND_BY"></th>
+                                        <th><input type="text" class="form-control" placeholder="Recovery Cleark"name="AC_RECOVERY_CLERK"></th>
+                                        <th><input type="text" class="form-control" placeholder="Priority" name="AC_PRIORITY"></th>
+                                        <th><input type="text" class="form-control" placeholder="Priority 1" name="AC_PRIORITY_SUB1"></th>
+                                        <th><input type="text" class="form-control" placeholder="Priority 2" name="AC_PRIORITY_SUB2"></th>
+                                        <th><input type="text" class="form-control" placeholder="Priority 3" name="AC_PRIORITY_SUB3"> </th>
+                                        <th><input type="text" class="form-control" placeholder="Weaker Section" name="AC_WEAKER"></th>
+                                        <th><input type="text" class="form-control" placeholder="Purpose" name="AC_PURPOSE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Industry" name="AC_INDUSTRY"></th>
+                                        <th><input type="text" class="form-control" placeholder="Health Code" name="AC_HEALTH"></th>
+                                        <th><input type="text" class="form-control" placeholder="Account Type" name="AC_RELATION_TYPE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Director" name="AC_DIRECTOR"></th>
+                                        <th><input type="text" class="form-control" placeholder="Director Relation" name="AC_DIRECTOR_RELATION"></th>
+                                        <th><input type="text" class="form-control" placeholder="No" name="AC_COREG_NO"></th>
+                                        <th><input type="text" class="form-control" placeholder="Date" name="AC_COREG_DATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Amount" name="AC_COREG_AMT"></th>
+                                        <th><input type="text" class="form-control" placeholder="No" name="AC_RESO_NO"></th>
+                                        <th><input type="text" class="form-control" placeholder="Date" name="AC_RESO_DATE"></th>
                                     </tr>
                                 </tfoot>
                             </table>
