@@ -67,11 +67,11 @@
                                 class="table table-striped table-bordered table-hover">
                                 <tbody *ngIf="tdReceipt?.length != 0">
                                     <tr *ngFor="let data of tdReceipt">
-                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
-                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                        <!-- <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
+                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp; -->
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" -->
                                             <!-- (click)="delClickHandler(data.id)">Delete</button> -->
-                                        </td>
+                                        <!-- </td> -->
                                         <td>{{ data.RECEIPT_TYPE}}</td>
                                         <td>{{ data.LAST_RECEIPT_NO}}</td>
                                     </tr>

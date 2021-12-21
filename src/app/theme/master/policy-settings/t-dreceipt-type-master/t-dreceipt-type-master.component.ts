@@ -61,14 +61,14 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
 
   selectedValue = ""
   receipt: number
-   //title select variables
-   tdMaster: Array<IOption> = this._tdReceiptService.getCharacters();
-   selectedOption = '3';
-   isDisabled = true;
-   characters: Array<IOption>;
-   selectedCharacter = '3';
-   timeLeft = 5;
-   private dataSub: Subscription = null;
+  //title select variables
+  tdMaster: Array<IOption> = this._tdReceiptService.getCharacters();
+  selectedOption = '3';
+  isDisabled = true;
+  characters: Array<IOption>;
+  selectedCharacter = '3';
+  timeLeft = 5;
+  private dataSub: Subscription = null;
 
   constructor(private fb: FormBuilder, private _receipt: TDReceiptService,
     private http: HttpClient,
@@ -123,9 +123,9 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
         defaultContent: ""
       }],
       columns: [
-        {
-          title: 'Action',
-        },
+        // {
+        //   title: 'Action',
+        // },
         {
           title: 'Receipt Type',
           data: 'RECEIPT_TYPE'
@@ -162,14 +162,13 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
 
   submit() {
     const formVal = this.angForm.value;
-    this.receipt = this.angForm.controls['LAST_RECEIPT_NO'].value + 1;
     console.log(this.receipt)
     const dataToSend = {
-      'LAST_RECEIPT_NO': this.receipt,
+      'LAST_RECEIPT_NO': formVal.LAST_RECEIPT_NO,
       'RECEIPT_TYPE': formVal.RECEIPT_TYPE
     };
     console.log(this.angForm.value);
-    console.log(dataToSend,"dataToSend");
+    console.log(dataToSend, "dataToSend");
     this._receipt.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -289,25 +288,26 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
     this.dtTrigger.unsubscribe();
   }
 
- 
+
   getValue(event) {
-    debugger
+    // debugger
     this.http.get<any>(
       this.url + '/td-receipt-type',
     ).subscribe(resp => {
       console.log("resp", resp)
       if (resp.length != 0) {
-        // resp.forEach(async (element) => {
-        if (event.value == resp[0].RECEIPT_TYPE) {
-          console.log("RECEIPT_TYPE", resp[0].RECEIPT_TYPE)
-          this.angForm.patchValue({
-            LAST_RECEIPT_NO: resp[0].LAST_RECEIPT_NO
-          })
-        } else {
-          this.angForm.patchValue({
-            LAST_RECEIPT_NO: 0
-          })
-        }
+        resp.forEach(async (element) => {
+          if (event.value == element.RECEIPT_TYPE) {
+            console.log("RECEIPT_TYPE", resp[0].RECEIPT_TYPE)
+            this.angForm.patchValue({
+              LAST_RECEIPT_NO: element.LAST_RECEIPT_NO
+            })
+          } else {
+            this.angForm.patchValue({
+              LAST_RECEIPT_NO: 0
+            })
+          }
+        })
       }
       else {
         this.angForm.patchValue({

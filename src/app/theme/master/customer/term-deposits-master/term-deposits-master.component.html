@@ -296,7 +296,7 @@
                             <span class="border-lable-flt">
                               <input type="text" name="AC_MONTHS" class="form-control" placeholder=" " id="AC_MONTHS"
                                 maxlength="3" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                formControlName="AC_MONTHS" (ngModelChange)="getMaturityDate()">
+                                formControlName="AC_MONTHS" (ngModelChange)="getMaturityDate()" disabled>
                               <label for="AC_MONTHS">Months<sub class="required">*
                                 </sub></label>
                             </span>
@@ -315,7 +315,7 @@
                             <span class="border-lable-flt">
                               <input type="text" name="AC_DAYS" class="form-control" placeholder=" " id="AC_DAYS"
                                 pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="4"
-                                formControlName="AC_DAYS" (ngModelChange)="getMaturityDate()">
+                                formControlName="AC_DAYS" (ngModelChange)="getMaturityDate()" disabled>
                               <label for="AC_DAYS">Days</label>
                             </span>
                           </div>
@@ -332,7 +332,8 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_EXPDT" class="form-control" placeholder=" " id="AC_EXPDT"
-                                max="9999-12-31" onfocus="(this.type='date')" formControlName="AC_EXPDT">
+                                max="9999-12-31" onfocus="(this.type='date')" formControlName="AC_EXPDT"
+                                (ngModelChange)="monthDays()" (focusout)="CheckmonthDays()">
                               <label for="AC_EXPDT">Maturity Date</label>
                             </span>
                           </div>
@@ -342,7 +343,7 @@
                             <span class="border-lable-flt">
                               <input type="text" name="AC_SCHMAMT" class="form-control" placeholder=" " id="AC_SCHMAMT"
                                 title="Input allowed only  0-9" pattern="\d{1,10}(\.\d{2})?" maxlength="13"
-                                (ngModelChange)="setMaturityDate()" formControlName="AC_SCHMAMT">
+                                (ngModelChange)="setMaturityDate()" (focusout)="checkAmount()" formControlName="AC_SCHMAMT">
                               <label for="AC_SCHMAMT">Deposit Amount</label>
                             </span>
                           </div>

@@ -645,6 +645,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           AC_EXPDT: maturityDate
         })
       }
+
       if (data.PERIOD_APPLICABLE == true) {
         document.getElementById('AC_MONTHS').removeAttribute("disabled");
         document.getElementById('AC_DAYS').removeAttribute("disabled");
@@ -654,107 +655,52 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         document.getElementById('AC_DAYS').setAttribute("disabled", "true");
       }
 
-      if (data.IS_AUTO_PERIOD_CALCULATE == true) {
 
-        let start = this.angForm.controls['AC_ASON_DATE'].value
-        let end = this.angForm.controls['AC_EXPDT'].value
-        // console.log(start, "start date")
-        // console.log(end, "end date")
-        if (start && end) {
-          var years = end.diff(start, 'years');
-
-          //moment returns the total months between the two dates, subtracting the years
-          var months = end.diff(start, 'months') - (years * 12);
-
-          //to calculate the days, first get the previous month and then subtract it
-          start.add(years, 'years').add(months, 'months');
-          var days = end.diff(start, 'days')
-
-          // console.log(year + months + days, "calculate")
-          this.angForm.patchValue({
-            AC_MONTHS: months,
-            AC_DAYS: days
-          })
-        }
-      }
-      else {
-        console.log("No")
-      }
-
-      if (data.UNIT_OF_PERIOD == "Both") {
-        if (this.angForm.controls['AC_MONTHS'].value < data.MIN_MONTH) {
-          Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH, "error");
-          this.angForm.controls['AC_MONTHS'].reset
-        }
-
-        if (this.angForm.controls['AC_DAYS'].value < data.MIN_DAYS) {
-          this.angForm.controls['AC_DAYS'].reset
-          Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS, "error");
-        }
-      }
-      else if (data.UNIT_OF_PERIOD == "DAYS") {
-        if (this.angForm.controls['AC_DAYS'].value < data.MIN_DAYS) {
-          // console.log(this.angForm.controls['AC_DAYS'])
-        } else {
-          Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS, "error");
-          this.angForm.controls['AC_DAYS'].reset
-        }
-      }
-      else if (data.UNIT_OF_PERIOD == "MONTHS") {
-        if (this.angForm.controls['AC_MONTHS'].value < data.MIN_MONTH) {
-          // console.log(this.angForm.controls['AC_MONTHS'])
-        } else {
-          Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH, "error");
-          this.angForm.controls['AC_MONTHS'].reset
-        }
-      }
-
-      if (data.UNIT_OF_PERIOD == "Both" && data.IS_AUTO_PERIOD_CALCULATE == true) {
-        if (this.angForm.controls['AC_MONTHS'].value < data.MIN_MONTH && this.angForm.controls['AC_DAYS'].value < data.MIN_DAYS) {
-          // console.log(this.angForm.controls['AC_DAYS'], this.angForm.controls['AC_MONTHS'].value)
-        } else {
-          Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
-          this.angForm.controls['AC_MONTHS'].reset
-        }
-
-      }
-
-      if (this.angForm.controls['AC_SCHMAMT'].value > data.MAX_DEP_LMT) {
-        Swal.fire("Deposit Amount Should Be Less Than " + data.MAX_DEP_LMT, "error");
-        this.angForm.controls['AC_SCHMAMT'].reset
-      }
 
       if (data.RECEIPT_NO_INPUT == true) {
-        document.getElementById('AC_REF_RECEIPTNO').setAttribute("disabled", "true");
-      }
-      else {
         document.getElementById('AC_REF_RECEIPTNO').removeAttribute("disabled");
       }
-
-
-
-      if (data.MULTIPLE_OF_AMT != null) {
-        if (((this.angForm.controls['AC_SCHMAMT'].value) % (data.MULTIPLE_OF_AMT)) != 0) {
-          Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_AMT, "error");
-        }
-      }
-      if (data.MULTIPLE_OF_DAYS != null) {
-        if (((this.angForm.controls['AC_DAYS'].value) % (data.MULTIPLE_OF_DAYS)) != 0) {
-          Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_DAYS, "error");
-        }
-      }
-      if (data.MULTIPLE_OF_MONTH != null) {
-        if (((this.angForm.controls['AC_MONTHS'].value) % (data.MULTIPLE_OF_MONTH)) != 0) {
-          Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
-        }
+      else {
+        document.getElementById('AC_REF_RECEIPTNO').setAttribute("disabled", "true");
       }
 
-      if (data.RECEIPT_TYPE != null) {
-        this._InterestInstruction.getFormData(this.selectedValue).subscribe(data => {
 
-        })
 
-      }
+
+
+      // if (data.RECEIPT_TYPE != null) {
+      //   this._InterestInstruction.getFormData(this.selectedValue).subscribe(data => {
+
+      //     this.http.get<any>(
+      //       this.url + '/td-receipt-type',
+      //     ).subscribe(resp => {
+      //       if (resp.length != 0) {
+      //         resp.forEach(async (element) => {
+      //           if (data.RECEIPT_TYPE == element.RECEIPT_TYPE) {
+      //             console.log("RECEIPT_TYPE", element.RECEIPT_TYPE)
+      //             this.angForm.patchValue({
+      //               AC_REF_RECEIPTNO: element.LAST_RECEIPT_NO + 1
+      //             })
+      //           } else {
+      //             this.angForm.patchValue({
+      //               AC_REF_RECEIPTNO: 0
+      //             })
+      //           }
+      //         })
+      //       }
+      //       else {
+      //         this.angForm.patchValue({
+      //           AC_REF_RECEIPTNO: 0
+      //         })
+      //       }
+      //     })
+
+
+
+      //   })
+
+      // }
+
       if (data.INTEREST_RULE == "Compounding") {
         if (data.S_INTCALTP == "CalculationOnDays") {
           if (data.S_INTCALC_METHOD == "SimpleInterest") {
@@ -789,6 +735,108 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_MATUAMT: this.result
     })
   }
+
+  checkAmount() {
+    this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
+      if (data.MAX_DEP_LMT != null || data.MULTIPLE_OF_AMT != null) {
+        if (this.angForm.controls['AC_SCHMAMT'].value > data.MAX_DEP_LMT) {
+          Swal.fire("Deposit Amount Should Be Less Than " + data.MAX_DEP_LMT, "error");
+          this.angForm.controls['AC_SCHMAMT'].reset()
+        } else if (((this.angForm.controls['AC_SCHMAMT'].value) % (data.MULTIPLE_OF_AMT)) != 0) {
+          Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_AMT, "error");
+
+        }
+
+      }
+
+    })
+  }
+  CheckmonthDays() {
+    this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
+
+      if (data.UNIT_OF_PERIOD == "BOTH") {
+        if (this.angForm.controls['AC_MONTHS'].value < data.MIN_MONTH && this.angForm.controls['AC_DAYS'].value < data.AC_DAYS) {
+          Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
+          this.angForm.controls['AC_MONTHS'].reset()
+          this.angForm.controls['MIN_DAYS'].reset()
+        }
+
+        if (this.angForm.controls['AC_DAYS'].value < data.MIN_DAYS) {
+          this.angForm.controls['AC_DAYS'].reset()
+          Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS, "error");
+        }
+      }
+      else if (data.UNIT_OF_PERIOD == "DAYS") {
+        if (this.angForm.controls['AC_DAYS'].value < data.MIN_DAYS) {
+          Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS, "error");
+          this.angForm.controls['AC_DAYS'].reset()
+        }
+      }
+      else if (data.UNIT_OF_PERIOD == "MONTHS") {
+        if (this.angForm.controls['AC_MONTHS'].value < data.MIN_MONTH) {
+          Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH, "error");
+          this.angForm.controls['AC_MONTHS'].reset()
+        }
+      }
+
+      if (data.UNIT_OF_PERIOD == "Both" && data.IS_AUTO_PERIOD_CALCULATE == true) {
+        if (this.angForm.controls['AC_MONTHS'].value < data.MIN_MONTH && this.angForm.controls['AC_DAYS'].value < data.MIN_DAYS) {
+          Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
+          this.angForm.controls['AC_MONTHS'].reset()
+          this.angForm.controls['AC_DAYS'].reset()
+        }
+      }
+
+
+      if (data.MULTIPLE_OF_DAYS != null) {
+        if (((this.angForm.controls['AC_DAYS'].value) % (data.MULTIPLE_OF_DAYS)) != 0) {
+          Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_DAYS, "error");
+        }
+      }
+      if (data.MULTIPLE_OF_MONTH != null) {
+        if (((this.angForm.controls['AC_MONTHS'].value) % (data.MULTIPLE_OF_MONTH)) != 0) {
+          Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
+        }
+      }
+    })
+  }
+  monthDays() {
+
+    this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
+
+      var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+      var date2 = this.angForm.controls['AC_EXPDT'].value;
+
+      date1 = moment(date1).format('DD.MM.YYYY');
+      date2 = moment(date2).format('DD.MM.YYYY');
+
+      var b = moment(date1, "DD.MM.YYYY");
+      var a = moment(date2, "DD.MM.YYYY");
+
+      var months = a.diff(b, 'months');
+      b.add(months, 'months');
+
+      var days = a.diff(b, 'days');
+
+      console.log("month and days" + months + ' months ' + days + ' days');
+      if (data.IS_AUTO_PERIOD_CALCULATE == true) {
+        console.log("true")
+        this.angForm.patchValue({
+          AC_MONTHS: months,
+          AC_DAYS: days
+        })
+      } else {
+        console.log("false")
+        this.angForm.patchValue({
+          AC_MONTHS: 0,
+          AC_DAYS: 0
+        })
+      }
+
+      // console.log(year + months + days, "calculate")
+
+    })
+  }
   //compound interest
   i: number
   total = 0
@@ -817,7 +865,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
       totalInterest = 0
 
-      // console.log("totalInterest", totalInterest)
+
     }
 
     maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
@@ -837,6 +885,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     var date2 = this.angForm.controls['AC_EXPDT'].value;
 
     date1 = moment(date1).format('DD.MM.YYYY');
+    date2 = moment(date2).format('DD.MM.YYYY');
 
     var b = moment(date1, "DD.MM.YYYY");
     var a = moment(date2, "DD.MM.YYYY");
@@ -1113,7 +1162,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   getCustomer(id) {
-    this.compoundInterestCalculation()
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
@@ -1663,27 +1711,66 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   selectedValue = ""
   setMaturityDate() {
     this.schemedata(this.selectedValue)
-    // this.angForm.patchValue({
-    //   AC_MATUAMT: this.angForm.controls['AC_SCHMAMT'].value
-    // })
+    this.angForm.patchValue({
+      AC_MATUAMT: this.angForm.controls['AC_SCHMAMT'].value
+    })
   }
   // data scheme master
   schemedata(id) {
     this._termDepositScheme.getFormData(id).subscribe(data => {
-
-      // console.log("term deposit scheme data", data)
-      // console.log("term deposit scheme data1", data.IS_CAL_MATURITY_AMT)
       this.recurringCompoundInterest()
       if (data.IS_CAL_MATURITY_AMT != true) {
-        // console.log("false", data.IS_CAL_MATURITY_AMT)
-        // this.setMaturityDate()
-        // this.simpleInterestCalculation()
-        // this.compoundInterestCalculation()
+        console.log("false", data.IS_CAL_MATURITY_AMT)
+        this.setMaturityDate()
       }
       else {
+
         // call calculation function
-        // console.log("true", data.IS_CAL_MATURITY_AMT)
-        // this.simpleInterestCalculation()
+
+        if (data.S_INTCALTP == "CalculationOnDays" && data.S_INTCALC_METHOD == "SimpleInterest") {
+          this.simpleInterestCalculation()
+        }else if(data.S_INTCALTP == "CalculationOnDays" && data.S_INTCALC_METHOD == "CompountInterest"){
+          if(data.COMPOUND_INT_BASIS == "Monthly"){
+            var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 1;
+          }else if(data.COMPOUND_INT_BASIS == "Quarterly"){
+            var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 3;
+          }else if(data.COMPOUND_INT_BASIS == "Half Yearly"){
+            var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 6;
+          }else if(data.COMPOUND_INT_BASIS == "Yearly"){
+            var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 12;
+          }
+          
+          var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+          var date2 = this.angForm.controls['AC_EXPDT'].value;
+      
+          date1 = moment(date1).format('DD.MM.YYYY');
+      
+          var startDate = moment(date1, "DD.MM.YYYY");
+          var endDate = moment(date2, "DD.MM.YYYY");
+      
+          var result = endDate.diff(startDate, 'days');
+          var amount = this.angForm.controls['AC_SCHMAMT'].value
+          var maturityAmount = this.angForm.controls['AC_MATUAMT'].value
+      
+          for (this.i = 1; this.i <= Quarters; this.i++) {
+            let totalInterest: number
+            var sample = parseFloat(amount);
+            var totalInt = (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * Math.trunc((result) / (Quarters)) / 36500).toFixed(10)
+            totalInterest = Number(totalInt)
+            amount = (parseFloat(amount) + (totalInterest)).toFixed(10)
+      
+            totalInterest = 0
+      
+      
+          }
+      
+          maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
+      
+          this.angForm.patchValue({
+            AC_MATUAMT: maturityAmount
+          })
+        }
+
       }
     })
   }
