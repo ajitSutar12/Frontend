@@ -28,7 +28,7 @@ export class SchemeCodeDropdownService {
         return this.http.get<any>(this.url + '/scheme-parameters/')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.S_ACNOTYPE + ' ' + element.S_NAME, value: `${element.S_ACNOTYPE}` };
+                    let obj = { label: element.S_ACNOTYPE + ' ' + element.S_NAME, value: `${element.id}` };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;

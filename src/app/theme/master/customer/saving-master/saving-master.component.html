@@ -14,7 +14,7 @@
             <div class="col-sm-4">
               <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" placeholder="Scheme *" required
-                  title="Compulsory Selection" formControlName="AC_TYPE">
+                  title="Compulsory Selection" formControlName="AC_TYPE" (selected)="getScheme($event)">
                 </ng-select>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -946,8 +946,8 @@
                                     <div class="form-group input-group">
                                       <span class="border-lable-flt">
                                         <input type="text" name="AGE" class="form-control" placeholder=" "
-                                          pattern="^[0-9]+$" min="1" max="100" title="Input allowed only 0-9"
-                                          id="AGE" formControlName="AGE" />
+                                          pattern="^[0-9]+$" min="1" max="100" title="Input allowed only 0-9" id="AGE"
+                                          formControlName="AGE" />
                                         <label for="AGE">Age</label>
                                       </span>
                                     </div>
@@ -1529,13 +1529,41 @@
                   <ngb-tab title="5.Documents">
                     <ng-template ngbTabContent>
                       <div [@fadeInOutTranslate] class="m-t-15">
-                        <div class="col-12">
-                          <div class="table-responsive">
-                            <table datatable [dtOptions]="dtdocumentOptions" class="
-                                table table-striped table-bordered table-hover
-                              " style="width: 100%"></table>
+                        <div class="row">
+                          <div class="col-12">
+                              <div class="table-responsive">
+                                  <table
+                                      class="table table-striped table-bordered table-hover compact">
+                                      <tbody *ngIf="customerDoc?.length != 0">
+                                          <tr>
+                                              <th>Code</th>
+                                              <th>Description</th>
+                                              <th>Path</th>
+                                          </tr>
+                                          <tr *ngFor="let data of customerDoc;
+                                      let indexOfelement = index">
+                                              <td>{{ data.DocumentMasterID }}</td>
+                                              <td>{{ data.DocumentMaster.NAME }}</td>
+                                              <td>
+                                                  <a href="{{documentUrl+data.PATH}}"
+                                                      target="_blank">
+                                                      <span
+                                                          style="font-size: 20px;color: #0f459b; cursor: pointer;"
+                                                          class="fa fa-fw fa-eye field-icon">
+                                                      </span>
+                                                  </a>
+                                              </td>
+                                          </tr>
+                                      </tbody>
+                                      <tbody *ngIf="customerDoc?.length == 0">
+                                          <tr>
+                                              <td class="no-data-available">No data!</td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
                           </div>
-                        </div>
+                      </div>
                       </div>
                     </ng-template>
                   </ngb-tab>
@@ -1700,12 +1728,16 @@
                     <th><input type="text" class="form-control" placeholder="Address" name="AC_ADDR"> </th>
                     <th><input type="text" class="form-control" placeholder="Address" name="AC_CTCODE"> </th>
                     <th><input type="text" class="form-control" placeholder="Open Date" name="AC_OPDATE" /></th>
-                    <th><input type="text" class="form-control" placeholder="Manual Ref.Member No" name="REF_ACNO" /> </th>
+                    <th><input type="text" class="form-control" placeholder="Manual Ref.Member No" name="REF_ACNO" />
+                    </th>
                     <th><input type="text" class="form-control" placeholder="Category" name="AC_CATG" /> </th>
                     <th><input type="text" class="form-control" placeholder="Operation" name="AC_OPR_CODE" /> </th>
-                    <th><input type="text" class="form-control" placeholder="Balance Category" name="AC_BALCATG" /> </th>
-                    <th><input type="text" class="form-control" placeholder="Interest Category" name="AC_INTCATA" /></th>
-                    <th><input type="text" class="form-control" placeholder="Installment Amount" name="AC_SCHMAMT" /> </th>
+                    <th><input type="text" class="form-control" placeholder="Balance Category" name="AC_BALCATG" />
+                    </th>
+                    <th><input type="text" class="form-control" placeholder="Interest Category" name="AC_INTCATA" />
+                    </th>
+                    <th><input type="text" class="form-control" placeholder="Installment Amount" name="AC_SCHMAMT" />
+                    </th>
                     <th><input type="text" class="form-control" placeholder="Minor Details" name="AC_MINOR" /></th>
                     <th><input type="text" class="form-control" placeholder="Birth Date" name="AC_MBDATE" /></th>
                     <th><input type="text" class="form-control" placeholder="Guardian Name" name="AC_GRDNAME" /></th>
@@ -1714,7 +1746,8 @@
                     <th><input type="text" class="form-control" placeholder="Account Type" name="AC_INTROID" /> </th>
                     <th><input type="text" class="form-control" placeholder="Account code" name="AC_INTRACNO" /></th>
                     <th><input type="text" class="form-control" placeholder="Name" name="AC_INTRNAME" /> </th>
-                    <th><input type="text" class="form-control" placeholder="Signature Authority" name="SIGNATURE_AUTHORITY" /> </th>
+                    <th><input type="text" class="form-control" placeholder="Signature Authority"
+                        name="SIGNATURE_AUTHORITY" /> </th>
                   </tr>
                 </tfoot>
               </table>

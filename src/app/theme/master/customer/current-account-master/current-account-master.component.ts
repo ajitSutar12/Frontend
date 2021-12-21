@@ -103,7 +103,6 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   angForm: FormGroup;
   //Datatable variable
   dtExportButtonOptions: DataTables.Settings = {};
-  dtdocumentOptions: any = {}; //Datatable variable for document form
   Data: any;
   //variables for pagination
   page: number = 1;
@@ -137,6 +136,12 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   // Store data from backend
   currentAccountMaster: CurrentAccountMaster[];
+
+  //url to display document
+  documentUrl = this.url + '/'
+  //array of document of customer
+  customerDoc = []
+  schemeCode
 
   //introducer variables
   acno: any
@@ -207,10 +212,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
     private fb: FormBuilder) {
-    // this.datemax =new Date() ;
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-    console.log(this.datemax);
-
   }
 
   ngOnInit(): void {
@@ -343,36 +345,6 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       ],
       dom: 'Blrtip',
     };
-    this.dtdocumentOptions = {
-      ajax: 'fake-data/documents.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          data: 'Code',
-          title: 'Code'
-        },
-        {
-          data: 'Description',
-          title: 'Description'
-        },
-        {
-          data: 'IsAccepted',
-          title: 'Is Accepted'
-        }
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-    };
     this.runTimer();
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
@@ -448,6 +420,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   getCustomer(id) {
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
+      this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
       // this.ageCalculator(data.AC_BIRTH_DT);
       this.angForm.patchValue({
@@ -587,77 +560,66 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   getIntroducer(acno) {
     switch (acno) {
       case 'SB':
-        console.log("saving");
         this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'SH':
-        console.log("Share");
         this.schemeAccountNoService.getShareSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'CA':
-        console.log("Current account");
         this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'LN':
-        console.log("Term Loan");
         this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'TD':
-        console.log("Term Deposit");
         this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'DS':
-        console.log("Dispute Loan");
         this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'CC':
-        console.log("Cash Credit Loan");
         this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'GS':
-        console.log("anamat");
         this.schemeAccountNoService.getAnamatSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'PG':
-        console.log("Pigmy account");
         this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'AG':
-        console.log("Pigmy agent");
         this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'IV':
-        console.log("Investment");
         this.schemeAccountNoService.getInvestmentSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
         })
@@ -671,19 +633,27 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       AC_INTRNAME: value.name
     })
   }
-
+  getScheme(value) {
+    this.schemeCode = value.name
+  }
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
     if (formVal.AC_ADDFLAG == true) {
-      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
       this.addType = 'P'
     }
     else if (formVal.AC_ADDFLAG == false) {
-      console.log('formVal.AC_ADDFLAG ', formVal.AC_ADDFLAG)
       this.addType = 'T'
     }
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE;
+    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
     const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
+      'schemeCode': this.schemeCode,
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_PROPRITOR_NAME': formVal.AC_PROPRITOR_NAME,
@@ -740,6 +710,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.multiNominee = []
     this.multiJointAC = []
     this.multiAttorney = []
+    this.customerDoc = []
   }
 
   //Method for append data into fields
@@ -748,7 +719,6 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.updateShow = true;
     this.newbtnShow = true;
     this.currentAccountMasterService.getFormData(id).subscribe(data => {
-      console.log('edit', data)
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       //get nominee to edit
@@ -789,11 +759,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   updateData() {
     let data = this.angForm.value;
     if (data.AC_ADDFLAG == true) {
-      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
       this.addType = 'P'
     }
     else if (data.AC_ADDFLAG == false) {
-      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
       this.addType = 'T'
     }
     data['AC_ADDTYPE'] = this.addType
@@ -813,6 +781,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.multiNominee = []
       this.multiJointAC = []
       this.multiAttorney = []
+      this.customerDoc = []
       this.resetForm();
     })
   }
@@ -824,6 +793,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.multiNominee = []
     this.multiJointAC = []
     this.multiAttorney = []
+    this.customerDoc = []
     this.resetForm();
   }
 
@@ -894,6 +864,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.PowerofAttorneyTrue = false
     this.JointAccountsTrue = false
     this.nomineeTrue = false
+    this.customerDoc = []
   }
 
   ngOnDestroy(): void {
@@ -932,7 +903,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   //   }
   // }
 
-  //Nominee
+
+  //Nominee  
   addNominee() {
     const formVal = this.angForm.value;
     var object = {

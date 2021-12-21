@@ -164,6 +164,11 @@ export class CashCreditMasterComponent implements OnInit {
 
   //Scheme type variable
   schemeType: string = 'CC'
+  schemeCode
+  //url to display document
+  documentUrl = this.url + '/'
+  //array of document of customer
+  customerDoc = []
 
   // Filter Variable
   filterData = {};
@@ -305,7 +310,7 @@ export class CashCreditMasterComponent implements OnInit {
     private el: ElementRef,
     public router: Router
   ) {
-    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
 
   }
 
@@ -675,21 +680,28 @@ export class CashCreditMasterComponent implements OnInit {
     });
   }
 
-
+  getSchemeCode(value) {
+    this.schemeCode = value.name
+  }
   // Method to insert data into database through NestJS
 
   submit() {
-
     const formVal = this.angForm.value;
-
     if (formVal.AC_ADDFLAG == true) {
       this.addType = 'P'
     }
     else if (formVal.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
-
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE;
+    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
     const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
+      'schemeCode': this.schemeCode,
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
@@ -766,6 +778,7 @@ export class CashCreditMasterComponent implements OnInit {
 
     //To clear form
     this.resetForm();
+    this.customerDoc=[]
     this.multiCoBorrower = []
     this.multiGuarantor = []
     this.multiSecurity = [];
@@ -854,6 +867,7 @@ export class CashCreditMasterComponent implements OnInit {
     this.multiSecurity = [];
     this.multiCoBorrower = [];
     this.multiGuarantor = [];
+    this.customerDoc=[]
     this.resetForm();
   }
 
@@ -883,6 +897,7 @@ export class CashCreditMasterComponent implements OnInit {
       this.multiSecurity = [];
       this.multiCoBorrower = [];
       this.multiSecurity = []
+      this.customerDoc=[]
       this.resetForm();
     })
   }
@@ -931,6 +946,7 @@ export class CashCreditMasterComponent implements OnInit {
     // this.calculation()
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
+      this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),

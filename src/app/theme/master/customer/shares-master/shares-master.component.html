@@ -1253,22 +1253,27 @@
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="table-responsive">
-                                                            <table class="
-                                                            table table-striped table-bordered table-hover
-                                                          ">
+                                                            <table
+                                                                class="table table-striped table-bordered table-hover compact">
                                                                 <tbody *ngIf="customerDoc?.length != 0">
                                                                     <tr>
                                                                         <th>Code</th>
                                                                         <th>Description</th>
                                                                         <th>Path</th>
                                                                     </tr>
-                                                                    <tr *ngFor="
-                                                                let data of customerDoc;
-                                                                let indexOfelement = index
-                                                              ">
+                                                                    <tr *ngFor="let data of customerDoc;
+                                                                let indexOfelement = index">
                                                                         <td>{{ data.DocumentMasterID }}</td>
-                                                                        <td>{{ data.description }}</td>
-                                                                        <td>{{ data.PATH }}</td>
+                                                                        <td>{{ data.DocumentMaster.NAME }}</td>
+                                                                        <td>
+                                                                            <a href="{{documentUrl+data.PATH}}"
+                                                                                target="_blank">
+                                                                                <span
+                                                                                    style="font-size: 20px;color: #0f459b; cursor: pointer;"
+                                                                                    class="fa fa-fw fa-eye field-icon">
+                                                                                </span>
+                                                                            </a>
+                                                                        </td>
                                                                     </tr>
                                                                 </tbody>
                                                                 <tbody *ngIf="customerDoc?.length == 0">
@@ -1474,24 +1479,42 @@
                                 <tfoot>
                                     <tr>
                                         <th></th>
-                                        <th><input type="text" class="form-control" placeholder="Scheme Type" name="AC_ACNOTYPE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Scheme" name="AC_TYPE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Bank AC No" name="BANKACNO"></th>
-                                        <th><input type="text" class="form-control" placeholder="Member No" name="AC_NO"></th>
-                                        <th><input type="text" class="form-control" placeholder="Customer ID" name="AC_CUSTID"></th>
-                                        <th><input type="text" class="form-control" placeholder="Customer Name" name="AC_NAME"></th>
-                                        <th><input type="text" class="form-control" placeholder="Category" name="AC_CATG"></th>
-                                        <th><input type="text" class="form-control" placeholder="Employee No." name="EMP_NO"></th>
-                                        <th><input type="text" class="form-control" placeholder="Represent by" name="AC_SREPRESENT"> </th>
-                                        <th><input type="text" class="form-control" placeholder="Address" name="AC_ADDR"> </th>
-                                        <th><input type="text" class="form-control" placeholder="Address" name="AC_CTCODE"> </th>
-                                        <th><input type="text" class="form-control" placeholder="Open Date" name="AC_OPDATE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Branch Code" name="AC_BRANCH"></th>
-                                        <th><input type="text" class="form-control" placeholder="Sal.Div" name="AC_SALARYDIVISION_CODE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Sub Sal.Div"name="SUB_SALARYDIVISION_CODE"> </th>
-                                        <th><input type="text" class="form-control" placeholder="Bank A/c No." name="AC_SBNO"></th>
-                                        <th><input type="text" class="form-control" placeholder="Installment" name="AC_INSTALLMENT"></th>
-                                        <th><input type="text" class="form-control" placeholder="Manual Reference Member No."name="REF_ACNO"></th>
+                                        <th><input type="text" class="form-control" placeholder="Scheme Type"
+                                                name="AC_ACNOTYPE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Scheme" name="AC_TYPE">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="Bank AC No"
+                                                name="BANKACNO"></th>
+                                        <th><input type="text" class="form-control" placeholder="Member No"
+                                                name="AC_NO"></th>
+                                        <th><input type="text" class="form-control" placeholder="Customer ID"
+                                                name="AC_CUSTID"></th>
+                                        <th><input type="text" class="form-control" placeholder="Customer Name"
+                                                name="AC_NAME"></th>
+                                        <th><input type="text" class="form-control" placeholder="Category"
+                                                name="AC_CATG"></th>
+                                        <th><input type="text" class="form-control" placeholder="Employee No."
+                                                name="EMP_NO"></th>
+                                        <th><input type="text" class="form-control" placeholder="Represent by"
+                                                name="AC_SREPRESENT"> </th>
+                                        <th><input type="text" class="form-control" placeholder="Address"
+                                                name="AC_ADDR"> </th>
+                                        <th><input type="text" class="form-control" placeholder="Address"
+                                                name="AC_CTCODE"> </th>
+                                        <th><input type="text" class="form-control" placeholder="Open Date"
+                                                name="AC_OPDATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Branch Code"
+                                                name="AC_BRANCH"></th>
+                                        <th><input type="text" class="form-control" placeholder="Sal.Div"
+                                                name="AC_SALARYDIVISION_CODE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Sub Sal.Div"
+                                                name="SUB_SALARYDIVISION_CODE"> </th>
+                                        <th><input type="text" class="form-control" placeholder="Bank A/c No."
+                                                name="AC_SBNO"></th>
+                                        <th><input type="text" class="form-control" placeholder="Installment"
+                                                name="AC_INSTALLMENT"></th>
+                                        <th><input type="text" class="form-control"
+                                                placeholder="Manual Reference Member No." name="REF_ACNO"></th>
                                     </tr>
                                 </tfoot>
                             </table>

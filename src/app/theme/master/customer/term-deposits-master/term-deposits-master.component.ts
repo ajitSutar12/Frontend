@@ -112,9 +112,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   dtTrigger: Subject<any> = new Subject();
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
-  dtExportOptions: any = {}
-
-
   //Scheme type variable
   schemeType: string = 'TD'
   addType: string
@@ -194,10 +191,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //variable for checkbox and radio button 
   isOperation: boolean = false
 
-  dtNomineeOptions: any = {};
-  dtJointOptions: any = {};
-  dtPowerOptions: any = {};
-  dtdocumentOptions: any = {};
+  //url to display document
+  documentUrl = this.url + '/'
+  //array of document of customer
+  customerDoc = []
+  schemeCode
 
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
@@ -382,39 +380,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       dom: 'Blrtip',
     };
 
-    this.dtdocumentOptions = {
-      ajax: 'fake-data/documents.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          data: 'Code',
-          title: 'Code'
-        },
-        {
-          data: 'Description',
-          title: 'Description'
-        },
-        {
-          data: 'IsAccepted',
-          title: 'Is Accepted'
-        }
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-
-    };
-
     this.runTimer();
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
@@ -575,13 +540,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //function to toggle temp address field
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
-    // this.angForm.controls['AC_THONO'].reset()
-    // this.angForm.controls['AC_TWARD'].reset()
-    // this.angForm.controls['AC_TADDR'].reset()
-    // this.angForm.controls['AC_TGALLI'].reset()
-    // this.angForm.controls['AC_TAREA'].reset()
-    // this.angForm.controls['AC_TCTCODE'].reset()
-    // this.angForm.controls['AC_TPIN'].reset()
+    this.angForm.controls['AC_THONO'].reset()
+    this.angForm.controls['AC_TWARD'].reset()
+    this.angForm.controls['AC_TADDR'].reset()
+    this.angForm.controls['AC_TGALLI'].reset()
+    this.angForm.controls['AC_TAREA'].reset()
+    this.angForm.controls['AC_TCTCODE'].reset()
+    this.angForm.controls['AC_TPIN'].reset()
   }
 
   //calculate age for minor details
@@ -1157,9 +1122,14 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
 
+  getScheme(value) {
+    this.schemeCode = value.name
+  }
+
   getCustomer(id) {
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
+      this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
       this.ageCalculator(data.AC_BIRTH_DT);
       this.angForm.patchValue({
@@ -1205,12 +1175,22 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     else if (formVal.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
+
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE;
+    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
     const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
+      'schemeCode': this.schemeCode,
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
       // 'AC_INTRATE':formVal.AC_INTRATE,
       'AC_CUSTID': formVal.AC_CUSTID,
+      'AC_NAME': formVal.AC_NAME,
       'REF_ACNO': formVal.REF_ACNO,
       'AC_OPDATE': formVal.AC_OPDATE,
       'AC_CATG': formVal.AC_CATG,
@@ -1270,6 +1250,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.multiNominee = []
     this.multiJointAC = []
     this.multiAttorney = []
+    this.customerDoc = []
   }
   //Method for append data into fields
   editClickHandler(id) {
@@ -1321,11 +1302,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updateData() {
     let data = this.angForm.value;
     if (data.AC_ADDFLAG == true) {
-      // console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
       this.addType = 'P'
     }
     else if (data.AC_ADDFLAG == false) {
-      // console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
       this.addType = 'T'
     }
     data['AC_ADDTYPE'] = this.addType
@@ -1344,6 +1323,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.multiNominee = []
       this.multiJointAC = []
       this.multiAttorney = []
+      this.customerDoc = []
       this.resetForm();
     })
   }
@@ -1431,6 +1411,17 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.dtTrigger.next();
     });
   }
+  //reset function while update
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.multiNominee = []
+    this.multiJointAC = []
+    this.multiAttorney = []
+    this.customerDoc = []
+    this.resetForm();
+  }
 
   addNominee() {
     const formVal = this.angForm.value;
@@ -1496,18 +1487,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   delNominee(id) {
     this.multiNominee.splice(id, 1)
-  }
-
-  //reset function while update
-  addNewData() {
-    this.showButton = true;
-    this.updateShow = false;
-    this.newbtnShow = false;
-    this.multiNominee = []
-    this.multiJointAC = []
-    this.multiAttorney = []
-    this.resetForm();
-  }
+  } 
 
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();

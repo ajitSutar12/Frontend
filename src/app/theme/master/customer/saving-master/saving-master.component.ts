@@ -132,6 +132,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   JointAccountsTrue: boolean = false;
   PowerofAttorneyTrue: boolean = false;
 
+  //url to display document
+  documentUrl = this.url + '/'
+  //array of document of customer
+  customerDoc = []
+
   // Store data from backend
   savingMaster: SavingMaster[];
 
@@ -164,6 +169,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   addType: string
   //Scheme type variable
   schemeType: string = 'SB'
+  schemeCode
   //Dropdown options
   scheme //scheme code from schemast(S_ACNOTYPE)
   Cust_ID: any[] //customer id from idmaster
@@ -205,10 +211,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
     private fb: FormBuilder) {
-    // this.datemax =new Date() ;
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-    console.log(this.datemax);
-
   }
 
   ngOnInit(): void {
@@ -354,36 +357,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       ],
       dom: 'Blrtip',
     };
-    this.dtdocumentOptions = {
-      ajax: 'fake-data/documents.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          data: 'Code',
-          title: 'Code'
-        },
-        {
-          data: 'Description',
-          title: 'Description'
-        },
-        {
-          data: 'IsAccepted',
-          title: 'Is Accepted'
-        }
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-    };
+
     this.runTimer();
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
@@ -457,13 +431,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   //disabledate on keyup
   disabledate(data: any) {
-
-    console.log(data);
     if (data != "") {
       if (data > this.datemax) {
         Swal.fire("Invalid Input", "Please insert valid date ", "warning");
         (document.getElementById("AC_OPDATE") as HTMLInputElement).value = ""
-
       }
     }
   }
@@ -471,6 +442,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   getCustomer(id) {
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
+      this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
       this.ageCalculator(data.AC_BIRTH_DT);
       this.angForm.patchValue({
@@ -682,6 +654,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_INTRNAME: value.name
     })
   }
+  getScheme(value) {
+    this.schemeCode = value.name
+  }
 
   // Method to insert data into database through NestJS
   submit() {
@@ -692,10 +667,18 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     else if (formVal.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE;
+    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
+
     const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
+      'schemeCode': this.schemeCode,
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
-      'AC_NO': formVal.AC_NO,
       'AC_CATG': formVal.AC_CATG,
       'AC_BALCATG': formVal.AC_BALCATG,
       'AC_OPR_CODE': formVal.AC_OPR_CODE,
@@ -748,6 +731,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.multiNominee = []
     this.multiJointAC = []
     this.multiAttorney = []
+    this.customerDoc = []
   }
 
   //Method for append data into fields
@@ -794,11 +778,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   updateData() {
     let data = this.angForm.value;
     if (data.AC_ADDFLAG == true) {
-      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
       this.addType = 'P'
     }
     else if (data.AC_ADDFLAG == false) {
-      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
       this.addType = 'T'
     }
     data['AC_ADDTYPE'] = this.addType
@@ -817,6 +799,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.multiNominee = []
       this.multiJointAC = []
       this.multiAttorney = []
+      this.customerDoc = []
       this.resetForm();
     })
   }
@@ -828,6 +811,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.multiNominee = []
     this.multiJointAC = []
     this.multiAttorney = []
+    this.customerDoc = []
     this.resetForm();
   }
 

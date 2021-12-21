@@ -13,7 +13,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" #scheme1
                                     placeholder="Scheme *" required title="Compulsory Selection" [(ngModel)]="code"
-                                    (selected)="getScheme(code)" formControlName="AC_TYPE">
+                                    (selected)="getScheme(code);getSchemeCode($event)" formControlName="AC_TYPE">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -1511,7 +1511,39 @@
                                     <ng-template ngbTabContent>
                                         <div [@fadeInOutTranslate] class="m-t-15">
                                             <div class="row">
-
+                                                <div class="col-12">
+                                                    <div class="table-responsive">
+                                                        <table
+                                                            class="table table-striped table-bordered table-hover compact">
+                                                            <tbody *ngIf="customerDoc?.length != 0">
+                                                                <tr>
+                                                                    <th>Code</th>
+                                                                    <th>Description</th>
+                                                                    <th>Path</th>
+                                                                </tr>
+                                                                <tr *ngFor="let data of customerDoc;
+                                                            let indexOfelement = index">
+                                                                    <td>{{ data.DocumentMasterID }}</td>
+                                                                    <td>{{ data.DocumentMaster.NAME }}</td>
+                                                                    <td>
+                                                                        <a href="{{documentUrl+data.PATH}}"
+                                                                            target="_blank">
+                                                                            <span
+                                                                                style="font-size: 20px;color: #0f459b; cursor: pointer;"
+                                                                                class="fa fa-fw fa-eye field-icon">
+                                                                            </span>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tbody *ngIf="customerDoc?.length == 0">
+                                                                <tr>
+                                                                    <td class="no-data-available">No data!</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </ng-template>
@@ -1519,7 +1551,7 @@
                                 <!-- End Documents Tab -->
                             </ngb-tabset>
                         </div>
-                    </div>                   
+                    </div>
                 </form>
             </div>
             <div class="card-footer">
@@ -1535,7 +1567,7 @@
                         </button>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -1648,41 +1680,76 @@
                                 <tfoot>
                                     <tr>
                                         <th></th>
-                                        <th><input type="text" class="form-control" placeholder="Type" name="AC_ACNOTYPE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Scheme" name="AC_TYPE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Account No" name="AC_NO"></th>
-                                        <th><input type="text" class="form-control" placeholder="Customer ID" name="AC_CUSTID"></th>
-                                        <th><input type="text" class="form-control" placeholder="Name" name="AC_NAME"></th>
-                                        <th><input type="text" class="form-control" placeholder="Opening Date" name="AC_OPDATE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Renewal Date" name="AC_OPEN_OLD_DATE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Manual Reference Member No."name="REF_ACNO"></th>
-                                        <th><input type="text" class="form-control" placeholder="Interest Category" name="AC_INTCATA"></th>
-                                        <th><input type="text" class="form-control" placeholder="Sanction Limit"name="AC_SANCTION_AMOUNT"></th>
-                                        <th><input type="text" class="form-control" placeholder="Sanction Date" name="AC_SANCTION_DATE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Drawing Power" name="AC_DRAWPOWER_AMT"></th>
-                                        <th><input type="text" class="form-control" placeholder="Period" name="AC_MONTHS"></th>
-                                        <th><input type="text" class="form-control" placeholder="Expiry Date" name="AC_EXPIRE_DATE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Interest Rate" name="AC_INTRATE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Installment" name="AC_INSTALLMENT"></th>
-                                        <th><input type="text" class="form-control" placeholder="Sanction Authority" name="AC_AUTHORITY"></th>
-                                        <th><input type="text" class="form-control" placeholder="Recommended By" name="AC_RECOMMEND_BY"></th>
-                                        <th><input type="text" class="form-control" placeholder="Recovery Cleark"name="AC_RECOVERY_CLERK"></th>
-                                        <th><input type="text" class="form-control" placeholder="Priority" name="AC_PRIORITY"></th>
-                                        <th><input type="text" class="form-control" placeholder="Priority 1" name="AC_PRIORITY_SUB1"></th>
-                                        <th><input type="text" class="form-control" placeholder="Priority 2" name="AC_PRIORITY_SUB2"></th>
-                                        <th><input type="text" class="form-control" placeholder="Priority 3" name="AC_PRIORITY_SUB3"> </th>
-                                        <th><input type="text" class="form-control" placeholder="Weaker Section" name="AC_WEAKER"></th>
-                                        <th><input type="text" class="form-control" placeholder="Purpose" name="AC_PURPOSE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Industry" name="AC_INDUSTRY"></th>
-                                        <th><input type="text" class="form-control" placeholder="Health Code" name="AC_HEALTH"></th>
-                                        <th><input type="text" class="form-control" placeholder="Account Type" name="AC_RELATION_TYPE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Director" name="AC_DIRECTOR"></th>
-                                        <th><input type="text" class="form-control" placeholder="Director Relation" name="AC_DIRECTOR_RELATION"></th>
-                                        <th><input type="text" class="form-control" placeholder="No" name="AC_COREG_NO"></th>
-                                        <th><input type="text" class="form-control" placeholder="Date" name="AC_COREG_DATE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Amount" name="AC_COREG_AMT"></th>
-                                        <th><input type="text" class="form-control" placeholder="No" name="AC_RESO_NO"></th>
-                                        <th><input type="text" class="form-control" placeholder="Date" name="AC_RESO_DATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Type"
+                                                name="AC_ACNOTYPE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Scheme" name="AC_TYPE">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="Account No"
+                                                name="AC_NO"></th>
+                                        <th><input type="text" class="form-control" placeholder="Customer ID"
+                                                name="AC_CUSTID"></th>
+                                        <th><input type="text" class="form-control" placeholder="Name" name="AC_NAME">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="Opening Date"
+                                                name="AC_OPDATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Renewal Date"
+                                                name="AC_OPEN_OLD_DATE"></th>
+                                        <th><input type="text" class="form-control"
+                                                placeholder="Manual Reference Member No." name="REF_ACNO"></th>
+                                        <th><input type="text" class="form-control" placeholder="Interest Category"
+                                                name="AC_INTCATA"></th>
+                                        <th><input type="text" class="form-control" placeholder="Sanction Limit"
+                                                name="AC_SANCTION_AMOUNT"></th>
+                                        <th><input type="text" class="form-control" placeholder="Sanction Date"
+                                                name="AC_SANCTION_DATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Drawing Power"
+                                                name="AC_DRAWPOWER_AMT"></th>
+                                        <th><input type="text" class="form-control" placeholder="Period"
+                                                name="AC_MONTHS"></th>
+                                        <th><input type="text" class="form-control" placeholder="Expiry Date"
+                                                name="AC_EXPIRE_DATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Interest Rate"
+                                                name="AC_INTRATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Installment"
+                                                name="AC_INSTALLMENT"></th>
+                                        <th><input type="text" class="form-control" placeholder="Sanction Authority"
+                                                name="AC_AUTHORITY"></th>
+                                        <th><input type="text" class="form-control" placeholder="Recommended By"
+                                                name="AC_RECOMMEND_BY"></th>
+                                        <th><input type="text" class="form-control" placeholder="Recovery Cleark"
+                                                name="AC_RECOVERY_CLERK"></th>
+                                        <th><input type="text" class="form-control" placeholder="Priority"
+                                                name="AC_PRIORITY"></th>
+                                        <th><input type="text" class="form-control" placeholder="Priority 1"
+                                                name="AC_PRIORITY_SUB1"></th>
+                                        <th><input type="text" class="form-control" placeholder="Priority 2"
+                                                name="AC_PRIORITY_SUB2"></th>
+                                        <th><input type="text" class="form-control" placeholder="Priority 3"
+                                                name="AC_PRIORITY_SUB3"> </th>
+                                        <th><input type="text" class="form-control" placeholder="Weaker Section"
+                                                name="AC_WEAKER"></th>
+                                        <th><input type="text" class="form-control" placeholder="Purpose"
+                                                name="AC_PURPOSE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Industry"
+                                                name="AC_INDUSTRY"></th>
+                                        <th><input type="text" class="form-control" placeholder="Health Code"
+                                                name="AC_HEALTH"></th>
+                                        <th><input type="text" class="form-control" placeholder="Account Type"
+                                                name="AC_RELATION_TYPE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Director"
+                                                name="AC_DIRECTOR"></th>
+                                        <th><input type="text" class="form-control" placeholder="Director Relation"
+                                                name="AC_DIRECTOR_RELATION"></th>
+                                        <th><input type="text" class="form-control" placeholder="No" name="AC_COREG_NO">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="Date"
+                                                name="AC_COREG_DATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Amount"
+                                                name="AC_COREG_AMT"></th>
+                                        <th><input type="text" class="form-control" placeholder="No" name="AC_RESO_NO">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="Date"
+                                                name="AC_RESO_DATE"></th>
                                     </tr>
                                 </tfoot>
                             </table>

@@ -168,8 +168,11 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   //Scheme type variable
   schemeType: string = 'LN'
-
-
+  schemeCode
+  //url to display document
+  documentUrl = this.url + '/'
+  //array of document of customer
+  customerDoc = []
   // Filter Variable
   filterData = {};
   prifix: any[];
@@ -698,21 +701,29 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       GAC_MEMBTYPE: [''],
     });
   }
+  getSchemeCode(value) {
+    this.schemeCode = value.name
+  }
 
   // Method to insert data into database through NestJS
 
   submit() {
-
     const formVal = this.angForm.value;
-
     if (formVal.AC_ADDFLAG == true) {
       this.addType = 'P'
     }
     else if (formVal.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
-
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE;
+    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
     const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
+      'schemeCode': this.schemeCode,
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
@@ -793,6 +804,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
     //To clear form
     this.resetForm();
+    this.customerDoc=[]
     this.multiCoBorrower = []
     this.multiGuarantor = []
     this.multiSecurity = [];
@@ -885,6 +897,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.multiSecurity = [];
     this.multiCoBorrower = [];
     this.multiGuarantor = [];
+    this.customerDoc=[]
     this.resetForm();
   }
 
@@ -914,6 +927,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.multiSecurity = [];
       this.multiCoBorrower = [];
       this.multiSecurity = []
+      this.customerDoc=[]
       this.resetForm();
     })
   }
@@ -961,6 +975,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.calculation()
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
+      this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
@@ -1036,18 +1051,18 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
 
-    //disabledate on keyup
-    disabledate(data:any){
-    
-      console.log(data);
-      if(data != ""){
-        if(data > this.datemax){
-          Swal.fire("Invalid Input", "Please insert valid date ", "warning");
-          (document.getElementById("AC_OPDATE")as HTMLInputElement).value = ""
-              
-        }
-      } 
+  //disabledate on keyup
+  disabledate(data: any) {
+
+    console.log(data);
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        (document.getElementById("AC_OPDATE") as HTMLInputElement).value = ""
+
+      }
     }
+  }
   //Method for set value for repay mode and installment type
 
   getScheme(code) {
@@ -1662,7 +1677,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.date = this.angForm.controls['AC_OPDATE'].value
       if (data != typeof (undefined)) {
         data.forEach(async (element) => {
-         debugger
+          debugger
           if (this.date == element.EFFECT_DATE) {
             console.log("element", element)
             console.log("if true")
@@ -1677,7 +1692,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
               AC_INTCATA: element.INT_CATEGORY,
               AC_INTRATE: element.rate[0].INT_RATE,
             })
-          }else if (element.EFFECT_DATE > this.date < element.EFFECT_DATE) {
+          } else if (element.EFFECT_DATE > this.date < element.EFFECT_DATE) {
             console.log("element", element)
             console.log("else if 2nd true")
             this.angForm.patchValue({

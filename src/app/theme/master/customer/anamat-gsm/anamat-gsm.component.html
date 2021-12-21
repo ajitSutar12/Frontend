@@ -13,12 +13,10 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
                                     placeholder="Scheme *" required title="Compulsory Selection"
-                                    formControlName="AC_TYPE">
+                                    formControlName="AC_TYPE" (selected)="getScheme($event)">
                                 </ng-select>
                             </div>
-
                         </div>
-
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
@@ -334,7 +332,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>                   
+                    </div>
                 </form>
             </div>
             <div class="card-footer">
@@ -350,7 +348,7 @@
                         </button>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -413,25 +411,44 @@
                                 <tfoot>
                                     <tr>
                                         <th></th>
-                                        <th><input type="text" class="form-control" placeholder="scheme" name="AC_ACNOTYPE"></th>
-                                        <th><input type="text" class="form-control" placeholder="scheme" name="AC_TYPE"></th>
-                                        <th><input type="text" class="form-control" placeholder="CustomerID" name="AC_CUSTID"></th>
-                                        <th><input type="text" class="form-control" placeholder="Account no" name="AC_NO"></th>
-                                        <th><input type="text" class="form-control" placeholder="title" name="AC_TITLE"></th>
-                                        <th><input type="text" class="form-control" placeholder="name" name="AC_NAME"></th>
-                                        <th><input type="text" class="form-control" placeholder="Member scheme" name="AC_MEMBTYPE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Member no" name="AC_MEMBNO"></th>
-                                        <th><input type="text" class="form-control" placeholder="House" name="AC_HONO"></th>
-                                        <th><input type="text" class="form-control" placeholder="Ward" name="AC_HONO"></th>
-                                        <th><input type="text" class="form-control" placeholder="Detail" name="AC_TADDR"></th>
-                                        <th><input type="text" class="form-control" placeholder="Galli" name="AC_TGALLI"></th>
-                                        <th><input type="text" class="form-control" placeholder="Area" name="AC_AREA"></th>
-                                        <th><input type="text" class="form-control" placeholder="City" name="AC_CTCODE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Pincode" name="AC_PIN"></th>
-                                        <th><input type="text" class="form-control" placeholder="opening bal. date" name="AC_OPDATE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Recovery" name="Recovery"></th>
-                                        <th><input type="text" class="form-control" placeholder="opening bal" name="DEBIT"></th>
-                                        <th><input type="text" class="form-control" placeholder="AC_PARTICULAR" name="Reason">
+                                        <th><input type="text" class="form-control" placeholder="scheme"
+                                                name="AC_ACNOTYPE"></th>
+                                        <th><input type="text" class="form-control" placeholder="scheme" name="AC_TYPE">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="CustomerID"
+                                                name="AC_CUSTID"></th>
+                                        <th><input type="text" class="form-control" placeholder="Account no"
+                                                name="AC_NO"></th>
+                                        <th><input type="text" class="form-control" placeholder="title" name="AC_TITLE">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="name" name="AC_NAME">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="Member scheme"
+                                                name="AC_MEMBTYPE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Member no"
+                                                name="AC_MEMBNO"></th>
+                                        <th><input type="text" class="form-control" placeholder="House" name="AC_HONO">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="Ward" name="AC_HONO">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="Detail"
+                                                name="AC_TADDR"></th>
+                                        <th><input type="text" class="form-control" placeholder="Galli"
+                                                name="AC_TGALLI"></th>
+                                        <th><input type="text" class="form-control" placeholder="Area" name="AC_AREA">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="City" name="AC_CTCODE">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="Pincode" name="AC_PIN">
+                                        </th>
+                                        <th><input type="text" class="form-control" placeholder="opening bal. date"
+                                                name="AC_OPDATE"></th>
+                                        <th><input type="text" class="form-control" placeholder="Recovery"
+                                                name="Recovery"></th>
+                                        <th><input type="text" class="form-control" placeholder="opening bal"
+                                                name="DEBIT"></th>
+                                        <th><input type="text" class="form-control" placeholder="AC_PARTICULAR"
+                                                name="Reason">
                                         </th>
                                     </tr>
                                 </tfoot>

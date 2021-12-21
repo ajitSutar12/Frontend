@@ -11,7 +11,7 @@
             <div class="col-sm-3">
               <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" placeholder=" Scheme * "
-                  formControlName="AC_TYPE" [(ngModel)]="selectedValue">
+                  formControlName="AC_TYPE" [(ngModel)]="selectedValue" (selected)="getScheme($event)">
                 </ng-select>
               </div>
               <div class="form-group form-primary form-static-label"
@@ -343,7 +343,8 @@
                             <span class="border-lable-flt">
                               <input type="text" name="AC_SCHMAMT" class="form-control" placeholder=" " id="AC_SCHMAMT"
                                 title="Input allowed only  0-9" pattern="\d{1,10}(\.\d{2})?" maxlength="13"
-                                (ngModelChange)="setMaturityDate()" (focusout)="checkAmount()" formControlName="AC_SCHMAMT">
+                                (ngModelChange)="setMaturityDate()" (focusout)="checkAmount()"
+                                formControlName="AC_SCHMAMT">
                               <label for="AC_SCHMAMT">Deposit Amount</label>
                             </span>
                           </div>
@@ -1518,11 +1519,36 @@
                 <ngb-tab title="5.Documents">
                   <ng-template ngbTabContent>
                     <div [@fadeInOutTranslate] class="m-t-15">
-                      <div class="col-12">
-                        <div class="table-responsive">
-                          <table datatable [dtOptions]="dtdocumentOptions"
-                            class="table table-striped table-bordered table-hover compact" style="width:100%;">
-                          </table>
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover compact">
+                              <tbody *ngIf="customerDoc?.length != 0">
+                                <tr>
+                                  <th>Code</th>
+                                  <th>Description</th>
+                                  <th>Path</th>
+                                </tr>
+                                <tr *ngFor="let data of customerDoc;
+                                    let indexOfelement = index">
+                                  <td>{{ data.DocumentMasterID }}</td>
+                                  <td>{{ data.DocumentMaster.NAME }}</td>
+                                  <td>
+                                    <a href="{{documentUrl+data.PATH}}" target="_blank">
+                                      <span style="font-size: 20px;color: #0f459b; cursor: pointer;"
+                                        class="fa fa-fw fa-eye field-icon">
+                                      </span>
+                                    </a>
+                                  </td>
+                                </tr>
+                              </tbody>
+                              <tbody *ngIf="customerDoc?.length == 0">
+                                <tr>
+                                  <td class="no-data-available">No data!</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1646,10 +1672,12 @@
                     <th><input type="text" class="form-control" placeholder="Intrest Category" name="AC_INTCATA">
                     <th><input type="text" class="form-control" placeholder="Recovery" name="AC_IS_RECOVERY"> </th>
                     <th><input type="text" class="form-control" placeholder="Receipt No." name="AC_REF_RECEIPTNO"> </th>
-                    <th><input type="text" class="form-control" placeholder="As On Date" name="AC_RENEAC_ASON_DATEW_DATE"></th>
+                    <th><input type="text" class="form-control" placeholder="As On Date"
+                        name="AC_RENEAC_ASON_DATEW_DATE"></th>
                     <th><input type="text" class="form-control" placeholder="Period" name="AC_MONTHS"></th>
                     <th><input type="text" class="form-control" placeholder="Maturity Amount" name="AC_MATUAMT"></th>
-                    <th><input type="text" class="form-control" placeholder="Is Discounted Interest Applicable?" name="IS_DISCOUNTED_INT_RATE"></th>
+                    <th><input type="text" class="form-control" placeholder="Is Discounted Interest Applicable?"
+                        name="IS_DISCOUNTED_INT_RATE"></th>
                     <th><input type="text" class="form-control" placeholder="Minor Details" name="AC_MINOR"></th>
                     <th><input type="text" class="form-control" placeholder="Birth Date" name="AC_MBDATE"></th>
                     <th><input type="text" class="form-control" placeholder="Guardian Name" name="AC_GRDNAME"> </th>
@@ -1658,7 +1686,8 @@
                     <th><input type="text" class="form-control" placeholder="Account Type" name="AC_INTROID"></th>
                     <th><input type="text" class="form-control" placeholder="Account code" name="AC_INTRACNO"></th>
                     <th><input type="text" class="form-control" placeholder="Name" name="AC_INTRNAME"></th>
-                    <th><input type="text" class="form-control" placeholder="Signature Authority" name="SIGNATURE_AUTHORITY"></th>
+                    <th><input type="text" class="form-control" placeholder="Signature Authority"
+                        name="SIGNATURE_AUTHORITY"></th>
 
                   </tr>
                 </tfoot>

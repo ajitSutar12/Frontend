@@ -132,9 +132,10 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   counter = 1;
   obj: any;
   rowData = [];
-  //dropdown\
+  //dropdown
   Cust_ID: any[]
 
+  schemeCode
   CastMasterDropdown: any[];
   OwnbranchMasterDropdown: any[];
   StatementCodeDropdown: any[];
@@ -485,13 +486,25 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     })
   }
 
+  getScheme(value) {
+    this.schemeCode = value.name
+  }
+
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE;
+    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
     const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
+      'schemeCode': this.schemeCode,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_NO': formVal.AC_NO,
+      'AC_NAME': formVal.AC_NAME,
       'AC_CUSTID': formVal.AC_CUSTID,
       'AC_OPDATE': formVal.AC_OPDATE,
       'PIGMY_ACTYPE': formVal.PIGMY_ACTYPE,
@@ -501,7 +514,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       'AC_INTRNAME': formVal.AC_INTRNAME,
       'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
       'NomineeData': this.multiNominee
-
     }
     this.PigmyAgentMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');

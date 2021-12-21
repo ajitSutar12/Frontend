@@ -1,4 +1,4 @@
-import { AfterViewInit,Component,OnDestroy,OnInit, ViewChild} from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 
 //animation
 import { animate, style, transition, trigger } from "@angular/animations";
@@ -25,14 +25,14 @@ import { environment } from "../../../../../environments/environment";
 import { anamatGSMService } from "./anamat-gsm.service";
 
 //service file for fetching records from customer ID
-import { CustomerIdService } from "../customer-id/customer-id.service"; 
+import { CustomerIdService } from "../customer-id/customer-id.service";
 
 //Service file of dropdown
 import { CustomerIDMasterDropdownService } from "../../../../shared/dropdownService/customer-id-master-dropdown.service";
 import { cityMasterService } from "../../../../shared/dropdownService/city-master-dropdown.service";
 import { SchemeCodeDropdownService } from "../../../../shared/dropdownService/scheme-code-dropdown.service";
 import { PrefixMasterDropdownService } from "src/app/shared/dropdownService/prefix-master-dropdown.service";
-import {SystemMasterParametersService} from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service"
+import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service"
 
 
 // Handling datatable data
@@ -86,9 +86,9 @@ interface anamatinf {
 })
 
 export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
-   //api
-   url = environment.base_url;
-  
+  //api
+  url = environment.base_url;
+
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
 
@@ -124,7 +124,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
- 
+
   //for search functionality
   filterData = {};
 
@@ -138,14 +138,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // for new customer
   newCustomerID;
-  
+
   updateID: number = 0;
 
   //Scheme type variable
   schemeType: string = 'GS'
- 
+  schemeCode
   timeLeft = 5;
-  
+
   id: any = '';
   datemax: any;
 
@@ -155,14 +155,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     private anamatGSMService: anamatGSMService,
     public customerIdService: CustomerIdService,
     private prefixMaster: PrefixMasterDropdownService,
-    private cityMasterService: cityMasterService, 
+    private cityMasterService: cityMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private customerID: CustomerIDMasterDropdownService,
-    private systemParameter:SystemMasterParametersService
+    private systemParameter: SystemMasterParametersService
   ) {
-    
-     this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-   }
+
+    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -330,25 +330,23 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   //check  if require values
-  checkRequire(ele:any){ 
-  
-   
-    if(ele <= 100){
-  console.log(ele);
+  checkRequire(ele: any) {
+    if (ele <= 100) {
+      console.log(ele);
     }
-    else{
+    else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
 
-checkCUST_No(){
-  if (this.AC_CUSTID = ''){
-console.log(this.AC_CUSTID)
+  checkCUST_No() {
+    if (this.AC_CUSTID = '') {
+      console.log(this.AC_CUSTID)
+    }
+    else {
+      Swal.fire("Invalid Input", "Please insert Customer ID", "error");
+    }
   }
-  else{
-    Swal.fire("Invalid Input", "Please insert Customer ID", "error");
-  }
-}
 
   addNewCustomer(newCustomer) {
     this.customerID
@@ -394,82 +392,81 @@ console.log(this.AC_CUSTID)
       console.log(data)
     })
   }
- 
-    //set open date, appointed date and expiry date
-    getSystemParaDate() {
-      this.systemParameter.getFormData(1).subscribe(data => {
-        this.angForm.patchValue({
-          AC_OPDATE: data.CURRENT_DATE,
-          DATE_APPOINTED: data.CURRENT_DATE,
-          DATE_EXPIRY: data.CURRENT_DATE
-        })
+
+  //set open date, appointed date and expiry date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        AC_OPDATE: data.CURRENT_DATE,
+        DATE_APPOINTED: data.CURRENT_DATE,
+        DATE_EXPIRY: data.CURRENT_DATE
       })
+    })
+  }
+
+  //disabledate on keyup
+  disabledate(data: any) {
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        (document.getElementById("AC_CTCODE") as HTMLInputElement).value = ""
+      }
     }
-  
-    //disabledate on keyup
-    disabledate(data:any){
-  
-      console.log(data);
-      if(data != ""){
-        if(data > this.datemax){
-          Swal.fire("Invalid Input", "Please insert valid date ", "warning");
-          (document.getElementById("AC_CTCODE")as HTMLInputElement).value = ""
-              
-        }
-      } 
-    }
+  }
+
   createForm() {
     this.angForm = this.fb.group({
       AC_ACNOTYPE: ['GS'],
-      AC_TYPE: ['',[Validators.required]],
-      AC_NO: ['',[Validators.required]],
+      AC_TYPE: ['', [Validators.required]],
+      AC_NO: ['', [Validators.required]],
       AC_CUSTID: [''],
       AC_TITLE: [''],
-      AC_NAME: ['', [Validators.required,Validators.pattern]],
+      AC_NAME: ['', [Validators.required, Validators.pattern]],
       AC_MEMBTYPE: [''],
       AC_MEMBNO: [''],
-      AC_HONO: ['',[Validators.pattern]],
-      AC_WARD: ['',[Validators.pattern]],
-      AC_TADDR: ['',[Validators.pattern]],
-      AC_TGALLI: ['',[Validators.pattern]],
-      AC_AREA: ['',[Validators.pattern]],
-      AC_CTCODE: ['',[Validators.pattern]],
+      AC_HONO: ['', [Validators.pattern]],
+      AC_WARD: ['', [Validators.pattern]],
+      AC_TADDR: ['', [Validators.pattern]],
+      AC_TGALLI: ['', [Validators.pattern]],
+      AC_AREA: ['', [Validators.pattern]],
+      AC_CTCODE: ['', [Validators.pattern]],
       AC_PIN: [''],
-      AC_OPDATE: ['',[Validators.required]],
+      AC_OPDATE: ['', [Validators.required]],
       AC_IS_RECOVERY: [''],
       DEBIT: new FormControl('Credit'),
-      AC_PARTICULAR: ['',[Validators.required,Validators.pattern]],
-     
+      AC_PARTICULAR: ['', [Validators.required, Validators.pattern]],
     });
   }
+
+  getScheme(value) {
+    this.schemeCode = value.name
+  }
+
   // Method to insert data into database through NestJS
   submit() {
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE;
+    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
+
     const formVal = this.angForm.value;
     const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
+      'schemeCode': this.schemeCode,
       AC_ACNOTYPE: formVal.AC_ACNOTYPE,
       AC_TYPE: formVal.AC_TYPE,
       AC_NO: formVal.AC_NO,
+      AC_NAME: formVal.AC_NAME,
       AC_CUSTID: formVal.AC_CUSTID,
-      // AC_TITLE: formVal.AC_TITLE,
-      // AC_NAME: formVal.AC_NAME,
-      // AC_MEMBTYPE: formVal.AC_MEMBTYPE,
-      // AC_MEMBNO: formVal.AC_MEMBNO,
-      // AC_HONO: formVal.AC_HONO,
-      // AC_WARD: formVal.AC_WARD,
-      // AC_TADDR: formVal.AC_TADDR,
-      // AC_TGALLI: formVal.AC_TGALLI,
-      // AC_AREA: formVal.AC_AREA,
-      // AC_CTCODE: formVal.AC_CTCODE,
-      // AC_PIN: formVal.AC_PIN,
       AC_OPDATE: formVal.AC_OPDATE,
       Recovery: formVal.Recovery,
       DEBIT: formVal.DEBIT,
       AC_PARTICULAR: formVal.AC_PARTICULAR,
     };
-
     this.anamatGSMService.postData(dataToSend).subscribe(
-      (data1) => {
-        
+      (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -597,7 +594,7 @@ console.log(this.AC_CUSTID)
     });
   }
 
-    
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
@@ -612,5 +609,5 @@ console.log(this.AC_CUSTID)
     }, 1000);
   }
 
- 
+
 }

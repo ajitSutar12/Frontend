@@ -107,7 +107,6 @@ interface ShareMaster {
 export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //api 
   url = environment.base_url;
-
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
 
@@ -121,8 +120,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Datatable variable
   dtExportButtonOptions: DataTables.Settings = {};
 
-  //datatable variable to change
-  dtDocument: any = {};
   Data: any;
   //variables for pagination
   page: number = 1;
@@ -158,11 +155,20 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //temp address flag variable
   tempAddress: boolean = true;
+
+  //url to display document
+  documentUrl = this.url + '/'
+
+  //array of document of customer
+  customerDoc = []
+
   //variable to calculate retirement date
   schemeCode: string = ''
+
   //Scheme type variable
   schemeType: string = 'SH'
   shareSchemeType
+
   //Dropdown options
   scheme //scheme code from schemast(S_ACNOTYPE)
   Cust_ID: any[] //customer id from idmaster
@@ -183,6 +189,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   timeLeft = 5;
   id: string = '';
   private dataSub: Subscription = null;
+
 
   constructor(
     private http: HttpClient,
@@ -412,28 +419,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       dom: 'Blrtip',
     };
 
-    this.dtDocument = {
-      ajax: 'fake-data/documents.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        }, {
-          title: 'Code',
-          data: 'Code'
-        }, {
-          title: 'Description',
-          data: 'Description'
-        }, {
-          title: 'IsAccepted',
-          data: 'IsAccepted'
-        }
-      ],
-      dom: 'Blrtip',
-    };
-
     this.runTimer();
     this.dataSub = this.signTypeDropdownService.loadCharacters().subscribe((options) => {
       this.characters = options;
@@ -485,11 +470,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.getCustomer(newCustomer);
     })
   }
-  customerDoc = []
+
   getCustomer(id) {
     this.getSystemParaDate()
     this.customerIdService.getFormData(id).subscribe(data => {
-      console.log('in get customer', data)
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
       this.angForm.patchValue({
@@ -572,7 +556,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
-
 
   getRetirementDate() {
     this.sharesSchemeService.getFormData(this.schemeCode).subscribe(data => {
@@ -683,7 +666,15 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     else if (formVal.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE;
+    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
+
     const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
       'shareSchemeType': this.shareSchemeType,
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
@@ -736,6 +727,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //Nominee 
       'NomineeData': this.multiNominee
     }
+
     this.ShareMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
@@ -748,6 +740,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     //To clear form
     this.resetForm();
     this.multiNominee = []
+    this.customerDoc = []
   }
 
   //Method for append data into fields
@@ -825,6 +818,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         dtInstance.ajax.reload()
       });
       this.multiNominee = []
+      this.customerDoc = []
       this.resetForm();
     })
   }
@@ -834,6 +828,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateShow = false;
     this.newbtnShow = false;
     this.multiNominee = []
+    this.customerDoc = []
     this.resetForm();
   }
 

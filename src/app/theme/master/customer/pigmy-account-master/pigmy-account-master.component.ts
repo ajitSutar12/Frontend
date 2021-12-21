@@ -160,8 +160,11 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
   addType: string
   acno
-
-
+  schemeCodeNO
+  //url to display document
+  documentUrl = this.url + '/'
+  //array of document of customer
+  customerDoc = []
 
   @Input() visible: boolean;
   public config: any;
@@ -213,11 +216,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     private customerID: CustomerIDMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
     private datePipe: DatePipe,) {
-          // this.datemax =new Date() ;
-          this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-          console.log(this.datemax);
-       
-     }
+    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+  }
 
 
 
@@ -393,40 +393,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       dom: 'Blrtip',
     };
 
-
-    this.dtdocumentOptions = {
-      ajax: 'fake-data/documents.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          data: 'Code',
-          title: 'Code'
-        },
-        {
-          data: 'Description',
-          title: 'Description'
-        },
-        {
-          data: 'IsAccepted',
-          title: 'Is Accepted'
-        }
-
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-
-    };
     ;
     this.runTimer();
     this.CastMasterService.getcastList().pipe(first()).subscribe(data => {
@@ -656,6 +622,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   getCustomer(id) {
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
+      this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
       this.ageCalculator(data.AC_BIRTH_DT);
       this.angForm.patchValue({
@@ -787,7 +754,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
 
-
+  getScheme(value) {
+    this.schemeCodeNO = value.name
+  }
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
@@ -797,10 +766,18 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     else if (formVal.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE;
+    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
+
     const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
+      'schemeCode': this.schemeCodeNO,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_NO': formVal.AC_NO,
       'AC_CUSTID': formVal.AC_CUSTID,
       'AC_SHORT_NAME': formVal.AC_SHORT_NAME,
       'REF_ACNO': formVal.REF_ACNO,
@@ -862,6 +839,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.resetForm();
     this.multiNominee = []
     this.multiJointAC = []
+    this.customerDoc = []
   }
   //Method for append data into fields
   editClickHandler(id) {
@@ -927,11 +905,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   updateData() {
     let data = this.angForm.value;
     if (data.AC_ADDFLAG == true) {
-      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
       this.addType = 'P'
     }
     else if (data.AC_ADDFLAG == false) {
-      console.log('data.AC_ADDFLAG ', data.AC_ADDFLAG)
       this.addType = 'T'
     }
     data['AC_ADDTYPE'] = this.addType
@@ -948,6 +924,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       });
       this.multiNominee = []
       this.multiJointAC = []
+      this.customerDoc = []
       this.resetForm();
     })
   }
@@ -1035,6 +1012,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.newbtnShow = false;
     this.multiNominee = []
     this.multiJointAC = []
+    this.customerDoc = []
     this.resetForm();
   }
 
@@ -1058,13 +1036,13 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         if (this.multiJointAC.length == 0) {
           this.multiJointAC.push(object);
         }
-        else {         
-          if(this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)){
+        else {
+          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
             Swal.fire("This Customer is Already Joint Account Holder", "error");
           }
-          else{
+          else {
             this.multiJointAC.push(object);
-          }         
+          }
         }
       }
       else {
@@ -1193,7 +1171,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   delNominee(id) {
     this.multiNominee.splice(id, 1)
-  }  
+  }
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
     this.angForm.controls['AC_NRELA'].reset();
