@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <form class="md-float-material form-material" action="javascript:">
+                <form  action="javascript:">
                     <div class="row">
                         <div class="col-sm-7">
                             <div class="card">
@@ -20,6 +20,54 @@
                                             <h3 class="text-center">Sign In</h3>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="mobileno" class="form-control" placeholder=" " id="mobileno"
+                                                        required pattern="^[A-Za-z]+$" maxlength="10" style="text-transform:uppercase"
+                                                        [(ngModel)]="mobileno" title="Input allowed only A-Z" >
+                                                    <label for="mobileno">User Name<sub class="required">* </sub></label>
+                                                </span>
+                                            </div>
+                                            <!-- <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['User_Name'].invalid && (angForm.controls['F_NAME'].dirty || angForm.controls['F_NAME'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['F_NAME'].errors?.pattern || angForm.controls['F_NAME'].errors?.required">
+                                                    This field is required and Input allowed only A-Z
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input [type]="passType" name="password" [(ngModel)]="password"
+                                                    class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                    minlength="8" maxlength="8"
+                                                    title="Must contain at least one number, one uppercase, lowercase latter and at least 8 characters"
+                                                    style="width: 90%;" >
+                                                    <span toggle="#password-field"
+                                           style="display: absolute; margin: 5% 0% 0% 90%; font-size: 95%; cursor: pointer;"
+                                            class="fa fa-fw fa-eye field-icon toggle-password"
+                                            (click)="showHidePassword()"></span>
+                                                    <label for="password">Password<sub class="required">* </sub></label>
+                                                </span>
+                                            </div>
+                                            <!-- <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['User_Name'].invalid && (angForm.controls['F_NAME'].dirty || angForm.controls['F_NAME'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['F_NAME'].errors?.pattern || angForm.controls['F_NAME'].errors?.required">
+                                                    This field is required and Input allowed only A-Z
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    
+
                                     <!-- <div class="form-group form-primary">
                                         <input type="text" name="email" class="form-control" required="">
                                         <span class="form-bar"></span>
@@ -30,16 +78,16 @@
                                         <span class="form-bar"></span>
                                         <label class="float-label">Password</label>
                                     </div> -->
-                                    <div class="form-group form-primary form-static-label">
+                                    <!-- <div class="form-group form-primary form-static-label">
                                         <input type="text" name="mobileno" [(ngModel)]="mobileno" class="form-control"
                                             minlength="10" maxlength="10" pattern="^[0-9]+$"
                                             title="Please Enter Mobile Number">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Your Mobile Number</label>
                                         <label class="invalid">Invalid Number</label>
-                                        <!-- *ngIf="isInvalidNumber" -->
-                                    </div>
-                                    <div class="form-group form-primary form-static-label">
+                                        *ngIf="isInvalidNumber"
+                                    </div> -->
+                                    <!-- <div class="form-group form-primary form-static-label">
                                         <input [type]="passType" name="password" [(ngModel)]="password"
                                             class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                             minlength="8" maxlength="8"
@@ -52,7 +100,7 @@
                                         <span class="form-bar"></span>
                                         <label class="float-label">Password</label>
                                         <label class="invalid" *ngIf="isInvalidPassword">Invalid Password</label>
-                                    </div>
+                                    </div> -->
                                     <div class="row m-t-25 text-left">
                                         <div class="col-12">
                                             <!-- <div class="checkbox-fade fade-in-primary d-">
