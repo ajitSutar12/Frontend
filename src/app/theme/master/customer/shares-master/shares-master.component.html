@@ -933,8 +933,7 @@
                                                                             <span class="border-lable-flt">
                                                                                 <input type="text" name="AGE"
                                                                                     class="form-control" placeholder=" "
-                                                                                    pattern="^[0-9]+$" min="1"
-                                                                                    max="100"
+                                                                                    pattern="^[0-9]+$" min="1" max="100"
                                                                                     title="Input allowed only 0-9"
                                                                                     id="AGE" formControlName="AGE">
                                                                                 <label for="AGE">Age</label>
@@ -1251,11 +1250,35 @@
                                     <ngb-tab title="4.Documents">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
-                                                <div class="table-responsive">
-                                                    <table datatable [dtOptions]="dtDocument"
-                                                        class="table table-striped table-bordered table-hover compact"
-                                                        width="100%">
-                                                    </table>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="table-responsive">
+                                                            <table class="
+                                                            table table-striped table-bordered table-hover
+                                                          ">
+                                                                <tbody *ngIf="customerDoc?.length != 0">
+                                                                    <tr>
+                                                                        <th>Code</th>
+                                                                        <th>Description</th>
+                                                                        <th>Path</th>
+                                                                    </tr>
+                                                                    <tr *ngFor="
+                                                                let data of customerDoc;
+                                                                let indexOfelement = index
+                                                              ">
+                                                                        <td>{{ data.DocumentMasterID }}</td>
+                                                                        <td>{{ data.description }}</td>
+                                                                        <td>{{ data.PATH }}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                                <tbody *ngIf="customerDoc?.length == 0">
+                                                                    <tr>
+                                                                        <td class="no-data-available">No data!</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </ng-template>

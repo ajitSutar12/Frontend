@@ -551,8 +551,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       'TDS_LIMIT': formVal.TDS_LIMIT,
       'Document': this.imageObject
     }
-
-
     this.customerIdService.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -579,10 +577,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     if (data != "") {
       if (data > this.datemax) {
         Swal.fire("Invalid Input", "Please insert valid date ", "warning");
-        (document.getElementById("AC_BIRTH_DT")as HTMLInputElement).value = "";
+        (document.getElementById("AC_BIRTH_DT") as HTMLInputElement).value = "";
         this.myInputField.nativeElement.focus('AC_BIRTH_DT');
       }
-    } 
+    }
     // else{
     //   //  this.myInputField.nativeElement.focus('AC_BIRTH_DT');
     //   // this.angForm.get('AC_BIRTH_DT').nativeElement.focus();

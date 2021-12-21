@@ -485,11 +485,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.getCustomer(newCustomer);
     })
   }
-
+  customerDoc = []
   getCustomer(id) {
     this.getSystemParaDate()
     this.customerIdService.getFormData(id).subscribe(data => {
       console.log('in get customer', data)
+      this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
