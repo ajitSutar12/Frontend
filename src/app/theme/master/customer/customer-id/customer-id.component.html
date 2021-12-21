@@ -425,9 +425,9 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <div class="border-checkbox-section">
-                                <div>
-                                    <input type="checkbox"  id="TDS_REQUIRED"
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="TDS_REQUIRED"
                                         formControlName="TDS_REQUIRED">
                                     <label class="border-checkbox-label" for="TDS_REQUIRED">TDS Calculation
                                         Required?</label>
@@ -435,7 +435,7 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="border-checkbox-section">
+                            <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="IRTDSDFY" value="IRTDSDFY"
                                         (click)="isReceivedTds($event)" formControlName="TDSDOCUMNET">
@@ -445,7 +445,7 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="border-checkbox-section">
+                            <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="SMS_REQUIRED"
                                         formControlName="SMS_REQUIRED">
@@ -455,7 +455,7 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="border-checkbox-section">
+                            <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="IS_KYC_RECEIVED"
                                         formControlName="IS_KYC_RECEIVED" (click)="isKYC($event)">
@@ -466,7 +466,47 @@
 
 
                     </div>
+                    <!-- <div class="row">
+                        <div class="col-sm">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox"  id="TDS_REQUIRED"
+                                        formControlName="TDS_REQUIRED">
+                                    <label class="border-checkbox-label" for="TDS_REQUIRED">TDS Calculation
+                                        Required?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="IRTDSDFY" value="IRTDSDFY"
+                                        (click)="isReceivedTds($event)" formControlName="TDSDOCUMNET">
+                                    <label class="border-checkbox-label" for="IRTDSDFY">Is Received TDS Document for
+                                        Year 2020-2021</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="col-sm">
+                                <div class="checkbox checkbox-primary">
+                                     <input type="checkbox" id="SMS_REQUIRED" formControlName="SMS_REQUIRED">
+                                    <label class="border-checkbox-label" for="SMS_REQUIRED">SMS Facility Required ?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="IS_KYC_RECEIVED"
+                                        formControlName="IS_KYC_RECEIVED" (click)="isKYC($event)">
+                                    <label class="border-checkbox-label" for="IS_KYC_RECEIVED">KYC</label>
+                                </div>
+                            </div>
+                        </div>
 
+
+                    </div> -->
                     <!-- <div class="row">
                       
                         <div class="col-sm-2">

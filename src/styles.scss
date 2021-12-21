@@ -60,10 +60,15 @@ ng-select.ng-select>div>div.single {
         outline: none;
     }
 
-    .below:focus{
-        border: 2px solid green;
-        outline: none;
-    }
+    // .below:focus{
+    //     border: 2px solid green;
+    //     outline: none;
+    // }
+    // .checkbox input[type="checkbox"]:focus + label::before {
+    //     outline: solid green;
+    //     outline: 5px auto -webkit-focus-ring-color;
+    //     outline-offset: +5px;
+    //   }
 
     // .border-checkbox-label:focus{
     //     border: 2px solid green;

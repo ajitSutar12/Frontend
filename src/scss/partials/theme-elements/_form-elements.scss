@@ -505,9 +505,9 @@ $radio-bg-color: $primary-color, $warning-color, $default-color, $danger-color, 
         }
     }
 
-    .border-checkbox:focus{
-        border-color: 5px solid gold;
-    }
+    // .border-checkbox:focus{
+    //     border-color: 5px solid gold;
+    // }
 
     .border-checkbox {
         display: none;
