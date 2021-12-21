@@ -32,6 +32,7 @@ export class BasicLoginComponent implements OnInit {
       console.log(data);
       localStorage.setItem('token', data.access_token);
       localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('system_master',JSON.stringify(data.system_master))
       let passwordExpDate = data.user.EXP_DATE;
       let nowDate = moment().format('YYYY-MM-DD');
       let dateData = moment(passwordExpDate).format('YYYY-MM-DD');
@@ -45,13 +46,26 @@ export class BasicLoginComponent implements OnInit {
         Swal.fire('Error!', 'Your password is expired please reset your password', 'error');
       }
     }, err => {
-      Swal.fire({
-        title: '',
-        text: "Please Check Your Mobile Number And Password",
-        icon: 'error',
-        confirmButtonColor: '#229954',
-        confirmButtonText: 'OK'
-      })
+      debugger
+      if(err.error.statusCode == 401)
+      {
+        Swal.fire({
+          title: '',
+          text: "Your access denied",
+          icon: 'error',
+          confirmButtonColor: '#229954',
+          confirmButtonText: 'OK'
+        })
+      }else{
+        Swal.fire({
+          title: '',
+          text: "Please Check Your Mobile Number And Password",
+          icon: 'error',
+          confirmButtonColor: '#229954',
+          confirmButtonText: 'OK'
+        })
+      }
+
     })
   }
   showHidePassword() {

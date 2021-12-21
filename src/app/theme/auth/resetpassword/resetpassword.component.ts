@@ -84,6 +84,7 @@ checkPassword() {
     else if(this.newPassword != this.confirmPassword){
       Swal.fire('Error!', 'Your password not matched', 'error');
     }else{
+      debugger
       let resetpassword = {
         'currentPassword' : this.currentPassword,
         'newPassword' : this.newPassword,

@@ -244,7 +244,8 @@ export class UserDefinationComponent implements OnInit {
     this.angEditForm = this.fb.group({
       FULL_NAME: [''],
       Edit_branchId: ['', [Validators.required]],
-      EDIT_ROLE: ['', [Validators.required]]
+      EDIT_ROLE: ['', [Validators.required]],
+      STATUS1: ['',[Validators.required]]
     });
     this.angForm = this.fb.group({
       F_NAME: ['', [Validators.required, Validators.pattern]],
@@ -314,6 +315,7 @@ export class UserDefinationComponent implements OnInit {
       this.angEditForm.patchValue({
         'FULL_NAME' : data.F_NAME+' '+data.L_NAME,
         'Edit_branchId' : data.branchId.toString(),
+        'STATUS1' : data.STATUS
       })
     })
     // this.userdefinationservice.getFormData(id).subscribe(data => {

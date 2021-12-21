@@ -197,7 +197,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="col-md">
                                 <div class="form-group form-primary form-static-label" style="width: 108%;margin-left: -4%;">
                                     <ng-select (focus)="hasFocus = true" [ngClass]="'ng-select'" [options]="barnchData" [multiple]="false" placeholder="Branch" formControlName="Edit_branchId">
@@ -220,6 +220,29 @@
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ROLE'].invalid && (angForm.controls['ROLE'].dirty || angForm.controls['ROLE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['ROLE'].errors?.required">
                                     This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <label for="status"> Status</label>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="STATUS1"
+                                            checked="checked" value="active"
+                                            formControlName="STATUS1">
+                                        <i class="helper"></i>Active
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="STATUS1"
+                                            checked="checked" value="inactive"
+                                            formControlName="STATUS1">
+                                        <i class="helper"></i>Inactive
+                                    </label>
                                 </div>
                             </div>
                         </div>
