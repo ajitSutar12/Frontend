@@ -7,6 +7,8 @@ import { environment } from '../../../../environments/environment';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
+import { NgPasswordValidatorOptions } from "ng-password-validator";
+
 
 
 
@@ -30,6 +32,11 @@ import { Router } from '@angular/router';
   ]
 })
 export class UserProfileComponent implements OnInit {
+  inputValue: string;
+  options: NgPasswordValidatorOptions = {
+    placement: "bottom",
+    "animation-duration": 500
+};
   editProfile = true;
   editProfileIcon = 'icofont-edit';
 
@@ -57,6 +64,7 @@ export class UserProfileComponent implements OnInit {
   id:any;
   fullName : any;
   Email :any;
+  toastr: any;
 
   constructor(public httpClient: HttpClient,private fb: FormBuilder,private _userService : UserService,private router: Router) {
     let data: any = localStorage.getItem('user');
@@ -88,6 +96,9 @@ export class UserProfileComponent implements OnInit {
       newPassword: [''],
       confirmPassword: [''],
     });
+
+    
+
 
     setTimeout(() => {
       this.editorContent = 'But I must explain to you how all this mistaken idea of denouncing pleasure and praising ';
@@ -167,7 +178,19 @@ export class UserProfileComponent implements OnInit {
       };
     }, 1);
   }
+  onInput(event: any): void {
+    this.inputValue = event.target.value;
+}
+isValid(event: boolean): void {
+  if (this.inputValue && this.inputValue.length) {
+      if (event) {
+          this.toastr.success("Password is Valid.", "Successful!");
+      } else {
+          this.toastr.error("Password is invalid.", "Error!");
+      }
+  }
 
+}
   toggleEditProfile() {
     this.editProfileIcon = (this.editProfileIcon === 'icofont-close') ? 'icofont-edit' : 'icofont-close';
     this.editProfile = !this.editProfile;

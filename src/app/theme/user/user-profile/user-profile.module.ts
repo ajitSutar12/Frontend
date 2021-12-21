@@ -7,6 +7,8 @@ import {SharedModule} from '../../../shared/shared.module';
 import {HttpClientModule} from '@angular/common/http';
 import {DataTablesModule} from 'angular-datatables';
 import {TinymceModule} from 'angular2-tinymce';
+import { NgPasswordValidatorModule } from 'ng-password-validator';
+
 
 @NgModule({
   imports: [
@@ -17,7 +19,8 @@ import {TinymceModule} from 'angular2-tinymce';
     SharedModule,
     TinymceModule,
     DataTablesModule,
-    HttpClientModule
+    HttpClientModule,
+    NgPasswordValidatorModule
   ],
   declarations: [UserProfileComponent]
 })
