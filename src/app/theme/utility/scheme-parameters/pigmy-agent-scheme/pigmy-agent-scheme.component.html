@@ -207,7 +207,7 @@
                         <div class="col-sm">
                             <div class="table-responsive">
                                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-                                    class="table table-striped table-bordered table-hover">
+                                    class="table table-striped table-bordered table-hover compact">
                                     <tbody *ngIf="pigmyagentscheme?.length != 0">
                                         <tr *ngFor="let data of pigmyagentscheme">
                                             <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
@@ -235,37 +235,37 @@
                                         <tr>
                                             <th></th>
                                             <th>
-                                                <input type="text" placeholder="Search Type" name="S_ACNOTYPE" />
+                                                <input type="text" placeholder="Search Type" class="form-control"  name="S_ACNOTYPE" />
                                             </th>
                                             <th>
-                                                <input type="text" placeholder="Search Scheme Code" name="S_APPL" />
+                                                <input type="text" placeholder="Search Scheme Code" class="form-control"  name="S_APPL" />
                                             </th>
                                             <th>
-                                                <input type="text" placeholder="Search Description" name="S_NAME" />
+                                                <input type="text" placeholder="Search Description" class="form-control"  name="S_NAME" />
                                             </th>
                                             <th>
-                                                <input type="text" placeholder="Search Short Name" name="S_SHNAME" />
+                                                <input type="text" placeholder="Search Short Name" class="form-control"  name="S_SHNAME" />
                                             </th>
                                             <th>
                                                 <input type="text" placeholder="Search  Pigmy
-                                          Commission Applicable ?" name="S_INT_APPLICABLE" />
+                                          Commission Applicable ?" class="form-control"  name="S_INT_APPLICABLE" />
                                             </th>
                                             <th>
                                                 <input type="text" placeholder="Search Minimum Interest Amount - Text
-                                          Box" name="MIN_INT_LIMIT" />
+                                          Box" class="form-control"  name="MIN_INT_LIMIT" />
                                             </th>
                                             <th>
                                                 <input type="text" placeholder="Search  Standing
-                                          Instruction Applicable ?" name="STAND_INSTRUCTION_ALLOW" />
+                                          Instruction Applicable ?" class="form-control"  name="STAND_INSTRUCTION_ALLOW" />
                                             </th>
                                             <th>
                                                 <input type="text" placeholder="Search  Balance
-                                          Entry Allow ?" name="WITHDRAWAL_APPLICABLE" />
+                                          Entry Allow ?" class="form-control"  name="WITHDRAWAL_APPLICABLE" />
                                             </th>
                                             <th>
                                                 <input type="text" placeholder="Search  Allow
                                             Dormat
-                                            Flag Updation ?" name="BALANCE_ADD_APPLICABLE" />
+                                            Flag Updation ?" class="form-control"  name="BALANCE_ADD_APPLICABLE" />
                                             </th>
 
                                         </tr>
