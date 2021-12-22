@@ -57,9 +57,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
-                                        required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase;"
-                                        #lastname [(ngModel)]="lname" title="Input allowed only A-Z"
-                                        formControlName="L_NAME">
+                                        required pattern="^[A-Za-z]+$" maxlength="15" #lastname [(ngModel)]="lname"
+                                        title="Input allowed only A-Z" formControlName="L_NAME"
+                                        (ngModelChange)="lname = $event.toUpperCase()">
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
 
                                 </span>
@@ -79,8 +79,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
-                                        required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase"
-                                        [(ngModel)]="fname" title="Input allowed only A-Z" formControlName="F_NAME">
+                                        required pattern="^[A-Za-z]+$" maxlength="15" [(ngModel)]="fname"
+                                        (ngModelChange)="fname = $event.toUpperCase()" title="Input allowed only A-Z"
+                                        formControlName="F_NAME">
                                     <label for="F_NAME">First Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -97,10 +98,10 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="M_NAME" style="text-transform:uppercase"
-                                        class="form-control" placeholder=" " id="M_NAME" required pattern="^[A-Za-z]+$"
-                                        maxlength="15" [(ngModel)]="mname" title="Input allowed only A-Z"
-                                        formControlName="M_NAME">
+                                    <input type="text" name="M_NAME" class="form-control" placeholder=" " id="M_NAME"
+                                        required pattern="^[A-Za-z]+$" maxlength="15" [(ngModel)]="mname"
+                                        title="Input allowed only A-Z" formControlName="M_NAME"
+                                        (ngModelChange)="mname = $event.toUpperCase()">
                                     <label for="M_NAME">Middle Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -203,7 +204,7 @@
                                     <input type="text" name="AC_BIRTH_DT" class="form-control" placeholder=" "
                                         id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                         (focusout)="disabledate(date.value)" formControlName="AC_BIRTH_DT"
-                                        onfocus="(this.type='date')" >
+                                        onfocus="(this.type='date')">
                                     <!-- onfocus="(this.type='date')" -->
                                     <label for="AC_BIRTH_DT">Birth Date</label>
                                 </span>
@@ -438,7 +439,7 @@
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="IRTDSDFY" value="IRTDSDFY"
-                                        (click)="isReceivedTds($event)" formControlName="TDSDOCUMNET">
+                                        (change)="isReceivedTds($event)" formControlName="TDSDOCUMNET">
                                     <label class="border-checkbox-label" for="IRTDSDFY">Is Received TDS Document for
                                         Year 2020-2021</label>
                                 </div>
@@ -563,21 +564,21 @@
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" formControlName="FORM_TYPE" name="FORM_TYPE" value="Form15A"
-                                            id="formA" (click)="isForm15A(1)">
+                                            id="formA" (change)="isForm15A(1)">
                                         <i class="helper"></i>Form - 15 A
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" value="Form15H" formControlName="FORM_TYPE" id="formH"
-                                            name="FORM_TYPE" (click)="isForm15A(2)">
+                                            name="FORM_TYPE" (change)="isForm15A(2)">
                                         <i class="helper"></i>Form - 15 H
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" value="Latter" formControlName="FORM_TYPE" id="latter"
-                                            name="FORM_TYPE" (click)="isForm15A(3)">
+                                            name="FORM_TYPE" (change)="isForm15A(3)">
                                         <i class="helper"></i>Letter
                                     </label>
                                 </div>
@@ -805,20 +806,34 @@
                                     <tfoot>
                                         <tr>
                                             <th></th>
-                                            <th><input type="text" class="form-control" placeholder="Customer Id" name="AC_NO"></th>
-                                            <th><input type="text" class="form-control" placeholder="Member No" name="AC_MEMBNO"></th>
-                                            <th><input type="text" class="form-control" placeholder="Member Scheme" name="AC_MEMBTYPE"> </th>
-                                            <th><input type="text" class="form-control" placeholder="Title" name="AC_TITLE"></th>
-                                            <th><input type="text" class="form-control" placeholder="First Name" name="F_NAME"></th>
-                                            <th><input type="text" class="form-control" placeholder="Middle Name" name="M_NAME"></th>
-                                            <th><input type="text" class="form-control" placeholder="Last Name" name="L_NAME"> </th>
-                                            <th><input type="text" class="form-control" placeholder="Full Name" name="AC_NAME"> </th>
-                                            <th><input type="text" class="form-control" placeholder="Cast" name="AC_CAST"> </th>
-                                            <th><input type="text" class="form-control" placeholder="Occupation" name="AC_OCODE"></th>
-                                            <th><input type="text" class="form-control" placeholder="Risk Category"name="AC_RISKCATG"></th>
-                                            <th><input type="text" class="form-control" placeholder="Aadhar Number" name="AC_ADHARNO"></th>
-                                            <th><input type="text" class="form-control" placeholder="Pan Number" name="AC_PANNO"></th>
-                                            <th><input type="text" class="form-control" placeholder="Birth Date" name="AC_BIRTH_DT"></th>
+                                            <th><input type="text" class="form-control" placeholder="Customer Id"
+                                                    name="AC_NO"></th>
+                                            <th><input type="text" class="form-control" placeholder="Member No"
+                                                    name="AC_MEMBNO"></th>
+                                            <th><input type="text" class="form-control" placeholder="Member Scheme"
+                                                    name="AC_MEMBTYPE"> </th>
+                                            <th><input type="text" class="form-control" placeholder="Title"
+                                                    name="AC_TITLE"></th>
+                                            <th><input type="text" class="form-control" placeholder="First Name"
+                                                    name="F_NAME"></th>
+                                            <th><input type="text" class="form-control" placeholder="Middle Name"
+                                                    name="M_NAME"></th>
+                                            <th><input type="text" class="form-control" placeholder="Last Name"
+                                                    name="L_NAME"> </th>
+                                            <th><input type="text" class="form-control" placeholder="Full Name"
+                                                    name="AC_NAME"> </th>
+                                            <th><input type="text" class="form-control" placeholder="Cast"
+                                                    name="AC_CAST"> </th>
+                                            <th><input type="text" class="form-control" placeholder="Occupation"
+                                                    name="AC_OCODE"></th>
+                                            <th><input type="text" class="form-control" placeholder="Risk Category"
+                                                    name="AC_RISKCATG"></th>
+                                            <th><input type="text" class="form-control" placeholder="Aadhar Number"
+                                                    name="AC_ADHARNO"></th>
+                                            <th><input type="text" class="form-control" placeholder="Pan Number"
+                                                    name="AC_PANNO"></th>
+                                            <th><input type="text" class="form-control" placeholder="Birth Date"
+                                                    name="AC_BIRTH_DT"></th>
                                             <!-- <th><input type="text" placeholder="  House" name="AC_HONO"></th>
                                             <th><input type="text" placeholder="  Ward" name="AC_WARD"></th>
                                             <th><input type="text" placeholder="  Detail" name="AC_ADDR"></th>
@@ -826,21 +841,35 @@
                                             <th><input type="text" placeholder="  Area" name="AC_AREA"></th>
                                             <th><input type="text" placeholder="  City" name="AC_CTCODE"></th>
                                             <th><input type="text" placeholder="  Pin" name="AC_PIN"></th> -->
-                                            <th><input type="text" class="form-control" placeholder="Salary Division" name="AC_SALARYDIVISION_CODE"></th>
-                                            <th><input type="text" class="form-control" placeholder="Mobile Number" name="AC_MOBILENO"> </th>
-                                            <th><input type="text" class="form-control" placeholder="Residential(R)" name="AC_PHONE_RES"></th>
-                                            <th><input type="text" class="form-control" placeholder="Office(O)" name="AC_PHONE_OFFICE"></th>
-                                            <th><input type="text" class="form-control" placeholder="Email ID" name="AC_EMAILID"></th>
-                                            <th><input type="text" class="form-control" placeholder="Is Received TDS Document" name="TDSDOCUMNET"></th>
+                                            <th><input type="text" class="form-control" placeholder="Salary Division"
+                                                    name="AC_SALARYDIVISION_CODE"></th>
+                                            <th><input type="text" class="form-control" placeholder="Mobile Number"
+                                                    name="AC_MOBILENO"> </th>
+                                            <th><input type="text" class="form-control" placeholder="Residential(R)"
+                                                    name="AC_PHONE_RES"></th>
+                                            <th><input type="text" class="form-control" placeholder="Office(O)"
+                                                    name="AC_PHONE_OFFICE"></th>
+                                            <th><input type="text" class="form-control" placeholder="Email ID"
+                                                    name="AC_EMAILID"></th>
+                                            <th><input type="text" class="form-control"
+                                                    placeholder="Is Received TDS Document" name="TDSDOCUMNET"></th>
                                             <!-- <th><input type="text" placeholder="  Recovery" name="AC_IS_RECOVERY"> </th>-->
-                                            <th><input type="text" class="form-control" placeholder="TDS Calculation Required?" name="TDS_REQUIRED"></th>
-                                            <th><input type="text" class="form-control" placeholder="SMS Facility Required ?" name="SMS_REQUIRED"></th>
-                                            <th><input type="text" class="form-control" placeholder="KYC" name="IS_KYC_RECEIVED"></th>
-                                            <th><input type="text" class="form-control" placeholder="Financial Year" name="FIN_YEAR"></th>
-                                            <th><input type="text" class="form-control" placeholder="Submission Date" name="SUBMIT_DATE"></th>
-                                            <th><input type="text" class="form-control" placeholder="Form Type" name="FORM_TYPE"></th>
-                                            <th><input type="text" class="form-control" placeholder="TDS Rate %" name="TDS_RATE"></th>
-                                            <th><input type="text" class="form-control" placeholder="TDS Limit" name="TDS_LIMIT"></th>
+                                            <th><input type="text" class="form-control"
+                                                    placeholder="TDS Calculation Required?" name="TDS_REQUIRED"></th>
+                                            <th><input type="text" class="form-control"
+                                                    placeholder="SMS Facility Required ?" name="SMS_REQUIRED"></th>
+                                            <th><input type="text" class="form-control" placeholder="KYC"
+                                                    name="IS_KYC_RECEIVED"></th>
+                                            <th><input type="text" class="form-control" placeholder="Financial Year"
+                                                    name="FIN_YEAR"></th>
+                                            <th><input type="text" class="form-control" placeholder="Submission Date"
+                                                    name="SUBMIT_DATE"></th>
+                                            <th><input type="text" class="form-control" placeholder="Form Type"
+                                                    name="FORM_TYPE"></th>
+                                            <th><input type="text" class="form-control" placeholder="TDS Rate %"
+                                                    name="TDS_RATE"></th>
+                                            <th><input type="text" class="form-control" placeholder="TDS Limit"
+                                                    name="TDS_LIMIT"></th>
                                         </tr>
                                     </tfoot>
                                 </table>

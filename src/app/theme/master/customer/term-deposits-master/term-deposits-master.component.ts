@@ -682,10 +682,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //simple interest
   installmentType
   simpleInterestCalculation() {
+    debugger
     var date1 = this.angForm.controls['AC_ASON_DATE'].value;
     var date2 = this.angForm.controls['AC_EXPDT'].value;
 
     date1 = moment(date1).format('DD.MM.YYYY');
+    date2 = moment(date2).format('DD.MM.YYYY');
 
     var startDate = moment(date1, "DD.MM.YYYY");
     var endDate = moment(date2, "DD.MM.YYYY");
@@ -698,8 +700,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   checkAmount() {
+    const formVal = this.angForm.value;
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
-      if (data.MAX_DEP_LMT != null || data.MULTIPLE_OF_AMT != null) {
+      if (data.MAX_DEP_LMT != '' || data.MULTIPLE_OF_AMT != '') {
         if (this.angForm.controls['AC_SCHMAMT'].value > data.MAX_DEP_LMT) {
           Swal.fire("Deposit Amount Should Be Less Than " + data.MAX_DEP_LMT, "error");
           this.angForm.controls['AC_SCHMAMT'].reset()
@@ -708,6 +711,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
         }
 
+      }else{
+        this.angForm.patchValue({
+          AC_MATUAMT: formVal.AC_MATUAMT
+        })
       }
 
     })
@@ -751,18 +758,19 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
       if (data.MULTIPLE_OF_DAYS != null) {
         if (((this.angForm.controls['AC_DAYS'].value) % (data.MULTIPLE_OF_DAYS)) != 0) {
-          Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_DAYS, "error");
+          Swal.fire("Days Should Be Multiple Of " + data.MULTIPLE_OF_DAYS, "error");
         }
       }
       if (data.MULTIPLE_OF_MONTH != null) {
         if (((this.angForm.controls['AC_MONTHS'].value) % (data.MULTIPLE_OF_MONTH)) != 0) {
-          Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
+          Swal.fire("Month Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
         }
       }
     })
   }
   monthDays() {
-
+    // debugger
+    const formVal = this.angForm.value;
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
 
       var date1 = this.angForm.controls['AC_ASON_DATE'].value;
@@ -781,16 +789,18 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
       console.log("month and days" + months + ' months ' + days + ' days');
       if (data.IS_AUTO_PERIOD_CALCULATE == true) {
+        // debugger
         console.log("true")
         this.angForm.patchValue({
           AC_MONTHS: months,
-          AC_DAYS: days
+          AC_DAYS: days,
+          
         })
       } else {
         console.log("false")
         this.angForm.patchValue({
-          AC_MONTHS: 0,
-          AC_DAYS: 0
+          AC_MONTHS: '',
+          AC_DAYS: ''
         })
       }
 
@@ -802,6 +812,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   i: number
   total = 0
   compoundInterestCalculation() {
+    const formVal = this.angForm.value;
     // console.log(this.installmentType)
 
     var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 1;
@@ -841,32 +852,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   // Months and Days Base	
   // Start with Months + Days	
 
-  monthProductBaseSimpleInterest() {
-    var date1 = this.angForm.controls['AC_ASON_DATE'].value;
-    var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-    date1 = moment(date1).format('DD.MM.YYYY');
-    date2 = moment(date2).format('DD.MM.YYYY');
-
-    var b = moment(date1, "DD.MM.YYYY");
-    var a = moment(date2, "DD.MM.YYYY");
-
-    var months = a.diff(b, 'months');
-    b.add(months, 'months');
-
-    var days = a.diff(b, 'days');
-
-    console.log(months + ' months ' + days + ' days');
-
-    var tmpAmt1 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * months) / (12 * 100)))
-    var tmpAmt2 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * days) / (365 * 100)))
-    var Interest = (tmpAmt1 + tmpAmt2)
-    var Maturity = Math.round(Number(this.angForm.controls['AC_SCHMAMT'].value) + Interest)
-    console.log("Maturity", Maturity)
-    this.angForm.patchValue({
-      AC_MATUAMT: Maturity
-    })
-  }
 
   monthProductBaseCompound() {
 
@@ -1489,6 +1475,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.multiNominee.splice(id, 1)
   } 
 
+
+
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
     this.angForm.controls['AC_NRELA'].reset();
@@ -1624,56 +1612,283 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   // data scheme master
   schemedata(id) {
     this._termDepositScheme.getFormData(id).subscribe(data => {
-      this.recurringCompoundInterest()
+      // this.recurringCompoundInterest()
       if (data.IS_CAL_MATURITY_AMT != true) {
         console.log("false", data.IS_CAL_MATURITY_AMT)
         this.setMaturityDate()
       }
       else {
         // call calculation function
-        if (data.S_INTCALTP == "CalculationOnDays" && data.S_INTCALC_METHOD == "SimpleInterest") {
-          this.simpleInterestCalculation()
-        } else if (data.S_INTCALTP == "CalculationOnDays" && data.S_INTCALC_METHOD == "CompountInterest") {
-          if (data.COMPOUND_INT_BASIS == "Monthly") {
-            var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 1;
-          } else if (data.COMPOUND_INT_BASIS == "Quarterly") {
+        if (data.INTEREST_RULE == "MonthBasis+Transactionwise" || data.INTEREST_RULE == "Compounding") {
+          if (data.S_INTCALTP == "CalculationOnDays" && data.S_INTCALC_METHOD == "SimpleInterest") {
+            this.simpleInterestCalculation()
+          } else if (data.S_INTCALTP == "CalculationOnDays" && data.S_INTCALC_METHOD == "CompountInterest") {
+            if (data.COMPOUND_INT_BASIS == "Monthly" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == true) {
+              var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 1;
+            } else if (data.COMPOUND_INT_BASIS == "Quarterly" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == true) {
+              var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 3;
+            } else if (data.COMPOUND_INT_BASIS == "Half Yearly" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == true) {
+              var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 6;
+            } else if (data.COMPOUND_INT_BASIS == "Yearly" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == true) {
+              var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 12;
+            }
+
+            var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+            var date2 = this.angForm.controls['AC_EXPDT'].value;
+
+            date1 = moment(date1).format('DD.MM.YYYY');
+
+            var startDate = moment(date1, "DD.MM.YYYY");
+            var endDate = moment(date2, "DD.MM.YYYY");
+
+            var result = endDate.diff(startDate, 'days');
+            var amount = this.angForm.controls['AC_SCHMAMT'].value
+            var maturityAmount = this.angForm.controls['AC_MATUAMT'].value
+
+            for (this.i = 1; this.i <= Quarters; this.i++) {
+              let totalInterest: number
+              var sample = parseFloat(amount);
+              var totalInt = (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * Math.trunc((result) / (Quarters)) / 36500).toFixed(10)
+              totalInterest = Number(totalInt)
+              amount = (parseFloat(amount) + (totalInterest)).toFixed(10)
+
+              totalInterest = 0
+
+
+            }
+            maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
+
+            this.angForm.patchValue({
+              AC_MATUAMT: maturityAmount
+            })
+          } else if (data.S_INTCALTP == "MonthProductBase" && data.S_INTCALC_METHOD == "SimpleInterest") {
+            debugger
+            var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+            var date2 = this.angForm.controls['AC_EXPDT'].value;
+
+            date1 = moment(date1).format('DD.MM.YYYY');
+            date2 = moment(date2).format('DD.MM.YYYY');
+
+            var b = moment(date1, "DD.MM.YYYY");
+            var a = moment(date2, "DD.MM.YYYY");
+
+            var months = a.diff(b, 'months');
+            b.add(months, 'months');
+
+            var days = a.diff(b, 'days');
+
+            console.log(months + ' months ' + days + ' days');
+
+            var tmpAmt1 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * months) / (12 * 100)))
+            var tmpAmt2 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * days) / (365 * 100)))
+            var Interest = (tmpAmt1 + tmpAmt2)
+            var Maturity = Math.round(Number(this.angForm.controls['AC_SCHMAMT'].value) + Interest)
+            console.log("Maturity", Maturity)
+            this.angForm.patchValue({
+              AC_MATUAMT: Maturity
+            })
+          } else if (data.S_INTCALTP == "MonthProductBase" && data.S_INTCALC_METHOD == "CompountInterest") {
+            this.angForm.patchValue({
+              AC_MATUAMT: 0
+            })
+          } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == true && data.S_INTCALC_METHOD == "SimpleInterest") {
+            var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+            var date2 = this.angForm.controls['AC_EXPDT'].value;
+
+            date1 = moment(date1).format('DD.MM.YYYY');
+            date2 = moment(date2).format('DD.MM.YYYY');
+
+            var b = moment(date1, "DD.MM.YYYY");
+            var a = moment(date2, "DD.MM.YYYY");
+
+            var months = a.diff(b, 'months');
+            b.add(months, 'months');
+
+            var days = a.diff(b, 'days');
+
+            console.log(months + ' months ' + days + ' days');
+
+            var tmpAmt1 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * months) / (12 * 100)))
+            var tmpAmt2 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * days) / (365 * 100)))
+            var Interest = (tmpAmt1 + tmpAmt2)
+            var Maturity = Math.round(Number(this.angForm.controls['AC_SCHMAMT'].value) + Interest)
+            console.log("Maturity", Maturity)
+            this.angForm.patchValue({
+              AC_MATUAMT: Maturity
+            })
+          } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == true && data.S_INTCALC_METHOD == "CompountInterest") {
             var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 3;
-          } else if (data.COMPOUND_INT_BASIS == "Half Yearly") {
-            var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 6;
-          } else if (data.COMPOUND_INT_BASIS == "Yearly") {
-            var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 12;
+            var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+            var date2 = this.angForm.controls['AC_EXPDT'].value;
+
+            date1 = moment(date1).format('DD.MM.YYYY');
+
+            var b = moment(date1, "DD.MM.YYYY");
+            var a = moment(date2, "DD.MM.YYYY");
+
+            var months = a.diff(b, 'months');
+            b.add(months, 'months');
+
+            var days = a.diff(b, 'days');
+
+            console.log(months + ' months ' + days + ' days');
+            console.log("this.angForm.controls['AC_EXPDT'].value", this.angForm.controls['AC_EXPDT'].value)
+
+            var End = moment(date2, "DD.MM.YYYY").subtract(1, 'days');
+            var EndDate = End.format("DD-MM-YYYY");
+
+            var Start = moment(date1, "DD.MM.YYYY").subtract(1, 'days');
+            var StartDate = Start.format("DD-MM-YYYY");
+
+            var CurrentDate = this.angForm.controls['AC_ASON_DATE'].value
+            console.log(EndDate + ' EndDate ' + StartDate + ' StartDate');
+            var lngMonths = 0;
+            var lngDays = 0;
+            var VcumPeriod = 0;
+            var IntAmount = 0
+            var vmonth = moment(date1, "DD.MM.YYYY").add(1, 'days');
+            var Mth = vmonth.format("DD-MM-YYYY");
+            var vMth = new Date(Mth).getMonth();
+            console.log("vMth", vMth)
+            var PeriodEndDate = EndDate
+            VcumPeriod = 12
+
+            var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+            var year = oneDate.format('YYYY');
+            console.log("year ", year + "CurrentDate " + CurrentDate)
+            PeriodEndDate = moment([year, "09", "30"]).format('YYYY-MM-DD')
+            console.log(PeriodEndDate, "PeriodEndDate")
+            if (CurrentDate >= EndDate) {
+
+            } else {
+              this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
+                if (data.S_INTCALC_METHOD == true) {
+                  if (data.COMPOUND_INT_BASIS == "Yearly") {
+                    PeriodEndDate = EndDate
+                    VcumPeriod = 12
+                  } else if (data.COMPOUND_INT_BASIS == "HalfYearly") {
+                    if (vMth >= 4 && vMth <= 9) {
+                      var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+                      var year = oneDate.format('YYYY');
+                      console.log("year ", year + "CurrentDate " + CurrentDate)
+                      PeriodEndDate = moment([year, "09", "30"]).format('YYYY-MM-DD')
+                    } else {
+                      var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+                      var year = oneDate.format('YYYY');
+                      console.log("year ", year + "CurrentDate " + CurrentDate)
+                      PeriodEndDate = moment([year, "03", "31"]).format('YYYY-MM-DD')
+                      if (PeriodEndDate < CurrentDate) {
+                        var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+                        var year = oneDate.format('YYYY');
+                        console.log("year ", year + "CurrentDate " + CurrentDate)
+                        var PeriodEnd = moment([year, "03", "31"]).format('YYYY-MM-DD')
+                        var Period = moment(PeriodEnd, 'YYYY-MM-DD').add(1, 'days');
+                        PeriodEndDate = Period.toString()
+                      }
+                    }
+                    VcumPeriod = 6
+
+                  } else if (data.COMPOUND_INT_BASIS == "Quarterly") {
+                    if (vMth >= 1 && vMth <= 3) {
+                      var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+                      var year = oneDate.format('YYYY');
+                      console.log("year ", year + "CurrentDate " + CurrentDate)
+                      PeriodEndDate = moment([year, "03", "31"]).format('YYYY-MM-DD')
+                      if (PeriodEndDate < CurrentDate) {
+                        var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+                        var year = oneDate.format('YYYY');
+                        console.log("year ", year + "CurrentDate " + CurrentDate)
+                        var PeriodEnd = moment([year, "03", "31"]).format('YYYY-MM-DD')
+                        var Period = moment(PeriodEnd, 'YYYY-MM-DD').add(1, 'days');
+                        PeriodEndDate = Period.toString()
+                      }
+                    } else if (vMth >= 4 && vMth <= 6) {
+                      var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+                      var year = oneDate.format('YYYY');
+                      console.log("year ", year + "CurrentDate " + CurrentDate)
+                      PeriodEndDate = moment([year, "06", "30"]).format('YYYY-MM-DD')
+                    } else if (vMth >= 7 && vMth <= 9) {
+                      var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+                      var year = oneDate.format('YYYY');
+                      console.log("year ", year + "CurrentDate " + CurrentDate)
+                      PeriodEndDate = moment([year, "09", "30"]).format('YYYY-MM-DD')
+                    } else {
+                      var oneDate = moment(CurrentDate, 'YYYY-MM-DD').add(1, 'days');
+                      var year = oneDate.format('YYYY');
+                      console.log("year ", year + "CurrentDate " + CurrentDate)
+                      PeriodEndDate = moment([year, "12", "30"]).format('YYYY-MM-DD')
+                    }
+                    VcumPeriod = 3
+                  } else if (data.COMPOUND_INT_BASIS == "Monthly") {
+                    var current = new Date(CurrentDate)
+                    let year = current.getFullYear();
+                    var month = new Date(CurrentDate).getMonth();
+                    var day = new Date(current).getDate();
+                    var exe_day = month + 1
+                    var nextDate = new Date(year, exe_day, day);
+                    var lastDay = new Date(current.getFullYear(), nextDate.getMonth() + 1, 0);
+                    var nextExeDate = this.datePipe.transform(lastDay, "yyyy-MM-dd")
+                    VcumPeriod = 3
+                  } else if (data.COMPOUND_INT_BASIS == "Monthly") {
+                    if (data.COMPOUND_INT_DAYS <= 0) {
+                      Swal.fire('You Must Assign Valid Compound Basis Days For The Scheme Please Contact To Software Engineer')
+                    }
+                    VcumPeriod = 0
+                  } else {
+                    Swal.fire('You Must Assign Valid Compound Basis Days For The Scheme Please Contact To Software Engineer')
+                  }
+
+                  if (PeriodEndDate > EndDate) {
+                    PeriodEndDate = EndDate
+                  }
+
+
+                }
+              })
+            }
+          } else if (data.S_INTCALTP == "DaysProductBase" && data.S_INTCALC_METHOD == "SimpleInterest") {
+            this.simpleInterestCalculation()
           }
+        } else if (data.INTEREST_RULE == "SimpleasperSharesClosingBalance") {
+          if (data.S_INTCALTP == "CalculationOnDays" && data.S_INTCALC_METHOD == "SimpleInterest") {
+            this.recurringSimpleInterest()
+          } else if (data.S_INTCALTP == "CalculationOnDays" && data.S_INTCALC_METHOD == "CompountInterest") {
+            this.recurringSimpleInterest()
+          } else if (data.S_INTCALTP == "MonthProductBase" && data.S_INTCALC_METHOD == "SimpleInterest") {
+            this.recurringSimpleInterest()
+          } else if (data.S_INTCALTP == "MonthProductBase" && data.S_INTCALC_METHOD == "CompountInterest") {
+            this.recurringCompoundInterest()
+          } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == true && data.S_INTCALC_METHOD == "SimpleInterest") {
+            var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+            var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-          var date1 = this.angForm.controls['AC_ASON_DATE'].value;
-          var date2 = this.angForm.controls['AC_EXPDT'].value;
+            date1 = moment(date1).format('DD.MM.YYYY');
+            date2 = moment(date2).format('DD.MM.YYYY');
 
-          date1 = moment(date1).format('DD.MM.YYYY');
+            var b = moment(date1, "DD.MM.YYYY");
+            var a = moment(date2, "DD.MM.YYYY");
 
-          var startDate = moment(date1, "DD.MM.YYYY");
-          var endDate = moment(date2, "DD.MM.YYYY");
+            var months = a.diff(b, 'months');
+            b.add(months, 'months');
 
-          var result = endDate.diff(startDate, 'days');
-          var amount = this.angForm.controls['AC_SCHMAMT'].value
-          var maturityAmount = this.angForm.controls['AC_MATUAMT'].value
+            var days = a.diff(b, 'days');
 
-          for (this.i = 1; this.i <= Quarters; this.i++) {
-            let totalInterest: number
-            var sample = parseFloat(amount);
-            var totalInt = (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * Math.trunc((result) / (Quarters)) / 36500).toFixed(10)
-            totalInterest = Number(totalInt)
-            amount = (parseFloat(amount) + (totalInterest)).toFixed(10)
+            console.log(months + ' months ' + days + ' days');
 
-            totalInterest = 0
-
-
+            var tmpAmt1 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * months) / (12 * 100)))
+            var tmpAmt2 = Math.round(((this.angForm.controls['AC_SCHMAMT'].value * this.angForm.controls['AC_INTRATE'].value * days) / (365 * 100)))
+            var Interest = (tmpAmt1 + tmpAmt2)
+            var Maturity = Math.round(Number(this.angForm.controls['AC_SCHMAMT'].value) + Interest)
+            console.log("Maturity", Maturity)
+            this.angForm.patchValue({
+              AC_MATUAMT: Maturity
+            })
+          } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == true && data.S_INTCALC_METHOD == "CompountInterest") {
+            this.recurringCompoundInterest()
+          }else if (data.S_INTCALTP == "DaysProductBase" && data.S_INTCALC_METHOD == "SimpleInterest"){
+            this.recurringSimpleInterest()
           }
-          maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * (this.angForm.controls['AC_INTRATE'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
-
-          this.angForm.patchValue({
-            AC_MATUAMT: maturityAmount
-          })
         }
-
       }
     })
   }

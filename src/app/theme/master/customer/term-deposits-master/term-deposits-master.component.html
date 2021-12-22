@@ -129,7 +129,7 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_OPDATE" class="form-control" placeholder=" " id="AC_OPDATE"
-                                required="" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                                required=""  onfocus="(this.type='date')" #date
                                 (focusout)="disabledate(date.value)" formControlName="AC_OPDATE">
                               <label for="AC_OPDATE">Opening Date<sub class="required">*
                                 </sub></label>
@@ -280,7 +280,7 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="As_on_Date" class="form-control" placeholder=" "
-                                id="AC_ASON_DATE" max="9999-12-31" onfocus="(this.type='date')" disabled
+                                id="AC_ASON_DATE" onfocus="(this.type='date')" disabled
                                 formControlName="AC_ASON_DATE" (ngModelChange)="getMaturityDate()">
                               <label for="AC_ASON_DATE">As On Date</label>
                             </span>
@@ -296,7 +296,7 @@
                             <span class="border-lable-flt">
                               <input type="text" name="AC_MONTHS" class="form-control" placeholder=" " id="AC_MONTHS"
                                 maxlength="3" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                formControlName="AC_MONTHS" (ngModelChange)="getMaturityDate()" disabled>
+                                formControlName="AC_MONTHS" (ngModelChange)="setMaturityDate()" disabled>
                               <label for="AC_MONTHS">Months<sub class="required">*
                                 </sub></label>
                             </span>
@@ -315,7 +315,7 @@
                             <span class="border-lable-flt">
                               <input type="text" name="AC_DAYS" class="form-control" placeholder=" " id="AC_DAYS"
                                 pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="4"
-                                formControlName="AC_DAYS" (ngModelChange)="getMaturityDate()" disabled>
+                                formControlName="AC_DAYS" (ngModelChange)="setMaturityDate()" disabled>
                               <label for="AC_DAYS">Days</label>
                             </span>
                           </div>
@@ -332,8 +332,8 @@
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
                               <input type="text" name="AC_EXPDT" class="form-control" placeholder=" " id="AC_EXPDT"
-                                max="9999-12-31" onfocus="(this.type='date')" formControlName="AC_EXPDT"
-                                (ngModelChange)="monthDays()" (focusout)="CheckmonthDays()">
+                                onfocus="(this.type='date')" formControlName="AC_EXPDT"
+                                (change)="monthDays()" (focusout)="CheckmonthDays()">
                               <label for="AC_EXPDT">Maturity Date</label>
                             </span>
                           </div>
@@ -364,7 +364,7 @@
                             <span class="border-lable-flt">
                               <input type="text" name="AC_INTRATE" class="form-control" placeholder=" " id="AC_INTRATE"
                                 required='' pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                formControlName="AC_INTRATE" (ngModelChange)="calculation()">
+                                formControlName="AC_INTRATE" (ngModelChange)="setMaturityDate()">
                               <label for="AC_INTRATE">Interest Rate%<sub class="required">* </sub></label>
                             </span>
                           </div>

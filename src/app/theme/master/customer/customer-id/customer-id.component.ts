@@ -737,7 +737,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_PHONE_RES: data.AC_PHONE_RES,
         AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
         AC_EMAILID: data.AC_EMAILID,
-        TDSDOCUMNET: data.AC_EMAILID,
+        TDSDOCUMNET: data.TDSDOCUMNET,
         TDS_REQUIRED: data.TDS_REQUIRED,
         SMS_REQUIRED: data.SMS_REQUIRED,
         IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
@@ -747,6 +747,19 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         TDS_RATE: data.tdsForm.TDS_RATE,
         TDS_LIMIT: data.tdsForm.TDS_LIMIT,
       });
+      if (data.TDSDOCUMNET == true) {
+        this.isTdsForm = true;
+        this.isTdsFormA = false;
+        this.SUBMIT_DATE = true;
+      } else if(data.FORM_TYPE == "Form15A"){
+        this.isForm15A(1)
+      }
+      else {
+        this.isTdsForm = false;
+        this.isTdsFormA = false;
+        this.SUBMIT_DATE = false;
+      }
+     
     });
   }
 
