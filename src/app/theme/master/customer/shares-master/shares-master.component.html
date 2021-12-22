@@ -1089,7 +1089,21 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-2">
+                                                                    <div class="card-footer m-t-15">
+                                                                        <div class="row " style="float: right;">
+                                                                            <div class="col-sm">
+                                                                                <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+                                                                                    Add
+                                                                                </button>
+                                                                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                                                                                    Update</button>&nbsp;
+                                                                                <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                                                                                    Cancel
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- <div class="col-sm-2">
                                                                         <button type="button"
                                                                             class="btn btn-primary ripple light"
                                                                             *ngIf="nomineeShowButton"
@@ -1098,7 +1112,7 @@
                                                                         <button class="btn btn-primary ripple light"
                                                                             (click)="updateNominee()"
                                                                             *ngIf="nomineeUpdateShow">Update</button>
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
                                                             </div>
                                                         </div>

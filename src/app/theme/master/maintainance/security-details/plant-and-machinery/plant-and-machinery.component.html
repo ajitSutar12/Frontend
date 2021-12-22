@@ -248,11 +248,7 @@
             <div class="col-sm">
               <div class="table-responsive">
                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-<<<<<<< Updated upstream
-                  class="table table-striped table-bordered table-hover">
-=======
                   class="table table-striped table-bordered table-hover compact">
->>>>>>> Stashed changes
                   <tbody *ngIf="plantmasters?.length != 0">
                     <tr *ngFor="let data of plantmasters">
                       <td>
@@ -263,11 +259,7 @@
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
 
-<<<<<<< Updated upstream
-                      <td>{{ data.SUBMISSION_DATE }}</td>
-=======
                       <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
->>>>>>> Stashed changes
                       <td>{{ data.MACHINE_NAME }}</td>
                       <td>{{ data.MACHINE_TYPE }}</td>
                       <td class="td_right">{{ data.DISTINCTIVE_NO }}</td>
@@ -290,37 +282,37 @@
                     <tr>
                       <th></th>
                       <th>
-                        <input type="text" placeholder="Search Date of Submission" name="SUBMISSION_DATE" />
+                        <input type="text" class="form-control" placeholder=" Date of Submission" name="SUBMISSION_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Machinery Name" name="MACHINE_NAME" />
+                        <input type="text" class="form-control" placeholder=" Machinery Name" name="MACHINE_NAME" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Machinery Type" name="MACHINE_TYPE" />
+                        <input type="text" class="form-control" placeholder=" Machinery Type" name="MACHINE_TYPE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Distinctive Number" name="DISTINCTIVE_NO" />
+                        <input type="text" class="form-control" placeholder=" Distinctive Number" name="DISTINCTIVE_NO" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Specification" name="SPECIFICATION" />
+                        <input type="text" class="form-control" placeholder=" Specification" name="SPECIFICATION" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Date of Acquisition" name="AQUISITION_DATE" />
+                        <input type="text" class="form-control" placeholder=" Date of Acquisition" name="AQUISITION_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search New Equipment ?" name="NEW_EQUIPEMENT" />
+                        <input type="text" class="form-control" placeholder=" New Equipment ?" name="NEW_EQUIPEMENT" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Supplier Name" name="SUPPLIER_NAME" />
+                        <input type="text" class="form-control" placeholder=" Supplier Name" name="SUPPLIER_NAME" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Purchase Price" name="PURCHASE_PRICE" />
+                        <input type="text" class="form-control" placeholder=" Purchase Price" name="PURCHASE_PRICE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search MARGIN" name="MARGIN" />
+                        <input type="text" class="form-control" placeholder=" MARGIN" name="MARGIN" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search REMARK" name="REMARK" />
+                        <input type="text" class="form-control" placeholder=" REMARK" name="REMARK" />
                       </th>
 
                     </tr>

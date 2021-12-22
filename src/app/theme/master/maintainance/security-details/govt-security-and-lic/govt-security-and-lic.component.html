@@ -309,11 +309,7 @@
             <div class="col-sm">
               <div class="table-responsive">
                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-<<<<<<< Updated upstream
-                  class="table table-striped table-bordered table-hover">
-=======
                   class="table table-striped table-bordered table-hover compact">
->>>>>>> Stashed changes
                   <tbody *ngIf="governmentmasters?.length != 0">
                     <tr *ngFor="let data of governmentmasters">
                       <td>
@@ -324,19 +320,6 @@
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
 
-<<<<<<< Updated upstream
-                      <td>{{ data.SUBMISSION_DATE }}</td>
-                      <td>{{ data.CERT_POLICY_DATE }}</td>
-                      <td>{{ data.CERT_POLICY_NO }}</td>
-                      <td>{{ data.MARGIN }}</td>
-                      <td>{{ data.ASSURED_NAME }}</td>
-                      <td>{{ data.PAIDUP_AMT }}</td>
-                      <td>{{ data.SUM_ASSURED }}</td>
-                      <td>{{ data.PREMIUM }}</td>
-                      <td>{{ data.SURRENDER_VALUE }}</td>
-                      <td>{{ data.PREMIUM_DUE_DATE }}</td>
-                      <td>{{ data.MATURE_DUE_DATE }}</td>
-=======
                       <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
                       <td class="td_right">{{ data.CERT_POLICY_DATE }}</td>
                       <td class="td_right">{{ data.CERT_POLICY_NO }}</td>
@@ -348,7 +331,6 @@
                       <td class="td_right">{{ data.SURRENDER_VALUE }}</td>
                       <td class="td_right">{{ data.PREMIUM_DUE_DATE }}</td>
                       <td class="td_right">{{ data.MATURE_DUE_DATE }}</td>
->>>>>>> Stashed changes
                       <td>{{ data.NOMINEE }}</td>
                       <td>{{ data.REMARK }}</td>
                     </tr>
@@ -362,43 +344,43 @@
                     <tr>
                       <th></th>
                       <th>
-                        <input type="text" placeholder="Search Date of Submission" name="SUBMISSION_DATE" />
+                        <input type="text"  class="form-control" placeholder=" Date of Submission" name="SUBMISSION_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Certicate / Policy Date" name="CERT_POLICY_DATE" />
+                        <input type="text" class="form-control" placeholder=" Certicate / Policy Date" name="CERT_POLICY_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Certicate / Policy No." name="CERT_POLICY_NO" />
+                        <input type="text" class="form-control" placeholder=" Certicate / Policy No." name="CERT_POLICY_NO" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Margin %" name="MARGIN" />
+                        <input type="text" class="form-control" placeholder=" Margin %" name="MARGIN" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Name of Assured" name="ASSURED_NAME" />
+                        <input type="text" class="form-control" placeholder=" Name of Assured" name="ASSURED_NAME" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Paid up Amount" name="PAIDUP_AMT" />
+                        <input type="text" class="form-control" placeholder=" Paid up Amount" name="PAIDUP_AMT" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Sum Assured" name="SUM_ASSURED" />
+                        <input type="text" class="form-control" placeholder=" Sum Assured" name="SUM_ASSURED" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Premium Amount" name="PREMIUM" />
+                        <input type="text" class="form-control" placeholder=" Premium Amount" name="PREMIUM" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Surrender Value" name="SURRENDER_VALUE" />
+                        <input type="text" class="form-control" placeholder=" Surrender Value" name="SURRENDER_VALUE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Premium Due Date" name="PREMIUM_DUE_DATE" />
+                        <input type="text" class="form-control" placeholder=" Premium Due Date" name="PREMIUM_DUE_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Matured Due Date" name="MATURE_DUE_DATE" />
+                        <input type="text" class="form-control" placeholder=" Matured Due Date" name="MATURE_DUE_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Nominee" name="NOMINEE" />
+                        <input type="text" class="form-control" placeholder=" Nominee" name="NOMINEE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search REMARK" name="REMARK" />
+                        <input type="text" class="form-control" placeholder=" REMARK" name="REMARK" />
                       </th>
                     </tr>
                   </tfoot>

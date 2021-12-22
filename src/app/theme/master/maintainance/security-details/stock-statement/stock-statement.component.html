@@ -207,11 +207,7 @@
             <div class="col-sm">
               <div class="table-responsive">
                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-<<<<<<< Updated upstream
-                  class="table table-striped table-bordered table-hover">
-=======
                   class="table table-striped table-bordered table-hover compact">
->>>>>>> Stashed changes
                   <tbody *ngIf="stockmasters?.length != 0">
                     <tr *ngFor="let data of stockmasters">
                       <td>
@@ -222,16 +218,6 @@
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
 
-<<<<<<< Updated upstream
-                      <td>{{ data.SUBMISSION_DATE }}</td>
-                      <td>{{ data.STATEMENT_DATE }}</td>
-                      <td>{{ data.RAW_MATERIAL }}</td>
-                      <td>{{ data.RAW_MARGIN }}</td>
-                      <td>{{ data.WORK_PROGRESS }}</td>
-                      <td>{{ data.WORK_MARGIN }}</td>
-                      <td>{{ data.FINISHED_GOODS }}</td>
-                      <td>{{ data.FINISHED_MARGIN }}</td>
-=======
                       <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
                       <td class="td_right">{{ data.STATEMENT_DATE }}</td>
                       <td class="td_right">{{ data.RAW_MATERIAL }}</td>
@@ -240,7 +226,6 @@
                       <td class="td_right">{{ data.WORK_MARGIN }}</td>
                       <td>{{ data.FINISHED_GOODS }}</td>
                       <td class="td_right">{{ data.FINISHED_MARGIN }}</td>
->>>>>>> Stashed changes
                       <td>{{ data.REMARK }}</td>
                     </tr>
                   </tbody>
@@ -253,31 +238,31 @@
                     <tr>
                       <th></th>
                       <th>
-                        <input type="text" placeholder="Search Date of Submission" name="SUBMISSION_DATE" />
+                        <input type="text" class="form-control" placeholder="Search Date of Submission" name="SUBMISSION_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Statement Date" name="STATEMENT_DATE" />
+                        <input type="text" class="form-control" placeholder="Search Statement Date" name="STATEMENT_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Raw Material Cost" name="RAW_MATERIAL" />
+                        <input type="text" class="form-control" placeholder="Search Raw Material Cost" name="RAW_MATERIAL" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search (Margin) Raw Material Cost " name="RAW_MARGIN" />
+                        <input type="text" class="form-control" placeholder="Search (Margin) Raw Material Cost " name="RAW_MARGIN" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Work In Progress Goods" name="WORK_PROGRESS" />
+                        <input type="text" class="form-control" placeholder="Search Work In Progress Goods" name="WORK_PROGRESS" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Work in Progress Goods" name="WORK_MARGIN" />
+                        <input type="text" class="form-control" placeholder="Search Work in Progress Goods" name="WORK_MARGIN" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Finished Goods Cost" name="FINISHED_GOODS" />
+                        <input type="text" class="form-control" placeholder="Search Finished Goods Cost" name="FINISHED_GOODS" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Work In Progress Goods" name="FINISHED_MARGIN" />
+                        <input type="text" class="form-control" placeholder="Search Work In Progress Goods" name="FINISHED_MARGIN" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search REMARK" name="REMARK" />
+                        <input type="text" class="form-control" placeholder="Search REMARK" name="REMARK" />
                       </th>
                     </tr>
                   </tfoot>

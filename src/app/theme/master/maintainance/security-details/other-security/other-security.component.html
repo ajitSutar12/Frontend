@@ -138,11 +138,7 @@
             <div class="col-sm">
               <div class="table-responsive">
                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-<<<<<<< Updated upstream
-                  class="table table-striped table-bordered table-hover">
-=======
                   class="table table-striped table-bordered table-hover compact">
->>>>>>> Stashed changes
                   <tbody *ngIf="securitymasters?.length != 0">
                     <tr *ngFor="let data of securitymasters">
                       <td>
@@ -153,17 +149,10 @@
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
 
-<<<<<<< Updated upstream
-                      <td>{{ data.SUBMISSION_DATE }}</td>
-                      <td>{{ data.SHORT_DETAILS }}</td>
-                      <td>{{ data.TOTAL_VALUE }}</td>
-                      <td>{{ data.MARGIN }}</td>
-=======
                       <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
                       <td>{{ data.SHORT_DETAILS }}</td>
                       <td class="td_right">{{ data.TOTAL_VALUE }}</td>
                       <td class="td_right">{{ data.MARGIN }}</td>
->>>>>>> Stashed changes
                       <td>{{ data.DETAILS }}</td>
                     </tr>
                   </tbody>
@@ -176,19 +165,19 @@
                     <tr>
                       <th></th>
                       <th>
-                        <input type="text" placeholder="Search Date of Submission" name="SUBMISSION_DATE" />
+                        <input type="text" class="form-control" placeholder=" Date of Submission" name="SUBMISSION_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Short Details" name="SHORT_DETAILS" />
+                        <input type="text" class="form-control" placeholder=" Short Details" name="SHORT_DETAILS" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Total Value" name="TOTAL_VALUE" />
+                        <input type="text" class="form-control" placeholder=" Total Value" name="TOTAL_VALUE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Margin %" name="MARGIN" />
+                        <input type="text" class="form-control" placeholder=" Margin %" name="MARGIN" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Security Details" name="DETAILS" />
+                        <input type="text" class="form-control" placeholder=" Security Details" name="DETAILS" />
                       </th>
                     </tr>
                   </tfoot>

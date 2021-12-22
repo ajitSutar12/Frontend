@@ -109,3 +109,10 @@ ng-select.ng-select>div>div.single {
     //     border: 2px solid green !important;
     //     outline: none;
     // }
+    .ng-valid.ng-dirty:not(form) {
+        border: solid 2px green;
+      }
+      
+      .ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
+        border: solid 2px lightcoral;
+      }

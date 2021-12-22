@@ -224,11 +224,7 @@
             <div class="col-sm">
               <div class="table-responsive">
                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-<<<<<<< Updated upstream
-                  class="table table-striped table-bordered table-hover">
-=======
                   class="table table-striped table-bordered table-hover compact">
->>>>>>> Stashed changes
                   <tbody *ngIf="marketmaster?.length != 0">
                     <tr *ngFor="let data of marketmaster">
                       <td>
@@ -259,31 +255,31 @@
                     <tr>
                       <th></th>
                       <th>
-                        <input type="text" placeholder="Search Submission Date" name="SUBMISSION_DATE" />
+                        <input type="text" class="form-control" placeholder=" Submission Date" name="SUBMISSION_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Company Code" name="CO_CODE" />
+                        <input type="text" class="form-control" placeholder=" Company Code" name="CO_CODE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Company Name" name="CO_NAME" />
+                        <input type="text" class="form-control" placeholder=" Company Name" name="CO_NAME" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Market Value Nature" name="MARKET_VALUE" />
+                        <input type="text" class="form-control" placeholder=" Market Value Nature" name="MARKET_VALUE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Margin %" name="MARGIN" />
+                        <input type="text" class="form-control" placeholder=" Margin %" name="MARGIN" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search No of Shares" name="SHARES" />
+                        <input type="text" class="form-control" placeholder=" No of Shares" name="SHARES" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Updated By" name="UPDATED_BY" />
+                        <input type="text" class="form-control" placeholder=" Updated By" name="UPDATED_BY" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Released On Date" name="RELEASE_DATE" />
+                        <input type="text" class="form-control" placeholder=" Released On Date" name="RELEASE_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Released By" name="RELEASE_BY" />
+                        <input type="text" class="form-control" placeholder=" Released By" name="RELEASE_BY" />
                       </th>
                     </tr>
                   </tfoot>

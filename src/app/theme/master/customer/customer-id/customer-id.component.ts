@@ -96,6 +96,7 @@ interface CustomerMaster {
   styleUrls: ["./customer-id.component.scss"],
 })
 export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @Output() newCustomerEvent = new EventEmitter<string>();
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   @ViewChild('ngSelect') ngSelect: NgSelectComponent;
@@ -158,7 +159,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   SUBMIT_DATE: boolean = false;
   enablefields: boolean = true;
   hasFocus: boolean = false;
-
+ngselectbool :boolean= true;
   today: Date;
 
 
@@ -510,8 +511,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Method to insert data into database through NestJS
-  submit() {
-    const formVal = this.angForm.value;
+  submit(event) {
+    debugger
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
     const dataToSend = {
       'AC_NO': formVal.AC_NO,
       'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
@@ -554,6 +561,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.customerIdService.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
+
         console.log("submit", data);
         // this.custData = data1.id;
         this.addNewCustomer(data.id);
@@ -568,6 +577,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     //To clear form
     this.resetForm();
     this.imageObject = []
+    }
+    
   }
 
   //disabledate on keyup

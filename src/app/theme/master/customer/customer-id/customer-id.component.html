@@ -1,12 +1,13 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm"  (ngSubmit)="submit($event)">
             <div class="card-header">
                 <h5>Customer ID</h5>
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+               
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group input-group">
@@ -40,7 +41,7 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="prifix" name="AC_TITLE" [multiple]="false"
+                                <ng-select  [ngClass]="'ng-select'" [options]="prifix" name="AC_TITLE" [multiple]="false"  [ngClass]="{'form-submitted': formSubmitted}"
                                     id="title" placeholder="Title *" required title="Compulsory Selection"
                                     onload="ngfocus()" formControlName="AC_TITLE">
                                 </ng-select>
@@ -57,9 +58,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
-                                        required pattern="^[A-Za-z]+$" maxlength="15" #lastname [(ngModel)]="lname"
-                                        title="Input allowed only A-Z" formControlName="L_NAME"
-                                        (ngModelChange)="lname = $event.toUpperCase()">
+                                        required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase;"  [ngClass]="{'form-submitted': formSubmitted}"
+                                        #lastname [(ngModel)]="lname" title="Input allowed only A-Z"
+                                        formControlName="L_NAME" required>
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
 
                                 </span>
@@ -79,9 +80,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
-                                        required pattern="^[A-Za-z]+$" maxlength="15" [(ngModel)]="fname"
-                                        (ngModelChange)="fname = $event.toUpperCase()" title="Input allowed only A-Z"
-                                        formControlName="F_NAME">
+                                        required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase"  [ngClass]="{'form-submitted': formSubmitted}"
+                                        [(ngModel)]="fname" title="Input allowed only A-Z" formControlName="F_NAME">
                                     <label for="F_NAME">First Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -98,10 +98,10 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="M_NAME" class="form-control" placeholder=" " id="M_NAME"
-                                        required pattern="^[A-Za-z]+$" maxlength="15" [(ngModel)]="mname"
-                                        title="Input allowed only A-Z" formControlName="M_NAME"
-                                        (ngModelChange)="mname = $event.toUpperCase()">
+                                    <input type="text" name="M_NAME" style="text-transform:uppercase"
+                                        class="form-control" placeholder=" " id="M_NAME" required pattern="^[A-Za-z]+$"  [ngClass]="{'form-submitted': formSubmitted}"
+                                        maxlength="15" [(ngModel)]="mname" title="Input allowed only A-Z"
+                                        formControlName="M_NAME">
                                     <label for="M_NAME">Middle Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -307,7 +307,8 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <ng-select [ngClass]="'ng-select'" [options]="city" [multiple]="false"
+                                    <ng-select [ngClass]="{'form-submitted': formSubmitted}" [options]="city" [multiple]="false"
+                                    [ngClass]="'ng-select'"
                                         placeholder="City *" formControlName="AC_CTCODE" required>
                                     </ng-select>
                                 </span>
@@ -390,7 +391,7 @@
                                     <input type="text" name="AC_PHONE_OFFICE" class="form-control" placeholder=" "
                                         pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9"
                                         id="AC_PHONE_OFFICE" maxlength="11" minlength="10"
-                                        formControlName="AC_PHONE_OFFICE">
+                                        formControlName="AC_PHONE_OFFICE" required>
                                     <label for="AC_PHONE_OFFICE">Office(O)/Mob No</label>
                                 </span>
                             </div>
@@ -691,14 +692,14 @@
                             </div>
                         </div>
                     </div>
-                </form>
+
             </div>
             <div class="card-footer">
                 <div class="row" style="float: right;">
                     <div class="col-sm">
                         <!-- <button class="btn btn-primary ripple light" (click)="addNewCustomer(angForm.value)" (click)="submit()" *ngIf="showButton" [disabled]="angForm.invalid">Add</button> -->
-                        <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
-                            [disabled]="angForm.invalid">
+                        <button type ="submit" class="btn btn-primary ripple light" *ngIf="showButton"
+                            >
                             Add
                         </button>
                         <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
@@ -710,6 +711,7 @@
                     </div>
                 </div>
             </div>
+        </form>
         </div>
     </div>
 </div>

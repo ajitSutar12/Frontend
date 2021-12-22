@@ -206,11 +206,7 @@
             <div class="col-sm">
               <div class="table-responsive">
                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-<<<<<<< Updated upstream
-                  class="table table-striped table-bordered table-hover">
-=======
                   class="table table-striped table-bordered table-hover compact">
->>>>>>> Stashed changes
                   <tbody *ngIf="furnituremasters?.length != 0">
                     <tr *ngFor="let data of furnituremasters">
                       <td>
@@ -221,16 +217,6 @@
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
 
-<<<<<<< Updated upstream
-                      <td>{{ data.SUBMISSION_DATE }}</td>
-                      <td>{{ data.ARTICLE_NAME }}</td>
-                      <td>{{ data.ARTICLE_MAKE }}</td>
-                      <td>{{ data.AQUISITION_DATE }}</td>
-                      <td>{{ data.NEW_ARTICLE }}</td>
-                      <td>{{ data.SUPPLIER_NAME }}</td>
-                      <td>{{ data.PURCHASE_PRICE }}</td>
-                      <td>{{ data.MARGIN }}</td>
-=======
                       <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
                       <td>{{ data.ARTICLE_NAME }}</td>
                       <td>{{ data.ARTICLE_MAKE }}</td>
@@ -239,7 +225,6 @@
                       <td>{{ data.SUPPLIER_NAME }}</td>
                       <td class="td_right">{{ data.PURCHASE_PRICE }}</td>
                       <td class="td_right">{{ data.MARGIN }}</td>
->>>>>>> Stashed changes
                       <td>{{ data.REMARK }}</td>
                     </tr>
                   </tbody>
@@ -252,31 +237,31 @@
                     <tr>
                       <th></th>
                       <th>
-                        <input type="text" placeholder="Search Date of Submission" name="SUBMISSION_DATE" />
+                        <input type="text" class="form-control" placeholder=" Date of Submission" name="SUBMISSION_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Name of Article" name="ARTICLE_NAME" />
+                        <input type="text" class="form-control" placeholder=" Name of Article" name="ARTICLE_NAME" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Article Make" name="ARTICLE_MAKE" />
+                        <input type="text" class="form-control" placeholder=" Article Make" name="ARTICLE_MAKE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Date of Acquistition" name="AQUISITION_DATE" />
+                        <input type="text" class="form-control" placeholder=" Date of Acquistition" name="AQUISITION_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search New Article " name="NEW_ARTICLE" />
+                        <input type="text" class="form-control" placeholder=" New Article " name="NEW_ARTICLE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Supplier Name" name="SUPPLIER_NAME" />
+                        <input type="text" class="form-control" placeholder=" Supplier Name" name="SUPPLIER_NAME" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Purchase Price" name="PURCHASE_PRICE" />
+                        <input type="text" class="form-control" placeholder=" Purchase Price" name="PURCHASE_PRICE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search MARGIN" name="MARGIN" />
+                        <input type="text" class="form-control" placeholder=" MARGIN" name="MARGIN" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search REMARK" name="REMARK" />
+                        <input type="text" class="form-control" placeholder=" REMARK" name="REMARK" />
                       </th>
                     </tr>
                   </tfoot>

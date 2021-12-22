@@ -30,6 +30,7 @@ interface Narration {
   styleUrls: ['./narration.component.scss']
 })
 export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   //api 
@@ -149,21 +150,29 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   }
   // Method to insert data into database through NestJS
-  submit() {
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      'NARRATION': formVal.NARRATION,
+  submit(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        'NARRATION': formVal.NARRATION,
+      }
+      this.narrationService.postData(dataToSend).subscribe(data1 => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
     }
-    this.narrationService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
-    //To clear form
-    this.resetForm();
+   
   }
 
   //Method for append data into fields

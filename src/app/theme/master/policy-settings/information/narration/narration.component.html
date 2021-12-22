@@ -5,13 +5,14 @@
                 <h5>Narration Master</h5>
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="NARRATION" maxlength="2000" class="form-control"
+                                    [ngClass]="{'form-submitted': formSubmitted}"
                                     #autofocus placeholder=" " id="label-name" required="" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NARRATION">
                                     <label for="label-name">Narration<sub class="required">* </sub></label>
@@ -26,7 +27,7 @@
 
 
                         <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Add</button>
+                            <button class="btn btn-primary ripple light" *ngIf="showButton">Add</button>
                             <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>&nbsp;
                             <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
                         </div>

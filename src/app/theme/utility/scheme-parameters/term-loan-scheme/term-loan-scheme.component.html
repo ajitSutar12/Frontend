@@ -1588,7 +1588,21 @@
           </div>
           <div class="row">
             <div class="col-sm-9"></div>
-            <div class="col-sm">
+            <div class="card-footer">
+              <div class="row" style="float: right;">
+                  <div class="col-sm m-b-20">
+                      <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+                          Add
+                      </button>
+                      <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                          Update</button>&nbsp;
+                      <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                          Cancel
+                      </button>
+                  </div>
+              </div>
+          </div>
+            <!-- <div class="col-sm">
               <button
                 class="btn btn-primary ripple light"
                 *ngIf="showButton"
@@ -1613,7 +1627,7 @@
               >
                 Cancel
               </button>
-            </div>
+            </div> -->
           </div>
         </div>
       </form>

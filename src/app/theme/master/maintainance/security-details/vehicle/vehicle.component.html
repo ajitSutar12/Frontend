@@ -268,11 +268,7 @@
             <div class="col-sm">
               <div class="table-responsive">
                 <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-<<<<<<< Updated upstream
-                  class="table table-striped table-bordered table-hover">
-=======
                   class="table table-striped table-bordered table-hover compact">
->>>>>>> Stashed changes
                   <tbody *ngIf="vehiclemasters?.length != 0">
                     <tr *ngFor="let data of vehiclemasters">
                       <td>
@@ -283,19 +279,6 @@
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
 
-<<<<<<< Updated upstream
-                      <td>{{ data.SUBMISSION_DATE }}</td>
-                      <td>{{ data.RTO_REG_DATE }}</td>
-                      <td>{{ data.VEHICLE_MAKE }}</td>
-                      <td>{{ data.MANUFACTURE_YEAR }}</td>
-                      <td>{{ data.VEHICLE_NO }}</td>
-                      <td>{{ data.CHASSIS_NO }}</td>
-                      <td>{{ data.AQUISITION_DATE }}</td>
-                      <td>{{ data.NEW_VEHICLE }}</td>
-                      <td>{{ data.SUPPLIER_NAME }}</td>
-                      <td>{{ data.PURCHASE_PRICE }}</td>
-                      <td>{{ data.MARGIN }}</td>
-=======
                       <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
                       <td class="td_right">{{ data.RTO_REG_DATE }}</td>
                       <td>{{ data.VEHICLE_MAKE }}</td>
@@ -307,7 +290,6 @@
                       <td>{{ data.SUPPLIER_NAME }}</td>
                       <td class="td_right">{{ data.PURCHASE_PRICE }}</td>
                       <td class="td_right">{{ data.MARGIN }}</td>
->>>>>>> Stashed changes
                       <td>{{ data.REMARK }}</td>
                     </tr>
                   </tbody>
@@ -320,40 +302,40 @@
                     <tr>
                       <th></th>
                       <th>
-                        <input type="text" placeholder="Search Date of Submission" name="SUBMISSION_DATE" />
+                        <input type="text" class="form-control" placeholder=" Date of Submission" name="SUBMISSION_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search RTO Registration Date" name="RTO_REG_DATE" />
+                        <input type="text" class="form-control" placeholder=" RTO Registration Date" name="RTO_REG_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Vehicle Make" name="VEHICLE_MAKE" />
+                        <input type="text" class="form-control" placeholder=" Vehicle Make" name="VEHICLE_MAKE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Year of Manufacture" name="MANUFACTURE_YEAR" />
+                        <input type="text" class="form-control" placeholder=" Year of Manufacture" name="MANUFACTURE_YEAR" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Vehicle Number" name="VEHICLE_NO" />
+                        <input type="text" class="form-control" placeholder=" Vehicle Number" name="VEHICLE_NO" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Chasis Number" name="CHASSIS_NO" />
+                        <input type="text" class="form-control" placeholder=" Chasis Number" name="CHASSIS_NO" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Date of Acquisition" name="AQUISITION_DATE" />
+                        <input type="text" class="form-control" placeholder=" Date of Acquisition" name="AQUISITION_DATE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search New Vehicle" name="NEW_VEHICLE" />
+                        <input type="text" class="form-control" placeholder=" New Vehicle" name="NEW_VEHICLE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Supplier Name" name="SUPPLIER_NAME" />
+                        <input type="text" class="form-control" placeholder=" Supplier Name" name="SUPPLIER_NAME" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search Purchase Price" name="PURCHASE_PRICE" />
+                        <input type="text" class="form-control" placeholder=" Purchase Price" name="PURCHASE_PRICE" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search MARGIN" name="MARGIN" />
+                        <input type="text" class="form-control" placeholder=" MARGIN" name="MARGIN" />
                       </th>
                       <th>
-                        <input type="text" placeholder="Search REMARK" name="REMARK" />
+                        <input type="text" class="form-control" placeholder=" REMARK" name="REMARK" />
                       </th>
                     </tr>
                   </tfoot>
