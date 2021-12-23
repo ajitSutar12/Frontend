@@ -220,7 +220,6 @@ ngselectbool :boolean= true;
           )
           .subscribe((resp) => {
             this.customerMaster = resp.data;
-            console.log(resp.data);
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -718,7 +717,6 @@ ngselectbool :boolean= true;
     this.updateShow = true;
     this.newbtnShow = true;
     this.customerIdService.getFormData(id).subscribe((data) => {
-      console.log("edit", data);
       this.updateID = data.id;
       this.angForm.patchValue({
         AC_NO: data.AC_NO,
@@ -729,17 +727,17 @@ ngselectbool :boolean= true;
         M_NAME: data.M_NAME,
         L_NAME: data.L_NAME,
         AC_NAME: data.AC_NAME,
-        AC_CAST: data.AC_CAST,
-        AC_OCODE: data.AC_OCODE,
+        AC_CAST: data.AC_CAST.toString(),
+        AC_OCODE: data.AC_OCODE.toString(),
         AC_ADHARNO: data.AC_ADHARNO,
-        AC_RISKCATG: data.AC_RISKCATG,
+        AC_RISKCATG: data.AC_RISKCATG.toString(),
         AC_BIRTH_DT: data.AC_BIRTH_DT,
         AC_HONO: data.custAddress[0].AC_HONO,
         AC_WARD: data.custAddress[0].AC_WARD,
         AC_ADDR: data.custAddress[0].AC_ADDR,
         AC_GALLI: data.custAddress[0].AC_GALLI,
         AC_AREA: data.custAddress[0].AC_AREA,
-        AC_CTCODE: data.custAddress[0].AC_CTCODE,
+        AC_CTCODE: data.custAddress[0].AC_CTCODE.toString(),
         AC_PIN: data.custAddress[0].AC_PIN,
         AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
         AC_PANNO: data.AC_PANNO,

@@ -241,10 +241,6 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
           title: "Customer ID",
         },
         {
-          data: "AC_TITLE",
-          title: "Title",
-        },
-        {
           data: "AC_NAME",
           title: "Name",
         },
@@ -256,23 +252,6 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
           data: "AC_MEMBNO",
           title: "Member No",
         },
-
-        {
-          data: "AC_HONO",
-          title: "House",
-        },
-        {
-          data: "AC_WARD",
-          title: "Ward",
-        },
-        {
-          data: "AC_TADDR",
-          title: "Detail",
-        },
-        {
-          data: "AC_TGALLI",
-          title: "Galli",
-        },
         {
           data: "AC_AREA",
           title: "Area",
@@ -282,24 +261,12 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
           title: "City",
         },
         {
-          data: "AC_PIN",
-          title: "Pincode",
-        },
-        {
           data: "AC_OPDATE",
           title: "opening bal. date",
         },
         {
-          data: "AC_IS_RECOVERY",
-          title: "Recovery",
-        },
-        {
           data: "DEBIT",
           title: "opening bal",
-        },
-        {
-          data: "AC_PARTICULAR",
-          title: "Reason",
         },
       ],
       dom: "Blrtip",
@@ -334,7 +301,6 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   //check  if require values
   checkRequire(ele: any) {
     if (ele <= 100) {
-      console.log(ele);
     }
     else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
@@ -342,6 +308,13 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
+  checkCUST_No() {
+    if (this.AC_CUSTID = '') {
+    }
+    else {
+      Swal.fire("Invalid Input", "Please insert Customer ID", "error");
+    }
+  }
 
   addNewCustomer(newCustomer) {
     this.customerID
@@ -369,7 +342,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_ADDR: data.custAddress[0].AC_ADDR,
         AC_GALLI: data.custAddress[0].AC_GALLI,
         AC_AREA: data.custAddress[0].AC_AREA,
-        AC_CTCODE: data.custAddress[0].AC_CTCODE,
+        AC_CTCODE: data.custAddress[0].city.CITY_NAME,
         AC_PIN: data.custAddress[0].AC_PIN,
         AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
         AC_MOBNO: data.AC_MOBILENO,
@@ -384,7 +357,6 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_TCTCODE: data.custAddress.AC_TCTCODE,
         AC_TPIN: data.custAddress.AC_TPIN,
       })
-      console.log(data)
     })
   }
 
@@ -485,13 +457,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateShow = true;
     this.newbtnShow = true;
     this.anamatGSMService.getFormData(id).subscribe((data) => {
+      console.log('edit', data)
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       this.angForm.patchValue({
         AC_ACNOTYPE: data.AC_ACNOTYPE,
         AC_TYPE: data.AC_TYPE,
         AC_NO: data.AC_NO,
-        AC_CUSTID: data.AC_CUSTID,
+        AC_CUSTID: data.AC_CUSTID.toString(),
         // AC_TITLE: data.AC_TITLE,
         // AC_NAME: data.AC_NAME,
         // AC_MEMBTYPE: data.AC_MEMBTYPE,

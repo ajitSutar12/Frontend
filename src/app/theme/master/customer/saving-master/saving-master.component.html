@@ -152,7 +152,7 @@
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
                                 <input type="text" name="AC_CAST" class="form-control" placeholder=" " id="AC_CAST"
-                                  formControlName="AC_CAST" />
+                                  formControlName="AC_CAST" disabled>
                                 <label for="AC_CAST">Cast</label>
                               </span>
                             </div>
@@ -1635,9 +1635,9 @@
                       data.idmaster.custAddress[0].AC_ADDR }}
                     </td>
                     <!-- <td>{{data.idmaster.custAddress[0].AC_ADDR }}</td> -->
-                    <td [ngClass]="data.idmaster.custAddress[0].AC_CTCODE === '' ? 'td_center' : 'td_right'">
-                      {{ data.idmaster.custAddress[0].AC_CTCODE === "" ? "-" :
-                      data.idmaster.custAddress[0].AC_CTCODE }}
+                    <td [ngClass]="data.idmaster.custAddress[0].city.CITY_NAME  === '' ? 'td_center' : 'td_right'">
+                      {{ data.idmaster.custAddress[0].city.CITY_NAME === "" ? "-" :
+                      data.idmaster.custAddress[0].city.CITY_NAME }}
                     </td>
                     <td [ngClass]="
                         data.AC_OPDATE === '' ? 'td_center' : 'td_center'
@@ -1649,21 +1649,21 @@
                       ">
                       {{ data.REF_ACNO === "" ? "-" : data.REF_ACNO }}
                     </td>
-                    <td [ngClass]="data.AC_CATG === '' ? 'td_center' : 'td_left'">
-                      {{ data.AC_CATG === "" ? "-" : data.AC_CATG }}
+                    <td [ngClass]="data.CategoryMaster.NAME === '' ? 'td_center' : 'td_left'">
+                      {{ data.CategoryMaster.NAME === "" ? "-" : data.CategoryMaster.NAME }}
                     </td>
                     <td [ngClass]="
-                        data.AC_OPR_CODE === '' ? 'td_center' : 'td_right'
+                        data.OperationMaster.NAME === '' ? 'td_center' : 'td_right'
                       ">
-                      {{ data.AC_OPR_CODE === "" ? "-" : data.AC_OPR_CODE }}
+                      {{ data.OperationMaster.NAME === "" ? "-" : data.OperationMaster.NAME }}
                     </td>
                     <td [ngClass]="
-                        data.AC_BALCATG === '' ? 'td_center' : 'td_left'
+                        data.MinimumBalanceMaster.BC_NAME === '' ? 'td_center' : 'td_left'
                       ">
-                      {{ data.AC_BALCATG === "" ? "-" : data.AC_BALCATG }}
+                      {{ data.MinimumBalanceMaster.BC_NAME === "" ? "-" : data.MinimumBalanceMaster.BC_NAME }}
                     </td>
-                    <td [ngClass]="data.AC_INTCATA === '' ? 'td_center' : 'td_left'">
-                      {{ data.AC_INTCATA === "" ? "-" : data.AC_INTCATA }}
+                    <td [ngClass]="data.intCategory.NAME  === '' ? 'td_center' : 'td_left'">
+                      {{ data.intCategory.NAME === "" ? "-" : data.intCategory.NAME }}
                     </td>
                     <td [ngClass]="data.AC_SCHMAMT === '' ? 'td_center' : 'td_left'">
                       {{ data.AC_SCHMAMT === "" ? "-" : data.AC_SCHMAMT }}

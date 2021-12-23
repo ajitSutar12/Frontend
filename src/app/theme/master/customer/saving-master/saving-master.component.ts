@@ -253,6 +253,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             dataTableParameters
           ).subscribe(resp => {
             this.savingMaster = resp.data;
+            console.log('table', this.savingMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -451,9 +452,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
-        AC_CAST: data.AC_CAST,
-        AC_OCODE: data.AC_OCODE,
-        AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_CAST: data.castMaster.NAME,
+        AC_OCODE: data.occupMaster.NAME,
+        AC_BIRTH_DT: data.AC_BIRTH_DT,
         AC_MOBNO: data.AC_MOBILENO,
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,
@@ -463,7 +464,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_ADDR: data.custAddress[0].AC_ADDR,
         AC_GALLI: data.custAddress[0].AC_GALLI,
         AC_AREA: data.custAddress[0].AC_AREA,
-        AC_CTCODE: data.custAddress[0].AC_CTCODE,
+        AC_CTCODE: data.custAddress[0].city.CITY_NAME,
         AC_PIN: data.custAddress[0].AC_PIN,
       })
       if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {

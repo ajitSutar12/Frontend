@@ -739,11 +739,11 @@
                                             <td>{{data.M_NAME}}</td>
                                             <td>{{data.L_NAME}}</td>
                                             <td>{{data.AC_NAME}}</td>
-                                            <td [ngClass]="data.AC_CAST === '' ? 'td_center' : 'td_left'">
-                                                {{data.AC_CAST === ''? '-' : data.AC_CAST}}</td>
-                                            <td [ngClass]="data.AC_OCODE === '' ? 'td_center' : 'td_left'">
-                                                {{data.AC_OCODE === ''? '-' : data.AC_OCODE}}</td>
-                                            <td>{{data.AC_RISKCATG}}</td>
+                                            <td [ngClass]="data.castMaster.NAME === '' ? 'td_center' : 'td_left'">
+                                                {{data.castMaster.NAME === ''? '-' : data.castMaster.NAME}}</td>
+                                            <td [ngClass]="data.occupMaster.NAME === '' ? 'td_center' : 'td_left'">
+                                                {{data.occupMaster.NAME === ''? '-' : data.occupMaster.NAME}}</td>
+                                            <td>{{data.riskCategory.NAME}}</td>
                                             <td class="td_right"
                                                 [ngClass]="data.AC_ADHARNO === '' ? 'td_center' : 'td_right'">
                                                 {{data.AC_ADHARNO === ''? '-' : data.AC_ADHARNO}}</td>

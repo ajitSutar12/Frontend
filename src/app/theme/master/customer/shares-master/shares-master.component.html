@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <!-- <ng-container *ngIf="showModalStatus"> -->
-                        <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
+                        <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
                             <div class="app-modal-header">
                                 <h4 class="modal-title">Customer ID </h4>
                                 <button type="button" class="close basic-close" (click)="modalLarge.hide()">
@@ -812,7 +812,7 @@
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="REF_ACNO" class="form-control"
-                                                                    placeholder=" " pattern="^[A-Za-z\./ -]+$"
+                                                                    placeholder=" " pattern="^[A-Za-z0-9\./ -]+$"
                                                                     maxlength="50"
                                                                     title="Input allowed only  A-Z a-z - / . (Space)"
                                                                     id="REF_ACNO" formControlName="REF_ACNO">
@@ -826,7 +826,7 @@
                                                             class="alert alert-danger">
                                                             <div
                                                                 *ngIf="angForm.controls['REF_ACNO'].errors?.pattern || angForm.controls['REF_ACNO'].errors?.maxlength">
-                                                                Input allowed only A-Z a-z - / . (Space)
+                                                                Input allowed only A-Z a-z 0-9 - / . (Space)
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1444,17 +1444,12 @@
                                         <td [ngClass]="data.AC_NAME === '' ? 'td_center' : 'td_left'">
                                             {{ data.AC_NAME === "" ? "-" : data.AC_NAME }}
                                         </td>
-                                        <td [ngClass]="data.AC_CATG === '' ? 'td_center' : 'td_right'">
-                                            {{ data.AC_CATG === "" ? "-" : data.AC_CATG }}
+                                        <td [ngClass]="data.CategoryMaster.NAME === '' ? 'td_center' : 'td_right'">
+                                            {{ data.CategoryMaster.NAME === "" ? "-" : data.CategoryMaster.NAME }}
                                         </td>
                                         <td [ngClass]="data.EMP_NO === '' ? 'td_center' : 'td_right'">
                                             {{ data.EMP_NO === "" ? "-" : data.EMP_NO }}
                                         </td>
-                                        <!-- <td>{{data.AC_JOIN_DATE }}</td>
-                                        <td>{{data.AC_RETIRE_DATE }}</td>
-                                        <td>{{data.MEMBERSHIP_BY }}</td>
-                                        <td>{{data.AC_SIGN_TYPE }}</td> -->
-
                                         <td [ngClass]="data.AC_SREPRESENT === '' ? 'td_center' : 'td_left'">
                                             {{ data.AC_SREPRESENT === "" ? "-" : data.AC_SREPRESENT }}
                                         </td>
@@ -1463,13 +1458,11 @@
                                             {{ data.idmaster.custAddress[0].AC_ADDR === "" ? "-" :
                                             data.idmaster.custAddress[0].AC_ADDR }}
                                         </td>
-                                        <!-- <td>{{data.idmaster.custAddress[0].AC_ADDR }}</td> -->
                                         <td
-                                            [ngClass]="data.idmaster.custAddress[0].AC_CTCODE === '' ? 'td_center' : 'td_right'">
-                                            {{ data.idmaster.custAddress[0].AC_CTCODE === "" ? "-" :
-                                            data.idmaster.custAddress[0].AC_CTCODE }}
+                                            [ngClass]="data.idmaster.custAddress[0].city.CITY_NAME === '' ? 'td_center' : 'td_right'">
+                                            {{ data.idmaster.custAddress[0].city.CITY_NAME === "" ? "-" :
+                                            data.idmaster.custAddress[0].city.CITY_NAME }}
                                         </td>
-                                        <!-- <td>{{data.idmaster.custAddress[0].AC_CTCODE }}</td> -->
                                         <td [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_center'">
                                             {{ data.AC_OPDATE === "" ? "-" : data.AC_OPDATE }}
                                         </td>
