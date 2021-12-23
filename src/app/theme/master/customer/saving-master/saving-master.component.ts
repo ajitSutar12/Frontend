@@ -448,6 +448,12 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
       this.ageCalculator(data.AC_BIRTH_DT);
+      if (data.castMaster == null) {
+        data.castMaster = ""
+      }
+      if (data.occupMaster == null) {
+        data.occupMaster = ""
+      }
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,

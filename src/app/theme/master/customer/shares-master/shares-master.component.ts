@@ -478,6 +478,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('get customer', data)
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
+      if (data.castMaster == null) {
+        data.castMaster = ""
+      }
+      if (data.occupMaster == null) {
+        data.occupMaster = ""
+      }
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
@@ -629,9 +635,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NARR: ['', [Validators.pattern]],
 
       //nominee controls (NOMINEELINK table)
-      AC_NNAME: ['', [Validators.pattern,Validators.required]],
-      AC_NRELA: ['', [Validators.pattern,Validators.required]],
-      AC_NDATE: ['',[Validators.required]],
+      AC_NNAME: ['', [Validators.pattern, Validators.required]],
+      AC_NRELA: ['', [Validators.pattern, Validators.required]],
+      AC_NDATE: ['', [Validators.required]],
       AGE: ['', [Validators.pattern, Validators.min(1), Validators.max(100)]],
       AC_NHONO: ['', [Validators.pattern]],
       AC_NWARD: ['', [Validators.pattern]],
@@ -666,91 +672,91 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.angForm.valid) {
       console.log(this.angForm.value); // Process your form
-      
-    const formVal = this.angForm.value;
-    if (formVal.AC_ADDFLAG == true) {
-      this.addType = 'P'
-    }
-    else if (formVal.AC_ADDFLAG == false) {
-      this.addType = 'T'
-    }
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.CODE;
-    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
 
-    const dataToSend = {
-      'branchCode': branchCode,
-      'bankCode': bankCode,
-      'shareSchemeType': this.shareSchemeType,
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_TYPE': formVal.AC_TYPE,
-      'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_NAME': formVal.AC_NAME,
-      'AC_CATG': parseInt(formVal.AC_CATG),
-      'EMP_NO': formVal.EMP_NO,
-      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
-      'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
-      'AC_JOIN_DATE': formVal.AC_JOIN_DATE,
-      'AC_OPDATE': formVal.AC_OPDATE,
-      'AC_EXPDT': formVal.AC_EXPDT,
-      'DEATH_DATE': formVal.DEATH_DATE,
-      'AC_DIRECT': formVal.AC_DIRECT,
-      'AC_BRANCH': formVal.AC_BRANCH,
-      'AC_RETIRE_DATE': formVal.AC_RETIRE_DATE,
-      'MEMBERSHIP_BY': formVal.MEMBERSHIP_BY,
-      'AC_SREPRESENT': formVal.AC_SREPRESENT,
-      'SUB_SALARYDIVISION_CODE': formVal.SUB_SALARYDIVISION_CODE,
-      'AC_SBNO': formVal.AC_SBNO,
-      'AC_RESNO': formVal.AC_RESNO,
-      'AC_RESDT': formVal.AC_RESDT,
-      'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
-      'REF_ACNO': formVal.REF_ACNO,
-      'AC_NARR': formVal.AC_NARR,
-      //temp address 
-      AC_ADDFLAG: formVal.AC_ADDFLAG,
-      AC_ADDTYPE: this.addType,
-      AC_THONO: formVal.AC_THONO,
-      AC_TWARD: formVal.AC_TWARD,
-      AC_TADDR: formVal.AC_TADDR,
-      AC_TGALLI: formVal.AC_TGALLI,
-      AC_TAREA: formVal.AC_TAREA,
-      AC_TCTCODE: formVal.AC_TCTCODE,
-      AC_TPIN: formVal.AC_TPIN,
+      const formVal = this.angForm.value;
+      if (formVal.AC_ADDFLAG == true) {
+        this.addType = 'P'
+      }
+      else if (formVal.AC_ADDFLAG == false) {
+        this.addType = 'T'
+      }
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.CODE;
+      let bankCode = Number(result.branch.syspara[0].BANK_CODE)
 
-      //shares details under nominee tab
-      // 'AC_SHBALDATE': formVal.AC_SHBALDATE,
-      // 'AC_OP_SHNO': formVal.AC_OP_SHNO,
-      // 'AC_FACE_VALUE': formVal.AC_FACE_VALUE,
-      // 'AC_OP_BAL': formVal.AC_OP_BAL,
+      const dataToSend = {
+        'branchCode': branchCode,
+        'bankCode': bankCode,
+        'shareSchemeType': this.shareSchemeType,
+        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+        'AC_TYPE': formVal.AC_TYPE,
+        'AC_CUSTID': formVal.AC_CUSTID,
+        'AC_NAME': formVal.AC_NAME,
+        'AC_CATG': parseInt(formVal.AC_CATG),
+        'EMP_NO': formVal.EMP_NO,
+        'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+        'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
+        'AC_JOIN_DATE': formVal.AC_JOIN_DATE,
+        'AC_OPDATE': formVal.AC_OPDATE,
+        'AC_EXPDT': formVal.AC_EXPDT,
+        'DEATH_DATE': formVal.DEATH_DATE,
+        'AC_DIRECT': formVal.AC_DIRECT,
+        'AC_BRANCH': formVal.AC_BRANCH,
+        'AC_RETIRE_DATE': formVal.AC_RETIRE_DATE,
+        'MEMBERSHIP_BY': formVal.MEMBERSHIP_BY,
+        'AC_SREPRESENT': formVal.AC_SREPRESENT,
+        'SUB_SALARYDIVISION_CODE': formVal.SUB_SALARYDIVISION_CODE,
+        'AC_SBNO': formVal.AC_SBNO,
+        'AC_RESNO': formVal.AC_RESNO,
+        'AC_RESDT': formVal.AC_RESDT,
+        'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
+        'REF_ACNO': formVal.REF_ACNO,
+        'AC_NARR': formVal.AC_NARR,
+        //temp address 
+        AC_ADDFLAG: formVal.AC_ADDFLAG,
+        AC_ADDTYPE: this.addType,
+        AC_THONO: formVal.AC_THONO,
+        AC_TWARD: formVal.AC_TWARD,
+        AC_TADDR: formVal.AC_TADDR,
+        AC_TGALLI: formVal.AC_TGALLI,
+        AC_TAREA: formVal.AC_TAREA,
+        AC_TCTCODE: formVal.AC_TCTCODE,
+        AC_TPIN: formVal.AC_TPIN,
 
-      //marathi details
-      'AC_DEV_NAME': formVal.AC_DEV_NAME,
-      'AC_DEV_WARD': formVal.AC_DEV_WARD,
-      'AC_DEV_ADD': formVal.AC_DEV_ADD,
-      'AC_DEV_GALLI': formVal.AC_DEV_GALLI,
-      'AC_DEV_AREA': formVal.AC_DEV_AREA,
-      'AC_DEV_CITYCODE': formVal.AC_DEV_CITYCODE,
-      //Nominee 
-      'NomineeData': this.multiNominee
-    }
+        //shares details under nominee tab
+        // 'AC_SHBALDATE': formVal.AC_SHBALDATE,
+        // 'AC_OP_SHNO': formVal.AC_OP_SHNO,
+        // 'AC_FACE_VALUE': formVal.AC_FACE_VALUE,
+        // 'AC_OP_BAL': formVal.AC_OP_BAL,
 
-    this.ShareMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.formSubmitted = false;
+        //marathi details
+        'AC_DEV_NAME': formVal.AC_DEV_NAME,
+        'AC_DEV_WARD': formVal.AC_DEV_WARD,
+        'AC_DEV_ADD': formVal.AC_DEV_ADD,
+        'AC_DEV_GALLI': formVal.AC_DEV_GALLI,
+        'AC_DEV_AREA': formVal.AC_DEV_AREA,
+        'AC_DEV_CITYCODE': formVal.AC_DEV_CITYCODE,
+        //Nominee 
+        'NomineeData': this.multiNominee
+      }
 
-      // to reload after insertion of data
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
-    //To clear form
-    this.resetForm();
-    this.multiNominee = []
-    this.customerDoc = []
+      this.ShareMasterService.postData(dataToSend).subscribe(data => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+
+        // to reload after insertion of data
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.multiNominee = []
+      this.customerDoc = []
     }
   }
 
