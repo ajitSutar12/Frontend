@@ -50,6 +50,7 @@ interface SecurityMaster {
 })
 export class OtherSecurityComponent
   implements OnInit, AfterViewInit, OnDestroy {
+    formSubmitted = false;
   //passing data form child to parent
   @Output() newOtherSecurityEvent = new EventEmitter<string>();
   datemax: string;
@@ -185,8 +186,13 @@ export class OtherSecurityComponent
       DETAILS: ["", [Validators.pattern, Validators.required]],
     });
   }
-  submit() {
-    const formVal = this.angForm.value;
+  submit(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE: this.scheme._value[0],
       AC_NO: this.Accountno,
@@ -200,6 +206,8 @@ export class OtherSecurityComponent
     this._security.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
+
         let info = []
         info.push(data.id)
         info.push("otherSecurity")
@@ -214,6 +222,8 @@ export class OtherSecurityComponent
     );
     //To clear form
     this.resetForm();
+    }
+    
   }
 
   //function for edit button clicked

@@ -59,7 +59,7 @@ interface MarketMaster {
   styleUrls: ["./market-shares.component.scss"],
 })
 export class MarketSharesComponent implements OnInit, AfterViewInit, OnDestroy {
-  
+  formSubmitted = false;
   //passing data form child to parent
   @Output() newmarketShareEvent = new EventEmitter<string>();
   datemax: string;
@@ -233,7 +233,14 @@ marketmaster: MarketMaster[];
       RELEASE_BY: ["", [Validators.pattern, Validators.required]],
     });
   }
-  submit(data: any) {
+  submit(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+    }
+  
     const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE:this.scheme._value[0],

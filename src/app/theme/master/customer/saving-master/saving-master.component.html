@@ -9,11 +9,11 @@
         </h6>
       </div>
       <div class="card-block">
-        <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+        <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)" >
           <div class="row">
             <div class="col-sm-4">
               <div class="form-group form-primary form-static-label">
-                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" placeholder="Scheme *" required
+                <ng-select [ngClass]="'ng-select'" [options]="scheme"  [ngClass]="{'form-submitted': formSubmitted}" [multiple]="false" placeholder="Scheme *" required
                   title="Compulsory Selection" formControlName="AC_TYPE" (selected)="getScheme($event)">
                 </ng-select>
               </div>
@@ -30,6 +30,7 @@
             <div class="col-sm-4">
               <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false" placeholder="Customer ID *"
+                [ngClass]="{'form-submitted': formSubmitted}"
                   required title="Compulsory Selection" formControlName="AC_CUSTID" [(ngModel)]="id"
                   (selected)="getCustomer(id)" style="width: 90%">
                 </ng-select>
@@ -117,8 +118,9 @@
                           <div class="col-sm-2">
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
-                                <input type="date" name="AC_OPDATE" class="form-control" placeholder=" " id="AC_OPDATE"
-                                  required max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                <input type="text" name="AC_OPDATE" class="form-control" placeholder=" " id="AC_OPDATE"
+                                  required max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                                   [ngClass]="{'form-submitted': formSubmitted}"
                                   (focusout)="disabledate(date.value)" formControlName="AC_OPDATE" />
                                 <label for="AC_OPDATE">Opening Date<sub class="required">*
                                   </sub></label>
@@ -190,6 +192,7 @@
                           <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                               <ng-select [ngClass]="'ng-select'" [options]="category" [multiple]="false"
+                              [ngClass]="{'form-submitted': formSubmitted}"
                                 placeholder="Category *" required title="Compulsory Selection"
                                 formControlName="AC_CATG">
                               </ng-select>
@@ -209,6 +212,7 @@
                           <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                               <ng-select [ngClass]="'ng-select'" [options]="operation" name="AC_OPR_CODE"
+                              [ngClass]="{'form-submitted': formSubmitted}"
                                 [multiple]="false" placeholder="Operation *" required title="Compulsory Selection"
                                 formControlName="AC_OPR_CODE">
                               </ng-select>
@@ -232,6 +236,7 @@
                           <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                               <ng-select [ngClass]="'ng-select'" [options]="bal_category" name="AC_BALCATG"
+                              [ngClass]="{'form-submitted': formSubmitted}"
                                 [multiple]="false" placeholder="Balance Category *" required
                                 title="Compulsory Selection" formControlName="AC_BALCATG">
                               </ng-select>
@@ -253,6 +258,7 @@
                             <div class="form-group form-primary form-static-label">
                               <ng-select [ngClass]="'ng-select'" [options]="int_category" name="AC_INTCATA"
                                 [multiple]="false" required placeholder="Interest Category *"
+                                [ngClass]="{'form-submitted': formSubmitted}"
                                 title="Compulsory Selection" formControlName="AC_INTCATA">
                               </ng-select>
                             </div>
@@ -862,6 +868,7 @@
                                     <div class="form-group input-group">
                                       <span class="border-lable-flt">
                                         <input type="text" name="AC_NNAME" class="form-control" placeholder=" "
+                                        [ngClass]="{'form-submitted': formSubmitted}"
                                           id="AC_NNAME" pattern="^[A-Za-z\./ -]+$"
                                           title="Input allowed only  A-Z a-z  - / . (Space)"
                                           formControlName="AC_NNAME" />
@@ -891,6 +898,7 @@
                                       <span class="border-lable-flt">
                                         <input type="text" name="AC_NRELA" class="form-control" placeholder=" "
                                           id="AC_NRELA" pattern="^[A-Za-z\./ -]+$"
+                                          [ngClass]="{'form-submitted': formSubmitted}"
                                           title="Input allowed only  A-Z a-z  - / . (Space)"
                                           formControlName="AC_NRELA" />
                                         <label for="label-name">Relation<sub class="required">*
@@ -917,9 +925,11 @@
                                   <div class="col-sm-2">
                                     <div class="form-group input-group">
                                       <span class="border-lable-flt">
-                                        <input type="date" name="AC_NDATE" class="form-control" placeholder=" "
-                                          id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                          (focusout)="disabledate(date.value)" formControlName="AC_NDATE" />
+                                        <input type="text" name="AC_NDATE" class="form-control" placeholder=" "
+                                          id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}"
+                                          [ngClass]="{'form-submitted': formSubmitted}"
+                                          onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"
+                                          formControlName="AC_NDATE" />
                                         <label for="AC_NDATE">Nomination Date<sub class="required">*
                                           </sub></label>
                                       </span>
@@ -1155,7 +1165,7 @@
                                     </div>
                                   </div>
                                   <div class="col-sm-2">
-                                    <button type="button" class="btn btn-primary ripple light" *ngIf="nomineeShowButton"
+                                    <button type="submit" class="btn btn-primary ripple light" *ngIf="nomineeShowButton"
                                       (click)="addNominee()">
                                       Add Nominee
                                     </button>
@@ -1246,6 +1256,7 @@
                                 <div class="col-sm">
                                   <div class="form-group form-primary form-static-label">
                                     <ng-select [ngClass]="'ng-select'" [options]="joint_Cust_ID" [multiple]="false"
+                                    [ngClass]="{'form-submitted': formSubmitted}"
                                       placeholder="Customer ID *" title="Compulsory Selection"
                                       formControlName="JOINT_AC_CUSTID" [(ngModel)]="jointID"
                                       (selected)="getJointCustomer(jointID)">
@@ -1569,22 +1580,23 @@
             </div>
           </div>
           <!-- End of tab Forms -->
+          <div class="card-footer">
+            <div class="row" style="float: right;">
+              <div class="col-sm">
+                <button  type ="submit"class="btn btn-primary ripple light"*ngIf="showButton">
+                  Add
+                </button>
+                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                  Update</button>&nbsp;
+                <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
-      <div class="card-footer">
-        <div class="row" style="float: right;">
-          <div class="col-sm">
-            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
-              Add
-            </button>
-            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
-              Update</button>&nbsp;
-            <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
+    
     </div>
   </div>
 </div>

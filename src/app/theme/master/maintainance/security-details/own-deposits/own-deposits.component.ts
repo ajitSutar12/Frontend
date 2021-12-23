@@ -67,6 +67,7 @@ interface DepositeMaster {
   styleUrls: ["./own-deposits.component.scss"],
 })
 export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //passing data form child to parent
   @Output() newOwnDepositEvent = new EventEmitter<string>();
   datemax: string;
@@ -265,8 +266,14 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       LEDGER_Bal: [""],
     });
   }
-  submit() {
-    console.log(this.scheme._value[0]);
+  submit(event) {
+
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      console.log(this.scheme._value[0]);
     console.log(this.Accountno);
     const formVal = this.angForm.value;
     debugger;
@@ -289,6 +296,8 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     this._deposite.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
+
         let info = []
         info.push(data.id)
         info.push("ownDeposit")
@@ -303,6 +312,9 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     );
     //To clear form
     this.resetForm();
+    }
+
+    
   }
 
 

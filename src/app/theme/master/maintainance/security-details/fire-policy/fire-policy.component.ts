@@ -59,6 +59,8 @@ interface FireMaster {
   styleUrls: ["./fire-policy.component.scss"],
 })
 export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
+
   //passing data form child to parent
   @Output() newfirePolicyEvent = new EventEmitter<string>();
   datemax: string;
@@ -218,8 +220,13 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  submit() {
-    const formVal = this.angForm.value;
+  submit(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE: this.scheme._value[0],
       AC_NO: this.Accountno,
@@ -237,6 +244,8 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     this._fire.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
+
         let info = []
         info.push(data.id)
         info.push("firePolicy")
@@ -251,7 +260,9 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     );
     //To clear form
     this.resetForm();
-  }
+
+    }
+      }
 
   //function for edit button clicked
   editClickHandler(id: any): void {

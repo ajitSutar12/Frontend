@@ -105,6 +105,7 @@ interface ShareMaster {
 })
 
 export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -627,9 +628,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NARR: ['', [Validators.pattern]],
 
       //nominee controls (NOMINEELINK table)
-      AC_NNAME: ['', [Validators.pattern]],
-      AC_NRELA: ['', [Validators.pattern]],
-      AC_NDATE: ['',],
+      AC_NNAME: ['', [Validators.pattern,Validators.required]],
+      AC_NRELA: ['', [Validators.pattern,Validators.required]],
+      AC_NDATE: ['',[Validators.required]],
       AGE: ['', [Validators.pattern, Validators.min(1), Validators.max(100)]],
       AC_NHONO: ['', [Validators.pattern]],
       AC_NWARD: ['', [Validators.pattern]],
@@ -658,7 +659,13 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.shareSchemeType = value.name
   }
   // Method to insert data into database through NestJS
-  submit() {
+  submit(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      
     const formVal = this.angForm.value;
     if (formVal.AC_ADDFLAG == true) {
       this.addType = 'P'
@@ -730,6 +737,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.ShareMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
+
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -741,6 +750,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetForm();
     this.multiNominee = []
     this.customerDoc = []
+    }
   }
 
   //Method for append data into fields

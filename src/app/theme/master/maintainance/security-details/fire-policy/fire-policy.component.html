@@ -5,14 +5,15 @@
         <h5>Fire Policy</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
-                    formControlName="SUBMISSION_DATE"  id="date" #autofocus />
+                  <input type="text" class="form-control" placeholder=" " id="date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  [ngClass]="{'form-submitted': formSubmitted}"  
+                  formControlName="SUBMISSION_DATE" onfocus="(this.type='date')" id="date" #autofocus />
                   <label for="date">Submission Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -27,8 +28,9 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="policy_due" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
-                    formControlName="POLICY_DUE_DATE"  />
+                  <input type="text" class="form-control" placeholder=" " id="policy_due" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  [ngClass]="{'form-submitted': formSubmitted}"  
+                  formControlName="POLICY_DUE_DATE" onfocus="(this.type='date')" />
                   <label for="policy_due">Policy Due Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -44,6 +46,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="PolicyNumber" class="form-control" placeholder=" " id="PolicyNumber"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     required="" pattern="^[A-Za-z0-9'\.\-\s]+$" maxlength="30" title="Input allowed only  0-9"
                     formControlName="POLICY_NO">
                   <label for="PolicyNumber">Policy Number<sub class="required">* </sub></label>
@@ -62,6 +65,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="policy_amount" class="form-control" placeholder=" " id="policy_amount"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="POLICY_AMT">
                   <label for="policy_amount">Policy Amount<sub class="required">* </sub></label>
@@ -82,7 +86,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="policy_nature" class="form-control" placeholder=" " id="policy_nature"
-                    required="" pattern="^[A-Za-z0-9'\.\-\s]+$" maxlength="100"
+                    required="" pattern="^[A-Za-z0-9'\.\-\s]+$" maxlength="100" [ngClass]="{'form-submitted': formSubmitted}"
                     title="Input allowed only  A-Z a-z 0-9  - / . (Space)" formControlName="POLICY_NATURE">
                   <label for="policy_nature">Policy Nature<sub class="required">* </sub></label>
                 </span>
@@ -116,7 +120,7 @@
             </div> -->
             <div class="col-sm-3">
               <div class="form-group form-primary form-static-label">
-                  <ng-select [ngClass]="'ng-select'" [options]="insuranceNo" [multiple]="false"
+                  <ng-select [ngClass]="'ng-select'" [options]="insuranceNo" [multiple]="false" 
                       placeholder="Insurance Code *" required title="Compulsory Selection"
                       formControlName="INSU_CO_CODE">
                   </ng-select>
@@ -153,6 +157,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="city" class="form-control" placeholder=" " id="city" required=""
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     pattern="^[A-Za-z0-9'\.\-\s]+$" maxlength="50" title="Input allowed only  0-9"
                     formControlName="CITY">
                   <label for="city">City<sub class="required">* </sub></label>
@@ -172,6 +177,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="premium_amount" class="form-control" placeholder=" " id="premium_amount"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="PREMIUM">
                   <label for="premium_amount">Premium Amount<sub class="required">* </sub></label>
                 </span>
@@ -189,8 +195,9 @@
               <div class="col-sm">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
-                    <input type="date" class="form-control" placeholder=" " id="premium_due_date" required=""
-                      max="31-12-9999" formControlName="PREMIUM_DUE_DATE"  />
+                    <input type="text" class="form-control" placeholder=" " id="premium_due_date" required=""
+                    [ngClass]="{'form-submitted': formSubmitted}"
+                      max="31-12-9999" formControlName="PREMIUM_DUE_DATE" onfocus="(this.type='date')" />
                     <label for="premium_due_date">Premium Due Date<sub class="required">*
                       </sub></label>
 
@@ -208,7 +215,7 @@
               </div>
               <div class="col-sm">
                 <!-- [disabled]="angForm.invalid" -->
-                <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" 
+                <button class="btn btn-primary ripple light" *ngIf="showButton"  
                 >Add</button>
                 <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
                  >Update</button> &nbsp;
