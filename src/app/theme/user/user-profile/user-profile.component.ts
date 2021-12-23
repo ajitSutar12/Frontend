@@ -227,6 +227,7 @@ isValid(event: boolean): void {
           this.selectedImagePreview = event.target.result;
           this.imgBase64 = reader.result;
           console.log(data);
+          console.log(this.selectedImagePreview);
       }
       reader.readAsDataURL(ele.target.files[0]);
     }

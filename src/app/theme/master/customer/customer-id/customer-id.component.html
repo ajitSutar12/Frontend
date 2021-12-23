@@ -201,10 +201,9 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_BIRTH_DT" class="form-control" placeholder=" "
+                                    <input type="date" name="AC_BIRTH_DT" class="form-control" placeholder=" "
                                         id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                        (focusout)="disabledate(date.value)" formControlName="AC_BIRTH_DT"
-                                        onfocus="(this.type='date')">
+                                        (focusout)="disabledate(date.value)" formControlName="AC_BIRTH_DT">
                                     <!-- onfocus="(this.type='date')" -->
                                     <label for="AC_BIRTH_DT">Birth Date</label>
                                 </span>
@@ -460,7 +459,7 @@
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="IS_KYC_RECEIVED"
-                                        formControlName="IS_KYC_RECEIVED" (click)="isKYC($event)">
+                                        formControlName="IS_KYC_RECEIVED" (change)="isKYC($event)">
                                     <label class="border-checkbox-label" for="IS_KYC_RECEIVED">KYC</label>
                                 </div>
                             </div>
@@ -542,9 +541,9 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input class="form-control" type="text" onfocus="(this.type='date')"
-                                        id="SUBMIT_DATE" max="{{datemax | date:'yyyy-MM-dd'}}"
-                                        formControlName="SUBMIT_DATE" max="{{datemax | date:'yyyy-MM-dd'}}" #subdate
+                                    <input class="form-control" type="date" id="SUBMIT_DATE"
+                                        max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="SUBMIT_DATE"
+                                        max="{{datemax | date:'yyyy-MM-dd'}}" #subdate
                                         (focusout)="disablesubdate(subdate.value)" placeholder=" "
                                         [required]="SUBMIT_DATE">
                                     <label for="SUBMIT_DATE">Submission Date<sub class="required">
@@ -644,16 +643,38 @@
                                                     <tbody *ngIf="documentMaster?.length != 0">
                                                         <tr
                                                             *ngFor="let data of documentMaster; let indexOfelement=index;">
+
                                                             <td style="align-items: center;">
-                                                                <div class="border-checkbox-section">
+                                                                <!-- <div class="border-checkbox-section">
                                                                     <div
                                                                         class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input class="border-checkbox" type="checkbox"
+                                                                        <input type="checkbox" class="border-checkbox"
                                                                             id={{data.value}}
                                                                             (click)="Enablefields(data.value,indexOfelement,$event)">
                                                                         <label class="border-checkbox-label"
-                                                                            for={{data.value}}> {{data.label}}</label>
+                                                                            for={{data.value}}> {{data.label}} {{data.DocumentMaster.NAME}}</label>
                                                                     </div>
+                                                                </div> -->
+                                                                <!-- <div class="checkbox checkbox-primary">
+                                                                    <div
+                                                                        class="border-checkbox-group border-checkbox-group-primary">
+                                                                        <input type="checkbox" class="border-checkbox"
+                                                                            id={{data.value}}
+                                                                            (click)="Enablefields(data.value,indexOfelement,$event)">
+                                                                        <label class="border-checkbox-label"
+                                                                            for={{data.value}}> {{data.label}}
+                                                                            {{data.DocumentMaster.NAME}}</label>
+                                                                    </div>
+                                                                </div> -->
+                                                                <!-- <div class="checkbox checkbox-primary">
+                                                                    <div
+                                                                        class="border-checkbox-group border-checkbox-group-primary"> -->
+                                                                <!-- <input type="checkbox" class="border-checkbox"
+                                                                            id={{data.value}}> -->
+                                                                <div class="form-group input-group">
+                                                                    <label class="border-checkbox-label"
+                                                                        for={{data.value}}> {{data.label}}
+                                                                    </label>
                                                                 </div>
                                                             </td>
                                                             <td style="align-items: center;">
@@ -673,7 +694,8 @@
                                                                 <div class="col-sm-2">
                                                                     <span
                                                                         style="font-size: 20px;color: #0f459b; cursor: pointer;"
-                                                                        (click)="viewImagePreview(data.value)"
+                                                                        (click)="modalLarge.show();viewImagePreview($event,data.value)"
+                                                                        placement="bottom" ngbTooltip="Show Image"
                                                                         class="fa fa-fw fa-eye field-icon"></span>
                                                                 </div>
                                                             </td>
@@ -685,6 +707,27 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                                <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
+                                                    <div class="app-modal-header">
+                                                        <h4 class="modal-title"> Document </h4>
+                                                        <button type="button" class="close basic-close"
+                                                            (click)="modalLarge.hide()">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="app-modal-body">
+                                                        <perfect-scrollbar>
+
+                                                            <img [src]="selectedImagePreview" class="form-control"
+                                                                style="width: 100%;height: 100%;">
+                                                        </perfect-scrollbar>
+                                                    </div>
+
+                                                    <div class="app-modal-footer">
+                                                        <button type="button" class="btn btn-primary ripple light"
+                                                            (click)="modalLarge.hide()">Close</button>
+                                                    </div>
+                                                </app-modal-basic>
                                             </div>
                                         </div>
                                     </div>

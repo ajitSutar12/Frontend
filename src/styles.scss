@@ -36,7 +36,7 @@ ng-select.ng-select>div>div.single {
     float: right;
   }
   
-   input[type="text"]:focus , se {
+   input[type="text"]:focus {
       border: 2px solid green;
       outline: none;
      }
@@ -55,55 +55,16 @@ ng-select.ng-select>div>div.single {
         border: 2px solid green;
         outline: none;
     }
-    input[type="email"]:focus {
+
+    .below:focus{
         border: 2px solid green;
         outline: none;
     }
 
-    // .below:focus{
-    //     border: 2px solid green;
-    //     outline: none;
-    // }
-    // .checkbox input[type="checkbox"]:focus + label::before {
-    //     outline: solid green;
-    //     outline: 5px auto -webkit-focus-ring-color;
-    //     outline-offset: +5px;
-    //   }
-
-    // .border-checkbox-label:focus{
-    //     border: 2px solid green;
-    //     outline: none;
-    // }
-    // .border-checkbox::after {
-    //     margin-left: 25px;
-    //     border: 2px solid blue;
-    //   }
-      
-    //   input[type="checkbox"]:focus-visible {
-    //     outline-offset: 2px;
-    //     outline: -webkit-focus-ring-color auto 1px;
-    // }
-      
-// input[type=checkbox] {
-// 	opacity: 0;
-//   }
-  
-//   input[type=checkbox]:focus {
-// 	 opacity: 5;
-//   }
-
-    // .form-a:focus{
-    //     border: 2px solid #0f87f7;
-    //     outline: blue;
-    // }
-    // .form-primary:focus{
-    //     border: 2px solid #0f87f7;
-    //     outline: blue;
-    // }
-    // .ng-select:focus-visible{
-    //     border: 2px solid #0f87f7;
-    //     outline: blue;
-    // }
+    .border-checkbox-label:focus{
+        border: 2px solid green;
+        outline: none;
+    }
 
     // *:focus{
     //     border: 2px solid green !important;

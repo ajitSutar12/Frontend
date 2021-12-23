@@ -35,7 +35,7 @@ import { Router } from "@angular/router";
 import { NgSelectComponent } from "@ng-select/ng-select/lib/ng-select.component";
 import { ConnectionServiceModule } from "ng-connection-service";
 import { StrictNumberOnlyDirective } from '../../../../restrictinput';
-
+import { json } from "ngx-custom-validators/src/app/json/validator";
 
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
@@ -100,6 +100,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() newCustomerEvent = new EventEmitter<string>();
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   @ViewChild('ngSelect') ngSelect: NgSelectComponent;
+  @ViewChild('modalLarge') modalLarge;
+
   custData;
   datemax: any;
   addNewCustomer(value) {
@@ -287,34 +289,6 @@ ngselectbool :boolean= true;
           title: "Birth Date",
           data: "AC_BIRTH_DT",
         },
-        // {
-        //   title: 'House No',
-        //   data: 'AC_HONO'
-        // },
-        // {
-        //   title: 'Ward',
-        //   data: 'AC_WARD'
-        // },
-        // {
-        //   title: 'Detail',
-        //   data: 'AC_ADDR'
-        // },
-        // {
-        //   title: 'Galli',
-        //   data: 'AC_GALLI'
-        // },
-        // {
-        //   title: 'Area',
-        //   data: 'AC_AREA'
-        // },
-        // {
-        //   title: 'City',
-        //   data: 'AC_CTCODE'
-        // },
-        // {
-        //   title: 'Pin Code',
-        //   data: 'AC_PIN'
-        // },
         {
           title: "Salary Div.",
           data: "AC_SALARYDIVISION_CODE",
@@ -339,10 +313,6 @@ ngselectbool :boolean= true;
           title: "Is Received TDS Document",
           data: "TDSDOCUMNET",
         },
-        // {
-        //   title: "Recovery",
-        //   data: "AC_IS_RECOVERY",
-        // },
         {
           title: "TDS Calculation Required?",
           data: "TDS_REQUIRED",
@@ -397,6 +367,7 @@ ngselectbool :boolean= true;
           )
           .subscribe((resp) => {
             this.documentMaster = resp.data;
+            console.log(this.documentMaster);
 
             callback({
               recordsTotal: resp.recordsTotal,
@@ -462,10 +433,10 @@ ngselectbool :boolean= true;
         this.risk = data;
       });
   }
-  uploader: FileUploader = new FileUploader({
-    // url: URL,
-    isHTML5: true,
-  });
+  // uploader: FileUploader = new FileUploader({
+  //   // url: URL,
+  //   isHTML5: true,
+  // });
 
   createForm() {
     this.angForm = this.fb.group({
@@ -557,6 +528,40 @@ ngselectbool :boolean= true;
       'TDS_LIMIT': formVal.TDS_LIMIT,
       'Document': this.imageObject
     }
+    // this.http
+    //   .get<any>(
+    //     this.url + "/customer-id")
+    //   .subscribe((resp) => {
+    //     if (resp.length != 0){
+    //       resp.forEach(async (element) => {
+
+    //         if(formVal.AC_NAME == element.AC_NAME){
+    //           if(formVal.AC_ADHARNO == element.AC_ADHARNO){
+
+    //           }
+    //         }
+
+    //       })
+    //       console.log("not empty")
+    //     }
+    //     else {
+    //       this.customerIdService.postData(dataToSend).subscribe(
+    //         (data) => {
+    //           Swal.fire("Success!", "Data Added Successfully !", "success");
+    //           console.log("submit", data);
+    //           // this.custData = data1.id;
+    //           this.addNewCustomer(data.id);
+    //           // to reload after insertion of data
+    //           this.rerender();
+    //         },
+    //         (error) => {
+    //           console.log(error);
+    //         });
+    //     }
+    //     console.log(resp, "resp.data within submit");
+
+    //   });
+
     this.customerIdService.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -570,9 +575,7 @@ ngselectbool :boolean= true;
       },
       (error) => {
         console.log(error);
-      }
-    );
-
+      });
     //To clear form
     this.resetForm();
     this.imageObject = []
@@ -631,6 +634,7 @@ ngselectbool :boolean= true;
     this.isDocument = false;
     this.isTdsForm = false;
     this.isTdsFormA = false;
+    // this.documentMaster = []
   }
 
 
@@ -651,8 +655,8 @@ ngselectbool :boolean= true;
       //   false;
 
     } else {
-      (document.getElementById("file" + id) as HTMLInputElement).disabled =
-        true;
+      (document.getElementById("file" + id) as HTMLInputElement).disabled = true;
+      (document.getElementById("file" + id) as HTMLInputElement).value = "";
       // (document.getElementById("eyeicon" + id) as HTMLInputElement).disabled =
       //   true;
     }
@@ -716,7 +720,10 @@ ngselectbool :boolean= true;
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+
     this.customerIdService.getFormData(id).subscribe((data) => {
+
+      console.log("edit", data);
       this.updateID = data.id;
       this.angForm.patchValue({
         AC_NO: data.AC_NO,
@@ -755,20 +762,38 @@ ngselectbool :boolean= true;
         FORM_TYPE: data.tdsForm.FORM_TYPE,
         TDS_RATE: data.tdsForm.TDS_RATE,
         TDS_LIMIT: data.tdsForm.TDS_LIMIT,
+
       });
       if (data.TDSDOCUMNET == true) {
         this.isTdsForm = true;
         this.isTdsFormA = false;
         this.SUBMIT_DATE = true;
-      } else if(data.FORM_TYPE == "Form15A"){
-        this.isForm15A(1)
       }
       else {
         this.isTdsForm = false;
         this.isTdsFormA = false;
         this.SUBMIT_DATE = false;
       }
-     
+      if (data.tdsForm.FORM_TYPE == "Form15A") {
+        // this.isForm15A(1)
+        this.isForm15A(1)
+
+      }
+      if (data.IS_KYC_RECEIVED == true) {
+        this.isDocument = true;
+        this.documentMaster = data.custdocument
+        for (const [key, value] of Object.entries(data.custdocument)) {
+          console.log(key);
+          console.log(value);
+          let selectedObj = {};
+          let id = data.custdocument[key].DocumentMasterID;
+          selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
+          this.selectedImagePreview = selectedObj[id];
+        }
+        console.log("this.documentMaster", this.documentMaster)
+      } else {
+        this.isDocument = false;
+      }
     });
   }
 
@@ -875,6 +900,11 @@ ngselectbool :boolean= true;
       this.isTdsForm = false;
       this.isTdsFormA = false;
       this.SUBMIT_DATE = false;
+      this.angForm.controls['FIN_YEAR'].reset()
+      this.angForm.controls['SUBMIT_DATE'].reset()
+      this.angForm.controls['FORM_TYPE'].reset()
+      this.angForm.controls['TDS_RATE'].reset()
+      this.angForm.controls['TDS_LIMIT'].reset()
     }
   }
   isForm15A(value) {
@@ -883,9 +913,13 @@ ngselectbool :boolean= true;
     }
     if (value == 2) {
       this.isTdsFormA = false;
+      this.angForm.controls['TDS_RATE'].reset()
+      this.angForm.controls['TDS_LIMIT'].reset()
     }
     if (value == 3) {
       this.isTdsFormA = false;
+      this.angForm.controls['TDS_RATE'].reset()
+      this.angForm.controls['TDS_LIMIT'].reset()
     }
   }
   // cancel() {
@@ -894,30 +928,47 @@ ngselectbool :boolean= true;
   imageError: string;
   isImageSaved: boolean;
   cardImageBase64: string;
-
+  selectedImagePreview: any;
+  selectedImgArrayDetails = [];
   fileChangeEvent(event: Event, id, valueid) {
     let arr = [];
     let me = this;
     let obj = {};
+    let selectedObj = {};
     let file = (event.target as HTMLInputElement).files[0];
     let reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = async function () {
+    reader.onload = async function (ele: any) {
       let result = await reader.result;
-      // obj = {
-      //   "id" : valueid,
-      //   "path":result
-      // }
+      let selecetedImg = ele.target.result;
+      selectedObj[valueid] = selecetedImg
       obj[valueid] = result;
     };
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
     this.imageObject.push(obj);
-    console.log(this.imageObject);
-  }
+    this.selectedImgArrayDetails.push(selectedObj);
+    console.log(this.imageObject, "multiobject");
+    console.log(this.selectedImgArrayDetails)
 
-  viewImagePreview(ele: any) {
-    console.log(ele);
+    // if (obj != this.imageObject.keys) {
+    //   this.imageObject.push(obj);
+    //   console.log(this.imageObject);
+    // } else {
+
+    // }
+  }
+  imgBase64: any
+  showImage: boolean = false;
+  viewImagePreview(ele, id) {
+    for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+      let jsonObj = value;
+      Object.keys(jsonObj).forEach(key => {
+        if (id == key) {
+          this.selectedImagePreview = jsonObj[key];
+        }
+      });
+    }
   }
 }
