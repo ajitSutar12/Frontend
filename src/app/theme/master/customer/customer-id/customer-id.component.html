@@ -391,7 +391,7 @@
                                     <input type="text" name="AC_PHONE_OFFICE" class="form-control" placeholder=" "
                                         pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9"
                                         id="AC_PHONE_OFFICE" maxlength="11" minlength="10"
-                                        formControlName="AC_PHONE_OFFICE" required>
+                                        formControlName="AC_PHONE_OFFICE">
                                     <label for="AC_PHONE_OFFICE">Office(O)/Mob No</label>
                                 </span>
                             </div>
@@ -717,7 +717,7 @@
 </div>
 <ng-container *ngIf='router.url==="/master/customer/customerId"'>
     <div class="row">
-        <div class="col-12">
+        <div class="col-12"> 
             <div class="card">
                 <div class="card-block">
                     <div class="row">

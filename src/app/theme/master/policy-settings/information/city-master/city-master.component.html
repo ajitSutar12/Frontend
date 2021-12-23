@@ -22,7 +22,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="CITY_NAME" class="form-control" placeholder=" "
                                     #autofocus  id="CityName" required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="CITY_NAME">
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="CITY_NAME"
+                                        [ngClass]="{'form-submitted': formSubmitted}" >
                                     <label for="CityName">City Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -52,7 +53,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="TALUKA_CODE" class="form-control" placeholder=" " maxlength="4"
-                                        id="TalukaCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="TALUKA_CODE">
+                                        id="TalukaCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        [ngClass]="{'form-submitted': formSubmitted}"  formControlName="TALUKA_CODE">
                                     <label for="TalukaCode">Taluka Code<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -66,7 +68,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="DISTRICT_CODE" class="form-control" placeholder=" " maxlength="4"
-                                        id="DistrictCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="DISTRICT_CODE">
+                                        id="DistrictCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="DISTRICT_CODE"
+                                        [ngClass]="{'form-submitted': formSubmitted}" >
                                     <label for="DistrictCode">District Code<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -80,7 +83,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="STATE_CODE" class="form-control" placeholder=" " maxlength="4"
-                                        id="StateCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="STATE_CODE">
+                                        id="StateCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="STATE_CODE"
+                                        [ngClass]="{'form-submitted': formSubmitted}" >
                                     <label for="StateCode">State Code<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -97,7 +101,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="REGION_CODE" class="form-control" placeholder=" " maxlength="4"
                                         id="Region" required=""  pattern="^[0-9]+$"
-                                        title="Input allowed only  0-9" formControlName="REGION_CODE">
+                                        title="Input allowed only  0-9" formControlName="REGION_CODE"
+                                        [ngClass]="{'form-submitted': formSubmitted}" >
                                     <label for="Region">Region<sub class="required">* </sub></label>
                                 </span>
                             </div>

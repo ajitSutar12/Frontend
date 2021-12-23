@@ -1479,7 +1479,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   } 
 
 
-
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
     this.angForm.controls['AC_NRELA'].reset();

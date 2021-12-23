@@ -32,6 +32,7 @@ interface CastMaster {
   styleUrls: ['./cast-master.component.scss']
 })
 export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   //api 
@@ -146,6 +147,7 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       "CODE": formVal.CODE,
@@ -153,6 +155,7 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.castMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });

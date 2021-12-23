@@ -13,7 +13,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="companyCode" [multiple]="false"
                                     placeholder="Company Code*" required title="Compulsory Selection" maxlength="5"
-                                    formControlName="COMP_CODE">
+                                    formControlName="COMP_CODE" [ngClass]="{'form-submitted': formSubmitted}">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -29,7 +29,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="schemeCode" [multiple]="false"
                                     placeholder="Scheme Code*" required title="Compulsory Selection" maxlength="5"
-                                    formControlName="CODE">
+                                    formControlName="CODE" [ngClass]="{'form-submitted': formSubmitted}">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"

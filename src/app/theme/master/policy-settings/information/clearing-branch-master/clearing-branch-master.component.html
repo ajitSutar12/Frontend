@@ -23,7 +23,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="NAME" class="form-control" placeholder=" " id="BranchName"
                                         #autofocus required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME"
+                                        [ngClass]="{'form-submitted': formSubmitted}" >
                                     <label for="BranchName">Branch Name<sub class="required">* </sub></label>
                                 </span>
                             </div>

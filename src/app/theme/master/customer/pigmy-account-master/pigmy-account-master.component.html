@@ -11,8 +11,8 @@
                         <div class="col-md">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="schemeCode" [multiple]="false"
-                                    placeholder="PG Scheme * " formControlName="AC_TYPE" (selected)="getScheme($event)" required
-                                    [ngClass]="{'form-submitted': formSubmitted}" >
+                                    placeholder="PG Scheme * " formControlName="AC_TYPE" (selected)="getScheme($event)"
+                                    required [ngClass]="{'form-submitted': formSubmitted}">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -35,9 +35,9 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
-                                    placeholder="Customer ID*" formControlName="AC_CUSTID" [(ngModel)]="id" 
-                                    [ngClass]="{'form-submitted': formSubmitted}"  required
-                                    (selected)="getCustomer(id)" style="width: 90%;">
+                                    placeholder="Customer ID*" formControlName="AC_CUSTID" [(ngModel)]="id"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required (selected)="getCustomer(id)"
+                                    style="width: 90%;">
                                 </ng-select>
                                 <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
                                     (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer"></span>
@@ -265,7 +265,7 @@
                                                                 <ng-select [ngClass]="'ng-select'"
                                                                     [options]="OperationMasterDropdown"
                                                                     [multiple]="false" placeholder="Operation *"
-                                                                    formControlName="AC_OPR_CODE" 
+                                                                    formControlName="AC_OPR_CODE"
                                                                     [ngClass]="{'form-submitted': formSubmitted}">
                                                                 </ng-select>
                                                             </span>
@@ -1003,8 +1003,10 @@
                                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                     formControlName="AC_NNAME" required
-                                                                                    [ngClass]="{'form-submitted': formSubmitted}" >
-                                                                                <label for="AC_NNAME">Name <sub class="required">* </sub></label>
+                                                                                    [ngClass]="{'form-submitted': formSubmitted}">
+                                                                                <label for="AC_NNAME">Name <sub
+                                                                                        class="required">*
+                                                                                    </sub></label>
                                                                             </span>
                                                                         </div>
                                                                         <div class="form-group form-primary form-static-label"
@@ -1045,7 +1047,8 @@
                                                                                     id="AC_NDATE"
                                                                                     max="{{datemax | date:'yyyy-MM-dd'}}"
                                                                                     formControlName="AC_NDATE">
-                                                                                <label for="AC_NDATE">NominationDate</label>
+                                                                                <label
+                                                                                    for="AC_NDATE">NominationDate</label>
                                                                             </span>
                                                                         </div>
                                                                         <!-- <div class="form-group form-primary form-static-label"
@@ -1192,7 +1195,7 @@
                                                                             <ng-select [ngClass]="'ng-select'"
                                                                                 [options]="city" [multiple]="false"
                                                                                 placeholder="City *" required
-                                                                                [ngClass]="{'form-submitted': formSubmitted}" 
+                                                                                [ngClass]="{'form-submitted': formSubmitted}"
                                                                                 formControlName="AC_NCTCODE">
                                                                             </ng-select>
                                                                         </div>
@@ -1668,12 +1671,12 @@
                                                 name="AC_INTRACNO"></th>
                                         <th><input type="text" class="form-control" placeholder="Name"
                                                 name="AC_INTRNAME"></th>
+                                        <th><input type="text" class="form-control" placeholder="Signature Authority"
+                                                name="SIGNATURE_AUTHORITY"> </th>
                                         <th><input type="text" class="form-control"
                                                 placeholder="Is Calculate Separate Pigmy Commission for Loan Against Collection"
                                                 name="PG_COMM_TYPE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Signature Authority"
-                                                name="SIGNATURE_AUTHORITY"> </th>
-                                    </tr>class="form-control"
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>

@@ -31,6 +31,7 @@ interface AuthorityMaster {
   styleUrls: ['./authority-master.component.scss']
 })
 export class AuthorityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   //api 
@@ -149,6 +150,7 @@ export class AuthorityMasterComponent implements OnInit, AfterViewInit, OnDestro
 
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'CODE': formVal.CODE,
@@ -156,6 +158,7 @@ export class AuthorityMasterComponent implements OnInit, AfterViewInit, OnDestro
     }
     this.authorityMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()

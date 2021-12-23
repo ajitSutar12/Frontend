@@ -39,6 +39,7 @@ interface CompanyGroupLinkMaster {
 })
 
 export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -179,6 +180,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   }
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'COMP_CODE': formVal.COMP_CODE,
@@ -188,6 +190,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     }
     this.companyGroupLinkMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()

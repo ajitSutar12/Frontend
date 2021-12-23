@@ -23,7 +23,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="BANK_NAME" class="form-control" placeholder=" "
                                     #autofocus id="BankName" required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="BANK_NAME">
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="BANK_NAME"
+                                        [ngClass]="{'form-submitted': formSubmitted}" >
                                     <label for="BankName">Bank Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -39,7 +40,8 @@
                                     <input type="text" name="BANK_SHORTNAME" class="form-control" placeholder=" "
                                         id="BankShortName" required="" pattern="^[A-Za-z\./ -]+$" maxlength="25"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        formControlName="BANK_SHORTNAME">
+                                        formControlName="BANK_SHORTNAME"
+                                        [ngClass]="{'form-submitted': formSubmitted}" >
                                     <label for="BankShortName">Bank Short Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -148,7 +150,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" name="RIGHT_TO_PREPARE_DD" id="checkbox3" value="checkbox" formControlName="RIGHT_TO_PREPARE_DD">
                                     <label class="border-checkbox-label" for="checkbox3">Allow To Prepare D. D. by our
-                                        Bank<span class="required"> </span></label>
+                                        Bank</label>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +159,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" name="PARTICIPATE_IN_CLEARING" id="checkbox4" value="checkbox" checked formControlName="PARTICIPATE_IN_CLEARING">
                                     <label class="border-checkbox-label" for="checkbox4">Participation in
-                                        Clearing<span class="required"> </span></label>
+                                        Clearing</label>
                                 </div>
                             </div>
                         </div>

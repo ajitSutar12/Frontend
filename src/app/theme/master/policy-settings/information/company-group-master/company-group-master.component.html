@@ -23,7 +23,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="NAME" class="form-control" placeholder=" " id="Name"
                                         maxlength="200" #autofocus required="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME"
+                                        [ngClass]="{'form-submitted': formSubmitted}">
                                     <label for="Name">Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -61,7 +62,8 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="schemeType" [multiple]="false"
                                     maxlength="2" placeholder="Scheme Type*" required title="Compulsory Selection"
-                                    formControlName="AC_ACNOTYPE">
+                                    formControlName="AC_ACNOTYPE"
+                                    [ngClass]="{'form-submitted': formSubmitted}">
                                 </ng-select>
 
                             </div>
@@ -77,7 +79,8 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
                                     placeholder="Scheme Code*" [(ngModel)]="acno" (selected)="getIntroducer(acno)"
-                                    required title="Compulsory Selection" formControlName="AC_TYPE">
+                                    required title="Compulsory Selection" formControlName="AC_TYPE"
+                                    [ngClass]="{'form-submitted': formSubmitted}">
                                 </ng-select>
 
                             </div>
@@ -96,7 +99,7 @@
                                     <input type="text" name="AC_NO" class="form-control" placeholder=" " maxlength="15"
                                         minlength="15" id="AcNo" required="" pattern="^[0-9]+$"
                                         title="Input allowed only  0-9" formControlName="AC_NO"
-                                        (selected)="getAC_NO($event)">
+                                        (selected)="getAC_NO($event)" [ngClass]="{'form-submitted': formSubmitted}">
                                     <label for="AcNo">A/C No.<sub class="required">* </sub></label>
                                 </span>
                             </div>
