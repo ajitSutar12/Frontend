@@ -11,10 +11,10 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="EFFECT_DATE" class="form-control" placeholder=" "
+                                    <input type="date" name="EFFECT_DATE" class="form-control" placeholder=" "
                                     #autofocus  id="EFFECT_DATE" required=""                                          
-                                    max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date (keyup)="disabledate(date.value)"  id="EFFECT_DATE"
-                                        onfocus="(this.type='date')" formControlName="EFFECT_DATE">
+                                    max="{{datemax | date:'yyyy-MM-dd'}}"  #date (keyup)="disabledate(date.value)"  id="EFFECT_DATE"
+                                         formControlName="EFFECT_DATE">
                                     <label for="EFFECT_DATE">Last Int. Date<sub class="required">* </sub></label>
                                 </span>
                             </div>

@@ -731,9 +731,7 @@
                                                     (click)="editClickHandler(data.id)">Edit</button>
                                             </td>
                                             <td class="td_right">{{data.AC_NO}}</td>
-                                            <td class="td_right"
-                                                [ngClass]="data.AC_MEMBNO === '' ? 'td_center' : 'td_right'">
-                                                {{data.AC_MEMBNO === ''? '-' : data.AC_MEMBNO}}</td>
+                                            <td class="td_right" [ngClass]="data.AC_MEMBNO === '' ? 'td_center' : 'td_right'">{{data.AC_MEMBNO === ''? '-' : data.AC_MEMBNO}}</td>
                                             <td [ngClass]="data.AC_MEMBTYPE === '' ? 'td_center' : 'td_right'">
                                                 {{data.AC_MEMBTYPE === ''? '-' : data.AC_MEMBTYPE}}</td>
                                             <td>{{data.AC_TITLE}}</td>

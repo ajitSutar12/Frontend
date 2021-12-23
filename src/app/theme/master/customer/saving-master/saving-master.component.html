@@ -117,8 +117,8 @@
                           <div class="col-sm-2">
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
-                                <input type="text" name="AC_OPDATE" class="form-control" placeholder=" " id="AC_OPDATE"
-                                  required max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
+                                <input type="date" name="AC_OPDATE" class="form-control" placeholder=" " id="AC_OPDATE"
+                                  required max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                   (focusout)="disabledate(date.value)" formControlName="AC_OPDATE" />
                                 <label for="AC_OPDATE">Opening Date<sub class="required">*
                                   </sub></label>
@@ -139,9 +139,9 @@
                           <div class="col-sm-2">
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
-                                <input type="text" name="AC_BIRTH_DT" class="form-control" placeholder=" "
-                                  id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')"
-                                  #date (focusout)="disabledate(date.value)" formControlName="AC_BIRTH_DT" disabled />
+                                <input type="date" name="AC_BIRTH_DT" class="form-control" placeholder=" "
+                                  id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                  (focusout)="disabledate(date.value)" formControlName="AC_BIRTH_DT" disabled />
                                 <label for="AC_BIRTH_DT">Birth Date</label>
                               </span>
                             </div>
@@ -696,9 +696,9 @@
                           <div class="col-sm-2">
                             <div class="form-group input-group">
                               <span class="border-lable-flt">
-                                <input type="text" name="AC_MBDATE" class="form-control" placeholder=" " id="AC_MBDATE"
-                                  max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
-                                  (focusout)="disabledate(date.value)" formControlName="AC_MBDATE" disabled />
+                                <input type="date" name="AC_MBDATE" class="form-control" placeholder=" " id="AC_MBDATE"
+                                  max="{{datemax | date:'yyyy-MM-dd'}}" #date (focusout)="disabledate(date.value)"
+                                  formControlName="AC_MBDATE" disabled />
                                 <label for="AC_MBDATE">Birth Date</label>
                               </span>
                             </div>
@@ -917,10 +917,9 @@
                                   <div class="col-sm-2">
                                     <div class="form-group input-group">
                                       <span class="border-lable-flt">
-                                        <input type="text" name="AC_NDATE" class="form-control" placeholder=" "
-                                          id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}"
-                                          onfocus="(this.type='date')" #date (focusout)="disabledate(date.value)"
-                                          formControlName="AC_NDATE" />
+                                        <input type="date" name="AC_NDATE" class="form-control" placeholder=" "
+                                          id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                          (focusout)="disabledate(date.value)" formControlName="AC_NDATE" />
                                         <label for="AC_NDATE">Nomination Date<sub class="required">*
                                           </sub></label>
                                       </span>
@@ -1414,10 +1413,10 @@
                                 <div class="col-sm-2">
                                   <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                      <input type="text" name="DATE_APPOINTED" class="form-control" placeholder=" "
+                                      <input type="date" name="DATE_APPOINTED" class="form-control" placeholder=" "
                                         id="DATE_APPOINTED" [required]="DATE_APPOINTED"
-                                        max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
-                                        (focusout)="disabledate(date.value)" formControlName="DATE_APPOINTED" />
+                                        max="{{datemax | date:'yyyy-MM-dd'}}" #date (focusout)="disabledate(date.value)"
+                                        formControlName="DATE_APPOINTED" />
                                       <label for="DATE_APPOINTED">Appointed on<sub class="required">*
                                         </sub></label>
                                     </span>
@@ -1443,9 +1442,9 @@
                                 <div class="col-sm-2">
                                   <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                      <input type="text" name="DATE_EXPIRY" class="form-control" placeholder=" "
-                                        id="DATE_EXPIRY" max="9999-12-31" onfocus="(this.type='date')"
-                                        formControlName="DATE_EXPIRY" [required]="DATE_EXPIRY" />
+                                      <input type="date" name="DATE_EXPIRY" class="form-control" placeholder=" "
+                                        id="DATE_EXPIRY" max="9999-12-31" formControlName="DATE_EXPIRY"
+                                        [required]="DATE_EXPIRY" />
                                       <label for="DATE_EXPIRY">Expiry Date<sub class="required">*
                                         </sub></label>
                                     </span>
@@ -1531,39 +1530,36 @@
                       <div [@fadeInOutTranslate] class="m-t-15">
                         <div class="row">
                           <div class="col-12">
-                              <div class="table-responsive">
-                                  <table
-                                      class="table table-striped table-bordered table-hover compact">
-                                      <tbody *ngIf="customerDoc?.length != 0">
-                                          <tr>
-                                              <th>Code</th>
-                                              <th>Description</th>
-                                              <th>Path</th>
-                                          </tr>
-                                          <tr *ngFor="let data of customerDoc;
+                            <div class="table-responsive">
+                              <table class="table table-striped table-bordered table-hover compact">
+                                <tbody *ngIf="customerDoc?.length != 0">
+                                  <tr>
+                                    <th>Code</th>
+                                    <th>Description</th>
+                                    <th>Path</th>
+                                  </tr>
+                                  <tr *ngFor="let data of customerDoc;
                                       let indexOfelement = index">
-                                              <td>{{ data.DocumentMasterID }}</td>
-                                              <td>{{ data.DocumentMaster.NAME }}</td>
-                                              <td>
-                                                  <a href="{{documentUrl+data.PATH}}"
-                                                      target="_blank">
-                                                      <span
-                                                          style="font-size: 20px;color: #0f459b; cursor: pointer;"
-                                                          class="fa fa-fw fa-eye field-icon">
-                                                      </span>
-                                                  </a>
-                                              </td>
-                                          </tr>
-                                      </tbody>
-                                      <tbody *ngIf="customerDoc?.length == 0">
-                                          <tr>
-                                              <td class="no-data-available">No data!</td>
-                                          </tr>
-                                      </tbody>
-                                  </table>
-                              </div>
+                                    <td>{{ data.DocumentMasterID }}</td>
+                                    <td>{{ data.DocumentMaster.NAME }}</td>
+                                    <td>
+                                      <a href="{{documentUrl+data.PATH}}" target="_blank">
+                                        <span style="font-size: 20px;color: #0f459b; cursor: pointer;"
+                                          class="fa fa-fw fa-eye field-icon">
+                                        </span>
+                                      </a>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                                <tbody *ngIf="customerDoc?.length == 0">
+                                  <tr>
+                                    <td class="no-data-available">No data!</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
                           </div>
-                      </div>
+                        </div>
                       </div>
                     </ng-template>
                   </ngb-tab>

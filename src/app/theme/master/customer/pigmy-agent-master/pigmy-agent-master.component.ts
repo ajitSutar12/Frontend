@@ -77,7 +77,7 @@ interface PigmyAgentMaster {
 })
 
 export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestroy {
-
+  formSubmitted = false;
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -492,6 +492,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
@@ -517,6 +518,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     }
     this.PigmyAgentMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       // to reload after insertion of data
 
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

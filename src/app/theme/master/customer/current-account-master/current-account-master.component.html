@@ -13,7 +13,8 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
                                     placeholder="Scheme *" required title="Compulsory Selection"
-                                    formControlName="AC_TYPE" (selected)="getScheme($event)">
+                                    formControlName="AC_TYPE" (selected)="getScheme($event)"
+                                    [ngClass]="{'form-submitted': formSubmitted}" >
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -29,7 +30,8 @@
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
                                     placeholder="Customer ID *" required title="Compulsory Selection"
                                     formControlName="AC_CUSTID" [(ngModel)]="id" (selected)="getCustomer(id)"
-                                    style="width: 90%;">
+                                    style="width: 90%;"
+                                    [ngClass]="{'form-submitted': formSubmitted}" >
                                 </ng-select>
                                 <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
                                     (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer"></span>
@@ -136,11 +138,11 @@
                                                     <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input type="text" name="AC_OPDATE" class="form-control"
+                                                                <input type="date" name="AC_OPDATE" class="form-control"
                                                                     placeholder=" " id="AC_OPDATE" required
                                                                     max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                    onfocus="(this.type='date')"
-                                                                    formControlName="AC_OPDATE">
+                                                                    formControlName="AC_OPDATE"
+                                                                    [ngClass]="{'form-submitted': formSubmitted}" >
                                                                 <label for="AC_OPDATE">Opening Date<sub
                                                                         class="required">* </sub></label>
                                                             </span>
@@ -156,11 +158,10 @@
                                                     <div class="col-sm">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input type="text" name="AC_BIRTH_DT"
+                                                                <input type="date" name="AC_BIRTH_DT"
                                                                     class="form-control" placeholder=" "
                                                                     id="AC_BIRTH_DT"
                                                                     max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                    onfocus="(this.type='date')"
                                                                     formControlName="AC_BIRTH_DT" disabled>
                                                                 <label for="AC_BIRTH_DT">Birth Date</label>
                                                             </span>
@@ -212,7 +213,8 @@
                                                         <div class="form-group form-primary form-static-label">
                                                             <ng-select [ngClass]="'ng-select'" [options]="category"
                                                                 [multiple]="false" placeholder="Category *" required
-                                                                title="Compulsory Selection" formControlName="AC_CATG">
+                                                                title="Compulsory Selection" formControlName="AC_CATG"
+                                                                [ngClass]="{'form-submitted': formSubmitted}" >
                                                             </ng-select>
                                                         </div>
                                                         <div class="form-group form-primary form-static-label"
@@ -229,7 +231,8 @@
                                                                 name="AC_OPR_CODE" [multiple]="false"
                                                                 placeholder="Operation *" required
                                                                 title="Compulsory Selection"
-                                                                formControlName="AC_OPR_CODE">
+                                                                formControlName="AC_OPR_CODE"
+                                                                [ngClass]="{'form-submitted': formSubmitted}" >
                                                             </ng-select>
                                                         </div>
                                                         <div class="form-group form-primary form-static-label"
@@ -249,7 +252,8 @@
                                                                 name="AC_BALCATG" [multiple]="false"
                                                                 placeholder="Balance Category *" required
                                                                 title="Compulsory Selection"
-                                                                formControlName="AC_BALCATG">
+                                                                formControlName="AC_BALCATG"
+                                                                [ngClass]="{'form-submitted': formSubmitted}" >
                                                             </ng-select>
                                                         </div>
                                                         <div class="form-group form-primary form-static-label"
@@ -267,7 +271,8 @@
                                                                 name="AC_INTCATA" [multiple]="false" required
                                                                 placeholder="Interest Category *"
                                                                 title="Compulsory Selection"
-                                                                formControlName="AC_INTCATA">
+                                                                formControlName="AC_INTCATA"
+                                                                [ngClass]="{'form-submitted': formSubmitted}" >
                                                             </ng-select>
                                                         </div>
                                                         <div class="form-group form-primary form-static-label"
@@ -674,9 +679,9 @@
                                                     <div class="col-sm-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input type="text" name="AC_MBDATE" class="form-control"
+                                                                <input type="date" name="AC_MBDATE" class="form-control"
                                                                     placeholder=" " id="AC_MBDATE" max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                    onfocus="(this.type='date')"
+                                                                    
                                                                     formControlName="AC_MBDATE" disabled>
                                                                 <label for="AC_MBDATE">Birth Date</label>
                                                             </span>
@@ -690,7 +695,8 @@
                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                     formControlName="AC_GRDNAME"
-                                                                    [required]="introducerReq">
+                                                                    [required]="introducerReq"
+                                                                    [ngClass]="{'form-submitted': formSubmitted}" >
                                                                 <label for="AC_GRDNAME">Guardian Name</label>
                                                             </span>
                                                         </div>
@@ -711,7 +717,8 @@
                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                     formControlName="AC_GRDRELE"
-                                                                    [required]="introducerReq">
+                                                                    [required]="introducerReq"
+                                                                    [ngClass]="{'form-submitted': formSubmitted}" >
                                                                 <label for="AC_GRDRELE">Relation</label>
                                                             </span>
                                                         </div>
@@ -833,7 +840,8 @@
                                                                                     id="AC_NNAME"
                                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                    formControlName="AC_NNAME">
+                                                                                    formControlName="AC_NNAME" required
+                                                                                    [ngClass]="{'form-submitted': formSubmitted}" >
                                                                                 <label for="AC_NNAME">Name<sub
                                                                                         class="required">*
                                                                                     </sub></label>
@@ -856,7 +864,8 @@
                                                                                     id="AC_NRELA"
                                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                    formControlName="AC_NRELA">
+                                                                                    formControlName="AC_NRELA"
+                                                                                    [ngClass]="{'form-submitted': formSubmitted}"  required>
                                                                                 <label for="label-name">Relation<sub
                                                                                         class="required">*
                                                                                     </sub></label>
@@ -874,12 +883,12 @@
                                                                     <div class="col-sm-3">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
-                                                                                <input type="text" name="AC_NDATE"
+                                                                                <input type="date" name="AC_NDATE"
                                                                                     class="form-control" placeholder=" "
                                                                                     id="AC_NDATE"
                                                                                     max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                    onfocus="(this.type='date')"
-                                                                                    formControlName="AC_NDATE">
+                                                                                    formControlName="AC_NDATE"
+                                                                                    [ngClass]="{'form-submitted': formSubmitted}" >
                                                                                 <label for="AC_NDATE">Nomination
                                                                                     Date<sub class="required">*
                                                                                     </sub></label>
@@ -910,7 +919,7 @@
                                                                             class="alert alert-danger">
                                                                             <div
                                                                                 *ngIf="angForm.controls['AGE'].errors?.pattern || angForm.controls['AGE'].errors?.min || angForm.controls['AGE'].errors?.max">
-                                                                                This fiels is required
+                                                                                Input valid number
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1285,7 +1294,8 @@
                                                                                 pattern="^[A-Za-z\./ -]+$"
                                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                 formControlName="ATTERONEY_NAME"
-                                                                                [required]="ATTERONEY_NAME">
+                                                                                [required]="ATTERONEY_NAME"
+                                                                                [ngClass]="{'form-submitted': formSubmitted}" >
                                                                             <label for="ATTERONEY_NAME">Name<sub
                                                                                     class="required">* </sub></label>
                                                                         </span>
@@ -1303,13 +1313,13 @@
                                                                 <div class="col-sm-2">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
-                                                                            <input type="text" name="DATE_APPOINTED"
+                                                                            <input type="date" name="DATE_APPOINTED"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="DATE_APPOINTED"
                                                                                 [required]="DATE_APPOINTED"
                                                                                 max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                onfocus="(this.type='date')"
-                                                                                formControlName="DATE_APPOINTED">
+                                                                                formControlName="DATE_APPOINTED"
+                                                                                [ngClass]="{'form-submitted': formSubmitted}" >
                                                                             <label for="DATE_APPOINTED">Appointed
                                                                                 on<sub class="required">* </sub></label>
                                                                         </span>
@@ -1326,12 +1336,12 @@
                                                                 <div class="col-sm-2">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
-                                                                            <input type="text" name="DATE_EXPIRY"
+                                                                            <input type="date" name="DATE_EXPIRY"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="DATE_EXPIRY" max="9999-12-31"
-                                                                                onfocus="(this.type='date')"
                                                                                 formControlName="DATE_EXPIRY"
-                                                                                [required]="DATE_EXPIRY">
+                                                                                [required]="DATE_EXPIRY"
+                                                                                [ngClass]="{'form-submitted': formSubmitted}" >
                                                                             <label for="DATE_EXPIRY">Expiry Date<sub
                                                                                     class="required">* </sub></label>
                                                                         </span>

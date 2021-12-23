@@ -127,6 +127,7 @@ interface CashCreditMaster {
 })
 
 export class CashCreditMasterComponent implements OnInit {
+  formSubmitted = false;
   selected
   //api 
   url = environment.base_url;
@@ -686,6 +687,7 @@ export class CashCreditMasterComponent implements OnInit {
   // Method to insert data into database through NestJS
 
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     if (formVal.AC_ADDFLAG == true) {
       this.addType = 'P'
@@ -769,6 +771,7 @@ export class CashCreditMasterComponent implements OnInit {
 
     this.cashCreditService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });

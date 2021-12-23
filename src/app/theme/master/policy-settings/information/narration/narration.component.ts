@@ -141,7 +141,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
         }
       ],
       dom: 'Blrtip',
-    };
+    }; 
   }
   // Method to handle validation of form
   createForm() {
@@ -151,7 +151,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
   }
   // Method to insert data into database through NestJS
   submit(event) {
-    event.preventDefault();
+    event.preventDefault(); 
     this.formSubmitted = true;
 
     if (this.angForm.valid) {

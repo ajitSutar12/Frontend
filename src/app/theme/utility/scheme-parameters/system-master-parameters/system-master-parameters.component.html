@@ -79,50 +79,50 @@
                                                             This field is required
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-7">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <textarea type="text" name="ADDRESS" class="form-control"
-                                                                placeholder=" " pattern="^[A-Za-z\./ - 0-9]+$"
-                                                                title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                id="ADDRESS" maxlength="100"
-                                                                formControlName="ADDRESS"></textarea>
-                                                            <label for="ADDRESS">Bank Address<sub class="required">*
-                                                                </sub></label>
-                                                        </span>
-                                                    </div>
-                                                    <div class="form-group form-primary form-static-label"
-                                                        *ngIf="angForm.controls['ADDRESS'].invalid && (angForm.controls['ADDRESS'].dirty || angForm.controls['ADDRESS'].touched)"
-                                                        class="alert alert-danger">
-                                                        <div
-                                                            *ngIf="angForm.controls['ADDRESS'].errors?.pattern || angForm.controls['ADDRESS'].errors?.required || angForm.controls['ADDRESS'].errors?.maxlength">
-                                                            This field is required and Input allowed only A-Z
-                                                            a-z - / . (Space)
+                                                    <div class="row">
+                                                        <div class="col-sm-7">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <textarea type="text" name="ADDRESS"
+                                                                        class="form-control" placeholder=" "
+                                                                        pattern="^[A-Za-z\./ - 0-9]+$"
+                                                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                        id="ADDRESS" maxlength="100"
+                                                                        formControlName="ADDRESS"></textarea>
+                                                                    <label for="ADDRESS">Bank Address<sub
+                                                                            class="required">* </sub></label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['ADDRESS'].invalid && (angForm.controls['ADDRESS'].dirty || angForm.controls['ADDRESS'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf="angForm.controls['ADDRESS'].errors?.pattern || angForm.controls['ADDRESS'].errors?.required || angForm.controls['ADDRESS'].errors?.maxlength">
+                                                                    This field is required and Input allowed only A-Z
+                                                                    a-z - / . (Space)
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" name="COMPANY_START_DATE"
-                                                                class="form-control" placeholder=" "
-                                                                id="COMPANY_START_DATE"
-                                                                max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                onfocus="(this.type='date')"
-                                                                formControlName="COMPANY_START_DATE">
-                                                            <label for="COMPANY_START_DATE">Bank Start
-                                                                Date<sub class="required">* </sub></label>
-                                                        </span>
-                                                    </div>
-                                                    <div class="form-group form-primary form-static-label"
-                                                        *ngIf="angForm.controls['COMPANY_START_DATE'].invalid && (angForm.controls['COMPANY_START_DATE'].dirty || angForm.controls['COMPANY_START_DATE'].touched)"
-                                                        class="alert alert-danger">
-                                                        <div
-                                                            *ngIf=" angForm.controls['COMPANY_START_DATE'].errors?.required ">
-                                                            This field is required
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="date" name="COMPANY_START_DATE"
+                                                                        class="form-control" placeholder=" "
+                                                                        id="COMPANY_START_DATE"
+                                                                        max="{{datemax | date:'yyyy-MM-dd'}}"
+                                                                        formControlName="COMPANY_START_DATE">
+                                                                    <label for="COMPANY_START_DATE">Bank Start
+                                                                        Date<sub class="required">* </sub></label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['COMPANY_START_DATE'].invalid && (angForm.controls['COMPANY_START_DATE'].dirty || angForm.controls['COMPANY_START_DATE'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['COMPANY_START_DATE'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -648,6 +648,10 @@
 
                                                         </div>
                                                     </div>
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
 
                                                 
@@ -2017,11 +2021,10 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="PREVIOUS_DATE"
+                                                                    <input type="date" name="PREVIOUS_DATE"
                                                                         class="form-control" placeholder=" "
                                                                         id="PREVIOUS_DATE"
                                                                         max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                        onfocus="(this.type='date')"
                                                                         formControlName="PREVIOUS_DATE">
                                                                     <label for="PREVIOUS_DATE">Previous Date <sub
                                                                             class="required">* </sub></label>
@@ -2039,11 +2042,10 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="CURRENT_DATE"
+                                                                    <input type="date" name="CURRENT_DATE"
                                                                         class="form-control" placeholder=" "
                                                                         id="CURRENT_DATE"
                                                                         max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                        onfocus="(this.type='date')"
                                                                         formControlName="CURRENT_DATE">
                                                                     <label for="CURRENT_DATE"> Current Date<sub
                                                                             class="required">* </sub></label>
@@ -2088,11 +2090,10 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="PIGMY_PREVIOUS_DATE"
+                                                                    <input type="date" name="PIGMY_PREVIOUS_DATE"
                                                                         class="form-control" placeholder=" "
                                                                         id="PIGMY_PREVIOUS_DATE"
                                                                         max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                        onfocus="(this.type='date')"
                                                                         formControlName="PIGMY_PREVIOUS_DATE">
                                                                     <label for="PIGMY_PREVIOUS_DATE"> Pigmy Previous
                                                                         Date<sub class="required">* </sub></label>
@@ -2110,11 +2111,10 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" name="PIGMY_CURRENT_DATE"
+                                                                    <input type="date" name="PIGMY_CURRENT_DATE"
                                                                         class="form-control" placeholder=" "
                                                                         id="PIGMY_CURRENT_DATE"
                                                                         max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                        onfocus="(this.type='date')"
                                                                         formControlName="PIGMY_CURRENT_DATE">
                                                                     <label for="PIGMY_CURRENT_DATE">Pigmy Current
                                                                         Date <sub class="required">* </sub></label>
@@ -2459,214 +2459,251 @@
                                     <tr>
                                         <th></th>
 
-                                        <th><input type="text" placeholder="Type" class="form-control"  name="SYSPARA_CODE"></th>
-                                        <th><input type="text" placeholder="Bank Code" class="form-control"  name="BANK_CODE"></th>
-                                        <th><input type="text" placeholder="Bank Name" class="form-control"  name="BANK_NAME"></th>
-                                        <th><input type="text" placeholder="Branch Code" class="form-control"  name="BRANCH_CODE"></th>
-                                        <th><input type="text" placeholder="Bank Address" class="form-control"  name="ADDRESS"></th>
-                                        <th><input type="text" placeholder="Bank Start Date" class="form-control"  name="COMPANY_START_DATE">
+                                        <th><input type="text" placeholder="Type" class="form-control"
+                                                name="SYSPARA_CODE"></th>
+                                        <th><input type="text" placeholder="Bank Code" class="form-control"
+                                                name="BANK_CODE"></th>
+                                        <th><input type="text" placeholder="Bank Name" class="form-control"
+                                                name="BANK_NAME"></th>
+                                        <th><input type="text" placeholder="Branch Code" class="form-control"
+                                                name="BRANCH_CODE"></th>
+                                        <th><input type="text" placeholder="Bank Address" class="form-control"
+                                                name="ADDRESS"></th>
+                                        <th><input type="text" placeholder="Bank Start Date" class="form-control"
+                                                name="COMPANY_START_DATE">
                                         </th>
-                                        <th><input type="text" placeholder="No. Of Employees" class="form-control"  name="NO_OF_EMPLOYEES">
+                                        <th><input type="text" placeholder="No. Of Employees" class="form-control"
+                                                name="NO_OF_EMPLOYEES">
                                         </th>
-                                        <th><input type="text" placeholder="Accountant" class="form-control"  name="ACCOUNTANT"></th>
-                                        <th><input type="text" placeholder="General Manager" class="form-control"  name="GENERAL_MANAGER">
+                                        <th><input type="text" placeholder="Accountant" class="form-control"
+                                                name="ACCOUNTANT"></th>
+                                        <th><input type="text" placeholder="General Manager" class="form-control"
+                                                name="GENERAL_MANAGER">
                                         </th>
-                                        <th><input type="text" placeholder="Chairman" class="form-control"  name="CHAIRMAN"></th>
-                                        <th><input type="text" placeholder="Officer Name" class="form-control"  name="OFFICER_NAME"></th>
-                                        <th><input type="text" placeholder="Officer Designation"
-                                                class="form-control"  name="OFFICER_DESIGNATION"></th>
-                                        <th><input type="text" placeholder="RBI Licence No." class="form-control"  name="RBI_LICENCE_NO"></th>
-                                        <th><input type="text" placeholder="Manager Name" class="form-control"  name="MANAGER_NAME"></th>
+                                        <th><input type="text" placeholder="Chairman" class="form-control"
+                                                name="CHAIRMAN"></th>
+                                        <th><input type="text" placeholder="Officer Name" class="form-control"
+                                                name="OFFICER_NAME"></th>
+                                        <th><input type="text" placeholder="Officer Designation" class="form-control"
+                                                name="OFFICER_DESIGNATION"></th>
+                                        <th><input type="text" placeholder="RBI Licence No." class="form-control"
+                                                name="RBI_LICENCE_NO"></th>
+                                        <th><input type="text" placeholder="Manager Name" class="form-control"
+                                                name="MANAGER_NAME"></th>
                                         <!-- <th><input type="text" placeholder="Branch City Name" class="form-control"  name="BRANCH_CITY_NAME">
                                         </th>
                                         <th><input type="text" placeholder="Company Code" class="form-control"  name="COMPANY_CODE"></th> -->
-                                        <th><input type="text" placeholder="DD Commission" class="form-control"  name="DD_COMMISSION_ACNO">
+                                        <th><input type="text" placeholder="DD Commission" class="form-control"
+                                                name="DD_COMMISSION_ACNO">
                                         </th>
-                                        <th><input type="text" placeholder="Dividend GL" class="form-control"  name="DIVIDEND_ACNO"></th>
-                                        <th><input type="text" placeholder="Bonus GL" class="form-control"  name="BONUS_GLACNO"></th>
-                                        <th><input type="text" placeholder="Bills For Collection"
-                                                class="form-control"  name="BILL_FOR_COLLECTION_ACNO"></th>
-                                        <th><input type="text" placeholder="Bills Receivable"
-                                                class="form-control"  name="BILL_RECEIVABLE_ACNO"></th>
-                                        <th><input type="text" placeholder="BC BR Clearing Dr." class="form-control"  name="BCBR_DR_GLACNO">
+                                        <th><input type="text" placeholder="Dividend GL" class="form-control"
+                                                name="DIVIDEND_ACNO"></th>
+                                        <th><input type="text" placeholder="Bonus GL" class="form-control"
+                                                name="BONUS_GLACNO"></th>
+                                        <th><input type="text" placeholder="Bills For Collection" class="form-control"
+                                                name="BILL_FOR_COLLECTION_ACNO"></th>
+                                        <th><input type="text" placeholder="Bills Receivable" class="form-control"
+                                                name="BILL_RECEIVABLE_ACNO"></th>
+                                        <th><input type="text" placeholder="BC BR Clearing Dr." class="form-control"
+                                                name="BCBR_DR_GLACNO">
                                         </th>
                                         <th><input type="text" placeholder="BC BR Head Office Sub Code"
-                                                class="form-control"  name="BCBR_DR_SUB_GLACNO"></th>
+                                                class="form-control" name="BCBR_DR_SUB_GLACNO"></th>
                                         <th><input type="text" placeholder="Clearing Suspence GL A/c"
-                                                class="form-control"  name="CLG_SUSPENCE_ACNO"></th>
+                                                class="form-control" name="CLG_SUSPENCE_ACNO"></th>
                                         <th><input type="text" placeholder="Inward Bill Collection GL A/c"
-                                                class="form-control"  name="INWARD_BILL_COLLECTION_ACNO"></th>
+                                                class="form-control" name="INWARD_BILL_COLLECTION_ACNO"></th>
                                         <th><input type="text" placeholder="Inward Bill Receivable GL A/c"
-                                                class="form-control"  name="INWARD_BILL_RECEIVABLE_ACNO"></th>
-                                        <th><input type="text" placeholder="Allow Recovery"
-                                                class="form-control"  name="IS_ALLOW_RECOVERY_DIFF"></th>
+                                                class="form-control" name="INWARD_BILL_RECEIVABLE_ACNO"></th>
+                                        <th><input type="text" placeholder="Allow Recovery" class="form-control"
+                                                name="IS_ALLOW_RECOVERY_DIFF"></th>
                                         <th><input type="text" placeholder="Member No Wise Recovery"
-                                                class="form-control"  name="RECOVERY_METHOD"></th>
+                                                class="form-control" name="RECOVERY_METHOD"></th>
                                         <!-- <th><input type="text" placeholder="CustomerID Wise Recovery"
                                                 class="form-control"  name="RECOVERY_METHOD"></th> -->
                                         <th><input type="text" placeholder="Is Process For Process Month/Year"
-                                                class="form-control"  name="IS_PROCESS_FOR_MONTH"></th>
+                                                class="form-control" name="IS_PROCESS_FOR_MONTH"></th>
 
-                                        <th><input type="text" placeholder="Recovery GL  A/c No."
-                                                class="form-control"  name="RECOVERY_DR_ACNO"></th>
+                                        <th><input type="text" placeholder="Recovery GL  A/c No." class="form-control"
+                                                name="RECOVERY_DR_ACNO"></th>
                                         <th><input type="text" placeholder="Is Process Upto Current Date"
-                                                class="form-control"  name="IS_PROCESS_UPTO_TRANDATE"></th>
-                                        <th><input type="text" placeholder="Head Office Ac No" class="form-control"  name="HO_GLACNO"></th>
-                                        <th><input type="text" placeholder="Bank Gaurantee Dr. A/c" class="form-control"  name="BG_DR_ACNO">
+                                                class="form-control" name="IS_PROCESS_UPTO_TRANDATE"></th>
+                                        <th><input type="text" placeholder="Head Office Ac No" class="form-control"
+                                                name="HO_GLACNO"></th>
+                                        <th><input type="text" placeholder="Bank Gaurantee Dr. A/c" class="form-control"
+                                                name="BG_DR_ACNO">
                                         </th>
-                                        <th><input type="text" placeholder="Bank Gaurantee Cr. A/c" class="form-control"  name="BG_CR_ACNO">
+                                        <th><input type="text" placeholder="Bank Gaurantee Cr. A/c" class="form-control"
+                                                name="BG_CR_ACNO">
                                         </th>
-                                        <th><input type="text" placeholder="Pay Order A/c" class="form-control"  name="PAY_ORDER_ACNO"></th>
+                                        <th><input type="text" placeholder="Pay Order A/c" class="form-control"
+                                                name="PAY_ORDER_ACNO"></th>
                                         <th><input type="text" placeholder="Inward Bills Purchase A/c"
-                                                class="form-control"  name="INWARD_BILLS_PURCHASE_ACNO"></th>
+                                                class="form-control" name="INWARD_BILLS_PURCHASE_ACNO"></th>
                                         <th><input type="text" placeholder="Year End Profit Loss Transfer"
-                                                class="form-control"  name="YEAR_CLOSING_TRANSFER_ACNO"></th>
+                                                class="form-control" name="YEAR_CLOSING_TRANSFER_ACNO"></th>
 
                                         <th><input type="text" placeholder="Profit / Loss Print in B/S GL"
-                                                class="form-control"  name="PL_TRANSFER_ACNO"></th>
+                                                class="form-control" name="PL_TRANSFER_ACNO"></th>
                                         <th><input type="text" placeholder="Share Capital Statement No."
-                                                class="form-control"  name="AUTHORIZED_SHARE_CAPITAL_CODE"></th>
-                                        <th><input type="text" placeholder="TDS Payable GL A/c"
-                                                class="form-control"  name="TDS_PAYABLE_GLACNO"></th>
-                                        <th><input type="text" placeholder="Surcharge GL A/c" class="form-control"  name="SURCHARGE_GLACNO">
+                                                class="form-control" name="AUTHORIZED_SHARE_CAPITAL_CODE"></th>
+                                        <th><input type="text" placeholder="TDS Payable GL A/c" class="form-control"
+                                                name="TDS_PAYABLE_GLACNO"></th>
+                                        <th><input type="text" placeholder="Surcharge GL A/c" class="form-control"
+                                                name="SURCHARGE_GLACNO">
                                         </th>
-                                        <th><input type="text" placeholder="Cheque Book Charges GL"
-                                                class="form-control"  name="CHEQUE_CHARGES_ACNO"></th>
+                                        <th><input type="text" placeholder="Cheque Book Charges GL" class="form-control"
+                                                name="CHEQUE_CHARGES_ACNO"></th>
                                         <th><input type="text" placeholder="Cheque Bounce Charges GL"
-                                                class="form-control"  name="CHEQUE_BOUNCE_ACNO"></th>
-                                        <th><input type="text" placeholder="Cheque Bounce Charges"
-                                                class="form-control"  name="CHEQUE_BOUNCE_CHARGES"></th>
-                                        <th><input type="text" placeholder="MICR Charges GL A/c"
-                                                class="form-control"  name="MICR_CHARGES_ACNO"></th>
-                                        <th><input type="text" placeholder="O/W Charges" class="form-control"  name="MICR_CHARGES_AMOUNT">
+                                                class="form-control" name="CHEQUE_BOUNCE_ACNO"></th>
+                                        <th><input type="text" placeholder="Cheque Bounce Charges" class="form-control"
+                                                name="CHEQUE_BOUNCE_CHARGES"></th>
+                                        <th><input type="text" placeholder="MICR Charges GL A/c" class="form-control"
+                                                name="MICR_CHARGES_ACNO"></th>
+                                        <th><input type="text" placeholder="O/W Charges" class="form-control"
+                                                name="MICR_CHARGES_AMOUNT">
                                         </th>
-                                        <th><input type="text" placeholder="I/W Charges" class="form-control"  name="MICR_CHARGES_INWORD_CLG">
+                                        <th><input type="text" placeholder="I/W Charges" class="form-control"
+                                                name="MICR_CHARGES_INWORD_CLG">
                                         </th>
-                                        <th><input type="text" placeholder="Grace Period (Days)" class="form-control"  name="GRACE_PERIOD">
+                                        <th><input type="text" placeholder="Grace Period (Days)" class="form-control"
+                                                name="GRACE_PERIOD">
                                         </th>
-                                        <th><input type="text" placeholder="Weekly Holiday" class="form-control"  name="WEEKLY_HOLIDAY"></th>
-                                        <th><input type="text" placeholder="Half Day" class="form-control"  name="HALF_DAY"></th>
+                                        <th><input type="text" placeholder="Weekly Holiday" class="form-control"
+                                                name="WEEKLY_HOLIDAY"></th>
+                                        <th><input type="text" placeholder="Half Day" class="form-control"
+                                                name="HALF_DAY"></th>
                                         <th><input type="text" placeholder="Interest Calculation Method"
-                                                class="form-control"  name="INT_CALC_METHOD"></th>
-                                        <th><input type="text" placeholder="Moratorium Period" class="form-control"  name="MORATORIUM_PERIOD">
+                                                class="form-control" name="INT_CALC_METHOD"></th>
+                                        <th><input type="text" placeholder="Moratorium Period" class="form-control"
+                                                name="MORATORIUM_PERIOD">
                                         </th>
                                         <th><input type="text" placeholder="Sanctioned Cash Limit for"
-                                                class="form-control"  name="SANCTIONED_CASH_LIMIT"></th>
+                                                class="form-control" name="SANCTIONED_CASH_LIMIT"></th>
                                         <th><input type="text" placeholder="Pigmy Commission Method/Rule"
-                                                class="form-control"  name="IS_PGCOMMISSION_PERCALCULATION"></th>
+                                                class="form-control" name="IS_PGCOMMISSION_PERCALCULATION"></th>
                                         <th><input type="text" placeholder="Dividend Calculation Month No."
-                                                class="form-control"  name="DIV_CALCU_MONTH"></th>
+                                                class="form-control" name="DIV_CALCU_MONTH"></th>
                                         <th><input type="text" placeholder="High Value Clearing Amount"
-                                                class="form-control"  name="HIGH_VALUE_CLEARING_AMT"></th>
-                                        <th><input type="text" placeholder="NPA Method No" class="form-control"  name="NPA_METHOD"></th>
-                                        <th><input type="text" placeholder="Sub Method No." class="form-control"  name="NPA_SUBMETHOD"></th>
+                                                class="form-control" name="HIGH_VALUE_CLEARING_AMT"></th>
+                                        <th><input type="text" placeholder="NPA Method No" class="form-control"
+                                                name="NPA_METHOD"></th>
+                                        <th><input type="text" placeholder="Sub Method No." class="form-control"
+                                                name="NPA_SUBMETHOD"></th>
                                         <th><input type="text" placeholder="Dividend Payable for the last"
-                                                class="form-control"  name="DIV_PAYABLE_FOR_LAST_YEARS"></th>
+                                                class="form-control" name="DIV_PAYABLE_FOR_LAST_YEARS"></th>
                                         <th><input type="text" placeholder="Member Can Be Guarantor for No. of A/cs"
-                                                class="form-control"  name="MEMBER_FOR_GUR"></th>
-                                        <th><input type="text" placeholder="S/W Lock Time/m" class="form-control"  name="AUTO_LOCK_TIME"></th>
-                                        <th><input type="text" placeholder="Password Expiry Days"
-                                                class="form-control"  name="PASSWORD_EXPIRE_DAYS"></th>
+                                                class="form-control" name="MEMBER_FOR_GUR"></th>
+                                        <th><input type="text" placeholder="S/W Lock Time/m" class="form-control"
+                                                name="AUTO_LOCK_TIME"></th>
+                                        <th><input type="text" placeholder="Password Expiry Days" class="form-control"
+                                                name="PASSWORD_EXPIRE_DAYS"></th>
                                         <th><input type="text" placeholder="Is Voucher Require in Clg. Tally"
-                                                class="form-control"  name="IS_ALLOW_CLG_TALLY_VOUCHER"></th>
-                                        <th><input type="text" placeholder="Denomination Require"
-                                                class="form-control"  name="DENOMINATION_REQUIRE"></th>
+                                                class="form-control" name="IS_ALLOW_CLG_TALLY_VOUCHER"></th>
+                                        <th><input type="text" placeholder="Denomination Require" class="form-control"
+                                                name="DENOMINATION_REQUIRE"></th>
                                         <!-- <th><input type="text" placeholder="Customer ID required'"
                                                 class="form-control"  name="CUSTOMER_ID_REQUIRED"></th> -->
                                         <th><input type="text" placeholder="Is Clearing Date Add by 1 Day"
-                                                class="form-control"  name="IS_CLG_DATE_ADD"></th>
-                                        <th><input type="text" placeholder="Teller Mode" class="form-control"  name="TELLER_MODE"></th>
+                                                class="form-control" name="IS_CLG_DATE_ADD"></th>
+                                        <th><input type="text" placeholder="Teller Mode" class="form-control"
+                                                name="TELLER_MODE"></th>
                                         <th><input type="text" placeholder=" TDS Calculate required"
-                                                class="form-control"  name="IS_TDS_CALCULATE"></th>
+                                                class="form-control" name="IS_TDS_CALCULATE"></th>
                                         <th><input type="text" placeholder=" Is Auto Clearing Effect"
-                                                class="form-control"  name="IS_AUTO_CLEARING_EFFECT"></th>
+                                                class="form-control" name="IS_AUTO_CLEARING_EFFECT"></th>
                                         <th><input type="text" placeholder="Allow Direct Entry to Scheme GL"
-                                                class="form-control"  name="IS_ALLOW_SCHEME_GL_ENTRY"></th>
+                                                class="form-control" name="IS_ALLOW_SCHEME_GL_ENTRY"></th>
                                         <th><input type="text" placeholder=" Is NPA Auto Voucher Create"
-                                                class="form-control"  name="IS_AUTO_VOUCHER_NPA_OIR"></th>
-                                        <th><input type="text" placeholder=" Auto Account Numbering" class="form-control"  name="AUTO_NO">
+                                                class="form-control" name="IS_AUTO_VOUCHER_NPA_OIR"></th>
+                                        <th><input type="text" placeholder=" Auto Account Numbering"
+                                                class="form-control" name="AUTO_NO">
                                         </th>
-                                        <th><input type="text" placeholder="Token Not Applicable"
-                                                class="form-control"  name="TOKEN_NO_APPLICABLE"></th>
+                                        <th><input type="text" placeholder="Token Not Applicable" class="form-control"
+                                                name="TOKEN_NO_APPLICABLE"></th>
                                         <th><input type="text" placeholder="Is HO Sub GL A/c Input Required"
-                                                class="form-control"  name="IS_HO_SUB_GLACNO_REQUIRED"></th>
+                                                class="form-control" name="IS_HO_SUB_GLACNO_REQUIRED"></th>
                                         <th><input type="text" placeholder="Master Approve Required"
-                                                class="form-control"  name="MASTER_APPROVAL_REQUIRED"></th>
+                                                class="form-control" name="MASTER_APPROVAL_REQUIRED"></th>
                                         <th><input type="text"
                                                 placeholder="Auto Attach Deposit Ac Joint Names to Primary Name"
-                                                class="form-control"  name="MASTER_ATTACH_JOINT_NAMES"></th>
+                                                class="form-control" name="MASTER_ATTACH_JOINT_NAMES"></th>
                                         <th><input type="text" placeholder=" Is Clearing option Required"
-                                                class="form-control"  name="IS_REQUIRE_CLEARING_OPTION"></th>
+                                                class="form-control" name="IS_REQUIRE_CLEARING_OPTION"></th>
                                         <th><input type="text" placeholder="Is Posting DD Preparation"
-                                                class="form-control"  name="IS_POSTING_DD_PREPARATION"></th>
+                                                class="form-control" name="IS_POSTING_DD_PREPARATION"></th>
                                         <th><input type="text" placeholder="Auto Attach Guardian Name to Primary Name"
-                                                class="form-control"  name="MASTER_ATTACH_GUARDIAN_NAMES"></th>
+                                                class="form-control" name="MASTER_ATTACH_GUARDIAN_NAMES"></th>
                                         <th><input type="text" placeholder="Is Allowed Multiple time User Login?"
-                                                class="form-control"  name="IS_ALLOW_USER_MULTI_LOGIN"></th>
+                                                class="form-control" name="IS_ALLOW_USER_MULTI_LOGIN"></th>
                                         <th><input type="text" placeholder=" Auto Instruction Passing"
-                                                class="form-control"  name="IS_AUTO_INSTRUCTION_PASS"></th>
+                                                class="form-control" name="IS_AUTO_INSTRUCTION_PASS"></th>
                                         <th><input type="text" placeholder="Allow Pigmy Accounts Renewal"
-                                                class="form-control"  name="PIGMY_AC_RENEW_APPLY"></th>
-                                        <th><input type="text" placeholder="Maintain Cheque Series"
-                                                class="form-control"  name="MAINTAIN_CHEQUE_SERIES"></th>
+                                                class="form-control" name="PIGMY_AC_RENEW_APPLY"></th>
+                                        <th><input type="text" placeholder="Maintain Cheque Series" class="form-control"
+                                                name="MAINTAIN_CHEQUE_SERIES"></th>
                                         <th><input type="text" placeholder="Ac Wise Receipt No Input In Pigmy Chart"
-                                                class="form-control"  name="IS_RECEIPTNO_IN_PIGMYCHART"></th>
+                                                class="form-control" name="IS_RECEIPTNO_IN_PIGMYCHART"></th>
                                         <th><input type="text" placeholder="Is Bankers Commission Voucher Required"
-                                                class="form-control"  name="IS_BANKERS_COMM_TRAN_REQD"></th>
+                                                class="form-control" name="IS_BANKERS_COMM_TRAN_REQD"></th>
                                         <th><input type="text" placeholder="Pigmy Auto Voucher Generation"
-                                                class="form-control"  name="PIGMY_IS_AUTO_VOUCHER"></th>
+                                                class="form-control" name="PIGMY_IS_AUTO_VOUCHER"></th>
                                         <th><input type="text"
                                                 placeholder="Is Rebit Interest Rate Wise Calculation (Loan)"
-                                                class="form-control"  name="IS_REBIT_INTRATE_CAL"></th>
+                                                class="form-control" name="IS_REBIT_INTRATE_CAL"></th>
                                         <th><input type="text" placeholder="Is Required IBC/IBR Vouchers"
-                                                class="form-control"  name="IS_IBCIBR_VOUCH_REQD"></th>
+                                                class="form-control" name="IS_IBCIBR_VOUCH_REQD"></th>
                                         <th><input type="text" placeholder=" MICR Charges Applicable"
-                                                class="form-control"  name="IS_MICR_CHARGES_APPL"></th>
+                                                class="form-control" name="IS_MICR_CHARGES_APPL"></th>
                                         <th><input type="text" placeholder="Allow to Change Loan Interest Amount"
-                                                class="form-control"  name="IS_ALLOW_LOANINT_CHANGE"></th>
+                                                class="form-control" name="IS_ALLOW_LOANINT_CHANGE"></th>
                                         <th><input type="text" placeholder="Depreciation With Half/Full Rate"
-                                                class="form-control"  name="DEPRECIATION_WITH_HALFFULLRATE"></th>
+                                                class="form-control" name="DEPRECIATION_WITH_HALFFULLRATE"></th>
                                         <th><input type="text" placeholder="Guarantors From Only A Type Members"
-                                                class="form-control"  name="IS_GURR_FROM_MEMBERS"></th>
+                                                class="form-control" name="IS_GURR_FROM_MEMBERS"></th>
                                         <th><input type="text" placeholder="Consider Renewal As Open For CC"
-                                                class="form-control"  name="IS_CONSIDER_CCRENEWAL_AS_OPEN"></th>
+                                                class="form-control" name="IS_CONSIDER_CCRENEWAL_AS_OPEN"></th>
                                         <th><input type="text" placeholder=" Auto Certificate and Shares no. Update"
-                                                class="form-control"  name="IS_AUTO_UPDATE_SHARES_NO"></th>
+                                                class="form-control" name="IS_AUTO_UPDATE_SHARES_NO"></th>
                                         <th><input type="text" placeholder=" Auto Post Daily Overdraft Interest"
-                                                class="form-control"  name="IS_AUTOPOSTDAILY_OVERDRAFT_INT"></th>
+                                                class="form-control" name="IS_AUTOPOSTDAILY_OVERDRAFT_INT"></th>
                                         <th><input type="text" placeholder="Allow To Maintain Recovery Differnce"
-                                                class="form-control"  name="IS_ALLOW_RECOVERY_DIFF"></th>
+                                                class="form-control" name="IS_ALLOW_RECOVERY_DIFF"></th>
                                         <th><input type="text"
                                                 placeholder=" Check Member Loan/Gauranter forwithdraw/closing"
-                                                class="form-control"  name="WITHDRW_CLOSING_FOR_GURMEMBERS"></th>
+                                                class="form-control" name="WITHDRW_CLOSING_FOR_GURMEMBERS"></th>
                                         <th><input type="text" placeholder="Scheme Wise Recovery Import/Expor"
-                                                class="form-control"  name="SCHMWISE_REC_IMPEXP"></th>
-                                        <th><input type="text" placeholder="Previous Date" class="form-control"  name="PREVIOUS_DATE"></th>
-                                        <th><input type="text" placeholder="Current Date" class="form-control"  name="CURRENT_DATE"></th>
-                                        <th><input type="text" placeholder="Day Begin Executed"
-                                                class="form-control"  name="DAY_BEGIN_EXECUTED"></th>
-                                        <th><input type="text" placeholder="Day End Executed" class="form-control"  name="DAY_END_EXECUTED">
+                                                class="form-control" name="SCHMWISE_REC_IMPEXP"></th>
+                                        <th><input type="text" placeholder="Previous Date" class="form-control"
+                                                name="PREVIOUS_DATE"></th>
+                                        <th><input type="text" placeholder="Current Date" class="form-control"
+                                                name="CURRENT_DATE"></th>
+                                        <th><input type="text" placeholder="Day Begin Executed" class="form-control"
+                                                name="DAY_BEGIN_EXECUTED"></th>
+                                        <th><input type="text" placeholder="Day End Executed" class="form-control"
+                                                name="DAY_END_EXECUTED">
                                         </th>
-                                        <th><input type="text" placeholder="Pigmy Previous Date"
-                                                class="form-control"  name="PIGMY_PREVIOUS_DATE"></th>
-                                        <th><input type="text" placeholder="Pigmy Current Date"
-                                                class="form-control"  name="PIGMY_CURRENT_DATE"></th>
-                                        <th><input type="text" placeholder="Day Begin Executed"
-                                                class="form-control"  name="PIGMY_DAY_BEGIN_EXECUTED"></th>
-                                        <th><input type="text" placeholder="Day End Executed"
-                                                class="form-control"  name="PIGMY_DAY_END_EXECUTED"></th>
+                                        <th><input type="text" placeholder="Pigmy Previous Date" class="form-control"
+                                                name="PIGMY_PREVIOUS_DATE"></th>
+                                        <th><input type="text" placeholder="Pigmy Current Date" class="form-control"
+                                                name="PIGMY_CURRENT_DATE"></th>
+                                        <th><input type="text" placeholder="Day Begin Executed" class="form-control"
+                                                name="PIGMY_DAY_BEGIN_EXECUTED"></th>
+                                        <th><input type="text" placeholder="Day End Executed" class="form-control"
+                                                name="PIGMY_DAY_END_EXECUTED"></th>
                                         <!-- <th><input type="text" placeholder="Back Day Open Options"
                                                 class="form-control"  name="BACK_DAY_OPTION"></th> -->
-                                        <th><input type="text" placeholder="Is Online Transactions?" class="form-control"  name="ON_LINE">
+                                        <th><input type="text" placeholder="Is Online Transactions?"
+                                                class="form-control" name="ON_LINE">
                                         </th>
                                         <th><input type="text" placeholder="Is Receipt Printing by Designing Method ?"
-                                                class="form-control"  name="IS_RECEIPT_PRINT_DESIGNMETHOD"></th>
+                                                class="form-control" name="IS_RECEIPT_PRINT_DESIGNMETHOD"></th>
                                         <th><input type="text" placeholder="Cash in Hand GL A/c Amount"
-                                                class="form-control"  name="CASH_IN_HAND_ACNO"></th>
-                                        <th><input type="text" placeholder="Clearing House Member"
-                                                class="form-control"  name="CLG_HOUSE_METHOD"></th>
+                                                class="form-control" name="CASH_IN_HAND_ACNO"></th>
+                                        <th><input type="text" placeholder="Clearing House Member" class="form-control"
+                                                name="CLG_HOUSE_METHOD"></th>
                                         <th><input type="text" placeholder="No. of Lines Per Passbook"
-                                                class="form-control"  name="LINES_PER_PASSBOOKPAGE"></th>
+                                                class="form-control" name="LINES_PER_PASSBOOKPAGE"></th>
 
 
 

@@ -11,8 +11,8 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="InsuranceDate" required=""
-                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="INSURANCE_DATE" onfocus="(this.type='date')" #autofocus />
+                  <input type="date" class="form-control" placeholder=" " id="InsuranceDate" required=""
+                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="INSURANCE_DATE"  #autofocus />
                   <label for="InsuranceDate">Insurance Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -68,8 +68,8 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="InsuranceExpiryDate" required=""
-                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="INSU_EXP_DATE" onfocus="(this.type='date')" />
+                  <input type="date" class="form-control" placeholder=" " id="InsuranceExpiryDate" required=""
+                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="INSU_EXP_DATE"  />
                   <label for="InsuranceExpiryDate">Insurance Expiry Date<sub class="required">* </sub></label>
                 </span>
               </div>

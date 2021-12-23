@@ -191,17 +191,18 @@
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-                                        <td  class="td_right">{{ data.BANK_CODE }}</td>
-                                        <td>{{ data.BANK_NAME }}</td>
-                                        <td>{{ data.BANK_SHORTNAME }}</td>
-                                        <td>{{ data.LEDGER_CODE }}</td>
-                                        <td>{{ data.BANKCODE }}</td>
-                                        <td>{{ data.DD_APPLICABLE }}</td>
-                                        <td>{{ data.GL_ACNO }}</td>
-                                        <td>{{ data.HO_SUB_GLACNO }}</td>
-                                        <td>{{ data.BANKERS_COMM_APPLICABLE }}</td>
-                                        <td>{{ data.RIGHT_TO_PREPARE_DD }}</td>
-                                        <td>{{ data.PARTICIPATE_IN_CLEARING }}</td>
+                                        <td class="td_right" [ngClass]="data.BANK_CODE === '' ? 'td_center' : 'td_right'">{{data.BANK_CODE === ''? '-' : data.BANK_CODE}}</td> 
+                                        <td [ngClass]="data.BANK_NAME === '' ? 'td_center' : 'td_left'">{{data.BANK_NAME === ''? '-' : data.BANK_NAME}}</td> 
+                                        <td [ngClass]="data.BANK_SHORTNAME === '' ? 'td_center' : 'td_left'">{{data.BANK_SHORTNAME === ''? '-' : data.BANK_SHORTNAME}}</td> 
+                                        <td class="td_right" [ngClass]="data.LEDGER_CODE === '' ? 'td_center' : 'td_right'">{{data.LEDGER_CODE === ''? '-' : data.LEDGER_CODE}}</td> 
+                                        <td class="td_right" [ngClass]="data.BANKCODE === '' ? 'td_center' : 'td_right'">{{data.BANKCODE === ''? '-' : data.BANKCODE}}</td> 
+                                        <td class="td_center" [ngClass]="data.DD_APPLICABLE === '' ? 'td_center' : 'td_center'">{{data.DD_APPLICABLE === ''? '-' : data.DD_APPLICABLE}}</td> 
+                                        <td class="td_right" [ngClass]="data.GL_ACNO === '' ? 'td_center' : 'td_right'">{{data.GL_ACNO === ''? '-' : data.GL_ACNO}}</td> 
+                                        <td class="td_right" [ngClass]="data.HO_SUB_GLACNO === '' ? 'td_center' : 'td_right'">{{data.HO_SUB_GLACNO === ''? '-' : data.HO_SUB_GLACNO}}</td> 
+                                        <td class="td_center" [ngClass]="data.BANKERS_COMM_APPLICABLE === '' ? 'td_center' : 'td_center'">{{data.BANKERS_COMM_APPLICABLE === ''? '-' : data.BANKERS_COMM_APPLICABLE}}</td> 
+                                        <td class="td_center" [ngClass]="data.RIGHT_TO_PREPARE_DD === '' ? 'td_center' : 'td_center'">{{data.RIGHT_TO_PREPARE_DD === ''? '-' : data.RIGHT_TO_PREPARE_DD}}</td> 
+                                        <td class="td_center" [ngClass]="data.PARTICIPATE_IN_CLEARING === '' ? 'td_center' : 'td_center'">{{data.PARTICIPATE_IN_CLEARING === ''? '-' : data.PARTICIPATE_IN_CLEARING}}</td> 
+                                        
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="bankmasters?.length == 0">

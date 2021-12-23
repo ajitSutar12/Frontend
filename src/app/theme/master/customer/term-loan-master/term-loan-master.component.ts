@@ -131,6 +131,7 @@ interface TermLoanMaster {
 })
 
 export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   selected
   //api 
   url = environment.base_url;
@@ -708,6 +709,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   // Method to insert data into database through NestJS
 
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     if (formVal.AC_ADDFLAG == true) {
       this.addType = 'P'
@@ -795,6 +797,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
     this.termLoanService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });

@@ -59,9 +59,9 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" class="form-control" placeholder=" " id="subm_date" required=""
+                                    <input type="date" class="form-control" placeholder=" " id="subm_date" required=""
                                         max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="SUBMISSION_DATE"
-                                        onfocus="(this.type='date')" />
+                                         />
                                     <label for="subm_date">Date of Submission<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -104,8 +104,8 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" class="form-control" placeholder=" " id="maturity_date"
-                                        max="31-12-9999" formControlName="MATURITY_DATE" onfocus="(this.type='date')"
+                                    <input type="date" class="form-control" placeholder=" " id="maturity_date"
+                                        max="31-12-9999" formControlName="MATURITY_DATE" 
                                         id="date" disabled />
                                     <label for="maturity_date">Maturity Date</label>
                                 </span>

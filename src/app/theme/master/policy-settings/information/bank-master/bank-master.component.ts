@@ -201,6 +201,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       BANKCODE: ['', [Validators.pattern]],
     });
   }
+
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
@@ -229,6 +230,8 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetForm();
 
   }
+
+
 
   addNewData(){
     this.showButton = true;
@@ -348,4 +351,6 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dtTrigger.next();
     });
   }
+
+
 }

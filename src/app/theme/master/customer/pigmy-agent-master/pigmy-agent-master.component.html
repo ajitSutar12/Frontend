@@ -12,8 +12,9 @@
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
+                                    required [ngClass]="{'form-submitted': formSubmitted}"
                                     placeholder="Scheme*" formControlName="AC_TYPE" (selected)="getScheme($event)">
-                                </ng-select>
+                                </ng-select> 
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
@@ -36,7 +37,8 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
                                     placeholder="Customer ID*" formControlName="AC_CUSTID" [(ngModel)]="id"
-                                    (selected)="getCustomer(id)" style="width: 90%;">
+                                    (selected)="getCustomer(id)" style="width: 90%;"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required>
                                 </ng-select>
                                 <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
                                     (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer"></span>
@@ -138,11 +140,11 @@
                                                 <div class="col-sm">
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
-                                                            <input type="text" name="AC_OPDATE" class="form-control"
+                                                            <input type="date" name="AC_OPDATE" class="form-control"
                                                                 placeholder=" " id="AC_OPDATE"
                                                                 max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                onfocus="(this.type='date')" formControlName="AC_OPDATE"
-                                                                required>
+                                                                formControlName="AC_OPDATE" required
+                                                                [ngClass]="{'form-submitted': formSubmitted}">
                                                             <label for="AC_OPDATE">Appontied On</label>
                                                         </span>
                                                     </div>
@@ -168,6 +170,7 @@
                                                     <div class="form-group form-primary form-static-label">
                                                         <ng-select [ngClass]="'ng-select'" [options]="PGSchemeCode"
                                                             [multiple]="false" placeholder="Pimgy Scheme*" required
+                                                            [ngClass]="{'form-submitted': formSubmitted}"
                                                             title="Compulsory Selection" formControlName="PIGMY_ACTYPE">
                                                         </ng-select>
                                                     </div>
@@ -479,7 +482,8 @@
                                                                                 class="form-control" placeholder=" "
                                                                                 id="AC_NNAME" pattern="^[A-Za-z\./ -]+$"
                                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                formControlName="AC_NNAME">
+                                                                                formControlName="AC_NNAME" required
+                                                                                [ngClass]="{'form-submitted': formSubmitted}">
                                                                             <label for="AC_NNAME">Name<sub
                                                                                     class="required">*
                                                                                 </sub></label>
@@ -502,10 +506,9 @@
                                                                                 class="form-control" placeholder=" "
                                                                                 id="AC_NRELA" pattern="^[A-Za-z\./ -]+$"
                                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                formControlName="AC_NRELA">
-                                                                            <label for="label-name">Relation<sub
-                                                                                    class="required">*
-                                                                                </sub></label>
+                                                                                formControlName="AC_NRELA" 
+                                                                                >
+                                                                            <label for="label-name">Relation</label>
                                                                         </span>
                                                                     </div>
                                                                     <div class="form-group form-primary form-static-label"
@@ -521,12 +524,12 @@
                                                                 <div class="col-sm">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
-                                                                            <input type="text" name="AC_NDATE"
+                                                                            <input type="date" name="AC_NDATE"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="AC_NDATE"
                                                                                 max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                onfocus="(this.type='date')"
-                                                                                formControlName="AC_NDATE">
+                                                                                formControlName="AC_NDATE"
+                                                                                [ngClass]="{'form-submitted': formSubmitted}">
                                                                             <label for="AC_NDATE">Nomination
                                                                                 Date<sub class="required">*
                                                                                 </sub></label>
@@ -557,7 +560,7 @@
                                                                         class="alert alert-danger">
                                                                         <div
                                                                             *ngIf="angForm.controls['AGE'].errors?.pattern || angForm.controls['AGE'].errors?.min || angForm.controls['AGE'].errors?.max">
-                                                                            This fiels is required
+                                                                            Enter proper data.
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -819,7 +822,18 @@
                                                 (click)="editClickHandler(data.id)">Edit</button> &nbsp;
 
                                         </td>
-                                        <td>{{data.AC_ACNOTYPE}}</td>
+                                        <td [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_left'"> {{data.AC_ACNOTYPE === ''? '-' : data.AC_ACNOTYPE}}</td>
+                                        <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_left'"> {{data.AC_TYPE === ''? '-' : data.AC_TYPE}}</td>
+                                        <td class="td_right" [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'"> {{data.AC_NO === ''? '-' : data.AC_NO}}</td>
+                                        <td class="td_right" [ngClass]="data.AC_CUSTID === '' ? 'td_center' : 'td_right'"> {{data.AC_CUSTID === ''? '-' : data.AC_CUSTID}}</td>
+                                        <td class="td_right" [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_center'"> {{data.AC_OPDATE === ''? '-' : data.AC_OPDATE}}</td>
+                                        <td [ngClass]="data.PIGMY_ACTYPE === '' ? 'td_center' : 'td_left'"> {{data.PIGMY_ACTYPE === ''? '-' : data.PIGMY_ACTYPE}}</td>
+                                        <td [ngClass]="data.AC_INTROBRANCH === '' ? 'td_center' : 'td_left'"> {{data.AC_INTROBRANCH === ''? '-' : data.AC_INTROBRANCH}}</td>
+                                        <td class="td_right" [ngClass]="data.AC_INTROID === '' ? 'td_center' : 'td_right'"> {{data.AC_INTROID === ''? '-' : data.AC_INTROID}}</td>
+                                        <td class="td_right" [ngClass]="data.AC_INTRACNO === '' ? 'td_center' : 'td_right'"> {{data.AC_INTRACNO === ''? '-' : data.AC_INTRACNO}}</td>
+                                        <td [ngClass]="data.AC_INTRNAME === '' ? 'td_center' : 'td_left'"> {{data.AC_INTRNAME === ''? '-' : data.AC_INTRNAME}}</td>
+                                        <td [ngClass]="data.SIGNATURE_AUTHORITY === '' ? 'td_center' : 'td_right'"> {{data.SIGNATURE_AUTHORITY === ''? '-' : data.SIGNATURE_AUTHORITY}}</td>
+                                        <!-- <td>{{data.AC_ACNOTYPE}}</td>
                                         <td>{{ data.AC_TYPE }}</td>
                                         <td>{{ data.AC_NO }}</td>
                                         <td>{{ data.AC_CUSTID }}</td>
@@ -829,7 +843,7 @@
                                         <td>{{ data.AC_INTROID }}</td>
                                         <td>{{ data.AC_INTRACNO }}</td>
                                         <td>{{ data.AC_INTRNAME }}</td>
-                                        <td>{{data.SIGNATURE_AUTHORITY}}</td>
+                                        <td>{{data.SIGNATURE_AUTHORITY}}</td> -->
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="pigmyAgentMaster?.length == 0">

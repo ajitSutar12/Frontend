@@ -86,6 +86,8 @@ interface anamatinf {
 })
 
 export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
+
   //api
   url = environment.base_url;
 
@@ -339,14 +341,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  checkCUST_No() {
-    if (this.AC_CUSTID = '') {
-      console.log(this.AC_CUSTID)
-    }
-    else {
-      Swal.fire("Invalid Input", "Please insert Customer ID", "error");
-    }
-  }
+
 
   addNewCustomer(newCustomer) {
     this.customerID
@@ -444,6 +439,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -468,6 +464,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     this.anamatGSMService.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload();

@@ -11,8 +11,8 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
-                    formControlName="SUBMISSION_DATE" onfocus="(this.type='date')" #autofocus />
+                  <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                    formControlName="SUBMISSION_DATE"  #autofocus />
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -157,9 +157,9 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="CitySurveyDate" required=""
+                  <input type="date" class="form-control" placeholder=" " id="CitySurveyDate" required=""
                     max="{{datemax | date:'yyyy-MM-dd'}}" name="CitySurveyDate" formControlName="CITY_SURVEY_DATE"
-                    onfocus="(this.type='date')" />
+                     />
                   <label for="CitySurveyDate">City Survey Date<sub class="required">* </sub></label>
                 </span>
               </div>

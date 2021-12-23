@@ -13,7 +13,8 @@
             <div class="col-sm-3">
               <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="itemtypeoption" [multiple]="false" placeholder="Item Type"
-                  formControlName="ITEM_TYPE">
+                  formControlName="ITEM_TYPE"
+                  [ngClass]="{'form-submitted': formSubmitted}" >
                 </ng-select>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -51,7 +52,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="Name" class="form-control" placeholder=" " required="" value=""
                     pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
-                    formControlName="ITEM_NAME" />
+                    formControlName="ITEM_NAME"  [ngClass]="{'form-submitted': formSubmitted}" />
                   <label for="ITEM_NAME">Item Name<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -79,9 +80,10 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="PURCHASE_DATE" class="form-control" placeholder=" " id="PURCHASE_DATE"
+                  <input type="date" name="PURCHASE_DATE" class="form-control" placeholder=" " id="PURCHASE_DATE"
                     required="" value="" max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                    (focusout)="disabledate(date.value)" onfocus="(this.type='date')" formControlName="PURCHASE_DATE" />
+                    (focusout)="disabledate(date.value)" formControlName="PURCHASE_DATE"
+                    [ngClass]="{'form-submitted': formSubmitted}"  />
                   <label for="PURCHASE_DATE">Purchase Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -98,7 +100,8 @@
             <div class="col-sm-4">
               <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="DeprCategoryoption" [multiple]="false"
-                  placeholder="Depr. Category" formControlName="DEPR_CATEGORY">
+                  placeholder="Depr. Category *" formControlName="DEPR_CATEGORY"
+                  [ngClass]="{'form-submitted': formSubmitted}" >
                 </ng-select>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -116,9 +119,10 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="OP_BAL_DATE" class="form-control" placeholder=" " id="OP_BAL_DATE" value=""
-                    max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
-                    (focusout)="disabledate(date.value)" formControlName="OP_BAL_DATE" required="" />
+                  <input type="date" name="OP_BAL_DATE" class="form-control" placeholder=" " id="OP_BAL_DATE" value=""
+                    max="{{datemax | date:'yyyy-MM-dd'}}" #date (focusout)="disabledate(date.value)"
+                    formControlName="OP_BAL_DATE" required=""
+                    [ngClass]="{'form-submitted': formSubmitted}"  />
                   <label for="OP_BAL_DATE">Op. Balance Date</label>
                 </span>
               </div>
@@ -153,7 +157,8 @@
                 <span class="border-lable-flt">
                   <input type="text" name="Name" class="form-control" placeholder=" " id="SUPPLIER_NAME" value=""
                     pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
-                    formControlName="SUPPLIER_NAME" />
+                    formControlName="SUPPLIER_NAME" 
+                    [ngClass]="{'form-submitted': formSubmitted}" />
                   <label for="SUPPLIER_NAME">Supplier Name</label>
                 </span>
               </div>
@@ -278,9 +283,9 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="lastdep_Date" class="form-control" placeholder=" " id="LAST_DEPR_DATE"
-                    value="" max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
-                    (focusout)="disabledate(date.value)" formControlName="LAST_DEPR_DATE" />
+                  <input type="date" name="lastdep_Date" class="form-control" placeholder=" " id="LAST_DEPR_DATE"
+                    value="" max="{{datemax | date:'yyyy-MM-dd'}}" #date (focusout)="disabledate(date.value)"
+                    formControlName="LAST_DEPR_DATE" />
                   <label for="LAST_DEPR_DATE">Last Depreciation Date</label>
                 </span>
               </div>
@@ -301,7 +306,8 @@
             <div class="col-sm-4">
               <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="GLACNooption" [multiple]="false" placeholder="GL A/C No"
-                  formControlName="GL_ACNO">
+                  formControlName="GL_ACNO"
+                  [ngClass]="{'form-submitted': formSubmitted}" >
                 </ng-select>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -420,10 +426,13 @@
                     <th><input type="text" class="form-control" placeholder="Balance" name="OP_BALANCE"></th>
                     <th><input type="text" class="form-control" placeholder="Quantity" name="OP_QUANTITY"></th>
                     <th><input type="text" class="form-control" placeholder="Purchase Rate" name="PURCHASE_RATE"></th>
-                    <th><input type="text" class="form-control" placeholder="Purchase Quantity" name="PURCHASE_QUANTITY"></th>
-                    <th><input type="text" class="form-control" placeholder="Purchase Qty" name="PURCHASE_OP_QUANTITY"></th>
+                    <th><input type="text" class="form-control" placeholder="Purchase Quantity"
+                        name="PURCHASE_QUANTITY"></th>
+                    <th><input type="text" class="form-control" placeholder="Purchase Qty" name="PURCHASE_OP_QUANTITY">
+                    </th>
                     <th><input type="text" class="form-control" placeholder="Purchase value" name="PURCHASE_VALUE"></th>
-                    <th><input type="text" class="form-control" placeholder="Depreciation date" name="LAST_DEPR_DATE"></th>
+                    <th><input type="text" class="form-control" placeholder="Depreciation date" name="LAST_DEPR_DATE">
+                    </th>
                     <th><input type="text" class="form-control" placeholder="ac no" name="GL_ACNO"></th>
 
                   </tr>

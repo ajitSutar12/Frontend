@@ -11,8 +11,8 @@
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
-                    formControlName="SUBMISSION_DATE" onfocus="(this.type='date')" #autofocus />
+                  <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                    formControlName="SUBMISSION_DATE"  #autofocus />
                   <label for="subm_date">Date of Submission<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -51,8 +51,8 @@
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="DateofStorage" required=""
-                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="STORAGE_DATE" onfocus="(this.type='date')" />
+                  <input type="date" class="form-control" placeholder=" " id="DateofStorage" required=""
+                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="STORAGE_DATE"  />
                   <label for="DateofStorage">Date of Storage<sub class="required">* </sub></label>
                 </span>
               </div>

@@ -91,6 +91,7 @@ interface CurrentAccountMaster {
 })
 
 export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //api 
   url = environment.base_url;
 
@@ -638,6 +639,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   }
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     if (formVal.AC_ADDFLAG == true) {
       this.addType = 'P'
@@ -697,6 +699,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
     this.currentAccountMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()

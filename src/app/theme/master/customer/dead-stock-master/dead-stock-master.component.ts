@@ -65,6 +65,8 @@ interface deadstockinterface {
 export class DeadStockMasterComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
+
+  formSubmitted = false;
   //calculations
 
   firstnumber: number;
@@ -320,35 +322,46 @@ export class DeadStockMasterComponent
 
   // Method to insert data into database through NestJS
   submit() {
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      ITEM_TYPE: formVal.ITEM_TYPE,
-      ITEM_CODE: formVal.ITEM_CODE,
-      ITEM_NAME: formVal.ITEM_NAME,
-      PURCHASE_DATE: formVal.PURCHASE_DATE,
-      DEPR_CATEGORY: formVal.DEPR_CATEGORY,
-      OP_BAL_DATE: formVal.OP_BAL_DATE,
-      SUPPLIER_NAME: formVal.SUPPLIER_NAME,
-      PURCHASE_OP_QUANTITY: formVal.PURCHASE_OP_QUANTITY,
-      PURCHASE_RATE: formVal.PURCHASE_RATE,
-      PURCHASE_QUANTITY: formVal.PURCHASE_QUANTITY,
-      PURCHASE_VALUE: formVal.PURCHASE_VALUE,
-      OP_BALANCE: formVal.OP_BALANCE,
-      OP_QUANTITY: formVal.OP_QUANTITY,
-      LAST_DEPR_DATE: formVal.LAST_DEPR_DATE,
-      GL_ACNO: formVal.GL_ACNO,
-    };
-    this.deadstockmasterService.postData(dataToSend).subscribe(
-      (data1) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload();
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        ITEM_TYPE: formVal.ITEM_TYPE,
+        ITEM_CODE: formVal.ITEM_CODE,
+        ITEM_NAME: formVal.ITEM_NAME,
+        PURCHASE_DATE: formVal.PURCHASE_DATE,
+        DEPR_CATEGORY: formVal.DEPR_CATEGORY,
+        OP_BAL_DATE: formVal.OP_BAL_DATE,
+        SUPPLIER_NAME: formVal.SUPPLIER_NAME,
+        PURCHASE_OP_QUANTITY: formVal.PURCHASE_OP_QUANTITY,
+        PURCHASE_RATE: formVal.PURCHASE_RATE,
+        PURCHASE_QUANTITY: formVal.PURCHASE_QUANTITY,
+        PURCHASE_VALUE: formVal.PURCHASE_VALUE,
+        OP_BALANCE: formVal.OP_BALANCE,
+        OP_QUANTITY: formVal.OP_QUANTITY,
+        LAST_DEPR_DATE: formVal.LAST_DEPR_DATE,
+        GL_ACNO: formVal.GL_ACNO,
+      };
+      this.deadstockmasterService.postData(dataToSend).subscribe(
+        (data1) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.formSubmitted = false;
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload();
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+
+    }
+
+
+    
+
 
     //To clear form
     this.angForm.reset();

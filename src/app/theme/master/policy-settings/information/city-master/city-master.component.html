@@ -136,14 +136,14 @@
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-
-                                        <td  class="td_right">{{ data.CITY_CODE }}</td>
-                                        <td>{{ data.CITY_NAME }}</td>
-                                        <td>{{ data.DISTANCE }}</td>
-                                        <td>{{ data.TALUKA_CODE }}</td>
-                                        <td>{{ data.DISTRICT_CODE }}</td>
-                                        <td>{{ data.STATE_CODE }}</td>
-                                        <td>{{ data.REGION_CODE }}</td>
+                                        <td class="td_right" [ngClass]="data.CITY_CODE === '' ? 'td_center' : 'td_right'">{{data.CITY_CODE === ''? '-' : data.CITY_CODE}}</td>
+                                        <td class="td_left" [ngClass]="data.CITY_NAME === '' ? 'td_center' : 'td_left'">{{data.CITY_NAME === ''? '-' : data.CITY_NAME}}</td>
+                                        <td class="td_right" [ngClass]="data.DISTANCE === '' ? 'td_center' : 'td_right'">{{data.DISTANCE === ''? '-' : data.DISTANCE}}</td>
+                                        <td class="td_right" [ngClass]="data.TALUKA_CODE === '' ? 'td_center' : 'td_right'">{{data.TALUKA_CODE === ''? '-' : data.TALUKA_CODE}}</td>
+                                        <td class="td_right" [ngClass]="data.DISTRICT_CODE === '' ? 'td_center' : 'td_right'">{{data.DISTRICT_CODE === ''? '-' : data.DISTRICT_CODE}}</td>
+                                        <td class="td_right" [ngClass]="data.STATE_CODE === '' ? 'td_center' : 'td_right'">{{data.STATE_CODE === ''? '-' : data.STATE_CODE}}</td>
+                                        <td class="td_right" [ngClass]="data.REGION_CODE === '' ? 'td_center' : 'td_right'">{{data.REGION_CODE === ''? '-' : data.REGION_CODE}}</td>
+                                 
 
                                     </tr>
                                 </tbody>

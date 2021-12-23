@@ -39,7 +39,7 @@
                                     *ngIf="angForm.controls['CODE'].errors?.required|| angForm.controls['NAME'].errors?.maxlength">
                                     This field is required
                                 </div>
-                            </div>
+                            </div> 
                         </div>
 
                         <div class="col-sm">
@@ -128,13 +128,10 @@
                                                 (click)="editClickHandler(data.id)">Edit</button> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-
-                                        <td  class="td_right">{{ data.COMP_CODE }}</td>
-                                        <td  class="td_right"> {{ data.CODE }}</td>
-                                        <td  class="td_right">{{ data.FROM_AC }}</td>
-                                        <td  class="td_right">{{ data.TO_AC }}</td>
-
-
+                                        <td class="td_right" [ngClass]="data.COMP_CODE === '' ? 'td_center' : 'td_right'">{{data.COMP_CODE === ''? '-' : data.COMP_CODE}}</td>
+                                        <td class="td_right" [ngClass]="data.CODE === '' ? 'td_center' : 'td_right'">{{data.CODE === ''? '-' : data.CODE}}</td>
+                                        <td class="td_right" [ngClass]="data.FROM_AC === '' ? 'td_center' : 'td_right'">{{data.FROM_AC === ''? '-' : data.FROM_AC}}</td>
+                                        <td class="td_right" [ngClass]="data.TO_AC === '' ? 'td_center' : 'td_right'">{{data.TO_AC === ''? '-' : data.TO_AC}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="companyGroupLinkMaster?.length == 0">
