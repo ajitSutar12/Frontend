@@ -482,7 +482,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit(event) {
-    debugger
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -528,6 +527,40 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'TDS_LIMIT': formVal.TDS_LIMIT,
         'Document': this.imageObject
       }
+      // this.http
+      //   .get<any>(
+      //     this.url + "/customer-id")
+      //   .subscribe((resp) => {
+      //     if (resp.length != 0){
+      //       resp.forEach(async (element) => {
+
+      //         if(formVal.AC_NAME == element.AC_NAME){
+      //           if(formVal.AC_ADHARNO == element.AC_ADHARNO){
+
+      //           }
+      //         }
+
+      //       })
+      //       console.log("not empty")
+      //     }
+      //     else {
+      //       this.customerIdService.postData(dataToSend).subscribe(
+      //         (data) => {
+      //           Swal.fire("Success!", "Data Added Successfully !", "success");
+      //           console.log("submit", data);
+      //           // this.custData = data1.id;
+      //           this.addNewCustomer(data.id);
+      //           // to reload after insertion of data
+      //           this.rerender();
+      //         },
+      //         (error) => {
+      //           console.log(error);
+      //         });
+      //     }
+      //     console.log(resp, "resp.data within submit");
+
+      //   });
+
       this.customerIdService.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -541,9 +574,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         },
         (error) => {
           console.log(error);
-        }
-      );
-
+        });
       //To clear form
       this.resetForm();
       this.imageObject = []

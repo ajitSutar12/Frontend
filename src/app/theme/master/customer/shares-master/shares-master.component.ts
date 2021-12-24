@@ -106,6 +106,7 @@ interface ShareMaster {
 
 export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
+  formSubmitted1 =false;
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
