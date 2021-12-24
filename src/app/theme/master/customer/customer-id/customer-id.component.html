@@ -58,7 +58,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
-                                        required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase;"  [ngClass]="{'form-submitted': formSubmitted}"
+                                        required pattern="^[A-Za-z]+$" maxlength="15" (ngModelChange)="lname = $event.toUpperCase()" style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
                                         #lastname [(ngModel)]="lname" title="Input allowed only A-Z"
                                         formControlName="L_NAME" required>
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
@@ -80,7 +80,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
-                                        required pattern="^[A-Za-z]+$" maxlength="15" style="text-transform:uppercase"  [ngClass]="{'form-submitted': formSubmitted}"
+                                        required pattern="^[A-Za-z]+$" maxlength="15"  (ngModelChange)="fname = $event.toUpperCase()" style="text-transform:uppercase;"  [ngClass]="{'form-submitted': formSubmitted}"
                                         [(ngModel)]="fname" title="Input allowed only A-Z" formControlName="F_NAME">
                                     <label for="F_NAME">First Name<sub class="required">* </sub></label>
                                 </span>
@@ -100,7 +100,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="M_NAME" style="text-transform:uppercase"
                                         class="form-control" placeholder=" " id="M_NAME" required pattern="^[A-Za-z]+$"  [ngClass]="{'form-submitted': formSubmitted}"
-                                        maxlength="15" [(ngModel)]="mname" title="Input allowed only A-Z"
+                                        maxlength="15" [(ngModel)]="mname" title="Input allowed only A-Z"  (ngModelChange)="mname = $event.toUpperCase()" style="text-transform:uppercase;"
                                         formControlName="M_NAME">
                                     <label for="M_NAME">Middle Name<sub class="required">* </sub></label>
                                 </span>
@@ -782,11 +782,11 @@
                                             <td>{{data.M_NAME}}</td>
                                             <td>{{data.L_NAME}}</td>
                                             <td>{{data.AC_NAME}}</td>
-                                            <td [ngClass]="data.castMaster.NAME === '' ? 'td_center' : 'td_left'">
-                                                {{data.castMaster.NAME === ''? '-' : data.castMaster.NAME}}</td>
-                                            <td [ngClass]="data.occupMaster.NAME === '' ? 'td_center' : 'td_left'">
-                                                {{data.occupMaster.NAME === ''? '-' : data.occupMaster.NAME}}</td>
-                                            <td>{{data.riskCategory.NAME}}</td>
+                                            <td [ngClass]="data.castMaster?.NAME === '' ? 'td_center' : 'td_left'">
+                                                {{data.castMaster?.NAME === ''? '-' : data.castMaster?.NAME}}</td>
+                                            <td [ngClass]="data.occupMaster?.NAME === '' ? 'td_center' : 'td_left'">
+                                                {{data.occupMaster?.NAME === ''? '-' : data.occupMaster?.NAME}}</td>
+                                            <td>{{data.riskCategory?.NAME}}</td>
                                             <td class="td_right"
                                                 [ngClass]="data.AC_ADHARNO === '' ? 'td_center' : 'td_right'">
                                                 {{data.AC_ADHARNO === ''? '-' : data.AC_ADHARNO}}</td>

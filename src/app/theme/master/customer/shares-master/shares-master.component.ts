@@ -583,7 +583,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createForm() {
     this.angForm = this.fb.group({
-      AC_TYPE: ['', [Validators.required]],
+      AC_TYPE: ['', []],
       AC_ACNOTYPE: ['SH'],
       AC_NO: [''],
       AC_TITLE: [''],
@@ -636,9 +636,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NARR: ['', [Validators.pattern]],
 
       //nominee controls (NOMINEELINK table)
-      AC_NNAME: ['', [Validators.pattern, Validators.required]],
-      AC_NRELA: ['', [Validators.pattern, Validators.required]],
-      AC_NDATE: ['', [Validators.required]],
+      AC_NNAME: ['', [Validators.pattern]],
+      AC_NRELA: ['', [Validators.pattern]],
+      AC_NDATE: ['', []],
       AGE: ['', [Validators.pattern, Validators.min(1), Validators.max(100)]],
       AC_NHONO: ['', [Validators.pattern]],
       AC_NWARD: ['', [Validators.pattern]],

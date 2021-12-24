@@ -222,6 +222,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           )
           .subscribe((resp) => {
             this.customerMaster = resp.data;
+            console.log('table', this.customerMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -493,10 +494,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
         'AC_MEMBNO': formVal.AC_MEMBNO,
         'AC_TITLE': formVal.AC_TITLE,
-        'F_NAME': formVal.F_NAME,
-        'M_NAME': formVal.M_NAME,
-        'L_NAME': formVal.L_NAME,
-        'AC_NAME': formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME,
+        'F_NAME': formVal.F_NAME.toUpperCase(),
+        'M_NAME': formVal.M_NAME.toUpperCase(),
+        'L_NAME': formVal.L_NAME.toUpperCase(),
+        'AC_NAME': (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME).toUpperCase(),
         'AC_CAST': parseInt(formVal.AC_CAST),
         'AC_OCODE': parseInt(formVal.AC_OCODE),
         'AC_ADHARNO': formVal.AC_ADHARNO,
@@ -721,8 +722,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = true;
 
     this.customerIdService.getFormData(id).subscribe((data) => {
-
-      console.log("edit", data);
+      data.AC_CAST == null ? data.AC_CAST = "" : data.AC_CAST.toString()
+      data.AC_OCODE == null ? data.AC_OCODE = "" : data.AC_OCODE.toString()
+      data.AC_RISKCATG == null ? data.AC_RISKCATG = "" : data.AC_RISKCATG.toString()
       this.updateID = data.id;
       this.angForm.patchValue({
         AC_NO: data.AC_NO,
