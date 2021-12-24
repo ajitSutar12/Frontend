@@ -14,7 +14,7 @@
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
                                     placeholder="Scheme *" required title="Compulsory Selection"
                                     formControlName="AC_TYPE" (selected)="getScheme($event)"
-                                    [ngClass]="{'form-submitted': formSubmitted}" >
+                                    [ngClass]="{'form-submitted': formSubmitted}">
                                 </ng-select>
                             </div>
                         </div>
@@ -23,8 +23,7 @@
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
                                     placeholder="Customer ID *" required title="Compulsory Selection"
                                     formControlName="AC_CUSTID" [(ngModel)]="id" (selected)="getCustomer(id)"
-                                    style="width: 90%;"
-                                    [ngClass]="{'form-submitted': formSubmitted}" >
+                                    style="width: 90%;" [ngClass]="{'form-submitted': formSubmitted}">
                                     <!-- (focusout)=checkCUST_No() -->
                                 </ng-select>
                                 <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
@@ -262,10 +261,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="date" name="AC_OPDATE" class="form-control" placeholder=" "
-                                        id="AC_OPDATE" max="{{datemax | date:'yyyy-MM-dd'}}"
-                                         #date (keyup)="disabledate(date.value)"
-                                        formControlName="AC_OPDATE"
-                                        [ngClass]="{'form-submitted': formSubmitted}" >
+                                        id="AC_OPDATE" max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                        (keyup)="disabledate(date.value)" formControlName="AC_OPDATE"
+                                        [ngClass]="{'form-submitted': formSubmitted}">
                                     <label for="AC_OPDATE">Open Date </label>
                                 </span>
                             </div>
@@ -322,8 +320,8 @@
                                     <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
                                         id="AC_PARTICULAR" value=""
                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
-                                        formControlName="AC_PARTICULAR"
-                                        [ngClass]="{'form-submitted': formSubmitted}" >
+                                        formControlName="AC_PARTICULAR" [ngClass]="{'form-submitted': formSubmitted}"
+                                        required>
                                     <label for="AC_PARTICULAR">Reason<sub class="required">* </sub></label>
                                 </span>
                             </div>

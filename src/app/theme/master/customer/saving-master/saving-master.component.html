@@ -1395,7 +1395,7 @@
                                       <input type="text" name="ATTERONEY_NAME" class="form-control" placeholder=" "
                                         id="ATTERONEY_NAME" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        formControlName="ATTERONEY_NAME" [required]="ATTERONEY_NAME" />
+                                        formControlName="ATTERONEY_NAME"  />
                                       <label for="ATTERONEY_NAME">Name<sub class="required">*
                                         </sub></label>
                                     </span>
@@ -1425,7 +1425,7 @@
                                   <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                       <input type="date" name="DATE_APPOINTED" class="form-control" placeholder=" "
-                                        id="DATE_APPOINTED" [required]="DATE_APPOINTED"
+                                        id="DATE_APPOINTED"
                                         max="{{datemax | date:'yyyy-MM-dd'}}" #date (focusout)="disabledate(date.value)"
                                         formControlName="DATE_APPOINTED" />
                                       <label for="DATE_APPOINTED">Appointed on<sub class="required">*
@@ -1455,7 +1455,7 @@
                                     <span class="border-lable-flt">
                                       <input type="date" name="DATE_EXPIRY" class="form-control" placeholder=" "
                                         id="DATE_EXPIRY" max="9999-12-31" formControlName="DATE_EXPIRY"
-                                        [required]="DATE_EXPIRY" />
+                                        />
                                       <label for="DATE_EXPIRY">Expiry Date<sub class="required">*
                                         </sub></label>
                                     </span>
