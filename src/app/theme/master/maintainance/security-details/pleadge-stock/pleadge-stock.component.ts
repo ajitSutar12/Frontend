@@ -57,6 +57,7 @@ interface PleadgeMaster {
   styleUrls: ["./pleadge-stock.component.scss"],
 })
 export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //passing data form child to parent
   @Output() newPleadgeEvent = new EventEmitter<string>();
   datemax: string;
@@ -215,8 +216,13 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  submit() {
-    const formVal = this.angForm.value;
+  submit(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE: this.scheme._value[0],
       AC_NO: this.Accountno,
@@ -236,6 +242,8 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
     this._pleadge.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
+
         let info = []
         info.push(data.id)
         info.push("pleadge")
@@ -250,6 +258,9 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
     );
     //To clear form
     this.resetForm();
+    }
+
+    
   }
   //check  if margin values are below 100
   checkmargin(ele: any) {

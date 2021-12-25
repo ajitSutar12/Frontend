@@ -5,13 +5,16 @@
         <h5>Vehicle</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" 
+      (ngSubmit)="submit($event)"
+      >
         <div class="card-block">
           <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE"  #autofocus />
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
@@ -26,10 +29,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="RTORegistrationDate" required=""
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="RTO_REG_DATE"  />
                   <label for="RTORegistrationDate">RTO Registration Date<sub class="required">* </sub></label>
                 </span>
@@ -48,6 +52,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="vehicle_make" class="form-control" placeholder=" " id="vehicle_make"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     required="" pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
                     maxlength="50" formControlName="VEHICLE_MAKE" />
                   <label for="vehicle_make">Vehicle Make<sub class="required">* </sub></label>
@@ -74,6 +79,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" class="form-control" placeholder=" " id="YearofManufacture" required=""
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     pattern="^[0-9]+$" maxlength="4" formControlName="MANUFACTURE_YEAR"
                     title="Input allowed only  0-9" />
                   <label for="YearofManufacture">Year of Manufacture<sub class="required">* </sub></label>
@@ -96,6 +102,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="VehicleNumber" class="form-control" placeholder=" " id="VehicleNumber"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     required="" pattern="^[A-Za-z0-9'\.\-\s]+$" maxlength="30"
                     title="Input allowed only A-Z a-z 0-9  - / . (Space)" formControlName="VEHICLE_NO" />
                   <label for="VehicleNumber">Vehicle Number<sub class="required">* </sub></label>
@@ -154,8 +161,9 @@
               <div class="border-checkbox-section">
                 <div class="border-checkbox-group border-checkbox-group-primary">
                   <input class="border-checkbox" type="checkbox" id="checkbox1" value="checkbox"
+                   [ngClass]="{'form-submitted': formSubmitted}"
                     [checked]="new_article == true" formControlName="NEW_VEHICLE" />
-                  <label class="border-checkbox-label" for="checkbox1">New Vehicle ?<sub class="required">* </sub><span
+                  <label class="border-checkbox-label" for="checkbox1">New Vehicle ?<span
                       class="required"> </span></label>
                 </div>
               </div>
@@ -185,6 +193,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="PurchasePrice" class="form-control" placeholder=" " id="PurchasePrice"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="PURCHASE_PRICE" />
                   <label for="PurchasePrice">Purchase Price<sub class="required">* </sub></label>
@@ -246,7 +255,7 @@
             </div>
             <div class="col-sm">
               
-              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid"
+              <button class="btn btn-primary ripple light" *ngIf="showButton" 
               >Add</button>
               <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
                >Update</button> &nbsp;

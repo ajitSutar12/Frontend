@@ -60,6 +60,7 @@ interface GoldMaster {
 export class GoldAndSilverComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
+  formSubmitted = false;
   //passing data form child to parent
   @Output() newGoldsilverEvent = new EventEmitter<string>();
   newbtnShow: boolean;
@@ -245,13 +246,17 @@ export class GoldAndSilverComponent
       TOTAL_VALUE: ["", [Validators.pattern]],
       REMARK: ["", [Validators.pattern]],
       NOMINEE: ["", [Validators.pattern]],
-      NOMINEE_RELATION: ["", [Validators.pattern, Validators.required]],
+      NOMINEE_RELATION: ["", [Validators.pattern]],
     });
   }
 
-  submit() {
-    
-   
+  submit(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      
     let totalvalueid = (document.getElementById("TotalAmount")as HTMLInputElement).value;
     
     this.angForm.patchValue({
@@ -281,6 +286,8 @@ export class GoldAndSilverComponent
     this._goldsilverService.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
+
         let info = []
         info.push(data.id)
         info.push("goldSilver")
@@ -295,6 +302,9 @@ export class GoldAndSilverComponent
     );
     //To clear form
     this.resetForm();
+    }
+    
+   
   }
 
    //check  if margin values are below 100

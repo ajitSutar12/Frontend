@@ -59,6 +59,8 @@ interface GovernmentMaster {
 export class GovtSecurityAndLicComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
+  formSubmitted = false;
+
   //passing data form child to parent
   @Output() newgovtSecurityEvent = new EventEmitter<string>();
   datemax: any;
@@ -247,8 +249,13 @@ resetmaturedate:any;//reset maturedue date
     });
   }
 
-  submit(data: any) {
-    const formVal = this.angForm.value;
+  submit(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE: this.scheme._value[0],
       AC_NO: this.Accountno,
@@ -270,7 +277,7 @@ resetmaturedate:any;//reset maturedue date
     this._govsecurity.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
-
+        this.formSubmitted = false;
         let info = []
         info.push(data.id)
         info.push("govSecurity")
@@ -285,6 +292,8 @@ resetmaturedate:any;//reset maturedue date
     );
     //To clear form
     this.resetForm();
+    }
+    
   }
 
   //function for edit button clicked

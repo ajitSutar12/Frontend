@@ -5,13 +5,14 @@
         <h5>Stock Statement</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE" #autofocus  />
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
@@ -29,7 +30,8 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="stmt_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  <input type="date" class="form-control" placeholder=" " id="stmt_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="STATEMENT_DATE"  />
                   <label for="stmt_date">Statement Date<sub class="required">* </sub></label>
                 </span>
@@ -67,6 +69,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="rm_margin" class="form-control" placeholder=" " id="rm_margin"
                     #marginmaterialcost (keyup)="checkmargin(marginmaterialcost.value)" pattern="\d{1,5}(\.\d{2})?"
+                    
                     title="Input allowed only  0-9" formControlName="RAW_MARGIN" />
                   <label for="rm_margin">(Margin) Raw Material Cost </label>
                 </span>
@@ -124,6 +127,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="fg_cost" class="form-control" placeholder=" " id="fg_cost" required=""
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="FINISHED_GOODS" />
                   <label for="fg_cost">Finished Goods Cost<sub class="required">* </sub></label>
                 </span>
@@ -147,6 +151,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="fg_margin" class="form-control" placeholder=" " id="fg_margin" required=""
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     #margingoodscost (keyup)="checkmargin(margingoodscost.value)" pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9" formControlName="FINISHED_MARGIN" />
                   <label for="fg_margin">(Margin) Finished Goods Cost<sub class="required">* </sub></label>
@@ -186,7 +191,7 @@
             </div>
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" 
+              <button class="btn btn-primary ripple light" *ngIf="showButton" 
               >Add</button>
               <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
                >Update</button> &nbsp;

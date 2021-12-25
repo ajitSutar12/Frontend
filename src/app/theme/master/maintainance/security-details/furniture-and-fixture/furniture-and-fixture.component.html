@@ -5,13 +5,14 @@
         <h5>furniture And Fixture</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm"(ngSubmit)="submit($event)">
         <div class="card-block">
           <div class="row">
-            <div class="col-sm-2">
+            <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  [ngClass]="{'form-submitted': formSubmitted}" 
                     formControlName="SUBMISSION_DATE"  #autofocus />
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
@@ -31,6 +32,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="article_name" class="form-control" placeholder=" " id="article_name"
                     required="" pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
+                    [ngClass]="{'form-submitted': formSubmitted}" 
                     maxlength="50" formControlName="ARTICLE_NAME" />
                   <label for="article_name">Name of Article<sub class="required">* </sub></label>
                 </span>
@@ -57,6 +59,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="article_make" class="form-control" placeholder=" " id="article_make"
                     required="" pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
+                    [ngClass]="{'form-submitted': formSubmitted}" 
                     maxlength="50" formControlName="ARTICLE_MAKE" />
                   <label for="article_make">Article Make<sub class="required">* </sub></label>
                 </span>
@@ -79,6 +82,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="DateofAcquistition" required=""
+                  [ngClass]="{'form-submitted': formSubmitted}" 
                   max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="AQUISITION_DATE"  />
                   <label for="DateofAcquistition">Date of Acquistition<sub class="required">* </sub></label>
                 </span>
@@ -185,7 +189,7 @@
             </div>
             <div class="col-sm-3">
               <!--  -->
-              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid"
+              <button class="btn btn-primary ripple light" *ngIf="showButton"  
               >Add</button>
               <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
                >Update</button> &nbsp;

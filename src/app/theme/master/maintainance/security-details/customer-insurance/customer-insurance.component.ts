@@ -52,6 +52,7 @@ interface CustomerMaster {
   styleUrls: ["./customer-insurance.component.scss"],
 })
 export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //passing data form child to parent
   @Output() newcustomerInsuranceEvent = new EventEmitter<string>();
   datemax: string;
@@ -202,8 +203,13 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     });
   }
 
-  submit() {
-    const formVal = this.angForm.value;
+  submit(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE: this.scheme._value[0],
       AC_NO: this.Accountno,
@@ -217,6 +223,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     this._customerservice.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
         let info = []
         info.push(data.id)
         info.push("customerInsurance")
@@ -232,6 +239,9 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     );
     //To clear form
     this.resetForm();
+    }
+
+    
   }
 
   //function for edit button clicked

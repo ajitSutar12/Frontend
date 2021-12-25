@@ -73,11 +73,9 @@ ng-select.ng-select>div>div.single {
     .ng-valid.ng-dirty:not(form) {
         border: solid 2px green;
         border-radius: 0.25rem;
-        height: 3em;
       }
       
       .ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
         border: solid 2px lightcoral;
         border-radius: 0.25rem;
-        // height: 3em;
       }

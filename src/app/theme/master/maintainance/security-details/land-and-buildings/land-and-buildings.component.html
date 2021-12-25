@@ -5,14 +5,15 @@
         <h5>Land And Buildings</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
-                    formControlName="SUBMISSION_DATE"  #autofocus />
+                  <input type="date" class="form-control" placeholder=" " id="subm_date" required=""
+                    max="{{datemax | date:'yyyy-MM-dd'}}" [ngClass]="{'form-submitted': formSubmitted}"
+                    formControlName="SUBMISSION_DATE" #autofocus />
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -30,7 +31,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="ValuationAmount" class="form-control" placeholder=" " id="ValuationAmount"
-                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="VALUE" />
+                    [ngClass]="{'form-submitted': formSubmitted}" pattern="\d{1,20}(\.\d{2})?"
+                    title="Input allowed only  0-9" formControlName="VALUE" />
                   <label for="ValuationAmount">Valuation Amount<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -51,7 +53,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="Location" class="form-control" placeholder=" " id="Location" required=""
-                    title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="50" formControlName="LOCATION" />
+                    [ngClass]="{'form-submitted': formSubmitted}" title="Input allowed only  A-Z a-z  - / . (Space)"
+                    maxlength="50" formControlName="LOCATION" />
                   <label for="Location">Location<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -73,7 +76,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="area" class="form-control" placeholder=" " id="area" required=""
-                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only 0-9 " formControlName="AREA" />
+                    [ngClass]="{'form-submitted': formSubmitted}" pattern="\d{1,20}(\.\d{2})?"
+                    title="Input allowed only 0-9 " formControlName="AREA" />
                   <label for="area">Area<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -96,7 +100,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="unit_area" class="form-control" placeholder=" " id="unit_area" required=""
-                    pattern="^[0-9]+$" maxlength="30" title="Input allowed only 0-9" formControlName="UNIT_AREA" />
+                    [ngClass]="{'form-submitted': formSubmitted}" pattern="^[0-9]+$" maxlength="30"
+                    title="Input allowed only 0-9" formControlName="UNIT_AREA" />
                   <label for="unit_area">Unit of Area<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -136,8 +141,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="CitySurveyNumber" class="form-control" placeholder=" " id="CitySurveyNumber"
-                    required="" pattern="^[0-9]+$" title="Input allowed only 0-9" maxlength="20"
-                    formControlName="CITY_SURVEY_NO" />
+                    [ngClass]="{'form-submitted': formSubmitted}" required="" pattern="^[0-9]+$"
+                    title="Input allowed only 0-9" maxlength="20" formControlName="CITY_SURVEY_NO" />
                   <label for="CitySurveyNumber">City Survey Number<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -158,8 +163,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="CitySurveyDate" required=""
-                    max="{{datemax | date:'yyyy-MM-dd'}}" name="CitySurveyDate" formControlName="CITY_SURVEY_DATE"
-                     />
+                    [ngClass]="{'form-submitted': formSubmitted}" max="{{datemax | date:'yyyy-MM-dd'}}"
+                    name="CitySurveyDate" formControlName="CITY_SURVEY_DATE" />
                   <label for="CitySurveyDate">City Survey Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -175,12 +180,13 @@
             </div>
           </div>
           <div class="row">
-           
+
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="RegistrationNumber" class="form-control" placeholder=" "
-                    id="RegistrationNumber" required="" pattern="^[A-Za-z'\.\-\s 0-9]+$" title="Input allowed only 0-9" maxlength="20"
+                    [ngClass]="{'form-submitted': formSubmitted}" id="RegistrationNumber" required=""
+                    pattern="^[A-Za-z'\.\-\s 0-9]+$" title="Input allowed only 0-9" maxlength="20"
                     formControlName="REG_NO" />
                   <label for="RegistrationNumber">Registration Number<sub class="required">* </sub></label>
                 </span>
@@ -198,7 +204,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="col-sm-7">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
@@ -223,13 +229,13 @@
             </div>
 
             <div class="col-sm">
-              
-              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" 
-              [disabled]="angForm.invalid">Add</button>
-              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
-               >Update</button> &nbsp;
+
+              <button class="btn btn-primary ripple light" *ngIf="showButton" 
+              >Add</button>
+              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+              &nbsp;
               <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
-          </div>
+            </div>
           </div>
         </div>
       </form>
@@ -260,8 +266,8 @@
                       <td class="td_right">{{ data.VALUE }}</td>
                       <td>{{ data.LOCATION }}</td>
                       <td>{{ data.AREA }}</td>
-                     <td class="td_right">{{ data.UNIT_AREA }}</td>
-                     <td class="td_right">{{ data.MARGIN }}</td>
+                      <td class="td_right">{{ data.UNIT_AREA }}</td>
+                      <td class="td_right">{{ data.MARGIN }}</td>
                       <td>{{ data.REMARK }}</td>
                       <td class="td_right">{{ data.CITY_SURVEY_NO }}</td>
                       <td class="td_right">{{ data.CITY_SURVEY_DATE }}</td>
@@ -277,7 +283,8 @@
                     <tr>
                       <th></th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Date of Submission" name="SUBMISSION_DATE" />
+                        <input type="text" class="form-control" placeholder=" Date of Submission"
+                          name="SUBMISSION_DATE" />
                       </th>
                       <th>
                         <input type="text" class="form-control" placeholder=" Valuation Amount" name="VALUE" />
@@ -298,10 +305,12 @@
                         <input type="text" class="form-control" placeholder=" Remarks" name="REMARK" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" City Survey Number" name="CITY_SURVEY_NO" />
+                        <input type="text" class="form-control" placeholder=" City Survey Number"
+                          name="CITY_SURVEY_NO" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" City Survey Date" name="CITY_SURVEY_DATE" />
+                        <input type="text" class="form-control" placeholder=" City Survey Date"
+                          name="CITY_SURVEY_DATE" />
                       </th>
                       <th>
                         <input type="text" class="form-control" placeholder=" Registration Number" name="REG_NO" />

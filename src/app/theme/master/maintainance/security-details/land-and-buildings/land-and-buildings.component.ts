@@ -54,6 +54,7 @@ interface LandMaster {
   styleUrls: ["./land-and-buildings.component.scss"],
 })
 export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //passing data form child to parent
   @Output() newLandBuldingEvent = new EventEmitter<string>();
   datemax: string;
@@ -214,39 +215,48 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
     });
   }
 
-  submit() {
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      AC_TYPE:this.scheme._value[0],
-      AC_NO:this.Accountno,
-      SUBMISSION_DATE: formVal.SUBMISSION_DATE,
-      VALUE: formVal.VALUE,
-      LOCATION: formVal.LOCATION,
-      AREA: formVal.AREA,
-      UNIT_AREA: formVal.UNIT_AREA,
-      MARGIN: formVal.MARGIN,
-      REMARK: formVal.REMARK,
-      CITY_SURVEY_NO: formVal.CITY_SURVEY_NO,
-      CITY_SURVEY_DATE: formVal.CITY_SURVEY_DATE,
-      REG_NO: formVal.REG_NO,
-    };
-    this._land.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        // to reload after insertion of data
-        let info = []
-        info.push(data.id)
-        info.push("landBuilding")
+  submit(event) {
+    
+event.preventDefault();
+this.formSubmitted = true;
 
-        this.newItemEvent(info);
-        this.rerender();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+if (this.angForm.valid) {
+  console.log(this.angForm.value); // Process your form
+  
+  const formVal = this.angForm.value;
+  const dataToSend = {
+    AC_TYPE:this.scheme._value[0],
+    AC_NO:this.Accountno,
+    SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+    VALUE: formVal.VALUE,
+    LOCATION: formVal.LOCATION,
+    AREA: formVal.AREA,
+    UNIT_AREA: formVal.UNIT_AREA,
+    MARGIN: formVal.MARGIN,
+    REMARK: formVal.REMARK,
+    CITY_SURVEY_NO: formVal.CITY_SURVEY_NO,
+    CITY_SURVEY_DATE: formVal.CITY_SURVEY_DATE,
+    REG_NO: formVal.REG_NO,
+  };
+  this._land.postData(dataToSend).subscribe(
+    (data) => {
+      Swal.fire("Success!", "Data Added Successfully !", "success");
+      this.formSubmitted = false;
+      // to reload after insertion of data
+      let info = []
+      info.push(data.id)
+      info.push("landBuilding")
+
+      this.newItemEvent(info);
+      this.rerender();
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+  //To clear form
+  this.resetForm();
+}
   }
 
    //check  if margin values are below 100

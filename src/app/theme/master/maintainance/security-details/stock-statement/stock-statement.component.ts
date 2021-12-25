@@ -57,6 +57,7 @@ interface StockMaster {
 })
 export class StockStatementComponent
   implements OnInit, AfterViewInit, OnDestroy {
+    formSubmitted = false;
   //passing data form child to parent
   @Output() newStockEvent = new EventEmitter<string>();
   datemax: string;
@@ -225,39 +226,47 @@ export class StockStatementComponent
     });
   }
 
-  submit(data: any) {
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      AC_TYPE: this.scheme._value[0],
-      AC_NO: this.Accountno,
-      SUBMISSION_DATE: formVal.SUBMISSION_DATE,
-      STATEMENT_DATE: formVal.STATEMENT_DATE,
-      RAW_MATERIAL: formVal.RAW_MATERIAL,
-      RAW_MARGIN: formVal.RAW_MARGIN,
-      WORK_PROGRESS: formVal.WORK_PROGRESS,
-      FINISHED_GOODS: formVal.FINISHED_GOODS,
-      WORK_MARGIN: formVal.WORK_MARGIN,
-      FINISHED_MARGIN: formVal.FINISHED_MARGIN,
-      REMARK: formVal.REMARK,
-      LEDGER_Bal: formVal.LEDGER_Bal,
-    };
-    this._stock.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        let info = []
-        info.push(data.id)
-        info.push("stockStatement")
+  submit(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
 
-        this.newItemEvent(info);
-        // to reload after insertion of data
-        this.rerender();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        AC_TYPE: this.scheme._value[0],
+        AC_NO: this.Accountno,
+        SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+        STATEMENT_DATE: formVal.STATEMENT_DATE,
+        RAW_MATERIAL: formVal.RAW_MATERIAL,
+        RAW_MARGIN: formVal.RAW_MARGIN,
+        WORK_PROGRESS: formVal.WORK_PROGRESS,
+        FINISHED_GOODS: formVal.FINISHED_GOODS,
+        WORK_MARGIN: formVal.WORK_MARGIN,
+        FINISHED_MARGIN: formVal.FINISHED_MARGIN,
+        REMARK: formVal.REMARK,
+        LEDGER_Bal: formVal.LEDGER_Bal,
+      };
+      this._stock.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.formSubmitted = false;
+          let info = []
+          info.push(data.id)
+          info.push("stockStatement")
+  
+          this.newItemEvent(info);
+          // to reload after insertion of data
+          this.rerender();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
+    }
+   
   }
   //check  if margin values are below 100
   checkmargin(ele: any) {

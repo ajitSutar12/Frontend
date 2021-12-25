@@ -56,6 +56,7 @@ interface PlantMaster {
 })
 export class PlantAndMachineryComponent
   implements OnInit, AfterViewInit, OnDestroy {
+    formSubmitted = false;
   //passing data form child to parent
   @Output() newPlantandMachiEvent = new EventEmitter<string>();
   datemax: string;
@@ -228,8 +229,13 @@ export class PlantAndMachineryComponent
     });
   }
 
-  submit() {
-    const formVal = this.angForm.value;
+  submit(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE: this.scheme._value[0],
       AC_NO: this.Accountno,
@@ -248,6 +254,7 @@ export class PlantAndMachineryComponent
     this._plant.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
         let info = []
         info.push(data.id)
         info.push("plantMachinary")
@@ -262,6 +269,8 @@ export class PlantAndMachineryComponent
     );
     //To clear form
     this.resetForm();
+    }
+    
   }
 
   //check  if margin values are below 100

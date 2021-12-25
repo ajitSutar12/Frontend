@@ -5,13 +5,14 @@
         <h5>Government Security & LIC</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm"  (ngSubmit)="submit($event)">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE"  #autofocus />
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
@@ -30,6 +31,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="policy_due" required="" max="31-12-9999"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="CERT_POLICY_DATE"  />
                   <label for="policy_due">Certicate / Policy Date<sub class="required">*
                     </sub></label>
@@ -49,6 +51,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="policy_no" class="form-control" placeholder=" " id="policy_no" required=""
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     pattern="^[0-9]+$" maxlength="50" title="Input allowed only  0-9"
                     formControlName="CERT_POLICY_NO" />
                   <label for="policy_no">Certicate / Policy No.<sub class="required">* </sub></label>
@@ -74,6 +77,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="margin" class="form-control" placeholder=" " id="margin" required="" #margin
                     (keyup)="checkmargin(margin.value)" pattern="\d{1,5}(\.\d{2})?" title="Input allowed only  0-9"
+                    [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="MARGIN" />
                   <label for="margin">Margin<sub class="required">* </sub></label>
                 </span>
@@ -134,6 +138,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="SumAssured" class="form-control" placeholder=" " id="SumAssured" required=""
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="SUM_ASSURED" />
                   <label for="SumAssured">Sum Assured<sub class="required">* </sub></label>
                 </span>
@@ -169,6 +174,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="premium_amount" class="form-control" placeholder=" " id="premium_amount"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="PREMIUM" />
                   <label for="premium_amount">Premium Amount<sub class="required">* </sub></label>
@@ -211,6 +217,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="PREMIUM_DUE_DATE" required=""
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     max="{{datemax | date:'yyyy-MM-dd'}}" name="PREMIUM_DUE_DATE" formControlName="PREMIUM_DUE_DATE"
                      />
                   <label for="PREMIUM_DUE_DATE">Premium Due Date<sub class="required">* </sub></label>
@@ -230,6 +237,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="maturity" #maturity_date required=""
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     [min]="setdate" max="9999-12-31" name="maturity_date" [value]="resetmaturedate"
                     formControlName="MATURE_DUE_DATE"  id="date"
                     (focusout)="checkdate(maturity_date.value)" />
@@ -288,7 +296,7 @@
             </div>
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" 
+              <button class="btn btn-primary ripple light" *ngIf="showButton" 
               >Add</button>
               <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
                >Update</button> &nbsp;

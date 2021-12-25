@@ -239,8 +239,7 @@ marketmaster: MarketMaster[];
 
     if (this.angForm.valid) {
       console.log(this.angForm.value); // Process your form
-    }
-  
+      
     const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE:this.scheme._value[0],
@@ -273,7 +272,9 @@ marketmaster: MarketMaster[];
     );
     //To clear form
     this.resetForm();
-  }
+
+    }
+    }
 
   //function for edit button clicked
   editClickHandler(id: any): void {

@@ -5,14 +5,15 @@
         <h5>Plant And Machinery</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
-                    formControlName="SUBMISSION_DATE"  #autofocus />
+                  [ngClass]="{'form-submitted': formSubmitted}"  
+                  formControlName="SUBMISSION_DATE"  #autofocus />
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -30,6 +31,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="machinery_name" class="form-control" placeholder=" " id="machinery_name"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     required="" pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
                     maxlength="90" formControlName="MACHINE_NAME" />
                   <label for="machinery_name">Machinery Name<sub class="required">* </sub></label>
@@ -54,6 +56,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="machinery_type" class="form-control" placeholder=" " id="machinery_type"
                     required="" pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
+                    [ngClass]="{'form-submitted': formSubmitted}"
                     maxlength="50" formControlName="MACHINE_TYPE" />
                   <label for="machinery_type">Machinery Type<sub class="required">* </sub></label>
                 </span>
@@ -76,6 +79,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="DistinctiveNumber" class="form-control" placeholder=" "
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     id="DistinctiveNumber" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="50"
                     formControlName="DISTINCTIVE_NO" />
                   <label for="DistinctiveNumber">Distinctive Number<sub class="required">* </sub></label>
@@ -144,6 +148,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="name" class="form-control" placeholder=" " id="Suppliername"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="90"
                     formControlName="SUPPLIER_NAME" />
                   <label for="Suppliername">Supplier Name<sub class="required">* </sub></label>
@@ -169,6 +174,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="PurchasePrice" class="form-control" placeholder=" " id="PurchasePrice"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="PURCHASE_PRICE" />
                   <label for="PurchasePrice">Purchase Price<sub class="required">* </sub></label>
@@ -227,7 +233,7 @@
             </div>
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" 
+              <button class="btn btn-primary ripple light" *ngIf="showButton" 
               >Add</button>
               <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
                >Update</button> &nbsp;

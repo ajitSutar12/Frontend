@@ -53,6 +53,7 @@ interface FurnitureMaster {
 })
 export class FurnitureAndFixtureComponent
   implements OnInit, AfterViewInit, OnDestroy {
+    formSubmitted = false;
   //passing data form child to parent
   @Output() newfurnitureFixEvent = new EventEmitter<string>();
   datemax: any;
@@ -201,39 +202,47 @@ export class FurnitureAndFixtureComponent
     });
   }
 
-  submit() {
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      AC_TYPE: this.scheme._value[0],
-      AC_NO: this.Accountno,
-      SUBMISSION_DATE: formVal.SUBMISSION_DATE,
-      ARTICLE_NAME: formVal.ARTICLE_NAME,
-      ARTICLE_MAKE: formVal.ARTICLE_MAKE,
-      AQUISITION_DATE: formVal.AQUISITION_DATE,
-      NEW_ARTICLE: formVal.NEW_ARTICLE,
-      SUPPLIER_NAME: formVal.SUPPLIER_NAME,
-      PURCHASE_PRICE: formVal.PURCHASE_PRICE,
-      MARGIN: formVal.MARGIN,
-      REMARK: formVal.REMARK,
-    };
-    this._furniture.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        let info = []
-        info.push(data.id)
-        info.push("furniture")
+  submit(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
 
-        this.newItemEvent(info);
-        
-        // to reload after insertion of data
-        this.rerender();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        AC_TYPE: this.scheme._value[0],
+        AC_NO: this.Accountno,
+        SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+        ARTICLE_NAME: formVal.ARTICLE_NAME,
+        ARTICLE_MAKE: formVal.ARTICLE_MAKE,
+        AQUISITION_DATE: formVal.AQUISITION_DATE,
+        NEW_ARTICLE: formVal.NEW_ARTICLE,
+        SUPPLIER_NAME: formVal.SUPPLIER_NAME,
+        PURCHASE_PRICE: formVal.PURCHASE_PRICE,
+        MARGIN: formVal.MARGIN,
+        REMARK: formVal.REMARK,
+      };
+      this._furniture.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.formSubmitted = false;
+          let info = []
+          info.push(data.id)
+          info.push("furniture")
+  
+          this.newItemEvent(info);
+          
+          // to reload after insertion of data
+          this.rerender();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
+    }
+ 
   }
 
   //check  if margin values are below 100

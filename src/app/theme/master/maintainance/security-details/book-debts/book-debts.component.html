@@ -5,13 +5,14 @@
         <h5>Book Debts</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE"  #autofocus />
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
@@ -28,6 +29,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="date" class="form-control" placeholder=" " id="stmt_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="STATEMENT_DATE"  id="date" />
                   <label for="stmt_date">Statement Date<sub class="required">* </sub></label>
                 </span>
@@ -49,6 +51,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="DebtorsOpeningBalance" class="form-control" placeholder=" "
+                  [ngClass]="{'form-submitted': formSubmitted}" min="0"
                     id="DebtorsOpeningBalance" required="" pattern="\d{1,20}(\.\d{2})?" (focusout)="calculateopening()"
                     title="Input allowed only  0-9" formControlName="DEBTORS_OP_BAL">
                   <label for="DebtorsOpeningBalance">Debtors Opening Balance<sub class="required">*
@@ -73,8 +76,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="AddCreditSales" class="form-control" placeholder=" " id="AddCreditSales"
-                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="CREDIT_SALE"
-                    (focusout)="calculateaddcredit()">
+                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="CREDIT_SALE" min="0"
+                    (focusout)="calculateopening()">
                   <label for="AddCreditSales">Add Credit Sales</label>
                 </span>
               </div>
@@ -95,8 +98,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="LessRecoveries" class="form-control" placeholder=" " id="LessRecoveries"
-                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="RECOVERY"
-                    (focusout)="calculatelessrecovery()">
+                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="RECOVERY" min="0"
+                    (focusout)="calculateopening()">
                   <label for="LessRecoveries">Less Recoveries</label>
                 </span>
               </div>
@@ -118,7 +121,8 @@
                 <span class="border-lable-flt">
                   <input type="text" name="LessOveragedDebtors" class="form-control" placeholder=" "
                     id="LessOveragedDebtors" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
-                    formControlName="OVERAGED_DEBTORS" (focusout)="calculatelessdebtors()">
+                    min="0"
+                    formControlName="OVERAGED_DEBTORS" (focusout)="calculateopening()">
                   <label for="LessOveragedDebtors">Less Overaged Debtors</label>
                 </span>
               </div>
@@ -140,8 +144,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="DebtorsClosingBalance" class="form-control" placeholder=" "
-                    id="DebtorsClosingBalance" required="" [value]="bookdebts" pattern="\d{1,20}(\.\d{2})?" disabled
-                    title="Input allowed only  0-9" value="bookdebts" formControlName="CLOSE_BAL">
+                    id="DebtorsClosingBalance" required=""  pattern="\d{1,20}(\.\d{2})?" disabled
+                    title="Input allowed only  0-9" formControlName="CLOSE_BAL">
                   <label for="DebtorsClosingBalance">Debtors Closing Balance<sub class="required">*
                     </sub></label>
                 </span>
@@ -154,6 +158,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="CreditorsOutstanding" class="form-control" placeholder=" "
+                  [ngClass]="{'form-submitted': formSubmitted}"
                     id="CreditorsOutstanding" required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="CRD_OUTSTAND_BAL">
                   <label for="CreditorsOutstanding">Creditors Outstanding<sub class="required">*
@@ -191,8 +196,10 @@
                 <span class="border-lable-flt">
                   <input type="text" name="remarks" class="form-control" placeholder=" " id="remarks" required=""
                     pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
+                    [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="REMARK">
-                  <label for="remarks">REMARK</label>
+                  <label for="remarks">REMARK<sub class="required">*
+                  </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
@@ -208,7 +215,7 @@
           <div class="row">
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()" 
+              <button class="btn btn-primary ripple light" *ngIf="showButton" 
               >Add</button>
               <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
                >Update</button> &nbsp;

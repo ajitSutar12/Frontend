@@ -55,6 +55,7 @@ interface VehicleMaster {
   styleUrls: ["./vehicle.component.scss"],
 })
 export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
    //passing data form child to parent
    @Output() newVehicalEvent = new EventEmitter<string>();
   datemax: string;
@@ -222,8 +223,14 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  submit(data: any) {
-    const formVal = this.angForm.value;
+  submit(event) {
+
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE:this.scheme._value[0],
       AC_NO:this.Accountno,
@@ -243,6 +250,7 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
     this._vehicle.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
         let info = []
         info.push(data.id)
         info.push("vehicle")
@@ -258,6 +266,10 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
     );
     //To clear form
     this.resetForm();
+
+    }
+
+    
   }
 
    //check  if margin values are below 100

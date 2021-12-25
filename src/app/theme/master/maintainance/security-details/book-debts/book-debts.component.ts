@@ -57,6 +57,7 @@ interface BookMaster {
   styleUrls: ["./book-debts.component.scss"],
 })
 export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //passing data form child to parent
   @Output() newbookEvent = new EventEmitter<string>();
   datemax: any;
@@ -85,13 +86,13 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject();
   page: number;
   filterData = {};
-  //variables for calculating debtors closing balance
-  debtopen: number = 0;
-  addcredit: number = 0;
-  lessrecovery: number = 0;
-  LessOveragedDebtors: number = 0;
-  debtclosing: number = 0;
-  bookdebts: number = 0;
+  // //variables for calculating debtors closing balance
+  // debtopen: number = 0;
+  // addcredit: number = 0;
+  // lessrecovery: number = 0;
+  // LessOveragedDebtors: number = 0;
+  // debtclosing: number = 0;
+  // bookdebts: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -99,10 +100,10 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     private _book: BookdebtsService,
     public router: Router
   ) {
-    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
     console.log(this.datemax);
 
-   }
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -207,61 +208,71 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
       SUBMISSION_DATE: ["", [Validators.required]],
       STATEMENT_DATE: ["", [Validators.required]],
-      DEBTORS_OP_BAL: ["", [Validators.pattern, Validators.required]],
+      DEBTORS_OP_BAL: [0, [Validators.pattern, Validators.required]],
       CREDIT_SALE: ["", [Validators.pattern]],
       RECOVERY: ["", [Validators.pattern]],
       OVERAGED_DEBTORS: ["", [Validators.pattern]],
-      CLOSE_BAL: ["", [Validators.pattern, Validators.required]],
+      CLOSE_BAL: ["", [Validators.pattern]],
       CRD_OUTSTAND_BAL: ["", [Validators.pattern, Validators.required]],
       MARGIN: ["", [Validators.pattern]],
       REMARK: ["", [Validators.pattern, Validators.required]],
     });
   }
 
-  submit() {
-    // debugger
+  submit(event) {
+    debugger
     let closingbalid = (document.getElementById("DebtorsClosingBalance") as HTMLInputElement).value;
 
     this.angForm.patchValue({
       CLOSE_BAL: closingbalid,
 
     });
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      AC_TYPE: this.scheme._value[0],
-      AC_NO: this.Accountno,
-      SUBMISSION_DATE: formVal.SUBMISSION_DATE,
-      STATEMENT_DATE: formVal.STATEMENT_DATE,
-      DEBTORS_OP_BAL: formVal.DEBTORS_OP_BAL,
-      CREDIT_SALE: formVal.CREDIT_SALE,
-      RECOVERY: formVal.RECOVERY,
-      OVERAGED_DEBTORS: formVal.OVERAGED_DEBTORS,
-      CLOSE_BAL: formVal.CLOSE_BAL,
-      CRD_OUTSTAND_BAL: formVal.CRD_OUTSTAND_BAL,
-      MARGIN: formVal.MARGIN,
-      REMARK: formVal.REMARK,
-    };
-    console.log(dataToSend);
-    this._book.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        // to reload after insertion of data
-        let info = []
-        info.push(data.id)
-        info.push("book")
+    event.preventDefault();
+    this.formSubmitted = true;
 
-        this.newItemEvent(info);
-        console.log("book id", info)
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        AC_TYPE: this.scheme._value[0],
+        AC_NO: this.Accountno,
+        SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+        STATEMENT_DATE: formVal.STATEMENT_DATE,
+        DEBTORS_OP_BAL: formVal.DEBTORS_OP_BAL,
+        CREDIT_SALE: formVal.CREDIT_SALE,
+        RECOVERY: formVal.RECOVERY,
+        OVERAGED_DEBTORS: formVal.OVERAGED_DEBTORS,
+        CLOSE_BAL: formVal.CLOSE_BAL,
+        CRD_OUTSTAND_BAL: formVal.CRD_OUTSTAND_BAL,
+        MARGIN: formVal.MARGIN,
+        REMARK: formVal.REMARK,
+      };
+      console.log(dataToSend);
+      this._book.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.formSubmitted = false;
+          // to reload after insertion of data
+          let info = []
+          info.push(data.id)
+          info.push("book")
+
+          this.newItemEvent(info);
+          console.log("book id", info)
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
+    }
+
+
   }
 
   //check  if margin values are below 100
@@ -288,20 +299,20 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
       dropdown.scheme = data.AC_TYPE;
       dropdown.account = data.AC_NO.toString();
 
-        this.angForm.patchValue({
-          AC_TYPE: this.scheme._value[0],
-          AC_NO: this.Accountno,
-          SUBMISSION_DATE: data.SUBMISSION_DATE,
-          STATEMENT_DATE: data.STATEMENT_DATE,
-          DEBTORS_OP_BAL: data.DEBTORS_OP_BAL,
-          CREDIT_SALE: data.CREDIT_SALE,
-          RECOVERY: data.RECOVERY,
-          OVERAGED_DEBTORS: data.OVERAGED_DEBTORS,
-          CLOSE_BAL: data.CLOSE_BAL,
-          CRD_OUTSTAND_BAL: data.CRD_OUTSTAND_BAL,
-          MARGIN: data.MARGIN,
-          REMARK: data.REMARK,
-        });
+      this.angForm.patchValue({
+        AC_TYPE: this.scheme._value[0],
+        AC_NO: this.Accountno,
+        SUBMISSION_DATE: data.SUBMISSION_DATE,
+        STATEMENT_DATE: data.STATEMENT_DATE,
+        DEBTORS_OP_BAL: data.DEBTORS_OP_BAL,
+        CREDIT_SALE: data.CREDIT_SALE,
+        RECOVERY: data.RECOVERY,
+        OVERAGED_DEBTORS: data.OVERAGED_DEBTORS,
+        CLOSE_BAL: data.CLOSE_BAL,
+        CRD_OUTSTAND_BAL: data.CRD_OUTSTAND_BAL,
+        MARGIN: data.MARGIN,
+        REMARK: data.REMARK,
+      });
     });
   }
 
@@ -380,45 +391,22 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   calculateopening() {
-    debugger;
-    let debtopenid = Number((document.getElementById(
-      "DebtorsOpeningBalance"
-    ) as HTMLInputElement).value);
 
-    // if (debtopenid && addcreditid && lessrecoveryid && LessOveragedDebtorsid != null) {
-    //   this.bookdebts =
-    //   debtopenid +
-    //   addcreditid -
-    //   lessrecoveryid -
-    //   LessOveragedDebtorsid;
-    // } 
-    if(debtopenid != null){
-      this.bookdebts += debtopenid;
+
+    let opbal =Number( this.angForm.controls['DEBTORS_OP_BAL'].value);
+    let credit = Number(this.angForm.controls['CREDIT_SALE'].value)
+    let recovery = Number(this.angForm.controls['RECOVERY'].value);
+    let debt = Number(this.angForm.controls['OVERAGED_DEBTORS'].value)
+
+    if (opbal != 0) {
+      let balance
+      balance = opbal + credit - recovery - debt
+      this.angForm.patchValue({
+        CLOSE_BAL: balance
+      })
     }
+
+   
   }
-  calculateaddcredit(){
-    let addcreditid = Number((document.getElementById(
-      "AddCreditSales"
-    ) as HTMLInputElement).value);
-    if(addcreditid != null){
-        this.bookdebts += addcreditid;
-      }
-    
-  }
-  calculatelessrecovery(){
-    let lessrecoveryid = Number((document.getElementById(
-      "LessRecoveries"
-    ) as HTMLInputElement).value);
-    if(lessrecoveryid != null){
-        this.bookdebts -= lessrecoveryid;
-      }
-  }
-  calculatelessdebtors(){
-    let LessOveragedDebtorsid =Number ((document.getElementById(
-      "LessOveragedDebtors"
-    ) as HTMLInputElement).value);
-    if(LessOveragedDebtorsid != null){
-        this.bookdebts -= LessOveragedDebtorsid;
-      }
-  }
+
 }
