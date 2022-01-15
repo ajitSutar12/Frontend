@@ -712,7 +712,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
         }
 
-      }else{
+      } else {
         this.angForm.patchValue({
           AC_MATUAMT: formVal.AC_MATUAMT
         })
@@ -795,7 +795,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.angForm.patchValue({
           AC_MONTHS: months,
           AC_DAYS: days,
-          
+
         })
       } else {
         console.log("false")
@@ -1033,7 +1033,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   //get account no according scheme for introducer
   getIntroducer(acno) {
-    switch (acno) {
+    switch (acno.name) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
@@ -1118,13 +1118,19 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
+      if (data.castMaster == null) {
+        data.castMaster = ""
+      }
+      if (data.occupMaster == null) {
+        data.occupMaster = ""
+      }
       this.ageCalculator(data.AC_BIRTH_DT);
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
-        AC_CAST: data.AC_CAST,
-        AC_OCODE: data.AC_OCODE,
+        AC_CAST: data.castMaster.NAME,
+        AC_OCODE: data.occupMaster.NAME,
         AC_BIRTH_DT: data.AC_BIRTH_DT,
         AC_MBDATE: data.AC_BIRTH_DT,
         AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
@@ -1163,7 +1169,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     else if (formVal.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
-
+    if (this.angForm.controls['AC_TCTCODE'].value == "") {
+      formVal.AC_TCTCODE = 0
+    }
     //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -1226,7 +1234,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
-      
+
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -1400,6 +1408,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.dtTrigger.next();
     });
   }
+  jointID: string = '';
   //reset function while update
   addNewData() {
     this.showButton = true;
@@ -1427,7 +1436,33 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
     }
-    this.multiNominee.push(object);
+    debugger
+    if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Nominee");
+    }
+    else if (formVal.AC_NNAME != "") {
+      if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+        Swal.fire("Please Insert Mandatory Record For Nominee");
+      } else if (formVal.AC_NRELA != "") {
+        if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
+          Swal.fire("Please Insert Mandatory Record For Nominee");
+        }
+        else {
+          if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
+            Swal.fire("This Nominee is Already Exists", "error");
+          } else {
+            this.multiNominee.push(object);
+          }
+
+        }
+      }
+      else {
+        this.multiNominee.push(object);
+      }
+    }
+    else {
+      this.multiNominee.push(object);
+    }
     this.resetNominee()
   }
 
@@ -1454,6 +1489,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   updateNominee() {
     let index = this.nomineeIndex;
+    this.nomineeShowButton = true;
+    this.nomineeUpdateShow = false;
     const formVal = this.angForm.value;
     var object = {
       AC_NNAME: formVal.AC_NNAME,
@@ -1470,14 +1507,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       id: this.nomineeID
     }
     this.multiNominee[index] = object;
-    this.nomineeShowButton = true;
-    this.nomineeUpdateShow = false;
     this.resetNominee()
   }
+
   delNominee(id) {
     this.multiNominee.splice(id, 1)
-  } 
-
+  }
 
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
@@ -1494,13 +1529,41 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   //Joint ac
+  getJointCustomer(id) {
+    this.customerIdService.getFormData(id).subscribe(data => {
+      this.angForm.patchValue({
+        JOINT_ACNAME: data.AC_NAME
+      })
+    })
+  }
+
   addJointAcccount() {
     const formVal = this.angForm.value;
     var object = {
+      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
       OPERATOR: formVal.OPERATOR
     }
-    this.multiJointAC.push(object);
+    if (object.JOINT_AC_CUSTID != undefined) {
+      if (this.id != this.jointID) {
+        if (this.multiJointAC.length == 0) {
+          this.multiJointAC.push(object);
+        }
+        else {
+          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
+            Swal.fire("This Customer is Already Joint Account Holder", "error");
+          }
+          else {
+            this.multiJointAC.push(object);
+          }
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+      }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
     this.resetJointAC()
   }
 
@@ -1511,6 +1574,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.jointShowButton = false;
     this.jointUpdateShow = true;
     this.angForm.patchValue({
+      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
@@ -1522,11 +1586,31 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.jointUpdateShow = false;
     const formVal = this.angForm.value;
     var object = {
+      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
-    this.multiJointAC[index] = object;
+    if (object.JOINT_AC_CUSTID != undefined) {
+      if (this.id != this.jointID) {
+        if (this.multiJointAC.length == 0) {
+          this.multiJointAC[index] = object
+        }
+        else {
+          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
+            Swal.fire("This Customer is Already Joint Account Holder", "error");
+          }
+          else {
+            this.multiJointAC[index] = object
+          }
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+      }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
     this.resetJointAC()
   }
 
@@ -1535,6 +1619,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   resetJointAC() {
+    this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
     this.angForm.controls['OPERATOR'].reset();
   }
@@ -1547,7 +1632,32 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       DATE_APPOINTED: formVal.DATE_APPOINTED,
       DATE_EXPIRY: formVal.DATE_EXPIRY
     }
-    this.multiAttorney.push(object);
+    if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+    } else if (formVal.ATTERONEY_NAME != "") {
+      if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
+        Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+      } else if (formVal.DATE_APPOINTED != "") {
+        if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
+          Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+        }
+        else {
+          if (this.multiAttorney.find(ob => ob['ATTERONEY_NAME'].toUpperCase() === formVal.ATTERONEY_NAME.toUpperCase())) {
+            Swal.fire("This Person is Already Exists", "error");
+          }
+          else {
+            this.multiAttorney.push(object);
+          }
+
+        }
+      }
+      else {
+        this.multiAttorney.push(object);
+      }
+    }
+    else {
+      this.multiAttorney.push(object);
+    }
     this.resetAttorney()
   }
 
@@ -1887,7 +1997,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             })
           } else if (data.S_INTCALTP == "Month&DaysBase" && data.IS_START_WITH_MONTHS == true && data.S_INTCALC_METHOD == "CompountInterest") {
             this.recurringCompoundInterest()
-          }else if (data.S_INTCALTP == "DaysProductBase" && data.S_INTCALC_METHOD == "SimpleInterest"){
+          } else if (data.S_INTCALTP == "DaysProductBase" && data.S_INTCALC_METHOD == "SimpleInterest") {
             this.recurringSimpleInterest()
           }
         }

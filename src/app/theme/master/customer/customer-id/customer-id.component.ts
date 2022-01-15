@@ -102,6 +102,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('ngSelect') ngSelect: NgSelectComponent;
   @ViewChild('modalLarge') modalLarge;
 
+  public visible = false;
+  public visibleAnimate = false;
+  @ViewChild('triggerhide') triggerhide: ElementRef;
+  @Output() closeModalEvent = new EventEmitter<boolean>();
+
   custData;
   datemax: any;
   addNewCustomer(value) {
@@ -163,6 +168,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   hasFocus: boolean = false;
   ngselectbool: boolean = true;
   today: Date;
+  focus: boolean = true;
+
 
 
   constructor(
@@ -185,6 +192,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.createForm();
+    // let title = document.getElementById('title')as HTMLInputElement;
+    // title.focus;
+
     // Fetching Server side data
     this.dtExportButtonOptions = {
       pagingType: "full_numbers",
@@ -453,7 +463,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_OCODE: [""],
       AC_ADHARNO: ["", [Validators.pattern]],
       AC_RISKCATG: [""],
-      AC_BIRTH_DT: [""],
+      AC_BIRTH_DT: ["", [Validators.required]],
       AC_HONO: ["", [Validators.pattern]],
       AC_WARD: ["", [Validators.pattern]],
       AC_ADDR: ["", [Validators.pattern]],
@@ -483,6 +493,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit(event) {
+
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -528,39 +539,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'TDS_LIMIT': formVal.TDS_LIMIT,
         'Document': this.imageObject
       }
-      // this.http
-      //   .get<any>(
-      //     this.url + "/customer-id")
-      //   .subscribe((resp) => {
-      //     if (resp.length != 0){
-      //       resp.forEach(async (element) => {
-
-      //         if(formVal.AC_NAME == element.AC_NAME){
-      //           if(formVal.AC_ADHARNO == element.AC_ADHARNO){
-
-      //           }
-      //         }
-
-      //       })
-      //       console.log("not empty")
-      //     }
-      //     else {
-      //       this.customerIdService.postData(dataToSend).subscribe(
-      //         (data) => {
-      //           Swal.fire("Success!", "Data Added Successfully !", "success");
-      //           console.log("submit", data);
-      //           // this.custData = data1.id;
-      //           this.addNewCustomer(data.id);
-      //           // to reload after insertion of data
-      //           this.rerender();
-      //         },
-      //         (error) => {
-      //           console.log(error);
-      //         });
-      //     }
-      //     console.log(resp, "resp.data within submit");
-
-      //   });
 
       this.customerIdService.postData(dataToSend).subscribe(
         (data) => {
@@ -575,10 +553,18 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         },
         (error) => {
           console.log(error);
-        });
+        }
+      );
       //To clear form
       this.resetForm();
       this.imageObject = []
+
+    } else {
+      Swal.fire({
+        icon: 'info',
+        title: 'Warning!',
+        text: 'Please Fill Required Field !'
+      })
     }
 
   }
@@ -722,6 +708,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = true;
 
     this.customerIdService.getFormData(id).subscribe((data) => {
+      console.log('edit')
       data.AC_CAST == null ? data.AC_CAST = "" : data.AC_CAST.toString()
       data.AC_OCODE == null ? data.AC_OCODE = "" : data.AC_OCODE.toString()
       data.AC_RISKCATG == null ? data.AC_RISKCATG = "" : data.AC_RISKCATG.toString()
@@ -846,6 +833,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.columns().every(function () {
         const that = this;
+        $('#customermastertable tfoot tr').appendTo('#customermastertable thead');
         $("input", this.footer()).on("keyup change", function () {
           if (this["value"] != "") {
             that.search(this["value"]).draw();
@@ -893,6 +881,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   isReceivedTds($event) {
+
     if ($event.target.checked) {
       this.isTdsForm = true;
       this.isTdsFormA = false;
@@ -960,6 +949,16 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // }
   }
+
+  // method for close modal on add and close click
+  onCloseModal() {
+
+    console.log('in onclose modal function');
+    var closemodal = document.getElementById('triggerhide')
+    closemodal.click();
+
+  }
+
   imgBase64: any
   showImage: boolean = false;
   viewImagePreview(ele, id) {
@@ -971,5 +970,91 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       });
     }
+  }
+  checkCustomer() {
+
+    this.customerIdService.getData().subscribe(data => {
+      if (data?.length != 0) {
+        if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value)) {
+          if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value)) {
+            if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value)) {
+              Swal.fire({
+                title: "Are you sure?",
+                text: "This Customer is Already Exists.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#229954",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continue",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  // Swal.fire("Your data is safe.");
+                  // to reload after delete of data
+                  this.rerender();
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                  this.angForm.controls['F_NAME'].reset()
+                  this.angForm.controls['M_NAME'].reset()
+                  this.angForm.controls['L_NAME'].reset()
+                  this.angForm.controls['AC_NAME'].reset()
+                  this.angForm.patchValue({
+                    L_NAME: '',
+                    F_NAME: '',
+                    M_NAME: ''
+                  })
+
+                }
+              });
+            }
+          }
+        }
+      }
+    })
+  }
+  checkAdhar() {
+    debugger
+    this.customerIdService.getData().subscribe(data => {
+      if (data?.length != 0) {
+        if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
+          if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+            Swal.fire({
+              icon: 'info',
+              title: 'This Aadhar Number is Already Extsts',
+            })
+            this.angForm.controls['AC_ADHARNO'].reset();
+          }
+        } else {
+          if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value)) {
+            if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value)) {
+              if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value)) {
+                if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+                  Swal.fire({
+                    icon: 'info',
+                    title: 'This Customer is Already Exists',
+                  })
+                  this.resetForm();
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+  }
+
+  checkPancard() {
+    debugger
+    this.customerIdService.getData().subscribe(data => {
+      if (data?.length != 0) {
+        if (data.find(data => data['AC_PANNO'] == (this.angForm.controls['AC_PANNO'].value == ''))) {
+          if (data.find(data => data['AC_PANNO'] == this.angForm.controls['AC_PANNO'].value)) {
+            Swal.fire({
+              icon: 'info',
+              title: 'This Pan Number is Already Extsts',
+            })
+            this.angForm.controls['AC_PANNO'].reset();
+          }
+        }
+      }
+    })
   }
 }

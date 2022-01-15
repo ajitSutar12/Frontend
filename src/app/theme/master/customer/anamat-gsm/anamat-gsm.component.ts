@@ -466,7 +466,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_NO: data.AC_NO,
         AC_CUSTID: data.AC_CUSTID.toString(),
         // AC_TITLE: data.AC_TITLE,
-        // AC_NAME: data.AC_NAME,
+        AC_NAME: data.AC_NAME,
         // AC_MEMBTYPE: data.AC_MEMBTYPE,
         // AC_MEMBNO: data.AC_MEMBNO,
         // AC_HONO: data.AC_HONO,

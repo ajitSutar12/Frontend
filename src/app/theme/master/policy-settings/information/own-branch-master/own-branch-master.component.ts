@@ -161,10 +161,17 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      console.log(result)
+      let branchCode = result.branch.syspara.id;
     const dataToSend = {
       'CODE': formVal.CODE,
       'AC_NO': formVal.AC_NO,
       'NAME': formVal.NAME,
+      'sysparaId': branchCode,
+
     }
     this.ownBranchService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');

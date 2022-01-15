@@ -329,17 +329,19 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
-        AC_CAST: data.AC_CAST,
-        AC_OCODE: data.AC_OCODE,
+        AC_MEMBTYPE: data.AC_MEMBTYPE,
+        AC_MEMBNO: data.AC_MEMBNO,
+        AC_CAST: data.castMaster.NAME,
+        AC_OCODE: data.occupMaster.NAME,
         AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
-        AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
-        AC_HONO: data.custAddress[0].AC_HONO,
-        AC_WARD: data.custAddress[0].AC_WARD,
-        AC_ADDR: data.custAddress[0].AC_ADDR,
-        AC_GALLI: data.custAddress[0].AC_GALLI,
-        AC_AREA: data.custAddress[0].AC_AREA,
-        AC_CTCODE: data.custAddress[0].AC_CTCODE,
-        AC_PIN: data.custAddress[0].AC_PIN,
+        AC_ADDFLAG: data.custAddress[0]?.AC_ADDFLAG,
+        AC_HONO: data.custAddress[0]?.AC_HONO,
+        AC_WARD: data.custAddress[0]?.AC_WARD,
+        AC_ADDR: data.custAddress[0]?.AC_ADDR,
+        AC_GALLI: data.custAddress[0]?.AC_GALLI,
+        AC_AREA: data.custAddress[0]?.AC_AREA,
+        AC_CTCODE: data.custAddress[0].city?.CITY_NAME,
+        AC_PIN: data.custAddress[0]?.AC_PIN,
       })
     })
   }
@@ -410,7 +412,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
   //get account no according scheme for introducer
   getIntroducer(acno) {
-    switch (acno) {
+    switch (acno.name) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
@@ -491,46 +493,50 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   // Method to insert data into database through NestJS
-  submit() {
+  submit(event) {
+    event.preventDefault();
     this.formSubmitted = true;
-    const formVal = this.angForm.value;
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.CODE;
-    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
-    const dataToSend = {
-      'branchCode': branchCode,
-      'bankCode': bankCode,
-      'schemeCode': this.schemeCode,
-      'AC_TYPE': formVal.AC_TYPE,
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_NAME': formVal.AC_NAME,
-      'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_OPDATE': formVal.AC_OPDATE,
-      'PIGMY_ACTYPE': formVal.PIGMY_ACTYPE,
-      'AC_INTRACNO': formVal.AC_INTRACNO,
-      'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
-      'AC_INTROID': formVal.AC_INTROID,
-      'AC_INTRNAME': formVal.AC_INTRNAME,
-      'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
-      'NomineeData': this.multiNominee
+
+    if (this.angForm.valid) {
+      const formVal = this.angForm.value;
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.CODE;
+      let bankCode = Number(result.branch.syspara[0].BANK_CODE)
+      const dataToSend = {
+        'branchCode': branchCode,
+        'bankCode': bankCode,
+        'schemeCode': this.schemeCode,
+        'AC_TYPE': formVal.AC_TYPE,
+        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+        'AC_NAME': formVal.AC_NAME,
+        'AC_CUSTID': formVal.AC_CUSTID,
+        'AC_OPDATE': formVal.AC_OPDATE,
+        'PIGMY_ACTYPE': formVal.PIGMY_ACTYPE,
+        'AC_INTRACNO': formVal.AC_INTRACNO,
+        'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
+        'AC_INTROID': formVal.AC_INTROID,
+        'AC_INTRNAME': formVal.AC_INTRNAME,
+        'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+        'NomineeData': this.multiNominee
+      }
+      this.PigmyAgentMasterService.postData(dataToSend).subscribe(data1 => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+        // to reload after insertion of data
+
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.multiNominee = []
     }
-    this.PigmyAgentMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.formSubmitted = false;
-      // to reload after insertion of data
-
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-
-    }, (error) => {
-      console.log(error)
-    })
-    //To clear form
-    this.resetForm();
-    this.multiNominee = []
   }
 
   // Reset Function

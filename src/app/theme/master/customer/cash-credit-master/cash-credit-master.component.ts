@@ -50,7 +50,7 @@ import { AccountTypeService } from '../../../../shared/dropdownService/account-t
 import { SecurityMasterdropdownService } from '../../../../shared/dropdownService/security-master-dropdown.service';
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
 import { RepayModeService } from '../../../../shared/dropdownService/repay-mode.service';
-
+import * as moment from 'moment';
 //date pipe
 import { DatePipe } from '@angular/common';
 
@@ -695,6 +695,9 @@ export class CashCreditMasterComponent implements OnInit {
     else if (formVal.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
+    if (this.angForm.controls['AC_TCTCODE'].value == "") {
+      formVal.AC_TCTCODE = 0
+    }
     //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -781,7 +784,7 @@ export class CashCreditMasterComponent implements OnInit {
 
     //To clear form
     this.resetForm();
-    this.customerDoc=[]
+    this.customerDoc = []
     this.multiCoBorrower = []
     this.multiGuarantor = []
     this.multiSecurity = [];
@@ -870,7 +873,7 @@ export class CashCreditMasterComponent implements OnInit {
     this.multiSecurity = [];
     this.multiCoBorrower = [];
     this.multiGuarantor = [];
-    this.customerDoc=[]
+    this.customerDoc = []
     this.resetForm();
   }
 
@@ -900,7 +903,7 @@ export class CashCreditMasterComponent implements OnInit {
       this.multiSecurity = [];
       this.multiCoBorrower = [];
       this.multiSecurity = []
-      this.customerDoc=[]
+      this.customerDoc = []
       this.resetForm();
     })
   }
@@ -951,14 +954,20 @@ export class CashCreditMasterComponent implements OnInit {
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
+      if (data.castMaster == null) {
+        data.castMaster = ""
+      }
+      if (data.occupMaster == null) {
+        data.occupMaster = ""
+      }
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
         AC_MEMBTYPE: data.AC_MEMBTYPE,
         AC_MEMBNO: data.AC_MEMBNO,
-        AC_CAST: data.AC_CAST,
-        AC_OCODE: data.AC_OCODE,
+        AC_CAST: data.castMaster.NAME,
+        AC_OCODE: data.occupMaster.NAME,
         AC_ADHARNO: data.AC_ADHARNO,
         AC_RISKCATG: data.AC_RISKCATG,
         AC_BIRTH_DT: data.AC_BIRTH_DT,
@@ -1229,23 +1238,24 @@ export class CashCreditMasterComponent implements OnInit {
       SECURITY_VALUE: this.SECU_NAME,
     }
     console.log("security", object.SECURITY_CODE)
-    if (object.SECURITY_CODE != undefined) {
-      if (this.multiSecurity.length == 0) {
-        this.multiSecurity.push(object);
-      }
-      else {
-        this.multiSecurity.forEach(async (element) => {
-          console.log("element", element)
-          if (object.SECURITY_CODE != element.SECURITY_CODE) {
-            this.multiSecurity.push(object);
-          } else {
-            Swal.fire("This Security is Already Added", "error");
 
+    if (formVal.AC_CUSTID != "") {
+      if (object.SECURITY_CODE != undefined) {
+        if (this.multiSecurity.length == 0) {
+          this.multiSecurity.push(object);
+        }
+        else {
+          if (this.multiSecurity.find(ob => ob['SECURITY_CODE'] === this.SECU_CODE)) {
+            Swal.fire("This Security is Already Added", "error");
+          } else {
+            this.multiSecurity.push(object);
           }
-        })
+        }
+      } else {
+        Swal.fire("Please Select Security Code", "error");
       }
     } else {
-      Swal.fire("Please Select Security Code", "error");
+      Swal.fire("Please Select Customer Id", "error");
     }
     this.resetField()
   }
@@ -1444,6 +1454,7 @@ export class CashCreditMasterComponent implements OnInit {
 
   // Add Guarantor
   addGuarantor() {
+
     const formVal = this.angForm.value;
     var object = {
       GAC_CUSTID: formVal.GAC_CUSTID,
@@ -1452,25 +1463,26 @@ export class CashCreditMasterComponent implements OnInit {
       AC_NAME: formVal.GAC_NAME,
       EXP_DATE: formVal.EXP_DATE,
     }
-    if (object.GAC_CUSTID != undefined) {
-      if (this.id != this.Cid) {
-        if (this.multiGuarantor.length == 0) {
-          this.multiGuarantor.push(object);
+    if (formVal.AC_CUSTID != "") {
+      if (object.GAC_CUSTID != undefined) {
+        if (this.id != this.Gid) {
+          if (this.multiGuarantor.length == 0) {
+            this.multiGuarantor.push(object);
+          }
+          else {
+            if (this.multiGuarantor.find(ob => ob['GAC_CUSTID'] === formVal.GAC_CUSTID)) {
+              Swal.fire("This Customer is Already Guarantor", "error");
+            } else {
+              this.multiGuarantor.push(object);
+            }
+          }
         }
         else {
-          this.multiGuarantor.forEach(async (element) => {
-            console.log("element", element)
-            if (object.GAC_CUSTID != element.GAC_CUSTID) {
-              this.multiGuarantor.push(object);
-            } else {
-              Swal.fire("This Customer is Already Guarantor", "error");
-
-            }
-          })
+          Swal.fire("Please Select Different Customer id", "error");
         }
       }
       else {
-        Swal.fire("Please Select Different Customer id", "error");
+        Swal.fire("Please Select Guarantor Customer Id", "error");
       }
     } else {
       Swal.fire("Please Select Customer Id", "error");
@@ -1507,7 +1519,31 @@ export class CashCreditMasterComponent implements OnInit {
       EXP_DATE: formVal.EXP_DATE,
       id: this.intID
     }
-    this.multiGuarantor[index] = object;
+    if (formVal.AC_CUSTID != "") {
+      if (object.GAC_CUSTID != undefined) {
+        if (this.id != this.Gid) {
+          if (this.multiGuarantor.length == 0) {
+            this.multiGuarantor[index] = object;
+          }
+          else {
+            if (this.multiGuarantor.find(ob => ob['GAC_CUSTID'] === formVal.GAC_CUSTID)) {
+              Swal.fire("This Customer is Already Guarantor", "error");
+            } else {
+              this.multiGuarantor[index] = object;
+            }
+          }
+        }
+        else {
+          Swal.fire("Please Select Different Customer id", "error");
+        }
+      }
+      else {
+        Swal.fire("Please Select Guarantor Customer Id", "error");
+      }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
+    
     this.resetGuarantor()
   }
 
@@ -1551,28 +1587,30 @@ export class CashCreditMasterComponent implements OnInit {
       CAC_CUSTID: formVal.CAC_CUSTID,
       AC_NAME: formVal.CAC_NAME,
     }
-    if (object.CAC_CUSTID != undefined) {
-      if (this.id != this.Cid) {
-        if (this.multiCoBorrower.length == 0) {
-          this.multiCoBorrower.push(object);
+
+    if (formVal.AC_CUSTID != "") {
+      if (object.CAC_CUSTID != undefined) {
+        if (this.id != this.Cid) {
+          if (this.multiCoBorrower.length == 0) {
+            this.multiCoBorrower.push(object);
+          }
+          else {
+            if (this.multiCoBorrower.find(ob => ob['CAC_CUSTID'] === formVal.CAC_CUSTID)) {
+              Swal.fire("This Customer is Already CoBorrower", "error");
+            } else {
+              this.multiCoBorrower.push(object);
+            }
+          }
         }
         else {
-          this.multiCoBorrower.forEach(async (element) => {
-            console.log("element", element)
-            if (object.CAC_CUSTID != element.CAC_CUSTID) {
-              this.multiCoBorrower.push(object);
-            } else {
-              Swal.fire("This Customer is Already CoBorrower", "error");
-
-            }
-          })
+          Swal.fire("Please Select Different Customer id", "error");
         }
       }
       else {
-        Swal.fire("Please Select Different Customer id", "error");
+        Swal.fire("Please Select CoBorrower Customer Id", "error");
       }
-    }
-    else {
+
+    } else {
       Swal.fire("Please Select Customer Id", "error");
     }
     this.resetCoBorrower()
@@ -1604,7 +1642,32 @@ export class CashCreditMasterComponent implements OnInit {
       AC_NAME: formVal.CAC_NAME,
       id: this.CoBorrowerID
     }
-    this.multiCoBorrower[index] = object;
+    if (formVal.AC_CUSTID != "") {
+      if (object.CAC_CUSTID != undefined) {
+        if (this.id != this.Cid) {
+          if (this.multiCoBorrower.length == 0) {
+            this.multiCoBorrower[index] = object;
+          }
+          else {
+            if (this.multiCoBorrower.find(ob => ob['CAC_CUSTID'] === formVal.CAC_CUSTID)) {
+              Swal.fire("This Customer is Already CoBorrower", "error");
+            } else {
+              this.multiCoBorrower[index] = object;
+            }
+          }
+        }
+        else {
+          Swal.fire("Please Select Different Customer id", "error");
+        }
+      }
+      else {
+        Swal.fire("Please Select CoBorrower Customer Id", "error");
+      }
+
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
+ 
     this.resetCoBorrower()
   }
 
@@ -1623,7 +1686,8 @@ export class CashCreditMasterComponent implements OnInit {
 
   getInterest(AC_INTCATA) {
     this.temp = AC_INTCATA
-    this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
+    this.InterestRateForLoanandCC.intData().subscribe(data => {
+    // this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
       this.date = this.angForm.controls['AC_OPDATE'].value
       if (data != typeof (undefined)) {
         if (this.date == data[0].EFFECT_DATE) {
@@ -1675,6 +1739,7 @@ export class CashCreditMasterComponent implements OnInit {
   }
 
   getExpiryDate() {
+    debugger
     let months = this.angForm.controls['AC_MONTHS'].value
     if (this.angForm.controls['AC_OPEN_OLD_DATE'].value != '') {
       var expiryDt = new Date(this.angForm.controls['AC_OPEN_OLD_DATE'].value)
@@ -1682,8 +1747,9 @@ export class CashCreditMasterComponent implements OnInit {
       var month = new Date(expiryDt).getMonth();
       var day = new Date(expiryDt).getDate();
       var expiry = month + Number(months)
-      var date = new Date(year, expiry, day);
-      var expiryDate = this.datePipe.transform(date, "dd-MM-yyyy")
+      var date1 = new Date(year, expiry, day);
+      var date = moment(date1, 'YYYY-MM-DD').add(1, 'days');
+      var expiryDate = this.datePipe.transform(date, "yyyy-MM-dd")
       this.angForm.patchValue({
         AC_EXPIRE_DATE: expiryDate
       })
@@ -1694,8 +1760,9 @@ export class CashCreditMasterComponent implements OnInit {
       var month = new Date(expiryDt).getMonth();
       var day = new Date(expiryDt).getDate();
       var expiry = month + Number(months)
-      var date = new Date(year, expiry, day);
-      var expiryDate = this.datePipe.transform(date, "dd-MM-yyyy")
+      var date1 = new Date(year, expiry, day);
+      var date = moment(date1, 'YYYY-MM-DD');
+      var expiryDate = this.datePipe.transform(date, "yyyy-MM-dd")
       this.angForm.patchValue({
         AC_EXPIRE_DATE: expiryDate
       })

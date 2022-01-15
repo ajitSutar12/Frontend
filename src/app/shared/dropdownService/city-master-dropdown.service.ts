@@ -26,4 +26,16 @@ export class cityMasterService {
                 return this.cityMasterObject;
             }));
     }
+
+    public getcityList1() {
+        this.cityMasterObject = [];
+        return this.http.get<any>(this.url + '/city-master')
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label:element.CITY_NAME, value: `${element.id}` };
+                    this.cityMasterObject.push(obj)
+                });
+                return this.cityMasterObject;
+            }));
+    }
 }

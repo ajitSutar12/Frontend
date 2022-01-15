@@ -6,7 +6,8 @@
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
+                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm"
+                    (ngSubmit)="submit($event)">
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group form-primary form-static-label">
@@ -123,7 +124,6 @@
                                                                     [ngClass]="{'form-submitted': formSubmitted}"
                                                                     pattern="^[A-Z\./ -]+$"
                                                                     title="Input allowed only  A-Z  - / . (Space)"
-                                                                  
                                                                     formControlName="AC_SHORT_NAME" required>
                                                                 <label for="AC_SHORT_NAME">A/c Short Name<sub
                                                                         class="required">* </sub></label>
@@ -211,7 +211,6 @@
                                                                     class="form-control" placeholder=" "
                                                                     id="AC_RENEW_DATE"
                                                                     max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                
                                                                     formControlName="AC_RENEW_DATE"
                                                                     (ngModelChange)="getExpiryDate()">
                                                                 <label for="AC_RENEW_DATE">Renewal Date</label>
@@ -390,7 +389,6 @@
                                                                 <ng-select [ngClass]="'ng-select'"
                                                                     [options]="AgentScheme" [(ngModel)]="agentno"
                                                                     (selected)="getAgentAC(agentno)" [multiple]="false"
-                                                                   
                                                                     placeholder="Agent Scheme "
                                                                     formControlName="AGENT_ACTYPE">
                                                                 </ng-select>
@@ -409,7 +407,7 @@
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <ng-select [ngClass]="'ng-select'" [options]="agentCode"
-                                                                [ngClass]="{'form-submitted': formSubmitted}"
+                                                                    [ngClass]="{'form-submitted': formSubmitted}"
                                                                     [multiple]="false" placeholder="Agent Code *"
                                                                     formControlName="AGENT_ACNO">
                                                                 </ng-select>
@@ -1006,8 +1004,8 @@
                                                                                     id="AC_NNAME"
                                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                    formControlName="AC_NNAME" required
-                                                                                  >
+                                                                                    formControlName="AC_NNAME"
+                                                                                    [ngClass]="{'form-submitted': formSubmitted}">
                                                                                 <label for="AC_NNAME">Name <sub
                                                                                         class="required">*
                                                                                     </sub></label>
@@ -1198,8 +1196,8 @@
                                                                             class="form-group form-primary form-static-label">
                                                                             <ng-select [ngClass]="'ng-select'"
                                                                                 [options]="city" [multiple]="false"
-                                                                                placeholder="City *" required
-                                                                                
+                                                                                placeholder="City *"
+                                                                                [ngClass]="{'form-submitted': formSubmitted}"
                                                                                 formControlName="AC_NCTCODE">
                                                                             </ng-select>
                                                                         </div>
@@ -1486,7 +1484,7 @@
                     <div class="card-footer">
                         <div class="row" style="float: right;">
                             <div class="col-sm">
-                                <button  class="btn btn-primary ripple light"  *ngIf="showButton">
+                                <button class="btn btn-primary ripple light" *ngIf="showButton">
                                     Add
                                 </button>
                                 <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
@@ -1498,9 +1496,8 @@
                         </div>
                     </div>
                 </form>
-               
             </div>
-           
+
         </div>
     </div>
 </div>

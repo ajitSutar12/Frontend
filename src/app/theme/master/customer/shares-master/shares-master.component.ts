@@ -106,7 +106,6 @@ interface ShareMaster {
 
 export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
-  formSubmitted1 =false;
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -213,7 +212,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private fb: FormBuilder) {
     this.setdate();
     // this.datemax =new Date() ;
-    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
   }
 
   ngOnInit(): void {
@@ -476,7 +475,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   getCustomer(id) {
     this.getSystemParaDate()
     this.customerIdService.getFormData(id).subscribe(data => {
-      console.log('get customer', data)
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
       if (data.castMaster == null) {
@@ -495,39 +493,39 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_MOBNO: data.AC_MOBILENO,
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,
-        AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
-        AC_HONO: data.custAddress[0].AC_HONO,
-        AC_WARD: data.custAddress[0].AC_WARD,
-        AC_ADDR: data.custAddress[0].AC_ADDR,
-        AC_GALLI: data.custAddress[0].AC_GALLI,
-        AC_AREA: data.custAddress[0].AC_AREA,
-        AC_CTCODE: data.custAddress[0].city.CITY_NAME,
-        AC_PIN: data.custAddress[0].AC_PIN,
+        AC_ADDFLAG: data.custAddress[0]?.AC_ADDFLAG,
+        AC_HONO: data.custAddress[0]?.AC_HONO,
+        AC_WARD: data.custAddress[0]?.AC_WARD,
+        AC_ADDR: data.custAddress[0]?.AC_ADDR,
+        AC_GALLI: data.custAddress[0]?.AC_GALLI,
+        AC_AREA: data.custAddress[0]?.AC_AREA,
+        AC_CTCODE: data.custAddress[0].city?.CITY_NAME,
+        AC_PIN: data.custAddress[0]?.AC_PIN,
       })
       if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {
         this.angForm.patchValue({
-          AC_THONO: data.custAddress[1].AC_HONO,
-          AC_TWARD: data.custAddress[1].AC_WARD,
-          AC_TADDR: data.custAddress[1].AC_ADDR,
-          AC_TGALLI: data.custAddress[1].AC_GALLI,
-          AC_TAREA: data.custAddress[1].AC_AREA,
-          AC_TCTCODE: data.custAddress[1].AC_CTCODE,
-          AC_TPIN: data.custAddress[1].AC_PIN,
+          AC_THONO: data.custAddress[1]?.AC_HONO,
+          AC_TWARD: data.custAddress[1]?.AC_WARD,
+          AC_TADDR: data.custAddress[1]?.AC_ADDR,
+          AC_TGALLI: data.custAddress[1]?.AC_GALLI,
+          AC_TAREA: data.custAddress[1]?.AC_AREA,
+          AC_TCTCODE: data.custAddress[1]?.AC_CTCODE,
+          AC_TPIN: data.custAddress[1]?.AC_PIN,
         })
       }
     })
   }
 
-  //disabledate on keyup
-  disabledate(data: any) {
-    if (data != "") {
-      if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
-        (document.getElementById("AC_OPDATE") as HTMLInputElement).value = ""
+  // //disabledate on keyup
+  // disabledate(data: any) {
+  //   if (data != "") {
+  //     if (data > this.datemax) {
+  //       Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+  //       (document.getElementById("AC_OPDATE") as HTMLInputElement).value = ""
 
-      }
-    }
-  }
+  //     }
+  //   }
+  // }
   //set open date, appointed date and expiry date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -580,6 +578,21 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     })
   }
+
+  // getRetirementDate() {
+  //   this.sharesSchemeService.getFormData(this.schemeCode).subscribe(data => {
+  //     var joinDate = new Date(this.angForm.controls['AC_JOIN_DATE'].value)
+  //     var year = joinDate.getFullYear();
+  //     var month = new Date(joinDate).getMonth();
+  //     var day = new Date(joinDate).getDate();
+  //     var retire = year + Number(data.RETIREMENT_YEARS)
+  //     var date = new Date(retire, month, day);
+  //     var retireDate = this.datePipe.transform(date, "dd-MM-yyyy")
+  //     this.angForm.patchValue({
+  //       AC_RETIRE_DATE: retireDate
+  //     })
+  //   })
+  // }
 
   createForm() {
     this.angForm = this.fb.group({
@@ -672,7 +685,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
 
       const formVal = this.angForm.value;
       if (formVal.AC_ADDFLAG == true) {
@@ -680,6 +692,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       else if (formVal.AC_ADDFLAG == false) {
         this.addType = 'T'
+      }
+      if (this.angForm.controls['AC_TCTCODE'].value == "") {
+        formVal.AC_TCTCODE = null
       }
       //get bank code and branch code from session
       let data: any = localStorage.getItem('user');
@@ -824,6 +839,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     else if (data.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
+    if (this.angForm.controls['AC_TCTCODE'].value == "") {
+      data['AC_TCTCODE'] = null
+    }
     data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
     data['id'] = this.updateID;
@@ -847,6 +865,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = false;
     this.multiNominee = []
     this.customerDoc = []
+    this.tempAddress = true
     this.resetForm();
   }
 
@@ -968,7 +987,11 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           Swal.fire("Please Insert Mandatory Record For Nominee");
         }
         else {
-          this.multiNominee.push(object);
+          if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
+            Swal.fire("This Nominee is Already Exists", "error");
+          } else {
+            this.multiNominee.push(object);
+          }
         }
       }
       else {
@@ -980,6 +1003,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.resetNominee()
   }
+
   editNominee(id) {
     this.nomineeIndex = id
     this.nomineeID = this.multiNominee[id].id;
@@ -1020,7 +1044,32 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NPIN: formVal.AC_NPIN,
       id: this.nomineeID
     }
-    this.multiNominee[index] = object;
+
+    if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Nominee");
+    }
+    else if (formVal.AC_NNAME != "") {
+      if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+        Swal.fire("Please Insert Mandatory Record For Nominee");
+      } else if (formVal.AC_NRELA != "") {
+        if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
+          Swal.fire("Please Insert Mandatory Record For Nominee");
+        }
+        else {
+          if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
+            Swal.fire("This Nominee is Already Exists", "error");
+          } else {
+            this.multiNominee[index] = object;
+          }
+        }
+      }
+      else {
+        this.multiNominee[index] = object;
+      }
+    }
+    else {
+      this.multiNominee[index] = object;
+    }
     this.resetNominee()
   }
 

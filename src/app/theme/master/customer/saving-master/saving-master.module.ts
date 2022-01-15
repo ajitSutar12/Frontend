@@ -4,7 +4,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SavingMasterRoutingModule } from './saving-master-routing.module';
 import { SavingMasterComponent } from './saving-master.component';
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
 
@@ -28,6 +28,7 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { NgSelectModule } from '@ng-select/ng-select';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -41,11 +42,12 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
     SavingMasterRoutingModule,
     DataTablesModule,
     NgbModule,
-    SelectModule,
+    // SelectModule,
     FormsModule, ReactiveFormsModule,
     CustomerIdModule,
     PerfectScrollbarModule,
-    SharedModule //modal
+    SharedModule, //modal
+    NgSelectModule
   ],
   declarations: [SavingMasterComponent],
   providers: [
@@ -63,6 +65,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
     OperationMasterDropdownService,
     IntrestCategoryMasterDropdownService,
     MinimumBalanceMasterDropdownService,
+ 
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,

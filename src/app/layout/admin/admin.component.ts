@@ -270,7 +270,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     let resultArray = result.RoleDefine[0].Role.Rolehaspermission.Menus;
 
     this.barnchName = result.branch.NAME;
-    this.bankName   = result.branch.syspara[0].BANK_NAME;
+    this.bankName   = result.branch.syspara.BANK_NAME;
     this.profilePath = environment.base_url+'/'+result.PROFILE_PATH;
     //console.log(resultArray);
 

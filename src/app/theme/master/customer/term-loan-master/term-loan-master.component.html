@@ -221,7 +221,7 @@
                                                             [multiple]="false" placeholder="Interest Category *"
                                                             required title="Compulsory Selection"
                                                             formControlName="AC_INTCATA" [(ngModel)]="int_category"
-                                                            (selected)="getInterest(int_category)"
+                                                            (selected)="getInterest($event)"
                                                             [ngClass]="{'form-submitted': formSubmitted}">
                                                         </ng-select>
                                                     </div>

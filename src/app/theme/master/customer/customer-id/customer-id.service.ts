@@ -28,6 +28,10 @@ export class CustomerIdService {
     getFormData(id: any): Observable<any> {
         return this.http.get(this.url + '/customer-id/' + id).pipe(catchError(this.handleError));
     }
+
+    getData(): Observable<any> {
+        return this.http.get(this.url + '/customer-id/').pipe(catchError(this.handleError));
+    }
     //Updation Operation
     updateData(data): Observable<any> {
         return this.http.put(this.url + '/customer-id/update', data);

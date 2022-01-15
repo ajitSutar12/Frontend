@@ -467,7 +467,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_MONTHS: ['', [Validators.pattern, Validators.required]],
       AC_SCHMAMT: ['', [Validators.pattern, Validators.required]],
       AGENT_ACTYPE: ['', [Validators.required]],
-      AGENT_ACNO: ['', [Validators.required]],
+      AGENT_ACNO: ['', ],
       AC_HONO: ['', [Validators.pattern]],
       AC_WARD: ['', [Validators.pattern]],
       AC_GALLI: ['', [Validators.pattern]],
@@ -631,37 +631,37 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
-        AC_CAST: data.AC_CAST,
-        AC_OCODE: data.AC_OCODE,
-        AC_MEMBTYPE: data.AC_MEMBTYPE,
-        AC_MEMBNO: data.AC_MEMBNO,
+        AC_MEMBTYPE: data?.AC_MEMBTYPE,
+        AC_MEMBNO: data?.AC_MEMBNO,
+        AC_CAST: data.castMaster.NAME,
+        AC_OCODE: data.occupMaster.NAME,
         AC_BIRTH_DT: data.AC_BIRTH_DT,
         AC_MBDATE: data.AC_BIRTH_DT,
         AC_PANNO: data.AC_PANNO,
         AC_IS_RECOVERY: data.AC_IS_RECOVERY,
 
-        AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
-        AC_HONO: data.custAddress[0].AC_HONO,
-        AC_WARD: data.custAddress[0].AC_WARD,
-        AC_ADDR: data.custAddress[0].AC_ADDR,
-        AC_GALLI: data.custAddress[0].AC_GALLI,
-        AC_AREA: data.custAddress[0].AC_AREA,
-        AC_CTCODE: data.custAddress[0].AC_CTCODE,
-        AC_PIN: data.custAddress[0].AC_PIN,
-        AC_MOBNO: data.custAddress[0].AC_MOBILENO,
-        AC_PHNO: data.custAddress[0].AC_PHONE_RES,
-        AC_EMAIL: data.custAddress[0].AC_EMAILID,
+        AC_ADDFLAG: data.custAddress[0]?.AC_ADDFLAG,
+        AC_HONO: data.custAddress[0]?.AC_HONO,
+        AC_WARD: data.custAddress[0]?.AC_WARD,
+        AC_ADDR: data.custAddress[0]?.AC_ADDR,
+        AC_GALLI: data.custAddress[0]?.AC_GALLI,
+        AC_AREA: data.custAddress[0]?.AC_AREA,
+        AC_CTCODE: data.custAddress[0].city?.CITY_NAME,
+        AC_PIN: data.custAddress[0]?.AC_PIN,
+        AC_MOBNO: data.custAddress[0]?.AC_MOBILENO,
+        AC_PHNO: data.custAddress[0]?.AC_PHONE_RES,
+        AC_EMAIL: data.custAddress[0]?.AC_EMAILID,
 
       })
       if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {
         this.angForm.patchValue({
-          AC_THONO: data.custAddress[1].AC_HONO,
-          AC_TWARD: data.custAddress[1].AC_WARD,
-          AC_TADDR: data.custAddress[1].AC_ADDR,
-          AC_TGALLI: data.custAddress[1].AC_GALLI,
-          AC_TAREA: data.custAddress[1].AC_AREA,
-          AC_TCTCODE: data.custAddress[1].AC_CTCODE,
-          AC_TPIN: data.custAddress[1].AC_PIN,
+          AC_THONO: data.custAddress[1]?.AC_HONO,
+          AC_TWARD: data.custAddress[1]?.AC_WARD,
+          AC_TADDR: data.custAddress[1]?.AC_ADDR,
+          AC_TGALLI: data.custAddress[1]?.AC_GALLI,
+          AC_TAREA: data.custAddress[1]?.AC_AREA,
+          AC_TCTCODE: data.custAddress[1]?.AC_CTCODE,
+          AC_TPIN: data.custAddress[1]?.AC_PIN,
         })
       }
     })
@@ -669,7 +669,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
   //get account no according scheme for introducer
   getIntroducer(acno) {
-    switch (acno) {
+    switch (acno.name) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
@@ -761,18 +761,19 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   // Method to insert data into database through NestJS
   submit(event) {
-    debugger
     event.preventDefault();
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
       const formVal = this.angForm.value;
       if (formVal.AC_ADDFLAG == true) {
         this.addType = 'P'
       }
       else if (formVal.AC_ADDFLAG == false) {
         this.addType = 'T'
+      }
+      if (this.angForm.controls['AC_TCTCODE'].value == "") {
+        formVal.AC_TCTCODE = null
       }
       //get bank code and branch code from session
       let data: any = localStorage.getItem('user');
@@ -795,9 +796,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_RENEW_DATE': formVal.AC_RENEW_DATE,
         'AC_EXPDT': formVal.AC_EXPDT,
         'AC_OCODE': formVal.AC_OCODE,
-        'AC_CATG': formVal.AC_CATG,
-        'AC_OPR_CODE': formVal.AC_OPR_CODE,
-        'AC_INTCATA': formVal.AC_INTCATA,
+        'AC_CATG': parseInt(formVal.AC_CATG),
+        'AC_OPR_CODE': parseInt(formVal.AC_OPR_CODE),
+        'AC_INTCATA': parseInt(formVal.AC_INTCATA),
         'AC_MONTHS': formVal.AC_MONTHS,
         'AC_SCHMAMT': formVal.AC_SCHMAMT,
         'AGENT_ACTYPE': formVal.AGENT_ACTYPE,
@@ -840,7 +841,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
           dtInstance.ajax.reload()
         });
 
-
       }, (error) => {
         console.log(error)
       })
@@ -849,7 +849,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.multiNominee = []
       this.multiJointAC = []
       this.customerDoc = []
-
     }
   }
   //Method for append data into fields
@@ -858,7 +857,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.updateShow = true;
     this.newbtnShow = true;
     this.PigmyAccountMasterService.getFormData(id).subscribe(data => {
-      console.log('edit', data)
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       this.multiNominee = data.nomineeDetails
@@ -878,9 +876,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         AC_MEMBNO: data.AC_MEMBNO,
         'AC_EXPDT': data.AC_EXPDT,
         'AC_OCODE': data.AC_OCODE,
-        'AC_CATG': data.AC_CATG,
-        AC_OPR_CODE: data.AC_OPR_CODE,
-        AC_INTCATA: data.AC_INTCATA,
+        'AC_CATG': data.AC_CATG.toString(),
+        AC_OPR_CODE: data.AC_OPR_CODE.toString(),
+        AC_INTCATA: data.AC_INTCATA.toString(),
 
         'AC_MONTHS': data.AC_MONTHS,
         'AC_SCHMAMT': data.AC_SCHMAMT,
@@ -920,6 +918,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     }
     else if (data.AC_ADDFLAG == false) {
       this.addType = 'T'
+    }
+    if (this.angForm.controls['AC_TCTCODE'].value == "") {
+      data['AC_TCTCODE'] = null
     }
     data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
@@ -981,6 +982,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.createForm();
     this.JointAccountsTrue = false
     this.nomineeTrue = false
+    this.tempAddress = true
   }
   ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -1024,6 +1026,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.multiNominee = []
     this.multiJointAC = []
     this.customerDoc = []
+    this.tempAddress = true
     this.resetForm();
   }
 
@@ -1087,7 +1090,26 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
-    this.multiJointAC[index] = object;
+    if (object.JOINT_AC_CUSTID != undefined) {
+      if (this.id != this.jointID) {
+        if (this.multiJointAC.length == 0) {
+          this.multiJointAC[index] = object
+        }
+        else {
+          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
+            Swal.fire("This Customer is Already Joint Account Holder", "error");
+          }
+          else {
+            this.multiJointAC[index] = object
+          }
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+      }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
     this.resetJointAC()
   }
   delJointAc(id) {

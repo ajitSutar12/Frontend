@@ -259,6 +259,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
               data: []
             });
           });
+
       },
       columnDefs: [{
         targets: '_all',
@@ -423,35 +424,42 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
-      // this.ageCalculator(data.AC_BIRTH_DT);
+      if (data.castMaster == null) {
+        data.castMaster = ""
+      }
+      if (data.occupMaster == null) {
+        data.occupMaster = ""
+      }
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
-        AC_CAST: data.AC_CAST,
-        AC_OCODE: data.AC_OCODE,
-        AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_MEMBTYPE: data.AC_MEMBTYPE,
+        AC_MEMBNO: data.AC_MEMBNO,
+        AC_CAST: data.castMaster.NAME,
+        AC_OCODE: data.occupMaster.NAME,
+        AC_BIRTH_DT: data.AC_BIRTH_DT,
         AC_MOBNO: data.AC_MOBILENO,
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,
-        AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
-        AC_HONO: data.custAddress[0].AC_HONO,
-        AC_WARD: data.custAddress[0].AC_WARD,
-        AC_ADDR: data.custAddress[0].AC_ADDR,
-        AC_GALLI: data.custAddress[0].AC_GALLI,
-        AC_AREA: data.custAddress[0].AC_AREA,
-        AC_CTCODE: data.custAddress[0].AC_CTCODE,
-        AC_PIN: data.custAddress[0].AC_PIN,
+        AC_ADDFLAG: data.custAddress[0]?.AC_ADDFLAG,
+        AC_HONO: data.custAddress[0]?.AC_HONO,
+        AC_WARD: data.custAddress[0]?.AC_WARD,
+        AC_ADDR: data.custAddress[0]?.AC_ADDR,
+        AC_GALLI: data.custAddress[0]?.AC_GALLI,
+        AC_AREA: data.custAddress[0]?.AC_AREA,
+        AC_CTCODE: data.custAddress[0].city?.CITY_NAME,
+        AC_PIN: data.custAddress[0]?.AC_PIN,
       })
-      if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {
+      if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'T') {
         this.angForm.patchValue({
-          AC_THONO: data.custAddress[1].AC_HONO,
-          AC_TWARD: data.custAddress[1].AC_WARD,
-          AC_TADDR: data.custAddress[1].AC_ADDR,
-          AC_TGALLI: data.custAddress[1].AC_GALLI,
-          AC_TAREA: data.custAddress[1].AC_AREA,
-          AC_TCTCODE: data.custAddress[1].AC_CTCODE,
-          AC_TPIN: data.custAddress[1].AC_PIN,
+          AC_THONO: data.custAddress[1]?.AC_HONO,
+          AC_TWARD: data.custAddress[1]?.AC_WARD,
+          AC_TADDR: data.custAddress[1]?.AC_ADDR,
+          AC_TGALLI: data.custAddress[1]?.AC_GALLI,
+          AC_TAREA: data.custAddress[1]?.AC_AREA,
+          AC_TCTCODE: data.custAddress[1]?.AC_CTCODE,
+          AC_TPIN: data.custAddress[1]?.AC_PIN,
         })
       }
     })
@@ -559,7 +567,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   //get account no according scheme for introducer
   getIntroducer(acno) {
-    switch (acno) {
+    switch (acno.name) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
           this.introducerACNo = data;
@@ -638,82 +646,88 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.schemeCode = value.name
   }
   // Method to insert data into database through NestJS
-  submit() {
+  submit(event) {
+    event.preventDefault();
     this.formSubmitted = true;
-    const formVal = this.angForm.value;
-    if (formVal.AC_ADDFLAG == true) {
-      this.addType = 'P'
-    }
-    else if (formVal.AC_ADDFLAG == false) {
-      this.addType = 'T'
-    }
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.CODE;
-    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
-    const dataToSend = {
-      'branchCode': branchCode,
-      'bankCode': bankCode,
-      'schemeCode': this.schemeCode,
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_TYPE': formVal.AC_TYPE,
-      'AC_PROPRITOR_NAME': formVal.AC_PROPRITOR_NAME,
-      'AC_NO': formVal.AC_NO,
-      'AC_CATG': formVal.AC_CATG,
-      'AC_BALCATG': formVal.AC_BALCATG,
-      'AC_OPR_CODE': formVal.AC_OPR_CODE,
-      'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_INTCATA': formVal.AC_INTCATA,
-      'AC_OPDATE': formVal.AC_OPDATE,
-      'AC_NAME': formVal.AC_NAME,
-      'AC_SCHMAMT': formVal.AC_SCHMAMT,
-      'REF_ACNO': formVal.REF_ACNO,
-      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
-      //temp address 
-      AC_ADDFLAG: formVal.AC_ADDFLAG,
-      AC_ADDTYPE: this.addType,
-      AC_THONO: formVal.AC_THONO,
-      AC_TWARD: formVal.AC_TWARD,
-      AC_TADDR: formVal.AC_TADDR,
-      AC_TGALLI: formVal.AC_TGALLI,
-      AC_TAREA: formVal.AC_TAREA,
-      AC_TCTCODE: formVal.AC_TCTCODE,
-      AC_TPIN: formVal.AC_TPIN,
-      //minor and introducer
-      // 'AC_MINOR': formVal.AC_MINOR,
-      // 'AC_MBDATE': formVal.AC_MBDATE,
-      // 'AC_GRDNAME': formVal.AC_GRDNAME,
-      // 'AC_GRDRELE': formVal.AC_GRDRELE,
-      'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
-      'AC_INTROID': formVal.AC_INTROID,
-      'AC_INTRACNO': formVal.AC_INTRACNO,
-      'AC_INTRNAME': formVal.AC_INTRNAME,
-      'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
-      //nominee
-      'NomineeData': this.multiNominee,
-      //Joint Account
-      'JointAccountData': this.multiJointAC,
-      //Attorney
-      'PowerOfAttorneyData': this.multiAttorney
-    }
-    this.currentAccountMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.formSubmitted = false;
-      // to reload after insertion of data
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
 
-    //To clear form
-    this.resetForm();
-    this.multiNominee = []
-    this.multiJointAC = []
-    this.multiAttorney = []
-    this.customerDoc = []
+    if (this.angForm.valid) {
+      const formVal = this.angForm.value;
+      if (formVal.AC_ADDFLAG == true) {
+        this.addType = 'P'
+      }
+      else if (formVal.AC_ADDFLAG == false) {
+        this.addType = 'T'
+      }
+      if (this.angForm.controls['AC_TCTCODE'].value == "") {
+        formVal.AC_TCTCODE = null
+      }
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.CODE;
+      let bankCode = Number(result.branch.syspara[0].BANK_CODE)
+      const dataToSend = {
+        'branchCode': branchCode,
+        'bankCode': bankCode,
+        'schemeCode': this.schemeCode,
+        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+        'AC_TYPE': formVal.AC_TYPE,
+        'AC_PROPRITOR_NAME': formVal.AC_PROPRITOR_NAME,
+        'AC_CATG': parseInt(formVal.AC_CATG),
+        'AC_BALCATG': parseInt(formVal.AC_BALCATG),
+        'AC_OPR_CODE': parseInt(formVal.AC_OPR_CODE),
+        'AC_CUSTID': parseInt(formVal.AC_CUSTID),
+        'AC_INTCATA': parseInt(formVal.AC_INTCATA),
+        'AC_OPDATE': formVal.AC_OPDATE,
+        'AC_NAME': formVal.AC_NAME,
+        'AC_SCHMAMT': formVal.AC_SCHMAMT,
+        'REF_ACNO': formVal.REF_ACNO,
+        'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+        //temp address 
+        AC_ADDFLAG: formVal.AC_ADDFLAG,
+        AC_ADDTYPE: this.addType,
+        AC_THONO: formVal.AC_THONO,
+        AC_TWARD: formVal.AC_TWARD,
+        AC_TADDR: formVal.AC_TADDR,
+        AC_TGALLI: formVal.AC_TGALLI,
+        AC_TAREA: formVal.AC_TAREA,
+        AC_TCTCODE: formVal.AC_TCTCODE,
+        AC_TPIN: formVal.AC_TPIN,
+        //minor and introducer
+        // 'AC_MINOR': formVal.AC_MINOR,
+        // 'AC_MBDATE': formVal.AC_MBDATE,
+        // 'AC_GRDNAME': formVal.AC_GRDNAME,
+        // 'AC_GRDRELE': formVal.AC_GRDRELE,
+        'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
+        'AC_INTROID': formVal.AC_INTROID,
+        'AC_INTRACNO': formVal.AC_INTRACNO,
+        'AC_INTRNAME': formVal.AC_INTRNAME,
+        'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+        //nominee
+        'NomineeData': this.multiNominee,
+        //Joint Account
+        'JointAccountData': this.multiJointAC,
+        //Attorney
+        'PowerOfAttorneyData': this.multiAttorney
+      }
+      this.currentAccountMasterService.postData(dataToSend).subscribe(data => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+        // to reload after insertion of data
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+        console.log(error)
+      })
+
+      //To clear form
+      this.resetForm();
+      this.multiNominee = []
+      this.multiJointAC = []
+      this.multiAttorney = []
+      this.customerDoc = []
+    }
   }
 
   //Method for append data into fields
@@ -735,11 +749,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'AC_TYPE': data.AC_TYPE,
         'AC_NO': data.AC_NO,
         'AC_PROPRITOR_NAME': data.AC_PROPRITOR_NAME,
-        'AC_CATG': data.AC_CATG,
-        'AC_BALCATG': data.AC_BALCATG,
-        'AC_OPR_CODE': data.AC_OPR_CODE,
-        // 'AC_CUSTID': data.AC_CUSTID,
-        'AC_INTCATA': data.AC_INTCATA,
+        'AC_CATG': data.AC_CATG.toString(),
+        'AC_BALCATG': data.AC_BALCATG.toString(),
+        'AC_OPR_CODE': data.AC_OPR_CODE.toString(),
+        'AC_INTCATA': data.AC_INTCATA.toString(),
         'AC_OPDATE': data.AC_OPDATE,
         'AC_SCHMAMT': data.AC_SCHMAMT,
         'REF_ACNO': data.REF_ACNO,
@@ -767,11 +780,13 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     else if (data.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
+    if (this.angForm.controls['AC_TCTCODE'].value == "") {
+      data['AC_TCTCODE'] = null
+    }
     data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
     data['JointAccountData'] = this.multiJointAC
     data['PowerOfAttorneyData'] = this.multiAttorney
-    console.log(" data['PowerOfAttorneyData']", data['PowerOfAttorneyData'])
     data['id'] = this.updateID;
     this.currentAccountMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
@@ -797,6 +812,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.multiJointAC = []
     this.multiAttorney = []
     this.customerDoc = []
+    this.tempAddress = true
     this.resetForm();
   }
 
@@ -908,6 +924,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
 
   //Nominee  
+
   addNominee() {
     const formVal = this.angForm.value;
     var object = {
@@ -934,7 +951,11 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           Swal.fire("Please Insert Mandatory Record For Nominee");
         }
         else {
-          this.multiNominee.push(object);
+          if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
+            Swal.fire("This Nominee is Already Exists", "error");
+          } else {
+            this.multiNominee.push(object);
+          }
         }
       }
       else {
@@ -987,7 +1008,32 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       AC_NPIN: formVal.AC_NPIN,
       id: this.nomineeID
     }
-    this.multiNominee[index] = object;
+
+    if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Nominee");
+    }
+    else if (formVal.AC_NNAME != "") {
+      if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+        Swal.fire("Please Insert Mandatory Record For Nominee");
+      } else if (formVal.AC_NRELA != "") {
+        if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
+          Swal.fire("Please Insert Mandatory Record For Nominee");
+        }
+        else {
+          if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
+            Swal.fire("This Nominee is Already Exists", "error");
+          } else {
+            this.multiNominee[index] = object;
+          }
+        }
+      }
+      else {
+        this.multiNominee[index] = object;
+      }
+    }
+    else {
+      this.multiNominee[index] = object;
+    }
     this.resetNominee()
   }
 
@@ -1017,6 +1063,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       })
     })
   }
+
   addJointAcccount() {
     const formVal = this.angForm.value;
     var object = {
@@ -1046,6 +1093,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
     this.resetJointAC()
   }
+
   editJointAc(id) {
     this.jointIndex = id
     this.jointACID = this.multiJointAC[id].id;
@@ -1053,11 +1101,12 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.jointShowButton = false;
     this.jointUpdateShow = true;
     this.angForm.patchValue({
-      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID,
+      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
+
   updateJointAcccount() {
     let index = this.jointIndex;
     this.jointShowButton = true;
@@ -1069,9 +1118,29 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
-    this.multiJointAC[index] = object;
+    if (object.JOINT_AC_CUSTID != undefined) {
+      if (this.id != this.jointID) {
+        if (this.multiJointAC.length == 0) {
+          this.multiJointAC[index] = object
+        }
+        else {
+          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
+            Swal.fire("This Customer is Already Exists", "error");
+          }
+          else {
+            this.multiJointAC[index] = object
+          }
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+      }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
     this.resetJointAC()
   }
+
   delJointAc(id) {
     this.multiJointAC.splice(id, 1)
   }
@@ -1100,7 +1169,11 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
         }
         else {
-          this.multiAttorney.push(object);
+          if (this.multiAttorney.find(ob => ob['ATTERONEY_NAME'].toUpperCase() === formVal.ATTERONEY_NAME.toUpperCase())) {
+            Swal.fire("This Attorney is Already Exists", "error");
+          } else {
+            this.multiAttorney.push(object);
+          }
         }
       }
       else {
@@ -1152,7 +1225,31 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       DATE_EXPIRY: formVal.DATE_EXPIRY,
       id: this.attorneyID
     }
-    this.multiAttorney[index] = object;
+
+    if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+    } else if (formVal.ATTERONEY_NAME != "") {
+      if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
+        Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+      } else if (formVal.DATE_APPOINTED != "") {
+        if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
+          Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+        }
+        else {
+          if (this.multiAttorney.find(ob => ob['ATTERONEY_NAME'].toUpperCase() === formVal.ATTERONEY_NAME.toUpperCase())) {
+            Swal.fire("This Attorney is Already Exists", "error");
+          } else {
+            this.multiAttorney[index] = object;
+          }
+        }
+      }
+      else {
+        this.multiAttorney[index] = object;
+      }
+    }
+    else {
+      this.multiAttorney[index] = object;
+    }
     this.resetAttorney()
   }
 

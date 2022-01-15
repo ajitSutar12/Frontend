@@ -36,8 +36,8 @@ export class InterestRateForLoanandCCService {
         return this.http.delete(this.url + '/interest-rate-for-loan-and-cc/delete/' + id).pipe(catchError(this.handleError));
     }
 
-    intData(INT_CATEGORY: any): Observable<any> {
-        return this.http.get(this.url + '/interest-rate-for-loan-and-cc/int/' + INT_CATEGORY).pipe(catchError(this.handleError));
+    intData(): Observable<any> {
+        return this.http.get(this.url + '/interest-rate-for-loan-and-cc/int').pipe(catchError(this.handleError));
     }
 }
 

@@ -97,14 +97,14 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="USER_NAME" maxlength="2000" class="form-control"
-                                        placeholder=" " id="label-name" required="" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="USER_NAME">
+                                        placeholder=" " id="label-name" required="" pattern="^[A-Za-z0-9\./ -]+$"
+                                        title="Input allowed only  A-Z a-z 0-9  - / . (Space)" formControlName="USER_NAME">
                                     <label for="USER_NAME">User Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['USER_NAME'].invalid && (angForm.controls['USER_NAME'].dirty || angForm.controls['USER_NAME'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['USER_NAME'].errors?.pattern || angForm.controls['USER_NAME'].errors?.required || angForm.controls['USER_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    This field is required and Input allowed only A-Z a-z 0-9 - / . (Space)
                                 </div>
                             </div>
                         </div>

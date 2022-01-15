@@ -403,7 +403,7 @@
                                                         <ng-select [ngClass]="'ng-select'"
                                                             [options]="SchemeCodeDropdownDropdown" [multiple]="false"
                                                             placeholder="Account Type" formControlName="AC_INTROID"
-                                                            [(ngModel)]="acno" (selected)="getIntroducer(acno)">
+                                                            [(ngModel)]="acno" (selected)="getIntroducer($event)">
                                                         </ng-select>
                                                     </div>
                                                 </div>
@@ -793,7 +793,7 @@
             <div class="card-footer">
                 <div class="row" style="float: right;">
                     <div class="col-sm">
-                        <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+                        <button class="btn btn-primary ripple light" (click)="submit($event)" *ngIf="showButton">
                             Add
                         </button>
                         <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">

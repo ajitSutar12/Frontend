@@ -102,26 +102,26 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-3">
-                                                            <div class="form-group input-group">
-                                                                <span class="border-lable-flt">
-                                                                    <input type="date" name="COMPANY_START_DATE"
-                                                                        class="form-control" placeholder=" "
-                                                                        id="COMPANY_START_DATE"
-                                                                        max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                        formControlName="COMPANY_START_DATE">
-                                                                    <label for="COMPANY_START_DATE">Bank Start
-                                                                        Date<sub class="required">* </sub></label>
-                                                                </span>
-                                                            </div>
-                                                            <div class="form-group form-primary form-static-label"
-                                                                *ngIf="angForm.controls['COMPANY_START_DATE'].invalid && (angForm.controls['COMPANY_START_DATE'].dirty || angForm.controls['COMPANY_START_DATE'].touched)"
-                                                                class="alert alert-danger">
-                                                                <div
-                                                                    *ngIf=" angForm.controls['COMPANY_START_DATE'].errors?.required ">
-                                                                    This field is required
-                                                                </div>
-                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group input-group">
+                                                        <span class="border-lable-flt">
+                                                            <input type="date" name="COMPANY_START_DATE"
+                                                                class="form-control" placeholder=" "
+                                                                id="COMPANY_START_DATE"
+                                                                max="{{datemax | date:'yyyy-MM-dd'}}"
+                                                                formControlName="COMPANY_START_DATE">
+                                                            <label for="COMPANY_START_DATE">Bank Start
+                                                                Date<sub class="required">* </sub></label>
+                                                        </span>
+                                                    </div>
+                                                    <div class="form-group form-primary form-static-label"
+                                                        *ngIf="angForm.controls['COMPANY_START_DATE'].invalid && (angForm.controls['COMPANY_START_DATE'].dirty || angForm.controls['COMPANY_START_DATE'].touched)"
+                                                        class="alert alert-danger">
+                                                        <div
+                                                            *ngIf=" angForm.controls['COMPANY_START_DATE'].errors?.required ">
+                                                            This field is required
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
@@ -535,7 +535,6 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-
 
                                                         <div class="col-sm-5">
                                                             <div class="form-group form-primary form-static-label">
@@ -2135,19 +2134,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-sm-9">
-
-                        </div>
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
-                                [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
-                                [disabled]="angForm.invalid">Update</button> &nbsp;
-                            <button class="btn btn-primary ripple light" *ngIf="newbtnShow"
-                                (click)="addNewData()">Cancel</button>
-                        </div>
-                    </div> -->
+                    
                 </div>
             </form>
 

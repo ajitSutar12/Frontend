@@ -149,6 +149,8 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       NARRATION: ['', [Validators.pattern, Validators.required]],
     });
   }
+  
+  
   // Method to insert data into database through NestJS
   submit(event) {
     event.preventDefault(); 

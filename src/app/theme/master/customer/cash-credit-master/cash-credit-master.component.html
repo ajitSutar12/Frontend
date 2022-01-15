@@ -14,7 +14,7 @@
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" #scheme1
                                     placeholder="Scheme *" required title="Compulsory Selection" [(ngModel)]="code"
                                     (selected)="getScheme(code);getSchemeCode($event)" formControlName="AC_TYPE"
-                                    [ngClass]="{'form-submitted': formSubmitted}" >
+                                    [ngClass]="{'form-submitted': formSubmitted}">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -39,8 +39,7 @@
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
                                     placeholder="Customer ID *" required title="Compulsory Selection"
                                     formControlName="AC_CUSTID" [(ngModel)]="id" (selected)="getCustomer(id)"
-                                    style="width: 90%;"
-                                    [ngClass]="{'form-submitted': formSubmitted}" >
+                                    style="width: 90%;" [ngClass]="{'form-submitted': formSubmitted}">
                                 </ng-select>
                                 <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
                                     (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer"></span>
@@ -115,7 +114,7 @@
                                                                 (focusout)="disabledate(AC_OPDATE)"
                                                                 formControlName="AC_OPDATE"
                                                                 (ngModelChange)="changeDate()"
-                                                                [ngClass]="{'form-submitted': formSubmitted}" >
+                                                                [ngClass]="{'form-submitted': formSubmitted}">
                                                             <label for="AC_OPDATE">Opening Date<sub class="required">*
                                                                 </sub></label>
                                                         </span>
@@ -135,11 +134,12 @@
                                                                 class="form-control" placeholder=" "
                                                                 id="AC_OPEN_OLD_DATE"
                                                                 max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                                                (focusout)="disabledate(date.value)"
+                                                               
                                                                 (ngModelChange)="getExpiryDate()"
                                                                 formControlName="AC_OPEN_OLD_DATE">
                                                             <label for="AC_OPEN_OLD_DATE">Renewal Date</label>
                                                         </span>
+                                                        <!-- (focusout)="disabledate(date.value)" -->
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2">
@@ -222,7 +222,7 @@
                                                             required title="Compulsory Selection"
                                                             formControlName="AC_INTCATA" [(ngModel)]="AC_INTCATA"
                                                             (selected)="getInterest(AC_INTCATA)"
-                                                            [ngClass]="{'form-submitted': formSubmitted}" >
+                                                            [ngClass]="{'form-submitted': formSubmitted}">
                                                         </ng-select>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -243,7 +243,7 @@
                                                                 [(ngModel)]="sanctionAmt"
                                                                 formControlName="AC_SANCTION_AMOUNT"
                                                                 (ngModelChange)="changeAmt();"
-                                                                [ngClass]="{'form-submitted': formSubmitted}" >
+                                                                [ngClass]="{'form-submitted': formSubmitted}">
                                                             <label for="AC_SANCTION_AMOUNT">Sanction Limit<sub
                                                                     class="required">*
                                                                 </sub></label>
@@ -269,7 +269,7 @@
                                                                 max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                                                 (focusout)="disabledate(date.value)"
                                                                 formControlName="AC_SANCTION_DATE"
-                                                                [ngClass]="{'form-submitted': formSubmitted}" >
+                                                                [ngClass]="{'form-submitted': formSubmitted}">
                                                             <label for="AC_SANCTION_DATE">Sanction Date<sub
                                                                     class="required">*
                                                                 </sub></label>
@@ -293,7 +293,7 @@
                                                                 title="Input allowed only  0-9"
                                                                 [(ngModel)]="drawingPower"
                                                                 formControlName="AC_DRAWPOWER_AMT"
-                                                                [ngClass]="{'form-submitted': formSubmitted}" >
+                                                                [ngClass]="{'form-submitted': formSubmitted}">
                                                             <label for="AC_DRAWPOWER_AMT">Drawing Power<sub
                                                                     class="required">*
                                                                 </sub></label>
@@ -316,7 +316,7 @@
                                                                 pattern="^[0-9]+$" title="Input allowed only  0-9"
                                                                 formControlName="AC_MONTHS"
                                                                 (ngModelChange)="getExpiryDate();"
-                                                                [ngClass]="{'form-submitted': formSubmitted}" >
+                                                                [ngClass]="{'form-submitted': formSubmitted}">
                                                             <label for="AC_MONTHS">Period(Months)<sub class="required">*
                                                                 </sub></label>
                                                         </span>
@@ -337,7 +337,7 @@
                                                                 class="form-control" placeholder=" " id="AC_EXPIRE_DATE"
                                                                 required="" max="9999-12-31"
                                                                 formControlName="AC_EXPIRE_DATE"
-                                                                [ngClass]="{'form-submitted': formSubmitted}" >
+                                                                [ngClass]="{'form-submitted': formSubmitted}">
                                                             <label for="AC_EXPIRE_DATE">Expiry Date<sub
                                                                     class="required">*
                                                                 </sub></label>
@@ -360,7 +360,7 @@
                                                                 [(ngModel)]="intRate" pattern="\d{1,3}(\.\d{1,2})?"
                                                                 title="Input allowed only  0-9"
                                                                 formControlName="AC_INTRATE"
-                                                                [ngClass]="{'form-submitted': formSubmitted}" >
+                                                                [ngClass]="{'form-submitted': formSubmitted}">
                                                             <label for="AC_INTRATE">Interest Rate%<sub
                                                                     class="required">*
                                                                 </sub></label>
@@ -415,7 +415,7 @@
                                                         <ng-select [ngClass]="'ng-select'" [options]="sanction"
                                                             [multiple]="false" placeholder="Sanction Authority*"
                                                             formControlName="AC_AUTHORITY"
-                                                            [ngClass]="{'form-submitted': formSubmitted}" >
+                                                            [ngClass]="{'form-submitted': formSubmitted}">
                                                         </ng-select>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -431,7 +431,7 @@
                                                         <ng-select [ngClass]="'ng-select'" [options]="Recommended"
                                                             [multiple]="false" placeholder="Recommended By *"
                                                             formControlName="AC_RECOMMEND_BY"
-                                                            [ngClass]="{'form-submitted': formSubmitted}" >
+                                                            [ngClass]="{'form-submitted': formSubmitted}">
                                                         </ng-select>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -448,7 +448,7 @@
                                                         <ng-select [ngClass]="'ng-select'" [options]="Recovery"
                                                             [multiple]="false" placeholder="Recovery Cleark*"
                                                             formControlName="AC_RECOVERY_CLERK"
-                                                            [ngClass]="{'form-submitted': formSubmitted}" >
+                                                            [ngClass]="{'form-submitted': formSubmitted}">
                                                         </ng-select>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -466,7 +466,7 @@
                                                             [multiple]="false" placeholder="Priority *"
                                                             formControlName="AC_PRIORITY" [(ngModel)]="idp"
                                                             (selected)="getPriority(idp)"
-                                                            [ngClass]="{'form-submitted': formSubmitted}" >
+                                                            [ngClass]="{'form-submitted': formSubmitted}">
                                                         </ng-select>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -530,7 +530,7 @@
                                                         <ng-select [ngClass]="'ng-select'" [options]="weaker"
                                                             [multiple]="false" placeholder="Weaker Section*"
                                                             formControlName="AC_WEAKER"
-                                                            [ngClass]="{'form-submitted': formSubmitted}" >
+                                                            [ngClass]="{'form-submitted': formSubmitted}">
                                                         </ng-select>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -546,7 +546,7 @@
                                                         <ng-select [ngClass]="'ng-select'" [options]="purpose"
                                                             [multiple]="false" placeholder="Purpose *"
                                                             formControlName="AC_PURPOSE"
-                                                            [ngClass]="{'form-submitted': formSubmitted}" >
+                                                            [ngClass]="{'form-submitted': formSubmitted}">
                                                         </ng-select>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -564,7 +564,7 @@
                                                         <ng-select [ngClass]="'ng-select'" [options]="industry"
                                                             [multiple]="false" placeholder="Industry *"
                                                             formControlName="AC_INDUSTRY"
-                                                            [ngClass]="{'form-submitted': formSubmitted}" >
+                                                            [ngClass]="{'form-submitted': formSubmitted}">
                                                         </ng-select>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -580,7 +580,7 @@
                                                         <ng-select [ngClass]="'ng-select'" [options]="health"
                                                             [multiple]="false" placeholder="Health Code*"
                                                             formControlName="AC_HEALTH"
-                                                            [ngClass]="{'form-submitted': formSubmitted}" >
+                                                            [ngClass]="{'form-submitted': formSubmitted}">
                                                         </ng-select>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -598,7 +598,7 @@
                                                             title="Compulsory Selection"
                                                             formControlName="AC_RELATION_TYPE"
                                                             (selected)="directorShow($event)"
-                                                            [ngClass]="{'form-submitted': formSubmitted}" >
+                                                            [ngClass]="{'form-submitted': formSubmitted}">
                                                         </ng-select>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -1222,8 +1222,9 @@
                                                                 title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                 pattern="^[A-Za-z0-9\./ -]+$"
                                                                 formControlName="AC_REMARK"
-                                                                [ngClass]="{'form-submitted': formSubmitted}" >
-                                                            <label for="AC_REMARK">Remark<sub class="required">*</sub></label>
+                                                                [ngClass]="{'form-submitted': formSubmitted}">
+                                                            <label for="AC_REMARK">Remark<sub
+                                                                    class="required">*</sub></label>
                                                         </span>
                                                     </div>
                                                     <div class="form-group form-primary form-static-label"
@@ -1269,8 +1270,7 @@
                                                                             title="Compulsory Selection"
                                                                             formControlName="GAC_CUSTID"
                                                                             [(ngModel)]="Gid"
-                                                                            (selected)="getgCustomer(Gid)"
-                                                                            [ngClass]="{'form-submitted': formSubmitted}" >
+                                                                            (selected)="getgCustomer(Gid)">
                                                                         </ng-select>
 
                                                                     </div>
@@ -1331,7 +1331,7 @@
                                                                         </span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-sm">
+                                                                <div class="col-sm-2">
                                                                     <button type="button"
                                                                         class="btn btn-primary ripple light"
                                                                         *ngIf="GuarantorShowButton"
@@ -1424,8 +1424,7 @@
                                                                             title="Compulsory Selection"
                                                                             formControlName="CAC_CUSTID"
                                                                             [(ngModel)]="Cid"
-                                                                            (selected)="getCCustomer(Cid)"
-                                                                            [ngClass]="{'form-submitted': formSubmitted}" >
+                                                                            (selected)="getCCustomer(Cid)">
                                                                         </ng-select>
 
                                                                     </div>
@@ -1571,7 +1570,8 @@
             <div class="card-footer">
                 <div class="row" style="float: right;">
                     <div class="col-sm">
-                        <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+                        <button class="btn btn-primary ripple light" type="button" (click)="submit()"
+                            *ngIf="showButton">
                             Add
                         </button>
                         <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
@@ -1619,7 +1619,9 @@
                                             [ngClass]="data.REF_ACNO === '' ? 'td_center' : 'td_right'">{{data.REF_ACNO
                                             === ''? '-' : data.REF_ACNO}}</td>
                                         <td>{{data.AC_INTCATA}}</td>
-                                        <td class="td_right" [ngClass]="data.AC_SANCTION_AMOUNT === '' ? 'td_center' : 'td_right'"> {{data.AC_SANCTION_AMOUNT === ''? '-' : data.AC_SANCTION_AMOUNT}}</td>
+                                        <td class="td_right"
+                                            [ngClass]="data.AC_SANCTION_AMOUNT === '' ? 'td_center' : 'td_right'">
+                                            {{data.AC_SANCTION_AMOUNT === ''? '-' : data.AC_SANCTION_AMOUNT}}</td>
                                         <td class="td_right"
                                             [ngClass]="data.AC_SANCTION_DATE === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_SANCTION_DATE === ''? '-' : data.AC_SANCTION_DATE}}</td>

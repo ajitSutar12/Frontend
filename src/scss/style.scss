@@ -84,6 +84,7 @@ File: style.scss
 @import "partials/custom";
 // outlineTextbox custom scss
 @import "partials/outlineTextbox.scss";
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 ng-select.ng-select > div > div.single{
 	height: 100% !important;
