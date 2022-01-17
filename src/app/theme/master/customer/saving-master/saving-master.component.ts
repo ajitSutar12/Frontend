@@ -137,7 +137,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Store data from backend
   savingMaster: SavingMaster[];
-
+  bindScheme: any = null
   //introducer variables
   acno: any = null
   ngCategory: any = null
@@ -326,6 +326,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.scheme = data;
       // this.selectedValue = this.scheme[0].S_APPL + " " + this.scheme[0].S_NAME
       this.selectedValue = this.scheme[0].id
+      this.bindScheme = this.scheme[0].id
     })
     this.savingMasterService.getCustomerIDMasterList().subscribe(data => {
       this.Cust_ID = data;
@@ -464,7 +465,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   customer(event) {
     console.log(event)
     this.savingMasterService.getData().subscribe(data => {
-      
+
 
       if (data?.length == 0) {
         this.getCustomer(event.id);
@@ -724,7 +725,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit(event) {
-    
+
     event.preventDefault();
     this.formSubmitted = true;
     // if (this.angForm.valid) {
@@ -829,6 +830,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.multiJointAC = []
     this.multiAttorney = []
     this.customerDoc = []
+
+    this.selectedValue = this.bindScheme 
     // } else {
     //   Swal.fire('Warning!', 'Please Fill Required Field!', 'warning');
 
@@ -871,7 +874,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngOccupation = data.AC_OPR_CODE
       this.ngBalCategory = data.AC_BALCATG
       this.ngIntCategory = data.AC_INTCATA
-      
+
       if ((data.AC_INTROBRANCH != null && data.AC_INTROID != null && data.AC_INTRACNO != null) || (data.AC_INTROBRANCH != "" && data.AC_INTROID != "" && data.AC_INTRACNO != "")) {
 
         this.code = data.AC_INTROBRANCH,
@@ -880,7 +883,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.allScheme.forEach(async (element) => {
           if (element.id == this.acno) {
-            
+
             this.getschemename = element.S_ACNOTYPE
           }
         })

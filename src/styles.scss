@@ -156,7 +156,7 @@ input[type="checkbox"]:focus {
 .nav-pills .nav-link.active.active,
 .nav-pills .nav-link.active.active:focus,
 .nav-pills .nav-link.active.active:hover {
-    background: #d9e7f8;
+ 
     color: black;
     text-align: center;
     border-bottom: 2px solid #0275d8;
@@ -481,10 +481,10 @@ ng-select > div > div.single > div.toggle {
     background: RGB(217 231 248/80%) !important;
 }
 
-.table.dataTable[class*="table-"] thead th {
-    background-color: #8d1b54;
-    color: white;
-}
+// .table.dataTable[class*="table-"] thead th {
+//     background-color: #8d1b54;
+//     color: white;
+// }
 
 //Zebra-striping /
 .table-striped {
@@ -546,6 +546,8 @@ ng-select > div > div.single > div.value {
     color: black;
     text-transform: capitalize;
 }
+
+
 .fa-edit:before, .fa-pencil-square-o:before {
     content: "";
     padding-left: 13px;

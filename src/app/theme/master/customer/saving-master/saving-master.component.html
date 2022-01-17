@@ -263,7 +263,7 @@
                             </div>
                           </div>
                           <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                               <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                   <ng-select id="AC_BALCATG" bindValue="id" [(ngModel)]="ngBalCategory"
@@ -328,7 +328,7 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_SCHMAMT" class="form-control" placeholder=" "
-                                    id="AC_SCHMAMT" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                    id="AC_SCHMAMT" pattern="\d{1,20}(\.\d{2})?" maxlength="6" 
                                     title="Input allowed only  0-9" formControlName="AC_SCHMAMT"
                                     style="text-align: right;" (focusout)="decimalAllContent($event)"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -358,14 +358,15 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="row">
                             <div class="col-sm" style="float: right;">
                               <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('address')">Next
                                 <!-- <span class="fa fa-arrow-right" style="font-size:15px"></span> -->
                               </button>
                             </div>
                           </div>
+                          <!-- <div class="row">
+                            
+                          </div> -->
                         </div>
                       </div>
                     </div>
@@ -1784,8 +1785,8 @@
                   </tr>
                 </tbody>
                 <tfoot #filters class="filters">
-                  <tr>
-                    <th></th>
+                  <tr class="testing">
+                    <th class="testing"></th>
                     <th><input type="text" class="form-control" name="AC_TYPE" /></th>
                     <th><input type="text" class="form-control" name="BANKACNO" /></th>
                     <th><input type="text" class="form-control" name="AC_NAME" /></th>
