@@ -89,6 +89,11 @@
 .highlight{
   // outline: 2px auto #0275d8;
   box-shadow: 0 0px 27px 0 RGB(0 0 0 / 8%);
+  // padding-top: 0px;
+}
+.border-secondary{
+  // padding-top: 0px;
+  border: blue
 }
 
 // .ng-valid.ng-dirty:not(form) {
@@ -112,10 +117,10 @@ thead td {
   text-transform: capitalize;
   font-weight: 500;
 }
-.table.compact td,
-.table.compact th {
-  padding: 0.45rem;
-}
+// .table.compact td,
+// .table.compact th {
+//   padding: 0.45rem;
+// }
 th.ng-tns-c146-1 {
   background-color: white !important;
 }

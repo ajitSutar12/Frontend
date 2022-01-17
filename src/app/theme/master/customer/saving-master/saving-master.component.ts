@@ -728,114 +728,114 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
     event.preventDefault();
     this.formSubmitted = true;
-    // if (this.angForm.valid) {
-    let tempcity
-    const formVal = this.angForm.value;
-    if (formVal.AC_ADDFLAG == true) {
-      this.addType = 'P'
-    }
-    else if (formVal.AC_ADDFLAG == false) {
-      this.addType = 'T'
-    }
-    if (this.angForm.controls['AC_TCTCODE'].value == "") {
-      formVal.AC_TCTCODE = 0
-    }
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
-    // if (this.selectedValue == undefined) {
-    //   this.selectedValue = this.scheme[0].id
-    // }
-    let schecode
-    this.scheme.forEach(async (element) => {
-      if (element.id == this.selectedValue) {
-        schecode = element.S_APPL
-        console.log(schecode)
+    if (this.angForm.valid) {
+      let tempcity
+      const formVal = this.angForm.value;
+      if (formVal.AC_ADDFLAG == true) {
+        this.addType = 'P'
       }
-    })
-
-    let bankCode = Number(result.branch.syspara.BANK_CODE)
-    const dataToSend = {
-      'branchCode': branchCode,
-      'bankCode': bankCode,
-      'schemeCode': schecode,
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_TYPE': formVal.AC_TYPE,
-      'AC_CATG': formVal.AC_CATG,
-      'AC_BALCATG': formVal.AC_BALCATG,
-      'AC_OPR_CODE': formVal.AC_OPR_CODE,
-      'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_INTCATA': formVal.AC_INTCATA,
-      'AC_OPDATE': formVal.AC_OPDATE,
-      'AC_NAME': formVal.AC_NAME,
-      'AC_SCHMAMT': formVal.AC_SCHMAMT,
-      'REF_ACNO': formVal.REF_ACNO,
-      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
-      //temp address 
-      AC_ADDFLAG: formVal.AC_ADDFLAG,
-      AC_ADDTYPE: this.addType,
-      AC_THONO: formVal.AC_THONO,
-      AC_TWARD: formVal.AC_TWARD,
-      AC_TADDR: formVal.AC_TADDR,
-      AC_TGALLI: formVal.AC_TGALLI,
-      AC_TAREA: formVal.AC_TAREA,
-      // AC_TCTCODE: formVal.AC_TCTCODE == null ? "" : formVal.AC_TCTCODE.id,
-      AC_TCTCODE: formVal.AC_TCTCODE,
-      AC_TPIN: formVal.AC_TPIN,
-      //minor and introducer
-      'AC_MINOR': formVal.AC_MINOR,
-      'AC_MBDATE': formVal.AC_MBDATE,
-      'AC_GRDNAME': formVal.AC_GRDNAME,
-      'AC_GRDRELE': formVal.AC_GRDRELE,
-      // 'AC_INTROBRANCH': formVal.AC_INTROBRANCH == null ? "" : formVal.AC_INTROBRANCH.id,
-      // 'AC_INTROID': formVal.AC_INTROID == null ? "" : formVal.AC_INTROID.id,
-      // 'AC_INTRACNO': formVal.AC_INTRACNO == null ? "" : formVal.AC_INTRACNO.id,
-      'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
-      'AC_INTROID': formVal.AC_INTROID,
-      'AC_INTRACNO': formVal.AC_INTRACNO,
-      'AC_INTRNAME': formVal.AC_INTRNAME,
-      'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
-      //nominee
-      'NomineeData': this.multiNominee,
-      //Joint Account
-      'JointAccountData': this.multiJointAC,
-      //Attorney
-      'PowerOfAttorneyData': this.multiAttorney
-    }
-    console.log(dataToSend, "datatosend")
-    this.savingMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Account Created successfully!',
-        html:
-          '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
-          '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+      else if (formVal.AC_ADDFLAG == false) {
+        this.addType = 'T'
+      }
+      if (this.angForm.controls['AC_TCTCODE'].value == "") {
+        formVal.AC_TCTCODE = 0
+      }
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.id;
+      // if (this.selectedValue == undefined) {
+      //   this.selectedValue = this.scheme[0].id
+      // }
+      let schecode
+      this.scheme.forEach(async (element) => {
+        if (element.id == this.selectedValue) {
+          schecode = element.S_APPL
+          console.log(schecode)
+        }
       })
-      this.formSubmitted = false;
-      // to reload after insertion of data
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
 
-    //To clear form
-    this.resetForm();
-    // this.angForm.patchValue({
-    //   AC_TYPE: this.scheme[0].value
-    // })
-    this.multiNominee = []
-    this.multiJointAC = []
-    this.multiAttorney = []
-    this.customerDoc = []
+      let bankCode = Number(result.branch.syspara.BANK_CODE)
+      const dataToSend = {
+        'branchCode': branchCode,
+        'bankCode': bankCode,
+        'schemeCode': schecode,
+        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+        'AC_TYPE': formVal.AC_TYPE,
+        'AC_CATG': formVal.AC_CATG,
+        'AC_BALCATG': formVal.AC_BALCATG,
+        'AC_OPR_CODE': formVal.AC_OPR_CODE,
+        'AC_CUSTID': formVal.AC_CUSTID,
+        'AC_INTCATA': formVal.AC_INTCATA,
+        'AC_OPDATE': formVal.AC_OPDATE,
+        'AC_NAME': formVal.AC_NAME,
+        'AC_SCHMAMT': formVal.AC_SCHMAMT,
+        'REF_ACNO': formVal.REF_ACNO,
+        'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+        //temp address 
+        AC_ADDFLAG: formVal.AC_ADDFLAG,
+        AC_ADDTYPE: this.addType,
+        AC_THONO: formVal.AC_THONO,
+        AC_TWARD: formVal.AC_TWARD,
+        AC_TADDR: formVal.AC_TADDR,
+        AC_TGALLI: formVal.AC_TGALLI,
+        AC_TAREA: formVal.AC_TAREA,
+        // AC_TCTCODE: formVal.AC_TCTCODE == null ? "" : formVal.AC_TCTCODE.id,
+        AC_TCTCODE: formVal.AC_TCTCODE,
+        AC_TPIN: formVal.AC_TPIN,
+        //minor and introducer
+        'AC_MINOR': formVal.AC_MINOR,
+        'AC_MBDATE': formVal.AC_MBDATE,
+        'AC_GRDNAME': formVal.AC_GRDNAME,
+        'AC_GRDRELE': formVal.AC_GRDRELE,
+        // 'AC_INTROBRANCH': formVal.AC_INTROBRANCH == null ? "" : formVal.AC_INTROBRANCH.id,
+        // 'AC_INTROID': formVal.AC_INTROID == null ? "" : formVal.AC_INTROID.id,
+        // 'AC_INTRACNO': formVal.AC_INTRACNO == null ? "" : formVal.AC_INTRACNO.id,
+        'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
+        'AC_INTROID': formVal.AC_INTROID,
+        'AC_INTRACNO': formVal.AC_INTRACNO,
+        'AC_INTRNAME': formVal.AC_INTRNAME,
+        'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+        //nominee
+        'NomineeData': this.multiNominee,
+        //Joint Account
+        'JointAccountData': this.multiJointAC,
+        //Attorney
+        'PowerOfAttorneyData': this.multiAttorney
+      }
+      console.log(dataToSend, "datatosend")
+      this.savingMasterService.postData(dataToSend).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Created successfully!',
+          html:
+            '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+            '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+        })
+        this.formSubmitted = false;
+        // to reload after insertion of data
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+        console.log(error)
+      })
 
-    this.selectedValue = this.bindScheme 
-    // } else {
-    //   Swal.fire('Warning!', 'Please Fill Required Field!', 'warning');
+      //To clear form
+      this.resetForm();
+      // this.angForm.patchValue({
+      //   AC_TYPE: this.scheme[0].value
+      // })
+      this.multiNominee = []
+      this.multiJointAC = []
+      this.multiAttorney = []
+      this.customerDoc = []
 
-    // }
+      this.selectedValue = this.bindScheme
+    } else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+
+    }
     // this.selectedValue = null
     // this.selectedValue = this.scheme[0].id
     // console.log("After submit", this.selectedValue)

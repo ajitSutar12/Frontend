@@ -251,7 +251,7 @@ th {
     float: right;
     margin-right: 5px;
     border-radius: 5px;
-    height: 40px;
+    height: 32px;
 }
 
 .ng-select > div {
@@ -488,7 +488,7 @@ ng-select > div > div.single > div.toggle {
 
 //Zebra-striping /
 .table-striped {
-    tbody tr:nth-of-type(2n + 1) {
+    tbody tr:nth-of-type(even) {
         // background-color: transparentize($primary-color,0.97);
         // background-color: #f8eef3;
         background-color: #dae7f6;
@@ -560,4 +560,25 @@ ng-select > div > div.single > div.value {
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
     color: WHITE;
     background-color: transparent;
+}
+
+.pcoded-main-container {
+   
+    background: #fff !important;
+  
+}
+.col-sm.ng-tns-c146-1 {
+    padding-top: 0px;
+}
+
+.m-t-15 {
+    margin-top: 0px;
+}
+
+.border-primary {
+    border-color: transparent;
+    border: 1px solid #abc7ec;
+    border-radius: 0;
+    box-shadow: 0 0 1px #999;
+    color: black !important;
 }
