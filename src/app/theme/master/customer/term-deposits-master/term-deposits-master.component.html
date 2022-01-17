@@ -6,7 +6,7 @@
         <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
       </div>
       <div class="card-block">
-        <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+        <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)" >
           <div class="row">
             <div class="col-sm-3">
               <div class="form-group form-primary form-static-label">
@@ -104,7 +104,7 @@
           </div>
           <div class="row">
             <div class="col-sm">
-              <ngb-tabset>
+               <ngb-tabset class="nav-pills">>
                 <ngb-tab title="1.Basic ">
                   <ng-template ngbTabContent>
                     <div [@fadeInOutTranslate] class="m-t-15">
@@ -867,8 +867,7 @@
                                     <span class="border-lable-flt">
                                       <input type="text" name="AC_NNAME" class="form-control" placeholder=" "
                                         id="AC_NNAME" pattern="^[A-Za-z\./ -]+$"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NNAME"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required />
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NNAME" required />
                                       <label for="AC_NNAME">Name<sub class="required">*
                                         </sub></label>
                                     </span>
@@ -895,8 +894,12 @@
                                     <span class="border-lable-flt">
                                       <input type="text" name="AC_NRELA" class="form-control" placeholder=" "
                                         id="AC_NRELA" pattern="^[A-Za-z\./ -]+$"
+<<<<<<< Updated upstream
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NRELA"
                                         [ngClass]="{'form-submitted': formSubmitted}" />
+=======
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NRELA"  />
+>>>>>>> Stashed changes
                                       <label for="label-name">Relation<sub class="required">*
                                         </sub></label>
                                     </span>
@@ -922,9 +925,14 @@
                                   <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                       <input type="date" name="AC_NDATE" class="form-control" placeholder=" "
+<<<<<<< Updated upstream
                                         id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                         (focusout)="disabledate(date.value)" formControlName="AC_NDATE"
                                         [ngClass]="{'form-submitted': formSubmitted}" required />
+=======
+                                        id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}" 
+                                        #date (focusout)="disabledate(date.value)" formControlName="AC_NDATE"  required/>
+>>>>>>> Stashed changes
                                       <label for="AC_NDATE">Nomination Date<sub class="required">*
                                         </sub></label>
                                     </span>
@@ -1601,22 +1609,23 @@
               </ngb-tabset>
             </div>
           </div>
+          <div class="card-footer">
+            <div class="row" style="float: right;">
+              <div class="col-sm">
+                <button type="submit" class="btn btn-primary ripple light" *ngIf="showButton">
+                  Add
+                </button>
+                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                  Update</button>&nbsp;
+                <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
-      <div class="card-footer">
-        <div class="row" style="float: right;">
-          <div class="col-sm">
-            <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
-              Add
-            </button>
-            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
-              Update</button>&nbsp;
-            <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </div>

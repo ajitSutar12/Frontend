@@ -7,7 +7,7 @@
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
@@ -52,8 +52,10 @@
                             </div>
 
                             <div class="app-modal-footer">
-                                <button type="button" class="btn btn-primary ripple light"
-                                    (click)="modalLarge.hide()">Close</button>
+                                <button type="button" class="btn btn-primary ripple light" (ngSubmit)="submit($event)"
+                                data-dismiss="modal" >Submit</button>
+                                <!-- <button type="button" class="btn btn-primary ripple light"
+                                    (click)="modalLarge.hide()">Close</button> -->
                             </div>
                         </app-modal-basic>
 
@@ -335,22 +337,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card-footer">
+                        <div class="row" style="float: right;">
+                            <div class="col-sm">
+                                <button type="submit" class="btn btn-primary ripple light" *ngIf="showButton">
+                                    Add
+                                </button>
+                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                                    Update</button>&nbsp;
+                                <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
-            <div class="card-footer">
-                <div class="row" style="float: right;">
-                    <div class="col-sm">
-                        <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
-                            Add
-                        </button>
-                        <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
-                            Update</button>&nbsp;
-                        <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
-                            Cancel
-                        </button>
-                    </div>
-                </div>
-            </div>
+          
         </div>
     </div>
 </div>

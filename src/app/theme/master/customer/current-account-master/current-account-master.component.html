@@ -7,7 +7,7 @@
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
@@ -86,7 +86,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="card-block">
-                                <ngb-tabset>
+                                <ngb-tabset class="nav-pills">
                                     <!-- start of basic tab -->
                                     <ngb-tab title="1.Basic ">
                                         <ng-template ngbTabContent>
@@ -839,8 +839,12 @@
                                                                                     id="AC_NNAME"
                                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
+<<<<<<< Updated upstream
                                                                                     formControlName="AC_NNAME"
                                                                                     [ngClass]="{'form-submitted': formSubmitted}">
+=======
+                                                                                    formControlName="AC_NNAME" required>
+>>>>>>> Stashed changes
                                                                                 <label for="AC_NNAME">Name<sub
                                                                                         class="required">*
                                                                                     </sub></label>
@@ -864,7 +868,11 @@
                                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                     formControlName="AC_NRELA"
+<<<<<<< Updated upstream
                                                                                     [ngClass]="{'form-submitted': formSubmitted}">
+=======
+                                                                                      required>
+>>>>>>> Stashed changes
                                                                                 <label for="label-name">Relation<sub
                                                                                         class="required">*
                                                                                     </sub></label>
@@ -887,7 +895,11 @@
                                                                                     id="AC_NDATE"
                                                                                     max="{{datemax | date:'yyyy-MM-dd'}}"
                                                                                     formControlName="AC_NDATE"
+<<<<<<< Updated upstream
                                                                                     [ngClass]="{'form-submitted': formSubmitted}">
+=======
+                                                                                    >
+>>>>>>> Stashed changes
                                                                                 <label for="AC_NDATE">Nomination
                                                                                     Date<sub class="required">*
                                                                                     </sub></label>
@@ -1463,9 +1475,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card-footer">
+                        <div class="row" style="float: right;">
+                            <div class="col-sm">
+                                <button type="submit" class="btn btn-primary ripple light" *ngIf="showButton">
+                                    Add
+                                </button>
+                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                                    Update</button>&nbsp;
+                                <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <!-- End of tab Forms -->
                 </form>
             </div>
+<<<<<<< Updated upstream
             <div class="card-footer">
                 <div class="row" style="float: right;">
                     <div class="col-sm">
@@ -1480,6 +1507,9 @@
                     </div>
                 </div>
             </div>
+=======
+
+>>>>>>> Stashed changes
         </div>
     </div>
 </div>

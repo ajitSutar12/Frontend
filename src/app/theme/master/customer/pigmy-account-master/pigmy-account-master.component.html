@@ -6,14 +6,18 @@
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
             <div class="card-block">
+<<<<<<< Updated upstream
                 <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm"
                     (ngSubmit)="submit($event)">
+=======
+                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
+>>>>>>> Stashed changes
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="schemeCode" [multiple]="false"
-                                    placeholder="PG Scheme * " formControlName="AC_TYPE" (selected)="getScheme($event)"
-                                    required [ngClass]="{'form-submitted': formSubmitted}">
+                                    placeholder="PG Scheme * " formControlName="AC_TYPE" (selected)="getScheme($event)" required
+                                    [ngClass]="{'form-submitted': formSubmitted}" >
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -36,9 +40,9 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
-                                    placeholder="Customer ID*" formControlName="AC_CUSTID" [(ngModel)]="id"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required (selected)="getCustomer(id)"
-                                    style="width: 90%;">
+                                    placeholder="Customer ID*" formControlName="AC_CUSTID" [(ngModel)]="id" 
+                                    [ngClass]="{'form-submitted': formSubmitted}"  required
+                                    (selected)="getCustomer(id)" style="width: 90%;">
                                 </ng-select>
                                 <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
                                     (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer"></span>
@@ -110,7 +114,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card-block">
-                                <ngb-tabset>
+                                 <ngb-tabset class="nav-pills">>
                                     <ngb-tab title="1.Basic">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
@@ -266,7 +270,7 @@
                                                                 <ng-select [ngClass]="'ng-select'"
                                                                     [options]="OperationMasterDropdown"
                                                                     [multiple]="false" placeholder="Operation *"
-                                                                    formControlName="AC_OPR_CODE"
+                                                                    formControlName="AC_OPR_CODE" 
                                                                     [ngClass]="{'form-submitted': formSubmitted}">
                                                                 </ng-select>
                                                             </span>
@@ -1004,11 +1008,17 @@
                                                                                     id="AC_NNAME"
                                                                                     pattern="^[A-Za-z\./ -]+$"
                                                                                     title="Input allowed only  A-Z a-z  - / . (Space)"
+<<<<<<< Updated upstream
                                                                                     formControlName="AC_NNAME"
                                                                                     [ngClass]="{'form-submitted': formSubmitted}">
                                                                                 <label for="AC_NNAME">Name <sub
                                                                                         class="required">*
                                                                                     </sub></label>
+=======
+                                                                                    formControlName="AC_NNAME" required
+                                                                                     >
+                                                                                <label for="AC_NNAME">Name <sub class="required">* </sub></label>
+>>>>>>> Stashed changes
                                                                             </span>
                                                                         </div>
                                                                         <div class="form-group form-primary form-static-label"
@@ -1049,8 +1059,7 @@
                                                                                     id="AC_NDATE"
                                                                                     max="{{datemax | date:'yyyy-MM-dd'}}"
                                                                                     formControlName="AC_NDATE">
-                                                                                <label
-                                                                                    for="AC_NDATE">NominationDate</label>
+                                                                                <label for="AC_NDATE">NominationDate</label>
                                                                             </span>
                                                                         </div>
                                                                         <!-- <div class="form-group form-primary form-static-label"
@@ -1196,8 +1205,12 @@
                                                                             class="form-group form-primary form-static-label">
                                                                             <ng-select [ngClass]="'ng-select'"
                                                                                 [options]="city" [multiple]="false"
+<<<<<<< Updated upstream
                                                                                 placeholder="City *"
                                                                                 [ngClass]="{'form-submitted': formSubmitted}"
+=======
+                                                                                placeholder="City *" required 
+>>>>>>> Stashed changes
                                                                                 formControlName="AC_NCTCODE">
                                                                             </ng-select>
                                                                         </div>
@@ -1484,7 +1497,11 @@
                     <div class="card-footer">
                         <div class="row" style="float: right;">
                             <div class="col-sm">
+<<<<<<< Updated upstream
                                 <button class="btn btn-primary ripple light" *ngIf="showButton">
+=======
+                                <button type="submit" class="btn btn-primary ripple light" *ngIf="showButton">
+>>>>>>> Stashed changes
                                     Add
                                 </button>
                                 <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">

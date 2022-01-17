@@ -1,3 +1,14 @@
+.modal{
+  display: block !important;
+}
+.modal-dialog{
+    overflow-y: initial !important
+}
+.modal-body{
+height: 250px;
+overflow-y: auto;
+}
+
 // .required {
 //   font-size: 20px;
 //     color: red;
@@ -118,6 +129,7 @@
 //     position: relative;
      
 // }
+<<<<<<< Updated upstream
 .ng-valid.ng-dirty:not(form) {
     border: solid 2px green;
   }
@@ -125,3 +137,171 @@
   .ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
     border: solid 2px lightcoral;
   }
+=======
+.checkbox {
+  padding-left: 20px;
+}
+
+.checkbox label {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  padding-left: 5px;
+}
+
+.checkbox label::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 0;
+  margin-left: -20px;
+  border: 1px solid black;
+  background-color: #fff;
+  -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+  -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+  transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.checkbox label::after {
+  display: inline-block;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 0;
+  top: 0;
+  margin-left: -20px;
+  padding-left: 3px;
+ padding-top: 1px;
+  font-size: 11px;
+  color: #555555;
+}
+
+.checkbox input[type="checkbox"] {
+  opacity: 0;
+  z-index: 1;
+}
+
+.checkbox input[type="checkbox"]:focus + label::before {
+  outline: thin dotted;
+  outline: 2px auto green;
+  outline-offset: 2px;
+}
+
+.checkbox input[type="checkbox"]:checked + label::after {
+  font-family: 'FontAwesome';
+  content: "\f00c";
+}
+
+.checkbox input[type="checkbox"]:disabled + label {
+  opacity: 0.65;
+}
+
+.checkbox input[type="checkbox"]:disabled + label::before {
+  background-color: #eeeeee;
+  cursor: not-allowed;
+}
+
+.checkbox.checkbox-circle label::before {
+  border-radius: 5%;
+}
+
+.checkbox.checkbox-inline {
+  margin-top: 0;
+}
+
+.checkbox-primary input[type="checkbox"]:checked + label::before {
+  background-color: white;
+  border-color: black;
+}
+
+.checkbox-primary input[type="checkbox"]:checked + label::after {
+  color:black;
+}
+// .ng-valid.ng-dirty:not(form) {
+//     border: solid 2px lightgreen;
+//   }
+
+//   .ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
+//     border: solid 2px lightcoral;
+//   }
+.autofocus{
+border: 2px solid green;
+}
+.ng-select.custom {
+border:0px;
+min-height: 0px;
+border-radius: 0;
+}
+.ng-select.custom .ng-select-container  {            
+min-height: 0px;
+border-radius: 0;
+}
+.btn{
+color: white;
+border-radius: 5px;
+// background-image: linear-gradient(to right, #448aff, #2298ff, #00a5ff, #00b1ff, #19bcff);
+// background-image: linear-gradient(90deg, #020024 0%, #090979 35%, #448aff 100%);
+background: linear-gradient(
+  183deg, #0072ff 0%, #00d4ff 100%);
+}
+
+#ngdiv:focus{
+border-radius: 5px;
+border:2px solid green
+}
+.ng-select .ng-select-container .ng-value-container .ng-input>input{
+border: green;
+}
+
+.table.dataTable[class*="table-"] thead th {
+background-color: #00286b;
+color: white;
+
+}
+.filters{
+background-color: #00286b;
+color: #00286b;
+
+}
+
+/* Zebra-striping */
+
+.table-striped {
+tbody tr:nth-of-type(2n+1) {
+  // background-color: transparentize($primary-color,0.97);
+  background-color: #E1EBEE;
+}
+}
+
+#header-search thead .form-control,
+#header-search tfoot .form-control,
+#header-select thead .form-control,
+#form-input-table .form-control,
+.search-api .form-control,
+#dt-live-dom .form-control {
+  width: 90%;
+}
+
+
+// .input-group {
+//   margin-bottom: 0;
+//   background-color: transparent;
+//   border-radius: 20px;
+
+//   .form-control-tfoot{
+//       padding: 0.3rem 0.75rem;
+//       // display: none;
+//       width: 0;
+//       border: none;
+//       background-color: transparent;
+//   }
+// }
+.form-control {
+  font-size: 14px;
+  border-radius: 2px;
+  border: 1px solid #cccccc;
+  padding: 1px;
+}
+>>>>>>> Stashed changes

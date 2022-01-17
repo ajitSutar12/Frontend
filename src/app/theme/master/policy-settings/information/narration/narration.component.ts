@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject } from 'rxjs'; 
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // Displaying Sweet Alert
@@ -148,9 +148,13 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
     this.angForm = this.fb.group({
       NARRATION: ['', [Validators.pattern, Validators.required]],
     });
+<<<<<<< Updated upstream
   }
   
   
+=======
+  } 
+>>>>>>> Stashed changes
   // Method to insert data into database through NestJS
   submit(event) {
     event.preventDefault(); 

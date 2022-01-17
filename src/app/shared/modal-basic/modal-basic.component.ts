@@ -1,4 +1,5 @@
-import {Component, OnInit, Input, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, Input, ViewEncapsulation,Output, EventEmitter} from '@angular/core';
+
 
 @Component({
   selector: 'app-modal-basic',
@@ -10,10 +11,14 @@ export class ModalBasicComponent implements OnInit {
   @Input() dialogClass: string;
   @Input() hideHeader = false;
   @Input() hideFooter = false;
+
+
+
   public visible = false;
   public visibleAnimate = false;
 
   constructor() {}
+
 
   ngOnInit() {
 

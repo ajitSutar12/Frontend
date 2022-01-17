@@ -147,20 +147,26 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit() {
+
     this.formSubmitted = true;
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      "CODE": formVal.CODE,
-      "NAME": formVal.NAME,
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        "CODE": formVal.CODE,
+        "NAME": formVal.NAME,
+      }
+      this.castMasterService.postData(dataToSend).subscribe(data => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+      })
     }
-    this.castMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.formSubmitted = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-    })
+
 
     this.resetForm();
   }

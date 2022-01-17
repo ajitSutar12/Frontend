@@ -29,6 +29,7 @@ import { ACMasterDropdownService } from "../../../../shared/dropdownService/ac-m
 import { OverdraftInterestPostService } from "../../../../shared/dropdownService/overdraft-interest-post.service";
 import { first } from "rxjs/operators";
 import { environment } from "../../../../../environments/environment";
+import { SchemeAccountNoService } from "src/app/shared/dropdownService/schemeAccountNo.service";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -41,6 +42,7 @@ class DataTableResponse {
 interface Cashcredit {
   S_ACNOTYPE: string;
   S_APPL: string;
+  LEDGER_BAL:string;
   S_NAME: string;
   S_SHNAME: string;
   S_GLACNO: string;
@@ -132,14 +134,16 @@ export class CashCreditSchemeComponent implements OnInit {
   filterData = {};
   newbtnShow: boolean;
   OVERDRAFT_INTEREST_APPLICABLE
+  schemecode: any[];
 
   constructor(
     private http: HttpClient,
     private cashcreditservice: CashcreditService,
     private overdraftInterestPostService: OverdraftInterestPostService,
     private acMasterDropdownService: ACMasterDropdownService,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private schemeAccountNoService: SchemeAccountNoService,
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -425,27 +429,33 @@ export class CashCreditSchemeComponent implements OnInit {
     }
   }
 
-    //Function to enable/Disable fields according selection of overdraft Interest applicable list
-    isOverdraftInterest() {
-      if (this.OVERDRAFT_INTEREST_APPLICABLE == 'NotApplicable') {
-        document.getElementById('OVERDRAFT_INTEREST_RATE').setAttribute("disabled", "false");
-        document.getElementById('ODPENALTY_ON_EXPIRED_LEDGERBAL').setAttribute("disabled", "false");
-      }
-      else {
-        document.getElementById('OVERDRAFT_INTEREST_RATE').removeAttribute("enable");
-        document.getElementById('ODPENALTY_ON_EXPIRED_LEDGERBAL').removeAttribute("enable");
-      }
+  //Function to enable/Disable fields according selection of overdraft Interest applicable list
+  isOverdraftInterest() {
+    if (this.OVERDRAFT_INTEREST_APPLICABLE == 'NotApplicable') {
+      document.getElementById('OVERDRAFT_INTEREST_RATE').setAttribute("disabled", "false");
+      document.getElementById('ODPENALTY_ON_EXPIRED_LEDGERBAL').setAttribute("disabled", "false");
     }
+    else {
+      document.getElementById('OVERDRAFT_INTEREST_RATE').removeAttribute("enable");
+      document.getElementById('ODPENALTY_ON_EXPIRED_LEDGERBAL').removeAttribute("enable");
+    }
+  }
+  //Function to check scheme value present or not
+  presentdata() {
+    debugger
+    this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+      this.schemecode = data;
+      console.log(data);
 
-    presentdata(){
-    
-    }
+    })
+  }
 
 
   createForm() {
     this.angForm = this.fb.group({
       S_ACNOTYPE: ["CC"],
-      S_APPL: ["", [Validators.required,Validators.pattern, Validators.min(601),Validators.max(699)]],
+      S_APPL: ["", [Validators.required, Validators.pattern, Validators.min(601), Validators.max(699)]],
+      LEDGER_BAL:[],
       S_NAME: ["", [Validators.required, Validators.pattern]],
       S_SHNAME: ["", [Validators.required, Validators.pattern]],
       S_GLACNO: ["", [Validators.required, Validators.pattern]],
@@ -478,13 +488,13 @@ export class CashCreditSchemeComponent implements OnInit {
       IS_GOLDLOAN: [""], //radiobutton
     });
   }
-
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
       S_ACNOTYPE: formVal.S_ACNOTYPE,
       S_APPL: formVal.S_APPL,
+      LEDGER_BAL:formVal.LEDGER_BAL,
       S_NAME: formVal.S_NAME,
       S_SHNAME: formVal.S_SHNAME,
       S_GLACNO: formVal.S_GLACNO,
@@ -533,7 +543,6 @@ export class CashCreditSchemeComponent implements OnInit {
     //To clear form
     this.angForm.reset();
   }
-
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
@@ -544,6 +553,7 @@ export class CashCreditSchemeComponent implements OnInit {
       this.angForm.setValue({
         S_ACNOTYPE: data.S_ACNOTYPE,
         S_APPL: data.S_APPL,
+        LEDGER_BAL:data.LEDGER_BAL,
         S_NAME: data.S_NAME,
         S_SHNAME: data.S_SHNAME,
         S_GLACNO: data.S_GLACNO,
@@ -574,8 +584,8 @@ export class CashCreditSchemeComponent implements OnInit {
         CHEQUEBOOK_MIN_BAL: data.CHEQUEBOOK_MIN_BAL,
         IS_DEPO_LOAN: data.IS_DEPO_LOAN,
         IS_GOLDLOAN: data.IS_GOLDLOAN,
-        
-        
+
+
       });
     });
   }
@@ -652,12 +662,10 @@ export class CashCreditSchemeComponent implements OnInit {
       });
     });
   }
-
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first

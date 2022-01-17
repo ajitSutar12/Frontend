@@ -52,7 +52,9 @@ import { DaysService } from '../../../shared/dropdownService/days.service';
 import { SchemeTypeDropdownService } from '../../../shared/dropdownService/scheme-type-dropdown.service';
 import { OverdraftInterestPostService } from '../../../shared/dropdownService/overdraft-interest-post.service';
 
-import {SystemMasterParametersService} from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import {SystemMasterParametersService} from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
+import { SchemeAccountNoService } from "src/app/shared/dropdownService/schemeAccountNo.service";
 // import {OwnbranchMasterService} from '../../../shared/dropdownService/own-branch-master-dropdown.service';
 // import {WeeklyHolidayService} from '../../../shared/dropdownService/weekly-holiday.service';
 // import {IntrestCalculationMethodService} from '../../../shared/dropdownService/intrest-calculation-method-dropdown.service';
@@ -105,6 +107,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     OverdraftInterestPostService,
     ACMasterDropdownService,
     SystemMasterParametersService,
+    SchemeAccountNoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

@@ -206,6 +206,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   resetexpirydate: any;//reset maturedue date
   setdate: string;
 
+  public visible = false;
+  public visibleAnimate = false;
   constructor(
     private http: HttpClient,
     private savingMasterService: SavingMasterService,
@@ -511,6 +513,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.angForm.controls['AC_OPDATE'].enable()
       }
     })
+    this.onCloseModal();
+  }
+  onCloseModal(){
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
   }
   //disabledate on keyup
   disabledate(data: any) {
@@ -1196,7 +1203,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
+<<<<<<< Updated upstream
       Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+=======
+      Swal.fire("Please Insert Mandatory Record For Nominee"); 
+>>>>>>> Stashed changes
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {

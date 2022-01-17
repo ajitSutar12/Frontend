@@ -649,6 +649,79 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
+<<<<<<< Updated upstream
+=======
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
+    if (formVal.AC_ADDFLAG == true) {
+      this.addType = 'P'
+    }
+    else if (formVal.AC_ADDFLAG == false) {
+      this.addType = 'T'
+    }
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE;
+    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
+    const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
+      'schemeCode': this.schemeCode,
+      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+      'AC_TYPE': formVal.AC_TYPE,
+      'AC_PROPRITOR_NAME': formVal.AC_PROPRITOR_NAME,
+      'AC_NO': formVal.AC_NO,
+      'AC_CATG': formVal.AC_CATG,
+      'AC_BALCATG': formVal.AC_BALCATG,
+      'AC_OPR_CODE': formVal.AC_OPR_CODE,
+      'AC_CUSTID': formVal.AC_CUSTID,
+      'AC_INTCATA': formVal.AC_INTCATA,
+      'AC_OPDATE': formVal.AC_OPDATE,
+      'AC_NAME': formVal.AC_NAME,
+      'AC_SCHMAMT': formVal.AC_SCHMAMT,
+      'REF_ACNO': formVal.REF_ACNO,
+      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+      //temp address 
+      AC_ADDFLAG: formVal.AC_ADDFLAG,
+      AC_ADDTYPE: this.addType,
+      AC_THONO: formVal.AC_THONO,
+      AC_TWARD: formVal.AC_TWARD,
+      AC_TADDR: formVal.AC_TADDR,
+      AC_TGALLI: formVal.AC_TGALLI,
+      AC_TAREA: formVal.AC_TAREA,
+      AC_TCTCODE: formVal.AC_TCTCODE,
+      AC_TPIN: formVal.AC_TPIN,
+      //minor and introducer
+      // 'AC_MINOR': formVal.AC_MINOR,
+      // 'AC_MBDATE': formVal.AC_MBDATE,
+      // 'AC_GRDNAME': formVal.AC_GRDNAME,
+      // 'AC_GRDRELE': formVal.AC_GRDRELE,
+      'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
+      'AC_INTROID': formVal.AC_INTROID,
+      'AC_INTRACNO': formVal.AC_INTRACNO,
+      'AC_INTRNAME': formVal.AC_INTRNAME,
+      'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+      //nominee
+      'NomineeData': this.multiNominee,
+      //Joint Account
+      'JointAccountData': this.multiJointAC,
+      //Attorney
+      'PowerOfAttorneyData': this.multiAttorney
+    }
+    this.currentAccountMasterService.postData(dataToSend).subscribe(data => {
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
+      // to reload after insertion of data
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+    }, (error) => {
+      console.log(error)
+    })
+>>>>>>> Stashed changes
 
     if (this.angForm.valid) {
       const formVal = this.angForm.value;
@@ -729,6 +802,11 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.customerDoc = []
     }
   }
+    }
+
+
+   
+    
 
   //Method for append data into fields
   editClickHandler(id) {

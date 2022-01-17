@@ -72,6 +72,8 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() newOwnDepositEvent = new EventEmitter<string>();
   datemax: string;
   newbtnShow: boolean;
+  ownbranch: any[];
+  select: any;
 
   newItemEvent(value) {
     this.newOwnDepositEvent.emit(value);
@@ -238,6 +240,9 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
         this.scheme = data;
       })
+      this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+        this.ownbranch = data;
+      })
   }
 
   runTimer() {
@@ -266,9 +271,9 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       LEDGER_Bal: [""],
     });
   }
-  submit(event) {
-
-    event.preventDefault();
+  submit() {
+  debugger
+  
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
@@ -438,5 +443,9 @@ console.log(ele);
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  setFocus(){
+    this.select.focus();
   }
 }

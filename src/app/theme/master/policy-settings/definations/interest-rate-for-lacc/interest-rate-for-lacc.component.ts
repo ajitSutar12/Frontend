@@ -91,6 +91,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   private dataSub: Subscription = null;
   //for date 
   datemax: any;
+  
   constructor(
     private http: HttpClient,
     private interestRateForLoanandCCService: InterestRateForLoanandCCService,
@@ -381,10 +382,30 @@ compareamount() {
       PENAL_INT_RATE: formVal.PENAL_INT_RATE,
 
     }
-    this.multiField.push(object);
-    console.log(this.multiField)
+    if (formVal.INT_RATE == "" || formVal.INT_RATE == null) {
+      Swal.fire("Please Insert Mandatory Record "); 
+    }
+    else if (formVal.INT_RATE != "") {
+      if (formVal.PENAL_INT_RATE == "" || formVal.PENAL_INT_RATE == null) {
+        Swal.fire("Please Insert Mandatory Record" );
+      } else if (formVal.PENAL_INT_RATE != "") {
+        if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
+          Swal.fire("Please Insert Mandatory Record ");
+        }
+        else {
+          this.multiField.push(object);
+        }
+      }
+      else {
+        this.multiField.push(object);
+      }
+    }
+    else {
+      this.multiField.push(object);
+    }
     this.resetField()
   }
+
   resetField() {
     this.angForm.controls['FROM_AMOUNT'].reset();
     this.angForm.controls['TO_AMOUNT'].reset();

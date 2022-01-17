@@ -11,10 +11,10 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
-                                    required [ngClass]="{'form-submitted': formSubmitted}"
-                                    placeholder="Scheme*" formControlName="AC_TYPE" (selected)="getScheme($event)">
-                                </ng-select> 
+                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" required
+                                    [ngClass]="{'form-submitted': formSubmitted}" placeholder="Scheme*"
+                                    formControlName="AC_TYPE" (selected)="getScheme($event)" tabindex="1">
+                                </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
@@ -38,7 +38,7 @@
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
                                     placeholder="Customer ID*" formControlName="AC_CUSTID" [(ngModel)]="id"
                                     (selected)="getCustomer(id)" style="width: 90%;"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required>
+                                    [ngClass]="{'form-submitted': formSubmitted}" required tabindex="2">
                                 </ng-select>
                                 <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
                                     (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer"></span>
@@ -131,9 +131,9 @@
                     <!-- Start of Tab forms -->
                     <div class="row">
                         <div class="col-12">
-                            <ngb-tabset>
+                             <ngb-tabset class="nav-pills">>
                                 <!-- Start of Details Tab forms -->
-                                <ngb-tab title="1.Details">
+                                <ngb-tab title="1.Details" ng-class="{active:tab.active}">
                                     <ng-template ngbTabContent>
                                         <div [@fadeInOutTranslate] class="m-t-15">
                                             <div class="row">
@@ -144,7 +144,8 @@
                                                                 placeholder=" " id="AC_OPDATE"
                                                                 max="{{datemax | date:'yyyy-MM-dd'}}"
                                                                 formControlName="AC_OPDATE" required
-                                                                [ngClass]="{'form-submitted': formSubmitted}">
+                                                                [ngClass]="{'form-submitted': formSubmitted}"
+                                                                tabindex="3">
                                                             <label for="AC_OPDATE">Appontied On</label>
                                                         </span>
                                                     </div>
@@ -170,7 +171,7 @@
                                                     <div class="form-group form-primary form-static-label">
                                                         <ng-select [ngClass]="'ng-select'" [options]="PGSchemeCode"
                                                             [multiple]="false" placeholder="Pimgy Scheme*" required
-                                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                                            [ngClass]="{'form-submitted': formSubmitted}" tabindex="4"
                                                             title="Compulsory Selection" formControlName="PIGMY_ACTYPE">
                                                         </ng-select>
                                                     </div>
@@ -373,7 +374,7 @@
                                 </ngb-tab>
                                 <!-- End of Details Tab forms -->
                                 <!-- Start of Introducer / Nominee Tab forms -->
-                                <ngb-tab title="2.Introducer / Nominee">
+                                <ngb-tab title="2.Introducer / Nominee"  tabindex = "5" ng-class="{active:tab.active}">
                                     <ng-template ngbTabContent>
                                         <div [@fadeInOutTranslate] class="m-t-15">
                                             <div class="row">
@@ -394,7 +395,8 @@
                                                     <div class="form-group form-primary form-static-label">
                                                         <ng-select [ngClass]="'ng-select'"
                                                             [options]="OwnbranchMasterDropdown" [multiple]="false"
-                                                            placeholder="Branch" formControlName="AC_INTROBRANCH">
+                                                            placeholder="Branch" formControlName="AC_INTROBRANCH"
+                                                            tabindex="7">
                                                         </ng-select>
                                                     </div>
                                                 </div>
@@ -403,7 +405,12 @@
                                                         <ng-select [ngClass]="'ng-select'"
                                                             [options]="SchemeCodeDropdownDropdown" [multiple]="false"
                                                             placeholder="Account Type" formControlName="AC_INTROID"
+<<<<<<< Updated upstream
                                                             [(ngModel)]="acno" (selected)="getIntroducer($event)">
+=======
+                                                            [(ngModel)]="acno" (selected)="getIntroducer(acno)"
+                                                            tabindex="8">
+>>>>>>> Stashed changes
                                                         </ng-select>
                                                     </div>
                                                 </div>
@@ -412,7 +419,7 @@
                                                         <ng-select [ngClass]="'ng-select'" [options]="introducerACNo"
                                                             [multiple]="false" placeholder="Account Code"
                                                             formControlName="AC_INTRACNO"
-                                                            (selected)="getIntroducerName($event)">
+                                                            (selected)="getIntroducerName($event)" tabindex="9">
                                                         </ng-select>
                                                     </div>
                                                 </div>
@@ -425,7 +432,7 @@
                                                                 placeholder=" " id="AC_INTRNAME"
                                                                 pattern="^[A-Za-z\./ -]+$"
                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                formControlName="AC_INTRNAME">
+                                                                formControlName="AC_INTRNAME" tabindex="10">
                                                             <label for="AC_INTRNAME">Name</label>
                                                         </span>
                                                     </div>
@@ -444,7 +451,7 @@
                                                                 class="form-control" placeholder=" "
                                                                 id="SIGNATURE_AUTHORITY" pattern="^[A-Za-z\./ -]+$"
                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                formControlName="SIGNATURE_AUTHORITY">
+                                                                formControlName="SIGNATURE_AUTHORITY" tabindex="11">
                                                             <label for="SIGNATURE_AUTHORITY">Signature
                                                                 Authority</label>
                                                         </span>
@@ -482,8 +489,7 @@
                                                                                 class="form-control" placeholder=" "
                                                                                 id="AC_NNAME" pattern="^[A-Za-z\./ -]+$"
                                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                formControlName="AC_NNAME" required
-                                                                                [ngClass]="{'form-submitted': formSubmitted}">
+                                                                                formControlName="AC_NNAME" required>
                                                                             <label for="AC_NNAME">Name<sub
                                                                                     class="required">*
                                                                                 </sub></label>
@@ -506,8 +512,7 @@
                                                                                 class="form-control" placeholder=" "
                                                                                 id="AC_NRELA" pattern="^[A-Za-z\./ -]+$"
                                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                                formControlName="AC_NRELA" 
-                                                                                >
+                                                                                formControlName="AC_NRELA">
                                                                             <label for="label-name">Relation</label>
                                                                         </span>
                                                                     </div>
@@ -528,8 +533,7 @@
                                                                                 class="form-control" placeholder=" "
                                                                                 id="AC_NDATE"
                                                                                 max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                formControlName="AC_NDATE"
-                                                                                [ngClass]="{'form-submitted': formSubmitted}">
+                                                                                formControlName="AC_NDATE">
                                                                             <label for="AC_NDATE">Nomination
                                                                                 Date<sub class="required">*
                                                                                 </sub></label>
@@ -787,6 +791,7 @@
                         </div>
                     </div>
                     <!-- End of Tab forms -->
+<<<<<<< Updated upstream
 
                 </form>
             </div>
@@ -801,9 +806,25 @@
                         <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
                             Cancel
                         </button>
+=======
+                    <div class="card-footer">
+                        <div class="row" style="float: right;">
+                            <div class="col-sm">
+                                <button type="submit" class="btn btn-primary ripple light" *ngIf="showButton">
+                                    Add
+                                </button>
+                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                                    Update</button>&nbsp;
+                                <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+>>>>>>> Stashed changes
                     </div>
-                </div>
+                </form>
             </div>
+
         </div>
     </div>
 </div>
@@ -822,17 +843,32 @@
                                                 (click)="editClickHandler(data.id)">Edit</button> &nbsp;
 
                                         </td>
-                                        <td [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_left'"> {{data.AC_ACNOTYPE === ''? '-' : data.AC_ACNOTYPE}}</td>
-                                        <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_left'"> {{data.AC_TYPE === ''? '-' : data.AC_TYPE}}</td>
-                                        <td class="td_right" [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'"> {{data.AC_NO === ''? '-' : data.AC_NO}}</td>
-                                        <td class="td_right" [ngClass]="data.AC_CUSTID === '' ? 'td_center' : 'td_right'"> {{data.AC_CUSTID === ''? '-' : data.AC_CUSTID}}</td>
-                                        <td class="td_right" [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_center'"> {{data.AC_OPDATE === ''? '-' : data.AC_OPDATE}}</td>
-                                        <td [ngClass]="data.PIGMY_ACTYPE === '' ? 'td_center' : 'td_left'"> {{data.PIGMY_ACTYPE === ''? '-' : data.PIGMY_ACTYPE}}</td>
-                                        <td [ngClass]="data.AC_INTROBRANCH === '' ? 'td_center' : 'td_left'"> {{data.AC_INTROBRANCH === ''? '-' : data.AC_INTROBRANCH}}</td>
-                                        <td class="td_right" [ngClass]="data.AC_INTROID === '' ? 'td_center' : 'td_right'"> {{data.AC_INTROID === ''? '-' : data.AC_INTROID}}</td>
-                                        <td class="td_right" [ngClass]="data.AC_INTRACNO === '' ? 'td_center' : 'td_right'"> {{data.AC_INTRACNO === ''? '-' : data.AC_INTRACNO}}</td>
-                                        <td [ngClass]="data.AC_INTRNAME === '' ? 'td_center' : 'td_left'"> {{data.AC_INTRNAME === ''? '-' : data.AC_INTRNAME}}</td>
-                                        <td [ngClass]="data.SIGNATURE_AUTHORITY === '' ? 'td_center' : 'td_right'"> {{data.SIGNATURE_AUTHORITY === ''? '-' : data.SIGNATURE_AUTHORITY}}</td>
+                                        <td [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_left'">
+                                            {{data.AC_ACNOTYPE === ''? '-' : data.AC_ACNOTYPE}}</td>
+                                        <td [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_left'"> {{data.AC_TYPE
+                                            === ''? '-' : data.AC_TYPE}}</td>
+                                        <td class="td_right" [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
+                                            {{data.AC_NO === ''? '-' : data.AC_NO}}</td>
+                                        <td class="td_right"
+                                            [ngClass]="data.AC_CUSTID === '' ? 'td_center' : 'td_right'">
+                                            {{data.AC_CUSTID === ''? '-' : data.AC_CUSTID}}</td>
+                                        <td class="td_right"
+                                            [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_center'">
+                                            {{data.AC_OPDATE === ''? '-' : data.AC_OPDATE}}</td>
+                                        <td [ngClass]="data.PIGMY_ACTYPE === '' ? 'td_center' : 'td_left'">
+                                            {{data.PIGMY_ACTYPE === ''? '-' : data.PIGMY_ACTYPE}}</td>
+                                        <td [ngClass]="data.AC_INTROBRANCH === '' ? 'td_center' : 'td_left'">
+                                            {{data.AC_INTROBRANCH === ''? '-' : data.AC_INTROBRANCH}}</td>
+                                        <td class="td_right"
+                                            [ngClass]="data.AC_INTROID === '' ? 'td_center' : 'td_right'">
+                                            {{data.AC_INTROID === ''? '-' : data.AC_INTROID}}</td>
+                                        <td class="td_right"
+                                            [ngClass]="data.AC_INTRACNO === '' ? 'td_center' : 'td_right'">
+                                            {{data.AC_INTRACNO === ''? '-' : data.AC_INTRACNO}}</td>
+                                        <td [ngClass]="data.AC_INTRNAME === '' ? 'td_center' : 'td_left'">
+                                            {{data.AC_INTRNAME === ''? '-' : data.AC_INTRNAME}}</td>
+                                        <td [ngClass]="data.SIGNATURE_AUTHORITY === '' ? 'td_center' : 'td_right'">
+                                            {{data.SIGNATURE_AUTHORITY === ''? '-' : data.SIGNATURE_AUTHORITY}}</td>
                                         <!-- <td>{{data.AC_ACNOTYPE}}</td>
                                         <td>{{ data.AC_TYPE }}</td>
                                         <td>{{ data.AC_NO }}</td>

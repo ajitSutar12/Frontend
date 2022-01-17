@@ -57,10 +57,21 @@ input[type="text"]:focus {
     outline: none;
 }
 
+<<<<<<< Updated upstream
 //  ng-select:focus {
 //     border: 2px solid green;
 //     outline: none;
 // }
+=======
+    input[type="checkbox"]:focus {
+        border: 2px solid green;
+        outline: none;
+    }
+    input[type="email"]:focus {
+        border: 2px solid green;
+        outline: none;
+    }
+>>>>>>> Stashed changes
 
 input[type="date"]:focus {
     border: 2px solid green;
@@ -557,6 +568,7 @@ ng-select > div > div.single > div.value {
     display: none;
 }
 
+<<<<<<< Updated upstream
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
     color: WHITE;
     background-color: transparent;
@@ -582,3 +594,37 @@ ng-select > div > div.single > div.value {
     box-shadow: 0 0 1px #999;
     color: black !important;
 }
+=======
+    // *:focus{
+    //     border: 2px solid green !important;
+    //     outline: none;
+    // }
+    .ng-valid.ng-dirty:not(form) {
+        border: solid 2px #cccccc;
+       
+       
+      }
+      
+      .ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
+        border: solid 2px lightcoral;
+       
+        
+      }
+
+      ng-select>div {
+       
+        border-radius: 5px;
+        height: 40px;
+        padding: 1px;
+    }
+      ng-select>div>div.single>div.toggle {
+        background-color: white !important;
+        font-size: 9px !important;
+        color: black !important;
+    }
+    ng-select>div>div.single>div.toggle:hover {
+        background-color: white !important;
+        font-size: 9px !important;
+        color: black !important;
+    }
+>>>>>>> Stashed changes

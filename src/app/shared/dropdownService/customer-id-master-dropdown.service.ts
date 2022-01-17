@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class CustomerIDMasterDropdownService {
+    getCustomer: any;
     loadCharacters() {
         throw new Error('Method not implemented.');
     }

@@ -41,7 +41,7 @@
     td,
     th {
         border: 1px solid $theme-border;
-    }
+     }
 }
 /* Zebra-striping */
 
@@ -83,7 +83,7 @@
 
     &.table-striped {
         tbody tr:nth-of-type(odd) {
-            background-color: darken($dark-color,2%);
+            background-color: darken($dark-color,25%);
         }
     }
 

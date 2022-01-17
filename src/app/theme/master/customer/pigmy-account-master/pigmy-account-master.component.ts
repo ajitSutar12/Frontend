@@ -761,6 +761,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   // Method to insert data into database through NestJS
   submit(event) {
+<<<<<<< Updated upstream
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -829,6 +830,102 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         'NomineeData': this.multiNominee,
         //Joint Account
         'JointAccountData': this.multiJointAC,
+=======
+
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+
+      const formVal = this.angForm.value;
+      if (formVal.AC_ADDFLAG == true) {
+        this.addType = 'P'
+      }
+      else if (formVal.AC_ADDFLAG == false) {
+        this.addType = 'T'
+      }
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.CODE;
+      let bankCode = Number(result.branch.syspara[0].BANK_CODE)
+  
+      const dataToSend = {
+        'branchCode': branchCode,
+        'bankCode': bankCode,
+        'schemeCode': this.schemeCodeNO,
+        'AC_TYPE': formVal.AC_TYPE,
+        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+        'AC_CUSTID': formVal.AC_CUSTID,
+        'AC_SHORT_NAME': formVal.AC_SHORT_NAME,
+        'REF_ACNO': formVal.REF_ACNO,
+        'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
+        'AC_MEMBNO': formVal.AC_MEMBNO,
+        'AC_OPDATE': formVal.AC_OPDATE,
+        'AC_RENEW_DATE': formVal.AC_RENEW_DATE,
+        'AC_EXPDT': formVal.AC_EXPDT,
+        'AC_OCODE': formVal.AC_OCODE,
+        'AC_CATG': formVal.AC_CATG,
+        'AC_OPR_CODE': formVal.AC_OPR_CODE,
+        'AC_INTCATA': formVal.AC_INTCATA,
+        'AC_MONTHS': formVal.AC_MONTHS,
+        'AC_SCHMAMT': formVal.AC_SCHMAMT,
+        'AGENT_ACTYPE': formVal.AGENT_ACTYPE,
+        'AGENT_ACNO': formVal.AGENT_ACNO,
+        //temp address 
+        AC_ADDFLAG: formVal.AC_ADDFLAG,
+        AC_ADDTYPE: this.addType,
+        AC_THONO: formVal.AC_THONO,
+        AC_TWARD: formVal.AC_TWARD,
+        AC_TADDR: formVal.AC_TADDR,
+        AC_TGALLI: formVal.AC_TGALLI,
+        AC_TAREA: formVal.AC_TAREA,
+        AC_TCTCODE: formVal.AC_TCTCODE,
+        AC_TPIN: formVal.AC_TPIN,
+  
+        //minor and introducer
+        'AC_MINOR': formVal.AC_MINOR,
+        'AC_MBDATE': formVal.AC_MBDATE,
+        'AC_GRDNAME': formVal.AC_GRDNAME,
+        'AC_GRDRELE': formVal.AC_GRDRELE,
+        'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
+        'AC_INTROID': formVal.AC_INTROID,
+        'AC_INTRACNO': formVal.AC_INTRACNO,
+        'AC_INTRNAME': formVal.AC_INTRNAME,
+        'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+        'PG_COMM_TYPE': formVal.PG_COMM_TYPE,
+        //Nominee 
+        'NomineeData': this.multiNominee,
+        //Joint Account
+        'JointAccountData': this.multiJointAC,
+  
+      }
+      console.log(dataToSend);
+      this.PigmyAccountMasterService.postData(dataToSend).subscribe(data1 => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+        // to reload after insertion of data
+        this.rerender();
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+  
+  
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.multiNominee = []
+      this.multiJointAC = []
+      this.customerDoc = []
+    }
+
+    }
+
+
+>>>>>>> Stashed changes
 
       }
       console.log(dataToSend);
@@ -841,6 +938,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
           dtInstance.ajax.reload()
         });
 
+<<<<<<< Updated upstream
       }, (error) => {
         console.log(error)
       })
@@ -851,6 +949,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.customerDoc = []
     }
   }
+=======
+>>>>>>> Stashed changes
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;

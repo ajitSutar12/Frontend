@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="schemetype" [multiple]="false" placeholder="Scheme Type*" required title="Compulsory Selection" formControlName="AC_ACNOTYPE">
+                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" placeholder="Scheme Type*" required title="Compulsory Selection" formControlName="AC_ACNOTYPE">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_ACNOTYPE'].invalid && (angForm.controls['AC_ACNOTYPE'].dirty || angForm.controls['AC_ACNOTYPE'].touched)" class="alert alert-danger">
