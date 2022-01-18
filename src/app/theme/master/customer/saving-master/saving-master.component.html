@@ -15,9 +15,8 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt" autofocus>
                   <ng-select bindValue="id" [(ngModel)]="selectedValue" id="AC_TYPE" formControlName="AC_TYPE"
-                    [disabled]="AC_TYPE" (ngModelChange)="getScheme($event)"
-                    title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" required
-                    placeholder="Scheme">
+                    [disabled]="AC_TYPE" (ngModelChange)="getScheme($event)" title="Compulsory Selection"
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
                     <ng-option *ngFor="let values of scheme" [value]="values">
                       {{values.S_APPL}} {{values.S_NAME}}</ng-option>
                   </ng-select>
@@ -38,8 +37,8 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select [(ngModel)]="newcustid" id="AC_CUSTID" bindValue="id" formControlName="AC_CUSTID"
-                    (change)="customer($event)" style="width: 85%;" title="Compulsory Selection"
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Customer Id">
+                    [ngClass]="{'form-submitted': formSubmitted}" (change)="customer($event)" style="width: 85%;"
+                    title="Compulsory Selection" required placeholder="Customer Id">
                     <ng-option *ngFor="let values of Cust_ID" [value]="values">
                       {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                   </ng-select>
@@ -374,7 +373,7 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_SCHMAMT" class="form-control" placeholder=" "
-                                    id="AC_SCHMAMT" pattern="\d{1,20}(\.\d{2})?" maxlength="6" 
+                                    id="AC_SCHMAMT" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
                                     title="Input allowed only  0-9" formControlName="AC_SCHMAMT"
                                     style="text-align: right;" (focusout)="decimalAllContent($event)"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -404,7 +403,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-sm" style="float: right;">
+                            <div class="col-sm" style="float: right; margin-top: 6px;">
                               <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('address')">Next
                                 <!-- <span class="fa fa-arrow-right" style="font-size:15px"></span> -->
                               </button>
@@ -516,8 +515,8 @@
                             <div class="col-sm">
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                  <input type="text" name="AC_ADDR" class="form-control" placeholder=" "
-                                     id="AC_ADDR" formControlName="AC_ADDR" disabled />
+                                  <input type="text" name="AC_ADDR" class="form-control" placeholder=" " id="AC_ADDR"
+                                    formControlName="AC_ADDR" disabled />
                                   <label for="AC_ADDR">Detail</label>
                                 </span>
                               </div>
@@ -715,7 +714,6 @@
                                 <div class="form-group input-group">
                                   <span class="border-lable-flt">
                                     <input type="text" name="AC_TADDR" class="form-control" placeholder=" "
-                                    
                                       title="Input allowed only  A-Z a-z 0-9  - / . (Space)" id="AC_TADDR"
                                       formControlName="AC_TADDR" />
                                     <label for="AC_TADDR">Detail</label>
@@ -782,7 +780,7 @@
                             </div>
                           </ng-container>
                           <div class="row">
-                            <div class="col-sm" style="float: right;">
+                            <div class="col-sm" style="float: right;margin-top: 6px;">
                               <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('introducer')">Next
                                 <!-- <span class="fa fa-arrow-right" style="font-size:15px;"></span> -->
                               </button>
@@ -960,7 +958,7 @@
                         </div> -->
                           </div>
                           <div class="row">
-                            <div class="col-sm" style="float: right;">
+                            <div class="col-sm" style="float: right; margin-top: 6px;">
                               <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('nominee')">Next
                                 <!-- <span class="fa fa-arrow-right" style="font-size:15px"></span> -->
                               </button>
@@ -1266,7 +1264,7 @@
                                       ">
                                         <span class="border-lable-flt">
                                           <ng-select id="AC_NCTCODE" [(ngModel)]="ngNcity" formControlName="AC_NCTCODE"
-                                            bindLabel="CITY_NAME" title="Compulsory Selection"   bindValue="id"
+                                            bindLabel="CITY_NAME" title="Compulsory Selection" bindValue="id"
                                             [ngClass]="{'form-submitted': formSubmitted}" placeholder="City">
                                             <ng-option *ngFor="let values of Ncity" [value]="values">
                                               {{values.CITY_NAME}}</ng-option>
@@ -1428,7 +1426,7 @@
                                             {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                         </ng-select>
                                         <label for="JOINT_AC_CUSTID">Customer Id<sub class="required">*
-                                        </sub></label>
+                                          </sub></label>
                                       </span>
                                     </div>
                                   </div>
@@ -1503,7 +1501,7 @@
                                       <td class="td_left"
                                         [ngClass]="data.JOINT_ACNAME === '' ? 'td_center' : 'td_right'">
                                         {{data.JOINT_ACNAME === ''? '-' : data.JOINT_ACNAME}}</td>
-                                      <td class="td_center" [ngClass]="data.OPERATOR === '' ? 'td_center' : 'td_right'">
+                                      <td class="td_left" [ngClass]="data.OPERATOR === '' ? 'td_left' : 'td_right'">
                                         {{data.OPERATOR === ''? '-' : data.OPERATOR}}</td>
                                     </tr>
                                   </tbody>
@@ -1671,7 +1669,7 @@
                             </div>
                           </div>
                           <div class="row">
-                            <div class="col-sm" style="float: right;">
+                            <div class="col-sm" style="float: right; margin-top: 6px;">
                               <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('documents')">Next
                                 <!-- <span class="fa fa-arrow-right" style="font-size:15px"></span> -->
                               </button>
@@ -1790,7 +1788,7 @@
 </div>
 <div class="row">
   <div class="col-12">
-    <div class="card">
+    <div class="card shadow">
       <div class="card-block">
         <div class="row">
           <div class="col-sm">

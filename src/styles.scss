@@ -161,12 +161,12 @@ input[type="checkbox"]:focus {
 .nav-pills .nav-link.active.active,
 .nav-pills .nav-link.active.active:focus,
 .nav-pills .nav-link.active.active:hover {
- 
     color: black;
     text-align: center;
     border-bottom: 2px solid #0275d8;
     border-top-left-radius: 0.2rem !important;
     border-top-right-radius: 0.2rem !important;
+    background-color: #b8cfee;
 }
 
 .nav-tabs {
@@ -197,6 +197,7 @@ input[type="checkbox"]:focus {
     border-radius: 5px;
     margin-right: 5px;
     height: 40px;
+    padding-top: 7px;
 }
 // .btn-sm,
 // .btn-group-sm > .btn {
@@ -374,10 +375,20 @@ ng-select > div > div.single > div.toggle {
     // box-shadow: 0 4px 8px 0 RGB(69 90 100 / 8%);
     // box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
     // box-shadow: 0 14px 28px RGBA(0,0,0,0.25), 0 10px 10px RGBA(0,0,0,0.22);
-    box-shadow: 0 0px 27px 0 RGB(0 0 0 / 12%);
+    // box-shadow: 0 0px 27px 0 RGB(0 0 0 / 12%);
+    box-shadow: none !important;
     margin-bottom: 0;
 }
+.shadow {
+    box-shadow: 0 0px 27px 0 RGB(0 0 0 / 12%) !important;
+}
 
+.table td, .table th {
+    padding: 0.25rem 0.75rem !important;
+}
+// .col-sm .ng-tns-c146-1{
+// max-width: 10px;
+// }
 // .card .card-header {
 //     background-color: #8d1b54;
 //     background-image: linear-gradient(#8d1b54, #cb90a5,);
@@ -388,6 +399,21 @@ ng-select > div > div.single > div.toggle {
 //     align-items: center;
 // }
 
+.table-responsive {
+    display: inline-block;
+    width: 100%;
+    overflow-x: auto;
+    padding-top: -46px;
+    margin: -13px;
+    margin-right: -28px;
+}
+.dataTables_wrapper {
+    position: relative;
+    clear: both;
+    float: left !important;
+    align-items: left;
+    width: 1;
+}
 .card .card-header {
     background-color: #8d1b54;
     border-bottom: none;
@@ -552,25 +578,24 @@ ng-select > div > div.single > div.value {
     text-transform: capitalize;
 }
 
-
-.fa-edit:before, .fa-pencil-square-o:before {
+.fa-edit:before,
+.fa-pencil-square-o:before {
     content: "";
     padding-left: 13px;
 }
 
-.dataTables_length{
+.dataTables_length {
     display: none;
 }
 
-.btn-outline-primary.disabled, .btn-outline-primary:disabled {
+.btn-outline-primary.disabled,
+.btn-outline-primary:disabled {
     color: WHITE;
     background-color: transparent;
 }
 
 .pcoded-main-container {
-   
     background: #fff !important;
-  
 }
 .col-sm.ng-tns-c146-1 {
     padding-top: 0px;
