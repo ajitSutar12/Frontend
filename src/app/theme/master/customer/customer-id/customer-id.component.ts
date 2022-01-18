@@ -96,6 +96,8 @@ interface CustomerMaster {
   styleUrls: ["./customer-id.component.scss"],
 })
 export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
+  maxDate
+  minDate
   formSubmitted = false;
   @Output() newCustomerEvent = new EventEmitter<string>();
   @ViewChild("autofocus") myInputField: ElementRef; //input field autofocus

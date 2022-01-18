@@ -18,6 +18,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { SharedModule } from '../../../../shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   imports: [
@@ -29,7 +30,9 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     FormsModule, 
     ReactiveFormsModule,
     FileUploadModule,
-    SharedModule
+    SharedModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   exports:[CustomerIdComponent], 
   declarations: [CustomerIdComponent],
