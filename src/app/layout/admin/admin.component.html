@@ -118,7 +118,7 @@
               (click)="toggleProfileNotification()">
               <a href="javascript:">
 
-                <img [src]="profilePath" class="img-radius" alt="User-Profile-Image">
+                <img [src]="profilePath" class="img-radius" alt="User-Profile-Image" onError="this.src='assets/images/user.png'">
                 <span>{{userData.F_NAME}} {{userData.L_NAME}}</span>
                 <i class="icon-angle-down"></i>
               </a>
