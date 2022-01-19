@@ -148,34 +148,27 @@ export class AuthorityMasterComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
 
-
-    // Method to insert data into database through NestJS
-    submit() {
-      this.formSubmitted = true;
-  
-      if (this.angForm.valid) {
-        this.formSubmitted = true;
-        const formVal = this.angForm.value;
-        const dataToSend = {
-          'CODE': formVal.CODE,
-          'NAME': formVal.NAME
-        }
-        this.authorityMasterService.postData(dataToSend).subscribe(data1 => {
-          Swal.fire('Success!', 'Data Added Successfully !', 'success');
-          this.formSubmitted = false;
-          // to reload after insertion of data
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
-        }, (error) => {
-          console.log(error)
-        })
-        //To clear form
-        this.resetForm();
-      }
-     
+  // Method to insert data into database through NestJS
+  submit() {
+    this.formSubmitted = true;
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      'CODE': formVal.CODE,
+      'NAME': formVal.NAME
     }
-
+    this.authorityMasterService.postData(dataToSend).subscribe(data1 => {
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
+      // to reload after insertion of data
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+    }, (error) => {
+      console.log(error)
+    })
+    //To clear form
+    this.resetForm();
+  }
 
   //Method for append data into fields
   editClickHandler(id) {

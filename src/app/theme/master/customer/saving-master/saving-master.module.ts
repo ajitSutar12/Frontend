@@ -29,6 +29,8 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -47,7 +49,9 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
     CustomerIdModule,
     PerfectScrollbarModule,
     SharedModule, //modal
-    NgSelectModule
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   declarations: [SavingMasterComponent],
   providers: [

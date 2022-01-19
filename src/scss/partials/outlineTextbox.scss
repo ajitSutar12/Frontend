@@ -20,16 +20,13 @@
     z-index: 3;
     line-height: 2;
     padding: 0 1px;
-
-   
-    
 }
 
 .border-lable-flt label::after,
 .border-lable-flt > span::after {
     content: " ";
     display: block;
-    // position: absolute;
+    position: absolute;
     background: white;
     height: 2px;
     top: 50%;
@@ -48,7 +45,6 @@
     opacity: 0;
 }
 
-<<<<<<< Updated upstream
 // .border-lable-flt .form-control:placeholder-shown:not(:focus)+* {
 //     font-size: 110%;
 //     opacity: .5;
@@ -58,12 +54,6 @@
     font-size: 13px;
     opacity: 0.5;
     top: 2px;
-=======
-.border-lable-flt .form-control:placeholder-shown:not(:focus)+* {
-    font-size: 110%;
-     opacity: .5;
-    top: .3em;
->>>>>>> Stashed changes
 }
 
 .input-group .border-lable-flt {

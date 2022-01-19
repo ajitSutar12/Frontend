@@ -72,14 +72,8 @@
                 </perfect-scrollbar>
               </div>
               <div class="app-modal-footer">
-<<<<<<< Updated upstream
                 <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
                   (click)="modalLarge.hide();onCloseModal();">Close</button>
-=======
-                <button type="button" class="btn btn-primary ripple light" id="triggerhide"  (click)="modalLarge.hide()">
-                  Close
-                </button>
->>>>>>> Stashed changes
               </div>
             </app-modal-basic>
             <div class="col-sm-1">
@@ -118,7 +112,6 @@
           <!-- Start of Tab forms -->
           <div class="row">
             <div class="col-sm">
-<<<<<<< Updated upstream
               <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
                 <!-- start of basic tab -->
                 <ngb-tab title="Basic">
@@ -131,54 +124,20 @@
                             <div class="col-sm-2">
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                  <input type="date" name="AC_OPDATE" class="form-control" placeholder=" "
+                                  <input type="text" class="form-control" id="AC_OPDATE" required
+                                    max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                    [ngClass]="{'form-submitted': formSubmitted}" (focusout)="disabledate(date.value)"
+                                    formControlName="AC_OPDATE" disabled [minDate]="minDate" [maxDate]="maxDate"
+                                    #dp="bsDatepicker" bsDatepicker>
+                                  <!-- <input type="date" name="AC_OPDATE" class="form-control" placeholder=" "
                                     id="AC_OPDATE" autofocus required max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                     [ngClass]="{'form-submitted': formSubmitted}" (focusout)="disabledate(date.value)"
-                                    formControlName="AC_OPDATE" disabled />
+                                    formControlName="AC_OPDATE" disabled /> -->
                                   <label for="AC_OPDATE">Opening Date<sub class="required">*
                                     </sub></label>
                                 </span>
                               </div>
                               <div class="form-group form-primary form-static-label" *ngIf="
-=======
-              <div class="card-block">
-                 <ngb-tabset class="nav-pills">>
-                  <!-- start of basic tab -->
-                  <ngb-tab title="1.Basic ">
-                    <ng-template ngbTabContent>
-                      <div [@fadeInOutTranslate] class="m-t-15">
-                        <div class="row">
-                          <div class="col-sm-3">
-                            <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                <input type="text" name="AC_MEMBTYPE" class="form-control" placeholder=" "
-                                  id="AC_MEMBTYPE" formControlName="AC_MEMBTYPE" disabled />
-                                <label for="AC_MEMBTYPE">Member Scheme</label>
-                              </span>
-                            </div>
-                          </div>
-                          <div class="col-sm">
-                            <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                <input type="text" name="AC_MEMBNO" class="form-control" placeholder=" " id="AC_MEMBNO"
-                                  formControlName="AC_MEMBNO" disabled />
-                                <label for="AC_MEMBNO">Member No.</label>
-                              </span>
-                            </div>
-                          </div>
-                          <div class="col-sm-2">
-                            <div class="form-group input-group">
-                              <span class="border-lable-flt">
-                                <input type="text" name="AC_OPDATE" class="form-control" placeholder=" " id="AC_OPDATE"
-                                  required max="{{datemax | date:'yyyy-MM-dd'}}" onfocus="(this.type='date')" #date
-                                   [ngClass]="{'form-submitted': formSubmitted}"
-                                  (focusout)="disabledate(date.value)" formControlName="AC_OPDATE" />
-                                <label for="AC_OPDATE">Opening Date<sub class="required">*
-                                  </sub></label>
-                              </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="
->>>>>>> Stashed changes
                                 angForm.controls['AC_OPDATE'].invalid &&
                                 (angForm.controls['AC_OPDATE'].dirty ||
                                   angForm.controls['AC_OPDATE'].touched)
@@ -1764,23 +1723,6 @@
             </div>
           </div>
           <!-- End of tab Forms -->
-<<<<<<< Updated upstream
-=======
-          <div class="card-footer">
-            <div class="row" style="float: right;">
-              <div class="col-sm">
-                <button  type ="submit" class="btn btn-primary ripple light"*ngIf="showButton">
-                  Add
-                </button>
-                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
-                  Update</button>&nbsp;
-                <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
->>>>>>> Stashed changes
         </form>
       </div>
     </div>

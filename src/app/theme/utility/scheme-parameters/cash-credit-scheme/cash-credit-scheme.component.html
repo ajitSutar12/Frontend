@@ -13,7 +13,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
                                         required="" pattern="^[0-9]+$" maxlength="3" minlength="3" min="601" max="699"
-                                        title="Input allowed only  0-9. (Space)" formControlName="S_APPL" (onkeyup)="presentdata()" #autofocus tabindex="1">
+                                        title="Input allowed only  0-9. (Space)" formControlName="S_APPL" (onkeyup)="presentdata()" #autofocus>
                                     <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -35,7 +35,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="LedgerBal" class="form-control" placeholder=" "
                                         id="LedgerBal" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        formControlName="LEDGER_BAL" disabled>
+                                        formControlName="LEDGER_Bal" disabled>
                                     <label for="LedgerBal">Ledger Balance</label>
                                 </span>
                             </div>
@@ -47,7 +47,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME"
                                         required="" pattern="^[A-Za-z\./ -]+$" maxlength="90"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_NAME" tabindex="2">
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_NAME">
                                     <label for="S_NAME">Description<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -68,7 +68,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
                                         id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="15"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME" tabindex="3">
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
                                     <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -85,7 +85,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="G.L.A/c No.*" required title="Compulsory Selection" maxlength="6"
-                                    formControlName="S_GLACNO" tabindex="4">
+                                    formControlName="S_GLACNO">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -101,7 +101,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Interest GL A/c*" required title="Compulsory Selection" maxlength="6"
-                                    formControlName="S_INT_ACNO" tabindex="4">
+                                    formControlName="S_INT_ACNO">
                                 </ng-select>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -120,7 +120,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Receivable Int. A/c*" title="Compulsory Selection" maxlength="6"
-                                    formControlName="S_RECBL_PYBL_INT_ACNO" tabindex="5">
+                                    formControlName="S_RECBL_PYBL_INT_ACNO">
                                 </ng-select>
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Penal Int. A/c*" title="Compulsory Selection" maxlength="6"
-                                    formControlName="S_PENAL_ACNO" tabindex="6">
+                                    formControlName="S_PENAL_ACNO">
                                 </ng-select>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Recble Penal Int. A/c*" title="Compulsory Selection" maxlength="6"
-                                    formControlName="S_RECBL_PENAL_ACNO" tabindex="7">
+                                    formControlName="S_RECBL_PENAL_ACNO">
                                 </ng-select>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Recble Overdue Int.*" title="Compulsory Selection" maxlength="6"
-                                    formControlName="S_RECBL_ODUE_INT_ACNO" >
+                                    formControlName="S_RECBL_ODUE_INT_ACNO">
                                 </ng-select>
                             </div>
                         </div>

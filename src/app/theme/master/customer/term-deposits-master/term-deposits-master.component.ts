@@ -1160,99 +1160,15 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   // Method to insert data into database through NestJS
-  submit(event) {
-    event.preventDefault();
+  submit() {
     this.formSubmitted = true;
-
-    if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
-      const formVal = this.angForm.value;
-      if (formVal.AC_ADDFLAG == true) {
-        this.addType = 'P'
-      }
-      else if (formVal.AC_ADDFLAG == false) {
-        this.addType = 'T'
-      }
-  
-      //get bank code and branch code from session
-      let data: any = localStorage.getItem('user');
-      let result = JSON.parse(data);
-      let branchCode = result.branch.CODE;
-      let bankCode = Number(result.branch.syspara[0].BANK_CODE)
-      const dataToSend = {
-        'branchCode': branchCode,
-        'bankCode': bankCode,
-        'schemeCode': this.schemeCode,
-        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-        'AC_TYPE': formVal.AC_TYPE,
-        'AC_NO': formVal.AC_NO,
-        // 'AC_INTRATE':formVal.AC_INTRATE,
-        'AC_CUSTID': formVal.AC_CUSTID,
-        'AC_NAME': formVal.AC_NAME,
-        'REF_ACNO': formVal.REF_ACNO,
-        'AC_OPDATE': formVal.AC_OPDATE,
-        'AC_CATG': formVal.AC_CATG,
-        'AC_OPR_CODE': formVal.AC_OPR_CODE,
-        'AC_INTCATA': formVal.AC_INTCATA,
-        'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
-        'AC_REF_RECEIPTNO': formVal.AC_REF_RECEIPTNO,
-        'AC_ASON_DATE': formVal.AC_ASON_DATE,
-        'AC_MONTHS': formVal.AC_MONTHS,
-        'AC_EXPDT': formVal.AC_EXPDT,
-        'AC_SCHMAMT': formVal.AC_SCHMAMT,
-        'AC_MATUAMT': formVal.AC_MATUAMT,
-        'IS_DISCOUNTED_INT_RATE': formVal.IS_DISCOUNTED_INT_RATE,
-  
-        //temp address 
-        AC_ADDFLAG: formVal.AC_ADDFLAG,
-        AC_ADDTYPE: this.addType,
-        AC_THONO: formVal.AC_THONO,
-        AC_TWARD: formVal.AC_TWARD,
-        AC_TADDR: formVal.AC_TADDR,
-        AC_TGALLI: formVal.AC_TGALLI,
-        AC_TAREA: formVal.AC_TAREA,
-        AC_TCTCODE: formVal.AC_TCTCODE,
-        AC_TPIN: formVal.AC_TPIN,
-        //minor and introducer
-        'AC_MINOR': formVal.AC_MINOR,
-        'AC_MBDATE': formVal.AC_MBDATE,
-        'AC_GRDNAME': formVal.AC_GRDNAME,
-        'AC_GRDRELE': formVal.AC_GRDRELE,
-        'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
-        'AC_INTROID': formVal.AC_INTROID,
-        'AC_INTRACNO': formVal.AC_INTRACNO,
-        'AC_INTRNAME': formVal.AC_INTRNAME,
-        'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
-        //nominee
-        'NomineeData': this.multiNominee,
-        //Joint Account
-        'JointAccountData': this.multiJointAC,
-        //Attorney
-        'PowerOfAttorneyData': this.multiAttorney
-  
-      }
-      // console.log(dataToSend);
-      this.TermDepositMasterService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
-        this.formSubmitted = false;
-        // to reload after insertion of data
-        
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-  
-      }, (error) => {
-        console.log(error)
-      })
-      //To clear form
-      this.resetForm();
-      this.multiNominee = []
-      this.multiJointAC = []
-      this.multiAttorney = []
-      this.customerDoc = []
+    const formVal = this.angForm.value;
+    if (formVal.AC_ADDFLAG == true) {
+      this.addType = 'P'
     }
+    else if (formVal.AC_ADDFLAG == false) {
+      this.addType = 'T'
     }
-<<<<<<< Updated upstream
     if (this.angForm.controls['AC_TCTCODE'].value == "") {
       formVal.AC_TCTCODE = 0
     }
@@ -1322,15 +1238,17 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
-=======
 
-
->>>>>>> Stashed changes
-
-
-
-   
-  
+    }, (error) => {
+      console.log(error)
+    })
+    //To clear form
+    this.resetForm();
+    this.multiNominee = []
+    this.multiJointAC = []
+    this.multiAttorney = []
+    this.customerDoc = []
+  }
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;

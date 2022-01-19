@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <form action="javascript:">
+                <form  action="javascript:">
                     <div class="row">
                         <div class="col-sm-7">
                             <div class="card">
@@ -24,18 +24,22 @@
                                         <div class="col-sm-11">
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
-                                                    <input type="text" name="mobileno" class="form-control"
-                                                        placeholder=" " id="mobileno" required maxlength="10"
-                                                        pattern="^[A-Za-z]+$" [(ngModel)]="mobileno"
-                                                        title="Input allowed only A-Z">
-
-                                                    <label for="mobileno">User Name<sub class="required">*
-                                                        </sub></label>
+                                                    <input type="text" name="mobileno" class="form-control" placeholder=" " id="mobileno"
+                                                        required pattern="^[A-Za-z]+$" maxlength="10" 
+                                                        [(ngModel)]="mobileno" title="Input allowed only A-Z" >
+                                                    <label for="mobileno">User Name<sub class="required">* </sub></label>
                                                 </span>
                                             </div>
+                                            <!-- <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['User_Name'].invalid && (angForm.controls['F_NAME'].dirty || angForm.controls['F_NAME'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['F_NAME'].errors?.pattern || angForm.controls['F_NAME'].errors?.required">
+                                                    This field is required and Input allowed only A-Z
+                                                </div>
+                                            </div> -->
                                         </div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-sm-11">
                                             <div class="form-group input-group">
@@ -44,8 +48,8 @@
                                                         required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" maxlength="10" 
                                                         [(ngModel)]="password" title="Input allowed only A-Z" >
                                                         <div style="    display: block;
-                                                        margin-left: 90%;
-                                                        margin-top: -12%; margin-right: 4%; font-size: 18px;">
+                                                        margin-left: 95%;
+                                                        margin-top: -10%;">
                                                             <span toggle="#password-field"
                                                       style=" margin: 12px 0px 0px -19px"
                                                          class="fa fa-fw fa-eye field-icon toggle-password"
@@ -55,34 +59,88 @@
                                                     <label for="password">Password<sub class="required">* </sub></label>
                                                 </span>
                                             </div>
+                                            <!-- <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['User_Name'].invalid && (angForm.controls['F_NAME'].dirty || angForm.controls['F_NAME'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['F_NAME'].errors?.pattern || angForm.controls['F_NAME'].errors?.required">
+                                                    This field is required and Input allowed only A-Z
+                                                </div>
+                                            </div> -->
                                         </div>
-                                    </div>
-
-                                    <!-- <div class="row">
-                                        <div class="col-sm-11">
+                                        <!-- <div class="col-sm">
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
-                                                        <input [type]="password" name="password" class="form-control"
-                                                        placeholder=" " id="password" required
-                                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" maxlength="10" [(ngModel)]="password">
-                                                        <label for="password">Password<sub class="required">* </sub></label>
-                                                        <button (click)="onClick()"> 
-                                                            <i class="fa fa-fw fa-eye" aria-hidden="true" *ngIf="!show"></i>
-                                                            <i class="fa fa-fw fa-eye fa-eye-slash" aria-hidden="true" *ngIf="show"></i>
-                                                        </button>
+                                                    <input [type]="passType" name="password" [(ngModel)]="password"
+                                                    class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                                    minlength="8" maxlength="8"
+                                                    title="Must contain at least one number, one uppercase, lowercase latter and at least 8 characters"
+                                                    style="width: 90%;" >
+                                                    <span toggle="#password-field"
+                                           style="display: absolute; margin: 5% 0% 0% 90%; font-size: 95%; cursor: pointer;"
+                                            class="fa fa-fw fa-eye field-icon toggle-password"
+                                            (click)="showHidePassword()"></span>
+                                                    <label for="password">Password<sub class="required">* </sub></label>
                                                 </span>
                                             </div>
+                                            <!-- <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['User_Name'].invalid && (angForm.controls['F_NAME'].dirty || angForm.controls['F_NAME'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['F_NAME'].errors?.pattern || angForm.controls['F_NAME'].errors?.required">
+                                                    This field is required and Input allowed only A-Z
+                                                </div>
+                                            </div> 
+                                        </div> -->
+                                        <div class="col-sm">
+                                           
                                         </div>
-                                    </div> -->
+                                    </div>
                                     
 
-
-
-
+                                    <!-- <div class="form-group form-primary">
+                                        <input type="text" name="email" class="form-control" required="">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Your Email Address</label>
+                                    </div>
+                                    <div class="form-group form-primary">
+                                        <input type="password" name="password" class="form-control" required="">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Password</label>
+                                    </div> -->
+                                    <!-- <div class="form-group form-primary form-static-label">
+                                        <input type="text" name="mobileno" [(ngModel)]="mobileno" class="form-control"
+                                            minlength="10" maxlength="10" pattern="^[0-9]+$"
+                                            title="Please Enter Mobile Number">
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Your Mobile Number</label>
+                                        <label class="invalid">Invalid Number</label>
+                                        *ngIf="isInvalidNumber"
+                                    </div> -->
+                                    <!-- <div class="form-group form-primary form-static-label">
+                                        <input [type]="passType" name="password" [(ngModel)]="password"
+                                            class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                            minlength="8" maxlength="8"
+                                            title="Must contain at least one number, one uppercase, lowercase latter and at least 8 characters"
+                                            style="width: 90%;">
+                                        <span toggle="#password-field"
+                                            style="font-size: 20px;color: #262d38; cursor: pointer;"
+                                            class="fa fa-fw fa-eye field-icon toggle-password"
+                                            (click)="showHidePassword()"></span>
+                                        <span class="form-bar"></span>
+                                        <label class="float-label">Password</label>
+                                        <label class="invalid" *ngIf="isInvalidPassword">Invalid Password</label>
+                                    </div> -->
                                     <div class="row m-t-25 text-left">
                                         <div class="col-12">
+                                            <!-- <div class="checkbox-fade fade-in-primary d-">
+                                                <label>
+                                                    <span class="text-inverse" *ngIf="resetPassword">Reset Password</span>
+                                                 
+                                                </label>
+                                            </div> -->
                                             <div class="forgot-phone text-right f-left">
-                                                <a [routerLink]="['/auth/resetpassword']" class="text-right f-w-600">
+                                                <a [routerLink]="['/auth/resetpassword']" class="text-right f-w-600"> 
                                                     Reset Password?</a>
                                             </div>
                                             <div class="forgot-phone text-right f-right" *ngIf="forgetPassword">

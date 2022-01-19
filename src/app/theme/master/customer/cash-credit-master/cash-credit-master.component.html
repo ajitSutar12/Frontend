@@ -7,7 +7,7 @@
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
             <div class="card-block">
-                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
+                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
@@ -99,7 +99,7 @@
                     <!-- Start of Tab forms -->
                     <div class="row">
                         <div class="col-12">
-                             <ngb-tabset class="nav-pills">>
+                            <ngb-tabset>
                                 <!-- Start Basic Detail Tab -->
                                 <ngb-tab title="1.Basic Detail">
                                     <ng-template ngbTabContent>
@@ -1565,7 +1565,6 @@
                             </ngb-tabset>
                         </div>
                     </div>
-<<<<<<< Updated upstream
                 </form>
             </div>
             <div class="card-footer">
@@ -1580,25 +1579,9 @@
                         <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
                             Cancel
                         </button>
-=======
-                    <div class="card-footer">
-                        <div class="row" style="float: right;">
-                            <div class="col-sm">
-                                <button type="submit" class="btn btn-primary ripple light"  *ngIf="showButton">
-                                    Add
-                                </button>
-                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
-                                    Update</button>&nbsp;
-                                <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
->>>>>>> Stashed changes
                     </div>
-                </form>
+                </div>
             </div>
-
         </div>
     </div>
 </div>

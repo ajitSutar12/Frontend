@@ -101,7 +101,7 @@
                     <!-- Start of Tab forms -->
                     <div class="row">
                         <div class="col-12">
-                             <ngb-tabset class="nav-pills">>
+                            <ngb-tabset>
                                 <!-- Start Basic Detail Tab -->
                                 <ngb-tab title="1.Basic Detail">
                                     <ng-template ngbTabContent>
@@ -1658,23 +1658,22 @@
                             </ngb-tabset>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <div class="row" style="float: right;">
-                            <div class="col-sm">
-                                <button class="btn btn-primary ripple light" *ngIf="showButton">
-                                    Add
-                                </button>
-                                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
-                                    Update</button>&nbsp;
-                                <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
-                                    Cancel
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </form>
             </div>
-
+            <div class="card-footer">
+                <div class="row" style="float: right;">
+                    <div class="col-sm">
+                        <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
+                            Add
+                        </button>
+                        <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                            Update</button>&nbsp;
+                        <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

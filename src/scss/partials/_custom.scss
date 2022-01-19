@@ -564,23 +564,16 @@
 
 
 /* form select */
-select-dropdown>div,.below {
-    z-index: 999;
-}
+
 ng-select.ng-select>div {
     border: 1px solid #aaa;
     border-radius: 4px;
-    
     >div.single {
         background-color: white;
         color: black;
         padding: 8px 30px 8px 20px;
         border-radius: 4px;
         height: auto;
-        opacity: 1;
-
-
-        
     }
     &.disabled>div.single {
         background-color: #aaa;
@@ -609,24 +602,10 @@ ng-select.ng-select>div {
     background-color: $color-blue;
 }
 
-.ng-select select-dropdown{
-    background-color: rgb(241, 241, 241);
-}
-.ng-select option {
-    background-color: rgb(241, 241, 241);
-}
-.ng-select select-dropdown .highlighted {
-    .border-lable-flt label{
-      opacity: 0;
-    }
-}
-   
-
 .famfamfam-flags {
     display: inline-block;
     margin-right: 6px;
     width: 16px;
-    background-color: rgb(241, 241, 241);
 }
 
 ng-select.ng-select>div>div {
@@ -634,7 +613,6 @@ ng-select.ng-select>div>div {
         border: 1px solid #aaa;
         padding: 6px 10px 6px 10px !important;
         border-radius: 4px;
-        background-color: rgb(241, 241, 241);
         >div.option {
             span.deselect-option {
                 color: #fff !important;

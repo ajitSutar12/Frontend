@@ -378,17 +378,10 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
       TO_RANGE: formVal.TO_RANGE,
       CHARGES_AMT: formVal.CHARGES_AMT,
     }
-  if (formVal.CHARGES_AMT == "" || formVal.CHARGES_AMT == null) {
-    Swal.fire("Please Insert Mandatory Record Charges amount"); 
-  }
-  
-  else {
     this.multiField.push(object);
+    console.log(this.multiField)
+    this.resetField()
   }
-  this.resetField()
-}
-
-
   resetField() {
     this.angForm.controls['FROM_RANGE'].reset();
     this.angForm.controls['TO_RANGE'].reset();

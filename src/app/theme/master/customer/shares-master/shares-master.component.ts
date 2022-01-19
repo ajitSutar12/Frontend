@@ -192,9 +192,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   private dataSub: Subscription = null;
 
 
-  public visible = false;
-  public visibleAnimate = false;
-
   constructor(
     private http: HttpClient,
     private ShareMasterService: ShareMasterService,
@@ -468,12 +465,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addNewCustomer(newCustomer) {
-   
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
       this.id = newCustomer;
       this.getCustomer(newCustomer);
-  
     })
   }
 
@@ -482,17 +477,22 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
+      if (data.castMaster == null) {
+        data.castMaster = ""
+      }
+      if (data.occupMaster == null) {
+        data.occupMaster = ""
+      }
       this.angForm.patchValue({
         AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
-        AC_CAST: data.AC_CAST,
-        AC_OCODE: data.AC_OCODE,
+        AC_CAST: data.castMaster.NAME,
+        AC_OCODE: data.occupMaster.NAME,
         AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
         AC_MOBNO: data.AC_MOBILENO,
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,
-<<<<<<< Updated upstream
         AC_ADDFLAG: data.custAddress[0]?.AC_ADDFLAG,
         AC_HONO: data.custAddress[0]?.AC_HONO,
         AC_WARD: data.custAddress[0]?.AC_WARD,
@@ -501,16 +501,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_AREA: data.custAddress[0]?.AC_AREA,
         AC_CTCODE: data.custAddress[0].city?.CITY_NAME,
         AC_PIN: data.custAddress[0]?.AC_PIN,
-=======
-        AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
-        AC_HONO: data.custAddress[0].AC_HONO,
-        AC_WARD: data.custAddress[0].AC_WARD,
-        AC_ADDR: data.custAddress[0].AC_ADDR,
-        AC_GALLI: data.custAddress[0].AC_GALLI,
-        AC_AREA: data.custAddress[0].AC_AREA,
-        AC_CTCODE: data.custAddress[0].AC_CTCODE,
-        AC_PIN: data.custAddress[0].AC_PIN,
->>>>>>> Stashed changes
       })
       if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {
         this.angForm.patchValue({
@@ -524,12 +514,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         })
       }
     })
-    this.onCloseModal();
-  }
-//for modal close
-  onCloseModal(){
-    this.visibleAnimate = false;
-    setTimeout(() => this.visible = false, 300);
   }
 
   // //disabledate on keyup
@@ -565,7 +549,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     const year = new Date().getFullYear() - 18
     this.datemax = year + "-" + m + "-" + day;
   }
-
   //set date on keyup event
   keyupdate(date: any) {
     const d = new Date();
@@ -613,7 +596,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createForm() {
     this.angForm = this.fb.group({
-      AC_TYPE: ['', [Validators.required]],
+      AC_TYPE: ['', []],
       AC_ACNOTYPE: ['SH'],
       AC_NO: [''],
       AC_TITLE: [''],
@@ -666,9 +649,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NARR: ['', [Validators.pattern]],
 
       //nominee controls (NOMINEELINK table)
-      AC_NNAME: ['', [Validators.pattern,Validators.required]],
-      AC_NRELA: ['', [Validators.pattern,Validators.required]],
-      AC_NDATE: ['',[Validators.required]],
+      AC_NNAME: ['', [Validators.pattern]],
+      AC_NRELA: ['', [Validators.pattern]],
+      AC_NDATE: ['', []],
       AGE: ['', [Validators.pattern, Validators.min(1), Validators.max(100)]],
       AC_NHONO: ['', [Validators.pattern]],
       AC_NWARD: ['', [Validators.pattern]],
@@ -693,7 +676,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_DEV_CITYCODE: [''],
     });
   }
-
   getShareScheme(value) {
     this.shareSchemeType = value.name
   }
@@ -703,7 +685,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-<<<<<<< Updated upstream
 
       const formVal = this.angForm.value;
       if (formVal.AC_ADDFLAG == true) {
@@ -759,94 +740,39 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_TAREA: formVal.AC_TAREA,
         AC_TCTCODE: formVal.AC_TCTCODE,
         AC_TPIN: formVal.AC_TPIN,
-=======
-      console.log(this.angForm.value); // Process your form
-      
-    const formVal = this.angForm.value;
-    if (formVal.AC_ADDFLAG == true) {
-      this.addType = 'P'
-    }
-    else if (formVal.AC_ADDFLAG == false) {
-      this.addType = 'T'
-    }
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.CODE;
-    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
 
-    const dataToSend = {
-      'branchCode': branchCode,
-      'bankCode': bankCode,
-      'shareSchemeType': this.shareSchemeType,
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_TYPE': formVal.AC_TYPE,
-      'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_NAME': formVal.AC_NAME,
-      'AC_CATG': parseInt(formVal.AC_CATG),
-      'EMP_NO': formVal.EMP_NO,
-      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
-      'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
-      'AC_JOIN_DATE': formVal.AC_JOIN_DATE,
-      'AC_OPDATE': formVal.AC_OPDATE,
-      'AC_EXPDT': formVal.AC_EXPDT,
-      'DEATH_DATE': formVal.DEATH_DATE,
-      'AC_DIRECT': formVal.AC_DIRECT,
-      'AC_BRANCH': formVal.AC_BRANCH,
-      'AC_RETIRE_DATE': formVal.AC_RETIRE_DATE,
-      'MEMBERSHIP_BY': formVal.MEMBERSHIP_BY,
-      'AC_SREPRESENT': formVal.AC_SREPRESENT,
-      'SUB_SALARYDIVISION_CODE': formVal.SUB_SALARYDIVISION_CODE,
-      'AC_SBNO': formVal.AC_SBNO,
-      'AC_RESNO': formVal.AC_RESNO,
-      'AC_RESDT': formVal.AC_RESDT,
-      'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
-      'REF_ACNO': formVal.REF_ACNO,
-      'AC_NARR': formVal.AC_NARR,
-      //temp address 
-      AC_ADDFLAG: formVal.AC_ADDFLAG,
-      AC_ADDTYPE: this.addType,
-      AC_THONO: formVal.AC_THONO,
-      AC_TWARD: formVal.AC_TWARD,
-      AC_TADDR: formVal.AC_TADDR,
-      AC_TGALLI: formVal.AC_TGALLI,
-      AC_TAREA: formVal.AC_TAREA,
-      AC_TCTCODE: formVal.AC_TCTCODE,
-      AC_TPIN: formVal.AC_TPIN,
->>>>>>> Stashed changes
+        //shares details under nominee tab
+        // 'AC_SHBALDATE': formVal.AC_SHBALDATE,
+        // 'AC_OP_SHNO': formVal.AC_OP_SHNO,
+        // 'AC_FACE_VALUE': formVal.AC_FACE_VALUE,
+        // 'AC_OP_BAL': formVal.AC_OP_BAL,
 
-      //shares details under nominee tab
-      // 'AC_SHBALDATE': formVal.AC_SHBALDATE,
-      // 'AC_OP_SHNO': formVal.AC_OP_SHNO,
-      // 'AC_FACE_VALUE': formVal.AC_FACE_VALUE,
-      // 'AC_OP_BAL': formVal.AC_OP_BAL,
+        //marathi details
+        'AC_DEV_NAME': formVal.AC_DEV_NAME,
+        'AC_DEV_WARD': formVal.AC_DEV_WARD,
+        'AC_DEV_ADD': formVal.AC_DEV_ADD,
+        'AC_DEV_GALLI': formVal.AC_DEV_GALLI,
+        'AC_DEV_AREA': formVal.AC_DEV_AREA,
+        'AC_DEV_CITYCODE': formVal.AC_DEV_CITYCODE,
+        //Nominee 
+        'NomineeData': this.multiNominee
+      }
 
-      //marathi details
-      'AC_DEV_NAME': formVal.AC_DEV_NAME,
-      'AC_DEV_WARD': formVal.AC_DEV_WARD,
-      'AC_DEV_ADD': formVal.AC_DEV_ADD,
-      'AC_DEV_GALLI': formVal.AC_DEV_GALLI,
-      'AC_DEV_AREA': formVal.AC_DEV_AREA,
-      'AC_DEV_CITYCODE': formVal.AC_DEV_CITYCODE,
-      //Nominee 
-      'NomineeData': this.multiNominee
-    }
+      this.ShareMasterService.postData(dataToSend).subscribe(data => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
 
-    this.ShareMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.formSubmitted = false;
-
-      // to reload after insertion of data
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
-    //To clear form
-    this.resetForm();
-    this.multiNominee = []
-    this.customerDoc = []
+        // to reload after insertion of data
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.multiNominee = []
+      this.customerDoc = []
     }
   }
 
@@ -984,7 +910,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      $('#sharemastertable tfoot tr').appendTo('#sharemastertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
@@ -1165,13 +1090,4 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.controls['AC_NCTCODE'].reset();
     this.angForm.controls['AC_NPIN'].reset();
   }
-
-  triggerhide(){
-  console.log("in modal close event")
-
-  debugger
-  // this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
-//  })
-  }
-  
 }

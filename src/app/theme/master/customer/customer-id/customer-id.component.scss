@@ -6,7 +6,7 @@
     display: inline-block;
     vertical-align: middle;
     position: relative;
-    // padding-left: 5px;
+    padding-left: 5px;
   }
   
   .checkbox label::before {
@@ -67,9 +67,9 @@
     border-radius: 5%;
   }
   
-  // .checkbox.checkbox-inline { 
-  //   margin-top: 0;
-  // }
+  .checkbox.checkbox-inline {
+    margin-top: 0;
+  }
   
   .checkbox-primary input[type="checkbox"]:checked + label::before {
     background-color: white;
@@ -86,7 +86,6 @@
 //   .ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
 //     border: solid 2px lightcoral;
 //   }
-<<<<<<< Updated upstream
 #bkcolor{
   background-color: grey;
 }
@@ -94,71 +93,3 @@
 // #customermastertable tfoot{
 //   background-color: grey;
 // }
-<<<<<<< Updated upstream
-=======
-.autofocus{
-  border: 2px solid green;
-}
-.ng-select.custom {
-  border:0px;
-  min-height: 0px;
-  border-radius: 0;
-}
-.ng-select.custom .ng-select-container  {            
-  min-height: 0px;
-  border-radius: 0;
-}
-.btn{
-  color: white;
-  border-radius: 5px;
-  // background-image: linear-gradient(to right, #448aff, #2298ff, #00a5ff, #00b1ff, #19bcff);
-  // background-image: linear-gradient(90deg, #020024 0%, #090979 35%, #448aff 100%);
-  background: linear-gradient(
-    183deg, #0072ff 0%, #00d4ff 100%);
-}
-
-#ngdiv:focus{
-  border-radius: 5px;
-  border:2px solid green
-}
-.ng-select .ng-select-container .ng-value-container .ng-input>input{
-  border: green;
-}
-
-.table.dataTable[class*="table-"] thead th {
-  background-color: #00286b;
-  color: white;
- 
-}
-.filters{
-background-color: white;
-}
-
-/* Zebra-striping */
-
-.table-striped {
-tbody tr:nth-of-type(2n+1) {
-    // background-color: transparentize($primary-color,0.97);
-    background-color: #E1EBEE;
-}
-}
-
-
-
-#header-search thead .form-control,
-#header-search tfoot .form-control,
-#header-select thead .form-control,
-#form-input-table .form-control,
-.search-api .form-control,
-#dt-live-dom .form-control {
-  width: 90%;
-}
-.border-lable-flt .form-control:placeholder-shown:not(:focus) + * {
-  font-size: 99%;
-  opacity: .5;
-  top: 0.3em;
-}
->>>>>>> Stashed changes
-=======
-
->>>>>>> Stashed changes

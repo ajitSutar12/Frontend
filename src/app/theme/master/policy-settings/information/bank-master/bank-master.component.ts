@@ -206,35 +206,29 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   // Method to insert data into database through NestJS
   submit() {
     this.formSubmitted = true;
-
-    if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
-      const formVal = this.angForm.value;
-      const dataToSend = {
-        'BANK_CODE': formVal.BANK_CODE,
-        'LEDGER_CODE': formVal.LEDGER_CODE,
-        'BANK_NAME': formVal.BANK_NAME,
-        'BANK_SHORTNAME': formVal.BANK_SHORTNAME,
-        'DD_APPLICABLE': formVal.DD_APPLICABLE,
-        'BANKERS_COMM_APPLICABLE': formVal.BANKERS_COMM_APPLICABLE,
-        'RIGHT_TO_PREPARE_DD': formVal.RIGHT_TO_PREPARE_DD,
-        'PARTICIPATE_IN_CLEARING': formVal.PARTICIPATE_IN_CLEARING,
-        'GL_ACNO': formVal.GL_ACNO,
-        'HO_SUB_GLACNO': formVal.HO_SUB_GLACNO,
-        'BANKCODE': formVal.BANKCODE,
-      }
-      this.bankService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
-        this.formSubmitted = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-      }, (error) => {
-        console.log(error)
-      })
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      'BANK_CODE': formVal.BANK_CODE,
+      'LEDGER_CODE': formVal.LEDGER_CODE,
+      'BANK_NAME': formVal.BANK_NAME,
+      'BANK_SHORTNAME': formVal.BANK_SHORTNAME,
+      'DD_APPLICABLE': formVal.DD_APPLICABLE,
+      'BANKERS_COMM_APPLICABLE': formVal.BANKERS_COMM_APPLICABLE,
+      'RIGHT_TO_PREPARE_DD': formVal.RIGHT_TO_PREPARE_DD,
+      'PARTICIPATE_IN_CLEARING': formVal.PARTICIPATE_IN_CLEARING,
+      'GL_ACNO': formVal.GL_ACNO,
+      'HO_SUB_GLACNO': formVal.HO_SUB_GLACNO,
+      'BANKCODE': formVal.BANKCODE,
     }
-
-
+    this.bankService.postData(dataToSend).subscribe(data1 => {
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+    }, (error) => {
+      console.log(error)
+    })
     //To clear form
     this.resetForm();
 

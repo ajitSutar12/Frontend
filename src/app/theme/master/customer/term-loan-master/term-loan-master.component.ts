@@ -709,14 +709,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   // Method to insert data into database through NestJS
 
-  submit(event) {
-
-    event.preventDefault();
+  submit() {
     this.formSubmitted = true;
-
-    if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
-      const formVal = this.angForm.value;
+    const formVal = this.angForm.value;
     if (formVal.AC_ADDFLAG == true) {
       this.addType = 'P'
     }
@@ -835,13 +830,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.stockid = []
     this.vehicleid = []
   }
-
-    }
-
-
-
-   
-    
 
   // Reset Function
 

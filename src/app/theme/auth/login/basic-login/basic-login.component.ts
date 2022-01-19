@@ -11,23 +11,16 @@ import * as moment from 'moment';
 })
 export class BasicLoginComponent implements OnInit {
 
-  password;
-
-  show = false;
-
   isInvalidNumber: boolean = false;
   isInvalidPassword: boolean = false;
   mobileno: string;
-  // password: string;
+  password: string;
   passType: string = 'password';
   resetPassword : boolean = false;
   forgetPassword: boolean = true;
   constructor(private router: Router, private _authService: AuthService) { }
 
   ngOnInit() {
-
-    this.password = 'password';
-
     document.querySelector('body').setAttribute('themebg-pattern', 'theme1');
   }
   login() {
@@ -78,24 +71,12 @@ export class BasicLoginComponent implements OnInit {
 
     })
   }
-
   showHidePassword() {
     if (this.passType == 'password') {
       this.passType = 'text';
-      this.show = true;
     }
     else {
       this.passType = 'password';
-    }
-  }
-
-  onClick() {
-    if (this.password === 'password') {
-      this.password = 'text';
-      this.show = true;
-    } else {
-      this.password = 'password';
-      this.show = false;
     }
   }
 }

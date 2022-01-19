@@ -343,30 +343,10 @@ addField() {
       INT_RATE: formVal.INT_RATE,
      
     }
-    if (formVal.INT_RATE == "" || formVal.INT_RATE == null) {
-      Swal.fire("Please Insert Mandatory Record Interest Rate"); 
-    }
-    else if (formVal.INT_RATE != "") {
-      if (formVal.EFFECT_DATE == "" || formVal.EFFECT_DATE == null) {
-        Swal.fire("Please Insert Mandatory Record Effect Date" );
-      } else if (formVal.EFFECT_DATE != "") {
-        if (formVal.INT_RATE == "" || formVal.INT_RATE == null) {
-          Swal.fire("Please Insert Mandatory Record ");
-        }
-        else {
-          this.multiField.push(object);
-        }
-      }
-      else {
-        this.multiField.push(object);
-      }
-    }
-    else {
-      this.multiField.push(object);
-    }
+    this.multiField.push(object);
+    console.log(this.multiField)
     this.resetField()
   }
-  
   resetField() {
     this.angForm.controls['INT_RATE'].reset();
     this.angForm.controls['EFFECT_DATE'].reset();

@@ -157,7 +157,7 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
   }
   createForm() {
     this.angForm = this.fb.group({
-      FIN_YEAR: ['', [Validators.required]],
+      FIN_YEAR: ['', [Validators.required, Validators.pattern]],
       EFFECT_DATE: ['', [Validators.required]],
       INTEREST_AMOUNT: ['', [Validators.required, Validators.pattern]],
       TDS_RATE: ['', [Validators.required, Validators.pattern]],
@@ -204,36 +204,6 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
     this.newbtnShow = false;
     this.resetForm();
   }
-    //method for adding hyphen in date
-    addhyphen(data: any) {
-
-      // let result = data
-      //   .replace(/\D/g, "")
-      //   .split(/(?:([\d]{4}))/g)
-      //   .filter((s) => s.length > 0)
-      //   .join("-");
-  
-      let date = new Date().getFullYear() + 1;
-  
-  
-      let result = Number((document.getElementById("FIN_YEAR") as HTMLInputElement).value);
-      console.log(result);
-      if (result > date) {
-        Swal.fire("Warning!", "please enter valid Year ", "warning");
-        (document.getElementById("FIN_YEAR") as HTMLInputElement).value = "";
-  
-      }
-      else {
-        if (data.length == 4) {
-          result += 1;
-          console.log(result);
-          (document.getElementById("FIN_YEAR") as HTMLInputElement).value = data + "-" + result;
-        }
-  
-      }
-  
-      // (document.getElementById("FIN_YEAR") as HTMLInputElement).value = result;
-    }
 
   //Method for append data into fields
   editClickHandler(id) {
@@ -253,15 +223,15 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
     })
   }
 
-  //  //method for adding hyphen in date
-  //  addhyphen(data: any) {
-  //   let result = data
-  //     .replace(/\D/g, "")
-  //     .split(/(?:([\d]{4}))/g)
-  //     .filter((s) => s.length > 0)
-  //     .join("-");
-  //   (document.getElementById("FIN_YEAR") as HTMLInputElement).value = result;
-  // }
+   //method for adding hyphen in date
+   addhyphen(data: any) {
+    let result = data
+      .replace(/\D/g, "")
+      .split(/(?:([\d]{4}))/g)
+      .filter((s) => s.length > 0)
+      .join("-");
+    (document.getElementById("FIN_YEAR") as HTMLInputElement).value = result;
+  }
   //Method for update data 
   updateData(id) {
     let data = this.angForm.value;

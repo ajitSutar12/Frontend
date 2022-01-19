@@ -54,7 +54,7 @@
                                             <input type="date" name="EFFECT_DATE" class="form-control" placeholder=" "
                                                 id="EFFECT_DATE" max="9999-12-31" onfocus="(this.type='date')"
                                                 formControlName="EFFECT_DATE">
-                                            <label for="EFFECT_DATE">Effect Date *</label>
+                                            <label for="EFFECT_DATE">Effect Date</label>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)" class="alert alert-danger">
@@ -70,7 +70,7 @@
                                             pattern="\d{1,2}(\.\d{2})?" id="INT_RATE" maxlength="5"  #margin                                           
                                             (keyup)="checkmargin(margin.value)"
                                                 title="Input allowed only  0-9" formControlName="INT_RATE">
-                                            <label for="INT_RATE">Interest Rate<sub class="required">*</sub>
+                                            <label for="INT_RATE">Interest Rate
                                             </label>
                                         </span>
                                     </div>

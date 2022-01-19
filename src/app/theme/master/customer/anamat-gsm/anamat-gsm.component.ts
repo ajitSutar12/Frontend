@@ -410,14 +410,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Method to insert data into database through NestJS
-  submit(event) {
- 
-    event.preventDefault();
+  submit() {
     this.formSubmitted = true;
-
-    if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
-      //get bank code and branch code from session
+    //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.CODE;
@@ -454,11 +449,6 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
     //To clear form
     this.angForm.reset();
-
-    }
-
-    
-    
   }
 
   //Method for append data into fields

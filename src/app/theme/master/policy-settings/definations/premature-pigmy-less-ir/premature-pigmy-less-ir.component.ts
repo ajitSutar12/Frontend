@@ -13,8 +13,6 @@ import { HttpClient } from '@angular/common/http';
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service';
 import { IOption } from 'ng-select';
 import { environment } from '../../../../../../environments/environment'
-import { first } from 'rxjs/operators';
-import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -77,13 +75,12 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   multiField = [];
   updateID: number = 0;
   schemeCode: any;
-
   //for search functionality
   filterData = {};
 
+  //title select variables
+  schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
 
-   //Scheme type variable
-   schemeType: string = 'PG'
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -93,12 +90,11 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   private dataSub: Subscription = null;
   //for date 
   datemax: any;
-  scheme: any;
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     // for dropdown
-    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    public SchemeTypes: SchemeTypeDropdownService,
     private prematurePigmyService: PrematurePigmyService) {
       this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
       console.log(this.datemax);
@@ -307,13 +303,9 @@ console.log(ele);
     })
 
     this.runTimer();
-
-    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      this.scheme = data;
-    })
-    // this.dataSub = this.SchemeTypes.loadCharacters().subscribe((options) => {
-    //   this.characters = options;
-    // });
+    this.dataSub = this.SchemeTypes.loadCharacters().subscribe((options) => {
+      this.characters = options;
+    });
 
   }
   runTimer() {
@@ -381,19 +373,10 @@ console.log(ele);
       LESS_INT_RATE: formVal.LESS_INT_RATE,
      
     }
-    if (formVal.LESS_INT_RATE == "" || formVal.LESS_INT_RATE == null) {
-      Swal.fire("Please Insert Mandatory Record Interest Rate"); 
-    
-    }
-    else {
-      this.multiField.push(object);
-    }
+    this.multiField.push(object);
+    console.log(this.multiField)
     this.resetField()
   }
-  //   this.multiField.push(object);
-  //   console.log(this.multiField)
-  //   this.resetField()
-  // }
   resetField() {
     this.angForm.controls['FROM_MONTHS'].reset();
     this.angForm.controls['TO_MONTHS'].reset();

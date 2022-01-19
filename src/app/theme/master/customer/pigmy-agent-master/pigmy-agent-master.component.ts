@@ -359,12 +359,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       this.NomineeTrue = true;
     }
   }
-// tabindexing
-// document.getElementById("AC_TYPE").tabIndex = 1;
-// document.getElementById("AC_CUSTID").tabIndex = 2;
-// document.getElementById("AC_OPDATE").tabIndex = 3;
-
-
 
   createForm() {
     this.angForm = this.fb.group({
@@ -500,7 +494,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
   // Method to insert data into database through NestJS
   submit(event) {
-<<<<<<< Updated upstream
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -545,63 +538,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       this.multiNominee = []
     }
   }
-=======
 
-    event.preventDefault();
-    this.formSubmitted = true;
-
-    if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
-      const formVal = this.angForm.value;
-      //get bank code and branch code from session
-      let data: any = localStorage.getItem('user');
-      let result = JSON.parse(data);
-      let branchCode = result.branch.CODE;
-      let bankCode = Number(result.branch.syspara[0].BANK_CODE)
-      const dataToSend = {
-        'branchCode': branchCode,
-        'bankCode': bankCode,
-        'schemeCode': this.schemeCode,
-        'AC_TYPE': formVal.AC_TYPE,
-        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-        'AC_NAME': formVal.AC_NAME,
-        'AC_CUSTID': formVal.AC_CUSTID,
-        'AC_OPDATE': formVal.AC_OPDATE,
-        'PIGMY_ACTYPE': formVal.PIGMY_ACTYPE,
-        'AC_INTRACNO': formVal.AC_INTRACNO,
-        'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
-        'AC_INTROID': formVal.AC_INTROID,
-        'AC_INTRNAME': formVal.AC_INTRNAME,
-        'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
-        'NomineeData': this.multiNominee
-      }
-      this.PigmyAgentMasterService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
-        this.formSubmitted = false;
-        // to reload after insertion of data
-  
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-  
-      }, (error) => {
-        console.log(error)
-      })
-      //To clear form
-      this.resetForm();
-      this.multiNominee = []
-    }
-  
-
-    }
-
-
-
-
->>>>>>> Stashed changes
-
-    
-   
   // Reset Function
   resetForm() {
     this.createForm();
