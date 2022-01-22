@@ -5,7 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CashCreditMasterRoutingModule } from './cash-credit-master-routing.module';
 import { CashCreditMasterComponent } from './cash-credit-master.component';
 import { CashCreditService } from './cash-credit-master.service';
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
@@ -39,6 +39,8 @@ import { SecurityCodeService } from '../../policy-settings/definations/security-
 import { TermLoanSchemeService } from '../../../utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service';
 import { SecurityDetailsModule } from '../../maintainance/security-details/securityDetails.module';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { DatePipe } from '@angular/common';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -50,13 +52,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CashCreditMasterRoutingModule,
     DataTablesModule,
     NgbModule,
-    SelectModule,
     FormsModule, ReactiveFormsModule,
     SharedModule,
     CustomerIdModule,
     PerfectScrollbarModule,
     SharedModule,
-    SecurityDetailsModule
+    SecurityDetailsModule,
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   declarations: [CashCreditMasterComponent],
   providers: [CashCreditService,

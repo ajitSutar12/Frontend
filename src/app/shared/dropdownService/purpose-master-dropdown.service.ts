@@ -16,7 +16,7 @@ export class PurposeMasterDropdownService {
         return this.http.get<any>(this.url + '/purpose-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: `${element.id}` };
+                    let obj = { label: element.NAME, value: element.id };
                     this.purposeMasterObject.push(obj)
                 });
                 return this.purposeMasterObject;

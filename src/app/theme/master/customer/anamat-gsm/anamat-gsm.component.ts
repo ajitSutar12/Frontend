@@ -1,40 +1,29 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-
 //animation
 import { animate, style, transition, trigger } from "@angular/animations";
-
 import { Subject } from "rxjs";
-
 // Creating and maintaining form fields with validation
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
-
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
-
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
-
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
 import { IOption } from "ng-select";
 import { Subscription } from "rxjs/Subscription";
 import { first } from "rxjs/operators";
 import { environment } from "../../../../../environments/environment";
-
 // Service File For Handling CRUD Operation
 import { anamatGSMService } from "./anamat-gsm.service";
-
 //service file for fetching records from customer ID
 import { CustomerIdService } from "../customer-id/customer-id.service";
-
 //Service file of dropdown
 import { CustomerIDMasterDropdownService } from "../../../../shared/dropdownService/customer-id-master-dropdown.service";
 import { cityMasterService } from "../../../../shared/dropdownService/city-master-dropdown.service";
 import { SchemeCodeDropdownService } from "../../../../shared/dropdownService/scheme-code-dropdown.service";
 import { PrefixMasterDropdownService } from "src/app/shared/dropdownService/prefix-master-dropdown.service";
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service"
-
-
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -87,10 +76,8 @@ interface anamatinf {
 
 export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
-
   //api
   url = environment.base_url;
-
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
 
@@ -100,14 +87,11 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Store data from backend
   anamat: anamatinf[];
-
   // Created Form Group
   angForm: FormGroup;
-
   //Datatable variable
   dtExportButtonOptions: DataTables.Settings = {};
   Data: any;
-
   //variables for pagination
   page: number = 1;
   passenger: any;
@@ -137,19 +121,21 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   prifix: any;
   AC_CUSTID: any;
-
   // for new customer
   newCustomerID;
-
   updateID: number = 0;
-
   //Scheme type variable
   schemeType: string = 'GS'
   schemeCode
   timeLeft = 5;
 
-  id: any = '';
+  // id: any = '';
   datemax: any;
+
+  code: any = null
+  id: any = null
+  bsValue
+  AC_TYPE: boolean = false
 
   constructor(
     private fb: FormBuilder,

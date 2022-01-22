@@ -17,7 +17,7 @@ export class AuthorityMasterDropdownService {
         return this.http.get<any>(this.url + '/authority-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: `${element.id}`};
+                    let obj = { label: element.NAME, value: element.id};
                     this.authorityMasterObject.push(obj)
                 });
                 return this.authorityMasterObject;

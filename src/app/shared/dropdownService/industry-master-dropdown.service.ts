@@ -13,7 +13,7 @@ export class IndustryMasterDropdownService {
         return this.http.get<any>(this.url + '/industry-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: `${element.id}` };
+                    let obj = { label: element.NAME, value: element.id };
                     this.industryMasterObject.push(obj)
                 });
                 return this.industryMasterObject;

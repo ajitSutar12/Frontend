@@ -14,11 +14,11 @@
             <div class="col-sm-3">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt" autofocus>
-                  <ng-select bindValue="id" [(ngModel)]="selectedValue" id="AC_TYPE" formControlName="AC_TYPE"
-                    [disabled]="AC_TYPE" (ngModelChange)="getScheme($event)" title="Compulsory Selection"
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                  <ng-select bindValue="value" [(ngModel)]="selectedValue" id="AC_TYPE" formControlName="AC_TYPE"
+                    [disabled]="AC_TYPE" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    required placeholder="Scheme">
                     <ng-option *ngFor="let values of scheme" [value]="values">
-                      {{values.S_APPL}} {{values.S_NAME}}</ng-option>
+                      {{values.label}}</ng-option>
                   </ng-select>
                   <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>
                 </span>
@@ -36,11 +36,11 @@
             <div class="col-sm-4">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select [(ngModel)]="newcustid" id="AC_CUSTID" bindValue="id" formControlName="AC_CUSTID"
+                  <ng-select [(ngModel)]="newcustid" id="AC_CUSTID" bindValue="value" formControlName="AC_CUSTID"
                     [ngClass]="{'form-submitted': formSubmitted}" (change)="customer($event)" style="width: 85%;"
                     title="Compulsory Selection" required placeholder="Customer Id">
                     <ng-option *ngFor="let values of Cust_ID" [value]="values">
-                      {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
+                      {{values.label}}</ng-option>
                   </ng-select>
                   <label for="AC_CUSTID">Customer Id<sub class="required"> * </sub></label>
                   <span class="fa fa-fw fa-plus-circle field-icon" id="custicon" (click)="modalLarge.show()"
@@ -124,15 +124,11 @@
                             <div class="col-sm-2">
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                  <input type="text" class="form-control" id="AC_OPDATE" required
-                                    max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                  <input type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
+                                    class="form-control" required max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" disabled
                                     [ngClass]="{'form-submitted': formSubmitted}" (focusout)="disabledate(date.value)"
-                                    formControlName="AC_OPDATE" disabled [minDate]="minDate" [maxDate]="maxDate"
-                                    #dp="bsDatepicker" bsDatepicker>
-                                  <!-- <input type="date" name="AC_OPDATE" class="form-control" placeholder=" "
-                                    id="AC_OPDATE" autofocus required max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                    [ngClass]="{'form-submitted': formSubmitted}" (focusout)="disabledate(date.value)"
-                                    formControlName="AC_OPDATE" disabled /> -->
+                                    formControlName="AC_OPDATE" [bsValue]="bsValue" bsDatepicker>
                                   <label for="AC_OPDATE">Opening Date<sub class="required">*
                                     </sub></label>
                                 </span>
@@ -170,9 +166,13 @@
                             <div class="col-sm-2">
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                  <input type="date" name="AC_BIRTH_DT" class="form-control" placeholder=" "
+                                  <input type="text" placeholder="Datepicker" name="AC_BIRTH_DT" class="form-control"
                                     id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                    (focusout)="disabledate(date.value)" formControlName="AC_BIRTH_DT" disabled />
+                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (focusout)="disabledate(date.value)"
+                                    [bsValue]="bsValue" formControlName="AC_BIRTH_DT" disabled bsDatepicker>
+                                  <!-- <input type="date" name="AC_BIRTH_DT" class="form-control" placeholder=" "
+                                    id="AC_BIRTH_DT" max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                    (focusout)="disabledate(date.value)" formControlName="AC_BIRTH_DT" disabled /> -->
                                   <label for="AC_BIRTH_DT">Birth Date</label>
                                 </span>
                               </div>
@@ -219,11 +219,11 @@
                             <div class="col-sm-3">
                               <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_CATG" bindValue="id" [(ngModel)]="ngCategory"
-                                    formControlName="AC_CATG" bindLabel="NAME" title="Compulsory Selection"
+                                  <ng-select id="AC_CATG" bindValue="value" [(ngModel)]="ngCategory"
+                                    formControlName="AC_CATG" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Category">
                                     <ng-option *ngFor="let values of category" [value]="values">
-                                      {{values.NAME}}</ng-option>
+                                      {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="AC_CATG">Category<sub class="required"> * </sub></label>
                                 </span>
@@ -243,11 +243,11 @@
                             <div class="col-sm-3">
                               <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_OPR_CODE" bindValue="id" [(ngModel)]="ngOccupation"
-                                    formControlName="AC_OPR_CODE" bindLabel="NAME" title="Compulsory Selection"
+                                  <ng-select id="AC_OPR_CODE" bindValue="value" [(ngModel)]="ngOccupation"
+                                    formControlName="AC_OPR_CODE" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Operation">
                                     <ng-option *ngFor="let values of operation" [value]="values">
-                                      {{values.NAME}}</ng-option>
+                                      {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="AC_OPR_CODE">Operation<sub class="required"> * </sub></label>
                                 </span>
@@ -270,12 +270,12 @@
                             <div class="col-sm-2">
                               <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_BALCATG" bindValue="id" [(ngModel)]="ngBalCategory"
-                                    formControlName="AC_BALCATG" bindLabel="BC_NAME" title="Compulsory Selection"
+                                  <ng-select id="AC_BALCATG" bindValue="value" [(ngModel)]="ngBalCategory"
+                                    formControlName="AC_BALCATG" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required
                                     placeholder="Balance Category ">
                                     <ng-option *ngFor="let values of bal_category" [value]="values">
-                                      {{values.BC_NAME}}</ng-option>
+                                      {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="BC_NAME">Balance Category<sub class="required"> * </sub></label>
                                 </span>
@@ -296,12 +296,12 @@
                             <div class="col-sm-3">
                               <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_INTCATA" bindValue="id" [(ngModel)]="ngIntCategory"
-                                    formControlName="AC_INTCATA" bindLabel="NAME" title="Compulsory Selection"
+                                  <ng-select id="AC_INTCATA" bindValue="value" [(ngModel)]="ngIntCategory"
+                                    formControlName="AC_INTCATA" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required
                                     placeholder="Interest Category">
                                     <ng-option *ngFor="let values of int_category" [value]="values">
-                                      {{values.NAME}}</ng-option>
+                                      {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="AC_INTCATA">Interest Category<sub class="required"> * </sub></label>
                                 </span>
@@ -770,9 +770,13 @@
                             <div class="col-sm">
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                  <input type="date" name="AC_MBDATE" class="form-control" placeholder=" "
+                                  <input type="text" placeholder="Datepicker" name="AC_MBDATE" class="form-control"
                                     id="AC_MBDATE" max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                    (focusout)="disabledate(date.value)" formControlName="AC_MBDATE" disabled />
+                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (focusout)="disabledate(date.value)"
+                                    formControlName="AC_MBDATE" disabled bsDatepicker>
+                                  <!-- <input type="date" name="AC_MBDATE" class="form-control" placeholder=" "
+                                    id="AC_MBDATE" max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                    (focusout)="disabledate(date.value)" formControlName="AC_MBDATE" disabled /> -->
                                   <label for="AC_MBDATE">Birth Date</label>
                                 </span>
                               </div>
@@ -866,12 +870,12 @@
                             <div class="col-sm-3">
                               <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_INTROBRANCH" bindValue="id" [(ngModel)]="code"
-                                    formControlName="AC_INTROBRANCH" bindLabel="NAME" title="Compulsory Selection"
+                                  <ng-select id="AC_INTROBRANCH" bindValue="value" [(ngModel)]="code"
+                                    formControlName="AC_INTROBRANCH" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
                                     placeholder="Branch">
                                     <ng-option *ngFor="let values of branch_code" [value]="values">
-                                      {{values.NAME}}</ng-option>
+                                      {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="AC_INTROBRANCH">Branch</label>
                                 </span>
@@ -880,12 +884,12 @@
                             <div class="col-sm-3">
                               <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_INTROID" bindValue="id" [(ngModel)]="acno"
-                                    formControlName="AC_INTROID" bindLabel="S_NAME" title="Compulsory Selection"
+                                  <ng-select id="AC_INTROID" bindValue="value" [(ngModel)]="acno"
+                                    formControlName="AC_INTROID" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" (change)="getIntro($event)"
                                     placeholder="Account Type">
                                     <ng-option *ngFor="let values of allScheme" [value]="values">
-                                      {{values.S_NAME}}</ng-option>
+                                      {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="AC_INTROID">Account Type</label>
                                 </span>
@@ -1018,10 +1022,14 @@
                                     <div class="col-sm-2">
                                       <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                          <input type="date" name="AC_NDATE" class="form-control" placeholder=" "
+                                          <input type="text" placeholder="Datepicker" name="AC_NDATE"
+                                            class="form-control" id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}"
+                                            #date [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [bsValue]="bsValue"
+                                            formControlName="AC_NDATE" bsDatepicker>
+                                          <!-- <input type="date" name="" class="form-control" placeholder=" "
                                             id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}"
                                             [ngClass]="{'form-submitted': formSubmitted}" #date
-                                            (focusout)="disabledate(date.value)" formControlName="AC_NDATE" />
+                                            (focusout)="disabledate(date.value)" formControlName="AC_NDATE" /> -->
                                           <label for="AC_NDATE">Nomination Date<sub class="required">*
                                             </sub></label>
                                         </span>
@@ -1377,13 +1385,20 @@
                                   <div class="col-sm">
                                     <div class="form-group form-primary form-static-label">
                                       <span class="border-lable-flt">
-                                        <ng-select [(ngModel)]="jointID" id="JOINT_AC_CUSTID" bindLabel="AC_NAME"
+                                        <ng-select [(ngModel)]="jointID" id="JOINT_AC_CUSTID" bindValue="value"
+                                          formControlName="JOINT_AC_CUSTID" (change)="getJointCustomer(jointID.id)"
+                                          [ngClass]="{'form-submitted': formSubmitted}" title="Compulsory Selection"
+                                          placeholder="Customer Id">
+                                          <ng-option *ngFor="let values of Cust_ID" [value]="values">
+                                            {{values.label}}</ng-option>
+                                        </ng-select>
+                                        <!-- <ng-select [(ngModel)]="jointID" id="JOINT_AC_CUSTID" bindLabel="value"
                                           formControlName="JOINT_AC_CUSTID" (change)="getJointCustomer(jointID.id)"
                                           title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                                          required placeholder="Customer Id *">
+                                          placeholder="Customer Id *">
                                           <ng-option *ngFor="let values of joint_Cust_ID" [value]="values">
-                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
-                                        </ng-select>
+                                            {{values.label</ng-option>
+                                        </ng-select> -->
                                         <label for="JOINT_AC_CUSTID">Customer Id<sub class="required">*
                                           </sub></label>
                                       </span>
@@ -1526,9 +1541,14 @@
                                   <div class="col-sm-2">
                                     <div class="form-group input-group">
                                       <span class="border-lable-flt">
-                                        <input type="date" name="DATE_APPOINTED" class="form-control" placeholder=" "
+                                        <input type="text" placeholder="Datepicker" name="DATE_APPOINTED"
+                                          class="form-control" id="DATE_APPOINTED" max="{{datemax | date:'yyyy-MM-dd'}}"
+                                          #date [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                          (focusout)="disabledate(date.value)" [bsValue]="bsValue"
+                                          formControlName="DATE_APPOINTED" bsDatepicker>
+                                        <!-- <input type="date" name="DATE_APPOINTED" class="form-control" placeholder=" "
                                           id="DATE_APPOINTED" max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                          (focusout)="disabledate(date.value)" formControlName="DATE_APPOINTED" />
+                                          (focusout)="disabledate(date.value)" formControlName="DATE_APPOINTED" /> -->
                                         <label for="DATE_APPOINTED">Appointed on<sub class="required">*
                                           </sub></label>
                                       </span>
@@ -1554,10 +1574,15 @@
                                   <div class="col-sm-2">
                                     <div class="form-group input-group">
                                       <span class="border-lable-flt">
-                                        <input type="date" name="DATE_EXPIRY" class="form-control" placeholder=" "
+                                        <input type="text" placeholder="Datepicker" name="DATE_EXPIRY"
+                                          class="form-control" id="DATE_EXPIRY" max="{{datemax | date:'yyyy-MM-dd'}}"
+                                          #date [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                          (focusout)="disabledate(date.value)" [bsValue]="bsValue"
+                                          formControlName="DATE_EXPIRY" bsDatepicker>
+                                        <!-- <input type="date" name="DATE_EXPIRY" class="form-control" placeholder=" "
                                           id="DATE_EXPIRY" max="9999-12-31" formControlName="DATE_EXPIRY" #expiry
                                           [min]="setdate" [value]="resetexpirydate"
-                                          (focusout)="checkdate(expiry.value)" />
+                                          (focusout)="checkdate(expiry.value)" /> -->
                                         <label for="DATE_EXPIRY">Expiry Date<sub class="required">*
                                           </sub></label>
                                       </span>
@@ -1789,7 +1814,7 @@
                 </tbody>
                 <tfoot #filters class="filters">
                   <tr class="testing">
-                    <th class="testing"></th>
+                    <th></th>
                     <th><input type="text" class="form-control" name="AC_TYPE" /></th>
                     <th><input type="text" class="form-control" name="BANKACNO" /></th>
                     <th><input type="text" class="form-control" name="AC_NAME" /></th>

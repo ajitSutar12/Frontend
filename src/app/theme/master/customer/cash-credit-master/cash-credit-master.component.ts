@@ -1,28 +1,20 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { environment } from '../../../../../environments/environment'
-
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
-
 // Angular Datatable Directive  
 import { DataTableDirective } from 'angular-datatables';
-
 // Service File For Handling CRUD Operation
 import { CashCreditService } from './cash-credit-master.service';
-
 //animation
 import { animate, style, transition, trigger } from '@angular/animations';
-
 // Http Client
 import { HttpClient } from '@angular/common/http';
-
 // Router File
 import { Router } from '@angular/router'
-
 //Service Files
 import { CustomerIdService } from '../customer-id/customer-id.service';
 import { InterestRateForLoanandCCService } from '../../policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
@@ -53,6 +45,7 @@ import { RepayModeService } from '../../../../shared/dropdownService/repay-mode.
 import * as moment from 'moment';
 //date pipe
 import { DatePipe } from '@angular/common';
+
 
 // Handling datatable data
 class DataTableResponse {
@@ -196,12 +189,12 @@ export class CashCreditMasterComponent implements OnInit {
   security: any[]
   director: any[]
   // documentMaster: DocumentMaster[];
-  id: string = '';
-  Gid: string = '';
-  Cid: string = '';
-  idp: string = '';
+  // id: string = '';
+  // Gid: string = '';
+  // Cid: string = '';
+  // idp: string = '';
   idi: string = '';
-  code: string = '';
+  // code: string = '';
   addType: string
   columnShowButton: boolean = false
   date
@@ -281,6 +274,27 @@ export class CashCreditMasterComponent implements OnInit {
 
   private dataSub: Subscription = null;
   datemax: string;
+
+  AC_TYPE: boolean = false
+  code: any = null
+  id: any = null
+  int_category: any = null
+  sanctionAutho: any = null
+  recomBy: any = null
+  recovery: any = null
+  idp: any = null
+  weakerSec: any = null
+  ngpurpose: any = null
+  ngindustry: any = null
+  nghealth: any = null
+  ngAccountType: any = null
+  ngdirectorType: any = null
+  ngCity: any = null
+  Cid: any = null
+  Gid: any = null
+  ngsecurityCode: any = null
+
+
   constructor(
     private http: HttpClient,
     private cashCreditService: CashCreditService,
@@ -373,10 +387,6 @@ export class CashCreditMasterComponent implements OnInit {
           title: 'Action',
         },
         {
-          title: 'Type',
-          data: 'AC_ACNOTYPE'
-        },
-        {
           title: 'Scheme',
           data: 'AC_TYPE'
         },
@@ -401,24 +411,20 @@ export class CashCreditMasterComponent implements OnInit {
           data: 'AC_OPEN_OLD_DATE'
         },
         {
-          title: 'Manual Reference Member No.',
+          title: 'Manual Reference Number',
           data: 'REF_ACNO'
         },
         {
-          title: 'Interest Category',
-          data: 'AC_INTCATA'
+          title: 'Detail',
+          data: 'AC_ADDR'
         },
         {
-          title: 'Sanction Limit',
-          data: 'AC_SANCTION_AMOUNT'
+          title: 'City',
+          data: 'AC_CTCODE'
         },
         {
           title: 'Sanction Date',
           data: 'AC_SANCTION_DATE'
-        },
-        {
-          title: 'Drawing Power',
-          data: 'AC_DRAWPOWER_AMT'
         },
         {
           title: 'Period',
@@ -427,6 +433,14 @@ export class CashCreditMasterComponent implements OnInit {
         {
           title: 'Expiry Date',
           data: 'AC_EXPIRE_DATE'
+        },
+        {
+          title: 'Sanction Limit',
+          data: 'AC_SANCTION_AMOUNT'
+        },
+        {
+          title: 'Drawing Power',
+          data: 'AC_DRAWPOWER_AMT'
         },
         {
           title: 'Interest Rate',
@@ -441,83 +455,17 @@ export class CashCreditMasterComponent implements OnInit {
           data: 'AC_AUTHORITY'
         },
         {
-          title: 'Recommended By',
-          data: 'AC_RECOMMEND_BY'
-        },
-        {
-          title: 'Recovery Cleark',
-          data: 'AC_RECOVERY_CLERK'
-        },
-        {
-          title: 'Priority',
-          data: 'AC_PRIORITY'
-        },
-        {
-          title: 'Priority 1',
-          data: 'AC_PRIORITY_SUB1'
-        },
-        {
-          title: 'Priority 2',
-          data: 'AC_PRIORITY_SUB2'
-        },
-        {
-          title: 'Priority 3',
-          data: 'AC_PRIORITY_SUB3'
-        },
-        {
-          title: 'Weaker Section',
-          data: 'AC_WEAKER'
-        },
-        {
           title: 'Purpose',
           data: 'AC_PURPOSE'
         },
-        {
-          title: 'Industry',
-          data: 'AC_INDUSTRY'
-        },
-        {
-          title: 'Health Code',
-          data: 'AC_HEALTH'
-        },
-        {
-          title: 'Account Type',
-          data: 'AC_RELATION_TYPE'
-        },
-        {
-          title: 'Director',
-          data: 'AC_DIRECTOR'
-        },
-        {
-          title: 'Director Relation',
-          data: 'AC_DIRECTOR_RELATION'
-        },
-        {
-          title: 'Registration no.',
-          data: 'AC_COREG_NO'
-        },
-        {
-          title: 'Registration Date',
-          data: 'AC_COREG_DATE'
-        },
-        {
-          title: 'Amount',
-          data: 'AC_COREG_AMT'
-        },
-        {
-          title: 'Resolution Details No.',
-          data: 'AC_RESO_NO'
-        },
-        {
-          title: 'Resolution Details Dt.',
-          data: 'AC_RESO_DATE'
-        },
+
       ],
       dom: 'Blrtip',
     };
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
+      this.code = this.scheme[0].value
     })
 
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
@@ -568,6 +516,7 @@ export class CashCreditMasterComponent implements OnInit {
 
     this.cityMaster.getcityList().pipe(first()).subscribe(data => {
       this.city = data;
+      console.log('city', this.city)
     })
 
     this.securityMaster.getsecurityMasterList().pipe(first()).subscribe(data => {
@@ -631,6 +580,9 @@ export class CashCreditMasterComponent implements OnInit {
       AC_OCODE: [''],
       AC_ADDFLAG: [true],
       AC_ADDTYPE: ['P'],
+      AC_PHNO: [''],
+      AC_EMAIL: [''],
+      AC_MOBNO: [''],
       AC_THONO: ['', [Validators.pattern]],
       AC_TWARD: ['', [Validators.pattern]],
       AC_TADDR: ['', [Validators.pattern]],
@@ -980,10 +932,10 @@ export class CashCreditMasterComponent implements OnInit {
         AC_CTCODE: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
         AC_PANNO: data.AC_PANNO,
-        AC_MOBILENO: data.AC_MOBILENO,
-        AC_PHONE_RES: data.AC_PHONE_RES,
+        AC_MOBNO: data.AC_MOBILENO,
+        AC_PHNO: data.AC_PHONE_RES,
         AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
-        AC_EMAILID: data.AC_EMAILID,
+        AC_EMAIL: data.AC_EMAILID,
         TDS_REQUIRED: data.TDS_REQUIRED,
         SMS_REQUIRED: data.SMS_REQUIRED,
         IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
@@ -1440,11 +1392,122 @@ export class CashCreditMasterComponent implements OnInit {
     this.GuarantorTrue = !this.GuarantorTrue
   }
 
+
+  //Open CoBorrower Form
+  OpenCoBorr() {
+    this.CoBorrowerTrue = !this.CoBorrowerTrue
+  }
+
+  // End CoBorrower tab
+
+  getInterest(AC_INTCATA) {
+    this.temp = AC_INTCATA
+    this.InterestRateForLoanandCC.intData().subscribe(data => {
+      // this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
+      this.date = this.angForm.controls['AC_OPDATE'].value
+      if (data != typeof (undefined)) {
+        if (this.date == data[0].EFFECT_DATE) {
+          this.angForm.patchValue({
+            AC_INTCATA: data[0].INT_CATEGORY,
+            AC_INTRATE: data[0].rate[0].INT_RATE,
+          })
+        } else {
+          this.angForm.patchValue({
+            AC_INTCATA: data[1].INT_CATEGORY,
+            AC_INTRATE: 0
+          })
+        }
+      }
+    })
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#mastertable tfoot tr').appendTo('#mastertable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
+
+  getExpiryDate() {
+    let months = this.angForm.controls['AC_MONTHS'].value
+    if (this.angForm.controls['AC_OPEN_OLD_DATE'].value != '') {
+      var expiryDt = new Date(this.angForm.controls['AC_OPEN_OLD_DATE'].value)
+      var year = expiryDt.getFullYear();
+      var month = new Date(expiryDt).getMonth();
+      var day = new Date(expiryDt).getDate();
+      var expiry = month + Number(months)
+      var date1 = new Date(year, expiry, day);
+      var date = moment(date1, 'YYYY-MM-DD').add(1, 'days');
+      var expiryDate = this.datePipe.transform(date, "yyyy-MM-dd")
+      this.angForm.patchValue({
+        AC_EXPIRE_DATE: expiryDate
+      })
+    }
+    else {
+      var expiryDt = new Date(this.angForm.controls['AC_OPDATE'].value)
+      var year = expiryDt.getFullYear();
+      var month = new Date(expiryDt).getMonth();
+      var day = new Date(expiryDt).getDate();
+      var expiry = month + Number(months)
+      var date1 = new Date(year, expiry, day);
+      var date = moment(date1, 'YYYY-MM-DD');
+      var expiryDate = this.datePipe.transform(date, "yyyy-MM-dd")
+      this.angForm.patchValue({
+        AC_EXPIRE_DATE: expiryDate
+      })
+    }
+  }
+  month: number
+
+  @ViewChild('ctdTabset') ctdTabset;
+  switchNgBTab(id: string) {
+    this.ctdTabset.select(id);
+  }
+
+  selectedImagePreview: any;
+  viewImagePreview(ele, id) {
+    this.selectedImagePreview = id;
+  }
+  clickguarantor($event) {
+    if ($event.target.checked) {
+      this.GuarantorTrue = true
+    } else {
+      this.GuarantorTrue = false
+    }
+  }
+
   // Get Guarantor Customer Id 
   getgCustomer(Gid) {
     this.customerIdService.getFormData(Gid).subscribe(data => {
       this.angForm.patchValue({
-        GAC_CUSTID: Gid.toString(),
+        // GAC_CUSTID: Gid.toString(),
         GAC_MEMBNO: data.AC_MEMBNO,
         GAC_MEMBTYPE: data.AC_MEMBTYPE,
         GAC_NAME: data.AC_NAME,
@@ -1454,14 +1517,14 @@ export class CashCreditMasterComponent implements OnInit {
 
   // Add Guarantor
   addGuarantor() {
-
     const formVal = this.angForm.value;
+    let exdate
     var object = {
       GAC_CUSTID: formVal.GAC_CUSTID,
       AC_MEMBNO: formVal.GAC_MEMBNO,
       AC_MEMBTYPE: formVal.GAC_MEMBTYPE,
       AC_NAME: formVal.GAC_NAME,
-      EXP_DATE: formVal.EXP_DATE,
+      EXP_DATE: (formVal.EXP_DATE == '' || formVal.EXP_DATE == 'Invalid date') ? exdate = '' : exdate = moment(formVal.EXP_DATE).format('DD/MM/YYYY'),
     }
     if (formVal.AC_CUSTID != "") {
       if (object.GAC_CUSTID != undefined) {
@@ -1490,23 +1553,28 @@ export class CashCreditMasterComponent implements OnInit {
     this.resetGuarantor()
   }
 
+
   // Edit Guarantor
   editGuarantor(id) {
+    let exdate
     this.intIndex = id
     this.intID = this.multiGuarantor[id].id;
     this.GuarantorShowButton = false;
     this.GuarantorUpdateShow = true;
+
     this.angForm.patchValue({
       GAC_CUSTID: this.multiGuarantor[id].GAC_CUSTID,
       GAC_MEMBNO: this.multiGuarantor[id].AC_MEMBNO,
       GAC_MEMBTYPE: this.multiGuarantor[id].AC_MEMBTYPE,
       GAC_NAME: this.multiGuarantor[id].AC_NAME,
-      EXP_DATE: this.multiGuarantor[id].EXP_DATE,
+      EXP_DATE: (this.multiGuarantor[id].EXP_DATE == 'Invalid date' || this.multiGuarantor[id].EXP_DATE == '' || this.multiGuarantor[id].EXP_DATE == null) ? exdate = '' : exdate = this.multiGuarantor[id].EXP_DATE,
+      // EXP_DATE: this.multiGuarantor[id].EXP_DATE,
     })
   }
 
   // Update Guarantor
   updateGuarantor() {
+    let exdate
     let index = this.intIndex;
     this.GuarantorShowButton = true;
     this.GuarantorUpdateShow = false;
@@ -1516,7 +1584,8 @@ export class CashCreditMasterComponent implements OnInit {
       AC_MEMBNO: formVal.GAC_MEMBNO,
       AC_MEMBTYPE: formVal.GAC_MEMBTYPE,
       AC_NAME: formVal.GAC_NAME,
-      EXP_DATE: formVal.EXP_DATE,
+      // EXP_DATE: formVal.EXP_DATE,
+      EXP_DATE: (formVal.EXP_DATE == '' || formVal.EXP_DATE == 'Invalid date' || formVal.EXP_DATE == null) ? exdate = '' : exdate = moment(formVal.EXP_DATE).format('DD/MM/YYYY'),
       id: this.intID
     }
     if (formVal.AC_CUSTID != "") {
@@ -1526,11 +1595,11 @@ export class CashCreditMasterComponent implements OnInit {
             this.multiGuarantor[index] = object;
           }
           else {
-            if (this.multiGuarantor.find(ob => ob['GAC_CUSTID'] === formVal.GAC_CUSTID)) {
-              Swal.fire("This Customer is Already Guarantor", "error");
-            } else {
-              this.multiGuarantor[index] = object;
-            }
+            // if (this.multiGuarantor.find(ob => ob['GAC_CUSTID'] === formVal.GAC_CUSTID)) {
+            //   Swal.fire("This Customer is Already Guarantor", "error");
+            // } else {
+            this.multiGuarantor[index] = object;
+            // }
           }
         }
         else {
@@ -1543,9 +1612,10 @@ export class CashCreditMasterComponent implements OnInit {
     } else {
       Swal.fire("Please Select Customer Id", "error");
     }
-    
+
     this.resetGuarantor()
   }
+
 
   // Delete Guarantor
   delGuarantor(id) {
@@ -1565,16 +1635,25 @@ export class CashCreditMasterComponent implements OnInit {
 
   //  Start CoBorrower tab
 
-  //Open CoBorrower Form
-  OpenCoBorr() {
-    this.CoBorrowerTrue = !this.CoBorrowerTrue
+  // //Open CoBorrower Form
+
+  clickCoBorrower($event) {
+    if ($event.target.checked) {
+      this.CoBorrowerTrue = true
+    } else {
+      this.CoBorrowerTrue = false
+    }
   }
+
+  // OpenCoBorr() {
+  //   this.CoBorrowerTrue = !this.CoBorrowerTrue
+  // }
 
   // Get CoBorrower Customer Id 
   getCCustomer(Cid) {
     this.customerIdService.getFormData(Cid).subscribe(data => {
       this.angForm.patchValue({
-        CAC_CUSTID: Cid.toString(),
+        // CAC_CUSTID: Cid.toString(),
         CAC_NAME: data.AC_NAME,
       })
     })
@@ -1667,7 +1746,7 @@ export class CashCreditMasterComponent implements OnInit {
     } else {
       Swal.fire("Please Select Customer Id", "error");
     }
- 
+
     this.resetCoBorrower()
   }
 
@@ -1681,92 +1760,4 @@ export class CashCreditMasterComponent implements OnInit {
     this.angForm.controls['CAC_CUSTID'].reset();
     this.angForm.controls['CAC_NAME'].reset();
   }
-
-  // End CoBorrower tab
-
-  getInterest(AC_INTCATA) {
-    this.temp = AC_INTCATA
-    this.InterestRateForLoanandCC.intData().subscribe(data => {
-    // this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
-      this.date = this.angForm.controls['AC_OPDATE'].value
-      if (data != typeof (undefined)) {
-        if (this.date == data[0].EFFECT_DATE) {
-          this.angForm.patchValue({
-            AC_INTCATA: data[0].INT_CATEGORY,
-            AC_INTRATE: data[0].rate[0].INT_RATE,
-          })
-        } else {
-          this.angForm.patchValue({
-            AC_INTCATA: data[1].INT_CATEGORY,
-            AC_INTRATE: 0
-          })
-        }
-      }
-    })
-  }
-
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.columns().every(function () {
-        const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-          if (this['value'] != '') {
-            that
-              .search(this['value'])
-              .draw();
-          } else {
-            that
-              .search(this['value'])
-              .draw();
-          }
-        });
-      });
-    });
-  }
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
-
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
-  }
-
-  getExpiryDate() {
-    debugger
-    let months = this.angForm.controls['AC_MONTHS'].value
-    if (this.angForm.controls['AC_OPEN_OLD_DATE'].value != '') {
-      var expiryDt = new Date(this.angForm.controls['AC_OPEN_OLD_DATE'].value)
-      var year = expiryDt.getFullYear();
-      var month = new Date(expiryDt).getMonth();
-      var day = new Date(expiryDt).getDate();
-      var expiry = month + Number(months)
-      var date1 = new Date(year, expiry, day);
-      var date = moment(date1, 'YYYY-MM-DD').add(1, 'days');
-      var expiryDate = this.datePipe.transform(date, "yyyy-MM-dd")
-      this.angForm.patchValue({
-        AC_EXPIRE_DATE: expiryDate
-      })
-    }
-    else {
-      var expiryDt = new Date(this.angForm.controls['AC_OPDATE'].value)
-      var year = expiryDt.getFullYear();
-      var month = new Date(expiryDt).getMonth();
-      var day = new Date(expiryDt).getDate();
-      var expiry = month + Number(months)
-      var date1 = new Date(year, expiry, day);
-      var date = moment(date1, 'YYYY-MM-DD');
-      var expiryDate = this.datePipe.transform(date, "yyyy-MM-dd")
-      this.angForm.patchValue({
-        AC_EXPIRE_DATE: expiryDate
-      })
-    }
-  }
-  month: number
 }

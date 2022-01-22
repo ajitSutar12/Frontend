@@ -20,7 +20,7 @@ export class categoryMasterService {
         return this.http.get<any>(this.url + '/category-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: `${element.id}` };
+                    let obj = { label: element.NAME, value: element.id };
                     this.categoryMasterObject.push(obj)
                 });
                 return this.categoryMasterObject;

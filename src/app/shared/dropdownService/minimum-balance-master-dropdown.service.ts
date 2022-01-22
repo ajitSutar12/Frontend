@@ -13,7 +13,7 @@ export class MinimumBalanceMasterDropdownService {
         return this.http.get<any>(this.url + '/minimum-balance-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.BC_NAME, value: `${element.id}` };
+                    let obj = { label: element.BC_NAME, value: element.id };
                     this.minimumBalancrMasterObject.push(obj)
                 });
                 return this.minimumBalancrMasterObject;

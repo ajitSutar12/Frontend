@@ -35,5 +35,9 @@ export class TermLoanService {
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/term-loan-master/delete/' + id).pipe(catchError(this.handleError));
     }  
+
+    getData(): Observable<any> {
+        return this.http.get(this.url + '/term-loan-master/alldata').pipe(catchError(this.handleError));
+    }
 }
 

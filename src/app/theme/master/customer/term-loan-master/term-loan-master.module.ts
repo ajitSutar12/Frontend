@@ -5,7 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../../../../shared/shared.module';
 import { TermLoanMasterRoutingModule } from './term-loan-master-routing.module';
 import { TermLoanMasterComponent } from './term-loan-master.component';
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TermLoanService } from './term-loan-master.service';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
@@ -29,14 +29,15 @@ import { CustomerIdModule } from '../customer-id/customer-id.module';
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
 import { SecurityCodeService } from '../../policy-settings/definations/security-code/security-code.service';
 import { PrioritySectorMasterService } from '../../policy-settings/information/priority-sector-master/priority-sector-master.service';
-import {DatePipe} from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { TermLoanSchemeService } from '../../../utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service';
 import { SecurityDetailsModule } from '../../maintainance/security-details/securityDetails.module';
-
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgSelectModule } from '@ng-select/ng-select';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -46,18 +47,21 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TermLoanMasterRoutingModule,
     DataTablesModule,
     NgbModule,
-    SelectModule,
+    // SelectModule,
     FormsModule,
     ReactiveFormsModule,
     CustomerIdModule,
     PerfectScrollbarModule,
     SharedModule,
-    SecurityDetailsModule
+    SecurityDetailsModule,
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
-  declarations: [TermLoanMasterComponent, 
+  declarations: [TermLoanMasterComponent,
 
   ],
-    
+
   providers: [
     {
 
