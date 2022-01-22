@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@500&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body onbeforeunload="ConfirmClose()" onunload="HandleOnClose()">
     <app-root>
         <div class="theme-loader">
             <div class="loader-track">
@@ -74,5 +74,55 @@
         </div>
     </app-root>
 </body>
+<script>
+    
+
+    // window.addEventListener("beforeunload", function (e) {        
+    //     debugger
+    //   if(e.target.URL == 'http://localhost:4200/auth/login/simple'){
+    //       return true;
+    //   }else{
+    //     var user = JSON.parse(localStorage.getItem('usre'));
+
+    //     $.ajax({
+    //         url : 'localhost:4000/user-defination/logout',
+    //         method : 'POST',
+    //         data : {id:user.id},
+    //         success : function(result){
+    //             aleart('working');
+    //         }
+    //     })
+    //     return  
+    //   }
+  
+    // });
+
+    
+    window.onbeforeunload = function(e) {
+        e.returnValue = 'onbeforeunload';
+        func();
+        return 'onbeforeunload';
+    };
+
+    function func() 
+    {
+        debugger
+        var user = JSON.parse(localStorage.getItem('user'));
+        $.ajax({
+            url : 'http://localhost:4000/user-defination/logout',
+            method : 'POST',
+            data : {id:user.id},
+            success : function(result){
+                aleart('working');
+            }
+        })
+    }
+    function stateChanged()
+    {
+        debugger
+        if (request.readyState == 4 || request.readyState == "complete")
+            alert("Succes!");
+    }
+</script>
 
 </html>

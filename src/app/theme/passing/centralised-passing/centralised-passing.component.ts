@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConnectionServiceModule } from 'ng-connection-service';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-centralised-passing',
@@ -7,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./centralised-passing.component.scss']
 })
 export class CentralisedPassingComponent implements OnInit {
-
+  mySubscription: Subscription
   voucherTrue = true;
   batchvoucherTrue = false;
   depositclosingvouchersTrue = false;
@@ -31,9 +33,41 @@ export class CentralisedPassingComponent implements OnInit {
   masterlockerdepositTrue = false;
   masterdeadstockTrue = false;
 
+
+  //count variable
+  voucher : any = 0;
+  batch_voucher : any = 0;
+  deposit_closing : any = 0;
+  saving_pigmy_closing : any = 0;
+  remittance_advice:any = 0;
+  cash_remitance: any =0;
+  dead_stock_purchase: any=0;
+  dead_stock_transaction: any = 0;
+  locaker_ac_close: any = 0;
+  share_master: any = 0;
+  anamat_master: any = 0;
+  saving_master:any = 12;
+  current_master:any =0;
+  deposit_master:any =0;
+  investment_master:any=0;
+  pigmy_agent_master:any=0;
+  pigmy_master:any=0;
+  cash_credit_master:any=0;
+  loan_master:any=0;
+  dispute_loan_master:any=0;
+  locker_master:any=0;
+  dead_stock_master:any=0;
+
   constructor(private_router: Router) {
   }
   ngOnInit(): void {
+    this.mySubscription= interval(10000).subscribe((x =>{
+        console.log('this function is working');
+    }));
+  }
+
+  ngOnDestroy(){
+    this.mySubscription.unsubscribe();
   }
 
   OpenLink(val) {

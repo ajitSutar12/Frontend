@@ -493,9 +493,12 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //set open date, appointed date and expiry date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
+      debugger
       console.log('Syspara date', data)
+      // this.angForm.controls['AC_OPDATE'].value('12/12/2022');
+      this.angForm.controls.AC_OPDATE.setValue('12/12/2022')
       this.angForm.patchValue({
-        AC_OPDATE: data.CURRENT_DATE,
+        AC_OPDATE: '12/12/2022',
         DATE_APPOINTED: data.CURRENT_DATE,
         AC_NDATE: data.CURRENT_DATE,
       })

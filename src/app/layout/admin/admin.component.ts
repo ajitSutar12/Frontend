@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 import { MenuItems } from '../../shared/menu-items/menu-items';
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../../theme/auth/auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -175,7 +176,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   };
 
-  constructor(public menuItems: MenuItems) {
+  constructor(public menuItems: MenuItems,private _authService : AuthService) {
     this.animateSidebar = '';
     this.navType = 'st2';
     this.themeLayout = 'vertical';
@@ -691,8 +692,16 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   logout(){
+
+    let user = JSON.parse(localStorage.getItem('user'));
+
+    this._authService.logout(user.id).subscribe(data=>{
+
+    })
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+
+    
 
   }
 
