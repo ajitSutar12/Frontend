@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Directive, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, Directive, OnDestroy, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 //animation
 import { animate, style, transition, trigger } from '@angular/animations';
@@ -95,6 +95,8 @@ interface SavingMaster {
 })
 
 export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Input() childMessage: string;
+  @Output() public getUserData = new EventEmitter<string>();
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -208,6 +210,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   setdate: string;
   bsValue = new Date();
   
+
+  DatatableHideShow: boolean = true;
+  rejectShow:boolean =false;
+  approveShow:boolean =false;
+
   constructor(
     private http: HttpClient,
     private savingMasterService: SavingMasterService,
@@ -225,6 +232,12 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private _cityMasterService: cityMasterService,
     private _ownbranchMaster: OwnbranchMasterService,
     private config: NgSelectConfig,) {
+      console.log('Saving Data with Input',this.childMessage)
+      debugger
+      if(this.childMessage != undefined){
+
+        this.editClickHandler(this.childMessage);
+      }
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
   }
 
@@ -1651,5 +1664,50 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     let value = Number($event.target.value);
     let data = value.toFixed(2);
     $event.target.value = data;
+  }
+
+
+  //approve account
+  Approve(){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj ={
+      id : this.updateID,
+      user: user.id
+    }
+    this.savingMasterService.approve(obj).subscribe(data=>{
+      Swal.fire(
+        'Approved',
+        'Saving Account approved successfully',
+        'success'
+      );
+      var button = document.getElementById('triggerhide');
+      button.click();
+
+      this.getUserData.emit('welcome to stackoverflow!');
+    },err=>{
+      console.log('something is wrong');
+    })
+  }
+
+
+  //reject account
+  reject(){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj ={
+      id : this.updateID,
+      user: user.id
+    }
+    this.savingMasterService.reject(obj).subscribe(data=>{
+      Swal.fire(
+        'Rejected',
+        'Saving Account rejected successfully',
+        'success'
+      );
+
+      var button = document.getElementById('triggerhide');
+      button.click();
+    },err=>{
+      console.log('something is wrong');
+    })
   }
 }

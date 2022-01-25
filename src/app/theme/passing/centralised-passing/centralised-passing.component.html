@@ -9,7 +9,7 @@
                     <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
 
                         <ul class="basic-list">
-                            <li>
+                            <!-- <li>
                                 <h6> <a (click)="OpenLink(1)" routerLinkActive="active" class="text-right f-w-600" id="pointer">1. Voucher</a> <span class="badge badge-secondary badgeAlign" >{{voucher}}</span></h6>
                             </li>
                             <li>
@@ -41,11 +41,11 @@
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(11)" routerLinkActive="active" class="text-right f-w-600" id="pointer">11. Master Anamat</a><span class="badge badge-secondary badgeAlign" >{{anamat_master}}</span></h6>
-                            </li>
+                            </li> -->
                             <li>
                                 <h6> <a (click)="OpenLink(12)" routerLinkActive="active" class="text-right f-w-600" id="pointer">12. Master Saving</a><span class="badge badge-secondary badgeAlign" >{{saving_master}}</span></h6>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <h6> <a (click)="OpenLink(13)" routerLinkActive="active" class="text-right f-w-600" id="pointer">13. Master Current</a><span class="badge badge-secondary badgeAlign" >{{current_master}}</span></h6>
                             </li>
                             <li>
@@ -71,7 +71,7 @@
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(21)" routerLinkActive="active" class="text-right f-w-600" id="pointer">21. Master Locker Deposit</a><span class="badge badge-secondary badgeAlign" >{{locker_master}}</span></h6>
-                            </li>
+                            </li>-->
                             <li>
                                 <h6> <a (click)="OpenLink(20)" routerLinkActive="active" class="text-right f-w-600" id="pointer">22. Master Dead Stock</a><span class="badge badge-secondary badgeAlign" >{{dead_stock_master}}</span></h6>
                             </li>
@@ -83,7 +83,8 @@
     </div>
     <div class="col-sm-9">
         <div class="card-block">
-            <div *ngIf="voucherTrue">
+            
+            <!-- <div *ngIf="voucherTrue">
                 <app-voucher></app-voucher>
             </div>
             <div *ngIf="batchvoucherTrue">
@@ -115,11 +116,11 @@
             </div>
             <div *ngIf="masteranamatTrue">
                 <app-master-anamat></app-master-anamat>
-            </div>
-            <div *ngIf="mastersavingTrue">
+            </div> -->
+            <div *ngIf="mastersavingTrue"> 
                 <app-master-saving></app-master-saving>
             </div>
-            <div *ngIf="mastercurrentTrue">
+            <!-- <div *ngIf="mastercurrentTrue">
                 <app-master-current></app-master-current>
             </div>
             <div *ngIf="masterdepositsTrue">
@@ -145,7 +146,7 @@
             </div>
             <div *ngIf="masterlockerdepositTrue">
                 <app-master-locker-deposit></app-master-locker-deposit>
-            </div>
+            </div>-->
             <div *ngIf="masterdeadstockTrue">
                 <app-master-dead-stock></app-master-dead-stock>
             </div>

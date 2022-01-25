@@ -63,8 +63,7 @@ interface deadstockinterface {
   styleUrls: ["./dead-stock-master.component.scss"],
 })
 export class DeadStockMasterComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+  implements OnInit, AfterViewInit, OnDestroy {
 
   formSubmitted = false;
   //calculations
@@ -72,8 +71,8 @@ export class DeadStockMasterComponent
   firstnumber: number;
   secondnumber: number;
 
- //todays date
-  date = new Date;                       
+  //todays date
+  date = new Date;
   //api
   url = environment.base_url;
 
@@ -139,10 +138,10 @@ export class DeadStockMasterComponent
     private DepriciationCatDropdownMaster: DepriciationCatDropdownMasterService,
     private ACMasterDropdownService: ACMasterDropdownService
   ) {
-              // this.datemax =new Date() ;
-              this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-              console.log(this.datemax);
-            
+    // this.datemax =new Date() ;
+    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    console.log(this.datemax);
+
   }
 
   ngOnInit(): void {
@@ -197,7 +196,7 @@ export class DeadStockMasterComponent
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           },
         },
-      
+
         {
           title: "Item Type",
           data: "ITEM_TYPE",
@@ -278,7 +277,7 @@ export class DeadStockMasterComponent
       .subscribe((data) => {
         this.DeprCategoryoption = data;
       });
-  
+
     this.ACMasterDropdownService.getACMasterList()
       .pipe(first())
       .subscribe((data) => {
@@ -360,7 +359,7 @@ export class DeadStockMasterComponent
     }
 
 
-    
+
 
 
     //To clear form
@@ -462,7 +461,7 @@ export class DeadStockMasterComponent
       });
     });
   }
-  
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();

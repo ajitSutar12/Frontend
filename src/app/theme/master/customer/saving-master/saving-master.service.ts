@@ -101,5 +101,17 @@ export class SavingMasterService {
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/saving-master/delete/' + id).pipe(catchError(this.handleError));
     }
+
+
+    //approve master
+    approve(data:any): Observable<any>{
+        return this.http.post(this.url+ '/saving-master/approve',data).pipe(catchError(this.handleError));
+    }
+
+
+    //reject master
+    reject(data:any): Observable<any>{
+        return this.http.post(this.url+ '/saving-master/reject',data).pipe(catchError(this.handleError));
+    }
 }
 

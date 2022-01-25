@@ -54,6 +54,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
     DatepickerModule.forRoot()
   ],
   declarations: [SavingMasterComponent],
+  exports:[SavingMasterComponent],
   providers: [
     SavingMasterService,
     MembershipTypeDropdownService,

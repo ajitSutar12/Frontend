@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConnectionServiceModule } from 'ng-connection-service';
 import { interval, Subscription } from 'rxjs';
+import { CentralisedPassingService } from './centralised-passing.service';
 
 @Component({
   selector: 'app-centralised-passing',
@@ -10,7 +11,7 @@ import { interval, Subscription } from 'rxjs';
 })
 export class CentralisedPassingComponent implements OnInit {
   mySubscription: Subscription
-  voucherTrue = true;
+  voucherTrue = false;
   batchvoucherTrue = false;
   depositclosingvouchersTrue = false;
   savingpigmyclosingTrue = false;
@@ -21,7 +22,7 @@ export class CentralisedPassingComponent implements OnInit {
   lockeraccloserentTrue = false;
   mastersharesTrue = false;
   masteranamatTrue = false;
-  mastersavingTrue = false;
+  mastersavingTrue = true;
   mastercurrentTrue = false;
   masterdepositsTrue = false;
   masterinvestmentsTrue = false;
@@ -58,11 +59,17 @@ export class CentralisedPassingComponent implements OnInit {
   locker_master:any=0;
   dead_stock_master:any=0;
 
-  constructor(private_router: Router) {
+  constructor(private _router: Router,private _service:CentralisedPassingService) {
   }
   ngOnInit(): void {
     this.mySubscription= interval(10000).subscribe((x =>{
-        console.log('this function is working');
+        this._service.getCountOfPassing().subscribe(data=>{
+          console.log(data)
+          this.saving_master = data.savingcount;
+          this.current_master = data.currentcount;
+          this.pigmy_agent_master = data.pigmyAgentCount;
+          
+        })
     }));
   }
 
@@ -71,512 +78,467 @@ export class CentralisedPassingComponent implements OnInit {
   }
 
   OpenLink(val) {
+    debugger
     // 
-    if (val == 1) {
-      this.voucherTrue = true;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 2) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = true;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 3) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = true;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 4) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = true;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 5) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = true;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 6) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = true;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 7) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = true;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 8) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = true;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 9) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = true;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 10) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = true;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 11) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = true;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
+    // if (val == 1) {
+    //   this.voucherTrue = true;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 2) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = true;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 3) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = true;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 4) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = true;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 5) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = true;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 6) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = true;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 7) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = true;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 8) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = true;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 9) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = true;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 10) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = true;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 11) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = true;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
     if (val == 12) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
       this.mastersavingTrue = true;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
+      // this.voucherTrue = false;
+      // this.batchvoucherTrue = false;
+      // this.depositclosingvouchersTrue = false;
+      // this.savingpigmyclosingTrue = false;
+      // this.remittanceadviceTrue = false;
+      // this.cashremitanceTrue = false;
+      // this.deadstockpurchaseTrue = false;
+      // this.deadstocktransactionTrue = false;
+      // this.lockeraccloserentTrue = false;
+      // this.mastersharesTrue = false;
+      // this.masteranamatTrue = false;
+      
+      // this.mastercurrentTrue = false;
+      // this.masterdepositsTrue = false;
+      // this.masterinvestmentsTrue = false;
+      // this.masterpigmyagentTrue = false;
+      // this.masterpigmyTrue = false;
+      // this.mastercashcreditTrue = false;
+      // this.masterloanTrue = false;
+      // this.masterdisputeloanTrue = false;
+      // this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
     }
-    if (val == 13) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = true;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 14) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = true;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 15) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = true;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 16) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = true;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 17) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = true;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 18) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = true;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 19) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = true;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
+    // if (val == 13) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = true;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 14) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = true;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 15) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = true;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 16) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = true;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 17) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = true;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 18) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = true;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 19) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = true;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = false;
+    // }
     if (val == 20) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = true;
-      this.masterlockerdepositTrue = false;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 21) {
-      this.voucherTrue = false;
-      this.batchvoucherTrue = false;
-      this.depositclosingvouchersTrue = false;
-      this.savingpigmyclosingTrue = false;
-      this.remittanceadviceTrue = false;
-      this.cashremitanceTrue = false;
-      this.deadstockpurchaseTrue = false;
-      this.deadstocktransactionTrue = false;
-      this.lockeraccloserentTrue = false;
-      this.mastersharesTrue = false;
-      this.masteranamatTrue = false;
-      this.mastersavingTrue = false;
-      this.mastercurrentTrue = false;
-      this.masterdepositsTrue = false;
-      this.masterinvestmentsTrue = false;
-      this.masterpigmyagentTrue = false;
-      this.masterpigmyTrue = false;
-      this.mastercashcreditTrue = false;
-      this.masterloanTrue = false;
-      this.masterdisputeloanTrue = false;
-      this.masterlockerdepositTrue = true;
-      this.masterdeadstockTrue = false;
-    }
-    if (val == 22) {
+      debugger
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
       this.depositclosingvouchersTrue = false;
@@ -600,6 +562,54 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = true;
     }
+    // if (val == 21) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = true;
+    //   this.masterdeadstockTrue = false;
+    // }
+    // if (val == 22) {
+    //   this.voucherTrue = false;
+    //   this.batchvoucherTrue = false;
+    //   this.depositclosingvouchersTrue = false;
+    //   this.savingpigmyclosingTrue = false;
+    //   this.remittanceadviceTrue = false;
+    //   this.cashremitanceTrue = false;
+    //   this.deadstockpurchaseTrue = false;
+    //   this.deadstocktransactionTrue = false;
+    //   this.lockeraccloserentTrue = false;
+    //   this.mastersharesTrue = false;
+    //   this.masteranamatTrue = false;
+    //   this.mastersavingTrue = false;
+    //   this.mastercurrentTrue = false;
+    //   this.masterdepositsTrue = false;
+    //   this.masterinvestmentsTrue = false;
+    //   this.masterpigmyagentTrue = false;
+    //   this.masterpigmyTrue = false;
+    //   this.mastercashcreditTrue = false;
+    //   this.masterloanTrue = false;
+    //   this.masterdisputeloanTrue = false;
+    //   this.masterlockerdepositTrue = false;
+    //   this.masterdeadstockTrue = true;
+    // }
   }
 
 }

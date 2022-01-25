@@ -25,10 +25,11 @@ import { MasterLoanComponent } from './master-loan/master-loan.component';
 import { MasterDisputeLoanComponent } from './master-dispute-loan/master-dispute-loan.component';
 import { MasterLockerDepositComponent } from './master-locker-deposit/master-locker-deposit.component';
 import { MasterDeadStockComponent } from './master-dead-stock/master-dead-stock.component';
-import {DataTablesModule} from 'angular-datatables';
+import { DataTablesModule} from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-
+import { MasterSavingModule} from './master-saving/master-saving.module';
+import { MasterDeadStockModule } from './master-dead-stock/master-dead-stock.module';
 // import {ChartModule} from 'angular2-chartjs';
 
 @NgModule({
@@ -36,9 +37,12 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     CommonModule,
     CentralisedPassingRoutingModule,
     SharedModule,
-    DataTablesModule
+    DataTablesModule,
+    MasterSavingModule,
+    MasterDeadStockModule
   ],
-  declarations: [CentralisedPassingComponent, VoucherComponent, BatchVoucherComponent, DepositClosingVoucherComponent, SavingPigmyClosingComponent, RemittanceAdviceComponent, CashRemitanceComponent, DeadStockPurchaseComponent, DeadStockTransactionComponent, LockerAcCloseRentComponent, MasterSharesComponent, MasterAnamatComponent, MasterSavingComponent, MasterCurrentComponent, MasterDepositsComponent, MasterInvestmentsComponent, MasterPigmyAgentComponent, MasterPigmyComponent, MasterCashCreditComponent, MasterLoanComponent, MasterDisputeLoanComponent, MasterLockerDepositComponent, MasterDeadStockComponent],
+  declarations: [CentralisedPassingComponent], 
+  // declarations: [CentralisedPassingComponent, VoucherComponent, BatchVoucherComponent, DepositClosingVoucherComponent, SavingPigmyClosingComponent, RemittanceAdviceComponent, CashRemitanceComponent, DeadStockPurchaseComponent, DeadStockTransactionComponent, LockerAcCloseRentComponent, MasterSharesComponent, MasterAnamatComponent, MasterCurrentComponent, MasterDepositsComponent, MasterInvestmentsComponent, MasterPigmyAgentComponent, MasterPigmyComponent, MasterCashCreditComponent, MasterLoanComponent, MasterDisputeLoanComponent, MasterLockerDepositComponent, MasterDeadStockComponent],
   providers:[{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
