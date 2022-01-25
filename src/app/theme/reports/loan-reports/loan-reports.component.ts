@@ -11,7 +11,7 @@ export class LoanReportsComponent implements OnInit {
   num2:string;
   result:number;
   add(){
-   // debugger
+  
     this.result== parseInt(this.num1) + parseInt(this.num2)
   }
 

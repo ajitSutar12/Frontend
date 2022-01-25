@@ -24,6 +24,7 @@ import { cityMasterService } from "../../../../shared/dropdownService/city-maste
 import { SchemeCodeDropdownService } from "../../../../shared/dropdownService/scheme-code-dropdown.service";
 import { PrefixMasterDropdownService } from "src/app/shared/dropdownService/prefix-master-dropdown.service";
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service"
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -211,16 +212,12 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
           },
         },
         {
-          title: 'Type',
-          data: 'AC_ACNOTYPE'
-        },
-        {
           data: "AC_TYPE",
           title: "Scheme",
         },
         {
           data: "AC_NO",
-          title: "Account",
+          title: "Account Number",
         },
         {
           data: "AC_CUSTID",
@@ -228,19 +225,19 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         },
         {
           data: "AC_NAME",
-          title: "Name",
+          title: "Member Name",
         },
-        {
-          data: "AC_MEMBTYPE",
-          title: "Member Scheme",
-        },
-        {
-          data: "AC_MEMBNO",
-          title: "Member No",
-        },
+        // {
+        //   data: "AC_MEMBTYPE",
+        //   title: "Member Scheme",
+        // },
+        // {
+        //   data: "AC_MEMBNO",
+        //   title: "Member No",
+        // },
         {
           data: "AC_AREA",
-          title: "Area",
+          title: "Detail Address",
         },
         {
           data: "AC_CTCODE",
@@ -248,11 +245,11 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         },
         {
           data: "AC_OPDATE",
-          title: "opening bal. date",
+          title: "Opening date",
         },
         {
-          data: "DEBIT",
-          title: "opening bal",
+          data: "AC_PARTICULAR",
+          title: "Reason",
         },
       ],
       dom: "Blrtip",
@@ -266,6 +263,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data
+      this.code = this.scheme[0].value
+      this.schemeCode = this.scheme[0].name
     })
 
     this.cityMasterService
@@ -281,6 +280,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((data) => {
         this.Cust_ID = data;
       });
+    this.getSystemParaDate()
   }
 
 
@@ -315,8 +315,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
+      this.id = id
       this.angForm.patchValue({
-        AC_CUSTID: id.toString(),
+        AC_CUSTID: id,
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
         AC_CAST: data.AC_CAST,
@@ -349,11 +350,17 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   //set open date, appointed date and expiry date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
+      let date = moment(data.CURRENT_DATE).format('DD/MM/YYYY');
       this.angForm.patchValue({
-        AC_OPDATE: data.CURRENT_DATE,
-        DATE_APPOINTED: data.CURRENT_DATE,
-        DATE_EXPIRY: data.CURRENT_DATE
+        AC_OPDATE: date,
+        DATE_APPOINTED: date,
+        DATE_EXPIRY: date,
       })
+      if (data.ON_LINE === true) {
+        this.angForm.controls['AC_OPDATE'].disable()
+      } else {
+        this.angForm.controls['AC_OPDATE'].enable()
+      }
     })
   }
 
@@ -392,17 +399,24 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getScheme(value) {
+    console.log('scheme value', value)
     this.schemeCode = value.name
   }
 
   // Method to insert data into database through NestJS
-  submit() {
+  submit(event) {
+
+    event.preventDefault();
     this.formSubmitted = true;
+    console.log('form data', this.angForm.value)
+    // if (this.angForm.valid) {
     //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    let branchCode = result.branch.CODE;
-    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
+    let branchCode = result.branch.id;
+    let bankCode = Number(result.branch.syspara.BANK_CODE)
+    let opdate = (document.getElementById("AC_OPDATE") as HTMLInputElement).value;
+
 
     const formVal = this.angForm.value;
     const dataToSend = {
@@ -414,14 +428,24 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NO: formVal.AC_NO,
       AC_NAME: formVal.AC_NAME,
       AC_CUSTID: formVal.AC_CUSTID,
-      AC_OPDATE: formVal.AC_OPDATE,
-      Recovery: formVal.Recovery,
+      // AC_OPDATE: formVal.AC_OPDATE,
+      AC_OPDATE: opdate,
+      // 'AC_OPDATE': (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY'),
+      AC_IS_RECOVERY: formVal.AC_IS_RECOVERY,
       DEBIT: formVal.DEBIT,
       AC_PARTICULAR: formVal.AC_PARTICULAR,
     };
+    console.log('data tosend ', dataToSend)
     this.anamatGSMService.postData(dataToSend).subscribe(
       (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
+        console.log('return data', data)
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Created successfully!',
+          html:
+            '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+            '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+        })
         this.formSubmitted = false;
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -432,13 +456,13 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log(error);
       }
     );
-
     //To clear form
-    this.angForm.reset();
+    this.resetForm();
+    // }
   }
-
   //Method for append data into fields
   editClickHandler(id) {
+    this.AC_TYPE = true
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
@@ -450,18 +474,11 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_ACNOTYPE: data.AC_ACNOTYPE,
         AC_TYPE: data.AC_TYPE,
         AC_NO: data.AC_NO,
-        AC_CUSTID: data.AC_CUSTID.toString(),
+        // AC_CUSTID: data.AC_CUSTID.toString(),
         // AC_TITLE: data.AC_TITLE,
-        AC_NAME: data.AC_NAME,
-        // AC_MEMBTYPE: data.AC_MEMBTYPE,
-        // AC_MEMBNO: data.AC_MEMBNO,
-        // AC_HONO: data.AC_HONO,
-        // AC_WARD: data.AC_WARD,
-        // AC_TADDR: data.AC_TADDR,
-        // AC_TGALLI: data.AC_TGALLI,
-        // AC_AREA: data.AC_AREA,
-        // AC_CTCODE: data.AC_CTCODE,
-        // AC_PIN: data.AC_PIN,
+        // AC_NAME: data.AC_NAME,
+        AC_MEMBTYPE: data.AC_MEMBTYPE,
+        AC_MEMBNO: data.AC_MEMBNO,
         AC_OPDATE: data.AC_OPDATE,
         AC_IS_RECOVERY: data.AC_IS_RECOVERY,
         DEBIT: data.DEBIT,
@@ -472,8 +489,13 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for update data
   updateData() {
+    this.AC_TYPE = false
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    let opdate = (document.getElementById("AC_OPDATE") as HTMLInputElement).value;
+    data["AC_OPDATE"] = opdate;
+
+    console.log('data update', data)
     this.anamatGSMService.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -496,6 +518,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   // Reset Function
   resetForm() {
     this.createForm();
+    this.code = this.scheme[0].value
+    this.id = null
+    this.getSystemParaDate()
   }
 
   //Method for delete data
@@ -528,13 +553,18 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#mastertable tfoot tr').appendTo('#mastertable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != '') {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

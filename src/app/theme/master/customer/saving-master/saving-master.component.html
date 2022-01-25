@@ -116,7 +116,6 @@
                 <!-- start of basic tab -->
                 <ngb-tab title="Basic">
                   <ng-template ngbTabContent>
-
                     <div [@fadeInOutTranslate] class="m-t-15">
                       <div class="card border-primary">
                         <div class="card-block highlight ">
@@ -1230,11 +1229,13 @@
                                         form-static-label
                                       ">
                                         <span class="border-lable-flt">
-                                          <ng-select id="AC_NCTCODE" [(ngModel)]="ngNcity" formControlName="AC_NCTCODE"
-                                            bindLabel="CITY_NAME" title="Compulsory Selection" bindValue="id"
-                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="City">
-                                            <ng-option *ngFor="let values of Ncity" [value]="values">
-                                              {{values.CITY_NAME}}</ng-option>
+                                          <ng-select id="AC_NCTCODE" [items]="Ncity" [(ngModel)]="ngNcity" bindLabel="CITY_NAME"
+                                            formControlName="AC_NCTCODE" [ngClass]="{'form-submitted': formSubmitted}"
+                                            placeholder="City">
+                                            <!-- <ng-option *ngFor="let values of Ncity">
+                                              {{values.CITY_NAME}}</ng-option> -->
+                                            <!-- bindLabel="CITY_NAME"
+                                            title="Compulsory Selection" bindValue="id" -->
                                           </ng-select>
                                           <label for="AC_NCTCODE">City<sub class="required"> * </sub></label>
                                         </span>
@@ -1347,7 +1348,7 @@
                                         [ngClass]="data.AC_NAREA === '' || data.AC_NAREA == null ? 'td_center' : 'td_left'">
                                         {{data.AC_NAREA === '' || data.AC_NAREA == null ? '-' : data.AC_NAREA}}</td>
                                       <td class="td_left" [ngClass]="data.AC_NCTCODE === '' ? 'td_center' : 'td_left'">
-                                        {{data.AC_NCTCODE === ''? '-' : data.AC_NCTCODE}}</td>
+                                        {{data.AC_NCTCODE === ''? '-' : data.AC_CITYNAME}}</td>
                                       <td class="td_center"
                                         [ngClass]="data.AC_NPIN === ''|| data.AC_NPIN == null ? 'td_center' : 'td_right'">
                                         {{data.AC_NPIN === '' || data.AC_NPIN == null ? '-' : data.AC_NPIN}}</td>
@@ -1772,9 +1773,8 @@
                       <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
                         placement="bottom" ngbTooltip="Edit"></span>
                     </td>
-
                     <td [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
-                      {{ data.AC_TYPE === "" || data.AC_TYPE== null? "-" : data.SavingMaster.S_APPL }}
+                      {{ data.AC_TYPE === "" || data.AC_TYPE== null? "-" : data.DPMaster.S_APPL }}
                     </td>
                     <td [ngClass]="data.BANKACNO === '' ? 'td_center' : 'td_right'">
                       {{ data.BANKACNO === "" ? "-" : data.BANKACNO }}

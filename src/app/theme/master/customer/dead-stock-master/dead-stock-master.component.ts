@@ -28,7 +28,7 @@ import { IOption } from "ng-select";
 import { Subscription } from "rxjs/Subscription";
 import { first } from "rxjs/operators";
 import { environment } from "src/environments/environment";
-
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -62,8 +62,7 @@ interface deadstockinterface {
   templateUrl: "./dead-stock-master.component.html",
   styleUrls: ["./dead-stock-master.component.scss"],
 })
-export class DeadStockMasterComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   formSubmitted = false;
   //calculations
@@ -130,6 +129,12 @@ export class DeadStockMasterComponent
   today: () => number;
   datemax: string;
 
+  bsValue
+  ngItem: any = null
+  ngDepre: any = null
+  ngGlAC: any = null
+
+
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -192,15 +197,11 @@ export class DeadStockMasterComponent
       columns: [
         {
           title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
         },
-
-        {
-          title: "Item Type",
-          data: "ITEM_TYPE",
-        },
+        // {
+        //   title: "Item Type",
+        //   data: "ITEM_TYPE",
+        // },
         {
           title: "Item Code",
           data: "ITEM_CODE",
@@ -210,53 +211,53 @@ export class DeadStockMasterComponent
           data: "ITEM_NAME",
         },
         {
-          title: "Purchase Date",
-          data: "PURCHASE_DATE",
-        },
-        {
-          title: "Depr Category",
-          data: "DEPR_CATEGORY",
-        },
-        {
-          title: "Op.Balance Date",
-          data: "OP_BAL_DATE",
-        },
-        {
           title: "SupplierName",
           data: "SUPPLIER_NAME",
         },
         {
-          title: "Opening Amount",
-          data: "OP_BALANCE",
+          title: "Purchase Date",
+          data: "PURCHASE_DATE",
         },
         {
-          title: "Quantity",
-          data: "OP_QUANTITY",
+          title: "Depreciation Category",
+          data: "DEPR_CATEGORY",
         },
+        // {
+        //   title: "Op.Balance Date",
+        //   data: "OP_BAL_DATE",
+        // },
+        // {
+        //   title: "Opening Amount",
+        //   data: "OP_BALANCE",
+        // },
+        // {
+        //   title: "Quantity",
+        //   data: "OP_QUANTITY",
+        // },
 
-        {
-          title: "PURCHASE QUANTITY",
-          data: "PURCHASE_OP_QUANTITY",
-        },
-        {
-          title: "Purchase Rate",
-          data: "PURCHASE_RATE",
-        },
+        // {
+        //   title: "PURCHASE QUANTITY",
+        //   data: "PURCHASE_OP_QUANTITY",
+        // },
         {
           title: "Purchase Qty",
           data: "PURCHASE_QUANTITY",
         },
         {
+          title: "Purchase Rate",
+          data: "PURCHASE_RATE",
+        },
+
+        {
           title: "Purchase Value",
           data: "PURCHASE_VALUE",
         },
-
         {
           title: "Last Depreciation Date",
           data: "LAST_DEPR_DATE",
         },
         {
-          title: "GL A/C No",
+          title: "GL A/C Number",
           data: "GL_ACNO",
         },
         // {
@@ -321,42 +322,45 @@ export class DeadStockMasterComponent
 
   // Method to insert data into database through NestJS
   submit() {
+   
     this.formSubmitted = true;
+    let purchase
 
-    if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
-      const formVal = this.angForm.value;
-      const dataToSend = {
-        ITEM_TYPE: formVal.ITEM_TYPE,
-        ITEM_CODE: formVal.ITEM_CODE,
-        ITEM_NAME: formVal.ITEM_NAME,
-        PURCHASE_DATE: formVal.PURCHASE_DATE,
-        DEPR_CATEGORY: formVal.DEPR_CATEGORY,
-        OP_BAL_DATE: formVal.OP_BAL_DATE,
-        SUPPLIER_NAME: formVal.SUPPLIER_NAME,
-        PURCHASE_OP_QUANTITY: formVal.PURCHASE_OP_QUANTITY,
-        PURCHASE_RATE: formVal.PURCHASE_RATE,
-        PURCHASE_QUANTITY: formVal.PURCHASE_QUANTITY,
-        PURCHASE_VALUE: formVal.PURCHASE_VALUE,
-        OP_BALANCE: formVal.OP_BALANCE,
-        OP_QUANTITY: formVal.OP_QUANTITY,
-        LAST_DEPR_DATE: formVal.LAST_DEPR_DATE,
-        GL_ACNO: formVal.GL_ACNO,
-      };
-      this.deadstockmasterService.postData(dataToSend).subscribe(
-        (data1) => {
-          Swal.fire("Success!", "Data Added Successfully !", "success");
-          this.formSubmitted = false;
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload();
-          });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    // if (this.angForm.valid) {
+    console.log(this.angForm.value); // Process your form
+    const formVal = this.angForm.value;
+    const dataToSend = {
+      ITEM_TYPE: formVal.ITEM_TYPE,
+      ITEM_CODE: formVal.ITEM_CODE,
+      ITEM_NAME: formVal.ITEM_NAME,
+      PURCHASE_DATE: (formVal.PURCHASE_DATE == '' || formVal.PURCHASE_DATE == 'Invalid date') ? purchase = '' : purchase = moment(formVal.PURCHASE_DATE).format('DD/MM/YYYY'),
+      DEPR_CATEGORY: formVal.DEPR_CATEGORY,
+      OP_BAL_DATE: formVal.OP_BAL_DATE,
+      SUPPLIER_NAME: formVal.SUPPLIER_NAME,
+      PURCHASE_OP_QUANTITY: formVal.PURCHASE_OP_QUANTITY,
+      PURCHASE_RATE: formVal.PURCHASE_RATE,
+      PURCHASE_QUANTITY: formVal.PURCHASE_QUANTITY,
+      PURCHASE_VALUE: formVal.PURCHASE_VALUE,
+      OP_BALANCE: formVal.OP_BALANCE,
+      OP_QUANTITY: formVal.OP_QUANTITY,
+      LAST_DEPR_DATE: formVal.LAST_DEPR_DATE,
+      GL_ACNO: formVal.GL_ACNO,
+    };
+    console.log('dead datasend', dataToSend)
+    this.deadstockmasterService.postData(dataToSend).subscribe(
+      (data1) => {
+        Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload();
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
 
-    }
+    // }
 
 
 
@@ -449,13 +453,18 @@ export class DeadStockMasterComponent
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#mastertable tfoot tr').appendTo('#mastertable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

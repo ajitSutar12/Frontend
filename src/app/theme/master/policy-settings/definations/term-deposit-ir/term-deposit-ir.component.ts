@@ -480,7 +480,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   addField() { 
-    debugger
+   
     let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
     let penint = (document.getElementById("PENAL_INT_RATE") as HTMLInputElement).value;
     if(intrate == " "){

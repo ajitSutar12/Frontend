@@ -49,6 +49,7 @@ interface InvestmentMaster {
 export class AccountOpeningComponent implements OnInit {
   //api 
   url = environment.base_url;
+  formSubmitted = false;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -61,6 +62,7 @@ export class AccountOpeningComponent implements OnInit {
   dtExportButtonOptions: DataTables.Settings = {};
   dtExportOptions: DataTables.Settings = {};
   Data: any;
+  datemax: any;
   //variables for pagination
   page: number = 1;
   passenger: any;
@@ -89,6 +91,11 @@ export class AccountOpeningComponent implements OnInit {
   BankCode: any[];
   BranchCode: any[];
   scheme: any[];
+  bsValue
+  AC_TYPE: boolean = false
+  code: any = null
+  ngBank: any = null
+  ngBranch: any = null
 
   constructor(private fb: FormBuilder,
     private bankMasterService: BankMasterService,
@@ -97,7 +104,6 @@ export class AccountOpeningComponent implements OnInit {
     private bankService: BankService,
     private investmentService: InvestmentService,
     private http: HttpClient,
-
   ) { }
 
   ngOnInit(): void {
@@ -155,16 +161,16 @@ export class AccountOpeningComponent implements OnInit {
           title: 'Action',
         },
         {
-          title: 'Type',
-          data: 'AC_ACNOTYPE'
-        },
-        {
           title: 'Scheme',
           data: 'AC_TYPE'
         },
         {
-          title: 'Account No',
+          title: 'Account Number',
           data: 'AC_NO'
+        },
+        {
+          title: 'Member Name',
+          data: 'AC_NAME'
         },
         {
           title: 'Bank Code',
@@ -173,14 +179,6 @@ export class AccountOpeningComponent implements OnInit {
         {
           title: 'Branch Code',
           data: 'INVEST_BRANCH'
-        },
-        {
-          title: 'Name',
-          data: 'AC_NAME'
-        },
-        {
-          title: 'Receipt No.',
-          data: 'AC_REF_RECEIPTNO'
         },
         {
           title: 'A/c Open Date',
@@ -195,21 +193,18 @@ export class AccountOpeningComponent implements OnInit {
           data: 'AC_EXPDT'
         },
         {
-          title: 'Months',
-          data: 'AC_MONTHS'
+          title: 'Receipt No.',
+          data: 'AC_REF_RECEIPTNO'
         },
         {
-          title: 'Days',
-          data: 'AC_DAYS'
+          title: 'Interest Rate',
+          data: 'AC_INTRATE'
         },
         {
           title: 'Deposit Amount',
           data: 'AC_SCHMAMT'
         },
-        {
-          title: 'Int. Rate',
-          data: 'AC_INTRATE'
-        },
+
         {
           title: 'Maturity Amount',
           data: 'AC_MATUAMT'
@@ -229,6 +224,7 @@ export class AccountOpeningComponent implements OnInit {
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
+      this.code = this.scheme[0].value
     })
   }
 
@@ -348,6 +344,7 @@ export class AccountOpeningComponent implements OnInit {
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#mastertable tfoot tr').appendTo('#mastertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

@@ -22,6 +22,9 @@ export class CurrentAccountMasterService {
             })
         )
     }
+    getData(): Observable<any> {
+        return this.http.get(this.url + '/current-account-master/alldata').pipe(catchError(this.handleError));
+    }
     // For append data
     getFormData(id: any): Observable<any> {
         return this.http.get(this.url + '/current-account-master/' + id).pipe(catchError(this.handleError));

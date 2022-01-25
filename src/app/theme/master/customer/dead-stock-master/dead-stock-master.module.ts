@@ -5,13 +5,14 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeadStockMasterRoutingModule } from './dead-stock-master-routing.module';
 import { DeadStockMasterComponent } from './dead-stock-master.component';
-import {SelectModule} from 'ng-select';
-import {DeadstockmasterService} from './dead-stock-master.service'
-import { ItemCatMasterDropdownService} from '../../../../shared/dropdownService/item-category-master-dropdown.service';
-import { DepriciationCatDropdownMasterService} from '../../../../shared/dropdownService/depriciation-category-master-dropdown.service';
-import { ACMasterDropdownService} from '../../../../shared/dropdownService/ac-master-dropdown.service';
+import { DeadstockmasterService } from './dead-stock-master.service'
+import { ItemCatMasterDropdownService } from '../../../../shared/dropdownService/item-category-master-dropdown.service';
+import { DepriciationCatDropdownMasterService } from '../../../../shared/dropdownService/depriciation-category-master-dropdown.service';
+import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,12 +21,14 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    SelectModule,
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   declarations: [
     DeadStockMasterComponent
   ],
-  providers:[
+  providers: [
     DeadstockmasterService,
     ItemCatMasterDropdownService,
     DepriciationCatDropdownMasterService,

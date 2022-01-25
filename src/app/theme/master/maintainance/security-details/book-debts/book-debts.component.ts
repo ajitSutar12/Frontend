@@ -220,7 +220,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submit(event) {
-    debugger
+   
     let closingbalid = (document.getElementById("DebtorsClosingBalance") as HTMLInputElement).value;
 
     this.angForm.patchValue({

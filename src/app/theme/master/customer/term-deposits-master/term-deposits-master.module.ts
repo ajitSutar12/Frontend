@@ -4,7 +4,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataTablesModule } from 'angular-datatables';
 import { TermDepositsMasterRoutingModule } from './term-deposits-master-routing.module';
 import { TermDepositsMasterComponent } from './term-deposits-master.component';
-import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
 import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
@@ -29,6 +28,8 @@ import { DatePipe } from '@angular/common';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { InterestInstructionModule } from '../../instruction/interest-instruction/interest-instruction.module'
 import { InterestInstructionService } from '../../instruction/interest-instruction/interest-instruction.service'
+import { NgSelectModule } from '@ng-select/ng-select';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -39,10 +40,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     TermDepositsMasterRoutingModule,
     NgbModule,
     DataTablesModule,
-    SelectModule,
     FormsModule, ReactiveFormsModule,
     SharedModule, CustomerIdModule, PerfectScrollbarModule,
-    InterestInstructionModule
+    InterestInstructionModule,
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
+
   ],
   declarations: [TermDepositsMasterComponent],
   providers: [

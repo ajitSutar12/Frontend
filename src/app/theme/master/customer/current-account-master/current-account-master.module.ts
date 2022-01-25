@@ -4,7 +4,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CurrentAccountMasterRoutingModule } from './current-account-master-routing.module';
 import { CurrentAccountMasterComponent } from './current-account-master.component';
-import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
 import { CustomerIdModule } from '../customer-id/customer-id.module';
@@ -24,17 +23,20 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-
+import { NgSelectModule } from '@ng-select/ng-select';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 @NgModule({
   imports: [
     CommonModule,
     CurrentAccountMasterRoutingModule,
     DataTablesModule,
     NgbModule,
-    SelectModule,
     FormsModule, ReactiveFormsModule,
     SharedModule,
-    CustomerIdModule
+    CustomerIdModule,
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   declarations: [CurrentAccountMasterComponent],
   providers: [CurrentAccountMasterService, CustomerIDMasterDropdownService, CustomerIdService,

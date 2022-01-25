@@ -106,7 +106,7 @@
 
     function func() 
     {
-        debugger
+        // debugger
         var user = JSON.parse(localStorage.getItem('user'));
         $.ajax({
             url : 'http://localhost:4000/user-defination/logout',
@@ -119,7 +119,7 @@
     }
     function stateChanged()
     {
-        debugger
+        // debugger
         if (request.readyState == 4 || request.readyState == "complete")
             alert("Succes!");
     }

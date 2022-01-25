@@ -286,6 +286,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
               if (element?.BRANCH_CODE == branchCode) {
                 master.push(element)
                 this.savingMaster = master
+                console.log('saving data', this.savingMaster)
               }
             })
             callback({
@@ -312,7 +313,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           data: 'BANKACNO'
         },
         {
-          title: 'Name',
+          title: 'Member Name',
           data: 'AC_NAME'
         },
         {
@@ -368,6 +369,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.savingMasterService.getcityList().pipe(first()).subscribe(data => {
       this.city = data;
       this.Ncity = data;
+      console.log('city option', this.Ncity)
     });
     this._ownbranchMaster.getOwnbranchList().pipe(first()).subscribe(data => {
       console.log('branch', data)
@@ -660,7 +662,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   getschemename: any
 
   getIntro(event) {
-
     console.log(event)
     // this.getscheme = event.id
     this.getschemename = event.name
@@ -1220,11 +1221,12 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   NbirthDate: any
+  cityName: boolean = false
   //Nominee
   addNominee() {
     const formVal = this.angForm.value;
     let date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
-
+    this.cityName = true
     this.NbirthDate = date1;
     var object = {
       AC_NNAME: formVal.AC_NNAME,
@@ -1236,11 +1238,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE.CITY_NAME,
+      AC_NCTCODE: formVal.AC_NCTCODE.id,
       AC_NPIN: formVal.AC_NPIN,
-      // AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
+      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
     }
-
+    console.log('nomine', object)
 
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
@@ -1261,7 +1263,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             } else {
               this.multiNominee.push(object);
             }
-
           }
         }
       }
@@ -1282,7 +1283,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.nomineeTrue = true
     this.nomineeShowButton = false;
     this.nomineeUpdateShow = true;
-    this.ngNcity = Number(this.multiNominee[id].AC_NCTCODE)
+    // this.ngNcity = Number(this.multiNominee[id].AC_NCTCODE)
     let date1 = moment(this.multiNominee[id].AC_NDATE).format('DD/MM/YYYY');
 
     this.NbirthDate = date1;
@@ -1297,7 +1298,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NADDR: this.multiNominee[id].AC_NADDR,
       AC_NGALLI: this.multiNominee[id].AC_NGALLI,
       AC_NAREA: this.multiNominee[id].AC_NAREA,
-      // AC_NCTCODE: this.multiNominee[id].AC_NCTCODE,    
+      AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
       AC_NPIN: this.multiNominee[id].AC_NPIN,
       // AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
     })
@@ -1321,11 +1322,12 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NCTCODE: formVal.AC_NCTCODE.id,
       AC_NPIN: formVal.AC_NPIN,
-      // AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME,
+      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME,
       id: this.nomineeID
     }
+    console.log('update nominee', object)
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire("Please Insert Mandatory Record For Nominee");
     }

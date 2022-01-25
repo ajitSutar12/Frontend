@@ -36,7 +36,7 @@ import { NgSelectComponent } from "@ng-select/ng-select/lib/ng-select.component"
 import { ConnectionServiceModule } from "ng-connection-service";
 import { StrictNumberOnlyDirective } from '../../../../restrictinput';
 import { json } from "ngx-custom-validators/src/app/json/validator";
-
+import * as moment from 'moment';
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
 class DataTableResponse {
@@ -170,7 +170,15 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   today: Date;
   focus: boolean = true;
 
+  //dropdown ngModel variables
+  ngCast: any = null
+  ngoccupation: any = null
+  ngRisk: any = null
+  ngCity: any = null
+  ngTitle: any = null
 
+  bsValue
+  maxDate: Date;
 
   constructor(
     private http: HttpClient,
@@ -186,8 +194,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     public router: Router
   ) {
     // this.datemax =new Date() ;
-    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-    console.log(this.datemax);
+    // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate());
   }
 
   ngOnInit(): void {
@@ -232,7 +242,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           )
           .subscribe((resp) => {
             this.customerMaster = resp.data;
-            console.log('table', this.customerMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -256,22 +265,22 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           title: "Member Scheme",
           data: "AC_MEMBTYPE",
         },
-        {
-          title: "Title",
-          data: "AC_TITLE",
-        },
-        {
-          title: "First Name",
-          data: "F_NAME",
-        },
-        {
-          title: "Middle Name",
-          data: "M_NAME",
-        },
-        {
-          title: "Last Name",
-          data: "L_NAME",
-        },
+        // {
+        //   title: "Title",
+        //   data: "AC_TITLE",
+        // },
+        // {
+        //   title: "First Name",
+        //   data: "F_NAME",
+        // },
+        // {
+        //   title: "Middle Name",
+        //   data: "M_NAME",
+        // },
+        // {
+        //   title: "Last Name",
+        //   data: "L_NAME",
+        // },
         {
           title: "Full Name",
           data: "AC_NAME",
@@ -300,62 +309,62 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           title: "Birth Date",
           data: "AC_BIRTH_DT",
         },
-        {
-          title: "Salary Div.",
-          data: "AC_SALARYDIVISION_CODE",
-        },
+        // {
+        //   title: "Salary Div.",
+        //   data: "AC_SALARYDIVISION_CODE",
+        // },
         {
           title: "Mobile Number",
           data: "AC_MOBILENO",
         },
-        {
-          title: "Recidential(R)",
-          data: "AC_PHONE_RES",
-        },
-        {
-          title: "Office(O)",
-          data: "AC_PHONE_OFFICE",
-        },
+        // {
+        //   title: "Recidential(R)",
+        //   data: "AC_PHONE_RES",
+        // },
+        // {
+        //   title: "Office(O)",
+        //   data: "AC_PHONE_OFFICE",
+        // },
         {
           title: "Email ID",
           data: "AC_EMAILID",
         },
-        {
-          title: "Is Received TDS Document",
-          data: "TDSDOCUMNET",
-        },
-        {
-          title: "TDS Calculation Required?",
-          data: "TDS_REQUIRED",
-        },
-        {
-          title: "SMS Facility Required ?",
-          data: "SMS_REQUIRED",
-        },
-        {
-          title: "KYC",
-          data: "IS_KYC_RECEIVED",
-        },
-        {
-          title: "Financial Year",
-          data: "FIN_YEAR",
-        },
-        {
-          title: "Submission Date",
-          data: "SUBMIT_DATE",
-        },
-        {
-          title: "Form Type",
-          data: "FORM_TYPE",
-        },
-        {
-          title: "TDS Rate %",
-          data: "TDS_RATE",
-        },
-        {
-          title: "TDS Limit",
-          data: "TDS_LIMIT",
-        },
+        // {
+        //   title: "Is Received TDS Document",
+        //   data: "TDSDOCUMNET",
+        // },
+        // {
+        //   title: "TDS Calculation Required?",
+        //   data: "TDS_REQUIRED",
+        // },
+        // {
+        //   title: "SMS Facility Required ?",
+        //   data: "SMS_REQUIRED",
+        // },
+        // {
+        //   title: "KYC",
+        //   data: "IS_KYC_RECEIVED",
+        // },
+        // {
+        //   title: "Financial Year",
+        //   data: "FIN_YEAR",
+        // },
+        // {
+        //   title: "Submission Date",
+        //   data: "SUBMIT_DATE",
+        // },
+        // {
+        //   title: "Form Type",
+        //   data: "FORM_TYPE",
+        // },
+        // {
+        //   title: "TDS Rate %",
+        //   data: "TDS_RATE",
+        // },
+        // {
+        //   title: "TDS Limit",
+        //   data: "TDS_LIMIT",
+        // },
       ],
       dom: "Blrtip",
     };
@@ -378,8 +387,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           )
           .subscribe((resp) => {
             this.documentMaster = resp.data;
-            console.log(this.documentMaster);
-
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -493,12 +500,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit(event) {
-
+    let birthdate
+    let submitdate
+   
     event.preventDefault();
     this.formSubmitted = true;
-
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
       const formVal = this.angForm.value;
       const dataToSend = {
         'AC_NO': formVal.AC_NO,
@@ -513,7 +520,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_OCODE': parseInt(formVal.AC_OCODE),
         'AC_ADHARNO': formVal.AC_ADHARNO,
         'AC_RISKCATG': parseInt(formVal.AC_RISKCATG),
-        'AC_BIRTH_DT': formVal.AC_BIRTH_DT,
+        // 'AC_BIRTH_DT': formVal.AC_BIRTH_DT,
+        'AC_BIRTH_DT': (formVal.AC_BIRTH_DT == '' || formVal.AC_BIRTH_DT == 'Invalid date') ? birthdate = '' : birthdate = moment(formVal.AC_BIRTH_DT).format('DD/MM/YYYY'),
         'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
         'AC_MOBILENO': formVal.AC_MOBILENO,
         'AC_PHONE_RES': formVal.AC_PHONE_RES,
@@ -533,7 +541,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_CTCODE': formVal.AC_CTCODE,
         'AC_PIN': formVal.AC_PIN,
         'FIN_YEAR': formVal.FIN_YEAR,
-        'SUBMIT_DATE': formVal.SUBMIT_DATE,
+        // 'SUBMIT_DATE': formVal.SUBMIT_DATE,
+        'SUBMIT_DATE': (formVal.SUBMIT_DATE == '' || formVal.SUBMIT_DATE == 'Invalid date') ? submitdate = '' : submitdate = moment(formVal.SUBMIT_DATE).format('DD/MM/YYYY'),
         'FORM_TYPE': formVal.FORM_TYPE,
         'TDS_RATE': formVal.TDS_RATE,
         'TDS_LIMIT': formVal.TDS_LIMIT,
@@ -545,11 +554,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           Swal.fire("Success!", "Data Added Successfully !", "success");
           this.formSubmitted = false;
 
-          console.log("submit", data);
+
           // this.custData = data1.id;
           this.addNewCustomer(data.id);
           // to reload after insertion of data
-          this.rerender();
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
         },
         (error) => {
           console.log(error);
@@ -570,11 +581,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   //disabledate on keyup
-  disabledate(data: any) {
-
-    console.log(data);
+  disabledate() {
+    let data = (document.getElementById("AC_BIRTH_DT") as HTMLInputElement).value
     if (data != "") {
-      if (data > this.datemax) {
+
+      let date = moment(this.datemax).format('DD/MM/YYYY');
+      if (data < date) {
         Swal.fire("Invalid Input", "Please insert valid date ", "warning");
         (document.getElementById("AC_BIRTH_DT") as HTMLInputElement).value = "";
         this.myInputField.nativeElement.focus('AC_BIRTH_DT');
@@ -587,8 +599,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   //disabledate on keyup
   disablesubdate(data: any) {
-
-    console.log(this.datemax);
     if (data != "") {
       if (data > this.datemax) {
         Swal.fire("Invalid Input", "Please insert valid date ", "warning");
@@ -620,6 +630,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isDocument = false;
     this.isTdsForm = false;
     this.isTdsFormA = false;
+    this.ngCast = null
+    this.ngoccupation = null
+    this.ngRisk = null
+    this.ngCity = null
+    this.ngTitle = null
     // this.documentMaster = []
   }
 
@@ -633,7 +648,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //enabling and disabling fields of photo and adhar card checkbox
   Enablefields(data, id, ele) {
-    console.log(data);
     if (ele.target.checked) {
       (document.getElementById("file" + id) as HTMLInputElement).disabled =
         false;
@@ -651,7 +665,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
-    console.log(ele);
     if (ele <= 100) {
       console.log(ele);
     } else {
@@ -667,7 +680,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       .filter((s) => s.length > 0)
       .join(" ");
     (document.getElementById("AC_ADHARNO") as HTMLInputElement).value = result;
-    console.log(data);
   }
 
   //method for adding hyphen in date
@@ -683,7 +695,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     let result = Number((document.getElementById("FIN_YEAR") as HTMLInputElement).value);
-    console.log(result);
     if (result > date) {
       Swal.fire("Warning!", "please enter valid Year ", "warning");
       (document.getElementById("FIN_YEAR") as HTMLInputElement).value = "";
@@ -692,7 +703,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     else {
       if (data.length == 4) {
         result += 1;
-        console.log(result);
         (document.getElementById("FIN_YEAR") as HTMLInputElement).value = data + "-" + result;
       }
 
@@ -706,13 +716,15 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
-
+    let birthdate
+    let submitdate
     this.customerIdService.getFormData(id).subscribe((data) => {
-      console.log('edit')
-      data.AC_CAST == null ? data.AC_CAST = "" : data.AC_CAST.toString()
-      data.AC_OCODE == null ? data.AC_OCODE = "" : data.AC_OCODE.toString()
-      data.AC_RISKCATG == null ? data.AC_RISKCATG = "" : data.AC_RISKCATG.toString()
+      console.log('edit', data)
       this.updateID = data.id;
+      this.ngRisk = data.AC_RISKCATG
+      this.ngoccupation = data.AC_OCODE
+      this.ngCast = data.AC_CAST
+      // this.ngCity = data.custAddress[0].AC_CTCODE
       this.angForm.patchValue({
         AC_NO: data.AC_NO,
         AC_MEMBTYPE: data.AC_MEMBTYPE,
@@ -722,17 +734,18 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         M_NAME: data.M_NAME,
         L_NAME: data.L_NAME,
         AC_NAME: data.AC_NAME,
-        AC_CAST: data.AC_CAST.toString(),
-        AC_OCODE: data.AC_OCODE.toString(),
+        // AC_CAST: data.AC_CAST,
+        // AC_OCODE: data.AC_OCODE,
         AC_ADHARNO: data.AC_ADHARNO,
-        AC_RISKCATG: data.AC_RISKCATG.toString(),
-        AC_BIRTH_DT: data.AC_BIRTH_DT,
+        // AC_RISKCATG: data.AC_RISKCATG,
+        // AC_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_BIRTH_DT: (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? birthdate = '' : birthdate = data.AC_BIRTH_DT,
         AC_HONO: data.custAddress[0].AC_HONO,
         AC_WARD: data.custAddress[0].AC_WARD,
         AC_ADDR: data.custAddress[0].AC_ADDR,
         AC_GALLI: data.custAddress[0].AC_GALLI,
         AC_AREA: data.custAddress[0].AC_AREA,
-        AC_CTCODE: data.custAddress[0].AC_CTCODE.toString(),
+        AC_CTCODE: data.custAddress[0].AC_CTCODE,
         AC_PIN: data.custAddress[0].AC_PIN,
         AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
         AC_PANNO: data.AC_PANNO,
@@ -746,7 +759,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         SMS_REQUIRED: data.SMS_REQUIRED,
         IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
         FIN_YEAR: data.tdsForm.FIN_YEAR,
-        SUBMIT_DATE: data.tdsForm.SUBMIT_DATE,
+        // SUBMIT_DATE: data.tdsForm.SUBMIT_DATE,
+        SUBMIT_DATE: (data.tdsForm.SUBMIT_DATE == 'Invalid date' || data.tdsForm.SUBMIT_DATE == '' || data.tdsForm.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm.SUBMIT_DATE,
         FORM_TYPE: data.tdsForm.FORM_TYPE,
         TDS_RATE: data.tdsForm.TDS_RATE,
         TDS_LIMIT: data.tdsForm.TDS_LIMIT,
@@ -771,14 +785,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         this.isDocument = true;
         this.documentMaster = data.custdocument
         for (const [key, value] of Object.entries(data.custdocument)) {
-          console.log(key);
-          console.log(value);
           let selectedObj = {};
           let id = data.custdocument[key].DocumentMasterID;
           selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
           this.selectedImagePreview = selectedObj[id];
         }
-        console.log("this.documentMaster", this.documentMaster)
       } else {
         this.isDocument = false;
       }
@@ -787,17 +798,23 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for update data
   updateData() {
+
+    let date
+    let sudate
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    this.customerIdService.updateData(data).subscribe(() => {
-      console.log(data);
-      Swal.fire("Success!", "Record Updated Successfully !", "success");
-      this.showButton = true;
-      this.updateShow = false;
-      this.newbtnShow = false;
-      this.rerender();
-      this.resetForm();
-    });
+    (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY')),
+      (data.SUBMIT_DATE == 'Invalid date' || data.SUBMIT_DATE == '' || data.SUBMIT_DATE == null) ? (sudate = '', data['SUBMIT_DATE'] = sudate) : (sudate = data.AC_BIRTH_DT, data['SUBMIT_DATE'] = moment(sudate).format('DD/MM/YYYY')),
+      this.customerIdService.updateData(data).subscribe(() => {
+        Swal.fire("Success!", "Record Updated Successfully !", "success");
+        this.showButton = true;
+        this.updateShow = false;
+        this.newbtnShow = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+        this.resetForm();
+      });
   }
 
   //Method for delete data
@@ -939,9 +956,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     };
     this.imageObject.push(obj);
     this.selectedImgArrayDetails.push(selectedObj);
-    console.log(this.imageObject, "multiobject");
-    console.log(this.selectedImgArrayDetails)
-
     // if (obj != this.imageObject.keys) {
     //   this.imageObject.push(obj);
     //   console.log(this.imageObject);
@@ -953,7 +967,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   // method for close modal on add and close click
   onCloseModal() {
 
-    console.log('in onclose modal function');
     var closemodal = document.getElementById('triggerhide')
     closemodal.click();
 
@@ -1011,7 +1024,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
   checkAdhar() {
-    debugger
+    let adhar: any[];
     this.customerIdService.getData().subscribe(data => {
       if (data?.length != 0) {
         if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
@@ -1042,7 +1055,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   checkPancard() {
-    debugger
     this.customerIdService.getData().subscribe(data => {
       if (data?.length != 0) {
         if (data.find(data => data['AC_PANNO'] == (this.angForm.controls['AC_PANNO'].value == ''))) {

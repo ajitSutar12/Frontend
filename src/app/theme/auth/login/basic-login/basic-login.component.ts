@@ -49,7 +49,7 @@ export class BasicLoginComponent implements OnInit {
         Swal.fire('Error!', 'Your password is expired please reset your password', 'error');
       }
     }, err => {
-      debugger
+
       if(err.error.statusCode == 401)
       {
         Swal.fire({

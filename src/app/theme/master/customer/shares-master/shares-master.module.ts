@@ -4,7 +4,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { SharesMasterRoutingModule } from './shares-master-routing.module';
 import { SharesMasterComponent } from './shares-master.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SignTypeDropdownService } from '../../../../shared/dropdownService/sign-type-dropdown.service'
@@ -29,6 +29,9 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { NgSelectModule } from '@ng-select/ng-select';
+// import { DropdownOptionsService } from '../../../../shared/dropdownService/dropdownOptions.service'
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -38,11 +41,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SharesMasterRoutingModule,
     DataTablesModule,
     NgbModule,
-    SelectModule,
+    // SelectModule,
     FormsModule, ReactiveFormsModule,
     SharedModule, //modal
     CustomerIdModule,
     PerfectScrollbarModule,
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
+
   ],
   providers: [
     MembershipTypeDropdownService,
@@ -66,6 +73,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     },
     DatePipe,
+    // DropdownOptionsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

@@ -2075,7 +2075,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   getExpiryDate() {
-    debugger
+   
     let months = this.angForm.controls['AC_MONTHS'].value
     if (this.angForm.controls['AC_OPEN_OLD_DATE'].value != '') {
       var expiryDt = new Date(this.angForm.controls['AC_OPEN_OLD_DATE'].value)

@@ -17,7 +17,7 @@ export class StrictNumberOnlyDirective {
    * @param event 
    */
   @HostListener('keydown', ['$event'])onKeyDown(event: KeyboardEvent) {
-      debugger
+      
     if (this.specialKeys.indexOf(event.key) !== -1) {
       return;
     }

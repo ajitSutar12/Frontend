@@ -151,9 +151,20 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
   selectedOption = '3';
 
-  id: string = '';
+  // id: string = '';
   NomineeTrue: boolean = false;
   datemax: string;
+
+  AC_TYPE: boolean = false
+  code: any = null
+  id: any = null
+  ngPigmy: any = null
+  ngBranch: any = null
+  acno: any = null
+  ngIntroducer: any = null
+  ngNcity: any = null
+
+
   constructor(
     private customerID: CustomerIDMasterDropdownService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -224,53 +235,31 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       columns: [
         {
           title: 'Action',
-        }, {
-          title: 'Scheme Type',
-          data: 'AC_ACNOTYPE'
-        }
-        , {
+        },
+        {
           title: 'Scheme',
           data: 'AC_TYPE'
         },
         {
-          title: 'AgentNo',
+          title: 'Agent Number',
           data: 'AC_NO'
         },
         {
-          title: 'CustomerID',
+          title: 'Customer ID',
           data: 'AC_CUSTID'
         },
-
         {
-          title: 'Appontied On',
-          data: 'AC_OPDATE'
+          title: 'Member Name',
+          data: 'AC_NAME'
         },
-
         {
           title: 'Pimgy Scheme',
           data: 'PIGMY_ACTYPE'
         },
-
         {
-          title: 'Branch',
-          data: 'AC_INTROBRANCH'
+          title: 'Appontied On',
+          data: 'AC_OPDATE'
         },
-        {
-          title: 'Scheme',
-          data: 'AC_INTROID'
-        },
-        {
-          title: 'A/c Code',
-          data: 'AC_INTRACNO'
-        },
-        {
-          title: 'Name',
-          data: 'AC_INTRNAME'
-        },
-        {
-          title: 'Signature Authority',
-          data: 'SIGNATURE_AUTHORITY'
-        }
       ],
       dom: 'Blrtip',
 
@@ -290,6 +279,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
+      this.code = this.scheme[0].value
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.pgScheme).pipe(first()).subscribe(data => {
       this.PGSchemeCode = data;
@@ -409,72 +399,73 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       'AC_NDATE': sysDate,
     })
   }
-
+  getschemename: any
   //get account no according scheme for introducer
-  getIntroducer(acno) {
-    switch (acno.name) {
+  getIntroducer() {
+    this.obj = [this.acno, this.ngBranch]
+    switch (this.getschemename) {
       case 'SB':
-        this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'SH':
-        this.schemeAccountNoService.getShareSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'CA':
-        this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'LN':
-        this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'DS':
-        this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'CC':
-        this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'GS':
-        this.schemeAccountNoService.getAnamatSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'PG':
-        this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'AG':
-        this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
 
       case 'IV':
-        this.schemeAccountNoService.getInvestmentSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
         })
         break;
@@ -546,6 +537,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#mastertable tfoot tr').appendTo('#mastertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
@@ -775,5 +767,27 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.angForm.controls['AC_NAREA'].reset();
     this.angForm.controls['AC_NCTCODE'].reset();
     this.angForm.controls['AC_NPIN'].reset();
+  }
+
+  getBranch() {
+    this.getIntroducer()
+  }
+  getIntro(event) {
+    console.log(event)
+    // this.getscheme = event.id
+    this.getschemename = event.name
+    this.getIntroducer()
+  }
+
+  nominee($event) {
+    if ($event.target.checked) {
+      this.nomineeTrue = true
+    } else {
+      this.nomineeTrue = false
+    }
+  }
+  @ViewChild('ctdTabset') ctdTabset;
+  switchNgBTab(id: string) {
+    this.ctdTabset.select(id);
   }
 }

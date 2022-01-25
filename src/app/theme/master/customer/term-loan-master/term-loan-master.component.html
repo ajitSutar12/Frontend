@@ -146,7 +146,7 @@
                                             <div class="card border-primary">
                                                 <div class="card-block highlight ">
                                                     <div class="row">
-                                                        <div class="col-sm-2">
+                                                        <div class="col-sm-2"> 
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" placeholder="dd/mm/yyyy"
@@ -2484,11 +2484,11 @@
                                         </td>
                                         <td [ngClass]="data.AC_CUSTID === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_CUSTID === ''? '-' : data.AC_CUSTID}}</td>
-                                        <td [ngClass]="data.AC_NAME === '' ? 'td_center' : 'td_right'">
+                                        <td [ngClass]="data.AC_NAME === '' ? 'td_center' : 'td_left'">
                                             {{data.AC_NAME === ''? '-' : data.AC_NAME}}</td>
-                                        <td [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_right'">
+                                        <td [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_center'">
                                             {{data.AC_OPDATE === ''? '-' : data.AC_OPDATE}}</td>
-                                        <td [ngClass]="data.AC_OPEN_OLD_DATE === '' ? 'td_center' : 'td_right'">
+                                        <td [ngClass]="data.AC_OPEN_OLD_DATE === '' ? 'td_center' : 'td_center'">
                                             {{data.AC_OPEN_OLD_DATE === ''? '-' : data.AC_OPEN_OLD_DATE}}</td>
                                         <td [ngClass]="data.REF_ACNO === '' ? 'td_center' : 'td_right'">
                                             {{data.REF_ACNO === ''? '-' : data.REF_ACNO}}</td>
@@ -2498,15 +2498,15 @@
                                             data.idmaster.custAddress[0]?.AC_ADDR }}
                                         </td>
                                         <td
-                                            [ngClass]="data.idmaster.custAddress[0].city?.CITY_NAME  === '' ? 'td_center' : 'td_right'">
+                                            [ngClass]="data.idmaster.custAddress[0].city?.CITY_NAME  === '' ? 'td_center' : 'td_left'">
                                             {{ data.idmaster.custAddress[0].city?.CITY_NAME === "" ? "-" :
                                             data.idmaster.custAddress[0].city?.CITY_NAME }}
                                         </td>
-                                        <td [ngClass]="data.AC_SANCTION_DATE === '' ? 'td_center' : 'td_right'">
+                                        <td [ngClass]="data.AC_SANCTION_DATE === '' ? 'td_center' : 'td_center'">
                                             {{data.AC_SANCTION_DATE === ''? '-' : data.AC_SANCTION_DATE}}</td>
                                         <td [ngClass]="data.AC_MONTHS === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_MONTHS === ''? '-' : data.AC_MONTHS}}</td>
-                                        <td [ngClass]="data.AC_EXPIRE_DATE === '' ? 'td_center' : 'td_right'">
+                                        <td [ngClass]="data.AC_EXPIRE_DATE === '' ? 'td_center' : 'td_center'">
                                             {{data.AC_EXPIRE_DATE === ''? '-' : data.AC_EXPIRE_DATE}}</td>
                                         <td [ngClass]="data.AC_SANCTION_AMOUNT === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_SANCTION_AMOUNT === ''? '-' : data.AC_SANCTION_AMOUNT}}</td>
@@ -2516,9 +2516,9 @@
                                             {{data.AC_INTRATE === ''? '-' : data.AC_INTRATE}}</td>
                                         <td [ngClass]="data.AC_INSTALLMENT === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_INSTALLMENT === ''? '-' : data.AC_INSTALLMENT}}</td>
-                                        <td [ngClass]="data.AC_AUTHORITY === '' ? 'td_center' : 'td_right'">
+                                        <td [ngClass]="data.AC_AUTHORITY === '' ? 'td_center' : 'td_left'">
                                             {{data.AC_AUTHORITY === ''? '-' : data.AC_AUTHORITY}}</td>
-                                        <td [ngClass]="data.AC_PURPOSE === '' ? 'td_center' : 'td_right'">
+                                        <td [ngClass]="data.AC_PURPOSE === '' ? 'td_center' : 'td_left'">
                                             {{data.AC_PURPOSE === ''? '-' : data.AC_PURPOSE}}</td>
                                     </tr>
                                 </tbody>

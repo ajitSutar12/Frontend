@@ -276,7 +276,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log(this.scheme._value[0]);
     console.log(this.Accountno);
     const formVal = this.angForm.value;
-    debugger;
+  
     const dataToSend = {
       AC_TYPE: this.scheme._value[0],
       AC_NO: this.Accountno,

@@ -4,7 +4,7 @@ import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {environment}  from '../../../../../environments/environment'
+import { environment } from '../../../../../environments/environment'
 @Injectable()
 export class ShareMasterService {
     // Variable for handleError
@@ -22,6 +22,9 @@ export class ShareMasterService {
             })
         )
     }
+    getData(): Observable<any> {
+        return this.http.get(this.url + '/share-master/alldata').pipe(catchError(this.handleError));
+    }
     // For append data
     getFormData(id: any): Observable<any> {
         return this.http.get(this.url + '/share-master/' + id).pipe(catchError(this.handleError));
@@ -34,5 +37,7 @@ export class ShareMasterService {
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/share-master/delete/' + id).pipe(catchError(this.handleError));
     }
+
+
 }
 

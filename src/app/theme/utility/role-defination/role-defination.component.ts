@@ -82,7 +82,7 @@ export class RoleDefinationComponent implements OnInit {
     })
   }
   onFilterChange(value: string): void {
-    debugger
+ 
     // console.log(value);
   }
 

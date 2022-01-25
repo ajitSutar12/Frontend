@@ -4,7 +4,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PigmyAgentMasterRoutingModule } from './pigmy-agent-master-routing.module';
 import { PigmyAgentMasterComponent } from './pigmy-agent-master.component';
-import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignTypeDropdownService } from '../../../../shared/dropdownService/sign-type-dropdown.service'
 import { SharedModule } from '../../../../shared/shared.module';
@@ -29,6 +28,9 @@ import { DatePipe } from '@angular/common';
 import { PigmyAgentMasterService } from './pigmy-agent-master.service'
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -36,10 +38,12 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
     DataTablesModule,
     CustomerIdModule,
     NgbModule,
-    SelectModule,
     SharedModule,
     FormsModule, ReactiveFormsModule,
     PerfectScrollbarModule,
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
 
   ],
   declarations: [PigmyAgentMasterComponent],

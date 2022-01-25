@@ -10,7 +10,6 @@ import { PigmyAccountMasterRoutingModule } from './pigmy-account-master-routing.
 import { PigmyAccountMasterComponent } from './pigmy-account-master.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
-import { SelectModule } from 'ng-select';
 import { CustomerIdModule } from '../customer-id/customer-id.module';
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { CustomerIdService } from '../customer-id/customer-id.service';
@@ -34,6 +33,8 @@ import { DatePipe } from '@angular/common';
 import { PigmyAccountMasterService } from './pigmy-account-master.service'
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   imports: [
     CommonModule,
@@ -41,12 +42,12 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
     DataTablesModule,
     NgbModule,
     FormsModule, ReactiveFormsModule,
-    SelectModule,
     CustomerIdModule,
     PerfectScrollbarModule,
-    SharedModule
-
-
+    SharedModule,
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   declarations: [PigmyAccountMasterComponent],
   providers: [

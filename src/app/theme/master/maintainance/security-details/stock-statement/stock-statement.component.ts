@@ -270,7 +270,7 @@ export class StockStatementComponent
   }
   //check  if margin values are below 100
   checkmargin(ele: any) {
-    debugger
+   
     //check  if given value  is below 100
     console.log(ele);
     if (ele <= 100) {

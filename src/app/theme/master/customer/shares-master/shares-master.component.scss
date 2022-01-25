@@ -74,14 +74,14 @@
 
 // .border-lable-flt .form-control:placeholder-shown:not(:focus)::-webkit-input-placeholder {
 //     opacity: 0;
-   
+
 // }
 
 // .border-lable-flt .form-control:placeholder-shown:not(:focus)+* {
 //     font-size: 110%;
 //     opacity: .5;
 //     top: .3em;
-   
+
 // }
 
 // .input-group .border-lable-flt {
@@ -92,7 +92,7 @@
 // .input-group .border-lable-flt .form-control {
 //     border-radius: 0.25rem;
 //     height: 130%;
-    
+
 // }
 
 // .input-group .border-lable-flt:not(:last-child),
@@ -100,7 +100,7 @@
 //     border-bottom-right-radius: 0;
 //     border-top-right-radius: 0;
 //     border-right: 0;
-   
+
 // }
 
 // .input-group .border-lable-flt:not(:first-child),
@@ -110,18 +110,36 @@
 // }
 
 // .form-control:focus {
-    
+
 //     background-color: white;
 //     border-color: black;
 //     box-shadow: none!important;
 //     outline: none;
 //     position: relative;
-     
+
 // }
-.ng-valid.ng-dirty:not(form) {
-    border: solid 2px green;
-  }
-  
-  .ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
-    border: solid 2px lightcoral;
-  }
+// .ng-valid.ng-dirty:not(form) {
+//   border: solid 2px green;
+// }
+
+// .ng-invalid.ng-dirty:not(form),
+// .ng-invalid:not(form).form-submitted {
+//   border: solid 2px lightcoral;
+// }
+
+// thead td {
+//   background-image: -webkit-linear-gradient(top, #dae7f6, #cddef3 45%, #abc7ec 46%, #abc7ec 50%, #b8cfee 51%, #cbddf3);
+//   color: black;
+//   text-transform: capitalize;
+//   font-weight: bold;
+// }
+
+// th.ng-tns-c146-1 {
+//   background-color: white !important;
+// }
+
+// .checkbox input[type="checkbox"]:checked + label::after {
+//   font-family: "FontAwesome";
+//   content: "\f00c";
+//   top: 8px;
+// }

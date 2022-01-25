@@ -291,7 +291,7 @@ export class UserDefinationComponent implements OnInit {
 
   //Method for append data into fields
   editClickHandler(id) {
-    debugger
+   
     this.showAdd = false;
     this.showEdit = true;
     
@@ -300,7 +300,7 @@ export class UserDefinationComponent implements OnInit {
       let array = new Array;
       let selectedRoleName = '';
       data.RoleDefine.forEach(ele=>{
-        debugger
+     
         array.push(ele.RoleId.toString())
         if(selectedRoleName == ''){
           selectedRoleName = ele.Role.NAME;

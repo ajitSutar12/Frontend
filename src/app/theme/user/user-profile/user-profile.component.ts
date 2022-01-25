@@ -234,7 +234,7 @@ isValid(event: boolean): void {
   }
 
   updateProfile(){
-    debugger
+   
     let updateObject =  this.angEditForm.value;
     let user = JSON.parse(localStorage.getItem('user')) ;
 
