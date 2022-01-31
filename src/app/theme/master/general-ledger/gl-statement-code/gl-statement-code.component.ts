@@ -80,7 +80,11 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   alternate: any;
   // Filter Variable
   filterData = {};
-
+  glCodeList : any;
+  parentCode : any;
+  newCode : any;
+  parentId : any;
+  parentCodeArray = new Array();
   //constructor
   constructor(
     public StatementTypeService: StatementTypeService,
@@ -91,7 +95,15 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     private fb: FormBuilder) {
   }
 
+
+  
   ngOnInit(): void {
+
+
+
+
+
+    this.treeview();
     this.createForm();
 
     this.dtExportButtonOptions = {
@@ -181,6 +193,42 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
 //  })
 
 
+  }
+
+
+  ///get treeview data
+  treeview(){
+    this.parentCodeArray = [];
+    this.glStatementCodeService.getCodeList().subscribe(data=>{
+      this.glCodeList = data;
+      console.log(this.glCodeList);
+      this.glCodeList.forEach(element => {
+        if(element.parent_node == 0){
+          this.parentCodeArray.push(element);
+        }
+      });
+
+      console.log(this.parentCodeArray);
+      this.parentCodeArray.forEach((ele,index)=>{
+        let newArray = new Array();
+
+        this.glCodeList.forEach(element=>{
+          let subArray = new Array();
+
+          if(element.parent_node == ele.id){
+            this.glCodeList.forEach(ele1 => {
+              if(ele1.parent_node == element.id){
+                subArray.push(ele1)
+              }
+            });
+            element['child'] = subArray;
+            newArray.push(element);
+          }
+        })
+        this.parentCodeArray[index]['child'] = newArray;
+        
+      })      
+    })
   }
   runTimer() {
     const timer = setInterval(() => {
@@ -351,5 +399,29 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+
+  AddnewHead(id,name){
+    this.parentCode =  name;
+    this.parentId = id;
+  }
+
+  submitNewCode(){
+    if(this.newCode == undefined){
+      Swal.fire('Warning!', 'Please add new Code!', 'warning');
+    }else{
+      let obj ={
+        'parentid':this.parentId,
+        'newCode': this.newCode
+      }
+
+      this.glStatementCodeService.insertNewCode(obj).subscribe(data=>{
+        Swal.fire('Success!', 'new Code Added Successfully!', 'success');
+        this.treeview();
+
+      },err=>{
+        console.log(err);
+      })
+    }
   }
 }

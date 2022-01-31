@@ -2,6 +2,32 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
+                General Code Statement
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="tree">
+                            <li *ngFor="let item of parentCodeArray">{{item.head_name}} <a href="javascript:void(0)" type="button" (click)="modalLarge.show();AddnewHead(item.id,item.head_name)">+</a>
+                            <ul>
+                                <li *ngFor="let i of item.child">{{i.head_name}}<a href="javascript:void(0)" type="button" (click)="modalLarge.show();AddnewHead(i.id,i.head_name)">+</a>
+                                    <ul>
+                                        <li *ngFor="let data of i.child" class="last">{{data.head_name}}</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
                 <h5>Income & Expenditure And Balancesheet Code</h5>
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
@@ -83,7 +109,7 @@
                                 <tbody *ngIf="glStatementCodeMaster?.length != 0">
                                     <tr *ngFor="let data of glStatementCodeMaster">
                                         <td><button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">Edit</button> &nbsp;
-                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
+                                             <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> 
                                         </td>
                                         <td>{{ data.A_BALCODE }}</td>
                                         <td>{{ data.A_ACHEAD }}</td>
@@ -114,4 +140,42 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<app-modal-basic #modalLarge [dialogClass]="'modal-sm'">
+    <div class="app-modal-header">
+      <h4 class="modal-title">General New Head</h4>
+      <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="app-modal-body">
+      <perfect-scrollbar style="overflow-y: auto;">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group input-group">
+                    <span class="border-lable-flt">
+                        <input type="text" class="form-control" [(ngModel)]="parentCode" id="A_ACHEAD" disabled>
+                        <label for="A_ACHEAD">Parent Statement Head<sub class="required">* </sub></label>
+                    </span>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group input-group">
+                    <span class="border-lable-flt">
+                        <input type="text" class="form-control" [(ngModel)]="newCode" id="A_ACHEAD" required="">
+                        <label for="A_ACHEAD">New Statement Head<sub class="required">* </sub></label>
+                    </span>
+                </div>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-info" (click)="submitNewCode()">Submit</button>
+            </div>
+        </div>
+      </perfect-scrollbar>
+    </div>
+    <div class="app-modal-footer">
+      <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
+        (click)="modalLarge.hide()">Close</button>
+    </div>
+  </app-modal-basic>

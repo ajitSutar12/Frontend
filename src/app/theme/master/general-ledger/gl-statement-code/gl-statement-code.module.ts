@@ -13,6 +13,12 @@ import { DataTablesModule } from 'angular-datatables';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @NgModule({
   imports: [
@@ -23,7 +29,9 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
+    PerfectScrollbarModule,
     NgbModule,
+    SharedModule,
     HttpClientModule
 
   ],

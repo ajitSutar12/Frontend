@@ -37,6 +37,16 @@ export class GlStatementCodeService {
   deleteData(id: any): Observable<any> {
     return this.http.delete(this.url + '/gl-statement-code/delete/' + id).pipe(catchError(this.handleError));
   }
+
+  //get code list
+  getCodeList(){
+    return this.http.get(this.url+'/gl-statement-code').pipe(catchError(this.handleError));
+  }
+
+  //Insert new Code
+  insertNewCode(data : any):Observable<any>{
+    return this.http.post(this.url+'/gl-statement-code/newCode',data);
+  }
 }
 
 
