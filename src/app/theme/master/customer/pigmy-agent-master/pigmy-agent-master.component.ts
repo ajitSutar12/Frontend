@@ -3,7 +3,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, Output, ViewChild, ElementRef, EventEmitter } from '@angular/core';
 import { PigmyAgentMasterService } from './pigmy-agent-master.service';
 // for dropdown
 import { CastMasterService } from '../../../../shared/dropdownService/cast-master-dropdown.service';
@@ -23,6 +23,7 @@ import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/
 import { environment } from 'src/environments/environment';
 //date pipe
 import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 
 // Handling datatable data
 class DataTableResponse {
@@ -57,6 +58,7 @@ interface PigmyAgentMaster {
   AC_NAREA: string;
   AC_NCTCODE: string;
   AC_NPIN: number;
+  BANKACNO: number
 }
 @Component({
   selector: 'app-pigmy-agent-master',
@@ -77,6 +79,8 @@ interface PigmyAgentMaster {
 })
 
 export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Input() childMessage: string;
+  @Output() public getUserData = new EventEmitter<string>();
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -163,7 +167,9 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   acno: any = null
   ngIntroducer: any = null
   ngNcity: any = null
-
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
 
   constructor(
     private customerID: CustomerIDMasterDropdownService,
@@ -178,6 +184,11 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     private schemeAccountNoService: SchemeAccountNoService,
     private http: HttpClient,
     private fb: FormBuilder) {
+    console.log('Saving Data with Input', this.childMessage)
+    if (this.childMessage != undefined) {
+
+      this.editClickHandler(this.childMessage);
+    }
     // this.datemax =new Date() ;
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
     console.log(this.datemax);
@@ -214,6 +225,11 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -242,7 +258,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         },
         {
           title: 'Agent Number',
-          data: 'AC_NO'
+          data: 'BANKACNO'
         },
         {
           title: 'Customer ID',
@@ -293,11 +309,26 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     })
   }
   //set open date, appointed date and expiry date
+  // getSystemParaDate() {
+  //   this.systemParameter.getFormData(1).subscribe(data => {
+  //     this.angForm.patchValue({
+  //       AC_OPDATE: data.CURRENT_DATE,
+  //     })
+  //   })
+  // }
+  openingDate: any = null
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
+      console.log('Syspara date', data)
+      this.openingDate = moment(data.CURRENT_DATE).format('DD/MM/YYYY')
       this.angForm.patchValue({
-        AC_OPDATE: data.CURRENT_DATE,
+
       })
+      if (data.ON_LINE === true) {
+        this.angForm.controls['AC_OPDATE'].disable()
+      } else {
+        this.angForm.controls['AC_OPDATE'].enable()
+      }
     })
   }
   addNewCustomer(newCustomer) {
@@ -315,8 +346,9 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   getCustomer(id) {
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
+      this.id = data.id
       this.angForm.patchValue({
-        AC_CUSTID: id.toString(),
+        // AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
         AC_MEMBTYPE: data.AC_MEMBTYPE,
@@ -371,7 +403,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       AC_PHONE_OFFICE: ['', [Validators.pattern]],
       AC_MOBILENO: ['', [Validators.pattern]],
       // AC_INTRACNO: ['', [Validators.pattern]],
-
+      BANKACNO: [''],
       AC_CTCODE: [''],
       AC_INTROBRANCH: ['', []],
       AC_INTROID: [''],
@@ -489,21 +521,36 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
+
       const formVal = this.angForm.value;
+      let schecode
+      this.scheme.forEach(async (element) => {
+        console.log(this.code, "this.selectedValue")
+        console.log(element)
+        console.log(element, "element")
+        if (element.value == this.code) {
+          console.log(true)
+          console.log(element.name, "element.S_APPL")
+          schecode = element.name
+
+          console.log(schecode)
+        }
+      })
       //get bank code and branch code from session
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
-      let branchCode = result.branch.CODE;
-      let bankCode = Number(result.branch.syspara[0].BANK_CODE)
+      let branchCode = result.branch.id;
+      let bankCode = Number(result.branch.syspara.BANK_CODE)
       const dataToSend = {
         'branchCode': branchCode,
         'bankCode': bankCode,
-        'schemeCode': this.schemeCode,
+        'schemeCode': schecode,
+
         'AC_TYPE': formVal.AC_TYPE,
         'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
         'AC_NAME': formVal.AC_NAME,
-        'AC_CUSTID': formVal.AC_CUSTID,
-        'AC_OPDATE': formVal.AC_OPDATE,
+        // 'AC_CUSTID': formVal.AC_CUSTID,
+        'AC_OPDATE': this.openingDate,
         'PIGMY_ACTYPE': formVal.PIGMY_ACTYPE,
         'AC_INTRACNO': formVal.AC_INTRACNO,
         'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
@@ -512,8 +559,14 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
         'NomineeData': this.multiNominee
       }
-      this.PigmyAgentMasterService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.PigmyAgentMasterService.postData(dataToSend).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Created successfully!',
+          html:
+            '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+            '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+        })
         this.formSubmitted = false;
         // to reload after insertion of data
 
@@ -533,6 +586,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   // Reset Function
   resetForm() {
     this.createForm();
+    this.code = null
   }
   ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -571,11 +625,24 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   //Method for append data into fields
   editClickHandler(id) {
 
-    this.showButton = false;
-    this.updateShow = true;
-    this.newbtnShow = true;
+    // this.showButton = false;
+    // this.updateShow = true;
+    // this.newbtnShow = true;
     this.PigmyAgentMasterService.getFormData(id).subscribe(data => {
+      debugger
+      console.log(data,"edit data")
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
       this.updateID = data.id;
+      this.ngPigmy = Number(data.PIGMY_ACTYPE)
+      // this.id =data.AC_CUSTID
       this.getCustomer(data.AC_CUSTID)
       this.multiNominee = data.nomineeDetails
       this.angForm.patchValue({
@@ -583,10 +650,11 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         'AC_ACNOTYPE': data.AC_ACNOTYPE,
         'AC_NO': data.AC_NO,
         'AC_OPDATE': data.AC_OPDATE,
-        PIGMY_ACTYPE: data.PIGMY_ACTYPE,
+        // PIGMY_ACTYPE: data.PIGMY_ACTYPE,
         AC_INTRACNO: data.AC_INTRACNO,
         AC_INTROBRANCH: data.AC_INTROBRANCH,
         AC_INTROID: data.AC_INTROID,
+        'BANKACNO': data.BANKACNO,
         'AC_INTRNAME': data.AC_INTRNAME,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
         //nominee controls (NOMINEELINK table)
@@ -626,6 +694,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.code = null
     this.resetForm();
   }
 
@@ -666,34 +735,51 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       }
     })
   }
+
+  NbirthDate: any
+  cityName: boolean = false
   //nominee
   addNominee() {
     const formVal = this.angForm.value;
+    let date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
+    this.cityName = true
+    this.NbirthDate = date1;
     var object = {
       AC_NNAME: formVal.AC_NNAME,
       AC_NRELA: formVal.AC_NRELA,
-      AC_NDATE: formVal.AC_NDATE,
+      AC_NDATE: this.NbirthDate,
       AGE: formVal.AGE,
       AC_NHONO: formVal.AC_NHONO,
       AC_NWARD: formVal.AC_NWARD,
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NCTCODE: formVal.AC_NCTCODE.id,
       AC_NPIN: formVal.AC_NPIN,
+      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
     }
+    console.log('nomine', object)
+
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-      Swal.fire("Please Insert Mandatory Record For Nominee");
+      Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire("Please Insert Mandatory Record For Nominee");
+        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
-          Swal.fire("Please Insert Mandatory Record For Nominee");
-        }
-        else {
-          this.multiNominee.push(object);
+          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+        } else if (formVal.AC_NCTCODE != "") {
+          if (formVal.AC_NCTCODE.id == "" || formVal.AC_NCTCODE.id == null) {
+            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+          } else {
+            if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
+              Swal.fire('', 'This Nominee is Already Exists!', 'error');
+
+            } else {
+              this.multiNominee.push(object);
+            }
+          }
         }
       }
       else {
@@ -707,48 +793,84 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   editNominee(id) {
+    console.log('multinominee', this.multiNominee)
     this.nomineeIndex = id
     this.nomineeID = this.multiNominee[id].id;
     this.nomineeTrue = true
     this.nomineeShowButton = false;
     this.nomineeUpdateShow = true;
+    // this.ngNcity = Number(this.multiNominee[id].AC_NCTCODE)
+    let date1 = moment(this.multiNominee[id].AC_NDATE).format('DD/MM/YYYY');
+
+    this.NbirthDate = date1;
+
     this.angForm.patchValue({
       AC_NNAME: this.multiNominee[id].AC_NNAME,
       AC_NRELA: this.multiNominee[id].AC_NRELA,
-      AC_NDATE: this.multiNominee[id].AC_NDATE,
+      AC_NDATE: this.NbirthDate,
       AGE: this.multiNominee[id].AGE,
       AC_NHONO: this.multiNominee[id].AC_NHONO,
       AC_NWARD: this.multiNominee[id].AC_NWARD,
       AC_NADDR: this.multiNominee[id].AC_NADDR,
       AC_NGALLI: this.multiNominee[id].AC_NGALLI,
       AC_NAREA: this.multiNominee[id].AC_NAREA,
-      AC_NCTCODE: this.multiNominee[id].AC_NCTCODE,
+      AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
       AC_NPIN: this.multiNominee[id].AC_NPIN,
+      // AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
     })
   }
 
   updateNominee() {
     let index = this.nomineeIndex;
+    this.nomineeShowButton = true;
+    this.nomineeUpdateShow = false;
     const formVal = this.angForm.value;
+    let date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
+
+    this.NbirthDate = date1;
     var object = {
       AC_NNAME: formVal.AC_NNAME,
       AC_NRELA: formVal.AC_NRELA,
-      AC_NDATE: formVal.AC_NDATE,
+      AC_NDATE: this.NbirthDate,
       AGE: formVal.AGE,
       AC_NHONO: formVal.AC_NHONO,
       AC_NWARD: formVal.AC_NWARD,
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NCTCODE: formVal.AC_NCTCODE.id,
       AC_NPIN: formVal.AC_NPIN,
+      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME,
       id: this.nomineeID
     }
-    this.multiNominee[index] = object;
-    this.nomineeShowButton = true;
-    this.nomineeUpdateShow = false;
-    this.resetNominee()
+    console.log('update nominee', object)
+    if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
+      Swal.fire("Please Insert Mandatory Record For Nominee");
+    }
+    else if (formVal.AC_NNAME != "") {
+      if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+      } else if (formVal.AC_NRELA != "") {
+        if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
+          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+        } else if (formVal.AC_NCTCODE != "") {
+          if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
+            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+          }
+          else {
+            this.multiNominee[index] = object;
+          }
+        }
+      }
+      else {
+        this.multiNominee[index] = object;
+      }
 
+    }
+    else {
+      this.multiNominee[index] = object;
+    }
+    this.resetNominee()
   }
 
   delNominee(id) {
@@ -789,5 +911,49 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   @ViewChild('ctdTabset') ctdTabset;
   switchNgBTab(id: string) {
     this.ctdTabset.select(id);
+  }
+
+  //approve account
+  Approve() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this.PigmyAgentMasterService.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Saving Account approved successfully',
+        'success'
+      );
+      var button = document.getElementById('triggerhide');
+      button.click();
+
+      this.getUserData.emit('welcome to stackoverflow!');
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  //reject account
+  reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this.PigmyAgentMasterService.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Saving Account rejected successfully',
+        'success'
+      );
+
+      var button = document.getElementById('triggerhide');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
   }
 }

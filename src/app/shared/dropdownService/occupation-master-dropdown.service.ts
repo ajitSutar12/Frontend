@@ -20,7 +20,7 @@ export class OccupationMasterService {
         return this.http.get<any>(this.url + '/occupation-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: `${element.id }`};
+                    let obj = { label: element.NAME, value: element.id };
                     this.occupationMasterObject.push(obj)
                 });
                 return this.occupationMasterObject;

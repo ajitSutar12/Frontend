@@ -4,17 +4,17 @@ import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {environment}  from '../../../../../environments/environment'
+import { environment } from '../../../../../environments/environment'
 
 @Injectable()
 export class DeadstockmasterService {
     // Variable for handleError
     [x: string]: any;
-  
-// API  
-  //url = "http://localhost:4000/dead-stock-master";
-  url = environment.base_url; 
-  
+
+    // API  
+    //url = "http://localhost:4000/dead-stock-master";
+    url = environment.base_url;
+
     constructor(private http: HttpClient) { }
 
     //Insertion Operation
@@ -40,13 +40,24 @@ export class DeadstockmasterService {
     }
     public getDeadstockList() {
         return this.http.get<any>(this.url + '/')
-        .pipe(map(ele => {
-            ele.forEach(element => {
-                let obj = {label:element.NAME, value:element.id};
-                this.castObject.push(obj)
-            });
-        return this.castObject;
-        }));
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.NAME, value: element.id };
+                    this.castObject.push(obj)
+                });
+                return this.castObject;
+            }));
+    }
+
+    //approve master
+    approve(data: any): Observable<any> {
+        return this.http.post(this.url + '/dead-stock-master/approve', data).pipe(catchError(this.handleError));
+    }
+
+
+    //reject master
+    reject(data: any): Observable<any> {
+        return this.http.post(this.url + '/dead-stock-master/reject', data).pipe(catchError(this.handleError));
     }
 
 }

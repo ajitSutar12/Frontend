@@ -37,5 +37,17 @@ export class CurrentAccountMasterService {
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/current-account-master/delete/' + id).pipe(catchError(this.handleError));
     }
+
+    
+    //approve master
+    approve(data:any): Observable<any>{
+        return this.http.post(this.url+ '/current-account-master/approve',data).pipe(catchError(this.handleError));
+    }
+
+
+    //reject master
+    reject(data:any): Observable<any>{
+        return this.http.post(this.url+ '/current-account-master/reject',data).pipe(catchError(this.handleError));
+    }
 }
 

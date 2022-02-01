@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter, HostListener, ElementRef, Input } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { environment } from '../../../../../environments/environment'
 // Creating and maintaining form fields with validation 
@@ -120,6 +120,8 @@ interface CashCreditMaster {
 })
 
 export class CashCreditMasterComponent implements OnInit {
+  @Input() childMessage: string;
+  @Output() public getUserData = new EventEmitter<string>();
   formSubmitted = false;
   selected
   //api 
@@ -262,6 +264,10 @@ export class CashCreditMasterComponent implements OnInit {
   pledgeid = []
   stockid = []
   vehicleid = []
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
+
 
   repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
   installment: Array<IOption> = this.installmentMethodService.getCharacters();
@@ -325,6 +331,13 @@ export class CashCreditMasterComponent implements OnInit {
     private el: ElementRef,
     public router: Router
   ) {
+
+    console.log('Saving Data with Input', this.childMessage)
+    if (this.childMessage != undefined) {
+
+      this.editClickHandler(this.childMessage);
+    }
+
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
 
   }
@@ -1760,4 +1773,48 @@ export class CashCreditMasterComponent implements OnInit {
     this.angForm.controls['CAC_CUSTID'].reset();
     this.angForm.controls['CAC_NAME'].reset();
   }
+
+    //approve account
+    Approve(){
+      let user = JSON.parse(localStorage.getItem('user'));
+      let obj ={
+        id : this.updateID,
+        user: user.id
+      }
+      this.cashCreditService.approve(obj).subscribe(data=>{
+        Swal.fire(
+          'Approved',
+          'Saving Account approved successfully',
+          'success'
+        );
+        var button = document.getElementById('triggerhide');
+        button.click();
+  
+        this.getUserData.emit('welcome to stackoverflow!');
+      },err=>{
+        console.log('something is wrong');
+      })
+    }
+  
+  
+    //reject account
+    reject(){
+      let user = JSON.parse(localStorage.getItem('user'));
+      let obj ={
+        id : this.updateID,
+        user: user.id
+      }
+      this.cashCreditService.reject(obj).subscribe(data=>{
+        Swal.fire(
+          'Rejected',
+          'Saving Account rejected successfully',
+          'success'
+        );
+  
+        var button = document.getElementById('triggerhide');
+        button.click();
+      },err=>{
+        console.log('something is wrong');
+      })
+    }
 }

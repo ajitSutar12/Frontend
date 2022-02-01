@@ -195,7 +195,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     // this.datemax =new Date() ;
     // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
+  
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
   }
@@ -502,7 +502,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   submit(event) {
     let birthdate
     let submitdate
-   
     event.preventDefault();
     this.formSubmitted = true;
     if (this.angForm.valid) {
@@ -719,7 +718,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let birthdate
     let submitdate
     this.customerIdService.getFormData(id).subscribe((data) => {
-      console.log('edit', data)
       this.updateID = data.id;
       this.ngRisk = data.AC_RISKCATG
       this.ngoccupation = data.AC_OCODE
@@ -958,7 +956,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedImgArrayDetails.push(selectedObj);
     // if (obj != this.imageObject.keys) {
     //   this.imageObject.push(obj);
-    //   console.log(this.imageObject);
     // } else {
 
     // }

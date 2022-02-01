@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import Swal from 'sweetalert2';
@@ -47,6 +47,8 @@ interface InvestmentMaster {
 })
 
 export class AccountOpeningComponent implements OnInit {
+  @Input() childMessage: string;
+  @Output() public getUserData = new EventEmitter<string>();
   //api 
   url = environment.base_url;
   formSubmitted = false;
@@ -96,6 +98,9 @@ export class AccountOpeningComponent implements OnInit {
   code: any = null
   ngBank: any = null
   ngBranch: any = null
+  DatatableHideShow: boolean = true;
+  rejectShow:boolean =false;
+  approveShow:boolean =false;
 
   constructor(private fb: FormBuilder,
     private bankMasterService: BankMasterService,
@@ -269,6 +274,7 @@ export class AccountOpeningComponent implements OnInit {
       'AC_MATUAMT': formVal.AC_MATUAMT,
       'AC_CLOSEDT': formVal.AC_CLOSEDT
     }
+    console.log("dataToSend", dataToSend)
     this.investmentService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
@@ -374,5 +380,49 @@ export class AccountOpeningComponent implements OnInit {
       this.dtTrigger.next();
     });
   }
+
+    //approve account
+    Approve(){
+      let user = JSON.parse(localStorage.getItem('user'));
+      let obj ={
+        id : this.updateID,
+        user: user.id
+      }
+      this.investmentService.approve(obj).subscribe(data=>{
+        Swal.fire(
+          'Approved',
+          'Saving Account approved successfully',
+          'success'
+        );
+        var button = document.getElementById('triggerhide');
+        button.click();
+  
+        this.getUserData.emit('welcome to stackoverflow!');
+      },err=>{
+        console.log('something is wrong');
+      })
+    }
+  
+  
+    //reject account
+    reject(){
+      let user = JSON.parse(localStorage.getItem('user'));
+      let obj ={
+        id : this.updateID,
+        user: user.id
+      }
+      this.investmentService.reject(obj).subscribe(data=>{
+        Swal.fire(
+          'Rejected',
+          'Saving Account rejected successfully',
+          'success'
+        );
+  
+        var button = document.getElementById('triggerhide');
+        button.click();
+      },err=>{
+        console.log('something is wrong');
+      })
+    }
 
 }

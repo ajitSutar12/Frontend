@@ -232,8 +232,8 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log(this.angForm.value); // Process your form
       const formVal = this.angForm.value;
     const dataToSend = {
-      AC_TYPE:this.scheme._value[0],
-      AC_NO:this.Accountno,
+      // AC_TYPE:this.scheme._value[0],
+      // AC_NO:this.Accountno,
       SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       RTO_REG_DATE: formVal.RTO_REG_DATE,
       VEHICLE_MAKE: formVal.VEHICLE_MAKE,
@@ -247,18 +247,22 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
       MARGIN: formVal.MARGIN,
       REMARK: formVal.REMARK,
     };
+    console.log(dataToSend);
     this._vehicle.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
         let info = []
         info.push(data.id)
         info.push("vehicle")
 
         this.newItemEvent(info);
        
-        // to reload after insertion of data
-        this.rerender();
+        // // to reload after insertion of data
+        // this.rerender();
       },
       (error) => {
         console.log(error);
@@ -299,8 +303,8 @@ console.log(ele);
  
 
       this.angForm.patchValue({
-        AC_TYPE:this.scheme._value[0],
-        AC_NO:this.Accountno,
+        // AC_TYPE:this.scheme._value[0],
+        // AC_NO:this.Accountno,
         SUBMISSION_DATE: data.SUBMISSION_DATE,
         RTO_REG_DATE: data.RTO_REG_DATE,
         VEHICLE_MAKE: data.VEHICLE_MAKE,
@@ -331,10 +335,14 @@ console.log(ele);
     let data = this.angForm.value;
     data["id"] = this.updateID;
     this._vehicle.updateData(data).subscribe(() => {
+      console.log(data);
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+      });
+      // this.rerender();
       this.resetForm();
     });
   }
@@ -363,13 +371,18 @@ console.log(ele);
     this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

@@ -40,7 +40,7 @@ import { SalaryDivisionMasterComponent } from './salary-division-master/salary-d
 import { SubSalaryDivisionMasterComponent } from './sub-salary-division-master/sub-salary-division-master.component';
 import { ItemCategoryMasterComponent } from './item-category-master/item-category-master.component';
 import { RiskCatagoryComponent } from './risk-catagory/risk-catagory.component';
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -94,6 +94,8 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 // import { NgSelectModule } from '@ng-select/ng-select';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -106,9 +108,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SharedModule,
     PerfectScrollbarModule,
     DataTablesModule,
-    SelectModule,
+    // SelectModule,
     FormsModule, ReactiveFormsModule,
-
+    NgSelectModule
 
 
     // NgSelectModule

@@ -1039,20 +1039,23 @@
                                     <ngb-tab title="3.Introducer/Minor Details" id="introducer">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
-                                                <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <div class="checkbox checkbox-primary">
-                                                            <div
-                                                                class="border-checkbox-group border-checkbox-group-primary">
-                                                                <input class="border-checkbox" type="checkbox"
-                                                                    id="ac_minor" name="AC_MINOR"
-                                                                    [checked]="MINOR == true" formControlName="AC_MINOR"
-                                                                    maxlength="100" disabled />
-                                                                <label class="border-checkbox-label"
-                                                                    for="ac_minor">Minor Details</label>
-                                                            </div>
-                                                        </div>
-                                                        <!-- <div class="border-checkbox-section">
+                                                <div class="card border-primary">
+                                                    <div class="card-block highlight">
+                                                        <div class="row">
+                                                            <div class="col-sm-2">
+                                                                <div class="checkbox checkbox-primary">
+                                                                    <div
+                                                                        class="border-checkbox-group border-checkbox-group-primary">
+                                                                        <input class="border-checkbox" type="checkbox"
+                                                                            id="ac_minor" name="AC_MINOR"
+                                                                            [checked]="MINOR == true"
+                                                                            formControlName="AC_MINOR" maxlength="100"
+                                                                            disabled />
+                                                                        <label class="border-checkbox-label"
+                                                                            for="ac_minor">Minor Details</label>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <div class="border-checkbox-section">
                                                             <div class="border-checkbox-group
                                                                     border-checkbox-group-primary">
                                                                 <input class="border-checkbox" type="checkbox"
@@ -1063,147 +1066,155 @@
                                                                     for="ac_minor">Minor Details</label>
                                                             </div>
                                                         </div> -->
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <div class="form-group input-group">
-                                                            <span class="border-lable-flt">
-                                                                <input type="date" name="AC_MBDATE" class="form-control"
-                                                                    placeholder=" " id="AC_MBDATE"
-                                                                    max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                    formControlName="AC_MBDATE" disabled>
-                                                                <label for="AC_MBDATE">Birth Date</label>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group input-group">
-                                                            <span class="border-lable-flt">
-                                                                <input type="text" name="AC_GRDNAME"
-                                                                    class="form-control" placeholder=" " id="AC_GRDNAME"
-                                                                    pattern="^[A-Za-z\./ -]+$"
-                                                                    (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                                                                    title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                    formControlName="AC_GRDNAME"
-                                                                    [required]="introducerReq">
-                                                                <label for="AC_GRDNAME">Guardian Name</label>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form-group form-primary form-static-label"
-                                                            *ngIf="angForm.controls['AC_GRDNAME'].invalid && (angForm.controls['AC_GRDNAME'].dirty || angForm.controls['AC_GRDNAME'].touched)"
-                                                            class="alert alert-danger">
-                                                            <div
-                                                                *ngIf="angForm.controls['AC_GRDNAME'].errors?.pattern || angForm.controls['AC_GRDNAME'].errors?.required">
-                                                                Input allowed only A-Z a-z - / . (Space)
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <div class="form-group input-group">
+                                                                    <span class="border-lable-flt">
+                                                                        <input type="date" name="AC_MBDATE"
+                                                                            class="form-control" placeholder=" "
+                                                                            id="AC_MBDATE"
+                                                                            max="{{datemax | date:'yyyy-MM-dd'}}"
+                                                                            formControlName="AC_MBDATE" disabled>
+                                                                        <label for="AC_MBDATE">Birth Date</label>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group input-group">
+                                                                    <span class="border-lable-flt">
+                                                                        <input type="text" name="AC_GRDNAME"
+                                                                            class="form-control" placeholder=" "
+                                                                            id="AC_GRDNAME" pattern="^[A-Za-z\./ -]+$"
+                                                                            (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                                                            title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                            formControlName="AC_GRDNAME"
+                                                                            [required]="introducerReq">
+                                                                        <label for="AC_GRDNAME">Guardian Name</label>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="form-group form-primary form-static-label"
+                                                                    *ngIf="angForm.controls['AC_GRDNAME'].invalid && (angForm.controls['AC_GRDNAME'].dirty || angForm.controls['AC_GRDNAME'].touched)"
+                                                                    class="alert alert-danger">
+                                                                    <div
+                                                                        *ngIf="angForm.controls['AC_GRDNAME'].errors?.pattern || angForm.controls['AC_GRDNAME'].errors?.required">
+                                                                        Input allowed only A-Z a-z - / . (Space)
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group input-group">
+                                                                    <span class="border-lable-flt">
+                                                                        <input type="text" name="AC_GRDRELE"
+                                                                            class="form-control" placeholder=" "
+                                                                            id="AC_GRDRELE" pattern="^[A-Za-z\./ -]+$"
+                                                                            title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                            (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                                                            formControlName="AC_GRDRELE"
+                                                                            [required]="introducerReq">
+                                                                        <label for="AC_GRDRELE">Relation</label>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="form-group form-primary form-static-label"
+                                                                    *ngIf="angForm.controls['AC_GRDRELE'].invalid && (angForm.controls['AC_GRDRELE'].dirty || angForm.controls['AC_GRDRELE'].touched)"
+                                                                    class="alert alert-danger">
+                                                                    <div
+                                                                        *ngIf="angForm.controls['AC_GRDRELE'].errors?.pattern || angForm.controls['AC_GRDRELE'].errors?.required">
+                                                                        Input allowed only A-Z a-z - / . (Space)
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm">
+                                                                <div class="form-group input-group">
+                                                                    <span class="border-lable-flt">
+                                                                        <input type="text" name="SIGNATURE_AUTHORITY"
+                                                                            class="form-control" placeholder=" "
+                                                                            id="SIGNATURE_AUTHORITY"
+                                                                            pattern="^[A-Za-z\./ -]+$"
+                                                                            title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                            formControlName="SIGNATURE_AUTHORITY">
+                                                                        <label for="SIGNATURE_AUTHORITY">Signature
+                                                                            Authority</label>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="form-group form-primary form-static-label"
+                                                                    *ngIf="angForm.controls['SIGNATURE_AUTHORITY'].invalid && (angForm.controls['SIGNATURE_AUTHORITY'].dirty || angForm.controls['SIGNATURE_AUTHORITY'].touched)"
+                                                                    class="alert alert-danger">
+                                                                    <div
+                                                                        *ngIf="angForm.controls['SIGNATURE_AUTHORITY'].errors?.pattern">
+                                                                        Input allowed only A-Z a-z - / . (Space)
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group input-group">
-                                                            <span class="border-lable-flt">
-                                                                <input type="text" name="AC_GRDRELE"
-                                                                    class="form-control" placeholder=" " id="AC_GRDRELE"
-                                                                    pattern="^[A-Za-z\./ -]+$"
-                                                                    title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                    (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                                                                    formControlName="AC_GRDRELE"
-                                                                    [required]="introducerReq">
-                                                                <label for="AC_GRDRELE">Relation</label>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form-group form-primary form-static-label"
-                                                            *ngIf="angForm.controls['AC_GRDRELE'].invalid && (angForm.controls['AC_GRDRELE'].dirty || angForm.controls['AC_GRDRELE'].touched)"
-                                                            class="alert alert-danger">
-                                                            <div
-                                                                *ngIf="angForm.controls['AC_GRDRELE'].errors?.pattern || angForm.controls['AC_GRDRELE'].errors?.required">
-                                                                Input allowed only A-Z a-z - / . (Space)
+                                                        <div class="row">
+                                                            <div class="col-sm">
+                                                                <h6><b style="color: dodgerblue;">INTRODUCER</b></h6>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm">
-                                                        <div class="form-group input-group">
-                                                            <span class="border-lable-flt">
-                                                                <input type="text" name="SIGNATURE_AUTHORITY"
-                                                                    class="form-control" placeholder=" "
-                                                                    id="SIGNATURE_AUTHORITY" pattern="^[A-Za-z\./ -]+$"
-                                                                    title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                    formControlName="SIGNATURE_AUTHORITY">
-                                                                <label for="SIGNATURE_AUTHORITY">Signature
-                                                                    Authority</label>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form-group form-primary form-static-label"
-                                                            *ngIf="angForm.controls['SIGNATURE_AUTHORITY'].invalid && (angForm.controls['SIGNATURE_AUTHORITY'].dirty || angForm.controls['SIGNATURE_AUTHORITY'].touched)"
-                                                            class="alert alert-danger">
-                                                            <div
-                                                                *ngIf="angForm.controls['SIGNATURE_AUTHORITY'].errors?.pattern">
-                                                                Input allowed only A-Z a-z - / . (Space)
+                                                        <div class="row">
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group form-primary form-static-label">
+                                                                    <span class="border-lable-flt">
+                                                                        <ng-select id="AC_INTROBRANCH" bindValue="value"
+                                                                            [(ngModel)]="ngBranch"
+                                                                            formControlName="AC_INTROBRANCH"
+                                                                            bindLabel="label"
+                                                                            title="Compulsory Selection"
+                                                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                                                            (change)="getBranch()" placeholder="Branch">
+                                                                            <ng-option
+                                                                                *ngFor="let values of OwnbranchMasterDropdown"
+                                                                                [value]="values">
+                                                                                {{values.label}}</ng-option>
+                                                                        </ng-select>
+                                                                        <label for="AC_INTROBRANCH">Branch</label>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group form-primary form-static-label">
+                                                                    <span class="border-lable-flt">
+                                                                        <ng-select id="AC_INTROID" bindValue="value"
+                                                                            [(ngModel)]="acno"
+                                                                            formControlName="AC_INTROID"
+                                                                            bindLabel="label"
+                                                                            title="Compulsory Selection"
+                                                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                                                            (change)="getIntro($event)"
+                                                                            placeholder="Account Type">
+                                                                            <ng-option
+                                                                                *ngFor="let values of SchemeCodeDropdownDropdown"
+                                                                                [value]="values">
+                                                                                {{values.label}}</ng-option>
+                                                                        </ng-select>
+                                                                        <label for="AC_INTROID">Account Type</label>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-5">
+                                                                <div class="form-group form-primary form-static-label">
+                                                                    <span class="border-lable-flt">
+                                                                        <ng-select id="AC_INTRACNO" bindValue="id"
+                                                                            [(ngModel)]="ngIntroducer"
+                                                                            formControlName="AC_INTRACNO"
+                                                                            bindLabel="label"
+                                                                            title="Compulsory Selection"
+                                                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                                                            (focus)="getIntroducer()"
+                                                                            placeholder="Account Number">
+                                                                            <ng-option
+                                                                                *ngFor="let values of introducerACNo"
+                                                                                [value]="values">
+                                                                                {{values.label}} {{values.name}}
+                                                                            </ng-option>
+                                                                        </ng-select>
+                                                                        <label for="AC_INTRACNO">Account Number</label>
+                                                                    </span>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm">
-                                                        <h6><b style="color: dodgerblue;">INTRODUCER</b></h6>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group form-primary form-static-label">
-                                                            <span class="border-lable-flt">
-                                                                <ng-select id="AC_INTROBRANCH" bindValue="value"
-                                                                    [(ngModel)]="ngBranch"
-                                                                    formControlName="AC_INTROBRANCH" bindLabel="label"
-                                                                    title="Compulsory Selection"
-                                                                    [ngClass]="{'form-submitted': formSubmitted}"
-                                                                    (change)="getBranch()" placeholder="Branch">
-                                                                    <ng-option
-                                                                        *ngFor="let values of OwnbranchMasterDropdown"
-                                                                        [value]="values">
-                                                                        {{values.label}}</ng-option>
-                                                                </ng-select>
-                                                                <label for="AC_INTROBRANCH">Branch</label>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group form-primary form-static-label">
-                                                            <span class="border-lable-flt">
-                                                                <ng-select id="AC_INTROID" bindValue="value"
-                                                                    [(ngModel)]="acno" formControlName="AC_INTROID"
-                                                                    bindLabel="label" title="Compulsory Selection"
-                                                                    [ngClass]="{'form-submitted': formSubmitted}"
-                                                                    (change)="getIntro($event)"
-                                                                    placeholder="Account Type">
-                                                                    <ng-option
-                                                                        *ngFor="let values of SchemeCodeDropdownDropdown"
-                                                                        [value]="values">
-                                                                        {{values.label}}</ng-option>
-                                                                </ng-select>
-                                                                <label for="AC_INTROID">Account Type</label>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-5">
-                                                        <div class="form-group form-primary form-static-label">
-                                                            <span class="border-lable-flt">
-                                                                <ng-select id="AC_INTRACNO" bindValue="id"
-                                                                    [(ngModel)]="ngIntroducer"
-                                                                    formControlName="AC_INTRACNO" bindLabel="label"
-                                                                    title="Compulsory Selection"
-                                                                    [ngClass]="{'form-submitted': formSubmitted}"
-                                                                    (focus)="getIntroducer()"
-                                                                    placeholder="Account Number">
-                                                                    <ng-option *ngFor="let values of introducerACNo"
-                                                                        [value]="values">
-                                                                        {{values.label}} {{values.name}}</ng-option>
-                                                                </ng-select>
-                                                                <label for="AC_INTRACNO">Account Number</label>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                <!-- <div class="row">
+                                                        <!-- <div class="row">
                                                     <h6>Introducer</h6>
                                                     <div class="col-sm-3">
                                                         <div class="form-group form-primary form-static-label">
@@ -1233,7 +1244,7 @@
                                                         </div>
                                                     </div>
                                                 </div> -->
-                                                <!-- <div class="row">
+                                                        <!-- <div class="row">
                                                     <div class="col-sm-3">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
@@ -1255,20 +1266,22 @@
                                                         </div>
                                                     </div>
                                                 </div> -->
-                                                <div class="row">
-                                                    <div class="col-sm">
-                                                        <div class="checkbox checkbox-primary">
-                                                            <div
-                                                                class="border-checkbox-group border-checkbox-group-primary">
-                                                                <input class="border-checkbox" type="checkbox"
-                                                                    id="PG_COMM_TYPE" formControlName="PG_COMM_TYPE">
-                                                                <label class="border-checkbox-label"
-                                                                    for="PG_COMM_TYPE">Is Calculate Separate Pigmy
-                                                                    Commission for Loan Against
-                                                                    Collection</label>
-                                                            </div>
-                                                        </div>
-                                                        <!-- <div class="border-checkbox-section">
+                                                        <div class="row">
+                                                            <div class="col-sm">
+                                                                <div class="checkbox checkbox-primary">
+                                                                    <div
+                                                                        class="border-checkbox-group border-checkbox-group-primary">
+                                                                        <input class="border-checkbox" type="checkbox"
+                                                                            id="PG_COMM_TYPE"
+                                                                            formControlName="PG_COMM_TYPE">
+                                                                        <label class="border-checkbox-label"
+                                                                            for="PG_COMM_TYPE">Is Calculate Separate
+                                                                            Pigmy
+                                                                            Commission for Loan Against
+                                                                            Collection</label>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <div class="border-checkbox-section">
                                                             <div
                                                                 class="border-checkbox-group border-checkbox-group-primary">
                                                                 <input class="border-checkbox" type="checkbox"
@@ -1278,12 +1291,14 @@
                                                                     Collection</label>
                                                             </div>
                                                         </div> -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2" style="float: right; margin-top: 6px;">
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                (click)="switchNgBTab('nominee')">Next
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-2" style="float: right; margin-top: 6px;">
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        (click)="switchNgBTab('nominee')">Next
-                                                    </button>
                                                 </div>
                                             </div>
                                         </ng-template>
@@ -2099,8 +2114,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm" style="float: right;">
-                                                                <button type="submit"
-                                                                    class="btn btn-outline-primary btn-sm"
+                                                                <button type="submit" class="btn btn-outline-primary btn-sm"
                                                                     *ngIf="showButton" (click)="submit($event)">
                                                                     Submit
                                                                 </button>
@@ -2110,7 +2124,13 @@
                                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 <button class="btn btn-outline-primary btn-sm"
                                                                     (click)="updateData()" *ngIf="updateShow">
-                                                                    Update</button>
+                                                                    Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    *ngIf="rejectShow" (click)="reject()">
+                                                                    Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    *ngIf="approveShow" (click)="Approve()">
+                                                                    Approve</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2127,7 +2147,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="DatatableHideShow">
     <div class="col-12">
         <div class="card shadow">
             <div class="card-block">

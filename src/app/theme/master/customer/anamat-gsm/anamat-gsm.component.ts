@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 //animation
 import { animate, style, transition, trigger } from "@angular/animations";
 import { Subject } from "rxjs";
@@ -52,9 +52,10 @@ interface anamatinf {
   AC_CTCODE: string;
   AC_PIN: string;
   AC_OPDATE: Date;
-  AC_IS_RECOVERY: string;
-  DEBIT: boolean;
+  AC_IS_RECOVERY: boolean;
+  DEBIT: string;
   AC_PARTICULAR: string;
+  BANKACNO: number
 }
 
 @Component({
@@ -76,6 +77,8 @@ interface anamatinf {
 })
 
 export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Input() childMessage: string;
+  @Output() public getUserData = new EventEmitter<string>();
   formSubmitted = false;
   //api
   url = environment.base_url;
@@ -137,6 +140,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   id: any = null
   bsValue
   AC_TYPE: boolean = false
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -149,11 +155,15 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     private customerID: CustomerIDMasterDropdownService,
     private systemParameter: SystemMasterParametersService
   ) {
+    if (this.childMessage != undefined) {
 
+      this.editClickHandler(this.childMessage);
+    }
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
   }
 
   ngOnInit(): void {
+
     this.createForm();
     // Fetching Server side data
     this.dtExportButtonOptions = {
@@ -183,6 +193,11 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters["filterData"] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -216,7 +231,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
           title: "Scheme",
         },
         {
-          data: "AC_NO",
+          data: 'BANKACNO',
           title: "Account Number",
         },
         {
@@ -391,6 +406,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_AREA: ['', [Validators.pattern]],
       AC_CTCODE: ['', [Validators.pattern]],
       AC_PIN: [''],
+      BANKACNO: [''],
       AC_OPDATE: ['', [Validators.required]],
       AC_IS_RECOVERY: [''],
       DEBIT: new FormControl('Credit'),
@@ -399,16 +415,13 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getScheme(value) {
-    console.log('scheme value', value)
     this.schemeCode = value.name
   }
 
   // Method to insert data into database through NestJS
   submit(event) {
-
     event.preventDefault();
     this.formSubmitted = true;
-    console.log('form data', this.angForm.value)
     // if (this.angForm.valid) {
     //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
@@ -435,10 +448,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       DEBIT: formVal.DEBIT,
       AC_PARTICULAR: formVal.AC_PARTICULAR,
     };
-    console.log('data tosend ', dataToSend)
     this.anamatGSMService.postData(dataToSend).subscribe(
       (data) => {
-        console.log('return data', data)
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',
@@ -460,20 +471,30 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetForm();
     // }
   }
+
   //Method for append data into fields
   editClickHandler(id) {
-    this.AC_TYPE = true
-    this.showButton = false;
-    this.updateShow = true;
-    this.newbtnShow = true;
+    this.angForm.controls['AC_TYPE'].disable()
+    // this.showButton = false;
+    // this.updateShow = true;
+    // this.newbtnShow = true;
     this.anamatGSMService.getFormData(id).subscribe((data) => {
-      console.log('edit', data)
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       this.angForm.patchValue({
         AC_ACNOTYPE: data.AC_ACNOTYPE,
         AC_TYPE: data.AC_TYPE,
         AC_NO: data.AC_NO,
+        BANKACNO: data.BANKACNO,
         // AC_CUSTID: data.AC_CUSTID.toString(),
         // AC_TITLE: data.AC_TITLE,
         // AC_NAME: data.AC_NAME,
@@ -489,13 +510,12 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for update data
   updateData() {
-    this.AC_TYPE = false
+    this.angForm.controls['AC_TYPE'].enable()
     let data = this.angForm.value;
     data["id"] = this.updateID;
     let opdate = (document.getElementById("AC_OPDATE") as HTMLInputElement).value;
     data["AC_OPDATE"] = opdate;
 
-    console.log('data update', data)
     this.anamatGSMService.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -509,6 +529,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   addNewData() {
+    this.angForm.controls['AC_TYPE'].enable()
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -518,7 +539,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   // Reset Function
   resetForm() {
     this.createForm();
-    this.code = this.scheme[0].value
+    this.code = null
     this.id = null
     this.getSystemParaDate()
   }
@@ -551,6 +572,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    this.angForm.controls['AC_TYPE'].enable()
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#mastertable tfoot tr').appendTo('#mastertable thead');
@@ -594,6 +616,48 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }, 1000);
   }
+  //approve account
+  Approve() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this.anamatGSMService.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Saving Account approved successfully',
+        'success'
+      );
+      var button = document.getElementById('triggerhide');
+      button.click();
 
+      this.getUserData.emit('welcome to stackoverflow!');
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  //reject account
+  reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this.anamatGSMService.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Saving Account rejected successfully',
+        'success'
+      );
+
+      var button = document.getElementById('triggerhide');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
 
 }

@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service';
 import { IOption } from 'ng-select';
 import { environment } from '../../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -37,6 +38,7 @@ interface PrematurePigmy {
   styleUrls: ['./premature-pigmy-less-ir.component.scss'],
 })
 export class PrematurePigmyLessIRComponent implements OnInit {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   //api 
   url = environment.base_url;
@@ -77,6 +79,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   schemeCode: any;
   //for search functionality
   filterData = {};
+  // dropdown variables
+  ngschemetype:any=null
 
   //title select variables
   schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
@@ -95,7 +99,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     private fb: FormBuilder,
     // for dropdown
     public SchemeTypes: SchemeTypeDropdownService,
-    private prematurePigmyService: PrematurePigmyService) {
+    private prematurePigmyService: PrematurePigmyService,
+    private config: NgSelectConfig,) {
       this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
       console.log(this.datemax);
     
@@ -168,7 +173,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       AC_ACNOTYPE: ['', [Validators.required]],
-      EFFECT_DATE: ['', [Validators.required]],
+      EFFECT_DATE: [''],
       SERIAL_NO: [''],
       FROM_MONTHS: [''],
       TO_MONTHS: [''],
@@ -181,7 +186,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
         console.log(data);
         if(data != ""){
           if(data > this.datemax){
-            Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+            Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
             (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
                 
           }
@@ -189,14 +194,18 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       }
   // Method to insert data into database through NestJS
   submit() {
-    const formVal = this.angForm.value;
-    const dataToSend = {
+    if(this.multiField.length!=0){
+      this.formSubmitted=true;
+
+      const formVal = this.angForm.value;
+      const dataToSend = {
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'EFFECT_DATE': formVal.EFFECT_DATE,
       'FieldData': this.multiField,
     }
     this.prematurePigmyService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -206,6 +215,15 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     //To clear form
     this.resetForm();
     this.multiField = []
+    }
+    else{
+      Swal.fire(
+        'Warning',
+        'Please Input Slab Details ',
+        'warning'
+        )
+    }
+    
   }
 
   //Method for append data into fields
@@ -248,7 +266,7 @@ compareamount() {
     if (from > to) {
       Swal.fire(  
         'Warning!',
-        'From Months should be less than To Months',
+        'From Months Should Be Less Than To Months',
         'warning'
       );
       (document.getElementById("tomonths") as HTMLInputElement).value = ""
@@ -264,7 +282,7 @@ compareamount() {
 console.log(ele);
   }
   else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
   }
 }
   // Method for delete data
@@ -321,10 +339,10 @@ console.log(ele);
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-
           if (this['value'] != '') {
             that
               .search(this['value'])
@@ -366,8 +384,18 @@ console.log(ele);
     this.resetForm();
   }
   addField() {
-    const formVal = this.angForm.value;
-    var object = {
+    
+    let tomonth = (document.getElementById("tomonths") as HTMLInputElement).value;
+    let intrate = (document.getElementById("LESS_INT_RATE") as HTMLInputElement).value;
+    if(tomonth == ""){
+      Swal.fire('Info','Please Input To Month','info')
+    }
+    if(intrate == ""){
+      Swal.fire('Info','Please Add Interest','info')
+    }
+    if(tomonth != ""  && intrate != ""){
+      const formVal = this.angForm.value;
+      var object = {
       FROM_MONTHS: formVal.FROM_MONTHS,
       TO_MONTHS: formVal.TO_MONTHS,
       LESS_INT_RATE: formVal.LESS_INT_RATE,
@@ -376,6 +404,8 @@ console.log(ele);
     this.multiField.push(object);
     console.log(this.multiField)
     this.resetField()
+    }
+    
   }
   resetField() {
     this.angForm.controls['FROM_MONTHS'].reset();

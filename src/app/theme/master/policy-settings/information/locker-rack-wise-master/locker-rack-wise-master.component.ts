@@ -13,6 +13,7 @@ import { LockerRackWiseMasterService } from './locker-rack-wise-master.service';
 import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -37,7 +38,7 @@ interface LockerRackWiseMaster {
 
 export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
-
+  formSubmitted = false;
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -64,6 +65,8 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
+
+  nglocker: any = null
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -80,7 +83,8 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
     private http: HttpClient,
     private lockerRackWiseMasterService: LockerRackWiseMasterService,
     private fb: FormBuilder,
-    private lockerSMaster: LockerSMasterDropDownService) { }
+    private lockerSMaster: LockerSMasterDropDownService,
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -171,6 +175,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
 
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'RACK_NO': formVal.RACK_NO,
@@ -180,6 +185,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
     }
     this.lockerRackWiseMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       // to reload after insertion of data
 
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -269,10 +275,10 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-
           if (this['value'] != '') {
             that
               .search(this['value'])

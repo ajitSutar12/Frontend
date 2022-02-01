@@ -18,6 +18,7 @@ import { TermemeDepositeSchMasterDropdownService } from '../../../../../shared/d
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -43,7 +44,7 @@ interface TermDepositPatScheme {
 })
 export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
-
+  formSubmitted = false;
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -87,7 +88,8 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   days: any;
   months: any;
 
-
+  ngscheme:any=null
+  ngintcat:any=null
   //for date 
   datemax: any;
 
@@ -105,7 +107,8 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     private termDepositPatSchemeService: TermDepositPatSchemeService,
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private TermemeDepositeSchMasterDropdownService: TermemeDepositeSchMasterDropdownService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) {
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
     console.log(this.datemax);
 
@@ -187,12 +190,12 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
 
   createForm() {
     this.angForm = this.fb.group({
-      EFFECT_DATE: ['', [Validators.required]],
+      EFFECT_DATE: [''],
       AC_TYPE: ['', [Validators.required]],
       INT_CATEGORY: ['', [Validators.required]],
       MONTHS: ['', [Validators.pattern]],
       DAYS: ['', [Validators.pattern]],
-      INT_RATE: ['', [Validators.required, Validators.pattern]],
+      INT_RATE: ['', [ Validators.pattern]],
 
     });
   }
@@ -202,7 +205,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     console.log(data);
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
         (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
 
       }
@@ -217,6 +220,8 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
 
   // Method to insert data into database through NestJS
   submit() {
+    if(this.multiField.length!=0){
+      this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'EFFECT_DATE': formVal.EFFECT_DATE,
@@ -226,6 +231,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     }
     this.termDepositPatSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -235,6 +241,15 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     //To clear form
     this.resetForm();
     this.multiField = []
+  }
+  else{
+    Swal.fire(
+      'Info',
+      'Please Input Slab Details ',
+      'info'
+      )
+  }
+    
   }
   tableButton: boolean = true
   //Method for append data into fields
@@ -291,7 +306,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       console.log(ele);
     }
     else {
-      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
     }
   }
 
@@ -306,14 +321,14 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     if (this.days == "" && this.months == "") {
       Swal.fire(
         'Invalid Input',
-        'Please enter Days or Months ',
+        'Please Enter Days Or Months ',
         'warning'
       )
     }
     else if (this.days == 0 && this.months == 0) {
       Swal.fire(
         'Invalid Input',
-        'Days or Months value must not be equal to zero ',
+        'Days or Months Value Must Not Be Equal To Zero ',
         'warning'
       )
     }
@@ -330,7 +345,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to delete  Term Deposit Pat Scheme data.",
+      text: "Do You Want To Delete Term Deposit Pat Scheme Data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -342,7 +357,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
           this.termDepositPatScheme = data1;
           Swal.fire(
             'Deleted!',
-            'Your data has been deleted.',
+            'Your Data Has Been Deleted.',
             'success'
           )
         }), (error) => {
@@ -355,7 +370,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       ) {
         Swal.fire(
           'Cancelled',
-          'Your data is safe.',
+          'Your Data Is Safe.',
           'error'
         )
       }
@@ -366,6 +381,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
@@ -415,9 +431,9 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
     if (intrate == "") {
       Swal.fire(
-        'Warning',
-        'Please input Interest rate.',
-        'warning'
+        'Info',
+        'Please Input Interest Rate.',
+        'info'
       )
     }
     else if (intrate != "") {

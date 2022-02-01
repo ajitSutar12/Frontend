@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import{environment} from '../../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -41,6 +42,7 @@ interface DocumentMaster {
 })
 
 export class SchemeLinkingWithDComponent implements OnInit , AfterViewInit, OnDestroy {
+  formSubmitted = false;
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -60,7 +62,8 @@ filterForm: FormGroup;
 // Variables for hide/show add and update button
 showButton: boolean = true;
 updateShow: boolean = false;
-
+//variable for dropdown 
+ngscheme:any=null
 //variable to get ID to update
 updateID: number = 0;
 page: number = 1;
@@ -69,7 +72,7 @@ filterData = {};
 
  showDialog = false;
  @Input() visible: boolean;
- public config: any;
+ //public config: any;
  //title select variables
  schemetype: Array<IOption> = this.SchemeTypes.getCharacters(); 
   simpleOption: Array<IOption> = this.Scheme4Service.getCharacters();
@@ -84,7 +87,8 @@ filterData = {};
     public schemeLinkingWithDService: SchemeLinkingWithDService,  
     public SchemeTypes:SchemeTypeDropdownService,
      private http: HttpClient,public Scheme4Service: Scheme4Service, 
-     private fb: FormBuilder) { this.createForm(); }
+     private fb: FormBuilder,
+     private config: NgSelectConfig,) { this.createForm(); }
 
   ngOnInit(): void {
     this.getData();
@@ -172,6 +176,7 @@ filterData = {};
   }
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted=true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'SCHEME_CODE': formVal.SCHEME_CODE,
@@ -180,6 +185,7 @@ filterData = {};
     }
     this.schemeLinkingWithDService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted=false;
       // to reload after insertion of data
       this.rerender();
        //To clear form
@@ -204,6 +210,7 @@ filterData = {};
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

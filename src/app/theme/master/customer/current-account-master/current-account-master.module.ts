@@ -39,6 +39,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     DatepickerModule.forRoot()
   ],
   declarations: [CurrentAccountMasterComponent],
+  exports:[CurrentAccountMasterComponent],
   providers: [CurrentAccountMasterService, CustomerIDMasterDropdownService, CustomerIdService,
     categoryMasterService, DirectorMasterDropdownService, OwnbranchMasterService, cityMasterService,
     SchemeCodeDropdownService, OperationMasterDropdownService, IntrestCategoryMasterDropdownService,

@@ -26,6 +26,7 @@ import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
 import { first } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -78,6 +79,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   updateShow: boolean = false;
   updateID: number; //variable for updating
   // Store data from backend
+  nginsurancecom:any=null
   customerMaster: CustomerMaster[];
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
@@ -94,8 +96,8 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     private _customerservice: customerinsuranceService,
     private http: HttpClient,
     private _insurancedropdown: InsuranceMasterDropdownService,
-    public router: Router
-  ) { 
+    public router: Router,
+    private config: NgSelectConfig,) { 
     this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
     console.log(this.datemax);
 
@@ -211,8 +213,8 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
       console.log(this.angForm.value); // Process your form
       const formVal = this.angForm.value;
     const dataToSend = {
-      AC_TYPE: this.scheme._value[0],
-      AC_NO: this.Accountno,
+      // AC_TYPE: this.scheme._value[0],
+      // AC_NO: this.Accountno,
       INSURANCE_DATE: formVal.INSURANCE_DATE,
       POLICY_NO: formVal.POLICY_NO,
       INSU_COMPANY_CODE: formVal.INSU_COMPANY_CODE,
@@ -224,14 +226,17 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         this.formSubmitted = false;
-        let info = []
-        info.push(data.id)
-        info.push("customerInsurance")
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+        // let info = []
+        // info.push(data.id)
+        // info.push("customerInsurance")
 
-        this.newItemEvent(info);
+        // this.newItemEvent(info);
         // console.log("book id", info)
         // to reload after insertion of data
-        this.rerender();
+        // this.rerender();
       },
       (error) => {
         console.log(error);
@@ -251,7 +256,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     this.updateShow = true;
     this.newbtnShow = true;
     this._customerservice.getFormData(id).subscribe((data) => {
-     
+      debugger
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
@@ -261,8 +266,8 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
       this.angForm.patchValue({
 
 
-        AC_TYPE: this.scheme._value[0],
-        AC_NO: this.Accountno,
+        // AC_TYPE: this.scheme._value[0],
+        // AC_NO: this.Accountno,
         INSURANCE_DATE: data.INSURANCE_DATE,
         POLICY_NO: data.POLICY_NO,
         INSU_COMPANY_CODE: data.INSU_COMPANY_CODE,
@@ -283,7 +288,10 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      // this.rerender();
       this.resetForm();
     });
   }
@@ -319,13 +327,18 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

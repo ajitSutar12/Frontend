@@ -84,9 +84,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" placeholder="dd/mm/yyyy" name="PURCHASE_DATE" id="PURCHASE_DATE"
-                    class="form-control" required max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [ngClass]="{'form-submitted': formSubmitted}"
-                    (focusout)="disabledate(date.value)" formControlName="PURCHASE_DATE" [bsValue]="bsValue"
+                    class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="PURCHASE_DATE" [bsValue]="bsValue"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="PURCHASE_DATE">Purchase Date<sub class="required">*
                     </sub></label>
@@ -145,8 +144,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" placeholder="dd/mm/yyyy" name="OP_BAL_DATE" id="OP_BAL_DATE" class="form-control"
-                    required max="{{datemax | date:'yyyy-MM-dd'}}" #date [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                    [ngClass]="{'form-submitted': formSubmitted}" (focusout)="disabledate(date.value)"
+                    required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                     formControlName="OP_BAL_DATE" [bsValue]="bsValue" bsDatepicker>
                   <label for="OP_BAL_DATE">Opening Balance Date<sub class="required">*
@@ -315,9 +314,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" placeholder="dd/mm/yyyy" name="LAST_DEPR_DATE" id="LAST_DEPR_DATE"
-                    class="form-control" max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [ngClass]="{'form-submitted': formSubmitted}"
-                    (focusout)="disabledate(date.value)" formControlName="LAST_DEPR_DATE" [bsValue]="bsValue"
+                    class="form-control" [ngClass]="{'form-submitted': formSubmitted}" formControlName="LAST_DEPR_DATE"
+                
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="LAST_DEPR_DATE">Last Depreciation Date</label>
                 </span>
@@ -343,7 +341,7 @@
             <div class="col-sm-3">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="GL_ACNO" bindValue="value" [(ngModel)]="ngGlAC" formControlName="GL_ACNO" 
+                  <ng-select id="GL_ACNO" bindValue="value" [(ngModel)]="ngGlAC" formControlName="GL_ACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     placeholder="GL A/C Number">
                     <ng-option *ngFor="let values of GLACNooption" [value]="values">
@@ -367,7 +365,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-2" style="float: right;">
+            <!-- <div class="col-sm-2" style="float: right;">
               <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()">
                 Submit
               </button>
@@ -376,6 +374,22 @@
               </button>&nbsp;&nbsp;&nbsp;&nbsp;
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
                 Update</button>
+            </div> -->
+          </div>
+          <div class="row">
+            <div class="col-sm" style="float: right;">
+              <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit($event)">
+                Submit
+              </button>
+              <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                Cancel
+              </button>&nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
+                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
+                Approve</button>
             </div>
           </div>
         </form>
@@ -397,7 +411,7 @@
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="DatatableHideShow">
   <div class="col-12">
     <div class="card shadow">
       <div class="card-block">

@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import { AccountcodeService } from '../../../../shared/elements/accountcode.service';
 import { first } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, Output, ViewChild, ElementRef, EventEmitter } from '@angular/core';
 
 import { TermDepositMasterService } from './term-deposits-master.service';
 // for dropdown
@@ -104,6 +104,8 @@ interface TermDepositMaster {
   ]
 })
 export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Input() childMessage: string;
+  @Output() public getUserData = new EventEmitter<string>();
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -214,6 +216,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   AC_TYPE: boolean = false
 
+  DatatableHideShow: boolean = true;
+  rejectShow:boolean =false;
+  approveShow:boolean =false;
+
   @ViewChild('ctdTabset') ctdTabset;
   selectedImagePreview: any;
 
@@ -241,7 +247,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     private schemeAccountNoService: SchemeAccountNoService,
     private _termDepositScheme: TermDepositSchemeService,
     private _InterestInstruction: InterestInstructionService,
-  ) { }
+  ) { 
+    console.log('Saving Data with Input',this.childMessage)
+      if(this.childMessage != undefined){
+
+        this.editClickHandler(this.childMessage);
+      }
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -778,7 +790,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
   monthDays() {
-    // debugger
     const formVal = this.angForm.value;
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
 
@@ -798,7 +809,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
       console.log("month and days" + months + ' months ' + days + ' days');
       if (data.IS_AUTO_PERIOD_CALCULATE == true) {
-        // debugger
         console.log("true")
         this.angForm.patchValue({
           AC_MONTHS: months,
@@ -2057,8 +2067,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.attorneyUpdateShow = true;
     this.angForm.patchValue({
       ATTERONEY_NAME: this.multiAttorney[id].ATTERONEY_NAME,
-      // DATE_APPOINTED: this.multiAttorney[id].DATE_APPOINTED,
-      DATE_APPOINTED: (this.multiAttorney[id].DATE_APPOINTED == 'Invalid date' || this.multiAttorney[id].DATE_APPOINTED == '' || this.multiAttorney[id].DATE_APPOINTED == null) ? appdate = '' : appdate = this.multiAttorney[id].DATE_APPOINTED,
+      DATE_APPOINTED: this.multiAttorney[id].DATE_APPOINTED,
+      // DATE_APPOINTED: (this.multiAttorney[id].DATE_APPOINTED == 'Invalid date' || this.multiAttorney[id].DATE_APPOINTED == '' || this.multiAttorney[id].DATE_APPOINTED == null) ? appdate = '' : appdate = this.multiAttorney[id].DATE_APPOINTED,
       DATE_EXPIRY: (this.multiAttorney[id].DATE_EXPIRY == 'Invalid date' || this.multiAttorney[id].DATE_EXPIRY == '' || this.multiAttorney[id].DATE_EXPIRY == null) ? exdate = '' : exdate = this.multiAttorney[id].DATE_EXPIRY,
     })
   }
@@ -2435,6 +2445,48 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
   }
+  //approve account
+  Approve(){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj ={
+      id : this.updateID,
+      user: user.id
+    }
+    this.TermDepositMasterService.approve(obj).subscribe(data=>{
+      Swal.fire(
+        'Approved',
+        'Saving Account approved successfully',
+        'success'
+      );
+      var button = document.getElementById('triggerhide');
+      button.click();
 
+      this.getUserData.emit('welcome to stackoverflow!');
+    },err=>{
+      console.log('something is wrong');
+    })
+  }
+
+
+  //reject account
+  reject(){
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj ={
+      id : this.updateID,
+      user: user.id
+    }
+    this.TermDepositMasterService.reject(obj).subscribe(data=>{
+      Swal.fire(
+        'Rejected',
+        'Saving Account rejected successfully',
+        'success'
+      );
+
+      var button = document.getElementById('triggerhide');
+      button.click();
+    },err=>{
+      console.log('something is wrong');
+    })
+  }
 
 }

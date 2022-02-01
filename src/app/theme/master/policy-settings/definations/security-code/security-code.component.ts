@@ -157,8 +157,8 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Market Shares',
           data: 'MARKET_SHARE'
         }, {
-          title: 'Bood Debts',
-          data: 'INTBOOK_DEBTS_CATEGORY'
+          title: 'Book Debts',
+          data: 'BOOK_DEBTS'
         }, {
           title: 'Pledge Stock',
           data: 'PLEDGE_STOCK'
@@ -284,6 +284,7 @@ console.log(ele);
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

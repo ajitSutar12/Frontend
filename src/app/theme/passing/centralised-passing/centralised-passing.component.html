@@ -35,20 +35,20 @@
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(9)" routerLinkActive="active" class="text-right f-w-600" id="pointer">9. Locker A/c Close / Rent</a><span class="badge badge-secondary badgeAlign" >{{locaker_ac_close}}</span></h6>
-                            </li>
+                            </li> -->
                             <li>
                                 <h6> <a (click)="OpenLink(10)" routerLinkActive="active" class="text-right f-w-600" id="pointer">10. Master Shares</a><span class="badge badge-secondary badgeAlign" >{{share_master}}</span></h6>
                             </li>
-                            <li>
+                             <li>
                                 <h6> <a (click)="OpenLink(11)" routerLinkActive="active" class="text-right f-w-600" id="pointer">11. Master Anamat</a><span class="badge badge-secondary badgeAlign" >{{anamat_master}}</span></h6>
-                            </li> -->
+                            </li>
                             <li>
                                 <h6> <a (click)="OpenLink(12)" routerLinkActive="active" class="text-right f-w-600" id="pointer">12. Master Saving</a><span class="badge badge-secondary badgeAlign" >{{saving_master}}</span></h6>
                             </li>
-                            <!-- <li>
+                           <li>
                                 <h6> <a (click)="OpenLink(13)" routerLinkActive="active" class="text-right f-w-600" id="pointer">13. Master Current</a><span class="badge badge-secondary badgeAlign" >{{current_master}}</span></h6>
                             </li>
-                            <li>
+                             <li>
                                 <h6> <a (click)="OpenLink(14)" routerLinkActive="active" class="text-right f-w-600" id="pointer">14. Master Deposit</a><span class="badge badge-secondary badgeAlign" >{{deposit_master}}</span></h6>
                             </li>
                             <li>
@@ -66,12 +66,12 @@
                             <li>
                                 <h6> <a (click)="OpenLink(19)" routerLinkActive="active" class="text-right f-w-600" id="pointer">19. Master Loan</a><span class="badge badge-secondary badgeAlign" >{{loan_master}}</span></h6>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <h6> <a (click)="OpenLink(20)" routerLinkActive="active" class="text-right f-w-600" id="pointer">20. Master Dispute Loan</a><span class="badge badge-secondary badgeAlign" >{{dispute_loan_master}}</span></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(21)" routerLinkActive="active" class="text-right f-w-600" id="pointer">21. Master Locker Deposit</a><span class="badge badge-secondary badgeAlign" >{{locker_master}}</span></h6>
-                            </li>-->
+                            </li> -->
                             <li>
                                 <h6> <a (click)="OpenLink(20)" routerLinkActive="active" class="text-right f-w-600" id="pointer">22. Master Dead Stock</a><span class="badge badge-secondary badgeAlign" >{{dead_stock_master}}</span></h6>
                             </li>
@@ -110,20 +110,20 @@
             </div>
             <div *ngIf="lockeraccloserentTrue">
                 <app-locker-ac-close-rent></app-locker-ac-close-rent>
-            </div>
+            </div>-->
             <div *ngIf="mastersharesTrue">
                 <app-master-shares></app-master-shares>
             </div>
             <div *ngIf="masteranamatTrue">
                 <app-master-anamat></app-master-anamat>
-            </div> -->
+            </div> 
             <div *ngIf="mastersavingTrue"> 
                 <app-master-saving></app-master-saving>
             </div>
-            <!-- <div *ngIf="mastercurrentTrue">
+           <div *ngIf="mastercurrentTrue">
                 <app-master-current></app-master-current>
             </div>
-            <div *ngIf="masterdepositsTrue">
+             <div *ngIf="masterdepositsTrue">
                 <app-master-deposits></app-master-deposits>
             </div>
             <div *ngIf="masterinvestmentsTrue">
@@ -141,12 +141,12 @@
             <div *ngIf="masterloanTrue">
                 <app-master-loan></app-master-loan>
             </div>
-            <div *ngIf="masterdisputeloanTrue">
+            <!--<div *ngIf="masterdisputeloanTrue">
                 <app-master-dispute-loan></app-master-dispute-loan>
             </div>
-            <div *ngIf="masterlockerdepositTrue">
+             <div *ngIf="masterlockerdepositTrue">
                 <app-master-locker-deposit></app-master-locker-deposit>
-            </div>-->
+            </div> -->
             <div *ngIf="masterdeadstockTrue">
                 <app-master-dead-stock></app-master-dead-stock>
             </div>

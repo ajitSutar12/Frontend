@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter, HostListener, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter, HostListener, ElementRef, Input } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { environment } from '../../../../../environments/environment'
 
@@ -132,6 +132,8 @@ interface TermLoanMaster {
 })
 
 export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Input() childMessage: string;
+  @Output() public getUserData = new EventEmitter<string>();
   formSubmitted = false;
   selected
   //api 
@@ -290,6 +292,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   bsValue = new Date();
   openingDate: any
 
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
+  
   repayModeOption: Array<IOption> = this.repayModeService.getCharacters();
   installment: Array<IOption> = this.installmentMethodService.getCharacters();
   account: Array<IOption> = this.accountType.getCharacters();
@@ -332,7 +338,11 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     public router: Router,
     private config: NgSelectConfig,
   ) {
+    console.log('Saving Data with Input', this.childMessage)
+    if (this.childMessage != undefined) {
 
+      this.editClickHandler(this.childMessage);
+    }
   }
 
   ngOnInit(): void {
@@ -829,7 +839,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.multiCoBorrower = data.CoborrowerMaster,
         this.multiGuarantor = data.guaranterMaster
 
-        this.int_category = data.AC_INTCATA
+      this.int_category = data.AC_INTCATA
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
         'BANKACNO': data.BANKACNO,
@@ -909,7 +919,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     let sanctiondate
     let expirydate
     let resodate
-    // debugger
     (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? (date = '', data['AC_COREG_DATE'] = date) : (date = data.AC_COREG_DATE, data['AC_COREG_DATE'] = moment(date).format('DD/MM/YYYY')),
 
       (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')),
@@ -1445,8 +1454,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       })
     }
     else if (this.repay == 'OnMaturity' && (this.installmentType == 'WithInterest')) {
-      // debugger
-
       this.intResult = (this.drawingPower * this.intRate / 1200);
       this.result = Math.round((((this.drawingPower / this.months) + this.intResult) * 0));
       this.angForm.patchValue({
@@ -2075,7 +2082,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   getExpiryDate() {
-   
+
     let months = this.angForm.controls['AC_MONTHS'].value
     if (this.angForm.controls['AC_OPEN_OLD_DATE'].value != '') {
       var expiryDt = new Date(this.angForm.controls['AC_OPEN_OLD_DATE'].value)
@@ -2117,4 +2124,47 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.selectedImagePreview = id;
   }
 
+  //approve account
+  Approve() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this.termLoanService.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Saving Account approved successfully',
+        'success'
+      );
+      var button = document.getElementById('triggerhide');
+      button.click();
+
+      this.getUserData.emit('welcome to stackoverflow!');
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  //reject account
+  reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this.termLoanService.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Saving Account rejected successfully',
+        'success'
+      );
+
+      var button = document.getElementById('triggerhide');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
 }

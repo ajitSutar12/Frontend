@@ -5,6 +5,8 @@ import {
   OnInit,
   ViewChild,
   Input,
+  EventEmitter,
+  Output,
 } from "@angular/core";
 
 import { animate, style, transition, trigger } from "@angular/animations";
@@ -63,7 +65,8 @@ interface deadstockinterface {
   styleUrls: ["./dead-stock-master.component.scss"],
 })
 export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestroy {
-
+  @Input() childMessage: string;
+  @Output() public getUserData = new EventEmitter<string>();
   formSubmitted = false;
   //calculations
 
@@ -74,7 +77,9 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   date = new Date;
   //api
   url = environment.base_url;
-
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -143,6 +148,11 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     private DepriciationCatDropdownMaster: DepriciationCatDropdownMasterService,
     private ACMasterDropdownService: ACMasterDropdownService
   ) {
+    console.log('Saving Data with Input', this.childMessage)
+    if (this.childMessage != undefined) {
+
+      this.editClickHandler(this.childMessage);
+    }
     // this.datemax =new Date() ;
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
     console.log(this.datemax);
@@ -322,20 +332,27 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
 
   // Method to insert data into database through NestJS
   submit() {
-   
+
     this.formSubmitted = true;
     let purchase
-
+    let purchase1
+    let purchase2
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    let bankCode = Number(result.branch.syspara.BANK_CODE)
     // if (this.angForm.valid) {
     console.log(this.angForm.value); // Process your form
     const formVal = this.angForm.value;
     const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
       ITEM_TYPE: formVal.ITEM_TYPE,
       ITEM_CODE: formVal.ITEM_CODE,
       ITEM_NAME: formVal.ITEM_NAME,
       PURCHASE_DATE: (formVal.PURCHASE_DATE == '' || formVal.PURCHASE_DATE == 'Invalid date') ? purchase = '' : purchase = moment(formVal.PURCHASE_DATE).format('DD/MM/YYYY'),
       DEPR_CATEGORY: formVal.DEPR_CATEGORY,
-      OP_BAL_DATE: formVal.OP_BAL_DATE,
+      OP_BAL_DATE: (formVal.OP_BAL_DATE == '' || formVal.OP_BAL_DATE == 'Invalid date') ? purchase1 = '' : purchase1 = moment(formVal.OP_BAL_DATE).format('DD/MM/YYYY'),
       SUPPLIER_NAME: formVal.SUPPLIER_NAME,
       PURCHASE_OP_QUANTITY: formVal.PURCHASE_OP_QUANTITY,
       PURCHASE_RATE: formVal.PURCHASE_RATE,
@@ -343,7 +360,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       PURCHASE_VALUE: formVal.PURCHASE_VALUE,
       OP_BALANCE: formVal.OP_BALANCE,
       OP_QUANTITY: formVal.OP_QUANTITY,
-      LAST_DEPR_DATE: formVal.LAST_DEPR_DATE,
+      LAST_DEPR_DATE: (formVal.LAST_DEPR_DATE == '' || formVal.LAST_DEPR_DATE == 'Invalid date') ? purchase2 = '' : purchase2 = moment(formVal.LAST_DEPR_DATE).format('DD/MM/YYYY'),
       GL_ACNO: formVal.GL_ACNO,
     };
     console.log('dead datasend', dataToSend)
@@ -369,21 +386,37 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     //To clear form
     this.angForm.reset();
   }
-
+  lddate: any
   //Method for append data into fields
   editClickHandler(id) {
-    this.showButton = false;
-    this.updateShow = true;
-    this.newbtnShow = true;
+   
+    let date
+    let date1
+    let date2
+    // this.showButton = false;
+    // this.updateShow = true;
+    // this.newbtnShow = true;
     this.deadstockmasterService.getFormData(id).subscribe((data) => {
+      debugger
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
       this.updateID = data.id;
+      // this.lddate=(data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? date2 = '' : date2 = data.LAST_DEPR_DATE,
+   
       this.angForm.setValue({
         ITEM_TYPE: data.ITEM_TYPE,
         ITEM_CODE: data.ITEM_CODE,
         ITEM_NAME: data.ITEM_NAME,
-        PURCHASE_DATE: data.PURCHASE_DATE,
-        DEPR_CATEGORY: data.DEPR_CATEGORY,
-        OP_BAL_DATE: data.OP_BAL_DATE,
+        PURCHASE_DATE: (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? date = '' : date = data.PURCHASE_DATE,
+        DEPR_CATEGORY: Number(data.DEPR_CATEGORY),
+        OP_BAL_DATE: (data.OP_BAL_DATE == 'Invalid date' || data.OP_BAL_DATE == '' || data.OP_BAL_DATE == null) ? date1 = '' : date1 = data.OP_BAL_DATE,
         SUPPLIER_NAME: data.SUPPLIER_NAME,
         PURCHASE_OP_QUANTITY: data.PURCHASE_OP_QUANTITY,
         PURCHASE_RATE: data.PURCHASE_RATE,
@@ -391,26 +424,33 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         PURCHASE_VALUE: data.PURCHASE_VALUE,
         OP_BALANCE: data.OP_BALANCE,
         OP_QUANTITY: data.OP_QUANTITY,
-        LAST_DEPR_DATE: data.LAST_DEPR_DATE,
-        GL_ACNO: data.GL_ACNO,
+        LAST_DEPR_DATE: (data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? date2 = '' : date2 = data.LAST_DEPR_DATE,
+        GL_ACNO: Number(data.GL_ACNO),
       });
     });
   }
 
   //Method for update data
   updateData() {
+    let date
+    let date1
+    let date2
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    this.deadstockmasterService.updateData(data).subscribe(() => {
-      Swal.fire("Success!", "Record Updated Successfully !", "success");
-      this.showButton = true;
-      this.updateShow = false;
-      this.newbtnShow = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload();
+    (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? (date = '', data['PURCHASE_DATE'] = date) : (date = data.PURCHASE_DATE, data['PURCHASE_DATE'] = moment(date).format('DD/MM/YYYY')),
+      (data.OP_BAL_DATE == 'Invalid date' || data.OP_BAL_DATE == '' || data.OP_BAL_DATE == null) ? (date1 = '', data['OP_BAL_DATE'] = date1) : (date1 = data.OP_BAL_DATE, data['OP_BAL_DATE'] = moment(date1).format('DD/MM/YYYY')),
+      (data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? (date2 = '', data['LAST_DEPR_DATE'] = date2) : (date2 = data.LAST_DEPR_DATE, data['LAST_DEPR_DATE'] = moment(date2).format('DD/MM/YYYY')),
+
+      this.deadstockmasterService.updateData(data).subscribe(() => {
+        Swal.fire("Success!", "Record Updated Successfully !", "success");
+        this.showButton = true;
+        this.updateShow = false;
+        this.newbtnShow = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload();
+        });
+        this.angForm.reset();
       });
-      this.angForm.reset();
-    });
   }
 
   addNewData() {
@@ -491,5 +531,47 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         clearInterval(timer);
       }
     }, 1000);
+  }
+
+  //approve account
+  Approve() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this.deadstockmasterService.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Saving Account approved successfully',
+        'success'
+      );
+      var button = document.getElementById('triggerhide');
+      button.click();
+
+      this.getUserData.emit('welcome to stackoverflow!');
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+  //reject account
+  reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this.deadstockmasterService.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Saving Account rejected successfully',
+        'success'
+      );
+
+      var button = document.getElementById('triggerhide');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
   }
 }

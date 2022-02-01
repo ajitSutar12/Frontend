@@ -47,6 +47,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
 
   declarations: [AnamatGSMComponent],
+  exports:[AnamatGSMComponent],
   providers: [
     PrefixMasterDropdownService,
     SchemeCodeDropdownService,

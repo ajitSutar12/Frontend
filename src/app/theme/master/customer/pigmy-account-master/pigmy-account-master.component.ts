@@ -2,7 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { PigmyAccountMasterService } from './pigmy-account-master.service';
 // for dropdown
 import { CastMasterService } from '../../../../shared/dropdownService/cast-master-dropdown.service';
@@ -101,6 +101,8 @@ interface PigmyAccountMaster {
   ]
 })
 export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Input() childMessage: string;
+  @Output() public getUserData = new EventEmitter<string>();
   formSubmitted = false;
   //api 
 
@@ -218,6 +220,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   jointID: any = null
   acno: any = null
   ngIntroducer: any = null
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
 
 
   constructor(private fb: FormBuilder,
@@ -235,6 +240,11 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     private customerID: CustomerIDMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
     private datePipe: DatePipe,) {
+    console.log('Saving Data with Input', this.childMessage)
+    if (this.childMessage != undefined) {
+
+      this.editClickHandler(this.childMessage);
+    }
     this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
   }
 
@@ -929,7 +939,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
         'REF_ACNO': data.REF_ACNO,
         'AC_OPDATE': data.AC_OPDATE,
-        'AC_RENEW_DATE':(data.AC_RENEW_DATE == 'Invalid date' || data.AC_RENEW_DATE == '' || data.AC_RENEW_DATE == null) ? redate = '' : redate = data.AC_RENEW_DATE,
+        'AC_RENEW_DATE': (data.AC_RENEW_DATE == 'Invalid date' || data.AC_RENEW_DATE == '' || data.AC_RENEW_DATE == null) ? redate = '' : redate = data.AC_RENEW_DATE,
         AC_MEMBTYPE: data.AC_MEMBTYPE,
         AC_MEMBNO: data.AC_MEMBNO,
         'AC_EXPDT': data.AC_EXPDT,
@@ -986,19 +996,19 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     data['JointAccountData'] = this.multiJointAC
     data['id'] = this.updateID;
     (data.AC_RENEW_DATE == 'Invalid date' || data.AC_RENEW_DATE == '' || data.AC_RENEW_DATE == null) ? (redate = '', data['AC_RENEW_DATE'] = redate) : (redate = data.AC_RENEW_DATE, data['AC_RENEW_DATE'] = moment(redate).format('DD/MM/YYYY')),
-    this.PigmyAccountMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
-      this.showButton = true;
-      this.updateShow = false;
-      this.newbtnShow = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-      this.multiNominee = []
-      this.multiJointAC = []
-      this.customerDoc = []
-      this.resetForm();
-    })
+      this.PigmyAccountMasterService.updateData(data).subscribe(() => {
+        Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+        this.showButton = true;
+        this.updateShow = false;
+        this.newbtnShow = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+        this.multiNominee = []
+        this.multiJointAC = []
+        this.customerDoc = []
+        this.resetForm();
+      })
   }
   //Method for delete data
   delClickHandler(id: number) {
@@ -1364,6 +1374,50 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   selectedImagePreview: any;
   viewImagePreview(ele, id) {
     this.selectedImagePreview = id;
+  }
+
+  //approve account
+  Approve() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this.PigmyAccountMasterService.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Saving Account approved successfully',
+        'success'
+      );
+      var button = document.getElementById('triggerhide');
+      button.click();
+
+      this.getUserData.emit('welcome to stackoverflow!');
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  //reject account
+  reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
+    }
+    this.PigmyAccountMasterService.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Saving Account rejected successfully',
+        'success'
+      );
+
+      var button = document.getElementById('triggerhide');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
   }
 }
 

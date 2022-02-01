@@ -225,8 +225,8 @@ if (this.angForm.valid) {
   
   const formVal = this.angForm.value;
   const dataToSend = {
-    AC_TYPE:this.scheme._value[0],
-    AC_NO:this.Accountno,
+    // AC_TYPE:this.scheme._value[0],
+    // AC_NO:this.Accountno,
     SUBMISSION_DATE: formVal.SUBMISSION_DATE,
     VALUE: formVal.VALUE,
     LOCATION: formVal.LOCATION,
@@ -242,13 +242,16 @@ if (this.angForm.valid) {
     (data) => {
       Swal.fire("Success!", "Data Added Successfully !", "success");
       this.formSubmitted = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       // to reload after insertion of data
-      let info = []
-      info.push(data.id)
-      info.push("landBuilding")
+      // let info = []
+      // info.push(data.id)
+      // info.push("landBuilding")
 
-      this.newItemEvent(info);
-      this.rerender();
+      // this.newItemEvent(info);
+      // this.rerender();
     },
     (error) => {
       console.log(error);
@@ -284,8 +287,8 @@ console.log(ele);
         dropdown.account = data.AC_NO.toString();
   
       this.angForm.patchValue({
-        AC_TYPE:this.scheme._value[0],
-        AC_NO:this.Accountno,
+        // AC_TYPE:this.scheme._value[0],
+        // AC_NO:this.Accountno,
         SUBMISSION_DATE: data.SUBMISSION_DATE,
         VALUE: data.VALUE,
         LOCATION: data.LOCATION,
@@ -310,7 +313,10 @@ console.log(ele);
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      // this.rerender();
       this.resetForm();
     });
   }
@@ -345,13 +351,18 @@ console.log(ele);
     this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

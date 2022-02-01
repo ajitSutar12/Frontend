@@ -3,7 +3,9 @@
         <div class="card">
             <div class="card-header">
                 <h5>Manager View GL - Position</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
@@ -20,12 +22,23 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="schemetype" [multiple]="false"
                                     placeholder="Type*" required title="Compulsory Selection"
                                     formControlName="TYPE">
                                 </ng-select>
 
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="TYPE" bindValue="value" [(ngModel)]="ngtype"
+                                    formControlName="TYPE" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Type">
+                                    <ng-option *ngFor="let values of schemetype" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="TYPE">Type<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['TYPE'].invalid && (angForm.controls['TYPE'].dirty || angForm.controls['TYPE'].touched)"
@@ -36,12 +49,23 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="StatementCodeDropdown" [multiple]="false"
                                     placeholder="Statement Code *" required title="Compulsory Selection"
                                     formControlName="STATEMENT_CODE">
                                 </ng-select>
 
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="STATEMENT_CODE" bindValue="value" [(ngModel)]="ngstatement"
+                                    formControlName="STATEMENT_CODE" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Statement Code">
+                                    <ng-option *ngFor="let values of StatementCodeDropdown" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="STATEMENT_CODE">Statement Code<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['STATEMENT_CODE'].invalid && (angForm.controls['STATEMENT_CODE'].dirty || angForm.controls['STATEMENT_CODE'].touched)"
@@ -55,35 +79,69 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="StatementCodeDropdown" [multiple]="false"
                                     placeholder="Description *" required title="Compulsory Selection"
                                     formControlName="DECRIPTION">
                                 </ng-select>
 
                             </div>
-                            
+                             -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="DECRIPTION" bindValue="value" [(ngModel)]="ngdescription"
+                                    formControlName="DECRIPTION" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Description">
+                                    <ng-option *ngFor="let values of StatementCodeDropdown" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="DECRIPTION">Description<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="PercentageToWCapital" [multiple]="false"
                                     placeholder="% to W.Capital *" required title="Compulsory Selection"
                                     formControlName="PERCENTAGE_TO_WORKING_CAPITAL">
                                 </ng-select>
 
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="PERCENTAGE_TO_WORKING_CAPITAL" bindValue="value" [(ngModel)]="ngcapital"
+                                    formControlName="PERCENTAGE_TO_WORKING_CAPITAL" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="% to W.Capital">
+                                    <ng-option *ngFor="let values of PercentageToWCapital" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="PERCENTAGE_TO_WORKING_CAPITAL">% to W.Capital<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="DisplayToView" [multiple]="false"
                                     placeholder="Display to View *" required title="Compulsory Selection"
                                     formControlName="IS_DISPLAY">
                                 </ng-select>
 
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                <ng-select id="IS_DISPLAY" bindValue="value" [(ngModel)]="ngdisplay"
+                                    formControlName="IS_DISPLAY" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Display to View">
+                                    <ng-option *ngFor="let values of DisplayToView" [value]="values">
+                                    {{values.label}}</ng-option>
+                                </ng-select>
+                                <label for="IS_DISPLAY">Display to View<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             
                         </div>
+                        
                     </div>
 
 
@@ -92,12 +150,11 @@
             </form>
 
            
-            <div class="card-block">
-                <div class="col-sm-2">
-                    <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
-                        [disabled]="angForm.invalid">Add</button>
-                    <button class="btn btn-primary ripple light" (click)="updateData()"
-                        *ngIf="updateShow">Update</button>
+            <div class="row">
+                <div class="col-sm">
+                    <button class="btn btn-outline-primary btn-sm" [disabled] ="myform.invalid" (click)="submit()" *ngIf="showButton">Submit</button>
+                    <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>&nbsp;
+                    <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">Cancel</button>
                 </div>
             </div>
         </div>
@@ -105,19 +162,20 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card shadow">
 
             <div class="card-block">
 
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportOptions" [dtTrigger]="dtTrigger"
+                            <table id="informationtable" datatable [dtOptions]="dtExportOptions" [dtTrigger]="dtTrigger"
                                 class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="managerView?.length != 0">
                                     <tr *ngFor="let data of managerView">
-                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
-                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                            (click)="editClickHandler(data.id)" placement=" bottom"
+                                            ngbTooltip="Edit"></span>  &nbsp;
 
                                         </td>
                                        
@@ -134,18 +192,18 @@
                                 </tbody>
                                 <tbody *ngIf="managerView?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="12" class="no-data-available" style="text-align: center;">No data!</td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <th><input type="text" class="form-control" placeholder="Sr.No." name="SR_NO"></th>
-                                        <th><input type="text" class="form-control" placeholder="Type" name="TYPE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Statement Code" name="STATEMENT_CODE"></th>
-                                        <th><input type="text" class="form-control" placeholder="Description" name="DECRIPTION"></th>
-                                        <th><input type="text" class="form-control" placeholder="% to W.Capital" name="PERCENTAGE_TO_WORKING_CAPITAL"></th>
-                                        <th><input type="text" class="form-control" placeholder="Display to View" name="IS_DISPLAY"></th>
+                                <tfoot #filters class="filters">
+                                    <tr class="testing">
+                                        <th class="testing"></th>
+                                        <th><input type="text" class="form-control" name="SR_NO"></th>
+                                        <th><input type="text" class="form-control" name="TYPE"></th>
+                                        <th><input type="text" class="form-control" name="STATEMENT_CODE"></th>
+                                        <th><input type="text" class="form-control" name="DECRIPTION"></th>
+                                        <th><input type="text" class="form-control" name="PERCENTAGE_TO_WORKING_CAPITAL"></th>
+                                        <th><input type="text" class="form-control"name="IS_DISPLAY"></th>
                                   
                                         
                                     </tr>

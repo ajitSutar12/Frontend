@@ -16,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 import { id } from '@swimlane/ngx-datatable';
 import { first } from 'rxjs/operators';
 import {environment} from '../../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 
 // Handling datatable data
@@ -42,6 +43,7 @@ interface SizeSlabWise {
 
 
 export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //api
   url = environment.base_url;
    // For reloading angular datatable after CRUD operation
@@ -65,6 +67,10 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
   timeLeft = 5;
   sizeSlabWise: SizeSlabWise[];
   private dataSub: Subscription = null;
+
+  // for dropdown ngmodule
+  ngintcat:any=null
+  ngscheme:any=null
  // Variables for search 
  filterObject: { name: string; type: string; }[];
  filter: any;
@@ -87,7 +93,7 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
  rowData= [];
   showDialog = false;
   @Input() visible: boolean;
-  public config: any;
+  // public config: any;
   intrestCategoryMaster:any;
   constructor( 
       // for dropdown
@@ -96,7 +102,9 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
     public intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService, 
     private http: HttpClient,
     private fb: FormBuilder,
-    public SizeSlabWiseService:SizeSlabWiseService ) { this.createForm(); }
+    public SizeSlabWiseService:SizeSlabWiseService,
+    private config: NgSelectConfig,) {
+       this.createForm(); }
 
   ngOnInit(): void {
 
@@ -170,8 +178,8 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
   createForm() {
     this.angForm = this.fb.group({
       SERIAL_NO:[''],
-      EFFECT_DATE: ['',[ Validators.required]],
-      INT_RATE: ['',[ Validators.required,Validators.pattern]],
+      EFFECT_DATE: [''],
+      INT_RATE: ['',[ Validators.pattern]],
       ACNOTYPE: ['',[ Validators.required]],
       INT_CATEGORY: ['',[ Validators.required]]
     });
@@ -179,34 +187,61 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
 
   // Method to insert data into database through NestJS
   submit() {
-    const formVal = this.angForm.value;
-    const dataToSend = {
+    if(this.multiField.length!=0){
+      this.formSubmitted=true;
+      const formVal = this.angForm.value;
+      const dataToSend = {
       'ACNOTYPE': formVal.ACNOTYPE,
       'INT_CATEGORY': formVal.INT_CATEGORY,
       'Data':this.rowData,
       'FieldData': this.multiField,
     }
-    console.log(dataToSend);
+    
     this.SizeSlabWiseService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted=false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
-       //To clear form
-    this.angForm.reset();
     }, (error) => {
       console.log(error)
     })
+
+    //To clear form
+    this.resetForm();
+    this.multiField = [] 
+    }
+    else{
+      Swal.fire(
+        'Warning',
+        'Please Input Slab details ',
+        'warning'
+        )
+    }
+    
    
   }
 
-    // Reset Function
-    resetForm() {
-      this.createForm();
+    //Method for append data into fields
+    editClickHandler(id) {
+      this.showButton = false;
+      this.updateShow = true;
+      this.newbtnShow = true;
+      this.SizeSlabWiseService.getFormData(id).subscribe(data => {
+        this.updateID = data.id;
+        this.multiField = data.rate
+        this.angForm.patchValue({
+          'ACNOTYPE': data.ACNOTYPE,
+          'INT_CATEGORY': data.INT_CATEGORY
+        })
+      })
     }
+
+    
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
@@ -223,7 +258,10 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
       });
     });
   }
-  
+  // Reset Function
+  resetForm() {
+    this.createForm();
+  }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
@@ -281,23 +319,10 @@ delClickHandler(id: number) {
 console.log(ele);
   }
   else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
   }
 }
-    //Method for append data into fields
-  editClickHandler(id) {
-    this.showButton = false;
-    this.updateShow = true;
-    this.newbtnShow = true;
-    this.SizeSlabWiseService.getFormData(id).subscribe(data => {
-      this.updateID = data.id;
-      this.multiField = data.rate
-      this.angForm.patchValue({
-        'ACNOTYPE': data.ACNOTYPE,
-        'INT_CATEGORY': data.INT_CATEGORY
-      })
-    })
-  }
+  
  
 
  //Method for update data 
@@ -337,6 +362,25 @@ console.log(ele);
     this.resetForm();
   }
 addField() {
+  
+  let effectdate=(document.getElementById("EFFECT_DATE")as HTMLInputElement).value;
+  let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
+  if(effectdate==""){
+    Swal.fire(
+      'Info',
+      'Please Add Effect Date',
+      'info'
+      )
+  }
+  if(intrate == ""){
+
+    Swal.fire(
+      'Info',
+      'Please Input Interest Rate ',
+      'info') 
+  }
+  
+  if(effectdate != "" && intrate != ""){
     const formVal = this.angForm.value;
     var object = {
       EFFECT_DATE: formVal.EFFECT_DATE,
@@ -347,6 +391,8 @@ addField() {
     console.log(this.multiField)
     this.resetField()
   }
+  
+}
   resetField() {
     this.angForm.controls['INT_RATE'].reset();
     this.angForm.controls['EFFECT_DATE'].reset();

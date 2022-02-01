@@ -49,6 +49,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   ],
   declarations: [TermDepositsMasterComponent],
+  exports: [TermDepositsMasterComponent],
   providers: [
     SchemeCodeService, OwnbranchMasterService,
     , CustomerIdService, CustomerIDMasterDropdownService,

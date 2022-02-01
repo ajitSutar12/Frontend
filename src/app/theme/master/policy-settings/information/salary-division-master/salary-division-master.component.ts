@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
 import { OwnbranchMasterService } from '../../../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { first } from 'rxjs/operators';
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -41,6 +42,7 @@ interface SalaryMaster {
   styleUrls: ['./salary-division-master.component.scss']
 })
 export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //api 
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   url = environment.base_url;
@@ -67,6 +69,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
   // Variables for search 
   filterObject: { name: string; type: string; }[];
   filter: any;
+  ngbranchcode:any=null
   filterForm: FormGroup;
   // Variables for hide/show add and update button
   showButton: boolean = true;
@@ -83,7 +86,8 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
     private http: HttpClient,
     private salaryDivisionService: SalaryDivisionService,
     private ownbranchMaster: OwnbranchMasterService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -197,6 +201,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
   }
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'CODE': formVal.CODE,
@@ -212,6 +217,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
     }
     this.salaryDivisionService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -303,10 +309,10 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-
           if (this['value'] != '') {
             that
               .search(this['value'])

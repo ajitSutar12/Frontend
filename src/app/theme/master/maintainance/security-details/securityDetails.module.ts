@@ -27,7 +27,8 @@ import { PleadgeStockComponent } from "./pleadge-stock/pleadge-stock.component";
 import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 import { PERFECT_SCROLLBAR_CONFIG } from "ngx-perfect-scrollbar";
 import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
-import { SelectModule } from "ng-select";
+//import { SelectModule } from "ng-select";
+import { NgSelectModule } from '@ng-select/ng-select';
 import { OtherSecurity2Component } from "./other-security2/other-security2.component";
 import { glMasterService } from "../../../../shared/elements/gl-master.service";
 // import { GoldsilverService } from "../../../../shared/elements/goldsilver.service";
@@ -69,7 +70,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SecurityDetailsRoutingModule,
     NgbModule,
     ColorPickerModule,
-    SelectModule,
+    NgSelectModule,
     PerfectScrollbarModule,
     FormsModule,
     ReactiveFormsModule,

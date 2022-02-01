@@ -10,6 +10,7 @@ import { schemedropdownService } from 'src/app/shared/dropdownService/scheme-dro
 import {environment} from'../../../../../environments/environment'
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-security-details',
@@ -17,10 +18,11 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
   styleUrls: ['./security-details.component.scss']
 })
 export class SecurityDetailsComponent implements OnInit {
+  // formSubmitted = false;
 scheme:any;
-Accountno:any;
-schemeedit:any;
-accountedit:any;
+Accountno:any=null;
+schemeedit:any=null;
+accountedit:any=null;
 acno:any;
 
 
@@ -65,7 +67,8 @@ acno:any;
      public Ac1Service: Ac1Service,
      
     public schemeCodeDropdownService: SchemeCodeDropdownService,
-    private schemeAccountNoService: SchemeAccountNoService,) { }
+    private schemeAccountNoService: SchemeAccountNoService,
+    private config: NgSelectConfig,) { }
   ngOnInit(): void {
     this.dtExportButtonOptions = {
       ajax: 'fake-data/datatable-data.json',
@@ -107,7 +110,7 @@ acno:any;
 
     this.runTimer();
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      this.scheme = data;
+      console.log(this.scheme = data);
     })
     // this.dataSub = this.S1Service.loadCharacters().subscribe((options) => {
     //   this.characters = options;
@@ -156,6 +159,7 @@ acno:any;
     });
   }
   submit() {
+    // this.formSubmitted = true;
     console.log(this.angForm.valid);
 
     if (this.angForm.valid) {

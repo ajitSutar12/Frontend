@@ -50,6 +50,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     DatepickerModule.forRoot()
   ],
   declarations: [PigmyAccountMasterComponent],
+  exports:[PigmyAccountMasterComponent],
   providers: [
     SchemeCodeService, OwnbranchMasterService,
     , CustomerIdService, CustomerIDMasterDropdownService,

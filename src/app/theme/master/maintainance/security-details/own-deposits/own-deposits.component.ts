@@ -35,6 +35,7 @@ import { Router } from "@angular/router";
 
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -110,6 +111,10 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   ACNo: any[];
   //Dropdown option variable
   branchOption: any;
+  ngbranch:any=null;
+  ngscheme:any=null;
+  ngacno:any=null;
+
   obj: any = { type: "own deposite form" };
   page: number;
       //Scheme type variable
@@ -127,7 +132,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
-  ) {
+    private config: NgSelectConfig,) {
     this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
     console.log(this.datemax);
 
@@ -276,10 +281,10 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log(this.scheme._value[0]);
     console.log(this.Accountno);
     const formVal = this.angForm.value;
-  
+    debugger;
     const dataToSend = {
-      AC_TYPE: this.scheme._value[0],
-      AC_NO: this.Accountno,
+      // AC_TYPE: this.scheme._value[0],
+      // AC_NO: this.Accountno,
       BRANCH_CODE: formVal.BRANCH_CODE,
       DEPO_AC_TYPE: formVal.DEPO_AC_TYPE,
       DEPO_AC_NO: formVal.DEPO_AC_NO,
@@ -297,14 +302,17 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
 
-        let info = []
-        info.push(data.id)
-        info.push("ownDeposit")
+        // let info = []
+        // info.push(data.id)
+        // info.push("ownDeposit")
 
-        this.newItemEvent(info);
-        // to reload after insertion of data
-        this.rerender();
+        // this.newItemEvent(info);
+        // // to reload after insertion of data
+        // this.rerender();
       },
       (error) => {
         console.log(error);
@@ -359,7 +367,10 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      // this.rerender();
       this.resetForm();
     });
   }
@@ -384,7 +395,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         this._deposite.deleteData(id).subscribe((data1) => {
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire("Deleted!", "Your Data Has Been Deleted.", "success");
         }),
           (error) => {
             console.log(error);
@@ -392,7 +403,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
         // to reload after delete of data
         this.rerender();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire("Cancelled", "Your Data Is Safe.", "error");
       }
     });
   }
@@ -404,19 +415,24 @@ checkmargin(ele:any){
 console.log(ele);
   }
   else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
   }
 }
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

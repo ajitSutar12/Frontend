@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input,ElementRef, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import {ManagerViewGlpService} from './manager-view-glp.service';
@@ -20,6 +20,7 @@ import { HttpClient } from '@angular/common/http';
 import { id } from '@swimlane/ngx-datatable';
 import { first } from 'rxjs/operators';
 import {environment} from '../../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -43,6 +44,8 @@ interface ManagerView {
   styleUrls: ['./manager-view-glp.component.scss']
 })
 export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -67,6 +70,13 @@ schemetype: Array<IOption> = this.SchemeTypes.getCharacters(); selectedOption = 
  timeLeft = 5;
  managerView: ManagerView[];
  private dataSub: Subscription = null;
+
+ // for dropdown ngmodule
+ ngtype:any=null
+ ngstatement:any=null
+ ngdescription:any=null
+ ngcapital:any=null
+ ngdisplay:any=null
 // Variables for search 
 filterObject: { name: string; type: string; }[];
 filter: any;
@@ -74,6 +84,10 @@ filterForm: FormGroup;
 // Variables for hide/show add and update button
 showButton: boolean = true;
 updateShow: boolean = false;
+newbtnShow: boolean = false;
+addShowButton: boolean = true;
+UpdateShowButton: boolean = false
+multiField = [];
 
 //variable to get ID to update
 updateID: number = 0;
@@ -85,7 +99,7 @@ obj : any;
 rowData= [];
  showDialog = false;
  @Input() visible: boolean;
- public config: any;
+//  public config: any;
  StatementCodeDropdown:any;
  intrestCategoryMaster:any;
  constructor( 
@@ -97,7 +111,8 @@ rowData= [];
    public StatementCodeDropdownService:StatementCodeDropdownService,
    private http: HttpClient,
    private fb: FormBuilder,
-   public ManagerViewGlpService:ManagerViewGlpService ) { this.createForm(); }
+   public ManagerViewGlpService:ManagerViewGlpService,
+   private config: NgSelectConfig, ) { this.createForm(); }
 
  ngOnInit(): void {
 
@@ -191,8 +206,9 @@ rowData= [];
 
  // Method to insert data into database through NestJS
  submit() {
-   const formVal = this.angForm.value;
-   const dataToSend = {
+    this.formSubmitted=true;
+    const formVal = this.angForm.value;
+    const dataToSend = {
   	
     
      'SR_NO': formVal.SR_NO,
@@ -208,14 +224,22 @@ rowData= [];
    console.log(dataToSend);
    this.ManagerViewGlpService.postData(dataToSend).subscribe(data1 => {
      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+     this.formSubmitted = false;
      // to reload after insertion of data
-     this.rerender();
+    //  this.rerender();
       //To clear form
-   this.angForm.reset();
-   }, (error) => {
-     console.log(error)
-   })
-  
+  //  this.angForm.reset();
+  //  }, (error) => {
+  //    console.log(error)
+  //  })
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+    }, (error) => {
+      console.log(error)
+    })
+    //To clear form
+    this.resetForm();
  }
 
 
@@ -224,23 +248,25 @@ rowData= [];
      this.createForm();
    }
  ngAfterViewInit(): void {
+  // this.myInputField.nativeElement.focus();
    this.dtTrigger.next();
    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-     dtInstance.columns().every(function () {
-       const that = this;
-       $('input', this.footer()).on('keyup change', function () {
-         if (this['value'] != '') {
-           that
-             .search(this['value'])
-             .draw();
-         } else {
-           that
-             .search(this['value'])
-             .draw();
-         }
-       });
-     });
-   });
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
  }
  
  ngOnDestroy(): void {
@@ -263,6 +289,9 @@ rowData= [];
    
    this.showButton = false;
    this.updateShow = true;
+   this.newbtnShow = true;
+   this.addShowButton = true
+   
    this.ManagerViewGlpService.getFormData(id).subscribe(data => {
      this.updateID = data.id;
      this.angForm.setValue({
@@ -287,9 +316,24 @@ updateData() {
    Swal.fire('Success!', 'Record Updated Successfully !', 'success');
    this.showButton = true;
    this.updateShow = false;
-   this.rerender();
+   this.newbtnShow = false;
+   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    dtInstance.ajax.reload()
+  });
+  this.multiField = []
+  this.resetForm();
+   
+  //  this.rerender();
    this.resetForm();
  })
+}
+addNewData() {
+  this.showButton = true;
+  this.updateShow = false;
+  this.newbtnShow = false;
+  this.addShowButton = true;
+  this.multiField = [];
+  this.resetForm();
 }
 
 

@@ -5,7 +5,7 @@
         <h5>Land And Buildings</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
@@ -31,7 +31,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="ValuationAmount" class="form-control" placeholder=" " id="ValuationAmount"
-                    [ngClass]="{'form-submitted': formSubmitted}" pattern="\d{1,20}(\.\d{2})?"
+                    [ngClass]="{'form-submitted': formSubmitted}" pattern="\d{1,20}(\.\d{2})?" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     title="Input allowed only  0-9" formControlName="VALUE" />
                   <label for="ValuationAmount">Valuation Amount<sub class="required">* </sub></label>
                 </span>
@@ -53,6 +53,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="Location" class="form-control" placeholder=" " id="Location" required=""
+                  (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     [ngClass]="{'form-submitted': formSubmitted}" title="Input allowed only  A-Z a-z  - / . (Space)"
                     maxlength="50" formControlName="LOCATION" />
                   <label for="Location">Location<sub class="required">* </sub></label>
@@ -77,6 +78,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="area" class="form-control" placeholder=" " id="area" required=""
                     [ngClass]="{'form-submitted': formSubmitted}" pattern="\d{1,20}(\.\d{2})?"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     title="Input allowed only 0-9 " formControlName="AREA" />
                   <label for="area">Area<sub class="required">* </sub></label>
                 </span>
@@ -100,6 +102,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="unit_area" class="form-control" placeholder=" " id="unit_area" required=""
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     [ngClass]="{'form-submitted': formSubmitted}" pattern="^[0-9]+$" maxlength="30"
                     title="Input allowed only 0-9" formControlName="UNIT_AREA" />
                   <label for="unit_area">Unit of Area<sub class="required">* </sub></label>
@@ -122,6 +125,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="margin" class="form-control" placeholder=" " id="label-name" #margin
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     (keyup)="checkmargin(margin.value)" pattern="\d{1,5}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="MARGIN" />
                   <label for="label-name">Margin </label>
@@ -142,6 +146,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="CitySurveyNumber" class="form-control" placeholder=" " id="CitySurveyNumber"
                     [ngClass]="{'form-submitted': formSubmitted}" required="" pattern="^[0-9]+$"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     title="Input allowed only 0-9" maxlength="20" formControlName="CITY_SURVEY_NO" />
                   <label for="CitySurveyNumber">City Survey Number<sub class="required">* </sub></label>
                 </span>
@@ -185,6 +190,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="RegistrationNumber" class="form-control" placeholder=" "
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     [ngClass]="{'form-submitted': formSubmitted}" id="RegistrationNumber" required=""
                     pattern="^[A-Za-z'\.\-\s 0-9]+$" title="Input allowed only 0-9" maxlength="20"
                     formControlName="REG_NO" />
@@ -205,10 +211,11 @@
               </div>
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-sm-6">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="remarks" class="form-control" placeholder=" " id="remarks"
+                  (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="REMARK" />
                   <label for="remarks">Remarks</label>
@@ -230,11 +237,10 @@
 
             <div class="col-sm">
 
-              <button class="btn btn-primary ripple light" *ngIf="showButton" 
-              >Add</button>
-              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+              <button class="btn btn-outline-primary btn-sm"  (click)="submit($event)" *ngIf="showButton">Submit</button>
+              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
               &nbsp;
-              <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
             </div>
           </div>
         </div>
@@ -245,19 +251,19 @@
 <ng-container *ngIf='router.url==="/master/Maintainance/securityDetails"'>
   <div class="row">
     <div class="col-12">
-      <div class="card">
+      <div class="card shadow">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="table-responsive">
-                <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                   class="table table-striped table-bordered table-hover compact">
                   <tbody *ngIf="landMasters?.length != 0">
                     <tr *ngFor="let data of landMasters">
                       <td>
-                        <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">
-                          Edit
-                        </button>
+                        <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                        (click)="editClickHandler(data.id)" placement=" bottom"
+                        ngbTooltip="Edit"></span>
                         &nbsp;
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
@@ -279,41 +285,39 @@
                       <td colspan="6" class="no-data-available">No data!</td>
                     </tr>
                   </tbody>
-                  <tfoot>
-                    <tr>
-                      <th></th>
+                  <tfoot #filters class="filters">
+                    <tr class="testing">
+                      <th class="testing"></th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Date of Submission"
+                        <input type="text" class="form-control" 
                           name="SUBMISSION_DATE" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Valuation Amount" name="VALUE" />
+                        <input type="text" class="form-control" name="VALUE" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Location" name="LOCATION" />
+                        <input type="text" class="form-control" name="LOCATION" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Area" name="AREA" />
+                        <input type="text" class="form-control" name="AREA" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Unit of Area" name="UNIT_AREA" />
+                        <input type="text" class="form-control" name="UNIT_AREA" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Margin" name="MARGIN" />
+                        <input type="text" class="form-control" name="MARGIN" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Remarks" name="REMARK" />
+                        <input type="text" class="form-control" name="REMARK" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" City Survey Number"
-                          name="CITY_SURVEY_NO" />
+                        <input type="text" class="form-control" name="CITY_SURVEY_NO" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" City Survey Date"
-                          name="CITY_SURVEY_DATE" />
+                        <input type="text" class="form-control" name="CITY_SURVEY_DATE" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Registration Number" name="REG_NO" />
+                        <input type="text" class="form-control" name="REG_NO" />
                       </th>
                     </tr>
                   </tfoot>

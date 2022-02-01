@@ -20,7 +20,7 @@ export class NarrationMasterService {
         return this.http.get<any>(this.url + '/narration')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: `${element.id }`};
+                    let obj = { label: element.NAME, value: element.id };
                     this.NarrationMasterObject.push(obj)
                 });
                 return this.NarrationMasterObject;

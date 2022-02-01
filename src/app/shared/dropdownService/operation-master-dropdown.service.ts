@@ -13,7 +13,7 @@ export class OperationMasterDropdownService {
         return this.http.get<any>(this.url + '/operation-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.NAME, value: `${element.id}` };
+                    let obj = { label: element.NAME, value: element.id };
                     this.operationMasterObject.push(obj)
                 });
                 return this.operationMasterObject;

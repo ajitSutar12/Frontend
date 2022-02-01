@@ -249,10 +249,10 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-
           if (this['value'] != '') {
             that
               .search(this['value'])

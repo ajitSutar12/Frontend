@@ -39,5 +39,16 @@ export class TermLoanService {
     getData(): Observable<any> {
         return this.http.get(this.url + '/term-loan-master/alldata').pipe(catchError(this.handleError));
     }
+
+      //approve master
+      approve(data:any): Observable<any>{
+        return this.http.post(this.url+ '/term-loan-master/approve',data).pipe(catchError(this.handleError));
+    }
+
+
+    //reject master
+    reject(data:any): Observable<any>{
+        return this.http.post(this.url+ '/term-loan-master/reject',data).pipe(catchError(this.handleError));
+    }
 }
 

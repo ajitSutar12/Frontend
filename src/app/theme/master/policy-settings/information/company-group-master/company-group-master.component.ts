@@ -18,6 +18,7 @@ import { SchemeCodeDropdownService } from '../../../../../shared/dropdownService
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -69,6 +70,10 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   currentJustify = 'start';
   active = 1;
   activeKeep = 1;
+
+  ngscheme: any = null
+   
+
   // Variables for search 
   filterObject: { name: string; type: string; }[];
   filter: any;
@@ -101,7 +106,8 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     private fb: FormBuilder,
     public schemeTypeDropdown: SchemeTypeDropdownService,
     private schemeService: SchemeAccountNoService,
-    public SchemeCodeDropdownService: SchemeCodeDropdownService) { }
+    public SchemeCodeDropdownService: SchemeCodeDropdownService,
+    private config: NgSelectConfig,) { }
 
 
   ngOnInit(): void {
@@ -318,10 +324,10 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-
           if (this['value'] != '') {
             that
               .search(this['value'])
@@ -356,7 +362,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
-  acno: any
+  acno: any=null
     //get account no according scheme for introducer
     getIntroducer(acno) {
       switch (acno) {

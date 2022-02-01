@@ -31,7 +31,7 @@ export class DirectorMasterDropdownService {
                 ele.forEach(element => {
                 
                     if(element.IS_CURRENT_BODY_MEMBER == true){
-                        let obj = { label: element.NAME, value: `${element.id}`};
+                        let obj = { label: element.NAME, value: element.id};
                         this.directorObject.push(obj)
                     }
                    

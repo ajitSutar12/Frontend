@@ -13,7 +13,7 @@ export class LockerRWMasterDropDownService {
         return this.http.get<any>(this.url + '/locker-rackwise-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.RACK_NO, value: `${element.id }`};
+                    let obj = { label: element.RACK_NO, value: element.id };
                     this.lockerRWObject.push(obj)
                 });
                 return this.lockerRWObject;

@@ -19,6 +19,7 @@ import { ShareMasterDropdownService } from "../../../../shared/dropdownService/s
 import { ShareSchemeDropdownService } from "../../../../shared/dropdownService/share-scheme-dropdown.Service";
 import { ShareMasterService } from "../../customer/shares-master/shares-master.service";
 import { CustomerIdService } from "../../customer/customer-id/customer-id.service";
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -107,14 +108,17 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
   //Scheme type variable
   schemeType: string = "SH";
-
+  formSubmitted: boolean = false;
   // dropdown options
   SchemeCodeObject: any[];//S_NAME from Schemedata
   SalaryDMasterObject: any;//AC_SALARYDIVISION_CODE FROM SHMASTER
   ShareMasterObject: any[];//AC_NO From SHMASTER -member from
   ShareMasterObjectB: any[];//AC_NO From SHMASTER -member to
   shareNameObject: any[];
-  acType: string = "";
+  acType: any = null;
+  ngSalary: any = null;
+  ngAcnoFrom: any = null;
+  ngAcnoTo: any = null;
 
   //todays date
   date = new Date();
@@ -235,7 +239,9 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       .pipe(first())
       .subscribe((data) => {
         this.ShareMasterObject = data;
+        console.log(' this.ShareMasterObject', this.ShareMasterObject)
         this.ShareMasterObjectB = data;
+        console.log(' this.ShareMasterObjectB', this.ShareMasterObjectB)
       });
 
     this.ShareMasterDropdownService.getGLAccountMasterList()
@@ -271,7 +277,6 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       serverSide: true,
       processing: true,
       // ajax: (dataTableParameters: any, callback) => {
-      //   debugger
       //   dataTableParameters.minNumber = dataTableParameters.start + 1;
       //   dataTableParameters.maxNumber =
       //   dataTableParameters.start + dataTableParameters.length;
@@ -335,6 +340,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
   //load table as per dividend from to range
   getDividendTable() {
+    console.log('acType', this.acType)
     var memFrom = this.angForm.controls['AC_NOFrom'].value
     var memTo = this.angForm.controls['AC_NOTo'].value
     if (this.angForm.controls['AC_NOFrom'].value < this.angForm.controls['AC_NOTo'].value) {
@@ -362,12 +368,16 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
   //push close date in multiDividend array
   getCloseDate(shareID, shareDivId, acno, date) {
+    console.log('date', date)
     if (date != '') {
+      debugger
       if (this.multiDividend.length != 0) {
         if (this.multiDividend.some(item => item.AC_NO === acno)) {
           this.multiDividend.forEach((element) => {
             if (element.AC_NO == acno) {
-              element['MEMBER_CLOSE_DATE'] = date
+              element['MEMBER_CLOSE_DATE'] = date 
+              // element['MEMBER_CLOSE_DATE'] = (date == '' || date == 'Invalid date') ? date = '' : date = moment(date).format('DD/MM/YYYY')
+              console.log('ele date', element['MEMBER_CLOSE_DATE'])
             }
           })
         } else {
@@ -376,7 +386,9 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
             id: shareDivId,
             AC_NO: acno,
             MEMBER_CLOSE_DATE: date,
+            // MEMBER_CLOSE_DATE: (date == '' || date == 'Invalid date') ? date = '' : date = moment(date).format('DD/MM/YYYY')
           }
+          console.log('object date', object['MEMBER_CLOSE_DATE'])
           this.multiDividend.push(object)
         }
       }
@@ -386,7 +398,9 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
           id: shareDivId,
           AC_NO: acno,
           MEMBER_CLOSE_DATE: date,
+          // MEMBER_CLOSE_DATE: (date == '' || date == 'Invalid date') ? date = '' : date = moment(date).format('DD/MM/YYYY'),
         }
+        console.log('object date', object['MEMBER_CLOSE_DATE'])
         this.multiDividend.push(object)
       }
     }
@@ -439,12 +453,14 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
   // Method to insert data into database through NestJS
   submit() {
+    let warrentDate
     const formVal = this.angForm.value;
     const dataToSend = {
       'ACNOTYPE': formVal.ACNOTYPE,
       'ACTYPE': formVal.ACTYPE,
       'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
-      'WARRENT_DATE': formVal.WARRENT_DATE,
+      // 'WARRENT_DATE': formVal.WARRENT_DATE, 
+      'WARRENT_DATE': (formVal.WARRENT_DATE == '' || formVal.WARRENT_DATE == 'Invalid date') ? warrentDate = '' : warrentDate = moment(formVal.WARRENT_DATE).format('DD/MM/YYYY'),
       'DIV_FROM_YEAR': formVal.DIV_FROM_YEAR,
       'DIV_TO_YEAR': formVal.DIV_TO_YEAR,
       'TOTAL_SHARES': formVal.TOTAL_SHARES,
@@ -545,7 +561,6 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
     //   dtInstance.columns().every(function () {
     //     const that = this;
     //     $("input", this.footer()).on("keyup change", function () {
-    //       debugger;
     //       if (this["value"] != "") {
     //         that.search(this["value"]).draw();
     //       } else {
@@ -559,6 +574,10 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
   // Reset Function
   resetForm() {
     this.createForm();
+    this.acType = null;
+    this.ngSalary = null;
+    this.ngAcnoFrom = null;
+    this.ngAcnoTo = null;
   }
 
   ngOnDestroy(): void {

@@ -63,6 +63,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DatepickerModule.forRoot()
   ],
   declarations: [CashCreditMasterComponent],
+  exports: [CashCreditMasterComponent],
   providers: [CashCreditService,
     SchemeCodeDropdownService,
     CustomerIdService,

@@ -47,6 +47,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
   ],
   declarations: [PigmyAgentMasterComponent],
+  exports:[PigmyAgentMasterComponent],
   providers: [OwnbranchMasterService,
     SignTypeDropdownService, CustomerIdService,
     , {

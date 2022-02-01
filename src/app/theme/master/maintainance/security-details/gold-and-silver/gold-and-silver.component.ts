@@ -24,6 +24,7 @@ import { Subject } from "rxjs";
 import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -84,6 +85,7 @@ export class GoldAndSilverComponent
   showButton: boolean = true;
   updateShow: boolean = false;
 
+  ngitem:any=null
   updateID: number; //variable for updating
   // Store data from backend
   goldMaster: GoldMaster[];
@@ -105,8 +107,8 @@ export class GoldAndSilverComponent
     public _goldsilverService: goldandsilverService,
     private _golddrop: GoldsilverService,
     private http: HttpClient,
-    public router: Router
-  ) {}
+    public router: Router,
+    private config: NgSelectConfig,) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -266,8 +268,8 @@ export class GoldAndSilverComponent
     const formVal = this.angForm.value;
   
     const dataToSend = {
-      AC_TYPE:this.scheme._value[0],
-      AC_NO:this.Accountno,
+      // AC_TYPE:this.scheme._value[0],
+      // AC_NO:this.Accountno,
       ITEM_TYPE: formVal.ITEM_TYPE,
       SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       BAG_RECEIPT_NO: formVal.BAG_RECEIPT_NO,
@@ -287,14 +289,17 @@ export class GoldAndSilverComponent
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
 
-        let info = []
-        info.push(data.id)
-        info.push("goldSilver")
+        // let info = []
+        // info.push(data.id)
+        // info.push("goldSilver")
 
-        this.newItemEvent(info);
-        // to reload after insertion of data
-        this.rerender();
+        // this.newItemEvent(info);
+        // // to reload after insertion of data
+        // this.rerender();
       },
       (error) => {
         console.log(error);
@@ -331,8 +336,8 @@ console.log(ele);
 
       this.updateID = data.id;
       this.angForm.patchValue({
-        AC_TYPE:this.scheme._value[0],
-        AC_NO:this.Accountno,
+        // AC_TYPE:this.scheme._value[0],
+        // AC_NO:this.Accountno,
         ITEM_TYPE: data.ITEM_TYPE,
         SUBMISSION_DATE: data.SUBMISSION_DATE,
         BAG_RECEIPT_NO: data.BAG_RECEIPT_NO,
@@ -360,7 +365,10 @@ console.log(ele);
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      // this.rerender();
       this.resetForm();
     });
   }
@@ -395,13 +403,18 @@ console.log(ele);
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

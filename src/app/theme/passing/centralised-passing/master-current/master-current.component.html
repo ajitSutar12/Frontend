@@ -17,3 +17,118 @@
         </div>
     </div>
 </div> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Master Current</h5>
+            </div>
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card shadow">
+                            <div class="card-block">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="table-responsive">
+                                            <table id="mastertable" datatable [dtOptions]="dtExportButtonOptions"
+                                                class="table table-striped table-bordered table-hover compact">
+                                                <tbody *ngIf="currentAccountMaster?.length != 0">
+                                                    <tr *ngFor="let data of currentAccountMaster">
+                                                        <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                            (click)="editClickHandler(data.id)" placement="bottom"
+                                                            ngbTooltip="Edit"
+                                                            (click)="modalLarge.show();getCurrentData(data)"></span>
+                                                        <!-- <td [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_left'"> {{
+                                            data.AC_ACNOTYPE === "" ? "-" : data.AC_ACNOTYPE }} </td> -->
+                                                        <td
+                                                            [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
+                                                            {{ data.AC_TYPE === "" || data.AC_TYPE== null? "-" :
+                                                            data.DPMaster.S_APPL }}
+                                                        </td>
+                                                        <td [ngClass]="data.BANKACNO === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.BANKACNO === "" ? "-" : data.BANKACNO }}
+                                                        </td>
+                                                        <td
+                                                            [ngClass]="data.AC_CUSTID === '' ? 'td_center' : 'td_right'">
+                                                            {{
+                                                            data.AC_CUSTID === "" ? "-" : data.AC_CUSTID }}</td>
+                                                        <td
+                                                            [ngClass]="data.idmaster.custAddress[0]?.AC_ADDR === '' ? 'td_center' : 'td_left'">
+                                                            {{ data.idmaster.custAddress[0]?.AC_ADDR === "" ? "-" :
+                                                            data.idmaster.custAddress[0]?.AC_ADDR }}</td>
+
+                                                        <td
+                                                            [ngClass]="data.idmaster.custAddress[0].city?.CITY_NAME  === '' ? 'td_center' : 'td_right'">
+                                                            {{ data.idmaster.custAddress[0].city?.CITY_NAME === "" ? "-"
+                                                            :
+                                                            data.idmaster.custAddress[0].city?.CITY_NAME }}
+                                                        </td>
+                                                        <td>{{data.AC_PROPRITOR_NAME }}</td>
+                                                        <td
+                                                            [ngClass]=" data.AC_OPDATE === '' ? 'td_center' : 'td_center'">
+                                                            {{
+                                                            data.AC_OPDATE === "" ? "-" : data.AC_OPDATE }}
+                                                        </td>
+                                                        <td
+                                                            [ngClass]="data.REF_ACNO === '' ? 'td_center' : 'td_right' ">
+                                                            {{
+                                                            data.REF_ACNO === "" ? "-" : data.REF_ACNO }} </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngIf="currentAccountMaster?.length == 0">
+                                                    <tr>
+                                                        <td colspan="9" class="no-data-available"
+                                                            style="text-align: center;">No data!
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <!-- <tfoot #filters class="filters">
+                                                    <tr class="testing">
+                                                        <th></th>
+                                                        <th><input type="text" class="form-control" name="AC_TYPE"></th>
+                                                        <th><input type="text" class="form-control" name="AC_NO"></th>
+                                                        <th><input type="text" class="form-control" name="AC_CUSTID">
+                                                        </th>
+                                                        <th><input type="text" class="form-control" name="AC_ADDR">
+                                                        </th>
+                                                        <th><input type="text" class="form-control" name="AC_CTCODE">
+                                                        </th>
+                                                        <th><input type="text" class="form-control"
+                                                                name="AC_PROPRITOR_NAME"></th>
+                                                        <th><input type="text" class="form-control" name="AC_OPDATE">
+                                                        </th>
+                                                        <th><input type="text" class="form-control" name="REF_ACNO">
+                                                        </th>
+                                                    </tr>
+                                                </tfoot> -->
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
+    <div class="app-modal-header">
+        <h4 class="modal-title">Current Master</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <perfect-scrollbar style="overflow-y: auto;">
+            <app-current-account-master [childMessage]="currentData" (getUserData)="getData($event)">
+            </app-current-account-master>
+        </perfect-scrollbar>
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide
+            (click)="modalLarge.hide();">Close</button>
+    </div>
+</app-modal-basic>

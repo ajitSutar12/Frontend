@@ -2004,7 +2004,11 @@
                                 Cancel
                               </button>&nbsp;&nbsp;&nbsp;&nbsp;
                               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
-                                Update</button>
+                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                              <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
+                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                              <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
+                                Approve</button>
                             </div>
                           </div>
                         </div>

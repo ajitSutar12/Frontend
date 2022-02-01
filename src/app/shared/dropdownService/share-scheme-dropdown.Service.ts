@@ -13,7 +13,7 @@ export class ShareSchemeDropdownService {
         return this.http.get<any>(this.url + '/shares-scheme')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.S_APPL + ' ' + element.S_APPL + ' ', value: `${element.id}` };
+                    let obj = { label: element.S_APPL + ' ' + element.S_APPL + ' ', value: element.id };
                     this.ShareSchemeObject.push(obj)
                 });
                 return this.ShareSchemeObject;

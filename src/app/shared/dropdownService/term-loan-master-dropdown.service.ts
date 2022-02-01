@@ -13,7 +13,7 @@ export class TermLoanMasterDropdownService {
         return this.http.get<any>(this.url + '/term-loan-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO+' '+element.AC_NO, value: `${element.id}`};
+                    let obj = { label: element.AC_NO+' '+element.AC_NO, value: element.id};
                     this.TermLoanMasterObject.push(obj)
                 });
                 return this.TermLoanMasterObject;

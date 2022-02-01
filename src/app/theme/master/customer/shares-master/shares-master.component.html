@@ -189,7 +189,7 @@
                                                                             id="EMP_NO" maxlength="16"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                             pattern="^[0-9]+$" formControlName="EMP_NO">
-                                                                        <label for="EMP_NO">Employee No.</label>
+                                                                        <label for="EMP_NO">Employee Number</label>
                                                                     </span>
                                                                 </div>
                                                                 <div class="form-group form-primary form-static-label"
@@ -228,40 +228,20 @@
                                                             <div class="col-sm-3">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
-                                                                        <!-- <input type="text" placeholder="Datepicker"
-                                                                            name="AC_NDATE" class="form-control"
-                                                                            id="AC_NDATE"
-                                                                            max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                            [bsValue]="bsValue"
-                                                                            formControlName="AC_NDATE" bsDatepicker> -->
+
                                                                         <input type="text" placeholder="dd/mm/yyyy"
                                                                             name="AC_JOIN_DATE" id="AC_JOIN_DATE"
-                                                                            class="form-control"
+                                                                            class="form-control" [(ngModel)]="joindate"
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [maxDate]="maxDate"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            formControlName="AC_JOIN_DATE" bsDatepicker
-                                                                            required>
-                                                                        <!-- <input type="text" placeholder="dd/mm/yyyy"
-                                                                            name="AC_JOIN_DATE" id="AC_JOIN_DATE"
-                                                                            class="form-control"
-                                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                            [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_JOIN_DATE"
-                                                                            [maxDate]="maxDate" [bsValue]="bsValue"
-                                                                            minlength="10" maxlength="10" bsDatepicker> -->
-                                                                        <!-- (ngModelChange)="getRetirementDate()" -->
-                                                                        <!-- (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" -->
-                                                                        <!-- (focusout)="keyupdate()" -->
-                                                                        <!-- <input type="text" name="AC_JOIN_DATE"
-                                                                            class="form-control" placeholder=" "
-                                                                            id="AC_JOIN_DATE"
-                                                                            max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                            onfocus="(this.type='date')" #date
-                                                                            (keyup)="keyupdate(date.value)"
-                                                                            formControlName="AC_JOIN_DATE"
-                                                                            (ngModelChange)="getRetirementDate()"> -->
+                                                                            (bsValueChange)="getRetirementDate($event)"
+                                                                            bsDatepicker>
+                                                                        <!-- (bsValueChange)="getRetirementDate($event)" -->
+                                                                        <!-- (focusout)="getRetirementDate()"
+                                                                            (bsValueChange)="updateMyDate($event)" -->
+
                                                                         <label for="AC_JOIN_DATE">Joining Date</label>
                                                                     </span>
                                                                 </div>
@@ -274,6 +254,7 @@
                                                                         <input type="text" placeholder="dd/mm/yyyy"
                                                                             name="AC_RETIRE_DATE" id="AC_RETIRE_DATE"
                                                                             class="form-control"
+                                                                            [(ngModel)]="retiredate"
                                                                             max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
@@ -341,6 +322,7 @@
                                                                         <input type="text" name="AC_SREPRESENT"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_SREPRESENT"
+                                                                            style="text-transform: capitalize;"
                                                                             pattern="^[A-Za-z\./ -]+$"
                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                             (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
@@ -600,6 +582,7 @@
                                                                             <input type="text" name="AC_THONO"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="AC_THONO" maxlength="25"
+                                                                                style="text-transform: capitalize;"
                                                                                 title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                 formControlName="AC_THONO" />
                                                                             <label for="AC_THONO">House</label>
@@ -626,6 +609,7 @@
                                                                                 class="form-control" placeholder=" "
                                                                                 id="AC_TWARD" pattern="^[A-Za-z\./ -]+$"
                                                                                 maxlength="10"
+                                                                                style="text-transform: capitalize;"
                                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                 (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                                                                 formControlName="AC_TWARD" />
@@ -652,6 +636,7 @@
                                                                             <input type="text" name="AC_TGALLI"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="AC_TGALLI"
+                                                                                style="text-transform: capitalize;"
                                                                                 title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                                 formControlName="AC_TGALLI" />
                                                                             <label for="AC_TGALLI">Galli</label>
@@ -678,6 +663,7 @@
                                                                             <input type="text" name="AC_TAREA"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="AC_TAREA" maxlength="60"
+                                                                                style="text-transform: capitalize;"
                                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                 formControlName="AC_TAREA" />
                                                                             <label for="AC_TAREA">Area</label>
@@ -704,6 +690,7 @@
                                                                                 class="form-control" placeholder=" "
                                                                                 title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                 id="AC_TADDR"
+                                                                                style="text-transform: capitalize;"
                                                                                 formControlName="AC_TADDR" />
                                                                             <label for="AC_TADDR">Detail</label>
                                                                         </span>
@@ -806,10 +793,8 @@
                                                                         <input type="text" placeholder="dd/mm/yyyy"
                                                                             name="AC_OPDATE" id="AC_OPDATE"
                                                                             class="form-control" required
-                                                                            max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            (focusout)="disabledate(date.value)"
                                                                             formControlName="AC_OPDATE" minlength="10"
                                                                             maxlength="10"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -833,8 +818,8 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" placeholder="dd/mm/yyyy"
                                                                             name="AC_EXPDT" id="AC_EXPDT"
-                                                                            class="form-control"
-                                                                            max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                                                            [(ngModel)]="ngExpiryDate"
+                                                                            class="form-control" [minDate]="minDate"
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_EXPDT"
@@ -854,8 +839,8 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" placeholder="dd/mm/yyyy"
                                                                             name="DEATH_DATE" id="DEATH_DATE"
-                                                                            class="form-control"
-                                                                            max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                                                            [(ngModel)]="ngDeathDate"
+                                                                            class="form-control" [maxDate]="maxDate"
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -975,15 +960,16 @@
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt">
                                                                         <ng-select id="AC_SALARYDIVISION_CODE"
-                                                                            bindValue="id" [(ngModel)]="salary_divList"
-                                                                            bindLabel="NAME"
+                                                                            bindValue="value"
+                                                                            [(ngModel)]="salary_divList"
+                                                                            bindLabel="label"
                                                                             formControlName="AC_SALARYDIVISION_CODE"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             placeholder="Salary Division">
                                                                             <ng-option *ngFor="let values of salary_div"
                                                                                 [value]="values">
-                                                                                {{values.NAME}}</ng-option>
+                                                                                {{values.label}}</ng-option>
                                                                         </ng-select>
                                                                         <label for="AC_SALARYDIVISION_CODE">Salary
                                                                             Division</label>
@@ -1060,8 +1046,7 @@
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_RESDT"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                                            minlength="10" maxlength="10"
-                                                                             bsDatepicker>
+                                                                            minlength="10" maxlength="10" bsDatepicker>
                                                                         <!-- <input type="date" name="AC_RESDT"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_RESDT" required=" "
@@ -1069,7 +1054,7 @@
                                                                             onfocus="(this.type='date')"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_RESDT"> -->
-                                                                        <label for="AC_RESDT">Resol. Date<sub
+                                                                        <label for="AC_RESDT">Resolution Date<sub
                                                                                 class="required">*
                                                                             </sub></label>
                                                                     </span>
@@ -1094,7 +1079,7 @@
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                             formControlName="AC_RESNO">
-                                                                        <label for="AC_RESNO">Reso No.<sub
+                                                                        <label for="AC_RESNO">Resolution Number<sub
                                                                                 class="required">*
                                                                             </sub></label>
                                                                     </span>
@@ -1189,6 +1174,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_NARR" maxlength="100"
                                                                             pattern="^[A-Za-z\./ -]+$"
+                                                                            style="text-transform: capitalize;"
                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                             (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                                                             formControlName="AC_NARR">
@@ -1202,6 +1188,81 @@
                                                                         *ngIf="angForm.controls['AC_NARR'].errors?.pattern || angForm.controls['AC_NARR'].errors?.maxlength">
                                                                         Input allowed only A-Z a-z - / . (Space)
                                                                     </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="col-sm" style="float: right;margin-top: 6px;">
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    (click)="switchNgBTab('nomineeTab')">Next
+                                                                </button>
+                                                            </div> -->
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm">
+                                                                <h6><b style="color: dodgerblue;">DIVIDEND TRANSFER</b>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group form-primary form-static-label">
+                                                                    <span class="border-lable-flt">
+                                                                        <ng-select id="DIV_TRANSFER_BRANCH"
+                                                                            bindValue="value" [(ngModel)]="ngBranchCode"
+                                                                            formControlName="DIV_TRANSFER_BRANCH"
+                                                                            bindLabel="label"
+                                                                            title="Compulsory Selection"
+                                                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                                                            (change)="getBranch($event)"
+                                                                            placeholder="Branch">
+                                                                            <ng-option
+                                                                                *ngFor="let values of branch_code"
+                                                                                [value]="values">
+                                                                                {{values.label}}</ng-option>
+                                                                        </ng-select>
+                                                                        <label for="DIV_TRANSFER_BRANCH">Branch</label>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <div class="form-group form-primary form-static-label">
+                                                                    <span class="border-lable-flt">
+                                                                        <ng-select id="DIV_TRANSFER_ACTYPE"
+                                                                            bindValue="value" [(ngModel)]="ngDivACType"
+                                                                            formControlName="DIV_TRANSFER_ACTYPE"
+                                                                            bindLabel="label"
+                                                                            title="Compulsory Selection"
+                                                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                                                            (change)="getDivTrans($event)"
+                                                                            placeholder="Account Type">
+                                                                            <ng-option *ngFor="let values of allScheme"
+                                                                                [value]="values">
+                                                                                {{values.label}}</ng-option>
+                                                                        </ng-select>
+                                                                        <label for="DIV_TRANSFER_ACTYPE">Account
+                                                                            Type</label>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-5">
+                                                                <div class="form-group form-primary form-static-label">
+                                                                    <span class="border-lable-flt">
+                                                                        <ng-select id="DIV_TRANSFER_ACNO"
+                                                                            bindValue="value" [(ngModel)]="ngDivACNO"
+                                                                            formControlName="DIV_TRANSFER_ACNO"
+                                                                            bindLabel="AC_NO"
+                                                                            title="Compulsory Selection"
+                                                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                                                            (focus)="getDiviTransfer()"
+                                                                            placeholder="Account Number">
+                                                                            <ng-option
+                                                                                *ngFor="let values of divTransferNO"
+                                                                                [value]="values">
+                                                                                {{values.label}} {{values.name}}
+                                                                            </ng-option>
+                                                                        </ng-select>
+                                                                        <label for="DIV_TRANSFER_ACNO">Account
+                                                                            Number</label>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm" style="float: right;margin-top: 6px;">
@@ -1260,6 +1321,7 @@
                                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                                             id="AC_NNAME"
                                                                                             pattern="^[A-Za-z\./ -]+$"
+                                                                                            style="text-transform: capitalize;"
                                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                             formControlName="AC_NNAME"
                                                                                             maxlength="100"
@@ -1296,6 +1358,7 @@
                                                                                             placeholder=" "
                                                                                             id="AC_NRELA"
                                                                                             pattern="^[A-Za-z\./ -]+$"
+                                                                                            style="text-transform: capitalize;"
                                                                                             (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32)"
                                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                                             maxlength="25"
@@ -1330,32 +1393,20 @@
                                                                                 <div class="form-group input-group">
                                                                                     <span class="border-lable-flt">
                                                                                         <input type="text"
+                                                                                            placeholder="Datepicker"
                                                                                             placeholder="dd/mm/yyyy"
                                                                                             name="AC_NDATE"
-                                                                                            id="AC_NDATE"
+                                                                                            [(ngModel)]="ngnomineedate"
+                                                                                            [minDate]="minDate"
                                                                                             class="form-control"
-                                                                                            max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                            #date
+                                                                                            id="AC_NDATE"
                                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                                            [ngClass]="{'form-submitted': formSubmitted}"
                                                                                             formControlName="AC_NDATE"
-                                                                                            (focusout)="disabledate(date.value)"
-                                                                                            minlength="10"
-                                                                                            maxlength="10"
-                                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                                                            [bsValue]="bsValue"
                                                                                             bsDatepicker>
-
-                                                                                        <!-- <input type="date"
-                                                                                            name="AC_NDATE"
-                                                                                            class="form-control"
-                                                                                            placeholder=" "
-                                                                                            id="AC_NDATE"
-                                                                                            max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                            [ngClass]="{'form-submitted': formSubmitted}"
-                                                                                            #date
-                                                                                            (focusout)="disabledate(date.value)"
-                                                                                            formControlName="AC_NDATE" /> -->
+                                                                                        <!-- <input type="date" name="" class="form-control" placeholder=" "
+                                                                            id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}"
+                                                                            [ngClass]="{'form-submitted': formSubmitted}" #date
+                                                                            (focusout)="disabledate(date.value)" formControlName="AC_NDATE" /> -->
                                                                                         <label for="AC_NDATE">Nomination
                                                                                             Date<sub class="required">*
                                                                                             </sub></label>
@@ -1426,6 +1477,7 @@
                                                                                             id="AC_NHONO"
                                                                                             pattern="^[A-Za-z0-9\./ -]+$"
                                                                                             maxlength="25"
+                                                                                            style="text-transform: capitalize;"
                                                                                             title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                             formControlName="AC_NHONO" />
                                                                                         <label
@@ -1461,6 +1513,7 @@
                                                                                             id="AC_NWARD"
                                                                                             pattern="^[A-Za-z0-9\./ -]+$"
                                                                                             maxlength="10"
+                                                                                            style="text-transform: capitalize;"
                                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                             formControlName="AC_NWARD" />
                                                                                         <label
@@ -1497,6 +1550,7 @@
                                                                                             id="AC_NGALLI"
                                                                                             pattern="^[A-Za-z0-9\./ -]+$"
                                                                                             maxlength="40"
+                                                                                            style="text-transform: capitalize;"
                                                                                             title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                                             formControlName="AC_NGALLI" />
                                                                                         <label
@@ -1533,6 +1587,7 @@
                                                                                             pattern="^[A-Za-z\./ -]+$"
                                                                                             maxlength="60"
                                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
+                                                                                            style="text-transform: capitalize;"
                                                                                             formControlName="AC_NAREA" />
                                                                                         <label
                                                                                             for="AC_NAREA">Area</label>
@@ -1564,6 +1619,7 @@
                                                                                             class="form-control"
                                                                                             placeholder=" "
                                                                                             pattern="^[A-Za-z0-9\./ -]+$"
+                                                                                            style="text-transform: capitalize;"
                                                                                             title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                             id="AC_NADDR"
                                                                                             formControlName="AC_NADDR" />
@@ -1591,22 +1647,23 @@
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-2">
-                                                                                <div
-                                                                                    class="form-group form-primary form-static-label">
+                                                                                <div class="
+                                                                        form-group
+                                                                        form-primary
+                                                                        form-static-label
+                                                                      ">
                                                                                     <span class="border-lable-flt">
-                                                                                        <ng-select id="AC_NCTCODE" #city
+                                                                                        <ng-select id="AC_NCTCODE"
+                                                                                            [items]="ncity"
                                                                                             [(ngModel)]="ngNcity"
-                                                                                            formControlName="AC_NCTCODE"
                                                                                             bindLabel="CITY_NAME"
-                                                                                            title="Compulsory Selection"
-                                                                                            bindValue="id"
+                                                                                            formControlName="AC_NCTCODE"
                                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                                             placeholder="City">
-                                                                                            <ng-option
-                                                                                                *ngFor="let values of ncity"
-                                                                                                [value]="values">
-                                                                                                {{values.CITY_NAME}}
-                                                                                            </ng-option>
+                                                                                            <!-- <ng-option *ngFor="let values of Ncity">
+                                                                              {{values.CITY_NAME}}</ng-option> -->
+                                                                                            <!-- bindLabel="CITY_NAME"
+                                                                            title="Compulsory Selection" bindValue="id" -->
                                                                                         </ng-select>
                                                                                         <label for="AC_NCTCODE">City<sub
                                                                                                 class="required"> *
@@ -1656,7 +1713,7 @@
                                                                             <button type="submit"
                                                                                 class="btn btn-outline-primary btn-sm"
                                                                                 *ngIf="nomineeShowButton"
-                                                                                (click)="addNominee(city)">
+                                                                                (click)="addNominee()">
                                                                                 Add Nominee
                                                                             </button>
                                                                             <button
@@ -1692,8 +1749,8 @@
                                                                             <td>Pin code</td>
                                                                         </thead>
                                                                         <tbody *ngIf="multiNominee?.length != 0">
-                                                                            <tr
-                                                                                *ngFor="let data of multiNominee; let indexOfelement = index">
+                                                                            <tr *ngFor="let data of multiNominee;
+                                                                  let indexOfelement = index">
                                                                                 <td>
                                                                                     <div class="row">
                                                                                         <div class="col-sm">
@@ -1751,19 +1808,7 @@
                                                                                 <td class="td_left"
                                                                                     [ngClass]="data.AC_NCTCODE === '' ? 'td_center' : 'td_left'">
                                                                                     {{data.AC_NCTCODE === ''? '-' :
-                                                                                    data.AC_NCTCODE}}</td>
-                                                                                <!-- <td
-                                                                                    [ngClass]="data.idmaster.custAddress[0].city?.CITY_NAME === '' ? 'td_center' : 'td_right'">
-                                                                                    {{
-                                                                                    data.idmaster.custAddress[0].city?.CITY_NAME
-                                                                                    === "" ? "-" :
-                                                                                    data.idmaster.custAddress[0].city?.CITY_NAME
-                                                                                    }}
-                                                                                </td> -->
-                                                                                <!-- <td class="td_left"
-                                                                                    [ngClass]="data.AC_NCTCODE === '' ? 'td_center' : 'td_left'">
-                                                                                    {{data.AC_NCTCODE === ''? '-' :
-                                                                                    data.AC_NCTCODE}}</td> -->
+                                                                                    data.AC_CITYNAME}}</td>
                                                                                 <td class="td_center"
                                                                                     [ngClass]="data.AC_NPIN === ''|| data.AC_NPIN == null ? 'td_center' : 'td_right'">
                                                                                     {{data.AC_NPIN === '' ||
@@ -1973,6 +2018,7 @@
                                                                         <input type="text" name="AC_DEV_NAME"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_DEV_NAME"
+                                                                            style="text-transform: capitalize;"
                                                                             formControlName="AC_DEV_NAME">
                                                                         <label for="AC_DEV_NAME">Name</label>
                                                                     </span>
@@ -1984,6 +2030,7 @@
                                                                         <input type="text" name="AC_DEV_WARD"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_DEV_WARD"
+                                                                            style="text-transform: capitalize;"
                                                                             formControlName="AC_DEV_WARD">
                                                                         <label for="AC_DEV_WARD">Ward</label>
                                                                     </span>
@@ -1995,6 +2042,7 @@
                                                                         <input type="text" name="AC_DEV_ADD"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_DEV_ADD"
+                                                                            style="text-transform: capitalize;"
                                                                             formControlName="AC_DEV_ADD">
                                                                         <label for="AC_DEV_ADD">Address</label>
                                                                     </span>
@@ -2008,6 +2056,7 @@
                                                                         <input type="text" name="AC_DEV_GALLI"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_DEV_GALLI"
+                                                                            style="text-transform: capitalize;"
                                                                             formControlName="AC_DEV_GALLI">
                                                                         <label for="AC_DEV_GALLI">Galli</label>
                                                                     </span>
@@ -2019,6 +2068,7 @@
                                                                         <input type="text" name="AC_DEV_AREA"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_DEV_AREA"
+                                                                            style="text-transform: capitalize;"
                                                                             formControlName="AC_DEV_AREA">
                                                                         <label for="AC_DEV_AREA">Area</label>
                                                                     </span>
@@ -2030,6 +2080,7 @@
                                                                         <input type="text" name="AC_DEV_CITYCODE"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_DEV_CITYCODE"
+                                                                            style="text-transform: capitalize;"
                                                                             formControlName="AC_DEV_CITYCODE">
                                                                         <label for="AC_DEV_CITYCODE">City</label>
                                                                     </span>
@@ -2049,7 +2100,13 @@
                                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 <button class="btn btn-outline-primary btn-sm"
                                                                     (click)="updateData()" *ngIf="updateShow">
-                                                                    Update</button>
+                                                                    Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    *ngIf="rejectShow" (click)="reject()">
+                                                                    Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    *ngIf="approveShow" (click)="Approve()">
+                                                                    Approve</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2066,7 +2123,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="DatatableHideShow">
     <div class="col-12">
         <div class="card shadow">
             <div class="card-block">
@@ -2078,9 +2135,24 @@
                                 <tbody *ngIf="shareMaster?.length != 0">
                                     <tr *ngFor="let data of shareMaster">
                                         <td>
+                                            <!-- {{data.SYSCHNG_LOGIN == null ?  ' <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                            (click)="editClickHandler(data.id)" placement="bottom"
+                                            ngbTooltip="Edit" *ngIf="editicon"></span>' :   '<span class="fa fa-fw fa-eye field-icon" id="viewbutton"
+                                            style="cursor: pointer;" (click)="editClickHandler(data.id)"
+                                            placement="bottom" ngbTooltip="View" *ngIf="viewicon"></span>'}} -->
                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
                                                 (click)="editClickHandler(data.id)" placement="bottom"
                                                 ngbTooltip="Edit"></span>
+                                            <!--  <span class="fa fa-fw fa-eye field-icon" id="viewbutton"
+                                                style="cursor: pointer;" (click)="editClickHandler(data.id)"
+                                                placement="bottom" ngbTooltip="View" *ngIf="viewicon" ></span> -->
+                                            <!-- <span
+                                                [innerHTML]="data.SYSCHNG_LOGIN == null ? '<span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit" *ngIf="editicon"></span>' :'<span class="fa fa-fw fa-eye field-icon" id="viewbutton"
+                                                style="cursor: pointer;" (click)="editClickHandler(data.id)"
+                                                placement="bottom" ngbTooltip="View" *ngIf="viewicon" ></span>'">
+                                            </span> -->
                                         </td>
                                         <td
                                             [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">

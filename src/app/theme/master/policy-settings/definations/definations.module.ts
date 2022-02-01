@@ -27,7 +27,8 @@ import { SizeSlabWiseARComponent } from './size-slab-wise-ar/size-slab-wise-ar.c
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { SelectModule } from 'ng-select';
+//import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { ChargesTypeService } from '../../../../shared/dropdownService/charges-type.service';
 import { DepreciationService } from '../../../../shared/elements/depreciation.service';
 import { Scheme1Service } from '../../../../shared/elements/scheme1.service';
@@ -93,7 +94,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ColorPickerModule,
     DataTablesModule,
     NgbModule,
-    SelectModule,
+    //SelectModule,
+    NgSelectModule,
     PerfectScrollbarModule,
     FormsModule, ReactiveFormsModule
   ],

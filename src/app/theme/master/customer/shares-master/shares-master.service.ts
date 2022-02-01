@@ -37,7 +37,16 @@ export class ShareMasterService {
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/share-master/delete/' + id).pipe(catchError(this.handleError));
     }
+    //approve master
+    approve(data: any): Observable<any> {
+        return this.http.post(this.url + '/share-master/approve', data).pipe(catchError(this.handleError));
+    }
 
+
+    //reject master
+    reject(data: any): Observable<any> {
+        return this.http.post(this.url + '/share-master/reject', data).pipe(catchError(this.handleError));
+    }
 
 }
 

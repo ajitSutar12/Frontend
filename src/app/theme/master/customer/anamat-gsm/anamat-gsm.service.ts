@@ -35,6 +35,17 @@ export class anamatGSMService {
   deleteData(id: any): Observable<any> {
     return this.http.delete(this.url + '/anamat-gsm/delete/' + id).pipe(catchError(this.handleError));
   }
+
+      //approve master
+      approve(data:any): Observable<any>{
+        return this.http.post(this.url+ '/anamat-gsm/approve',data).pipe(catchError(this.handleError));
+    }
+
+
+    //reject master
+    reject(data:any): Observable<any>{
+        return this.http.post(this.url+ '/anamat-gsm/reject',data).pipe(catchError(this.handleError));
+    }
 }
 
 

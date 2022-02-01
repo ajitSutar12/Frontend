@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
 import { SalaryDMasterdropdownService } from '../../../../../shared/dropdownService/salary-division-master-dropdown.service'
 import { first } from 'rxjs/operators';
-
+import { NgSelectConfig } from '@ng-select/ng-select';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -40,6 +40,7 @@ interface SubSalaryMaster {
   styleUrls: ['./sub-salary-division-master.component.scss']
 })
 export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -63,12 +64,14 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
   active = 1;
   activeKeep = 1;
   // Variables for search 
+  ngdivcode:any=null
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  newbtnShow: boolean = false;
   //variable to get Id to update
   updateID: number = 0;
   id: string = '';
@@ -79,7 +82,8 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
     private http: HttpClient,
     private subSalaryDivisionService: SubSalaryService,
     private subSalaryDivision: SalaryDMasterdropdownService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -191,6 +195,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
   }
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'SAL_CODE': formVal.SAL_CODE,
@@ -206,8 +211,12 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
     }
     this.subSalaryDivisionService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       // to reload after insertion of data
-      this.rerender();
+      // this.rerender();
     }, (error) => {
       console.log(error)
     })
@@ -218,6 +227,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
+    this.newbtnShow = true;
     this.subSalaryDivisionService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
@@ -241,7 +251,11 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      // this.rerender();
       this.resetForm();
     })
   }
@@ -283,10 +297,10 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-
           if (this['value'] != '') {
             that
               .search(this['value'])

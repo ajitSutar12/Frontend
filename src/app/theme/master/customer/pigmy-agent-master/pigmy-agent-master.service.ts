@@ -17,11 +17,11 @@ export class PigmyAgentMasterService {
 
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url +'/pigmy-agent-master/insert', data).pipe(map((res) => res),
-    catchError((error) => {
-      Swal.fire('Please Input Proper Data !');
-      return throwError(error);
-    })
+    return this.http.post(this.url + '/pigmy-agent-master/insert', data).pipe(map((res) => res),
+      catchError((error) => {
+        Swal.fire('Please Input Proper Data !');
+        return throwError(error);
+      })
     )
   }
   // For append data
@@ -35,6 +35,18 @@ export class PigmyAgentMasterService {
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http.delete(this.url + '/pigmy-agent-master/delete/' + id).pipe(catchError(this.handleError));
+  }
+
+
+  //approve master
+  approve(data: any): Observable<any> {
+    return this.http.post(this.url + '/pigmy-agent-master/approve', data).pipe(catchError(this.handleError));
+  }
+
+
+  //reject master
+  reject(data: any): Observable<any> {
+    return this.http.post(this.url + '/pigmy-agent-master/reject', data).pipe(catchError(this.handleError));
   }
 }
 

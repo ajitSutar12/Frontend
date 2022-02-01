@@ -5,7 +5,7 @@
         <h5>Fire Policy</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
@@ -47,6 +47,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="PolicyNumber" class="form-control" placeholder=" " id="PolicyNumber"
                   [ngClass]="{'form-submitted': formSubmitted}"
+                  (keypress)="($event.charCode >= 65 && $event.charCode <=90)||($event.charCode >= 97 && $event.charCode <=122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 ||($event.charCode >= 48 && $event.charCode < 58)"
                     required="" pattern="^[A-Za-z0-9'\.\-\s]+$" maxlength="30" title="Input allowed only  0-9"
                     formControlName="POLICY_NO">
                   <label for="PolicyNumber">Policy Number<sub class="required">* </sub></label>
@@ -65,7 +66,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="policy_amount" class="form-control" placeholder=" " id="policy_amount"
-                  [ngClass]="{'form-submitted': formSubmitted}"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="POLICY_AMT">
                   <label for="policy_amount">Policy Amount<sub class="required">* </sub></label>
@@ -86,6 +87,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="policy_nature" class="form-control" placeholder=" " id="policy_nature"
+                  (keypress)="($event.charCode >= 65 && $event.charCode <=90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 ||($event.charCode >= 48 && $event.charCode < 58)"
                     required="" pattern="^[A-Za-z0-9'\.\-\s]+$" maxlength="100" [ngClass]="{'form-submitted': formSubmitted}"
                     title="Input allowed only  A-Z a-z 0-9  - / . (Space)" formControlName="POLICY_NATURE">
                   <label for="policy_nature">Policy Nature<sub class="required">* </sub></label>
@@ -119,13 +121,24 @@
               </div>
             </div> -->
             <div class="col-sm-3">
-              <div class="form-group form-primary form-static-label">
+              <!-- <div class="form-group form-primary form-static-label">
                   <ng-select [ngClass]="'ng-select'" [options]="insuranceNo" [multiple]="false" 
                       placeholder="Insurance Code *" required title="Compulsory Selection"
                       formControlName="INSU_CO_CODE">
                   </ng-select>
                
-              </div>
+              </div> -->
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                  <ng-select id="INSU_CO_CODE" bindValue="value" [(ngModel)]="nginsurance"
+                    formControlName="INSU_CO_CODE" bindLabel="label" title="Compulsory Selection"
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Insurance Code">
+                    <ng-option *ngFor="let values of insuranceNo" [value]="values">
+                      {{values.label}}</ng-option>
+                  </ng-select>
+                  <label for="INSU_CO_CODE">Insurance Code<sub class="required"> * </sub></label>
+                </span>
+            </div>
               <div class="form-group form-primary form-static-label"
                   *ngIf="angForm.controls['INSU_CO_CODE'].invalid && (angForm.controls['INSU_CO_CODE'].dirty || angForm.controls['INSU_CO_CODE'].touched)"
                   class="alert alert-danger">
@@ -139,6 +152,7 @@
                 <span class="border-lable-flt">
                   <textarea type="text" name="ADDRESS" class="form-control" placeholder=" " id="ADDRESS"
                     pattern="^[A-Za-z0-9'\.\-\s]+$" maxlength="2000"
+                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 ||($event.charCode >= 48 && $event.charCode < 58)"
                     title="Input allowed only  A-Z a-z 0-9  - / . (Space)" formControlName="ADDRESS"></textarea>
                   <label for="ADDRESS">Address</label>
                 </span>
@@ -158,6 +172,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="city" class="form-control" placeholder=" " id="city" required=""
                   [ngClass]="{'form-submitted': formSubmitted}"
+                  (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 ||($event.charCode >= 48 && $event.charCode < 58)"
                     pattern="^[A-Za-z0-9'\.\-\s]+$" maxlength="50" title="Input allowed only  0-9"
                     formControlName="CITY">
                   <label for="city">City<sub class="required">* </sub></label>
@@ -177,7 +192,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="premium_amount" class="form-control" placeholder=" " id="premium_amount"
-                  [ngClass]="{'form-submitted': formSubmitted}"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="PREMIUM">
                   <label for="premium_amount">Premium Amount<sub class="required">* </sub></label>
                 </span>
@@ -215,12 +230,10 @@
               </div>
               <div class="col-sm">
                 <!-- [disabled]="angForm.invalid" -->
-                <button class="btn btn-primary ripple light" *ngIf="showButton"  
-                >Add</button>
-                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
-                 >Update</button> &nbsp;
-                <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
-            </div>
+                <button class="btn btn-outline-primary btn-sm"  (click)="submit($event)" *ngIf="showButton">Submit</button>
+                <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button> &nbsp;
+                <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">Cancel</button>
+              </div>
             </div>
 
           </div>
@@ -232,19 +245,19 @@
 <ng-container *ngIf='router.url==="/master/Maintainance/securityDetails"'>
   <div class="row">
     <div class="col-12">
-      <div class="card">
+      <div class="card shadow">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="table-responsive">
-                <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                   class="table table-striped table-bordered table-hover compact">
                   <tbody *ngIf="firemaster?.length != 0">
                     <tr *ngFor="let data of firemaster">
                       <td>
-                        <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">
-                          Edit
-                        </button>
+                        <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                            (click)="editClickHandler(data.id)" placement=" bottom"
+                                            ngbTooltip="Edit"></span>
                         &nbsp;
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
@@ -269,38 +282,38 @@
                       <td colspan="6" class="no-data-available">No data!</td>
                     </tr>
                   </tbody>
-                  <tfoot>
-                    <tr>
-                      <th></th>
+                  <tfoot #filters class="filters">
+                    <tr class="testing">
+                      <th class="testing"></th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Submission Date" name="SUBMISSION_DATE" />
+                        <input type="text" class="form-control" name="SUBMISSION_DATE" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Policy Due Date" name="POLICY_DUE_DATE" />
+                        <input type="text" class="form-control" name="POLICY_DUE_DATE" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Policy Number" name="POLICY_NO" />
+                        <input type="text" class="form-control" name="POLICY_NO" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Policy Amount" name="POLICY_AMT" />
+                        <input type="text" class="form-control" name="POLICY_AMT" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Policy Nature" name="POLICY_NATURE" />
+                        <input type="text" class="form-control" name="POLICY_NATURE" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Insurance Code" name="INSU_CO_CODE" />
+                        <input type="text" class="form-control" name="INSU_CO_CODE" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" City" name="CITY" />
+                        <input type="text" class="form-control" name="CITY" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Premium Amount" name="PREMIUM" />
+                        <input type="text" class="form-control" name="PREMIUM" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Premium Due Date" name="PREMIUM_DUE_DATE" />
+                        <input type="text" class="form-control" name="PREMIUM_DUE_DATE" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Address" name="ADDRESS" />
+                        <input type="text" class="form-control" name="ADDRESS" />
                       </th>
                     </tr>
                   </tfoot>

@@ -152,23 +152,23 @@ export class OtherSecurityComponent
 
         {
           title: "Date of Submission",
-          data: "subm_date",
+          data: "SUBMISSION_DATE",
         },
         {
           title: "Short Details",
-          data: "short_details",
+          data: "SHORT_DETAILS",
         },
         {
           title: "Total Valuet",
-          data: "total_value",
+          data: "TOTAL_VALUE",
         },
         {
           title: "Margin %",
-          data: "margin",
+          data: "MARGIN",
         },
         {
           title: "Security Details",
-          data: "security_details",
+          data: "DETAILS",
         },
       ],
       dom: "Blrtip",
@@ -193,9 +193,9 @@ export class OtherSecurityComponent
     if (this.angForm.valid) {
       console.log(this.angForm.value); // Process your form
       const formVal = this.angForm.value;
-    const dataToSend = {
-      AC_TYPE: this.scheme._value[0],
-      AC_NO: this.Accountno,
+      const dataToSend = {
+      // AC_TYPE: this.scheme._value[0],
+      // AC_NO: this.Accountno,
       SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       SHORT_DETAILS: formVal.SHORT_DETAILS,
       TOTAL_VALUE: formVal.TOTAL_VALUE,
@@ -207,14 +207,16 @@ export class OtherSecurityComponent
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+        // let info = []
+        // info.push(data.id)
+        // info.push("otherSecurity")
 
-        let info = []
-        info.push(data.id)
-        info.push("otherSecurity")
-
-        this.newItemEvent(info);
-        // to reload after insertion of data
-        this.rerender();
+        // this.newItemEvent(info);
+        // // to reload after insertion of data
+        // this.rerender();
       },
       (error) => {
         console.log(error);
@@ -228,7 +230,7 @@ export class OtherSecurityComponent
 
   //function for edit button clicked
   editClickHandler(id: any): void {
-
+    debugger
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
@@ -239,15 +241,16 @@ export class OtherSecurityComponent
       dropdown.account = data.AC_NO.toString();
 
         this.updateID = data.id;
-      console.log(this.updateID)
-      this.angForm.patchValue({
-        AC_TYPE: this.scheme._value[0],
-        AC_NO: this.Accountno,
+        console.log(this.updateID)
+        this.angForm.patchValue({
+        // AC_TYPE: this.scheme._value[0],
+        // AC_NO: this.Accountno,
         SUBMISSION_DATE: data.SUBMISSION_DATE,
         SHORT_DETAILS: data.SHORT_DETAILS,
         TOTAL_VALUE: data.TOTAL_VALUE,
         MARGIN: data.MARGIN,
         DETAILS: data.DETAILS,
+        
       });
     });
   }
@@ -259,7 +262,7 @@ export class OtherSecurityComponent
       console.log(ele);
     }
     else {
-      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
     }
   }
 
@@ -273,7 +276,10 @@ export class OtherSecurityComponent
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      // this.rerender();
       this.resetForm();
     });
   }
@@ -287,7 +293,7 @@ export class OtherSecurityComponent
   delClickHandler(info: any): void {
     Swal.fire({
       title: "Are you sure?",
-      text: "Do you want to delete Date of Submission data",
+      text: "Do You Want To Delete Date Of Submission data",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -295,9 +301,9 @@ export class OtherSecurityComponent
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your data has been deleted.", "success");
+        Swal.fire("Deleted!", "Your Data Has Been Deleted.", "success");
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire("Cancelled", "Your Data Is Safe.", "error");
       }
     });
   }
@@ -306,13 +312,18 @@ export class OtherSecurityComponent
     this.myInputField.nativeElement.focus();//autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

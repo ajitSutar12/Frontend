@@ -17,6 +17,7 @@ import { IntrestCategoryMasterDropdownService } from '../../../../../shared/drop
 import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService/scheme-type-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -38,6 +39,7 @@ interface InterestRateForLoanandCC {
   styleUrls: ['./interest-rate-for-lacc.component.scss'],
 })
 export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   //api 
@@ -67,6 +69,9 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
+  // for dropdown ngmodule
+  ngintcat:any=null
+  ngscheme:any=null
   // Variables for hide/show add and update and new button
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -79,6 +84,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
 
   //filter variable
   filterData = {};
+  
+  
 
   //scheme dropdown variables
   interestcategory: any[];
@@ -96,7 +103,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     private interestRateForLoanandCCService: InterestRateForLoanandCCService,
     private schemeTypeDropdownService: SchemeTypeDropdownService,
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) {
       this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
       console.log(this.datemax);
     
@@ -178,11 +186,11 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     this.angForm = this.fb.group({
       ACNOTYPE: ['', [Validators.required]],
       INT_CATEGORY: ['', [Validators.required]],
-      EFFECT_DATE: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(4)]],
+      EFFECT_DATE: ['', [ Validators.maxLength(10), Validators.minLength(4)]],
       FROM_AMOUNT: ['', [Validators.pattern]],
       TO_AMOUNT: ['', [Validators.pattern]],
-      INT_RATE: ['', [Validators.required, Validators.pattern]],
-      PENAL_INT_RATE: ['', [Validators.required, Validators.pattern]],
+      INT_RATE: ['', [ Validators.pattern]],
+      PENAL_INT_RATE: ['', [Validators.pattern]],
     });
   }
       //disabledate on keyup
@@ -191,33 +199,49 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
         console.log(data);
         if(data != ""){
           if(data > this.datemax){
-            Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+            Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
             (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
                 
           }
         } 
       }
   // Method to insert data into database through NestJS
+  
   submit() {
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      'EFFECT_DATE': formVal.EFFECT_DATE,
-      'ACNOTYPE': formVal.ACNOTYPE,
-      'INT_CATEGORY': formVal.INT_CATEGORY,
-      'FieldData': this.multiField,
-    }
-    this.interestRateForLoanandCCService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
-    //To clear form
-    this.resetForm();
-    this.multiField = []
+    if(this.multiField.length!=0){
+      this.formSubmitted=true;
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        'EFFECT_DATE': formVal.EFFECT_DATE,
+        'ACNOTYPE': formVal.ACNOTYPE,
+        'INT_CATEGORY': formVal.INT_CATEGORY,
+        'FieldData': this.multiField,
+      }
+      
 
+      
+      this.interestRateForLoanandCCService.postData(dataToSend).subscribe(data1 => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.multiField = [] 
+    }  
+    else{
+      Swal.fire(
+        'Warning',
+        'Please Input Slab Details ',
+        'warning'
+        )
+    }
+     
+    
   }
 
   //Method for append data into fields
@@ -236,6 +260,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
       })
     })
   }
+ 
 
   //Method for update data 
   updateData() {
@@ -270,7 +295,7 @@ checkmargin(ele:any){
 console.log(ele);
   }
   else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
   }
 }
 compareamount() {
@@ -280,7 +305,7 @@ compareamount() {
     if (from > to) {
       Swal.fire(
         'Warning!',
-        'From Amount should be less than Upto Months',
+        'From Amount Should Be Less Than Upto Months',
         'warning'
       );
       (document.getElementById("toamt") as HTMLInputElement).value = ""
@@ -293,7 +318,7 @@ compareamount() {
   delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to delete Interest Rate for loan and CC data.",
+      text: "Do You Want To Delete Interest Rate For loan And CC Data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -329,6 +354,7 @@ compareamount() {
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
@@ -373,17 +399,37 @@ compareamount() {
   }
 
   addField() {
-    const formVal = this.angForm.value;
-    var object = {
-      FROM_AMOUNT: formVal.FROM_AMOUNT,
-      TO_AMOUNT: formVal.TO_AMOUNT,
-      INT_RATE: formVal.INT_RATE,
-      PENAL_INT_RATE: formVal.PENAL_INT_RATE,
-
+    let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
+    let penint = (document.getElementById("PENAL_INT_RATE") as HTMLInputElement).value;
+    if(penint==""){
+      Swal.fire(
+        'Info',
+        'Please Add Panel Interest',
+        'info'
+        )
     }
-    this.multiField.push(object);
-    console.log(this.multiField)
-    this.resetField()
+    if(intrate == ""){
+      Swal.fire(
+        'Info',
+        'Please Input Interest Rate',
+        'info'
+        )
+    }
+    
+    if(intrate && penint != ""){
+      const formVal = this.angForm.value;
+      var object = {
+        FROM_AMOUNT: formVal.FROM_AMOUNT,
+        TO_AMOUNT: formVal.TO_AMOUNT,
+        INT_RATE: formVal.INT_RATE,
+        PENAL_INT_RATE: formVal.PENAL_INT_RATE,
+
+      }
+      this.multiField.push(object);
+      console.log(this.multiField)
+      this.resetField()
+    }
+    
   }
   resetField() {
     this.angForm.controls['FROM_AMOUNT'].reset();

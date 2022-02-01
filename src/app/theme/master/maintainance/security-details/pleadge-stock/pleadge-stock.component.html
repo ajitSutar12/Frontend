@@ -5,7 +5,7 @@
         <h5>Pleadge Stock</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit($event)" #myform="ngForm">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm-3">
@@ -32,6 +32,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="StorageMemoNo" class="form-control" placeholder=" " id="StorageMemoNo"
                     required="" maxlength="50" pattern="^[A-Za-z 0-9]+$" title="Input allowed only  0-9"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="STORAGE_MEMO_NO" />
                   <label for="StorageMemoNo">Storage Memo No<sub class="required">* </sub></label>
@@ -73,7 +74,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="GoodsQuantity" class="form-control" placeholder=" " id="GoodsQuantity"
-                  [ngClass]="{'form-submitted': formSubmitted}"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="GOODS_QTY" />
                   <label for="GoodsQuantity">Goods Quantity<sub class="required">* </sub></label>
@@ -98,6 +99,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="ManufacturerMill" class="form-control" placeholder=" " id="ManufacturerMill"
+                  (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z - / . (Space)"
                     formControlName="MANUF_MILL" />
                   <label for="ManufacturerMill">Manufacturer/Mill</label>
@@ -117,6 +119,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="Description" class="form-control" placeholder=" " id="Description"
+                  (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="DISCRIPTION" />
                   <label for="Description">Description</label>
@@ -140,7 +143,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="BalanceQuantity" class="form-control" placeholder=" " id="BalanceQuantity"
-                  [ngClass]="{'form-submitted': formSubmitted}"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="BALANCE_QTY" />
                   <label for="BalanceQuantity">Balance Quantity<sub class="required">* </sub></label>
@@ -163,6 +166,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="Rate" class="form-control" placeholder=" " id="Rate"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="RATE" />
                   <label for="Rate">Rate</label>
                 </span>
@@ -181,6 +185,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="Value" class="form-control" placeholder=" " id="Value"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="VALUE" />
                   <label for="label-nameValue">Value</label>
                 </span>
@@ -202,6 +207,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="margin" #margin (keyup)="checkmargin(margin.value)" class="form-control"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     placeholder=" " id="margin" pattern="\d{1,5}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="MARGIN" />
                   <label for="margin">Margin %</label>
@@ -224,6 +230,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="remarks" class="form-control" placeholder=" " id="remarks"
+                  (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="REMARK" />
                   <label for="Remarks">Remarks</label>
@@ -241,12 +248,10 @@
             </div>
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-primary ripple light" *ngIf="showButton"
-              >Add</button>
-              <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow"
-               >Update</button> &nbsp;
-              <button class="btn btn-primary ripple light" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
-          </div>
+              <button class="btn btn-outline-primary btn-sm"  (click)="submit($event)" *ngIf="showButton">Submit</button>
+              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button> &nbsp;
+              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+            </div>
           </div>
         </div>
       </form>
@@ -256,19 +261,19 @@
 <ng-container *ngIf='router.url==="/master/Maintainance/securityDetails"'>
   <div class="row">
     <div class="col-12">
-      <div class="card">
+      <div class="card shadow">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="table-responsive">
-                <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                   class="table table-striped table-bordered table-hover compact">
                   <tbody *ngIf="pleadgeMaster?.length != 0">
                     <tr *ngFor="let data of pleadgeMaster">
                       <td>
-                        <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">
-                          Edit
-                        </button>
+                        <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                        (click)="editClickHandler(data.id)" placement=" bottom"
+                        ngbTooltip="Edit"></span>
                         &nbsp;
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                       </td>
@@ -291,41 +296,41 @@
                       <td colspan="6" class="no-data-available">No data!</td>
                     </tr>
                   </tbody>
-                  <tfoot>
-                    <tr>
-                      <th></th>
+                  <tfoot #filters class="filters">
+                    <tr class="testing">
+                      <th class="testing"></th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Submission Date" name="SUBMISSION_DATE" />
+                        <input type="text" class="form-control" name="SUBMISSION_DATE" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Storage Memo No" name="STORAGE_MEMO_NO" />
+                        <input type="text" class="form-control" name="STORAGE_MEMO_NO" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Date of Storage" name="STORAGE_DATE" />
+                        <input type="text" class="form-control" name="STORAGE_DATE" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Goods Quantity " name="GOODS_QTY" />
+                        <input type="text" class="form-control" name="GOODS_QTY" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Manufacturer/Mill" name="MANUF_MILL" />
+                        <input type="text" class="form-control" name="MANUF_MILL" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Description" name="DISCRIPTION" />
+                        <input type="text" class="form-control" name="DISCRIPTION" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Balance Quantity" name="BALANCE_QTY" />
+                        <input type="text" class="form-control" name="BALANCE_QTY" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Rate" name="RATE" />
+                        <input type="text" class="form-control" name="RATE" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Value" name="VALUE" />
+                        <input type="text" class="form-control" name="VALUE" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Margin %" name="MARGIN" />
+                        <input type="text" class="form-control" name="MARGIN" />
                       </th>
                       <th>
-                        <input type="text" class="form-control" placeholder=" Remarks" name="REMARK" />
+                        <input type="text" class="form-control" name="REMARK" />
                       </th>
                     </tr>
                   </tfoot>

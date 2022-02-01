@@ -287,7 +287,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.meunItemList = menuItemList[0].main;
     var meunItemList = menuItemList[0].main;
     this.meunItemList.forEach(function (element, index) {
-      //debugger
       if (arrayList.includes(element.id)) {
 
         if (element.children != [] && element.children != undefined) {
@@ -295,7 +294,6 @@ export class AdminComponent implements OnInit, OnDestroy {
           element.children.forEach(function (ele, index1) {
             if (arrayList.includes(ele.id)) {
               if (ele.children != [] && ele.children != undefined) {
-                //debugger
                 ele.children.forEach(function (ele1, index2) {
                   if (arrayList.includes(ele1.id)) {
                   } else {

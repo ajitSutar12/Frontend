@@ -28,6 +28,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
   declarations: [
     DeadStockMasterComponent
   ],
+  exports: [
+    DeadStockMasterComponent
+  ],
   providers: [
     DeadstockmasterService,
     ItemCatMasterDropdownService,

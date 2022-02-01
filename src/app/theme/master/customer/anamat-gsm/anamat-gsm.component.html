@@ -16,8 +16,8 @@
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select bindValue="value" [(ngModel)]="code" id="AC_TYPE"
                                         formControlName="AC_TYPE" [disabled]="AC_TYPE" title="Compulsory Selection"
-                                        (change)="getScheme($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Scheme">
+                                        [disabled]="AC_TYPE" (change)="getScheme($event)"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -121,9 +121,9 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_NO" class="form-control" placeholder=" " id="AC_NO"
-                                        value="" pattern="^[0-9]+$" formControlName="AC_NO" disabled>
-                                    <label for="AC_NO">Account No</label>
+                                    <input type="text" name="BANKACNO" class="form-control" placeholder=" "
+                                        id="BANKACNO" formControlName="BANKACNO" disabled>
+                                    <label for="BANKACNO">Account Number</label>
                                 </span>
                             </div>
                         </div>
@@ -275,10 +275,17 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY"
                                         formControlName="AC_IS_RECOVERY">
+                                    <label class="border-checkbox-label" for="AC_IS_RECOVERY">Recovery</label>
+                                </div>
+                            </div>
+                            <!-- <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY"
+                                        formControlName="AC_IS_RECOVERY">
                                     <label class="border-checkbox-label" for="AC_IS_RECOVERY">Recovery
                                     </label>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
@@ -329,7 +336,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
-                                        id="AC_PARTICULAR" value=""
+                                        id="AC_PARTICULAR" value="" style="text-transform: capitalize;"
                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                         (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || ($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_PARTICULAR" [ngClass]="{'form-submitted': formSubmitted}"
@@ -346,7 +353,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2" style="float: right;">
+                        <!-- <div class="col-sm-2" style="float: right;">
                             <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
                                 (click)="submit($event)">
                                 Submit
@@ -356,6 +363,23 @@
                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
                                 Update</button>
+                        </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-sm" style="float: right;">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                                (click)="submit($event)">
+                                Submit
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                                Cancel
+                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
+                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
+                                Approve</button>
                         </div>
                     </div>
                 </form>
@@ -363,7 +387,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="DatatableHideShow">
     <div class="col-12">
         <div class="card shadow">
             <div class="card-block">
@@ -383,8 +407,9 @@
                                             [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
                                             {{ data.AC_TYPE === "" || data.AC_TYPE== null? "-" : data.DPMaster.S_APPL }}
                                         </td>
-                                        <td class="td_right" [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_NO === ''? '-' : data.AC_NO}}</td>
+                                        <td [ngClass]="data.BANKACNO === '' ? 'td_center' : 'td_right'">
+                                            {{ data.BANKACNO === "" ? "-" : data.BANKACNO }}
+                                        </td>
                                         <td class="td_right"
                                             [ngClass]="data.AC_CUSTID === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_CUSTID === ''? '-' : data.AC_CUSTID}}</td>

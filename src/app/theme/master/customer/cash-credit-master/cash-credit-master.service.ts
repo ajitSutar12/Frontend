@@ -4,7 +4,7 @@ import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {environment}  from '../../../../../environments/environment'
+import { environment } from '../../../../../environments/environment'
 @Injectable()
 export class CashCreditService {
     // Variable for handleError
@@ -34,6 +34,17 @@ export class CashCreditService {
     //Deletion Operation
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/cash-credit-master/delete/' + id).pipe(catchError(this.handleError));
-    }  
+    }
+
+    //approve master
+    approve(data: any): Observable<any> {
+        return this.http.post(this.url + '/cash-credit-master/approve', data).pipe(catchError(this.handleError));
+    }
+
+
+    //reject master
+    reject(data: any): Observable<any> {
+        return this.http.post(this.url + '/cash-credit-master/reject', data).pipe(catchError(this.handleError));
+    }
 }
 

@@ -220,7 +220,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submit(event) {
-   
+    debugger
     let closingbalid = (document.getElementById("DebtorsClosingBalance") as HTMLInputElement).value;
 
     this.angForm.patchValue({
@@ -235,8 +235,8 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
 
       const formVal = this.angForm.value;
       const dataToSend = {
-        AC_TYPE: this.scheme._value[0],
-        AC_NO: this.Accountno,
+        // AC_TYPE: this.scheme._value[0],
+        // AC_NO: this.Accountno,
         SUBMISSION_DATE: formVal.SUBMISSION_DATE,
         STATEMENT_DATE: formVal.STATEMENT_DATE,
         DEBTORS_OP_BAL: formVal.DEBTORS_OP_BAL,
@@ -254,12 +254,12 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
           Swal.fire("Success!", "Data Added Successfully !", "success");
           this.formSubmitted = false;
           // to reload after insertion of data
-          let info = []
-          info.push(data.id)
-          info.push("book")
+          // let info = []
+          // info.push(data.id)
+          // info.push("book")
 
-          this.newItemEvent(info);
-          console.log("book id", info)
+          // this.newItemEvent(info);
+          // console.log("book id", info)
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
@@ -300,8 +300,8 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
       dropdown.account = data.AC_NO.toString();
 
       this.angForm.patchValue({
-        AC_TYPE: this.scheme._value[0],
-        AC_NO: this.Accountno,
+        // AC_TYPE: this.scheme._value[0],
+        // AC_NO: this.Accountno,
         SUBMISSION_DATE: data.SUBMISSION_DATE,
         STATEMENT_DATE: data.STATEMENT_DATE,
         DEBTORS_OP_BAL: data.DEBTORS_OP_BAL,
@@ -326,7 +326,10 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      // this.rerender();
       this.resetForm();
     });
   }
@@ -361,13 +364,18 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

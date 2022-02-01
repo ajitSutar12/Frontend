@@ -3,15 +3,28 @@
         <div class="card">
             <div class="card-header">
                 <h5>Security Details</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false" [(ngModel)]="schemeedit" placeholder="Scheme" required title="Compulsory Selection" #scheme (ngModelChange)="schemechange()" formControlName="AC_TYPE">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="schemeedit" (select)="schemechange()"
+                                    formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                     required placeholder="Scheme">
+                                    <ng-option *ngFor="let values of scheme" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="AC_TYPE">Scheme</label>
+                                </span>
                             </div>
                             <!-- <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)" class="alert alert-danger">
                                 <div
@@ -19,12 +32,24 @@
                                 Please Select Scheme
                                 </div>
                             </div> -->
+
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="schemeACNo" 
                                 (selected)="getAccountno(accountedit)" [multiple]="false" placeholder="Account No." required title="Compulsory Selection" #ACCOUNT  [(ngModel)]="accountedit" (ngModelChange)="Accountnochange()" formControlName="AC_NO">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit" (select)="Accountnochange();getAccountno(accountedit)"
+                                    formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
+                                     required placeholder="Account No.">
+                                    <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="AC_NO">Account No.</label>
+                                </span>
                             </div>
                             <!-- <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AccountNo'].invalid && (angForm.controls['AccountNo'].dirty || angForm.controls['AccountNo'].touched)" class="alert alert-danger">
                                 <div
@@ -36,9 +61,9 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="To" class="form-control" placeholder=" " id="LedgerBalance"
+                                    <input type="text" name="To" class="form-control" placeholder=" " id="LEDGER_BAL"
                                         required="" formControlName="LEDGER_BAL">
-                                    <label for="LedgerBalance">Ledger Balance</label>
+                                    <label for="LEDGER_BAL">Ledger Balance</label>
                                 </span>
                             </div>
                         </div>

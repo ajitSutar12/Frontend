@@ -58,9 +58,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot()
   ],
-  declarations: [TermLoanMasterComponent,
-
-  ],
+  declarations: [TermLoanMasterComponent],
+  exports: [TermLoanMasterComponent],
 
   providers: [
     {

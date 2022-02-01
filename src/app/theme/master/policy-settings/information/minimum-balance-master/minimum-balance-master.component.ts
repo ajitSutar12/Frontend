@@ -190,7 +190,10 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      //this.rerender();
       this.resetForm();
     })
   }
@@ -240,6 +243,7 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

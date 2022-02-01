@@ -15,6 +15,7 @@ import { SchemeTypeChargesService } from './scheme-type-cherges-d.service';
 import { IOption } from 'ng-select';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -40,6 +41,7 @@ interface SchemeTypeChargesRate {
   styleUrls: ['./scheme-type-charges-d.component.scss'],
 })
 export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   //api 
   url = environment.base_url;
@@ -65,6 +67,10 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   currentJustify = 'start';
   active = 1;
   activeKeep = 1;
+  // for dropdown ngmodule
+  ngschemetype:any=null
+  ngchargestype:any=null
+  ngchargesgl:any=null
 
   // Variables for search 
   filterObject: { name: string; type: string; }[];
@@ -104,7 +110,8 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     public chargesType: ChargesTypeService,
     private schemeTypeDropdown: SchemeTypeDropdownService,
     private schemeTypeChargesService: SchemeTypeChargesService,
-    private aCMasterService: ACMasterDropdownService) {
+    private aCMasterService: ACMasterDropdownService,
+    private config: NgSelectConfig,) {
       this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
       console.log(this.datemax);
      
@@ -161,13 +168,14 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
           title: 'Action'
         },
         {
-          title: 'Scheme Type',
-          data: 'ACNOTYPE'
-        },
-        {
           title: 'Effect Date',
           data: 'EFFECT_DATE'
         },
+        {
+          title: 'Scheme Type',
+          data: 'ACNOTYPE'
+        },
+        
 
         {
           title: 'Charges Type',
@@ -206,7 +214,7 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
 
   createForm() {
     this.angForm = this.fb.group({
-      EFFECT_DATE: ['', [Validators.required]],
+      EFFECT_DATE: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(4)]],
       ACNOTYPE: ['', [Validators.required]],
       SERIAL_NO: [''],
       CHARGES_TYPE: ['', [Validators.required]],
@@ -222,7 +230,7 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
         console.log(data);
         if(data != ""){
           if(data > this.datemax){
-            Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+            Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
             (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
                 
           }
@@ -230,8 +238,10 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
       }
   // Method to insert data into database through NestJS
   submit() {
-    const formVal = this.angForm.value;
-    const dataToSend = {
+    if(this.multiField.length!=0){
+      this.formSubmitted=true;
+      const formVal = this.angForm.value;
+      const dataToSend = {
       'EFFECT_DATE': formVal.EFFECT_DATE,
       'ACNOTYPE': formVal.ACNOTYPE,
       'CHARGES_TYPE': formVal.CHARGES_TYPE,
@@ -240,6 +250,7 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     }
     this.schemeTypeChargesService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -248,6 +259,16 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     })
     //To clear form
     this.resetForm();
+    this.multiField = [] 
+    }
+    else{
+      Swal.fire(
+        'Warning',
+        'Please Input Slab Details ',
+        'warning'
+        )
+    }
+    
   }
 
   //Method for append data into fields
@@ -333,10 +354,10 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-
           if (this['value'] != '') {
             that
               .search(this['value'])
@@ -372,21 +393,37 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   }
  
   addField() {
-    const formVal = this.angForm.value;
-    var object = {
-      FROM_RANGE: formVal.FROM_RANGE,
-      TO_RANGE: formVal.TO_RANGE,
-      CHARGES_AMT: formVal.CHARGES_AMT,
+    let trange = (document.getElementById("TO_RANGE") as HTMLInputElement).value;
+    let camount = (document.getElementById("CHARGES_AMT") as HTMLInputElement).value;
+    if(camount == ""){
+      Swal.fire(
+        'Info',
+        'Please Input Charges Amount ',
+        'info')
+    }
+    if(trange==""){
+      Swal.fire('Info','Please Input To Range','info')
+    }
+    
+    
+    if( trange != "" && camount != ""){
+      const formVal = this.angForm.value;
+      var object = {
+        FROM_RANGE: formVal.FROM_RANGE,
+        TO_RANGE: formVal.TO_RANGE,
+        CHARGES_AMT: formVal.CHARGES_AMT,
     }
     this.multiField.push(object);
     console.log(this.multiField)
     this.resetField()
+    }
+    
   }
-  resetField() {
-    this.angForm.controls['FROM_RANGE'].reset();
-    this.angForm.controls['TO_RANGE'].reset();
-    this.angForm.controls['CHARGES_AMT'].reset();
-  }
+    resetField() {
+      this.angForm.controls['FROM_RANGE'].reset();
+      this.angForm.controls['TO_RANGE'].reset();
+      this.angForm.controls['CHARGES_AMT'].reset();
+    }
   intIndex: number
   intID: number
   updateField() {

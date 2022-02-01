@@ -32,6 +32,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 // import { DropdownOptionsService } from '../../../../shared/dropdownService/dropdownOptions.service'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'// Handling datatable data
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -66,6 +68,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SalaryDMasterdropdownService,
     SystemMasterParametersService,
     SharesSchemeService,
+    SchemeAccountNoService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
@@ -81,6 +84,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },
   ],
   declarations: [SharesMasterComponent],
+  exports:[SharesMasterComponent],
   bootstrap: [SharesMasterComponent]
 })
 export class SharesMasterModule { }

@@ -15,6 +15,7 @@ import { IOption } from 'ng-select';
 import { DereciationService } from './depreciation-rate-master.service';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -36,6 +37,7 @@ interface DepriciationRate {
   styleUrls: ['./depreciation-rate-master.component.scss'],
 })
 export class DepreciationRateMasterComponent implements OnInit {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   //api 
@@ -66,6 +68,8 @@ export class DepreciationRateMasterComponent implements OnInit {
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
+
+  ngcategory:any=null
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -85,7 +89,8 @@ export class DepreciationRateMasterComponent implements OnInit {
     private fb: FormBuilder,
     // for dropdown
     public categoryMaster: DepriciationCatDropdownMasterService,
-    private dereciationService: DereciationService) {
+    private dereciationService: DereciationService,
+    private config: NgSelectConfig,) {
           // this.datemax =new Date() ;
           this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
           console.log(this.datemax);
@@ -191,6 +196,7 @@ export class DepreciationRateMasterComponent implements OnInit {
     }
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted=true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'EFFECT_DATE': formVal.EFFECT_DATE,
@@ -199,6 +205,7 @@ export class DepreciationRateMasterComponent implements OnInit {
     }
     this.dereciationService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -299,10 +306,10 @@ export class DepreciationRateMasterComponent implements OnInit {
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-
           if (this['value'] != '') {
             that
               .search(this['value'])

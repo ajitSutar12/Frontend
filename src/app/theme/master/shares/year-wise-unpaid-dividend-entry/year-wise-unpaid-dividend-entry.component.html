@@ -3,8 +3,8 @@
     <div class="card">
       <div class="card-header">
         <h5>Year Wise Unpaid Dividend Opening Entry</h5>
-        <h6 style="float: right">
-          <sub class="required">* </sub>: Required Fields
+        <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+          Fields marked with (<sub class="required"> * </sub>) are mandatory
         </h6>
       </div>
       <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
@@ -12,11 +12,22 @@
           <div class="row">
             <div class="col-sm">
               <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                  <ng-select bindValue="value" [(ngModel)]="acType" id="ACTYPE" bindLabel="label"
+                    formControlName="ACTYPE" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    required placeholder="Scheme">
+                    <ng-option *ngFor="let values of SchemeCodeObject" [value]="values">
+                      {{values.label}} </ng-option>
+                  </ng-select>
+                  <label for="ACTYPE">Scheme <sub class="required"> * </sub></label>
+                </span>
+              </div>
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="SchemeCodeObject" [multiple]="false"
                   placeholder="Scheme *" required title="Compulsory Selection" [(ngModel)]="acType"
                   (selected)="(acType)" formControlName="ACTYPE">
                 </ng-select>
-              </div>
+              </div> -->
               <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['ACTYPE'].invalid &&
                   (angForm.controls['ACTYPE'].dirty ||
@@ -29,10 +40,21 @@
             </div>
             <div class="col-sm">
               <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                  <ng-select bindValue="value" [(ngModel)]="ngSalary" id="AC_SALARYDIVISION_CODE" bindLabel="label"
+                    formControlName="AC_SALARYDIVISION_CODE" title="Compulsory Selection"
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Salary Division">
+                    <ng-option *ngFor="let values of SalaryDMasterObject" [value]="values">
+                      {{values.label}} </ng-option>
+                  </ng-select>
+                  <label for="AC_SALARYDIVISION_CODE">Salary Division<sub class="required"> * </sub></label>
+                </span>
+              </div>
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="SalaryDMasterObject" [multiple]="false"
                   placeholder="Salary Division" formControlName="AC_SALARYDIVISION_CODE">
                 </ng-select>
-              </div>
+              </div> -->
               <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['AC_SALARYDIVISION_CODE'].invalid &&
                   (angForm.controls['AC_SALARYDIVISION_CODE'].dirty ||
@@ -45,13 +67,24 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
+                  <input type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE" class="form-control"
+                    required #date [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="WARRENT_DATE" minlength="10"
+                    maxlength="10" (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                    bsDatepicker>
+                  <label for="WARRENT_DATE">Dividend Warrant Date<sub class="required">*
+                    </sub></label>
+                </span>
+              </div>
+              <!-- <div class="form-group input-group">
+                <span class="border-lable-flt">
                   <input type="text" class="form-control" placeholder=" " id="WARRENT_DATE" required=""
                     max="{{ date | date: 'yyyy-MM-dd' }}" formControlName="WARRENT_DATE" value=""
                     onfocus="(this.type='date')" />
                   <label for="WARRENT_DATE">Div.Warrant Date <sub class="required">*</sub>
                   </label>
                 </span>
-              </div>
+              </div> -->
               <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['WARRENT_DATE'].invalid &&
                   (angForm.controls['WARRENT_DATE'].dirty || angForm.controls['WARRENT_DATE'].touched)"
                 class="alert alert-danger">
@@ -65,7 +98,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="DIV_FROM_YEAR" class="form-control" placeholder=" " id="DIV_FROM_YEAR"
                     formControlName="DIV_FROM_YEAR" pattern="^[0-9]+$" minlength="4" maxlength="4"
-                    (focusout)="getDivYearTo()" required>
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)" (focusout)="getDivYearTo()" required>
                   <label for="DIV_FROM_YEAR">Dividend Year From <sub class="required">*</sub></label>
                 </span>
               </div>
@@ -91,17 +124,39 @@
           <div class="row">
             <div class="col-sm">
               <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                  <ng-select id="AC_NOFrom" bindValue="id" [(ngModel)]="ngAcnoFrom" bindLabel="AC_NO"
+                    formControlName="AC_NOFrom" title="Compulsory Selection"
+                    [ngClass]="{'form-submitted': formSubmitted}" placeholder="Member From">
+                    <ng-option *ngFor="let values of ShareMasterObject" [value]="values">
+                      {{values.AC_NO}}</ng-option>
+                  </ng-select>
+                  <label for="AC_NOFrom">Member From</label>
+                </span>
+              </div>
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="ShareMasterObject" [multiple]="false"
                   placeholder="Member From" formControlName="AC_NOFrom">
                 </ng-select>
-              </div>
+              </div> -->
             </div>
             <div class="col-sm">
               <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                  <ng-select id="AC_NOTo" bindValue="id" [(ngModel)]="ngAcnoTo" bindLabel="AC_NO"
+                    formControlName="AC_NOTo" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    placeholder="Member To" (change)="getDividendTable()">
+                    <ng-option *ngFor="let values of ShareMasterObjectB" [value]="values">
+                      {{values.AC_NO}}</ng-option>
+                  </ng-select>
+                  <label for="AC_NOTo">Member To</label>
+                </span>
+              </div>
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="ShareMasterObjectB" [multiple]="false"
                   placeholder="Member To " formControlName="AC_NOTo" (ngModelChange)="getDividendTable()">
                 </ng-select>
-              </div>
+              </div> -->
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
@@ -112,7 +167,15 @@
                 </span>
               </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm" style="float: right;">
+              <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
+                [disabled]="angForm.invalid"> Submit </button>
+              <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                Cancel </button>&nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
+                [disabled]="angForm.invalid"> Update</button>
+            </div>
+            <!-- <div class="col-sm-3">
               <button class="btn btn-primary ripple light" *ngIf="showButton" (click)="submit()"
                 [disabled]="angForm.invalid">
                 Add
@@ -124,7 +187,7 @@
               <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
                 Cancel
               </button>
-            </div>
+            </div> -->
           </div>
           <ng-container *ngIf="showTable">
             <div class="row">
@@ -132,25 +195,41 @@
                 <div class="table-responsive">
                   <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                     class="table table-striped table-bordered table-hover">
+                    <thead>
+                      <td>Member No</td>
+                      <td>Member Name</td>
+                      <td>Dividend Amount</td>
+                      <td>Close Date</td>
+                    </thead>
                     <tbody *ngIf="multiShare?.length != 0">
-                      <tr>
+                      <!-- <tr>
                         <th>Member No</th>
                         <th>Member Name</th>
                         <th>Dividend Amount</th>
                         <th>Close Date</th>
-                      </tr>
+                      </tr> -->
                       <tr *ngFor="let data of multiShare;
                           let indexOfelement = index">
                         <td>{{ data.AC_NO }}</td>
                         <td>{{ data.AC_NAME }}</td>
-                        <td><input type="text" name="DIVIDEND_AMOUNT" id="DIVIDEND_AMOUNT"
+                        <td>
+                          <input type="text" name="DIVIDEND_AMOUNT" id="DIVIDEND_AMOUNT"
                             value="{{ data.shareDividend.DIVIDEND_AMOUNT }}" #divAmt
                             (focusout)="getAmount(data.id,data.shareDividend.id,data.AC_NO,divAmt.value)">
+
                         </td>
-                        <td><input type="text" onfocus="(this.type='date')" max="{{ date | date: 'yyyy-MM-dd' }}"
+                        <td>
+                          <!-- <input type="text" onfocus="(this.type='date')" max="{{ date | date: 'yyyy-MM-dd' }}"
                             value="{{ data.shareDividend.MEMBER_CLOSE_DATE }}" #closeDate
                             (ngModelChange)="getCloseDate(data.id,data.shareDividend.id,data.AC_NO,closeDate.value)"
-                            (focusout)="getCloseDate(data.id,data.shareDividend.id,data.AC_NO,closeDate.value)"> </td>
+                            (focusout)="getCloseDate(data.id,data.shareDividend.id,data.AC_NO,closeDate.value)"> -->
+
+                          <input type="text" name="DIVIDEND_AMOUNT" id="DIVIDEND_AMOUNT" placeholder="dd/mm/yyyy"
+                            class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                            value="{{ data.shareDividend.MEMBER_CLOSE_DATE }}" #closeDate
+                            (bsValueChange)="getCloseDate(data.id,data.shareDividend.id,data.AC_NO,closeDate.value)"
+                            (focusout)="getAmount(data.id,data.shareDividend.id,data.AC_NO,divAmt.value)">
+                        </td>
                       </tr>
                     </tbody>
                     <tbody *ngIf="multiShare?.length == 0">

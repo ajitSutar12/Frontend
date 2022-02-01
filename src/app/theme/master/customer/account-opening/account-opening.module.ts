@@ -30,6 +30,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     DatepickerModule.forRoot()
   ],
   declarations: [AccountOpeningComponent],
+  exports: [AccountOpeningComponent],
   providers: [Scheme1Service, A1Service, BranchService,
     BankMasterService,
     OwnbranchMasterService,

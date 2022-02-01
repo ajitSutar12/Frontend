@@ -253,12 +253,11 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
 
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-
           if (this['value'] != '') {
-         //   debugger
             that
               .search(this['value'])
               .draw();
@@ -270,6 +269,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
         });
       });
     });
+    
   }
 
   ngOnDestroy(): void {

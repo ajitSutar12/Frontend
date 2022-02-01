@@ -36,11 +36,11 @@ class DataTableResponse {
 // For fetching values from backend
 interface MarketMaster {
   id:number;
-    AC_ACNOTYPE:string;
-    AC_TYPE:number;
-    AC_NO:number;
-    SECU_CODE:number;
-    BRANCH_CODE:number;
+  AC_ACNOTYPE:string;
+  AC_TYPE:number;
+  AC_NO:number;
+  SECU_CODE:number;
+  BRANCH_CODE:number;
   SUBMISSION_DATE: Date;
   CO_CODE: number;
   CO_NAME: string;
@@ -50,7 +50,7 @@ interface MarketMaster {
   UPDATED_BY: string;
   RELEASE_DATE: Date;
   RELEASE_BY: string;
-    SECURITY_TYPE:string;
+  SECURITY_TYPE:string;
 }
 
 @Component({
@@ -242,8 +242,8 @@ marketmaster: MarketMaster[];
       
     const formVal = this.angForm.value;
     const dataToSend = {
-      AC_TYPE:this.scheme._value[0],
-      AC_NO:this.Accountno,
+      // AC_TYPE:this.scheme._value[0],
+      // AC_NO:this.Accountno,
       SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       CO_CODE: formVal.CO_CODE,
       CO_NAME: formVal.CO_NAME,
@@ -257,14 +257,18 @@ marketmaster: MarketMaster[];
     this._marketservice.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
-        let info = []
-        info.push(data.id)
-        info.push("marketShare")
+        this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+        // let info = []
+        // info.push(data.id)
+        // info.push("marketShare")
 
-        this.newItemEvent(info);
+        // this.newItemEvent(info);
         // to reload after insertion of data
 
-        this.rerender();
+        // this.rerender();
       },
       (error) => {
         console.log(error);
@@ -274,7 +278,7 @@ marketmaster: MarketMaster[];
     this.resetForm();
 
     }
-    }
+  }
 
   //function for edit button clicked
   editClickHandler(id: any): void {
@@ -282,15 +286,15 @@ marketmaster: MarketMaster[];
     this.updateShow = true;
     this.newbtnShow = true;
     this._marketservice.getFormData(id).subscribe((data) => {
-    
+      debugger
   //sending values to parent
   let dropdown: any = {};
   dropdown.scheme = data.AC_TYPE;
   dropdown.account = data.AC_NO.toString();
       this.updateID = data.id;
       this.angForm.patchValue({
-        AC_TYPE:this.scheme._value[0],
-        AC_NO:this.Accountno,
+        // AC_TYPE:this.scheme._value[0],
+        // AC_NO:this.Accountno,
         SUBMISSION_DATE: data.SUBMISSION_DATE,
         CO_CODE: data.CO_CODE,
         CO_NAME: data.CO_NAME,
@@ -311,7 +315,7 @@ checkmargin(ele:any){
 console.log(ele);
   }
   else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
   }
 }
 
@@ -325,7 +329,10 @@ console.log(ele);
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      // this.rerender();
       this.resetForm();
     });
   }
@@ -339,7 +346,7 @@ console.log(ele);
   delClickHandler(id: any): void {
     Swal.fire({
       title: "Are you sure?",
-      text: "Do you want to delete company code data",
+      text: "Do You Want To Delete Company Code Data",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -348,11 +355,11 @@ console.log(ele);
     }).then((result) => {
       if (result.isConfirmed) {
         this._marketservice.deleteData(id).subscribe((data1) => {
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire("Deleted!", "Your Data Has Been Deleted.", "success");
         }),
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire("Deleted!", "Your Data Has Been Deleted.", "success");
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire("Cancelled", "Your Data Is Safe.", "error");
       }
     });
   }
@@ -360,13 +367,18 @@ console.log(ele);
     this.myInputField.nativeElement.focus();//autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { SavingMasterComponent } from '../../../master/customer/saving-master/saving-master.component';
 import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs';
+import { interval, Subject, Subscription } from 'rxjs';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -60,7 +60,7 @@ export class MasterSavingComponent implements OnInit {
   dtExportButtonOptions: any = {};
   dtElement: DataTableDirective;
   dtTrigger: Subject<any> = new Subject();
-
+  mySubscription: Subscription
   page: number = 1;
   //filter variable
   filterData = {};
@@ -138,7 +138,13 @@ export class MasterSavingComponent implements OnInit {
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
+        this.mySubscription = interval(1000).subscribe((x => {
         this.http
           .post<DataTableResponse>(
             this.url + '/saving-master/passing',
@@ -160,6 +166,7 @@ export class MasterSavingComponent implements OnInit {
               data: []
             });
           });
+        }));
       },
       columnDefs: [{
         targets: '_all',
@@ -213,7 +220,9 @@ export class MasterSavingComponent implements OnInit {
 
   }
 
-
+  ngOnDestroy(){
+    this.mySubscription.unsubscribe();
+  }
   //get saving customer data
   getSavingData(data){
     console.log(data.id);

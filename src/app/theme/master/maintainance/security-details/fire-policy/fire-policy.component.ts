@@ -27,6 +27,7 @@ import { Subject } from "rxjs";
 import { Router } from "@angular/router";
 import { first } from "rxjs/operators";
 import { InsuranceMasterDropdownService } from "../../../../../shared/dropdownService/insurance-master-dropdown.service";
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -80,7 +81,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   updateShow: boolean = false;
   updateID: number;
   firemaster: FireMaster[];
-
+  nginsurance:any=null
   //for autofocus
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
@@ -95,7 +96,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     private _fire: firepolicycomponentservice,
     public router: Router,
     private _insurancedropdownservice: InsuranceMasterDropdownService,
-  ) {
+    private config: NgSelectConfig,) {
          this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
     console.log(this.datemax);
 
@@ -228,8 +229,8 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log(this.angForm.value); // Process your form
       const formVal = this.angForm.value;
     const dataToSend = {
-      AC_TYPE: this.scheme._value[0],
-      AC_NO: this.Accountno,
+      // AC_TYPE: this.scheme._value[0],
+      // AC_NO: this.Accountno,
       SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       POLICY_DUE_DATE: formVal.POLICY_DUE_DATE,
       POLICY_NO: formVal.POLICY_NO,
@@ -245,14 +246,16 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+        // let info = []
+        // info.push(data.id)
+        // info.push("firePolicy")
 
-        let info = []
-        info.push(data.id)
-        info.push("firePolicy")
-
-        this.newItemEvent(info);
-        // to reload after insertion of data
-        this.rerender();
+        // this.newItemEvent(info);
+        // // to reload after insertion of data
+        // this.rerender();
       },
       (error) => {
         console.log(error);
@@ -277,8 +280,8 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.updateID = data.id;
       this.angForm.patchValue({
-        AC_TYPE: this.scheme._value[0],
-        AC_NO: this.Accountno,
+        // AC_TYPE: this.scheme._value[0],
+        // AC_NO: this.Accountno,
         SUBMISSION_DATE: data.SUBMISSION_DATE,
         POLICY_DUE_DATE: data.POLICY_DUE_DATE,
         POLICY_NO: data.POLICY_NO,
@@ -303,7 +306,10 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      //.rerender();
       this.resetForm();
     });
   }
@@ -317,7 +323,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   delClickHandler(id: any): void {
     Swal.fire({
       title: "Are you sure?",
-      text: "Do you want to delete Submission Date data",
+      text: "Do You Want To Delete Submission Date data",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -327,11 +333,11 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
       if (result.isConfirmed) {
         this._fire.deleteData(id).subscribe((data1) => {
           this.firemaster = data1;
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire("Deleted!", "Your Data Has Been Deleted.", "success");
         }),
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire("Deleted!", "Your Data Has Been Deleted.", "success");
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire("Cancelled", "Your data Is Safe.", "error");
       }
     });
   }
@@ -341,13 +347,18 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

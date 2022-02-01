@@ -18,6 +18,7 @@ import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -40,6 +41,7 @@ interface SavingandPigmyInterestRate {
   styleUrls: ['./interest-rate-for-sapd.component.scss'],
 })
 export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -93,13 +95,16 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
   datemax: any;
   // dropdown
   allScheme: any[];
+  ngscheme:any=null
+  ngintcat:any=null
   constructor(
     private http: HttpClient,
     private savingandPigmyInterestRatesService: SavingandPigmyInterestRatesService,
     private schemeTypeDropdownService: SchemeTypeDropdownService,
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) {
           // this.datemax =new Date() ;
           this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
           console.log(this.datemax);
@@ -174,9 +179,10 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     this.runTimer();
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
-        return (scheme.value == 'PG' || scheme.value == 'SB');
+        return (scheme.value == 'PG' && scheme.value == 'SB');
       });
       this.allScheme = filtered;
+      console.log(this.allScheme)
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;
@@ -197,7 +203,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
         console.log(data);
         if(data != ""){
           if(data > this.datemax){
-            Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+            Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
             (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
                 
           }
@@ -205,6 +211,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       }
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'EFFECT_DATE': formVal.EFFECT_DATE,
@@ -214,8 +221,12 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     }
     this.savingandPigmyInterestRatesService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted =false;
       // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      //this.rerender();
     }, (error) => {
       console.log(error)
     })
@@ -231,7 +242,7 @@ checkmargin(ele:any){
 console.log(ele);
   }
   else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
   }
 }
   //Method for append data into fields
@@ -259,7 +270,10 @@ console.log(ele);
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      //this.rerender();
       this.resetForm();
     })
   }
@@ -310,6 +324,7 @@ console.log(ele);
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

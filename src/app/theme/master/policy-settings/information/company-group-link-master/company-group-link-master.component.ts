@@ -17,6 +17,7 @@ import { SchemeCodeDropdownService } from '../../../../../shared/dropdownService
 import { CompanyGroupMasterDropdownService } from '../../../../../shared/dropdownService/company-group-master-dropdown.service';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -76,6 +77,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
   companyCode: any;
   schemeCode: any;
+  ngcompany:any=null
+  ngcode:any=null
   //Scheme type variable
   schemeType: string = 'GL'
 
@@ -88,7 +91,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     private fb: FormBuilder,
     public schemeCodeService: SchemeCodeDropdownService,
     public companyGroupService: CompanyGroupMasterDropdownService,
-  ) { }
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -280,10 +283,10 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
-
           if (this['value'] != '') {
             that
               .search(this['value'])

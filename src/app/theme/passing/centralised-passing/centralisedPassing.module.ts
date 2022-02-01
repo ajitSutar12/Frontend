@@ -29,7 +29,23 @@ import { DataTablesModule} from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { MasterSavingModule} from './master-saving/master-saving.module';
+import { MasterShareModule} from './master-shares/master-shares.module';
 import { MasterDeadStockModule } from './master-dead-stock/master-dead-stock.module';
+import { MasterCurrentModule } from './master-current/master-current.module';
+import { MasterAnamatModule } from './master-anamat/master-anamat.module';
+import { MasterDepositsModule } from './master-deposits/master-depositst.module';
+import { MasterInvestmentsModule } from './master-investments/master-investments.module';
+import { MasterPigmyAgentModule } from './master-pigmy-agent/master-pigmy-agent.module';
+import { MasterPigmyModule } from './master-pigmy/master-pigmy.module';
+import { MasterCashCreditModule } from './master-cash-credit/master-cash-credit.module';
+import { MasterLoanModule } from './master-loan/master-loan.module';
+
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 // import {ChartModule} from 'angular2-chartjs';
 
 @NgModule({
@@ -39,7 +55,17 @@ import { MasterDeadStockModule } from './master-dead-stock/master-dead-stock.mod
     SharedModule,
     DataTablesModule,
     MasterSavingModule,
-    MasterDeadStockModule
+    PerfectScrollbarModule,
+    MasterDeadStockModule,
+    MasterCurrentModule,
+    MasterShareModule,
+    MasterAnamatModule,
+    MasterDepositsModule,
+    MasterInvestmentsModule,
+    MasterPigmyAgentModule,
+    MasterPigmyModule,
+    MasterCashCreditModule,
+    MasterLoanModule
   ],
   declarations: [CentralisedPassingComponent], 
   // declarations: [CentralisedPassingComponent, VoucherComponent, BatchVoucherComponent, DepositClosingVoucherComponent, SavingPigmyClosingComponent, RemittanceAdviceComponent, CashRemitanceComponent, DeadStockPurchaseComponent, DeadStockTransactionComponent, LockerAcCloseRentComponent, MasterSharesComponent, MasterAnamatComponent, MasterCurrentComponent, MasterDepositsComponent, MasterInvestmentsComponent, MasterPigmyAgentComponent, MasterPigmyComponent, MasterCashCreditComponent, MasterLoanComponent, MasterDisputeLoanComponent, MasterLockerDepositComponent, MasterDeadStockComponent],
@@ -47,6 +73,10 @@ import { MasterDeadStockModule } from './master-dead-stock/master-dead-stock.mod
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
+  },
+  {
+    provide: PERFECT_SCROLLBAR_CONFIG,
+    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
   },]
 })
 export class CentralisedPassingModule { }

@@ -36,6 +36,7 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   //api 
   url = environment.base_url;
   angForm: FormGroup;
+  formSubmitted = false;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -59,7 +60,7 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   // Store data from backend
   tdReceipt: TDReceiptinterface[];
 
-  selectedValue = ""
+  selectedValue: any = null
   receipt: number
   //title select variables
   tdMaster: Array<IOption> = this._tdReceiptService.getCharacters();
@@ -155,34 +156,38 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   }
   createForm() {
     this.angForm = this.fb.group({
-      LAST_RECEIPT_NO: [, [Validators.pattern]],
+      LAST_RECEIPT_NO: [, [Validators.pattern, Validators.required]],
       RECEIPT_TYPE: ['', [Validators.required]]
     });
   }
 
   submit() {
-    const formVal = this.angForm.value;
-    console.log(this.receipt)
-    const dataToSend = {
-      'LAST_RECEIPT_NO': formVal.LAST_RECEIPT_NO,
-      'RECEIPT_TYPE': formVal.RECEIPT_TYPE
-    };
-    console.log(this.angForm.value);
-    console.log(dataToSend, "dataToSend");
-    this._receipt.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        // to reload after insertion of data
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+    this.formSubmitted = true;
+    if (this.angForm.valid) {
+      const formVal = this.angForm.value;
+      console.log(this.receipt)
+      const dataToSend = {
+        'LAST_RECEIPT_NO': formVal.LAST_RECEIPT_NO,
+        'RECEIPT_TYPE': formVal.RECEIPT_TYPE
+      };
+      console.log(this.angForm.value);
+      console.log(dataToSend, "dataToSend");
+      this._receipt.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          // to reload after insertion of data
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+          this.formSubmitted = false;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
+    }
   }
   //function toggle update to add button
   updateData() {
@@ -253,6 +258,7 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   // Reset Function
   resetForm() {
     this.createForm();
+    this.selectedValue = null
   }
 
   //reset function while update
@@ -264,8 +270,9 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngAfterViewInit(): void {
-    this.dtTrigger.next();
+    this.dtTrigger.next()
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#ftable tfoot tr').appendTo('#ftable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
@@ -290,24 +297,23 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
 
 
   getValue(event) {
-    // debugger
     this.http.get<any>(
       this.url + '/td-receipt-type',
     ).subscribe(resp => {
-      console.log("resp", resp)
       if (resp.length != 0) {
-        resp.forEach(async (element) => {
+        for (let element of resp) {
           if (event.value == element.RECEIPT_TYPE) {
-            console.log("RECEIPT_TYPE", resp[0].RECEIPT_TYPE)
             this.angForm.patchValue({
               LAST_RECEIPT_NO: element.LAST_RECEIPT_NO
             })
-          } else {
+            break
+          }
+          else {
             this.angForm.patchValue({
               LAST_RECEIPT_NO: 0
             })
           }
-        })
+        }
       }
       else {
         this.angForm.patchValue({

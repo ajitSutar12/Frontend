@@ -216,7 +216,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-agent-master/')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: `${element.AC_NO}`, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -228,7 +228,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-agent-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: `${element.AC_NO}`, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -239,7 +239,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/investment/')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: `${element.AC_NO}`, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -250,7 +250,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-agent-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: `${element.AC_NO}`, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;

@@ -237,8 +237,8 @@ export class PlantAndMachineryComponent
       console.log(this.angForm.value); // Process your form
       const formVal = this.angForm.value;
     const dataToSend = {
-      AC_TYPE: this.scheme._value[0],
-      AC_NO: this.Accountno,
+      // AC_TYPE: this.scheme._value[0],
+      // AC_NO: this.Accountno,
       SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       MACHINE_NAME: formVal.MACHINE_NAME,
       MACHINE_TYPE: formVal.MACHINE_TYPE,
@@ -255,13 +255,16 @@ export class PlantAndMachineryComponent
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         this.formSubmitted = false;
-        let info = []
-        info.push(data.id)
-        info.push("plantMachinary")
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+        // let info = []
+        // info.push(data.id)
+        // info.push("plantMachinary")
 
-        this.newItemEvent(info);
-        // to reload after insertion of data
-        this.rerender();
+        // this.newItemEvent(info);
+        // // to reload after insertion of data
+        // this.rerender();
       },
       (error) => {
         console.log(error);
@@ -300,8 +303,8 @@ export class PlantAndMachineryComponent
 
         this.angForm.patchValue({
 
-          AC_TYPE: this.scheme._value[0],
-          AC_NO: this.Accountno,
+          // AC_TYPE: this.scheme._value[0],
+          //AC_NO: this.Accountno,
           SUBMISSION_DATE: data.SUBMISSION_DATE,
           MACHINE_NAME: data.MACHINE_NAME,
           MACHINE_TYPE: data.MACHINE_TYPE,
@@ -327,7 +330,10 @@ export class PlantAndMachineryComponent
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      // this.rerender();
       this.resetForm();
     });
   }
@@ -363,13 +369,18 @@ export class PlantAndMachineryComponent
     this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

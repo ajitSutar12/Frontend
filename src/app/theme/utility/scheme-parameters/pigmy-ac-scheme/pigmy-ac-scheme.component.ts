@@ -289,6 +289,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
  // Method check scheme code 
 
  checkscheme(S_APPL){
+   debugger
    let schemecode =document.getElementById("S_APPL") as HTMLInputElement;
 
   this.pigmyAcSchemeService.getFormData(S_APPL).subscribe(data => {

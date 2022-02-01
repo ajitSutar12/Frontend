@@ -19,6 +19,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -46,6 +47,7 @@ interface TermDepositInterestRate {
   styleUrls: ['./term-deposit-ir.component.scss'],
 })
 export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   //api 
@@ -76,6 +78,10 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
+
+  // for dropdown ngmodule
+  ngscheme:any=null
+  ngintcat:any=null
   // Variables for hide/show add and update and new button
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -100,6 +106,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
   //scheme dropdown variables
   //Scheme type variable
+  
   schemeType: string = 'SB'
   timeLeft = 5;
   private dataSub: Subscription = null;
@@ -114,7 +121,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) {
       this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
       console.log(this.datemax);
     
@@ -216,6 +224,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   }
   // Method to insert data into database through NestJS
   submit() {
+    if(this.multiField.length!=0){    
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'EFFECT_DATE': formVal.EFFECT_DATE,
@@ -225,6 +235,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     }
     this.termDepositInterestRateService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -234,6 +245,16 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     //To clear form
     this.resetForm();
     this.multiField = []
+  }
+  else{
+    Swal.fire(
+      'Info',
+      'Please Input Slab Details ',
+      'info'
+      )
+  }
+  
+
   }
 
   //Method for append data into fields
@@ -265,7 +286,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
       Swal.fire(
         'Invalid Input',
-        'Please enter Days or Month range ',
+        'Please Enter Days Or Month Range ',
         'warning'
       )
 
@@ -274,7 +295,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
       Swal.fire(
         'Invalid Input',
-        'Days or Month range  value should not be zero ',
+        'Days Or Month Range Value Should Not Be Zero ',
         'warning'
       )
 
@@ -290,7 +311,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       if (from > to) {
         Swal.fire(  
           'Warning!',
-          'From Days should be less than To Days',
+          'From Days Should Be Less Than To Days',
           'warning'
         );
         (document.getElementById("todays") as HTMLInputElement).value = ""
@@ -306,7 +327,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       if (from > to) {
         Swal.fire(  
           'Warning!',
-          'From Months should be less than To Months',
+          'From Months Should Be Less Than To Months',
           'warning'
         );
         (document.getElementById("TO_months") as HTMLInputElement).value = ""
@@ -323,7 +344,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   console.log(ele);
     }
     else{
-      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
     }
   }
   //disabledate on keyup
@@ -332,7 +353,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     console.log(data);
     if(data != ""){
       if(data > this.datemax){
-        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
         (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
             
       }
@@ -408,7 +429,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to delete Interest Rate for Term Deposit data.",
+      text: "Do You Want To Delete Interest Rate For Term Deposit Data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -420,7 +441,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
           this.termDepositInterestRate = data1;
           Swal.fire(
             'Deleted!',
-            'Your data has been deleted.',
+            'Your Data Has Been Deleted.',
             'success'
           )
         }), (error) => {
@@ -433,7 +454,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       ) {
         Swal.fire(
           'Cancelled',
-          'Your data is safe.',
+          'Your Data Is Safe.',
           'error'
         )
       }
@@ -444,6 +465,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
@@ -480,23 +502,27 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   addField() { 
-   
+    
     let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
     let penint = (document.getElementById("PENAL_INT_RATE") as HTMLInputElement).value;
-    if(intrate == " "){
+    if(penint == ""){
       Swal.fire(
-        'Warning',
-        'Please input Interest rate ',
-        'warning'
+        'Info',
+        'Please Input Panel Interest Rate',
+        'info'
       )
     }
-    if(penint==" "){
-      Swal.fire('Please add panel interest')
+    if(intrate == ""){
+
+      Swal.fire(
+        'Info',
+        'Please Input Interest Rate ',
+        'info'
+      )
+        
     }
-
-
-
-     if(intrate && penint != "")
+    
+    if(intrate!="" && penint != "")
     {
       const formVal = this.angForm.value;
       var object = {
@@ -509,9 +535,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       }
       this.multiField.push(object);
       console.log(this.multiField)
-      Swal.fire(
-      'Data Added'
-      )
+      
       this.resetField()
     }
     

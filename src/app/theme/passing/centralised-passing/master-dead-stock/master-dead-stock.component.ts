@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+// Used to Call API
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
+import { DeadStockMasterComponent } from '../../../master/customer/dead-stock-master/dead-stock-master.component';
 import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { HttpClient } from "@angular/common/http";
-
+import { interval, Subject, Subscription } from 'rxjs';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -38,24 +39,20 @@ interface deadstockinterface {
 })
 export class MasterDeadStockComponent implements OnInit {
 
+  @ViewChild(DeadStockMasterComponent) child: DeadStockMasterComponent;
+  @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
+
   dtExportButtonOptions: any = {};
-  //api
-  url = environment.base_url;
-
-  // For reloading angular datatable after CRUD operation
-  @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {};
-
   dtTrigger: Subject<any> = new Subject();
-
+  mySubscription: Subscription
   page: number = 1;
-  passenger: any;
-  itemsPerPage = 10;
+  //filter variable
   filterData = {};
+  url = environment.base_url;
+  // Store data from backend
   customerMaster: deadstockinterface[];
-
-
+  deadstockData: any;
   constructor(private http: HttpClient,) { }
 
   ngOnInit(): void {
@@ -95,7 +92,7 @@ export class MasterDeadStockComponent implements OnInit {
     //     'csv'
     //   ]
     // };
-    
+
 
     this.dtExportButtonOptions = {
       pagingType: "full_numbers",
@@ -124,27 +121,34 @@ export class MasterDeadStockComponent implements OnInit {
             }
           }
         });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/dead-stock-master",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.customerMaster = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
+        dataTableParameters['filterData'] = this.filterData;
+        this.mySubscription = interval(1000).subscribe((x => {
+          this.http
+            .post<DataTableResponse>(
+              this.url + "/dead-stock-master",
+              dataTableParameters
+            )
+            .subscribe((resp) => {
+              this.customerMaster = resp.data;
+              callback({
+                recordsTotal: resp.recordsTotal,
+                recordsFiltered: resp.recordsTotal,
+                data: [],
+              });
             });
-          });
+        }));
       },
       columns: [
         {
           title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
+          // render: function (data: any, type: any, full: any) {
+          //   return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+          // },
         },
 
         {
@@ -218,5 +222,24 @@ export class MasterDeadStockComponent implements OnInit {
     };
   }
 
+  ngOnDestroy() {
+    this.mySubscription.unsubscribe();
+  }
+  //get saving customer data
+  getCurrentData(data) {
+    console.log(data.id);
+    this.deadstockData = data.id;
+    this.child.editClickHandler(data.id);
+    this.child.DatatableHideShow = false;
+    this.child.rejectShow = true;
+    this.child.approveShow = true;
+  }
+  public getData(value): void {
+    let el: HTMLElement = this.myDiv.nativeElement;
+    el.click();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
+  }
 
 }
