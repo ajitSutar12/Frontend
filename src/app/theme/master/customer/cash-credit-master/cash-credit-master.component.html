@@ -143,13 +143,10 @@
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         name="AC_OPDATE" id="AC_OPDATE"
                                                                         class="form-control" required
-                                                                        max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         disabled
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        (focusout)="disabledate(date.value)"
-                                                                        (ngModelChange)="changeDate()"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                        [(ngModel)]="openingDate"
                                                                         formControlName="AC_OPDATE" [bsValue]="bsValue"
                                                                         bsDatepicker>
                                                                     <label for="AC_OPDATE">Opening Date<sub
@@ -2404,21 +2401,25 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm" style="float: right;">
-                                                          <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                                            (click)="submit($event)">
-                                                            Submit
-                                                          </button>
-                                                          <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
-                                                            Cancel
-                                                          </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                          <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
-                                                            Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                          <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                                                            Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                          <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
-                                                            Approve</button>
+                                                            <button type="submit" class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="showButton" (click)="submit($event)">
+                                                                Submit
+                                                            </button>
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                (click)="addNewData()" *ngIf="newbtnShow">
+                                                                Cancel
+                                                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                (click)="updateData()" *ngIf="updateShow">
+                                                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="rejectShow" (click)="reject()">
+                                                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="approveShow" (click)="Approve()">
+                                                                Approve</button>
                                                         </div>
-                                                      </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2433,7 +2434,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="DatatableHideShow">
     <div class="col-12">
         <div class="card shadow">
             <div class="card-block">

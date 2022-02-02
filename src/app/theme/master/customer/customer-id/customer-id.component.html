@@ -79,7 +79,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME"
                                         required pattern="^[A-Za-z]+$" maxlength="15"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122)"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="lname = $event.toUpperCase()" style="text-transform:uppercase;"
                                         [ngClass]="{'form-submitted': formSubmitted}" #lastname [(ngModel)]="lname"
                                         title="Input allowed only A-Z" formControlName="L_NAME" required>
@@ -103,7 +103,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME"
                                         required pattern="^[A-Za-z]+$" maxlength="15"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122)"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="fname = $event.toUpperCase()" style="text-transform:uppercase;"
                                         [ngClass]="{'form-submitted': formSubmitted}" [(ngModel)]="fname"
                                         title="Input allowed only A-Z" formControlName="F_NAME">
@@ -127,7 +127,7 @@
                                         class="form-control" placeholder=" " id="M_NAME" required pattern="^[A-Za-z]+$"
                                         [ngClass]="{'form-submitted': formSubmitted}" maxlength="15" [(ngModel)]="mname"
                                         title="Input allowed only A-Z" (ngModelChange)="mname = $event.toUpperCase()"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122)"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         style="text-transform:uppercase;" formControlName="M_NAME"
                                         (focusout)="checkCustomer()">
                                     <label for="M_NAME">Middle Name<sub class="required">* </sub></label>
@@ -220,9 +220,8 @@
                                     <input type="text" name="AC_ADHARNO" class="form-control" placeholder=" "
                                         pattern="[2-9]{1}[0-9\s]{13}" title="Input allowed only 0-9" id="AC_ADHARNO"
                                         #adhar maxlength="14" minlength="14" (keyup)="addSpace(adhar.value)"
-                                        formControlName="AC_ADHARNO" (focusout)="checkAdhar()"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
-                                    <label for="AC_ADHARNO">Aadhar Number</label>
+                                        formControlName="AC_ADHARNO" (focusout)="checkAdhar()" (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                    <label for=" AC_ADHARNO">Aadhar Number</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -241,8 +240,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PANNO" class="form-control" placeholder=" "
                                         pattern="^[A-Z0-9]+$" title="Enter Uppercase letters and digits only"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 48 && $event.charCode < 58)"
-                                        (focusout)="checkPancard()" maxlength="10" id="AC_PANNO"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58)"
+                                        (focusout)=" checkPancard()" maxlength="10" id="AC_PANNO"
                                         formControlName="AC_PANNO">
                                     <label for="AC_PANNO">Pan Number</label>
                                 </span>
@@ -291,7 +290,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" formControlName="AC_HONO" name="AC_HONO" class="form-control"
                                         placeholder=" " title=" Input allowed only A-Z a-z 0-9 - / . (Space)"
-                                        id="AC_HONO" style="text-transform: capitalize;">
+                                        id="AC_HONO">
                                     <label for="AC_HONO">House</label>
                                 </span>
                             </div>
@@ -307,7 +306,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_WARD" class="form-control" placeholder=" "
-                                        pattern="^[A-Za-z0-9\./ -]+$" style="text-transform: capitalize;"
+                                        pattern="^[A-Za-z0-9\./ -]+$"
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_WARD"
                                         formControlName="AC_WARD">
                                     <label for="AC_WARD">Ward</label>
@@ -326,7 +325,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_ADDR" class="form-control" placeholder=" "
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_ADDR"
-                                        formControlName="AC_ADDR" style="text-transform: capitalize;">
+                                        formControlName="AC_ADDR">
                                     <label for="AC_ADDR">Detail</label>
                                 </span>
                             </div>
@@ -343,7 +342,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_GALLI" class="form-control" placeholder=" "
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_GALLI"
-                                        formControlName="AC_GALLI" style="text-transform: capitalize;">
+                                        formControlName="AC_GALLI">
                                     <label for="AC_GALLI">Galli</label>
                                 </span>
                             </div>
@@ -360,7 +359,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_AREA" class="form-control" placeholder=" "
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_AREA"
-                                        formControlName="AC_AREA" style="text-transform: capitalize;">
+                                        formControlName="AC_AREA">
                                     <label for="AC_AREA">Area</label>
                                 </span>
                             </div>
@@ -379,13 +378,14 @@
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_CTCODE" bindValue="id" [(ngModel)]="ngCity" bindLabel="CITY_NAME"
-                                        formControlName="AC_CTCODE" title="Compulsory Selection"
+                                    <ng-select id="AC_CTCODE" [items]="city" bindValue="id" [(ngModel)]="ngCity"
+                                        bindLabel="CITY_NAME" formControlName="AC_CTCODE" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="City" required>
-                                        <ng-option *ngFor="let values of city" [value]="values">
-                                            {{values.CITY_NAME}}</ng-option>
+                                        <!-- <ng-option *ngFor="let values of city" [value]="values">
+                                            {{values.CITY_NAME}}</ng-option> -->
                                     </ng-select>
-                                    <label for="AC_CTCODE">City</label>
+                                    <label for="AC_CTCODE">City<sub class="required">*
+                                        </sub></label>
                                 </span>
                             </div>
                             <!-- <div class="form-group form-primary form-static-label">
@@ -406,13 +406,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-1">
+                        <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_PIN" class="form-control" placeholder=" "
-                                        pattern="^[1-9][0-9]{5}" title=" Input allowed only  0-9" maxlength="6"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" minlength="6"
-                                        id="AC_PIN" formControlName="AC_PIN" NumberOnly>
+                                    <input type="text" style="text-align: right;" name="AC_PIN" class="form-control"
+                                        placeholder=" " pattern="^[1-9][0-9]{5}" title=" Input allowed only  0-9"
+                                        maxlength="6" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        minlength=" 6" id="AC_PIN" formControlName="AC_PIN" NumberOnly>
                                     <label for="AC_PIN">Pin Code</label>
                                 </span>
                             </div>
@@ -437,11 +437,11 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_MOBILENO" class="form-control" placeholder=" "
-                                        pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9" id="AC_MOBILENO"
-                                        maxlength="11" minlength="10" formControlName="AC_MOBILENO"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
-                                    <label for="AC_MOBILENO">Mobile Number</label>
+                                    <input style="text-align: right;" type="text" name="AC_MOBILENO"
+                                        class="form-control" placeholder=" " pattern="[7-9 0]{1}[0-9]{9,10}"
+                                        title="Input allowed only  0-9" id="AC_MOBILENO" maxlength="11" minlength="10"
+                                        formControlName="AC_MOBILENO" (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                    <label for=" AC_MOBILENO">Mobile Number</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -456,11 +456,11 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_PHONE_RES" class="form-control" placeholder=" "
-                                        pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9"
-                                        id="AC_PHONE_RES" maxlength="11" minlength="10" formControlName="AC_PHONE_RES"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
-                                    <label for="AC_PHONE_RES">Residential/Mobile Number</label>
+                                    <input style="text-align: right;" type="text" name="AC_PHONE_RES"
+                                        class="form-control" placeholder=" " pattern="[7-9 0]{1}[0-9]{9,10}"
+                                        title="Input allowed only  0-9" id="AC_PHONE_RES" maxlength="11" minlength="10"
+                                        formControlName="AC_PHONE_RES" (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                    <label for=" AC_PHONE_RES">Residential/Mobile Number</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -475,12 +475,11 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_PHONE_OFFICE" class="form-control" placeholder=" "
-                                        pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9"
-                                        id="AC_PHONE_OFFICE" maxlength="11" minlength="10"
-                                        formControlName="AC_PHONE_OFFICE"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
-                                    <label for="AC_PHONE_OFFICE">Office/Mobile Number</label>
+                                    <input style="text-align: right;" type="text" name="AC_PHONE_OFFICE"
+                                        class="form-control" placeholder=" " pattern="[7-9 0]{1}[0-9]{9,10}"
+                                        title="Input allowed only  0-9" id="AC_PHONE_OFFICE" maxlength="11"
+                                        minlength="10" formControlName="AC_PHONE_OFFICE" (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                    <label for=" AC_PHONE_OFFICE">Office/Mobile Number</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -496,7 +495,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="email" name="AC_EMAILID" class="form-control" placeholder=" "
-                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.com$" title="Enter valid Email"
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" title="Enter valid Email"
                                         id="AC_EMAILID" formControlName="AC_EMAILID">
                                     <label for="AC_EMAILID">Email</label>
                                 </span>
@@ -616,9 +615,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="FIN_YEAR" class="form-control" placeholder=" " #finyear
-                                        id="FIN_YEAR" maxlength="9" (keyup)="addhyphen(finyear.value)"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        formControlName="FIN_YEAR">
+                                        id="FIN_YEAR" maxlength="9" (keyup)="addhyphen(finyear.value)" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        formControlName=" FIN_YEAR">
                                     <label for="FIN_YEAR">Financial Year</label>
                                 </span>
                             </div>
@@ -628,7 +626,9 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE" id="SUBMIT_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" minlength="10"
+                                        maxlength="10"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="SUBMIT_DATE" [bsValue]="bsValue" bsDatepicker
                                         [required]="SUBMIT_DATE">
                                     <label for="SUBMIT_DATE">Submission Date<sub class="required">* </sub></label>
@@ -689,12 +689,11 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="TDS_RATE" class="form-control" placeholder=" "
-                                        pattern="\d{1,20}(\.\d{2})?" id="TDS_RATE" title="Input allowed only  0-9"
-                                        #margin (keyup)="checkmargin(margin.value)" formControlName="TDS_RATE"
-                                        style="text-align: right;"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
-                                    <label for="TDS_RATE">TDS Rate %</label>
+                                    <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control"
+                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="TDS_RATE"
+                                        title="Input allowed only  0-9" #margin (keyup)="checkmargin(margin.value)"
+                                        formControlName="TDS_RATE" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
+                                    <label for=" TDS_RATE">TDS Rate %</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -708,11 +707,11 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="TDS_LIMIT" class="form-control" placeholder=" "
-                                        pattern="\d{1,20}(\.\d{2})?" id="TDS_LIMIT" title="Input allowed only  0-9"
-                                        maxlength="10" formControlName="TDS_LIMIT" style="text-align: right;"
+                                    <input type="text" style="text-align: right;" name="TDS_LIMIT" class="form-control"
+                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="TDS_LIMIT"
+                                        title="Input allowed only  0-9" maxlength="10" formControlName="TDS_LIMIT"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
-                                    <label for="TDS_LIMIT">TDS Limit</label>
+                                    <label for=" TDS_LIMIT">TDS Limit</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -726,51 +725,25 @@
                     </div>
                     <div class="row" *ngIf="isDocument">
                         <div class="col-sm">
-                            <div class="card">
+                            <div class="card shadow">
                                 <div class="card-block">
                                     <div class="row">
                                         <div class="col-sm">
                                             <div class="table-responsive">
-                                                <table class="table table-striped table-hover"
-                                                    [dtOptions]="dtExportOptions" [dtTrigger]="dtTrigger">
+                                                <!-- <table class="table table-striped table-hover"
+                                                    [dtOptions]="dtExportOptions" [dtTrigger]="dtTrigger"> -->
+                                                <table class="table table-striped table-bordered table-hover compact">
                                                     <thead>
                                                         <tr>
-                                                            <th>Document Name</th>
-                                                            <th>Upload Attachment</th>
-                                                            <th>View Document</th>
+                                                            <td>Document Name</td>
+                                                            <td>Upload Attachment</td>
+                                                            <td>View Document</td>
                                                         </tr>
                                                     </thead>
                                                     <tbody *ngIf="documentMaster?.length != 0">
                                                         <tr
                                                             *ngFor="let data of documentMaster; let indexOfelement=index;">
-
                                                             <td style="align-items: center;">
-                                                                <!-- <div class="border-checkbox-section">
-                                                                    <div
-                                                                        class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input type="checkbox" class="border-checkbox"
-                                                                            id={{data.value}}
-                                                                            (click)="Enablefields(data.value,indexOfelement,$event)">
-                                                                        <label class="border-checkbox-label"
-                                                                            for={{data.value}}> {{data.label}} {{data.DocumentMaster.NAME}}</label>
-                                                                    </div>
-                                                                </div> -->
-                                                                <!-- <div class="checkbox checkbox-primary">
-                                                                    <div
-                                                                        class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input type="checkbox" class="border-checkbox"
-                                                                            id={{data.value}}
-                                                                            (click)="Enablefields(data.value,indexOfelement,$event)">
-                                                                        <label class="border-checkbox-label"
-                                                                            for={{data.value}}> {{data.label}}
-                                                                            {{data.DocumentMaster.NAME}}</label>
-                                                                    </div>
-                                                                </div> -->
-                                                                <!-- <div class="checkbox checkbox-primary">
-                                                                    <div
-                                                                        class="border-checkbox-group border-checkbox-group-primary"> -->
-                                                                <!-- <input type="checkbox" class="border-checkbox"
-                                                                            id={{data.value}}> -->
                                                                 <div class="form-group input-group">
                                                                     <label class="border-checkbox-label"
                                                                         for={{data.value}}> {{data.label}}
@@ -817,9 +790,9 @@
                                                     </div>
                                                     <div class="app-modal-body">
                                                         <perfect-scrollbar>
-
-                                                            <img [src]="selectedImagePreview" class="form-control"
-                                                                style="width: 100%;height: 100%;">
+                                                            <img *ngIf="isImgPreview" [src]="selectedImagePreview"
+                                                                class="form-control" style="width: 100%;height: 100%;">
+                                                            <p *ngIf="!isImgPreview">No Image For Preview</p>
                                                         </perfect-scrollbar>
                                                     </div>
 

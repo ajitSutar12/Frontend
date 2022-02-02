@@ -796,7 +796,7 @@
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_OPDATE" minlength="10"
-                                                                            maxlength="10"
+                                                                            maxlength="10" [(ngModel)]="openingDate"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                             bsDatepicker>
                                                                         <label for="AC_OPDATE">Open Date<sub
@@ -1943,7 +1943,7 @@
                                                                         <tbody *ngIf="customerDoc?.length != 0">
                                                                             <tr *ngFor="let data of customerDoc;
                                                               let indexOfelement = index">
-                                                                                <td>{{ data.DocumentMasterID }}</td>
+                                                                                <td>{{ indexOfelement + 1 }}</td>
                                                                                 <td>{{ data.DocumentMaster.NAME }}</td>
                                                                                 <td style="align-items: center;">
                                                                                     <div class="col-sm-2">

@@ -180,6 +180,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   bsValue
   maxDate: Date;
 
+
   constructor(
     private http: HttpClient,
     private customerIdService: CustomerIdService,
@@ -195,7 +196,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     // this.datemax =new Date() ;
     // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-  
+    // console.log(this.datemax);
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
   }
@@ -438,12 +439,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((data) => {
         this.salaryDivision = data;
       });
-    this.cityMaster
-      .getcityList()
-      .pipe(first())
-      .subscribe((data) => {
-        this.city = data;
-      });
+    this.cityMaster.getcityList().pipe(first()).subscribe((data) => {
+      this.city = data;
+      console.log('city', this.city)
+    });
     this.riskCategoryDropdown
       .getRiskCategoryList()
       .pipe(first())
@@ -502,9 +501,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   submit(event) {
     let birthdate
     let submitdate
+
     event.preventDefault();
     this.formSubmitted = true;
     if (this.angForm.valid) {
+      debugger
       const formVal = this.angForm.value;
       const dataToSend = {
         'AC_NO': formVal.AC_NO,
@@ -547,7 +548,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'TDS_LIMIT': formVal.TDS_LIMIT,
         'Document': this.imageObject
       }
-
+      console.log(dataToSend)
       this.customerIdService.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -625,7 +626,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Reset Function
   resetForm() {
-    this.createForm();
+
     this.isDocument = false;
     this.isTdsForm = false;
     this.isTdsFormA = false;
@@ -634,7 +635,18 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ngRisk = null
     this.ngCity = null
     this.ngTitle = null
+    this.createForm();
     // this.documentMaster = []
+    this.documentMasterService
+      .getDocumentMasterList()
+      .pipe(first())
+      .subscribe((data) => {
+        this.documentMaster = data;
+      });
+    this.selectedImagePreview = null
+    this.selectedImgArrayDetails = []
+    this.imageObject = []
+    this.isImgPreview = false
   }
 
 
@@ -718,6 +730,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let birthdate
     let submitdate
     this.customerIdService.getFormData(id).subscribe((data) => {
+      console.log('edit', data)
       this.updateID = data.id;
       this.ngRisk = data.AC_RISKCATG
       this.ngoccupation = data.AC_OCODE
@@ -781,12 +794,16 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       if (data.IS_KYC_RECEIVED == true) {
         this.isDocument = true;
-        this.documentMaster = data.custdocument
+        this.imageObject = []
+        this.selectedImgArrayDetails = []
+
         for (const [key, value] of Object.entries(data.custdocument)) {
           let selectedObj = {};
           let id = data.custdocument[key].DocumentMasterID;
           selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
           this.selectedImagePreview = selectedObj[id];
+          this.imageObject.push(selectedObj)
+          this.selectedImgArrayDetails.push(selectedObj);
         }
       } else {
         this.isDocument = false;
@@ -796,23 +813,23 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for update data
   updateData() {
-
     let date
     let sudate
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY')),
-      (data.SUBMIT_DATE == 'Invalid date' || data.SUBMIT_DATE == '' || data.SUBMIT_DATE == null) ? (sudate = '', data['SUBMIT_DATE'] = sudate) : (sudate = data.AC_BIRTH_DT, data['SUBMIT_DATE'] = moment(sudate).format('DD/MM/YYYY')),
-      this.customerIdService.updateData(data).subscribe(() => {
-        Swal.fire("Success!", "Record Updated Successfully !", "success");
-        this.showButton = true;
-        this.updateShow = false;
-        this.newbtnShow = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-        this.resetForm();
+    data['Document'] = this.imageObject;
+    (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
+    (data.SUBMIT_DATE == 'Invalid date' || data.SUBMIT_DATE == '' || data.SUBMIT_DATE == null) ? (sudate = '', data['SUBMIT_DATE'] = sudate) : (sudate = data.AC_BIRTH_DT, data['SUBMIT_DATE'] = moment(sudate).format('DD/MM/YYYY'));
+    this.customerIdService.updateData(data).subscribe(() => {
+      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      this.showButton = true;
+      this.updateShow = false;
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
       });
+      this.resetForm();
+    });
   }
 
   //Method for delete data
@@ -935,7 +952,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   cardImageBase64: string;
   selectedImagePreview: any;
   selectedImgArrayDetails = [];
+
   fileChangeEvent(event: Event, id, valueid) {
+    let result
     let arr = [];
     let me = this;
     let obj = {};
@@ -944,7 +963,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async function (ele: any) {
-      let result = await reader.result;
+      result = await reader.result;
       let selecetedImg = ele.target.result;
       selectedObj[valueid] = selecetedImg
       obj[valueid] = result;
@@ -952,12 +971,39 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
-    this.imageObject.push(obj);
-    this.selectedImgArrayDetails.push(selectedObj);
+
     // if (obj != this.imageObject.keys) {
     //   this.imageObject.push(obj);
+    //   console.log(this.imageObject);
     // } else {
 
+    // }
+    let isExist: boolean = false
+    for (let element of this.imageObject) {
+      if (Number(Object.keys(element)[0]) == valueid) {
+        isExist = true
+        reader.onload = async function (ele: any) {
+          result = await reader.result;
+          let selecetedImg = ele.target.result;
+          selectedObj[valueid] = selecetedImg
+          obj[valueid] = result;
+          element[valueid] = result
+        };
+        break
+      }
+    }
+    if (!isExist) {
+      reader.onload = async function (ele: any) {
+        result = await reader.result;
+        let selecetedImg = ele.target.result;
+        selectedObj[valueid] = selecetedImg
+        obj[valueid] = result;
+      };
+      this.imageObject.push(obj);
+      this.selectedImgArrayDetails.push(selectedObj);
+    }
+    // else {
+    //   console.log('update path')
     // }
   }
 
@@ -968,7 +1014,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     closemodal.click();
 
   }
-
+  isImgPreview: boolean = false
   imgBase64: any
   showImage: boolean = false;
   viewImagePreview(ele, id) {
@@ -976,7 +1022,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       let jsonObj = value;
       Object.keys(jsonObj).forEach(key => {
         if (id == key) {
+          this.isImgPreview = true
           this.selectedImagePreview = jsonObj[key];
+          throw 'Break';
+        }
+        else {
+          this.isImgPreview = false
+          this.selectedImagePreview = ''
         }
       });
     }
@@ -1000,7 +1052,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
                 if (result.isConfirmed) {
                   // Swal.fire("Your data is safe.");
                   // to reload after delete of data
-                  this.rerender();
+                  // this.rerender();
+                  this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+                    dtInstance.ajax.reload()
+                  });
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                   this.angForm.controls['F_NAME'].reset()
                   this.angForm.controls['M_NAME'].reset()
@@ -1025,6 +1080,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.customerIdService.getData().subscribe(data => {
       if (data?.length != 0) {
         if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
+          debugger
           if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
             Swal.fire({
               icon: 'info',
@@ -1065,5 +1121,22 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     })
+  }
+
+  validation(event) {
+    debugger
+    if (event != (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)) {
+      Swal.fire("Warning!", "Please Insert Alphabets Only", "warning");
+    }
+  }
+  numvalidation(event) {
+    if (event == (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)) {
+      Swal.fire("Warning!", "Please Insert Numbers Only", "warning");
+    }
+  }
+  panvalidation(event) {
+    if (event == (event.charCode >= 97 && event.charCode <= 122)) {
+      Swal.fire("Warning!", "Please Insert Numbers and Captital Alphabets Only", "warning");
+    }
   }
 }

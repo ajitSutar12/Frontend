@@ -146,17 +146,16 @@
                                             <div class="card border-primary">
                                                 <div class="card-block highlight ">
                                                     <div class="row">
-                                                        <div class="col-sm-2"> 
+                                                        <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         name="AC_OPDATE" id="AC_OPDATE"
                                                                         class="form-control" required
-                                                                        max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         disabled
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        (focusout)="disabledate(date.value)"
+                                                                        [(ngModel)]="openingDate"
                                                                         formControlName="AC_OPDATE" [bsValue]="bsValue"
                                                                         bsDatepicker>
                                                                     <label for="AC_OPDATE">Opening Date<sub
@@ -2382,7 +2381,13 @@
                                                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 (click)="updateData()" *ngIf="updateShow">
-                                                                Update</button>
+                                                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="rejectShow" (click)="reject()">
+                                                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                *ngIf="approveShow" (click)="Approve()">
+                                                                Approve</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2458,7 +2463,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="DatatableHideShow">
     <div class="col-12">
         <div class="card shadow">
             <div class="card-block">

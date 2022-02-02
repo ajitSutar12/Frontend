@@ -377,6 +377,11 @@ export class CashCreditMasterComponent implements OnInit {
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -475,6 +480,7 @@ export class CashCreditMasterComponent implements OnInit {
       ],
       dom: 'Blrtip',
     };
+    this.getSystemParaDate() //function to set date
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
@@ -650,7 +656,7 @@ export class CashCreditMasterComponent implements OnInit {
     this.schemeCode = value.name
   }
   // Method to insert data into database through NestJS
-
+  openingDate: any
   submit() {
     this.formSubmitted = true;
     const formVal = this.angForm.value;
@@ -666,27 +672,46 @@ export class CashCreditMasterComponent implements OnInit {
     //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    let branchCode = result.branch.CODE;
-    let bankCode = Number(result.branch.syspara[0].BANK_CODE)
+    let branchCode = result.branch.id;
+    let bankCode = Number(result.branch.syspara.BANK_CODE)
+    let date
+    let opdate
+    let redate
+    let sanctiondate
+    let expirydate
+    let resodate
+    let schecode
+    this.scheme.forEach(async (element) => {
+      console.log(this.code, "this.selectedValue")
+      console.log(element)
+      console.log(element, "element")
+      if (element.value == this.code) {
+        console.log(true)
+        console.log(element.name, "element.S_APPL")
+        schecode = element.name
+
+        console.log(schecode)
+      }
+    })
+
     const dataToSend = {
       'branchCode': branchCode,
       'bankCode': bankCode,
-      'schemeCode': this.schemeCode,
+      'schemeCode': schecode,
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
       'AC_NAME': formVal.AC_NAME,
       'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_OPDATE': formVal.AC_OPDATE,
-      'AC_OPEN_OLD_DATE': formVal.AC_OPEN_OLD_DATE,
+      'AC_OPDATE': (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY'),
+      'AC_OPEN_OLD_DATE': (formVal.AC_OPEN_OLD_DATE == '' || formVal.AC_OPEN_OLD_DATE == 'Invalid date') ? redate = '' : redate = moment(formVal.AC_OPEN_OLD_DATE).format('DD/MM/YYYY'),
       'REF_ACNO': formVal.REF_ACNO,
       'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
       'AC_INTCATA': formVal.AC_INTCATA,
       'AC_SANCTION_AMOUNT': formVal.AC_SANCTION_AMOUNT,
-      'AC_SANCTION_DATE': formVal.AC_SANCTION_DATE,
-      'AC_DRAWPOWER_AMT': formVal.AC_DRAWPOWER_AMT,
+      'AC_SANCTION_DATE': (formVal.AC_SANCTION_DATE == '' || formVal.AC_SANCTION_DATE == 'Invalid date') ? sanctiondate = '' : sanctiondate = moment(formVal.AC_SANCTION_DATE).format('DD/MM/YYYY'), 'AC_DRAWPOWER_AMT': formVal.AC_DRAWPOWER_AMT,
       'AC_MONTHS': formVal.AC_MONTHS,
-      'AC_EXPIRE_DATE': formVal.AC_EXPIRE_DATE,
+      'AC_EXPIRE_DATE': (formVal.AC_EXPIRE_DATE == '' || formVal.AC_EXPIRE_DATE == 'Invalid date') ? expirydate = '' : expirydate = moment(formVal.AC_EXPIRE_DATE).format('DD/MM/YYYY'),
       'AC_INTRATE': formVal.AC_INTRATE,
       'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
       'AC_AUTHORITY': formVal.AC_AUTHORITY,
@@ -704,10 +729,10 @@ export class CashCreditMasterComponent implements OnInit {
       'AC_DIRECTOR': formVal.AC_DIRECTOR,
       'AC_DIRECTOR_RELATION': formVal.AC_DIRECTOR_RELATION,
       'AC_COREG_NO': formVal.AC_COREG_NO,
-      'AC_COREG_DATE': formVal.AC_COREG_DATE,
+      'AC_COREG_DATE': (formVal.AC_COREG_DATE == '' || formVal.AC_COREG_DATE == 'Invalid date') ? date = '' : date = moment(formVal.AC_COREG_DATE).format('DD/MM/YYYY'),
       'AC_COREG_AMT': formVal.AC_COREG_AMT,
       'AC_RESO_NO': formVal.AC_RESO_NO,
-      'AC_RESO_DATE': formVal.AC_RESO_DATE,
+      'AC_RESO_DATE': (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date') ? resodate = '' : resodate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY'),
       AC_ADDFLAG: formVal.AC_ADDFLAG,
       AC_ADDTYPE: this.addType,
       AC_THONO: formVal.AC_THONO,
@@ -738,7 +763,13 @@ export class CashCreditMasterComponent implements OnInit {
     }
 
     this.cashCreditService.postData(dataToSend).subscribe(data => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire({
+        icon: 'success',
+        title: 'Account Created successfully!',
+        html:
+          '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+          '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+      })
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -776,75 +807,112 @@ export class CashCreditMasterComponent implements OnInit {
     this.resetGuarantor()
     this.resetCoBorrower()
     this.resetField()
+    this.code = null
+    this.id = null
+    this.getSystemParaDate()
   }
 
   //Method for append data into fields
 
   editClickHandler(id) {
-    this.showButton = false;
-    this.updateShow = true;
-    this.newbtnShow = true;
+    this.angForm.controls['AC_TYPE'].disable()
+    let date
+    let opdate
+    let redate
+    let sanctiondate
+    let expirydate
+    let resodate
+
+    // this.showButton = false;
+    // this.updateShow = true;
+    // this.newbtnShow = true;
     this.columnShowButton = true
     this.cashCreditService.getFormData(id).subscribe(data => {
+      if (data.SYSCHNG_LOGIN == null) {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+      } else {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+      }
       this.updateID = data.id;
+
       this.getCustomer(data.AC_CUSTID)
       this.multiSecurity = data.securityMaster
       this.multiCoBorrower = data.CoborrowerMaster,
         this.multiGuarantor = data.guaranterMaster
+      this.int_category = Number(data.AC_INTCATA)
+      this.sanctionAutho = Number(data.AC_AUTHORITY)
+      this.recomBy = Number(data.AC_RECOMMEND_BY)
+      this.recovery = Number(data.AC_RECOVERY_CLERK)
+      this.idp = Number(data.AC_PRIORITY)
+      this.weakerSec = Number(data.AC_WEAKER)
+      this.ngpurpose = Number(data.AC_PURPOSE)
+      this.ngindustry = Number(data.AC_INDUSTRY)
+      this.nghealth = Number(data.AC_HEALTH)
+      this.ngAccountType = data.AC_RELATION_TYPE
+      this.ngdirectorType = Number(data.AC_DIRECTOR)
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
-        AC_NO: data.AC_NO,
-        AC_OPDATE: data.AC_OPDATE,
-        AC_OPEN_OLD_DATE: data.AC_OPEN_OLD_DATE,
+        // AC_NO: data.AC_NO,
+        'BANKACNO': data.BANKACNO,
+        AC_OPDATE: (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
+        AC_OPEN_OLD_DATE: (data.AC_OPEN_OLD_DATE == 'Invalid date' || data.AC_OPEN_OLD_DATE == '' || data.AC_OPEN_OLD_DATE == null) ? redate = '' : redate = data.AC_OPEN_OLD_DATE,
         AC_IS_RECOVERY: data.AC_IS_RECOVERY,
         REF_ACNO: data.REF_ACNO,
-        AC_INTCATA: data.AC_INTCATA,
+        // AC_INTCATA: data.AC_INTCATA,
         AC_SANCTION_AMOUNT: data.AC_SANCTION_AMOUNT,
-        AC_SANCTION_DATE: data.AC_SANCTION_DATE,
+        AC_SANCTION_DATE: (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? sanctiondate = '' : sanctiondate = data.AC_SANCTION_DATE,
         AC_DRAWPOWER_AMT: data.AC_DRAWPOWER_AMT,
         AC_MONTHS: data.AC_MONTHS,
-        AC_EXPIRE_DATE: data.AC_EXPIRE_DATE,
+        AC_EXPIRE_DATE: (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
         AC_INTRATE: data.AC_INTRATE,
         AC_INSTALLMENT: data.AC_INSTALLMENT,
-        AC_AUTHORITY: data.AC_AUTHORITY,
-        AC_RECOMMEND_BY: data.AC_RECOMMEND_BY,
-        AC_RECOVERY_CLERK: data.AC_RECOVERY_CLERK,
-        AC_PRIORITY: data.AC_PRIORITY,
+        // AC_AUTHORITY: data.AC_AUTHORITY,
+        // AC_RECOMMEND_BY: data.AC_RECOMMEND_BY,
+        // AC_RECOVERY_CLERK: data.AC_RECOVERY_CLERK,
+        // AC_PRIORITY: data.AC_PRIORITY,
         AC_PRIORITY_SUB1: data.AC_PRIORITY_SUB1,
         AC_PRIORITY_SUB2: data.AC_PRIORITY_SUB2,
         AC_PRIORITY_SUB3: data.AC_PRIORITY_SUB3,
-        AC_WEAKER: data.AC_WEAKER,
-        AC_PURPOSE: data.AC_PURPOSE,
-        AC_INDUSTRY: data.AC_INDUSTRY,
-        AC_HEALTH: data.AC_HEALTH,
-        AC_RELATION_TYPE: data.AC_RELATION_TYPE,
-        AC_DIRECTOR: data.AC_DIRECTOR,
+        // AC_WEAKER: data.AC_WEAKER,
+        // AC_PURPOSE: data.AC_PURPOSE,
+        // AC_INDUSTRY: data.AC_INDUSTRY,
+        // AC_HEALTH: data.AC_HEALTH,
+        // AC_RELATION_TYPE: data.AC_RELATION_TYPE,
+        // AC_DIRECTOR: data.AC_DIRECTOR,
         AC_DIRECTOR_RELATION: data.AC_DIRECTOR_RELATION,
         AC_COREG_NO: data.AC_COREG_NO,
-        AC_COREG_DATE: data.AC_COREG_DATE,
+        AC_COREG_DATE: (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? date = '' : date = data.AC_COREG_DATE,
         AC_COREG_AMT: data.AC_COREG_AMT,
         AC_RESO_NO: data.AC_RESO_NO,
-        AC_RESO_DATE: data.AC_RESO_DATE,
+        AC_RESO_DATE: (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? resodate = '' : resodate = data.AC_RESO_DATE,
       })
     })
   }
 
   // Method For New Button
-
+  // AC_TYPE: boolean = false
   addNewData() {
+    this.angForm.controls['AC_TYPE'].enable()
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.id = null
     this.multiSecurity = [];
     this.multiCoBorrower = [];
     this.multiGuarantor = [];
     this.customerDoc = []
     this.resetForm();
+    this.getSystemParaDate()
   }
 
   //Method for update data 
 
   updateData() {
+    this.angForm.controls['AC_TYPE'].enable()
     let data = this.angForm.value;
     if (data.AC_ADDFLAG == true) {
       this.addType = 'P'
@@ -857,20 +925,38 @@ export class CashCreditMasterComponent implements OnInit {
     data['CoBorrowerData'] = this.multiCoBorrower
     data['SecurityData'] = this.multiSecurity
     data['id'] = this.updateID;
-    this.cashCreditService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
-      this.showButton = true;
-      this.updateShow = false;
-      this.newbtnShow = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-      this.multiSecurity = [];
-      this.multiCoBorrower = [];
-      this.multiSecurity = []
-      this.customerDoc = []
-      this.resetForm();
-    })
+    // console.log("date", data['AC_COREG_DATE'].value)
+    let date
+    let opdate
+    let redate
+    let sanctiondate
+    let expirydate
+    let resodate
+    (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? (date = '', data['AC_COREG_DATE'] = date) : (date = data.AC_COREG_DATE, data['AC_COREG_DATE'] = moment(date).format('DD/MM/YYYY')),
+
+      (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')),
+
+      (data.AC_OPEN_OLD_DATE == 'Invalid date' || data.AC_OPEN_OLD_DATE == '' || data.AC_OPEN_OLD_DATE == null) ? (redate = '', data['AC_OPEN_OLD_DATE'] = redate) : (redate = data.AC_OPEN_OLD_DATE, data['AC_OPEN_OLD_DATE'] = moment(redate).format('DD/MM/YYYY')),
+
+      (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? (sanctiondate = '', data['AC_SANCTION_DATE'] = sanctiondate) : (sanctiondate = data.AC_SANCTION_DATE, data['AC_SANCTION_DATE'] = moment(sanctiondate).format('DD/MM/YYYY')),
+
+      (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? (expirydate = '', data['AC_EXPIRE_DATE'] = expirydate) : (expirydate = data.AC_EXPIRE_DATE, data['AC_EXPIRE_DATE'] = moment(expirydate).format('DD/MM/YYYY')),
+
+      (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? (resodate = '', data['AC_RESO_DATE'] = resodate) : (resodate = data.AC_RESO_DATE, data['AC_RESO_DATE'] = moment(resodate).format('DD/MM/YYYY')),
+      this.cashCreditService.updateData(data).subscribe(() => {
+        Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+        this.showButton = true;
+        this.updateShow = false;
+        this.newbtnShow = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+        this.multiSecurity = [];
+        this.multiCoBorrower = [];
+        this.multiSecurity = []
+        this.customerDoc = []
+        this.resetForm();
+      })
   }
 
   //Method for delete data
@@ -913,65 +999,86 @@ export class CashCreditMasterComponent implements OnInit {
   // Method for Get Customer Data
 
   getCustomer(id) {
-    // this.getDate()
-    // this.calculation()
-    this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
+      console.log(data)
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
+
       if (data.castMaster == null) {
         data.castMaster = ""
       }
       if (data.occupMaster == null) {
         data.occupMaster = ""
       }
+      this.id = data.id
+
+      // let date1 = moment(data.AC_BIRTH_DT).format('DD/MM/YYYY');
+
+      // this.birthDate = date1;
+
+      console.log(data, "customer")
       this.angForm.patchValue({
-        AC_CUSTID: id.toString(),
+
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
         AC_MEMBTYPE: data.AC_MEMBTYPE,
         AC_MEMBNO: data.AC_MEMBNO,
         AC_CAST: data.castMaster.NAME,
         AC_OCODE: data.occupMaster.NAME,
-        AC_ADHARNO: data.AC_ADHARNO,
-        AC_RISKCATG: data.AC_RISKCATG,
         AC_BIRTH_DT: data.AC_BIRTH_DT,
-        AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
-        AC_HONO: data.custAddress[0].AC_HONO,
-        AC_WARD: data.custAddress[0].AC_WARD,
-        AC_ADDR: data.custAddress[0].AC_ADDR,
-        AC_GALLI: data.custAddress[0].AC_GALLI,
-        AC_AREA: data.custAddress[0].AC_AREA,
-        AC_CTCODE: data.custAddress[0].AC_CTCODE,
-        AC_PIN: data.custAddress[0].AC_PIN,
-        AC_PANNO: data.AC_PANNO,
         AC_MOBNO: data.AC_MOBILENO,
         AC_PHNO: data.AC_PHONE_RES,
-        AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
         AC_EMAIL: data.AC_EMAILID,
-        TDS_REQUIRED: data.TDS_REQUIRED,
-        SMS_REQUIRED: data.SMS_REQUIRED,
-        IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
-        FIN_YEAR: data.FIN_YEAR,
-        SUBMIT_DATE: data.SUBMIT_DATE,
-        FORM_TYPE: data.FORM_TYPE,
-        TDS_RATE: data.TDS_RATE,
-        TDS_LIMIT: data.TDS_LIMIT,
-      })
-      if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {
-        this.angForm.patchValue({
-          AC_THONO: data.custAddress[1].AC_HONO,
-          AC_TWARD: data.custAddress[1].AC_WARD,
-          AC_TADDR: data.custAddress[1].AC_ADDR,
-          AC_TGALLI: data.custAddress[1].AC_GALLI,
-          AC_TAREA: data.custAddress[1].AC_AREA,
-          AC_TCTCODE: data.custAddress[1].AC_CTCODE,
-          AC_TPIN: data.custAddress[1].AC_PIN,
-        })
-      }
-    })
-  }
+        AC_PANNO: data.AC_PANNO,
 
+      })
+      // this.ageCalculator(data.AC_BIRTH_DT);
+      let permadd
+      let temp
+      data.custAddress.forEach(async (element) => {
+        if (element.AC_ADDTYPE == 'P') {
+          permadd = element
+        }
+      })
+      this.angForm.patchValue({
+        AC_ADDFLAG: permadd?.AC_ADDFLAG,
+        AC_HONO: permadd?.AC_HONO,
+        AC_WARD: permadd?.AC_WARD,
+        AC_ADDR: permadd?.AC_ADDR,
+        AC_GALLI: permadd?.AC_GALLI,
+        AC_AREA: permadd?.AC_AREA,
+        AC_CTCODE: permadd.city?.CITY_NAME,
+        AC_PIN: permadd?.AC_PIN,
+      })
+
+      data.custAddress.forEach(async (element) => {
+        if (element.AC_ADDTYPE == 'T') {
+          temp = element
+        }
+      })
+      console.log('temp address ', temp);
+      this.ngCity = temp?.city.id,
+        this.angForm.patchValue({
+
+          AC_THONO: temp?.AC_HONO,
+          AC_TWARD: temp?.AC_WARD,
+          AC_TADDR: temp?.AC_ADDR,
+          AC_TGALLI: temp?.AC_GALLI,
+          AC_TAREA: temp?.AC_AREA,
+
+          AC_TPIN: temp?.AC_PIN,
+        })
+
+      // this.ageCalculator(data.AC_BIRTH_DT);
+    })
+    this.onCloseModal();
+  }
+  public visible = false;
+  public visibleAnimate = false;
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
   // Event for Customer Module
 
   newCustomer(newCustomer) {
@@ -989,12 +1096,24 @@ export class CashCreditMasterComponent implements OnInit {
   }
 
   //set open date, appointed date and expiry date
-
+  ngappdate: any
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
+      debugger
+      let date1 = moment(data.CURRENT_DATE).format('DD/MM/YYYY');
+
+      this.openingDate = date1;
       this.angForm.patchValue({
-        AC_OPDATE: data.CURRENT_DATE,
+        AC_OPDATE: this.openingDate,
+        DATE_APPOINTED: data.CURRENT_DATE,
+
       })
+      if (data.ON_LINE === true) {
+        this.angForm.controls['AC_OPDATE'].disable()
+      } else {
+        this.angForm.controls['AC_OPDATE'].enable()
+      }
+
     })
   }
 
@@ -1413,26 +1532,29 @@ export class CashCreditMasterComponent implements OnInit {
 
   // End CoBorrower tab
 
-  getInterest(AC_INTCATA) {
-    this.temp = AC_INTCATA
+  getInterest(event) {
+    console.log(event, "event")
+    let temp
+    let date = this.angForm.controls['AC_OPDATE'].value
     this.InterestRateForLoanandCC.intData().subscribe(data => {
-      // this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
-      this.date = this.angForm.controls['AC_OPDATE'].value
-      if (data != typeof (undefined)) {
-        if (this.date == data[0].EFFECT_DATE) {
-          this.angForm.patchValue({
-            AC_INTCATA: data[0].INT_CATEGORY,
-            AC_INTRATE: data[0].rate[0].INT_RATE,
-          })
-        } else {
-          this.angForm.patchValue({
-            AC_INTCATA: data[1].INT_CATEGORY,
-            AC_INTRATE: 0
-          })
+      console.log(data[1].INT_CATEGORY, "data")
+      data.forEach(async (element) => {
+        console.log(element.EFFECT_DATE, "element")
+        // if (element.INT_CATEGORY == event.name) {
+        //   temp = element
+        //   console.log(temp, "temp")
+        // }
+        if (element.INT_CATEGORY == event.name) {
+          temp = element
+          console.log(temp, "temp")
         }
-      }
+      })
+      this.angForm.patchValue({
+        AC_INTRATE: temp.rate[0].INT_RATE,
+      })
     })
   }
+
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -1493,7 +1615,7 @@ export class CashCreditMasterComponent implements OnInit {
       var date = moment(date1, 'YYYY-MM-DD');
       var expiryDate = this.datePipe.transform(date, "yyyy-MM-dd")
       this.angForm.patchValue({
-        AC_EXPIRE_DATE: expiryDate
+        AC_EXPIRE_DATE: moment(expiryDate).format('DD/MM/YYYY')
       })
     }
   }
@@ -1774,47 +1896,47 @@ export class CashCreditMasterComponent implements OnInit {
     this.angForm.controls['CAC_NAME'].reset();
   }
 
-    //approve account
-    Approve(){
-      let user = JSON.parse(localStorage.getItem('user'));
-      let obj ={
-        id : this.updateID,
-        user: user.id
-      }
-      this.cashCreditService.approve(obj).subscribe(data=>{
-        Swal.fire(
-          'Approved',
-          'Saving Account approved successfully',
-          'success'
-        );
-        var button = document.getElementById('triggerhide');
-        button.click();
-  
-        this.getUserData.emit('welcome to stackoverflow!');
-      },err=>{
-        console.log('something is wrong');
-      })
+  //approve account
+  Approve() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
     }
-  
-  
-    //reject account
-    reject(){
-      let user = JSON.parse(localStorage.getItem('user'));
-      let obj ={
-        id : this.updateID,
-        user: user.id
-      }
-      this.cashCreditService.reject(obj).subscribe(data=>{
-        Swal.fire(
-          'Rejected',
-          'Saving Account rejected successfully',
-          'success'
-        );
-  
-        var button = document.getElementById('triggerhide');
-        button.click();
-      },err=>{
-        console.log('something is wrong');
-      })
+    this.cashCreditService.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Saving Account approved successfully',
+        'success'
+      );
+      var button = document.getElementById('triggerhide');
+      button.click();
+
+      this.getUserData.emit('welcome to stackoverflow!');
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  //reject account
+  reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
     }
+    this.cashCreditService.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Saving Account rejected successfully',
+        'success'
+      );
+
+      var button = document.getElementById('triggerhide');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
 }

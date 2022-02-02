@@ -312,7 +312,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         },
         {
           title: 'Agent Number',
-          data: 'AC_NO'
+          data: 'BANKACNO'
         },
         {
           title: 'Customer ID',
@@ -803,10 +803,12 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
 
   //get account no according scheme for  pigmy agent
-  getAgentAC(agentno) {
-    switch (agentno) {
+  getAgentAC(event) {
+    debugger
+    console.log(event)
+    switch ('AG') {
       case 'AG':
-        this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAgentSchemeList2(event.value).pipe(first()).subscribe(data => {
           this.agentCode = data;
         })
         break;
@@ -831,15 +833,19 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
     if (this.angForm.valid) {
       const formVal = this.angForm.value;
-      if (formVal.AC_ADDFLAG == true) {
-        this.addType = 'P'
-      }
-      else if (formVal.AC_ADDFLAG == false) {
-        this.addType = 'T'
-      }
-      if (this.angForm.controls['AC_TCTCODE'].value == "") {
-        formVal.AC_TCTCODE = null
-      }
+      let schecode
+      this.schemeCode.forEach(async (element) => {
+        console.log(this.code, "this.selectedValue")
+        console.log(element)
+        console.log(element, "element")
+        if (element.value == this.code) {
+          console.log(true)
+          console.log(element.name, "element.S_APPL")
+          schecode = element.name
+
+          console.log(schecode)
+        }
+      })
       //get bank code and branch code from session
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
@@ -851,7 +857,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       const dataToSend = {
         'branchCode': branchCode,
         'bankCode': bankCode,
-        'schemeCode': this.schemeCodeNO,
+        'schemeCode': schecode,
         'AC_TYPE': formVal.AC_TYPE,
         'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
         'AC_CUSTID': formVal.AC_CUSTID,
@@ -899,8 +905,14 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
       }
       console.log(dataToSend);
-      this.PigmyAccountMasterService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.PigmyAccountMasterService.postData(dataToSend).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Created successfully!',
+          html:
+            '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+            '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+        })
         this.formSubmitted = false;
         // to reload after insertion of data
         this.rerender();
@@ -1111,106 +1123,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
 
-  getJointCustomer(id) {
-    this.customerIdService.getFormData(id).subscribe(data => {
-      this.angForm.patchValue({
-        JOINT_ACNAME: data.AC_NAME
-      })
-    })
-  }
 
-  addJointAcccount() {
-    const formVal = this.angForm.value;
-    let value
-    if (formVal.OPERATOR == true) {
-      value = 'Yes'
-    } else {
-      value = 'No'
-    }
-    var object = {
-      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID.id,
-      JOINT_ACNAME: formVal.JOINT_ACNAME,
-      OPERATOR: value,
-    }
-    if (object.JOINT_AC_CUSTID != undefined) {
-      if (this.id != this.jointID) {
-        if (this.multiJointAC.length == 0) {
-          this.multiJointAC.push(object);
-        }
-        else {
-          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID.id)) {
-            Swal.fire('', 'This Customer is Already Joint Account Holder', 'error');
-          }
-          else {
-            this.multiJointAC.push(object);
-          }
-        }
-      }
-      else {
-        Swal.fire('', 'Please Select Differet Customer Id!', 'warning');
-      }
-    } else {
-      Swal.fire('', 'Please Select Customer Id!', 'warning');
-    }
-    this.resetJointAC()
-  }
-
-  editJointAc(id) {
-    this.jointIndex = id
-    this.jointACID = this.multiJointAC[id].id;
-    this.JointAccountsTrue = true
-    this.jointShowButton = false;
-    this.jointUpdateShow = true;
-    this.angForm.patchValue({
-      // JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
-      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID + " " + this.multiJointAC[id].JOINT_ACNAME,
-      JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
-      OPERATOR: this.multiJointAC[id].OPERATOR
-    })
-  }
-
-  updateJointAcccount() {
-    let index = this.jointIndex;
-    this.jointShowButton = true;
-    this.jointUpdateShow = false;
-    const formVal = this.angForm.value;
-    var object = {
-      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID.id,
-      JOINT_ACNAME: formVal.JOINT_ACNAME,
-      OPERATOR: formVal.OPERATOR,
-      id: this.jointACID
-    }
-    if (object.JOINT_AC_CUSTID != undefined) {
-      if (this.id != this.jointID) {
-        if (this.multiJointAC.length == 0) {
-          this.multiJointAC[index] = object
-        }
-        else {
-          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID.id)) {
-            Swal.fire('', 'This Customer is Already Joint Account Holder', 'error');
-          }
-          else {
-            this.multiJointAC[index] = object
-          }
-        }
-      }
-      else {
-        Swal.fire('', 'Please Select Differet Customer Id!', 'warning');
-      }
-    } else {
-      Swal.fire('', 'Please Select Customer Id!', 'warning');
-    }
-    this.resetJointAC()
-  }
-
-  delJointAc(id) {
-    this.multiJointAC.splice(id, 1)
-  }
-
-  resetJointAC() {
-    this.angForm.controls['JOINT_AC_CUSTID'].reset();
-    this.angForm.controls['JOINT_ACNAME'].reset();
-  }
 
   //nominee
   nominee($event) {
@@ -1221,25 +1134,28 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
 
+  NbirthDate: any
+  cityName: boolean = false
+  //Nominee
   addNominee() {
     const formVal = this.angForm.value;
     let date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
-
+    this.cityName = true
+    this.NbirthDate = date1;
     var object = {
       AC_NNAME: formVal.AC_NNAME,
       AC_NRELA: formVal.AC_NRELA,
-      AC_NDATE: date1,
+      AC_NDATE: this.NbirthDate,
       AGE: formVal.AGE,
       AC_NHONO: formVal.AC_NHONO,
       AC_NWARD: formVal.AC_NWARD,
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE.CITY_NAME,
+      AC_NCTCODE: formVal.AC_NCTCODE.id,
       AC_NPIN: formVal.AC_NPIN,
-      // AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
+      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
     }
-
 
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
@@ -1251,7 +1167,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
           Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
         } else if (formVal.AC_NCTCODE != "") {
-          if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
+          if (formVal.AC_NCTCODE.id == "" || formVal.AC_NCTCODE.id == null) {
             Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
           } else {
             if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
@@ -1260,7 +1176,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
             } else {
               this.multiNominee.push(object);
             }
-
           }
         }
       }
@@ -1273,31 +1188,34 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     }
     this.resetNominee()
   }
-
+  ngnomineedate: any
   editNominee(id) {
-    console.log('multinominee', this.multiNominee)
     this.nomineeIndex = id
     this.nomineeID = this.multiNominee[id].id;
     this.nomineeTrue = true
     this.nomineeShowButton = false;
     this.nomineeUpdateShow = true;
-    this.ngNcity = Number(this.multiNominee[id].AC_NCTCODE)
-    let date1 = moment(this.multiNominee[id].AC_NDATE).format('DD/MM/YYYY');
+    // this.ngNcity = Number(this.multiNominee[id].AC_NCTCODE)
+    // let date1 = moment(this.multiNominee[id].AC_NDATE).format('DD/MM/YYYY');
 
-    this.angForm.patchValue({
-      AC_NNAME: this.multiNominee[id].AC_NNAME,
-      AC_NRELA: this.multiNominee[id].AC_NRELA,
-      AC_NDATE: date1,
-      AGE: this.multiNominee[id].AGE,
-      AC_NHONO: this.multiNominee[id].AC_NHONO,
-      AC_NWARD: this.multiNominee[id].AC_NWARD,
-      AC_NADDR: this.multiNominee[id].AC_NADDR,
-      AC_NGALLI: this.multiNominee[id].AC_NGALLI,
-      AC_NAREA: this.multiNominee[id].AC_NAREA,
-      // AC_NCTCODE: this.multiNominee[id].AC_NCTCODE,    
-      AC_NPIN: this.multiNominee[id].AC_NPIN,
-      // AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
-    })
+    // this.NbirthDate = date1;
+
+
+    this.ngnomineedate = this.multiNominee[id].AC_NDATE,
+      this.angForm.patchValue({
+        AC_NNAME: this.multiNominee[id].AC_NNAME,
+        AC_NRELA: this.multiNominee[id].AC_NRELA,
+        // AC_NDATE: this.multiNominee[id].AC_NDATE,
+        AGE: this.multiNominee[id].AGE,
+        AC_NHONO: this.multiNominee[id].AC_NHONO,
+        AC_NWARD: this.multiNominee[id].AC_NWARD,
+        AC_NADDR: this.multiNominee[id].AC_NADDR,
+        AC_NGALLI: this.multiNominee[id].AC_NGALLI,
+        AC_NAREA: this.multiNominee[id].AC_NAREA,
+        AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
+        AC_NPIN: this.multiNominee[id].AC_NPIN,
+        // AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
+      })
   }
 
   updateNominee() {
@@ -1307,19 +1225,20 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     const formVal = this.angForm.value;
     let date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
 
+    this.NbirthDate = date1;
     var object = {
       AC_NNAME: formVal.AC_NNAME,
       AC_NRELA: formVal.AC_NRELA,
-      AC_NDATE: date1,
+      AC_NDATE: this.NbirthDate,
       AGE: formVal.AGE,
       AC_NHONO: formVal.AC_NHONO,
       AC_NWARD: formVal.AC_NWARD,
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NCTCODE: formVal.AC_NCTCODE.id,
       AC_NPIN: formVal.AC_NPIN,
-      // AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME,
+      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME,
       id: this.nomineeID
     }
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
@@ -1343,6 +1262,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       else {
         this.multiNominee[index] = object;
       }
+
     }
     else {
       this.multiNominee[index] = object;
@@ -1367,6 +1287,163 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.controls['AC_NCTCODE'].reset();
     this.angForm.controls['AC_NPIN'].reset();
   }
+  //Joint ac
+  // jointAccount($event) {
+  //   if ($event.target.checked) {
+  //     this.JointAccountsTrue = true
+  //   } else {
+  //     this.JointAccountsTrue = false
+  //   }
+  // }
+  joint
+  getJointCustomer(event) {
+    debugger
+    console.log('get joint cus', event.name)
+    this.joint = event.name
+    this.customerIdService.getFormData(event.value).subscribe(data => {
+      this.angForm.patchValue({
+        JOINT_ACNAME: data.AC_NAME
+      })
+    })
+  }
+
+
+  addJointAcccount() {
+    debugger
+    const formVal = this.angForm.value;
+    console.log('add joint', formVal)
+    let value
+    if (formVal.OPERATOR == true) {
+      value = 'Yes'
+    } else {
+      value = 'No'
+    }
+    var object = {
+      JOINT_AC_CUSTID: this.joint,
+      JOINT_ACNAME: formVal.JOINT_ACNAME,
+      OPERATOR: value,
+    }
+    console.log('object.JOINT_AC_CUSTID', object.JOINT_AC_CUSTID)
+    if (object.JOINT_AC_CUSTID != undefined) {
+      if (this.id != this.jointID) {
+        if (this.multiJointAC.length == 0) {
+          this.multiJointAC.push(object);
+        }
+        else {
+          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === this.joint)) {
+            Swal.fire('', 'This Customer is Already Joint Account Holder', 'error');
+          }
+          else {
+            this.multiJointAC.push(object);
+          }
+        }
+      }
+      else {
+        Swal.fire('', 'Please Select Differet Customer Id!', 'warning');
+      }
+    } else {
+      Swal.fire('', 'Please Select Customer Id!', 'warning');
+    }
+    this.resetJointAC()
+  }
+
+  // addJointAcccount() {
+  //   let value
+  //   const formVal = this.angForm.value;
+  //   console.log('add joint', formVal)
+  //   if (formVal.OPERATOR == true) {
+  //     value = 'Yes'
+  //   } else {
+  //     value = 'No'
+  //   }
+  //   var object = {
+  //     JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
+  //     JOINT_ACNAME: formVal.JOINT_ACNAME,
+  //     OPERATOR: value
+  //   }
+  //   if (object.JOINT_AC_CUSTID != undefined) {
+  //     if (this.newcustid != this.jointID) {
+  //       if (this.multiJointAC.length == 0) {
+  //         this.multiJointAC.push(object);
+  //       }
+  //       else {
+  //         if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
+  //           Swal.fire("This Customer is Already Joint Account Holder", "error");
+  //         }
+  //         else {
+  //           this.multiJointAC.push(object);
+  //         }
+  //       }
+  //     }
+  //     else {
+  //       Swal.fire("Please Select Different Customer id", "error");
+  //     }
+  //   } else {
+  //     Swal.fire("Please Select Customer Id", "error");
+  //   }
+  //   this.resetJointAC()
+  // }
+
+
+  editJointAc(id) {
+    this.jointIndex = id
+    this.jointACID = this.multiJointAC[id].id;
+    this.JointAccountsTrue = true
+    this.jointShowButton = false;
+    this.jointUpdateShow = true;
+    this.angForm.patchValue({
+      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
+      JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      OPERATOR: this.multiJointAC[id].OPERATOR
+    })
+  }
+
+  updateJointAcccount() {
+    let index = this.jointIndex;
+    this.jointShowButton = true;
+    this.jointUpdateShow = false;
+    const formVal = this.angForm.value;
+    var object = {
+      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
+      JOINT_ACNAME: formVal.JOINT_ACNAME,
+      OPERATOR: formVal.OPERATOR,
+      id: this.jointACID
+    }
+    if (object.JOINT_AC_CUSTID != undefined) {
+      if (this.id != this.jointID) {
+        if (this.multiJointAC.length == 0) {
+          this.multiJointAC[index] = object
+        }
+        else {
+          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
+            Swal.fire("This Customer is Already Exists", "error");
+          }
+          else {
+            this.multiJointAC[index] = object
+          }
+        }
+      }
+      else {
+        Swal.fire("Please Select Different Customer id", "error");
+      }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
+    this.resetJointAC()
+  }
+
+
+  delJointAc(id) {
+    this.multiJointAC.splice(id, 1)
+  }
+
+  resetJointAC() {
+    this.jointID = null
+    this.angForm.controls['JOINT_AC_CUSTID'].reset();
+    this.angForm.controls['JOINT_ACNAME'].reset();
+    this.getSystemParaDate()
+  }
+
   @ViewChild('ctdTabset') ctdTabset;
   switchNgBTab(id: string) {
     this.ctdTabset.select(id);

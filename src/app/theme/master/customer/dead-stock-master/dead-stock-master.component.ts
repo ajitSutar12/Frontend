@@ -344,6 +344,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     // if (this.angForm.valid) {
     console.log(this.angForm.value); // Process your form
     const formVal = this.angForm.value;
+    debugger
     const dataToSend = {
       'branchCode': branchCode,
       'bankCode': bankCode,
@@ -352,6 +353,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       ITEM_NAME: formVal.ITEM_NAME,
       PURCHASE_DATE: (formVal.PURCHASE_DATE == '' || formVal.PURCHASE_DATE == 'Invalid date') ? purchase = '' : purchase = moment(formVal.PURCHASE_DATE).format('DD/MM/YYYY'),
       DEPR_CATEGORY: formVal.DEPR_CATEGORY,
+      // DEPR_CATEGORY: formVal.DEPR_CATEGORY,
       OP_BAL_DATE: (formVal.OP_BAL_DATE == '' || formVal.OP_BAL_DATE == 'Invalid date') ? purchase1 = '' : purchase1 = moment(formVal.OP_BAL_DATE).format('DD/MM/YYYY'),
       SUPPLIER_NAME: formVal.SUPPLIER_NAME,
       PURCHASE_OP_QUANTITY: formVal.PURCHASE_OP_QUANTITY,
@@ -387,6 +389,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.angForm.reset();
   }
   lddate: any
+  nglastdedate: any
   //Method for append data into fields
   editClickHandler(id) {
    
@@ -409,13 +412,15 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       }
       this.updateID = data.id;
       // this.lddate=(data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? date2 = '' : date2 = data.LAST_DEPR_DATE,
-   
-      this.angForm.setValue({
-        ITEM_TYPE: data.ITEM_TYPE,
+   this.ngItem = Number(data.ITEM_TYPE)
+   this.ngDepre = Number(data.DEPR_CATEGORY)
+   this.nglastdedate = data.LAST_DEPR_DATE
+      this.angForm.patchValue({
+        // ITEM_TYPE: data.ITEM_TYPE,
         ITEM_CODE: data.ITEM_CODE,
         ITEM_NAME: data.ITEM_NAME,
         PURCHASE_DATE: (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? date = '' : date = data.PURCHASE_DATE,
-        DEPR_CATEGORY: Number(data.DEPR_CATEGORY),
+        // DEPR_CATEGORY: Number(data.DEPR_CATEGORY),
         OP_BAL_DATE: (data.OP_BAL_DATE == 'Invalid date' || data.OP_BAL_DATE == '' || data.OP_BAL_DATE == null) ? date1 = '' : date1 = data.OP_BAL_DATE,
         SUPPLIER_NAME: data.SUPPLIER_NAME,
         PURCHASE_OP_QUANTITY: data.PURCHASE_OP_QUANTITY,

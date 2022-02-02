@@ -483,7 +483,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         AC_MEMBNO: data.AC_MEMBNO,
         AC_CAST: data.castMaster.NAME,
         AC_OCODE: data.occupMaster.NAME,
-        AC_BIRTH_DT: moment(data.AC_BIRTH_DT).format('DD/MM/YYYY'),
+        AC_BIRTH_DT:data.AC_BIRTH_DT,
         AC_MOBNO: data.AC_MOBILENO,
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,

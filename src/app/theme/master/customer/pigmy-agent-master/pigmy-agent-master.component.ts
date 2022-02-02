@@ -587,6 +587,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   resetForm() {
     this.createForm();
     this.code = null
+    this.id = null
   }
   ngAfterViewInit(): void {
     this.dtTrigger.next();
@@ -624,7 +625,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
   //Method for append data into fields
   editClickHandler(id) {
-
+    this.angForm.controls['AC_TYPE'].disable()
     // this.showButton = false;
     // this.updateShow = true;
     // this.newbtnShow = true;
@@ -674,6 +675,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
   //Method for update data 
   updateData() {
+    this.angForm.controls['AC_TYPE'].enable()
     let data = this.angForm.value;
     data['NomineeData'] = this.multiNominee
     data['id'] = this.updateID;
@@ -691,6 +693,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   addNewData() {
+    this.angForm.controls['AC_TYPE'].enable()
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -738,7 +741,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
   NbirthDate: any
   cityName: boolean = false
-  //nominee
+  //Nominee
   addNominee() {
     const formVal = this.angForm.value;
     let date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
@@ -758,7 +761,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       AC_NPIN: formVal.AC_NPIN,
       AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
     }
-    console.log('nomine', object)
 
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
@@ -791,33 +793,34 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     }
     this.resetNominee()
   }
-
+  ngnomineedate: any
   editNominee(id) {
-    console.log('multinominee', this.multiNominee)
     this.nomineeIndex = id
     this.nomineeID = this.multiNominee[id].id;
     this.nomineeTrue = true
     this.nomineeShowButton = false;
     this.nomineeUpdateShow = true;
     // this.ngNcity = Number(this.multiNominee[id].AC_NCTCODE)
-    let date1 = moment(this.multiNominee[id].AC_NDATE).format('DD/MM/YYYY');
+    // let date1 = moment(this.multiNominee[id].AC_NDATE).format('DD/MM/YYYY');
 
-    this.NbirthDate = date1;
+    // this.NbirthDate = date1;
 
-    this.angForm.patchValue({
-      AC_NNAME: this.multiNominee[id].AC_NNAME,
-      AC_NRELA: this.multiNominee[id].AC_NRELA,
-      AC_NDATE: this.NbirthDate,
-      AGE: this.multiNominee[id].AGE,
-      AC_NHONO: this.multiNominee[id].AC_NHONO,
-      AC_NWARD: this.multiNominee[id].AC_NWARD,
-      AC_NADDR: this.multiNominee[id].AC_NADDR,
-      AC_NGALLI: this.multiNominee[id].AC_NGALLI,
-      AC_NAREA: this.multiNominee[id].AC_NAREA,
-      AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
-      AC_NPIN: this.multiNominee[id].AC_NPIN,
-      // AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
-    })
+
+    this.ngnomineedate = this.multiNominee[id].AC_NDATE,
+      this.angForm.patchValue({
+        AC_NNAME: this.multiNominee[id].AC_NNAME,
+        AC_NRELA: this.multiNominee[id].AC_NRELA,
+        // AC_NDATE: this.multiNominee[id].AC_NDATE,
+        AGE: this.multiNominee[id].AGE,
+        AC_NHONO: this.multiNominee[id].AC_NHONO,
+        AC_NWARD: this.multiNominee[id].AC_NWARD,
+        AC_NADDR: this.multiNominee[id].AC_NADDR,
+        AC_NGALLI: this.multiNominee[id].AC_NGALLI,
+        AC_NAREA: this.multiNominee[id].AC_NAREA,
+        AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
+        AC_NPIN: this.multiNominee[id].AC_NPIN,
+        // AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
+      })
   }
 
   updateNominee() {
@@ -843,7 +846,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME,
       id: this.nomineeID
     }
-    console.log('update nominee', object)
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire("Please Insert Mandatory Record For Nominee");
     }
@@ -890,6 +892,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.angForm.controls['AC_NCTCODE'].reset();
     this.angForm.controls['AC_NPIN'].reset();
   }
+
+
 
   getBranch() {
     this.getIntroducer()

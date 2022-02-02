@@ -240,10 +240,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
-                                        class="form-control" required max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" disabled
-                                        [ngClass]="{'form-submitted': formSubmitted}"
-                                        (focusout)="disabledate(date.value)"
+                                        class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        disabled [ngClass]="{'form-submitted': formSubmitted}"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="AC_OPDATE" [bsValue]="bsValue" bsDatepicker>
                                     <label for="AC_OPDATE">Opening Date<sub class="required">*
