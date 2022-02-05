@@ -3,45 +3,258 @@
         <div class="card">
             <div class="card-header">
                 <h5>NPA Classification Master</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
-
-            <form action="javascript:" [formGroup]="angForm" novaliEffectiveDate  #myform="ngForm">
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md">
+                        <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="EffectiveDate" class="form-control" placeholder=" " required=""
-                                    #autofocus  value="{{ message.EffectiveDate }}" max="9999-12-31" id="EffectiveDate"
-                                        onfocus="(this.type='EffectiveDate')" formControlName="EffectiveDate">
-                                    <label for="EffectiveDate">Effective EffectiveDate<sub class="required">* </sub></label>
+                                    <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
+                                        class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [ngClass]="{'form-submitted': formSubmitted}" minlength="10" maxlength="10"
+                                        [maxDate]="maxDate" (bsValueChange)="checkEffectDate()"
+                                        (focusout)="checkEffectDate()"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        formControlName="EFFECT_DATE" [bsValue]="bsValue" bsDatepicker #autofocus>
+                                    <label for="EFFECT_DATE">Effective Date<sub class="required">*
+                                        </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EffectiveDate'].invalid && (angForm.controls['EffectiveDate'].dirty || angForm.controls['EffectiveDate'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['EffectiveDate'].errors?.required">
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['EFFECT_DATE'].errors?.required || angForm.controls['EFFECT_DATE'].errors?.maxlength || angForm.controls['EFFECT_DATE'].errors?.minlength">
                                     This field is required
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="footer-email" class="form-control" placeholder=" "
-                                        id="BaseDays" value="{{ message.BaseDays }}" pattern="^[0-9]+$"
-                                        title="Input allowed only  0-9" formControlName="BaseDays">
-                                    <label for="BaseDays">Base Days</label>
+                                    <input type="text" style="text-align: right;" name="NPA_BASE_DAYS"
+                                        class="form-control" placeholder=" " pattern="^[0-9]+$"
+                                        title=" Input allowed only  0-9" minlength="1" maxlength="4"
+                                        (focus)="selectAllContent($event)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="NPA_BASE_DAYS"
+                                        formControlName="NPA_BASE_DAYS">
+                                    <label for="NPA_BASE_DAYS">Base Days</label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['BaseDays'].invalid && (angForm.controls['BaseDays'].dirty || angForm.controls['BaseDays'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['BaseDays'].errors?.pattern">
-                                    Input allowed only 0-9
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['NPA_BASE_DAYS'].invalid && (angForm.controls['NPA_BASE_DAYS'].dirty || angForm.controls['NPA_BASE_DAYS'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['NPA_BASE_DAYS'].errors?.pattern || angForm.controls['NPA_BASE_DAYS'].errors?.required || angForm.controls['NPA_BASE_DAYS'].errors?.minlength || angForm.controls['NPA_BASE_DAYS'].errors?.maxlength">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="NPA_CLASS" [items]="NPAClass" bindLabel="label"
+                                        (change)="selectedNPA()" formControlName="NPA_CLASS" [(ngModel)]="ngNPAClass"
+                                        placeholder="NPA Class">
+                                    </ng-select>
+                                    <label for="NPA_CLASS">NPA Class<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="NPA_DESCRIPTION" formControlName="NPA_DESCRIPTION"
+                                        class="form-control" placeholder=" " maxlength="60" id="NPA_DESCRIPTION">
+                                    <label for="NPA_DESCRIPTION">NPA Class Description</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="FROM_DAYS" class="form-control"
+                                        placeholder=" " id="FROM_DAYS" pattern="^[0-9]+$" title="Input allowed only 0-9"
+                                        (focus)="selectAllContent($event)" (focusout)="disableMonth()"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" maxlength="4"
+                                        formControlName="FROM_DAYS">
+                                    <label for="FROM_DAYS">From Days</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="FROM_MONTHS"
+                                        class="form-control" placeholder=" " id="FROM_MONTHS" pattern="^[0-9]+$"
+                                        title="Input allowed only 0-9" maxlength="4" (focus)="selectAllContent($event)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        (focusout)="disableDays()" formControlName="FROM_MONTHS">
+                                    <label for="FROM_MONTHS">From Months</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="TO_DAYS" class="form-control"
+                                        placeholder=" " id="TO_DAYS" pattern="^[0-9]+$" title="Input allowed only 0-9"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        (focus)="selectAllContent($event)" (focusout)="compareDays()" maxlength="4"
+                                        formControlName="TO_DAYS">
+                                    <label for="TO_DAYS">To Days</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="TO_MONTHS" class="form-control"
+                                        placeholder=" " id="TO_MONTHS" pattern="^[0-9]+$" title="Input allowed only 0-9"
+                                        (focusout)="compareMonths()" maxlength="4" (focus)="selectAllContent($event)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        formControlName="TO_MONTHS">
+                                    <label for="TO_MONTHS">To Months</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="SECURED_PERCENT"
+                                        class="form-control" placeholder=" " id="SECURED_PERCENT"
+                                        (focus)="selectAllContent($event)" pattern="\d{1,3}(\.\d{1,2})?" max="100"
+                                        #secure maxlength="5" title="Input allowed only 0-9"
+                                        (keyup)="checkPercent(secure.value)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                        formControlName="SECURED_PERCENT">
+                                    <label for="SECURED_PERCENT">Secured Percent<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['SECURED_PERCENT'].invalid && (angForm.controls['SECURED_PERCENT'].dirty || angForm.controls['SECURED_PERCENT'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['SECURED_PERCENT'].errors?.pattern || angForm.controls['SECURED_PERCENT'].errors?.max || angForm.controls['SECURED_PERCENT'].errors?.minlength || angForm.controls['SECURED_PERCENT'].errors?.maxlength">
+                                    This field is required and Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="UNSECURED_PERCENT"
+                                        class="form-control" placeholder=" " id="UNSECURED_PERCENT"
+                                        pattern="\d{1,3}(\.\d{1,2})?" title="Input allowed only 0-9" max="100" #unsecure
+                                        (focus)="selectAllContent($event)" maxlength="5"
+                                        (keyup)="checkUnsecurePercent(unsecure.value)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                        formControlName="UNSECURED_PERCENT">
+                                    <label for="UNSECURED_PERCENT">Unsecured Percent<sub class="required"> *
+                                        </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['UNSECURED_PERCENT'].invalid && (angForm.controls['UNSECURED_PERCENT'].dirty || angForm.controls['UNSECURED_PERCENT'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['UNSECURED_PERCENT'].errors?.pattern || angForm.controls['UNSECURED_PERCENT'].errors?.max || angForm.controls['UNSECURED_PERCENT'].errors?.minlength || angForm.controls['UNSECURED_PERCENT'].errors?.maxlength">
+                                    This field is required and Input allowed only 0-9
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton" [disabled]="angForm.invalid"(click)="submit(angForm.value)">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton"
+                                (click)="addField()">Add Classification</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateField()"
+                                *ngIf="UpdateShowButton">Update Classification</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Action</td>
+                                        <td>Serial No</td>
+                                        <td>NPA Class</td>
+                                        <td>NPA Class Description</td>
+                                        <td>From Days</td>
+                                        <td>To Days</td>
+                                        <td>From Months</td>
+                                        <td>To Months</td>
+                                        <td>Secured Percent</td>
+                                        <td>UnSecured Percent</td>
+                                    </thead>
+                                    <tbody *ngIf="multiField?.length != 0">
+                                        <tr *ngFor="let data of multiField; let indexOfelement=index;">
+                                            <td>
+                                                <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                    (click)="editField(indexOfelement)" placement="top"
+                                                    ngbTooltip="Edit"></span> &nbsp; &nbsp;
+                                                <span class="fa fa-fw fa-trash-o" id="deletebutton"
+                                                    (click)="delField(indexOfelement)" placement="bottom"
+                                                    ngbTooltip="Delete"></span>
+                                            </td>
+                                            <td class="td_right">{{indexOfelement+1 }}</td>
+                                            <td [ngClass]="data.NPA_CLASS === '' ? 'td_center' : 'td_left'">
+                                                {{data.NPA_CLASS }}</td>
+                                            <td [ngClass]="data.NPA_DESCRIPTION === '' ? 'td_center' : 'td_left'">
+                                                {{data.NPA_DESCRIPTION===""? "-":data.NPA_DESCRIPTION }}</td>
+                                            <td
+                                                [ngClass]="data.FROM_DAYS === '' || data.FROM_DAYS === undefined || data.FROM_DAYS === null ? 'td_center' : 'td_right'">
+                                                {{data.FROM_DAYS === "" || data.FROM_DAYS === undefined ||
+                                                data.FROM_DAYS === null? "-" : data.FROM_DAYS}}</td>
+                                            <td
+                                                [ngClass]="data.TO_DAYS === ''   || data.TO_DAYS === undefined  || data.TO_DAYS === null ? 'td_center' : 'td_right'">
+                                                {{data.TO_DAYS === "" || data.TO_DAYS === undefined ||
+                                                data.TO_DAYS === null ? "-":data.TO_DAYS}}
+                                            </td>
+                                            <td
+                                                [ngClass]="data.FROM_MONTHS === '' || data.FROM_MONTHS === undefined || data.FROM_MONTHS === null ? 'td_center' : 'td_right'">
+                                                {{data.FROM_MONTHS === "" || data.FROM_MONTHS === undefined ||
+                                                data.FROM_MONTHS === null ? "-":data.FROM_MONTHS}}</td>
+                                            <td
+                                                [ngClass]="data.TO_MONTHS === ''  || data.TO_MONTHS === undefined || data.TO_MONTHS === null ? 'td_center' : 'td_right'">
+                                                {{data.TO_MONTHS === "" || data.TO_MONTHS === undefined ||
+                                                data.TO_MONTHS === null ? "-":data.TO_MONTHS}}</td>
+                                            <td
+                                                [ngClass]="data.SECURED_PERCENT === '' || data.SECURED_PERCENT === undefined || data.SECURED_PERCENT === null ? 'td_center' : 'td_right'">
+                                                {{data.SECURED_PERCENT === "" || data.SECURED_PERCENT === undefined ||
+                                                data.SECURED_PERCENT === null ? "-":data.SECURED_PERCENT}}</td>
+                                            <td
+                                                [ngClass]="data.UNSECURED_PERCENT === '' || data.UNSECURED_PERCENT === undefined || data.UNSECURED_PERCENT === null ? 'td_center' : 'td_right'">
+                                                {{data.UNSECURED_PERCENT === "" || data.UNSECURED_PERCENT === undefined
+                                                || data.UNSECURED_PERCENT === null ? "-":data.UNSECURED_PERCENT}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="multiField?.length == 0">
+                                        <tr>
+                                            <td colspan="10" class="no-data-available" style="text-align: center;">No
+                                                data!</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm" style="float: right;">
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                                [disabled]="angForm.invalid" (click)="submit(angForm.value)">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                                Cancel
+                            </button> &nbsp; &nbsp;
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                [disabled]="angForm.invalid" *ngIf="updateShow">Update</button>
                         </div>
                     </div>
                 </div>
@@ -52,12 +265,41 @@
 
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-block">
                 <div class="row">
                     <div class="col-12">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            <table id="table" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                                class="table table-striped table-bordered table-hover compact">
+                                <tbody *ngIf="INPAClass?.length != 0">
+                                    <tr *ngFor="let data of INPAClass">
+                                        <td>
+                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit"></span>
+                                        </td>
+                                        <td
+                                            [ngClass]="data.EFFECT_DATE === '' || data.EFFECT_DATE== null? 'td_center' : 'td_center'">
+                                            {{ data.EFFECT_DATE}}
+                                        </td>
+                                        <td [ngClass]="data.NPA_BASE_DAYS === '' ? 'td_center' : 'td_right'">
+                                            {{ data.NPA_BASE_DAYS}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="INPAClass?.length == 0">
+                                    <tr>
+                                        <td colspan="10" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot #filters class="filters">
+                                    <tr class="testing">
+                                        <th></th>
+                                        <th><input type="text" class="form-control" name="EFFECT_DATE"></th>
+                                        <th><input type="text" class="form-control" name="NPA_BASE_DAYS"></th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

@@ -7,11 +7,11 @@ import { Router } from '@angular/router';
 })
 export class SchemeParametersComponent implements OnInit {
 
-  systemmasterparametersTrue = true;
+  systemmasterparametersTrue = false;
   smssettingTrue = false;
   recoverysequenceTrue = false;
   schemetypesettingTrue = false;
-  transactioninputglhsTrue = false;
+  transactioninputglhsTrue = true;
   checkcollectionihTrue = false;
   otherbankdsTrue = false;
   lockerschemeTrue = false;

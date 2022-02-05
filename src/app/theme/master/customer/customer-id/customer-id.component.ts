@@ -182,7 +182,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   ngCity: any = null
   ngTitle: any = null
   updatecheckdata: any
-  ngSubmitDate:any
+  ngSubmitDate: any
   bsValue
   maxDate: Date;
 
@@ -548,6 +548,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'TDS_LIMIT': formVal.TDS_LIMIT,
         'Document': this.imageObject
       }
+
       this.customerIdService.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire({
@@ -666,11 +667,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     if (ele.target.checked) {
       (document.getElementById("file" + id) as HTMLInputElement).disabled =
         false;
-      
+
     } else {
       (document.getElementById("file" + id) as HTMLInputElement).disabled = true;
       (document.getElementById("file" + id) as HTMLInputElement).value = "";
-     
+
     }
   }
 
@@ -693,7 +694,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       .join(" ");
     (document.getElementById("AC_ADHARNO") as HTMLInputElement).value = result;
   }
-  
+
   //method for adding hyphen in date
   addhyphen(data: any) {
     let date = new Date().getFullYear() + 1;
@@ -712,7 +713,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // (document.getElementById("FIN_YEAR") as HTMLInputElement).value = result;
   }
- 
+
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
@@ -728,48 +729,48 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngCast = data.AC_CAST
       this.ngfinyear = data.tdsForm.FIN_YEAR
       this.ngSubmitDate = (data.tdsForm.SUBMIT_DATE == 'Invalid date' || data.tdsForm.SUBMIT_DATE == '' || data.tdsForm.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm.SUBMIT_DATE,
-      // this.ngCity = data.custAddress[0].AC_CTCODE
-      this.angForm.patchValue({
-        AC_NO: data.AC_NO,
-        AC_MEMBTYPE: data.AC_MEMBTYPE,
-        AC_MEMBNO: data.AC_MEMBNO,
-        AC_TITLE: data.AC_TITLE,
-        F_NAME: data.F_NAME,
-        M_NAME: data.M_NAME,
-        L_NAME: data.L_NAME,
-        AC_NAME: data.AC_NAME,
-        // AC_CAST: data.AC_CAST,
-        // AC_OCODE: data.AC_OCODE,
-        AC_ADHARNO: data.AC_ADHARNO,
-        // AC_RISKCATG: data.AC_RISKCATG,
-        // AC_BIRTH_DT: data.AC_BIRTH_DT,
-        AC_BIRTH_DT: (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? birthdate = '' : birthdate = data.AC_BIRTH_DT,
-        AC_HONO: data.custAddress[0].AC_HONO,
-        AC_WARD: data.custAddress[0].AC_WARD,
-        AC_ADDR: data.custAddress[0].AC_ADDR,
-        AC_GALLI: data.custAddress[0].AC_GALLI,
-        AC_AREA: data.custAddress[0].AC_AREA,
-        AC_CTCODE: data.custAddress[0].AC_CTCODE,
-        AC_PIN: data.custAddress[0].AC_PIN,
-        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
-        AC_PANNO: data.AC_PANNO,
-        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
-        AC_MOBILENO: data.AC_MOBILENO,
-        AC_PHONE_RES: data.AC_PHONE_RES,
-        AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
-        AC_EMAILID: data.AC_EMAILID,
-        TDSDOCUMNET: data.TDSDOCUMNET,
-        TDS_REQUIRED: data.TDS_REQUIRED,
-        SMS_REQUIRED: data.SMS_REQUIRED,
-        IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
-        // FIN_YEAR: data.tdsForm.FIN_YEAR,
-        // SUBMIT_DATE: data.tdsForm.SUBMIT_DATE,
-        // SUBMIT_DATE: (data.tdsForm.SUBMIT_DATE == 'Invalid date' || data.tdsForm.SUBMIT_DATE == '' || data.tdsForm.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm.SUBMIT_DATE,
-        FORM_TYPE: data.tdsForm.FORM_TYPE,
-        TDS_RATE: data.tdsForm.TDS_RATE,
-        TDS_LIMIT: data.tdsForm.TDS_LIMIT,
+        // this.ngCity = data.custAddress[0].AC_CTCODE
+        this.angForm.patchValue({
+          AC_NO: data.AC_NO,
+          AC_MEMBTYPE: data.AC_MEMBTYPE,
+          AC_MEMBNO: data.AC_MEMBNO,
+          AC_TITLE: data.AC_TITLE,
+          F_NAME: data.F_NAME,
+          M_NAME: data.M_NAME,
+          L_NAME: data.L_NAME,
+          AC_NAME: data.AC_NAME,
+          // AC_CAST: data.AC_CAST,
+          // AC_OCODE: data.AC_OCODE,
+          AC_ADHARNO: data.AC_ADHARNO,
+          // AC_RISKCATG: data.AC_RISKCATG,
+          // AC_BIRTH_DT: data.AC_BIRTH_DT,
+          AC_BIRTH_DT: (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? birthdate = '' : birthdate = data.AC_BIRTH_DT,
+          AC_HONO: data.custAddress[0].AC_HONO,
+          AC_WARD: data.custAddress[0].AC_WARD,
+          AC_ADDR: data.custAddress[0].AC_ADDR,
+          AC_GALLI: data.custAddress[0].AC_GALLI,
+          AC_AREA: data.custAddress[0].AC_AREA,
+          AC_CTCODE: data.custAddress[0].AC_CTCODE,
+          AC_PIN: data.custAddress[0].AC_PIN,
+          AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
+          AC_PANNO: data.AC_PANNO,
+          AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+          AC_MOBILENO: data.AC_MOBILENO,
+          AC_PHONE_RES: data.AC_PHONE_RES,
+          AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
+          AC_EMAILID: data.AC_EMAILID,
+          TDSDOCUMNET: data.TDSDOCUMNET,
+          TDS_REQUIRED: data.TDS_REQUIRED,
+          SMS_REQUIRED: data.SMS_REQUIRED,
+          IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
+          // FIN_YEAR: data.tdsForm.FIN_YEAR,
+          // SUBMIT_DATE: data.tdsForm.SUBMIT_DATE,
+          // SUBMIT_DATE: (data.tdsForm.SUBMIT_DATE == 'Invalid date' || data.tdsForm.SUBMIT_DATE == '' || data.tdsForm.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm.SUBMIT_DATE,
+          FORM_TYPE: data.tdsForm.FORM_TYPE,
+          TDS_RATE: data.tdsForm.TDS_RATE,
+          TDS_LIMIT: data.tdsForm.TDS_LIMIT,
 
-      });
+        });
 
       if (data.TDSDOCUMNET == true) {
         this.isTdsForm = true;
@@ -804,7 +805,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
- 
+
   //Method for update data
   updateData() {
     let date
@@ -989,7 +990,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.imageObject.push(obj);
       this.selectedImgArrayDetails.push(selectedObj);
     }
-   
+
   }
 
   // method for close modal on add and close click
@@ -1058,7 +1059,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     })
   }
-  
+
   checkAdhar() {
     let adhar: any[];
     this.customerIdService.getData().subscribe(data => {

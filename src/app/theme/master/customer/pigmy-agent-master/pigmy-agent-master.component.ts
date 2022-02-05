@@ -347,7 +347,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   getCustomer(id) {
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
-
       this.id = data.id
       this.angForm.patchValue({
         // AC_CUSTID: id.toString(),
@@ -662,7 +661,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
   //Method for append data into fields
   editClickHandler(id) {
-
     this.angForm.controls['AC_TYPE'].disable()
     // this.showButton = false;
     // this.updateShow = true;
@@ -670,7 +668,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.PigmyAgentMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
 
-debugger
+      debugger
       let opdate
       console.log(data, "edit data")
       if (data.SYSCHNG_LOGIN == null) {
@@ -918,15 +916,16 @@ debugger
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NCTCODE: formVal.AC_NCTCODE.id,
       AC_NPIN: formVal.AC_NPIN,
+      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
     }
+
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-
         Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
 

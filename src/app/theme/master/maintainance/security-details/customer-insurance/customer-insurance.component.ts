@@ -256,7 +256,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     this.updateShow = true;
     this.newbtnShow = true;
     this._customerservice.getFormData(id).subscribe((data) => {
-      debugger
+     
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;

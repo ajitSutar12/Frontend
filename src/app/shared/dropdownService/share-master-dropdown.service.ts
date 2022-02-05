@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 @Injectable()
 export class ShareMasterDropdownService {
     sharecodeObject = new Array();
+    [x: string]: any;
     // url = "http://localhost:4000/share-master";
     url = environment.base_url;
     constructor(private http: HttpClient) { }

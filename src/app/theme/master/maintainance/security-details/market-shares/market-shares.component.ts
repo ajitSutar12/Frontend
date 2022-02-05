@@ -286,7 +286,7 @@ marketmaster: MarketMaster[];
     this.updateShow = true;
     this.newbtnShow = true;
     this._marketservice.getFormData(id).subscribe((data) => {
-      debugger
+    
   //sending values to parent
   let dropdown: any = {};
   dropdown.scheme = data.AC_TYPE;

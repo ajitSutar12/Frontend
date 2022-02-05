@@ -954,49 +954,42 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
               console.log('introducer name data', data)
               this.introducerACNo = data;
-
             })
             break;
 
           case 'SH':
             this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
-
             })
             break;
 
           case 'CA':
             this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
-
             })
             break;
 
           case 'LN':
             this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
-
             })
             break;
 
           case 'TD':
             this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
-
             })
             break;
 
           case 'DS':
             this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
-
             })
             break;
 
           case 'CC':
             this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
-
             })
             break;
 
@@ -1011,21 +1004,18 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           case 'PG':
             this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
-
             })
             break;
 
           case 'AG':
             this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
-
             })
             break;
 
           case 'IV':
             this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
-
             })
             break;
         }
@@ -1283,15 +1273,16 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NCTCODE: formVal.AC_NCTCODE.id,
       AC_NPIN: formVal.AC_NPIN,
+      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
     }
+
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-
         Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
 
@@ -1457,7 +1448,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   addJointAcccount() {
-
     const formVal = this.angForm.value;
     console.log('add joint', formVal)
     let value

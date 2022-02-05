@@ -2,130 +2,256 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Transaction Input Head Setting</h5>
+                <h5>Transcation Input GL Head Setting</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
-            <form class="form-material">
-                <div class="card-block">
+            <div class="card-block">
+                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="SCHEME_TYPE" [items]="schemeType" bindLabel="id"
+                                        formControlName="SCHEME_TYPE" [(ngModel)]="ngSchemeType"
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Scheme Type"
+                                        required>
+                                    </ng-select>
+                                    <label for="SCHEME_TYPE">Scheme Type<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['SCHEME_TYPE'].invalid && (angForm.controls['SCHEME_TYPE'].dirty || angForm.controls['SCHEME_TYPE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['SCHEME_TYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="FIELD_AMOUNT" [items]="headType" bindLabel="label"
+                                        formControlName="FIELD_AMOUNT" (change)="getHeadType($event)"
+                                        [(ngModel)]="ngHeadType" [ngClass]="{'form-submitted': formSubmitted}"
+                                        placeholder="Head Type" required>
+                                    </ng-select>
+                                    <label for="FIELD_AMOUNT">Head Type<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['FIELD_AMOUNT'].invalid && (angForm.controls['FIELD_AMOUNT'].dirty || angForm.controls['FIELD_AMOUNT'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['FIELD_AMOUNT'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-radio">
+                                <div *ngIf="isSchemeWise" class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="scheme" (change)="showGLCode(1)"
+                                            [checked]="schemeWise">
+                                        <i class="helper"></i>Scheme Wise<span class="required"> </span>
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="scheme" (click)="showGLCode(2)"
+                                            [checked]="!schemeWise">
+                                        <i class="helper"></i>GL Code Wise<span class="required"> </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm" *ngIf="showGL">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="glAcno" bindValue="value" [(ngModel)]="ngGlCode" bindLabel="label"
+                                        placeholder="GL A/c Number" (change)="patchGlNo($event)"
+                                        formControlName="GL_CODE">
+                                        <ng-option *ngFor="let values of glcode" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="glAcno">GL A/c Number</label>
+                                </span>
+                            </div>
+
+                            <!-- <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="glAcno" [items]="glcode" [(ngModel)]="ngGlCode" bindLabel="label"
+                                        (change)="patchGlNo($event)" [ngClass]="{'form-submitted': formSubmitted}"
+                                        placeholder="GL A/c Number">
+                                    </ng-select>
+                                    <label for="glAcno">GL A/c Number</label>
+                                </span>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="CHECK_REQUIRE"
+                                        formControlName="CHECK_REQUIRE">
+                                    <label class="border-checkbox-label" for="CHECK_REQUIRE">Check Required
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="INTEREST_DATE_INPUT"
+                                        formControlName="INTEREST_DATE_INPUT">
+                                    <label class="border-checkbox-label" for="INTEREST_DATE_INPUT">Interest Date
+                                        Applicable
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="IS_NOTING_REQUIRED"
+                                        formControlName="IS_NOTING_REQUIRED">
+                                    <label class="border-checkbox-label" for="IS_NOTING_REQUIRED">Is Noting Required
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm">
-                            <!-- DROPDOWN HERE -->
-                            <form class="form-material" action="javascript:">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" maxlength="3" minlength="3" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Serial No<span class="required"> *</span></label>
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="IS_GLBAL_MAINTAIN"
+                                        formControlName="IS_GLBAL_MAINTAIN">
+                                    <label class="border-checkbox-label" for="IS_GLBAL_MAINTAIN">Is Check Balance when
+                                        Account Closing
+                                    </label>
                                 </div>
-                            </form>
-                            <!-- DROPDOWN HERE -->
+                            </div>
                         </div>
-                        <div class="col-sm">
-                            <div class="card-block">
-                                <div class="row">
-                                    <div class="col-sm">
-                                        <div class="form-radio">
-                                            <form>
-                                                <div class="radio radio-inline">
-                                                    <label>
-                                                        <input type="radio" name="radio" checked="checked">
-                                                        <i class="helper"></i>Scheme Wise<span class="required"> </span>
-                                                    </label>
-                                                </div>
-                                                <div class="radio radio-inline">
-                                                    <label>
-                                                        <input type="radio" name="radio">
-                                                        <i class="helper"></i>G.L. Code Wise<span class="required"> </span>
-                                                    </label>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="DRCR_APPLICABLE" [items]="debitCredit" bindLabel="label"
+                                        formControlName="DRCR_APPLICABLE" [ngClass]="{'form-submitted': formSubmitted}"
+                                        [(ngModel)]="ngDebitCredit" placeholder="Debit/Credit Applicable" required>
+                                    </ng-select>
+                                    <label for="DRCR_APPLICABLE">Debit/Credit Applicable<sub class="required"> *
+                                        </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['DRCR_APPLICABLE'].invalid && (angForm.controls['DRCR_APPLICABLE'].dirty || angForm.controls['DRCR_APPLICABLE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['DRCR_APPLICABLE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="DESCRIPTION" formControlName="DESCRIPTION"
+                                        class="form-control" placeholder=" " maxlength="100" id="DESCRIPTION"
+                                        required="" pattern="^[A-Za-z\ ]+$"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32)"
+                                        title="Input allowed only  A-Z a-z (Space)">
+                                    <label for="DESCRIPTION">Description<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['DESCRIPTION'].invalid && (angForm.controls['DESCRIPTION'].dirty || angForm.controls['DESCRIPTION'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['DESCRIPTION'].errors?.pattern || angForm.controls['DESCRIPTION'].errors?.required || angForm.controls['DESCRIPTION'].errors?.maxlength">
+                                    This field is required and Input allowed only A-Z a-z (Space)
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-
                     <div class="row">
-                        <div class="col-sm">
-                            <div class="border-checkbox-section">
-                                <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox" id="checkbox1">
-                                    <label class="border-checkbox-label" for="checkbox1">Check Require <span class="required"> </span></label>
-                                </div>
-                                <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox" id="checkbox2">
-                                    <label class="border-checkbox-label" for="checkbox2">Interest Date
-                                        Applicable<span class="required"> </span></label>
-                                </div>
-                                <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox" id="checkbox3">
-                                    <label class="border-checkbox-label" for="checkbox3">Is Noting Required ?<span class="required"> </span></label>
-                                </div>
-                                <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input class="border-checkbox" type="checkbox" id="checkbox4">
-                                    <label class="border-checkbox-label" for="checkbox4">Is Check Bal. When A/c Closing
-                                        ?<span class="required"> </span></label>
+                        <div class="col-sm-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="SHORT_NAME" formControlName="SHORT_NAME"
+                                        class="form-control" placeholder=" " maxlength="50" id="SHORT_NAME" required=""
+                                        pattern="^[A-Za-z\ ]+$" [ngClass]="{'form-submitted': formSubmitted}"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32)"
+                                        title="Input allowed only  A-Z a-z (Space)">
+                                    <label for="SHORT_NAME">Short Name<sub class="required">* </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['SHORT_NAME'].invalid && (angForm.controls['SHORT_NAME'].dirty || angForm.controls['SHORT_NAME'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['SHORT_NAME'].errors?.pattern || angForm.controls['SHORT_NAME'].errors?.required || angForm.controls['SHORT_NAME'].errors?.maxlength">
+                                    This field is required and Input allowed only A-Z a-z (Space)
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-block">
-                        <div class="row">
-                            <div class="col-sm">
-
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" maxlength="5" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Description<span class="required"> *</span></label>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" maxlength="5" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Short Name<span class="required"> *</span></label>
-                                </div>
-                            </div>
-
-
+                        <div class="col-sm" style="float: right;">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                                (click)="submit()"> Submit </button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                                Cancel </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                                Update</button>
                         </div>
-
                     </div>
-
-                </div>
-                <div class="card-block">
-                    <button class="btn btn-primary ripple light">Add</button>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-
-                    </div>
-                    <div class="col-sm">
-                        <h6><span class="required">* </span>: Required Fields</h6>
-                    </div>
-                </div>
-            </form>
-            
+                </form>
+            </div>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-block">
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions"
-                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            <table id="mastertable" datatable [dtOptions]="dtExportButtonOptions"
+                                [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
+                                <tbody *ngIf="transactionInput?.length != 0">
+                                    <tr *ngFor="let data of transactionInput">
+                                        <td>
+                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit"></span>
+                                        </td>
+                                        <td>{{ data.SCHEME_TYPE }}</td>
+                                        <td>{{ data.FIELD_AMOUNT }}</td>
+                                        <td>{{ data.DESCRIPTION }}</td>
+                                        <td>{{ data.SHORT_NAME }}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="transactionInput?.length == 0">
+                                    <tr>
+                                        <td colspan="6" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot #filters class="filters">
+                                    <tr class="testing">
+                                        <th></th>
+                                        <th><input type="text" class="form-control" name="SCHEME_TYPE"> </th>
+                                        <th><input type="text" class="form-control" name="FIELD_AMOUNT"> </th>
+                                        <th><input type="text" class="form-control" name="DESCRIPTION"> </th>
+                                        <th><input type="text" class="form-control" name="SHORT_NAME"> </th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

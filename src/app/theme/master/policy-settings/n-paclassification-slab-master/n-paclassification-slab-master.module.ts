@@ -1,30 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import {DataTablesModule} from 'angular-datatables';
+import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import { NPAClassificationSlabMasterComponent } from './n-paclassification-slab-master.component';
 import { NPAClassificationSlabMasterRoutingModule } from './n-paclassification-slab-master-routing.module';
-import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
-
-import { npcslabMasterService} from '../../../../shared/elements/npcslab-master.service';
-import {SelectModule} from 'ng-select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { npcslabMasterService } from '../../../../shared/elements/npcslab-master.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor'
-
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   imports: [
     CommonModule,
     NPAClassificationSlabMasterRoutingModule,
     DataTablesModule,
-    SelectModule,
     NgbModule,
-    FormsModule,ReactiveFormsModule
-   
+    FormsModule, ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
+    NgSelectModule
   ],
   declarations: [NPAClassificationSlabMasterComponent],
-  providers: [npcslabMasterService,{
+  providers: [npcslabMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

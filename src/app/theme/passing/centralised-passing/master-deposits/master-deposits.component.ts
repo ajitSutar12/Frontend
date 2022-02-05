@@ -141,7 +141,6 @@ export class MasterDepositsComponent implements OnInit {
             }
           }
         });
-
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
           dataTableParameters.start + dataTableParameters.length;

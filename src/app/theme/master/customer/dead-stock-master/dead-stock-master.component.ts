@@ -366,11 +366,9 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
     let bankCode = Number(result.branch.syspara.BANK_CODE)
-    debugger
     // if (this.angForm.valid) {
     console.log(this.angForm.value); // Process your form
     const formVal = this.angForm.value;
-    debugger
     const dataToSend = {
       'BRANCH_CODE': branchCode,
       'bankCode': bankCode,
@@ -536,8 +534,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload();
       });
-      this.angForm.reset();
-    });
+    })
   }
 
   addNewData() {

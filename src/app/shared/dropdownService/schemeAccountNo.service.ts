@@ -71,7 +71,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/share-master/getdata/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.DIV_TRANSFER_BRANCH, value:element.DIV_TRANSFER_ACTYPE, name: element.DIV_TRANSFER_ACNO };
+                    let obj = { label: element.DIV_TRANSFER_BRANCH, value: element.DIV_TRANSFER_ACTYPE, name: element.DIV_TRANSFER_ACNO };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -118,7 +118,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/term-loan-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -140,7 +140,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/term-deposits-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -185,7 +185,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/cash-credit-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;

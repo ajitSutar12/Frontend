@@ -1,296 +1,238 @@
-import { Component, OnInit } from '@angular/core';
-import { IOption } from 'ng-select';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { S4Service } from '../../../../shared/elements/s4.service';
-import { Ac4Service } from '../../../../shared/elements/ac4.service';
-import { S15Service } from '../../../../shared/elements/s15.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import {environment} from '../../../../../environments/environment'
-
+import { environment } from '../../../../../environments/environment'
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
+import { first } from 'rxjs/operators';
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service';
+import { HttpClient } from "@angular/common/http";
+import { DepositLoanInterestRateEditChangeService } from './deposit-loan-interest-rate-edit-change.service'
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service';
+import * as moment from 'moment';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-deposit-loan-interest-rate-edit-change',
   templateUrl: './deposit-loan-interest-rate-edit-change.component.html',
   styleUrls: ['./deposit-loan-interest-rate-edit-change.component.scss']
 })
 
-export class DepositLoanInterestRateEditChangeComponent implements OnInit {
+export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDestroy {
   angForm: FormGroup;
-url = environment.base_url;
+  url = environment.base_url;
   //Datatable
-
-  dtExportButtonOptions: any = {};
-  dtExportButtonOptions1: any = {};
-
-  GuarantorTrue = false;
-
-  simpleOption: Array<IOption> = this.S4Service.getCharacters();
-  Ac: Array<IOption> = this.Ac4Service.getCharacters();
-  Ac2: Array<IOption> = this.S15Service.getCharacters();
-  selectedOption = '3';
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = '3';
-  timeLeft = 5;
-
-  private dataSub: Subscription = null;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  formSubmitted = false;
 
   showButton: boolean = true;
   updateShow: boolean = false;
+  minDate: Date;
+  bsValue
+  schemeCode: any = null
+  ngAcnoFrom: any = null
+  allScheme: any = null
+  ngBranchCode: any = null
+  ngAcnoTo: any = null
+  startAcNo: any
+  endAcNo: any
+  branch_code: any
+  obj: any
+  getschemename: any
+  showTable: boolean = false
+  tableArr: any
+  mem: any
 
-  //variable for checkbox and radio button 
-  // isRecovery: boolean = false;
-  isIncrease: boolean = true;
-
-  message = {
-    schemecode: "",
-    interestrate: "",
-    startingaccno: "",
-    endingaccno: "",
-    effectdate: "",
-    increase: "",
-    decrease: "",
-    sameintrateaddition: "",
-  };
-
-  constructor(private fb: FormBuilder, public S4Service: S4Service, public Ac4Service: Ac4Service, public S15Service: S15Service) { this.createForm(); }
-
-  ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/deposit-loan-irec.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          title: 'Scheme Code',
-          data: 'schemecode'
-        },
-        {
-          title: 'Effect Date',
-          data: 'effectdate'
-        },
-        {
-          title: 'Starting Account No.',
-          data: 'startingaccno'
-        },
-        {
-          title: 'Ending A/C No.',
-          data: 'endingaccno'
-        },
-        {
-          title: 'Increase',
-          data: 'increase'
-        },
-        {
-          title: 'Decrease',
-          data: 'decrease'
-        },
-        {
-          title: 'Same Int. Rate Addition',
-          data: 'sameintrateaddition'
-        },
-        {
-          title: 'Account Name',
-          data: 'accountname'
-        },
-        {
-          title: 'Interest Rate',
-          data: 'interestrate'
-        },
-
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/deposit-loan-irec.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          title: 'Scheme Code',
-          data: 'schemecode'
-        },
-        {
-          title: 'Effect Date',
-          data: 'effectdate'
-        },
-        {
-          title: 'Starting Account No.',
-          data: 'startingaccno'
-        },
-        {
-          title: 'Ending A/C No.',
-          data: 'endingaccno'
-        },
-        {
-          title: 'Increase',
-          data: 'increase'
-        },
-        {
-          title: 'Decrease',
-          data: 'decrease'
-        },
-        {
-          title: 'Same Int. Rate Addition',
-          data: 'sameintrateaddition'
-        },
-        {
-          title: 'Account Name',
-          data: 'accountname'
-        },
-        {
-          title: 'Interest Rate',
-          data: 'interestrate'
-        },
-
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
-    this.runTimer();
-    this.dataSub = this.S4Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.Ac4Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.S15Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
+  constructor(private fb: FormBuilder, private _SchemeCodeDropdown: SchemeCodeDropdownService,
+    private http: HttpClient, private _schemeAccountNoService: SchemeAccountNoService,
+    private _ownbranchMasterService: OwnbranchMasterService,
+    private _interestRateChange: DepositLoanInterestRateEditChangeService) {
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate());
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
+  ngOnInit(): void {
+    this.createForm();
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      dom: 'ftip'
+    };
+    this._SchemeCodeDropdown.getAllSchemeListINT().pipe(first()).subscribe(data => {
+      this.allScheme = data;
+    })
+    this._ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
   }
 
   createForm() {
     this.angForm = this.fb.group({
-      Scheme: ['', [Validators.required]],
-      Date: ['', [Validators.required]],
-      startingaccno: ['', [Validators.required]],
-      endingaccno: ['', [Validators.required]],
-      interestrate: ['', [Validators.pattern, Validators.required]]
+      BRANCH: ['', [Validators.required]],
+      AC_TYPE: ['', [Validators.required]],
+      EFFECT_DATE: ['', [Validators.required]],
+      AC_NOFrom: ['', [Validators.required]],
+      AC_NOTo: ['', [Validators.required]],
+      INT_RATE: ['', [Validators.pattern, Validators.required, Validators.max(20)]]
     });
   }
 
-  submit() {
-    console.log(this.angForm.valid);
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
+  getBranch() {
+    this.getInterestTransfer()
+  }
+
+  getIntTrans(event) {
+    this.getschemename = event.name
+    this.getInterestTransfer()
+  }
+
+  getInterestTransfer() {
+    this.ngAcnoFrom = null
+    this.ngAcnoTo = null
+    this.startAcNo = [];
+    this.endAcNo = [];
+    this.tableArr = []
+    this.obj = [this.schemeCode, this.ngBranchCode]
+    switch (this.getschemename) {
+      case 'LN':
+        this._interestRateChange.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          console.log('ln acno', data)
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'TD':
+        this._interestRateChange.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          console.log('TD acno', data)
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
+
+      case 'CC':
+        this._schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          console.log('CC acno', data)
+          this.startAcNo = data;
+          this.endAcNo = data;
+        })
+        break;
     }
   }
 
-  //function for edit button clicked
-  editClickHandler(info: any): void {
-    this.message.schemecode = info.schemecode;
-    this.message.interestrate = info.interestrate;
-    this.message.startingaccno = info.startingaccno;
-    this.message.endingaccno = info.endingaccno;
-    this.message.effectdate = info.effectdate;
-    this.message.increase = info.increase;
-    this.message.decrease = info.decrease;
-    this.message.sameintrateaddition = info.sameintrateaddition;
+  //select content of field
+  selectAllContent($event) {
+    $event.target.select();
+  }
+  //checks percentage of unsecured
+  checkInt(event) {
+    if (Number(event) > 20) {
+      Swal.fire('Info', 'Please Input Interest upto 20', 'info')
+      this.angForm.patchValue({
+        INT_RATE: ''
+      })
+    }
+  }
 
-    this.showButton = false;
-    this.updateShow = true;
+  loadAcno() {
+    var memFrom = this.angForm.controls['AC_NOFrom'].value
+    var memTo = this.angForm.controls['AC_NOTo'].value
+    if (this.angForm.controls['AC_NOFrom'].value < this.angForm.controls['AC_NOTo'].value) {
+      this.mem = [memFrom, memTo]
+      if (this.getschemename == 'TD') {
+        this.http.get(this.url + '/term-deposits-master/interest/' + this.mem).subscribe((data) => {
+          this.tableArr = data;
+          console.log('td table', this.tableArr)
+        });
+      }
+      else if (this.getschemename == 'CC') {
+        this.http.get(this.url + '/cash-credit-master/interest/' + this.mem).subscribe((data) => {
+          this.tableArr = data;
+          console.log('cc table', this.tableArr)
+        });
+      }
+      else if (this.getschemename == 'LN') {
+        this.http.get(this.url + '/term-loan-master/interest/' + this.mem).subscribe((data) => {
+          this.tableArr = data;
+          console.log('ln table', this.tableArr)
+        });
+      }
+      this.dtTrigger.next();
+    }
+  }
 
-    //code for radio button
-    if (this.message.increase == "Yes") {
-      this.isIncrease = true;      //return boolean value and display checked radio button
+  viewCurrentInt() {
+    this.showTable = true
+  }
+
+  InterestRate: string
+  changeInterestRate(value) {
+    if (value == 1) {
+      this.InterestRate = "Add"
+    }
+    else if (value == 2) {
+      this.InterestRate = "Sub"
+    }
+    else if (value == 3) {
+      this.InterestRate = "Assign"
     }
     else {
-      this.isIncrease = false;   //return boolean value and display unchecked radio button
+      this.InterestRate = ""
     }
   }
 
-  //function for delete button clicked
-  delClickHandler(info: any): void {
-    this.message.schemecode = info.schemecode;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete scheme code." + this.message.schemecode + "  data",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
+  submit() {
+    this.formSubmitted = true;
+    if (this.angForm.valid) {
+      console.log(this.angForm.value);
+      if (this.getschemename == 'TD') {
+        const dataToSend = {
+          'InterestArr': this.tableArr,
+          'Interest': this.InterestRate,
+          'InterestRate': this.angForm.controls['INT_RATE'].value
+        }
+        console.log("dataToSend", dataToSend)
+        this._interestRateChange.updateData(dataToSend).subscribe(data => {
+          console.log(data, "submit data")
+          Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+          this.formSubmitted = false;
+        }, (error) => {
+          console.log(error)
+        })
       }
-    })
-  }
-
-  updateData() {
-    this.showButton = true;
-    this.updateShow = false;
-  }
-
-  OpenLink(val) {
-    if (val == 1) {
-      this.GuarantorTrue = true;
+      else if (this.getschemename == 'LN' || this.getschemename == 'CC') {
+        const dataToSend = {
+          'InterestArr': this.tableArr,
+          'Interest': this.InterestRate,
+          'InterestRate': this.angForm.controls['INT_RATE'].value,
+          'EFFECT_DATE': moment(this.angForm.controls['EFFECT_DATE'].value).format('DD/MM/YYYY'),
+          'MemList': this.mem
+        }
+        this._interestRateChange.postData(dataToSend).subscribe(data => {
+          console.log(data, "submit data")
+          Swal.fire('Success!', 'Record Added Successfully !', 'success');
+          this.formSubmitted = false;
+        }, (error) => {
+          console.log(error)
+        })
+      }
     }
+    this.resetForm()
+  }
+
+  resetForm() {
+    this.tableArr = []
+    this.showTable = false
+    this.schemeCode = null
+    this.ngAcnoFrom = null
+    this.ngAcnoTo = null
+    this.ngBranchCode = null
+    this.createForm()
+  }
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 }

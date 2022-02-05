@@ -41,6 +41,7 @@ export class BasicLoginComponent implements OnInit {
       if (moment(dateData).isAfter(nowDate)) {
         // window.open("/CBS/dashboard/default", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=00,left=500,width=1000,height=800");
         // window.open('/CBS/dashboard/default','','toolbar=0,titlebar=0,fullscreen=1,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=800,height=600,left = 82,top = 54');
+        // window.open('/dashboard/default','','toolbar=0,titlebar=0,fullscreen=1,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=1,width=800,height=600,left = 82,top = 54');
         this.router.navigate(['/dashboard/default']);
 
       } else {

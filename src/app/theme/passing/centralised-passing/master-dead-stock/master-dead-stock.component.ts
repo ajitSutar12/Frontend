@@ -93,7 +93,6 @@ export class MasterDeadStockComponent implements OnInit {
     //   ]
     // };
 
-
     this.dtExportButtonOptions = {
       pagingType: "full_numbers",
       paging: true,

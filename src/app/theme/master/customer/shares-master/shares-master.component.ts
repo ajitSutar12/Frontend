@@ -442,7 +442,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cityMasterService.getcityList().pipe(first()).subscribe(data => {
       this.city = data;
     })
-
     this.cityMasterService.getcityList().pipe(first()).subscribe(data => {
 
       this.ncity = data
@@ -773,7 +772,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     event.preventDefault();
     this.formSubmitted = true;
     if (this.angForm.valid) {
-
       const formVal = this.angForm.value;
       if (formVal.AC_ADDFLAG == true) {
         this.addType = 'P'
@@ -1229,7 +1227,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     })
   }
-
   ngAfterViewInit(): void {
     this.angForm.controls['AC_TYPE'].enable()
 
@@ -1328,7 +1325,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   OpenLink() {
     this.nomineeTrue = !this.nomineeTrue;
   }
-
+ 
   //Nominee
   addNominee() {
     const formVal = this.angForm.value;
@@ -1345,15 +1342,16 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NCTCODE: formVal.AC_NCTCODE.id,
       AC_NPIN: formVal.AC_NPIN,
+      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
     }
+
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-
         Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
 
@@ -1496,7 +1494,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.controls['AC_NCTCODE'].reset();
     this.angForm.controls['AC_NPIN'].reset();
   }
-
   switchNgBTab(id: string) {
     this.ctdTabset.select(id);
   }
@@ -1523,7 +1520,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
   }
-
   age() {
     if (this.angForm.controls['AGE'].value > 100) {
       Swal.fire(
@@ -1579,7 +1575,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('something is wrong');
     })
   }
-
   getBranch(event) {
     this.bcode = event.value
     this.getDiviTransfer()

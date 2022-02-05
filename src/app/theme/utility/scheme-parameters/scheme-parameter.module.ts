@@ -52,18 +52,19 @@ import { DaysService } from '../../../shared/dropdownService/days.service';
 import { SchemeTypeDropdownService } from '../../../shared/dropdownService/scheme-type-dropdown.service';
 import { OverdraftInterestPostService } from '../../../shared/dropdownService/overdraft-interest-post.service';
 
-import {SystemMasterParametersService} from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 // import {OwnbranchMasterService} from '../../../shared/dropdownService/own-branch-master-dropdown.service';
 // import {WeeklyHolidayService} from '../../../shared/dropdownService/weekly-holiday.service';
 // import {IntrestCalculationMethodService} from '../../../shared/dropdownService/intrest-calculation-method-dropdown.service';
 
 //dropdown service
 import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-master-dropdown.service'
-import {OwnbranchMasterService} from '../../../shared/dropdownService/own-branch-master-dropdown.service';
-import {WeeklyHolidayService} from '../../../shared/dropdownService/weekly-holiday.service';
-import {IntrestCalculationMethodService} from '../../../shared/dropdownService/intrest-calculation-method-dropdown.service';
+import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
+import { WeeklyHolidayService } from '../../../shared/dropdownService/weekly-holiday.service';
+import { IntrestCalculationMethodService } from '../../../shared/dropdownService/intrest-calculation-method-dropdown.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { TransactionInputGlHeadSettingModule } from './transaction-input-gl-head-setting/transaction-input-gl-head-setting.module'
 @NgModule({
   imports: [
     CommonModule,
@@ -72,7 +73,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     DataTablesModule,
     SelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TransactionInputGlHeadSettingModule
   ],
   providers: [SelectOptionService,
     OwnbranchMasterService,
@@ -111,6 +113,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
       multi: true
     },
   ],
-  declarations: [SchemeParametersComponent, SystemMasterParametersComponent, RecoverySequenceComponent, SchemeTypeSettingComponent, TransactionInputGlHeadSettingComponent, ChequeCollectionInputHeadComponent, OtherBanksDepositSchemeComponent, LockersSchemeComponent, GeneralLedgerSchemeComponent, GeneralSubAcSchemeComponent, SharesSchemeComponent, SavingSchemeComponent, CurrentSchemeComponent, TermDepositSchemeComponent, CashCreditSchemeComponent, TermLoanSchemeComponent, DisputLoanSchemeComponent, PigmyAcSchemeComponent, PigmyAgentSchemeComponent, PayrollSettingsComponent, SmsSettingsComponent]
+  declarations: [
+    // TransactionInputGlHeadSettingComponent,
+    SchemeParametersComponent, SystemMasterParametersComponent, RecoverySequenceComponent, SchemeTypeSettingComponent, ChequeCollectionInputHeadComponent, OtherBanksDepositSchemeComponent, LockersSchemeComponent, GeneralLedgerSchemeComponent, GeneralSubAcSchemeComponent, SharesSchemeComponent, SavingSchemeComponent, CurrentSchemeComponent, TermDepositSchemeComponent, CashCreditSchemeComponent, TermLoanSchemeComponent, DisputLoanSchemeComponent, PigmyAcSchemeComponent, PigmyAgentSchemeComponent, PayrollSettingsComponent, SmsSettingsComponent]
 })
 export class SchemeParametersModule { }

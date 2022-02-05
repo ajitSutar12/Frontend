@@ -5,7 +5,7 @@
         <h5>Plant And Machinery</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">

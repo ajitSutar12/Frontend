@@ -388,7 +388,6 @@ resetmaturedate:any;//reset maturedue date
   }
   //for checking dates
   checkdate(data: any) { 
-    // debugger
     // console.log(data.value);
     //fetch premium due date value
     let premium = document.getElementById(
@@ -398,7 +397,6 @@ resetmaturedate:any;//reset maturedue date
     this.setdate = premium.value;
 
     if (data != "") {
-      // debugger
       if (this.setdate > data) {
         console.log("if condition is true ");
         Swal.fire(
