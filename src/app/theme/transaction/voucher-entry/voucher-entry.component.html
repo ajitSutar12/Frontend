@@ -1,332 +1,518 @@
-<!-- Voucher Entry modification -->
-<div class="row"> 
-    <div class="col-12">
+<!-- <div class="row">
+    <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
-                <h5>Voucher Entry modification</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
-            </div>
-            <div class="card-block">
-                <form class="form-material">
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.VoucherNo}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Voucher No</label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="col-sm">
-                                <div class="form-radio">
-                                    <div class="radio radio-inline">
-                                        <label>
-                                            <input type="radio" name="radio" [checked]="isCash == true"
-                                                (click)="cashMode()">
-                                            <!--Default checked-->
-                                            <i class="helper"></i>Cash
-                                        </label>
-                                    </div>
-                                    <div class="radio radio-inline">
-                                        <label>
-                                            <input type="radio" name="radio" [checked]="isCash == false"
-                                                (click)="transferMode()">
-                                            <!--Default unchecked-->
-                                            <i class="helper"></i>Transfer
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input class="form-control" type="text" onfocus="(this.type='date')"
-                                    onblur="(this.type='text')" id="date" name="" value="{{message.VoucherDate}}" />
-                                <span class="form-bar"></span>
-                                <label class="float-label">Voucher Date</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.BranchCode}}" disabled>
-                                <span class="form-bar"></span>
-                                <label class="float-label">Branch Code</label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" name="SchemeType" [options]="schemeTypeOption"
-                                    [multiple]="true" placeholder="Scheme type*" [(ngModel)]="schemeTypeSelected"
-                                    required>
-                                </ng-select>
-                                <label>{{message.SchemeType}}</label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="jointAc">Joint Account </button>
-                            <button class="btn btn-primary ripple light" *ngIf="dormantAc">Dormant Account</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" pattern="^[0-9]+$"
-                                    title="Input allowed only  0-9" value="{{message.SchemeCode}}" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Scheme Code<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" pattern="^[0-9]+$"
-                                    title="Input allowed only  0-9" value="{{message.AccountNumber}}" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Account No.<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" name="transMode"
-                                    [options]="transactionCashModeOption" [multiple]="true"
-                                    placeholder="Transaction Mode*" *ngIf="transactionCashMode" (click)="changeFn()"
-                                    [(ngModel)]="transactionModeSelected" required>
-                                </ng-select>
-
-                                <ng-select [ngClass]="'ng-select'" name="transMode"
-                                    [options]="transactionTransferModeOption" [multiple]="true"
-                                    placeholder="Transaction Mode*" *ngIf="transactionTransferMode" (click)="changeFn()"
-                                    [(ngModel)]="transactionModeSelected" required>
-                                </ng-select>
-                                <label>{{message.TransactionMode}}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" *ngIf="titleForSchemeType">
-                        <div class="col-sm">
-                            <h5 style="text-align: center;">{{schemeTypeSelected}} : {{transactionModeSelected}}</h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label></label>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" pattern="^[0-9]+$"
-                                    title="Input allowed only  0-9" value="{{message.SlipNumber}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Slip No.</label>
-                            </div>
-                        </div>
-                        <div class="col-sm" *ngIf="voucherAmount">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" pattern="^[0-9]+$"
-                                    title="Input allowed only  0-9" value="{{message.VoucherAmount}}" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Voucher Amount<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm" *ngIf="totalAmount">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.TotalAmount}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Total Amount</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm" *ngIf="isDrawingPower">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Drawing Power</label>
-                            </div>
-                        </div>
-                        <div class="col-sm" *ngIf="isOverdueAmount">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Overdue Amount</label>
-                            </div>
-                        </div>
-                        <div class="col-sm" *ngIf="isOtherExpenses">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Other Expenses</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" *ngIf="isCheque">
-                        <div class="col-sm-3">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" pattern="^[A-Za-z0-9\./ -]+$"
-                                    title="Input allowed only  A-Z a-z  - / . (Space) and 0-9">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Cheque No.</label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" pattern="^[0-9]+$"
-                                    title="Input allowed only  0-9">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Cheque No.</label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input class="form-control" type="text" onfocus="(this.type='date')"
-                                    onblur="(this.type='text')" id="date" name="" />
-                                <span class="form-bar"></span>
-                                <label class="float-label">Cheque Date</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm" *ngIf="isPanNo">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.PANNumber}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">PAN No.</label>
-                            </div>
-                        </div>
-                        <div class="col-sm" *ngIf="dividendYear">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Dividend Year</label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" pattern="^[A-Za-z0-9\./ -]+$"
-                                    title="Input allowed only  A-Z a-z  - / . (Space) and 0-9"
-                                    value="{{message.Particulars}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Particulars</label>
-                            </div>
-                        </div>
-                        <div class="col-sm" *ngIf="isSanctionOverDraft">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.SanctionOverDraft}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Sanction Over Draft</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm" *ngIf="isTemparoryOverDraft">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.TemparoryOverDraft}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Temparory Over Draft</label>
-                            </div>
-                        </div>
-                        <div class="col-sm" *ngIf="isDepositAmount">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" >
-                                <span class="form-bar"></span>
-                                <label class="float-label">Deposit Amount</label>
-                            </div>
-                        </div>
-                        <div class="col-sm" *ngIf="isToken">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.TokenNo}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Token No.</label>
-                            </div>
-                        </div>
-                        <div class="col-sm" *ngIf="sanctionLimit">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.TokenNo}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Sanction Limit</label>
-                            </div>
-                        </div>
-                        <div class="col-sm" *ngIf="isBranch">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Branch</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.DayOpeningBalance}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Day Opening Balance</label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.Passed}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Passed</label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.Unpassed}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Unpassed</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.ClearedBalance}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Cleared Balance</label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="" class="form-control" value="{{message.AfterthisVoucher}}">
-                                <span class="form-bar"></span>
-                                <label class="float-label">After this Voucher</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
-                        </div>
-                    </div>
-
-                    <div class="row" *ngIf="isAmountDetails">
-                        <div class="col-sm">
-                            <div class="table-responsive">
-                                <table datatable [dtOptions]="amountDetails"
-                                    class="table table-striped table-bordered table-hover" style="width: 100%;">
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+            <div class="row">
+                <div class="col-md-3">
+                    <button class="btn btn-sm">Ledger View</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-sm">Interset Paid</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-sm">Unpassed Details</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-sm">Enquiry</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions"
-                                class="table table-striped table-bordered table-hover" style="width: 100%;">
-                            </table>
+</div> -->
+<!-- <div class="container"> -->
+    <div class="row">
+        <div class="col-md-3 col-sm-12 col-xm-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Balance
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                          <div class="avatar bg-light-primary rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon" ></i>
+                                            </div>
+                                          </div>
+                                          <div class="transaction-percentage">
+                                            <h6 class="transaction-title">Day Op. Bal</h6>
+                                            <!-- <small>Starbucks</small> -->
+                                          </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-primary" style="float: right;margin-left: 66%;position: absolute;"> $740000</div>
+                                      </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                          <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon" ></i>
+                                            </div>
+                                          </div>
+                                          <div class="transaction-percentage">
+                                            <h6 class="transaction-title">Passed</h6>
+                                            <!-- <small>Starbucks</small> -->
+                                          </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-success" style="float: right;margin-left: 66%;position: absolute;">+ $74</div>
+                                      </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                          <div class="avatar bg-light-danger rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon" ></i>
+                                            </div>
+                                          </div>
+                                          <div class="transaction-percentage">
+                                            <h6 class="transaction-title">Unpassed</h6>
+                                            <!-- <small>Starbucks</small> -->
+                                          </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-danger" style="float: right;margin-left: 66%;position: absolute;">- $74</div>
+                                      </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                          <div class="avatar bg-light-danger rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon" ></i>
+                                            </div>
+                                          </div>
+                                          <div class="transaction-percentage">
+                                            <h6 class="transaction-title">Uneffected Clearing</h6>
+                                            <!-- <small>Starbucks</small> -->
+                                          </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-danger" style="float: right;margin-left: 66%;position: absolute;">- $74</div>
+                                      </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                          <div class="avatar bg-light-success rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon" ></i>
+                                            </div>
+                                          </div>
+                                          <div class="transaction-percentage">
+                                            <h6 class="transaction-title">Cleared Balance</h6>
+                                            <!-- <small>Starbucks</small> -->
+                                          </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-success" style="float: right;margin-left: 66%;position: absolute;">+ $74</div>
+                                      </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                          <div class="avatar bg-light-primary rounded float-start">
+                                            <div class="avatar-content">
+                                                <i class="fa fa-google-wallet field-icon" ></i>
+                                            </div>
+                                          </div>
+                                          <div class="transaction-percentage">
+                                            <h6 class="transaction-title">After this voucher</h6>
+                                            <!-- <small>Starbucks</small> -->
+                                          </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-success" style="float: right;margin-left: 66%;position: absolute;">= $74</div>
+                                      </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                          <div class="user-avatar-section">
+                                            <div class="d-flex align-items-center flex-column">
+                                              <img
+                                                class="img-fluid rounded mt-3 mb-2"
+                                                src="../../../../assets/images/user-card/img-round4.jpg"
+                                                height="110"
+                                                width="110"
+                                                alt="User avatar"
+                                              />
+                                              <div class="user-info text-center">
+                                                <h4>Ajit Sutar</h4>
+                                                <!-- <span class="badge bg-light-secondary">Author</span> -->
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="user-avatar-section">
+                                            <div class="d-flex align-items-center flex-column">
+                                              <img
+                                                class="img-fluid rounded mt-3 mb-2"
+                                                src="../../../../assets/sign/signture.jpg"
+                                                height="50"
+                                                width="110"
+                                                alt="User avatar"
+                                              />
+                                              
+                                            </div>
+                                          </div>
+                                          
+                                          <!-- <div class="d-flex justify-content-around my-2 pt-75">
+                                            <div class="d-flex align-items-start me-2">
+                                              <span class="badge bg-light-primary p-75 rounded">
+                                                <i data-feather="check" class="font-medium-2"></i>
+                                              </span>
+                                              <div class="ms-75">
+                                                <h4 class="mb-0">1.23k</h4>
+                                                <small>Tasks Done</small>
+                                              </div>
+                                            </div>
+                                            <div class="d-flex align-items-start">
+                                              <span class="badge bg-light-primary p-75 rounded">
+                                                <i data-feather="briefcase" class="font-medium-2"></i>
+                                              </span>
+                                              <div class="ms-75">
+                                                <h4 class="mb-0">568</h4>
+                                                <small>Projects Done</small>
+                                              </div>
+                                            </div>
+                                          </div> -->
+                                          <!-- <h4 class="fw-bolder border-bottom pb-50 mb-1">Details</h4> -->
+                                          <div class="info-container">
+                                            <ul class="list-unstyled">
+                                              <li class="mb-75">
+                                                <span class="fw-bolder me-25">Status:</span>
+                                                <span class="badge bg-light-success">Active</span>
+                                              </li>
+                                              
+                                              <li class="mb-75">
+                                                <span class="fw-bolder me-25">PAN ID:</span>
+                                                <span>ADFE2323D</span>
+                                              </li>
+                                              <li class="mb-75">
+                                                <span class="fw-bolder me-25">Contact:</span>
+                                                <span>+91 7636456273</span>
+                                              </li>
+                                              
+                                            </ul>
+                                            
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-9">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Voucher Entry
+                        </div>
+                        <div class="card-body">
+                            <form [formGroup]="angForm" novalidate>
+                                <div class="solid">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group form-primary form-static-label">
+                                                <span class="border-lable-flt">
+                                                    <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code">
+                                                        <ng-option *ngFor="let item of branch_code" [value]="item.value">{{item.label}}</ng-option>
+                                                    </ng-select>
+                                                    <label for="AC_BRANCH">Branch Code<sub class="required">*</sub></label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-radio">
+                                                <div class="radio radio-inline">
+                                                    <label>
+                                                        <input type="radio" name="DEBIT" value="cash" formControlName="type" [checked]="true" (change)="transactionMode('cash')">
+                                                        <i class="helper"></i>Cash </label>
+                                                </div>
+                                                <div class="radio radio-inline">
+                                                    <label>
+                                                        <input type="radio" name="DEBIT" value="transfer" formControlName="type" (change)="transactionMode('transfer')">
+                                                        <i class="helper"></i>Transfer </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5"></div>
+                                        <div class="col-md-3">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" placeholder="dd/mm/yyyy"
+                                                        class="form-control"
+                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                        bsDatepicker
+                                                        [(ngModel)]="date"
+                                                        [isDisabled]="isture"
+                                                        formControlName="date"
+                                                        disabled
+                                                        >
+                                                    <!-- <input type="date" placeholder="dd/mm/yyyy" [value]="date" class="form-control"> -->
+                                                    <label for="AC_EXPDT">Date</label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group form-primary form-static-label">
+                                                <span class="border-lable-flt">
+                                                    <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()" formControlName="scheme_type">
+                                                        <ng-option *ngFor="let item of allSchemeCode" [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
+                                                    </ng-select>
+                                                    <label for="AC_BRANCH">Scheme Type<sub class="required">*</sub></label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-sm-5">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
+                                                        id="AC_PARTICULAR" value="" style="text-transform: capitalize;"
+                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                        required>
+                                                    <label for="AC_PARTICULAR">Scheme Type Name<sub class="required">* </sub></label>
+                                                </span>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group form-primary form-static-label">
+                                                <span class="border-lable-flt">
+                                                    <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()" formControlName="scheme">
+                                                        <ng-option *ngFor="let item of allScheme" [value]="item">{{item.S_APPL}} {{item.S_NAME}}</ng-option>
+                                                    </ng-select>
+                                                    <label for="AC_BRANCH">Scheme<sub class="required">*</sub></label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-sm-5">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
+                                                        id="AC_PARTICULAR" value="" style="text-transform: capitalize;"
+                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                        required>
+                                                    <label for="AC_PARTICULAR">Scheme Name<sub class="required">* </sub></label>
+                                                </span>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group form-primary form-static-label">
+                                                <span class="border-lable-flt">
+                                                    <ng-select formControlName="account_no">
+                                                        <ng-option *ngFor="let item of introducerACNo" [value]="item">{{item.AC_NO}} {{item.AC_NAME}}</ng-option>
+                                                    </ng-select>
+                                                    <label for="AC_BRANCH">Account No.<sub class="required">*</sub></label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-sm-5">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
+                                                        id="AC_PARTICULAR" value="" style="text-transform: capitalize;"
+                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                        required>
+                                                    <label for="AC_PARTICULAR">Account Name<sub class="required">* </sub></label>
+                                                </span>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group form-primary form-static-label">
+                                                <span class="border-lable-flt">
+                                                    <ng-select [(ngModel)]="selectedMode" formControlName="tran_mode" (change)="changeMode()">
+                                                        <ng-option *ngFor="let item of tranModeList" [value]="item">{{item.id}} {{item.value}}</ng-option>
+                                                    </ng-select>
+                                                    <label for="AC_BRANCH">Transacation Mode<sub class="required">*</sub></label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-sm-5">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
+                                                        id="AC_PARTICULAR" value="" style="text-transform: capitalize;"
+                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                        required>
+                                                    <label for="AC_PARTICULAR">Transaction Mode Name<sub class="required">* </sub></label>
+                                                </span>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="row" *ngIf="showChequeDetails">
+                                        <div class="col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="ChequeNo" class="form-control" placeholder=" "
+                                                        id="ChequeNo" value="" style="text-transform: capitalize;"
+                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                        required formControlName="chequeNo">
+                                                    <label for="ChequeNo">Cheque No.</label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" placeholder="dd/mm/yyyy"
+                                                        class="form-control"
+                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                        bsDatepicker
+                                                        formControlName="chequeDate"
+                                                    >
+                                                    <label for="ChequeDate">Cheque Date</label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-primary form-static-label">
+                                                <span class="border-lable-flt">
+                                                    <ng-select formControlName="bank">
+                                                        <ng-option *ngFor="let item of bankName" [value]="item.id">{{item.name}}</ng-option>
+                                                    </ng-select>
+                                                    <label for="">Bank Name</label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
+                                                        id="AC_PARTICULAR" value="" style="text-transform: capitalize;"
+                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                        required formControlName="slip_no">
+                                                    <label for="AC_PARTICULAR">Slip No.</label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
+                                                        id="AC_PARTICULAR" value="" style="text-transform: capitalize;"
+                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                        required formControlName="amt" (keyup)="getAmt($event)">
+                                                    <label for="AC_PARTICULAR">Amount</label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-3">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
+                                                        id="AC_PARTICULAR" [(ngModel)]="totalAmt" style="text-transform: capitalize;"
+                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                        required formControlName="total_amt" disabled>
+                                                    <label for="AC_PARTICULAR">Total Amount</label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="solid">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="form-group input-group">
+                                                        <span class="border-lable-flt">
+                                                            <textarea class="form-control" formControlName="particulars" [(ngModel)]="particulars"></textarea>
+                                                            <label for="AC_PARTICULAR">Particulars</label>
+                                                            <i class="fa fa-info-circle" (click)="modalLarge.show()"></i>
+                                                        </span>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group input-group">
+                                                        <span class="border-lable-flt">
+                                                        <input type="text" class="form-control" formControlName="token">
+                                                            <label for="AC_PARTICULAR">Token No.</label>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group input-group">
+                                                        <span class="border-lable-flt">
+                                                            <input type="text" class="form-control" formControlName="over_draft">
+                                                            <label for="AC_PARTICULAR">Saction over draft</label>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group input-group">
+                                                        <span class="border-lable-flt">
+                                                            <input type="text" class="form-control" formControlName="temp_over_draft">
+                                                            <label for="AC_PARTICULAR">Temp. over draft</label>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                            <div class="row">
+                                                <div class="col-md-12 text-center">
+                                                    <button type="button" class="btn btn-sm" (click)="submit()">Update</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    
+    <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
+        <div class="app-modal-header">
+          <h4 class="modal-title">Narration Master</h4>
+          <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="app-modal-body">
+          <perfect-scrollbar style="overflow-y: auto;">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Paticulars</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
+                                {{item.NARRATION}}
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #triggerhide
+            (click)="modalLarge.hide()">Close</button>
+                </div>
+            </div>
+          </perfect-scrollbar>
+        </div>
+        <!-- <div class="app-modal-footer">
+          
+        </div> -->
+      </app-modal-basic>
+
+<!-- </div> -->

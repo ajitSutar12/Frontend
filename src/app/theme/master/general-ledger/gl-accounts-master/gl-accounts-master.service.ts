@@ -36,6 +36,11 @@ export class GlAccountsMasterService {
     return this.http.delete(this.url + '/gl-account-master/delete/' + id).pipe(catchError(this.handleError));
   }
 
+  //get code list
+  getCodeList(){
+    return this.http.get(this.url+'/gl-statement-code').pipe(catchError(this.handleError));
+  }
+
 }
 
 

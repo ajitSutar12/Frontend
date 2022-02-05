@@ -5,3 +5,102 @@
   .btn{
     margin: 3px;
   }
+
+  div.solid {border-style: solid;padding:2%}
+
+
+  .card-transaction .transaction-item:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+.transaction-item {
+  display: flex !important;
+}
+
+.card-transaction .transaction-item {
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+.d-flex {
+
+  display: flex!important;
+}
+.bg-light-primary {
+  background: rgba(115,103,240,.12)!important;
+  color: #7367F0!important;
+}
+.rounded {
+  border-radius: 0.357rem!important;
+}
+.float-start {
+  float: left!important;
+}
+.card-transaction .transaction-item .avatar {
+  margin-right: 1.2rem;
+}
+
+.avatar.bg-light-primary {
+  color: #7367F0!important;
+}
+.avatar.bg-light-success {
+  color: #28C76F!important;
+}
+.avatar {
+  white-space: nowrap;
+  background-color: #C3C3C3;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  color: #FFF;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 1rem;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 600;
+}
+.card-transaction .transaction-item .avatar .avatar-content {
+  width: 42px;
+  height: 42px;
+}
+.avatar .avatar-content {
+  width: 32px;
+  height: 32px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: .857rem;
+}
+
+.bg-light-success {
+  background: rgba(40,199,111,.12)!important;
+  color: #28C76F!important;
+}
+.bg-light-danger {
+  background: rgba(234,84,85,.12)!important;
+  color: #EA5455!important;
+}
+
+.transaction-title{
+  margin-top: 5px;
+  margin-left: 5px;
+
+}

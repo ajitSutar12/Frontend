@@ -1,10 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { TransactionCashModeService } from '../../../shared/elements/transaction-cash-mode.service';
 import { TransactionTransferModeService } from '../../../shared/elements/transaction-transfer-mode.service';
 import { SchemeTypeService } from '../../../shared/elements/scheme-type.service';
 import Swal from 'sweetalert2';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { first } from 'rxjs/operators';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { VoucherEntryService } from './voucher-entry.service';
+import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-voucher-entry',
@@ -12,695 +20,314 @@ import Swal from 'sweetalert2';
   styleUrls: ['./voucher-entry.component.scss']
 })
 export class VoucherEntryComponent implements OnInit {
-  dtExportButtonOptions: any = {}; //Datatable variable
+  @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
 
-  //variables for  add and update button
-  showButton: boolean = true;
-  updateShow: boolean = false;
+  branchCode: any = null
 
-  //variable for checkbox and radio button 
-  isCash: boolean = true;
-
-  //Transaction Mode
-  titleForSchemeType: boolean = false;
-  transactionCashMode: boolean = true;
-  transactionTransferMode: boolean = false;
-
-  //Select option for Transaction mode, scheme type 
-  transactionCashModeOption: Array<IOption> = this.TransactionCashModeService.getCharacters();
-  transactionTransferModeOption: Array<IOption> = this.TransactionTransferModeService.getCharacters();
-  schemeTypeOption: Array<IOption> = this.SchemeTypeService.getCharacters();
-  selectedOption = '3';
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = '3';
-  timeLeft = 5;
-  private dataSub: Subscription = null;
+  selectedBranch: number;
+  selectedScheme: any;
+  selectedCode: string;
+  selectedMode: any;
+  branch_codeList: any = null
+  master: any;
+  branch_code: any[]//from ownbranchmaster
+  allSchemeCode: any//from schme master
+  allScheme = new Array()//from schme master
+  obj: any
+  introducerACNo
+  type: any; //cash or transfer
+  narrationList: any;
+  syspara: any;
+  // Created Form Group
+  angForm: FormGroup;
 
   //object created to get data when row is clicked
-  message = {
-    VoucherNo: "",
-    Cash: "",
-    Transfer: "",
-    VoucherDate: "",
-    BranchCode: "",
-    SchemeType: "",
-    SchemeCode: "",
-    AccountNumber: "",
-    PANNumber: "",
-    TransactionMode: "",
-    SlipNumber: "",
-    VoucherAmount: "",
-    TotalAmount: "",
-    Particulars: "",
-    SanctionOverDraft: "",
-    TemparoryOverDraft: "",
-    TokenNo: "",
-    DayOpeningBalance: "",
-    Passed: "",
-    Unpassed: "",
-    ClearedBalance: "",
-    AfterthisVoucher: ""
-  };
 
-  //function executes when edit button clicked
-  editClickHandler(info: any): void {
-    this.message.VoucherNo = info.VoucherNo;
-    this.message.Cash = info.Cash;
-    this.message.Transfer = info.Transfer;
-    this.message.VoucherDate = info.VoucherDate;
-    this.message.BranchCode = info.BranchCode;
-    this.message.SchemeType = info.SchemeType;
-    this.message.SchemeCode = info.SchemeCode;
-    this.message.AccountNumber = info.AccountNumber;
-    this.message.PANNumber = info.PANNumber;
-    this.message.TransactionMode = info.TransactionMode;
-    this.message.SlipNumber = info.SlipNumber;
-    this.message.VoucherAmount = info.VoucherAmount;
-    this.message.TotalAmount = info.TotalAmount;
-    this.message.Particulars = info.Particulars;
-    this.message.SanctionOverDraft = info.SanctionOverDraft;
-    this.message.TemparoryOverDraft = info.TemparoryOverDraft;
-    this.message.TokenNo = info.TokenNo;;
-    this.message.DayOpeningBalance = info.DayOpeningBalance;
-    this.message.Passed = info.Passed;
-    this.message.Unpassed = info.Unpassed;
-    this.message.ClearedBalance = info.ClearedBalance;
-    this.message.AfterthisVoucher = info.AfterthisVoucher;
-    //code for radio button
-    if (this.message.Cash == "Yes") {
-      this.isCash = true;      //return boolean value and display checked radio button
-    }
-    else {
-      this.isCash = false;   //return boolean value and display unchecked radio button
-    }
-    //return boolean value and toggle add to update button
-    this.showButton = false;
-    this.updateShow = true;
-  }
+  TranModeTransfer = [
+    { id: 1, value: 'Credit Transfer', tran_drcr: 'C', tran_type: 'TR' },
+    { id: 2, value: 'Credit Transfer for Closing', tran_drcr: 'C', tran_type: 'TR' },
+    { id: 3, value: 'Credit Transfer for Penal Interest', tran_drcr: 'C', tran_type: 'TR' },
+    { id: 4, value: 'Debit Transfer', tran_drcr: 'D', tran_type: 'TR' },
+    { id: 5, value: 'Debit Transfer for Closing', tran_drcr: 'D', tran_type: 'TR' },
+    { id: 6, value: 'Debit Transfer Interest', tran_drcr: 'D', tran_type: 'TR' },
+    { id: 7, value: 'Debit Transfer Dividend', tran_drcr: 'D', tran_type: 'TR' },
+    { id: 8, value: 'Debit Transfer for Demand Draft', tran_drcr: 'D', tran_type: 'TR' },
+    { id: 9, value: 'Debit Interest on Account', tran_drcr: 'D', tran_type: 'TR' },
+    { id: 10, value: 'Credit Interest on Account', tran_drcr: 'C', tran_type: 'TR' },
+    { id: 11, value: 'Debit Transfer for Penal Interest', tran_drcr: 'D', tran_type: 'TR' },
+    { id: 12, value: 'Debit Monthly Recovery', tran_drcr: 'D', tran_type: 'TR' },
+    { id: 13, value: 'Debit for Pay Order', tran_drcr: 'D', tran_type: 'TR' },
+    { id: 14, value: 'Credit Transfer for Rebit Interest', tran_drcr: 'C', tran_type: 'TR' },
+    { id: 15, value: 'Credit Transfer for Closing With Branch Transfer', tran_drcr: 'C', tran_type: 'TR' }
+  ]
 
-  //function execute when delete button clicked
-  delClickHandler() {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your imaginary file is safe.',
-          'error'
-        )
-      }
+  TranModeCash = [
+    { id: 1, value: 'Deposit / Receipts', tran_drcr: 'C', tran_type: 'CS' },
+    { id: 2, value: 'Deposit Closing', tran_drcr: 'C', tran_type: 'CS' },
+    { id: 3, value: 'Deposit Penal Interest', tran_drcr: '', tran_type: 'CS' },
+    { id: 4, value: 'Withdrawals / Payments', tran_drcr: 'D', tran_type: 'CS' },
+    { id: 5, value: 'Withdrawals for Closing', tran_drcr: 'D', tran_type: 'CS' },
+    { id: 6, value: 'Withdrawals Interest', tran_drcr: 'D', tran_type: 'CS' },
+    { id: 7, value: 'Withdrawals Dividend', tran_drcr: 'D', tran_type: 'CS' },
+    { id: 10, value: 'Credit Interest on Account', tran_drcr: 'C', tran_type: 'CS' },
+    { id: 13, value: 'Deposit for Pay Order', tran_drcr: 'C', tran_type: 'CS' },
+    { id: 14, value: 'Deposit for Rebit Interest', tran_drcr: 'C', tran_type: 'CS' },
+  ]
+
+  //////////////////////////////////////////////////////
+  ////////////////////Scheme type wise tran mode //////
+  TranData = [
+    { key: 'AG', data: { cash: [1, 4, 5], transfer: [1, 4] } },
+    { key: 'SB', data: { cash: [1, 2, 4, 5], transfer: [1, 2, 4, 5] } },
+    { key: 'CA', data: { cash: [1, 2, 4, 5], transfer: [1, 2, 4, 5] } },
+    { key: 'CC', data: { cash: [1, 2, 4, 5], transfer: [1, 2, 4, 5, 9] } },
+    { key: 'DS', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9, 15] } },
+    { key: 'LN', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9, 15] } },
+    { key: 'GL', data: { cash: [1, 4], transfer: [1, 4] } },
+    { key: 'GS', data: { cash: [1, 4], transfer: [1, 4] } },
+    { key: 'SH', data: { cash: [1, 4, 5, 7], transfer: [1, 4, 5, 7] } },
+    { key: 'IV', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9] } },
+    { key: 'PG', data: { cash: [1, 4, 5, 10], transfer: [1, 4, 5, 10] } },
+    { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1, 4, 5, 6, 9, 10] } },
+  ]
+
+  bankName = [
+    {
+      name:'Bank of India',
+      id  : 1
+    },
+    {
+      name: 'State bank of India',
+      id  : 2
+    }
+  ]
+
+  tranModeList: any;
+  particulars: any;
+  date: any;
+  isture: boolean = true;
+  totalAmt: any;
+  showChequeDetails: boolean = false;
+
+  constructor(
+    public TransactionCashModeService: TransactionCashModeService,
+    public TransactionTransferModeService: TransactionTransferModeService,
+    public SchemeTypeService: SchemeTypeService,
+    private ownbranchMasterService: OwnbranchMasterService,
+    private _SchemeCodeDropdown: SchemeCodeDropdownService,
+    private _service: VoucherEntryService,
+    private savingMasterService: SavingMasterService,
+    private fb: FormBuilder,
+  ) { }
+
+  ngOnInit(): void {
+    this.angForm = this.fb.group({
+      branch_code : ['', [Validators.required]],
+      temp_over_draft: [''],
+      over_draft: [''],
+      token: [''],
+      particulars: [''],
+      total_amt: [''],
+      amt: [''],
+      slip_no: [''],
+      tran_mode: [''],
+      account_no:[''],
+      scheme:[''],
+      scheme_type:[''],
+      date:[''],
+      type:[''],
+      chequeDate:[''],
+      chequeNo:[''],
+      bank: ['']
+    })
+    // get session branch data
+    let user = JSON.parse(localStorage.getItem('user'));
+    this.type = 'cash';
+    this.tranModeList = this.TranModeCash;
+
+
+    //get syspara details
+    this._service.getSysParaData().subscribe(data => {
+      debugger
+      // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
+      this.date = data[0].CURRENT_DATE;
+      console.log(this.date);
+    })
+
+    //branch List
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+      this.selectedBranch = user.branchId;
+    })
+
+    //Scheme Code
+    this._service.getSchemeCodeList().subscribe(data => {
+      console.log(data);
+      this.master = data;
+      this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
+
+    })
+
+    //Narration List
+    this._service.getNarrationMaster().subscribe(data => {
+      this.narrationList = data;
     })
   }
 
-  constructor(public TransactionCashModeService: TransactionCashModeService, public TransactionTransferModeService: TransactionTransferModeService, public SchemeTypeService: SchemeTypeService) { }
-
-  ngOnInit(): void {
-
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/voucher-entry.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          title: 'Voucher No',
-          data: 'VoucherNo'
-        },
-        {
-          title: 'Cash',
-          data: 'Cash'
-        },
-        {
-          title: 'Transfer',
-          data: 'Transfer'
-        },
-        {
-          title: 'Voucher Date',
-          data: 'VoucherDate'
-        },
-        {
-          title: 'Branch Code',
-          data: 'BranchCode'
-        },
-        {
-          title: 'Scheme Type',
-          data: 'SchemeType'
-        },
-
-        {
-          title: 'Scheme Code',
-          data: 'SchemeCode'
-        },
-        {
-          title: 'Account Number',
-          data: 'AccountNumber'
-        },
-        {
-          title: 'PAN Number',
-          data: 'PANNumber'
-        },
-        {
-          title: 'Transaction Mode',
-          data: 'TransactionMode'
-        },
-        {
-          title: 'Slip Number',
-          data: 'SlipNumber'
-        },
-        {
-          title: 'Voucher Amount',
-          data: 'VoucherAmount'
-        },
-        {
-          title: 'Total Amount',
-          data: 'TotalAmount'
-        },
-        {
-          title: 'Particulars',
-          data: 'Particulars'
-        },
-        {
-          title: 'Sanction Over Draft',
-          data: 'SanctionOverDraft'
-        },
-        {
-          title: 'Temparory Over Draft',
-          data: 'TemparoryOverDraft'
-        },
-        {
-          title: 'Token No.',
-          data: 'TokenNo'
-        },
-        {
-          title: 'Day Opening Balance',
-          data: 'DayOpeningBalance'
-        },
-        {
-          title: 'Passed',
-          data: 'Passed'
-        },
-        {
-          title: 'Unpassed',
-          data: 'Unpassed'
-        },
-        {
-          title: 'Cleared Balance',
-          data: 'ClearedBalance'
-        },
-        {
-          title: 'After this Voucher',
-          data: 'AfterthisVoucher'
-        }
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
+  selectedSchemeCode() {
+    this.allScheme = [];
+    this.master.forEach(element => {
+      if (element.S_ACNOTYPE == this.selectedCode) {
+        this.allScheme.push(element)
       }
-    };
-    this.amountDetails = {
-      ajax: 'fake-data/amount-details.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          title: 'Receipt / Payment Head',
-          data: 'ReceiptPaymentHead'
-        },
-        {
-          title: 'Interest Date',
-          data: 'InterestDate'
-        },
-        {
-          title: 'Amount',
-          data: 'Amount'
-        },
-        {
-          title: 'Balance',
-          data: 'Balance'
-        },
-        {
-          title: 'Type',
-          data: 'Type'
-        }
-
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler();
-        });
-        return row;
-      }
-    };
-    this.runTimer();
-    this.dataSub = this.TransactionCashModeService.loadCharacters().subscribe((options) => {
-      this.characters = options;
     });
-    this.dataSub = this.TransactionTransferModeService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.SchemeTypeService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-  }
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
-  //function toggle update to add button
-  updateData() {
-    this.showButton = true;
-    this.updateShow = false;
-  }
-  cashMode() {
-    this.transactionCashMode = true;
-    this.transactionTransferMode = false;
-  }
-  transferMode() {
-    this.transactionCashMode = false;
-    this.transactionTransferMode = true;
+
+    let object = this.TranData.find(t => t.key === this.selectedCode);
+    if (this.type == 'cash') {
+      this.tranModeList = [];
+      object.data.cash.forEach(ele => {
+        debugger
+        let obj = this.TranModeCash.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+      })
+    } else {
+      this.tranModeList = [];
+      object.data.transfer.forEach(ele => {
+        let obj = this.TranModeTransfer.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+      })
+    }
   }
 
-  public schemeTypeSelected;
-  public transactionModeSelected;
+  //get account no according scheme for introducer
+  getIntroducer() {
+    this.introducerACNo = [];
+    this.obj = [this.selectedScheme.id, this.selectedBranch]
+    switch (this.selectedCode) {
+      case 'SB':
+        this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
 
-  amountDetails: any = {};
+      case 'SH':
+        this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
 
-  isToken: boolean = true;
-  jointAc: boolean = true;
-  dormantAc: boolean = true;
-  isSanctionOverDraft: boolean = true;
-  isTemparoryOverDraft: boolean = true;
-  isDrawingPower: boolean = false;
-  isOverdueAmount: boolean = false;
-  isOtherExpenses: boolean = false;
-  sanctionLimit: boolean = false;
-  isCheque: boolean = false;
-  voucherAmount: boolean = true;
-  totalAmount: boolean = true;
-  isAmountDetails: boolean = false;
-  isPanNo: boolean = true;
-  dividendYear: boolean = false;
-  isBranch: boolean = false;
-  isDepositAmount: boolean = false;
+      case 'CA':
+        this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
 
-  changeFn() {
-    this.titleForSchemeType = true;
-    if (this.schemeTypeSelected == 'AG' && (this.transactionModeSelected == 'DR' || this.transactionModeSelected == 'CT' || this.transactionModeSelected == 'DT' || this.transactionModeSelected == 'WP' || this.transactionModeSelected == 'WC' || this.transactionModeSelected == 'DTC')) {
-      this.isToken = false;
-      this.jointAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
+      case 'LN':
+        this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'TD':
+        this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'DS':
+        this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CC':
+        this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'GS':
+        this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'PG':
+        this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'AG':
+        this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'IV':
+        this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
     }
-    else if (this.schemeTypeSelected == 'SB' && (this.transactionModeSelected == 'DR' || this.transactionModeSelected == 'DC' || this.transactionModeSelected == 'CTC')) {
-      this.isToken = false;
+  }
+
+  //Transaction mode select
+  transactionMode(mode) {
+    this.type = mode;
+    let object = this.TranData.find(t => t.key === this.selectedCode);
+    if (this.type == 'cash') {
+      this.tranModeList = [];
+      object.data.cash.forEach(ele => {
+        debugger
+        let obj = this.TranModeCash.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+      })
+    } else {
+      this.tranModeList = [];
+      object.data.transfer.forEach(ele => {
+        let obj = this.TranModeTransfer.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+      })
     }
-    else if (this.schemeTypeSelected == 'CC' && (this.transactionModeSelected == 'DR' || this.transactionModeSelected == 'DC')) {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isToken = false;
-      this.isDrawingPower = true;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-      this.sanctionLimit = true;
-      this.isAmountDetails = true;
+  }
+
+
+  //get Narration Details 
+  getNarration(ele) {
+    this.particulars = ele;
+    let el: HTMLElement = this.triggerhide.nativeElement;
+    el.click();
+  }
+
+  //submit Form
+  submit(){
+    let user   = JSON.parse(localStorage.getItem('user'));
+    let obj    = this.angForm.value;
+    obj['user']= user;
+    console.log(obj);
+    this._service.insertVoucher(obj).subscribe(data=>{
+      Swal.fire('Success!', 'Voucher update Successfully !', 'success');
+    },err=>{
+      console.log(err);
+    })
+  }
+
+  //get Amount Details
+  getAmt(ele){
+    this.totalAmt =  ele.target.value+'.00';
+  }
+
+  //Mode data
+  changeMode(){
+    debugger
+    if(this.selectedMode.tran_drcr == 'D'){
+      this.showChequeDetails = true;
+    }else{
+      this.showChequeDetails = false;
     }
-    else if (this.schemeTypeSelected == 'CC' && (this.transactionModeSelected == 'WP' || this.transactionModeSelected == 'WC' || this.transactionModeSelected == 'DTC' || this.transactionModeSelected == 'DIA')) {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isToken = true;
-      this.isDrawingPower = true;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-      this.sanctionLimit = true;
-      this.isAmountDetails = true;
-    }
-    else if (this.schemeTypeSelected == 'CC' && (this.transactionModeSelected == 'CT' || this.transactionModeSelected == 'CTC' || this.transactionModeSelected == 'DT')) {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isToken = false;
-      this.isDrawingPower = true;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-      this.sanctionLimit = true;
-      this.isAmountDetails = true;
-      this.isCheque = true;
-    }
-    else if (this.schemeTypeSelected == 'DS' && this.transactionModeSelected == 'DR') {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isToken = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isAmountDetails = true;
-      this.sanctionLimit = true;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-    }
-    else if (this.schemeTypeSelected == 'DS' && this.transactionModeSelected == 'CTCBT') {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isToken = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isAmountDetails = true;
-      this.sanctionLimit = true;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-      this.isBranch = true;
-    }
-    else if (this.schemeTypeSelected == 'DS' && (this.transactionModeSelected == 'CT' || this.transactionModeSelected == 'CTC' || this.transactionModeSelected == 'DT')) {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isToken = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isAmountDetails = true;
-      this.sanctionLimit = true;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-      this.isCheque = true;
-    }
-    else if (this.schemeTypeSelected == 'DS' && this.transactionModeSelected == 'DC') {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isToken = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isAmountDetails = true;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-    }
-    else if (this.schemeTypeSelected == 'DS' && this.transactionModeSelected == 'WP') {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isAmountDetails = true;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-      this.isCheque = true;
-      this.sanctionLimit = true;
-    }
-    else if (this.schemeTypeSelected == 'DS' && this.transactionModeSelected == 'DIA') {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isAmountDetails = true;
-      this.isOverdueAmount = true;
-      this.sanctionLimit = true;
-      this.voucherAmount = false;
-      this.totalAmount = false;
-    }
-    else if (this.schemeTypeSelected == 'LN' && (this.transactionModeSelected == 'DR' || this.transactionModeSelected == 'DC')) {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isToken = false;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-      this.sanctionLimit = true;
-      this.isAmountDetails = true;
-    }
-    else if (this.schemeTypeSelected == 'LN' && (this.transactionModeSelected == 'CT' || this.transactionModeSelected == 'CTC' || this.transactionModeSelected == 'DT')) {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isToken = false;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-      this.sanctionLimit = true;
-      this.isAmountDetails = true;
-      this.isCheque = true;
-    }
-    else if (this.schemeTypeSelected == 'LN' && this.transactionModeSelected == 'WP') {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-      this.sanctionLimit = true;
-      this.isAmountDetails = true;
-      this.isCheque = true;
-    }
-    else if (this.schemeTypeSelected == 'LN' && this.transactionModeSelected == 'DIA') {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-      this.sanctionLimit = true;
-      this.isAmountDetails = true;
-    }
-    else if (this.schemeTypeSelected == 'LN' && this.transactionModeSelected == 'CTCBT') {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isToken = false;
-      this.isOverdueAmount = true;
-      this.isOtherExpenses = true;
-      this.sanctionLimit = true;
-      this.isAmountDetails = true;
-      this.isBranch = true;
-    }
-    else if (this.schemeTypeSelected == 'SH' && (this.transactionModeSelected == 'DR' || this.transactionModeSelected == 'CT')) {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isToken = false;
-      this.isPanNo = false;
-    }
-    else if (this.schemeTypeSelected == 'SH' && (this.transactionModeSelected == 'WP' || this.transactionModeSelected == 'DT')) {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isPanNo = false;
-    }
-    else if (this.schemeTypeSelected == 'SH' && this.transactionModeSelected == 'WD') {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isPanNo = false;
-      this.dividendYear = true;
-      this.isAmountDetails = true;
-    }
-    else if (this.schemeTypeSelected == 'SH' && this.transactionModeSelected == 'DTD') {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isAmountDetails = true;
-    }
-    else if (this.schemeTypeSelected == 'GS' && (this.transactionModeSelected == 'DR' || this.transactionModeSelected == 'CT' || this.transactionModeSelected == 'WP' || this.transactionModeSelected == 'DT')) {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.isToken = false;
-    }
-    else if (this.schemeTypeSelected == 'CA' && (this.transactionModeSelected == 'DR' || this.transactionModeSelected == 'CT' || this.transactionModeSelected == 'DC' || this.transactionModeSelected == 'CTC')) {
-      this.isToken = false;
-    }
-    else if (this.schemeTypeSelected == 'PG' && (this.transactionModeSelected == 'DR' || this.transactionModeSelected == 'CT' || this.transactionModeSelected == 'CIOA')) {
-      this.isOtherExpenses = true;
-      this.isAmountDetails = true;
-      this.isToken = false;
-    }
-    else if (this.schemeTypeSelected == 'PG' && (this.transactionModeSelected == 'WP' || this.transactionModeSelected == 'WC' || this.transactionModeSelected == 'DTC')) {
-      this.isOtherExpenses = true;
-      this.isAmountDetails = true;
-      this.isCheque = true;
-    }
-    else if (this.schemeTypeSelected == 'PG' && this.transactionModeSelected == 'DT') {
-      this.isOtherExpenses = true;
-      this.isAmountDetails = true;
-      this.isCheque = true;
-      this.isPanNo = false;
-    }
-    else if (this.schemeTypeSelected == 'IV' && (this.transactionModeSelected == 'DR' || this.transactionModeSelected == 'CT' || this.transactionModeSelected == 'DC' || this.transactionModeSelected == 'CTC')) {
-      this.isOtherExpenses = true;
-      this.isAmountDetails = true;
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isPanNo = false;
-      this.isToken = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-    }
-    else if (this.schemeTypeSelected == 'IV' && this.transactionModeSelected == 'WP') {
-      this.isCheque = true;
-      this.isOtherExpenses = true;
-      this.isAmountDetails = true;
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isPanNo = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-    }
-    else if (this.schemeTypeSelected == 'IV' && this.transactionModeSelected == 'DT') {
-      this.isOverdueAmount = true;
-      this.isCheque = true;
-      this.isOtherExpenses = true;
-      this.isAmountDetails = true;
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isToken = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-    }
-    else if (this.schemeTypeSelected == 'IV' && this.transactionModeSelected == 'DIA') {
-      this.isAmountDetails = true;
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isPanNo = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-      this.voucherAmount = false;
-      this.totalAmount = false;
-    }
-    else if (this.schemeTypeSelected == 'TD' && (this.transactionModeSelected == 'DR' || this.transactionModeSelected == 'CT')) {
-      this.isOtherExpenses = true;
-      this.isAmountDetails = true;
-      this.isDepositAmount = true;
-      this.isToken = false;
-    }
-    else if (this.schemeTypeSelected == 'TD' && (this.transactionModeSelected == 'WP' || this.transactionModeSelected == 'DT' || this.transactionModeSelected == 'WC')) {
-      this.isCheque = true;
-      this.isOtherExpenses = true;
-      this.isAmountDetails = true;
-      this.isDepositAmount = true;
-    }
-    else if (this.schemeTypeSelected == 'TD' && this.transactionModeSelected == 'DTC') {
-      this.voucherAmount = false;
-    }
-    else if (this.schemeTypeSelected == 'TD' && (this.transactionModeSelected == 'WI' || this.transactionModeSelected == 'DTI')) {
-      this.isOtherExpenses = true;
-      this.isAmountDetails = true;
-      this.isDepositAmount = true;
-      this.voucherAmount = false;
-    }
-    else if (this.schemeTypeSelected == 'TD' && this.transactionModeSelected == 'CIOA') {
-      this.isOtherExpenses = true;
-      this.isAmountDetails = true;
-      this.isDepositAmount = true;
-      this.isToken = false;
-    }
-    else if (this.schemeTypeSelected == 'GL' && (this.transactionModeSelected == 'DR' || this.transactionModeSelected == 'CT')) {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isPanNo = false;
-      this.isToken = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-    }
-    else if (this.schemeTypeSelected == 'GL' && (this.transactionModeSelected == 'WP' || this.transactionModeSelected == 'DT')) {
-      this.isCheque = true;
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isPanNo = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-    }
-    else if (this.schemeTypeSelected == 'LK' && (this.transactionModeSelected == 'DR' || this.transactionModeSelected == 'CT')) {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isPanNo = false;
-      this.isToken = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-    }
-    else if (this.schemeTypeSelected == 'LK' && (this.transactionModeSelected == 'WC' || this.transactionModeSelected == 'DTC')) {
-      this.jointAc = false;
-      this.dormantAc = false;
-      this.isPanNo = false;
-      this.isToken = false;
-      this.isSanctionOverDraft = false;
-      this.isTemparoryOverDraft = false;
-    }
-    else {
-      this.isToken = true;
-      this.jointAc = true;
-      this.dormantAc = true;
-      this.isSanctionOverDraft = true;
-      this.isTemparoryOverDraft = true;
-      this.isDrawingPower = false;
-      this.isOverdueAmount = false;
-      this.isOtherExpenses = false;
-      this.sanctionLimit = false;
-      this.isAmountDetails = false;
-      this.isCheque = false;
-      this.voucherAmount = true;
-      this.totalAmount = true;
-      this.isPanNo = true;
-      this.dividendYear = false;
-      this.isBranch = false;
-      this.titleForSchemeType = false;
-      this.isDepositAmount = false;
+    if(this.selectedCode == 'GL'){
+      this.showChequeDetails = true
     }
   }
 }
