@@ -330,47 +330,53 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
-      this.id = id
+      console.log(data)
+      if (data.castMaster == null) {
+        data.castMaster = ""
+      }
+      if (data.occupMaster == null) {
+        data.occupMaster = ""
+      }
+      this.id = data.id
+
       this.angForm.patchValue({
-        AC_CUSTID: id,
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
-        AC_CAST: data.AC_CAST,
-        AC_OCODE: data.AC_OCODE,
-        AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
-        AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
-        AC_HONO: data.custAddress[0].AC_HONO,
-        AC_WARD: data.custAddress[0].AC_WARD,
-        AC_ADDR: data.custAddress[0].AC_ADDR,
-        AC_GALLI: data.custAddress[0].AC_GALLI,
-        AC_AREA: data.custAddress[0].AC_AREA,
-        AC_CTCODE: data.custAddress[0].city.CITY_NAME,
-        AC_PIN: data.custAddress[0].AC_PIN,
-        AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
+        AC_CAST: data.castMaster.NAME,
+        AC_OCODE: data.occupMaster.NAME,
+        // AC_MEM_BIRTH_DT: moment(data.AC_BIRTH_DT).format('DD/MM/YYYY'),
         AC_MOBNO: data.AC_MOBILENO,
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,
-        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
-        AC_THONO: data.custAddress.AC_THONO,
-        AC_TWARD: data.custAddress.AC_TWARD,
-        AC_TADDR: data.custAddress.AC_TADDR,
-        AC_TGALLI: data.custAddress.AC_TGALLI,
-        AC_TAREA: data.custAddress.AC_TAREA,
-        AC_TCTCODE: data.custAddress.AC_TCTCODE,
-        AC_TPIN: data.custAddress.AC_TPIN,
+        AC_MEMBNO: data.AC_MEMBNO,
+        AC_MEMBTYPE: data.AC_MEMBTYPE,
       })
+      let permadd
+      let temp
+      data.custAddress.forEach(async (element) => {
+        if (element.AC_ADDTYPE == 'P') {
+          permadd = element
+        }
+      })
+      this.angForm.patchValue({
+        AC_ADDFLAG: permadd?.AC_ADDFLAG,
+        AC_HONO: permadd?.AC_HONO,
+        AC_WARD: permadd?.AC_WARD,
+        AC_ADDR: permadd?.AC_ADDR,
+        AC_GALLI: permadd?.AC_GALLI,
+        AC_AREA: permadd?.AC_AREA,
+        AC_CTCODE: permadd.city?.CITY_NAME,
+        AC_PIN: permadd?.AC_PIN,
+      })
+
     })
   }
-
+  openingDate: any
   //set open date, appointed date and expiry date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
-      let date = moment(data.CURRENT_DATE).format('DD/MM/YYYY');
-      this.angForm.patchValue({
-        AC_OPDATE: date,
-        DATE_APPOINTED: date,
-        DATE_EXPIRY: date,
-      })
+      this.openingDate = data.CURRENT_DATE
+
       if (data.ON_LINE === true) {
         this.angForm.controls['AC_OPDATE'].disable()
       } else {
@@ -401,8 +407,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_MEMBNO: [''],
       AC_HONO: ['', [Validators.pattern]],
       AC_WARD: ['', [Validators.pattern]],
-      AC_TADDR: ['', [Validators.pattern]],
-      AC_TGALLI: ['', [Validators.pattern]],
+      AC_ADDR: ['', [Validators.pattern]],
+      AC_GALLI: ['', [Validators.pattern]],
       AC_AREA: ['', [Validators.pattern]],
       AC_CTCODE: ['', [Validators.pattern]],
       AC_PIN: [''],
@@ -626,7 +632,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     this.anamatGSMService.approve(obj).subscribe(data => {
       Swal.fire(
         'Approved',
-        'Saving Account approved successfully',
+        'Anamat Account approved successfully',
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -649,7 +655,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     this.anamatGSMService.reject(obj).subscribe(data => {
       Swal.fire(
         'Rejected',
-        'Saving Account rejected successfully',
+        'Anamat Account rejected successfully',
         'success'
       );
 

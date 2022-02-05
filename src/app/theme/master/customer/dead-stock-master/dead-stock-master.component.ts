@@ -138,8 +138,8 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   ngItem: any = null
   ngDepre: any = null
   ngGlAC: any = null
-
-
+  maxDate: Date;
+  purValue: any
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -150,13 +150,10 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   ) {
     console.log('Saving Data with Input', this.childMessage)
     if (this.childMessage != undefined) {
-
       this.editClickHandler(this.childMessage);
     }
-    // this.datemax =new Date() ;
-    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-    console.log(this.datemax);
-
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate());
   }
 
   ngOnInit(): void {
@@ -305,7 +302,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       ITEM_NAME: ["", [Validators.required, Validators.pattern]],
       PURCHASE_DATE: ["", [Validators.required]],
       DEPR_CATEGORY: ["", [Validators.required]],
-      OP_BAL_DATE: ["", [Validators.required, Validators.pattern]],
+      OP_BAL_DATE: ["", [Validators.pattern]],
       SUPPLIER_NAME: ["", [Validators.required, Validators.pattern]],
       PURCHASE_OP_QUANTITY: [""],
       PURCHASE_RATE: ["", [Validators.pattern]],
@@ -329,10 +326,38 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       }
     }
   }
+  getDate(value: Date): void {
+    debugger
+    if (value == null) {
+      this.angForm.controls['SUPPLIER_NAME'].disable()
+      this.angForm.controls['OP_BALANCE'].disable()
+      this.angForm.controls['OP_QUANTITY'].disable()
+      this.angForm.controls['PURCHASE_RATE'].disable()
+      this.angForm.controls['PURCHASE_OP_QUANTITY'].disable()
+      this.angForm.controls['PURCHASE_VALUE'].disable()
+      this.angForm.controls['LAST_DEPR_DATE'].disable()
+      this.angForm.controls['SUPPLIER_NAME'].reset()
+      this.angForm.controls['OP_BALANCE'].reset()
+      this.angForm.controls['OP_QUANTITY'].reset()
+      this.angForm.controls['PURCHASE_RATE'].reset()
+      this.angForm.controls['PURCHASE_OP_QUANTITY'].reset()
+      this.angForm.controls['PURCHASE_VALUE'].reset()
+      this.angForm.controls['LAST_DEPR_DATE'].reset()
+    } else {
+      this.angForm.controls['SUPPLIER_NAME'].enable()
+      this.angForm.controls['OP_BALANCE'].enable()
+      this.angForm.controls['OP_QUANTITY'].enable()
+      this.angForm.controls['PURCHASE_RATE'].enable()
+      this.angForm.controls['PURCHASE_OP_QUANTITY'].enable()
+      // this.angForm.controls['PURCHASE_VALUE'].enable()
+      this.angForm.controls['LAST_DEPR_DATE'].enable()
+    }
+
+  }
 
   // Method to insert data into database through NestJS
   submit() {
-
+    debugger
     this.formSubmitted = true;
     let purchase
     let purchase1
@@ -341,29 +366,30 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
     let bankCode = Number(result.branch.syspara.BANK_CODE)
+    debugger
     // if (this.angForm.valid) {
     console.log(this.angForm.value); // Process your form
     const formVal = this.angForm.value;
     debugger
     const dataToSend = {
-      'branchCode': branchCode,
+      'BRANCH_CODE': branchCode,
       'bankCode': bankCode,
       ITEM_TYPE: formVal.ITEM_TYPE,
       ITEM_CODE: formVal.ITEM_CODE,
       ITEM_NAME: formVal.ITEM_NAME,
-      PURCHASE_DATE: (formVal.PURCHASE_DATE == '' || formVal.PURCHASE_DATE == 'Invalid date') ? purchase = '' : purchase = moment(formVal.PURCHASE_DATE).format('DD/MM/YYYY'),
+      PURCHASE_DATE: (formVal.PURCHASE_DATE == '' || formVal.PURCHASE_DATE == 'Invalid date' || formVal.PURCHASE_DATE == undefined || formVal.PURCHASE_DATE == null) ? purchase = '' : purchase = moment(formVal.PURCHASE_DATE).format('DD/MM/YYYY'),
       DEPR_CATEGORY: formVal.DEPR_CATEGORY,
       // DEPR_CATEGORY: formVal.DEPR_CATEGORY,
-      OP_BAL_DATE: (formVal.OP_BAL_DATE == '' || formVal.OP_BAL_DATE == 'Invalid date') ? purchase1 = '' : purchase1 = moment(formVal.OP_BAL_DATE).format('DD/MM/YYYY'),
+      OP_BAL_DATE: (formVal.OP_BAL_DATE == '' || formVal.OP_BAL_DATE == 'Invalid date' || formVal.OP_BAL_DATE == undefined || formVal.OP_BAL_DATE == null) ? purchase1 = '' : purchase1 = moment(formVal.OP_BAL_DATE).format('DD/MM/YYYY'),
       SUPPLIER_NAME: formVal.SUPPLIER_NAME,
-      PURCHASE_OP_QUANTITY: formVal.PURCHASE_OP_QUANTITY,
-      PURCHASE_RATE: formVal.PURCHASE_RATE,
-      PURCHASE_QUANTITY: formVal.PURCHASE_QUANTITY,
-      PURCHASE_VALUE: formVal.PURCHASE_VALUE,
       OP_BALANCE: formVal.OP_BALANCE,
       OP_QUANTITY: formVal.OP_QUANTITY,
-      LAST_DEPR_DATE: (formVal.LAST_DEPR_DATE == '' || formVal.LAST_DEPR_DATE == 'Invalid date') ? purchase2 = '' : purchase2 = moment(formVal.LAST_DEPR_DATE).format('DD/MM/YYYY'),
+      PURCHASE_RATE: formVal.PURCHASE_RATE,
+      PURCHASE_OP_QUANTITY: formVal.PURCHASE_OP_QUANTITY,
+      PURCHASE_VALUE: this.firstnumber * this.secondnumber,
+      LAST_DEPR_DATE: (formVal.LAST_DEPR_DATE == '' || formVal.LAST_DEPR_DATE == 'Invalid date' || formVal.LAST_DEPR_DATE == undefined || formVal.LAST_DEPR_DATE == null) ? purchase2 = '' : purchase2 = moment(formVal.LAST_DEPR_DATE).format('DD/MM/YYYY'),
       GL_ACNO: formVal.GL_ACNO,
+      // PURCHASE_QUANTITY: formVal.PURCHASE_QUANTITY,     
     };
     console.log('dead datasend', dataToSend)
     this.deadstockmasterService.postData(dataToSend).subscribe(
@@ -390,9 +416,10 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   }
   lddate: any
   nglastdedate: any
+  updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
-   
+
     let date
     let date1
     let date2
@@ -411,25 +438,49 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.newbtnShow = true;
       }
       this.updateID = data.id;
+      this.updatecheckdata = data
+
       // this.lddate=(data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? date2 = '' : date2 = data.LAST_DEPR_DATE,
-   this.ngItem = Number(data.ITEM_TYPE)
-   this.ngDepre = Number(data.DEPR_CATEGORY)
-   this.nglastdedate = data.LAST_DEPR_DATE
+      this.ngItem = Number(data.ITEM_TYPE)
+      this.ngDepre = Number(data.DEPR_CATEGORY)
+      this.nglastdedate = data.LAST_DEPR_DATE
+
+      if (data.OP_BAL_DATE != null) {
+        this.angForm.controls['SUPPLIER_NAME'].enable()
+        this.angForm.controls['OP_BALANCE'].enable()
+        this.angForm.controls['OP_QUANTITY'].enable()
+        this.angForm.controls['PURCHASE_RATE'].enable()
+        this.angForm.controls['PURCHASE_OP_QUANTITY'].enable()
+        this.angForm.controls['PURCHASE_VALUE'].enable()
+        this.angForm.controls['LAST_DEPR_DATE'].enable()
+        this.purValue = data.PURCHASE_VALUE
+        this.angForm.patchValue({
+          OP_BAL_DATE: (data.OP_BAL_DATE == 'Invalid date' || data.OP_BAL_DATE == '' || data.OP_BAL_DATE == null) ? date1 = '' : date1 = data.OP_BAL_DATE,
+          SUPPLIER_NAME: data.SUPPLIER_NAME,
+          PURCHASE_OP_QUANTITY: data.PURCHASE_OP_QUANTITY,
+          PURCHASE_RATE: data.PURCHASE_RATE,
+          PURCHASE_QUANTITY: data.PURCHASE_QUANTITY,
+          // PURCHASE_VALUE: data.PURCHASE_VALUE,
+          OP_BALANCE: data.OP_BALANCE,
+          OP_QUANTITY: data.OP_QUANTITY,
+          LAST_DEPR_DATE: (data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? date2 = '' : date2 = data.LAST_DEPR_DATE,
+        })
+      } else {
+        this.angForm.controls['SUPPLIER_NAME'].disable()
+        this.angForm.controls['OP_BALANCE'].disable()
+        this.angForm.controls['OP_QUANTITY'].disable()
+        this.angForm.controls['PURCHASE_RATE'].disable()
+        this.angForm.controls['PURCHASE_OP_QUANTITY'].disable()
+        this.angForm.controls['PURCHASE_VALUE'].disable()
+        this.angForm.controls['LAST_DEPR_DATE'].disable()
+      }
+
       this.angForm.patchValue({
         // ITEM_TYPE: data.ITEM_TYPE,
         ITEM_CODE: data.ITEM_CODE,
         ITEM_NAME: data.ITEM_NAME,
         PURCHASE_DATE: (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? date = '' : date = data.PURCHASE_DATE,
         // DEPR_CATEGORY: Number(data.DEPR_CATEGORY),
-        OP_BAL_DATE: (data.OP_BAL_DATE == 'Invalid date' || data.OP_BAL_DATE == '' || data.OP_BAL_DATE == null) ? date1 = '' : date1 = data.OP_BAL_DATE,
-        SUPPLIER_NAME: data.SUPPLIER_NAME,
-        PURCHASE_OP_QUANTITY: data.PURCHASE_OP_QUANTITY,
-        PURCHASE_RATE: data.PURCHASE_RATE,
-        PURCHASE_QUANTITY: data.PURCHASE_QUANTITY,
-        PURCHASE_VALUE: data.PURCHASE_VALUE,
-        OP_BALANCE: data.OP_BALANCE,
-        OP_QUANTITY: data.OP_QUANTITY,
-        LAST_DEPR_DATE: (data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? date2 = '' : date2 = data.LAST_DEPR_DATE,
         GL_ACNO: Number(data.GL_ACNO),
       });
     });
@@ -440,22 +491,53 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     let date
     let date1
     let date2
+    debugger
     let data = this.angForm.value;
-    data["id"] = this.updateID;
-    (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? (date = '', data['PURCHASE_DATE'] = date) : (date = data.PURCHASE_DATE, data['PURCHASE_DATE'] = moment(date).format('DD/MM/YYYY')),
-      (data.OP_BAL_DATE == 'Invalid date' || data.OP_BAL_DATE == '' || data.OP_BAL_DATE == null) ? (date1 = '', data['OP_BAL_DATE'] = date1) : (date1 = data.OP_BAL_DATE, data['OP_BAL_DATE'] = moment(date1).format('DD/MM/YYYY')),
-      (data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? (date2 = '', data['LAST_DEPR_DATE'] = date2) : (date2 = data.LAST_DEPR_DATE, data['LAST_DEPR_DATE'] = moment(date2).format('DD/MM/YYYY')),
 
-      this.deadstockmasterService.updateData(data).subscribe(() => {
-        Swal.fire("Success!", "Record Updated Successfully !", "success");
-        this.showButton = true;
-        this.updateShow = false;
-        this.newbtnShow = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload();
-        });
-        this.angForm.reset();
+    data["id"] = this.updateID;
+    if (this.updatecheckdata.PURCHASE_DATE != data.PURCHASE_DATE) {
+      (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? (date = '', data['PURCHASE_DATE'] = date) : (date = data.PURCHASE_DATE, data['PURCHASE_DATE'] = moment(date).format('DD/MM/YYYY'))
+    } else {
+      data['PURCHASE_DATE'] = data.PURCHASE_DATE
+    }
+    if (this.updatecheckdata.OP_BAL_DATE != data.OP_BAL_DATE) {
+      (data.OP_BAL_DATE == 'Invalid date' || data.OP_BAL_DATE == '' || data.OP_BAL_DATE == null) ? (date1 = '', data['OP_BAL_DATE'] = date1) : (date1 = data.OP_BAL_DATE, data['OP_BAL_DATE'] = moment(date1).format('DD/MM/YYYY'))
+    } else {
+      data['OP_BAL_DATE'] = data.OP_BAL_DATE
+    }
+    if (this.updatecheckdata.LAST_DEPR_DATE != data.LAST_DEPR_DATE) {
+      (data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? (date2 = '', data['LAST_DEPR_DATE'] = date2) : (date2 = data.LAST_DEPR_DATE, data['LAST_DEPR_DATE'] = moment(date2).format('DD/MM/YYYY'))
+    } else {
+      data['LAST_DEPR_DATE'] = data.LAST_DEPR_DATE
+    }
+
+    if (data.OP_BAL_DATE == null || data.OP_BAL_DATE == '' || data.OP_BAL_DATE == 'Invalid date' || data.OP_BAL_DATE == undefined) {
+      this.angForm.controls['SUPPLIER_NAME'].reset()
+      this.angForm.controls['OP_BALANCE'].reset()
+      this.angForm.controls['OP_QUANTITY'].reset()
+      this.angForm.controls['PURCHASE_RATE'].reset()
+      this.angForm.controls['PURCHASE_OP_QUANTITY'].reset()
+      this.angForm.controls['PURCHASE_VALUE'].reset()
+      this.angForm.controls['LAST_DEPR_DATE'].reset()
+      data['SUPPLIER_NAME'] = ''
+      data['OP_BALANCE'] = ''
+      data['OP_QUANTITY'] = ''
+      data['PURCHASE_RATE'] = ''
+      data['PURCHASE_OP_QUANTITY'] = ''
+      data['PURCHASE_VALUE'] = ''
+      data['LAST_DEPR_DATE'] = ''
+    }
+    data['PURCHASE_VALUE'] = this.firstnumber * this.secondnumber
+    this.deadstockmasterService.updateData(data).subscribe(() => {
+      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      this.showButton = true;
+      this.updateShow = false;
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
       });
+      this.angForm.reset();
+    });
   }
 
   addNewData() {
@@ -467,6 +549,9 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngItem = null
+    this.ngDepre = null
+    this.ngGlAC = null
   }
   //Method for delete data
   delClickHandler(id: number) {

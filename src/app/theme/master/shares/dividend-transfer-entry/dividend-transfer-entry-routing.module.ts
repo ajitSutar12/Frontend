@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: DividendTransferEntryComponent,
     data: {
-      title: 'Dividend Transfer Entry',
+      title: 'Dividend Transfer Instruction',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

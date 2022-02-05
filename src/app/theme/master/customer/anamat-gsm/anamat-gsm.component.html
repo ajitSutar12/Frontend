@@ -166,7 +166,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_HONO" class="form-control" placeholder=" " id="AC_HONO"
-                                        value="" pattern="^[A-Za-z\./ -]+$" formControlName="AC_HONO" disabled>
+                                        maxlength="25" formControlName="AC_HONO" disabled />
                                     <label for="AC_HONO">House</label>
                                 </span>
                             </div>
@@ -175,7 +175,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_WARD" class="form-control" placeholder=" " id="AC_WARD"
-                                        value="" pattern="^[A-Za-z\./ -]+$" formControlName="AC_WARD" disabled>
+                                        pattern="^[A-Za-z\./ -]+$" maxlength="10" formControlName="AC_WARD" disabled />
                                     <label for="AC_WARD">Ward</label>
                                 </span>
                             </div>
@@ -183,17 +183,11 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_TADDR" class="form-control" placeholder=" "
-                                        id="AC_TADDR" value="" formControlName="AC_TADDR" disabled>
-                                    <label for="AC_TADDR">Detail</label>
+                                    <input type="text" name="AC_ADDR" class="form-control" placeholder=" " id="AC_ADDR"
+                                        formControlName="AC_ADDR" disabled />
+                                    <label for="AC_ADDR">Detail</label>
+
                                 </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_TADDR'].invalid && (angForm.controls['AC_TADDR'].dirty || angForm.controls['AC_TADDR'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_TADDR'].errors?.pattern">
-                                    Input allowed only A-Z a-z - / . (Space)
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -201,10 +195,9 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_TGALLI" class="form-control" placeholder=" "
-                                        id="AC_TGALLI" value="" pattern="^[A-Za-z\./ -]+$" formControlName="AC_TGALLI"
-                                        disabled>
-                                    <label for="AC_TGALLI">Galli</label>
+                                    <input type="text" name="AC_GALLI" class="form-control" placeholder=" "
+                                        id="AC_GALLI" maxlength="40" formControlName="AC_GALLI" disabled />
+                                    <label for="AC_GALLI">Galli</label>
                                 </span>
                             </div>
                         </div>
@@ -212,8 +205,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_CTCODE" class="form-control" placeholder=" "
-                                        id="AC_CTCODE" value="" pattern="^[A-Za-z\./ -]+$" formControlName="AC_CTCODE"
-                                        disabled>
+                                        id="AC_CTCODE" pattern="^[A-Za-z\./ -]+$" formControlName="AC_CTCODE"
+                                        disabled />
                                     <label for="AC_CTCODE">City</label>
                                 </span>
                             </div>
@@ -222,7 +215,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_AREA" class="form-control" placeholder=" " id="AC_AREA"
-                                        value="" pattern="^[A-Za-z\./ -]+$" formControlName="AC_AREA" disabled>
+                                        maxlength="60" formControlName="AC_AREA" disabled />
                                     <label for="AC_AREA">Area</label>
                                 </span>
                             </div>
@@ -243,7 +236,7 @@
                                         class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         disabled [ngClass]="{'form-submitted': formSubmitted}"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        formControlName="AC_OPDATE" [bsValue]="bsValue" bsDatepicker>
+                                        formControlName="AC_OPDATE" [(ngModel)]="openingDate" bsDatepicker>
                                     <label for="AC_OPDATE">Opening Date<sub class="required">*
                                         </sub></label>
                                 </span>

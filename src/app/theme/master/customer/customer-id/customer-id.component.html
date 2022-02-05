@@ -241,9 +241,10 @@
                                     <input type="text" name="AC_PANNO" class="form-control" placeholder=" "
                                         pattern="^[A-Z0-9]+$" title="Enter Uppercase letters and digits only"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58)"
-                                        (focusout)=" checkPancard()" maxlength="10" id="AC_PANNO"
+                                         maxlength="10" id="AC_PANNO"
                                         formControlName="AC_PANNO">
                                     <label for="AC_PANNO">Pan Number</label>
+                                    <!-- (focusout)=" checkPancard()" -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -616,7 +617,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="FIN_YEAR" class="form-control" placeholder=" " #finyear
                                         id="FIN_YEAR" maxlength="9" (keyup)="addhyphen(finyear.value)" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        formControlName=" FIN_YEAR">
+                                        formControlName="FIN_YEAR" [(ngModel)]="ngfinyear">
                                     <label for="FIN_YEAR">Financial Year</label>
                                 </span>
                             </div>
@@ -627,7 +628,7 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE" id="SUBMIT_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" minlength="10"
-                                        maxlength="10"
+                                        maxlength="10" [(ngModel)]="ngSubmitDate"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="SUBMIT_DATE" [bsValue]="bsValue" bsDatepicker
                                         [required]="SUBMIT_DATE">
@@ -768,7 +769,7 @@
                                                                     <span
                                                                         style="font-size: 20px;color: #0f459b; cursor: pointer;"
                                                                         (click)="modalLarge.show();viewImagePreview($event,data.value)"
-                                                                        placement="bottom" ngbTooltip="Show Image"
+                                                                        placement="right" ngbTooltip="Show Image"
                                                                         class="fa fa-fw fa-eye field-icon"></span>
                                                                 </div>
                                                             </td>

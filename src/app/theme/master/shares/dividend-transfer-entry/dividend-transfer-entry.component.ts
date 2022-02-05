@@ -6,6 +6,12 @@ import { MembernoService } from '../../../../shared/elements/memberno.service';
 import { AcountnoService } from '../../../../shared/elements/acountno.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { first } from 'rxjs/operators';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { ShareMasterService } from 'src/app/theme/master/customer/shares-master/shares-master.service';
 
 @Component({
   selector: 'app-dividend-transfer-entry',
@@ -14,13 +20,11 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 
 export class DividendTransferEntryComponent implements OnInit {
+  formSubmitted = false;
   angForm: FormGroup;
 
   dtExportButtonOptions: any = {};
 
-  a: Array<IOption> = this.Scheme1Service.getCharacters();
-  b: Array<IOption> = this.MembernoService.getCharacters();
-  d: Array<IOption> = this.AcountnoService.getCharacters();
 
   selectedOption = '3';
   isDisabled = true;
@@ -32,172 +36,304 @@ export class DividendTransferEntryComponent implements OnInit {
 
   showButton: boolean = true;
   updateShow: boolean = false;
+  schemeType: string = 'SH'
+  scheme: any[] //scheme code from schemast(S_ACNOTYPE)
+  memnoACNo: any[] //scheme code from schemast(S_ACNOTYPE)
+  branch_code: any[]//from ownbranchmaster
+  allScheme: any = null
+  ngBranchCode: any = null
+  ngDivACNO: any = null
+  ngDivACType: any = null
+  selectedValue: any = null
+  memValue: any = null
+  divTransferNO
+  bcode
+  schemeDT: any
 
-  message = {
-    Scheme: " ",
-    DividendAmount: " ",
-    MemberNo: " ",
-    OtherAmount: "",
-    TransferScheme: "",
-    TransferAcNo: "",
-  };
+  obj: any
+  object: any
+  getschemename: any
+  getscheme
 
-  constructor(private fb: FormBuilder, public Scheme1Service: Scheme1Service, public MembernoService: MembernoService, public AcountnoService: AcountnoService) { this.createForm(); }
+  constructor(private fb: FormBuilder, private config: NgSelectConfig,
+    private _schemeAccountNoService: SchemeAccountNoService,
+    private _SchemeCodeDropdown: SchemeCodeDropdownService,
+    private _ownbranchMasterService: OwnbranchMasterService,
+    private _shareMasterService: ShareMasterService) {
+
+
+  }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/dividend-transfer-entry.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm"id="editbtn">Edit</button>' + ' ' + '<button  id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          title: 'Scheme',
-          data: 'Scheme'
-        }, {
-          title: 'Dividend Amount',
-          data: 'DividendAmount'
-        }, {
-          title: 'Member No.',
-          data: 'MemberNo'
-        },
-        {
-          title: 'Other Amount',
-          data: 'OtherAmount'
-        }, {
-          title: 'Warrant Date',
-          data: 'WarrantDate'
-        }, {
-          title: 'From Year',
-          data: 'FromYear'
-        }, {
-          title: 'To Year',
-          data: 'ToYear'
-        },
-        {
-          title: 'Transfer Scheme',
-          data: 'TransferScheme'
-        },
-        {
-          title: 'Transfer A/c No',
-          data: 'TransferAcNo'
-        },],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
+    this.createForm();
 
-    this.dataSub = this.Scheme1Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.MembernoService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.AcountnoService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
+    this._SchemeCodeDropdown.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+      this.scheme = data;
+      // this.selectedValue = this.scheme[0].value
+    })
+    this._ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
+    this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
+
+      var filtered = data.filter(function (scheme) {
+
+        return (scheme.name != 'AG' && scheme.name != 'PG');
+      });
+      this.allScheme = filtered;
+    })
+    // console.log(this.scheme[0].value)
+    // this._schemeAccountNoService.getShareSchemeList2(this.scheme[0].value).subscribe(data => {
+    //   debugger
+    //   console.log('data', data)
+    //   this.memnoACNo = data;
+    // })
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
 
   createForm() {
     this.angForm = this.fb.group({
-      Scheme: ['', [Validators.required]],
-      MemberNo: ['', [Validators.required]],
-      TransferScheme: ['', [Validators.required]],
-      TransferAcNo: ['', [Validators.required]],
-      DividendAmount: ['',],
-      OtherAmount: ['',]
+      AC_TYPE: ['', [Validators.required]],
+      AC_NO: ['', [Validators.required]],
+      DIV_TRANSFER_BRANCH: [''],
+      DIV_TRANSFER_ACTYPE: [''],
+      DIV_TRANSFER_ACNO: ['']
     });
   }
 
   submit() {
-    console.log(this.angForm.valid);
+    // console.log(this.angForm.valid);
     if (this.angForm.valid) {
-      console.log(this.angForm.value);
+      // console.log(this.angForm.value);
     }
   }
-  /**
-* @editClickHandler function for edit button clicked
-*/
-  editClickHandler(info: any): void {
-    this.message.Scheme = info.Scheme;
-    this.message.DividendAmount = info.DividendAmount;
-    this.message.MemberNo = info.MemberNo;
-    this.message.OtherAmount = info.OtherAmount;
-    this.message.TransferScheme = info.TransferScheme;
-    this.message.TransferAcNo = info.TransferAcNo;
-    this.showButton = false;
-    this.updateShow = true;
+
+  getmemNo(event) {
+    // console.log(event.value)
+    this.schemeDT = event.value
+    this._schemeAccountNoService.getShareSchemeList2(event.value).subscribe(data => {
+      // console.log('data', data)
+      this.memnoACNo = data;
+    })
   }
 
   /**
  * @updateData function for update data 
  */
-  updateData() {
+  updateDataPyatrans() {
     this.showButton = true;
     this.updateShow = false;
+    debugger
+    let data = this.angForm.value;
+    data['AC_TYPE'] = this.schemeDT
+    data['AC_NO'] = Number(this.updatememno)
+
+    this._shareMasterService.updateDataPyatrans(data).subscribe(() => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+    });
+    this.schemeDT = null
+    this.updatememno = null
+    this.resetForm();
+console.log(this.selectedValue)
+console.log(this.memValue)
+    // this.selectedValue = null
+    // this.memValue = null
     // this.form.reset();
   }
 
-  /**
-  * @delClickHandler function for delete button 
-    @Swal sweetalert2
-    @Swal.fire open a modal window to display message
-  */
-  //function for delete button clicked
-  delClickHandler(info: any): void {
-    this.message.Scheme = info.Scheme;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete scheme." + this.message.Scheme + "  data",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
+
+
+  getBranch(event) {
+    this.bcode = event.value
+    this.getDiviTransfer()
+  }
+
+  getDivTrans(event) {
+    this.getscheme = event.value
+    this.getschemename = event.name
+    this.getDiviTransfer()
+  }
+  //get account no according scheme for dividend transfer
+  getDiviTransfer() {
+    debugger
+    this.obj = [this.ngDivACType, this.ngBranchCode]
+    switch (this.getschemename) {
+
+      case 'SB':
+        this._schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.divTransferNO = data;
+        })
+        break;
+
+      case 'SH':
+        this._schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
+
+          this.divTransferNO = data;
+        })
+        break;
+
+      case 'CA':
+        this._schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.divTransferNO = data;
+        })
+        break;
+
+      case 'LN':
+        this._schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.divTransferNO = data;
+        })
+        break;
+
+      case 'TD':
+        this._schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+
+          this.divTransferNO = data;
+
+        })
+        break;
+
+      case 'DS':
+        this._schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.divTransferNO = data;
+        })
+        break;
+
+      case 'CC':
+        this._schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.divTransferNO = data;
+        })
+        break;
+
+      case 'GS':
+        this._schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+          this.divTransferNO = data;
+        })
+        break;
+
+      case 'IV':
+        this._schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+          this.divTransferNO = data;
+        })
+        break;
+    }
+  }
+
+  updatememno: any
+  getData(event) {
+    // console.log(event)
+    let info
+    this.updatememno = event.value
+    this.object = [this.schemeDT, event.value]
+    // console.log(this.object)
+    this._schemeAccountNoService.getShareSchemeListDT(this.object).subscribe(data => {
+      // debugger
+
+      // console.log(data)
+      info = data
+      // console.log(info.label)
+      // console.log(info.value)
+      // console.log(info.name)
+
+      if ((info[0].label != null && info[0].value != null && info[0].name != null) || (info[0].label != "" && info[0].value != "" && info[0].name != "")) {
+        debugger
+        this.ngBranchCode = info[0].label
+        this.ngDivACType = Number(info[0].value)
+
+        this.obj = [this.ngDivACType, this.ngBranchCode]
+
+        this.allScheme.forEach(async (element) => {
+          // debugger
+          if (element.value == this.ngDivACType) {
+            debugger
+            this.getschemename = element.name
+            console.log(this.getschemename)
+          }
+        })
+        console.log(this.getschemename)
+
+        switch (this.getschemename) {
+          case 'SB':
+            this._schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+              this.divTransferNO = data;
+            })
+            break;
+
+          case 'SH':
+            this._schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
+              debugger
+              this.divTransferNO = data;
+            })
+            break;
+
+          case 'CA':
+            this._schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+              this.divTransferNO = data;
+            })
+            break;
+
+          case 'LN':
+            this._schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+              this.divTransferNO = data;
+            })
+            break;
+
+          case 'TD':
+            this._schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+
+              this.divTransferNO = data;
+
+            })
+            break;
+
+          case 'DS':
+            this._schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+              this.divTransferNO = data;
+            })
+            break;
+
+          case 'CC':
+            this._schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+              this.divTransferNO = data;
+            })
+            break;
+
+          case 'GS':
+            this._schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+              this.divTransferNO = data;
+            })
+            break;
+
+          case 'IV':
+            this._schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+              this.divTransferNO = data;
+            })
+            break;
+        }
+        this.ngDivACNO = Number(info[0].name)
+
+      } else {
+
+        this.ngBranchCode = null
+        this.ngDivACType = null
+        this.ngDivACNO = null
+        this.angForm.controls['DIV_TRANSFER_BRANCH'].reset()
+        this.angForm.controls['DIV_TRANSFER_ACTYPE'].reset()
+        this.angForm.controls['DIV_TRANSFER_ACNO'].reset()
       }
+
     })
+  }
+
+  resetForm() {
+    this.createForm();
+    debugger
+    this.ngBranchCode = null
+    this.ngDivACType = null
+    this.ngDivACNO = null
+    this.selectedValue = null
+    this.memValue = null
+    this.angForm.controls['AC_TYPE'].reset()
+    this.angForm.controls['AC_NO'].reset()
   }
 }
 

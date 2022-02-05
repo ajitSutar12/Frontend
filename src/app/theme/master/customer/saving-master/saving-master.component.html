@@ -124,10 +124,9 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                   <input type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
-                                    class="form-control" required 
-                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" disabled
-                                    [ngClass]="{'form-submitted': formSubmitted}" 
-                                    formControlName="AC_OPDATE" [bsValue]="bsValue" bsDatepicker>
+                                    class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                    [(ngModel)]="openingDate" disabled [ngClass]="{'form-submitted': formSubmitted}"
+                                    formControlName="AC_OPDATE" bsDatepicker>
                                   <label for="AC_OPDATE">Opening Date<sub class="required">*
                                     </sub></label>
                                 </span>
@@ -898,7 +897,7 @@
                               <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                   <!-- (change)="getIntroducerName($event)" -->
-                                  <ng-select id="AC_INTRACNO" bindValue="id" [(ngModel)]="ngIntroducer"
+                                  <ng-select id="AC_INTRACNO" bindValue="AC_NO" [(ngModel)]="ngIntroducer"
                                     formControlName="AC_INTRACNO" bindLabel="AC_NO" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" (focus)="getIntroducer()"
                                     placeholder="Account Number">
@@ -971,18 +970,18 @@
                                         </span>
                                       </div>
                                       <div class="
-                                  form-group
-                                  form-primary
-                                  form-static-label
-                                " *ngIf="
-                                  angForm.controls['AC_NNAME'].invalid &&
-                                  (angForm.controls['AC_NNAME'].dirty ||
-                                    angForm.controls['AC_NNAME'].touched)
-                                " class="alert alert-danger">
+                                        form-group
+                                        form-primary
+                                        form-static-label
+                                      " *ngIf="
+                                        angForm.controls['AC_NNAME'].invalid &&
+                                        (angForm.controls['AC_NNAME'].dirty ||
+                                          angForm.controls['AC_NNAME'].touched)
+                                      " class="alert alert-danger">
                                         <div *ngIf="
-                                    angForm.controls['AC_NNAME'].errors
-                                      ?.pattern || angForm.controls['AC_NNAME'].errors?.maxlength
-                                  ">
+                                          angForm.controls['AC_NNAME'].errors
+                                            ?.pattern || angForm.controls['AC_NNAME'].errors?.maxlength
+                                        ">
                                           Input allowed only A-Z a-z - / .
                                           (Space)
                                         </div>
@@ -1002,19 +1001,19 @@
                                         </span>
                                       </div>
                                       <div class="
-                                  form-group
-                                  form-primary
-                                  form-static-label
-                                " *ngIf="
-                                  angForm.controls['AC_NRELA'].invalid &&
-                                  (angForm.controls['AC_NRELA'].dirty ||
-                                    angForm.controls['AC_NRELA'].touched)
-                                " class="alert alert-danger">
+                                        form-group
+                                        form-primary
+                                        form-static-label
+                                      " *ngIf="
+                                        angForm.controls['AC_NRELA'].invalid &&
+                                        (angForm.controls['AC_NRELA'].dirty ||
+                                          angForm.controls['AC_NRELA'].touched)
+                                      " class="alert alert-danger">
                                         <div *ngIf="
-                                    angForm.controls['AC_NRELA'].errors
-                                      ?.pattern || angForm.controls['AC_NRELA'].errors
-                                      ?.maxlength
-                                  ">
+                                          angForm.controls['AC_NRELA'].errors
+                                            ?.pattern || angForm.controls['AC_NRELA'].errors
+                                            ?.maxlength
+                                        ">
                                           Input allowed only A-Z a-z - / .
                                           (Space)
                                         </div>
@@ -1029,27 +1028,27 @@
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" formControlName="AC_NDATE"
                                             bsDatepicker>
                                           <!-- <input type="date" name="" class="form-control" placeholder=" "
-                                      id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}"
-                                      [ngClass]="{'form-submitted': formSubmitted}" #date
-                                      (focusout)="disabledate(date.value)" formControlName="AC_NDATE" /> -->
+                                            id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}"
+                                            [ngClass]="{'form-submitted': formSubmitted}" #date
+                                            (focusout)="disabledate(date.value)" formControlName="AC_NDATE" /> -->
                                           <label for="AC_NDATE">Nomination
                                             Date<sub class="required">*
                                             </sub></label>
                                         </span>
                                       </div>
                                       <div class="
-                                  form-group
-                                  form-primary
-                                  form-static-label
-                                " *ngIf="
-                                  angForm.controls['AC_NDATE'].invalid &&
-                                  (angForm.controls['AC_NDATE'].dirty ||
-                                    angForm.controls['AC_NDATE'].touched)
-                                " class="alert alert-danger">
+                                        form-group
+                                        form-primary
+                                        form-static-label
+                                      " *ngIf="
+                                        angForm.controls['AC_NDATE'].invalid &&
+                                        (angForm.controls['AC_NDATE'].dirty ||
+                                          angForm.controls['AC_NDATE'].touched)
+                                      " class="alert alert-danger">
                                         <div *ngIf="
-                                    angForm.controls['AC_NDATE'].errors
-                                      ?.required
-                                  ">
+                                          angForm.controls['AC_NDATE'].errors
+                                            ?.required
+                                        ">
                                           This fiels is required
                                         </div>
                                       </div>
@@ -1066,22 +1065,22 @@
                                         </span>
                                       </div>
                                       <div class="
-                                  form-group
-                                  form-primary
-                                  form-static-label
-                                " *ngIf="
-                                  angForm.controls['AGE'].invalid &&
-                                  (angForm.controls['AGE'].dirty ||
-                                    angForm.controls['AGE'].touched)
-                                " class="alert alert-danger">
+                                        form-group
+                                        form-primary
+                                        form-static-label
+                                      " *ngIf="
+                                        angForm.controls['AGE'].invalid &&
+                                        (angForm.controls['AGE'].dirty ||
+                                          angForm.controls['AGE'].touched)
+                                      " class="alert alert-danger">
                                         <div *ngIf="
-                                    angForm.controls['AGE'].errors
-                                      ?.pattern ||
-                                    angForm.controls['AGE'].errors
-                                      ?.min ||
-                                    angForm.controls['AGE'].errors
-                                      ?.max
-                                  ">
+                                          angForm.controls['AGE'].errors
+                                            ?.pattern ||
+                                          angForm.controls['AGE'].errors
+                                            ?.min ||
+                                          angForm.controls['AGE'].errors
+                                            ?.max
+                                        ">
                                           This fiels is required
                                         </div>
                                       </div>
@@ -1098,18 +1097,18 @@
                                         </span>
                                       </div>
                                       <div class="
-                                  form-group
-                                  form-primary
-                                  form-static-label
-                                " *ngIf="
-                                  angForm.controls['AC_NHONO'].invalid &&
-                                  (angForm.controls['AC_NHONO'].dirty ||
-                                    angForm.controls['AC_NHONO'].touched)
-                                " class="alert alert-danger">
+                                        form-group
+                                        form-primary
+                                        form-static-label
+                                      " *ngIf="
+                                        angForm.controls['AC_NHONO'].invalid &&
+                                        (angForm.controls['AC_NHONO'].dirty ||
+                                          angForm.controls['AC_NHONO'].touched)
+                                      " class="alert alert-danger">
                                         <div *ngIf="
-                                    angForm.controls['AC_NHONO'].errors
-                                      ?.pattern
-                                  ">
+                                          angForm.controls['AC_NHONO'].errors
+                                            ?.pattern
+                                        ">
                                           Input allowed only A-Z a-z 0-9 -
                                           / .
                                           (Space)
@@ -1128,18 +1127,18 @@
                                         </span>
                                       </div>
                                       <div class="
-                                  form-group
-                                  form-primary
-                                  form-static-label
-                                " *ngIf="
-                                  angForm.controls['AC_NWARD'].invalid &&
-                                  (angForm.controls['AC_NWARD'].dirty ||
-                                    angForm.controls['AC_NWARD'].touched)
-                                " class="alert alert-danger">
+                                        form-group
+                                        form-primary
+                                        form-static-label
+                                      " *ngIf="
+                                        angForm.controls['AC_NWARD'].invalid &&
+                                        (angForm.controls['AC_NWARD'].dirty ||
+                                          angForm.controls['AC_NWARD'].touched)
+                                      " class="alert alert-danger">
                                         <div *ngIf="
-                                    angForm.controls['AC_NWARD'].errors
-                                      ?.pattern
-                                  ">
+                                          angForm.controls['AC_NWARD'].errors
+                                            ?.pattern
+                                        ">
                                           Input allowed only A-Z a-z 0-9 -
                                           / . (Space)
                                         </div>
@@ -1159,18 +1158,18 @@
                                         </span>
                                       </div>
                                       <div class="
-                                  form-group
-                                  form-primary
-                                  form-static-label
-                                " *ngIf="
-                                  angForm.controls['AC_NGALLI'].invalid &&
-                                  (angForm.controls['AC_NGALLI'].dirty ||
-                                    angForm.controls['AC_NGALLI'].touched)
-                                " class="alert alert-danger">
+                                        form-group
+                                        form-primary
+                                        form-static-label
+                                      " *ngIf="
+                                        angForm.controls['AC_NGALLI'].invalid &&
+                                        (angForm.controls['AC_NGALLI'].dirty ||
+                                          angForm.controls['AC_NGALLI'].touched)
+                                      " class="alert alert-danger">
                                         <div *ngIf="
-                                    angForm.controls['AC_NGALLI'].errors
-                                      ?.pattern
-                                  ">
+                                          angForm.controls['AC_NGALLI'].errors
+                                            ?.pattern
+                                        ">
                                           Input allowed only A-Z a-z 0-9 -
                                           / .
                                           (Space)
@@ -1188,18 +1187,18 @@
                                         </span>
                                       </div>
                                       <div class="
-                                  form-group
-                                  form-primary
-                                  form-static-label
-                                " *ngIf="
-                                  angForm.controls['AC_NAREA'].invalid &&
-                                  (angForm.controls['AC_NAREA'].dirty ||
-                                    angForm.controls['AC_NAREA'].touched)
-                                " class="alert alert-danger">
+                                        form-group
+                                        form-primary
+                                        form-static-label
+                                      " *ngIf="
+                                        angForm.controls['AC_NAREA'].invalid &&
+                                        (angForm.controls['AC_NAREA'].dirty ||
+                                          angForm.controls['AC_NAREA'].touched)
+                                      " class="alert alert-danger">
                                         <div *ngIf="
-                                    angForm.controls['AC_NAREA'].errors
-                                      ?.pattern
-                                  ">
+                                          angForm.controls['AC_NAREA'].errors
+                                            ?.pattern
+                                        ">
                                           Input allowed only A-Z a-z - / .
                                           (Space)
                                         </div>
@@ -1216,18 +1215,18 @@
                                         </span>
                                       </div>
                                       <div class="
-                                  form-group
-                                  form-primary
-                                  form-static-label
-                                " *ngIf="
-                                  angForm.controls['AC_NADDR'].invalid &&
-                                  (angForm.controls['AC_NADDR'].dirty ||
-                                    angForm.controls['AC_NADDR'].touched)
-                                " class="alert alert-danger">
+                                        form-group
+                                        form-primary
+                                        form-static-label
+                                      " *ngIf="
+                                        angForm.controls['AC_NADDR'].invalid &&
+                                        (angForm.controls['AC_NADDR'].dirty ||
+                                          angForm.controls['AC_NADDR'].touched)
+                                      " class="alert alert-danger">
                                         <div *ngIf="
-                                    angForm.controls['AC_NADDR'].errors
-                                      ?.pattern
-                                  ">
+                                          angForm.controls['AC_NADDR'].errors
+                                            ?.pattern
+                                        ">
                                           Input allowed only A-Z a-z 0-9 -
                                           / .
                                           (Space)
@@ -1236,18 +1235,18 @@
                                     </div>
                                     <div class="col-sm-2">
                                       <div class="
-                                  form-group
-                                  form-primary
-                                  form-static-label
-                                ">
+                                        form-group
+                                        form-primary
+                                        form-static-label
+                                      ">
                                         <span class="border-lable-flt">
                                           <ng-select id="AC_NCTCODE" [items]="Ncity" [(ngModel)]="ngNcity"
                                             bindLabel="CITY_NAME" formControlName="AC_NCTCODE"
                                             [ngClass]="{'form-submitted': formSubmitted}" placeholder="City">
                                             <!-- <ng-option *ngFor="let values of Ncity">
-                                        {{values.CITY_NAME}}</ng-option> -->
+                                              {{values.CITY_NAME}}</ng-option> -->
                                             <!-- bindLabel="CITY_NAME"
-                                      title="Compulsory Selection" bindValue="id" -->
+                                            title="Compulsory Selection" bindValue="id" -->
                                           </ng-select>
                                           <label for="AC_NCTCODE">City<sub class="required"> *
                                             </sub></label>
@@ -1266,22 +1265,22 @@
                                         </span>
                                       </div>
                                       <div class="
-                                  form-group
-                                  form-primary
-                                  form-static-label
-                                " *ngIf="
-                                  angForm.controls['AC_NPIN'].invalid &&
-                                  (angForm.controls['AC_NPIN'].dirty ||
-                                    angForm.controls['AC_NPIN'].touched)
-                                " class="alert alert-danger">
+                                        form-group
+                                        form-primary
+                                        form-static-label
+                                      " *ngIf="
+                                        angForm.controls['AC_NPIN'].invalid &&
+                                        (angForm.controls['AC_NPIN'].dirty ||
+                                          angForm.controls['AC_NPIN'].touched)
+                                      " class="alert alert-danger">
                                         <div *ngIf="
-                                    angForm.controls['AC_NPIN'].errors
-                                      ?.pattern ||
-                                    angForm.controls['AC_NPIN'].errors
-                                      ?.minlength ||
-                                    angForm.controls['AC_NPIN'].errors
-                                      ?.maxlength
-                                  ">
+                                          angForm.controls['AC_NPIN'].errors
+                                            ?.pattern ||
+                                          angForm.controls['AC_NPIN'].errors
+                                            ?.minlength ||
+                                          angForm.controls['AC_NPIN'].errors
+                                            ?.maxlength
+                                        ">
                                           Input allowed only 0-9
                                         </div>
                                       </div>
@@ -1329,11 +1328,11 @@
                                         <div class="row">
                                           <div class="col-sm">
                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                              (click)="editNominee(indexOfelement)" placement=" bottom"
+                                              (click)="editNominee(indexOfelement)" placement="top"
                                               ngbTooltip="Edit"></span>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <span class="fa fa-fw fa-trash-o" id="deletebutton"
-                                              (click)="delNominee(indexOfelement)" placement="bottom"
+                                              (click)="delNominee(indexOfelement)" placement="right"
                                               ngbTooltip="Delete"></span>
                                           </div>
                                         </div>
@@ -1342,30 +1341,45 @@
                                       <td>{{ data.AC_NRELA }}</td>
                                       <td class="td_right"
                                         [ngClass]="data.AGE === ''  || data.AGE == null ? 'td_center' : 'td_right'">
-                                        {{data.AGE === '' || data.AGE == null ? '-' : data.AGE}}</td>
+                                        {{data.AGE === '' || data.AGE ==
+                                        null ? '-' : data.AGE}}</td>
                                       <td class="td_center"
                                         [ngClass]="data.AC_NDATE === '' ? 'td_center' : 'td_center'">
-                                        {{data.AC_NDATE === ''? '-' : data.AC_NDATE}}</td>
+                                        {{data.AC_NDATE === ''? '-' :
+                                        data.AC_NDATE}}</td>
                                       <td class="td_left"
                                         [ngClass]="data.AC_NHONO === '' || data.AC_NHONO == null  ? 'td_center' : 'td_left'">
-                                        {{data.AC_NHONO === '' || data.AC_NHONO == null ? '-' : data.AC_NHONO}}</td>
+                                        {{data.AC_NHONO === '' ||
+                                        data.AC_NHONO == null ? '-' :
+                                        data.AC_NHONO}}</td>
                                       <td class="td_left"
                                         [ngClass]="data.AC_NWARD === '' || data.AC_NWARD == null ? 'td_center' : 'td_left'">
-                                        {{data.AC_NWARD === '' || data.AC_NWARD == null ? '-' : data.AC_NWARD}}</td>
+                                        {{data.AC_NWARD === '' ||
+                                        data.AC_NWARD == null ? '-' :
+                                        data.AC_NWARD}}</td>
                                       <td class="td_left"
                                         [ngClass]="data.AC_NADDR === '' || data.AC_NADDR == null ? 'td_center' : 'td_left'">
-                                        {{data.AC_NADDR === '' || data.AC_NADDR == null ? '-' : data.AC_NADDR}}</td>
+                                        {{data.AC_NADDR === '' ||
+                                        data.AC_NADDR == null ? '-' :
+                                        data.AC_NADDR}}</td>
                                       <td class="td_left"
                                         [ngClass]="data.AC_NGALLI === '' || data.AC_NGALLI == null ? 'td_center' : 'td_left'">
-                                        {{data.AC_NGALLI === '' || data.AC_NGALLI == null ? '-' : data.AC_NGALLI}}</td>
+                                        {{data.AC_NGALLI === '' ||
+                                        data.AC_NGALLI == null ? '-' :
+                                        data.AC_NGALLI}}</td>
                                       <td class="td_left"
                                         [ngClass]="data.AC_NAREA === '' || data.AC_NAREA == null ? 'td_center' : 'td_left'">
-                                        {{data.AC_NAREA === '' || data.AC_NAREA == null ? '-' : data.AC_NAREA}}</td>
+                                        {{data.AC_NAREA === '' ||
+                                        data.AC_NAREA == null ? '-' :
+                                        data.AC_NAREA}}</td>
                                       <td class="td_left" [ngClass]="data.AC_NCTCODE === '' ? 'td_center' : 'td_left'">
-                                        {{data.AC_NCTCODE === ''? '-' : data.AC_CITYNAME}}</td>
+                                        {{data.AC_NCTCODE === ''? '-' :
+                                        data.AC_CITYNAME}}</td>
                                       <td class="td_center"
                                         [ngClass]="data.AC_NPIN === ''|| data.AC_NPIN == null ? 'td_center' : 'td_right'">
-                                        {{data.AC_NPIN === '' || data.AC_NPIN == null ? '-' : data.AC_NPIN}}</td>
+                                        {{data.AC_NPIN === '' ||
+                                        data.AC_NPIN == null ? '-' :
+                                        data.AC_NPIN}}</td>
                                     </tr>
                                   </tbody>
                                   <tbody *ngIf="multiNominee?.length == 0">
@@ -1475,11 +1489,11 @@
                                         <div class="row">
                                           <div class="col-sm">
                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                              (click)="editJointAc(indexOfelement)" placement=" bottom"
+                                              (click)="editJointAc(indexOfelement)" placement="top"
                                               ngbTooltip="Edit"></span>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <span class="fa fa-fw fa-trash-o" id="deletebutton"
-                                              (click)="delJointAc(indexOfelement)" placement="bottom"
+                                              (click)="delJointAc(indexOfelement)" placement="right"
                                               ngbTooltip="Delete"></span>
                                           </div>
                                         </div>
@@ -1557,9 +1571,10 @@
                                     <div class="form-group input-group">
                                       <span class="border-lable-flt">
                                         <input type="text" placeholder="Datepicker" name="DATE_APPOINTED"
-                                          [(ngModel)]="ngappointeddate" class="form-control" id="DATE_APPOINTED"
-                                          [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [bsValue]="bsValue"  [maxDate]="maxDate"
-                                          formControlName="DATE_APPOINTED" bsDatepicker>
+                                          placeholder="dd/mm/yyyy" [(ngModel)]="ngappointeddate" class="form-control"
+                                          id="DATE_APPOINTED" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                          [maxDate]="maxDate" [maxDate]="maxDate" formControlName="DATE_APPOINTED"
+                                          bsDatepicker>
                                         <!-- <input type="date" name="DATE_APPOINTED" class="form-control" placeholder=" "
                                           id="DATE_APPOINTED" max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                           (focusout)="disabledate(date.value)" formControlName="DATE_APPOINTED" /> -->
@@ -1589,8 +1604,9 @@
                                     <div class="form-group input-group">
                                       <span class="border-lable-flt">
                                         <input type="text" placeholder="Datepicker" name="DATE_EXPIRY"
-                                          class="form-control" id="DATE_EXPIRY" [(ngModel)]="ngexpiryddate"
-                                          [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [bsValue]="bsValue" [minDate]="minDate"
+                                          placeholder="dd/mm/yyyy" class="form-control" id="DATE_EXPIRY"
+                                          [(ngModel)]="ngexpiryddate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                          (bsValueChange)="checkdate($event)" [minDate]="minDate"
                                           formControlName="DATE_EXPIRY" bsDatepicker>
                                         <!-- <input type="date" name="DATE_EXPIRY" class="form-control" placeholder=" "
                                           id="DATE_EXPIRY" max="9999-12-31" formControlName="DATE_EXPIRY" #expiry
@@ -1634,11 +1650,11 @@
                                         <div class="row">
                                           <div class="col-sm">
                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                              (click)="editAttorney(indexOfelement)" placement="bottom"
+                                              (click)="editAttorney(indexOfelement)" placement="top"
                                               ngbTooltip="Edit"></span>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <span class="fa fa-fw fa-trash-o" id="deletebutton"
-                                              (click)="delAttorney(indexOfelement)" placement="bottom"
+                                              (click)="delAttorney(indexOfelement)" placement="right"
                                               ngbTooltip="Delete"></span>
                                           </div>
                                         </div>
@@ -1696,13 +1712,13 @@
                                   <tbody *ngIf="customerDoc?.length != 0">
                                     <tr *ngFor="let data of customerDoc;
                                       let indexOfelement = index">
-                                      <td>{{ data.DocumentMasterID }}</td>
+                                      <td>{{ indexOfelement + 1 }}</td>
                                       <td>{{ data.DocumentMaster.NAME }}</td>
                                       <td style="align-items: center;">
                                         <div class="col-sm-2">
                                           <span style="font-size: 20px;color: #0f459b; cursor: pointer;"
                                             (click)="modalLarge.show();viewImagePreview($event,documentUrl+data.PATH)"
-                                            placement="bottom" ngbTooltip="Show Image"
+                                            placement="right" ngbTooltip="Show Image"
                                             class="fa fa-fw fa-eye field-icon"></span>
                                         </div>
                                       </td>

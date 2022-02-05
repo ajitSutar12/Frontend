@@ -28,14 +28,10 @@ import { OccupationMasterService } from "../../../../shared/dropdownService/occu
 import { SalaryDMasterdropdownService } from "../../../../shared/dropdownService/salary-division-master-dropdown.service";
 import { cityMasterService } from "../../../../shared/dropdownService/city-master-dropdown.service";
 import { RiskCategoryDropdownService } from "../../../../shared/dropdownService/risk-category-dropdown.service";
-import { FileUploader } from "ng2-file-upload";
 import { DocumentMasterDropdownService } from "../../../../shared/dropdownService/document-master-dropdown.service";
 import { environment } from "../../../../../environments/environment";
 import { Router } from "@angular/router";
 import { NgSelectComponent } from "@ng-select/ng-select/lib/ng-select.component";
-import { ConnectionServiceModule } from "ng-connection-service";
-import { StrictNumberOnlyDirective } from '../../../../restrictinput';
-import { json } from "ngx-custom-validators/src/app/json/validator";
 import * as moment from 'moment';
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
@@ -169,6 +165,15 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   ngselectbool: boolean = true;
   today: Date;
   focus: boolean = true;
+  ngfinyear: any
+  imageError: string;
+  isImageSaved: boolean;
+  cardImageBase64: string;
+  selectedImagePreview: any;
+  selectedImgArrayDetails = [];
+  isImgPreview: boolean = false
+  imgBase64: any
+  showImage: boolean = false;
 
   //dropdown ngModel variables
   ngCast: any = null
@@ -176,7 +181,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   ngRisk: any = null
   ngCity: any = null
   ngTitle: any = null
-
+  updatecheckdata: any
+  ngSubmitDate:any
   bsValue
   maxDate: Date;
 
@@ -194,17 +200,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     private documentMasterService: DocumentMasterDropdownService,
     public router: Router
   ) {
-    // this.datemax =new Date() ;
-    // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
   }
 
   ngOnInit(): void {
     this.createForm();
-    // let title = document.getElementById('title')as HTMLInputElement;
-    // title.focus;
 
     // Fetching Server side data
     this.dtExportButtonOptions = {
@@ -441,7 +442,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     this.cityMaster.getcityList().pipe(first()).subscribe((data) => {
       this.city = data;
-      console.log('city', this.city)
     });
     this.riskCategoryDropdown
       .getRiskCategoryList()
@@ -450,10 +450,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         this.risk = data;
       });
   }
-  // uploader: FileUploader = new FileUploader({
-  //   // url: URL,
-  //   isHTML5: true,
-  // });
 
   createForm() {
     this.angForm = this.fb.group({
@@ -501,11 +497,15 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   submit(event) {
     let birthdate
     let submitdate
-
     event.preventDefault();
     this.formSubmitted = true;
+    if (this.angForm.controls['TDSDOCUMNET'].value == true) {
+      this.SUBMIT_DATE = true
+    } else {
+      this.SUBMIT_DATE = true
+    }
     if (this.angForm.valid) {
-      debugger
+
       const formVal = this.angForm.value;
       const dataToSend = {
         'AC_NO': formVal.AC_NO,
@@ -540,7 +540,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_AREA': formVal.AC_AREA,
         'AC_CTCODE': formVal.AC_CTCODE,
         'AC_PIN': formVal.AC_PIN,
-        'FIN_YEAR': formVal.FIN_YEAR,
+        'FIN_YEAR': this.ngfinyear,
         // 'SUBMIT_DATE': formVal.SUBMIT_DATE,
         'SUBMIT_DATE': (formVal.SUBMIT_DATE == '' || formVal.SUBMIT_DATE == 'Invalid date') ? submitdate = '' : submitdate = moment(formVal.SUBMIT_DATE).format('DD/MM/YYYY'),
         'FORM_TYPE': formVal.FORM_TYPE,
@@ -548,10 +548,15 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'TDS_LIMIT': formVal.TDS_LIMIT,
         'Document': this.imageObject
       }
-      console.log(dataToSend)
       this.customerIdService.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire("Success!", "Data Added Successfully !", "success");
+          Swal.fire({
+            icon: 'success',
+            title: 'Account Created successfully!',
+            html:
+              '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+              '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>'
+          })
           this.formSubmitted = false;
 
 
@@ -566,6 +571,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           console.log(error);
         }
       );
+      this.ngRisk = null
+      this.ngCity = null
+      this.ngTitle = null
       //To clear form
       this.resetForm();
       this.imageObject = []
@@ -597,6 +605,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     //   // this.angForm.get('AC_BIRTH_DT').nativeElement.focus();
     // }
   }
+
   //disabledate on keyup
   disablesubdate(data: any) {
     if (data != "") {
@@ -610,8 +619,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //method for force only numbers input
   onlyNumberKey(evt) {
-
-
     // Only ASCII character in that range allowed
     let ASCIICode = (evt.which) ? evt.which : evt.keyCode;
     if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) {
@@ -620,13 +627,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     else {
       return false;
     }
-    // evt.preventDefault();
-    // return true;
   }
 
   // Reset Function
   resetForm() {
-
     this.isDocument = false;
     this.isTdsForm = false;
     this.isTdsFormA = false;
@@ -635,8 +639,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ngRisk = null
     this.ngCity = null
     this.ngTitle = null
+    this.ngfinyear = null
+    this.ngSubmitDate = null
     this.createForm();
-    // this.documentMaster = []
     this.documentMasterService
       .getDocumentMasterList()
       .pipe(first())
@@ -648,7 +653,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.imageObject = []
     this.isImgPreview = false
   }
-
 
   addNewData() {
     this.showButton = true;
@@ -662,14 +666,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     if (ele.target.checked) {
       (document.getElementById("file" + id) as HTMLInputElement).disabled =
         false;
-      // (document.getElementById("eyebutton" + id) as HTMLInputElement).disabled =
-      //   false;
-
+      
     } else {
       (document.getElementById("file" + id) as HTMLInputElement).disabled = true;
       (document.getElementById("file" + id) as HTMLInputElement).value = "";
-      // (document.getElementById("eyeicon" + id) as HTMLInputElement).disabled =
-      //   true;
+     
     }
   }
 
@@ -692,36 +693,26 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       .join(" ");
     (document.getElementById("AC_ADHARNO") as HTMLInputElement).value = result;
   }
-
+  
   //method for adding hyphen in date
   addhyphen(data: any) {
-
-    // let result = data
-    //   .replace(/\D/g, "")
-    //   .split(/(?:([\d]{4}))/g)
-    //   .filter((s) => s.length > 0)
-    //   .join("-");
-
     let date = new Date().getFullYear() + 1;
-
-
     let result = Number((document.getElementById("FIN_YEAR") as HTMLInputElement).value);
     if (result > date) {
       Swal.fire("Warning!", "please enter valid Year ", "warning");
       (document.getElementById("FIN_YEAR") as HTMLInputElement).value = "";
-
     }
     else {
       if (data.length == 4) {
         result += 1;
-        (document.getElementById("FIN_YEAR") as HTMLInputElement).value = data + "-" + result;
+        this.ngfinyear = data + "-" + result;
       }
 
     }
 
     // (document.getElementById("FIN_YEAR") as HTMLInputElement).value = result;
   }
-
+ 
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
@@ -730,11 +721,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let birthdate
     let submitdate
     this.customerIdService.getFormData(id).subscribe((data) => {
-      console.log('edit', data)
+      this.updatecheckdata = data
       this.updateID = data.id;
       this.ngRisk = data.AC_RISKCATG
       this.ngoccupation = data.AC_OCODE
       this.ngCast = data.AC_CAST
+      this.ngfinyear = data.tdsForm.FIN_YEAR
+      this.ngSubmitDate = (data.tdsForm.SUBMIT_DATE == 'Invalid date' || data.tdsForm.SUBMIT_DATE == '' || data.tdsForm.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm.SUBMIT_DATE,
       // this.ngCity = data.custAddress[0].AC_CTCODE
       this.angForm.patchValue({
         AC_NO: data.AC_NO,
@@ -769,14 +762,15 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         TDS_REQUIRED: data.TDS_REQUIRED,
         SMS_REQUIRED: data.SMS_REQUIRED,
         IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
-        FIN_YEAR: data.tdsForm.FIN_YEAR,
+        // FIN_YEAR: data.tdsForm.FIN_YEAR,
         // SUBMIT_DATE: data.tdsForm.SUBMIT_DATE,
-        SUBMIT_DATE: (data.tdsForm.SUBMIT_DATE == 'Invalid date' || data.tdsForm.SUBMIT_DATE == '' || data.tdsForm.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm.SUBMIT_DATE,
+        // SUBMIT_DATE: (data.tdsForm.SUBMIT_DATE == 'Invalid date' || data.tdsForm.SUBMIT_DATE == '' || data.tdsForm.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm.SUBMIT_DATE,
         FORM_TYPE: data.tdsForm.FORM_TYPE,
         TDS_RATE: data.tdsForm.TDS_RATE,
         TDS_LIMIT: data.tdsForm.TDS_LIMIT,
 
       });
+
       if (data.TDSDOCUMNET == true) {
         this.isTdsForm = true;
         this.isTdsFormA = false;
@@ -810,7 +804,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
-
+ 
   //Method for update data
   updateData() {
     let date
@@ -818,8 +812,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let data = this.angForm.value;
     data["id"] = this.updateID;
     data['Document'] = this.imageObject;
-    (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
-    (data.SUBMIT_DATE == 'Invalid date' || data.SUBMIT_DATE == '' || data.SUBMIT_DATE == null) ? (sudate = '', data['SUBMIT_DATE'] = sudate) : (sudate = data.AC_BIRTH_DT, data['SUBMIT_DATE'] = moment(sudate).format('DD/MM/YYYY'));
+    if (this.updatecheckdata.AC_BIRTH_DT != data.AC_BIRTH_DT) {
+      (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
+    }
+    if (this.updatecheckdata.tdsForm.SUBMIT_DATE != data.SUBMIT_DATE) {
+      (data.SUBMIT_DATE == 'Invalid date' || data.SUBMIT_DATE == '' || data.SUBMIT_DATE == null) ? (sudate = '', data['SUBMIT_DATE'] = sudate) : (sudate = data.SUBMIT_DATE, data['SUBMIT_DATE'] = moment(sudate).format('DD/MM/YYYY'));
+    }
+    data['FIN_YEAR'] = this.ngfinyear
     this.customerIdService.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -876,6 +875,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     });
   }
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
@@ -929,6 +929,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.angForm.controls['TDS_LIMIT'].reset()
     }
   }
+
   isForm15A(value) {
     if (value == 1) {
       this.isTdsFormA = true;
@@ -944,14 +945,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.angForm.controls['TDS_LIMIT'].reset()
     }
   }
-  // cancel() {
-  //   this.uploader = null;
-  // }
-  imageError: string;
-  isImageSaved: boolean;
-  cardImageBase64: string;
-  selectedImagePreview: any;
-  selectedImgArrayDetails = [];
 
   fileChangeEvent(event: Event, id, valueid) {
     let result
@@ -972,12 +965,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('Error: ', error);
     };
 
-    // if (obj != this.imageObject.keys) {
-    //   this.imageObject.push(obj);
-    //   console.log(this.imageObject);
-    // } else {
-
-    // }
     let isExist: boolean = false
     for (let element of this.imageObject) {
       if (Number(Object.keys(element)[0]) == valueid) {
@@ -1002,9 +989,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.imageObject.push(obj);
       this.selectedImgArrayDetails.push(selectedObj);
     }
-    // else {
-    //   console.log('update path')
-    // }
+   
   }
 
   // method for close modal on add and close click
@@ -1014,9 +999,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     closemodal.click();
 
   }
-  isImgPreview: boolean = false
-  imgBase64: any
-  showImage: boolean = false;
+
   viewImagePreview(ele, id) {
     for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
       let jsonObj = value;
@@ -1033,8 +1016,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
   }
-  checkCustomer() {
 
+  checkCustomer() {
     this.customerIdService.getData().subscribe(data => {
       if (data?.length != 0) {
         if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value)) {
@@ -1075,12 +1058,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     })
   }
+  
   checkAdhar() {
     let adhar: any[];
     this.customerIdService.getData().subscribe(data => {
       if (data?.length != 0) {
         if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
-          debugger
           if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
             Swal.fire({
               icon: 'info',
@@ -1107,24 +1090,23 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
-  checkPancard() {
-    this.customerIdService.getData().subscribe(data => {
-      if (data?.length != 0) {
-        if (data.find(data => data['AC_PANNO'] == (this.angForm.controls['AC_PANNO'].value == ''))) {
-          if (data.find(data => data['AC_PANNO'] == this.angForm.controls['AC_PANNO'].value)) {
-            Swal.fire({
-              icon: 'info',
-              title: 'This Pan Number is Already Extsts',
-            })
-            this.angForm.controls['AC_PANNO'].reset();
-          }
-        }
-      }
-    })
-  }
+  // checkPancard() {
+  //   this.customerIdService.getData().subscribe(data => {
+  //     if (data?.length != 0) {
+  //       if (data.find(data => data['AC_PANNO'] == (this.angForm.controls['AC_PANNO'].value == ''))) {
+  //         if (data.find(data => data['AC_PANNO'] == this.angForm.controls['AC_PANNO'].value)) {
+  //           Swal.fire({
+  //             icon: 'info',
+  //             title: 'This Pan Number is Already Extsts',
+  //           })
+  //           this.angForm.controls['AC_PANNO'].reset();
+  //         }
+  //       }
+  //     }
+  //   })
+  // }
 
   validation(event) {
-    debugger
     if (event != (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)) {
       Swal.fire("Warning!", "Please Insert Alphabets Only", "warning");
     }

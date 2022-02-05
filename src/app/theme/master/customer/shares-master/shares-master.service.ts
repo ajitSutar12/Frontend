@@ -33,6 +33,10 @@ export class ShareMasterService {
     updateData(data): Observable<any> {
         return this.http.put(this.url + '/share-master/update', data);
     }
+
+    updateDataPyatrans(data): Observable<any> {
+        return this.http.put(this.url + '/share-master/payDivTrans', data);
+    }
     //Deletion Operation
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/share-master/delete/' + id).pipe(catchError(this.handleError));

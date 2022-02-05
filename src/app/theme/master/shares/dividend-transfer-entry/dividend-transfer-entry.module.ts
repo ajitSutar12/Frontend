@@ -8,9 +8,13 @@ import { MembernoService } from '../../../../shared/elements/memberno.service';
 import { AcountnoService } from '../../../../shared/elements/acountno.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SelectModule } from 'ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { ShareMasterService } from 'src/app/theme/master/customer/shares-master/shares-master.service';
 
 
 
@@ -20,12 +24,12 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     DividendTransferEntryRoutingModule,
     DataTablesModule,
     NgbModule,
-    SelectModule,
+    NgSelectModule,
     FormsModule,
     ReactiveFormsModule
   ],
   declarations: [DividendTransferEntryComponent],
-  providers: [Scheme1Service, MembernoService, AcountnoService,{
+  providers: [SchemeCodeDropdownService, SchemeAccountNoService, OwnbranchMasterService,ShareMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

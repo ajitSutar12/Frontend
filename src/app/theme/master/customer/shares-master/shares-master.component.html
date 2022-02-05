@@ -255,11 +255,10 @@
                                                                             name="AC_RETIRE_DATE" id="AC_RETIRE_DATE"
                                                                             class="form-control"
                                                                             [(ngModel)]="retiredate"
-                                                                            max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_RETIRE_DATE"
-                                                                            minlength="10" maxlength="10"
+                                                                            minlength="10" maxlength="10" disabled
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                             bsDatepicker>
 
@@ -818,14 +817,12 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" placeholder="dd/mm/yyyy"
                                                                             name="AC_EXPDT" id="AC_EXPDT"
-                                                                            [(ngModel)]="ngExpiryDate"
                                                                             class="form-control" [minDate]="minDate"
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_EXPDT"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                                            minlength="10" maxlength="10"
-                                                                            [bsValue]="bsValue" bsDatepicker>
+                                                                            minlength="10" maxlength="10" bsDatepicker>
                                                                         <label for="AC_EXPDT">Expiry Date</label>
                                                                         <!-- <input type="date" name="AC_EXPDT"
                                                                             class="form-control" placeholder=" "
@@ -837,6 +834,15 @@
                                                             <div class="col-sm-3">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
+                                                                        <!-- <input type="text" placeholder="dd/mm/yyyy"
+                                                                        name="DEATH_DATE" id="DEATH_DATE"
+                                                                        class="form-control" required
+                                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        formControlName="DEATH_DATE"
+                                                                        [maxDate]="maxDate"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                        minlength="10" maxlength="10" bsDatepicker> -->
                                                                         <input type="text" placeholder="dd/mm/yyyy"
                                                                             name="DEATH_DATE" id="DEATH_DATE"
                                                                             [(ngModel)]="ngDeathDate"
@@ -845,8 +851,7 @@
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                             formControlName="DEATH_DATE" minlength="10"
-                                                                            maxlength="10" [bsValue]="bsValue"
-                                                                            bsDatepicker>
+                                                                            maxlength="10" bsDatepicker>
                                                                         <!-- <input type="date" name="DEATH_DATE"
                                                                             class="form-control" placeholder=" "
                                                                             id="DEATH_DATE"
@@ -1042,10 +1047,9 @@
                                                                         <input type="text" placeholder="dd/mm/yyyy"
                                                                             name="AC_RESDT" id="AC_RESDT"
                                                                             class="form-control" required
-                                                                            max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            formControlName="AC_RESDT"
+                                                                            formControlName="AC_RESDT" [maxDate]="maxDate"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                             minlength="10" maxlength="10" bsDatepicker>
                                                                         <!-- <input type="date" name="AC_RESDT"
@@ -1759,14 +1763,14 @@
                                                                                                 class="fa fa-fw fa-edit field-icon"
                                                                                                 id="editbutton"
                                                                                                 (click)="editNominee(indexOfelement)"
-                                                                                                placement=" bottom"
+                                                                                                placement="top"
                                                                                                 ngbTooltip="Edit"></span>
                                                                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                                                                             <span
                                                                                                 class="fa fa-fw fa-trash-o"
                                                                                                 id="deletebutton"
                                                                                                 (click)="delNominee(indexOfelement)"
-                                                                                                placement="bottom"
+                                                                                                placement="right"
                                                                                                 ngbTooltip="Delete"></span>
                                                                                         </div>
                                                                                     </div>
@@ -1951,7 +1955,7 @@
                                                                                         <span
                                                                                             style="font-size: 20px;color: #0f459b; cursor: pointer;"
                                                                                             (click)="modalLarge.show();viewImagePreview($event,documentUrl+data.PATH)"
-                                                                                            placement="bottom"
+                                                                                            placement="right"
                                                                                             ngbTooltip="Show Image"
                                                                                             class="fa fa-fw fa-eye field-icon"></span>
                                                                                     </div>
@@ -2135,12 +2139,10 @@
                                 [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="shareMaster?.length != 0">
                                     <tr *ngFor="let data of shareMaster">
-                                        <td>
-                                            <!-- {{data.SYSCHNG_LOGIN == null ?  ' <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                        <td [ngClass]="data.SYSCHNG_LOGIN">{{data.SYSCHNG_LOGIN}}
+                                            <!-- <span [ngClass]="data.SYSCHNG_LOGIN == '' ?' fa fa-fw fa-edit field-icon':'fa fa-fw fa-eye field-icon'"  id="editbutton"
                                             (click)="editClickHandler(data.id)" placement="bottom"
-                                            ngbTooltip="Edit" *ngIf="editicon"></span>' :   '<span class="fa fa-fw fa-eye field-icon" id="viewbutton"
-                                            style="cursor: pointer;" (click)="editClickHandler(data.id)"
-                                            placement="bottom" ngbTooltip="View" *ngIf="viewicon"></span>'}} -->
+                                            ngbTooltip="Edit" *ngIf="editicon"></span>  -->
                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
                                                 (click)="editClickHandler(data.id)" placement="bottom"
                                                 ngbTooltip="Edit"></span>

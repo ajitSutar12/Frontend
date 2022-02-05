@@ -13,12 +13,18 @@
             <div class="col-sm-3">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt" autofocus>
-                  <ng-select bindValue="value" [(ngModel)]="ngItem" id="ITEM_TYPE" formControlName="ITEM_TYPE"
-                    title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" required
+                  <ng-select id="ITEM_TYPE" bindValue="value" [(ngModel)]="ngItem" formControlName="ITEM_TYPE"
+                  bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                  placeholder="Item Type">
+                  <ng-option *ngFor="let values of itemtypeoption" [value]="values">
+                    {{values.label}}</ng-option>
+                </ng-select>
+                  <!-- <ng-select bindValue="value" [(ngModel)]="ngItem" id="ITEM_TYPE" formControlName="ITEM_TYPE"
+                    title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"  bindLabel="label" required
                     placeholder="Item Type">
                     <ng-option *ngFor="let values of itemtypeoption" [value]="values">
                       {{values.label}}</ng-option>
-                  </ng-select>
+                  </ng-select> -->
                   <label for="ITEM_TYPE">Item Type <sub class="required"> * </sub></label>
                 </span>
               </div>
@@ -84,7 +90,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" placeholder="dd/mm/yyyy" name="PURCHASE_DATE" id="PURCHASE_DATE"
-                    class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"  [maxDate]="maxDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="PURCHASE_DATE" [bsValue]="bsValue"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="PURCHASE_DATE">Purchase Date<sub class="required">*
@@ -115,12 +121,18 @@
             <div class="col-sm-3">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select bindValue="value" [(ngModel)]="ngDepre" id="DEPR_CATEGORY" formControlName="DEPR_CATEGORY"
+                  <ng-select id="DEPR_CATEGORY" bindValue="value" [(ngModel)]="ngDepre" formControlName="DEPR_CATEGORY"
+                  bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                  placeholder="Depriciation Category">
+                  <ng-option *ngFor="let values of DeprCategoryoption" [value]="values">
+                    {{values.label}}</ng-option>
+                </ng-select>
+                  <!-- <ng-select bindValue="value" [(ngModel)]="ngDepre" id="DEPR_CATEGORY" formControlName="DEPR_CATEGORY"
                     title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" required
                     placeholder="Depr. Category">
                     <ng-option *ngFor="let values of DeprCategoryoption" [value]="values">
                       {{values.label}}</ng-option>
-                  </ng-select>
+                  </ng-select> -->
                   <label for="DEPR_CATEGORY">Depreciation Category <sub class="required"> * </sub></label>
                 </span>
               </div>
@@ -145,11 +157,10 @@
                 <span class="border-lable-flt">
                   <input type="text" placeholder="dd/mm/yyyy" name="OP_BAL_DATE" id="OP_BAL_DATE" class="form-control"
                     required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                    [ngClass]="{'form-submitted': formSubmitted}"
+                    [ngClass]="{'form-submitted': formSubmitted}"  [maxDate]="maxDate"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                    formControlName="OP_BAL_DATE" [bsValue]="bsValue" bsDatepicker>
-                  <label for="OP_BAL_DATE">Opening Balance Date<sub class="required">*
-                    </sub></label>
+                    formControlName="OP_BAL_DATE"  (bsValueChange)="getDate($event)" bsDatepicker>
+                  <label for="OP_BAL_DATE">Opening Balance Date</label>
                 </span>
               </div>
               <!-- <div class="form-group input-group">
@@ -160,15 +171,7 @@
                   <label for="OP_BAL_DATE">Opening Balance Date</label>
                 </span>
               </div> -->
-              <div class="form-group form-primary form-static-label" *ngIf="
-              angForm.controls['OP_BAL_DATE'].invalid &&
-              (angForm.controls['OP_BAL_DATE'].dirty ||
-                angForm.controls['OP_BAL_DATE'].touched)
-            " class="alert alert-danger">
-                <div *ngIf="angForm.controls['OP_BAL_DATE'].errors?.required">
-                  This field is required
-                </div>
-              </div>
+
             </div>
           </div>
           <div class="row">
@@ -188,7 +191,7 @@
                   <input type="text" name="Name" class="form-control" placeholder=" " id="SUPPLIER_NAME" value=""
                     pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
                     (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                    formControlName="SUPPLIER_NAME" [ngClass]="{'form-submitted': formSubmitted}" />
+                    formControlName="SUPPLIER_NAME" [ngClass]="{'form-submitted': formSubmitted}"  disabled/>
                   <label for="SUPPLIER_NAME">Supplier Name</label>
                 </span>
               </div>
@@ -213,7 +216,7 @@
                     pattern="\d{1,20}(\.\d{2})?" maxlength="13" title="Input allowed only  0-9"
                     style="text-align: right;"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    formControlName="OP_BALANCE" />
+                    formControlName="OP_BALANCE" disabled />
                   <label for="OP_BALANCE">Opening Amount</label>
                 </span>
               </div>
@@ -232,7 +235,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="OP_QUANTITY" class="form-control" placeholder=" " id="OP_QUANTITY"
                     style="text-align: right;" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                    pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="4" formControlName="OP_QUANTITY" />
+                    pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="4" formControlName="OP_QUANTITY" disabled/>
                   <label for="OP_QUANTITY">Quantity</label>
                 </span>
               </div>
@@ -253,7 +256,7 @@
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" maxlength="13"
                     style="text-align: right;"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    formControlName="PURCHASE_RATE" ng-init="firstnumber=0" [(ngModel)]="firstnumber" />
+                    formControlName="PURCHASE_RATE" ng-init="firstnumber=0" [(ngModel)]="firstnumber" disabled/>
                   <label for="PURCHASE_RATE">Purchase Rate</label>
                 </span>
               </div>
@@ -275,7 +278,7 @@
                   <input type="text" name="Account" class="form-control" placeholder=" " id="PURCHASE_OP_QUANTITY"
                     value="" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="4" style="text-align: right;"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" formControlName="PURCHASE_OP_QUANTITY"
-                    ng-init="secondnumber=0" [(ngModel)]="secondnumber" />
+                    ng-init="secondnumber=0" [(ngModel)]="secondnumber" disabled/>
                   <label for="PURCHASE_OP_QUANTITY">Purchase Qty</label>
                 </span>
               </div>
@@ -294,9 +297,9 @@
                 <span class="border-lable-flt">
                   <input type="text" name="Account" class="form-control" placeholder=" " id="PURCHASE_VALUE"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="PURCHASE_VALUE"
-                    style="text-align: right;"
+                    style="text-align: right;" [(ngModel)]="purValue"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    value="{{ firstnumber * secondnumber }}" />
+                    value="{{ firstnumber * secondnumber }}" disabled />
                   <label for="PURCHASE_VALUE"> Purchase Value</label>
                 </span>
               </div>
@@ -315,7 +318,7 @@
                 <span class="border-lable-flt">
                   <input type="text" placeholder="dd/mm/yyyy" name="LAST_DEPR_DATE" id="LAST_DEPR_DATE"
                     class="form-control" [ngClass]="{'form-submitted': formSubmitted}" formControlName="LAST_DEPR_DATE"
-                    [(ngModel)]="nglastdedate"
+                    [(ngModel)]="nglastdedate" disabled  [maxDate]="maxDate"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
                   <label for="LAST_DEPR_DATE">Last Depreciation Date</label>
                 </span>

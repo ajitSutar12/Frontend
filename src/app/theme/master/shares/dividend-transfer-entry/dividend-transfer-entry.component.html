@@ -3,12 +3,115 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Payable Dividend Transfer</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h5>Payable Dividend Transfer Instruction</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt" autofocus>
+                                    <ng-select bindValue="value" [(ngModel)]="selectedValue" id="AC_TYPE"
+                                        formControlName="AC_TYPE" title="Compulsory Selection"
+                                        (change)="getmemNo($event)" [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Scheme">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="
+                                  angForm.controls['AC_TYPE'].invalid &&
+                                  (angForm.controls['AC_TYPE'].dirty ||
+                                    angForm.controls['AC_TYPE'].touched)
+                                " class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt" autofocus>
+                                    <ng-select bindValue="value" [(ngModel)]="memValue" id="AC_NO"
+                                        formControlName="AC_NO" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="Member Number" (change)="getData($event)">
+                                        <ng-option *ngFor="let values of memnoACNo" [value]="values">
+                                            {{values.label}} {{values.name}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_NO">Member Number <sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="
+                              angForm.controls['AC_NO'].invalid &&
+                              (angForm.controls['AC_NO'].dirty ||
+                                angForm.controls['AC_NO'].touched)
+                            " class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_NO'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="DIV_TRANSFER_BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="DIV_TRANSFER_BRANCH" bindLabel="label"
+                                        title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                                        (change)="getBranch($event)" placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="DIV_TRANSFER_BRANCH">Branch</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="DIV_TRANSFER_ACTYPE" bindValue="value" [(ngModel)]="ngDivACType"
+                                        formControlName="DIV_TRANSFER_ACTYPE" bindLabel="label"
+                                        title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                                        (change)="getDivTrans($event)" placeholder="Account Type">
+                                        <ng-option *ngFor="let values of allScheme" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="DIV_TRANSFER_ACTYPE">Account
+                                        Type</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="DIV_TRANSFER_ACNO" bindValue="value" [(ngModel)]="ngDivACNO"
+                                        formControlName="DIV_TRANSFER_ACNO" bindLabel="AC_NO"
+                                        title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                                        (focus)="getDiviTransfer()" placeholder="Account Number">
+                                        <ng-option *ngFor="let values of divTransferNO" [value]="values">
+                                            {{values.label}} {{values.name}}
+                                        </ng-option>
+                                    </ng-select>
+                                    <label for="DIV_TRANSFER_ACNO">Account
+                                        Number</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateDataPyatrans()">Update</button>
+                        </div>
+                    </div>
+
+                    <!-- <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
@@ -101,13 +204,13 @@
                             <button class="btn btn-primary ripple light" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </form>
         </div>
     </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-block">
@@ -123,4 +226,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

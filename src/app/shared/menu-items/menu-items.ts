@@ -448,7 +448,7 @@ const MENUITEMS = [
               },
               {
                 state : 'dividendTransferEntry',
-                name:'Dividend Transfer Entry',
+                name:'Dividend Transfer Instruction',
                 id:60
               },
               {
