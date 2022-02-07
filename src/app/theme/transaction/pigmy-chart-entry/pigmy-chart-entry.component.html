@@ -1,107 +1,135 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <form class="form-material" action="javascript:">
-                <div class="card-header">
-                    <h5>Pigmy Chart</h5>
-                    <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
-                </div>
+            <div class="card-header">
+                <h5>Pigmy Chart</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input class="form-control" type="text" id="date" name="date"
-                                onfocus="(this.type='date')" value="{{ message.date}}" required=""
-                                    name="notingdate" >
-                                <label class="float-label">Date</label>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="TRAN_DATE" class="form-control" formControlName="TRAN_DATE"
+                                        disabled>
+                                    <!-- <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
+                                        class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRAN_DATE"
+                                        [bsValue]="sysDate" bsDatepicker disabled> -->
+                                    <label for="TRAN_DATE">Date</label>
+                                </span>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
-                                <input type="text" name="branchcode" class="form-control"
-                                    value="{{ message.branchcode}}" required="" disabled>
-                                <span class="form-bar"></span>
-                                <label class="float-label">Branch Code</label>
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
+                                        placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="BRANCH">Branch</label>
+                                </span>
                             </div>
-
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm">
-
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
-                                <input type="text" name="vouhcerno" class="form-control" value="{{ message.vouchernumber}}"
-                                    required="" disabled>
-                                <span class="form-bar"></span>
-                                <label class="float-label">Voucher Number</label>
+                                <span class="border-lable-flt">
+                                    <ng-select bindValue="value" [(ngModel)]="ngschemeCode" id="AGENT_ACTYPE"
+                                        bindLabel="label" formControlName="AGENT_ACTYPE"
+                                        (change)="getPigmyAgentAcnoList()" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{values.label}} </ng-option>
+                                    </ng-select>
+                                    <label for="AGENT_ACTYPE">Scheme <sub class="required"> * </sub></label>
+                                </span>
                             </div>
-
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AGENT_ACTYPE'].invalid && (angForm.controls['AGENT_ACTYPE'].dirty || angForm.controls['AGENT_ACTYPE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AGENT_ACTYPE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
                         </div>
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select bindValue="value" [(ngModel)]="ngAgentCode" id="AGENT_ACNO"
+                                        bindLabel="label" formControlName="AGENT_ACNO" (change)="getTable($event)"
+                                        title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Agent">
+                                        <ng-option *ngFor="let values of agentACNO" [value]="values">
+                                            {{values.label}} </ng-option>
+                                    </ng-select>
+                                    <label for="AGENT_ACNO">Agent<sub class="required"> * </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AGENT_ACNO'].invalid && (angForm.controls['AGENT_ACNO'].dirty || angForm.controls['AGENT_ACNO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AGENT_ACNO'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption" name="scheme" [multiple]="false" placeholder="Scheme Code *" required>
-                                </ng-select>
-                                <label>{{ message.scheme }}</label>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="CHART_NO" class="form-control"
+                                        placeholder=" " id="CHART_NO" title="Input allowed only 0-9"
+                                        (focus)="selectAllContent($event)" maxlength="1" minlength="1"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        formControlName="CHART_NO" required>
+                                    <label for="CHART_NO">Chart Number<sub class="required"> *
+                                        </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['CHART_NO'].invalid && (angForm.controls['CHART_NO'].dirty || angForm.controls['CHART_NO'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['CHART_NO'].errors?.required || angForm.controls['CHART_NO'].errors?.minlength || angForm.controls['CHART_NO'].errors?.maxlength">
+                                    This field is required and Input allowed only 0-9
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="simpleOption1" name="agent" [multiple]="false" placeholder="Agent *" required>
-                                </ng-select>
-                                <label>{{ message.agent }}</label>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="TRAN_AMOUNT" class="form-control" id="TRAN_AMOUNT"
+                                        formControlName="TRAN_AMOUNT" style="text-align: right;" disabled>
+                                    <label class="float-label">Total Amount</label>
+                                </span>
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="agent" class="form-control" value="{{ message.chartnumber}}"
-                                    required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Chart No.</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="agent" class="form-control" value="{{ message.totalamount}}"
-                                    required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Total Amount</label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="table-responsive">
-                                <table datatable [dtOptions]="dtExportButtonOptions"
-                                    class="table table-striped table-bordered table-hover" style="width: 100%;">
-                                </table>
-                            </div>
+                        <div class="col-sm" style="float: right;">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                                (click)="submit()"> Submit </button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                                Cancel </button>&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                                Update</button>
                         </div>
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions1"
-                                class="table table-striped table-bordered table-hover" style="width: 100%;">
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

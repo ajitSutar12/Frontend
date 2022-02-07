@@ -260,6 +260,19 @@ export class SchemeAccountNoService {
                 return this.schemeObject;
             }));
     }
+
+    public getpigmyChartAcno(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/pigmy-agent-master/scheme/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
+
     public getPigmyAgentSchemeList2(schemeid) {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/pigmy-agent-master/pigmyscheme/' + schemeid)

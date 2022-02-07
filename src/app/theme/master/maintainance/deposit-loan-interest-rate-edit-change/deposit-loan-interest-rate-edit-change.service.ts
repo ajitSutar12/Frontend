@@ -66,6 +66,13 @@ export class DepositLoanInterestRateEditChangeService {
       }));
   }
 
+  getLNData(): Observable<any> {
+    return this.http.get(this.url + '/term-loan-master/effectDate').pipe(catchError(this.handleError));
+  }
+
+  getCCData(): Observable<any> {
+    return this.http.get(this.url + '/cash-credit-master/effectDate').pipe(catchError(this.handleError));
+  }
 }
 
 

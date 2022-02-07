@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { environment } from '../../../../../environments/environment'
@@ -42,6 +41,11 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   showTable: boolean = false
   tableArr: any
   mem: any
+  interestList = []
+  memFrom
+  memTo
+  branch
+  InterestRate: string
 
   constructor(private fb: FormBuilder, private _SchemeCodeDropdown: SchemeCodeDropdownService,
     private http: HttpClient, private _schemeAccountNoService: SchemeAccountNoService,
@@ -53,7 +57,6 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
 
   ngOnInit(): void {
     this.createForm();
-
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -78,15 +81,52 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     });
   }
 
+  //function to get ac no according branch
   getBranch() {
     this.getInterestTransfer()
   }
-
+  //get acnotype from selected scheme
   getIntTrans(event) {
     this.getschemename = event.name
     this.getInterestTransfer()
   }
-
+  //check effect date form existing data in LNACINTRATE table
+  checkeffectDate() {
+    if (this.getschemename == 'LN') {
+      let effectDate = moment(this.angForm.controls['EFFECT_DATE'].value).format('YYYY-DD-MM')
+      this._interestRateChange.getLNData().subscribe(data => {
+        if (data?.length != 0) {
+          if (data.find(data => data['EFFECT_DATE'] != (effectDate == ''))) {
+            if (data.find(data => data['EFFECT_DATE'] == effectDate)) {
+              Swal.fire({
+                icon: 'info',
+                title: 'This Effect Date is Already Exist For Loan Accounts',
+              })
+              this.angForm.controls['EFFECT_DATE'].reset();
+            }
+          }
+        }
+      })
+    }
+    else if (this.getschemename == 'CC') {
+      let effectDate = moment(this.angForm.controls['EFFECT_DATE'].value).format('YYYY-DD-MM')
+      this._interestRateChange.getCCData().subscribe(data => {
+        console.log('effect date', data)
+        if (data?.length != 0) {
+          if (data.find(data => data['EFFECT_DATE'] != (effectDate == ''))) {
+            if (data.find(data => data['EFFECT_DATE'] == effectDate)) {
+              Swal.fire({
+                icon: 'info',
+                title: 'This Effect Date is Already Exist For Cash Credit Accounts',
+              })
+              this.angForm.controls['EFFECT_DATE'].reset();
+            }
+          }
+        }
+      })
+    }
+  }
+  //fetch acno list according scheme and branch code
   getInterestTransfer() {
     this.ngAcnoFrom = null
     this.ngAcnoTo = null
@@ -97,7 +137,6 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     switch (this.getschemename) {
       case 'LN':
         this._interestRateChange.getTermLoanSchemeList1(this.obj).subscribe(data => {
-          console.log('ln acno', data)
           this.startAcNo = data;
           this.endAcNo = data;
         })
@@ -105,7 +144,6 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
 
       case 'TD':
         this._interestRateChange.getTermDepositSchemeList1(this.obj).subscribe(data => {
-          console.log('TD acno', data)
           this.startAcNo = data;
           this.endAcNo = data;
         })
@@ -113,19 +151,17 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
 
       case 'CC':
         this._schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-          console.log('CC acno', data)
           this.startAcNo = data;
           this.endAcNo = data;
         })
         break;
     }
   }
-
   //select content of field
   selectAllContent($event) {
     $event.target.select();
   }
-  //checks percentage of unsecured
+  //checks percentage of interest rate
   checkInt(event) {
     if (Number(event) > 20) {
       Swal.fire('Info', 'Please Input Interest upto 20', 'info')
@@ -134,39 +170,47 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
       })
     }
   }
-
+  //load acno according start and end acno
   loadAcno() {
-    var memFrom = this.angForm.controls['AC_NOFrom'].value
-    var memTo = this.angForm.controls['AC_NOTo'].value
+    this.memFrom = this.angForm.controls['AC_NOFrom'].value
+    this.memTo = this.angForm.controls['AC_NOTo'].value
+    this.branch = this.angForm.controls['BRANCH'].value
     if (this.angForm.controls['AC_NOFrom'].value < this.angForm.controls['AC_NOTo'].value) {
-      this.mem = [memFrom, memTo]
+      this.mem = [this.memFrom, this.memTo, this.branch]
       if (this.getschemename == 'TD') {
         this.http.get(this.url + '/term-deposits-master/interest/' + this.mem).subscribe((data) => {
           this.tableArr = data;
-          console.log('td table', this.tableArr)
         });
       }
       else if (this.getschemename == 'CC') {
         this.http.get(this.url + '/cash-credit-master/interest/' + this.mem).subscribe((data) => {
           this.tableArr = data;
-          console.log('cc table', this.tableArr)
+          console.log('table cc data', data)
         });
       }
       else if (this.getschemename == 'LN') {
         this.http.get(this.url + '/term-loan-master/interest/' + this.mem).subscribe((data) => {
           this.tableArr = data;
-          console.log('ln table', this.tableArr)
+          console.log('table ln data', data)
         });
       }
       this.dtTrigger.next();
     }
+    else {
+      Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+    }
   }
-
+  //table show or hide
   viewCurrentInt() {
-    this.showTable = true
+    if (this.angForm.controls['AC_NOFrom'].value < this.angForm.controls['AC_NOTo'].value) {
+      this.showTable = true
+    }
+    else {
+      Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+      this.showTable = false
+    }
   }
-
-  InterestRate: string
+  //radio button selection variable 
   changeInterestRate(value) {
     if (value == 1) {
       this.InterestRate = "Add"
@@ -181,20 +225,17 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
       this.InterestRate = ""
     }
   }
-
+  //submit function 
   submit() {
     this.formSubmitted = true;
     if (this.angForm.valid) {
-      console.log(this.angForm.value);
       if (this.getschemename == 'TD') {
         const dataToSend = {
           'InterestArr': this.tableArr,
           'Interest': this.InterestRate,
           'InterestRate': this.angForm.controls['INT_RATE'].value
         }
-        console.log("dataToSend", dataToSend)
         this._interestRateChange.updateData(dataToSend).subscribe(data => {
-          console.log(data, "submit data")
           Swal.fire('Success!', 'Record Updated Successfully !', 'success');
           this.formSubmitted = false;
         }, (error) => {
@@ -202,15 +243,17 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
         })
       }
       else if (this.getschemename == 'LN' || this.getschemename == 'CC') {
+        let effectDate = moment(this.angForm.controls['EFFECT_DATE'].value).format('YYYY-DD-MM')
+        this.interestList = [this.memFrom, this.memTo, this.branch, this.getschemename, this.schemeCode, effectDate]
         const dataToSend = {
           'InterestArr': this.tableArr,
           'Interest': this.InterestRate,
           'InterestRate': this.angForm.controls['INT_RATE'].value,
-          'EFFECT_DATE': moment(this.angForm.controls['EFFECT_DATE'].value).format('DD/MM/YYYY'),
-          'MemList': this.mem
+          'EFFECT_DATE': effectDate,
+          'MemList': this.mem,
+          'InterestList': this.interestList
         }
         this._interestRateChange.postData(dataToSend).subscribe(data => {
-          console.log(data, "submit data")
           Swal.fire('Success!', 'Record Added Successfully !', 'success');
           this.formSubmitted = false;
         }, (error) => {
@@ -220,7 +263,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     }
     this.resetForm()
   }
-
+  //resetForm form after submit function
   resetForm() {
     this.tableArr = []
     this.showTable = false

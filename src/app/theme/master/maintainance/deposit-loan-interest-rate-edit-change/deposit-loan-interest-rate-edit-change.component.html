@@ -58,7 +58,8 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
                                         class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" minlength="10" maxlength="10"
-                                        [minDate]="minDate"
+                                        [minDate]="minDate" (bsValueChange)="checkeffectDate()"
+                                        (focusout)="checkeffectDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="EFFECT_DATE" [bsValue]="bsValue" bsDatepicker>
                                     <label for="EFFECT_DATE">Effect Date<sub class="required">*
@@ -81,7 +82,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom"
                                         bindLabel="AC_NO" formControlName="AC_NOFrom" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="loadAcno()"
                                         placeholder="Starting Account Number">
                                         <ng-option *ngFor="let values of startAcNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -163,7 +164,7 @@
                                 *ngIf="angForm.controls['INT_RATE'].invalid && (angForm.controls['INT_RATE'].dirty || angForm.controls['INT_RATE'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['INT_RATE'].errors?.pattern || angForm.controls['INT_RATE'].errors?.max || angForm.controls['INT_RATE'].errors?.required || angForm.controls['INT_RATE'].errors?.minlength || angForm.controls['UNSECURED_PERCENT'].errors?.maxlength">
+                                    *ngIf="angForm.controls['INT_RATE'].errors?.pattern || angForm.controls['INT_RATE'].errors?.max || angForm.controls['INT_RATE'].errors?.required || angForm.controls['INT_RATE'].errors?.minlength || angForm.controls['INT_RATE'].errors?.maxlength">
                                     This field is required and Input allowed only 0-9
                                 </div>
                             </div>
@@ -194,8 +195,9 @@
                                             <tbody *ngIf="tableArr?.length != 0">
                                                 <tr *ngFor="let data of tableArr;
                                             let indexOfelement = index">
-                                                    <td>{{data.AC_NO}}</td>
-                                                    <td>{{data.AC_NAME}}</td>
+                                                    <td>{{data.BANKACNO}}</td>
+                                                    <td>{{data.AC_NAME == '' || data.AC_NAME == null ?
+                                                        data.termLoan.AC_NAME : data.AC_NAME}}</td>
                                                     <td>{{data.AC_INTRATE == '' || data.AC_INTRATE == null?
                                                         data.INT_RATE:data.AC_INTRATE}}</td>
                                                 </tr>

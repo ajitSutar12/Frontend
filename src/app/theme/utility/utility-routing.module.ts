@@ -119,7 +119,7 @@ const routes: Routes = [
       },
       {
         path: 'menulist',
-        loadChildren: ()=> import('./menulist/menulist.module').then(m=>m.MenulistModule)
+        loadChildren: () => import('./menulist/menulist.module').then(m => m.MenulistModule)
       }
     ]
   }
