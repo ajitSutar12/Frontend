@@ -201,7 +201,8 @@
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" placeholder="dd/mm/yyyy"
-                                                                            name="AC_OPDATE" id="AC_OPDATE" [(ngModel)]= "openingDate"
+                                                                            name="AC_OPDATE" id="AC_OPDATE"
+                                                                            [(ngModel)]="openingDate"
                                                                             class="form-control" required
                                                                             max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
@@ -1255,14 +1256,13 @@
                                                                                     <span class="border-lable-flt">
                                                                                         <input type="text"
                                                                                             placeholder="Datepicker"
-                                                                                            name="AC_NDATE"
                                                                                             placeholder="dd/mm/yyyy"
+                                                                                            name="AC_NDATE"
+                                                                                            [(ngModel)]="ngnomineedate"
+                                                                                            [minDate]="minDate"
                                                                                             class="form-control"
                                                                                             id="AC_NDATE"
-                                                                                            max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                            #date
                                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                                            [minDate]="maxDate"
                                                                                             formControlName="AC_NDATE"
                                                                                             bsDatepicker>
                                                                                         <!-- <input type="date" name="" class="form-control" placeholder=" "
@@ -1412,8 +1412,8 @@
                                                                                             id="AC_NGALLI"
                                                                                             pattern="^[A-Za-z0-9\./ -]+$"
                                                                                             maxlength="40"
-                                                                                            title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                                             style="text-transform: capitalize;"
+                                                                                            title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                                             formControlName="AC_NGALLI" />
                                                                                         <label
                                                                                             for="AC_NGALLI">Galli</label>
@@ -1620,14 +1620,14 @@
                                                                                                 class="fa fa-fw fa-edit field-icon"
                                                                                                 id="editbutton"
                                                                                                 (click)="editNominee(indexOfelement)"
-                                                                                                placement=" bottom"
+                                                                                                placement="top"
                                                                                                 ngbTooltip="Edit"></span>
                                                                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                                                                             <span
                                                                                                 class="fa fa-fw fa-trash-o"
                                                                                                 id="deletebutton"
                                                                                                 (click)="delNominee(indexOfelement)"
-                                                                                                placement="bottom"
+                                                                                                placement="right"
                                                                                                 ngbTooltip="Delete"></span>
                                                                                         </div>
                                                                                     </div>
@@ -1751,7 +1751,6 @@
                                                                                         name="JOINT_ACNAME"
                                                                                         class="form-control"
                                                                                         placeholder=" "
-                                                                                        style="text-transform: capitalize;"
                                                                                         id="JOINT_ACNAME"
                                                                                         pattern="^[A-Za-z\./ -]+$"
                                                                                         formControlName="JOINT_ACNAME"
@@ -1820,14 +1819,14 @@
                                                                                                 class="fa fa-fw fa-edit field-icon"
                                                                                                 id="editbutton"
                                                                                                 (click)="editJointAc(indexOfelement)"
-                                                                                                placement=" bottom"
+                                                                                                placement="top"
                                                                                                 ngbTooltip="Edit"></span>
                                                                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                                                                             <span
                                                                                                 class="fa fa-fw fa-trash-o"
                                                                                                 id="deletebutton"
                                                                                                 (click)="delJointAc(indexOfelement)"
-                                                                                                placement="bottom"
+                                                                                                placement="right"
                                                                                                 ngbTooltip="Delete"></span>
                                                                                         </div>
                                                                                     </div>
@@ -1890,7 +1889,6 @@
                                                                                         placeholder=" "
                                                                                         id="ATTERONEY_NAME"
                                                                                         pattern="^[A-Za-z\./ -]+$"
-                                                                                        style="text-transform: capitalize;"
                                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                         formControlName="ATTERONEY_NAME"
                                                                                         maxlength="100"
@@ -1924,15 +1922,14 @@
                                                                                 <span class="border-lable-flt">
                                                                                     <input type="text"
                                                                                         placeholder="Datepicker"
-                                                                                        [(ngModel)]="ngappdate"
                                                                                         name="DATE_APPOINTED"
+                                                                                        placeholder="dd/mm/yyyy"
+                                                                                        [(ngModel)]="ngappointeddate"
                                                                                         class="form-control"
                                                                                         id="DATE_APPOINTED"
-                                                                                        max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                        #date
                                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                                        (focusout)="disabledate(date.value)"
-                                                                                        [bsValue]="bsValue"
+                                                                                        [maxDate]="maxDate"
+                                                                                        [maxDate]="maxDate"
                                                                                         formControlName="DATE_APPOINTED"
                                                                                         bsDatepicker>
                                                                                     <!-- <input type="date" name="DATE_APPOINTED" class="form-control" placeholder=" "
@@ -1968,13 +1965,13 @@
                                                                                     <input type="text"
                                                                                         placeholder="Datepicker"
                                                                                         name="DATE_EXPIRY"
+                                                                                        placeholder="dd/mm/yyyy"
                                                                                         class="form-control"
                                                                                         id="DATE_EXPIRY"
-                                                                                        max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                        #date
+                                                                                        [(ngModel)]="ngexpiryddate"
                                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                                        (focusout)="disabledate(date.value)"
-                                                                                        [bsValue]="bsValue"
+                                                                                        (bsValueChange)="checkdate($event)"
+                                                                                        [minDate]="minDate"
                                                                                         formControlName="DATE_EXPIRY"
                                                                                         bsDatepicker>
                                                                                     <!-- <input type="date" name="DATE_EXPIRY" class="form-control" placeholder=" "
@@ -2030,14 +2027,14 @@
                                                                                                 class="fa fa-fw fa-edit field-icon"
                                                                                                 id="editbutton"
                                                                                                 (click)="editAttorney(indexOfelement)"
-                                                                                                placement="bottom"
+                                                                                                placement="top"
                                                                                                 ngbTooltip="Edit"></span>
                                                                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                                                                             <span
                                                                                                 class="fa fa-fw fa-trash-o"
                                                                                                 id="deletebutton"
                                                                                                 (click)="delAttorney(indexOfelement)"
-                                                                                                placement="bottom"
+                                                                                                placement="right"
                                                                                                 ngbTooltip="Delete"></span>
                                                                                         </div>
                                                                                     </div>
@@ -2104,14 +2101,14 @@
                                                                         <tbody *ngIf="customerDoc?.length != 0">
                                                                             <tr *ngFor="let data of customerDoc;
                                                             let indexOfelement = index">
-                                                                                <td>{{ data.DocumentMasterID }}</td>
+                                                                                <td>{{ indexOfelement + 1 }}</td>
                                                                                 <td>{{ data.DocumentMaster.NAME }}</td>
                                                                                 <td style="align-items: center;">
                                                                                     <div class="col-sm-2">
                                                                                         <span
                                                                                             style="font-size: 20px;color: #0f459b; cursor: pointer;"
                                                                                             (click)="modalLarge.show();viewImagePreview($event,documentUrl+data.PATH)"
-                                                                                            placement="bottom"
+                                                                                            placement="right"
                                                                                             ngbTooltip="Show Image"
                                                                                             class="fa fa-fw fa-eye field-icon"></span>
                                                                                     </div>
@@ -2202,8 +2199,9 @@
                                 [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="currentAccountMaster?.length != 0">
                                     <tr *ngFor="let data of currentAccountMaster">
-                                        <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                        placement="bottom" ngbTooltip="Edit"></span>
+                                        <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                            (click)="editClickHandler(data.id)" placement="bottom"
+                                            ngbTooltip="Edit"></span>
                                         <!-- <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
                                                 (click)="editClickHandler(data.id)">Edit</button></td> -->
                                         <!-- <td [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_left'"> {{

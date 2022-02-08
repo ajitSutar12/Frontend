@@ -558,14 +558,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-
-  // guardianname() {
-  //   if (this.angForm.controls['AC_NAME'].value == this.angForm.controls['AC_GRDNAME'].value) {
-  //     Swal.fire('Warning!', 'Please Enter Guardian Name Other Than Customer Name!', 'error');
-  //     this.angForm.controls['AC_GRDNAME'].reset()
-  //   }
-  // }
-
   onCloseModal() {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
@@ -897,13 +889,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
-    // this.showButton = false;
-    // this.updateShow = true;
-    // this.newbtnShow = true;
+  
     this.angForm.controls['AC_TYPE'].disable()
-    // this.AC_TYPE = true
-    // this.AC_CUSTID = true
-    this.AC_OPDATE = true
+      this.AC_OPDATE = true
     let opdate
     this.savingMasterService.getFormData(id).subscribe(data => {
       debugger
@@ -917,13 +905,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.updateShow = false;
         this.newbtnShow = true;
       }
-      console.log('edit data', data)
-      console.log('edit data', this.acno)
-      console.log('edit data', this.ngIntroducer)
-      console.log('edit data', this.branchCode)
-      console.log('edit data', data.AC_INTROID)
-      console.log('edit data', data.AC_INTROBRANCH)
-      console.log('edit data', data.AC_INTROBRANCH)
 
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
@@ -1066,9 +1047,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     else if (data.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
-    let data1: any = localStorage.getItem('user');
-    let result = JSON.parse(data1);
-    let branchCode = result.branch.id;
+    // let data1: any = localStorage.getItem('user');
+    // let result = JSON.parse(data1);
+    // let branchCode = result.branch.id;
     data['AC_TYPE'] = this.selectedValue
     data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
@@ -1082,7 +1063,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_INTROID'] = this.acno
     data['AC_INTRACNO'] = this.ngIntroducer
     data['id'] = this.updateID;
-    data['branchCode'] = branchCode;
+    // data['branchCode'] = branchCode;
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
       (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
     } else {

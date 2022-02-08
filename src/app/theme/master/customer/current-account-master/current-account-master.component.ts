@@ -415,24 +415,6 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     })
   }
 
-  //set open date, appointed date and expiry date
-  getSystemParaDate() {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      console.log('Syspara date', data)
-      this.ngappdate = moment(data.CURRENT_DATE).format('DD/MM/YYYY')
-      this.openingDate = moment(data.CURRENT_DATE).format('DD/MM/YYYY')
-      this.angForm.patchValue({
-        // AC_OPDATE: moment(data.CURRENT_DATE).format('DD/MM/YYYY'),
-        // DATE_APPOINTED: moment(data.CURRENT_DATE).format('DD/MM/YYYY'),
-        // AC_NDATE: moment(data.CURRENT_DATE).format('DD/MM/YYYY'),
-      })
-      if (data.ON_LINE === true) {
-        this.angForm.controls['AC_OPDATE'].disable()
-      } else {
-        this.angForm.controls['AC_OPDATE'].enable()
-      }
-    })
-  }
   customer(event) {
 
     this.getCustomer(event.value);
@@ -483,7 +465,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         AC_MEMBNO: data.AC_MEMBNO,
         AC_CAST: data.castMaster.NAME,
         AC_OCODE: data.occupMaster.NAME,
-        AC_BIRTH_DT:data.AC_BIRTH_DT,
+        AC_BIRTH_DT: data.AC_BIRTH_DT,
         AC_MOBNO: data.AC_MOBILENO,
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,
@@ -606,117 +588,15 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       DATE_EXPIRY: ['', []],
     })
   }
-  //nominee, joint account and attorney selection display
-  OpenLink(val) {
-    if (val == 1) {
-      this.nomineeTrue = !this.nomineeTrue;
-      this.JointAccountsTrue = false;
-      this.PowerofAttorneyTrue = false;
-    }
-    if (val == 2) {
-      this.JointAccountsTrue = !this.JointAccountsTrue;
-      this.nomineeTrue = false;
-      this.PowerofAttorneyTrue = false;
-    }
-    if (val == 3) {
-      this.PowerofAttorneyTrue = !this.PowerofAttorneyTrue;
-      this.JointAccountsTrue = false;
-      this.nomineeTrue = false;
-    }
-  }
-
-  getIntro(event) {
-    this.getschemename = event.name
-    this.getIntroducer()
-  }
-  //get account no according scheme for introducer
-  getIntroducer() {
-    this.obj = [this.acno, this.code]
-    switch (this.getschemename) {
-      case 'SB':
-        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'SH':
-        this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'CA':
-        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'LN':
-        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-          console.log(this.introducerACNo)
-        })
-        break;
-
-      case 'DS':
-        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'CC':
-        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'GS':
-        this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'PG':
-        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'AG':
-        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'IV':
-        this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-    }
-  }
-
-  //get introducer name according account no
-  getIntroducerName(value: any) {
-    this.angForm.patchValue({
-      AC_INTRNAME: value.name
-    })
-  }
-  getScheme(value) {
-    this.schemeCode = value.name
-  }
+  tempopendate: any
   // Method to insert data into database through NestJS
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
-
+    let temdate
+    let opdate
     if (this.angForm.valid) {
+
       const formVal = this.angForm.value;
       if (formVal.AC_ADDFLAG == true) {
         this.addType = 'P'
@@ -725,40 +605,47 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         this.addType = 'T'
       }
       if (this.angForm.controls['AC_TCTCODE'].value == "") {
-        formVal.AC_TCTCODE = null
+        formVal.AC_TCTCODE = 0
       }
       //get bank code and branch code from session
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
       let branchCode = result.branch.id;
-      let bankCode = Number(result.branch.syspara.BANK_CODE)
-
       let schecode
-      let opdate
       console.log(this.scheme)
-
+      if (this.tempopendate != this.openingDate) {
+        temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
+      } else {
+        temdate = this.openingDate
+      }
       this.scheme.forEach(async (element) => {
-        console.log(element.name)
+        console.log(this.selectedValue, "this.selectedValue")
+        console.log(element)
+        console.log(element, "element")
         if (element.value == this.selectedValue) {
+          console.log(true)
+          console.log(element.name, "element.S_APPL")
           schecode = element.name
+
           console.log(schecode)
         }
       })
+
+      let bankCode = Number(result.branch.syspara.BANK_CODE)
       // opdate = (document.getElementById("AC_OPDATE") as HTMLInputElement).value;
       const dataToSend = {
         'branchCode': branchCode,
         'bankCode': bankCode,
         'schemeCode': schecode,
+        'AC_PROPRITOR_NAME': formVal.AC_PROPRITOR_NAME,
         'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
         'AC_TYPE': formVal.AC_TYPE,
-        'AC_PROPRITOR_NAME': formVal.AC_PROPRITOR_NAME,
-        'AC_CATG': parseInt(formVal.AC_CATG),
-        'AC_BALCATG': parseInt(formVal.AC_BALCATG),
-        'AC_OPR_CODE': parseInt(formVal.AC_OPR_CODE),
-        'AC_CUSTID': parseInt(formVal.AC_CUSTID),
-        'AC_INTCATA': parseInt(formVal.AC_INTCATA),
-        // 'AC_OPDATE': (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY'),
-        'AC_OPDATE': this.openingDate,
+        'AC_CATG': formVal.AC_CATG,
+        'AC_BALCATG': formVal.AC_BALCATG,
+        'AC_OPR_CODE': formVal.AC_OPR_CODE,
+        'AC_CUSTID': formVal.AC_CUSTID,
+        'AC_INTCATA': formVal.AC_INTCATA,
+        'AC_OPDATE': temdate,
         'AC_NAME': formVal.AC_NAME,
         'AC_SCHMAMT': formVal.AC_SCHMAMT,
         'REF_ACNO': formVal.REF_ACNO,
@@ -771,6 +658,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         AC_TADDR: formVal.AC_TADDR,
         AC_TGALLI: formVal.AC_TGALLI,
         AC_TAREA: formVal.AC_TAREA,
+        // AC_TCTCODE: formVal.AC_TCTCODE == null ? "" : formVal.AC_TCTCODE.id,
         AC_TCTCODE: formVal.AC_TCTCODE,
         AC_TPIN: formVal.AC_TPIN,
         //minor and introducer
@@ -778,11 +666,15 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         // 'AC_MBDATE': formVal.AC_MBDATE,
         // 'AC_GRDNAME': formVal.AC_GRDNAME,
         // 'AC_GRDRELE': formVal.AC_GRDRELE,
+        // 'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+        // 'AC_INTROBRANCH': formVal.AC_INTROBRANCH == null ? "" : formVal.AC_INTROBRANCH.id,
+        // 'AC_INTROID': formVal.AC_INTROID == null ? "" : formVal.AC_INTROID.id,
+        // 'AC_INTRACNO': formVal.AC_INTRACNO == null ? "" : formVal.AC_INTRACNO.id,
         'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
         'AC_INTROID': formVal.AC_INTROID,
         'AC_INTRACNO': formVal.AC_INTRACNO,
         'AC_INTRNAME': formVal.AC_INTRNAME,
-        'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+
         //nominee
         'NomineeData': this.multiNominee,
         //Joint Account
@@ -818,12 +710,13 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
     }
   }
-
+  updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
-
+    let opdate
     this.angForm.controls['AC_TYPE'].disable()
     this.currentAccountMasterService.getFormData(id).subscribe(data => {
+      this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
         this.updateShow = true;
@@ -833,6 +726,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         this.updateShow = false;
         this.newbtnShow = true;
       }
+
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       //get nominee to edit
@@ -843,115 +737,97 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.multiAttorney = data.powerOfAttorney
       this.selectedValue = data.AC_TYPE
       this.ngCategory = data.AC_CATG
+      this.ngOccupation = data.AC_OPR_CODE
       this.ngBalCategory = data.AC_BALCATG
       this.ngIntCategory = data.AC_INTCATA
-      // this.ngOccupation = data.AC_OPR_CODE
-      // this.code = data.AC_INTROBRANCH
-      // this.acno = data.AC_INTROID
-      // this.ngIntroducer = data.AC_INTRACNO
-      let opdate
-      this.angForm.patchValue({
-        'AC_ACNOTYPE': data.AC_ACNOTYPE,
-        // 'AC_TYPE': data.AC_TYPE,
-        'AC_NO': data.AC_NO,
-        'AC_PROPRITOR_NAME': data.AC_PROPRITOR_NAME,
-        // 'AC_CATG': data.AC_CATG.toString(),
-        // 'AC_BALCATG': data.AC_BALCATG.toString(),
-        'AC_OPR_CODE': Number(data.AC_OPR_CODE),
-        // 'AC_INTCATA': data.AC_INTCATA.toString(),
-        'AC_OPDATE': (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
-        'AC_SCHMAMT': data.AC_SCHMAMT,
-        'REF_ACNO': data.REF_ACNO,
-        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
-        'BANKACNO': data.BANKACNO,
-        //minor and introducer
-        // 'AC_MINOR': data.AC_MINOR,
-        // 'AC_MBDATE': data.AC_MBDATE,
-        // 'AC_GRDNAME': data.AC_GRDNAME,
-        // 'AC_GRDRELE': data.AC_GRDRELE,
-        // 'AC_INTROBRANCH': data.AC_INTROBRANCH,
-        // 'AC_INTROID': data.AC_INTROID,
-        // 'AC_INTRACNO': data.AC_INTRACNO,
-        'AC_INTRNAME': data.AC_INTRNAME,
-        'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
-      })
       if ((data.AC_INTROBRANCH != null && data.AC_INTROID != null && data.AC_INTRACNO != null) || (data.AC_INTROBRANCH != "" && data.AC_INTROID != "" && data.AC_INTRACNO != "")) {
-        this.angForm.patchValue({
-          AC_INTROBRANCH: data.AC_INTROBRANCH,
-        })
-        this.acno = data.AC_INTROID,
+
+        this.code = data.AC_INTROBRANCH,
+          this.acno = Number(data.AC_INTROID),
           this.obj = [this.acno, this.code]
 
         this.allScheme.forEach(async (element) => {
-          if (element.id == this.acno) {
-
-            this.getschemename = element.S_ACNOTYPE
+          if (element.value == this.acno) {
+            this.getschemename = element.name
           }
         })
         switch (this.getschemename) {
           case 'SB':
             this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+              console.log('introducer name data', data)
               this.introducerACNo = data;
+
             })
             break;
 
           case 'SH':
             this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
+
             })
             break;
 
           case 'CA':
             this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
+
             })
             break;
 
           case 'LN':
             this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
+
             })
             break;
 
           case 'TD':
             this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
+
             })
             break;
 
           case 'DS':
             this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
+
             })
             break;
 
           case 'CC':
             this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
+
             })
             break;
 
           case 'GS':
             this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+              debugger
               this.introducerACNo = data;
+
             })
             break;
 
           case 'PG':
             this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
+
             })
             break;
 
           case 'AG':
             this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
+
             })
             break;
 
           case 'IV':
             this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
               this.introducerACNo = data;
+
             })
             break;
         }
@@ -962,12 +838,39 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         this.acno = null
         this.obj = null
       }
+
+      this.angForm.patchValue({
+        'AC_ACNOTYPE': data.AC_ACNOTYPE,
+        // 'AC_TYPE': data.AC_TYPE.toString(),
+        'AC_NO': data.AC_NO,
+        'AC_PROPRITOR_NAME':data.AC_PROPRITOR_NAME,
+        // 'AC_CATG': data.AC_CATG.toString(),
+        // 'AC_BALCATG': data.AC_BALCATG.toString(),
+        // 'AC_OPR_CODE': data.AC_OPR_CODE.toString(),
+        // 'AC_INTCATA': data.AC_INTCATA.toString(),
+        'AC_OPDATE': (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
+        'AC_SCHMAMT': data.AC_SCHMAMT,
+        'REF_ACNO': data.REF_ACNO,
+        'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
+        'BANKACNO': data.BANKACNO,
+        //minor and introducer
+        'AC_MINOR': data.AC_MINOR,
+        'AC_MBDATE': data.AC_MBDATE,
+        'AC_GRDNAME': data.AC_GRDNAME,
+        'AC_GRDRELE': data.AC_GRDRELE,
+        // 'AC_INTROBRANCH': data.AC_INTROBRANCH,
+        // 'AC_INTROID': data.AC_INTROID,
+        // 'AC_INTRACNO': data.AC_INTRACNO == null ? "" : data.AC_INTRACNO.id,
+        'AC_INTRNAME': data.AC_INTRNAME,
+        'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
+      })
     })
   }
 
   //Method for update data 
   updateData() {
     let opdate
+    this.angForm.controls['AC_TYPE'].enable()
     let data = this.angForm.value;
     if (data.AC_ADDFLAG == true) {
       this.addType = 'P'
@@ -975,31 +878,43 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     else if (data.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
-    if (this.angForm.controls['AC_TCTCODE'].value == "") {
-      data['AC_TCTCODE'] = null
-    }
+    // let data1: any = localStorage.getItem('user');
+    // let result = JSON.parse(data1);
+    // let branchCode = result.branch.id;
+    data['AC_TYPE'] = this.selectedValue
     data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
     data['JointAccountData'] = this.multiJointAC
     data['PowerOfAttorneyData'] = this.multiAttorney
-    data['AC_TYPE'] = this.selectedValue
+    data['AC_CATG'] = this.ngCategory
+    data['AC_OPR_CODE'] = this.ngOccupation
+    data['AC_BALCATG'] = this.ngBalCategory
+    data['AC_INTCATA'] = this.ngIntCategory
+    data['AC_INTROBRANCH'] = this.code
+    data['AC_INTROID'] = this.acno
+    data['AC_INTRACNO'] = this.ngIntroducer
     data['id'] = this.updateID;
-    (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')),
-      this.currentAccountMasterService.updateData(data).subscribe(() => {
-        Swal.fire('Success!', 'Record Updated Successfully !', 'success');
-        this.showButton = true;
-        this.updateShow = false;
-        this.newbtnShow = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-        this.multiNominee = []
-        this.multiJointAC = []
-        this.multiAttorney = []
-        this.customerDoc = []
-        this.resetForm();
-      })
-    this.angForm.controls['AC_TYPE'].enable()
+    // data['branchCode'] = branchCode;
+    if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
+      (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
+    } else {
+      data['AC_OPDATE'] = this.openingDate
+    }
+    console.log(data, " this.savingMasterService update")
+    this.currentAccountMasterService.updateData(data).subscribe(() => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.showButton = true;
+      this.updateShow = false;
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      this.multiNominee = []
+      this.multiJointAC = []
+      this.multiAttorney = []
+      this.customerDoc = []
+      this.resetForm();
+    })
   }
   //reset function while update
   addNewData() {
@@ -1115,41 +1030,172 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     });
   }
 
-  //calculate age for minor details
-  // ageCalculator(birthDate) {
-  //   let showAge: number
-  //   if (birthDate) {
-  //     const convertAge = new Date(birthDate);
-  //     const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-  //     showAge = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-  //     if (showAge <= 18) {
-  //       this.angForm.controls['AC_MINOR'].setValue(true);
-  //       this.angForm.controls['AC_GRDNAME'].enable();
-  //       this.angForm.controls['AC_GRDRELE'].enable();
-  //       this.introducerReq = true
-  //     }
-  //     else if (showAge > 18) {
-  //       this.angForm.controls['AC_MINOR'].setValue(false);
-  //       this.angForm.controls['AC_GRDNAME'].disable();
-  //       this.angForm.controls['AC_GRDRELE'].disable();
-  //       this.introducerReq = false
-  //     }
-  //   }
-  // }
+  ngappointeddate: any
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.tempopendate = data.CURRENT_DATE
+      this.openingDate = data.CURRENT_DATE
+      this.ngappointeddate = data.CURRENT_DATE
+      if (data.ON_LINE === true) {
+        this.angForm.controls['AC_OPDATE'].disable()
+      } else {
+        this.angForm.controls['AC_OPDATE'].enable()
+      }
+    })
+  }
+
+  selectedImgArrayDetails = [];
+  imgBase64: any
+  showImage: boolean = false;
+  viewImagePreview(ele, id) {
+    this.selectedImagePreview = id;
+  }
 
 
-  //Nominee  
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
 
-  nominee($event) {
-    if ($event.target.checked) {
-      this.nomineeTrue = true
-    } else {
-      this.nomineeTrue = false
+  getBranch() {
+    this.getIntroducer()
+  }
+
+
+
+  getIntro(event) {
+    console.log(event)
+    // this.getscheme = event.id
+    this.getschemename = event.name
+    this.getIntroducer()
+  }
+  //get account no according scheme for introducer
+  getIntroducer() {
+    console.log(this.acno, this.code, "this.acno, this.code")
+    this.obj = [this.acno, this.code]
+    console.log(this.obj, "this.obj")
+    switch (this.getschemename) {
+      case 'SB':
+        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+          console.log('introducer name data', data)
+          this.introducerACNo = data;
+          this.ngIntroducer = null
+        })
+        break;
+
+      case 'SH':
+        this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+          this.ngIntroducer = null
+        })
+        break;
+
+      case 'CA':
+        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+          this.ngIntroducer = null
+        })
+        break;
+
+      case 'LN':
+        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+          this.ngIntroducer = null
+        })
+        break;
+
+      case 'TD':
+        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+          this.ngIntroducer = null
+        })
+        break;
+
+      case 'DS':
+        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+          this.ngIntroducer = null
+        })
+        break;
+
+      case 'CC':
+        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+          this.ngIntroducer = null
+        })
+        break;
+
+      case 'GS':
+        this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+          this.ngIntroducer = null
+        })
+        break;
+
+      case 'PG':
+        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+          this.ngIntroducer = null
+        })
+        break;
+
+      case 'AG':
+        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+          this.ngIntroducer = null
+        })
+        break;
+
+      case 'IV':
+        this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+          this.ngIntroducer = null
+        })
+        break;
     }
   }
 
+  //get introducer name according account no
+  getIntroducerName(value: any) {
+    console.log('introducer name', value)
+    this.angForm.patchValue({
+      AC_INTRNAME: value.name
+    })
+  }
+
+  //calculate age for minor details
+  ageCalculator(birthDate) {
+    let showAge: number
+    if (birthDate) {
+
+      showAge = moment().diff(moment(birthDate, "DD-MM-YYYY"), 'years');
+      if (showAge <= 18) {
+        this.angForm.controls['AC_MINOR'].setValue(true);
+        this.angForm.controls['AC_GRDNAME'].enable();
+        this.angForm.controls['AC_GRDRELE'].enable();
+        this.angForm.controls['SIGNATURE_AUTHORITY'].enable();
+        this.angForm.patchValue({
+          AC_MBDATE: this.angForm.controls['AC_BIRTH_DT'].value
+        })
+        this.introducerReq = true
+      }
+      else if (showAge > 18) {
+        this.angForm.controls['AC_MINOR'].setValue(false);
+        this.angForm.controls['AC_GRDNAME'].disable();
+        this.angForm.controls['AC_GRDRELE'].disable();
+        this.angForm.controls['SIGNATURE_AUTHORITY'].disable();
+        this.angForm.controls['AC_GRDNAME'].reset();
+        this.angForm.controls['AC_GRDRELE'].reset();
+        this.angForm.controls['SIGNATURE_AUTHORITY'].reset();
+        this.angForm.controls['AC_MBDATE'].reset();
+        this.introducerReq = false
+      }
+    }
+  }
   NbirthDate: any
   cityName: boolean = false
+  ngnomineedate: any
+  //Nominee
   //Nominee
   addNominee() {
     const formVal = this.angForm.value;
@@ -1166,69 +1212,74 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE.id,
+      AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
-      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
     }
-
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+
         Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
+
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
+
           Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
         } else if (formVal.AC_NCTCODE != "") {
-          if (formVal.AC_NCTCODE.id == "" || formVal.AC_NCTCODE.id == null) {
+
+          if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
+
             Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
           } else {
+
             if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
+
               Swal.fire('', 'This Nominee is Already Exists!', 'error');
 
             } else {
+
+              object['AC_NCTCODE'] = formVal.AC_NCTCODE.id,
+                object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
               this.multiNominee.push(object);
             }
           }
         }
       }
       else {
+        object['AC_NCTCODE'] = formVal.AC_NCTCODE.id
+        object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
         this.multiNominee.push(object);
       }
     }
     else {
+      object['AC_NCTCODE'] = formVal.AC_NCTCODE.id
+      object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
       this.multiNominee.push(object);
     }
     this.resetNominee()
   }
-  ngnomineedate: any
+  nomineedataedit: any
   editNominee(id) {
     this.nomineeIndex = id
     this.nomineeID = this.multiNominee[id].id;
+    this.nomineedataedit = this.multiNominee[id]
     this.nomineeTrue = true
     this.nomineeShowButton = false;
     this.nomineeUpdateShow = true;
-    // this.ngNcity = Number(this.multiNominee[id].AC_NCTCODE)
-    // let date1 = moment(this.multiNominee[id].AC_NDATE).format('DD/MM/YYYY');
-
-    // this.NbirthDate = date1;
-
-
-    this.ngnomineedate = this.multiNominee[id].AC_NDATE,
+    this.ngnomineedate = this.multiNominee[id].AC_NDATE
+    this.ngNcity = this.multiNominee[id].AC_CITYNAME,
       this.angForm.patchValue({
         AC_NNAME: this.multiNominee[id].AC_NNAME,
         AC_NRELA: this.multiNominee[id].AC_NRELA,
-        // AC_NDATE: this.multiNominee[id].AC_NDATE,
         AGE: this.multiNominee[id].AGE,
         AC_NHONO: this.multiNominee[id].AC_NHONO,
         AC_NWARD: this.multiNominee[id].AC_NWARD,
         AC_NADDR: this.multiNominee[id].AC_NADDR,
         AC_NGALLI: this.multiNominee[id].AC_NGALLI,
         AC_NAREA: this.multiNominee[id].AC_NAREA,
-        AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
         AC_NPIN: this.multiNominee[id].AC_NPIN,
-        // AC_NCTCODE: this.multiNominee[id].AC_CITYNAME,
       })
   }
 
@@ -1236,14 +1287,18 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     let index = this.nomineeIndex;
     this.nomineeShowButton = true;
     this.nomineeUpdateShow = false;
+    let date1
     const formVal = this.angForm.value;
-    let date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
+    if (this.nomineedataedit.AC_NDATE != formVal.AC_NDATE) {
+      date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
+    } else {
+      date1 = formVal.AC_NDATE
+    }
 
-    this.NbirthDate = date1;
     var object = {
       AC_NNAME: formVal.AC_NNAME,
       AC_NRELA: formVal.AC_NRELA,
-      AC_NDATE: this.NbirthDate,
+      AC_NDATE: date1,
       AGE: formVal.AGE,
       AC_NHONO: formVal.AC_NHONO,
       AC_NWARD: formVal.AC_NWARD,
@@ -1254,6 +1309,12 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       AC_NPIN: formVal.AC_NPIN,
       AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME,
       id: this.nomineeID
+    }
+    if (typeof (formVal.AC_NCTCODE) == 'string') {
+      object['AC_CITYNAME'] = formVal.AC_NCTCODE
+    }
+    else {
+      object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
     }
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire("Please Insert Mandatory Record For Nominee");
@@ -1281,6 +1342,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     else {
       this.multiNominee[index] = object;
     }
+    console.log('update nominee', this.multiNominee[index])
     this.resetNominee()
   }
 
@@ -1301,18 +1363,12 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.angForm.controls['AC_NCTCODE'].reset();
     this.angForm.controls['AC_NPIN'].reset();
   }
-  //Joint ac
-  jointAccount($event) {
-    if ($event.target.checked) {
-      this.JointAccountsTrue = true
-    } else {
-      this.JointAccountsTrue = false
-    }
-  }
-
+  joint
+  tempjoint
   getJointCustomer(event) {
-    debugger
-    console.log('get joint cus', event.value)
+    console.log('get joint cus', event.name)
+    this.joint = event.name
+    this.tempjoint = event.value
     this.customerIdService.getFormData(event.value).subscribe(data => {
       this.angForm.patchValue({
         JOINT_ACNAME: data.AC_NAME
@@ -1320,48 +1376,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     })
   }
 
-  // addJointAcccount() {
-  //   console.log('customer id', this.newcustid)
-  //   console.log('joint id', this.jointID)
-  //   const formVal = this.angForm.value;
-  //   console.log(' formVal.JOINT_AC_CUSTID', formVal.JOINT_AC_CUSTID)
-  //   let value
-  //   if (formVal.OPERATOR == true) {
-  //     value = 'Yes'
-  //   } else {
-  //     value = 'No'
-  //   }
-  //   var object = {
-  //     JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID.id,
-  //     JOINT_ACNAME: formVal.JOINT_ACNAME,
-  //     OPERATOR: value,
-  //   }
-  //   console.log('joint object', object)
-  //   if (object.JOINT_AC_CUSTID == undefined) {
-  //     if (this.newcustid != this.jointID.id) {
-  //       if (this.multiJointAC.length == 0) {
-  //         this.multiJointAC.push(object);
-  //       }
-  //       else {
-  //         if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID.id)) {
-  //           Swal.fire('', 'This Customer is Already Joint Account Holder', 'error');
-  //         }
-  //         else {
-  //           this.multiJointAC.push(object);
-  //         }
-  //       }
-  //     }
-  //     else {
-  //       Swal.fire('', 'Please Select Differet Customer Id!', 'warning');
-  //     }
-  //   } else {
-  //     Swal.fire('', 'Please Select Customer Id!', 'warning');
-  //   }
-  //   this.resetJointAC()
-  // }
 
   addJointAcccount() {
-    debugger
+
     const formVal = this.angForm.value;
     console.log('add joint', formVal)
     let value
@@ -1371,70 +1388,46 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       value = 'No'
     }
     var object = {
-      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
+      JOINT_AC_CUSTID: this.joint,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
       OPERATOR: value,
     }
     console.log('object.JOINT_AC_CUSTID', object.JOINT_AC_CUSTID)
-    if (object.JOINT_AC_CUSTID != undefined) {
-      if (this.newcustid != this.jointID) {
-        if (this.multiJointAC.length == 0) {
-          this.multiJointAC.push(object);
-        }
-        else {
-          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
-            Swal.fire('', 'This Customer is Already Joint Account Holder', 'error');
-          }
-          else {
+    if (formVal.AC_CUSTID != "") {
+
+      if (object.JOINT_AC_CUSTID != undefined) {
+
+        if (this.newcustid != this.joint) {
+
+          if (this.multiJointAC.length == 0) {
+
             this.multiJointAC.push(object);
           }
+          else {
+            console.log(this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.tempjoint))
+            if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.joint)) {
+
+              Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');
+            } else {
+              this.multiJointAC.push(object);
+            }
+          }
+        }
+        else {
+          Swal.fire('', "Please Select Different Customer id", 'warning');
         }
       }
       else {
-        Swal.fire('', 'Please Select Differet Customer Id!', 'warning');
+        Swal.fire('', "Please Select Guarantor Customer Id", 'warning');
       }
     } else {
-      Swal.fire('', 'Please Select Customer Id!', 'warning');
+      Swal.fire('', "Please Select Customer Id", 'warning');
     }
     this.resetJointAC()
+    this.jointID = null
   }
 
-  // addJointAcccount() {
-  //   let value
-  //   const formVal = this.angForm.value;
-  //   console.log('add joint', formVal)
-  //   if (formVal.OPERATOR == true) {
-  //     value = 'Yes'
-  //   } else {
-  //     value = 'No'
-  //   }
-  //   var object = {
-  //     JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
-  //     JOINT_ACNAME: formVal.JOINT_ACNAME,
-  //     OPERATOR: value
-  //   }
-  //   if (object.JOINT_AC_CUSTID != undefined) {
-  //     if (this.newcustid != this.jointID) {
-  //       if (this.multiJointAC.length == 0) {
-  //         this.multiJointAC.push(object);
-  //       }
-  //       else {
-  //         if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
-  //           Swal.fire("This Customer is Already Joint Account Holder", "error");
-  //         }
-  //         else {
-  //           this.multiJointAC.push(object);
-  //         }
-  //       }
-  //     }
-  //     else {
-  //       Swal.fire("Please Select Different Customer id", "error");
-  //     }
-  //   } else {
-  //     Swal.fire("Please Select Customer Id", "error");
-  //   }
-  //   this.resetJointAC()
-  // }
+
   editJointAc(id) {
     this.jointIndex = id
     this.jointACID = this.multiJointAC[id].id;
@@ -1460,7 +1453,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       id: this.jointACID
     }
     if (object.JOINT_AC_CUSTID != undefined) {
-      if (this.id != this.jointID) {
+      if (this.newcustid != this.jointID) {
         if (this.multiJointAC.length == 0) {
           this.multiJointAC[index] = object
         }
@@ -1482,51 +1475,47 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.resetJointAC()
   }
 
+
   delJointAc(id) {
     this.multiJointAC.splice(id, 1)
   }
 
   resetJointAC() {
-    this.JointAccountsTrue = false
+    this.jointID = null
     this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
-    // this.angForm.controls['OPERATOR'].reset();
+    this.getSystemParaDate()
   }
 
 
-  ngappdate: any = null
+  ngexpiryddate: any
   //power of attorney
   addAttorney() {
-
-    let appdate
-    let exdate
     const formVal = this.angForm.value;
-    debugger
-    if (formVal.DATE_APPOINTED == '' || formVal.DATE_APPOINTED == 'Invalid date') {
-      appdate = ''
-    } else if (formVal.DATE_APPOINTED == this.ngappdate) {
-      appdate = this.ngappdate
+    let temdate
+    let apdate
+    if (this.tempopendate != this.ngappointeddate) {
+      temdate = (formVal.DATE_APPOINTED == '' || formVal.DATE_APPOINTED == 'Invalid date') ? apdate = '' : apdate = moment(formVal.DATE_APPOINTED).format('DD/MM/YYYY')
     } else {
-      appdate = moment(formVal.DATE_APPOINTED).format('DD/MM/YYYY')
+      temdate = this.ngappointeddate
     }
     var object = {
       ATTERONEY_NAME: formVal.ATTERONEY_NAME,
-      DATE_APPOINTED: appdate,
-      // DATE_APPOINTED: (formVal.DATE_APPOINTED == '' || formVal.DATE_APPOINTED == 'Invalid date') ? appdate = '' : appdate = moment(formVal.DATE_APPOINTED).format('DD/MM/YYYY'),
-      DATE_EXPIRY: (formVal.DATE_EXPIRY == '' || formVal.DATE_EXPIRY == 'Invalid date') ? exdate = '' : exdate = moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY')
+      DATE_APPOINTED: temdate,
+      DATE_EXPIRY: moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY')
     }
     if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
-      Swal.fire("Please Insert Mandatory Record For Power Of Attorney", 'warning');
+      Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
     } else if (formVal.ATTERONEY_NAME != "") {
       if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
-        Swal.fire("Please Insert Mandatory Record For Power Of Attorney", 'warning');
+        Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
       } else if (formVal.DATE_APPOINTED != "") {
         if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
-          Swal.fire("Please Insert Mandatory Record For Power Of Attorney", 'warning');
+          Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
         }
         else {
           if (this.multiAttorney.find(ob => ob['ATTERONEY_NAME'].toUpperCase() === formVal.ATTERONEY_NAME.toUpperCase())) {
-            Swal.fire("This Attorney is Already Exists", "error");
+            Swal.fire('', 'This Attorney is Already Exists!', 'error');
           } else {
             this.multiAttorney.push(object);
           }
@@ -1542,20 +1531,65 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.resetAttorney()
   }
 
+  ispowerof($event) {
+    if ($event.target.checked) {
+      this.PowerofAttorneyTrue = true
+      this.DATE_EXPIRY = true
+      this.DATE_APPOINTED = true
+      this.ATTERONEY_NAME = true
+    }
+    else {
+      this.PowerofAttorneyTrue = false
+      this.DATE_EXPIRY = false
+      this.DATE_APPOINTED = false
+      this.ATTERONEY_NAME = false
+    }
+  }
 
+  jointAccount($event) {
+    if ($event.target.checked) {
+      this.JointAccountsTrue = true
+    } else {
+      this.JointAccountsTrue = false
+    }
+  }
+  nominee($event) {
+    if ($event.target.checked) {
+      this.nomineeTrue = true
+    } else {
+      this.nomineeTrue = false
+    }
+  }
+
+  OpenLink(val) {
+    if (val == 1) {
+      this.nomineeTrue = !this.nomineeTrue;
+      this.JointAccountsTrue = false;
+      this.PowerofAttorneyTrue = false;
+    }
+    if (val == 2) {
+      this.JointAccountsTrue = !this.JointAccountsTrue;
+      this.nomineeTrue = false;
+      this.PowerofAttorneyTrue = false;
+    }
+    if (val == 3) {
+      this.PowerofAttorneyTrue = !this.PowerofAttorneyTrue;
+      this.JointAccountsTrue = false;
+      this.nomineeTrue = false;
+    }
+  }
+  tempupdateattorny: any
   editAttorney(id) {
-    let appdate
-    let exdate
     this.attorneyIndex = id
     this.attorneyID = this.multiAttorney[id].id;
+    this.tempupdateattorny = this.multiAttorney[id]
     this.PowerofAttorneyTrue = true
     this.attorneyShowButton = false;
     this.attorneyUpdateShow = true;
     this.angForm.patchValue({
       ATTERONEY_NAME: this.multiAttorney[id].ATTERONEY_NAME,
-      // DATE_APPOINTED: this.multiAttorney[id].DATE_APPOINTED,
-      DATE_APPOINTED: (this.multiAttorney[id].DATE_APPOINTED == 'Invalid date' || this.multiAttorney[id].DATE_APPOINTED == '' || this.multiAttorney[id].DATE_APPOINTED == null) ? appdate = '' : appdate = this.multiAttorney[id].DATE_APPOINTED,
-      DATE_EXPIRY: (this.multiAttorney[id].DATE_EXPIRY == 'Invalid date' || this.multiAttorney[id].DATE_EXPIRY == '' || this.multiAttorney[id].DATE_EXPIRY == null) ? exdate = '' : exdate = this.multiAttorney[id].DATE_EXPIRY,
+      DATE_APPOINTED: this.multiAttorney[id].DATE_APPOINTED,
+      DATE_EXPIRY: this.multiAttorney[id].DATE_EXPIRY
     })
   }
 
@@ -1565,11 +1599,25 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.attorneyUpdateShow = false;
     const formVal = this.angForm.value;
     let appdate
-    let exdate
+    let EXdate
+    let date1
+    let date2
+    if (this.tempupdateattorny.DATE_APPOINTED != formVal.DATE_APPOINTED) {
+      date1 = (formVal.DATE_APPOINTED == '' || formVal.DATE_APPOINTED == 'Invalid date' || formVal.DATE_APPOINTED == null) ? appdate = '' : appdate = moment(formVal.DATE_APPOINTED).format('DD/MM/YYYY')
+    } else {
+      date1 = formVal.DATE_APPOINTED
+    }
+    if (this.tempupdateattorny.DATE_EXPIRY != formVal.DATE_EXPIRY) {
+      date2 = (formVal.DATE_EXPIRY == '' || formVal.DATE_EXPIRY == 'Invalid date' || formVal.DATE_EXPIRY == null) ? EXdate = '' : EXdate = moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY')
+    } else {
+      date2 = formVal.DATE_EXPIRY
+    }
     var object = {
       ATTERONEY_NAME: formVal.ATTERONEY_NAME,
-      DATE_APPOINTED: (formVal.DATE_APPOINTED == '' || formVal.DATE_APPOINTED == 'Invalid date' || formVal.DATE_APPOINTED == null) ? appdate = '' : appdate = moment(formVal.DATE_APPOINTED).format('DD/MM/YYYY'),
-      DATE_EXPIRY: (formVal.DATE_EXPIRY == '' || formVal.DATE_EXPIRY == 'Invalid date' || formVal.DATE_EXPIRY == null) ? exdate = '' : exdate = moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY'),
+      DATE_APPOINTED: date1,
+      // DATE_APPOINTED: formVal.DATE_APPOINTED,
+      // DATE_EXPIRY: formVal.DATE_EXPIRY,
+      DATE_EXPIRY: date2,
       id: this.attorneyID
     }
 
@@ -1608,36 +1656,34 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.angForm.controls['ATTERONEY_NAME'].reset();
     this.angForm.controls['DATE_APPOINTED'].reset();
     this.angForm.controls['DATE_EXPIRY'].reset();
+    this.getSystemParaDate()
   }
 
-
-  ispowerof($event) {
-    if ($event.target.checked) {
-      this.PowerofAttorneyTrue = true
-      this.DATE_EXPIRY = true
-      this.DATE_APPOINTED = true
-      this.ATTERONEY_NAME = true
-    }
-    else {
-      this.PowerofAttorneyTrue = false
-      this.DATE_EXPIRY = false
-      this.DATE_APPOINTED = false
-      this.ATTERONEY_NAME = false
-    }
+  nextButton: boolean = true
+  next() {
+    this.nextButton != this.nextButton
   }
 
-  disabledate(data: any) {
-    if (data != "") {
-      if (data > this.datemax) {
-        Swal.fire('Invalid Input!', 'Please insert valid date!', 'error');
-        (document.getElementById("AC_OPDATE") as HTMLInputElement).value = ""
+  resetexpirydate: any
+  switchNgBTab(id: string) {
+    console.log(this.angForm.controls['AC_BALCATG'].value)
+    this.ctdTabset.select(id);
+    console.log(this.angForm.controls['AC_BALCATG'].value)
+  }
+  checkdate(ele: Date): void {
+    let date = (document.getElementById("DATE_APPOINTED") as HTMLInputElement).value;
+    let date1 = (document.getElementById("DATE_EXPIRY") as HTMLInputElement).value;
+    if (date1 != "") {
+      if (moment(date).isAfter(date1)) {
+        Swal.fire(
+          'Cancelled',
+          'Expiry Date must be greater than Appointed date',
+          'error'
+        );
+        this.resetexpirydate = "";
+        this.angForm.controls['DATE_EXPIRY'].reset()
       }
     }
-  }
-  decimalAllContent($event) {
-    let value = Number($event.target.value);
-    let data = value.toFixed(2);
-    $event.target.value = data;
   }
 
   age() {
@@ -1649,18 +1695,13 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       );
       this.angForm.controls['AGE'].reset()
     }
-  }
-  viewImagePreview(ele, id) {
-    this.selectedImagePreview = id;
-  }
-  onCloseModal() {
-    this.visibleAnimate = false;
-    setTimeout(() => this.visible = false, 300);
-  }
-  switchNgBTab(id: string) {
-    this.ctdTabset.select(id);
-  }
 
+  }
+  decimalAllContent($event) {
+    let value = Number($event.target.value);
+    let data = value.toFixed(2);
+    $event.target.value = data;
+  }
   //approve account
   Approve() {
     let user = JSON.parse(localStorage.getItem('user'));
@@ -1671,7 +1712,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.currentAccountMasterService.approve(obj).subscribe(data => {
       Swal.fire(
         'Approved',
-        'Saving Account approved successfully',
+        'Current Account approved successfully',
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -1692,7 +1733,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.currentAccountMasterService.reject(obj).subscribe(data => {
       Swal.fire(
         'Rejected',
-        'Saving Account rejected successfully',
+        'Current Account rejected successfully',
         'success'
       );
 

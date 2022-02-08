@@ -2020,39 +2020,40 @@
                                                                                 *ngIf="GuarantorUpdateShow">Update</button>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row">
-                                                                        <div class="col-12">
-                                                                            <div class="table-responsive">
-                                                                                <table
-                                                                                    class=" table table-striped table-bordered table-hover compact">
-                                                                                    <thead>
-                                                                                        <td>Action</td>
-                                                                                        <td>Customer Id</td>
-                                                                                        <td>Member no</td>
-                                                                                        <td>Member Scheme</td>
-                                                                                        <td>Full Name</td>
-                                                                                        <td>Expiry Date</td>
-                                                                                    </thead>
-                                                                                    <tbody
-                                                                                        *ngIf="multiGuarantor?.length != 0">
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="table-responsive">
+                                                                            <table
+                                                                                class=" table table-striped table-bordered table-hover compact">
+                                                                                <thead>
+                                                                                    <td>Action</td>
+                                                                                    <td>Customer Id</td>
+                                                                                    <td>Member no</td>
+                                                                                    <td>Member Scheme</td>
+                                                                                    <td>Full Name</td>
+                                                                                    <td>Expiry Date</td>
+                                                                                </thead>
+                                                                                <tbody
+                                                                                    *ngIf="multiGuarantor?.length != 0">
 
-                                                                                        <tr
-                                                                                            *ngFor="let data of multiGuarantor; let indexOfelement=index;">
-                                                                                            <td>
-                                                                                                <span
-                                                                                                    class="fa fa-fw fa-edit field-icon"
-                                                                                                    id="editbutton"
-                                                                                                    (click)="editGuarantor(indexOfelement)"
-                                                                                                    placement=" bottom"
-                                                                                                    ngbTooltip="Edit"></span>
-                                                                                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                                <span
-                                                                                                    class="fa fa-fw fa-trash-o"
-                                                                                                    id="deletebutton"
-                                                                                                    (click)="delGuarantor(indexOfelement)"
-                                                                                                    placement="bottom"
-                                                                                                    ngbTooltip="Delete"></span>
-                                                                                                <!-- <button
+                                                                                    <tr
+                                                                                        *ngFor="let data of multiGuarantor; let indexOfelement=index;">
+                                                                                        <td>
+                                                                                            <span
+                                                                                                class="fa fa-fw fa-edit field-icon"
+                                                                                                id="editbutton"
+                                                                                                (click)="editGuarantor(indexOfelement)"
+                                                                                                placement=" bottom"
+                                                                                                ngbTooltip="Edit"></span>
+                                                                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                            <span
+                                                                                                class="fa fa-fw fa-trash-o"
+                                                                                                id="deletebutton"
+                                                                                                (click)="delGuarantor(indexOfelement)"
+                                                                                                placement="bottom"
+                                                                                                ngbTooltip="Delete"></span>
+                                                                                            <!-- <button
                                                                                                     class="btn btn-outline-primary btn-sm"
                                                                                                     id="editbtn"
                                                                                                     (click)="editGuarantor(indexOfelement)">Edit</button>
@@ -2061,31 +2062,31 @@
                                                                                                     class="btn btn-outline-primary btn-sm"
                                                                                                     (click)="delGuarantor(indexOfelement)">Delete</button> -->
 
-                                                                                            </td>
-                                                                                            <td>{{data.GAC_CUSTID }}
-                                                                                            </td>
-                                                                                            <td>{{data.AC_MEMBNO }}</td>
-                                                                                            <td>{{data.AC_MEMBTYPE }}
-                                                                                            </td>
-                                                                                            <td>{{data.AC_NAME }}</td>
-                                                                                            <td>{{data.EXP_DATE }}</td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                    <tbody
-                                                                                        *ngIf="multiGuarantor?.length == 0">
-                                                                                        <tr>
-                                                                                            <td colspan="6"
-                                                                                                class="no-data-available">
-                                                                                                No
-                                                                                                data!
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>{{data.GAC_CUSTID }}
+                                                                                        </td>
+                                                                                        <td>{{data.AC_MEMBNO }}</td>
+                                                                                        <td>{{data.AC_MEMBTYPE }}
+                                                                                        </td>
+                                                                                        <td>{{data.AC_NAME }}</td>
+                                                                                        <td>{{data.EXP_DATE }}</td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                                <tbody
+                                                                                    *ngIf="multiGuarantor?.length == 0">
+                                                                                    <tr>
+                                                                                        <td colspan="6"
+                                                                                            class="no-data-available">
+                                                                                            No
+                                                                                            data!
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2225,37 +2226,38 @@
                                                                                 *ngIf="CoBorrowerUpdateShow">Update</button>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row">
-                                                                        <div class="col-12">
-                                                                            <div class="table-responsive">
-                                                                                <table
-                                                                                    class="table table-striped table-bordered table-hover compact">
-                                                                                    <thead>
-                                                                                        <td>Action</td>
-                                                                                        <td>Customer Id</td>
-                                                                                        <td>Full Name</td>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <div class="table-responsive">
+                                                                            <table
+                                                                                class="table table-striped table-bordered table-hover compact">
+                                                                                <thead>
+                                                                                    <td>Action</td>
+                                                                                    <td>Customer Id</td>
+                                                                                    <td>Full Name</td>
 
-                                                                                    </thead>
-                                                                                    <tbody
-                                                                                        *ngIf="multiCoBorrower?.length != 0">
+                                                                                </thead>
+                                                                                <tbody
+                                                                                    *ngIf="multiCoBorrower?.length != 0">
 
-                                                                                        <tr
-                                                                                            *ngFor="let data of multiCoBorrower; let indexOfelement=index;">
-                                                                                            <td>
-                                                                                                <span
-                                                                                                    class="fa fa-fw fa-edit field-icon"
-                                                                                                    id="editbutton"
-                                                                                                    (click)="editCoBorrower(indexOfelement)"
-                                                                                                    placement=" bottom"
-                                                                                                    ngbTooltip="Edit"></span>
-                                                                                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                                <span
-                                                                                                    class="fa fa-fw fa-trash-o"
-                                                                                                    id="deletebutton"
-                                                                                                    (click)="delCoBorrower(indexOfelement)"
-                                                                                                    placement="bottom"
-                                                                                                    ngbTooltip="Delete"></span>
-                                                                                                <!-- <button
+                                                                                    <tr
+                                                                                        *ngFor="let data of multiCoBorrower; let indexOfelement=index;">
+                                                                                        <td>
+                                                                                            <span
+                                                                                                class="fa fa-fw fa-edit field-icon"
+                                                                                                id="editbutton"
+                                                                                                (click)="editCoBorrower(indexOfelement)"
+                                                                                                placement=" bottom"
+                                                                                                ngbTooltip="Edit"></span>
+                                                                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                            <span
+                                                                                                class="fa fa-fw fa-trash-o"
+                                                                                                id="deletebutton"
+                                                                                                (click)="delCoBorrower(indexOfelement)"
+                                                                                                placement="bottom"
+                                                                                                ngbTooltip="Delete"></span>
+                                                                                            <!-- <button
                                                                                                     class="btn btn-outline-primary btn-sm"
                                                                                                     id="editbtn"
                                                                                                     (click)="editCoBorrower(indexOfelement)">Edit</button>
@@ -2264,27 +2266,27 @@
                                                                                                     class="btn btn-outline-primary btn-sm"
                                                                                                     (click)="delCoBorrower(indexOfelement)">Delete</button> -->
 
-                                                                                            </td>
-                                                                                            <td>{{data.CAC_CUSTID }}
-                                                                                            </td>
-                                                                                            <td>{{data.AC_NAME }}</td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                    <tbody
-                                                                                        *ngIf="multiCoBorrower?.length == 0">
-                                                                                        <tr>
-                                                                                            <td colspan="6"
-                                                                                                class="no-data-available">
-                                                                                                No
-                                                                                                data!
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>{{data.CAC_CUSTID }}
+                                                                                        </td>
+                                                                                        <td>{{data.AC_NAME }}</td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                                <tbody
+                                                                                    *ngIf="multiCoBorrower?.length == 0">
+                                                                                    <tr>
+                                                                                        <td colspan="6"
+                                                                                            class="no-data-available">
+                                                                                            No
+                                                                                            data!
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                     </div>

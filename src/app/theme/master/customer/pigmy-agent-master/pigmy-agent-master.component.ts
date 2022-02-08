@@ -295,11 +295,23 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       this.SchemeCodeDropdownDropdown = data;
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      this.scheme = data;
+      var filtered = data.filter(function (scheme) {
+
+        return (scheme.id == 'AG');
+      });
+      this.scheme = filtered;
+      // this.scheme = data;
+      // // console.log(data)
       this.code = this.scheme[0].value
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.pgScheme).pipe(first()).subscribe(data => {
-      this.PGSchemeCode = data;
+
+      var filtered = data.filter(function (scheme) {
+
+        return (scheme.id == 'PG');
+      });
+      this.PGSchemeCode = filtered;
+      // this.PGSchemeCode = data;
     })
     this.cityMasterService.getcityList().pipe(first()).subscribe(data => {
       this.cityMasterServiceDropdown = data;
@@ -357,14 +369,23 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         AC_CAST: data.castMaster.NAME,
         AC_OCODE: data.occupMaster.NAME,
         AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
-        AC_ADDFLAG: data.custAddress[0]?.AC_ADDFLAG,
-        AC_HONO: data.custAddress[0]?.AC_HONO,
-        AC_WARD: data.custAddress[0]?.AC_WARD,
-        AC_ADDR: data.custAddress[0]?.AC_ADDR,
-        AC_GALLI: data.custAddress[0]?.AC_GALLI,
-        AC_AREA: data.custAddress[0]?.AC_AREA,
-        AC_CTCODE: data.custAddress[0].city?.CITY_NAME,
-        AC_PIN: data.custAddress[0]?.AC_PIN,
+      })
+      let permadd
+      let temp
+      data.custAddress.forEach(async (element) => {
+        if (element.AC_ADDTYPE == 'P') {
+          permadd = element
+        }
+      })
+      this.angForm.patchValue({
+        AC_ADDFLAG: permadd?.AC_ADDFLAG,
+        AC_HONO: permadd?.AC_HONO,
+        AC_WARD: permadd?.AC_WARD,
+        AC_ADDR: permadd?.AC_ADDR,
+        AC_GALLI: permadd?.AC_GALLI,
+        AC_AREA: permadd?.AC_AREA,
+        AC_CTCODE: permadd.city?.CITY_NAME,
+        AC_PIN: permadd?.AC_PIN,
       })
     })
     this.onCloseModal();
