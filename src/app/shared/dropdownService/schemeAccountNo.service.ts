@@ -263,10 +263,11 @@ export class SchemeAccountNoService {
 
     public getpigmyChartAcno(schemeid) {
         this.schemeObject = []
-        return this.http.get<any>(this.url + '/pigmy-agent-master/scheme/' + schemeid)
+        return this.http.get<any>(this.url + '/pigmy-agent-master/chart/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id };
+                    console.log('pigmy chart elemnt', element)
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bank: element.BANKACNO, glacno: element.DPMaster.S_GLACNO };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;

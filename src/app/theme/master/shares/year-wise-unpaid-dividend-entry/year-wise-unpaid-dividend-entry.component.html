@@ -125,11 +125,11 @@
             <div class="col-sm">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="AC_NOFrom" bindValue="id" [(ngModel)]="ngAcnoFrom" bindLabel="AC_NO"
+                  <ng-select id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom" bindLabel="AC_NO"
                     formControlName="AC_NOFrom" title="Compulsory Selection"
                     [ngClass]="{'form-submitted': formSubmitted}" placeholder="Member From">
                     <ng-option *ngFor="let values of ShareMasterObject" [value]="values">
-                      {{values.AC_NO}}</ng-option>
+                      {{values.label}}</ng-option>
                   </ng-select>
                   <label for="AC_NOFrom">Member From</label>
                 </span>
@@ -143,11 +143,11 @@
             <div class="col-sm">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select id="AC_NOTo" bindValue="id" [(ngModel)]="ngAcnoTo" bindLabel="AC_NO"
+                  <ng-select id="AC_NOTo" bindValue="value" [(ngModel)]="ngAcnoTo" bindLabel="AC_NO"
                     formControlName="AC_NOTo" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     placeholder="Member To" (change)="getDividendTable()">
                     <ng-option *ngFor="let values of ShareMasterObjectB" [value]="values">
-                      {{values.AC_NO}}</ng-option>
+                      {{values.label}}</ng-option>
                   </ng-select>
                   <label for="AC_NOTo">Member To</label>
                 </span>

@@ -15,6 +15,7 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import { SchemeCodeDropdownService } from '../../../shared/dropdownService/scheme-code-dropdown.service'
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { SchemeAccountNoService } from '../../../shared/dropdownService/schemeAccountNo.service'
+import { PigmyChartEntryService } from './pigmy-chart-entry.service'
 @NgModule({
   imports: [
     NgbModule,
@@ -32,6 +33,7 @@ import { SchemeAccountNoService } from '../../../shared/dropdownService/schemeAc
   declarations: [PigmyChartEntryComponent],
   providers: [SystemMasterParametersService, SchemeCodeDropdownService,
     OwnbranchMasterService, SchemeAccountNoService,
+    PigmyChartEntryService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

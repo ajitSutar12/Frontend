@@ -202,6 +202,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     };
 
     this.acmaster.getACMasterList().pipe(first()).subscribe(data => {
+      console.log(data,'glcode')
       this.glcode = data;
     })
   }

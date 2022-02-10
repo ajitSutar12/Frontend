@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -10,15 +9,34 @@ import { SchemeAccountNoService } from '../../../shared/dropdownService/schemeAc
 import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment'
+import { PigmyChartEntryService } from './pigmy-chart-entry.service'
+import { HttpClient } from "@angular/common/http";
+import { Subject } from 'rxjs';
+// Angular Datatable Directive  
+import { DataTableDirective } from 'angular-datatables';
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+interface PigmyChartMasterTable {
+  TRAN_DATE: string
+  AGENT_ACTYPE: string
+  AGENT_ACNO: string
+  BRANCH_CODE: string
+  SHORT_NAME: string
+  CHART_NO: string
+  TRAN_AMOUNT: string
 
-
-
+}
 @Component({
   selector: 'app-pigmy-chart-entry',
   templateUrl: './pigmy-chart-entry.component.html',
   styleUrls: ['./pigmy-chart-entry.component.scss']
 })
-export class PigmyChartEntryComponent implements OnInit {
+export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestroy {
   //api 
   url = environment.base_url;
   angForm: FormGroup;
@@ -32,11 +50,43 @@ export class PigmyChartEntryComponent implements OnInit {
   ngAgentCode: any = null
   agentACNO
   obj
-  tableArr = []
+  tableArr: any
+  mem
+  dtOptions: DataTables.Settings = {};
+  //Datatable variable
+  dtExportButtonOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  Data: any;
+  //variables for pagination
+  page: number = 1;
+  passenger: any;
+  itemsPerPage = 10;
+  totalItems: any;
+  currentJustify = 'start';
+  active = 1;
+  activeKeep = 1;
+  // Variables for search 
+  filterObject: { name: string; type: string; }[];
+  filter: any;
+  filterForm: FormGroup;
+  //filter variable
+  filterData = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  dtTrigger1: Subject<any> = new Subject<any>();
   //Scheme type variable
   schemeType: string = 'AG'
   formSubmitted: boolean = false
-
+  showTable: boolean = false
+  totalAmt: number = 0
+  pigmyChartTable = []
+  pigmyAutoVoucher: boolean = false
+  branchCode
+  userID
+  agentBankACNO
+  S_GLACNO
+  pigmyChartMasterTable: PigmyChartMasterTable[]
+  updateID
 
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -47,20 +97,108 @@ export class PigmyChartEntryComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
+    private _pigmy: PigmyChartEntryService,
+    private http: HttpClient,
   ) { }
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      dom: 'ftip'
+    };
     this.createForm()
+    this.dtExportButtonOptions = {
+      pagingType: 'full_numbers',
+      paging: true,
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTableParameters: any, callback) => {
+        dataTableParameters.minNumber = dataTableParameters.start + 1;
+        dataTableParameters.maxNumber =
+          dataTableParameters.start + dataTableParameters.length;
+        let datatableRequestParam: any;
+        this.page = dataTableParameters.start / dataTableParameters.length;
+
+        dataTableParameters.columns.forEach(element => {
+          if (element.search.value != '') {
+            let string = element.search.value;
+            this.filterData[element.data] = string;
+          } else {
+            let getColumnName = element.data;
+            let columnValue = element.value;
+            if (this.filterData.hasOwnProperty(element.data)) {
+              let value = this.filterData[getColumnName];
+              if (columnValue != undefined || value != undefined) {
+                delete this.filterData[element.data];
+              }
+            }
+          }
+        });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
+        dataTableParameters['filterData'] = this.filterData;
+        this.http
+          .post<DataTableResponse>(
+            this.url + '/pigmy-chart',
+            dataTableParameters
+          ).subscribe(resp => {
+            this.pigmyChartMasterTable = resp.data;
+            console.log('pigmyChartMasterTable', this.pigmyChartMasterTable)
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsTotal,
+              data: []
+            });
+          });
+      },
+      columns: [
+        {
+          title: 'Action',
+        },
+        {
+          title: 'Date',
+          data: 'TRAN_DATE'
+        }, {
+          title: 'Agent AC Type',
+          data: 'AGENT_ACTYPE'
+        },
+        {
+          title: 'Agent Account Number',
+          data: 'AGENT_ACNO'
+        },
+        {
+          title: 'Branch Code',
+          data: 'BRANCHCODE'
+        },
+        {
+          title: 'Chart Number',
+          data: 'CHART_NO'
+        },
+        {
+          title: 'Total Amount',
+          data: 'TRAN_AMOUNT'
+        },
+
+      ],
+      dom: 'Blrtip',
+    };
+
+
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    console.log('result', result)
-    console.log('user type', result.RoleDefine[0].Role.NAME)
+    this.userID = result.USER_NAME
     if (result.RoleDefine[0].Role.NAME == "Admin") {
       this.angForm.controls['BRANCH'].enable()
     }
     else {
       this.angForm.controls['BRANCH'].disable()
       this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
     }
 
     this.getSystemParaDate()
@@ -79,52 +217,341 @@ export class PigmyChartEntryComponent implements OnInit {
       BRANCH: ['', [Validators.required]],
       AGENT_ACTYPE: ['', [Validators.required]],
       CHART_NO: [1, [Validators.maxLength, Validators.minLength, Validators.required]],
-      TRAN_AMOUNT: [''],
+      TRAN_AMOUNT: [0],
       AGENT_ACNO: ['', [Validators.required]]
     });
   }
 
-  getBranch() {
+  //get agent account number after branch selection
+  getBranch(event) {
+    this.branchCode = event.name
     this.getPigmyAgentAcnoList()
   }
-
+  isReceiptShow: boolean = false
+  //get syspara table data for date and pigmy auto voucher flag
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
+      data.IS_RECEIPTNO_IN_PIGMYCHART == true ? this.isReceiptShow = true : this.isReceiptShow = false
+      data.PIGMY_IS_AUTO_VOUCHER == false ? this.pigmyAutoVoucher = false : this.pigmyAutoVoucher = true
+
       this.angForm.patchValue({
-        TRAN_DATE: moment(data.CURRENT_DATE).format('DD/MM/YYYY')
+        TRAN_DATE: data.CURRENT_DATE
       })
     })
   }
-
   //select content of field
   selectAllContent($event) {
     $event.target.select();
   }
-
   //fetch acno list according scheme and branch code
   getPigmyAgentAcnoList() {
     this.ngAgentCode = null
     this.agentACNO = [];
-    this.tableArr = []
     this.obj = [this.ngschemeCode, this.ngBranchCode]
     this.schemeAccountNoService.getpigmyChartAcno(this.obj).subscribe(data => {
       this.agentACNO = data;
-      console.log('agentACNO', this.agentACNO)
     })
   }
 
-
-  getTable(event) {
-    console.log(event)
-
+  //check effect date form existing data in LNACINTRATE table
+  checkPigmyAgentNo(event) {
+    let list = this.ngschemeCode
+    this._pigmy.getAgentNoList(list).subscribe(data => {
+      debugger
+      console.log('agent no', data)
+      console.log(this.angForm.controls['AGENT_ACNO'].value)
+      if (data?.length != 0) {
+        if (data.find(data => data['AGENT_ACNO'] == this.angForm.controls['AGENT_ACNO'].value)) {
+          Swal.fire({
+            icon: 'info',
+            title: 'This Agent Account Number is Already Exist',
+          })
+          this.ngAgentCode = null;
+          this.tableArr = []
+          this.showTable = false
+        }
+        else {
+          this.getTable(event)
+        }
+      }
+      else {
+        this.getTable(event)
+      }
+    })
   }
+
+  //get pigmy account data into table 
+  getTable(event) {
+    this.agentBankACNO = event.bank
+    this.S_GLACNO = event.glacno
+    let trandate = this.angForm.controls['TRAN_DATE'].value
+
+    var full = []
+    var fullDate = trandate;
+    full = fullDate.split(' ');
+    var date = full[0].split(/\//);
+    var newDate = date[1] + '/' + date[0] + '/' + date[2]
+    var k = new Date(newDate);
+    var expiryDate = moment(k).format('DD.MM.YYYY');
+    this.mem = [this.ngschemeCode, this.ngAgentCode, this.ngBranchCode, expiryDate]
+    this.dtTrigger.unsubscribe();
+    this.http.get(this.url + '/pigmy-chart/pigmychart/' + this.mem).subscribe((data) => {
+      this.tableArr = data;
+      console.log('table data', this.tableArr)
+      this.showTable = true
+      this.totalAmt = 0
+      this.pigmyChartTable = []
+      this.angForm.patchValue({
+        TRAN_AMOUNT: this.totalAmt
+      })
+      this.dtTrigger.next();
+    });
+  }
+  //push receipt no into object
+  getReceiptNo(id, actype, acno, glacno, bankacno, receiptNo) {
+    if (receiptNo != '' || receiptNo != 0) {
+      debugger
+      if (this.pigmyChartTable.length != 0) {
+        if (this.pigmyChartTable.some(item => item.TRAN_ACNO === acno)) {
+          this.pigmyChartTable.forEach((element) => {
+            if (element.TRAN_ACNO == acno) {
+              element['RECEIPT_NO'] = receiptNo
+            }
+          })
+        }
+        else {
+          var object = {
+            pigmyID: id,
+            TRAN_ACTYPE: actype,
+            TRAN_ACNO: acno,
+            TRAN_GLACNO: glacno,
+            TRAN_BANKACNO: bankacno,
+            RECEIPT_NO: receiptNo,
+            // TRAN_AMOUNT: amount,
+          }
+          this.pigmyChartTable.push(object)
+        }
+      }
+      else {
+        var object = {
+          pigmyID: id,
+          TRAN_ACTYPE: actype,
+          TRAN_ACNO: acno,
+          TRAN_GLACNO: glacno,
+          TRAN_BANKACNO: bankacno,
+          RECEIPT_NO: receiptNo,
+          // TRAN_AMOUNT: amount,
+        }
+        this.pigmyChartTable.push(object)
+      }
+    }
+    console.log(this.pigmyChartTable, 'rec table')
+  }
+  //push amount in pigmyChartTable array
+  getAmount(id, actype, acno, glacno, bankacno, amount) {
+    if (amount != '') {
+      debugger
+      if (this.pigmyChartTable.length != 0) {
+        if (this.pigmyChartTable.some(item => item.TRAN_ACNO === acno)) {
+          this.pigmyChartTable.forEach((element) => {
+            if (element.TRAN_ACNO == acno) {
+              this.totalAmt = this.totalAmt + parseInt(amount) - parseInt(element['TRAN_AMOUNT'])
+              this.angForm.patchValue({
+                TRAN_AMOUNT: this.totalAmt
+              })
+              element['TRAN_AMOUNT'] = amount
+            }
+          })
+        }
+        else {
+          var object = {
+            pigmyID: id,
+            TRAN_ACTYPE: actype,
+            TRAN_ACNO: acno,
+            TRAN_GLACNO: glacno,
+            // RECEIPT_NO: receiptNo,
+            TRAN_BANKACNO: bankacno,
+            TRAN_AMOUNT: amount,
+          }
+          this.pigmyChartTable.push(object)
+          this.totalAmt = this.totalAmt + parseInt(amount)
+          this.angForm.patchValue({
+            TRAN_AMOUNT: this.totalAmt
+          })
+        }
+      }
+      else {
+        var object = {
+          pigmyID: id,
+          TRAN_ACTYPE: actype,
+          TRAN_ACNO: acno,
+          TRAN_GLACNO: glacno,
+          // RECEIPT_NO: receiptNo,
+          TRAN_BANKACNO: bankacno,
+          TRAN_AMOUNT: amount,
+        }
+        this.pigmyChartTable.push(object)
+        this.totalAmt = this.totalAmt + parseInt(amount)
+        this.angForm.patchValue({
+          TRAN_AMOUNT: this.totalAmt
+        })
+      }
+    }
+    console.log(this.pigmyChartTable, 'charttable')
+  }
+
+  // Method to insert data into database through NestJS
+  submit() {
+    const formVal = this.angForm.value;
+    if (this.pigmyChartTable.length != 0) {
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.id;
+      const dataToSend = {
+        'BRANCH_ID': this.ngBranchCode,
+        'BRANCHCODE': this.branchCode,
+        'BRANCH_CODE': branchCode,
+        'TRAN_DATE': formVal.TRAN_DATE,
+        'AGENT_ACTYPE': formVal.AGENT_ACTYPE,
+        'AGENT_ACNO': formVal.AGENT_ACNO,
+        'USER_CODE': this.userID,
+        'OFFICER_CODE': this.userID,
+        'CHART_NO': formVal.CHART_NO,
+        'PIGMY_IS_AUTO_VOUCHER': this.pigmyAutoVoucher,
+        'TRAN_AMOUNT': formVal.TRAN_AMOUNT,
+        'AGENTBANKAC': this.agentBankACNO,
+        'S_GLACNO': this.S_GLACNO,
+        'PigmyChartArr': this.pigmyChartTable
+      };
+      console.log('dataTosend', dataToSend)
+      this._pigmy.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
+      this.totalAmt = 0
+      this.tableArr = []
+      this.pigmyChartTable = []
+    }
+  }
+
+  //Method for append data into fields
+  editClickHandler(id) {
+    this.showButton = false;
+    this.updateShow = true;
+    this.newbtnShow = true;
+    this.angForm.controls['BRANCH'].disable()
+    this.angForm.controls['AGENT_ACTYPE'].disable()
+    this.angForm.controls['AGENT_ACNO'].disable()
+    this.angForm.controls['CHART_NO'].disable()
+    this._pigmy.getFormData(id).subscribe(data => {
+      debugger
+      console.log('edit data', data)
+      this.updateID = data.id;
+      // this.tableArr = data.pigmyChartMaster
+      // this.showTable = true
+
+      this.ngschemeCode = data.AGENT_ACTYPE
+      this.ngBranchCode = data.BRANCH_ID
+      this.agentBankACNO = data.AGENT_BANKACNO
+      this.getPigmyAgentAcnoList()
+      console.log('  this.ngAgentCode', this.ngAgentCode)
+      this.angForm.patchValue({
+        'TRAN_DATE': data.TRAN_DATE,
+        'BRANCH': data.BRANCH_ID,
+        'AGENT_ACTYPE': data.AGENT_ACTYPE,
+        'CHART_NO': data.CHART_NO,
+        'TRAN_AMOUNT': data.TRAN_AMOUNT,
+        // AGENT_ACNO: data.AGENT_ACNO
+      })
+      this.ngAgentCode = data.AGENT_ACNO
+      let trandate = data.TRAN_DATE
+      var full = []
+      var fullDate = trandate;
+      full = fullDate.split(' ');
+      var date = full[0].split(/\//);
+      var newDate = date[1] + '/' + date[0] + '/' + date[2]
+      var k = new Date(newDate);
+      var expiryDate = moment(k).format('DD.MM.YYYY');
+      let mem = [data.AGENT_ACTYPE, data.AGENT_ACNO, data.BRANCH_ID, expiryDate]
+      console.log(mem, 'mem edit')
+      this.dtTrigger.unsubscribe();
+      this.http.get(this.url + '/pigmy-chart/pigmychart/' + mem).subscribe((data) => {
+        this.tableArr = data;
+        this.pigmyChartTable = []
+        this.tableArr.forEach(async (element) => {
+          var object = {
+            pigmyID: element.id,
+            TRAN_ACTYPE: element.AC_TYPE,
+            TRAN_ACNO: element.AC_NO,
+            TRAN_GLACNO: element.PGMaster.S_GLACNO,
+            RECEIPT_NO: element.pigmychart.RECEIPT_NO,
+            TRAN_BANKACNO: element.BANKACNO,
+            TRAN_AMOUNT: element.pigmychart.TRAN_AMOUNT,
+          }
+          await this.pigmyChartTable.push(object)
+        })
+        console.log('table data', this.tableArr)
+        this.showTable = true
+        this.totalAmt = this.angForm.controls['TRAN_AMOUNT'].value
+
+        this.angForm.patchValue({
+          TRAN_AMOUNT: this.totalAmt
+        })
+        this.dtTrigger.next();
+      });
+    })
+  }
+
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+    this.newbtnShow = false;
+    this.angForm.controls['BRANCH'].enable()
+    this.angForm.controls['AGENT_ACTYPE'].enable()
+    this.angForm.controls['AGENT_ACNO'].enable()
+    this.angForm.controls['CHART_NO'].enable()
+    let data = this.angForm.value;
+    data['id'] = this.updateID;
+    data['AGENTBANKAC'] = this.agentBankACNO
+    data['PigmyChartArr'] = this.pigmyChartTable
+    this._pigmy.updateData(data).subscribe(() => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.showButton = true;
+      this.updateShow = false;
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      this.pigmyChartTable = []
+      this.resetForm();
+    })
+    this.resetForm()
   }
 
-
   addNewData() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    this.userID = result.USER_NAME
+    if (result.RoleDefine[0].Role.NAME == "Admin") {
+      this.angForm.controls['BRANCH'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+    this.angForm.controls['AGENT_ACTYPE'].enable()
+    this.angForm.controls['AGENT_ACNO'].enable()
+    this.angForm.controls['CHART_NO'].enable()
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -132,7 +559,59 @@ export class PigmyChartEntryComponent implements OnInit {
   }
 
   resetForm() {
+    debugger
     this.createForm()
+    this.showTable = false
+    this.isReceiptShow = false
+    this.ngBranchCode = null
+    this.ngschemeCode = null
+    this.ngAgentCode = null
+    this.mem = []
+    this.angForm.controls['BRANCH'].enable()
+    this.angForm.controls['AGENT_ACTYPE'].enable()
+    this.angForm.controls['AGENT_ACNO'].enable()
+    this.angForm.controls['CHART_NO'].enable()
+    this.getSystemParaDate()
+    this.pigmyChartTable = []
+    this.tableArr = []
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    this.userID = result.USER_NAME
+    if (result.RoleDefine[0].Role.NAME == "Admin") {
+      this.angForm.controls['BRANCH'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
   }
 
+
+  ngAfterViewInit(): void {
+    this.dtTrigger1.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#mastertable tfoot tr').appendTo('#mastertable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
+
+
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger1.unsubscribe();
+  }
 }
