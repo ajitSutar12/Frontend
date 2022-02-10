@@ -690,7 +690,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   logout(){
-
+    window.close();
     let user = JSON.parse(localStorage.getItem('user'));
 
     this._authService.logout(user.id).subscribe(data=>{

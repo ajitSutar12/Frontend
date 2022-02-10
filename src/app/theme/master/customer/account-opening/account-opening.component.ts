@@ -149,7 +149,6 @@ export class AccountOpeningComponent implements OnInit {
             dataTableParameters
           ).subscribe(resp => {
             this.investmentMaster = resp.data;
-            console.log(this.investmentMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -274,7 +273,6 @@ export class AccountOpeningComponent implements OnInit {
       'AC_MATUAMT': formVal.AC_MATUAMT,
       'AC_CLOSEDT': formVal.AC_CLOSEDT
     }
-    console.log("dataToSend", dataToSend)
     this.investmentService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
@@ -298,7 +296,6 @@ export class AccountOpeningComponent implements OnInit {
   }
   getBankName(id) {
     this.bankService.getFormData(id).subscribe(data => {
-      console.log('get customer data', data)
       this.angForm.patchValue({
         INVEST_BANK: id.toString(),
         AC_NAME: data.BANK_NAME
@@ -338,7 +335,6 @@ export class AccountOpeningComponent implements OnInit {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.investmentService.updateData(data).subscribe(() => {
-      console.log(data)
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
@@ -391,7 +387,7 @@ export class AccountOpeningComponent implements OnInit {
       this.investmentService.approve(obj).subscribe(data=>{
         Swal.fire(
           'Approved',
-          'Saving Account approved successfully',
+          'Investment Account approved successfully',
           'success'
         );
         var button = document.getElementById('triggerhide');
@@ -414,7 +410,7 @@ export class AccountOpeningComponent implements OnInit {
       this.investmentService.reject(obj).subscribe(data=>{
         Swal.fire(
           'Rejected',
-          'Saving Account rejected successfully',
+          'Investment Account rejected successfully',
           'success'
         );
   

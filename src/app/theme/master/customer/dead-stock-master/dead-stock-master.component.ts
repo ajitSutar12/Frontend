@@ -117,8 +117,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   //for search functionality
   filterData = {};
   //Title
-  //itemtypeoption: Array<IOption> = this.ItemCatMasterDropdownService.getCharacters();
-  // SUPPLIER_NAME: IOption[];
   selectedOption = "3";
   isDisabled = true;
   characters: Array<IOption>;
@@ -148,7 +146,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     private DepriciationCatDropdownMaster: DepriciationCatDropdownMasterService,
     private ACMasterDropdownService: ACMasterDropdownService
   ) {
-    console.log('Saving Data with Input', this.childMessage)
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
     }
@@ -205,10 +202,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         {
           title: "Action",
         },
-        // {
-        //   title: "Item Type",
-        //   data: "ITEM_TYPE",
-        // },
         {
           title: "Item Code",
           data: "ITEM_CODE",
@@ -229,23 +222,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
           title: "Depreciation Category",
           data: "DEPR_CATEGORY",
         },
-        // {
-        //   title: "Op.Balance Date",
-        //   data: "OP_BAL_DATE",
-        // },
-        // {
-        //   title: "Opening Amount",
-        //   data: "OP_BALANCE",
-        // },
-        // {
-        //   title: "Quantity",
-        //   data: "OP_QUANTITY",
-        // },
-
-        // {
-        //   title: "PURCHASE QUANTITY",
-        //   data: "PURCHASE_OP_QUANTITY",
-        // },
         {
           title: "Purchase Qty",
           data: "PURCHASE_QUANTITY",
@@ -267,10 +243,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
           title: "GL A/C Number",
           data: "GL_ACNO",
         },
-        // {
-        //    title: 'Total Records',
-        //    data: 'TotalRecords'
-        //  },
       ],
       dom: "Blrtip",
     };
@@ -316,8 +288,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   }
   //disabledate on keyup
   disabledate(data: any) {
-
-    console.log(data);
     if (data != "") {
       if (data > this.datemax) {
         Swal.fire("Invalid Input", "Please insert valid date ", "warning");
@@ -327,7 +297,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     }
   }
   getDate(value: Date): void {
-    debugger
     if (value == null) {
       this.angForm.controls['SUPPLIER_NAME'].disable()
       this.angForm.controls['OP_BALANCE'].disable()
@@ -349,7 +318,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       this.angForm.controls['OP_QUANTITY'].enable()
       this.angForm.controls['PURCHASE_RATE'].enable()
       this.angForm.controls['PURCHASE_OP_QUANTITY'].enable()
-      // this.angForm.controls['PURCHASE_VALUE'].enable()
       this.angForm.controls['LAST_DEPR_DATE'].enable()
     }
 
@@ -357,7 +325,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
 
   // Method to insert data into database through NestJS
   submit() {
-    debugger
     this.formSubmitted = true;
     let purchase
     let purchase1
@@ -367,7 +334,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     let branchCode = result.branch.id;
     let bankCode = Number(result.branch.syspara.BANK_CODE)
     // if (this.angForm.valid) {
-    console.log(this.angForm.value); // Process your form
     const formVal = this.angForm.value;
     const dataToSend = {
       'BRANCH_CODE': branchCode,
@@ -377,7 +343,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       ITEM_NAME: formVal.ITEM_NAME,
       PURCHASE_DATE: (formVal.PURCHASE_DATE == '' || formVal.PURCHASE_DATE == 'Invalid date' || formVal.PURCHASE_DATE == undefined || formVal.PURCHASE_DATE == null) ? purchase = '' : purchase = moment(formVal.PURCHASE_DATE).format('DD/MM/YYYY'),
       DEPR_CATEGORY: formVal.DEPR_CATEGORY,
-      // DEPR_CATEGORY: formVal.DEPR_CATEGORY,
+
       OP_BAL_DATE: (formVal.OP_BAL_DATE == '' || formVal.OP_BAL_DATE == 'Invalid date' || formVal.OP_BAL_DATE == undefined || formVal.OP_BAL_DATE == null) ? purchase1 = '' : purchase1 = moment(formVal.OP_BAL_DATE).format('DD/MM/YYYY'),
       SUPPLIER_NAME: formVal.SUPPLIER_NAME,
       OP_BALANCE: formVal.OP_BALANCE,
@@ -387,12 +353,17 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       PURCHASE_VALUE: this.firstnumber * this.secondnumber,
       LAST_DEPR_DATE: (formVal.LAST_DEPR_DATE == '' || formVal.LAST_DEPR_DATE == 'Invalid date' || formVal.LAST_DEPR_DATE == undefined || formVal.LAST_DEPR_DATE == null) ? purchase2 = '' : purchase2 = moment(formVal.LAST_DEPR_DATE).format('DD/MM/YYYY'),
       GL_ACNO: formVal.GL_ACNO,
-      // PURCHASE_QUANTITY: formVal.PURCHASE_QUANTITY,     
+
     };
-    console.log('dead datasend', dataToSend)
     this.deadstockmasterService.postData(dataToSend).subscribe(
       (data1) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Created successfully!',
+          html:
+            '<b>ITEM NAME : </b>' + data1.ITEM_NAME + ',' + '<br>' +
+            '<b>ITEM CODE : </b>' + data1.ITEM_CODE + '<br>'
+        })
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload();
@@ -421,11 +392,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     let date
     let date1
     let date2
-    // this.showButton = false;
-    // this.updateShow = true;
-    // this.newbtnShow = true;
     this.deadstockmasterService.getFormData(id).subscribe((data) => {
-      debugger
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
         this.updateShow = true;
@@ -437,13 +404,11 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       }
       this.updateID = data.id;
       this.updatecheckdata = data
-
-      // this.lddate=(data.LAST_DEPR_DATE == 'Invalid date' || data.LAST_DEPR_DATE == '' || data.LAST_DEPR_DATE == null) ? date2 = '' : date2 = data.LAST_DEPR_DATE,
       this.ngItem = Number(data.ITEM_TYPE)
       this.ngDepre = Number(data.DEPR_CATEGORY)
       this.nglastdedate = data.LAST_DEPR_DATE
 
-      if (data.OP_BAL_DATE != null) {
+      if (data.OP_BAL_DATE != '') {
         this.angForm.controls['SUPPLIER_NAME'].enable()
         this.angForm.controls['OP_BALANCE'].enable()
         this.angForm.controls['OP_QUANTITY'].enable()
@@ -471,6 +436,14 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.angForm.controls['PURCHASE_OP_QUANTITY'].disable()
         this.angForm.controls['PURCHASE_VALUE'].disable()
         this.angForm.controls['LAST_DEPR_DATE'].disable()
+        this.angForm.controls['SUPPLIER_NAME'].reset()
+        this.angForm.controls['OP_BALANCE'].reset()
+        this.angForm.controls['OP_QUANTITY'].reset()
+        this.angForm.controls['PURCHASE_RATE'].reset()
+        this.angForm.controls['PURCHASE_OP_QUANTITY'].reset()
+        this.angForm.controls['PURCHASE_VALUE'].reset()
+        this.angForm.controls['LAST_DEPR_DATE'].reset()
+        this.angForm.controls['OP_BAL_DATE'].reset()
       }
 
       this.angForm.patchValue({
@@ -489,7 +462,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     let date
     let date1
     let date2
-    debugger
     let data = this.angForm.value;
 
     data["id"] = this.updateID;
@@ -541,6 +513,14 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.angForm.controls['SUPPLIER_NAME'].disable()
+    this.angForm.controls['OP_BALANCE'].disable()
+    this.angForm.controls['OP_QUANTITY'].disable()
+    this.angForm.controls['PURCHASE_RATE'].disable()
+    this.angForm.controls['PURCHASE_OP_QUANTITY'].disable()
+    this.angForm.controls['PURCHASE_VALUE'].disable()
+    this.angForm.controls['LAST_DEPR_DATE'].disable()
+
     this.resetForm();
   }
   // Reset Function
@@ -549,6 +529,14 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.ngItem = null
     this.ngDepre = null
     this.ngGlAC = null
+    this.angForm.controls['OP_BAL_DATE'].reset()
+    this.angForm.controls['SUPPLIER_NAME'].disable()
+    this.angForm.controls['OP_BALANCE'].disable()
+    this.angForm.controls['OP_QUANTITY'].disable()
+    this.angForm.controls['PURCHASE_RATE'].disable()
+    this.angForm.controls['PURCHASE_OP_QUANTITY'].disable()
+    this.angForm.controls['PURCHASE_VALUE'].disable()
+    this.angForm.controls['LAST_DEPR_DATE'].disable()
   }
   //Method for delete data
   delClickHandler(id: number) {
@@ -630,7 +618,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.deadstockmasterService.approve(obj).subscribe(data => {
       Swal.fire(
         'Approved',
-        'Saving Account approved successfully',
+        'Dead Stock Account approved successfully',
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -651,7 +639,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.deadstockmasterService.reject(obj).subscribe(data => {
       Swal.fire(
         'Rejected',
-        'Saving Account rejected successfully',
+        'Dead Stock rejected successfully',
         'success'
       );
 

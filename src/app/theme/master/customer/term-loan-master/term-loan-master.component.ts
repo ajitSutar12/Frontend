@@ -338,7 +338,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     public router: Router,
     private config: NgSelectConfig,
   ) {
-    console.log('Saving Data with Input', this.childMessage)
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
@@ -392,7 +391,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
             dataTableParameters
           ).subscribe(resp => {
             this.termLoanMaster = resp.data;
-            console.log(this.termLoanMaster, "data")
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -582,6 +580,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       CAC_CUSTID: ['', [Validators.required]],
       SECURITY_CODE: [''],
       SECURITY_VALUE: [''],
+      IS_WEAKER: [''],
       AC_REMARK: ['', [Validators.pattern]],
       AC_ACNOTYPE: ['LN'],
       AC_TYPE: ['', [Validators.required]],
@@ -661,10 +660,19 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   // Method to insert data into database through NestJS
-
+  ngexpiry: any
   submit() {
     this.formSubmitted = true;
     const formVal = this.angForm.value;
+    let temdate
+    let opdate
+    let temredate
+    let date
+    let redate
+    let sanctiondate
+    let expirydate
+    let resodate
+    let schecode
     if (formVal.AC_ADDFLAG == true) {
       this.addType = 'P'
     }
@@ -674,32 +682,35 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     if (this.angForm.controls['AC_TCTCODE'].value == "") {
       formVal.AC_TCTCODE = 0
     }
+    if (this.tempopendate != this.openingDate) {
+      temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
+    } else {
+      temdate = this.openingDate
+    }
 
+    if (this.tempopendate != this.ngredate) {
+      temredate = (formVal.AC_COREG_DATE == '' || formVal.AC_COREG_DATE == 'Invalid date') ? date = '' : date = moment(formVal.AC_COREG_DATE).format('DD/MM/YYYY')
+    } else {
+      temredate = this.ngredate
+    }
     //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
     let bankCode = Number(result.branch.syspara.BANK_CODE)
-    let date
-    let opdate
-    let redate
-    let sanctiondate
-    let expirydate
-    let resodate
-    let schecode
-    this.scheme.forEach(async (element) => {
-      console.log(this.code, "this.selectedValue")
-      console.log(element)
-      console.log(element, "element")
-      if (element.value == this.code) {
-        console.log(true)
-        console.log(element.name, "element.S_APPL")
-        schecode = element.name
 
-        console.log(schecode)
+    this.scheme.forEach(async (element) => {
+      if (element.value == this.code) {
+
+        schecode = element.name
       }
     })
-
+    var expiry
+    if (this.tempexpiryDate != this.ngexpiry) {
+      expiry = (this.ngexpiry == '' || this.ngexpiry == 'Invalid date') ? expiry = '' : expiry = moment(this.ngexpiry).format('DD/MM/YYYY')
+    } else {
+      expiry = this.ngexpiry
+    }
     const dataToSend = {
       'branchCode': branchCode,
       'bankCode': bankCode,
@@ -709,8 +720,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_NO': formVal.AC_NO,
       'AC_NAME': formVal.AC_NAME,
       'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_OPDATE': this.openingDate,
-      // 'AC_OPDATE': (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY'),
+      'AC_OPDATE': temdate,
       'AC_OPEN_OLD_DATE': (formVal.AC_OPEN_OLD_DATE == '' || formVal.AC_OPEN_OLD_DATE == 'Invalid date') ? redate = '' : redate = moment(formVal.AC_OPEN_OLD_DATE).format('DD/MM/YYYY'),
       'REF_ACNO': formVal.REF_ACNO,
       'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
@@ -719,7 +729,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_SANCTION_DATE': (formVal.AC_SANCTION_DATE == '' || formVal.AC_SANCTION_DATE == 'Invalid date') ? sanctiondate = '' : sanctiondate = moment(formVal.AC_SANCTION_DATE).format('DD/MM/YYYY'),
       'AC_DRAWPOWER_AMT': formVal.AC_DRAWPOWER_AMT,
       'AC_MONTHS': formVal.AC_MONTHS,
-      'AC_EXPIRE_DATE': (formVal.AC_EXPIRE_DATE == '' || formVal.AC_EXPIRE_DATE == 'Invalid date') ? expirydate = '' : expirydate = moment(formVal.AC_EXPIRE_DATE).format('DD/MM/YYYY'),
+      'AC_EXPIRE_DATE': expiry,
       'AC_INTRATE': formVal.AC_INTRATE,
       'AC_REPAYMODE': formVal.AC_REPAYMODE,
       'INSTALLMENT_METHOD': formVal.INSTALLMENT_METHOD,
@@ -741,11 +751,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_DIRECTOR': formVal.AC_DIRECTOR,
       'AC_DIRECTOR_RELATION': formVal.AC_DIRECTOR_RELATION,
       'AC_COREG_NO': formVal.AC_COREG_NO,
-      'AC_COREG_DATE': (formVal.AC_COREG_DATE == '' || formVal.AC_COREG_DATE == 'Invalid date') ? date = '' : date = moment(formVal.AC_COREG_DATE).format('DD/MM/YYYY'),
-
-      // 'AC_COREG_DATE': formVal.AC_COREG_DATE,
+      'IS_WEAKER': formVal.IS_WEAKER,
       'AC_COREG_AMT': formVal.AC_COREG_AMT,
       'AC_RESO_NO': formVal.AC_RESO_NO,
+      'AC_REMARK': formVal.AC_REMARK,
       'AC_RESO_DATE': (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date') ? resodate = '' : resodate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY'),
       AC_ADDFLAG: formVal.AC_ADDFLAG,
       AC_ADDTYPE: this.addType,
@@ -775,9 +784,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'Vehicle': this.vehicleid,
 
     }
-    console.log("dataToSend", dataToSend)
+
     this.termLoanService.postData(dataToSend).subscribe(data => {
-      console.log(data, "submit data")
+
       Swal.fire({
         icon: 'success',
         title: 'Account Created successfully!',
@@ -813,6 +822,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.pledgeid = []
     this.stockid = []
     this.vehicleid = []
+
   }
 
   // Reset Function
@@ -824,11 +834,33 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.resetField()
     this.code = null
     this.id = null
+    this.renewDate = null
+    this.int_category = null
+    this.sanctionAmt = null
+    this.drawingPower = null
+    this.ngexpiry = null
+    this.intRate = null
+    this.repay = null
+    this.installmentType = null
+    this.sanctionAutho = null
+    this.recomBy = null
+    this.recovery = null
+    this.idp = null
+    this.ngindustry = null
+    this.nghealth = null
+    this.ngAccountType = null
+    this.ngdirectorType = null
+    this.ngredate = null
+    this.weakerSec = null
+    this.ngpurpose = null
+    this.sanctionDate = null
+    this.ngresodate = null
+    this.angForm.controls['AC_COREG_DATE'].reset()
     this.getSystemParaDate()
   }
 
   //Method for append data into fields
-
+  updatecheckdata: any
   editClickHandler(id) {
     this.angForm.controls['AC_TYPE'].disable()
     let date
@@ -838,11 +870,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     let expirydate
     let resodate
 
-    // this.showButton = false;
-    // this.updateShow = true;
-    // this.newbtnShow = true;
     this.columnShowButton = true
     this.termLoanService.getFormData(id).subscribe(data => {
+      this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
         this.updateShow = true;
@@ -868,53 +898,59 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.ngindustry = Number(data.AC_INDUSTRY)
       this.nghealth = Number(data.AC_HEALTH)
       this.ngAccountType = data.AC_RELATION_TYPE
-      this.ngdirectorType = Number(data.AC_DIRECTOR)
-      this.angForm.patchValue({
-        AC_TYPE: data.AC_TYPE,
-        'BANKACNO': data.BANKACNO,
-        AC_NO: data.AC_NO,
-        AC_OPDATE: (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
-        AC_OPEN_OLD_DATE: (data.AC_OPEN_OLD_DATE == 'Invalid date' || data.AC_OPEN_OLD_DATE == '' || data.AC_OPEN_OLD_DATE == null) ? redate = '' : redate = data.AC_OPEN_OLD_DATE,
-        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
-        REF_ACNO: data.REF_ACNO,
-        // AC_INTCATA: data.AC_INTCATA,
-        AC_SANCTION_AMOUNT: data.AC_SANCTION_AMOUNT,
-        AC_SANCTION_DATE: (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? sanctiondate = '' : sanctiondate = data.AC_SANCTION_DATE,
-        AC_DRAWPOWER_AMT: data.AC_DRAWPOWER_AMT,
-        AC_MONTHS: data.AC_MONTHS,
-        AC_EXPIRE_DATE: (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
-        AC_INTRATE: data.AC_INTRATE,
-        AC_REPAYMODE: data.AC_REPAYMODE,
-        INSTALLMENT_METHOD: data.INSTALLMENT_METHOD,
-        AC_INSTALLMENT: data.AC_INSTALLMENT,
-        AC_MORATORIUM_PERIOD: data.AC_MORATORIUM_PERIOD,
-        AC_GRACE_PERIOD: data.AC_GRACE_PERIOD,
-        // AC_AUTHORITY: Number(data.AC_AUTHORITY),
-        // AC_RECOMMEND_BY: data.AC_RECOMMEND_BY,
-        // AC_RECOVERY_CLERK: data.AC_RECOVERY_CLERK,
-        // AC_PRIORITY: data.AC_PRIORITY,
-        AC_PRIORITY_SUB1: data.AC_PRIORITY_SUB1,
-        AC_PRIORITY_SUB2: data.AC_PRIORITY_SUB2,
-        AC_PRIORITY_SUB3: data.AC_PRIORITY_SUB3,
-        // AC_WEAKER: data.AC_WEAKER,
-        // AC_PURPOSE: data.AC_PURPOSE,
-        // AC_INDUSTRY: data.AC_INDUSTRY,
-        // AC_HEALTH: data.AC_HEALTH,
-        // AC_RELATION_TYPE: data.AC_RELATION_TYPE,
-        // AC_DIRECTOR: data.AC_DIRECTOR,
-        AC_DIRECTOR_RELATION: data.AC_DIRECTOR_RELATION,
-        AC_COREG_NO: data.AC_COREG_NO,
-        AC_COREG_DATE: (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? date = '' : date = data.AC_COREG_DATE,
-        // AC_COREG_DATE: data.AC_COREG_DATE,
-        AC_COREG_AMT: data.AC_COREG_AMT,
-        AC_RESO_NO: data.AC_RESO_NO,
-        AC_RESO_DATE: (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? resodate = '' : resodate = data.AC_RESO_DATE,
-      })
+      if (this.ngAccountType == 'Director') {
+        this.angForm.controls['AC_DIRECTOR'].enable()
+        this.ngdirectorType = Number(data.AC_DIRECTOR)
+        this.angForm.controls['AC_DIRECTOR_RELATION'].disable()
+        this.angForm.controls['AC_DIRECTOR_RELATION'].reset()
+      }
+      else if (this.ngAccountType == 'DirectorsRelative') {
+        this.angForm.controls['AC_DIRECTOR'].enable()
+        this.ngdirectorType = Number(data.AC_DIRECTOR)
+        this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
+      }
+      else {
+        this.angForm.controls['AC_DIRECTOR'].disable()
+        this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
+        this.angForm.controls['AC_DIRECTOR'].reset()
+        this.angForm.controls['AC_DIRECTOR_RELATION'].reset();
+      }
+      this.sanctionAmt = data.AC_SANCTION_AMOUNT
+      this.sanctionDate = (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? sanctiondate = '' : sanctiondate = data.AC_SANCTION_DATE,
+        this.drawingPower = data.AC_DRAWPOWER_AMT,
+        this.ngexpiry = (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
+        this.intRate = data.AC_INTRATE
+      this.repay = data.AC_REPAYMODE
+      this.installmentType = data.INSTALLMENT_METHOD
+      this.ngresodate = (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? resodate = '' : resodate = data.AC_RESO_DATE,
+        this.ngredate = (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? date = '' : date = data.AC_COREG_DATE,
+        this.renewDate = (data.AC_OPEN_OLD_DATE == 'Invalid date' || data.AC_OPEN_OLD_DATE == '' || data.AC_OPEN_OLD_DATE == null) ? redate = '' : redate = data.AC_OPEN_OLD_DATE,
+        this.angForm.patchValue({
+          AC_TYPE: data.AC_TYPE,
+          'BANKACNO': data.BANKACNO,
+          AC_NO: data.AC_NO,
+          AC_OPDATE: (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
+          AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+          REF_ACNO: data.REF_ACNO,
+          AC_MONTHS: data.AC_MONTHS,
+          AC_INSTALLMENT: data.AC_INSTALLMENT,
+          AC_MORATORIUM_PERIOD: data.AC_MORATORIUM_PERIOD,
+          AC_GRACE_PERIOD: data.AC_GRACE_PERIOD,
+          IS_WEAKER: data.IS_WEAKER,
+          AC_PRIORITY_SUB1: data.AC_PRIORITY_SUB1,
+          AC_PRIORITY_SUB2: data.AC_PRIORITY_SUB2,
+          AC_PRIORITY_SUB3: data.AC_PRIORITY_SUB3,
+          AC_DIRECTOR_RELATION: data.AC_DIRECTOR_RELATION,
+          AC_COREG_NO: data.AC_COREG_NO,
+          AC_REMARK: data.AC_REMARK,
+          AC_COREG_AMT: data.AC_COREG_AMT,
+          AC_RESO_NO: data.AC_RESO_NO,
+             })
     })
   }
 
   // Method For New Button
-  // AC_TYPE: boolean = false
+
   addNewData() {
     this.angForm.controls['AC_TYPE'].enable()
     this.showButton = true;
@@ -930,7 +966,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   //Method for update data 
-
+  sanctionDate: any
+  ngresodate: any
   updateData() {
     this.angForm.controls['AC_TYPE'].enable()
     let data = this.angForm.value;
@@ -940,84 +977,72 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     else if (data.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
-    console.log(this.multiGuarantor)
-    console.log(this.multiCoBorrower)
-    console.log(this.multiSecurity)
+
     data['AC_ADDTYPE'] = this.addType
     data['GuarantorData'] = this.multiGuarantor
     data['CoBorrowerData'] = this.multiCoBorrower
     data['SecurityData'] = this.multiSecurity
     data['id'] = this.updateID;
-    console.log( data['GuarantorData'])
-    console.log( data['CoBorrowerData'])
-    console.log( data['SecurityData'])
-    
 
-    // console.log("date", data['AC_COREG_DATE'].value)
     let date
     let opdate
     let redate
     let sanctiondate
     let expirydate
     let resodate
-    (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? (date = '', data['AC_COREG_DATE'] = date) : (date = data.AC_COREG_DATE, data['AC_COREG_DATE'] = moment(date).format('DD/MM/YYYY')),
+    if (this.updatecheckdata.AC_COREG_DATE != this.ngredate) {
+      (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? (date = '', data['AC_COREG_DATE'] = date) : (date = data.AC_COREG_DATE, data['AC_COREG_DATE'] = moment(date).format('DD/MM/YYYY'))
+    } else {
+      data['AC_COREG_DATE'] = this.ngredate
+    }
 
-      (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')),
+    if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
+      (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
+    } else {
+      data['AC_OPDATE'] = this.openingDate
+    }
 
-      (data.AC_OPEN_OLD_DATE == 'Invalid date' || data.AC_OPEN_OLD_DATE == '' || data.AC_OPEN_OLD_DATE == null) ? (redate = '', data['AC_OPEN_OLD_DATE'] = redate) : (redate = data.AC_OPEN_OLD_DATE, data['AC_OPEN_OLD_DATE'] = moment(redate).format('DD/MM/YYYY')),
+    if (this.updatecheckdata.AC_OPEN_OLD_DATE != this.renewDate) {
+      (data.AC_OPEN_OLD_DATE == 'Invalid date' || data.AC_OPEN_OLD_DATE == '' || data.AC_OPEN_OLD_DATE == null) ? (redate = '', data['AC_OPEN_OLD_DATE'] = redate) : (redate = data.AC_OPEN_OLD_DATE, data['AC_OPEN_OLD_DATE'] = moment(redate).format('DD/MM/YYYY'))
+    } else {
+      data['AC_OPEN_OLD_DATE'] = this.renewDate
+    }
+    if (this.updatecheckdata.AC_SANCTION_DATE != this.sanctionDate) {
+      (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? (sanctiondate = '', data['AC_SANCTION_DATE'] = sanctiondate) : (sanctiondate = data.AC_SANCTION_DATE, data['AC_SANCTION_DATE'] = moment(sanctiondate).format('DD/MM/YYYY'))
+    } else {
+      data['AC_SANCTION_DATE'] = this.sanctionDate
+    }
+    if (this.updatecheckdata.AC_EXPIRE_DATE != this.ngexpiry) {
+      (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? (expirydate = '', data['AC_EXPIRE_DATE'] = expirydate) : (expirydate = data.AC_EXPIRE_DATE, data['AC_EXPIRE_DATE'] = moment(expirydate).format('DD/MM/YYYY'))
 
-      (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? (sanctiondate = '', data['AC_SANCTION_DATE'] = sanctiondate) : (sanctiondate = data.AC_SANCTION_DATE, data['AC_SANCTION_DATE'] = moment(sanctiondate).format('DD/MM/YYYY')),
+    } else {
+      data['AC_EXPIRE_DATE'] = this.ngexpiry
+    }
 
-      (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? (expirydate = '', data['AC_EXPIRE_DATE'] = expirydate) : (expirydate = data.AC_EXPIRE_DATE, data['AC_EXPIRE_DATE'] = moment(expirydate).format('DD/MM/YYYY')),
+    if (this.updatecheckdata.AC_RESO_DATE != this.ngresodate) {
+      (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? (resodate = '', data['AC_RESO_DATE'] = resodate) : (resodate = data.AC_RESO_DATE, data['AC_RESO_DATE'] = moment(resodate).format('DD/MM/YYYY'))
 
-      (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? (resodate = '', data['AC_RESO_DATE'] = resodate) : (resodate = data.AC_RESO_DATE, data['AC_RESO_DATE'] = moment(resodate).format('DD/MM/YYYY')),
-      // if (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) {
-      //   date = ''
-      //   data['AC_COREG_DATE'] = date
-      // } else {
-      //   date = data.AC_COREG_DATE
-      //   data['AC_COREG_DATE'] = moment(date).format('DD/MM/YYYY')
-      // }
-      // if (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) {
-      //   opdate = ''
-      //   data['AC_OPDATE'] = opdate
-      // } else {
-      //   opdate = data.AC_OPDATE
-      //   data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')
+    }
+    else {
+      data['AC_RESO_DATE'] = this.ngresodate
+    }
 
-      // }
-      // if (data.AC_OPEN_OLD_DATE == 'Invalid date' || data.AC_OPEN_OLD_DATE == '' || data.AC_OPEN_OLD_DATE == null) {
-      //   redate = ''
-      //   data['AC_OPEN_OLD_DATE'] = redate
-      // } else {
-      //   redate = data.AC_OPEN_OLD_DATE
-      //   data['AC_OPEN_OLD_DATE'] = moment(redate).format('DD/MM/YYYY')
-      // }
-      // if (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) {
-      //   sanctiondate = ''
-      //   data['AC_SANCTION_DATE'] = sanctiondate
-      // } else {
-      //   sanctiondate = data.AC_SANCTION_DATE
-      //   data['AC_SANCTION_DATE'] = moment(sanctiondate).format('DD/MM/YYYY')
-      // }
 
-      // data['AC_COREG_DATE']= moment(this.angForm.controls['AC_COREG_DATE']).format('DD/MM/YYYY'),
 
-      // data['AC_COREG_DATE'] = moment(data['AC_COREG_DATE']).format('DD/MM/YYYY'),
-      this.termLoanService.updateData(data).subscribe(() => {
-        Swal.fire('Success!', 'Record Updated Successfully !', 'success');
-        this.showButton = true;
-        this.updateShow = false;
-        this.newbtnShow = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-        this.multiSecurity = [];
-        this.multiCoBorrower = [];
-        this.multiSecurity = []
-        this.customerDoc = []
-        this.resetForm();
-      })
+    this.termLoanService.updateData(data).subscribe(() => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.showButton = true;
+      this.updateShow = false;
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      this.multiSecurity = [];
+      this.multiCoBorrower = [];
+      this.multiSecurity = []
+      this.customerDoc = []
+      this.resetForm();
+    })
   }
 
   //Method for delete data
@@ -1059,24 +1084,20 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   //function to get new customer data
   addNewCustomer(newCustomer) {
     this._TermLoanScheme.getCustomerIDMasterList().subscribe(data => {
-      console.log(data)
+
       this.Cust_ID = data;
       let last = data.slice(-1)[0]
-      console.log(data.slice(-1)[0])
+
       this.id = newCustomer
-      // this.newcustid = last.AC_NO + "" + last.AC_NAME
-      console.log(this.id)
-      console.log(this.angForm.controls['AC_CUSTID'].value)
+
       this.getCustomer(this.id);
     })
   }
   birthDate: any
   //function to get existing customer data according selection
   getCustomer(id) {
-    // console.log(this.angForm.controls['AC_CUSTID'].value.id)
-    // this.getSystemParaDate() //function to set date
+
     this.customerIdService.getFormData(id).subscribe(data => {
-      console.log(data)
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
 
@@ -1087,12 +1108,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         data.occupMaster = ""
       }
       this.id = data.id
-
-      // let date1 = moment(data.AC_BIRTH_DT).format('DD/MM/YYYY');
-
-      // this.birthDate = date1;
-
-      console.log(data, "customer")
       this.angForm.patchValue({
 
         AC_TITLE: data.AC_TITLE,
@@ -1108,7 +1123,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_PANNO: data.AC_PANNO,
 
       })
-      // this.ageCalculator(data.AC_BIRTH_DT);
+
       let permadd
       let temp
       data.custAddress.forEach(async (element) => {
@@ -1132,7 +1147,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           temp = element
         }
       })
-      console.log('temp address ', temp);
       this.ngCity = temp?.city.id,
         this.angForm.patchValue({
 
@@ -1145,150 +1159,36 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           AC_TPIN: temp?.AC_PIN,
         })
 
-      // this.ageCalculator(data.AC_BIRTH_DT);
     })
     this.onCloseModal();
   }
 
   customer(event) {
-    console.log(event)
     this.termLoanService.getData().subscribe(data => {
-
       this.getCustomer(event.value);
-      // if (data?.length == 0) {
-      //  
-      // }
-      // else {
-      //   if (data.find(data => data['AC_TYPE'] == this.code && data['AC_CUSTID'] == event.value && (data['AC_CLOSEDT'] == '' || data['AC_CLOSEDT'] == null))) {
-
-      //     Swal.fire({
-      //       icon: 'info',
-      //       title: 'Saving Account Already Exists For This Scheme',
-      //     })
-      //     //  this.resetForm()
-      //     event.id = null
-      //     this.id = null
-      //     this.id = ''
-      //     this.angForm.controls['AC_CUSTID'].reset()
-
-      //   } else {
-      //     this.getCustomer(event.value);
-      //   }
-      // }
     })
   }
   onCloseModal() {
     this.visibleAnimate = false;
     setTimeout(() => this.visible = false, 300);
   }
-  // // Method for Get Customer Data
-
-  // getCustomer(id) {
-  //   this.calculation()
-  //   this.getSystemParaDate() //function to set date
-  //   this.customerIdService.getFormData(id).subscribe(data => {
-  //     if (data.castMaster == null) {
-  //       data.castMaster = ""
-  //     }
-  //     if (data.occupMaster == null) {
-  //       data.occupMaster = ""
-  //     }
-  //     this.customerDoc = data.custdocument
-  //     this.tempAddress = data.custAddress[0].AC_ADDFLAG
-  //     this.angForm.patchValue({
-  //       AC_CUSTID: id.toString(),
-  //       AC_TITLE: data.AC_TITLE,
-  //       AC_NAME: data.AC_NAME,
-  //       AC_MEMBTYPE: data.AC_MEMBTYPE,
-  //       AC_MEMBNO: data.AC_MEMBNO,
-  //       AC_CAST: data.castMaster.NAME,
-  //       AC_OCODE: data.occupMaster.NAME,
-  //       AC_ADHARNO: data.AC_ADHARNO,
-  //       AC_RISKCATG: data.AC_RISKCATG,
-  //       AC_BIRTH_DT: data.AC_BIRTH_DT,
-  //       AC_ADDFLAG: data.custAddress[0].AC_ADDFLAG,
-  //       AC_HONO: data.custAddress[0].AC_HONO,
-  //       AC_WARD: data.custAddress[0].AC_WARD,
-  //       AC_ADDR: data.custAddress[0].AC_ADDR,
-  //       AC_GALLI: data.custAddress[0].AC_GALLI,
-  //       AC_AREA: data.custAddress[0].AC_AREA,
-  //       AC_CTCODE: data.custAddress[0].AC_CTCODE,
-  //       AC_PIN: data.custAddress[0].AC_PIN,
-  //       AC_PANNO: data.AC_PANNO,
-  //       AC_MOBILENO: data.AC_MOBILENO,
-  //       AC_PHONE_RES: data.AC_PHONE_RES,
-  //       AC_PHONE_OFFICE: data.AC_PHONE_OFFICE,
-  //       AC_EMAILID: data.AC_EMAILID,
-  //       TDS_REQUIRED: data.TDS_REQUIRED,
-  //       SMS_REQUIRED: data.SMS_REQUIRED,
-  //       IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
-  //       FIN_YEAR: data.FIN_YEAR,
-  //       SUBMIT_DATE: data.SUBMIT_DATE,
-  //       FORM_TYPE: data.FORM_TYPE,
-  //       TDS_RATE: data.TDS_RATE,
-  //       TDS_LIMIT: data.TDS_LIMIT,
-  //     })
-  //     if (data.custAddress[0].AC_ADDFLAG == false && data.custAddress[0].AC_ADDTYPE == 'P') {
-  //       this.angForm.patchValue({
-  //         AC_THONO: data.custAddress[1].AC_HONO,
-  //         AC_TWARD: data.custAddress[1].AC_WARD,
-  //         AC_TADDR: data.custAddress[1].AC_ADDR,
-  //         AC_TGALLI: data.custAddress[1].AC_GALLI,
-  //         AC_TAREA: data.custAddress[1].AC_AREA,
-  //         AC_TCTCODE: data.custAddress[1].AC_CTCODE,
-  //         AC_TPIN: data.custAddress[1].AC_PIN,
-  //       })
-  //     }
-  //   })
-  // }
-
-  // // Event for Customer Module
-
-  // newCustomer(newCustomer) {
-  //   this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
-  //     this.Cust_ID = data;
-  //     this.id = newCustomer;
-  //     this.getCustomer(newCustomer);
-  //   })
-  // }
-
-  //temp address flag variable
 
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
   }
 
+  tempopendate: any
+  ngredate: any
   //set open date, appointed date and expiry date
-
-  // getSystemParaDate() {
-  //   this.systemParameter.getFormData(1).subscribe(data => {
-  //     this.angForm.patchValue({
-  //       AC_OPDATE: data.CURRENT_DATE,
-  //     })
-  //   })
-  // }
-
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
-
-      let date1 = moment(data.CURRENT_DATE).format('DD/MM/YYYY');
-
-      this.openingDate = date1;
-      this.angForm.patchValue({
-        AC_OPDATE: this.openingDate,
-        DATE_APPOINTED: data.CURRENT_DATE,
-       
-      })
+      this.tempopendate = data.CURRENT_DATE
+      this.openingDate = data.CURRENT_DATE
+      this.ngredate = data.CURRENT_DATE
 
       if (data.ON_LINE === true) {
         this.angForm.controls['AC_OPDATE'].disable()
-        // document.getElementById('AC_OPDATE').setAttribute("disabled", "true");
-        // this.disableOpenDate = true
       } else {
-        // document.getElementById('AC_OPDATE').removeAttribute("disabled");
-        // document.getElementById('AC_OPDATE').disable
-        // this.angForm.controls['AC_OPDATE'].enable()
-        // this.disableOpenDate = false
         this.angForm.controls['AC_OPDATE'].enable()
       }
     })
@@ -1323,7 +1223,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   // Method for set opeing date to expiry date and registration date
 
   changeDate() {
-    // this.setCategory(this.temp)
     this.getInterest(this.temp)
     this.angForm.patchValue({
       AC_EXPIRE_DATE: this.angForm.controls['AC_OPDATE'].value,
@@ -1350,7 +1249,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   getPriority(idp) {
     this.prioritySectorMaster.getFormData(idp).subscribe(data => {
       this.angForm.patchValue({
-        AC_PRIORITY: idp.toString(),
+        AC_PRIORITY: idp,
         AC_PRIORITY_SUB1: data.SUB1_CODE,
         AC_PRIORITY_SUB2: data.SUB2_CODE,
         AC_PRIORITY_SUB3: data.SUB3_CODE,
@@ -1361,15 +1260,19 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   // Method for Show and hide option wise field
   directorShow(event) {
     if (event.value == 'Director') {
-      this.AC_DIRECTOR = false
+      this.angForm.controls['AC_DIRECTOR'].enable()
+      this.angForm.controls['AC_DIRECTOR_RELATION'].disable()
+      this.angForm.controls['AC_DIRECTOR_RELATION'].reset()
     }
     else if (event.value == 'DirectorsRelative') {
-      this.AC_DIRECTOR = false
+      this.angForm.controls['AC_DIRECTOR'].enable()
       this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
     }
     else {
-      this.AC_DIRECTOR = true
+      this.angForm.controls['AC_DIRECTOR'].disable()
       this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
+      this.angForm.controls['AC_DIRECTOR'].reset()
+      this.angForm.controls['AC_DIRECTOR_RELATION'].reset();
     }
   }
 
@@ -1721,15 +1624,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
 
-  // OpenLink() {
-  //   this.GuarantorTrue = !this.GuarantorTrue
-  // }
-
   // Get Guarantor Customer Id 
   getgCustomer(Gid) {
     this.customerIdService.getFormData(Gid).subscribe(data => {
       this.angForm.patchValue({
-        // GAC_CUSTID: Gid.toString(),
         GAC_MEMBNO: data.AC_MEMBNO,
         GAC_MEMBTYPE: data.AC_MEMBTYPE,
         GAC_NAME: data.AC_NAME,
@@ -1775,7 +1673,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.resetGuarantor()
   }
 
-
+  guarantoredit: any
+  guarantordate: any
   // Edit Guarantor
   editGuarantor(id) {
     let exdate
@@ -1783,31 +1682,37 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.intID = this.multiGuarantor[id].id;
     this.GuarantorShowButton = false;
     this.GuarantorUpdateShow = true;
-
+    this.guarantoredit = this.multiGuarantor[id]
+    this.guarantordate = this.multiGuarantor[id].AC_NDATE
+    this.Gid = Number(this.multiGuarantor[id].GAC_CUSTID)
     this.angForm.patchValue({
-      GAC_CUSTID: this.multiGuarantor[id].GAC_CUSTID,
       GAC_MEMBNO: this.multiGuarantor[id].AC_MEMBNO,
       GAC_MEMBTYPE: this.multiGuarantor[id].AC_MEMBTYPE,
       GAC_NAME: this.multiGuarantor[id].AC_NAME,
       EXP_DATE: (this.multiGuarantor[id].EXP_DATE == 'Invalid date' || this.multiGuarantor[id].EXP_DATE == '' || this.multiGuarantor[id].EXP_DATE == null) ? exdate = '' : exdate = this.multiGuarantor[id].EXP_DATE,
-      // EXP_DATE: this.multiGuarantor[id].EXP_DATE,
     })
   }
 
   // Update Guarantor
   updateGuarantor() {
     let exdate
+    let date1
     let index = this.intIndex;
     this.GuarantorShowButton = true;
     this.GuarantorUpdateShow = false;
     const formVal = this.angForm.value;
+    if (this.guarantoredit.EXP_DATE != formVal.EXP_DATE) {
+      date1 = moment(formVal.EXP_DATE).format('DD/MM/YYYY');
+    } else {
+      date1 = formVal.EXP_DATE
+    }
     var object = {
       GAC_CUSTID: formVal.GAC_CUSTID,
       AC_MEMBNO: formVal.GAC_MEMBNO,
       AC_MEMBTYPE: formVal.GAC_MEMBTYPE,
       AC_NAME: formVal.GAC_NAME,
-      // EXP_DATE: formVal.EXP_DATE,
-      EXP_DATE: (formVal.EXP_DATE == '' || formVal.EXP_DATE == 'Invalid date' || formVal.EXP_DATE == null) ? exdate = '' : exdate = moment(formVal.EXP_DATE).format('DD/MM/YYYY'),
+      EXP_DATE: date1,
+
       id: this.intID
     }
     if (formVal.AC_CUSTID != "") {
@@ -1817,11 +1722,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
             this.multiGuarantor[index] = object;
           }
           else {
-            // if (this.multiGuarantor.find(ob => ob['GAC_CUSTID'] === formVal.GAC_CUSTID)) {
-            //   Swal.fire("This Customer is Already Guarantor", "error");
-            // } else {
+
             this.multiGuarantor[index] = object;
-            // }
+
           }
         }
         else {
@@ -1867,15 +1770,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
   }
 
-  // OpenCoBorr() {
-  //   this.CoBorrowerTrue = !this.CoBorrowerTrue
-  // }
-
   // Get CoBorrower Customer Id 
   getCCustomer(Cid) {
     this.customerIdService.getFormData(Cid).subscribe(data => {
       this.angForm.patchValue({
-        // CAC_CUSTID: Cid.toString(),
         CAC_NAME: data.AC_NAME,
       })
     })
@@ -1925,8 +1823,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.CoBorrowerTrue = true
     this.CoBorrowerShowButton = false;
     this.CoBorrowerUpdateShow = true;
+    this.Cid = Number(this.multiCoBorrower[id].CAC_CUSTID)
     this.angForm.patchValue({
-      CAC_CUSTID: this.multiCoBorrower[id].CAC_CUSTID,
       CAC_NAME: this.multiCoBorrower[id].AC_NAME,
     })
   }
@@ -1988,9 +1886,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
 
   setCategory(int_category) {
-    // this.InterestRateForLoanandCC.intData(int_category).subscribe(data => {
     this.InterestRateForLoanandCC.intData().subscribe(data => {
-      console.log(data, "data")
       this.date = this.angForm.controls['AC_OPDATE'].value
 
       if (data != typeof (undefined)) {
@@ -2020,20 +1916,13 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     })
   }
   getInterest(event) {
-    console.log(event, "event")
     let temp
     let date = this.angForm.controls['AC_OPDATE'].value
     this.InterestRateForLoanandCC.intData().subscribe(data => {
-      console.log(data[1].INT_CATEGORY, "data")
       data.forEach(async (element) => {
-        console.log(element.EFFECT_DATE, "element")
-        // if (element.INT_CATEGORY == event.name) {
-        //   temp = element
-        //   console.log(temp, "temp")
-        // }
+
         if (element.INT_CATEGORY == event.name) {
           temp = element
-          console.log(temp, "temp")
         }
       })
       this.angForm.patchValue({
@@ -2042,50 +1931,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     })
   }
 
-  // getInterest(AC_INTCATA) {
-  //   this.temp = AC_INTCATA
-  //   this.InterestRateForLoanandCC.intData(AC_INTCATA).subscribe(data => {
-  //     console.log("data", data)
-  //     this.date = this.angForm.controls['AC_OPDATE'].value
-  //     if (data.find(data => data['EFFECT_DATE'] === this.date)) {
-  //       this.angForm.patchValue({
-  //         AC_INTCATA: data.INT_CATEGORY,
-  //         AC_INTRATE: data.rate[0].INT_RATE,
-  //       })
-  //     } else if(data.find(data => data['EFFECT_DATE'] >  this.date)){
-  //       this.angForm.patchValue({
-  //         AC_INTCATA: data.INT_CATEGORY,
-  //         AC_INTRATE: data.rate[0].INT_RATE,
-  //       })
-  //     }else if(data.find(data => data['EFFECT_DATE'] <  this.date)){
-  //       this.angForm.patchValue({
-  //         AC_INTCATA: data.INT_CATEGORY,
-  //         AC_INTRATE: data.rate[0].INT_RATE,
-  //       })
-  //     }
-  //     // data.forEach(async (element) => {
-  //     //   if (this.date == element.EFFECT_DATE) {
-  //     //     console.log("true 1")
-  //     //     this.angForm.patchValue({
-  //     //       AC_INTCATA: element.INT_CATEGORY,
-  //     //       AC_INTRATE: element.rate[0].INT_RATE,
-  //     //     })
-  //     //   } else if (element.EFFECT_DATE > this.date) {
-  //     //     console.log("true 2")
-  //     //     this.angForm.patchValue({
-  //     //       AC_INTCATA: element.INT_CATEGORY,
-  //     //       AC_INTRATE: element.rate[0].INT_RATE,
-  //     //     })
-  //     //   } else if (element.EFFECT_DATE > this.date || this.date < element.EFFECT_DATE) {
-  //     //     console.log("true 3")
-  //     //     this.angForm.patchValue({
-  //     //       AC_INTCATA: element.INT_CATEGORY,
-  //     //       AC_INTRATE: element.rate[0].INT_RATE,
-  //     //     })
-  //     //   }
-  //     // })
-  //   })
-  // }
+
   int_category: any
 
   ngAfterViewInit(): void {
@@ -2122,35 +1968,37 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     });
   }
 
+  renewDate: any
+  tempexpiryDate: any
   getExpiryDate() {
-
     let months = this.angForm.controls['AC_MONTHS'].value
-    if (this.angForm.controls['AC_OPEN_OLD_DATE'].value != '') {
-      var expiryDt = new Date(this.angForm.controls['AC_OPEN_OLD_DATE'].value)
-      var year = expiryDt.getFullYear();
-      var month = new Date(expiryDt).getMonth();
-      var day = new Date(expiryDt).getDate();
-      var expiry = month + Number(months)
-      var date1 = new Date(year, expiry, day);
-      var date = moment(date1, 'YYYY-MM-DD').add(1, 'days');
-      // var expiryDate = this.datePipe.transform(date, "yyyy-MM-dd")
-      var expiryDate = moment(date).format('DD/MM/YYYY');
+    if (this.renewDate != undefined) {
+      var expiryDate = moment(this.angForm.controls['AC_OPEN_OLD_DATE'].value).add(months, 'M').format('DD/MM/YYYY');
+      this.tempexpiryDate = expiryDate
       this.angForm.patchValue({
         AC_EXPIRE_DATE: expiryDate
       })
     }
     else {
-      var expiryDt = new Date(this.angForm.controls['AC_OPDATE'].value)
-      var year = expiryDt.getFullYear();
-      var month = new Date(expiryDt).getMonth();
-      var day = new Date(expiryDt).getDate();
-      var expiry = month + Number(months)
-      var date1 = new Date(year, expiry, day);
-      var date = moment(date1, 'YYYY-MM-DD');
-      var expiryDate = this.datePipe.transform(date, "yyyy-MM-dd")
-      this.angForm.patchValue({
-        AC_EXPIRE_DATE: expiryDate
-      })
+      if (this.tempopendate != this.openingDate) {
+        var expiryDate = moment(this.openingDate).add(months, 'M').format('DD/MM/YYYY');
+        this.tempexpiryDate = expiryDate
+        this.angForm.patchValue({
+          AC_EXPIRE_DATE: expiryDate
+        })
+      } else {
+        var full = []
+        var fullDate = this.openingDate;
+        full = fullDate.split(' ');
+        var date = full[0].split(/\//);
+        var newDate = date[1] + '/' + date[0] + '/' + date[2]
+        var k = new Date(newDate);
+        var expiryDate = moment(k).add(months, 'M').format('DD/MM/YYYY');
+        this.tempexpiryDate = expiryDate
+        this.angForm.patchValue({
+          AC_EXPIRE_DATE: expiryDate
+        })
+      }
     }
   }
   month: number
@@ -2175,7 +2023,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.termLoanService.approve(obj).subscribe(data => {
       Swal.fire(
         'Approved',
-        'Saving Account approved successfully',
+        'Term Loan Account approved successfully',
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -2198,7 +2046,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.termLoanService.reject(obj).subscribe(data => {
       Swal.fire(
         'Rejected',
-        'Saving Account rejected successfully',
+        'Term Loan Account rejected successfully',
         'success'
       );
 

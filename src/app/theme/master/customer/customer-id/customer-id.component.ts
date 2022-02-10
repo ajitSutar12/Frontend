@@ -244,6 +244,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           )
           .subscribe((resp) => {
             this.customerMaster = resp.data;
+            console.log(resp.data)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -267,22 +268,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           title: "Member Scheme",
           data: "AC_MEMBTYPE",
         },
-        // {
-        //   title: "Title",
-        //   data: "AC_TITLE",
-        // },
-        // {
-        //   title: "First Name",
-        //   data: "F_NAME",
-        // },
-        // {
-        //   title: "Middle Name",
-        //   data: "M_NAME",
-        // },
-        // {
-        //   title: "Last Name",
-        //   data: "L_NAME",
-        // },
+        
         {
           title: "Full Name",
           data: "AC_NAME",
@@ -311,62 +297,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           title: "Birth Date",
           data: "AC_BIRTH_DT",
         },
-        // {
-        //   title: "Salary Div.",
-        //   data: "AC_SALARYDIVISION_CODE",
-        // },
         {
           title: "Mobile Number",
           data: "AC_MOBILENO",
         },
-        // {
-        //   title: "Recidential(R)",
-        //   data: "AC_PHONE_RES",
-        // },
-        // {
-        //   title: "Office(O)",
-        //   data: "AC_PHONE_OFFICE",
-        // },
         {
           title: "Email ID",
           data: "AC_EMAILID",
         },
-        // {
-        //   title: "Is Received TDS Document",
-        //   data: "TDSDOCUMNET",
-        // },
-        // {
-        //   title: "TDS Calculation Required?",
-        //   data: "TDS_REQUIRED",
-        // },
-        // {
-        //   title: "SMS Facility Required ?",
-        //   data: "SMS_REQUIRED",
-        // },
-        // {
-        //   title: "KYC",
-        //   data: "IS_KYC_RECEIVED",
-        // },
-        // {
-        //   title: "Financial Year",
-        //   data: "FIN_YEAR",
-        // },
-        // {
-        //   title: "Submission Date",
-        //   data: "SUBMIT_DATE",
-        // },
-        // {
-        //   title: "Form Type",
-        //   data: "FORM_TYPE",
-        // },
-        // {
-        //   title: "TDS Rate %",
-        //   data: "TDS_RATE",
-        // },
-        // {
-        //   title: "TDS Limit",
-        //   data: "TDS_LIMIT",
-        // },
       ],
       dom: "Blrtip",
     };
@@ -389,6 +327,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           )
           .subscribe((resp) => {
             this.documentMaster = resp.data;
+         
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -489,7 +428,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       FORM_TYPE: [""],
       TDS_RATE: ["", [Validators.pattern]],
       TDS_LIMIT: ["", [Validators.pattern]],
-      // UPLOADFIELD:[''],
+     
     });
   }
 
@@ -520,7 +459,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_OCODE': parseInt(formVal.AC_OCODE),
         'AC_ADHARNO': formVal.AC_ADHARNO,
         'AC_RISKCATG': parseInt(formVal.AC_RISKCATG),
-        // 'AC_BIRTH_DT': formVal.AC_BIRTH_DT,
         'AC_BIRTH_DT': (formVal.AC_BIRTH_DT == '' || formVal.AC_BIRTH_DT == 'Invalid date') ? birthdate = '' : birthdate = moment(formVal.AC_BIRTH_DT).format('DD/MM/YYYY'),
         'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
         'AC_MOBILENO': formVal.AC_MOBILENO,
@@ -541,7 +479,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_CTCODE': formVal.AC_CTCODE,
         'AC_PIN': formVal.AC_PIN,
         'FIN_YEAR': this.ngfinyear,
-        // 'SUBMIT_DATE': formVal.SUBMIT_DATE,
         'SUBMIT_DATE': (formVal.SUBMIT_DATE == '' || formVal.SUBMIT_DATE == 'Invalid date') ? submitdate = '' : submitdate = moment(formVal.SUBMIT_DATE).format('DD/MM/YYYY'),
         'FORM_TYPE': formVal.FORM_TYPE,
         'TDS_RATE': formVal.TDS_RATE,
@@ -559,9 +496,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>'
           })
           this.formSubmitted = false;
-
-
-          // this.custData = data1.id;
           this.addNewCustomer(data.id);
           // to reload after insertion of data
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -601,10 +535,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         this.myInputField.nativeElement.focus('AC_BIRTH_DT');
       }
     }
-    // else{
-    //   //  this.myInputField.nativeElement.focus('AC_BIRTH_DT');
-    //   // this.angForm.get('AC_BIRTH_DT').nativeElement.focus();
-    // }
   }
 
   //disabledate on keyup
@@ -710,8 +640,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
     }
-
-    // (document.getElementById("FIN_YEAR") as HTMLInputElement).value = result;
   }
 
   //Method for append data into fields
@@ -729,7 +657,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngCast = data.AC_CAST
       this.ngfinyear = data.tdsForm.FIN_YEAR
       this.ngSubmitDate = (data.tdsForm.SUBMIT_DATE == 'Invalid date' || data.tdsForm.SUBMIT_DATE == '' || data.tdsForm.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm.SUBMIT_DATE,
-        // this.ngCity = data.custAddress[0].AC_CTCODE
+       
         this.angForm.patchValue({
           AC_NO: data.AC_NO,
           AC_MEMBTYPE: data.AC_MEMBTYPE,
@@ -739,11 +667,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           M_NAME: data.M_NAME,
           L_NAME: data.L_NAME,
           AC_NAME: data.AC_NAME,
-          // AC_CAST: data.AC_CAST,
-          // AC_OCODE: data.AC_OCODE,
           AC_ADHARNO: data.AC_ADHARNO,
-          // AC_RISKCATG: data.AC_RISKCATG,
-          // AC_BIRTH_DT: data.AC_BIRTH_DT,
           AC_BIRTH_DT: (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? birthdate = '' : birthdate = data.AC_BIRTH_DT,
           AC_HONO: data.custAddress[0].AC_HONO,
           AC_WARD: data.custAddress[0].AC_WARD,
@@ -763,9 +687,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           TDS_REQUIRED: data.TDS_REQUIRED,
           SMS_REQUIRED: data.SMS_REQUIRED,
           IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
-          // FIN_YEAR: data.tdsForm.FIN_YEAR,
-          // SUBMIT_DATE: data.tdsForm.SUBMIT_DATE,
-          // SUBMIT_DATE: (data.tdsForm.SUBMIT_DATE == 'Invalid date' || data.tdsForm.SUBMIT_DATE == '' || data.tdsForm.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm.SUBMIT_DATE,
           FORM_TYPE: data.tdsForm.FORM_TYPE,
           TDS_RATE: data.tdsForm.TDS_RATE,
           TDS_LIMIT: data.tdsForm.TDS_LIMIT,
@@ -783,7 +704,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         this.SUBMIT_DATE = false;
       }
       if (data.tdsForm.FORM_TYPE == "Form15A") {
-        // this.isForm15A(1)
+        
         this.isForm15A(1)
 
       }

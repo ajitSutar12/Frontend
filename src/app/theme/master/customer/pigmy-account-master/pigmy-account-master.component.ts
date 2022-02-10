@@ -182,13 +182,11 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   cityMasterServiceDropdown: any[];
   IntrestCategoryMasterDropdown: any[];
   agentCode: any[];
-  // isDisabled = true;
 
   //temp address flag variable
   tempAddress: boolean = true;
   Cust_ID: any[]
-  // id: string = '';
-  // jointID: string = '';
+
   //add required validation to attorney fields
   DATE_EXPIRY = false
   DATE_APPOINTED = false
@@ -241,7 +239,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     private customerID: CustomerIDMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
     private datePipe: DatePipe,) {
-    console.log('Saving Data with Input', this.childMessage)
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
@@ -293,7 +290,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
             dataTableParameters
           ).subscribe(resp => {
             this.pigmyAccountMaster = resp.data;
-            console.log('fetch', resp.data)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -309,10 +305,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         {
           title: 'Action',
         },
-        // {
-        //   title: 'PG Scheme Type',
-        //   data: 'AC_ACNOTYPE'
-        // },
         {
           title: 'Scheme',
           data: 'AC_TYPE'
@@ -329,11 +321,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
           title: 'Member Name',
           data: 'AC_NAME'
         },
-        // {
-        //   title: 'A/c Short Name',
-        //   data: 'AC_SHORT_NAME'
-        // },
-
         {
           title: 'Manual Reference Number',
           data: 'REF_ACNO'
@@ -346,41 +333,14 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
           title: 'City',
           data: 'AC_CTCODE'
         },
-        // {
-        //   title: 'Member Scheme',
-        //   data: 'AC_MEMBTYPE'
-        // },
-        // {
-        //   title: 'Member No',
-        //   data: 'AC_MEMBNO'
-        // },
-
         {
           title: 'Opening Date',
           data: 'AC_OPDATE'
         },
-        // {
-        //   title: 'Renewal Date',
-        //   data: 'AC_RENEW_DATE'
-        // },
         {
           title: 'Expiry Date',
           data: 'AC_EXPDT'
         },
-
-        // {
-        //   title: 'Category',
-        //   data: 'AC_CATG'
-        // },
-        // {
-        //   title: 'Operation',
-        //   data: 'AC_OPR_CODE'
-        // },
-        // {
-        //   title: 'Interest Category',
-        //   data: 'AC_INTCATA'
-        // },
-
         {
           title: 'Period',
           data: 'AC_MONTHS'
@@ -389,10 +349,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
           title: 'Default Deposite Amount',
           data: 'AC_SCHMAMT'
         },
-        // {
-        //   title: 'Agent Scheme',
-        //   data: 'AGENT_ACTYPE'
-        // },
         {
           title: 'Agent Code',
           data: 'AGENT_ACNO'
@@ -400,38 +356,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
           title: 'Minor Details',
           data: 'AC_MINOR'
         },
-        // {
-        //   title: 'Birth Date',
-        //   data: 'AC_MBDATE'
-        // },
-        // {
-        //   title: 'Guardian Name',
-        //   data: 'AC_GRDNAME'
-        // },
-        // {
-        //   title: 'Relation',
-        //   data: 'AC_GRDRELE'
-        // },
-        // {
-        //   title: 'Branch',
-        //   data: 'AC_INTROBRANCH'
-        // },
-        // {
-        //   title: 'Account Type',
-        //   data: 'AC_INTROID'
-        // },
-        // {
-        //   title: 'Account Code',
-        //   data: 'AC_INTRACNO'
-        // },
-        // {
-        //   title: 'Name',
-        //   data: 'AC_INTRNAME'
-        // },
-        // {
-        //   title: 'Signature Authority',
-        //   data: 'SIGNATURE_AUTHORITY'
-        // },
         {
           title: 'Is Calculate Separate Pigmy Commission for Loan Against Collection',
           data: 'PG_COMM_TYPE'
@@ -479,7 +403,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         return (scheme.id == 'PG');
       });
       this.schemeCode = filtered;
-      // this.schemeCode = data;
+
       this.code = this.schemeCode[0].value
     })
     this.SchemeCodeDropdownService.getSchemeCodeList(this.agentSchemeCode).pipe(first()).subscribe(data => {
@@ -488,7 +412,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         return (scheme.id == 'AG');
       });
       this.AgentScheme = filtered;
-      // this.AgentScheme = data;
+
     })
   }
   runTimer() {
@@ -707,10 +631,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
-    
+
       this.id = data.id
       this.angForm.patchValue({
-        // AC_CUSTID: id,
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
         AC_MEMBTYPE: data?.AC_MEMBTYPE,
@@ -772,20 +695,15 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   getschemename: any
   code1: any
   getIntro(event) {
-    console.log(event)
-    // this.getscheme = event.id
     this.getschemename = event.name
     this.getIntroducer()
   }
   //get account no according scheme for introducer
   getIntroducer() {
-    console.log(this.acno, this.code1, "this.acno, this.code")
     this.obj = [this.acno, this.code1]
-    console.log(this.obj, "this.obj")
     switch (this.getschemename) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-          console.log('introducer name data', data)
           this.introducerACNo = data;
           this.ngIntroducer = null
         })
@@ -865,7 +783,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
   //get introducer name according account no
   getIntroducerName(value: any) {
-    console.log('introducer name', value)
     this.angForm.patchValue({
       AC_INTRNAME: value.name
     })
@@ -873,7 +790,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
   //get account no according scheme for  pigmy agent
   getAgentAC(event) {
-    console.log(event)
     switch ('AG') {
       case 'AG':
         this.schemeAccountNoService.getPigmyAgentSchemeList2(event.value).pipe(first()).subscribe(data => {
@@ -892,7 +808,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     let temdate
     let opdate
     let redate
-    console.log(this.angForm.controls['AC_TYPE'].value)
     event.preventDefault();
     this.formSubmitted = true;
     // if (this.angForm.valid) {
@@ -917,26 +832,16 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
-    // if (this.selectedValue == undefined) {
-    //   this.selectedValue = this.scheme[0].id
-    // }
+    
     let schecode
-    console.log(this.schemeCode)
     if (this.tempopendate != this.openingDate) {
       temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
     } else {
       temdate = this.openingDate
     }
     this.schemeCode.forEach(async (element) => {
-      console.log(this.code, "this.selectedValue")
-      console.log(element)
-      console.log(element, "element")
       if (element.value == this.code) {
-        console.log(true)
-        console.log(element.name, "element.S_APPL")
         schecode = element.name
-
-        console.log(schecode)
       }
     })
 
@@ -993,7 +898,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       'JointAccountData': this.multiJointAC,
 
     }
-    console.log(dataToSend);
     this.PigmyAccountMasterService.postData(dataToSend).subscribe(data => {
       Swal.fire({
         icon: 'success',
@@ -1065,7 +969,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         this.ngAgentCode = Number(data.AGENT_ACNO)
       }
       if ((data.AC_INTROBRANCH != null && data.AC_INTROID != null && data.AC_INTRACNO != null) || (data.AC_INTROBRANCH != "" && data.AC_INTROID != "" && data.AC_INTRACNO != "")) {
-       
+
         this.code1 = Number(data.AC_INTROBRANCH),
           this.acno = Number(data.AC_INTROID),
           this.obj = [this.acno, this.code1]
@@ -1078,7 +982,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         switch (this.getschemename) {
           case 'SB':
             this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-              console.log('introducer name data', data)
               this.introducerACNo = data;
 
             })
@@ -1161,6 +1064,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         this.acno = null
         this.obj = null
       }
+      this.ngexpiry= data.AC_EXPDT,
       this.angForm.patchValue({
 
         'AC_ACNOTYPE:': data.AC_ACNOTYPE,
@@ -1173,26 +1077,16 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_RENEW_DATE': (data.AC_RENEW_DATE == 'Invalid date' || data.AC_RENEW_DATE == '' || data.AC_RENEW_DATE == null) ? redate = '' : redate = data.AC_RENEW_DATE,
         AC_MEMBTYPE: data.AC_MEMBTYPE,
         AC_MEMBNO: data.AC_MEMBNO,
-        'AC_EXPDT': data.AC_EXPDT,
+        // 'AC_EXPDT': data.AC_EXPDT,
         'AC_OCODE': data.AC_OCODE,
-        // 'AC_CATG': data.AC_CATG.toString(),
-        // AC_OPR_CODE: data.AC_OPR_CODE.toString(),
-        // AC_INTCATA: data.AC_INTCATA.toString(),
         'BANKACNO': data.BANKACNO,
         'AC_MONTHS': data.AC_MONTHS,
         'AC_SCHMAMT': data.AC_SCHMAMT,
-        // AGENT_ACTYPE: data.AGENT_ACTYPE,
-        // AGENT_ACNO: data.AGENT_ACNO,
-
         //minor and introducer
         'AC_MINOR': data.AC_MINOR,
         'AC_MBDATE': data.AC_MBDATE,
         'AC_GRDNAME': data.AC_GRDNAME,
         'AC_GRDRELE': data.AC_GRDRELE,
-        // 'AC_INTROBRANCH': data.AC_INTROBRANCH,
-        // 'AC_INTROID': data.AC_INTROID,
-        // 'AC_INTRACNO': data.AC_INTRACNO,
-        // 'AC_INTRNAME': data.AC_INTRNAME,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
         'PG_COMM_TYPE': data.PG_COMM_TYPE,
         //nominee controls (NOMINEELINK table)
@@ -1240,12 +1134,12 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       data['AC_RENEW_DATE'] = this.renewDate
 
     }
-    if (this.updatecheckdata.AC_EXPDT != this.ngexpiry) {
-      (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? (exdate = '', data['AC_EXPDT'] = exdate) : (exdate = data.AC_EXPDT, data['AC_EXPDT'] = moment(exdate).format('DD/MM/YYYY'))
-    } else {
-      data['AC_RENEW_DATE'] = this.ngexpiry
+    // if (this.updatecheckdata.AC_EXPDT != this.ngexpiry) {
+    //   (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? (exdate = '', data['AC_EXPDT'] = exdate) : (exdate = data.AC_EXPDT, data['AC_EXPDT'] = exdate)
+    // } else {
+      data['AC_EXPDT'] = this.ngexpiry
 
-    }
+    // }
     this.PigmyAccountMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -1396,7 +1290,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   cityName: boolean = false
   ngnomineedate: any
   //Nominee
-  //Nominee
+  
   addNominee() {
     const formVal = this.angForm.value;
     let date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
@@ -1542,7 +1436,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     else {
       this.multiNominee[index] = object;
     }
-    console.log('update nominee', this.multiNominee[index])
     this.resetNominee()
   }
 
@@ -1563,18 +1456,10 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.controls['AC_NCTCODE'].reset();
     this.angForm.controls['AC_NPIN'].reset();
   }
-  //Joint ac
-  // jointAccount($event) {
-  //   if ($event.target.checked) {
-  //     this.JointAccountsTrue = true
-  //   } else {
-  //     this.JointAccountsTrue = false
-  //   }
-  // }
+  
   joint
   tempjoint
   getJointCustomer(event) {
-    console.log('get joint cus', event.name)
     this.joint = event.name
     this.tempjoint = event.value
     this.customerIdService.getFormData(event.value).subscribe(data => {
@@ -1587,7 +1472,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
   addJointAcccount() {
     const formVal = this.angForm.value;
-    console.log('add joint', formVal)
     let value
     if (formVal.OPERATOR == true) {
       value = 'Yes'
@@ -1599,7 +1483,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       JOINT_ACNAME: formVal.JOINT_ACNAME,
       OPERATOR: value,
     }
-    console.log('object.JOINT_AC_CUSTID', object.JOINT_AC_CUSTID)
     if (formVal.AC_CUSTID != "") {
 
       if (object.JOINT_AC_CUSTID != undefined) {
@@ -1611,7 +1494,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
             this.multiJointAC.push(object);
           }
           else {
-            console.log(this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.tempjoint))
             if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.joint)) {
 
               Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');

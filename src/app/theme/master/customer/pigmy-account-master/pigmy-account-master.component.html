@@ -23,15 +23,7 @@
                                     <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>
                                 </span>
                             </div>
-                            <!-- <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="schemeCode" [multiple]="false"
-                                    placeholder="PG Scheme * " formControlName="AC_TYPE" (selected)="getScheme($event)"
-                                    required [ngClass]="{'form-submitted': formSubmitted}">
-                                </ng-select>
-                            </div> -->
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
-                                class="alert alert-danger">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
                                     This field is required
                                 </div>
@@ -47,31 +39,13 @@
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <!-- <ng-select [(ngModel)]="id" id="AC_CUSTID" bindValue="value"
-                                        formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
-                                        style="width: 85%;" title="Compulsory Selection"
-                                        (change)="getCustomer($event.value)" required placeholder="Customer Id">
-                                        <ng-option *ngFor="let values of Cust_ID" [value]="values">
-                                            {{values.label}}</ng-option>
-                                    </ng-select> -->
                                     <label for="AC_CUSTID">Customer ID<sub class="required"> * </sub></label>
                                     <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
                                         (click)="modalLarge.show()" placement="bottom"
                                         ngbTooltip="Add New Customer"></span>
                                 </span>
                             </div>
-                            <!-- <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
-                                    placeholder="Customer ID*" formControlName="AC_CUSTID" [(ngModel)]="id"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required (selected)="getCustomer(id)"
-                                    style="width: 90%;">
-                                </ng-select>
-                                <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
-                                    (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer"></span>
-                            </div> -->
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)"
-                                class="alert alert-danger">
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
                                     This field is required
                                 </div>
@@ -79,22 +53,21 @@
                         </div>
                         <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
                             <div class="app-modal-header">
-                              <h4 class="modal-title">Customer ID </h4>
-                              <button type="button" class="close basic-close" (click)="modalLarge.hide()">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
+                                <h4 class="modal-title">Customer ID </h4>
+                                <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                             <div class="app-modal-body">
-                              <perfect-scrollbar>
-                                <app-customer-id (newCustomerEvent)="addNewCustomer($event)">
-                                </app-customer-id>
-                              </perfect-scrollbar>
+                                <perfect-scrollbar>
+                                    <app-customer-id (newCustomerEvent)="addNewCustomer($event)">
+                                    </app-customer-id>
+                                </perfect-scrollbar>
                             </div>
                             <div class="app-modal-footer">
-                              <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
-                                (click)="modalLarge.hide();onCloseModal();">Close</button>
+                                <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide" (click)="modalLarge.hide();onCloseModal();">Close</button>
                             </div>
-                          </app-modal-basic>
+                        </app-modal-basic>
                         <div class="col-sm-1">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -153,14 +126,9 @@
                                                                                 class="required">* </sub></label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['AC_SHORT_NAME'].invalid && (angForm.controls['AC_SHORT_NAME'].dirty || angForm.controls['AC_SHORT_NAME'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['AC_SHORT_NAME'].errors?.pattern || angForm.controls['AC_SHORT_NAME'].errors?.required">
-                                                                        This field is requierd and Input allowed only
-                                                                        A-Z
-                                                                        (Space)
+                                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_SHORT_NAME'].invalid && (angForm.controls['AC_SHORT_NAME'].dirty || angForm.controls['AC_SHORT_NAME'].touched)" class="alert alert-danger">
+                                                                    <div *ngIf="angForm.controls['AC_SHORT_NAME'].errors?.pattern || angForm.controls['AC_SHORT_NAME'].errors?.required">
+                                                                        This field is requierd and Input allowed only A-Z (Space)
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -177,11 +145,8 @@
                                                                             Number</label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['REF_ACNO'].invalid && (angForm.controls['REF_ACNO'].dirty || angForm.controls['REF_ACNO'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['REF_ACNO'].errors?.pattern">
+                                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['REF_ACNO'].invalid && (angForm.controls['REF_ACNO'].dirty || angForm.controls['REF_ACNO'].touched)" class="alert alert-danger">
+                                                                    <div *ngIf="angForm.controls['REF_ACNO'].errors?.pattern">
                                                                         Input allowed only A-Z a-z 0-9 - / . (Space)
                                                                     </div>
                                                                 </div>
@@ -225,11 +190,8 @@
                                                                             </sub></label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['AC_OPDATE'].invalid && (angForm.controls['AC_OPDATE'].dirty || angForm.controls['AC_OPDATE'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['AC_OPDATE'].errors?.required">
+                                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_OPDATE'].invalid && (angForm.controls['AC_OPDATE'].dirty || angForm.controls['AC_OPDATE'].touched)" class="alert alert-danger">
+                                                                    <div *ngIf="angForm.controls['AC_OPDATE'].errors?.required">
                                                                         This field is required
                                                                     </div>
                                                                 </div>
@@ -251,17 +213,6 @@
                                                                             Date</label>
                                                                     </span>
                                                                 </div>
-                                                                <!-- <div class="form-group input-group">
-                                                                    <span class="border-lable-flt">
-                                                                        <input type="date" name="AC_RENEW_DATE"
-                                                                            class="form-control" placeholder=" "
-                                                                            id="AC_RENEW_DATE"
-                                                                            max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                            formControlName="AC_RENEW_DATE"
-                                                                            (ngModelChange)="getExpiryDate()">
-                                                                        <label for="AC_RENEW_DATE">Renewal Date</label>
-                                                                    </span>
-                                                                </div> -->
                                                             </div>
                                                             <div class="col-sm-2">
                                                                 <div class="form-group input-group">
@@ -303,21 +254,8 @@
                                                                                 class="required"> * </sub></label>
                                                                     </span>
                                                                 </div>
-                                                                <!-- <div class="form-group input-group">
-                                                                    <span class="border-lable-flt">
-                                                                        <ng-select [ngClass]="'ng-select'"
-                                                                            [options]="categoryMasterdropdown"
-                                                                            [multiple]="false" placeholder="Category *"
-                                                                            formControlName="AC_CATG"
-                                                                            [ngClass]="{'form-submitted': formSubmitted}">
-                                                                        </ng-select>
-                                                                    </span>
-                                                                </div> -->
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['AC_CATG'].invalid && (angForm.controls['AC_CATG'].dirty || angForm.controls['AC_CATG'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['AC_CATG'].errors?.required">
+                                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_CATG'].invalid && (angForm.controls['AC_CATG'].dirty || angForm.controls['AC_CATG'].touched)" class="alert alert-danger">
+                                                                    <div *ngIf="angForm.controls['AC_CATG'].errors?.required">
                                                                         This field is required
                                                                     </div>
                                                                 </div>
@@ -341,21 +279,8 @@
                                                                                 class="required"> * </sub></label>
                                                                     </span>
                                                                 </div>
-                                                                <!-- <div class="form-group input-group">
-                                                                    <span class="border-lable-flt">
-                                                                        <ng-select [ngClass]="'ng-select'"
-                                                                            [options]="OperationMasterDropdown"
-                                                                            [multiple]="false" placeholder="Operation *"
-                                                                            formControlName="AC_OPR_CODE"
-                                                                            [ngClass]="{'form-submitted': formSubmitted}">
-                                                                        </ng-select>
-                                                                    </span>
-                                                                </div> -->
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['AC_OPR_CODE'].invalid && (angForm.controls['AC_OPR_CODE'].dirty || angForm.controls['AC_OPR_CODE'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['AC_OPR_CODE'].errors?.required">
+                                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_OPR_CODE'].invalid && (angForm.controls['AC_OPR_CODE'].dirty || angForm.controls['AC_OPR_CODE'].touched)" class="alert alert-danger">
+                                                                    <div *ngIf="angForm.controls['AC_OPR_CODE'].errors?.required">
                                                                         This field is required
                                                                     </div>
                                                                 </div>
@@ -381,22 +306,8 @@
                                                                                 class="required"> * </sub></label>
                                                                     </span>
                                                                 </div>
-                                                                <!-- <div class="form-group input-group">
-                                                                    <span class="border-lable-flt">
-                                                                        <ng-select [ngClass]="'ng-select'"
-                                                                            [options]="IntrestCategoryMasterDropdown"
-                                                                            [multiple]="false"
-                                                                            placeholder="Interest Category *"
-                                                                            formControlName="AC_INTCATA"
-                                                                            [ngClass]="{'form-submitted': formSubmitted}">
-                                                                        </ng-select>
-                                                                    </span>
-                                                                </div> -->
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['AC_INTCATA'].invalid && (angForm.controls['AC_INTCATA'].dirty || angForm.controls['AC_INTCATA'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['AC_INTCATA'].errors?.required">
+                                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_INTCATA'].invalid && (angForm.controls['AC_INTCATA'].dirty || angForm.controls['AC_INTCATA'].touched)" class="alert alert-danger">
+                                                                    <div *ngIf="angForm.controls['AC_INTCATA'].errors?.required">
                                                                         This field is required
                                                                     </div>
                                                                 </div>
@@ -411,11 +322,8 @@
                                                                         <label for="AC_PANNO">PAN No.</label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['AC_PANNO'].invalid && (angForm.controls['AC_PANNO'].dirty || angForm.controls['AC_PANNO'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['AC_PANNO'].errors?.pattern">
+                                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_PANNO'].invalid && (angForm.controls['AC_PANNO'].dirty || angForm.controls['AC_PANNO'].touched)" class="alert alert-danger">
+                                                                    <div *ngIf="angForm.controls['AC_PANNO'].errors?.pattern">
                                                                         Input allowed only 0-9
                                                                     </div>
                                                                 </div>
@@ -438,57 +346,27 @@
                                                                             </sub></label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['AC_MONTHS'].invalid && (angForm.controls['AC_MONTHS'].dirty || angForm.controls['AC_MONTHS'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['AC_MONTHS'].errors?.pattern || angForm.controls['AC_MONTHS'].errors?.required">
-                                                                        This field is required and Input allowed only
-                                                                        0-9
+                                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_MONTHS'].invalid && (angForm.controls['AC_MONTHS'].dirty || angForm.controls['AC_MONTHS'].touched)" class="alert alert-danger">
+                                                                    <div *ngIf="angForm.controls['AC_MONTHS'].errors?.pattern || angForm.controls['AC_MONTHS'].errors?.required">
+                                                                        This field is required and Input allowed only 0-9
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-2">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
-                                                                        <input type="text" placeholder="dd/mm/yyyy"
-                                                                            name="AC_EXPDT" id="AC_EXPDT"
+                                                                        <input type="text" name="AC_EXPDT" id="AC_EXPDT"
                                                                             class="form-control" required
-                                                                            #dp="bsDatepicker" [(ngModel)]="ngexpiry"
-                                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                            [(ngModel)]="ngexpiry"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            disabled formControlName="AC_EXPDT"
-                                                                            [attr.aria-expanded]="dp.isOpen"
-                                                                            [bsValue]="bsValue" bsDatepicker>
-                                                                        <!-- <div style="    display: block;
-                                                                            margin-left: 95%;
-                                                                            margin-top: -20%;">
-                                                                            <span style=" margin: 12px 0px 0px -19px"
-                                                                                class="fa fa-calendar field-icon toggle-password"></span>
-                                                                        </div> -->
+                                                                            disabled formControlName="AC_EXPDT">
                                                                         <label for="AC_EXPDT">Expiry Date<sub
                                                                                 class="required">*
                                                                             </sub></label>
                                                                     </span>
                                                                 </div>
-                                                                <!-- <div class="form-group input-group">
-                                                                    <span class="border-lable-flt">
-                                                                        <input type="date" name="AC_EXPDT"
-                                                                            class="form-control" placeholder=" "
-                                                                            id="AC_EXPDT" required=""
-                                                                            [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                            formControlName="AC_EXPDT">
-                                                                        <label for="AC_EXPDT">Expiry Date<sub
-                                                                                class="required">*
-                                                                            </sub></label>
-                                                                    </span>
-                                                                </div> -->
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['AC_EXPDT'].invalid && (angForm.controls['AC_EXPDT'].dirty || angForm.controls['AC_EXPDT'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['AC_EXPDT'].errors?.required">
+                                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_EXPDT'].invalid && (angForm.controls['AC_EXPDT'].dirty || angForm.controls['AC_EXPDT'].touched)" class="alert alert-danger">
+                                                                    <div *ngIf="angForm.controls['AC_EXPDT'].errors?.required">
                                                                         This field is required
                                                                     </div>
                                                                 </div>
@@ -508,13 +386,9 @@
                                                                             Amount<sub class="required">* </sub></label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['AC_SCHMAMT'].invalid && (angForm.controls['AC_SCHMAMT'].dirty || angForm.controls['AC_SCHMAMT'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['AC_SCHMAMT'].errors?.pattern || angForm.controls['AC_SCHMAMT'].errors?.required">
-                                                                        This field is required and Input allowed only
-                                                                        0-9
+                                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_SCHMAMT'].invalid && (angForm.controls['AC_SCHMAMT'].dirty || angForm.controls['AC_SCHMAMT'].touched)" class="alert alert-danger">
+                                                                    <div *ngIf="angForm.controls['AC_SCHMAMT'].errors?.pattern || angForm.controls['AC_SCHMAMT'].errors?.required">
+                                                                        This field is required and Input allowed only 0-9
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -537,38 +411,11 @@
                                                                                 [value]="values">
                                                                                 {{values.label}}</ng-option>
                                                                         </ng-select>
-                                                                        <!-- <ng-select bindValue="value"
-                                                                            [(ngModel)]="agentno" id="AGENT_ACTYPE"
-                                                                            formControlName="AGENT_ACTYPE"
-                                                                            (change)="getAgentAC($event)"
-                                                                            title="Compulsory Selection"
-                                                                            [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            placeholder="Agent Scheme">
-                                                                            <ng-option
-                                                                                *ngFor="let values of AgentScheme"
-                                                                                [value]="values">
-                                                                                {{values.label}}</ng-option>
-                                                                        </ng-select> -->
                                                                         <label for="AGENT_ACTYPE">Agent Scheme</label>
                                                                     </span>
                                                                 </div>
-                                                                <!-- <div class="form-group input-group">
-                                                                    <span class="border-lable-flt">
-                                                                        <ng-select [ngClass]="'ng-select'"
-                                                                            [options]="AgentScheme"
-                                                                            [(ngModel)]="agentno"
-                                                                            (selected)="getAgentAC(agentno)"
-                                                                            [multiple]="false"
-                                                                            placeholder="Agent Scheme "
-                                                                            formControlName="AGENT_ACTYPE">
-                                                                        </ng-select>
-                                                                    </span>
-                                                                </div> -->
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['AGENT_ACTYPE'].invalid && (angForm.controls['AGENT_ACTYPE'].dirty || angForm.controls['AGENT_ACTYPE'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['AGENT_ACTYPE'].errors?.required">
+                                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AGENT_ACTYPE'].invalid && (angForm.controls['AGENT_ACTYPE'].dirty || angForm.controls['AGENT_ACTYPE'].touched)" class="alert alert-danger">
+                                                                    <div *ngIf="angForm.controls['AGENT_ACTYPE'].errors?.required">
                                                                         This field is required
                                                                     </div>
                                                                 </div>
@@ -587,49 +434,18 @@
                                                                                 [value]="values">
                                                                                 {{values.label}}</ng-option>
                                                                         </ng-select>
-                                                                        <!-- <ng-select bindValue="value"
-                                                                            [(ngModel)]="ngAgentCode"
-                                                                            formControlName="AGENT_ACNO"
-                                                                            title="Compulsory Selection"
-                                                                            [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            required placeholder="Agent Code">
-                                                                            <ng-option *ngFor="let values of agentCode"
-                                                                                [value]="values">
-                                                                                {{values.label}}</ng-option>
-                                                                        </ng-select> -->
                                                                         <label for="AGENT_ACNO">Agent Code <sub
                                                                                 class="required"> * </sub></label>
                                                                     </span>
                                                                 </div>
-                                                                <!-- <div class="form-group input-group">
-                                                                    <span class="border-lable-flt">
-                                                                        <ng-select [ngClass]="'ng-select'"
-                                                                            [options]="agentCode"
-                                                                            [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            [multiple]="false"
-                                                                            placeholder="Agent Code *"
-                                                                            formControlName="AGENT_ACNO">
-                                                                        </ng-select>
-                                                                    </span>
-                                                                </div> -->
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="angForm.controls['AGENT_ACNO'].invalid && (angForm.controls['AGENT_ACNO'].dirty || angForm.controls['AGENT_ACNO'].touched)"
-                                                                    class="alert alert-danger">
-                                                                    <div
-                                                                        *ngIf="angForm.controls['AGENT_ACNO'].errors?.required">
+                                                                <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AGENT_ACNO'].invalid && (angForm.controls['AGENT_ACNO'].dirty || angForm.controls['AGENT_ACNO'].touched)" class="alert alert-danger">
+                                                                    <div *ngIf="angForm.controls['AGENT_ACNO'].errors?.required">
                                                                         This field is required
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- <div class="col-sm-2" style="float: right;margin-top: 6px;">
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    (click)="switchNgBTab('address')">Next
-                                                                </button>
-                                                            </div> -->
                                                             <div class="col-sm" style="float: right; margin-top: 6px;">
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    (click)="switchNgBTab('address')">Next
-                                                                    <!-- <span class="fa fa-arrow-right" style="font-size:15px"></span> -->
+                                                                <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('address')">Next
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -662,8 +478,7 @@
                                                                         <label for="AC_HONO">House</label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="
+                                                                <div class="form-group form-primary form-static-label" *ngIf="
                                                         angForm.controls['AC_HONO'].invalid &&
                                                         (angForm.controls['AC_HONO'].dirty ||
                                                           angForm.controls['AC_HONO'].touched)
@@ -686,8 +501,7 @@
                                                                         <label for="AC_WARD">Ward</label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="
+                                                                <div class="form-group form-primary form-static-label" *ngIf="
                                                         angForm.controls['AC_WARD'].invalid &&
                                                         (angForm.controls['AC_WARD'].dirty ||
                                                           angForm.controls['AC_WARD'].touched)
@@ -709,8 +523,7 @@
                                                                         <label for="AC_GALLI">Galli</label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="
+                                                                <div class="form-group form-primary form-static-label" *ngIf="
                                                         angForm.controls['AC_GALLI'].invalid &&
                                                         (angForm.controls['AC_GALLI'].dirty ||
                                                           angForm.controls['AC_GALLI'].touched)
@@ -733,8 +546,7 @@
                                                                         <label for="AC_AREA">Area</label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="
+                                                                <div class="form-group form-primary form-static-label" *ngIf="
                                                         angForm.controls['AC_AREA'].invalid &&
                                                         (angForm.controls['AC_AREA'].dirty ||
                                                           angForm.controls['AC_AREA'].touched)
@@ -756,8 +568,7 @@
                                                                         <label for="AC_ADDR">Detail</label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="
+                                                                <div class="form-group form-primary form-static-label" *ngIf="
                                                         angForm.controls['AC_ADDR'].invalid &&
                                                         (angForm.controls['AC_ADDR'].dirty ||
                                                           angForm.controls['AC_ADDR'].touched)
@@ -794,8 +605,7 @@
                                                                         <label for="AC_PIN">Pin Code</label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="
+                                                                <div class="form-group form-primary form-static-label" *ngIf="
                                                         angForm.controls['AC_PIN'].invalid &&
                                                         (angForm.controls['AC_PIN'].dirty ||
                                                           angForm.controls['AC_PIN'].touched)
@@ -854,13 +664,9 @@
                                                         <div class="row">
                                                             <div class="col-sm-5">
                                                                 <div class="checkbox checkbox-primary">
-                                                                    <div
-                                                                        class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input class="border-checkbox" type="checkbox"
-                                                                            id="AC_ADDFLAG" formControlName="AC_ADDFLAG"
-                                                                            (click)="tempAsPermanent()" />
-                                                                        <label class="border-checkbox-label"
-                                                                            for="AC_ADDFLAG">Is
+                                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                        <input class="border-checkbox" type="checkbox" id="AC_ADDFLAG" formControlName="AC_ADDFLAG" (click)="tempAsPermanent()" />
+                                                                        <label class="border-checkbox-label" for="AC_ADDFLAG">Is
                                                                             Temporory Address same as
                                                                             Permanent
                                                                             Address</label>
@@ -1004,8 +810,7 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-sm-2">
-                                                                    <div
-                                                                        class="form-group form-primary form-static-label">
+                                                                    <div class="form-group form-primary form-static-label">
                                                                         <span class="border-lable-flt">
                                                                             <ng-select id="AC_TCTCODE" bindValue="id"
                                                                                 [(ngModel)]="ngCity"
@@ -1060,8 +865,7 @@
                                                         </ng-container>
                                                         <div class="row">
                                                             <div class="col-sm" style="float: right;margin-top: 6px;">
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    (click)="switchNgBTab('introducer')">Next
+                                                                <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('introducer')">Next
                                                                     <!-- <span class="fa fa-arrow-right" style="font-size:15px"></span> -->
                                                                 </button>
                                                             </div>
@@ -1079,15 +883,9 @@
                                                         <div class="row">
                                                             <div class="col-sm-2">
                                                                 <div class="checkbox checkbox-primary">
-                                                                    <div
-                                                                        class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input class="border-checkbox" type="checkbox"
-                                                                            id="ac_minor" name="AC_MINOR"
-                                                                            [checked]="MINOR == true"
-                                                                            formControlName="AC_MINOR" maxlength="100"
-                                                                            disabled />
-                                                                        <label class="border-checkbox-label"
-                                                                            for="ac_minor">Minor Details</label>
+                                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                        <input class="border-checkbox" type="checkbox" id="ac_minor" name="AC_MINOR" [checked]="MINOR == true" formControlName="AC_MINOR" maxlength="100" disabled />
+                                                                        <label class="border-checkbox-label" for="ac_minor">Minor Details</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1102,9 +900,6 @@
                                                                             (focusout)="disabledate(date.value)"
                                                                             formControlName="AC_MBDATE" disabled
                                                                             bsDatepicker>
-                                                                        <!-- <input type="date" name="AC_MBDATE" class="form-control" placeholder=" "
-                                                                    id="AC_MBDATE" max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                                                    (focusout)="disabledate(date.value)" formControlName="AC_MBDATE" disabled /> -->
                                                                         <label for="AC_MBDATE">Birth Date</label>
                                                                     </span>
                                                                 </div>
@@ -1121,8 +916,7 @@
                                                                         <label for="AC_GRDNAME">Guardian Name</label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="
+                                                                <div class="form-group form-primary form-static-label" *ngIf="
                                                                 angForm.controls['AC_GRDNAME'].invalid &&
                                                                 (angForm.controls['AC_GRDNAME'].dirty ||
                                                                   angForm.controls['AC_GRDNAME'].touched)
@@ -1150,8 +944,7 @@
                                                                         <label for="AC_GRDRELE">Relation</label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="
+                                                                <div class="form-group form-primary form-static-label" *ngIf="
                                                                 angForm.controls['AC_GRDRELE'].invalid &&
                                                                 (angForm.controls['AC_GRDRELE'].dirty ||
                                                                   angForm.controls['AC_GRDRELE'].touched)
@@ -1181,8 +974,7 @@
                                                                             Authority</label>
                                                                     </span>
                                                                 </div>
-                                                                <div class="form-group form-primary form-static-label"
-                                                                    *ngIf="
+                                                                <div class="form-group form-primary form-static-label" *ngIf="
                                                                 angForm.controls['SIGNATURE_AUTHORITY']
                                                                   .invalid &&
                                                                 (angForm.controls['SIGNATURE_AUTHORITY']
@@ -1248,7 +1040,6 @@
                                                             <div class="col-sm-5">
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt">
-                                                                        <!-- (change)="getIntroducerName($event)" -->
                                                                         <ng-select id="AC_INTRACNO" bindValue="value"
                                                                             [(ngModel)]="ngIntroducer"
                                                                             formControlName="AC_INTRACNO"
@@ -1267,79 +1058,14 @@
                                                                     </span>
                                                                 </div>
                                                             </div>
-                                                            <!-- <div class="col-sm">
-                                                          <div class="form-group input-group">
-                                                            <span class="border-lable-flt">
-                                                              <input type="text" name="AC_INTRNAME" class="form-control" placeholder=" "
-                                                                id="AC_INTRNAME" formControlName="AC_INTRNAME" disabled />
-                                                              <label for="AC_INTRNAME">Name</label>
-                                                            </span>
-                                                          </div>
-                                                        </div> -->
                                                         </div>
 
-                                                        <!-- <div class="row">
-                                                    <h6>Introducer</h6>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group form-primary form-static-label">
-                                                            <ng-select [ngClass]="'ng-select'"
-                                                                [options]="OwnbranchMasterDropdown" [multiple]="false"
-                                                                placeholder="Branch" formControlName="AC_INTROBRANCH">
-                                                            </ng-select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group form-primary form-static-label">
-                                                            <ng-select [ngClass]="'ng-select'"
-                                                                [options]="SchemeCodeDropdownDropdown"
-                                                                [multiple]="false" placeholder="Account Type"
-                                                                formControlName="AC_INTROID" [(ngModel)]="acno"
-                                                                (selected)="getIntroducer(acno)">
-                                                            </ng-select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group form-primary form-static-label">
-                                                            <ng-select [ngClass]="'ng-select'"
-                                                                [options]="introducerACNo" [multiple]="false"
-                                                                placeholder="Account Code" formControlName="AC_INTRACNO"
-                                                                (selected)="getIntroducerName($event)">
-                                                            </ng-select>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-                                                        <!-- <div class="row">
-                                                    <div class="col-sm-3">
-                                                        <div class="form-group input-group">
-                                                            <span class="border-lable-flt">
-                                                                <input type="text" name="AC_INTRNAME"
-                                                                    class="form-control" placeholder=" "
-                                                                    id="AC_INTRNAME" pattern="^[A-Za-z\./ -]+$"
-                                                                    title="Input allowed only  A-Z a-z  - / . (Space)"
-                                                                    formControlName="AC_INTRNAME">
-                                                                <label for="AC_INTRNAME">Name</label>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form-group form-primary form-static-label"
-                                                            *ngIf="angForm.controls['AC_INTRNAME'].invalid && (angForm.controls['AC_INTRNAME'].dirty || angForm.controls['AC_INTRNAME'].touched)"
-                                                            class="alert alert-danger">
-                                                            <div
-                                                                *ngIf="angForm.controls['AC_INTRNAME'].errors?.pattern">
-                                                                Input allowed only A-Z a-z - / . (Space)
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
                                                         <div class="row">
                                                             <div class="col-sm">
                                                                 <div class="checkbox checkbox-primary">
-                                                                    <div
-                                                                        class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input class="border-checkbox" type="checkbox"
-                                                                            id="PG_COMM_TYPE"
-                                                                            formControlName="PG_COMM_TYPE">
-                                                                        <label class="border-checkbox-label"
-                                                                            for="PG_COMM_TYPE">Is Calculate Separate
+                                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                        <input class="border-checkbox" type="checkbox" id="PG_COMM_TYPE" formControlName="PG_COMM_TYPE">
+                                                                        <label class="border-checkbox-label" for="PG_COMM_TYPE">Is Calculate Separate
                                                                             Pigmy
                                                                             Commission for Loan Against
                                                                             Collection</label>
@@ -1348,8 +1074,7 @@
 
                                                             </div>
                                                             <div class="col-sm" style="float: right; margin-top: 6px;">
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    (click)="switchNgBTab('nominee')">Next
+                                                                <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('nominee')">Next
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -1364,25 +1089,12 @@
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
                                                     <div class="card-block highlight">
-                                                        <!-- <div class="row">
-                                                            <div class="col-sm-3">
-                                                                <h6 [ngClass]="{'isActive': nomineeTrue}">Nominee</h6>
-                                                            </div>
-                                                            <div class="col-sm-3">
-                                                                <h6 (click)="OpenLink(1)" class="text-right f-w-600"
-                                                                    id="pointer">Click Here to Modify</h6>
-                                                            </div>
-                                                        </div> -->
                                                         <div class="row">
                                                             <div class="col-sm">
                                                                 <div class="checkbox checkbox-primary">
-                                                                    <div
-                                                                        class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input class="border-checkbox" type="checkbox"
-                                                                            id="nomineeId" (click)="nominee($event)" />
-                                                                        <label class="border-checkbox-label"
-                                                                            for="nomineeId"
-                                                                            [ngClass]="{ isActive: nomineeTrue }"><b
+                                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                        <input class="border-checkbox" type="checkbox" id="nomineeId" (click)="nominee($event)" />
+                                                                        <label class="border-checkbox-label" for="nomineeId" [ngClass]="{ isActive: nomineeTrue }"><b
                                                                                 style="color: dodgerblue;">NOMINEE</b></label>
                                                                     </div>
                                                                 </div>
@@ -1427,8 +1139,7 @@
                                                                           angForm.controls['AC_NNAME'].errors
                                                                             ?.pattern || angForm.controls['AC_NNAME'].errors?.maxlength
                                                                         ">
-                                                                                        Input allowed only A-Z a-z - / .
-                                                                                        (Space)
+                                                                                        Input allowed only A-Z a-z - / . (Space)
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1467,8 +1178,7 @@
                                                                             ?.pattern || angForm.controls['AC_NRELA'].errors
                                                                             ?.maxlength
                                                                         ">
-                                                                                        Input allowed only A-Z a-z - / .
-                                                                                        (Space)
+                                                                                        Input allowed only A-Z a-z - / . (Space)
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1486,10 +1196,6 @@
                                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                                             formControlName="AC_NDATE"
                                                                                             bsDatepicker>
-                                                                                        <!-- <input type="date" name="" class="form-control" placeholder=" "
-                                                                            id="AC_NDATE" max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                            [ngClass]="{'form-submitted': formSubmitted}" #date
-                                                                            (focusout)="disabledate(date.value)" formControlName="AC_NDATE" /> -->
                                                                                         <label for="AC_NDATE">Nomination
                                                                                             Date<sub class="required">*
                                                                                             </sub></label>
@@ -1580,9 +1286,7 @@
                                                                           angForm.controls['AC_NHONO'].errors
                                                                             ?.pattern
                                                                         ">
-                                                                                        Input allowed only A-Z a-z 0-9 -
-                                                                                        / .
-                                                                                        (Space)
+                                                                                        Input allowed only A-Z a-z 0-9 - / . (Space)
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1616,8 +1320,7 @@
                                                                           angForm.controls['AC_NWARD'].errors
                                                                             ?.pattern
                                                                         ">
-                                                                                        Input allowed only A-Z a-z 0-9 -
-                                                                                        / . (Space)
+                                                                                        Input allowed only A-Z a-z 0-9 - / . (Space)
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1653,9 +1356,7 @@
                                                                           angForm.controls['AC_NGALLI'].errors
                                                                             ?.pattern
                                                                         ">
-                                                                                        Input allowed only A-Z a-z 0-9 -
-                                                                                        / .
-                                                                                        (Space)
+                                                                                        Input allowed only A-Z a-z 0-9 - / . (Space)
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1689,8 +1390,7 @@
                                                                           angForm.controls['AC_NAREA'].errors
                                                                             ?.pattern
                                                                         ">
-                                                                                        Input allowed only A-Z a-z - / .
-                                                                                        (Space)
+                                                                                        Input allowed only A-Z a-z - / . (Space)
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1723,9 +1423,7 @@
                                                                           angForm.controls['AC_NADDR'].errors
                                                                             ?.pattern
                                                                         ">
-                                                                                        Input allowed only A-Z a-z 0-9 -
-                                                                                        / .
-                                                                                        (Space)
+                                                                                        Input allowed only A-Z a-z 0-9 - / . (Space)
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1743,10 +1441,6 @@
                                                                                             formControlName="AC_NCTCODE"
                                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                                             placeholder="City">
-                                                                                            <!-- <ng-option *ngFor="let values of Ncity">
-                                                                              {{values.CITY_NAME}}</ng-option> -->
-                                                                                            <!-- bindLabel="CITY_NAME"
-                                                                            title="Compulsory Selection" bindValue="id" -->
                                                                                         </ng-select>
                                                                                         <label for="AC_NCTCODE">City<sub
                                                                                                 class="required"> *
@@ -1793,16 +1487,10 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="row" style="float: right;">
-                                                                            <button type="submit"
-                                                                                class="btn btn-outline-primary btn-sm"
-                                                                                *ngIf="nomineeShowButton"
-                                                                                (click)="addNominee()">
+                                                                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="nomineeShowButton" (click)="addNominee()">
                                                                                 Add Nominee
                                                                             </button>
-                                                                            <button
-                                                                                class="btn btn-outline-primary btn-sm"
-                                                                                (click)="updateNominee()"
-                                                                                *ngIf="nomineeUpdateShow">
+                                                                            <button class="btn btn-outline-primary btn-sm" (click)="updateNominee()" *ngIf="nomineeUpdateShow">
                                                                                 Update Nominee
                                                                             </button>
 
@@ -1837,73 +1525,44 @@
                                                                                 <td>
                                                                                     <div class="row">
                                                                                         <div class="col-sm">
-                                                                                            <span
-                                                                                                class="fa fa-fw fa-edit field-icon"
-                                                                                                id="editbutton"
-                                                                                                (click)="editNominee(indexOfelement)"
-                                                                                                placement="top"
-                                                                                                ngbTooltip="Edit"></span>
-                                                                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                            <span
-                                                                                                class="fa fa-fw fa-trash-o"
-                                                                                                id="deletebutton"
-                                                                                                (click)="delNominee(indexOfelement)"
-                                                                                                placement="right"
-                                                                                                ngbTooltip="Delete"></span>
+                                                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editNominee(indexOfelement)" placement="top" ngbTooltip="Edit"></span> &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                            <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delNominee(indexOfelement)" placement="right" ngbTooltip="Delete"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </td>
                                                                                 <td>{{ data.AC_NNAME }}</td>
                                                                                 <td>{{ data.AC_NRELA }}</td>
-                                                                                <td class="td_right"
-                                                                                    [ngClass]="data.AGE === ''  || data.AGE == null ? 'td_center' : 'td_right'">
-                                                                                    {{data.AGE === '' || data.AGE ==
-                                                                                    null ? '-' : data.AGE}}</td>
-                                                                                <td class="td_center"
-                                                                                    [ngClass]="data.AC_NDATE === '' ? 'td_center' : 'td_center'">
-                                                                                    {{data.AC_NDATE === ''? '-' :
-                                                                                    data.AC_NDATE}}</td>
-                                                                                <td class="td_left"
-                                                                                    [ngClass]="data.AC_NHONO === '' || data.AC_NHONO == null  ? 'td_center' : 'td_left'">
-                                                                                    {{data.AC_NHONO === '' ||
-                                                                                    data.AC_NHONO == null ? '-' :
-                                                                                    data.AC_NHONO}}</td>
-                                                                                <td class="td_left"
-                                                                                    [ngClass]="data.AC_NWARD === '' || data.AC_NWARD == null ? 'td_center' : 'td_left'">
-                                                                                    {{data.AC_NWARD === '' ||
-                                                                                    data.AC_NWARD == null ? '-' :
-                                                                                    data.AC_NWARD}}</td>
-                                                                                <td class="td_left"
-                                                                                    [ngClass]="data.AC_NADDR === '' || data.AC_NADDR == null ? 'td_center' : 'td_left'">
-                                                                                    {{data.AC_NADDR === '' ||
-                                                                                    data.AC_NADDR == null ? '-' :
-                                                                                    data.AC_NADDR}}</td>
-                                                                                <td class="td_left"
-                                                                                    [ngClass]="data.AC_NGALLI === '' || data.AC_NGALLI == null ? 'td_center' : 'td_left'">
-                                                                                    {{data.AC_NGALLI === '' ||
-                                                                                    data.AC_NGALLI == null ? '-' :
-                                                                                    data.AC_NGALLI}}</td>
-                                                                                <td class="td_left"
-                                                                                    [ngClass]="data.AC_NAREA === '' || data.AC_NAREA == null ? 'td_center' : 'td_left'">
-                                                                                    {{data.AC_NAREA === '' ||
-                                                                                    data.AC_NAREA == null ? '-' :
-                                                                                    data.AC_NAREA}}</td>
-                                                                                <td class="td_left"
-                                                                                    [ngClass]="data.AC_NCTCODE === '' ? 'td_center' : 'td_left'">
-                                                                                    {{data.AC_NCTCODE === ''? '-' :
-                                                                                    data.AC_CITYNAME}}</td>
-                                                                                <td class="td_center"
-                                                                                    [ngClass]="data.AC_NPIN === ''|| data.AC_NPIN == null ? 'td_center' : 'td_right'">
-                                                                                    {{data.AC_NPIN === '' ||
-                                                                                    data.AC_NPIN == null ? '-' :
-                                                                                    data.AC_NPIN}}</td>
+                                                                                <td class="td_right" [ngClass]="data.AGE === ''  || data.AGE == null ? 'td_center' : 'td_right'">
+                                                                                    {{data.AGE === '' || data.AGE == null ? '-' : data.AGE}}</td>
+                                                                                <td class="td_center" [ngClass]="data.AC_NDATE === '' ? 'td_center' : 'td_center'">
+                                                                                    {{data.AC_NDATE === ''? '-' : data.AC_NDATE}}
+                                                                                </td>
+                                                                                <td class="td_left" [ngClass]="data.AC_NHONO === '' || data.AC_NHONO == null  ? 'td_center' : 'td_left'">
+                                                                                    {{data.AC_NHONO === '' || data.AC_NHONO == null ? '-' : data.AC_NHONO}}
+                                                                                </td>
+                                                                                <td class="td_left" [ngClass]="data.AC_NWARD === '' || data.AC_NWARD == null ? 'td_center' : 'td_left'">
+                                                                                    {{data.AC_NWARD === '' || data.AC_NWARD == null ? '-' : data.AC_NWARD}}
+                                                                                </td>
+                                                                                <td class="td_left" [ngClass]="data.AC_NADDR === '' || data.AC_NADDR == null ? 'td_center' : 'td_left'">
+                                                                                    {{data.AC_NADDR === '' || data.AC_NADDR == null ? '-' : data.AC_NADDR}}
+                                                                                </td>
+                                                                                <td class="td_left" [ngClass]="data.AC_NGALLI === '' || data.AC_NGALLI == null ? 'td_center' : 'td_left'">
+                                                                                    {{data.AC_NGALLI === '' || data.AC_NGALLI == null ? '-' : data.AC_NGALLI}}
+                                                                                </td>
+                                                                                <td class="td_left" [ngClass]="data.AC_NAREA === '' || data.AC_NAREA == null ? 'td_center' : 'td_left'">
+                                                                                    {{data.AC_NAREA === '' || data.AC_NAREA == null ? '-' : data.AC_NAREA}}
+                                                                                </td>
+                                                                                <td class="td_left" [ngClass]="data.AC_NCTCODE === '' ? 'td_center' : 'td_left'">
+                                                                                    {{data.AC_NCTCODE === ''? '-' : data.AC_CITYNAME}}
+                                                                                </td>
+                                                                                <td class="td_center" [ngClass]="data.AC_NPIN === ''|| data.AC_NPIN == null ? 'td_center' : 'td_right'">
+                                                                                    {{data.AC_NPIN === '' || data.AC_NPIN == null ? '-' : data.AC_NPIN}}
+                                                                                </td>
                                                                             </tr>
                                                                         </tbody>
                                                                         <tbody *ngIf="multiNominee?.length == 0">
                                                                             <tr>
-                                                                                <td colspan="12"
-                                                                                    class="no-data-available"
-                                                                                    style="text-align: center;">
+                                                                                <td colspan="12" class="no-data-available" style="text-align: center;">
                                                                                     No data!
                                                                                 </td>
                                                                             </tr>
@@ -1915,14 +1574,9 @@
                                                         <div class="row">
                                                             <div class="col-sm">
                                                                 <div class="checkbox checkbox-primary">
-                                                                    <div
-                                                                        class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input class="border-checkbox" type="checkbox"
-                                                                            id="jointAccount"
-                                                                            (click)="jointAccount($event)" />
-                                                                        <label class="border-checkbox-label"
-                                                                            for="jointAccount"
-                                                                            [ngClass]="{ isActive: JointAccountsTrue }"><b
+                                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                        <input class="border-checkbox" type="checkbox" id="jointAccount" (click)="jointAccount($event)" />
+                                                                        <label class="border-checkbox-label" for="jointAccount" [ngClass]="{ isActive: JointAccountsTrue }"><b
                                                                                 style="color: dodgerblue;">JOINT
                                                                                 ACCOUNTS</b></label>
                                                                     </div>
@@ -1935,8 +1589,7 @@
                                                                 <div *ngIf="JointAccountsTrue">
                                                                     <div class="row">
                                                                         <div class="col-sm">
-                                                                            <div
-                                                                                class="form-group form-primary form-static-label">
+                                                                            <div class="form-group form-primary form-static-label">
                                                                                 <span class="border-lable-flt">
                                                                                     <ng-select [(ngModel)]="jointID"
                                                                                         id="JOINT_AC_CUSTID"
@@ -1951,13 +1604,6 @@
                                                                                             [value]="values">
                                                                                             {{values.label}}</ng-option>
                                                                                     </ng-select>
-                                                                                    <!-- <ng-select [(ngModel)]="jointID" id="JOINT_AC_CUSTID" bindLabel="value"
-                                                                          formControlName="JOINT_AC_CUSTID" (change)="getJointCustomer(jointID.id)"
-                                                                          title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                                                                          placeholder="Customer Id *">
-                                                                          <ng-option *ngFor="let values of joint_Cust_ID" [value]="values">
-                                                                            {{values.label</ng-option>
-                                                                        </ng-select> -->
                                                                                     <label
                                                                                         for="JOINT_AC_CUSTID">Customer
                                                                                         Id<sub class="required">*
@@ -1983,31 +1629,19 @@
                                                                         </div>
                                                                         <div class="col-sm">
                                                                             <div class="checkbox checkbox-primary">
-                                                                                <div
-                                                                                    class="border-checkbox-group border-checkbox-group-primary">
-                                                                                    <input class="border-checkbox"
-                                                                                        type="checkbox" name="OPERATOR"
-                                                                                        id="operator"
-                                                                                        formControlName="OPERATOR"
-                                                                                        checked />
-                                                                                    <label class="border-checkbox-label"
-                                                                                        for="operator">Operation<span
+                                                                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                                                                    <input class="border-checkbox" type="checkbox" name="OPERATOR" id="operator" formControlName="OPERATOR" checked />
+                                                                                    <label class="border-checkbox-label" for="operator">Operation<span
                                                                                             class="required">
                                                                                         </span></label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-3">
-                                                                            <button type="button"
-                                                                                class="btn btn-outline-primary btn-sm"
-                                                                                *ngIf="jointShowButton"
-                                                                                (click)="addJointAcccount()">
+                                                                            <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="jointShowButton" (click)="addJointAcccount()">
                                                                                 Add Account
                                                                             </button>
-                                                                            <button
-                                                                                class="btn btn-outline-primary btn-sm"
-                                                                                (click)="updateJointAcccount()"
-                                                                                *ngIf="jointUpdateShow">
+                                                                            <button class="btn btn-outline-primary btn-sm" (click)="updateJointAcccount()" *ngIf="jointUpdateShow">
                                                                                 Update Account
                                                                             </button>
                                                                         </div>
@@ -2036,41 +1670,25 @@
                                                                                 <td>
                                                                                     <div class="row">
                                                                                         <div class="col-sm">
-                                                                                            <span
-                                                                                                class="fa fa-fw fa-edit field-icon"
-                                                                                                id="editbutton"
-                                                                                                (click)="editJointAc(indexOfelement)"
-                                                                                                placement="top"
-                                                                                                ngbTooltip="Edit"></span>
-                                                                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                            <span
-                                                                                                class="fa fa-fw fa-trash-o"
-                                                                                                id="deletebutton"
-                                                                                                (click)="delJointAc(indexOfelement)"
-                                                                                                placement="right"
-                                                                                                ngbTooltip="Delete"></span>
+                                                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editJointAc(indexOfelement)" placement="top" ngbTooltip="Edit"></span> &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                            <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delJointAc(indexOfelement)" placement="right" ngbTooltip="Delete"></span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </td>
-                                                                                <td class="td_right"
-                                                                                    [ngClass]="data.JOINT_AC_CUSTID === '' ? 'td_center' : 'td_right'">
-                                                                                    {{data.JOINT_AC_CUSTID === ''? '-' :
-                                                                                    data.JOINT_AC_CUSTID}}</td>
-                                                                                <td class="td_left"
-                                                                                    [ngClass]="data.JOINT_ACNAME === '' ? 'td_center' : 'td_right'">
-                                                                                    {{data.JOINT_ACNAME === ''? '-' :
-                                                                                    data.JOINT_ACNAME}}</td>
-                                                                                <td class="td_left"
-                                                                                    [ngClass]="data.OPERATOR === '' ? 'td_left' : 'td_right'">
-                                                                                    {{data.OPERATOR === ''? '-' :
-                                                                                    data.OPERATOR}}</td>
+                                                                                <td class="td_right" [ngClass]="data.JOINT_AC_CUSTID === '' ? 'td_center' : 'td_right'">
+                                                                                    {{data.JOINT_AC_CUSTID === ''? '-' : data.JOINT_AC_CUSTID}}
+                                                                                </td>
+                                                                                <td class="td_left" [ngClass]="data.JOINT_ACNAME === '' ? 'td_center' : 'td_right'">
+                                                                                    {{data.JOINT_ACNAME === ''? '-' : data.JOINT_ACNAME}}
+                                                                                </td>
+                                                                                <td class="td_left" [ngClass]="data.OPERATOR === '' ? 'td_left' : 'td_right'">
+                                                                                    {{data.OPERATOR === ''? '-' : data.OPERATOR}}
+                                                                                </td>
                                                                             </tr>
                                                                         </tbody>
                                                                         <tbody *ngIf="multiJointAC?.length == 0">
                                                                             <tr>
-                                                                                <td class="no-data-available"
-                                                                                    colspan="4"
-                                                                                    style="text-align: center;">No data!
+                                                                                <td class="no-data-available" colspan="4" style="text-align: center;">No data!
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
@@ -2080,8 +1698,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm" style="float: right; margin-top: 6px;">
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    (click)="switchNgBTab('documents')">Next
+                                                                <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('documents')">Next
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -2098,8 +1715,7 @@
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="table-responsive">
-                                                                    <table
-                                                                        class="table table-striped table-bordered table-hover compact">
+                                                                    <table class="table table-striped table-bordered table-hover compact">
                                                                         <thead>
                                                                             <td style="max-width: 10px;">Code</td>
                                                                             <td>Description</td>
@@ -2113,48 +1729,34 @@
                                                                                 <td>{{ data.DocumentMaster.NAME }}</td>
                                                                                 <td style="align-items: center;">
                                                                                     <div class="col-sm-2">
-                                                                                        <span
-                                                                                            style="font-size: 20px;color: #0f459b; cursor: pointer;"
-                                                                                            (click)="modalLarge.show();viewImagePreview($event,documentUrl+data.PATH)"
-                                                                                            placement="right"
-                                                                                            ngbTooltip="Show Image"
-                                                                                            class="fa fa-fw fa-eye field-icon"></span>
+                                                                                        <span style="font-size: 20px;color: #0f459b; cursor: pointer;" (click)="modalLarge.show();viewImagePreview($event,documentUrl+data.PATH)" placement="right" ngbTooltip="Show Image" class="fa fa-fw fa-eye field-icon"></span>
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
                                                                         <tbody *ngIf="customerDoc?.length == 0">
                                                                             <tr>
-                                                                                <td class="no-data-available"
-                                                                                    colspan="3"
-                                                                                    style="text-align: center;">No data!
+                                                                                <td class="no-data-available" colspan="3" style="text-align: center;">No data!
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
-                                                                    <app-modal-basic #modalLarge
-                                                                        [dialogClass]="'modal-lg'">
+                                                                    <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
                                                                         <div class="app-modal-header">
                                                                             <h4 class="modal-title"> Document </h4>
-                                                                            <button type="button"
-                                                                                class="close basic-close"
-                                                                                (click)="modalLarge.hide()">
+                                                                            <button type="button" class="close basic-close" (click)="modalLarge.hide()">
                                                                                 <span aria-hidden="true">&times;</span>
                                                                             </button>
                                                                         </div>
                                                                         <div class="app-modal-body">
                                                                             <perfect-scrollbar>
 
-                                                                                <img [src]="selectedImagePreview"
-                                                                                    alt="docu" class="form-control"
-                                                                                    style="width: 100%;height: 100%;">
+                                                                                <img [src]="selectedImagePreview" alt="docu" class="form-control" style="width: 100%;height: 100%;">
                                                                             </perfect-scrollbar>
                                                                         </div>
 
                                                                         <div class="app-modal-footer">
-                                                                            <button type="button"
-                                                                                class="btn btn-outline-primary btn-sm"
-                                                                                (click)="modalLarge.hide()">Close</button>
+                                                                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="modalLarge.hide()">Close</button>
                                                                         </div>
                                                                     </app-modal-basic>
                                                                 </div>
@@ -2162,23 +1764,17 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-sm" style="float: right;">
-                                                                <button type="submit"
-                                                                    class="btn btn-outline-primary btn-sm"
-                                                                    *ngIf="showButton" (click)="submit($event)">
+                                                                <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit($event)">
                                                                     Submit
                                                                 </button>
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    (click)="addNewData()" *ngIf="newbtnShow">
+                                                                <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                                                                     Cancel
                                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    (click)="updateData()" *ngIf="updateShow">
+                                                                <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
                                                                     Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    *ngIf="rejectShow" (click)="reject()">
+                                                                <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
                                                                     Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    *ngIf="approveShow" (click)="Approve()">
+                                                                <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
                                                                     Approve</button>
                                                             </div>
                                                         </div>
@@ -2203,127 +1799,42 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table id="mastertable" datatable [dtOptions]="dtExportButtonOptions"
-                                [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
+                            <table id="mastertable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="pigmyAccountMaster?.length != 0">
                                     <tr *ngFor="let data of pigmyAccountMaster">
                                         <td>
-                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                (click)="editClickHandler(data.id)" placement="bottom"
-                                                ngbTooltip="Edit"></span>
+                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)" placement="bottom" ngbTooltip="Edit"></span>
                                         </td>
-                                        <!-- <td>{{data.AC_ACNOTYPE}}</td> -->
-                                        <!-- <td>{{data.AC_TYPE }}</td> -->
-                                        <td
-                                            [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
+                                        <td [ngClass]="data.AC_TYPE === '' || data.AC_TYPE== null? 'td_center' : 'td_right'">
                                             {{ data.AC_TYPE === "" || data.AC_TYPE== null? "-" : data.PGMaster.S_APPL }}
                                         </td>
-                                        <td class="td_right"
-                                            [ngClass]="data.BANKACNO === '' ? 'td_center' : 'td_right'">
+                                        <td class="td_right" [ngClass]="data.BANKACNO === '' ? 'td_center' : 'td_right'">
                                             {{data.BANKACNO === ''? '-' : data.BANKACNO}}</td>
-                                        <!-- <td>{{data.AC_NO }}</td> -->
-                                        <td class="td_right"
-                                            [ngClass]="data.AC_CUSTID === '' ? 'td_center' : 'td_right'">
+                                        <td class="td_right" [ngClass]="data.AC_CUSTID === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_CUSTID === ''? '-' : data.AC_CUSTID}}</td>
                                         <td [ngClass]="data.AC_NAME  === '' ? 'td_center' : 'td_left'">
                                             {{ data.AC_NAME === "" ? "-" : data.AC_NAME }} </td>
-
-                                        <!-- <td>{{data.AC_CUSTID }}</td> -->
-                                        <!-- <td [ngClass]="data.AC_SHORT_NAME === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_SHORT_NAME === ''? '-' : data.AC_SHORT_NAME}}</td> -->
-                                        <!-- <td>{{data.AC_SHORT_NAME }}</td> -->
-                                        <td class="td_right"
-                                            [ngClass]="data.REF_ACNO === '' ? 'td_center' : 'td_right'">{{data.REF_ACNO
-                                            === ''? '-' : data.REF_ACNO}}</td>
-                                        <!-- <td>{{data.REF_ACNO }}</td> -->
-                                        <!-- <td [ngClass]="data.AC_MEMBTYPE === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_MEMBTYPE === ''? '-' : data.AC_MEMBTYPE}}</td> -->
-                                        <!-- <td>{{data.AC_MEMBTYPE }}</td> -->
-                                        <!-- <td class="td_right"
-                                            [ngClass]="data.AC_MEMBNO === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_MEMBNO === ''? '-' : data.AC_MEMBNO}}</td> -->
-                                        <!-- <td>{{data.AC_MEMBNO }}</td> -->
-                                        <td
-                                            [ngClass]="data.idmaster.custAddress[0]?.AC_ADDR === '' ? 'td_center' : 'td_left'">
-                                            {{ data.idmaster.custAddress[0]?.AC_ADDR === "" ? "-" :
-                                            data.idmaster.custAddress[0]?.AC_ADDR }}
+                                        <td class="td_right" [ngClass]="data.REF_ACNO === '' ? 'td_center' : 'td_right'">{{data.REF_ACNO === ''? '-' : data.REF_ACNO}}</td>
+                                        <td [ngClass]="data.idmaster.custAddress[0]?.AC_ADDR === '' ? 'td_center' : 'td_left'">
+                                            {{ data.idmaster.custAddress[0]?.AC_ADDR === "" ? "-" : data.idmaster.custAddress[0]?.AC_ADDR }}
                                         </td>
-                                        <td
-                                            [ngClass]="data.idmaster.custAddress[0].city?.CITY_NAME  === '' ? 'td_center' : 'td_right'">
-                                            {{ data.idmaster.custAddress[0].city?.CITY_NAME === "" ? "-" :
-                                            data.idmaster.custAddress[0].city?.CITY_NAME }}
+                                        <td [ngClass]="data.idmaster.custAddress[0].city?.CITY_NAME  === '' ? 'td_center' : 'td_right'">
+                                            {{ data.idmaster.custAddress[0].city?.CITY_NAME === "" ? "-" : data.idmaster.custAddress[0].city?.CITY_NAME }}
                                         </td>
-                                        <td class="td_right"
-                                            [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_right'">
+                                        <td class="td_right" [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_OPDATE === ''? '-' : data.AC_OPDATE}}</td>
 
-                                        <!-- <td>{{data.AC_OPDATE }}</td> -->
-                                        <!-- <td class="td_right"
-                                            [ngClass]="data.AC_RENEW_DATE === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_RENEW_DATE === ''? '-' : data.AC_RENEW_DATE}}</td> -->
-                                        <!-- <td>{{data.AC_RENEW_DATE }}</td> -->
-                                        <td class="td_right"
-                                            [ngClass]="data.AC_EXPDT === '' ? 'td_center' : 'td_right'">{{data.AC_EXPDT
-                                            === ''? '-' : data.AC_EXPDT}}</td>
-                                        <!-- <td>{{data.AC_EXPDT }}</td> -->
-
-                                        <!-- <td>{{data.AC_OCODE }}</td> -->
-
-                                        <!-- <td [ngClass]="data.AC_CATG === '' ? 'td_center' : 'td_right'">{{data.AC_CATG
-                                            === ''? '-' : data.AC_CATG}}</td> -->
-                                        <!-- <td [ngClass]="data.AC_OPR_CODE === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_OPR_CODE === ''? '-' : data.AC_OPR_CODE}}</td> -->
-                                        <!-- <td class="td_right"
-                                            [ngClass]="data.AC_INTCATA === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_INTCATA === ''? '-' : data.AC_INTCATA}}</td> -->
-                                        <td class="td_right"
-                                            [ngClass]="data.AC_MONTHS === '' ? 'td_center' : 'td_right'">
+                                        <td class="td_right" [ngClass]="data.AC_EXPDT === '' ? 'td_center' : 'td_right'">{{data.AC_EXPDT === ''? '-' : data.AC_EXPDT}}</td>
+                                        <td class="td_right" [ngClass]="data.AC_MONTHS === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_MONTHS === ''? '-' : data.AC_MONTHS}}</td>
-                                        <td class="td_right"
-                                            [ngClass]="data.AC_SCHMAMT === '' ? 'td_center' : 'td_right'">
+                                        <td class="td_right" [ngClass]="data.AC_SCHMAMT === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_SCHMAMT === ''? '-' : data.AC_SCHMAMT}}</td>
 
-                                        <!-- <td [ngClass]="data.AGENT_ACTYPE === '' ? 'td_center' : 'td_right'">
-                                            {{data.AGENT_ACTYPE === ''? '-' : data.AGENT_ACTYPE}}</td> -->
-                                        <!-- <td>{{data.AGENT_ACTYPE }}</td> -->
-                                        <td class="td_right"
-                                            [ngClass]="data.AGENT_ACNO === '' ? 'td_center' : 'td_right'">
+                                        <td class="td_right" [ngClass]="data.AGENT_ACNO === '' ? 'td_center' : 'td_right'">
                                             {{data.AGENT_ACNO === ''? '-' : data.AGENT_ACNO}}</td>
-                                        <!-- <td>{{data.AGENT_ACNO }}</td> -->
-                                        <td [ngClass]="data.AC_MINOR === '' ? 'td_center' : 'td_right'">{{data.AC_MINOR
-                                            === ''? '-' : data.AC_MINOR}}</td>
-                                        <!-- <td>{{data.AC_MINOR}}</td> -->
-                                        <!-- <td class="td_right"
-                                            [ngClass]="data.AC_MBDATE === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_MBDATE === ''? '-' : data.AC_MBDATE}}</td> -->
-                                        <!-- <td>{{data.AC_MBDATE }}</td> -->
-                                        <!-- <td class="td_right"
-                                            [ngClass]="data.AC_GRDNAME === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_GRDNAME === ''? '-' : data.AC_GRDNAME}}</td> -->
-                                        <!-- <td>{{data.AC_GRDNAME }}</td> -->
-                                        <!-- <td [ngClass]="data.AC_GRDRELE === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_GRDRELE === ''? '-' : data.AC_GRDRELE}}</td> -->
-                                        <!-- <td>{{data.AC_GRDRELE }}</td> -->
-                                        <!-- <td [ngClass]="data.AC_INTROBRANCH === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_INTROBRANCH === ''? '-' : data.AC_INTROBRANCH}}</td> -->
-                                        <!-- <td>{{data.AC_INTROBRANCH }}</td> -->
-                                        <!-- <td [ngClass]="data.AC_INTROID === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_INTROID === ''? '-' : data.AC_INTROID}}</td> -->
-                                        <!-- <td>{{data.AC_INTROID }}</td> -->
-                                        <!-- <td class="td_right"
-                                            [ngClass]="data.AC_INTRACNO === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_INTRACNO === ''? '-' : data.AC_INTRACNO}}</td> -->
-                                        <!-- <td>{{data.AC_INTRACNO }}</td> -->
-                                        <!-- <td [ngClass]="data.AC_INTRNAME === '' ? 'td_center' : 'td_right'">
-                                            {{data.AC_INTRNAME === ''? '-' : data.AC_INTRNAME}}</td> -->
-                                        <!-- <td>{{data.AC_INTRNAME }}</td> -->
-                                        <!-- <td [ngClass]="data.SIGNATURE_AUTHORITY === '' ? 'td_center' : 'td_right'">
-                                            {{data.SIGNATURE_AUTHORITY === ''? '-' : data.SIGNATURE_AUTHORITY}}</td> -->
-                                        <!-- <td>{{data.SIGNATURE_AUTHORITY}}</td> -->
+                                        <td [ngClass]="data.AC_MINOR === '' ? 'td_center' : 'td_right'">{{data.AC_MINOR === ''? '-' : data.AC_MINOR}}</td>
                                         <td [ngClass]="data.PG_COMM_TYPE === '' ? 'td_center' : 'td_right'">
                                             {{data.PG_COMM_TYPE === ''? '-' : data.PG_COMM_TYPE}}</td>
-                                        <!-- <td>{{data.PG_COMM_TYPE }}</td> -->
-
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="pigmyAccountMaster?.length == 0">

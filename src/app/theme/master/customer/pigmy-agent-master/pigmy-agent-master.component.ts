@@ -127,7 +127,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
-
+  maxDate: Date;
+  minDate: Date;
   //variable to get ID to update
   updateID: number = 0;
   page: number = 1;
@@ -185,15 +186,14 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     private schemeAccountNoService: SchemeAccountNoService,
     private http: HttpClient,
     private fb: FormBuilder) {
-    console.log('Saving Data with Input', this.childMessage)
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
     }
-    // this.datemax =new Date() ;
-    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-    console.log(this.datemax);
-
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate());
+    this.minDate.setDate(this.minDate.getDate());
   }
 
   ngOnInit(): void {
@@ -300,8 +300,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         return (scheme.id == 'AG');
       });
       this.scheme = filtered;
-      // this.scheme = data;
-      // // console.log(data)
+    
       this.code = this.scheme[0].value
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.pgScheme).pipe(first()).subscribe(data => {
@@ -321,19 +320,10 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       this.Cust_ID = data;
     })
   }
-  //set open date, appointed date and expiry date
-  // getSystemParaDate() {
-  //   this.systemParameter.getFormData(1).subscribe(data => {
-  //     this.angForm.patchValue({
-  //       AC_OPDATE: data.CURRENT_DATE,
-  //     })
-  //   })
-  // }
   openingDate: any
   tempopendate: any
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
-      console.log('Syspara date', data)
       this.openingDate = data.CURRENT_DATE
       this.tempopendate = data.CURRENT_DATE
 
@@ -368,7 +358,10 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         AC_MEMBNO: data.AC_MEMBNO,
         AC_CAST: data.castMaster.NAME,
         AC_OCODE: data.occupMaster.NAME,
-        AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
+        AC_MOBNO: data.AC_MOBILENO,
+        AC_PHNO: data.AC_PHONE_RES,
+        AC_EMAIL: data.AC_EMAILID,
+        AC_PANNO: data.AC_PANNO,
       })
       let permadd
       let temp
@@ -460,12 +453,10 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   getschemename: any
   //get account no according scheme for introducer
   getIntroducer() {
-    debugger
     this.obj = [this.acno, this.ngBranch]
     switch (this.getschemename) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-          debugger
           this.introducerACNo = data;
           this.ngIntroducer = null
         })
@@ -515,10 +506,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
       case 'GS':
         this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
-          debugger
           this.introducerACNo = data;
           this.ngIntroducer = null
-          console.log(this.introducerACNo)
         })
         break;
 
@@ -562,75 +551,67 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.formSubmitted = true;
     let opdate
     let temdate
-    if (this.angForm.valid) {
+    // if (this.angForm.valid) {
 
 
-      const formVal = this.angForm.value;
-      let schecode
-      if (this.tempopendate != this.openingDate) {
-        temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
-      } else {
-        temdate = this.openingDate
-      }
-      this.scheme.forEach(async (element) => {
-        console.log(this.code, "this.selectedValue")
-        console.log(element)
-        console.log(element, "element")
-        if (element.value == this.code) {
-          console.log(true)
-          console.log(element.name, "element.S_APPL")
-          schecode = element.name
-
-          console.log(schecode)
-        }
-      })
-      //get bank code and branch code from session
-      let data: any = localStorage.getItem('user');
-      let result = JSON.parse(data);
-      let branchCode = result.branch.id;
-      let bankCode = Number(result.branch.syspara.BANK_CODE)
-      debugger
-      console.log(this.ngIntroducer)
-      const dataToSend = {
-        'branchCode': branchCode,
-        'bankCode': bankCode,
-        'schemeCode': schecode,
-
-        'AC_TYPE': formVal.AC_TYPE,
-        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-        'AC_NAME': formVal.AC_NAME,
-        'AC_CUSTID': formVal.AC_CUSTID,
-        'AC_OPDATE': this.openingDate,
-        'PIGMY_ACTYPE': formVal.PIGMY_ACTYPE,
-        'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
-        'AC_INTROID': formVal.AC_INTROID,
-        'AC_INTRACNO': formVal.AC_INTRACNO,
-        'AC_INTRNAME': formVal.AC_INTRNAME,
-        'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
-        'NomineeData': this.multiNominee
-      }
-      this.PigmyAgentMasterService.postData(dataToSend).subscribe(data => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Account Created successfully!',
-          html:
-            '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
-            '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
-        })
-        this.formSubmitted = false;
-        // to reload after insertion of data
-
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-
-      }, (error) => {
-        console.log(error)
-      })
-      //To clear form
-      this.resetForm();
-      this.multiNominee = []
+    const formVal = this.angForm.value;
+    let schecode
+    if (this.tempopendate != this.openingDate) {
+      temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
+    } else {
+      temdate = this.openingDate
     }
+    this.scheme.forEach(async (element) => {
+      if (element.value == this.code) {
+        schecode = element.name
+      }
+    })
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    let bankCode = Number(result.branch.syspara.BANK_CODE)
+   
+    const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
+      'schemeCode': schecode,
+
+      'AC_TYPE': formVal.AC_TYPE,
+      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+      'AC_NAME': formVal.AC_NAME,
+      'AC_CUSTID': formVal.AC_CUSTID,
+      'AC_OPDATE': this.openingDate,
+      'PIGMY_ACTYPE': formVal.PIGMY_ACTYPE,
+      'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
+      'AC_INTROID': formVal.AC_INTROID,
+      'AC_INTRACNO': formVal.AC_INTRACNO,
+      'AC_INTRNAME': formVal.AC_INTRNAME,
+      'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+      'NomineeData': this.multiNominee
+    }
+    this.PigmyAgentMasterService.postData(dataToSend).subscribe(data => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Account Created successfully!',
+        html:
+          '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+          '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+      })
+      this.formSubmitted = false;
+      // to reload after insertion of data
+
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+
+    }, (error) => {
+      console.log(error)
+    })
+    //To clear form
+    this.resetForm();
+    this.multiNominee = []
+    // }
   }
 
   // Reset Function
@@ -643,6 +624,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.ngIntroducer = null
     this.openingDate = null
     this.ngPigmy = null
+    this.ngNcity = null
+    this.resetNominee();
 
   }
   ngAfterViewInit(): void {
@@ -683,15 +666,9 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   //Method for append data into fields
   editClickHandler(id) {
     this.angForm.controls['AC_TYPE'].disable()
-    // this.showButton = false;
-    // this.updateShow = true;
-    // this.newbtnShow = true;
     this.PigmyAgentMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
-
-      debugger
       let opdate
-      console.log(data, "edit data")
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
         this.updateShow = true;
@@ -714,14 +691,12 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
         this.SchemeCodeDropdownDropdown.forEach(async (element) => {
           if (element.value == this.acno) {
-            debugger
             this.getschemename = element.name
           }
         })
         switch (this.getschemename) {
           case 'SB':
             this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-              console.log('introducer name data', data)
               this.introducerACNo = data;
 
             })
@@ -771,7 +746,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
           case 'GS':
             this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
-              debugger
               this.introducerACNo = data;
 
             })
@@ -811,10 +785,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         'AC_ACNOTYPE': data.AC_ACNOTYPE,
         'AC_NO': data.AC_NO,
         'AC_OPDATE': (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
-        // PIGMY_ACTYPE: data.PIGMY_ACTYPE,
-        // AC_INTRACNO: data.AC_INTRACNO,
-        // AC_INTROBRANCH: data.AC_INTROBRANCH,
-        // AC_INTROID: data.AC_INTROID,
         'BANKACNO': data.BANKACNO,
         'AC_INTRNAME': data.AC_INTRNAME,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
@@ -921,7 +891,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   cityName: boolean = false
   ngnomineedate: any
   //Nominee
-  //Nominee
   addNominee() {
     const formVal = this.angForm.value;
     let date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
@@ -937,16 +906,15 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE.id,
+      AC_NCTCODE: formVal.AC_NCTCODE,
       AC_NPIN: formVal.AC_NPIN,
-      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
     }
-
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+
         Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
 
@@ -1068,13 +1036,10 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     else {
       this.multiNominee[index] = object;
     }
-    console.log('update nominee', this.multiNominee[index])
     this.resetNominee()
   }
 
-  delNominee(id) {
-    this.multiNominee.splice(id, 1)
-  }
+  de
 
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
@@ -1088,6 +1053,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.angForm.controls['AC_NAREA'].reset();
     this.angForm.controls['AC_NCTCODE'].reset();
     this.angForm.controls['AC_NPIN'].reset();
+    this.ngNcity = null
+    this.ngnomineedate = null
   }
 
 
@@ -1096,8 +1063,6 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.getIntroducer()
   }
   getIntro(event) {
-    console.log(event)
-    // this.getscheme = event.id
     this.getschemename = event.name
     this.getIntroducer()
   }
