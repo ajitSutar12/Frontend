@@ -28,6 +28,7 @@ import { HttpClient } from "@angular/common/http";
 import { ACMasterDropdownService } from "../../../../shared/dropdownService/ac-master-dropdown.service";
 import { first } from "rxjs/operators";
 import { environment } from "../../../../../environments/environment";
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -67,6 +68,7 @@ interface savingscheme {
   styleUrls: ["./saving-scheme.component.scss"],
 })
 export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
 
   //api
   url = environment.base_url;
@@ -112,6 +114,8 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Dropdown option variable
   acMaster: any;
+  ngglacno:any=null
+  nginterestgl:any=null
 
   S_PRODUCT_DAY_BASE;
 
@@ -123,8 +127,8 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     private savingschemeservice: SavingschemeService,
     private acMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
-    private http: HttpClient
-  ) {}
+    private http: HttpClient,
+    private config: NgSelectConfig,) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -201,66 +205,66 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
           title: "Interest GL A/c",
           data: "S_INT_ACNO",
         },
-        {
-          title: "Is Interest Applicable ?",
-          data: "S_INT_APPLICABLE",
-        },
-        {
-          title: "Is Post Interest to A/c ?",
-          data: "POST_TO_INDIVIDUAL_AC",
-        },
-        {
-          title: "Is Day Base Interest Calculation ?",
-          data: "IS_DAYBASE_INT_CALCULATION",
-        },
-        {
-          title: "Product Base Start Day ",
-          data: "S_PRODUCT_DAY_BASE",
-        },
-        {
-          title: "Product Base End Day ",
-          data: "S_PRODUCT_DAY_BASE_END",
-        },
-        {
-          title: "Minimum Interest Amount",
-          data: "MIN_INT_LIMIT",
-        },
-        {
-          title: "Is Standing Instruction Applicable ?",
-          data: "STAND_INSTRUCTION_ALLOW",
-        },
-        {
-          title: "Is Interest Instruction STOP after Matured?",
-          data: "IS_INSTRUCTION_UPTO_MATURITY",
-        },
-        {
-          title: "Interest Round Off Factor in Paise",
-          data: "ROUNDOFF_FACTOR",
-        },
-        {
-          title: "Cheque Book Minimum Balance",
-          data: "CHEQUEBOOK_MIN_BAL",
-        },
-        {
-          title: "Is Balance Entry Allow ?",
-          data: "BALANCE_ADD_APPLICABLE",
-        },
-        {
-          title: "Is Allow Dormat Flag Updation ?",
-          data: "DORMANT_FLAG_APPLICABLE",
-        },
-        {
-          title: "Minimum Balane for Interest ? ",
-          data: "MIN_BAL_FOR_INT",
-        },
-        {
-          title: "Is Overdraft Interest Applicable ?",
-          data: "OVERDRAFT_INTEREST_APPLICABLE",
-        },
-        {
-          title: "Overdraft Interest Rate?",
-          data: "OVERDRAFT_INTEREST_RATE",
-        },
+        // {
+        //   title: "Is Interest Applicable ?",
+        //   data: "S_INT_APPLICABLE",
+        // },
+        // {
+        //   title: "Is Post Interest to A/c ?",
+        //   data: "POST_TO_INDIVIDUAL_AC",
+        // },
+        // {
+        //   title: "Is Day Base Interest Calculation ?",
+        //   data: "IS_DAYBASE_INT_CALCULATION",
+        // },
+        // {
+        //   title: "Product Base Start Day ",
+        //   data: "S_PRODUCT_DAY_BASE",
+        // },
+        // {
+        //   title: "Product Base End Day ",
+        //   data: "S_PRODUCT_DAY_BASE_END",
+        // },
+        // {
+        //   title: "Minimum Interest Amount",
+        //   data: "MIN_INT_LIMIT",
+        // },
+        // {
+        //   title: "Is Standing Instruction Applicable ?",
+        //   data: "STAND_INSTRUCTION_ALLOW",
+        // },
+        // {
+        //   title: "Is Interest Instruction STOP after Matured?",
+        //   data: "IS_INSTRUCTION_UPTO_MATURITY",
+        // },
+        // {
+        //   title: "Interest Round Off Factor in Paise",
+        //   data: "ROUNDOFF_FACTOR",
+        // },
+        // {
+        //   title: "Cheque Book Minimum Balance",
+        //   data: "CHEQUEBOOK_MIN_BAL",
+        // },
+        // {
+        //   title: "Is Balance Entry Allow ?",
+        //   data: "BALANCE_ADD_APPLICABLE",
+        // },
+        // {
+        //   title: "Is Allow Dormat Flag Updation ?",
+        //   data: "DORMANT_FLAG_APPLICABLE",
+        // },
+        // {
+        //   title: "Minimum Balane for Interest ? ",
+        //   data: "MIN_BAL_FOR_INT",
+        // },
+        // {
+        //   title: "Is Overdraft Interest Applicable ?",
+        //   data: "OVERDRAFT_INTEREST_APPLICABLE",
+        // },
+        // {
+        //   title: "Overdraft Interest Rate?",
+        //   data: "OVERDRAFT_INTEREST_RATE",
+        // },
       ],
       dom: "Blrtip",
     };
@@ -431,6 +435,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       S_ACNOTYPE: formVal.S_ACNOTYPE,
@@ -458,7 +463,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.savingschemeservice.postData(dataToSend).subscribe(
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
-       
+        this.formSubmitted = false;
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload();
@@ -563,6 +568,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

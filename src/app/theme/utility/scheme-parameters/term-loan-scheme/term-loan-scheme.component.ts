@@ -17,6 +17,7 @@ import { TermLoanSchemeService } from './term-loan-scheme.service';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -82,6 +83,7 @@ interface TermLoanMaster {
 })
 
 export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //api 
   url = environment.base_url;
   
@@ -118,6 +120,16 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   //title select variables
   //Dropdown option variable
   acMaster: any
+  ngglacno:any=null
+  ngintglac:any=null
+  ngreceivableintac:any=null
+  ngpenalintac:any=null
+  ngrecblepenalintac:any=null
+  ngrecbleoverdueint:any=null
+  ngoutstandingintac:any=null
+  nginstallment:any=null
+
+
   installmentMethod: Array<IOption> = this.installmentMethodService.getCharacters();
   selectedOption = '3';
   isDisabled = true;
@@ -144,7 +156,8 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   constructor(public installmentMethodService: InstallmentMethodService,
     private acMasterDropdownService: ACMasterDropdownService,
     public termLoanSchemeService: TermLoanSchemeService,
-    private fb: FormBuilder, private http: HttpClient) { }
+    private fb: FormBuilder, private http: HttpClient,
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
 
@@ -241,146 +254,146 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
           title: 'Outstanding Int. A/c',
           data: 'S_OUTSTANDING_INT_ACNO',
         },
-        {
-          title: 'Loan Type',
-          data: 'IS_DEPO_LOAN',
-        },
-        {
-          title: 'Is Interest Applicable ?',
-          data: 'S_INT_APPLICABLE',
-        },
-        {
-          title: 'Is Post Interest to A/c ?',
-          data: 'POST_TO_INDIVIDUAL_AC',
-        },
-        {
-          title: 'Is Receivable Int. Allowed ?',
-          data: 'S_RECEIVABLE_INT_ALLOW',
-        },
-        {
-          title: 'Is Interest On Receivable Interest ?',
-          data: 'IS_INT_ON_RECINT',
-        },
-        {
-          title: 'Is Interest On Other Receivable Amt.?',
-          data: 'IS_INT_ON_OTHERAMT',
-        },
-        {
-          title: 'Is Dont Post Interest After Expiry Date ?',
-          data: 'IS_INTUPTODATE',
-        },
-        {
-          title: 'Is Dont Post Interest After OD ?',
-          data: 'IS_NO_POST_INT_AFT_OD',
-        },
-        {
-          title: 'Interest Caculation Method',
-          data: 'INTEREST_METHOD',
-        },
-        {
-          title: 'Minimum Interest Amount',
-          data: 'MIN_INT_LIMIT',
-        },
-        {
-          title: 'Penal Interest Calculation Applicable ?',
-          data: 'S_PENAL_INT_APPLICABLE',
-        },
-        {
-          title: 'Post Penal Interest to Account ?',
-          data: 'IS_POST_PENAL_TO_AC',
-        },
-        {
-          title: 'Add Penal Interest in Interest Amount ?',
-          data: 'POST_PENALINT_IN_INTEREST',
-        },
-        {
-          title: 'Is Maintain Receivable Penal Interest to A/c ?',
-          data: 'IS_REC_PENAL_APPL',
-        },
-        {
-          title: 'Calculate Penal After Account Expiry ?',
-          data: 'IS_CAL_PENAL_AFTER_EXPIRY',
-        },
-        {
-          title: 'Penal Interest Rate %',
-          data: 'S_PENAL_INT_RATE',
-        },
-        {
-          title: 'Penal Interest Method',
-          data: 'PENAL_METHOD',
-        },
-        {
-          title: 'Calculate Overdue Only After A/c Expired ?',
-          data: 'S_DUE_LIST_ALLOW',
-        },
-        {
-          title: 'Is Grace Period Applicable',
-          data: 'GRACE_PERIOD_APPLICABLE',
-        },
-        {
-          title: 'Is Moratorium Period Applicable',
-          data: 'MORATORIUM_APPLICABLE',
-        },
-        {
-          title: 'Is Standing Instruction Applicable',
-          data: 'STAND_INSTRUCTION_ALLOW',
-        },
-        {
-          title: 'Is Balance Entry Allowed ?',
-          data: 'BALANCE_ADD_APPLICABLE',
-        },
-        {
-          title: 'Is Unsecured Loan Type ?',
-          data: 'IS_UNSECURED_LOAN',
-        },
-        {
-          title: 'Is Auto Post Overdue Charges in Day Begin ?',
-          data: 'IS_OVERDUE_CHARGES_APPLY',
-        },
-        {
-          title: 'Maximum Loan Limit',
-          data: 'MAX_LOAN_LMT',
-        },
-        {
-          title: 'Interest Round Off Factor in Paise',
-          data: 'ROUNDOFF_FACTOR',
-        },
-        {
-          title: 'Default Loan Period In Months',
-          data: 'DEFAULT_LOAN_PERIOD',
-        },
-        {
-          title: 'Is Loan Period Lock Allowed ?',
-          data: 'IS_LOAN_PERIOD_LOCK',
-        },
-        {
-          title: 'Minimum Loan Period In Months',
-          data: 'MIN_LOAN_PERIOD',
-        },
-        {
-          title: 'Maximum Loan Period in Months',
-          data: 'MAX_LOAN_PERIOD',
-        },
-        {
-          title: 'Is Installment Applicable ?',
-          data: 'INSTALLMENT_METHOD',
-        },
-        {
-          title: 'Installment Method',
-          data: 'INSTALLMENT_METHOD',
-        },
-        {
-          title: 'Overdue Rule Code (0-1-2-3)',
-          data: 'IS_OVERDUE_ON_INSTALLMENT',
-        },
-        {
-          title: 'Post as Receivable Interest if Account goes in Overdue ?',
-          data: 'IS_SHOW_INT_AS_RECINT_IFDUEBAL',
-        },
-        {
-          title: 'Minimum Overdue Installments',
-           data: 'MIN_DUE_INSTALLMENTS',
-        },
+        // {
+        //   title: 'Loan Type',
+        //   data: 'IS_DEPO_LOAN',
+        // },
+        // {
+        //   title: 'Is Interest Applicable ?',
+        //   data: 'S_INT_APPLICABLE',
+        // },
+        // {
+        //   title: 'Is Post Interest to A/c ?',
+        //   data: 'POST_TO_INDIVIDUAL_AC',
+        // },
+        // {
+        //   title: 'Is Receivable Int. Allowed ?',
+        //   data: 'S_RECEIVABLE_INT_ALLOW',
+        // },
+        // {
+        //   title: 'Is Interest On Receivable Interest ?',
+        //   data: 'IS_INT_ON_RECINT',
+        // },
+        // {
+        //   title: 'Is Interest On Other Receivable Amt.?',
+        //   data: 'IS_INT_ON_OTHERAMT',
+        // },
+        // {
+        //   title: 'Is Dont Post Interest After Expiry Date ?',
+        //   data: 'IS_INTUPTODATE',
+        // },
+        // {
+        //   title: 'Is Dont Post Interest After OD ?',
+        //   data: 'IS_NO_POST_INT_AFT_OD',
+        // },
+        // {
+        //   title: 'Interest Caculation Method',
+        //   data: 'INTEREST_METHOD',
+        // },
+        // {
+        //   title: 'Minimum Interest Amount',
+        //   data: 'MIN_INT_LIMIT',
+        // },
+        // {
+        //   title: 'Penal Interest Calculation Applicable ?',
+        //   data: 'S_PENAL_INT_APPLICABLE',
+        // },
+        // {
+        //   title: 'Post Penal Interest to Account ?',
+        //   data: 'IS_POST_PENAL_TO_AC',
+        // },
+        // {
+        //   title: 'Add Penal Interest in Interest Amount ?',
+        //   data: 'POST_PENALINT_IN_INTEREST',
+        // },
+        // {
+        //   title: 'Is Maintain Receivable Penal Interest to A/c ?',
+        //   data: 'IS_REC_PENAL_APPL',
+        // },
+        // {
+        //   title: 'Calculate Penal After Account Expiry ?',
+        //   data: 'IS_CAL_PENAL_AFTER_EXPIRY',
+        // },
+        // {
+        //   title: 'Penal Interest Rate %',
+        //   data: 'S_PENAL_INT_RATE',
+        // },
+        // {
+        //   title: 'Penal Interest Method',
+        //   data: 'PENAL_METHOD',
+        // },
+        // {
+        //   title: 'Calculate Overdue Only After A/c Expired ?',
+        //   data: 'S_DUE_LIST_ALLOW',
+        // },
+        // {
+        //   title: 'Is Grace Period Applicable',
+        //   data: 'GRACE_PERIOD_APPLICABLE',
+        // },
+        // {
+        //   title: 'Is Moratorium Period Applicable',
+        //   data: 'MORATORIUM_APPLICABLE',
+        // },
+        // {
+        //   title: 'Is Standing Instruction Applicable',
+        //   data: 'STAND_INSTRUCTION_ALLOW',
+        // },
+        // {
+        //   title: 'Is Balance Entry Allowed ?',
+        //   data: 'BALANCE_ADD_APPLICABLE',
+        // },
+        // {
+        //   title: 'Is Unsecured Loan Type ?',
+        //   data: 'IS_UNSECURED_LOAN',
+        // },
+        // {
+        //   title: 'Is Auto Post Overdue Charges in Day Begin ?',
+        //   data: 'IS_OVERDUE_CHARGES_APPLY',
+        // },
+        // {
+        //   title: 'Maximum Loan Limit',
+        //   data: 'MAX_LOAN_LMT',
+        // },
+        // {
+        //   title: 'Interest Round Off Factor in Paise',
+        //   data: 'ROUNDOFF_FACTOR',
+        // },
+        // {
+        //   title: 'Default Loan Period In Months',
+        //   data: 'DEFAULT_LOAN_PERIOD',
+        // },
+        // {
+        //   title: 'Is Loan Period Lock Allowed ?',
+        //   data: 'IS_LOAN_PERIOD_LOCK',
+        // },
+        // {
+        //   title: 'Minimum Loan Period In Months',
+        //   data: 'MIN_LOAN_PERIOD',
+        // },
+        // {
+        //   title: 'Maximum Loan Period in Months',
+        //   data: 'MAX_LOAN_PERIOD',
+        // },
+        // {
+        //   title: 'Is Installment Applicable ?',
+        //   data: 'INSTALLMENT_METHOD',
+        // },
+        // {
+        //   title: 'Installment Method',
+        //   data: 'INSTALLMENT_METHOD',
+        // },
+        // {
+        //   title: 'Overdue Rule Code (0-1-2-3)',
+        //   data: 'IS_OVERDUE_ON_INSTALLMENT',
+        // },
+        // {
+        //   title: 'Post as Receivable Interest if Account goes in Overdue ?',
+        //   data: 'IS_SHOW_INT_AS_RECINT_IFDUEBAL',
+        // },
+        // {
+        //   title: 'Minimum Overdue Installments',
+        //    data: 'MIN_DUE_INSTALLMENTS',
+        // },
       ],
       dom: 'Blrtip',
     };
@@ -514,6 +527,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
 
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'S_ACNOTYPE': formVal.S_ACNOTYPE,
@@ -565,8 +579,12 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
     }
     this.termLoanSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       // to reload after insertion of data
-      this.rerender();
+      //this.rerender();
     }, (error) => {
       console.log(error)
     })
@@ -643,7 +661,10 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       this.updateShow = false;
       
     this.newbtnShow = false;
-      this.rerender();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
+     // this.rerender();
       this.resetForm();
     })
   }
@@ -661,6 +682,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

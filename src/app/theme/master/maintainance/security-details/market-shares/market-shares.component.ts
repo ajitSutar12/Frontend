@@ -23,6 +23,7 @@ import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
+import * as moment from 'moment';
 
 
 
@@ -109,6 +110,12 @@ marketmaster: MarketMaster[];
   //filter variable
   filterData = {};
 
+//  variables for date
+submissiondate:any=null
+releaseddate:any=null
+maxDate: Date;
+minDate: Date;
+
 
   constructor(
     private fb: FormBuilder,
@@ -116,8 +123,12 @@ marketmaster: MarketMaster[];
     private http: HttpClient,
     public router: Router
   ) {
-    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    console.log(this.datemax);
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
 
   }
 
@@ -175,10 +186,7 @@ marketmaster: MarketMaster[];
             return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           },
         },
-        {
-          title: "Subm. Date",
-          data: "SUBMISSION_DATE",
-        },
+        
         {
           title: "Co. Code",
           data: "CO_CODE",
@@ -198,6 +206,10 @@ marketmaster: MarketMaster[];
         {
           title: "No. of Shares",
           data: "SHARES",
+        },
+        {
+          title: "Subm. Date",
+          data: "SUBMISSION_DATE",
         },
         {
           title: "Updated By",
@@ -234,6 +246,8 @@ marketmaster: MarketMaster[];
     });
   }
   submit(event) {
+   let submissiondate
+   let releaseddate
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -244,14 +258,16 @@ marketmaster: MarketMaster[];
     const dataToSend = {
       // AC_TYPE:this.scheme._value[0],
       // AC_NO:this.Accountno,
-      SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+      'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+      // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       CO_CODE: formVal.CO_CODE,
       CO_NAME: formVal.CO_NAME,
       MARKET_VALUE: formVal.MARKET_VALUE,
       MARGIN: formVal.MARGIN,
       SHARES: formVal.SHARES,
       UPDATED_BY: formVal.UPDATED_BY,
-      RELEASE_DATE: formVal.RELEASE_DATE,
+      'RELEASE_DATE': (formVal.RELEASE_DATE == '' || formVal.RELEASE_DATE == 'Invalid date') ? releaseddate = '' : releaseddate = moment(formVal.RELEASE_DATE).format('DD/MM/YYYY'),
+      // RELEASE_DATE: formVal.RELEASE_DATE,
       RELEASE_BY: formVal.RELEASE_BY,
     };
     this._marketservice.postData(dataToSend).subscribe(
@@ -280,13 +296,18 @@ marketmaster: MarketMaster[];
     }
   }
 
+
+  updatecheckdata:any
   //function for edit button clicked
   editClickHandler(id: any): void {
+    let submissiondate
+    let releaseddate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._marketservice.getFormData(id).subscribe((data) => {
-    
+      this.updatecheckdata=data
+      
   //sending values to parent
   let dropdown: any = {};
   dropdown.scheme = data.AC_TYPE;
@@ -295,14 +316,16 @@ marketmaster: MarketMaster[];
       this.angForm.patchValue({
         // AC_TYPE:this.scheme._value[0],
         // AC_NO:this.Accountno,
-        SUBMISSION_DATE: data.SUBMISSION_DATE,
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
+        // SUBMISSION_DATE: data.SUBMISSION_DATE,
         CO_CODE: data.CO_CODE,
         CO_NAME: data.CO_NAME,
         MARKET_VALUE: data.MARKET_VALUE,
         MARGIN: data.MARGIN,
         SHARES: data.SHARES,
         UPDATED_BY: data.UPDATED_BY,
-        RELEASE_DATE: data.RELEASE_DATE,
+        'RELEASE_DATE': (data.RELEASE_DATE == 'Invalid date' || data.RELEASE_DATE == '' || data.RELEASE_DATE == null) ? releaseddate = '' : releaseddate = data.RELEASE_DATE,
+        // RELEASE_DATE: data.RELEASE_DATE,
         RELEASE_BY: data.RELEASE_BY,
       });
     });
@@ -320,11 +343,19 @@ console.log(ele);
 }
 
   updateData() {
+    let submissiondate
+    let releaseddate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+      (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
+      }
+      if(this.updatecheckdata.RELEASE_DATE!=data.RELEASE_DATE){
+        (data.RELEASE_DATE == 'Invalid date' || data.RELEASE_DATE == '' || data.RELEASE_DATE == null) ? (releaseddate = '', data['RELEASE_DATE'] = releaseddate) : (releaseddate = data.RELEASE_DATE, data['RELEASE_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
+        }
     this._marketservice.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -364,7 +395,7 @@ console.log(ele);
     });
   }
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();//autofocus
+    // this.myInputField.nativeElement.focus();//autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');

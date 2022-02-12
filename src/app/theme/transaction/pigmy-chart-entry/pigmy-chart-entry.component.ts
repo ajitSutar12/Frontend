@@ -87,7 +87,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
   S_GLACNO
   pigmyChartMasterTable: PigmyChartMasterTable[]
   updateID
-
+  isReceiptShow: boolean = false
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
@@ -148,7 +148,6 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
             dataTableParameters
           ).subscribe(resp => {
             this.pigmyChartMasterTable = resp.data;
-            console.log('pigmyChartMasterTable', this.pigmyChartMasterTable)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -187,8 +186,6 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       ],
       dom: 'Blrtip',
     };
-
-
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     this.userID = result.USER_NAME
@@ -227,7 +224,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     this.branchCode = event.name
     this.getPigmyAgentAcnoList()
   }
-  isReceiptShow: boolean = false
+  
   //get syspara table data for date and pigmy auto voucher flag
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -235,7 +232,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       data.PIGMY_IS_AUTO_VOUCHER == false ? this.pigmyAutoVoucher = false : this.pigmyAutoVoucher = true
 
       this.angForm.patchValue({
-        TRAN_DATE: data.CURRENT_DATE
+        TRAN_DATE: data.PIGMY_CURRENT_DATE
       })
     })
   }
@@ -256,36 +253,20 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
   //check effect date form existing data in LNACINTRATE table
   checkPigmyAgentNo(event) {
     let list = this.ngschemeCode
-    this._pigmy.getAgentNoList(list).subscribe(data => {
-      debugger
-      console.log('agent no', data)
-      console.log(this.angForm.controls['AGENT_ACNO'].value)
-      if (data?.length != 0) {
-        if (data.find(data => data['AGENT_ACNO'] == this.angForm.controls['AGENT_ACNO'].value)) {
-          Swal.fire({
-            icon: 'info',
-            title: 'This Agent Account Number is Already Exist',
-          })
-          this.ngAgentCode = null;
-          this.tableArr = []
-          this.showTable = false
-        }
-        else {
-          this.getTable(event)
-        }
-      }
-      else {
-        this.getTable(event)
-      }
-    })
+    this.agentBankACNO = event.bank
+    this.S_GLACNO = event.glacno
+    this.getTable()
+  }
+
+  decimalAllContent($event) {
+    let value = Number($event.target.value);
+    let data = value.toFixed(2);
+    $event.target.value = data;
   }
 
   //get pigmy account data into table 
-  getTable(event) {
-    this.agentBankACNO = event.bank
-    this.S_GLACNO = event.glacno
+  getTable() {
     let trandate = this.angForm.controls['TRAN_DATE'].value
-
     var full = []
     var fullDate = trandate;
     full = fullDate.split(' ');
@@ -293,24 +274,37 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     var newDate = date[1] + '/' + date[0] + '/' + date[2]
     var k = new Date(newDate);
     var expiryDate = moment(k).format('DD.MM.YYYY');
-    this.mem = [this.ngschemeCode, this.ngAgentCode, this.ngBranchCode, expiryDate]
+    let chart = this.angForm.controls['CHART_NO'].value
+    this.mem = [this.ngschemeCode, this.ngAgentCode, this.ngBranchCode, expiryDate, chart]
     this.dtTrigger.unsubscribe();
-    this.http.get(this.url + '/pigmy-chart/pigmychart/' + this.mem).subscribe((data) => {
-      this.tableArr = data;
-      console.log('table data', this.tableArr)
-      this.showTable = true
-      this.totalAmt = 0
-      this.pigmyChartTable = []
-      this.angForm.patchValue({
-        TRAN_AMOUNT: this.totalAmt
-      })
-      this.dtTrigger.next();
-    });
+    this.http.get(this.url + '/pigmy-chart/check/' + this.mem).subscribe((data) => {
+      if (data == 1) {
+        Swal.fire({
+          icon: 'info',
+          title: 'This Agent Chart is Already Exist',
+        })
+        this.angForm.patchValue({
+          CHART_NO: ''
+        })
+      }
+      else {
+        this.http.get(this.url + '/pigmy-chart/pigmychart/' + this.mem).subscribe((data) => {
+          this.tableArr = data;
+          this.showTable = true
+          this.totalAmt = 0
+          this.pigmyChartTable = []
+          this.angForm.patchValue({
+            TRAN_AMOUNT: this.totalAmt
+          })
+          this.dtTrigger.next();
+        });
+      }
+    })
   }
+
   //push receipt no into object
   getReceiptNo(id, actype, acno, glacno, bankacno, receiptNo) {
     if (receiptNo != '' || receiptNo != 0) {
-      debugger
       if (this.pigmyChartTable.length != 0) {
         if (this.pigmyChartTable.some(item => item.TRAN_ACNO === acno)) {
           this.pigmyChartTable.forEach((element) => {
@@ -345,12 +339,10 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
         this.pigmyChartTable.push(object)
       }
     }
-    console.log(this.pigmyChartTable, 'rec table')
   }
   //push amount in pigmyChartTable array
   getAmount(id, actype, acno, glacno, bankacno, amount) {
     if (amount != '') {
-      debugger
       if (this.pigmyChartTable.length != 0) {
         if (this.pigmyChartTable.some(item => item.TRAN_ACNO === acno)) {
           this.pigmyChartTable.forEach((element) => {
@@ -397,7 +389,6 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
         })
       }
     }
-    console.log(this.pigmyChartTable, 'charttable')
   }
 
   // Method to insert data into database through NestJS
@@ -423,7 +414,6 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
         'S_GLACNO': this.S_GLACNO,
         'PigmyChartArr': this.pigmyChartTable
       };
-      console.log('dataTosend', dataToSend)
       this._pigmy.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -453,24 +443,17 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     this.angForm.controls['AGENT_ACNO'].disable()
     this.angForm.controls['CHART_NO'].disable()
     this._pigmy.getFormData(id).subscribe(data => {
-      debugger
-      console.log('edit data', data)
       this.updateID = data.id;
-      // this.tableArr = data.pigmyChartMaster
-      // this.showTable = true
-
       this.ngschemeCode = data.AGENT_ACTYPE
       this.ngBranchCode = data.BRANCH_ID
       this.agentBankACNO = data.AGENT_BANKACNO
       this.getPigmyAgentAcnoList()
-      console.log('  this.ngAgentCode', this.ngAgentCode)
       this.angForm.patchValue({
         'TRAN_DATE': data.TRAN_DATE,
         'BRANCH': data.BRANCH_ID,
         'AGENT_ACTYPE': data.AGENT_ACTYPE,
         'CHART_NO': data.CHART_NO,
         'TRAN_AMOUNT': data.TRAN_AMOUNT,
-        // AGENT_ACNO: data.AGENT_ACNO
       })
       this.ngAgentCode = data.AGENT_ACNO
       let trandate = data.TRAN_DATE
@@ -481,8 +464,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       var newDate = date[1] + '/' + date[0] + '/' + date[2]
       var k = new Date(newDate);
       var expiryDate = moment(k).format('DD.MM.YYYY');
-      let mem = [data.AGENT_ACTYPE, data.AGENT_ACNO, data.BRANCH_ID, expiryDate]
-      console.log(mem, 'mem edit')
+      let mem = [data.AGENT_ACTYPE, data.AGENT_ACNO, data.BRANCH_ID, expiryDate, data.CHART_NO]
       this.dtTrigger.unsubscribe();
       this.http.get(this.url + '/pigmy-chart/pigmychart/' + mem).subscribe((data) => {
         this.tableArr = data;
@@ -493,16 +475,14 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
             TRAN_ACTYPE: element.AC_TYPE,
             TRAN_ACNO: element.AC_NO,
             TRAN_GLACNO: element.PGMaster.S_GLACNO,
-            RECEIPT_NO: element.pigmychart.RECEIPT_NO,
+            RECEIPT_NO: element.pigmychart[0].RECEIPT_NO,
             TRAN_BANKACNO: element.BANKACNO,
-            TRAN_AMOUNT: element.pigmychart.TRAN_AMOUNT,
+            TRAN_AMOUNT: element.pigmychart[0].TRAN_AMOUNT,
           }
           await this.pigmyChartTable.push(object)
         })
-        console.log('table data', this.tableArr)
         this.showTable = true
         this.totalAmt = this.angForm.controls['TRAN_AMOUNT'].value
-
         this.angForm.patchValue({
           TRAN_AMOUNT: this.totalAmt
         })
@@ -531,10 +511,9 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
-      this.pigmyChartTable = []
-      this.resetForm();
     })
-    this.resetForm()
+    this.pigmyChartTable = []
+    this.resetForm();
   }
 
   addNewData() {
@@ -559,7 +538,6 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   resetForm() {
-    debugger
     this.createForm()
     this.showTable = false
     this.isReceiptShow = false
@@ -608,7 +586,6 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       });
     });
   }
-
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

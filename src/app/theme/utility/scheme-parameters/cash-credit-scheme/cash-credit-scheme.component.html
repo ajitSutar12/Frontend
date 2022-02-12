@@ -3,7 +3,9 @@
         <div class="card">
             <div class="card-header">
                 <h5>Cash Credit Scheme Setting</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <div class="card-block">
                 <form action="javascript:" [formGroup]="angForm">
@@ -12,6 +14,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         required="" pattern="^[0-9]+$" maxlength="3" minlength="3" min="601" max="699"
                                         title="Input allowed only  0-9. (Space)" formControlName="S_APPL" (onkeyup)="presentdata()" #autofocus>
                                     <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
@@ -47,6 +50,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME"
                                         required="" pattern="^[A-Za-z\./ -]+$" maxlength="90"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_NAME">
                                     <label for="S_NAME">Description<sub class="required">* </sub></label>
                                 </span>
@@ -67,6 +71,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_SHNAME" class="form-control" placeholder=" "
+                                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="15"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
                                     <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
@@ -82,11 +87,23 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="G.L.A/c No.*" required title="Compulsory Selection" maxlength="6"
                                     formControlName="S_GLACNO">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno"
+                                        formControlName="S_GLACNO" bindLabel="label"
+                                        title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="G.L.A/c No">
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                                    </ng-select>
+                                    <label for="S_GLACNO">G.L.A/c No<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['S_GLACNO'].invalid && (angForm.controls['S_GLACNO'].dirty || angForm.controls['S_GLACNO'].touched)"
@@ -98,11 +115,23 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Interest GL A/c*" required title="Compulsory Selection" maxlength="6"
                                     formControlName="S_INT_ACNO">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="S_INT_ACNO" bindValue="value" [(ngModel)]="ngintglac"
+                                        formControlName="S_INT_ACNO" bindLabel="label"
+                                        title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Interest GL A/c">
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                                    </ng-select>
+                                    <label for="S_INT_ACNO">Interest GL A/c<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['S_INT_ACNO'].invalid && (angForm.controls['S_INT_ACNO'].dirty || angForm.controls['S_INT_ACNO'].touched)"
@@ -117,35 +146,83 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Receivable Int. A/c*" title="Compulsory Selection" maxlength="6"
                                     formControlName="S_RECBL_PYBL_INT_ACNO">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngreceivableintac"
+                                        formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label"
+                                        title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Receivable Int. A/c">
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                                    </ng-select>
+                                    <label for="S_RECBL_PYBL_INT_ACNO">Receivable Int. A/c<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Penal Int. A/c*" title="Compulsory Selection" maxlength="6"
                                     formControlName="S_PENAL_ACNO">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac"
+                                        formControlName="S_PENAL_ACNO" bindLabel="label"
+                                        title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Penal Int. A/c">
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                                    </ng-select>
+                                    <label for="S_PENAL_ACNO">Penal Int. A/c<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Recble Penal Int. A/c*" title="Compulsory Selection" maxlength="6"
                                     formControlName="S_RECBL_PENAL_ACNO">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngrecblepenalintac"
+                                        formControlName="S_RECBL_PENAL_ACNO" bindLabel="label"
+                                        title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Recble Penal Int. A/c">
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                                    </ng-select>
+                                    <label for="S_RECBL_PENAL_ACNO">Recble Penal Int. A/c<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                                     placeholder="Recble Overdue Int.*" title="Compulsory Selection" maxlength="6"
                                     formControlName="S_RECBL_ODUE_INT_ACNO">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="S_RECBL_ODUE_INT_ACNO" bindValue="value" [(ngModel)]="ngrecbleoverdueint"
+                                        formControlName="S_RECBL_ODUE_INT_ACNO" bindLabel="label"
+                                        title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Recble Overdue Int">
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                                    </ng-select>
+                                    <label for="S_RECBL_ODUE_INT_ACNO">Recble Overdue Int<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -197,7 +274,7 @@
                                     <div class="card-block">
                                         <div class="row">
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="S_INT_APPLICABLE" id="S_INT_APPLICABLE"
@@ -209,7 +286,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="POST_TO_INDIVIDUAL_AC"
@@ -224,7 +301,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="S_RECEIVABLE_INT_ALLOW"
@@ -237,7 +314,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="IS_SHOW_INT_AS_RECINT_IFDUEBAL"
@@ -251,7 +328,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             id="IS_INTUPTODATE" formControlName="IS_INTUPTODATE"
@@ -264,7 +341,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="IS_NO_POST_INT_AFT_OD"
@@ -278,16 +355,17 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <label for=""></label>
                                             <label for=""></label>
-                                        </div>
+                                        </div> -->
                                         <div class="row">
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="MIN_INT_LIMIT" class="form-control"
                                                             placeholder=" " id="MIN_INT_LIMIT"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 || $event.charCode <= 32 "
                                                             pattern="\d{1,20}(\.\d{2})?" maxlength="2"
                                                             title="Input allowed only  0-9 . (Space)"
                                                             formControlName="MIN_INT_LIMIT" disabled>
@@ -311,6 +389,7 @@
                                                         <input type="text" name="ROUNDOFF_FACTOR" class="form-control"
                                                             placeholder=" " id="ROUNDOFF_FACTOR" 
                                                             pattern="^[0-9]+$" maxlength="2"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 || $event.charCode <= 32 "
                                                             title="Input allowed only  0-9 . (Space)"
                                                             formControlName="ROUNDOFF_FACTOR" disabled>
                                                         <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in
@@ -339,7 +418,7 @@
                                     <div class="card-block">
                                         <div class="row">
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="S_PENAL_INT_APPLICABLE"
@@ -353,7 +432,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="IS_POST_PENAL_TO_AC"
@@ -368,7 +447,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="POST_PENALINT_IN_INTEREST"
@@ -380,7 +459,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="IS_CAL_EXTRAPENAL_FOR_CC"
@@ -401,8 +480,9 @@
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="S_PENAL_INT_RATE" class="form-control"
                                                             placeholder=" " id="S_PENAL_INT_RATE"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                             pattern="\d{1,20}(\.\d{2})?" maxlength="2"
-                                                            title="Input allowed only  0-9 . (Space)"
+                                                            title="Input allowed only  0-9 ."
                                                             formControlName="S_PENAL_INT_RATE" disabled>
                                                         <label for="S_PENAL_INT_RATE">Penal Interest Rate %</label>
                                                     </span>
@@ -412,7 +492,7 @@
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['S_PENAL_INT_RATE'].errors?.pattern">
-                                                        Input allowed only 0-9 . (Space)
+                                                        Input allowed only 0-9 .
                                                     </div>
                                                 </div>
                                             </div>
@@ -429,13 +509,25 @@
                                     <div class="card-block">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <div class="form-group form-primary form-static-label">
+                                                <!-- <div class="form-group form-primary form-static-label">
                                                     <ng-select [ngClass]="'ng-select'" [options]="OverDraft"
                                                         [multiple]="false"
                                                         placeholder="OverDraft Interest Post / Add in " 
                                                         title="Compulsory Selection"
                                                         formControlName="OVERDRAFT_INTEREST_APPLICABLE">
                                                     </ng-select>
+                                                </div> -->
+                                                <div class="form-group form-primary form-static-label">
+                                                    <span class="border-lable-flt">
+                                                        <ng-select id="OVERDRAFT_INTEREST_APPLICABLE" bindValue="value" [(ngModel)]="ngoverdraftint"
+                                                            formControlName="OVERDRAFT_INTEREST_APPLICABLE" bindLabel="label"
+                                                            title="Compulsory Selection"
+                                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                                            required placeholder="OverDraft Interest Post / Add in ">
+                                                            <ng-option *ngFor="let values of OverDraft" [value]="values">{{values.label}}</ng-option>      
+                                                        </ng-select>
+                                                        <label for="OVERDRAFT_INTEREST_APPLICABLE">OverDraft Interest Post / Add in <sub class="required"> * </sub></label>
+                                                    </span>
                                                 </div>
                                             </div>
                                             
@@ -446,9 +538,10 @@
                                                     <div class="form-group input-group">
                                                         <span class="border-lable-flt">
                                                             <input type="text" name="OVERDRAFT_INTEREST_RATE" class="form-control" placeholder=" " id="OVERDRAFT_INTEREST_RATE"
-                                                                required="" pattern="^[0-9]+$" 
-                                                                title="Input allowed only  0-9. (Space)" formControlName="OVERDRAFT_INTEREST_RATE">
-                                                            <label for="OVERDRAFT_INTEREST_RATE">Overdraf
+                                                                required="" pattern="\d{1,20}(\.\d{2})?" 
+                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 "
+                                                                title="Input allowed only  0-9." formControlName="OVERDRAFT_INTEREST_RATE">
+                                                            <label for="OVERDRAFT_INTEREST_RATE">Overdraft
                                                                 Interest Rate %</label>
                                                         </span>
                                                     </div>
@@ -457,7 +550,7 @@
                                                         class="alert alert-danger">
                                                         <div
                                                             *ngIf="angForm.controls['OVERDRAFT_INTEREST_RATE'].errors?.pattern ">
-                                                            Input allowed only 0-9. (Space)
+                                                            Input allowed only 0-9.
                                                         </div>
                                                     </div>
                                                 </div>
@@ -476,7 +569,7 @@
                                                 </div> -->
                                             </div>
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="ODPENALTY_ON_EXPIRED_LEDGERBAL"
@@ -501,7 +594,7 @@
                                     <div class="card-block">
                                         <div class="row">
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="INT_INSTRUCTION_ALLOW"
@@ -514,7 +607,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="STAND_INSTRUCTION_ALLOW"
@@ -531,7 +624,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm">
-                                                <div class="border-checkbox-section">
+                                                <div class="checkbox checkbox-primary">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="BALANCE_ADD_APPLICABLE"
@@ -547,9 +640,10 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="CHEQUEBOOK_MIN_BAL"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 "
                                                             class="form-control" placeholder=" " id="CHEQUEBOOK_MIN_BAL"
                                                              pattern="\d{1,20}(\.\d{2})?"
-                                                            title="Input allowed only  0-9. (Space)"
+                                                            title="Input allowed only  0-9."
                                                             formControlName="CHEQUEBOOK_MIN_BAL">
                                                         <label for="CHEQUEBOOK_MIN_BAL">Cheque Book Minimum Balance</label>
                                                     </span>
@@ -559,7 +653,7 @@
                                                 class="alert alert-danger">
                                                 <div
                                                     *ngIf="angForm.controls['CHEQUEBOOK_MIN_BAL'].errors?.pattern">
-                                                    Input allowed only 0-9
+                                                    Input allowed only 0-9.
                                                 </div>
                                             </div>
                                          
@@ -616,12 +710,12 @@
                         <div class="card-footer">
                             <div class="row" style="float: right;">
                                 <div class="col-sm m-b-20">
-                                    <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
-                                        Add
+                                    <button class="btn btn-outline-primary btn-sm" (click)="submit()" *ngIf="showButton">
+                                        Submit
                                     </button>
-                                    <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                                    <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
                                         Update</button>&nbsp;
-                                    <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                                    <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                                         Cancel
                                     </button>
                                 </div>
@@ -643,17 +737,17 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-block">
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                            <table id="schemeparametertable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                                 class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="cashcredit?.length != 0">
                                     <tr *ngFor="let data of cashcredit">
-                                        <td><button class="btn btn-outline-primary btn-sm" id="editbtn"
-                                                (click)="editClickHandler(data.id)">Edit</button> &nbsp;
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                                            placement="bottom" ngbTooltip="Edit"></span>  &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
                                         <td>{{ data.S_ACNOTYPE}}</td>
@@ -675,7 +769,7 @@
                                       
                                         <td class="td_right" [ngClass]="data.S_RECBL_ODUE_INT_ACNO === '' ? 'td_center' : 'td_left'">{{data.S_RECBL_ODUE_INT_ACNO === ''? '-' : data.S_RECBL_ODUE_INT_ACNO}}</td>
                                      
-                                        <td [ngClass]="data.S_INT_APPLICABLE === '' ? 'td_center' : 'td_left'">{{data.S_INT_APPLICABLE === ''? '-' : data.S_INT_APPLICABLE}}</td>
+                                        <!-- <td [ngClass]="data.S_INT_APPLICABLE === '' ? 'td_center' : 'td_left'">{{data.S_INT_APPLICABLE === ''? '-' : data.S_INT_APPLICABLE}}</td>
                                    
                                         <td [ngClass]="data.POST_TO_INDIVIDUAL_AC === '' ? 'td_center' : 'td_left'">{{data.POST_TO_INDIVIDUAL_AC === ''? '-' : data.POST_TO_INDIVIDUAL_AC}}</td>
                                     
@@ -703,9 +797,9 @@
                                       
                                         <td [ngClass]="data.OVERDRAFT_INTEREST_APPLICABLE === '' ? 'td_center' : 'td_left'">{{data.OVERDRAFT_INTEREST_APPLICABLE === ''? '-' : data.OVERDRAFT_INTEREST_APPLICABLE}}</td>
                                         
-                                        <td [ngClass]="data.OVERDRAFT_INTEREST_RATE === '' ? 'td_center' : 'td_left'">{{data.OVERDRAFT_INTEREST_RATE === ''? '-' : data.ODPENALTY_ON_EXPIRED_LEDGERBAL}}</td>
+                                        <td [ngClass]="data.OVERDRAFT_INTEREST_RATE === '' ? 'td_center' : 'td_left'">{{data.OVERDRAFT_INTEREST_RATE === ''? '-' : data.OVERDRAFT_INTEREST_RATE}}</td>
                                         
-                                        <td [ngClass]="data.ODPENALTY_ON_EXPIRED_LEDGERBAL === '' ? 'td_center' : 'td_left'">{{data.ODPENALTY_ON_EXPIRED_LEDGERBAL === ''? '-' : data.SUPPLIER_NAME}}</td>
+                                        <td [ngClass]="data.ODPENALTY_ON_EXPIRED_LEDGERBAL === '' ? 'td_center' : 'td_left'">{{data.ODPENALTY_ON_EXPIRED_LEDGERBAL === ''? '-' : data.ODPENALTY_ON_EXPIRED_LEDGERBAL}}</td>
                                         
                                         <td [ngClass]="data.INT_INSTRUCTION_ALLOW === '' ? 'td_center' : 'td_left'">{{data.INT_INSTRUCTION_ALLOW === ''? '-' : data.INT_INSTRUCTION_ALLOW}}</td>
                                      
@@ -715,9 +809,9 @@
                                      
                                         <td class="td_right" [ngClass]="data.CHEQUEBOOK_MIN_BAL === '' ? 'td_center' : 'td_left'">{{data.CHEQUEBOOK_MIN_BAL === ''? '-' : data.CHEQUEBOOK_MIN_BAL}}</td>
                                     
-                                        <td [ngClass]="data.IS_DEPO_LOAN === '' ? 'td_center' : 'td_left'">{{data.IS_DEPO_LOAN === ''? '-' : data.IS_DEPO_LOAN}}</td>
+                                        <td [ngClass]="data.IS_DEPO_LOAN === '' ? 'td_center' : 'td_left'">{{data.IS_DEPO_LOAN === ''? '-' : data.IS_DEPO_LOAN}}</td> -->
                                      
-                                        <td [ngClass]="data.IS_GOLDLOAN === '' ? 'td_center' : 'td_left'">{{data.IS_GOLDLOAN === ''? '-' : data.IS_GOLDLOAN}}</td>
+                                        <!-- <td [ngClass]="data.IS_GOLDLOAN === '' ? 'td_center' : 'td_left'">{{data.IS_GOLDLOAN === ''? '-' : data.IS_GOLDLOAN}}</td> -->
                                        
                                         <!-- <td>{{ data.BALANCE_ADD_APPLICABLE }}</td> -->
                                     </tr>
@@ -727,41 +821,43 @@
                                         <td colspan="6" class="no-data-available">No data!</td>
                                     </tr>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <th><input type="text" class="form-control" placeholder="Type" name="S_ACNOTYPE" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Scheme Code" name="S_APPL" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Description" name="S_NAME" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Short Name" name="S_SHNAME" /></th>
-                                        <th><input type="text" class="form-control" placeholder="G.L. A/c No." name="S_GLACNO" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Interest GL A/c" name="S_INT_ACNO" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Receivable Int. A/c"name="S_RECBL_PYBL_INT_ACNO" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Penal Int. A/c"name="S_PENAL_ACNO" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Recble Penal Int. A/c" name="S_RECBL_PENAL_ACNO" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Recble Overdue Int." name="S_RECBL_ODUE_INT_ACNO" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Is Interest Applicable ?"name="S_INT_APPLICABLE" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Is Post Interest to A/c ?" name="POST_TO_INDIVIDUAL_AC" /> </th>
-                                        <th><input type="text" class="form-control" placeholder="Is Balance Entry Allow ?" name="S_RECEIVABLE_INT_ALLOW" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Is Receivable Int. Allowed ?"name="IS_SHOW_INT_AS_RECINT_IFDUEBAL" /> </th>
-                                        <th><input type="text" class="form-control" placeholder="Is Dont Post Interest After Expiry Date ?"name="IS_INTUPTODATE" /> </th>
-                                        <th><input type="text" class="form-control" placeholder="Is Dont Post Interest After OD" name="IS_NO_POST_INT_AFT_OD" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Minimum Interest Amount" name="MIN_INT_LIMIT" /> </th>
-                                        <th><input type="text" class="form-control" placeholder="Interest Round Off Factor in Paise" name="ROUNDOFF_FACTOR" /> </th>
-                                        <th><input type="text" class="form-control" placeholder="Penal Interest Applicable ?"name="S_PENAL_INT_APPLICABLE" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Post Penal Interest to Account ?" name="IS_POST_PENAL_TO_AC" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Add Penal Interest in Interest Amount ?" name="POST_PENALINT_IN_INTEREST" /> </th>
-                                        <th><input type="text" class="form-control" placeholder="Calculate Extra Penal for CC Overdraf"name="IS_CAL_EXTRAPENAL_FOR_CC" /> </th>
-                                        <th><input type="text" class="form-control" placeholder="Penal Interest Rate %" name="S_PENAL_INT_RATE" /> </th>
-                                        <th><input type="text" class="form-control" placeholder="OverDraft Interest Post / Add in" name="OVERDRAFT_INTEREST_APPLICABLE" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Overdraf Interest Rate %" name="OVERDRAFT_INTEREST_RATE" /> </th>
-                                        <th><input type="text" class="form-control" placeholder="Is OD Interest Calculate Only after Account Expiry Date ? " name="ODPENALTY_ON_EXPIRED_LEDGERBAL" /> </th>
-                                        <th><input type="text" class="form-control" placeholder="Is Balance Entry Allowed ?" name="BALANCE_ADD_APPLICABLE" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Instruction Allowed ?" name="INT_INSTRUCTION_ALLOW" /> </th>
-                                        <th><input type="text" class="form-control" placeholder="Is Standing Instruction Applicable ?" name="STAND_INSTRUCTION_ALLOW" /> </th>
-                                        <th><input type="text" class="form-control" placeholder="Cheque Book Minimum Balance" name="CHEQUEBOOK_MIN_BAL" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Is Deposit against CC" name="IS_DEPO_LOAN" /></th>
-                                        <th><input type="text" class="form-control" placeholder="Is Gold against CC" name="IS_GOLDLOAN" /></th>
+                                <tfoot #filters class="filters">
+                                    <tr class="testing">
+                                        <th class="testing"></th>
+                                        <th><input type="text" class="form-control" name="S_ACNOTYPE" /></th>
+                                        <th><input type="text" class="form-control" name="S_APPL" /></th>
+                                        <th><input type="text" class="form-control" name="S_NAME" /></th>
+                                        <th><input type="text" class="form-control" name="S_SHNAME" /></th>
+                                        <th><input type="text" class="form-control" name="S_GLACNO" /></th>
+                                        <th><input type="text" class="form-control" name="S_INT_ACNO" /></th>
+                                        <th><input type="text" class="form-control" name="S_RECBL_PYBL_INT_ACNO" /></th>
+                                        <th><input type="text" class="form-control" name="S_PENAL_ACNO" /></th>
+                                        <th><input type="text" class="form-control" name="S_RECBL_PENAL_ACNO" /></th>
+                                        <th><input type="text" class="form-control" name="S_RECBL_ODUE_INT_ACNO" /></th>
+                                        <!-- <th><input type="text" class="form-control" name="S_INT_APPLICABLE" /></th>
+                                        <th><input type="text" class="form-control" name="POST_TO_INDIVIDUAL_AC" /> </th>
+                                        <th><input type="text" class="form-control" name="S_RECEIVABLE_INT_ALLOW" /></th>
+                                        <th><input type="text" class="form-control" name="IS_SHOW_INT_AS_RECINT_IFDUEBAL" /> </th>
+                                        <th><input type="text" class="form-control" name="IS_INTUPTODATE" /> </th>
+                                        <th><input type="text" class="form-control" name="IS_NO_POST_INT_AFT_OD" /></th>
+                                        <th><input type="text" class="form-control" name="MIN_INT_LIMIT" /> </th>
+                                        <th><input type="text" class="form-control" name="ROUNDOFF_FACTOR" /> </th>
+                                        <th><input type="text" class="form-control" name="S_PENAL_INT_APPLICABLE" /></th>
+                                        <th><input type="text" class="form-control" name="IS_POST_PENAL_TO_AC" /></th>
+                                        <th><input type="text" class="form-control" name="POST_PENALINT_IN_INTEREST" /> </th>
+                                        <th><input type="text" class="form-control" name="IS_CAL_EXTRAPENAL_FOR_CC" /> </th>
+                                        <th><input type="text" class="form-control" name="S_PENAL_INT_RATE" /> </th>
+                                        <th><input type="text" class="form-control" name="OVERDRAFT_INTEREST_APPLICABLE" /></th>
+                                        <th><input type="text" class="form-control" name="OVERDRAFT_INTEREST_RATE" /> </th>
+                                        <th><input type="text" class="form-control" name="ODPENALTY_ON_EXPIRED_LEDGERBAL" /> </th>
+                                        <th><input type="text" class="form-control" name="INT_INSTRUCTION_ALLOW" /> </th>
+                                        <th><input type="text" class="form-control" name="STAND_INSTRUCTION_ALLOW" /> </th>
+                                        <th><input type="text" class="form-control" name="BALANCE_ADD_APPLICABLE" /></th>
+                                       
+                                        
+                                        <th><input type="text" class="form-control" name="CHEQUEBOOK_MIN_BAL" /></th>
+                                        <th><input type="text" class="form-control" name="IS_DEPO_LOAN" /></th> -->
+                                        <!-- <th><input type="text" class="form-control" name="IS_GOLDLOAN" /></th> -->
 
                                     </tr>
                                 </tfoot>

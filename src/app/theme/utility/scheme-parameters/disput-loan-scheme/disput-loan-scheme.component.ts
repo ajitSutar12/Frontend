@@ -19,6 +19,7 @@ import { DisputLoanSchemeService } from './disput-loan-scheme.service';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -73,6 +74,7 @@ interface DisputLoanMaster {
   styleUrls: ['./disput-loan-scheme.component.scss']
 })
 export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //api 
   url = environment.base_url;
   
@@ -105,9 +107,20 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
   // Variables for hide/show add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  
 
   //Dropdown option variable
   acMaster: any
+  ngglacno:any=null
+  ngintglac:any=null
+  ngreceivableintac:any=null
+  ngpenalintac:any=null
+  ngrecblepenalintac:any=null
+  ngrecbleoverdueint:any=null
+  ngoutstandingintac:any=null
+  nginstallmentmethod:any=null
+
+
   installmentMethod: Array<IOption> = this.installmentMethodService.getCharacters();
   selectedOption = '3';
   isDisabled = true;
@@ -129,7 +142,8 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
   constructor(public installmentMethodService: InstallmentMethodService,
     private acMasterDropdownService: ACMasterDropdownService,
     public disputLoanSchemeService: DisputLoanSchemeService,
-    private fb: FormBuilder, private http: HttpClient) { }
+    private fb: FormBuilder, private http: HttpClient,
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -183,116 +197,129 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
       },
       columns: [
         {
-          title: 'Action'
+          title: 'Action',
+          
         },
         {
-          title: 'Type'
+          title: 'Type',
+          data: 'S_ACNOTYPE',
+         
         },
         {
-          title: 'Scheme Code'
+          title: 'Scheme Code',
+          data: 'S_APPL',
         },
         {
-          title: 'Description'
+          title: 'Description',
+          data: 'S_NAME',
         },
         {
-          title: 'Short Name'
+          title: 'Short Name',
+          data: 'S_SHNAME',
         },
         {
-          title: 'G.L. A/c No.'
+          title: 'G.L. A/c No.',
+          data: 'S_GLACNO',
         },
         {
-          title: 'Interest GL A/c'
+          title: 'Interest GL A/c',
+          data: 'S_INT_ACNO',
         },
         {
-          title: 'Receivable Int. A/c'
+          title: 'Receivable Int. A/c',
+          data: 'S_RECBL_PYBL_INT_ACNO',
         },
         {
-          title: 'Penal Int. A/c'
+          title: 'Penal Int. A/c',
+          data: 'S_PENAL_ACNO',
         },
         {
-          title: 'Recble Penal Int. A/c'
+          title: 'Recble Penal Int. A/c',
+          data: 'S_RECBL_PENAL_ACNO',
         },
         {
-          title: 'Recble Overdue Int.'
+          title: 'Recble Overdue Int.',
+          data: 'S_RECBL_ODUE_INT_ACNO',
         },
         {
-          title: 'Outstanding Int. A/c'
+          title: 'Outstanding Int. A/c',
+          data: 'S_OUTSTANDING_INT_ACNO',
         },
-        {
-          title: 'Loan Type'
-        },
-        {
-          title: 'Is Interest Applicable ?'
-        },
-        {
-          title: 'Is Post Interest to A/c ?'
-        },
-        {
-          title: 'Is Receivable Int. Allowed ?'
-        },
-        {
-          title: 'Is Interest On Receivable Interest ?'
-        },
-        {
-          title: 'Is Interest On Other Receivable Amt.?'
-        },
-        {
-          title: 'Minimum Interest Amount'
-        },
-        {
-          title: 'Penal Interest Calculation Applicable ?'
-        },
-        {
-          title: 'Post Penal Interest to Account ?'
-        },
-        {
-          title: 'Add Penal Interest in Interest Amount ?'
-        },
-        {
-          title: 'Penal Interest Rate %'
-        },
-        {
-          title: 'Penal Interest Method'
-        },
-        {
-          title: 'Calculate Overdue Only After A/c Expired ?'
-        },
-        {
-          title: 'Is Grace Period Applicable'
-        },
-        {
-          title: 'Is Moratorium Period Applicable'
-        },
-        {
-          title: 'Is Standing Instruction Applicable'
-        },
-        {
-          title: 'Is Balance Entry Allowed ?'
-        },
-        {
-          title: 'Is Unsecured Loan Type ?'
-        },
-        {
-          title: 'Is Auto Post Overdue Charges in Day Begin ?'
-        },
-        {
-          title: 'Interest Round Off Factor in Paise'
-        },
-        {
-          title: 'Is Installment Applicable ?'
-        },
-        {
-          title: 'Installment Method'
-        },
-        {
-          title: 'Overdue Rule Code (0-1-2-3)'
-        },
-        {
-          title: 'Post as Receivable Interest if Account goes in Overdue ?'
-        },
-        {
-          title: 'Minimum Overdue Installments'
-        }
+        // {
+        //   title: 'Loan Type'
+        // },
+        // {
+        //   title: 'Is Interest Applicable ?'
+        // },
+        // {
+        //   title: 'Is Post Interest to A/c ?'
+        // },
+        // {
+        //   title: 'Is Receivable Int. Allowed ?'
+        // },
+        // {
+        //   title: 'Is Interest On Receivable Interest ?'
+        // },
+        // {
+        //   title: 'Is Interest On Other Receivable Amt.?'
+        // },
+        // {
+        //   title: 'Minimum Interest Amount'
+        // },
+        // {
+        //   title: 'Penal Interest Calculation Applicable ?'
+        // },
+        // {
+        //   title: 'Post Penal Interest to Account ?'
+        // },
+        // {
+        //   title: 'Add Penal Interest in Interest Amount ?'
+        // },
+        // {
+        //   title: 'Penal Interest Rate %'
+        // },
+        // {
+        //   title: 'Penal Interest Method'
+        // },
+        // {
+        //   title: 'Calculate Overdue Only After A/c Expired ?'
+        // },
+        // {
+        //   title: 'Is Grace Period Applicable'
+        // },
+        // {
+        //   title: 'Is Moratorium Period Applicable'
+        // },
+        // {
+        //   title: 'Is Standing Instruction Applicable'
+        // },
+        // {
+        //   title: 'Is Balance Entry Allowed ?'
+        // },
+        // {
+        //   title: 'Is Unsecured Loan Type ?'
+        // },
+        // {
+        //   title: 'Is Auto Post Overdue Charges in Day Begin ?'
+        // },
+        // {
+        //   title: 'Interest Round Off Factor in Paise'
+        // },
+        // {
+        //   title: 'Is Installment Applicable ?'
+        // },
+        // {
+        //   title: 'Installment Method'
+        // },
+        // {
+        //   title: 'Overdue Rule Code (0-1-2-3)'
+        // },
+        // {
+        //   title: 'Post as Receivable Interest if Account goes in Overdue ?'
+        // },
+        // {
+        //   title: 'Minimum Overdue Installments'
+        // }
       ],
       dom: 'Blrtip',
     };
@@ -425,6 +452,7 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
 
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'S_ACNOTYPE': formVal.S_ACNOTYPE,
@@ -466,6 +494,7 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
     }
     this.disputLoanSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload();
@@ -555,6 +584,7 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

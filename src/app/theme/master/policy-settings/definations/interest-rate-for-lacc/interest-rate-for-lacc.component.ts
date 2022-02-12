@@ -18,6 +18,7 @@ import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -98,6 +99,9 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   private dataSub: Subscription = null;
   //for date 
   datemax: any;
+  effectdate:any=null
+  maxDate: Date;
+  minDate: Date;
   constructor(
     private http: HttpClient,
     private interestRateForLoanandCCService: InterestRateForLoanandCCService,
@@ -105,8 +109,12 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private fb: FormBuilder,
     private config: NgSelectConfig,) {
-      this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-      console.log(this.datemax);
+      // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+      // console.log(this.datemax);
+      this.maxDate = new Date();
+      this.minDate = new Date();
+      this.minDate.setDate(this.minDate.getDate() - 1);
+      this.maxDate.setDate(this.maxDate.getDate())
     
      }
 
@@ -208,11 +216,13 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   // Method to insert data into database through NestJS
   
   submit() {
+    let effectdate
     if(this.multiField.length!=0){
       this.formSubmitted=true;
       const formVal = this.angForm.value;
       const dataToSend = {
-        'EFFECT_DATE': formVal.EFFECT_DATE,
+        'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
+        //'EFFECT_DATE': formVal.EFFECT_DATE,
         'ACNOTYPE': formVal.ACNOTYPE,
         'INT_CATEGORY': formVal.INT_CATEGORY,
         'FieldData': this.multiField,
@@ -243,19 +253,23 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
      
     
   }
-
+  updatecheckdata:any
   //Method for append data into fields
   editClickHandler(id) {
+    let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.interestRateForLoanandCCService.getFormData(id).subscribe(data => {
+      this.updatecheckdata=data
       this.updateID = data.id;
       this.multiField = data.rate
+      this.ngintcat=Number(data.INT_CATEGORY)
       this.angForm.patchValue({
-        'EFFECT_DATE': data.EFFECT_DATE,
+        'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
+        //'EFFECT_DATE': data.EFFECT_DATE,
         'ACNOTYPE': data.ACNOTYPE,
-        'INT_CATEGORY': data.INT_CATEGORY,
+        // 'INT_CATEGORY': data.INT_CATEGORY,
 
       })
     })
@@ -264,9 +278,13 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
 
   //Method for update data 
   updateData() {
+    let effectdate
     let data = this.angForm.value;
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField
+    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+      }
     this.interestRateForLoanandCCService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -351,10 +369,10 @@ compareamount() {
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
+    //this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      $('#informationtable tfoot tr').appendTo('#informationtable thead');
+      $('#definationtable tfoot tr').appendTo('#definationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
@@ -375,6 +393,8 @@ compareamount() {
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngscheme=null
+    this.ngintcat=null
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

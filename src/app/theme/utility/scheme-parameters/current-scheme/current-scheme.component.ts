@@ -19,6 +19,7 @@ import { HttpClient } from '@angular/common/http'
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -55,6 +56,7 @@ interface CurrentScheme {
   styleUrls: ['./current-scheme.component.scss']
 })
 export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   //api 
@@ -93,6 +95,10 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
 
   //Dropdown option variable
   acMaster: any
+  ngsglac:any=null
+  ngintglac:any=null
+  //ngoverdraft:any=null
+
   interestApplicableTypeOption: Array<IOption> = this.interestApplicableTypeService.getCharacters();
 
   private dataSub: Subscription = null;
@@ -119,7 +125,8 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     private currentSchemeService: CurrentSchemeService,
     private interestApplicableTypeService: InterestApplicableTypeService,
     private acMasterDropdownService: ACMasterDropdownService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) { }
 
 
   ngOnInit(): void {
@@ -194,54 +201,54 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
           title: 'Interest GL A/c',
           data: 'S_INT_ACNO',
         },
-        {
-          title: 'Is Interest Applicable? ',
-          data: 'S_INT_APPLICABLE',
-        },
-        {
-          title: 'Is Post Interest to A/c ? ',
-          data: 'POST_TO_INDIVIDUAL_AC',
-        },
-        {
-          title: 'Product Base Start Day',
-          data: 'S_PRODUCT_DAY_BASE',
-        },
-        {
-          title: 'Product Base End Day',
-          data: 'S_PRODUCT_DAY_BASE_END',
-        },
-        {
-          title: 'Minimum Interest Amount',
-          data: 'MIN_INT_LIMIT',
-        },
-        {
-          title: 'Is Standing Instruction Applicable ?',
-          data: 'STAND_INSTRUCTION_ALLOW',
-        },
-        {
-          title: 'Interest Round Off Factor in Paise',
-          data: 'ROUNDOFF_FACTOR',
-        },
-        {
-          title: 'Cheque Book Minimum Balance',
-          data: 'CHEQUEBOOK_MIN_BAL',
-        },
-        {
-          title: 'Is Balance Entry Allow ?',
-          data: 'BALANCE_ADD_APPLICABLE',
-        },
-        {
-          title: 'Is Allow Dormat Flag Updation ?',
-          data: 'DORMANT_FLAG_APPLICABLE',
-        },
-        {
-          title: 'Interest Applicable Type',
-          data: 'OVERDRAFT_INTEREST_APPLICABLE',
-        },
-        {
-          title: 'Overdraft Interest Rate',
-          data: 'OVERDRAFT_INTEREST_RATE',
-        }
+        // {
+        //   title: 'Is Interest Applicable? ',
+        //   data: 'S_INT_APPLICABLE',
+        // },
+        // {
+        //   title: 'Is Post Interest to A/c ? ',
+        //   data: 'POST_TO_INDIVIDUAL_AC',
+        // },
+        // {
+        //   title: 'Product Base Start Day',
+        //   data: 'S_PRODUCT_DAY_BASE',
+        // },
+        // {
+        //   title: 'Product Base End Day',
+        //   data: 'S_PRODUCT_DAY_BASE_END',
+        // },
+        // {
+        //   title: 'Minimum Interest Amount',
+        //   data: 'MIN_INT_LIMIT',
+        // },
+        // {
+        //   title: 'Is Standing Instruction Applicable ?',
+        //   data: 'STAND_INSTRUCTION_ALLOW',
+        // },
+        // {
+        //   title: 'Interest Round Off Factor in Paise',
+        //   data: 'ROUNDOFF_FACTOR',
+        // },
+        // {
+        //   title: 'Cheque Book Minimum Balance',
+        //   data: 'CHEQUEBOOK_MIN_BAL',
+        // },
+        // {
+        //   title: 'Is Balance Entry Allow ?',
+        //   data: 'BALANCE_ADD_APPLICABLE',
+        // },
+        // {
+        //   title: 'Is Allow Dormat Flag Updation ?',
+        //   data: 'DORMANT_FLAG_APPLICABLE',
+        // },
+        // {
+        //   title: 'Interest Applicable Type',
+        //   data: 'OVERDRAFT_INTEREST_APPLICABLE',
+        // },
+        // {
+        //   title: 'Overdraft Interest Rate',
+        //   data: 'OVERDRAFT_INTEREST_RATE',
+        // }
       ],
       dom: 'Blrtip',
     };
@@ -300,6 +307,7 @@ console.log(ele);
 }
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'S_ACNOTYPE': formVal.S_ACNOTYPE,
@@ -323,6 +331,7 @@ console.log(ele);
     }
     this.currentSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       // to reload after insertion of data
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -521,6 +530,7 @@ console.log(ele);
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

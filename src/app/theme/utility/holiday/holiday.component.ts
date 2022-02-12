@@ -1,251 +1,106 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { formatDate } from '@angular/common';
+
+import { CalendarOptions } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-holiday',
   templateUrl: './holiday.component.html',
-  styleUrls: ['./holiday.component.scss']
+  styleUrls: ['./holiday.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HolidayComponent implements OnInit {
-  dtExportButtonOptions : any = {};
+  dateObj = new Date();
+  yearMonth = this.dateObj.getUTCFullYear() + '-' + (this.dateObj.getUTCMonth() + 1);
 
+  calendarOptions: CalendarOptions = {
+    initialView: 'dayGridMonth',
+    events: [
+      {
+        title: 'All Day Event',
+        start: formatDate(this.yearMonth + '-01', 'yyyy-MM-dd', 'en-US'),
+        borderColor: '#04a9f5',
+        backgroundColor: '#04a9f5',
+        textColor: '#fff'
+      },
+      {
+        title: 'Long Event',
+        start: formatDate(this.yearMonth + '-07', 'yyyy-MM-dd', 'en-US'),
+        end: formatDate(this.yearMonth + '-10', 'yyyy-MM-dd', 'en-US'),
+        borderColor: '#f44236',
+        backgroundColor: '#f44236',
+        textColor: '#fff'
+      },
+      {
+        id: '999',
+        title: 'Repeating Event',
+        start: formatDate(this.yearMonth + '-09 09:00:00 PM', 'yyyy-MM-dd hh:mm:ss', 'en-US'),
+        borderColor: '#f4c22b',
+        backgroundColor: '#f4c22b',
+        textColor: '#fff'
+      },
+      {
+        id: '1000',
+        title: 'Repeating Event',
+        start: formatDate(this.yearMonth + '-16 08:00:00 AM', 'yyyy-MM-dd hh:mm:ss', 'en-US'),
+        borderColor: '#3ebfea',
+        backgroundColor: '#3ebfea',
+        textColor: '#fff'
+      },
+      {
+        title: 'Conference',
+        start: formatDate(this.yearMonth + '-11', 'yyyy-MM-dd', 'en-US'),
+        end: formatDate(this.yearMonth + '-13', 'yyyy-MM-dd', 'en-US'),
+        borderColor: '#1de9b6',
+        backgroundColor: '#1de9b6',
+        textColor: '#fff'
+      },
+      {
+        title: 'Meeting',
+        start: formatDate(this.yearMonth + '-12 10:00:00 PM', 'yyyy-MM-dd hh:mm:ss', 'en-US'),
+        end: formatDate(this.yearMonth + '-12 12:30:00 AM', 'yyyy-MM-dd hh:mm:ss', 'en-US'),
+        textColor: '#fff'
+      },
+      {
+        title: 'Lunch',
+        start: formatDate(this.yearMonth + '-12 12:00:00 PM', 'yyyy-MM-dd hh:mm:ss', 'en-US'),
+        borderColor: '#f44236',
+        backgroundColor: '#f44236',
+        textColor: '#fff'
+      },
+      {
+        title: 'Meeting',
+        start: formatDate(this.yearMonth + '-12 02:30:00 PM', 'yyyy-MM-dd hh:mm:ss', 'en-US'),
+        textColor: '#fff'
+      },
+      {
+        title: 'Happy Hour',
+        start: formatDate(this.yearMonth + '-12 05:30:00 PM', 'yyyy-MM-dd hh:mm:ss', 'en-US'),
+        borderColor: '#a389d4',
+        backgroundColor: '#a389d4',
+        textColor: '#fff'
+      },
+      {
+        title: 'Dinner',
+        start: formatDate(this.yearMonth + '-12 08:00:00 PM', 'yyyy-MM-dd hh:mm:ss', 'en-US'),
+        textColor: '#fff'
+      },
+      {
+        title: 'Birthday Party',
+        start: formatDate(this.yearMonth + '-13 07:30:00 AM', 'yyyy-MM-dd hh:mm:ss', 'en-US'),
+        textColor: '#fff'
+      },
+      {
+        title: 'Click for Google',
+        url: 'http://google.com/',
+        start: formatDate(this.yearMonth + '-28', 'yyyy-MM-dd', 'en-US'),
+        borderColor: '#a389d4',
+        backgroundColor: '#a389d4',
+        textColor: '#fff'
+      }
+    ]
+  };
 
-  january = true;
-  february = false;
-  march = false;
-  april = false;
-  may = false;
-  june = false;
-  july = false;
-  august = false;
-  september = false;
-  october = false;
-  november = false;
-  december = false;
-
-
-  OpenLink(val) {
-    // 
-    if (val == 1) {
-      this.january = true;
-      this.february = false;
-      this.march = false;
-      this.april = false;
-      this.may = false;
-      this.june = false;
-      this.july = false;
-      this.august = false;
-      this.september = false;
-      this.october = false;
-      this.november = false;
-      this.december = false;
-    }
-    if (val == 2) {
-      this.january = false;
-      this.february = true;
-      this.march = false;
-      this.april = false;
-      this.may = false;
-      this.june = false;
-      this.july = false;
-      this.august = false;
-      this.september = false;
-      this.october = false;
-      this.november = false;
-      this.december = false;
-    }
-    if (val == 3) {
-      this.january = false;
-      this.february = false;
-      this.march = true;
-      this.april = false;
-      this.may = false;
-      this.june = false;
-      this.july = false;
-      this.august = false;
-      this.september = false;
-      this.october = false;
-      this.november = false;
-      this.december = false;
-
-    }
-    if (val == 4) {
-      this.january = false;
-      this.february = false;
-      this.march = false;
-      this.april = true;
-      this.may = false;
-      this.june = false;
-      this.july = false;
-      this.august = false;
-      this.september = false;
-      this.october = false;
-      this.november = false;
-      this.december = false;
-
-    }
-    if (val == 5) {
-      this.january = false;
-      this.february = false;
-      this.march = false;
-      this.april = false;
-      this.may = true;
-      this.june = false;
-      this.july = false;
-      this.august = false;
-      this.september = false;
-      this.october = false;
-      this.november = false;
-      this.december = false;
-
-    }
-    if (val == 6) {
-      this.january = false;
-      this.february = false;
-      this.march = false;
-      this.april = false;
-      this.may = false;
-      this.june = true;
-      this.july = false;
-      this.august = false;
-      this.september = false;
-      this.october = false;
-      this.november = false;
-      this.december = false;
-
-    }
-    if (val == 7) {
-      this.january = false;
-      this.february = false;
-      this.march = false;
-      this.april = false;
-      this.may = false;
-      this.june = false;
-      this.july = true;
-      this.august = false;
-      this.september = false;
-      this.october = false;
-      this.november = false;
-      this.december = false;
-
-    }
-    if (val == 8) {
-      this.january = false;
-      this.february = false;
-      this.march = false;
-      this.april = false;
-      this.may = false;
-      this.june = false;
-      this.july = false;
-      this.august = true;
-      this.september = false;
-      this.october = false;
-      this.november = false;
-      this.december = false;
-
-    }
-    if (val == 9) {
-      this.january = false;
-      this.february = false;
-      this.march = false;
-      this.april = false;
-      this.may = false;
-      this.june = false;
-      this.july = false;
-      this.august = false;
-      this.september = true;
-      this.october = false;
-      this.november = false;
-      this.december = false;
-
-    }
-    if (val == 10) {
-      this.january = false;
-      this.february = false;
-      this.march = false;
-      this.april = false;
-      this.may = false;
-      this.june = false;
-      this.july = false;
-      this.august = false;
-      this.september = false;
-      this.october = true;
-      this.november = false;
-      this.december = false;
-
-    }
-    if (val == 11) {
-      this.january = false;
-      this.february = false;
-      this.march = false;
-      this.april = false;
-      this.may = false;
-      this.june = false;
-      this.july = false;
-      this.august = false;
-      this.september = false;
-      this.october = false;
-      this.november = true;
-      this.december = false;
-
-    }
-    if (val == 12) {
-      this.january = false;
-      this.february = false;
-      this.march = false;
-      this.april = false;
-      this.may = false;
-      this.june = false;
-      this.july = false;
-      this.august = false;
-      this.september = false;
-      this.october = false;
-      this.november = false;
-      this.december = true;
-
-    }
-
-  }
-
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
-  }
+  ngOnInit() { }
 
 }

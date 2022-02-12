@@ -3,9 +3,9 @@
     <div class="card">
       <div class="card-header">
         <h5>Saving Scheme Settings</h5>
-        <h6 style="float: right">
-          <sub class="required">* </sub>: Required Fields
-        </h6>
+        <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+          Fields marked with (<sub class="required"> * </sub>) are mandatory
+      </h6>
       </div>
       <div class="card-block">
         <form action="javascript:" [formGroup]="angForm">
@@ -14,6 +14,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL" required=""
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     pattern="^[0-9]+$" maxlength="3" minlength="3" min="101" max="150" title="Input allowed only 0-9"
                     formControlName="S_APPL" #autofocus/>
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
@@ -40,6 +41,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
+                  (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_NAME" />
                   <label for="S_NAME">Description<sub class="required">* </sub></label>
@@ -66,6 +68,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME" maxlength="15"
+                  (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     required="" pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_SHNAME" />
                   <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
@@ -86,17 +89,51 @@
               </div>
             </div>
             <div class="col-sm">
-              <div class="form-group form-primary form-static-label">
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false" placeholder="G.L.A/c No.*"
                   required title="Compulsory Selection" formControlName="S_GLACNO">
                 </ng-select>
+              </div> -->
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                    <ng-select id="S_GLACNO" bindValue="value"
+                        [(ngModel)]="ngglacno"
+                        formControlName="S_GLACNO" bindLabel="label"
+                        title="Compulsory Selection"
+                        [ngClass]="{'form-submitted': formSubmitted}"
+                        required placeholder="G.L.A/c No">
+                        <ng-option
+                            *ngFor="let values of acMaster"
+                            [value]="values">
+                            {{values.label}}</ng-option>
+                    </ng-select>
+                    <label for="S_GLACNO">G.L.A/c No<sub
+                            class="required"> * </sub></label>
+                </span>
               </div>
             </div>
             <div class="col-sm">
-              <div class="form-group form-primary form-static-label">
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select [ngClass]="'ng-select'" [options]="acMaster" [multiple]="false"
                   placeholder="Interest GL A/c*" required title="Compulsory Selection" formControlName="S_INT_ACNO">
                 </ng-select>
+              </div> -->
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                    <ng-select id="S_INT_ACNO" bindValue="value"
+                        [(ngModel)]="nginterestgl"
+                        formControlName="S_INT_ACNO" bindLabel="label"
+                        title="Compulsory Selection"
+                        [ngClass]="{'form-submitted': formSubmitted}"
+                        required placeholder="Interest GL A/c">
+                        <ng-option
+                            *ngFor="let values of acMaster"
+                            [value]="values">
+                            {{values.label}}</ng-option>
+                    </ng-select>
+                    <label for="S_INT_ACNO">Interest GL A/c<sub
+                            class="required"> * </sub></label>
+                </span>
               </div>
             </div>
 
@@ -154,7 +191,7 @@
                   <div class="card-block">
                     <div class="row">
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
+                        <div class="checkbox checkbox-primary">
                           <div class="
                               border-checkbox-group border-checkbox-group-primary
                             ">
@@ -165,7 +202,7 @@
                         </div>
                       </div>
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
+                        <div class="checkbox checkbox-primary">
                           <div class="
                               border-checkbox-group border-checkbox-group-primary
                             ">
@@ -181,7 +218,7 @@
                     </div>
                     <div class="row">
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
+                        <div class="checkbox checkbox-primary">
                           <div class="
                               border-checkbox-group border-checkbox-group-primary
                             ">
@@ -200,6 +237,7 @@
                           <span class="border-lable-flt">
                             <input type="text" class="form-control" placeholder=" " id="S_PRODUCT_DAY_BASE"
                               formControlName="S_PRODUCT_DAY_BASE" [(ngModel)]="S_PRODUCT_DAY_BASE"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                               name="S_PRODUCT_DAY_BASE" pattern="^[0-9]+$" title="Input allowed only  0-9" max="31"
                               (change)="isProductDayBase(S_PRODUCT_DAY_BASE)" disabled />
                             <label for="S_PRODUCT_DAY_BASE">Product Base Start Day
@@ -249,6 +287,7 @@
                           <span class="border-lable-flt">
                             <input type="text" class="form-control" placeholder=" " id="S_PRODUCT_DAY_BASE_END"
                               pattern="^[0-9]+$" title="Input allowed only  0-9"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                               formControlName="S_PRODUCT_DAY_BASE_END" [(ngModel)]="S_PRODUCT_DAY_BASE_END"
                               name="S_PRODUCT_DAY_BASE_END" pattern="^[0-9]+$" title="Input allowed only  0-9" max="31"
                               (change)="
@@ -300,6 +339,7 @@
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
                             <input type="text" name="MIN_INT_LIMIT" class="form-control" placeholder=" " maxlength="2"
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                               id="MIN_INT_LIMIT" pattern="\d{1,2}(\.\d{2})?" title="Input allowed only  0-9"
                               formControlName="MIN_INT_LIMIT" disabled />
                             <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
@@ -328,15 +368,14 @@
                 </div>
                 <div class="card-block">
                   <div class="row">
-                    <div class="border-checkbox-section">
+                    <div class="checkbox checkbox-primary">
                       <div class="
                           border-checkbox-group border-checkbox-group-primary
                         ">
                         <input class="border-checkbox" type="checkbox" id="STAND_INSTRUCTION_ALLOW"
                           formControlName="STAND_INSTRUCTION_ALLOW" />
                         <label class="border-checkbox-label" for="STAND_INSTRUCTION_ALLOW">Is Standing Instruction
-                          Applicable ?<span class="required">
-                          </span></label>
+                          Applicable ?</label>
                       </div>
                       <div class="
                           border-checkbox-group border-checkbox-group-primary
@@ -344,8 +383,7 @@
                         <input class="border-checkbox" type="checkbox" id="IS_INSTRUCTION_UPTO_MATURITY"
                           formControlName="IS_INSTRUCTION_UPTO_MATURITY" />
                         <label class="border-checkbox-label" for="IS_INSTRUCTION_UPTO_MATURITY">Is Standing Instruction
-                          STOP after Matured ?<span class="required">
-                          </span></label>
+                          STOP after Matured ?</label>
                       </div>
                     </div>
                   </div>
@@ -355,7 +393,7 @@
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
                           <input type="text" name="ROUNDOFF_FACTOR" class="form-control" placeholder=" "
-                            id="ROUNDOFF_FACTOR" required="" pattern="^[0-9]+$"
+                            id="ROUNDOFF_FACTOR" required="" pattern="^[0-9]+$" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 || $event.charCode <= 32 "
                             title="Input allowed only  0-9 . (Space)" formControlName="ROUNDOFF_FACTOR" />
                           <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in Paise<sub class="required">*
                             </sub></label>
@@ -391,6 +429,8 @@
                         <span class="border-lable-flt">
                           <input type="text" name="CHEQUEBOOK_MIN_BAL" class="form-control" placeholder=" "
                             id="CHEQUEBOOK_MIN_BAL" required="" pattern="\d{1,20}(\.\d{2})?"
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 || $event.charCode <= 32 "
+
                             title="Input allowed only  0-9 . (Space)" formControlName="CHEQUEBOOK_MIN_BAL" />
                           <label for="CHEQUEBOOK_MIN_BAL">Cheque Book Minimum Balance<sub class="required">*
                             </sub></label>
@@ -422,15 +462,14 @@
                 </div>
                 <div class="card-block">
                   <div class="row">
-                    <div class="border-checkbox-section">
+                    <div class="checkbox checkbox-primary">
                       <div class="
                           border-checkbox-group border-checkbox-group-primary
                         ">
                         <input class="border-checkbox" type="checkbox" id="BALANCE_ADD_APPLICABLE"
                           formControlName="BALANCE_ADD_APPLICABLE" />
                         <label class="border-checkbox-label" for="BALANCE_ADD_APPLICABLE">Is Balance Entry Allowed
-                          ?<span class="required">
-                          </span></label>
+                          ?</label>
                       </div>
                       <div class="
                           border-checkbox-group border-checkbox-group-primary
@@ -438,8 +477,7 @@
                         <input class="border-checkbox" type="checkbox" id="DORMANT_FLAG_APPLICABLE"
                           formControlName="DORMANT_FLAG_APPLICABLE" />
                         <label class="border-checkbox-label" for="DORMANT_FLAG_APPLICABLE">Is Allow Dormant Flag
-                          Updation ?<span class="required">
-                          </span></label>
+                          Updation ?</label>
                       </div>
                     </div>
                   </div>
@@ -448,6 +486,7 @@
                       <span class="border-lable-flt">
                         <input type="text" name="MIN_BAL_FOR_INT" class="form-control" placeholder=" "
                           id="MIN_BAL_FOR_INT" required="" pattern="\d{1,20}(\.\d{2})?"
+                          (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 || $event.charCode <= 32"
                           title="Input allowed only  0-9 . (Space)" formControlName="MIN_BAL_FOR_INT" />
                         <label for="MIN_BAL_FOR_INT">Minimum Balance for Interest ?<sub class="required">*
                           </sub></label>
@@ -475,21 +514,21 @@
                   <h5>Overdraft Int. Applicable</h5>
                 </div>
                 <div class="card-block">
-                  <div class="border-checkbox-section">
+                  <div class="checkbox checkbox-primary">
                     <div class="
                         border-checkbox-group border-checkbox-group-primary
                       ">
                       <input class="border-checkbox" type="checkbox" id="OVERDRAFT_INTEREST_APPLICABLE"
                         formControlName="OVERDRAFT_INTEREST_APPLICABLE" />
                       <label class="border-checkbox-label" for="OVERDRAFT_INTEREST_APPLICABLE">Is Overdraft Interest
-                        Applicable ?<span class="required">
-                        </span></label>
+                        Applicable ?</label>
                     </div>
                   </div>
                   <div class="form-group input-group">
                     <span class="border-lable-flt">
                       <input type="text" name="OVERDRAFT_INTEREST_RATE" class="form-control" placeholder=" "
                         id="OVERDRAFT_INTEREST_RATE" required="" pattern="\d{1,20}(\.\d{2})?"
+                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 || $event.charCode <= 32 "
                         title="Input allowed only  0-9 . (Space)" formControlName="OVERDRAFT_INTEREST_RATE" />
                       <label for="OVERDRAFT_INTEREST_RATE">Overdraft Interest Rate ?<sub class="required">*
                         </sub></label>
@@ -522,12 +561,12 @@
             <div class="card-footer">
               <div class="row" style="float: right;">
                   <div class="col-sm m-b-20">
-                      <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
-                          Add
+                      <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid" (click)="submit()" *ngIf="showButton">
+                          Submit
                       </button>
-                      <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                      <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
                           Update</button>&nbsp;
-                      <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                      <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                           Cancel
                       </button>
                   </div>
@@ -549,19 +588,18 @@
 </div>
 <div class="row">
   <div class="col-12">
-    <div class="card">
+    <div class="card shadow">
       <div class="card-block">
         <div class="row">
           <div class="col-sm">
             <div class="table-responsive">
-              <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+              <table id="schemeparametertable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                 class="table table-striped table-bordered table-hover compact">
                 <tbody *ngIf="savingscheme?.length != 0">
                   <tr *ngFor="let data of savingscheme">
                     <td>
-                      <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">
-                        Edit
-                      </button>
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                                            placement="bottom" ngbTooltip="Edit"></span> 
                       &nbsp;
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                     </td>
@@ -569,10 +607,28 @@
                     <td>{{ data.S_APPL }}</td>
                     <td>{{ data.S_NAME }}</td>
                     <td>{{ data.S_SHNAME }}</td>
-                    <td>{{ data.S_INT_APPLICABLE }}</td>
+                    <td>{{ data.S_GLACNO }}</td>
+                    
+                    <td>{{ data.S_INT_ACNO }}</td>
+                    <!-- <td>{{ data.S_INT_APPLICABLE }}</td> -->
+                    <!-- <td>{{ data.MIN_INT_LIMIT }}</td> -->
+                    <!-- <td>{{ data.STAND_INSTRUCTION_ALLOW }}</td> -->
+                    <!-- <td>{{ data.BALANCE_ADD_APPLICABLE }}</td> -->
+                    <!-- <td>{{ data.POST_TO_INDIVIDUAL_AC }}</td>
+                    <td>{{ data.IS_DAYBASE_INT_CALCULATION }}</td>
+                    <td>{{ data.S_PRODUCT_DAY_BASE }}</td>
+                    <td>{{ data.S_PRODUCT_DAY_BASE_END }}</td>
                     <td>{{ data.MIN_INT_LIMIT }}</td>
                     <td>{{ data.STAND_INSTRUCTION_ALLOW }}</td>
+                    <td>{{ data.IS_INSTRUCTION_UPTO_MATURITY }}</td>
+                    <td>{{ data.ROUNDOFF_FACTOR }}</td>
+                    <td>{{ data.CHEQUEBOOK_MIN_BAL }}</td>
                     <td>{{ data.BALANCE_ADD_APPLICABLE }}</td>
+                    <td>{{ data.DORMANT_FLAG_APPLICABLE }}</td>
+                    <td>{{ data.MIN_BAL_FOR_INT }}</td>
+                    <td>{{ data.OVERDRAFT_INTEREST_APPLICABLE }}</td>
+                    <td>{{ data.OVERDRAFT_INTEREST_RATE }}</td> -->
+
                   </tr>
                 </tbody>
                 <tbody *ngIf="savingscheme?.length == 0">
@@ -580,37 +636,86 @@
                     <td colspan="6" class="no-data-available">No data!</td>
                   </tr>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th></th>
+                <tfoot #filters class="filters">
+                  <tr class="testing">
+                    <th class="testing"></th>
                     <th>
-                      <input type="text" placeholder="Search Type" class="form-control"  name="S_ACNOTYPE" />
+                      <input type="text" class="form-control"  name="S_ACNOTYPE" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Search Scheme Code" class="form-control"  name="S_APPL" />
+                      <input type="text" class="form-control"  name="S_APPL" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Search Description" class="form-control"  name="S_NAME" />
+                      <input type="text" class="form-control"  name="S_NAME" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Search Short Name" class="form-control"  name="S_SHNAME" />
-                    </th>
-
-                    <th>
-                      <input type="text" placeholder="Search Is Interest Applicable ? " class="form-control"  name="S_INT_APPLICABLE" />
+                      <input type="text" class="form-control"  name="S_SHNAME" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Search Minimum Interest Amount" class="form-control"  name="MIN_INT_LIMIT" />
+                      <input type="text" class="form-control"  name="S_GLACNO" />
                     </th>
+                    
                     <th>
-                      <input type="text" placeholder="Search Is Standing Instruction Applicable ?"
+                      <input type="text" class="form-control"  name="S_INT_ACNO" />
+                    </th>
+                    <!-- <th>
+                      <input type="text" class="form-control"  name="S_INT_APPLICABLE" />
+                    </th> -->
+                    <!--  <th>
+                      <input type="text" class="form-control"  name="MIN_INT_LIMIT" />
+                    </th>-->
+                    <!-- <th>
+                      <input type="text" 
                         class="form-control"  name="STAND_INSTRUCTION_ALLOW" />
-                    </th>
+                    </th> -->
 
-                    <th>
-                      <input type="text" placeholder="Search Is Balance Entry Allowed ?"
+                    <!-- <th>
+                      <input type="text" 
                         class="form-control"  name="BALANCE_ADD_APPLICABLE" />
+                    </th> -->
+                    
+                    <!-- <th>
+                      <input type="text" class="form-control" name="POST_TO_INDIVIDUAL_AC" />
                     </th>
+                    <th>
+                      <input type="text" class="form-control" name="IS_DAYBASE_INT_CALCULATION" />
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="S_PRODUCT_DAY_BASE" />
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="S_PRODUCT_DAY_BASE_END" />
+                    </th>
+                    <th>
+                      <input type="text" class="form-control"  name="MIN_INT_LIMIT" />
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="STAND_INSTRUCTION_ALLOW" />
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="IS_INSTRUCTION_UPTO_MATURITY " />
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="ROUNDOFF_FACTOR" />
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="CHEQUEBOOK_MIN_BAL" />
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="BALANCE_ADD_APPLICABLE" />
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="DORMANT_FLAG_APPLICABLE" />
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="MIN_BAL_FOR_INT" />
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="OVERDRAFT_INTEREST_APPLICABLE" />
+                    </th>
+                    <th>
+                      <input type="text" class="form-control" name="OVERDRAFT_INTEREST_RATE" />
+                    </th> -->
                   </tr>
                 </tfoot>
               </table>

@@ -14,6 +14,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { first } from 'rxjs/operators';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -39,13 +41,15 @@ interface FreezAccount {
   styleUrls: ['./freeze-account.component.scss']
 })
 export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy {
-  //api 
+  formSubmitted = false;
+  //api
   url = environment.base_url;
   scheme
   Cust_ID
   acno
   allScheme // all scheme
   schemeACNo //account no 
+  ngacno:any=null
   freezoption: Array<IOption> = this.freezeAccountService.getCharacters();
   selectedOption = '3';
   isDisabled = true;
@@ -88,6 +92,9 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
   freezStatus
   //todays date
   date = new Date();
+  effectdate:any=null
+  maxDate: Date;
+  minDate: Date;
   // column search
   filterData = {};
 
@@ -96,7 +103,13 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private FreezeAccountService: FreezeAccountService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private http: HttpClient) { this.setdate() }
+    private http: HttpClient,
+    private config: NgSelectConfig,) { 
+      this.setdate()
+      this.maxDate = new Date();
+      this.minDate = new Date();
+      this.minDate.setDate(this.minDate.getDate() - 1);
+      this.maxDate.setDate(this.maxDate.getDate()) }
 
   ngOnInit(): void {
     this.createForm();
@@ -197,6 +210,8 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   submit() {
+    let effectdate
+    this.formSubmitted=true;
     const formVal = this.angForm.value;
     if (formVal.AC_FREEZE_STATUS == 'No Freeze' || formVal.AC_FREEZE_STATUS == 'Total Amount' || formVal.AC_FREEZE_STATUS == 'Only Withdrawal') {
       formVal.AC_FREEZE_AMOUNT = 0
@@ -206,31 +221,36 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
       'AC_NO': formVal.AC_NO,
       'AC_FREEZE_STATUS': formVal.AC_FREEZE_STATUS,
       'AC_FREEZE_AMOUNT': formVal.AC_FREEZE_AMOUNT,
-      'AC_FREEZE_DATE': formVal.AC_FREEZE_DATE,
+      'AC_FREEZE_DATE': (formVal.AC_FREEZE_DATE == '' || formVal.AC_FREEZE_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.AC_FREEZE_DATE).format('DD/MM/YYYY'),
+      // 'AC_FREEZE_DATE': formVal.AC_FREEZE_DATE,
       'AC_FREEZE_REASON': formVal.AC_FREEZE_REASON
     }
     this.FreezeAccountService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
     }, (error) => {
       console.log(error)
     })
     //To clear form
     this.resetForm();
   }
-
+  updatecheckdata:any
   //function for edit button clicked
   editClickHandler(id): void {
+    let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.FreezeAccountService.getFormData(id).subscribe(data => {
+      this.updatecheckdata=data
       this.angForm.setValue({
         'AC_TYPE': data.AC_TYPE,
         'AC_NO': data.AC_NO,
         // 'AC_CUSTID': data.AC_CUSTID,
         'AC_FREEZE_STATUS': data.AC_FREEZE_STATUS,
         'AC_FREEZE_AMOUNT': data.AC_FREEZE_AMOUNT,
-        'AC_FREEZE_DATE': data.AC_FREEZE_DATE,
+        'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
+        // 'AC_FREEZE_DATE': data.AC_FREEZE_DATE,
         'AC_FREEZE_REASON': data.AC_FREEZE_REASON
       })
     })
@@ -362,8 +382,12 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
 
   //function toggle update to add button
   updateData() {
+    let effectdate
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+      }
     this.FreezeAccountService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;

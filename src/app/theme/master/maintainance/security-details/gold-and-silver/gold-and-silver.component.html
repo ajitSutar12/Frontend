@@ -5,7 +5,7 @@
         <h5>Gold And Silver</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
@@ -39,9 +39,18 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="31-12-9999"
+                  <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="31-12-9999"
                   [ngClass]="{'form-submitted': formSubmitted}"
-                    formControlName="SUBMISSION_DATE"/>
+                    formControlName="SUBMISSION_DATE"/> -->
+                    <input type="text" placeholder="dd/mm/yyyy"
+                  name="SUBMISSION_DATE" id="subm_date"
+                  class="form-control" [(ngModel)]="submissiondate"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                  
+                  [ngClass]="{'form-submitted': formSubmitted}"
+                  formControlName="SUBMISSION_DATE"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                  bsDatepicker>
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -84,7 +93,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="GoldBoxNo" class="form-control" placeholder=" " id="GoldBoxNo" required=""
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) ||($event.charCode >= 48 && $event.charCode < 58)|| ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Z a-z 0-9 / . -]+$" maxlength="20" title="Input allowed only  0-9" formControlName="GOLD_BOX_NO" />
                   <label for="GoldBoxNo">Gold Box No.<sub class="required">* </sub></label>
                 </span>
@@ -98,7 +107,7 @@
                     angForm.controls['GOLD_BOX_NO'].errors?.pattern ||
                     angForm.controls['GOLD_BOX_NO'].errors?.required
                   ">
-                  This field is required and Input allowed only 0-9
+                  This field is required and Input allowed only A-Z a-z 0-9 / - . (Space)
                 </div>
               </div>
             </div>
@@ -106,7 +115,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="margin" class="form-control" placeholder=" " id="margin" #margin
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     (keyup)="checkmargin(margin.value)" required="" pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9" formControlName="MARGIN" />
                   <label for="margin">Margin%<sub class="required">* </sub></label>
@@ -121,7 +130,7 @@
                     angForm.controls['MARGIN'].errors?.pattern ||
                     angForm.controls['MARGIN'].errors?.required
                   ">
-                  This field is required and Input allowed only 0-9
+                  This field is required and Input allowed only . 0-9(after decimal 2 digits)
                 </div>
               </div>
             </div>
@@ -151,7 +160,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="TotalWeightinGram" class="form-control" placeholder=" "
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     id="TotalWeightinGram" required="" pattern="\d{1,20}(\.\d{3})?" title="Input allowed only  0-9"
                     [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="TOTAL_WEIGHT_GMS" />
@@ -167,7 +176,7 @@
                     angForm.controls['TOTAL_WEIGHT_GMS'].errors?.pattern ||
                     angForm.controls['TOTAL_WEIGHT_GMS'].errors?.required
                   ">
-                  This field is required and Input allowed only 0-9
+                  This field is required and Input allowed only . 0-9(after decimal 3 digits)
                 </div>
               </div>
             </div>
@@ -176,7 +185,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="ClearWeightinGram" class="form-control" placeholder=" "
                     id="ClearWeightinGram" #ClearWeightinGram required="" pattern="\d{1,20}(\.\d{4})?"
-                    [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                    [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     title="Input allowed only  0-9" formControlName="CLEAR_WEIGHT_GMS" [(ngModel)]="ClearWeight" />
                   <label for="ClearWeightinGram">Clear Weight in Grams<sub class="required">* </sub></label>
                 </span>
@@ -190,7 +199,7 @@
                     angForm.controls['CLEAR_WEIGHT_GMS'].errors?.pattern ||
                     angForm.controls['CLEAR_WEIGHT_GMS'].errors?.required
                   ">
-                  This field is required and Input allowed only 0-9
+                  This field is required and Input allowed only . 0-9(after decimal 4 digits)
                 </div>
               </div>
             </div>
@@ -198,7 +207,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="RatePerGram" class="form-control" placeholder=" " id="RatePerGram"
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" [(ngModel)]="rate"
                     formControlName="RATE" />
                   <label for="RatePerGram">Rate Per Gram<sub class="required">* </sub></label>
@@ -213,7 +222,7 @@
                     angForm.controls['RATE'].errors?.pattern ||
                     angForm.controls['RATE'].errors?.required
                   ">
-                  This field is required and Input allowed only 0-9
+                  This field is required and Input allowed only . 0-9(after decimal 2 digits)
                 </div>
               </div>
             </div>
@@ -221,7 +230,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="TotalAmount" class="form-control" placeholder=" " id="TotalAmount"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="TOTAL_VALUE"
                     value="{{ ClearWeight * rate}}"/>
                   <label for="TotalAmount">Total Value</label>
@@ -233,7 +242,7 @@
                     angForm.controls['TOTAL_VALUE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['TOTAL_VALUE'].errors?.pattern">
-                  Input allowed only 0-9
+                  Input allowed only . 0-9
                 </div>
               </div>
             </div>

@@ -24,6 +24,7 @@ import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
 import { first } from "rxjs/operators";
 import { Router } from "@angular/router";
+import * as moment from 'moment';
 
 // Handling datatable data
 class DataTableResponse {
@@ -75,6 +76,13 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
   showButton: boolean = true;
   updateShow: boolean = false;
   updateID: number; //variable for updating
+// for date 
+submissiondate:any=null
+storagedate:any=null
+maxDate: Date;
+minDate: Date;
+
+
   // Store data from backend
   pleadgeMaster: PleadgeMaster[];
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
@@ -92,9 +100,12 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
     private _pleadge: pleadgestockService,
     public router: Router
   ) { 
-    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    console.log(this.datemax);
-
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
   }
 
   ngOnInit(): void {
@@ -217,6 +228,8 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submit(event) {
+    let submissiondate
+    let storagedate
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -226,9 +239,11 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
     const dataToSend = {
       // AC_TYPE: this.scheme._value[0],
       // AC_NO: this.Accountno,
-      SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+      'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+      // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       STORAGE_MEMO_NO: formVal.STORAGE_MEMO_NO,
-      STORAGE_DATE: formVal.STORAGE_DATE,
+      'STORAGE_DATE': (formVal.STORAGE_DATE == '' || formVal.STORAGE_DATE == 'Invalid date') ? storagedate = '' : storagedate = moment(formVal.STORAGE_DATE).format('DD/MM/YYYY'),
+      // STORAGE_DATE: formVal.STORAGE_DATE,
       GOODS_QTY: formVal.GOODS_QTY,
       MANUF_MILL: formVal.MANUF_MILL,
       DISCRIPTION: formVal.DISCRIPTION,
@@ -275,12 +290,18 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
+
+  updatecheckdata:any
   //function for edit button clicked
   editClickHandler(id: any): void {
+    let submissiondate
+    let storagedate
+
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._pleadge.getFormData(id).subscribe((data) => {
+      this.updatecheckdata=data
       this.updateID = data.id;
       //sending values to parent
       let dropdown: any = {};
@@ -290,9 +311,11 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
         this.angForm.patchValue({
           // AC_TYPE: this.scheme._value[0],
           // AC_NO: this.Accountno,
-          SUBMISSION_DATE: data.SUBMISSION_DATE,
+          'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
+          // SUBMISSION_DATE: data.SUBMISSION_DATE,
           STORAGE_MEMO_NO: data.STORAGE_MEMO_NO,
-          STORAGE_DATE: data.STORAGE_DATE,
+          'STORAGE_DATE': (data.STORAGE_DATE == 'Invalid date' || data.STORAGE_DATE == '' || data.STORAGE_DATE == null) ? storagedate = '' : storagedate = data.STORAGE_DATE,
+          // STORAGE_DATE: data.STORAGE_DATE,
           GOODS_QTY: data.GOODS_QTY,
           MANUF_MILL: data.MANUF_MILL,
           DISCRIPTION: data.DISCRIPTION,
@@ -333,11 +356,19 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateData() {
+    let submissiondate
+    let storagedate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+      (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
+      }
+      if(this.updatecheckdata.STORAGE_DATE!=data.STORAGE_DATE){
+        (data.STORAGE_DATE == 'Invalid date' || data.STORAGE_DATE == '' || data.STORAGE_DATE == null) ? (storagedate = '', data['STORAGE_DATE'] = storagedate) : (storagedate = data.STORAGE_DATE, data['STORAGE_DATE'] = moment(storagedate).format('DD/MM/YYYY'))
+        }
     this._pleadge.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -350,7 +381,7 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();//for autofocus
+    // this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');

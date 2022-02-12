@@ -59,11 +59,20 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="date" name="EFFECT_DATE" class="form-control" placeholder=" " required
+                                    <!-- <input type="date" name="EFFECT_DATE" class="form-control" placeholder=" " required
                                          max="{{datemax | date:'yyyy-MM-dd'}}"                                       
                                          #date
                                        (focusout)="disabledate(date.value)"  id="EFFECT_DATE" 
-                                        formControlName="EFFECT_DATE">
+                                        formControlName="EFFECT_DATE"> -->
+                                        <input type="text" placeholder="dd/mm/yyyy"
+                                            name="EFFECT_DATE" id="EFFECT_DATE"
+                                            class="form-control" [(ngModel)]="effectdate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [maxDate]="maxDate"
+                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                            formControlName="EFFECT_DATE"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker>
                                     <label for="EFFECT_DATE">Effective Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -78,7 +87,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="INT_RATE" class="form-control" placeholder=" "
                                         id="INT_RATE" required pattern="\d{1,2}(\.\d{1,2})?"   #margin maxlength="5"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         (keyup)="checkmargin(margin.value)" title="Input allowed only  0-9"
                                         formControlName="INT_RATE">
                                     <label for="INT_RATE">Interest Rate<sub class="required">* </sub></label>
@@ -86,7 +95,7 @@
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['INT_RATE'].invalid && (angForm.controls['INT_RATE'].dirty || angForm.controls['INT_RATE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['INT_RATE'].errors?.pattern || angForm.controls['INT_RATE'].errors?.required">
-                                    This field is required and Input allowed only 0-9
+                                    This field is required and Input allowed only . 0-9
                                 </div>
                             </div>
                         </div>

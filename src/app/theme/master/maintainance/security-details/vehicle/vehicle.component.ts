@@ -22,6 +22,7 @@ import { VehicleService } from "./vehicle.service";
 import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
+import * as moment from 'moment';
 
 // Handling datatable data
 class DataTableResponse {
@@ -33,8 +34,8 @@ class DataTableResponse {
 // For fetching values from backend
 interface VehicleMaster {
   id:number;
-    AC_ACNOTYPE:string;
-    AC_TYPE:number;
+  AC_ACNOTYPE:string;
+  AC_TYPE:number;
   SUBMISSION_DATE: Date;
   RTO_REG_DATE: Date;
   VEHICLE_MAKE: string;
@@ -76,6 +77,13 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
   isnew_equip: boolean = false;
   new_article:boolean;
 
+ // for date 
+ submissiondate:any=null
+ rtoregdate:any=null
+ acquisitiondate:any=null
+ maxDate: Date;
+ minDate: Date;
+
   updateID: number; //variable for updating
   // Store data from backend
   vehiclemasters: VehicleMaster[];
@@ -94,8 +102,12 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
     private _vehicle: VehicleService,
     public router: Router
   ) {
-    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    console.log(this.datemax);
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
 
   }
 
@@ -224,7 +236,8 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submit(event) {
-
+    let submissiondate
+    let acquisitiondate
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -234,13 +247,15 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
     const dataToSend = {
       // AC_TYPE:this.scheme._value[0],
       // AC_NO:this.Accountno,
-      SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+      'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+      // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       RTO_REG_DATE: formVal.RTO_REG_DATE,
       VEHICLE_MAKE: formVal.VEHICLE_MAKE,
       MANUFACTURE_YEAR: formVal.MANUFACTURE_YEAR,
       VEHICLE_NO: formVal.VEHICLE_NO,
       CHASSIS_NO: formVal.CHASSIS_NO,
-      AQUISITION_DATE: formVal.AQUISITION_DATE,
+      'AQUISITION_DATE': (formVal.AQUISITION_DATE == '' || formVal.AQUISITION_DATE == 'Invalid date') ? acquisitiondate = '' : acquisitiondate = moment(formVal.AQUISITION_DATE).format('DD/MM/YYYY'),
+      // AQUISITION_DATE: formVal.AQUISITION_DATE,
       NEW_VEHICLE: formVal.NEW_VEHICLE,
       SUPPLIER_NAME: formVal.SUPPLIER_NAME,
       PURCHASE_PRICE: formVal.PURCHASE_PRICE,
@@ -287,13 +302,16 @@ console.log(ele);
     Swal.fire("Invalid Input", "Please insert values below 100", "error");
   }
 }
-
+  updatecheckdata:any
   //function for edit button clicked
   editClickHandler(id: any): void {
+    let submissiondate
+    let acquisitiondate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._vehicle.getFormData(id).subscribe((data) => {
+      this.updatecheckdata=data
       this.updateID = data.id;
 
       //sending values to parent
@@ -305,13 +323,15 @@ console.log(ele);
       this.angForm.patchValue({
         // AC_TYPE:this.scheme._value[0],
         // AC_NO:this.Accountno,
-        SUBMISSION_DATE: data.SUBMISSION_DATE,
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
+        // SUBMISSION_DATE: data.SUBMISSION_DATE,
         RTO_REG_DATE: data.RTO_REG_DATE,
         VEHICLE_MAKE: data.VEHICLE_MAKE,
         MANUFACTURE_YEAR: data.MANUFACTURE_YEAR,
         VEHICLE_NO: data.VEHICLE_NO,
         CHASSIS_NO: data.CHASSIS_NO,
-        AQUISITION_DATE: data.AQUISITION_DATE,
+        'AQUISITION_DATE': (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? acquisitiondate = '' : acquisitiondate = data.AQUISITION_DATE,
+        // AQUISITION_DATE: data.AQUISITION_DATE,
         NEW_VEHICLE: data.NEW_VEHICLE,
         SUPPLIER_NAME: data.SUPPLIER_NAME,
         PURCHASE_PRICE: data.PURCHASE_PRICE,
@@ -329,11 +349,19 @@ console.log(ele);
 
 
   updateData() {
+    let submissiondate
+    let acquisitiondate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+      (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
+      }
+      if(this.updatecheckdata.AQUISITION_DATE!=data.AQUISITION_DATE){
+        (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? (acquisitiondate = '', data['AQUISITION_DATE'] = acquisitiondate) : (acquisitiondate = data.AQUISITION_DATE, data['AQUISITION_DATE'] = moment(acquisitiondate).format('DD/MM/YYYY'))
+        }
     this._vehicle.updateData(data).subscribe(() => {
       console.log(data);
       Swal.fire("Success!", "Record Updated Successfully !", "success");
@@ -368,7 +396,7 @@ console.log(ele);
       });
     }
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();//for autofocus
+    // this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');

@@ -105,14 +105,14 @@
               </div>
             </div>
             <div class="col-sm">
-              <div class="border-checkbox-section">
+              <div class="checkbox checkbox-primary">
                 <div class="border-checkbox-group border-checkbox-group-primary">
                   <input class="border-checkbox" type="checkbox" id="checkbox1" value="checkbox"
                     [checked]="isIsLienMarkClear == true" formControlName="IS_LIEN_MARK_CLEAR">
-                  <label class="border-checkbox-label" for="checkbox1">Is Lien Mark Clear ?<span class="required">
-                      *</span></label>
+                  <label class="border-checkbox-label" for="checkbox1">Is Lien Mark Clear ?</label>
                 </div>
               </div>
+              
             </div>
           </div>
           <h6>Term Loan Details</h6>
@@ -148,7 +148,7 @@
               <div class="col-sm">
                 <!-- <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
                   [disabled]="angForm.invalid">Add</button> -->
-                <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">Update</button>
+                <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
               </div>
             </div>
           </div>
@@ -159,19 +159,19 @@
 </div>
 <div class="row">
   <div class="col-12">
-    <div class="card">
+    <div class="card shadow">
       <div class="card-block">
         <div class="row">
           <div class="col-sm">
             <div class="table-responsive">
-              <table datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+              <table id="instructiontable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                 class="table table-striped table-bordered table-hover">
                 <tbody *ngIf="lienMaster?.length != 0">
                   <tr *ngFor="let data of lienMaster">
                     <td>
-                      <button class="btn btn-outline-primary btn-sm" id="editbtn" (click)="editClickHandler(data.id)">
-                        Edit
-                      </button>
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                        (click)="editClickHandler(data.id)" placement=" bottom"
+                        ngbTooltip="Edit"></span>
 
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                     </td>
@@ -197,38 +197,38 @@
                     <td colspan="6" class="no-data-available">No data!</td>
                   </tr>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th></th>
+                <tfoot #filters class="filters">
+                  <tr class="testing">
+                    <th class="testing"></th>
                     <th>
-                      <input type="text" placeholder="Search Scheme" name="DEPO_AC_TYPE" />
+                      <input type="text" class="form-control"  name="DEPO_AC_TYPE" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Search Account No" name="DEPO_AC_NO" />
+                      <input type="text" class="form-control" name="DEPO_AC_NO" />
                     </th>
                     <!-- <th>
                       <input type="text" placeholder="Search Security Code" name="SECU_CODE" />
                     </th> -->
                     <th>
-                      <input type="text" placeholder="Search Ledger Balance" name="LEDGER_BAL" />
+                      <input type="text" class="form-control" name="LEDGER_BAL" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Search Deposit Amount" name="DEPOSIT_AMT" />
+                      <input type="text" class="form-control" name="DEPOSIT_AMT" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Search TD Receipt No." name="RECEIPT_NO" />
+                      <input type="text" class="form-control" name="RECEIPT_NO" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Search s Lien Mark Clear ?" name="IS_LIEN_MARK_CLEAR" />
+                      <input type="text" class="form-control" class="form-control" name="IS_LIEN_MARK_CLEAR" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Search Loan A/c No." name="AC_TYPE" />
+                      <input type="text" class="form-control" name="AC_TYPE" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Search oan O/s Balance" name="BALANCE_OF_LOAN_ACCOUNT" />
+                      <input type="text" class="form-control" name="BALANCE_OF_LOAN_ACCOUNT" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Search Loan Expiry Date" name="AC_EXPIRE_DATE" />
+                      <input type="text" class="form-control" name="AC_EXPIRE_DATE" />
                     </th>
 
                   </tr>

@@ -24,6 +24,7 @@ import { Subject } from "rxjs";
 import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
+import * as moment from 'moment';
 
 // Handling datatable data
 class DataTableResponse {
@@ -43,6 +44,8 @@ interface SecurityMaster {
   MARGIN: number;
   DETAILS: string;
 }
+
+
 @Component({
   selector: "app-other-security",
   templateUrl: "./other-security.component.html",
@@ -68,7 +71,10 @@ export class OtherSecurityComponent
   showButton: boolean = true;
   updateShow: boolean = false;
   updateID: number; //variable for updating
-
+  //for date
+  submissiondate:any=null
+  maxDate: Date;
+  minDate: Date;
   // Store data from backend
   securitymasters: SecurityMaster[];
 
@@ -89,8 +95,12 @@ export class OtherSecurityComponent
     private _security: othersecuritycomponentservice,
     public router: Router
   ) {
-    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    console.log(this.datemax);
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
+    // this.maxDate = new Date();
+    // this.minDate = new Date();
+    // this.minDate.setDate(this.minDate.getDate() - 1);
+    // this.maxDate.setDate(this.maxDate.getDate())
 
    }
 
@@ -187,6 +197,7 @@ export class OtherSecurityComponent
     });
   }
   submit(event) {
+    let submissiondate
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -196,7 +207,8 @@ export class OtherSecurityComponent
       const dataToSend = {
       // AC_TYPE: this.scheme._value[0],
       // AC_NO: this.Accountno,
-      SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+      'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+      // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       SHORT_DETAILS: formVal.SHORT_DETAILS,
       TOTAL_VALUE: formVal.TOTAL_VALUE,
       MARGIN: formVal.MARGIN,
@@ -227,25 +239,28 @@ export class OtherSecurityComponent
     }
     
   }
-
+  updatecheckdata:any
   //function for edit button clicked
   editClickHandler(id: any): void {
-    debugger
+    let submissiondate
+    
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._security.getFormData(id).subscribe((data) => {
+      this.updatecheckdata=data
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
       dropdown.account = data.AC_NO.toString();
-
+      
         this.updateID = data.id;
         console.log(this.updateID)
         this.angForm.patchValue({
         // AC_TYPE: this.scheme._value[0],
         // AC_NO: this.Accountno,
-        SUBMISSION_DATE: data.SUBMISSION_DATE,
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
+        // SUBMISSION_DATE: data.SUBMISSION_DATE,
         SHORT_DETAILS: data.SHORT_DETAILS,
         TOTAL_VALUE: data.TOTAL_VALUE,
         MARGIN: data.MARGIN,
@@ -267,12 +282,20 @@ export class OtherSecurityComponent
   }
 
   updateData() {
+    debugger
+    let submissiondate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
+    console.log("updatedata", data)
     data["id"] = this.updateID;
+    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+      (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
+      }
+      console.log(data)
     this._security.updateData(data).subscribe(() => {
+      debugger
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
@@ -309,7 +332,7 @@ export class OtherSecurityComponent
   }
   ngAfterViewInit(): void {
 
-    this.myInputField.nativeElement.focus();//autofocus
+    // this.myInputField.nativeElement.focus();//autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');

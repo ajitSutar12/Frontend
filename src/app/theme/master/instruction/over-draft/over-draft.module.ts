@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { OverDraftRoutingModule } from './over-draft-routing.module'
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
@@ -12,15 +13,19 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
 import { overdraftservice } from './over-draft.service';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { OverDraftComponent } from './over-draft.component';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 @NgModule({
   imports: [
     CommonModule,
     OverDraftRoutingModule,
     DataTablesModule,
-    SelectModule,
+    // SelectModule,
+    NgSelectModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   declarations: [OverDraftComponent],
   providers: [{

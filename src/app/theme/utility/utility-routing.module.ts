@@ -38,6 +38,10 @@ const routes: Routes = [
         loadChildren: () => import('./process-acm/process-acm.module').then(m => m.ProcessACMModule)
       },
       {
+        path: 'pigmyMachineProcess',
+        loadChildren: () => import('./pigmy-machine-process/pigmy-machine-process.module').then(m => m.PigmyMachineProcessModule)
+      },
+      {
         path: 'deadStockP',
         loadChildren: () => import('./dead-stock-p/dead-stock-p.module').then(m => m.DeadStockPModule)
       },

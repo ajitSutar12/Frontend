@@ -22,6 +22,7 @@ import { governmentsecuritycomponentservice } from "../govt-security-and-lic/gov
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../../../../environments/environment";
 import { Router } from "@angular/router";
+import * as moment from 'moment';
 
 // Handling datatable data
 class DataTableResponse {
@@ -104,6 +105,14 @@ export class GovtSecurityAndLicComponent
 
   //variable to get ID to update
   updateID: number = 0;
+ 
+  // for date
+  submissiondate:any=null
+  certicatedate:any=null
+  premiumduedate:any=null
+  maturityduedate:any=null
+  maxDate: Date;
+  minDate: Date;
 
   //filter variable
   filterData = {};
@@ -115,8 +124,12 @@ resetmaturedate:any;//reset maturedue date
     private _govsecurity: governmentsecuritycomponentservice,
     public router: Router
   ) {
-    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    console.log(this.datemax);
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
 
   }
 
@@ -250,6 +263,10 @@ resetmaturedate:any;//reset maturedue date
   }
 
   submit(event) {
+    let submissiondate
+    let certicatedate
+    let premiumduedate
+    let maturityduedate
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -259,8 +276,10 @@ resetmaturedate:any;//reset maturedue date
     const dataToSend = {
       // AC_TYPE: this.scheme._value[0],
       // AC_NO: this.Accountno,
-      SUBMISSION_DATE: formVal.SUBMISSION_DATE,
-      CERT_POLICY_DATE: formVal.CERT_POLICY_DATE,
+      'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+      // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+      'CERT_POLICY_DATE': (formVal.CERT_POLICY_DATE == '' || formVal.CERT_POLICY_DATE == 'Invalid date') ? certicatedate = '' : certicatedate = moment(formVal.CERT_POLICY_DATE).format('DD/MM/YYYY'),
+      // CERT_POLICY_DATE: formVal.CERT_POLICY_DATE,
       CERT_POLICY_NO: formVal.CERT_POLICY_NO,
       MARGIN: formVal.MARGIN,
       ASSURED_NAME: formVal.ASSURED_NAME,
@@ -268,8 +287,10 @@ resetmaturedate:any;//reset maturedue date
       SUM_ASSURED: formVal.SUM_ASSURED,
       PREMIUM: formVal.PREMIUM,
       SURRENDER_VALUE: formVal.SURRENDER_VALUE,
-      PREMIUM_DUE_DATE: formVal.PREMIUM_DUE_DATE,
-      MATURE_DUE_DATE: formVal.MATURE_DUE_DATE,
+      'PREMIUM_DUE_DATE': (formVal.PREMIUM_DUE_DATE == '' || formVal.PREMIUM_DUE_DATE == 'Invalid date') ? premiumduedate = '' : premiumduedate = moment(formVal.PREMIUM_DUE_DATE).format('DD/MM/YYYY'),
+      // PREMIUM_DUE_DATE: formVal.PREMIUM_DUE_DATE,
+      'MATURE_DUE_DATE': (formVal.MATURE_DUE_DATE == '' || formVal.MATURE_DUE_DATE == 'Invalid date') ? maturityduedate = '' : maturityduedate = moment(formVal.MATURE_DUE_DATE).format('DD/MM/YYYY'),
+      // MATURE_DUE_DATE: formVal.MATURE_DUE_DATE,
       NOMINEE: formVal.NOMINEE,
       REMARK: formVal.REMARK,
     };
@@ -298,13 +319,18 @@ resetmaturedate:any;//reset maturedue date
     }
     
   }
-
+  updatecheckdata:any
   //function for edit button clicked
   editClickHandler(id: any): void {
+    let submissiondate
+    let certicatedate
+    let premiumduedate
+    let maturityduedate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._govsecurity.getFormData(id).subscribe((data) => {
+      this.updatecheckdata=data
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
@@ -313,8 +339,10 @@ resetmaturedate:any;//reset maturedue date
       this.angForm.patchValue({
         // AC_TYPE: this.scheme._value[0],
         // AC_NO: this.Accountno,
-        SUBMISSION_DATE: data.SUBMISSION_DATE,
-        CERT_POLICY_DATE: data.CERT_POLICY_DATE,
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
+        // SUBMISSION_DATE: data.SUBMISSION_DATE,
+        'CERT_POLICY_DATE': (data.CERT_POLICY_DATE == 'Invalid date' || data.CERT_POLICY_DATE == '' || data.CERT_POLICY_DATE == null) ? certicatedate = '' : certicatedate = data.CERT_POLICY_DATE,
+        // CERT_POLICY_DATE: data.CERT_POLICY_DATE,
         CERT_POLICY_NO: data.CERT_POLICY_NO,
         MARGIN: data.MARGIN,
         ASSURED_NAME: data.ASSURED_NAME,
@@ -322,8 +350,10 @@ resetmaturedate:any;//reset maturedue date
         SUM_ASSURED: data.SUM_ASSURED,
         PREMIUM: data.PREMIUM,
         SURRENDER_VALUE: data.SURRENDER_VALUE,
-        PREMIUM_DUE_DATE: data.PREMIUM_DUE_DATE,
-        MATURE_DUE_DATE: data.MATURE_DUE_DATE,
+        'PREMIUM_DUE_DATE': (data.PREMIUM_DUE_DATE == 'Invalid date' || data.PREMIUM_DUE_DATE == '' || data.PREMIUM_DUE_DATE == null) ? premiumduedate = '' : premiumduedate = data.PREMIUM_DUE_DATE,
+        // PREMIUM_DUE_DATE: data.PREMIUM_DUE_DATE,
+        'MATURE_DUE_DATE': (data.MATURE_DUE_DATE == 'Invalid date' || data.MATURE_DUE_DATE == '' || data.MATURE_DUE_DATE == null) ? maturityduedate = '' : maturityduedate = data.MATURE_DUE_DATE,
+        // MATURE_DUE_DATE: data.MATURE_DUE_DATE,
         NOMINEE: data.NOMINEE,
         REMARK: data.REMARK,
       });
@@ -342,11 +372,27 @@ resetmaturedate:any;//reset maturedue date
   }
 
   updateData() {
+    let submissiondate
+    let certicatedate
+    let premiumduedate
+    let maturityduedate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+      (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
+      }
+      if(this.updatecheckdata.CERT_POLICY_DATE!=data.CERT_POLICY_DATE){
+        (data.CERT_POLICY_DATE == 'Invalid date' || data.CERT_POLICY_DATE == '' || data.CERT_POLICY_DATE == null) ? (certicatedate = '', data['CERT_POLICY_DATE'] = certicatedate) : (certicatedate = data.CERT_POLICY_DATE, data['CERT_POLICY_DATE'] = moment(certicatedate).format('DD/MM/YYYY'))
+        }
+        if(this.updatecheckdata.PREMIUM_DUE_DATE!=data.PREMIUM_DUE_DATE){
+          (data.PREMIUM_DUE_DATE == 'Invalid date' || data.PREMIUM_DUE_DATE == '' || data.PREMIUM_DUE_DATE == null) ? (premiumduedate = '', data['PREMIUM_DUE_DATE'] = premiumduedate) : (premiumduedate = data.PREMIUM_DUE_DATE, data['PREMIUM_DUE_DATE'] = moment(premiumduedate).format('DD/MM/YYYY'))
+          }
+          if(this.updatecheckdata.MATURE_DUE_DATE!=data.MATURE_DUE_DATE){
+            (data.MATURE_DUE_DATE == 'Invalid date' || data.MATURE_DUE_DATE == '' || data.MATURE_DUE_DATE == null) ? (maturityduedate = '', data['MATURE_DUE_DATE'] = maturityduedate) : (maturityduedate = data.SUBMISSION_DATE, data['MATURE_DUE_DATE'] = moment(maturityduedate).format('DD/MM/YYYY'))
+            }
     this._govsecurity.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -388,6 +434,7 @@ resetmaturedate:any;//reset maturedue date
   }
   //for checking dates
   checkdate(data: any) { 
+    // debugger
     // console.log(data.value);
     //fetch premium due date value
     let premium = document.getElementById(
@@ -397,6 +444,7 @@ resetmaturedate:any;//reset maturedue date
     this.setdate = premium.value;
 
     if (data != "") {
+      // debugger
       if (this.setdate > data) {
         console.log("if condition is true ");
         Swal.fire(
@@ -413,7 +461,7 @@ resetmaturedate:any;//reset maturedue date
   }
   ngAfterViewInit(): void {
     
-    this.myInputField.nativeElement.focus();//for autofocus
+    // this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');

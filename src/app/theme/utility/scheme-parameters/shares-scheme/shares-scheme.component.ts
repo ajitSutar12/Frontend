@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -48,6 +49,7 @@ interface ShareScheme {
   styleUrls: ['./shares-scheme.component.scss']
 })
 export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   //api 
@@ -85,6 +87,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Dropdown option variable
   acMaster: any
+  ngglacno:any=null
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -102,7 +105,8 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     private http: HttpClient,
     public sharesSchemeService: SharesSchemeService,
     private acMasterDropdownService: ACMasterDropdownService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -182,74 +186,67 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Is Auto Account Number Show ?',
           data: 'IS_AUTO_NO'
         },
-        {
-          title: 'Shares Face Value',
-          data: 'SHARES_FACE_VALUE'
-        },
-        {
-          title: 'Maximum No.of Shares Limit',
-          data: 'MAX_SHARES_LIMIT'
-        },
-        {
-          title: 'Dividend Percentage %',
-          data: 'S_ADIVIDEND_PERCENTAGEPPL'
-        },
-        {
-          title: 'Compounding',
-          data: 'INTEREST_RULE'
-        },
-        {
-          title: 'Simple as per Shares Closing Balance',
-          data: 'INTEREST_RULE'
-        },
-        {
-          title: 'Simple Days Basis + Transaction wise.',
-          data: 'INTEREST_RULE'
-        },
-        {
-          title: 'Transaction Wise',
-          data: 'INTEREST_RULE'
-        },
-        {
-          title: 'Month Basis + Transaction wise',
-          data: 'INTEREST_RULE'
-        },
-        {
-          title: 'Is Add Bonus Amount in Dividend Amount?',
-          data: 'IS_ADD_BONUS_IN_DIVIDEND'
-        },
-        {
-          title: 'Is Balance Entry Allow ?',
-          data: 'BALANCE_ADD_APPLICABLE'
-        },
-        {
-          title: 'Is Dividend Round off Required..?',
-          data: 'INT_ROUND_OFF'
-        },
-        {
-          title: 'Interest Round Off Factor in Paise',
-          data: 'ROUNDOFF_FACTOR'
-        },
-        {
-          title: 'Percentage for Calc.Sanction Limit',
-          data: 'SANCT_LIMIT_PERCENTAGE'
-        },
-        {
-          title: 'Years for Retirement Date',
-          data: 'RETIREMENT_YEARS'
-        },
-        {
-          title: 'Credit Amount On Date',
-          data: 'SH_CERTIFICATE_METHOD'
-        },
-        {
-          title: 'Closing Balance',
-          data: 'SH_CERTIFICATE_METHOD'
-        },
-        {
-          title: 'Credit Amount Between Dates',
-          data: 'SH_CERTIFICATE_METHOD'
-        },
+        // {
+        //   title: 'Shares Face Value',
+        //   data: 'SHARES_FACE_VALUE'
+        // },
+        // {
+        //   title: 'Maximum No.of Shares Limit',
+        //   data: 'MAX_SHARES_LIMIT'
+        // },
+        // {
+        //   title: 'Dividend Percentage %',
+        //   data: 'S_ADIVIDEND_PERCENTAGEPPL'
+        // },
+        // {
+        //   title: 'Dividen Methods',
+        //   data: 'INTEREST_RULE'
+        // },
+        // {
+        //   title: 'Simple as per Shares Closing Balance',
+        //   data: 'INTEREST_RULE'
+        // },
+        // {
+        //   title: 'Simple Days Basis + Transaction wise.',
+        //   data: 'INTEREST_RULE'
+        // },
+        // {
+        //   title: 'Transaction Wise',
+        //   data: 'INTEREST_RULE'
+        // },
+        // {
+        //   title: 'Month Basis + Transaction wise',
+        //   data: 'INTEREST_RULE'
+        // },
+        // {
+        //   title: 'Is Add Bonus Amount in Dividend Amount?',
+        //   data: 'IS_ADD_BONUS_IN_DIVIDEND'
+        // },
+        // {
+        //   title: 'Is Balance Entry Allow ?',
+        //   data: 'BALANCE_ADD_APPLICABLE'
+        // },
+        // {
+        //   title: 'Is Dividend Round off Required..?',
+        //   data: 'INT_ROUND_OFF'
+        // },
+        // {
+        //   title: 'Interest Round Off Factor in Paise',
+        //   data: 'ROUNDOFF_FACTOR'
+        // },
+        // {
+        //   title: 'Percentage for Calc.Sanction Limit',
+        //   data: 'SANCT_LIMIT_PERCENTAGE'
+        // },
+        // {
+        //   title: 'Years for Retirement Date',
+        //   data: 'RETIREMENT_YEARS'
+        // },
+        // {
+        //   title: 'Shares Certificate On',
+        //   data: 'SH_CERTIFICATE_METHOD'
+        // },
+        
       ],
       dom: 'Bfrtip',
     };
@@ -293,6 +290,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'S_ACNOTYPE': formVal.S_ACNOTYPE,
@@ -318,8 +316,12 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(dataToSend);
     this.sharesSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       // to reload after insertion of data
-      this.rerender();
+      //this.rerender();
     }, (error) => {
       console.log(error)
     })
@@ -362,10 +364,13 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     data['id'] = this.updateID;
     this.sharesSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      //this.rerender();
       this.resetForm();
     })
   }
@@ -417,6 +422,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

@@ -143,9 +143,9 @@ export class PigmyAgentSchemeComponent
       columns: [
         {
           title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
+          // render: function (data: any, type: any, full: any) {
+          //   return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+          // },
         },
         {
           title: "Type",
@@ -163,26 +163,26 @@ export class PigmyAgentSchemeComponent
           title: "Short Name",
           data: "S_SHNAME",
         },
-        {
-          title: "Is Pigmy Commission Applicable ?",
-          data: "S_INT_APPLICABLE",
-        },
-        {
-          title: "Minimum Interest Amount - Text Box",
-          data: "MIN_INT_LIMIT",
-        },
-        {
-          title: "Is Standing Instruction Applicable ?",
-          data: "STAND_INSTRUCTION_ALLOW",
-        },
-        {
-          title: "Is Withdrawal Applicable ?",
-          data: "WITHDRAWAL_APPLICABLE",
-        },
-        {
-          title: "Is Balance Entry Allow ?",
-          data: "BALANCE_ADD_APPLICABLE",
-        },
+        // {
+        //   title: "Is Pigmy Commission Applicable ?",
+        //   data: "S_INT_APPLICABLE",
+        // },
+        // {
+        //   title: "Minimum Interest Amount - Text Box",
+        //   data: "MIN_INT_LIMIT",
+        // },
+        // {
+        //   title: "Is Standing Instruction Applicable ?",
+        //   data: "STAND_INSTRUCTION_ALLOW",
+        // },
+        // {
+        //   title: "Is Withdrawal Applicable ?",
+        //   data: "WITHDRAWAL_APPLICABLE",
+        // },
+        // {
+        //   title: "Is Balance Entry Allow ?",
+        //   data: "BALANCE_ADD_APPLICABLE",
+        // },
       ],
       dom: "Blrtip",
     };
@@ -318,6 +318,7 @@ export class PigmyAgentSchemeComponent
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

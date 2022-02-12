@@ -3,9 +3,9 @@
     <div class="card">
       <div class="card-header">
         <h5>Shares Scheme Settings</h5>
-        <h6 style="float: right">
-          <sub class="required">* </sub>: Required Fields
-        </h6>
+        <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+          Fields marked with (<sub class="required"> * </sub>) are mandatory
+      </h6>
       </div>
       <form
         action="javascript:"
@@ -29,6 +29,7 @@
                     pattern="^[0-9]+$"
                     title="Input allowed only  0-9"
                     maxlength="3" minlength="3"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     min="901" max="999"
                     formControlName="S_APPL"
                     #autofocus
@@ -71,6 +72,7 @@
                     pattern="^[A-Za-z\./ -]+$"
                     formControlName="S_SHNAME"
                     maxlength="10"
+                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     title="Input allowed only  A-Z a-z  - / . (Space)"
                   />
                   <label for="S_SHNAME"
@@ -110,6 +112,7 @@
                     id="S_NAME"
                     required=""
                     pattern="^[A-Za-z\./ -]+$"
+                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     formControlName="S_NAME"
                     maxlength="90"
                     title="Input allowed only  A-Z a-z  - / . (Space)"
@@ -143,7 +146,7 @@
           </div>
           <div class="row">
             <div class="col-sm">
-              <div class="form-group form-primary form-static-label">
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select
                   [ngClass]="'ng-select'"
                   [options]="acMaster"
@@ -154,7 +157,25 @@
                   formControlName="S_GLACNO"
                 >
                 </ng-select>
-              </div>
+              </div> -->
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                    <ng-select id="S_GLACNO" bindValue="value"
+                        [(ngModel)]="ngglacno"
+                        formControlName="S_GLACNO" bindLabel="label"
+                        title="Compulsory Selection"
+                        [ngClass]="{'form-submitted': formSubmitted}"
+                        required placeholder="G.L. A/c No">
+                        <ng-option
+                            *ngFor="let values of acMaster"
+                            [value]="values">
+                            {{values.label}}</ng-option>
+                    </ng-select>
+                    <label for="S_GLACNO">G.L. A/c No<sub
+                            class="required"> * </sub></label>
+                </span>
+            </div>
+
               <div
                 class="form-group form-primary form-static-label"
                 *ngIf="
@@ -180,6 +201,7 @@
                     id="MEMBER_TYPE"
                     required=""
                     pattern="^[A-Za-z\./ -]+$"
+                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     formControlName="MEMBER_TYPE"
                     maxlength="1"
                     title="Input allowed only  A-Z a-z  - / . (Space)"
@@ -211,7 +233,7 @@
               </div>
             </div>
             <div class="col-sm">
-              <div class="border-checkbox-section">
+              <div class="checkbox checkbox-primary">
                 <div
                   class="border-checkbox-group border-checkbox-group-primary"
                 >
@@ -281,6 +303,7 @@
                             name="SHARES_FACE_VALUE"
                             class="form-control"
                             placeholder=" "
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                             id="SHARES_FACE_VALUE"
                             title="Input allowed only  0-9"
                             pattern="\d{1,20}(\.\d{2})?"
@@ -319,6 +342,7 @@
                             class="form-control"
                             placeholder=" "
                             id="MAX_SHARES_LIMIT"
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                             pattern="\d{1,20}(\.\d{2})?"
                             title="Input allowed only  0-9"
                             formControlName="MAX_SHARES_LIMIT"
@@ -357,6 +381,7 @@
                             class="form-control"
                             placeholder=" "
                             id="DIVIDEND_PERCENTAGE"
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                             pattern="\d{1,20}(\.\d{2})?"
                             title="Input allowed only  0-9"
                             formControlName="DIVIDEND_PERCENTAGE"
@@ -463,7 +488,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="border-checkbox-section">
+                      <div class="checkbox checkbox-primary">
                         <div
                           class="
                             border-checkbox-group border-checkbox-group-primary
@@ -498,7 +523,7 @@
                     <div class="card-block">
                       <div class="row">
                         <div class="col-sm">
-                          <div class="border-checkbox-section">
+                          <div class="checkbox checkbox-primary">
                             <div
                               class="
                                 border-checkbox-group
@@ -523,7 +548,7 @@
                       </div>
                       <div class="row">
                         <div class="col-sm">
-                          <div class="border-checkbox-section">
+                          <div class="checkbox checkbox-primary">
                             <div
                               class="
                                 border-checkbox-group
@@ -558,6 +583,7 @@
                               placeholder=" "
                               id="ROUNDOFF_FACTOR"
                               maxlength="2"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                               title="Input allowed only  0-9"
                               pattern="^[0-9]+$"
                               formControlName="ROUNDOFF_FACTOR"
@@ -596,6 +622,7 @@
                               name="SANCT_LIMIT_PERCENTAGE"
                               class="form-control"
                               placeholder=" "
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                               id="SANCT_LIMIT_PERCENTAGE"
                               pattern="\d{1,20}(\.\d{2})?"
                               title="Input allowed only  0-9"
@@ -637,6 +664,7 @@
                               name="RETIREMENT_YEARS"
                               class="form-control"
                               placeholder=" "
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                               id="RETIREMENT_YEARS"
                               title="Input allowed only  0-9"
                               pattern="^[0-9]+$"
@@ -685,6 +713,7 @@
                               </span>
                             </label>
                           </div>
+                          
                         </div>
                         <div class="row">
                           <div class="radio radio-inline">
@@ -731,12 +760,12 @@
             <div class="card-footer">
               <div class="row" style="float: right;">
                   <div class="col-sm m-b-20">
-                      <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
-                          Add
+                      <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid" (click)="submit()" *ngIf="showButton">
+                          Submit
                       </button>
-                      <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                      <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
                           Update</button>&nbsp;
-                      <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                      <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                           Cancel
                       </button>
                   </div>
@@ -757,12 +786,12 @@
 </div>
 <div class="row">
   <div class="col-12">
-    <div class="card">
+    <div class="card shadow">
       <div class="card-block">
         <div class="row">
           <div class="col-sm">
             <div class="table-responsive">
-              <table
+              <table id="schemeparametertable"
                 datatable
                 [dtOptions]="dtExportButtonOptions"
                 [dtTrigger]="dtTrigger"
@@ -771,13 +800,8 @@
                 <tbody *ngIf="shareScheme?.length != 0">
                   <tr *ngFor="let data of shareScheme">
                     <td>
-                      <button
-                        class="btn btn-outline-primary btn-sm"
-                        id="editbtn"
-                        (click)="editClickHandler(data.id)"
-                      >
-                        Edit
-                      </button>
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                                            placement="bottom" ngbTooltip="Edit"></span> 
                       &nbsp;
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
                                                 (click)="delClickHandler(data.id)">Delete</button> -->
@@ -789,23 +813,23 @@
                     <td>{{ data.S_GLACNO }}</td>
                     <td>{{ data.MEMBER_TYPE }}</td>
                     <td>{{ data.IS_AUTO_NO }}</td>
-                    <td>{{ data.SHARES_FACE_VALUE }}</td>
+                    <!-- <td>{{ data.SHARES_FACE_VALUE }}</td>
                     <td>{{ data.MAX_SHARES_LIMIT }}</td>
                     <td>{{ data.S_ADIVIDEND_PERCENTAGEPPL }}</td>
                     <td>{{ data.INTEREST_RULE }}</td>
                     <td>{{ data.INTEREST_RULE }}</td>
                     <td>{{ data.INTEREST_RULE }}</td>
                     <td>{{ data.INTEREST_RULE }}</td>
-                    <td>{{ data.INTEREST_RULE }}</td>
-                    <td>{{ data.IS_ADD_BONUS_IN_DIVIDEND }}</td>
+                    <td>{{ data.INTEREST_RULE }}</td> -->
+                    <!-- <td>{{ data.IS_ADD_BONUS_IN_DIVIDEND }}</td>
                     <td>{{ data.BALANCE_ADD_APPLICABLE }}</td>
                     <td>{{ data.INT_ROUND_OFF }}</td>
                     <td>{{ data.ROUNDOFF_FACTOR }}</td>
                     <td>{{ data.SANCT_LIMIT_PERCENTAGE }}</td>
                     <td>{{ data.RETIREMENT_YEARS }}</td>
-                    <td>{{ data.SH_CERTIFICATE_METHOD }}</td>
-                    <td>{{ data.SH_CERTIFICATE_METHOD }}</td>
-                    <td>{{ data.SH_CERTIFICATE_METHOD }}</td>
+                    <td>{{ data.SH_CERTIFICATE_METHOD }}</td> -->
+                    <!-- <td>{{ data.SH_CERTIFICATE_METHOD }}</td>
+                    <td>{{ data.SH_CERTIFICATE_METHOD }}</td> --> 
                   </tr>
                 </tbody>
                 <tbody *ngIf="shareScheme?.length == 0">
@@ -813,178 +837,105 @@
                     <td colspan="6" class="no-data-available">No data!</td>
                   </tr>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th></th>
+                <tfoot #filters class="filters">
+                  <tr class="testing">
+                    <th class="testing"></th>
                     <th>
                       <input
-                        type="text"
-                        placeholder="Search Type"
-                        class="form-control"  name="S_ACNOTYPE"
-                      />
+                        type="text" class="form-control"  name="S_ACNOTYPE" />
                     </th>
                     <th>
                       <input
-                        type="text"
-                        placeholder="Search Scheme Code"
-                        class="form-control"  name="S_APPL"
-                      />
+                        type="text" class="form-control"  name="S_APPL"/>
                     </th>
                     <th>
                         <input
-                          type="text"
-                          placeholder="Search Description"
-                          class="form-control"  name="S_NAME"
-                        />
+                          type="text" class="form-control"  name="S_NAME"/>
                       </th>
                     <th>
                       <input
-                        type="text"
-                        placeholder="Search Short Name"
-                        class="form-control"  name="S_SHNAME"
-                      />
+                        type="text" class="form-control" name="S_SHNAME"/>
                     </th>
                    
                     <th>
                       <input
-                        type="text"
-                        placeholder="Search G.L. A/c No. "
-                        class="form-control"  name="S_GLACNO"
-                      />
+                        type="text" class="form-control"  name="S_GLACNO" />
                     </th>
                     <th>
                       <input
-                        type="text"
-                        placeholder="Search Member Type"
-                        class="form-control"  name="MEMBER_TYPE"
-                      />
+                        type="text" class="form-control"  name="MEMBER_TYPE" />
                     </th>
                     <th>
                       <input
-                        type="text"
-                        placeholder="Search Is Auto Account Number Show ?"
-                        class="form-control"  name="IS_AUTO_NO"
-                      />
+                        type="text" class="form-control"  name="IS_AUTO_NO" />
                     </th>
-                    <th>
+                    <!-- <th>
                       <input
-                        type="text"
-                        placeholder="Search Interest Round Off Factor in Paise"
-                        class="form-control"  name="SHARES_FACE_VALUE"
-                      />
+                        type="text" class="form-control"  name="SHARES_FACE_VALUE"/>
                     </th>
                     <th>
                         <input
-                          type="text"
-                          placeholder="Search Maximum No.of Shares Limit"
-                          class="form-control"  name="MAX_SHARES_LIMIT"
-                        />
+                          type="text" class="form-control"  name="MAX_SHARES_LIMIT"/>
                       </th>
                       <th>
                         <input
-                          type="text"
-                          placeholder="Search Dividend Percentage %"
-                          class="form-control"  name="S_ADIVIDEND_PERCENTAGEPPL"
-                        />
+                          type="text" class="form-control"  name="S_ADIVIDEND_PERCENTAGEPPL" />
                       </th>
                       <th>
                         <input
-                          type="text"
-                          placeholder="Search Compounding"
-                          class="form-control"  name="INTEREST_RULE"
-                        />
+                          type="text" class="form-control"  name="INTEREST_RULE" />
+                      </th> -->
+                      <!-- <th>
+                        <input type="text" class="form-control"  name="INTEREST_RULE" />
                       </th>
                       <th>
                         <input
-                          type="text"
-                          placeholder="Search Simple as per Shares Closing Balance"
-                          class="form-control"  name="INTEREST_RULE"
-                        />
+                          type="text" class="form-control"  name="INTEREST_RULE" />
                       </th>
                       <th>
                         <input
-                          type="text"
-                          placeholder="Search Simple Days Basis + Transaction wise."
-                          class="form-control"  name="INTEREST_RULE"
-                        />
+                          type="text" class="form-control"  name="INTEREST_RULE"/>
                       </th>
                       <th>
                         <input
-                          type="text"
-                          placeholder="Search Transaction Wise"
-                          class="form-control"  name="INTEREST_RULE"
-                        />
+                          type="text" class="form-control"  name="INTEREST_RULE"/>
+                      </th> -->
+                      <!-- <th>
+                        <input
+                          type="text" class="form-control"  name="IS_ADD_BONUS_IN_DIVIDEND"/>
                       </th>
                       <th>
                         <input
-                          type="text"
-                          placeholder="Search Month Basis + Transaction wise"
-                          class="form-control"  name="INTEREST_RULE"
-                        />
+                          type="text" class="form-control"  name="BALANCE_ADD_APPLICABLE"/>
                       </th>
                       <th>
                         <input
-                          type="text"
-                          placeholder="Search Is Add Bonus Amount in Dividend Amount?"
-                          class="form-control"  name="IS_ADD_BONUS_IN_DIVIDEND"
-                        />
+                          type="text" class="form-control"  name="INT_ROUND_OFF" />
                       </th>
                       <th>
                         <input
-                          type="text"
-                          placeholder="Search Is Balance Entry Allow ?"
-                          class="form-control"  name="BALANCE_ADD_APPLICABLE"
-                        />
+                          type="text" class="form-control"  name="ROUNDOFF_FACTOR" />
                       </th>
                       <th>
                         <input
-                          type="text"
-                          placeholder="Search Is Dividend Round off Required..?"
-                          class="form-control"  name="INT_ROUND_OFF"
-                        />
+                          type="text" class="form-control"  name="SANCT_LIMIT_PERCENTAGE" />
                       </th>
                       <th>
                         <input
-                          type="text"
-                          placeholder="Search Interest Round Off Factor in Paise"
-                          class="form-control"  name="ROUNDOFF_FACTOR"
-                        />
+                          type="text" class="form-control"  name="RETIREMENT_YEARS"/>
                       </th>
                       <th>
                         <input
-                          type="text"
-                          placeholder="Search Percentage for Calc.Sanction Limit"
-                          class="form-control"  name="SANCT_LIMIT_PERCENTAGE"
-                        />
+                          type="text" class="form-control"  name="SH_CERTIFICATE_METHOD"/>
+                      </th> -->
+                      <!-- <th>
+                        <input
+                          type="text" class="form-control"  name="SH_CERTIFICATE_METHOD"/>
                       </th>
                       <th>
                         <input
-                          type="text"
-                          placeholder="Search Years for Retirement Date"
-                          class="form-control"  name="RETIREMENT_YEARS"
-                        />
-                      </th>
-                      <th>
-                        <input
-                          type="text"
-                          placeholder="Search Credit Amount On Date"
-                          class="form-control"  name="SH_CERTIFICATE_METHOD"
-                        />
-                      </th>
-                      <th>
-                        <input
-                          type="text"
-                          placeholder="Search Closing Balance"
-                          class="form-control"  name="SH_CERTIFICATE_METHOD"
-                        />
-                      </th>
-                      <th>
-                        <input
-                          type="text"
-                          placeholder="Search Amount Between Dates"
-                          class="form-control"  name="SH_CERTIFICATE_METHOD"
-                        />
-                      </th>
+                          type="text" class="form-control"  name="SH_CERTIFICATE_METHOD" />
+                      </th> -->
                   </tr>
                 </tfoot>
               </table>

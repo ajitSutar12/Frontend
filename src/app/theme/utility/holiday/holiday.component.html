@@ -1,111 +1,33 @@
-<!-- Holidays -->
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Holidays</h5>
+                <h5>Pigmy Machine Process</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <div class="card-block">
-                <div class="col-md-12">
-                    <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-body">
+                            <div class="row">
+                                <div class="col-sm-2">
 
-                        <ul class="basic-list">
-                            <li>
-                                <h6> <a (click)="OpenLink(1)" routerLinkActive="active" class="text-right f-w-600" id="pointer">January</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(2)" routerLinkActive="active" class="text-right f-w-600" id="pointer">February</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(3)" routerLinkActive="active" class="text-right f-w-600" id="pointer">March</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(4)" routerLinkActive="active" class="text-right f-w-600" id="pointer">April</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(5)" routerLinkActive="active" class="text-right f-w-600" id="pointer">May</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(6)" routerLinkActive="active" class="text-right f-w-600" id="pointer">June</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(7)" routerLinkActive="active" class="text-right f-w-600" id="pointer">July</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(8)" routerLinkActive="active" class="text-right f-w-600" id="pointer">August</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(9)" routerLinkActive="active" class="text-right f-w-600" id="pointer">September</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(10)" routerLinkActive="active" class="text-right f-w-600" id="pointer">October</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(11)" routerLinkActive="active" class="text-right f-w-600" id="pointer">November</a></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(12)" routerLinkActive="active" class="text-right f-w-600" id="pointer">December</a></h6>
-                            </li>
-                        </ul>
-                    </perfect-scrollbar>
+                                </div>
+                                <div class="col-sm-8">
+                                    <app-card cardClass="elite-calendar">
+                                        <full-calendar [options]="calendarOptions"></full-calendar>
+                                    </app-card>
+                                </div>
+                                <div class="col-sm-2">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm">
-            <button class="btn btn-primary ripple light">Apply</button>
-        </div>
-        <div class="col-sm">
-            <button class="btn btn-primary ripple light">Close</button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-9">
-        
-          </div>
-           <div class="col-sm">
-             <h6><span class="required">* </span>: Required Fields</h6>
-          </div>
-       </div>
-    <!-- <div class="col-sm-9">
-        <div class="card-block">
-            <div *ngIf="interestrateftdTrue">
-                <app-term-deposit-ir></app-term-deposit-ir>
-            </div>
-            <div *ngIf="termdepositpsTrue">
-                <app-term-deposit-pat-scheme></app-term-deposit-pat-scheme>
-            </div>
-            <div *ngIf="interestrateforsapdTrue">
-                <app-interest-rate-for-sapd></app-interest-rate-for-sapd>
-            </div>
-            <div *ngIf="interestrateforlaccTrue">
-                <app-interest-rate-for-lacc></app-interest-rate-for-lacc>
-            </div>
-            <div *ngIf="securitycodeTrue">
-                <app-security-code></app-security-code>
-            </div>
-            <div *ngIf="managerviewglpTrue">
-                <app-manager-view-glp></app-manager-view-glp>
-            </div>
-            <div *ngIf="schemelinkingwdTrue">
-                <app-scheme-linking-with-d></app-scheme-linking-with-d>
-            </div>
-            <div *ngIf="schemetypecdTrue">
-                <app-scheme-type-charges-d></app-scheme-type-charges-d>
-            </div>
-            <div *ngIf="depreciationrmTrue">
-                <app-depreciation-rate-master></app-depreciation-rate-master>
-            </div>
-            <div *ngIf="prematurepigmylirTrue">
-                <app-premature-pigmy-less-ir></app-premature-pigmy-less-ir>
-            </div>
-            <div *ngIf="tdsinterestrateTrue">
-                <app-tds-interest-rate></app-tds-interest-rate>
-            </div>
-            <div *ngIf="sizeslabwarTrue">
-                <app-size-slab-wise-ar></app-size-slab-wise-ar>
-            </div>
-        </div>
-    </div> -->
 </div>

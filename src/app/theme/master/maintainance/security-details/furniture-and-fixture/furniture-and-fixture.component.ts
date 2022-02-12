@@ -22,6 +22,7 @@ import { furnitureandfixtureservice } from "./furniture-and-fixture.service";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../../../../environments/environment";
 import { Router } from "@angular/router";
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -39,7 +40,7 @@ interface FurnitureMaster {
   ARTICLE_NAME: string;
   ARTICLE_MAKE: string;
   AQUISITION_DATE: Date;
-  NEW_ARTICLE: number;
+  NEW_ARTICLE: boolean;
   SUPPLIER_NAME: string;
   PURCHASE_PRICE: number;
   MARGIN: number;
@@ -74,6 +75,14 @@ export class FurnitureAndFixtureComponent
   page: number;
   filterData = {};
   updateID: number; //variable for updating
+
+  // for date 
+  submissiondate:any=null
+  acquistitiondate:any=null
+  maxDate: Date;
+  minDate: Date;
+
+
   // Store data from backend
   furnituremasters: FurnitureMaster[];
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
@@ -89,8 +98,12 @@ export class FurnitureAndFixtureComponent
     private _furniture: furnitureandfixtureservice,
     public router: Router
   ) {
-    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    console.log(this.datemax);
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
 
   }
 
@@ -203,6 +216,8 @@ export class FurnitureAndFixtureComponent
   }
 
   submit(event) {
+    let submissiondate
+    let acquistitiondate
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -212,10 +227,12 @@ export class FurnitureAndFixtureComponent
       const dataToSend = {
         // AC_TYPE: this.scheme._value[0],
         // AC_NO: this.Accountno,
-        SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+        'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+        // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
         ARTICLE_NAME: formVal.ARTICLE_NAME,
         ARTICLE_MAKE: formVal.ARTICLE_MAKE,
-        AQUISITION_DATE: formVal.AQUISITION_DATE,
+        'AQUISITION_DATE': (formVal.AQUISITION_DATE == '' || formVal.AQUISITION_DATE == 'Invalid date') ? acquistitiondate = '' : acquistitiondate = moment(formVal.AQUISITION_DATE).format('DD/MM/YYYY'),
+        // AQUISITION_DATE: formVal.AQUISITION_DATE,
         NEW_ARTICLE: formVal.NEW_ARTICLE,
         SUPPLIER_NAME: formVal.SUPPLIER_NAME,
         PURCHASE_PRICE: formVal.PURCHASE_PRICE,
@@ -260,12 +277,16 @@ export class FurnitureAndFixtureComponent
     }
   }
 
+  updatecheckdata:any
   //function for edit button clicked
   editClickHandler(id: any): void {
+    let submissiondate
+    let acquistitiondate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._furniture.getFormData(id).subscribe((data) => {
+      this.updatecheckdata=data
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
@@ -275,10 +296,12 @@ export class FurnitureAndFixtureComponent
         this.angForm.patchValue({
         // AC_TYPE: this.scheme._value[0],
         // AC_NO: this.Accountno,
-        SUBMISSION_DATE: data.SUBMISSION_DATE,
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
+        // SUBMISSION_DATE: data.SUBMISSION_DATE,
         ARTICLE_NAME: data.ARTICLE_NAME,
         ARTICLE_MAKE: data.ARTICLE_MAKE,
-        AQUISITION_DATE: data.AQUISITION_DATE,
+        'AQUISITION_DATE': (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? acquistitiondate = '' : acquistitiondate = data.AQUISITION_DATE,
+        // AQUISITION_DATE: data.AQUISITION_DATE,
         NEW_ARTICLE: data.NEW_ARTICLE,
         SUPPLIER_NAME: data.SUPPLIER_NAME,
         PURCHASE_PRICE: data.PURCHASE_PRICE,
@@ -289,11 +312,19 @@ export class FurnitureAndFixtureComponent
   }
 
   updateData() {
+    let submissiondate
+    let acquistitiondate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+      (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
+      }
+      if(this.updatecheckdata.AQUISITION_DATE!=data.AQUISITION_DATE){
+        (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? (acquistitiondate = '', data['AQUISITION_DATE'] = acquistitiondate) : (acquistitiondate = data.AQUISITION_DATE, data['AQUISITION_DATE'] = moment(acquistitiondate).format('DD/MM/YYYY'))
+        }
     this._furniture.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -333,7 +364,7 @@ export class FurnitureAndFixtureComponent
     });
   }
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();//for autofocus
+    // this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');

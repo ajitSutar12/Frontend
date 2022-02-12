@@ -20,7 +20,7 @@ import { environment } from '../../../../../../environments/environment'
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { NgSelectConfig } from '@ng-select/ng-select';
-
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -103,6 +103,9 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
   //for date 
   datemax: any;
+  effectdate:any=null
+  maxDate: Date;
+  minDate: Date;
 
   //scheme dropdown variables
   //Scheme type variable
@@ -123,8 +126,12 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     private systemParameter: SystemMasterParametersService,
     private fb: FormBuilder,
     private config: NgSelectConfig,) {
-      this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-      console.log(this.datemax);
+      // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+      // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
     
      }
 
@@ -191,6 +198,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     };
 
     this.runTimer();
+    
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
@@ -224,11 +232,13 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   }
   // Method to insert data into database through NestJS
   submit() {
+    let effectdate
     if(this.multiField.length!=0){    
     this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
-      'EFFECT_DATE': formVal.EFFECT_DATE,
+      'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
+      //'EFFECT_DATE': formVal.EFFECT_DATE,
       'ACNOTYPE': formVal.ACNOTYPE,
       'INT_CATEGORY': formVal.INT_CATEGORY,
       'FieldData': this.multiField,
@@ -256,21 +266,33 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   
 
   }
-
+  updatecheckdata:any
   //Method for append data into fields
   editClickHandler(id) {
+  
+    let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.addShowButton = true
     this.termDepositInterestRateService.getFormData(id).subscribe(data => {
+      
+      this.updatecheckdata=data
       console.log("edit", data)
       this.multiField = data.rate
       this.updateID = data.id;
+
+      //after clicking edit to get value in dropdown
+      this.ngscheme=Number(data.ACNOTYPE)
+      this.ngintcat=Number(data.INT_CATEGORY)
+      console.log(this.ngscheme)
       this.angForm.patchValue({
-        'EFFECT_DATE': data.EFFECT_DATE,
-        'ACNOTYPE': data.ACNOTYPE,
-        'INT_CATEGORY': data.INT_CATEGORY
+        
+        'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
+        //'EFFECT_DATE': data.EFFECT_DATE,
+        // ngscheme:data.ACNOTYPE,
+        // 'ACNOTYPE': data.ACNOTYPE,
+        // 'INT_CATEGORY': data.INT_CATEGORY
       })
     })
   }
@@ -362,6 +384,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     //set open date, appointed date and expiry date
     getSystemParaDate() {
       this.systemParameter.getFormData(1).subscribe(data => {
+        let date1 = moment(data.CURRENT_DATE).format('DD/MM/YYYY');
         this.angForm.patchValue({
           AC_OPDATE: data.CURRENT_DATE,
           DATE_APPOINTED: data.CURRENT_DATE,
@@ -398,10 +421,14 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   // }
   //Method for update data 
   updateData() {
+    let effectdate
     let data = this.angForm.value;
     console.log("updatedata", data)
     data['id'] = this.updateID;
-    data['FieldData'] = this.multiField
+    data['FieldData'] = this.multiField;
+    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+    (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+    }
     this.termDepositInterestRateService.updateData(data).subscribe(() => {
       console.log("update", data)
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
@@ -462,7 +489,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
+    // this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -486,6 +513,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngscheme=null
+    this.ngintcat=null
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

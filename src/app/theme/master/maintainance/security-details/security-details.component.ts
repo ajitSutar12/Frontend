@@ -7,7 +7,7 @@ import { Ac1Service } from '../../../../shared/elements/ac1.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { schemedropdownService } from 'src/app/shared/dropdownService/scheme-dropdown.service';
-import {environment} from'../../../../../environments/environment'
+import { environment } from '../../../../../environments/environment'
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { NgSelectConfig } from '@ng-select/ng-select';
@@ -18,12 +18,12 @@ import { NgSelectConfig } from '@ng-select/ng-select';
   styleUrls: ['./security-details.component.scss']
 })
 export class SecurityDetailsComponent implements OnInit {
-  // formSubmitted = false;
-scheme:any;
-Accountno:any=null;
-schemeedit:any=null;
-accountedit:any=null;
-acno:any;
+  formSubmitted = false;
+  scheme: any;
+  Accountno: any ;
+  schemeedit: any ;
+  accountedit: any ;
+  acno: any;
 
 
   angForm: FormGroup;
@@ -46,8 +46,12 @@ acno:any;
   updateShow: boolean = false;
   //Datatable
   dtExportButtonOptions: any = {};
-    //Scheme type variable
-    schemeType: string = 'LN,CC'
+  //Scheme type variable
+  schemeType: string = 'CC'
+  schemeType1: string = 'LN'
+
+  Data: any;
+
   //title select variables
   simpleOption: Array<IOption> = this.S1Service.getCharacters();
   Ac: Array<IOption> = this.Ac1Service.getCharacters();
@@ -60,12 +64,13 @@ acno:any;
 
   private dataSub: Subscription = null;
   schemeACNo: any;
+  getscheme: any;
   constructor(
     private fb: FormBuilder,
-     private_router: Router, 
-     public S1Service: S1Service, 
-     public Ac1Service: Ac1Service,
-     
+    private_router: Router,
+    public S1Service: S1Service,
+    public Ac1Service: Ac1Service,
+
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private config: NgSelectConfig,) { }
@@ -105,13 +110,27 @@ acno:any;
         'excel',
         'csv'
       ]
+
     };
 
 
     this.runTimer();
-    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      console.log(this.scheme = data);
+    // this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+    //   console.log(this.scheme = data);
+    //   this.scheme = data
+    // })
+
+    this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'LN' || scheme.name == 'CC');
+      });
+      this.scheme = filtered;
     })
+    console.log(this.scheme)
+    // this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType1).pipe(first()).subscribe(data => {
+    //   console.log(this.scheme = data);
+    //   this.scheme = data
+    // })
     // this.dataSub = this.S1Service.loadCharacters().subscribe((options) => {
     //   this.characters = options;
     // });
@@ -119,25 +138,64 @@ acno:any;
     //   this.characters = options;
     // });
   }
-  //get account no according scheme for introducer
-  getAccountno(acno) {
-    switch (acno) {
 
-      case 'LN':
-        console.log("Term Loan");
-        this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+  // getIntro(event) {
+  //   console.log(event)
+  //   // this.getscheme = event.id
+  //   this.getschemename = event.name
+  //   this.getIntroducer()
+  // }
+
+  //input functionality
+
+  schemechange(event) {
+
+    //  let result = this.angForm.value;
+    //  this.scheme = result.AC_TYPE;
+    //  console.log(this.scheme);
+    console.log(event)
+    this.getschemename = event.name
+    this.getIntroducer()
+
+
+  }
+  obj: any
+  getschemename: any
+  //get account no according scheme for introducer
+  getIntroducer() {
+    debugger
+    // console.log(this.acno, this.accountedit, "this.acno, this.accountedit")
+    // this.obj = [this.getscheme, this.branchcode.id]
+    
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+
+    this.obj = [this.schemeedit,branchCode]
+    console.log(this.obj, "this.obj")
+    console.log(this.getschemename, "this.getschemename")
+
+    switch (this.getschemename) {
+
+      case 'CC':
+        console.log("Cash Credit Loan");
+        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
+          console.log(this.schemeACNo)
         })
         break;
-        case 'CC':
-          console.log("Cash Credit Loan");
-          this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
-            this.schemeACNo = data;
-          })
-          break;
-  
-        }
-      }
+      case 'LN':
+        console.log("Term Loan");
+        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+          console.log(this.schemeACNo)
+          
+        })
+        break;
+
+
+    }
+  }
 
 
 
@@ -159,28 +217,25 @@ acno:any;
     });
   }
   submit() {
-    // this.formSubmitted = true;
+    this.formSubmitted = true;
     console.log(this.angForm.valid);
 
     if (this.angForm.valid) {
       console.log(this.angForm.value);
     }
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
   }
-//output functionality
-addItem(newItem:any) {
-  this.schemeedit = newItem.scheme;
-  this.accountedit = newItem.account;
-}
-//input functionality
-  schemechange(){
-   
-    let result = this.angForm.value;
-    this.scheme = result.AC_TYPE;
-    console.log(this.scheme);
+  //output functionality
+  addItem(newItem: any) {
+    this.schemeedit = newItem.scheme;
+    this.accountedit = newItem.account;
+  }
 
-  }
-  Accountnochange(){
-     
+
+  Accountnochange() {
     let result = this.angForm.value;
     this.Accountno = result.AC_NO;
     console.log(this.Accountno);

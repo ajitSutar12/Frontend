@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -38,6 +39,7 @@ interface GeneralMaster {
   styleUrls: ['./general-sub-ac-scheme.component.scss']
 })
 export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   //api 
@@ -79,11 +81,13 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
   acMaster: any
   filterData = {};
   newbtnShow: boolean;
+  ngglac:any=null
 
   constructor(public generalSubAcSchemeService: GeneralSubAcSchemeService,
     private acMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -153,10 +157,10 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
           title: 'G.L. A/c No.',
           data: 'S_GLACNO'
         },
-        {
-          title: 'Is Balance Entry Applicable ?',
-          data: 'BALANCE_ADD_APPLICABLE'
-        },
+        // {
+        //   title: 'Is Balance Entry Applicable ?',
+        //   data: 'BALANCE_ADD_APPLICABLE'
+        // },
       ],
       dom: 'Blrtip',
     };
@@ -186,6 +190,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
 
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'S_ACNOTYPE': formVal.S_ACNOTYPE,
@@ -197,8 +202,12 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
     }
     this.generalSubAcSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       // to reload after insertion of data
-      this.rerender();
+      //this.rerender();
     }, (error) => {
       console.log(error)
     })
@@ -230,10 +239,13 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
     data['id'] = this.updateID;
     this.generalSubAcSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      //this.rerender();
       this.resetForm();
     })
   }
@@ -251,6 +263,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

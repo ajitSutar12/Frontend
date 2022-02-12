@@ -19,6 +19,7 @@ import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -92,6 +93,9 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   ngintcat:any=null
   //for date 
   datemax: any;
+  effectdate:any=null
+  maxDate: Date;
+  minDate: Date;
 
 
   //scheme dropdown variables
@@ -109,8 +113,12 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     private TermemeDepositeSchMasterDropdownService: TermemeDepositeSchMasterDropdownService,
     private fb: FormBuilder,
     private config: NgSelectConfig,) {
-    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-    console.log(this.datemax);
+    // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
 
   }
 
@@ -220,11 +228,13 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
 
   // Method to insert data into database through NestJS
   submit() {
+    let effectdate
     if(this.multiField.length!=0){
       this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
-      'EFFECT_DATE': formVal.EFFECT_DATE,
+      'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
+      //'EFFECT_DATE': formVal.EFFECT_DATE,
       'AC_TYPE': formVal.AC_TYPE,
       'INT_CATEGORY': formVal.INT_CATEGORY,
       'FieldData': this.multiField,
@@ -252,30 +262,45 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     
   }
   tableButton: boolean = true
+  updatecheckdata:any
   //Method for append data into fields
   editClickHandler(id) {
+    
+    let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.addShowButton = true
 
-
+   
     this.termDepositPatSchemeService.getFormData(id).subscribe(data => {
+      this.updatecheckdata=data
+      
       this.multiField = data.rate
       this.updateID = data.id;
+       
+      //after clicking edit to get value in dropdown
+       this.ngscheme=Number(data.AC_TYPE)
+       this.ngintcat=Number(data.INT_CATEGORY)
       this.angForm.patchValue({
-        'EFFECT_DATE': data.EFFECT_DATE,
-        'AC_TYPE': data.AC_TYPE,
-        'INT_CATEGORY': data.INT_CATEGORY
+        
+        'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
+        //'EFFECT_DATE': data.EFFECT_DATE,
+        // 'AC_TYPE': data.AC_TYPE,
+        // 'INT_CATEGORY': data.INT_CATEGORY
       })
     })
   }
 
   //Method for update data 
   updateData() {
+    let effectdate
     let data = this.angForm.value;
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField
+    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+      }
     this.termDepositPatSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -378,7 +403,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
+    // this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -402,6 +427,8 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngscheme=null
+    this.ngintcat=null
   }
 
   ngOnDestroy(): void {

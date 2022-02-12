@@ -331,20 +331,28 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      // this.rerender();
       this.resetForm();
     });
   }
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#instructiontable tfoot tr').appendTo('#instructiontable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -117,6 +118,7 @@ interface TermDepositScheme {
   styleUrls: ['./term-deposit-scheme.component.scss']
 })
 export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //api 
   url = environment.base_url;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
@@ -152,6 +154,19 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
 
   //Dropdown option variable
   acMaster: any
+  ngsglacno:any=null
+  ngintglac:any=null
+  ngintcreditgl:any=null
+  ngpayable:any=null
+  ngpenalintac:any=null
+  ngrecble:any=null
+  ngcashint:any=null
+  ngmaturebtntpd:any=null
+  nginstallmentbase:any=null
+  ngunittdperiod:any=null
+
+
+
   simpleOption: Array<IOption> = this.installmentBaseService.getCharacters();
   unitOfPeroid: Array<IOption> = this.unitOfTDPeriodService.getCharacters();
   alternateOption: Array<IOption> = this.DaysService.getCharacters();
@@ -195,7 +210,8 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     private acMasterDropdownService: ACMasterDropdownService,
     private unitOfTDPeriodService: UnitOfTDPeriodService,
     public DaysService: DaysService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -287,335 +303,336 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         }, {
           title: 'Mature But Not Paid GL',
           data: 'MATURED_BUT_NOT_PAID_GLAC'
-        }, {
+        },
+        //  {
 
-          title: 'Pat Deposits',
-          data: 'INTEREST_RULE'
-        }, {
-          title: 'Recurring Deposits',
-          data: 'IS_RECURRING_TYPE'
-        }, {
-          title: 'Call Deposits',
-          data: 'IS_CALLDEPOSIT_TYPE'
-        }, {
-          title: 'Auto Renewal',
-          data: 'REINVESTMENT'
-        }, {
-          title: 'Fixed Deposit',
-          data: 'INTEREST_RULE'
-        }, {
-          title: 'Is Renwal Applicable',
-          data: 'IS_RENEWAL_ALLOW'
-        }, {
-          title: 'Is Interest Applicable ?',
-          data: 'S_INT_APPLICABLE'
-        }, {
-          title: 'Is Post Interest to A/c ?',
-          data: 'POST_TO_INDIVIDUAL_AC'
-        }, {
-          title: 'Is Payable Interest Allowed ?',
-          data: 'S_PAYABLE_INT_ALLOW'
-        }, {
-          title: 'Is Calculate Interest On Deposit Amt (Scheme Amt) ..?',
-          data: 'IS_INT_ON_DEPO_AMT'
-        }, {
-          title: 'Minimum Interest Amount',
-          data: 'MIN_INT_LIMIT'
-        }, {
-          title: 'Interest Round Off Factor in Paise',
-          data: 'ROUNDOFF_FACTOR'
-        },
-        {
-          title: 'Calculation On Days',
-          data: 'S_INTCALTP'
-        },
-        {
-          title: 'Month Product Base ',
-          data: 'S_INTCALTP'
-        },
-        {
-          title: 'Product Base Start Day',
-          data: 'S_PRODUCT_DAY_BASE'
-        },
-        {
-          title: 'Month Begin',
-          data: 'S_PRODUCT_DAY_BASE'
-        },
-        {
-          title: 'Month End',
-          data: 'S_PRODUCT_DAY_BASE'
-        },
-        {
-          title: 'Product Base End Day',
-          data: 'S_PRODUCT_DAY_BASE_END'
-        },
-        {
-          title: 'Month Begin',
-          data: 'S_PRODUCT_DAY_BASE_END'
-        },
-        {
-          title: 'Month End',
-          data: 'S_PRODUCT_DAY_BASE_END'
-        },
-        {
-          title: 'Product up to Int Calculation Date',
-          data: 'IS_PRODUCTUPTODATE'
-        },
-        {
-          title: 'Month & Days Base',
-          data: 'S_INTCALTP'
-        },
-        {
-          title: 'Start with Months + Days',
-          data: 'IS_START_WITH_MONTHS'
-        },
-        {
-          title: 'Days Product Base',
-          data: 'IS_PRODUCT_BAL_BASE'
-        },
-        {
-          title: 'Is Days Base Int.Instruction',
-          data: 'IS_DAYSBASE_INSTRUCTION'
-        },
-        {
-          title: 'Interest up to Int.Calculation Date',
-          data: 'IS_INTUPTODATE'
-        },
-        {
-          title: 'Simple Interest',
-          data: 'S_INTCALC_METHOD'
-        },
-        {
-          title: 'Fixed Quarter',
-          data: 'FIX_QUARTER'
-        },
-        {
-          title: 'Quarter Plus Days',
-          data: 'QUARTER_PLUS_DAYS'
-        },
-        {
-          title: 'Compount Intereste',
-          data: 'S_INTCALC_METHOD'
-        },
-        {
-          title: 'Compount Interest (COMBO BOX)',
-          data: 'COMPOUND_INT_BASIS'
-        },
+        //   title: 'Pat Deposits',
+        //   data: 'INTEREST_RULE'
+        // }, {
+        //   title: 'Recurring Deposits',
+        //   data: 'IS_RECURRING_TYPE'
+        // }, {
+        //   title: 'Call Deposits',
+        //   data: 'IS_CALLDEPOSIT_TYPE'
+        // }, {
+        //   title: 'Auto Renewal',
+        //   data: 'REINVESTMENT'
+        // }, {
+        //   title: 'Fixed Deposit',
+        //   data: 'INTEREST_RULE'
+        // }, {
+        //   title: 'Is Renwal Applicable',
+        //   data: 'IS_RENEWAL_ALLOW'
+        // }, {
+        //   title: 'Is Interest Applicable ?',
+        //   data: 'S_INT_APPLICABLE'
+        // }, {
+        //   title: 'Is Post Interest to A/c ?',
+        //   data: 'POST_TO_INDIVIDUAL_AC'
+        // }, {
+        //   title: 'Is Payable Interest Allowed ?',
+        //   data: 'S_PAYABLE_INT_ALLOW'
+        // }, {
+        //   title: 'Is Calculate Interest On Deposit Amt (Scheme Amt) ..?',
+        //   data: 'IS_INT_ON_DEPO_AMT'
+        // }, {
+        //   title: 'Minimum Interest Amount',
+        //   data: 'MIN_INT_LIMIT'
+        // }, {
+        //   title: 'Interest Round Off Factor in Paise',
+        //   data: 'ROUNDOFF_FACTOR'
+        // },
+        // {
+        //   title: 'Calculation On Days',
+        //   data: 'S_INTCALTP'
+        // },
+        // {
+        //   title: 'Month Product Base ',
+        //   data: 'S_INTCALTP'
+        // },
+        // {
+        //   title: 'Product Base Start Day',
+        //   data: 'S_PRODUCT_DAY_BASE'
+        // },
+        // {
+        //   title: 'Month Begin',
+        //   data: 'S_PRODUCT_DAY_BASE'
+        // },
+        // {
+        //   title: 'Month End',
+        //   data: 'S_PRODUCT_DAY_BASE'
+        // },
+        // {
+        //   title: 'Product Base End Day',
+        //   data: 'S_PRODUCT_DAY_BASE_END'
+        // },
+        // {
+        //   title: 'Month Begin',
+        //   data: 'S_PRODUCT_DAY_BASE_END'
+        // },
+        // {
+        //   title: 'Month End',
+        //   data: 'S_PRODUCT_DAY_BASE_END'
+        // },
+        // {
+        //   title: 'Product up to Int Calculation Date',
+        //   data: 'IS_PRODUCTUPTODATE'
+        // },
+        // {
+        //   title: 'Month & Days Base',
+        //   data: 'S_INTCALTP'
+        // },
+        // {
+        //   title: 'Start with Months + Days',
+        //   data: 'IS_START_WITH_MONTHS'
+        // },
+        // {
+        //   title: 'Days Product Base',
+        //   data: 'IS_PRODUCT_BAL_BASE'
+        // },
+        // {
+        //   title: 'Is Days Base Int.Instruction',
+        //   data: 'IS_DAYSBASE_INSTRUCTION'
+        // },
+        // {
+        //   title: 'Interest up to Int.Calculation Date',
+        //   data: 'IS_INTUPTODATE'
+        // },
+        // {
+        //   title: 'Simple Interest',
+        //   data: 'S_INTCALC_METHOD'
+        // },
+        // {
+        //   title: 'Fixed Quarter',
+        //   data: 'FIX_QUARTER'
+        // },
+        // {
+        //   title: 'Quarter Plus Days',
+        //   data: 'QUARTER_PLUS_DAYS'
+        // },
+        // {
+        //   title: 'Compount Intereste',
+        //   data: 'S_INTCALC_METHOD'
+        // },
+        // {
+        //   title: 'Compount Interest (COMBO BOX)',
+        //   data: 'COMPOUND_INT_BASIS'
+        // },
 
-        {
-          title: 'Compount Int. Days',
-          data: 'COMPOUND_INT_DAYS'
-        },
-        {
-          title: 'Discount Interest Rate Applicable',
-          data: 'IS_DISCOUNTED_INT_RATE'
-        },
-        {
-          title: 'One Time ',
-          data: 'S_INSTTYPE'
-        },
-        {
-          title: 'Monthly',
-          data: 'S_INSTTYPE'
-        },
-        {
-          title: 'Installment Base ',
-          data: 'INSTALLMENT_BASIS'
-        },
-        {
-          title: 'Is Calculate Interest On Assuming Installments are Received',
-          data: 'IS_ASSUMED_INSTALLMENTS'
-        },
-        {
-          title: 'Installment Compulsory in Multiple Amt',
-          data: 'INSTALLMENT_COMPULSORY_IN_PAT'
-        },
-        {
-          title: 'Is Calculate Interest on only Deposited Installments',
-          data: 'PREMATURE_ON_DEPOSIT_INST'
-        },
-        {
-          title: 'Is Allow Extra Installments in Recovery',
-          data: 'ALLOW_EXTRA_INSTALLMENTS'
-        },
-        {
-          title: 'Penal Interest Applicable ?',
-          data: 'S_PENAL_INT_APPLICABLE'
-        },
-        {
-          title: 'Penal Product Base Day',
-          data: 'DEPOSIT_PENAL_INT_CALC_DAY'
-        },
-        {
-          title: 'Month Begin',
-          data: 'DEPOSIT_PENAL_INT_CALC_DAY'
-        },
-        {
-          title: 'Month End',
-          data: 'DEPOSIT_PENAL_INT_CALC_DAY'
-        },
-        {
-          title: 'Post Penal Interest to A/c',
-          data: 'POST_PENALINT_IN_INTEREST'
-        },
-        {
-          title: 'Penal Interest Rate %',
-          data: 'S_PENAL_INT_RATE'
-        },
-        {
-          title: 'Maturity Calculation Multiple Amount',
-          data: 'S_MATUCALC'
-        },
-        {
-          title: 'Is Calculated Maturity Amt.In Master',
-          data: 'IS_CAL_MATURITY_AMT'
-        },
-        {
-          title: 'Is Fixed Maturity Amount in Payment',
-          data: 'FIXED_MATURITY_AMT'
-        },
-        {
-          title: 'Prematured Compound Interest',
-          data: 'PREMATURE_COMPOUND_INT'
-        },
-        {
-          title: 'Auto Maturity Transfer Process Execute',
-          data: 'TRANSFER_TO_MATURE_DEPOSIT'
-        },
+        // {
+        //   title: 'Compount Int. Days',
+        //   data: 'COMPOUND_INT_DAYS'
+        // },
+        // {
+        //   title: 'Discount Interest Rate Applicable',
+        //   data: 'IS_DISCOUNTED_INT_RATE'
+        // },
+        // {
+        //   title: 'One Time ',
+        //   data: 'S_INSTTYPE'
+        // },
+        // {
+        //   title: 'Monthly',
+        //   data: 'S_INSTTYPE'
+        // },
+        // {
+        //   title: 'Installment Base ',
+        //   data: 'INSTALLMENT_BASIS'
+        // },
+        // {
+        //   title: 'Is Calculate Interest On Assuming Installments are Received',
+        //   data: 'IS_ASSUMED_INSTALLMENTS'
+        // },
+        // {
+        //   title: 'Installment Compulsory in Multiple Amt',
+        //   data: 'INSTALLMENT_COMPULSORY_IN_PAT'
+        // },
+        // {
+        //   title: 'Is Calculate Interest on only Deposited Installments',
+        //   data: 'PREMATURE_ON_DEPOSIT_INST'
+        // },
+        // {
+        //   title: 'Is Allow Extra Installments in Recovery',
+        //   data: 'ALLOW_EXTRA_INSTALLMENTS'
+        // },
+        // {
+        //   title: 'Penal Interest Applicable ?',
+        //   data: 'S_PENAL_INT_APPLICABLE'
+        // },
+        // {
+        //   title: 'Penal Product Base Day',
+        //   data: 'DEPOSIT_PENAL_INT_CALC_DAY'
+        // },
+        // {
+        //   title: 'Month Begin',
+        //   data: 'DEPOSIT_PENAL_INT_CALC_DAY'
+        // },
+        // {
+        //   title: 'Month End',
+        //   data: 'DEPOSIT_PENAL_INT_CALC_DAY'
+        // },
+        // {
+        //   title: 'Post Penal Interest to A/c',
+        //   data: 'POST_PENALINT_IN_INTEREST'
+        // },
+        // {
+        //   title: 'Penal Interest Rate %',
+        //   data: 'S_PENAL_INT_RATE'
+        // },
+        // {
+        //   title: 'Maturity Calculation Multiple Amount',
+        //   data: 'S_MATUCALC'
+        // },
+        // {
+        //   title: 'Is Calculated Maturity Amt.In Master',
+        //   data: 'IS_CAL_MATURITY_AMT'
+        // },
+        // {
+        //   title: 'Is Fixed Maturity Amount in Payment',
+        //   data: 'FIXED_MATURITY_AMT'
+        // },
+        // {
+        //   title: 'Prematured Compound Interest',
+        //   data: 'PREMATURE_COMPOUND_INT'
+        // },
+        // {
+        //   title: 'Auto Maturity Transfer Process Execute',
+        //   data: 'TRANSFER_TO_MATURE_DEPOSIT'
+        // },
 
-        {
-          title: 'Maturity Process Grace Months',
-          data: 'MATURE_GRACE_MONTHS'
-        },
-        {
-          title: 'Maturity Process Grace Days',
-          data: 'MATURE_GRACE_DAYS'
+        // {
+        //   title: 'Maturity Process Grace Months',
+        //   data: 'MATURE_GRACE_MONTHS'
+        // },
+        // {
+        //   title: 'Maturity Process Grace Days',
+        //   data: 'MATURE_GRACE_DAYS'
 
-        },
-        {
-          title: 'Auto Cutting Loan A/cs (Liened)',
-          data: 'IS_AUTO_CUTTING'
-        },
-        {
-          title: 'As on Date Applicable for Deposit',
-          data: 'S_INTASON'
-        },
-        {
-          title: 'TD Period Input Applicable',
-          data: 'PERIOD_APPLICABLE'
-        },
-        {
-          title: 'Is Auto Calculate Deposit Period?',
-          data: 'IS_AUTO_PERIOD_CALCULATE'
-        },
-        {
-          title: 'Unit of TD Period',
-          data: 'UNIT_OF_PERIOD'
-        },
-        {
-          title: 'Minimum Period in Days',
-          data: 'MIN_DAYS'
-        },
-        {
-          title: 'Minimum Period in Months',
-          data: 'MIN_MONTH'
-        },
-        {
-          title: 'Maximum Deposit Limit',
-          data: 'MAX_DEP_LMT'
-        },
+        // },
+        // {
+        //   title: 'Auto Cutting Loan A/cs (Liened)',
+        //   data: 'IS_AUTO_CUTTING'
+        // },
+        // {
+        //   title: 'As on Date Applicable for Deposit',
+        //   data: 'S_INTASON'
+        // },
+        // {
+        //   title: 'TD Period Input Applicable',
+        //   data: 'PERIOD_APPLICABLE'
+        // },
+        // {
+        //   title: 'Is Auto Calculate Deposit Period?',
+        //   data: 'IS_AUTO_PERIOD_CALCULATE'
+        // },
+        // {
+        //   title: 'Unit of TD Period',
+        //   data: 'UNIT_OF_PERIOD'
+        // },
+        // {
+        //   title: 'Minimum Period in Days',
+        //   data: 'MIN_DAYS'
+        // },
+        // {
+        //   title: 'Minimum Period in Months',
+        //   data: 'MIN_MONTH'
+        // },
+        // {
+        //   title: 'Maximum Deposit Limit',
+        //   data: 'MAX_DEP_LMT'
+        // },
 
-        {
-          title: 'Multiple of Amount',
-          data: 'MULTIPLE_OF_AMT'
-        },
-        {
-          title: 'Multiple of Days',
-          data: 'MULTIPLE_OF_DAYS'
-        },
-        {
-          title: 'Multiple of Months',
-          data: 'MULTIPLE_OF_MONTH'
-        },
-        {
-          title: 'Is Cash Interest Payment Allowed ?',
-          data: 'S_INTPAID'
-        },
-        {
-          title: 'Is Interest Paid on A/c Closing ?',
-          data: 'S_INTPAID_ON_CLOSING'
-        },
-        {
-          title: 'Is TDS Calculaion Applicable ?',
-          data: 'IS_TDS_APPLICABLE'
-        },
-        {
-          title: 'Is Interest Add in Principle Amount ?',
-          data: 'S_INTADD_PRINCIPLE'
-        },
-        {
-          title: 'Is Standing Instruction Applicable ?',
-          data: 'STAND_INSTRUCTION_ALLOW'
-        }, {
-          title: 'Is Standing Instruction STOP after Matured ?',
-          data: 'IS_STD_INSTR_UPTO_MATURITY'
-        },
-        {
-          title: 'Is Instruction though Auto Cutting LN/CC',
-          data: 'IS_AUTO_CUT_INSTRUCTION'
-        },
-        {
-          title: 'Is Allow Standing Instruction Minimum Bal.?',
-          data: 'IS_ALLOW_SI_MINBAL'
-        },
-        {
-          title: 'Is Interest Instruction Applicable ?',
-          data: 'INT_INSTRUCTION_ALLOW'
-        },
-        {
-          title: 'Is add Payable Interest in Instruction ?',
-          data: 'IS_ADD_PAYINT_IN_INSTRUCTION'
-        },
-        {
-          title: 'Is Interest Instruction STOP after Matured?',
-          data: 'IS_INSTRUCTION_UPTO_MATURITY'
-        },
-        {
-          title: 'Is FD Receipt No. Input ?',
-          data: 'RECEIPT_NO_INPUT'
-        },
-        {
-          title: 'TD Receipt Type / Series',
-          data: 'RECEIPT_TYPE'
-        },
-        {
-          title: 'Is Withdrawal Applicable ?',
-          data: 'WITHDRAWAL_APPLICABLE'
-        },
-        {
-          title: 'Is Balance Entry Allowed ?',
-          data: 'BALANCE_ADD_APPLICABLE'
-        },
-        {
-          title: 'Premature Less Interest Rate',
-          data: 'LESS_PREMATURE_INT_RATE'
-        },
-        {
-          title: 'Premature Interest Rate As per ',
-          data: 'PREMATURE_INTRATE_ASPER'
-        },
-        {
-          title: 'After Mature Interest Rate',
-          data: 'AFTER_MATURE_INT_RATE'
-        },
-        {
-          title: 'Deposit Amount',
-          data: 'TD_RECEIPT_METHOD'
-        },
-        {
-          title: 'Closing Balance',
-          data: 'TD_RECEIPT_METHOD'
-        },
+        // {
+        //   title: 'Multiple of Amount',
+        //   data: 'MULTIPLE_OF_AMT'
+        // },
+        // {
+        //   title: 'Multiple of Days',
+        //   data: 'MULTIPLE_OF_DAYS'
+        // },
+        // {
+        //   title: 'Multiple of Months',
+        //   data: 'MULTIPLE_OF_MONTH'
+        // },
+        // {
+        //   title: 'Is Cash Interest Payment Allowed ?',
+        //   data: 'S_INTPAID'
+        // },
+        // {
+        //   title: 'Is Interest Paid on A/c Closing ?',
+        //   data: 'S_INTPAID_ON_CLOSING'
+        // },
+        // {
+        //   title: 'Is TDS Calculaion Applicable ?',
+        //   data: 'IS_TDS_APPLICABLE'
+        // },
+        // {
+        //   title: 'Is Interest Add in Principle Amount ?',
+        //   data: 'S_INTADD_PRINCIPLE'
+        // },
+        // {
+        //   title: 'Is Standing Instruction Applicable ?',
+        //   data: 'STAND_INSTRUCTION_ALLOW'
+        // }, {
+        //   title: 'Is Standing Instruction STOP after Matured ?',
+        //   data: 'IS_STD_INSTR_UPTO_MATURITY'
+        // },
+        // {
+        //   title: 'Is Instruction though Auto Cutting LN/CC',
+        //   data: 'IS_AUTO_CUT_INSTRUCTION'
+        // },
+        // {
+        //   title: 'Is Allow Standing Instruction Minimum Bal.?',
+        //   data: 'IS_ALLOW_SI_MINBAL'
+        // },
+        // {
+        //   title: 'Is Interest Instruction Applicable ?',
+        //   data: 'INT_INSTRUCTION_ALLOW'
+        // },
+        // {
+        //   title: 'Is add Payable Interest in Instruction ?',
+        //   data: 'IS_ADD_PAYINT_IN_INSTRUCTION'
+        // },
+        // {
+        //   title: 'Is Interest Instruction STOP after Matured?',
+        //   data: 'IS_INSTRUCTION_UPTO_MATURITY'
+        // },
+        // {
+        //   title: 'Is FD Receipt No. Input ?',
+        //   data: 'RECEIPT_NO_INPUT'
+        // },
+        // {
+        //   title: 'TD Receipt Type / Series',
+        //   data: 'RECEIPT_TYPE'
+        // },
+        // {
+        //   title: 'Is Withdrawal Applicable ?',
+        //   data: 'WITHDRAWAL_APPLICABLE'
+        // },
+        // {
+        //   title: 'Is Balance Entry Allowed ?',
+        //   data: 'BALANCE_ADD_APPLICABLE'
+        // },
+        // {
+        //   title: 'Premature Less Interest Rate',
+        //   data: 'LESS_PREMATURE_INT_RATE'
+        // },
+        // {
+        //   title: 'Premature Interest Rate As per ',
+        //   data: 'PREMATURE_INTRATE_ASPER'
+        // },
+        // {
+        //   title: 'After Mature Interest Rate',
+        //   data: 'AFTER_MATURE_INT_RATE'
+        // },
+        // {
+        //   title: 'Deposit Amount',
+        //   data: 'TD_RECEIPT_METHOD'
+        // },
+        // {
+        //   title: 'Closing Balance',
+        //   data: 'TD_RECEIPT_METHOD'
+        // },
       ],
       dom: 'Bfrtip',
     };
@@ -1008,6 +1025,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
 
   }
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
 
@@ -1102,6 +1120,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     console.log(dataToSend);
     this.TermDepositSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       // to reload after insertion of data
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -1279,6 +1298,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

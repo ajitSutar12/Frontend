@@ -28,6 +28,7 @@ import { SchemetypeService } from "./scheme-type-setting.service";
 //import { StatementTypeService } from '../../../../shared/elements/statement-type.service';
 import { SchemeTypeDropdownService } from "../../../../shared/dropdownService/scheme-type-dropdown.service";
 import { environment } from "../../../../../environments/environment";
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -64,6 +65,7 @@ interface SchemeType {
 export class SchemeTypeSettingComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
+  formSubmitted = false;
   //api
   url = environment.base_url;
   
@@ -110,6 +112,9 @@ export class SchemeTypeSettingComponent
   // Filter Variable
   filterData = {};
 
+  //dropdown variables
+  ngscheme:any=null
+
   //title select variables
   schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
 
@@ -127,8 +132,8 @@ export class SchemeTypeSettingComponent
     public schemetypeservice: SchemetypeService,
     // for dropdown
     public SchemeTypes: SchemeTypeDropdownService,
-    private fb: FormBuilder
-  ) {
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) {
     this.createForm();
   }
 
@@ -245,59 +250,59 @@ export class SchemeTypeSettingComponent
           title: "Description",
           data: "S_NAME",
         },
-        {
-          title: "Is Single Voucher Required?",
-          data: "S_SINGLE_VOUCHER",
-        },
-        {
-          title: "Is Multi Vouchers Required?",
-          data: "S_MULTY_VOUCHER",
-        },
+        // {
+        //   title: "Is Single Voucher Required?",
+        //   data: "S_SINGLE_VOUCHER",
+        // },
+        // {
+        //   title: "Is Multi Vouchers Required?",
+        //   data: "S_MULTY_VOUCHER",
+        // },
         
-        {
-          title: "Is Required Cash payment Lock?",
-          data: "S_CASH_PAID_LOCK ",
-        },
-        {
-          title: "Show Message when cash payment min Rs.",
-          data: "S_CASH_PAID_MIN_AMT",
-        },
-        {
-          title: "Is Local Clearing Applicable?",
-          data: "S_LOCAL_CLEARING",
-        },
-        {
-          title: "Is Cheue Book Required?",
-          data: "S_CHEQUE_BOOK",
-        },
-        {
-          title: "Is Demand Draft Applicable?",
-          data: "S_DEMAND_DRAFT",
-        },
-        {
-          title: "Is Pay Order Applicable?",
-          data: "IS_PO_APPL",
-        },
-        {
-          title: "Is Temporary Overdraft Applicable?",
-          data: "S_TEMP_OVERDRFT",
-        },
-        {
-          title: "Is Periodically Overdraft Applicable?",
-          data: "S_PERIODCL_OVERDRFT",
-        },
-        {
-          title: "Is Special Instruction Applicable?",
-          data: "S_SPECIAL_INSTRUCTION",
-        },
-        {
-          title: "Is Subsidiary Print Required?",
-          data: "S_SUB_PRINT",
-        },
-        {
-          title: "Is freeze A/C applicable",
-          data: "S_FREEZE_APPLICABLE",
-        },
+        // {
+        //   title: "Is Required Cash payment Lock?",
+        //   data: "S_CASH_PAID_LOCK ",
+        // },
+        // {
+        //   title: "Show Message when cash payment min Rs.",
+        //   data: "S_CASH_PAID_MIN_AMT",
+        // },
+        // {
+        //   title: "Is Local Clearing Applicable?",
+        //   data: "S_LOCAL_CLEARING",
+        // },
+        // {
+        //   title: "Is Cheue Book Required?",
+        //   data: "S_CHEQUE_BOOK",
+        // },
+        // {
+        //   title: "Is Demand Draft Applicable?",
+        //   data: "S_DEMAND_DRAFT",
+        // },
+        // {
+        //   title: "Is Pay Order Applicable?",
+        //   data: "IS_PO_APPL",
+        // },
+        // {
+        //   title: "Is Temporary Overdraft Applicable?",
+        //   data: "S_TEMP_OVERDRFT",
+        // },
+        // {
+        //   title: "Is Periodically Overdraft Applicable?",
+        //   data: "S_PERIODCL_OVERDRFT",
+        // },
+        // {
+        //   title: "Is Special Instruction Applicable?",
+        //   data: "S_SPECIAL_INSTRUCTION",
+        // },
+        // {
+        //   title: "Is Subsidiary Print Required?",
+        //   data: "S_SUB_PRINT",
+        // },
+        // {
+        //   title: "Is freeze A/C applicable",
+        //   data: "S_FREEZE_APPLICABLE",
+        // },
       ],
       dom: "Blrtip",
     };
@@ -310,14 +315,11 @@ export class SchemeTypeSettingComponent
   // enable-disable checkbox event
   cashpaymentlock($event) {
     if ($event.target.checked) {
-      document
-        .getElementById("S_CASH_PAID_MIN_AMT")
-        .removeAttribute("disabled");
+      document.getElementById("S_CASH_PAID_MIN_AMT").removeAttribute("disabled");
     } else {
-      document
-        .getElementById("S_CASH_PAID_MIN_AMT")
-        .setAttribute("disabled", "true");
-      this.angForm.controls.POST_TO_INDIVIDUAL_AC.reset();
+      document.getElementById("S_CASH_PAID_MIN_AMT") .setAttribute("disabled", "true");
+      // this.angForm.controls.POST_TO_INDIVIDUAL_AC.reset();
+      this.angForm.controls.S_CASH_PAID_MIN_AMT.reset();
     }
   }
 
@@ -352,6 +354,7 @@ export class SchemeTypeSettingComponent
   }
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       id:formVal.id,
@@ -374,6 +377,7 @@ export class SchemeTypeSettingComponent
     this.schemetypeservice.postData(dataToSend).subscribe(
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload();
@@ -461,6 +465,7 @@ export class SchemeTypeSettingComponent
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

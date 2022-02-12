@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -37,6 +38,7 @@ interface LockeScheme {
   styleUrls: ['./lockers-scheme.component.scss'],
 })
 export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   //api 
@@ -73,6 +75,12 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   updateID: number = 0;
   //Dropdown option variable
   acMaster: any
+  ngglac:any=null
+  nglocker:any=null
+  ngreceivablelocker:any=null
+
+
+
   filterData={} 
   newbtnShow: boolean;
 
@@ -80,7 +88,8 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     private http: HttpClient,
     private lockersSchemeService: LockersSchemeService,
     private acMasterDropdownService: ACMasterDropdownService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -129,9 +138,9 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       columns: [
         {
           title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="deletebtn btn btn-outline-primary btn-sm">Delete</button>';
-          }
+          // render: function (data: any, type: any, full: any) {
+          //   return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="deletebtn btn btn-outline-primary btn-sm">Delete</button>';
+          // }
         },
         {
           title: 'Type',
@@ -188,6 +197,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   }
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'S_ACNOTYPE': formVal.S_ACNOTYPE,
@@ -203,8 +213,12 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     console.log(dataToSend);
     this.lockersSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       // to reload after insertion of data
-      this.rerender();
+      //this.rerender();
     }, (error) => {
       console.log(error)
     })
@@ -238,10 +252,13 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     data['id'] = this.updateID;
     this.lockersSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      //this.rerender();
       this.resetForm();
     })
   }
@@ -295,6 +312,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       this.myInputField.nativeElement.focus();
       this.dtTrigger.next();
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
         dtInstance.columns().every(function () {
           const that = this;
           $('input', this.footer()).on('keyup change', function () {

@@ -3,17 +3,30 @@
         <div class="card">
             <div class="card-header">
                 <h5>Over Draft</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <div class="card-block">
                 <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-4">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="allScheme" [multiple]="false"
                                     placeholder="Scheme*" formControlName="AC_TYPE" [(ngModel)]="acno"
                                     (selected)="getSchemeAcNO(acno)">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="acno" (selected)="getSchemeAcNO(acno)"
+                                    formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                    <ng-option *ngFor="let values of allScheme" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="AC_TYPE">Scheme<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
@@ -24,11 +37,22 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="schemeACNo" [multiple]="false"
                                     placeholder="Account No*" required title="Compulsory Selection"
                                     formControlName="AC_NO">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngscheme" 
+                                    formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Account No">
+                                    <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="AC_NO">Account No<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
@@ -86,6 +110,7 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="To" class="form-control"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
                                                             placeholder=" " id="Over" pattern="\d{1,7}(\.\d{2})?"
                                                             title="Input allowed only  0-9" formControlName="AC_ODAMT">
                                                         <label for="Over">Over DRaft Amount<sub
@@ -97,7 +122,7 @@
                                                     class='alert alert-danger'>
                                                     <div
                                                         *ngIf="angForm.controls['AC_ODAMT'].errors?.pattern || angForm.controls['AC_ODAMT'].errors?.required">
-                                                        This field is required and Input allowed only 0-9
+                                                        This field is required and Input allowed only . 0-9
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,6 +130,7 @@
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <input type="text" name="To" class="form-control"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                             placeholder=" " id="Over1" pattern="^[0-9]+$" maxlength="3"
                                                             title="Input allowed only  0-9" formControlName="AC_ODDAYS"
                                                             [required]="periodoverdraft">
@@ -124,9 +150,18 @@
                                             <div class="col-sm">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" class="form-control" placeholder=" "
+                                                        <!-- <input type="text" class="form-control" placeholder=" "
                                                             id="Date" max="9999-12-31" formControlName="AC_ODDATE"
-                                                            onfocus="(this.type='date')" [required]="periodoverdraft" />
+                                                            onfocus="(this.type='date')" [required]="periodoverdraft" /> -->
+                                                            <input type="text" placeholder="dd/mm/yyyy"
+                                                                name="AC_ODDATE" id="AC_ODDATE"
+                                                                class="form-control" [(ngModel)]="effectdate"
+                                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                [minDate]="minDate"
+                                                                [ngClass]="{'form-submitted': formSubmitted}"
+                                                                formControlName="AC_ODDATE"
+                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                bsDatepicker>
                                                         <label for="Date">OD Till Date <sub
                                                                 class="required">*</sub></label>
                                                     </span>
@@ -171,12 +206,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <button class="btn btn-primary ripple light" (click)="submit()" [disabled]="angForm.invalid"
-                            *ngIf="showButton">Add</button>
-                        <button class="btn btn-primary ripple light" (click)="updateData()"
+                    <div class="col-sm">
+                        <button class="btn btn-outline-primary btn-sm" (click)="submit()" [disabled]="angForm.invalid"
+                            *ngIf="showButton">Submit</button>
+                        <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                             *ngIf="updateShow">Update</button>&nbsp;
-                        <button class="btn btn-primary ripple light" (click)="addNewData()"
+                        <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                             *ngIf="newbtnShow">Cancel</button>
                     </div>
                 </form>

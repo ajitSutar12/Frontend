@@ -154,22 +154,22 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
           title: 'Short Name',
           data: 'S_SHNAME'
         },
-        {
-          title: 'Is Interest Applicable? ',
-          data: 'S_INT_APPLICABLE'
-        },
-        {
-          title: 'Minimum Interest Amount',
-          data: 'MIN_INT_LIMIT'
-        },
-        {
-          title: 'Is Standing Instruction Applicable?',
-          data: 'STAND_INSTRUCTION_ALLOW'
-        },
-        {
-          title: 'Is Interest Instruction Allowed ?',
-          data: 'INT_INSTRUCTION_ALLOW'
-        }
+        // {
+        //   title: 'Is Interest Applicable? ',
+        //   data: 'S_INT_APPLICABLE'
+        // },
+        // {
+        //   title: 'Minimum Interest Amount',
+        //   data: 'MIN_INT_LIMIT'
+        // },
+        // {
+        //   title: 'Is Standing Instruction Applicable?',
+        //   data: 'STAND_INSTRUCTION_ALLOW'
+        // },
+        // {
+        //   title: 'Is Interest Instruction Allowed ?',
+        //   data: 'INT_INSTRUCTION_ALLOW'
+        // }
       ],
       dom: 'Blrtip',
     };
@@ -203,8 +203,11 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
     }
     this.generalLedgerSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       // to reload after insertion of data
-      this.rerender();
+      //this.rerender();
     }, (error) => {
       console.log(error)
     })
@@ -238,10 +241,13 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
     data['id'] = this.updateID;
     this.generalLedgerSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      //this.rerender();
       this.resetForm();
     })
   }
@@ -320,6 +326,7 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FreezeAccountRoutingModule } from './freeze-account-routing.module'
 import { freezeAccountService } from '../../../../shared/dropdownService/freeze-account.service'
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
@@ -11,14 +12,18 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { FreezeAccountComponent } from './freeze-account.component';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 @NgModule({
   imports: [
     CommonModule,
-    SelectModule,
+    // SelectModule,
+    NgSelectModule,
     DataTablesModule,
     FreezeAccountRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   declarations: [FreezeAccountComponent],
   providers: [{

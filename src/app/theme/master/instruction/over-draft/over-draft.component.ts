@@ -14,6 +14,8 @@ import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { first } from 'rxjs/operators';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -36,6 +38,7 @@ interface OverMaster {
   styleUrls: ["./over-draft.component.scss"],
 })
 export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //api
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -57,12 +60,18 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   acno
   allScheme // all scheme
   schemeACNo //account no 
+  ngscheme:any=null
 
   selectedOption = "3";
   isDisabled = true;
   characters: Array<IOption>;
   selectedCharacter = "3";
   timeLeft = 5;
+
+  //  for Date
+  effectdate:any=null
+  maxDate: Date;
+  minDate: Date;
 
   private dataSub: Subscription = null;
 
@@ -80,8 +89,14 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private _overdraft: overdraftservice,
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private config: NgSelectConfig,
+  ) { 
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -155,10 +170,11 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
-        return (scheme.value == 'CA' || scheme.value == 'PG' || scheme.value == 'SB' || scheme.value == 'LN' || scheme.value == 'CC');
+        return (scheme.name == 'CA' || scheme.name == 'PG' || scheme.name == 'SB' || scheme.name == 'LN' || scheme.name == 'CC');
       });
       this.allScheme = filtered;
     })
+    console.log(this.allScheme)
   }
 
   runTimer() {
@@ -182,6 +198,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submit() {
+    let effectdate
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE: formVal.AC_TYPE,
@@ -189,11 +207,13 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_SODAMT: formVal.AC_SODAMT,
       AC_ODAMT: formVal.AC_ODAMT,
       AC_ODDAYS: formVal.AC_ODDAYS,
-      AC_ODDATE: formVal.AC_ODDATE,
+      // AC_ODDATE: formVal.AC_ODDATE,
+      'AC_ODDATE': (formVal.AC_ODDATE == '' || formVal.AC_ODDATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.AC_ODDATE).format('DD/MM/YYYY'),
     };
     this._overdraft.postData(dataToSend).subscribe(
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
         // to reload after insertion of data
         // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         //   dtInstance.ajax.reload()
@@ -207,32 +227,41 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     //To clear form
     this.resetForm();
   }
-
+  updatecheckdata:any
   //  editClickHandler function for edit button clicked
   editClickHandler(id: any): void {
+    let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._overdraft.getFormData(id).subscribe((data) => {
+      this.updatecheckdata=data
+      this.updatecheckdata=data
       this.updateID = data.id;
       this.angForm.setValue({
+        
         AC_TYPE: data.AC_TYPE,
         AC_NO: data.AC_NO,
         AC_SODAMT: data.AC_SODAMT,
         AC_ODAMT: data.AC_ODAMT,
         AC_ODDAYS: data.AC_ODDAYS,
-        AC_ODDATE: data.AC_ODDATE,
+        // AC_ODDATE: data.AC_ODDATE,
+        'AC_ODDATE': (data.AC_ODDATE == 'Invalid date' || data.AC_ODDATE == '' || data.AC_ODDATE == null) ? effectdate = '' : effectdate = data.AC_ODDATE,
       });
     });
   }
 
   // updateData function for update data
   updateData() {
+    let effectdate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+      }
     this._overdraft.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;

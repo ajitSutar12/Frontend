@@ -3,6 +3,9 @@
     <div class="card">
       <div class="card-header">
         <h5>Term Loan Scheme Settings</h5>
+        <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+          Fields marked with (<sub class="required"> * </sub>) are mandatory
+      </h6>
       </div>
       <form
         action="javascript:"
@@ -23,6 +26,7 @@
                     id="S_APPL"
                     required=""
                     pattern="^[0-9]+$"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     title="Input allowed only  0-9"
                     maxlength="3"
                     minlength="3"
@@ -68,6 +72,7 @@
                     placeholder=" "
                     id="S_NAME"
                     required=""
+                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$"
                     maxlength="90"
                     title="Input allowed only  A-Z a-z  - / . (Space)"
@@ -109,6 +114,7 @@
                     placeholder=" "
                     id="S_SHNAME"
                     required=""
+                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$"
                     maxlength="10"
                     title="Input allowed only  A-Z a-z  - / . (Space)"
@@ -143,7 +149,7 @@
           </div>
           <div class="row">
             <div class="col-sm">
-              <div class="form-group form-primary form-static-label">
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select
                   [ngClass]="'ng-select'"
                   [options]="acMaster"
@@ -154,8 +160,21 @@
                   formControlName="S_GLACNO"
                 >
                 </ng-select>
+              </div> -->
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                    <ng-select id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno"
+                        formControlName="S_GLACNO" bindLabel="label"
+                        title="Compulsory Selection"
+                        [ngClass]="{'form-submitted': formSubmitted}"
+                        required placeholder="G.L. A/c No">
+                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                    </ng-select>
+                    <label for="S_GLACNO">G.L. A/c No<sub class="required"> * </sub></label>
+                </span>
               </div>
-              <div
+            </div>
+            <div
                 class="form-group form-primary form-static-label"
                 *ngIf="
                   angForm.controls['S_GLACNO'].invalid &&
@@ -167,10 +186,10 @@
                 <div *ngIf="angForm.controls['S_GLACNO'].errors?.required">
                   This field is required
                 </div>
-              </div>
             </div>
+           
             <div class="col-sm">
-              <div class="form-group form-primary form-static-label">
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select
                   [ngClass]="'ng-select'"
                   [options]="acMaster"
@@ -180,6 +199,18 @@
                   formControlName="S_INT_ACNO"
                 >
                 </ng-select>
+              </div> -->
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                    <ng-select id="S_INT_ACNO" bindValue="value" [(ngModel)]="ngintglac"
+                        formControlName="S_INT_ACNO" bindLabel="label"
+                        title="Compulsory Selection"
+                        [ngClass]="{'form-submitted': formSubmitted}"
+                        required placeholder="Interest GL A/c">
+                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                    </ng-select>
+                    <label for="S_INT_ACNO">Interest GL A/c<sub class="required"> * </sub></label>
+                </span>
               </div>
               <div
                 class="form-group form-primary form-static-label"
@@ -196,7 +227,7 @@
               </div>
             </div>
             <div class="col-sm">
-              <div class="form-group form-primary form-static-label">
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select
                   [ngClass]="'ng-select'"
                   [options]="acMaster"
@@ -207,12 +238,24 @@
                   [required]="S_RECBL_PYBL_INT_ACNO"
                 >
                 </ng-select>
+              </div> -->
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                    <ng-select id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngreceivableintac"
+                        formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label"
+                        title="Compulsory Selection"
+                        [ngClass]="{'form-submitted': formSubmitted}"
+                        required placeholder="Receivable Int. A/c">
+                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                    </ng-select>
+                    <label for="S_RECBL_PYBL_INT_ACNO">Receivable Int. A/c<sub class="required"> * </sub></label>
+                </span>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-sm">
-              <div class="form-group form-primary form-static-label">
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select
                   [ngClass]="'ng-select'"
                   [options]="acMaster"
@@ -223,10 +266,22 @@
                   [required]="S_PENAL_ACNO"
                 >
                 </ng-select>
+              </div> -->
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                    <ng-select id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac"
+                        formControlName="S_PENAL_ACNO" bindLabel="label"
+                        title="Compulsory Selection"
+                        [ngClass]="{'form-submitted': formSubmitted}"
+                        required placeholder="Penal Int. A/c">
+                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                    </ng-select>
+                    <label for="S_PENAL_ACNO">Penal Int. A/c<sub class="required"> * </sub></label>
+                </span>
               </div>
             </div>
             <div class="col-sm">
-              <div class="form-group form-primary form-static-label">
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select
                   [ngClass]="'ng-select'"
                   [options]="acMaster"
@@ -237,10 +292,23 @@
                   [required]="S_RECBL_PENAL_ACNO"
                 >
                 </ng-select>
+              </div> -->
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                    <ng-select id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngrecblepenalintac"
+                        formControlName="S_RECBL_PENAL_ACNO" bindLabel="label"
+                        title="Compulsory Selection"
+                        [ngClass]="{'form-submitted': formSubmitted}"
+                        required placeholder="Recble Penal Int. A/c">
+                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                    </ng-select>
+                    <label for="S_RECBL_PENAL_ACNO">Recble Penal Int. A/c<sub class="required"> * </sub></label>
+                </span>
               </div>
             </div>
+            
             <div class="col-sm">
-              <div class="form-group form-primary form-static-label">
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select
                   [ngClass]="'ng-select'"
                   [options]="acMaster"
@@ -251,12 +319,24 @@
                   [required]="S_RECBL_ODUE_INT_ACNO"
                 >
                 </ng-select>
+              </div> -->
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                    <ng-select id="S_RECBL_ODUE_INT_ACNO" bindValue="value" [(ngModel)]="ngrecbleoverdueint"
+                        formControlName="S_RECBL_ODUE_INT_ACNO" bindLabel="label"
+                        title="Compulsory Selection"
+                        [ngClass]="{'form-submitted': formSubmitted}"
+                        required placeholder="Recble Overdue Int">
+                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                    </ng-select>
+                    <label for="S_RECBL_ODUE_INT_ACNO">Recble Overdue Int<sub class="required"> * </sub></label>
+                </span>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-4">
-              <div class="form-group form-primary form-static-label">
+              <!-- <div class="form-group form-primary form-static-label">
                 <ng-select
                   [ngClass]="'ng-select'"
                   [options]="acMaster"
@@ -266,6 +346,18 @@
                   formControlName="S_OUTSTANDING_INT_ACNO"
                 >
                 </ng-select>
+              </div> -->
+              <div class="form-group form-primary form-static-label">
+                <span class="border-lable-flt">
+                    <ng-select id="S_OUTSTANDING_INT_ACNO" bindValue="value" [(ngModel)]="ngoutstandingintac"
+                        formControlName="S_OUTSTANDING_INT_ACNO" bindLabel="label"
+                        title="Compulsory Selection"
+                        [ngClass]="{'form-submitted': formSubmitted}"
+                        required placeholder="Outstanding Int. A/c">
+                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
+                    </ng-select>
+                    <label for="S_OUTSTANDING_INT_ACNO">Outstanding Int. A/c<sub class="required"> * </sub></label>
+                </span>
               </div>
             </div>
           </div>
@@ -427,7 +519,7 @@
                     <h5>Interest Applicable</h5>
                   </div>
                   <div class="card-block">
-                    <div class="border-checkbox-section">
+                    <div class="checkbox checkbox-primary">
                       <div class="row">
                         <div class="col-sm">
                           <div
@@ -476,7 +568,7 @@
                       </div>
                     </div>
                     <div class="card-block">
-                      <div class="border-checkbox-section">
+                      <div class="checkbox checkbox-primary">
                         <div class="row">
                           <div class="col-sm">
                             <div
@@ -549,7 +641,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="border-checkbox-section">
+                    <div class="checkbox checkbox-primary">
                       <div class="row">
                         <div class="col-sm">
                           <div
@@ -656,6 +748,7 @@
                               class="form-control"
                               placeholder=" "
                               id="MIN_INT_LIMIT"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
                               pattern="\d{2}(\.\d{2})?"
                               title="Input allowed only . 0-9"
                               formControlName="MIN_INT_LIMIT"
@@ -694,7 +787,7 @@
                     <h5>Penal Interest Applicable</h5>
                   </div>
                   <div class="card-block">
-                    <div class="border-checkbox-section">
+                    <div class="checkbox checkbox-primary">
                       <div class="row">
                         <div class="col-sm">
                           <div
@@ -830,6 +923,7 @@
                               name="S_PENAL_INT_RATE"
                               class="form-control"
                               placeholder=" "
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
                               id="S_PENAL_INT_RATE"
                               maxlength="5"
                               max="100"
@@ -961,7 +1055,7 @@
                     </div>
                     <div class="row">
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
+                        <div class="checkbox checkbox-primary">
                           <div
                             class="
                               border-checkbox-group
@@ -994,7 +1088,7 @@
                   <div class="card-block">
                     <div class="row">
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
+                        <div class="checkbox checkbox-primary">
                           <div
                             class="
                               border-checkbox-group
@@ -1018,7 +1112,7 @@
                     </div>
                     <div class="row">
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
+                        <div class="checkbox checkbox-primary">
                           <div
                             class="
                               border-checkbox-group
@@ -1049,7 +1143,7 @@
                     <h5>Loan Other Settings</h5>
                   </div>
                   <div class="card-block">
-                    <div class="border-checkbox-section">
+                    <div class="checkbox checkbox-primary">
                       <div class="row">
                         <div class="col-sm">
                           <div
@@ -1149,6 +1243,7 @@
                               name="MAX_LOAN_LMT"
                               class="form-control"
                               placeholder=" "
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
                               id="MAX_LOAN_LMT"
                               pattern="\d{1,20}(\.\d{2})?"
                               maxlength="20"
@@ -1188,6 +1283,7 @@
                               placeholder=" "
                               id="ROUNDOFF_FACTOR"
                               pattern="^[0-9]+$"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                               title="Input allowed only  0-9"
                               maxlength="2"
                               formControlName="ROUNDOFF_FACTOR"
@@ -1230,6 +1326,7 @@
                               placeholder=" "
                               id="DEFAULT_LOAN_PERIOD"
                               pattern="^[0-9]+$"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
                               title="Input allowed only  0-9"
                               maxlength="3"
                               formControlName="DEFAULT_LOAN_PERIOD"
@@ -1263,7 +1360,7 @@
                     </div>
                     <div class="row">
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
+                        <div class="checkbox checkbox-primary">
                           <div
                             class="
                               border-checkbox-group
@@ -1297,6 +1394,7 @@
                               placeholder=" "
                               id="MIN_LOAN_PERIOD"
                               pattern="^[0-9]+$"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
                               title="Input allowed only  0-9"
                               maxlength="3"
                               formControlName="MIN_LOAN_PERIOD"
@@ -1339,6 +1437,7 @@
                               class="form-control"
                               placeholder=" "
                               id="MAX_LOAN_PERIOD"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
                               pattern="^[0-9]+$"
                               title="Input allowed only  0-9"
                               maxlength="3"
@@ -1383,7 +1482,7 @@
                   <div class="card-block">
                     <div class="row">
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
+                        <div class="checkbox checkbox-primary">
                           <div
                             class="
                               border-checkbox-group
@@ -1408,7 +1507,7 @@
                     </div>
                     <div class="row">
                       <div class="col-sm-8">
-                        <ng-select
+                        <!-- <ng-select
                           [ngClass]="'ng-select'"
                           [options]="installmentMethod"
                           [multiple]="false"
@@ -1416,7 +1515,19 @@
                           formControlName="INSTALLMENT_METHOD"
                           [disabled]="INSTALLMENT_METHOD"
                         >
-                        </ng-select>
+                        </ng-select> -->
+                        <div class="form-group form-primary form-static-label">
+                          <span class="border-lable-flt">
+                              <ng-select id="INSTALLMENT_METHOD" bindValue="value" [(ngModel)]="nginstallment"
+                                  formControlName="INSTALLMENT_METHOD" bindLabel="label"
+                                  title="Compulsory Selection" [disabled]="INSTALLMENT_METHOD"
+                                  [ngClass]="{'form-submitted': formSubmitted}"
+                                  required placeholder="Installment Method">
+                                  <ng-option *ngFor="let values of installmentMethod" [value]="values">{{values.label}}</ng-option>      
+                              </ng-select>
+                              <label for="INSTALLMENT_METHOD">Installment Method<sub class="required"> * </sub></label>
+                          </span>
+                        </div>
                       </div>
                     </div>
                     <div class="row">
@@ -1433,6 +1544,7 @@
                               name="IS_OVERDUE_ON_INSTALLMENT"
                               class="form-control"
                               placeholder=" "
+                              (keypress)="($event.charCode >= 48 && $event.charCode <= 51)"
                               max="3"
                               maxlength="1"
                               id="IS_OVERDUE_ON_INSTALLMENT"
@@ -1479,7 +1591,7 @@
                     </div>
                     <div class="row">
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
+                        <div class="checkbox checkbox-primary">
                           <div
                             class="
                               border-checkbox-group
@@ -1518,6 +1630,7 @@
                               class="form-control"
                               placeholder=" "
                               id="MIN_DUE_INSTALLMENTS"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                               pattern="^[0-9]+$"
                               title="Input allowed only  0-9"
                               maxlength="2"
@@ -1558,28 +1671,15 @@
                     </div>
                     <div class="row">
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
-                          <div
-                            class="
-                              border-checkbox-group
-                              border-checkbox-group-primary
-                            "
-                          >
-                            <input
-                              class="border-checkbox"
-                              type="checkbox"
-                              id="MIN_DUE_INSTALLMENTS"
-                              formControlName="MIN_DUE_INSTALLMENTS"
-                              disabled
+                        <div class="checkbox checkbox-primary">
+                          <div class=" border-checkbox-group border-checkbox-group-primary" >
+                            <input class="border-checkbox" type="checkbox" id="MIN_DUE_INSTALLMENTS" formControlName="MIN_DUE_INSTALLMENTS" disabled
                             />
-                            <label
-                              class="border-checkbox-label"
-                              for="MIN_DUE_INSTALLMENTS"
-                              >Or After Expiry Date</label
-                            >
+                            <label class="border-checkbox-label" for="MIN_DUE_INSTALLMENTS" >Or After Expiry Date</label>
                           </div>
                         </div>
                       </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -1591,12 +1691,12 @@
             <div class="card-footer">
               <div class="row" style="float: right;">
                   <div class="col-sm m-b-20">
-                      <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
-                          Add
+                      <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid" (click)="submit()" *ngIf="showButton">
+                          Submit
                       </button>
-                      <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                      <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
                           Update</button>&nbsp;
-                      <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                      <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                           Cancel
                       </button>
                   </div>
@@ -1636,12 +1736,12 @@
 </div>
 <div class="row">
   <div class="col-12">
-    <div class="card">
+    <div class="card shadow">
       <div class="card-block">
         <div class="row">
           <div class="col-sm">
             <div class="table-responsive">
-              <table
+              <table id="schemeparametertable"
                 datatable
                 [dtOptions]="dtExportButtonOptions"
                 [dtTrigger]="dtTrigger"
@@ -1650,13 +1750,8 @@
                 <tbody *ngIf="termLoanMaster?.length != 0">
                   <tr *ngFor="let data of termLoanMaster">
                     <td>
-                      <button
-                        class="btn btn-outline-primary btn-sm"
-                        id="editbtn"
-                        (click)="editClickHandler(data.id)"
-                      >
-                        Edit
-                      </button>
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                                            placement="bottom" ngbTooltip="Edit"></span>
                     </td>
                     <td>{{ data.S_ACNOTYPE }}</td>
                     <td>{{ data.S_APPL }}</td>
@@ -1669,7 +1764,7 @@
                     <td>{{ data.S_RECBL_PENAL_ACNO }}</td>
                     <td>{{ data.S_RECBL_ODUE_INT_ACNO }}</td>
                     <td>{{ data.S_OUTSTANDING_INT_ACNO }}</td>
-                    <td>{{ data.IS_DEPO_LOAN }}</td>
+                    <!-- <td>{{ data.IS_DEPO_LOAN }}</td>
                     <td>{{ data.S_INT_APPLICABLE }}</td>
                     <td>{{ data.POST_TO_INDIVIDUAL_AC }}</td>
                     <td>{{ data.S_RECEIVABLE_INT_ALLOW }}</td>
@@ -1703,7 +1798,7 @@
                     <td>{{ data.INSTALLMENT_METHOD }}</td>
                     <td>{{ data.IS_OVERDUE_ON_INSTALLMENT }}</td>
                     <td>{{ data.IS_SHOW_INT_AS_RECINT_IFDUEBAL }}</td>
-                    <td>{{ data.MIN_DUE_INSTALLMENTS }}</td>
+                    <td>{{ data.MIN_DUE_INSTALLMENTS }}</td> -->
                   </tr>
                 </tbody>
                 <tbody *ngIf="termLoanMaster?.length == 0">
@@ -1711,203 +1806,203 @@
                     <td colspan="20" class="no-data-available">No data!</td>
                   </tr>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th></th>
+                <tfoot #filters class="filters">
+                  <tr class="testing">
+                    <th class="testing"></th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Type"
+                        
                         class="form-control"  name="S_ACNOTYPE"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Scheme Code"
+                       
                         class="form-control"  name="S_APPL"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Description"
+                        
                         class="form-control"  name="S_NAME"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Short Name"
+                        
                         class="form-control"  name="S_SHNAME"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search G.L. A/c No."
+                        
                         class="form-control"  name="S_GLACNO"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Interest GL A/c"
+                        
                         class="form-control"  name="S_INT_ACNO"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Receivable Int. A/c"
+                        
                         class="form-control"  name="S_RECBL_PYBL_INT_ACNO"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Penal Int. A/c"
+                        
                         class="form-control"  name="S_PENAL_ACNO"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Recble Penal Int. A/c"
+                        
                         class="form-control"  name="S_RECBL_PENAL_ACNO"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Recble Overdue Int."
+                        
                         class="form-control"  name="S_RECBL_ODUE_INT_ACNO"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Outstanding Int. A/c"
+                        
                         class="form-control"  name="S_OUTSTANDING_INT_ACNO"
                       />
                     </th>
 
-                    <th>
+                    <!-- <th>
                       <input
                         type="text"
-                        placeholder="Search Loan Type ?"
+                        
                         class="form-control"  name="IS_DEPO_LOAN"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Interest Applicable ?"
+                        
                         class="form-control"  name="S_INT_APPLICABLE"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Post Interest to A/c ?"
+                       
                         class="form-control"  name="POST_TO_INDIVIDUAL_AC"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search  Receivable Int. Allowed?"
+                        
                         class="form-control"  name="S_RECEIVABLE_INT_ALLOW"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Interest On Receivable Interest ?"
+                        
                         class="form-control"  name="IS_INT_ON_RECINT"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Interest On Other Receivable Amt.?"
+                        
                         class="form-control"  name="IS_INT_ON_OTHERAMT"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Don't Post Interest After Expiry Date ?"
+                        
                         class="form-control"  name="IS_INTUPTODATE"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Don't Post Interest After OD ?"
+                        
                         class="form-control"  name="IS_NO_POST_INT_AFT_OD"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Interest Caculation Method"
+                       
                         class="form-control"  name="INTEREST_METHOD"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Minimum Interest Amount"
+                       
                         class="form-control"  name="MIN_INT_LIMIT"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Penal Interest Calculation Applicable ?"
+                        
                         class="form-control"  name="S_PENAL_INT_APPLICABLE"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Post Penal Interest to Account ?"
+                        
                         class="form-control"  name="IS_POST_PENAL_TO_AC"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Add Penal Interest in Interest Amount ?"
+                        
                         class="form-control"  name="POST_PENALINT_IN_INTEREST"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search  Is Maintain Receivable Penal Interest to A/c"
+                        
                         class="form-control"  name="IS_REC_PENAL_APPL"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Calculate Penal After Account Expiry ?"
+                        
                         class="form-control"  name="IS_CAL_PENAL_AFTER_EXPIRY"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Penal Interest Rate % "
+                        
                         class="form-control"  name="S_PENAL_INT_RATE"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Penal Interest Method"
+                       
                         class="form-control"  name="PENAL_METHOD"
                       />
                     </th>
@@ -1915,77 +2010,77 @@
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Calculate Overdue Only After A/c Expired ?"
+                        
                         class="form-control"  name="S_DUE_LIST_ALLOW"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Grace Period Applicable"
+                      
                         class="form-control"  name="GRACE_PERIOD_APPLICABLE"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Moratorium Period Applicable"
+                        
                         class="form-control"  name="MORATORIUM_APPLICABLE"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Standing Instruction Applicable"
+                       
                         class="form-control"  name="STAND_INSTRUCTION_ALLOW"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Balance Entry Allowed ?"
+                        
                         class="form-control"  name="BALANCE_ADD_APPLICABLE"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Unsecured Loan Type ?"
+                       
                         class="form-control"  name="IS_UNSECURED_LOAN"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Auto Post Overdue Charges in Day Begin ?"
+                        
                         class="form-control"  name="IS_OVERDUE_CHARGES_APPLY"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Maximum Loan Limit"
+                        
                         class="form-control"  name="MAX_LOAN_LMT"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Interest Round Off Factor in Paise"
+                       
                         class="form-control"  name="ROUNDOFF_FACTOR"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Default Loan Period In Months"
+                        
                         class="form-control"  name="DEFAULT_LOAN_PERIOD"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Loan Period Lock Allowed ?"
+                        
                         class="form-control"  name="IS_LOAN_PERIOD_LOCK"
                       />
                     </th>
@@ -1993,7 +2088,7 @@
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Minimum Loan Period in Months"
+                       
                         class="form-control"  name="MIN_LOAN_PERIOD"
                       />
                     </th>
@@ -2001,7 +2096,7 @@
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Maximum Loan Period in Months"
+                        
                         class="form-control"  name="MAX_LOAN_PERIOD"
                       />
                     </th>
@@ -2009,7 +2104,7 @@
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Is Installment Applicable"
+                        
                         class="form-control"  name="S_INSTTYPE"
                       />
                     </th>
@@ -2017,7 +2112,7 @@
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Installment Method"
+                        
                         class="form-control"  name="INSTALLMENT_METHOD"
                       />
                     </th>
@@ -2025,7 +2120,7 @@
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Overdue Rule Code (0-1-2-3)"
+                        
                         class="form-control"  name="IS_OVERDUE_ON_INSTALLMENT"
                       />
                     </th>
@@ -2033,17 +2128,17 @@
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Post as Receivable Interest if Account goes in Overdue ?"
+                        
                         class="form-control"  name="IS_SHOW_INT_AS_RECINT_IFDUEBAL"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Or After Expiry Date"
+                        
                         class="form-control"  name="MIN_DUE_INSTALLMENTS"
                       />
-                    </th>
+                    </th> -->
                   </tr>
                 </tfoot>
               </table>

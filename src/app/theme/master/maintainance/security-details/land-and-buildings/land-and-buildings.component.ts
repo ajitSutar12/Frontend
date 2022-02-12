@@ -23,6 +23,7 @@ import { landandbuildingsService } from "./land-and-buildings.service";
 import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
+import * as moment from 'moment';
 
 // Handling datatable data
 class DataTableResponse {
@@ -75,6 +76,13 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
   new_article: boolean;
 
   updateID: number; //variable for updating
+
+  // for date 
+  submissiondate:any=null
+  citysurveydate:any=null
+  maxDate: Date;
+  minDate: Date;
+
   // Store data from backend
   landMasters: LandMaster[];
   
@@ -93,8 +101,12 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
     private _land: landandbuildingsService,
     public router: Router
   ) {
-    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    console.log(this.datemax);
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
 
   }
 
@@ -216,50 +228,53 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   submit(event) {
-    
-event.preventDefault();
-this.formSubmitted = true;
+    let submissiondate
+    let citysurveydate
+    event.preventDefault();
+    this.formSubmitted = true;
 
-if (this.angForm.valid) {
-  console.log(this.angForm.value); // Process your form
-  
-  const formVal = this.angForm.value;
-  const dataToSend = {
-    // AC_TYPE:this.scheme._value[0],
-    // AC_NO:this.Accountno,
-    SUBMISSION_DATE: formVal.SUBMISSION_DATE,
-    VALUE: formVal.VALUE,
-    LOCATION: formVal.LOCATION,
-    AREA: formVal.AREA,
-    UNIT_AREA: formVal.UNIT_AREA,
-    MARGIN: formVal.MARGIN,
-    REMARK: formVal.REMARK,
-    CITY_SURVEY_NO: formVal.CITY_SURVEY_NO,
-    CITY_SURVEY_DATE: formVal.CITY_SURVEY_DATE,
-    REG_NO: formVal.REG_NO,
-  };
-  this._land.postData(dataToSend).subscribe(
-    (data) => {
-      Swal.fire("Success!", "Data Added Successfully !", "success");
-      this.formSubmitted = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-      // to reload after insertion of data
-      // let info = []
-      // info.push(data.id)
-      // info.push("landBuilding")
+    if (this.angForm.valid) {
+      console.log(this.angForm.value); // Process your form
+      
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        // AC_TYPE:this.scheme._value[0],
+        // AC_NO:this.Accountno,
+        'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+        // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+        VALUE: formVal.VALUE,
+        LOCATION: formVal.LOCATION,
+        AREA: formVal.AREA,
+        UNIT_AREA: formVal.UNIT_AREA,
+        MARGIN: formVal.MARGIN,
+        REMARK: formVal.REMARK,
+        CITY_SURVEY_NO: formVal.CITY_SURVEY_NO,
+        'CITY_SURVEY_DATE': (formVal.CITY_SURVEY_DATE == '' || formVal.CITY_SURVEY_DATE == 'Invalid date') ? citysurveydate = '' : citysurveydate = moment(formVal.CITY_SURVEY_DATE).format('DD/MM/YYYY'),
+        // CITY_SURVEY_DATE: formVal.CITY_SURVEY_DATE,
+        REG_NO: formVal.REG_NO,
+      };
+      this._land.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.formSubmitted = false;
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+          // to reload after insertion of data
+          // let info = []
+          // info.push(data.id)
+          // info.push("landBuilding")
 
-      // this.newItemEvent(info);
-      // this.rerender();
-    },
-    (error) => {
-      console.log(error);
+          // this.newItemEvent(info);
+          // this.rerender();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
     }
-  );
-  //To clear form
-  this.resetForm();
-}
   }
 
    //check  if margin values are below 100
@@ -274,12 +289,16 @@ console.log(ele);
   }
 }
 
+  updatecheckdata:any
   //function for edit button clicked
   editClickHandler(id: any): void {
+    let submissiondate
+    let citysurveydate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._land.getFormData(id).subscribe((data) => {
+      this.updatecheckdata=data
       this.updateID = data.id;
         //sending values to parent
         let dropdown: any = {};
@@ -289,7 +308,8 @@ console.log(ele);
       this.angForm.patchValue({
         // AC_TYPE:this.scheme._value[0],
         // AC_NO:this.Accountno,
-        SUBMISSION_DATE: data.SUBMISSION_DATE,
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
+        // SUBMISSION_DATE: data.SUBMISSION_DATE,
         VALUE: data.VALUE,
         LOCATION: data.LOCATION,
         AREA: data.AREA,
@@ -297,18 +317,27 @@ console.log(ele);
         MARGIN: data.MARGIN,
         REMARK: data.REMARK,
         CITY_SURVEY_NO: data.CITY_SURVEY_NO,
-        CITY_SURVEY_DATE: data.CITY_SURVEY_DATE,
+        'CITY_SURVEY_DATE': (data.CITY_SURVEY_DATE == 'Invalid date' || data.CITY_SURVEY_DATE == '' || data.CITY_SURVEY_DATE == null) ? citysurveydate = '' : citysurveydate = data.CITY_SURVEY_DATE,
+        // CITY_SURVEY_DATE: data.CITY_SURVEY_DATE,
         REG_NO: data.REG_NO,
       });
     });
   }
 
   updateData() {
+    let submissiondate
+    let citysurveydate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+      (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
+      }
+      if(this.updatecheckdata.CITY_SURVEY_DATE!=data.CITY_SURVEY_DATE){
+        (data.CITY_SURVEY_DATE == 'Invalid date' || data.CITY_SURVEY_DATE == '' || data.CITY_SURVEY_DATE == null) ? (citysurveydate = '', data['CITY_SURVEY_DATE'] = citysurveydate) : (citysurveydate = data.SUBMISSION_DATE, data['CITY_SURVEY_DATE'] = moment(citysurveydate).format('DD/MM/YYYY'))
+        }
     this._land.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -348,7 +377,7 @@ console.log(ele);
     });
   }
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();//for autofocus
+    // this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');

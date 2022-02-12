@@ -17,6 +17,7 @@ import { id } from '@swimlane/ngx-datatable';
 import { first } from 'rxjs/operators';
 import {environment} from '../../../../../../environments/environment'
 import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 
 
 // Handling datatable data
@@ -92,6 +93,11 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
  obj : any;
  rowData= [];
   showDialog = false;
+  //for date control
+  effectdate:any=null
+  maxDate: Date;
+  minDate: Date;
+
   @Input() visible: boolean;
   // public config: any;
   intrestCategoryMaster:any;
@@ -104,6 +110,10 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
     private fb: FormBuilder,
     public SizeSlabWiseService:SizeSlabWiseService,
     private config: NgSelectConfig,) {
+      this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
        this.createForm(); }
 
   ngOnInit(): void {
@@ -187,6 +197,7 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
 
   // Method to insert data into database through NestJS
   submit() {
+    let effectdate
     if(this.multiField.length!=0){
       this.formSubmitted=true;
       const formVal = this.angForm.value;
@@ -209,7 +220,9 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
 
     //To clear form
     this.resetForm();
+    
     this.multiField = [] 
+    
     }
     else{
       Swal.fire(
@@ -230,9 +243,10 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
       this.SizeSlabWiseService.getFormData(id).subscribe(data => {
         this.updateID = data.id;
         this.multiField = data.rate
+        this.ngintcat=Number(data.INT_CATEGORY)
         this.angForm.patchValue({
           'ACNOTYPE': data.ACNOTYPE,
-          'INT_CATEGORY': data.INT_CATEGORY
+          // 'INT_CATEGORY': data.INT_CATEGORY
         })
       })
     }
@@ -261,6 +275,8 @@ export class SizeSlabWiseARComponent implements OnInit , AfterViewInit, OnDestro
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngscheme=null
+    this.ngintcat=null
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

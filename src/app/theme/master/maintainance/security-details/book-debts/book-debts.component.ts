@@ -25,6 +25,7 @@ import { BookdebtsService } from "./book-debts.service";
 import { isNullOrUndefined } from "@swimlane/ngx-datatable";
 import { data } from "jquery";
 import { Router } from "@angular/router";
+import * as moment from 'moment';
 
 
 // Handling datatable data
@@ -75,6 +76,13 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   showButton: boolean = true;
   updateShow: boolean = false;
   updateID: number; //variable for updating
+
+  submissiondate:any=null
+  statementdate:any=null
+  maxDate: Date;
+  minDate: Date;
+
+
   // Store data from backend
   bookMaster: BookMaster[];
 
@@ -100,8 +108,12 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     private _book: BookdebtsService,
     public router: Router
   ) {
-    this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-    console.log(this.datemax);
+    // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
 
   }
 
@@ -220,7 +232,9 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submit(event) {
-    debugger
+    let submissiondate
+    let statementdate
+    
     let closingbalid = (document.getElementById("DebtorsClosingBalance") as HTMLInputElement).value;
 
     this.angForm.patchValue({
@@ -237,8 +251,10 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
       const dataToSend = {
         // AC_TYPE: this.scheme._value[0],
         // AC_NO: this.Accountno,
-        SUBMISSION_DATE: formVal.SUBMISSION_DATE,
-        STATEMENT_DATE: formVal.STATEMENT_DATE,
+        'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+        // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+        'STATEMENT_DATE': (formVal.STATEMENT_DATE == '' || formVal.STATEMENT_DATE == 'Invalid date') ? statementdate = '' : statementdate = moment(formVal.STATEMENT_DATE).format('DD/MM/YYYY'),
+        // STATEMENT_DATE: formVal.STATEMENT_DATE,
         DEBTORS_OP_BAL: formVal.DEBTORS_OP_BAL,
         CREDIT_SALE: formVal.CREDIT_SALE,
         RECOVERY: formVal.RECOVERY,
@@ -287,12 +303,16 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  updatecheckdata:any
   //function for edit button clicked
   editClickHandler(id: any): void {
+    let submissiondate
+    let statementdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._book.getFormData(id).subscribe((data) => {
+      this.updatecheckdata=data
       this.updateID = data.id;
       //sending values to parent
       let dropdown: any = {};
@@ -302,8 +322,10 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.angForm.patchValue({
         // AC_TYPE: this.scheme._value[0],
         // AC_NO: this.Accountno,
-        SUBMISSION_DATE: data.SUBMISSION_DATE,
-        STATEMENT_DATE: data.STATEMENT_DATE,
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
+        // SUBMISSION_DATE: data.SUBMISSION_DATE,
+        'STATEMENT_DATE': (data.STATEMENT_DATE == 'Invalid date' || data.STATEMENT_DATE == '' || data.STATEMENT_DATE == null) ? statementdate = '' : statementdate = data.STATEMENT_DATE,
+        // STATEMENT_DATE: data.STATEMENT_DATE,
         DEBTORS_OP_BAL: data.DEBTORS_OP_BAL,
         CREDIT_SALE: data.CREDIT_SALE,
         RECOVERY: data.RECOVERY,
@@ -317,11 +339,19 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateData() {
+    let submissiondate
+    let statementdate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+      (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
+      }
+      if(this.updatecheckdata.STATEMENT_DATE!=data.STATEMENT_DATE){
+        (data.STATEMENT_DATE == 'Invalid date' || data.STATEMENT_DATE == '' || data.STATEMENT_DATE == null) ? (submissiondate = '', data['STATEMENT_DATE'] = statementdate) : (statementdate = data.STATEMENT_DATE, data['STATEMENT_DATE'] = moment(statementdate).format('DD/MM/YYYY'))
+        }
     this._book.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -361,7 +391,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();//for autofocus
+    // this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');

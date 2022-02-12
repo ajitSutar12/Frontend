@@ -246,6 +246,11 @@ rowData= [];
    // Reset Function
    resetForm() {
      this.createForm();
+     this.ngtype=null
+     this.ngstatement=null
+     this.ngdescription=null
+     this.ngcapital=null
+     this.ngdisplay=null
    }
  ngAfterViewInit(): void {
   // this.myInputField.nativeElement.focus();
@@ -294,12 +299,14 @@ rowData= [];
    
    this.ManagerViewGlpService.getFormData(id).subscribe(data => {
      this.updateID = data.id;
-     this.angForm.setValue({
+     this.ngstatement=Number(data.STATEMENT_CODE)
+     this.ngdescription=Number(data.DECRIPTION)
+     this.angForm.patchValue({
          
       'SR_NO': data.SR_NO,
       'TYPE': data.TYPE,
-      'STATEMENT_CODE': data.STATEMENT_CODE,
-      'DECRIPTION': data.DECRIPTION,
+      // 'STATEMENT_CODE': data.STATEMENT_CODE,
+      // 'DECRIPTION': data.DECRIPTION,
       'IS_DISPLAY': data.IS_DISPLAY,
       'PERCENTAGE_TO_WORKING_CAPITAL': data.PERCENTAGE_TO_WORKING_CAPITAL,
        

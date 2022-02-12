@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http'
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 // Handling datatable data
 class DataTableResponse {
@@ -59,6 +60,7 @@ interface PigmyACScheme {
   styleUrls: ['./pigmy-ac-scheme.component.scss']
 })
 export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   //api 
   url = environment.base_url;
   
@@ -110,12 +112,16 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   //Dropdown option variable
   acMaster: any
   newbtnShow: boolean;
+  ngglacno:any=null
+  ngintglac:any=null
+  ngpayableintac:any=null
 
   constructor(
     private http: HttpClient,
     private pigmyAcSchemeService: PigmyAcSchemeService,
     private acMasterDropdownService: ACMasterDropdownService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -190,63 +196,63 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         {
           title: 'Payable Int.A/c',
         },
-        {
-          title: 'Is Interest Applicable? ',
-        },
-        {
-          title: 'Is Post Interest to A/c ?',
-        },
-        {
-          title: 'Is Payable Interest Allow ?',
-        },
-        {
-          title: 'Product Base Start Day',
-        },
-        {
-          title: 'Product Base End Day',
-        },
-        {
-          title: 'Minimum Interest Amount',
-        },
-        {
-          title: 'Is Standing Instruction Applicable ?',
-        },
-        {
-          title: 'Is Instruction though Auto Cutting LN/CC',
-        },
-        {
-          title: 'Is Allow Standing Instruction Minimum Bal.?',
-        },
-        {
-          title: 'Is Withdrawal Applicable ?',
-        },
-        {
-          title: 'Is Interest Paid on A/c Closing ?',
-        },
-        {
-          title: 'Interest Round Off Factor in Paise',
-        },
-        {
-          title: 'Is Balance Entry Allow ?',
-        },
-        {
-          title: 'Is Prematured Compound Interest ?',
-        },
-        {
-          title: 'Pigmy Machine Scheme No.',
-        },
-        {
-          title: 'Is OverDraft Interest Applicable',
-        },
-        {
-          title: 'Overdraft Interest Rate %',
-        },
-        {
-          title: 'Service Charges GL Code',
-        },
-        {
-          title: 'Service Charges Rate',
-        },
+        // {
+        //   title: 'Is Interest Applicable? ',
+        // },
+        // {
+        //   title: 'Is Post Interest to A/c ?',
+        // },
+        // {
+        //   title: 'Is Payable Interest Allow ?',
+        // },
+        // {
+        //   title: 'Product Base Start Day',
+        // },
+        // {
+        //   title: 'Product Base End Day',
+        // },
+        // {
+        //   title: 'Minimum Interest Amount',
+        // },
+        // {
+        //   title: 'Is Standing Instruction Applicable ?',
+        // },
+        // {
+        //   title: 'Is Instruction though Auto Cutting LN/CC',
+        // },
+        // {
+        //   title: 'Is Allow Standing Instruction Minimum Bal.?',
+        // },
+        // {
+        //   title: 'Is Withdrawal Applicable ?',
+        // },
+        // {
+        //   title: 'Is Interest Paid on A/c Closing ?',
+        // },
+        // {
+        //   title: 'Interest Round Off Factor in Paise',
+        // },
+        // {
+        //   title: 'Is Balance Entry Allow ?',
+        // },
+        // {
+        //   title: 'Is Prematured Compound Interest ?',
+        // },
+        // {
+        //   title: 'Pigmy Machine Scheme No.',
+        // },
+        // {
+        //   title: 'Is OverDraft Interest Applicable',
+        // },
+        // {
+        //   title: 'Overdraft Interest Rate %',
+        // },
+        // {
+        //   title: 'Service Charges GL Code',
+        // },
+        // {
+        //   title: 'Service Charges Rate',
+        // },
       ],
       dom: 'Blrtip',
     };
@@ -289,6 +295,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
  // Method check scheme code 
 
  checkscheme(S_APPL){
+   debugger
    let schemecode =document.getElementById("S_APPL") as HTMLInputElement;
 
   this.pigmyAcSchemeService.getFormData(S_APPL).subscribe(data => {
@@ -307,6 +314,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
 
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'S_ACNOTYPE': formVal.S_ACNOTYPE,
@@ -338,6 +346,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     }
     this.pigmyAcSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
           // to reload after insertion of data
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload();
@@ -564,6 +573,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

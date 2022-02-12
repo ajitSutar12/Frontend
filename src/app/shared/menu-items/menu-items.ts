@@ -1024,6 +1024,11 @@ const MENUITEMS = [
             id: 156
           },
           {
+            state: 'pigmyMachineProcess',
+            name: 'Pigmy Machine Process',
+            id: 183
+          },
+          {
             state: 'deadStockP',
             name: 'Dead Stock Process',
             id: 157

@@ -25,6 +25,7 @@ import { DataTableDirective } from "angular-datatables";
 import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 
 // Handling datatable data
 class DataTableResponse {
@@ -87,6 +88,12 @@ export class GoldAndSilverComponent
 
   ngitem:any=null
   updateID: number; //variable for updating
+
+  // for date 
+  submissiondate:any=null
+  maxDate: Date;
+  minDate: Date;
+
   // Store data from backend
   goldMaster: GoldMaster[];
   // For reloading angular datatable after CRUD operation
@@ -108,7 +115,12 @@ export class GoldAndSilverComponent
     private _golddrop: GoldsilverService,
     private http: HttpClient,
     public router: Router,
-    private config: NgSelectConfig,) {}
+    private config: NgSelectConfig,) {
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+    }
 
   ngOnInit(): void {
     this.createForm();
@@ -253,6 +265,7 @@ export class GoldAndSilverComponent
   }
 
   submit(event) {
+    let submissiondate
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -271,7 +284,8 @@ export class GoldAndSilverComponent
       // AC_TYPE:this.scheme._value[0],
       // AC_NO:this.Accountno,
       ITEM_TYPE: formVal.ITEM_TYPE,
-      SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+      'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+      // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       BAG_RECEIPT_NO: formVal.BAG_RECEIPT_NO,
       GOLD_BOX_NO: formVal.GOLD_BOX_NO,
       MARGIN: formVal.MARGIN,
@@ -323,12 +337,17 @@ console.log(ele);
     Swal.fire("Invalid Input", "Please insert values below 100", "error");
   }
 }
+
+
+updatecheckdata:any
   //function for edit button clicked
   editClickHandler(id: any): void {
+    let submissiondate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._goldsilverService.getFormData(id).subscribe((data) => {
+      this.updatecheckdata=data
        //sending values to parent
        let dropdown: any = {};
        dropdown.scheme = data.AC_TYPE;
@@ -339,7 +358,8 @@ console.log(ele);
         // AC_TYPE:this.scheme._value[0],
         // AC_NO:this.Accountno,
         ITEM_TYPE: data.ITEM_TYPE,
-        SUBMISSION_DATE: data.SUBMISSION_DATE,
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
+        // SUBMISSION_DATE: data.SUBMISSION_DATE,
         BAG_RECEIPT_NO: data.BAG_RECEIPT_NO,
         GOLD_BOX_NO: data.GOLD_BOX_NO,
         MARGIN: data.MARGIN,
@@ -356,11 +376,15 @@ console.log(ele);
   }
 
   updateData() {
+    let submissiondate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+      (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
+      }
     this._goldsilverService.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -423,6 +447,7 @@ console.log(ele);
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngitem=null
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

@@ -29,6 +29,7 @@ import { ACMasterDropdownService } from "../../../../shared/dropdownService/ac-m
 import { OverdraftInterestPostService } from "../../../../shared/dropdownService/overdraft-interest-post.service";
 import { first } from "rxjs/operators";
 import { environment } from "../../../../../environments/environment";
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -79,6 +80,7 @@ interface Cashcredit {
   styleUrls: ["./cash-credit-scheme.component.scss"],
 })
 export class CashCreditSchemeComponent implements OnInit {
+  formSubmitted = false;
   //api
   url = environment.base_url;
   //least routing
@@ -121,6 +123,15 @@ export class CashCreditSchemeComponent implements OnInit {
 
   //Dropdown option variable
   acMaster: any;
+  ngglacno:any=null
+  ngintglac:any=null
+  ngreceivableintac:any=null
+  ngpenalintac:any=null
+  ngrecblepenalintac:any=null
+  ngrecbleoverdueint:any=null
+  ngoverdraftint:any=null
+
+
   OverDraft: Array<IOption> = this.overdraftInterestPostService.getCharacters();
   selectedOption = "3";
   isDisabled = true;
@@ -138,8 +149,8 @@ export class CashCreditSchemeComponent implements OnInit {
     private cashcreditservice: CashcreditService,
     private overdraftInterestPostService: OverdraftInterestPostService,
     private acMasterDropdownService: ACMasterDropdownService,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -188,9 +199,9 @@ export class CashCreditSchemeComponent implements OnInit {
       columns: [
         {
           title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
+          // render: function (data: any, type: any, full: any) {
+          //   return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+          // },
         },
         {
           title: "Type",
@@ -232,98 +243,98 @@ export class CashCreditSchemeComponent implements OnInit {
           title: "Recble Overdue Int.",
           data: "S_RECBL_ODUE_INT_ACNO",
         },
-        {
-          title: "Is Interest Applicable ?",
-          data: "S_INT_APPLICABLE",
-        },
-        {
-          title: "Is Post Interest to A/c ?",
-          data: "POST_TO_INDIVIDUAL_AC",
-        },
-        {
-          title: "Is Balance Entry Allow ?",
-          data: "S_RECEIVABLE_INT_ALLOW",
-        },
-        {
-          title: "Is Receivable Int. Allowed ?",
-          data: "IS_SHOW_INT_AS_RECINT_IFDUEBAL",
-        },
-        {
-          title: "Post as Receivable Interest, if Account goes in Overdue ?",
-          data: "IS_SHOW_INT_AS_RECINT_IFDUEBAL",
-        },
-        {
-          title: "Is Dont Post Interest After Expiry Date ?",
-          data: "IS_INTUPTODATE",
-        },
-        {
-          title: "Is Dont Post Interest After OD",
-          data: "IS_NO_POST_INT_AFT_OD",
-        },
-        {
-          title: "Minimum Interest Amount",
-          data: "MIN_INT_LIMIT",
-        },
-        {
-          title: "Interest Round Off Factor in Paise",
-          data: "ROUNDOFF_FACTOR",
-        },
-        {
-          title: "Penal Interest Applicable ?",
-          data: "S_PENAL_INT_APPLICABLE",
-        },
-        {
-          title: "Post Penal Interest to Account ?",
-          data: "IS_POST_PENAL_TO_AC",
-        },
-        {
-          title: "Add Penal Interest in Interest Amount ?",
-          data: "POST_PENALINT_IN_INTEREST",
-        },
-        {
-          title: "Calculate Extra Penal for CC Overdraf",
-          data: "IS_CAL_EXTRAPENAL_FOR_CC",
-        },
-        {
-          title: "Penal Interest Rate %",
-          data: "S_PENAL_INT_RATE",
-        },
-        {
-          title: "OverDraft Interest Post / Add in",
-          data: "OVERDRAFT_INTEREST_APPLICABLE",
-        },
-        {
-          title: "Overdraf Interest Rate %",
-          data: "OVERDRAFT_INTEREST_RATE",
-        },
-        {
-          title: "Is OD Interest Calculate Only after Account Expiry Date ?",
-          data: "ODPENALTY_ON_EXPIRED_LEDGERBAL",
-        },
-        {
-          title: "Is Interest Instruction Applicable ?",
-          data: "INT_INSTRUCTION_ALLOW",
-        },
-        {
-          title: "Is Standing Instruction Applicable ?",
-          data: "STAND_INSTRUCTION_ALLOW",
-        },
-        {
-          title: "Is Balance Entry Allowed ?",
-          data: "BALANCE_ADD_APPLICABLE",
-        },
-        {
-          title: "Cheque Book Minimum Balance",
-          data: "CHEQUEBOOK_MIN_BAL",
-        },
-        {
-          title: "Is Deposit against CC",
-          data: "IS_DEPO_LOAN",
-        },
-        {
-          title: "Is Gold against CC",
-          data: "IS_GOLDLOAN",
-        },
+        // {
+        //   title: "Is Interest Applicable ?",
+        //   data: "S_INT_APPLICABLE",
+        // },
+        // {
+        //   title: "Is Post Interest to A/c ?",
+        //   data: "POST_TO_INDIVIDUAL_AC",
+        // },
+        // {
+        //   title: "Is Balance Entry Allow ?",
+        //   data: "S_RECEIVABLE_INT_ALLOW",
+        // },
+        // {
+        //   title: "Is Receivable Int. Allowed ?",
+        //   data: "IS_SHOW_INT_AS_RECINT_IFDUEBAL",
+        // },
+        // {
+        //   title: "Post as Receivable Interest, if Account goes in Overdue ?",
+        //   data: "IS_SHOW_INT_AS_RECINT_IFDUEBAL",
+        // },
+        // {
+        //   title: "Is Dont Post Interest After Expiry Date ?",
+        //   data: "IS_INTUPTODATE",
+        // },
+        // {
+        //   title: "Is Dont Post Interest After OD",
+        //   data: "IS_NO_POST_INT_AFT_OD",
+        // },
+        // {
+        //   title: "Minimum Interest Amount",
+        //   data: "MIN_INT_LIMIT",
+        // },
+        // {
+        //   title: "Interest Round Off Factor in Paise",
+        //   data: "ROUNDOFF_FACTOR",
+        // },
+        // {
+        //   title: "Penal Interest Applicable ?",
+        //   data: "S_PENAL_INT_APPLICABLE",
+        // },
+        // {
+        //   title: "Post Penal Interest to Account ?",
+        //   data: "IS_POST_PENAL_TO_AC",
+        // },
+        // {
+        //   title: "Add Penal Interest in Interest Amount ?",
+        //   data: "POST_PENALINT_IN_INTEREST",
+        // },
+        // {
+        //   title: "Calculate Extra Penal for CC Overdraf",
+        //   data: "IS_CAL_EXTRAPENAL_FOR_CC",
+        // },
+        // {
+        //   title: "Penal Interest Rate %",
+        //   data: "S_PENAL_INT_RATE",
+        // },
+        // {
+        //   title: "OverDraft Interest Post / Add in",
+        //   data: "OVERDRAFT_INTEREST_APPLICABLE",
+        // },
+        // {
+        //   title: "Overdraf Interest Rate %",
+        //   data: "OVERDRAFT_INTEREST_RATE",
+        // },
+        // {
+        //   title: "Is OD Interest Calculate Only after Account Expiry Date ?",
+        //   data: "ODPENALTY_ON_EXPIRED_LEDGERBAL",
+        // },
+        // {
+        //   title: "Is Interest Instruction Applicable ?",
+        //   data: "INT_INSTRUCTION_ALLOW",
+        // },
+        // {
+        //   title: "Is Standing Instruction Applicable ?",
+        //   data: "STAND_INSTRUCTION_ALLOW",
+        // },
+        // {
+        //   title: "Is Balance Entry Allowed ?",
+        //   data: "BALANCE_ADD_APPLICABLE",
+        // },
+        // {
+        //   title: "Cheque Book Minimum Balance",
+        //   data: "CHEQUEBOOK_MIN_BAL",
+        // },
+        // {
+        //   title: "Is Deposit against CC",
+        //   data: "IS_DEPO_LOAN",
+        // },
+        // {
+        //   title: "Is Gold against CC",
+        //   data: "IS_GOLDLOAN",
+        // },
         // {
         //   title: 'Other type of CC',
         //   data: 'IS_DEPO_LOAN=0, IS_GOLDLOAN= 0',
@@ -481,6 +492,7 @@ export class CashCreditSchemeComponent implements OnInit {
 
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       S_ACNOTYPE: formVal.S_ACNOTYPE,
@@ -520,6 +532,7 @@ export class CashCreditSchemeComponent implements OnInit {
     this.cashcreditservice.postData(dataToSend).subscribe(
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
+        this.formSubmitted = false;
         // to reload after insertion of data
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -636,6 +649,7 @@ export class CashCreditSchemeComponent implements OnInit {
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

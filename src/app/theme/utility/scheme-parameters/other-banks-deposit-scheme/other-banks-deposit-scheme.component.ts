@@ -20,6 +20,7 @@ import { OtherBanksDepositSchemeService } from './other-banks-deposit-scheme.ser
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment'
+import { NgSelectConfig } from '@ng-select/ng-select';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -98,6 +99,7 @@ interface OtherBankDepositScheme {
   styleUrls: ['./other-banks-deposit-scheme.component.scss']
 })
 export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   // Filter Variable
@@ -135,9 +137,23 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
 
   //variable to get ID to update
   updateID: number = 0;
-
+  
   //Dropdown option variable
-  acMaster: any
+    acMaster: any
+    ngglac:any=null
+    nginterestgl:any=null
+    ngreceivable:any=null
+    ngpenalac:any=null
+    ngreceivablepenal:any=null
+    ngcashint:any=null
+    ngnotapplicable:any=null
+    nginstallment:any=null
+    ngunit:any=null
+
+
+
+
+
   notAppOption: Array<IOption> = this.compoundInterestService.getCharacters();
   installmentBaseOption: Array<IOption> = this.installmentBaseService.getCharacters();
   unitOfTDPeriodOption: Array<IOption> = this.unitOfTDPeriodService.getCharacters();
@@ -175,7 +191,8 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
     private compoundInterestService: CompoundInterestService,
     private installmentBaseService: InstallmentBaseService,
     private unitOfTDPeriodService: UnitOfTDPeriodService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -265,174 +282,174 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
           title: 'Cash Interest A/c',
           data: 'S_CASH_INT_ACNO',
         },
-        {
-          title: 'INTEREST RULE',
-          data: 'INTEREST_RULE',
-        },
-        {
-          title: 'Is Interest Applicable?',
-          data: 'S_INT_APPLICABLE',
-        },
-        {
-          title: 'Is Post Interest to A/c',
-          data: 'POST_TO_INDIVIDUAL_AC',
-        },
-        {
-          title: 'Is Payable Interest Allowed?',
-          data: 'S_PAYABLE_INT_ALLOW',
-        },
-        {
-          title: 'Minimum Interest Amount',
-          data: 'MIN_INT_LIMIT',
-        },
-        {
-          title: 'S_INTCALTP',
-          data: 'S_INTCALTP',
-        },
-        {
-          title: 'Interest upto Int.Calculation date',
-          data: 'IS_INTUPTODATE',
-        },
-        {
-          title: 'S_INTCALC_METHOD',
-          data: 'S_INTCALC_METHOD',
-        },
-        {
-          title: 'Fixed Quarter',
-          data: 'FIX_QUARTER',
-        },
-        {
-          title: 'Quarter Plus Days',
-          data: 'QUARTER_PLUS_DAYS',
-        },
-        {
-          title: 'Compound Interest',
-          data: 'COMPOUND_INT_BASIS',
-        },
-        {
-          title: 'Compound Int. Days',
-          data: 'COMPOUND_INT_DAYS',
-        },
-        {
-          title: 'Discount Int.Rate Applicable',
-          data: 'IS_DISCOUNTED_INT_RATE',
-        },
-        {
-          title: 'S_INSTTYPE',
-          data: 'S_INSTTYPE',
-        },
-        {
-          title: 'Installment Base',
-          data: 'INSTALLMENT_BASIS',
-        },
-        {
-          title: 'is Assumed Installment is paid?',
-          data: 'IS_ASSUMED_INSTALLMENTS',
-        },
-        {
-          title: 'Installment Compulsory in Multiple Amt',
-          data: 'INSTALLMENT_COMPULSORY_IN_PAT',
-        },
-        {
-          title: 'Penal Interest Applicable?',
-          data: 'S_PENAL_INT_APPLICABLE',
-        },
-        {
-          title: 'Penal Product Base Day',
-          data: 'DEPOSIT_PENAL_INT_CALC_DAY',
-        },
-        {
-          title: 'Post Penal Interest to A/c',
-          data: 'POST_PENALINT_IN_INTEREST',
-        },
-        {
-          title: 'Maturity Calculation Multiple Amount',
-          data: 'S_MATUCALC',
-        },
-        {
-          title: 'Is Calculated Maturity Amt. In Master',
-          data: 'IS_CAL_MATURITY_AMT',
-        },
-        {
-          title: 'Is Fixed Maturity Amount for Payment',
-          data: 'FIXED_MATURITY_AMT',
-        },
-        {
-          title: 'Premature Compound Interest',
-          data: 'PREMATURE_COMPOUND_INT',
-        },
-        {
-          title: 'Auto Maturity Transfer process Execute',
-          data: 'TRANSFER_TO_MATURE_DEPOSIT',
-        },
-        {
-          title: 'As on Date Applicable for Deposit',
-          data: 'S_INTASON',
-        },
-        {
-          title: 'TD Period Input Applicable',
-          data: 'PERIOD_APPLICABLE',
-        },
-        {
-          title: 'Is Auto Calculate Deposit Period ?',
-          data: 'IS_AUTO_PERIOD_CALCULATE',
-        },
-        {
-          title: 'Unit of TD Period',
-          data: 'UNIT_OF_PERIOD',
-        },
-        {
-          title: 'Minimum Period in Days',
-          data: 'MIN_DAYS',
-        },
-        {
-          title: 'Minimum Period in Months',
-          data: 'MIN_MONTH',
-        },
-        {
-          title: 'Multiple of Amount',
-          data: 'MULTIPLE_OF_AMT',
-        },
-        {
-          title: 'Multiple of Days',
-          data: 'MULTIPLE_OF_DAYS',
-        },
-        {
-          title: 'Multiple of Months',
-          data: 'MULTIPLE_OF_MONTH',
-        },
-        {
-          title: 'Is Cash Interest Payment Allowed ?',
-          data: 'S_INTPAID',
-        },
-        {
-          title: 'Is Interest Paid on A/c Closing ?',
-          data: 'S_INTPAID_ON_CLOSING',
-        },
-        {
-          title: 'Is Standing Instruction Applicable ?',
-          data: 'STAND_INSTRUCTION_ALLOW',
-        },
-        {
-          title: 'Is Interest Instruction Applicable ?',
-          data: 'INT_INSTRUCTION_ALLOW',
-        },
-        {
-          title: 'Is FD Receipt No.Input?',
-          data: 'RECEIPT_NO_INPUT',
-        },
-        {
-          title: 'Is Withdrawal Applicable ?',
-          data: 'WITHDRAWAL_APPLICABLE',
-        },
-        {
-          title: 'Is Balance Entry Allowed ?',
-          data: 'BALANCE_ADD_APPLICABLE',
-        },
-        {
-          title: 'Premature Less Interest Rate ?',
-          data: 'LESS_PREMATURE_INT_RATE',
-        }
+        // {
+        //   title: 'INTEREST RULE',
+        //   data: 'INTEREST_RULE',
+        // },
+        // {
+        //   title: 'Is Interest Applicable?',
+        //   data: 'S_INT_APPLICABLE',
+        // },
+        // {
+        //   title: 'Is Post Interest to A/c',
+        //   data: 'POST_TO_INDIVIDUAL_AC',
+        // },
+        // {
+        //   title: 'Is Payable Interest Allowed?',
+        //   data: 'S_PAYABLE_INT_ALLOW',
+        // },
+        // {
+        //   title: 'Minimum Interest Amount',
+        //   data: 'MIN_INT_LIMIT',
+        // },
+        // {
+        //   title: 'S_INTCALTP',
+        //   data: 'S_INTCALTP',
+        // },
+        // {
+        //   title: 'Interest upto Int.Calculation date',
+        //   data: 'IS_INTUPTODATE',
+        // },
+        // {
+        //   title: 'S_INTCALC_METHOD',
+        //   data: 'S_INTCALC_METHOD',
+        // },
+        // {
+        //   title: 'Fixed Quarter',
+        //   data: 'FIX_QUARTER',
+        // },
+        // {
+        //   title: 'Quarter Plus Days',
+        //   data: 'QUARTER_PLUS_DAYS',
+        // },
+        // {
+        //   title: 'Compound Interest',
+        //   data: 'COMPOUND_INT_BASIS',
+        // },
+        // {
+        //   title: 'Compound Int. Days',
+        //   data: 'COMPOUND_INT_DAYS',
+        // },
+        // {
+        //   title: 'Discount Int.Rate Applicable',
+        //   data: 'IS_DISCOUNTED_INT_RATE',
+        // },
+        // {
+        //   title: 'S_INSTTYPE',
+        //   data: 'S_INSTTYPE',
+        // },
+        // {
+        //   title: 'Installment Base',
+        //   data: 'INSTALLMENT_BASIS',
+        // },
+        // {
+        //   title: 'is Assumed Installment is paid?',
+        //   data: 'IS_ASSUMED_INSTALLMENTS',
+        // },
+        // {
+        //   title: 'Installment Compulsory in Multiple Amt',
+        //   data: 'INSTALLMENT_COMPULSORY_IN_PAT',
+        // },
+        // {
+        //   title: 'Penal Interest Applicable?',
+        //   data: 'S_PENAL_INT_APPLICABLE',
+        // },
+        // {
+        //   title: 'Penal Product Base Day',
+        //   data: 'DEPOSIT_PENAL_INT_CALC_DAY',
+        // },
+        // {
+        //   title: 'Post Penal Interest to A/c',
+        //   data: 'POST_PENALINT_IN_INTEREST',
+        // },
+        // {
+        //   title: 'Maturity Calculation Multiple Amount',
+        //   data: 'S_MATUCALC',
+        // },
+        // {
+        //   title: 'Is Calculated Maturity Amt. In Master',
+        //   data: 'IS_CAL_MATURITY_AMT',
+        // },
+        // {
+        //   title: 'Is Fixed Maturity Amount for Payment',
+        //   data: 'FIXED_MATURITY_AMT',
+        // },
+        // {
+        //   title: 'Premature Compound Interest',
+        //   data: 'PREMATURE_COMPOUND_INT',
+        // },
+        // {
+        //   title: 'Auto Maturity Transfer process Execute',
+        //   data: 'TRANSFER_TO_MATURE_DEPOSIT',
+        // },
+        // {
+        //   title: 'As on Date Applicable for Deposit',
+        //   data: 'S_INTASON',
+        // },
+        // {
+        //   title: 'TD Period Input Applicable',
+        //   data: 'PERIOD_APPLICABLE',
+        // },
+        // {
+        //   title: 'Is Auto Calculate Deposit Period ?',
+        //   data: 'IS_AUTO_PERIOD_CALCULATE',
+        // },
+        // {
+        //   title: 'Unit of TD Period',
+        //   data: 'UNIT_OF_PERIOD',
+        // },
+        // {
+        //   title: 'Minimum Period in Days',
+        //   data: 'MIN_DAYS',
+        // },
+        // {
+        //   title: 'Minimum Period in Months',
+        //   data: 'MIN_MONTH',
+        // },
+        // {
+        //   title: 'Multiple of Amount',
+        //   data: 'MULTIPLE_OF_AMT',
+        // },
+        // {
+        //   title: 'Multiple of Days',
+        //   data: 'MULTIPLE_OF_DAYS',
+        // },
+        // {
+        //   title: 'Multiple of Months',
+        //   data: 'MULTIPLE_OF_MONTH',
+        // },
+        // {
+        //   title: 'Is Cash Interest Payment Allowed ?',
+        //   data: 'S_INTPAID',
+        // },
+        // {
+        //   title: 'Is Interest Paid on A/c Closing ?',
+        //   data: 'S_INTPAID_ON_CLOSING',
+        // },
+        // {
+        //   title: 'Is Standing Instruction Applicable ?',
+        //   data: 'STAND_INSTRUCTION_ALLOW',
+        // },
+        // {
+        //   title: 'Is Interest Instruction Applicable ?',
+        //   data: 'INT_INSTRUCTION_ALLOW',
+        // },
+        // {
+        //   title: 'Is FD Receipt No.Input?',
+        //   data: 'RECEIPT_NO_INPUT',
+        // },
+        // {
+        //   title: 'Is Withdrawal Applicable ?',
+        //   data: 'WITHDRAWAL_APPLICABLE',
+        // },
+        // {
+        //   title: 'Is Balance Entry Allowed ?',
+        //   data: 'BALANCE_ADD_APPLICABLE',
+        // },
+        // {
+        //   title: 'Premature Less Interest Rate ?',
+        //   data: 'LESS_PREMATURE_INT_RATE',
+        // }
       ],
       dom: 'Blrtip',
     };
@@ -524,6 +541,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
 
   // Method to insert data into database through NestJS
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'S_ACNOTYPE': formVal.S_ACNOTYPE,
@@ -588,7 +606,10 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
     this.otherBanksDepositSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
+      // this.rerender();
     }, (error) => {
       console.log(error)
     })
@@ -672,10 +693,14 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
     data['id'] = this.updateID;
     this.otherBanksDepositSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
+      this.formSubmitted = false;
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      //this.rerender();
       this.resetForm();
     })
   }
@@ -867,11 +892,13 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
       document.getElementById('IsPostInteresttoAc').setAttribute("disabled", "true");
       document.getElementById('IsPayableInterestAllowed').setAttribute("disabled", "true");
       document.getElementById('MIN_INT_LIMIT').setAttribute("disabled", "true");
-      this.angForm.controls.IsPostInteresttoAc.reset();
-      this.angForm.controls.IsPayableInterestAllowed.reset();
-      this.angForm.controls.MIN_INT_LIMIT.reset();
+      // this.angForm.controls.IsPostInteresttoAc.reset();
+      // this.angForm.controls.IsPayableInterestAllowed.reset();
+      // this.angForm.controls.MIN_INT_LIMIT.reset();
     }
   }
+
+  
 
   isInterestCalculation(value) {
     if (value == 1) {
@@ -996,6 +1023,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

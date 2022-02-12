@@ -3,17 +3,30 @@
         <div class="card">
             <div class="card-header">
                 <h5>Mark Freeze Account</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-4">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="allScheme" [multiple]="false"
                                     placeholder="Scheme*" formControlName="AC_TYPE" [(ngModel)]="acno"
                                     (selected)="getSchemeAcNO(acno)">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="acno" (selected)="getSchemeAcNO(acno)"
+                                    formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                    <ng-option *ngFor="let values of allScheme" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="AC_TYPE">Scheme<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
@@ -24,11 +37,22 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="schemeACNo" [multiple]="false"
                                     placeholder="Account No*" required title="Compulsory Selection"
                                     formControlName="AC_NO">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngacno"
+                                    formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Account No">
+                                    <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="AC_NO">Account No<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
@@ -38,6 +62,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- ṇot included -->
                         <!-- <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
@@ -51,12 +76,23 @@
                             <h6>Freeze Details</h6>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="freezoption" [multiple]="false"
                                     placeholder="Freeze Status *" required title="Compulsory Selection"
                                     [(ngModel)]="freezStatus" (selected)="freezDeatils(freezStatus)"
                                     formControlName="AC_FREEZE_STATUS">
                                 </ng-select>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="AC_FREEZE_STATUS" bindValue="value" [(ngModel)]="freezStatus" (selected)="freezDeatils(freezStatus)"
+                                    formControlName="AC_FREEZE_STATUS" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Freeze Status">
+                                    <ng-option *ngFor="let values of freezoption" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="AC_FREEZE_STATUS">Freeze Status<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_FREEZE_STATUS'].invalid && (angForm.controls['AC_FREEZE_STATUS'].dirty || angForm.controls['AC_FREEZE_STATUS'].touched)"
@@ -70,6 +106,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_FREEZE_AMOUNT" class="form-control" placeholder=" "
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         id="AC_FREEZE_AMOUNT" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="AC_FREEZE_AMOUNT">
                                     <label for="AC_FREEZE_AMOUNT">Freeze Amount</label>
@@ -86,10 +123,19 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" class="form-control" placeholder=" " id="AC_FREEZE_DATE"
+                                    <!-- <input type="text" class="form-control" placeholder=" " id="AC_FREEZE_DATE"
                                         min="{{datemin | date:'yyyy-MM-dd'}}" max="9999-12-31" #date
                                         formControlName="AC_FREEZE_DATE" onfocus="(this.type='date')"
-                                        (keyup)="keyupdate(date.value)" />
+                                        (keyup)="keyupdate(date.value)" /> -->
+                                        <input type="text" placeholder="dd/mm/yyyy"
+                                            name="AC_FREEZE_DATE" id="AC_FREEZE_DATE"
+                                            class="form-control" [(ngModel)]="effectdate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [minDate]="minDate"
+                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                            formControlName="AC_FREEZE_DATE"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker>
                                     <label for="AC_FREEZE_DATE">Freeze Date <sub class="required">*</sub></label>
                                 </span>
                             </div>
@@ -108,6 +154,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="To" class="form-control" placeholder=" "
+                                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         id="AC_FREEZE_REASON" pattern="^[A-Za-z\./ -]+$" maxlength="4000"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         formControlName="AC_FREEZE_REASON">
@@ -124,11 +171,11 @@
                             </div>
                         </div>
                         <div class="col-sm-3">
-                            <button class="btn btn-primary ripple light" (click)="submit()" [disabled]="angForm.invalid"
-                                *ngIf="showButton">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                            <button class="btn btn-outline-primary btn-sm" (click)="submit()" [disabled]="angForm.invalid"
+                                *ngIf="showButton">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>&nbsp;
-                            <button class="btn btn-primary ripple light" (click)="addNewData()"
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                 *ngIf="newbtnShow">Cancel</button>
                         </div>
                     </div>

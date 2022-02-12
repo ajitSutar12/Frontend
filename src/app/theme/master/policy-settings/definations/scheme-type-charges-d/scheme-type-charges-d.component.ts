@@ -16,6 +16,7 @@ import { IOption } from 'ng-select';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -100,8 +101,11 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   private dataSub: Subscription = null;
   accontType: any;
 
-    //for date 
-    datemax: any;
+    //for date control
+  datemax: any;
+  effectdate:any=null
+  maxDate: Date;
+  minDate: Date;
 
   constructor(
     private http: HttpClient,
@@ -112,8 +116,12 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     private schemeTypeChargesService: SchemeTypeChargesService,
     private aCMasterService: ACMasterDropdownService,
     private config: NgSelectConfig,) {
-      this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-      console.log(this.datemax);
+      // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+      // console.log(this.datemax);
+      this.maxDate = new Date();
+      this.minDate = new Date();
+      this.minDate.setDate(this.minDate.getDate() - 1);
+      this.maxDate.setDate(this.maxDate.getDate())
      
   }
 
@@ -238,11 +246,13 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
       }
   // Method to insert data into database through NestJS
   submit() {
+    let effectdate
     if(this.multiField.length!=0){
       this.formSubmitted=true;
       const formVal = this.angForm.value;
       const dataToSend = {
-      'EFFECT_DATE': formVal.EFFECT_DATE,
+        'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
+      // 'EFFECT_DATE': formVal.EFFECT_DATE,
       'ACNOTYPE': formVal.ACNOTYPE,
       'CHARGES_TYPE': formVal.CHARGES_TYPE,
       'CHARGES_GL_ACNO': formVal.CHARGES_GL_ACNO,
@@ -270,20 +280,24 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     }
     
   }
-
+  updatecheckdata:any
   //Method for append data into fields
   editClickHandler(id) {
+    let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.schemeTypeChargesService.getFormData(id).subscribe(data => {
+      this.updatecheckdata=data
       this.updateID = data.id;
       this.multiField = data.rate
+      this.ngchargesgl=Number(data.CHARGES_GL_ACNO)
       this.angForm.patchValue({
-        'EFFECT_DATE': data.EFFECT_DATE,
+        'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
+        // 'EFFECT_DATE': data.EFFECT_DATE,
         'ACNOTYPE': data.ACNOTYPE,
         'CHARGES_TYPE': data.CHARGES_TYPE,
-        'CHARGES_GL_ACNO': data.CHARGES_GL_ACNO,
+        // 'CHARGES_GL_ACNO': data.CHARGES_GL_ACNO,
       })
     })
   }
@@ -298,9 +312,13 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
 
   //Method for update data 
   updateData() {
+    let effectdate
     let data = this.angForm.value;
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField
+    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+      }
     this.schemeTypeChargesService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -351,10 +369,10 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
+    // this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      $('#informationtable tfoot tr').appendTo('#informationtable thead');
+      $('#definationtable tfoot tr').appendTo('#definationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
@@ -381,6 +399,10 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngschemetype=null
+    this.ngchargestype=null
+    this.ngchargesgl=null
+    
   }
 
   rerender(): void {

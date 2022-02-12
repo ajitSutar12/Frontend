@@ -5,15 +5,24 @@
         <h5>Government Security & LIC</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm"  (ngSubmit)="submit($event)">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
-                    formControlName="SUBMISSION_DATE"  #autofocus />
+                    formControlName="SUBMISSION_DATE"  #autofocus /> -->
+                    <input type="text" placeholder="dd/mm/yyyy"
+                  name="SUBMISSION_DATE" id="subm_date"
+                  class="form-control" [(ngModel)]="submissiondate"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                  
+                  [ngClass]="{'form-submitted': formSubmitted}"
+                  formControlName="SUBMISSION_DATE"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                  bsDatepicker>
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -30,9 +39,18 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="policy_due" required="" max="31-12-9999"
+                  <!-- <input type="date" class="form-control" placeholder=" " id="policy_due" required="" max="31-12-9999"
                   [ngClass]="{'form-submitted': formSubmitted}"
-                    formControlName="CERT_POLICY_DATE"  />
+                    formControlName="CERT_POLICY_DATE"  /> -->
+                    <input type="text" placeholder="dd/mm/yyyy"
+                  name="CERT_POLICY_DATE" id="policy_due"
+                  class="form-control" [(ngModel)]="certicatedate"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                  
+                  [ngClass]="{'form-submitted': formSubmitted}"
+                  formControlName="CERT_POLICY_DATE"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                  bsDatepicker>
                   <label for="policy_due">Certicate / Policy Date<sub class="required">*
                     </sub></label>
                 </span>
@@ -77,7 +95,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="margin" class="form-control" placeholder=" " id="margin" required="" #margin
                     (keyup)="checkmargin(margin.value)" pattern="\d{1,5}(\.\d{2})?" title="Input allowed only  0-9"
-                    [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                    [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
                     formControlName="MARGIN" />
                   <label for="margin">Margin<sub class="required">* </sub></label>
                 </span>
@@ -91,7 +109,7 @@
                     angForm.controls['MARGIN'].errors?.pattern ||
                     angForm.controls['MARGIN'].errors?.required
                   ">
-                  This field is required and Input allowed only 0-9
+                  This field is required and Input allowed only . 0-9
                 </div>
               </div>
             </div>
@@ -219,10 +237,19 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="PREMIUM_DUE_DATE" required=""
+                  <!-- <input type="date" class="form-control" placeholder=" " id="PREMIUM_DUE_DATE" required=""
                   [ngClass]="{'form-submitted': formSubmitted}"
                     max="{{datemax | date:'yyyy-MM-dd'}}" name="PREMIUM_DUE_DATE" formControlName="PREMIUM_DUE_DATE"
-                     />
+                     /> -->
+                     <input type="text" placeholder="dd/mm/yyyy"
+                     name="PREMIUM_DUE_DATE" id="PREMIUM_DUE_DATE"
+                     class="form-control" [(ngModel)]="premiumduedate"
+                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                     [minDate]="minDate"
+                     [ngClass]="{'form-submitted': formSubmitted}"
+                     formControlName="PREMIUM_DUE_DATE"
+                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                     bsDatepicker>
                   <label for="PREMIUM_DUE_DATE">Premium Due Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -239,11 +266,20 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="maturity" #maturity_date required=""
+                  <!-- <input type="date" class="form-control" placeholder=" " id="maturity" #maturity_date required=""
                   [ngClass]="{'form-submitted': formSubmitted}"
                     [min]="setdate" max="9999-12-31" name="maturity_date" [value]="resetmaturedate"
                     formControlName="MATURE_DUE_DATE"  id="date"
-                    (focusout)="checkdate(maturity_date.value)" />
+                    (focusout)="checkdate(maturity_date.value)" /> -->
+                    <input type="text" placeholder="dd/mm/yyyy"
+                    name="MATURE_DUE_DATE" id="maturity_date"
+                    class="form-control" [(ngModel)]="maturityduedate"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    [minDate]="minDate"
+                    [ngClass]="{'form-submitted': formSubmitted}"
+                    formControlName="MATURE_DUE_DATE"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                    bsDatepicker>
                   <label for="maturity_date">Matured Due Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -325,7 +361,7 @@
                     <tr *ngFor="let data of governmentmasters">
                       <td>
                         <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                        (click)="editClickHandler(data.id)" placement=" bottom"
+                        (click)="editClickHandler(data.id)" placement="bottom"
                         ngbTooltip="Edit"></span>
                         &nbsp;
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->

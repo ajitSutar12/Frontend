@@ -16,6 +16,7 @@ import { DereciationService } from './depreciation-rate-master.service';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -81,6 +82,9 @@ export class DepreciationRateMasterComponent implements OnInit {
   category: any[];
   //for date 
   datemax: any;
+  effectdate:any=null
+  maxDate: Date;
+  minDate: Date;
 
 
   
@@ -92,8 +96,12 @@ export class DepreciationRateMasterComponent implements OnInit {
     private dereciationService: DereciationService,
     private config: NgSelectConfig,) {
           // this.datemax =new Date() ;
-          this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-          console.log(this.datemax);
+          // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+          // console.log(this.datemax);
+          this.maxDate = new Date();
+          this.minDate = new Date();
+          this.minDate.setDate(this.minDate.getDate() - 1);
+          this.maxDate.setDate(this.maxDate.getDate())
         
   }
 
@@ -196,10 +204,12 @@ export class DepreciationRateMasterComponent implements OnInit {
     }
   // Method to insert data into database through NestJS
   submit() {
+    let effectdate
     this.formSubmitted=true;
     const formVal = this.angForm.value;
     const dataToSend = {
-      'EFFECT_DATE': formVal.EFFECT_DATE,
+      'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
+      // 'EFFECT_DATE': formVal.EFFECT_DATE,
       'CATEGORY': formVal.CATEGORY,
       'DEPR_RATE': formVal.DEPR_RATE,
     }
@@ -216,16 +226,21 @@ export class DepreciationRateMasterComponent implements OnInit {
     this.resetForm();
   }
 
+  updatecheckdata:any
   //Method for append data into fields
   editClickHandler(id) {
+    let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.dereciationService.getFormData(id).subscribe(data => {
+      this.updatecheckdata=data
       this.updateID = data.id;
+      this.ngcategory=Number(data.CATEGORY)
       this.angForm.setValue({
-        'EFFECT_DATE': data.EFFECT_DATE,
-        'CATEGORY': data.CATEGORY,
+        'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
+        // 'EFFECT_DATE': data.EFFECT_DATE,
+        // 'CATEGORY': data.CATEGORY,
         'DEPR_RATE': data.DEPR_RATE,
       })
     })
@@ -245,8 +260,12 @@ export class DepreciationRateMasterComponent implements OnInit {
   
   //Method for update data 
   updateData(id) {
+    let effectdate
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+      }
     this.dereciationService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -303,10 +322,10 @@ export class DepreciationRateMasterComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
+    // this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      $('#informationtable tfoot tr').appendTo('#informationtable thead');
+      $('#definationtable tfoot tr').appendTo('#definationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
@@ -333,6 +352,7 @@ export class DepreciationRateMasterComponent implements OnInit {
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngcategory=null
   }
 
   rerender(): void {

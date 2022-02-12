@@ -14,6 +14,7 @@ import { SchemeTypeDropdownService } from '../../../../../shared/dropdownService
 import { IOption } from 'ng-select';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -94,6 +95,9 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   private dataSub: Subscription = null;
   //for date 
   datemax: any;
+  effectdate:any=null
+  maxDate: Date;
+  minDate: Date;
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -101,8 +105,12 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     public SchemeTypes: SchemeTypeDropdownService,
     private prematurePigmyService: PrematurePigmyService,
     private config: NgSelectConfig,) {
-      this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-      console.log(this.datemax);
+      // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+      // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
     
   }
 
@@ -194,13 +202,15 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       }
   // Method to insert data into database through NestJS
   submit() {
+    let effectdate
     if(this.multiField.length!=0){
       this.formSubmitted=true;
 
       const formVal = this.angForm.value;
       const dataToSend = {
+      'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'EFFECT_DATE': formVal.EFFECT_DATE,
+      // 'EFFECT_DATE': formVal.EFFECT_DATE,
       'FieldData': this.multiField,
     }
     this.prematurePigmyService.postData(dataToSend).subscribe(data1 => {
@@ -225,17 +235,25 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     }
     
   }
-
+  updatecheckdata:any
   //Method for append data into fields
   editClickHandler(id) {
+    
+    let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.addShowButton = true
     this.prematurePigmyService.getFormData(id).subscribe(data => {
-      this.updateID = data.id;
+      debugger
+      this.updatecheckdata=data
+      console.log("edit", data)
       this.multiField = data.rate
+      this.updateID = data.id;
+      console.log( this.multiField)
       this.angForm.patchValue({
-        'EFFECT_DATE': data.EFFECT_DATE,
+        'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
+        // 'EFFECT_DATE': data.EFFECT_DATE,
         'AC_ACNOTYPE': data.AC_ACNOTYPE,
       })
     })
@@ -243,9 +261,13 @@ export class PrematurePigmyLessIRComponent implements OnInit {
 
   //Method for update data 
   updateData(id) {
+    let effectdate
     let data = this.angForm.value;
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField
+    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+      }
     this.prematurePigmyService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -336,10 +358,10 @@ console.log(ele);
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
+    // this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      $('#informationtable tfoot tr').appendTo('#informationtable thead');
+      $('#definationtable tfoot tr').appendTo('#definationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {
@@ -366,6 +388,7 @@ console.log(ele);
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngschemetype=null
   }
 
   rerender(): void {

@@ -5,17 +5,24 @@
         <h5>Vehicle</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" 
-      (ngSubmit)="submit($event)"
-      >
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
-                    formControlName="SUBMISSION_DATE"  #autofocus />
+                    formControlName="SUBMISSION_DATE"  #autofocus /> -->
+                    <input type="text" placeholder="dd/mm/yyyy"
+                  name="SUBMISSION_DATE" id="subm_date"
+                  class="form-control" [(ngModel)]="submissiondate"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                  [maxDate]="maxDate"
+                  [ngClass]="{'form-submitted': formSubmitted}"
+                  formControlName="SUBMISSION_DATE"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                  bsDatepicker>
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -32,9 +39,18 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="RTORegistrationDate" required=""
+                  <!-- <input type="date" class="form-control" placeholder=" " id="RTORegistrationDate" required=""
                   [ngClass]="{'form-submitted': formSubmitted}"
-                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="RTO_REG_DATE"  />
+                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="RTO_REG_DATE"  /> -->
+                    <input type="text" placeholder="dd/mm/yyyy"
+                  name="RTO_REG_DATE" id="RTORegistrationDate"
+                  class="form-control" [(ngModel)]="rtoregdate"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                  [maxDate]="maxDate"
+                  [ngClass]="{'form-submitted': formSubmitted}"
+                  formControlName="RTO_REG_DATE"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                  bsDatepicker>
                   <label for="RTORegistrationDate">RTO Registration Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -147,8 +163,17 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="DateofAcquisition" required=""
-                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="AQUISITION_DATE"  id="date" />
+                  <!-- <input type="date" class="form-control" placeholder=" " id="DateofAcquisition" required=""
+                    max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="AQUISITION_DATE"  id="date" /> -->
+                    <input type="text" placeholder="dd/mm/yyyy"
+                  name="AQUISITION_DATE" id="DateofAcquisition"
+                  class="form-control" [(ngModel)]="acquisitiondate"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                  [maxDate]="maxDate"
+                  [ngClass]="{'form-submitted': formSubmitted}"
+                  formControlName="AQUISITION_DATE"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                  bsDatepicker>
                   <label for="DateofAcquisition">Date of Acquisition</label>
                 </span>
               </div>
@@ -295,7 +320,7 @@
                     <tr *ngFor="let data of vehiclemasters">
                       <td>
                         <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                        (click)="editClickHandler(data.id)" placement=" bottom"
+                        (click)="editClickHandler(data.id)" placement="bottom"
                         ngbTooltip="Edit"></span>
                         &nbsp;
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->

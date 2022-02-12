@@ -56,7 +56,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -74,6 +74,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     FormsModule,
     ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   exports: [SecurityDetailsComponent,
     OtherSecurityComponent,

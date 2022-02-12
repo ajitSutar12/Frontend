@@ -23,6 +23,8 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
 import { first } from 'rxjs/operators';
 //date pipe
 import { DatePipe } from '@angular/common';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -49,6 +51,7 @@ interface SpecialMaster {
   styleUrls: ['./special.component.scss']
 })
 export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   angForm: FormGroup;
   //api 
@@ -74,6 +77,10 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   characters: Array<IOption>;
   selectedCharacter = '3';
   timeLeft = 5;
+  todate:any=null
+  fromdate:any=null
+  maxDate: Date;
+  minDate: Date;
 
   private dataSub: Subscription = null;
   showButton: boolean = true;
@@ -83,12 +90,19 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   isIsRestrictTransactionEntry: boolean = false;
   page: number;
   updateID: any;
-
+  ngacno:any=null
+  ngexecuteon:any=null
   constructor(private fb: FormBuilder, private datePipe: DatePipe, public exucuteOnService: ExucuteOnService,
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private http: HttpClient,
-    private _special: specialservice) { }
+    private _special: specialservice,
+    private config: NgSelectConfig,) {
+      this.maxDate = new Date();
+      this.minDate = new Date();
+      this.minDate.setDate(this.minDate.getDate() - 1);
+      this.maxDate.setDate(this.maxDate.getDate())
+     }
 
   ngOnInit(): void {
     this.createForm();
@@ -228,20 +242,27 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submit() {
+    let fromdate
+    let  todate
+    this.formSubmitted=true;
     const formVal = this.angForm.value;
     const dataToSend = {
       INSTRUCTION_NO: formVal.INSTRUCTION_NO,
       INSTRUCTION_DATE: formVal.INSTRUCTION_DATE,
       TRAN_ACTYPE: formVal.TRAN_ACTYPE,
       TRAN_ACNO: formVal.TRAN_ACNO,
-      FROM_DATE: formVal.FROM_DATE,
-      TO_DATE: formVal.TO_DATE,
+      FROM_DATE: (formVal.FROM_DATE == '' || formVal.FROM_DATE == 'Invalid date') ? fromdate = '' : fromdate = moment(formVal.FROM_DATE).format('DD/MM/YYYY'),
+      // FROM_DATE: formVal.FROM_DATE,
+      TO_DATE: (formVal.TO_DATE == '' || formVal.TO_DATE == 'Invalid date') ? todate = '' : todate = moment(formVal.TO_DATE).format('DD/MM/YYYY'),
+      // TO_DATE: formVal.TO_DATE,
       DRCR_APPLY: formVal.DRCR_APPLY,
       IS_RESTRICT: formVal.IS_RESTRICT,
       DETAILS: formVal.DETAILS,
     };
     this._special.postData(dataToSend).subscribe(
       (data1) => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
         // to reload after delete of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -257,20 +278,25 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
 * @editClickHandler function for edit button clicked
 */
-
+  updatecheckdata:any 
   editClickHandler(id: any): void {
+    let fromdate
+    let todate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._special.getFormData(id).subscribe((data) => {
+      this.updatecheckdata=data
       this.updateID = data.id;
       this.angForm.setValue({
         INSTRUCTION_NO: data.INSTRUCTION_NO,
         INSTRUCTION_DATE: data.INSTRUCTION_DATE,
         TRAN_ACTYPE: data.TRAN_ACTYPE,
         TRAN_ACNO: data.TRAN_ACNO,
-        FROM_DATE: data.FROM_DATE,
-        TO_DATE: data.TO_DATE,
+        FROM_DATE: (data.FROM_DATE == 'Invalid date' || data.FROM_DATE == '' || data.FROM_DATE == null) ? fromdate = '' : fromdate = data.FROM_DATE,
+        // FROM_DATE: data.FROM_DATE,
+        TO_DATE: (data.TO_DATE == 'Invalid date' || data.TO_DATE == '' || data.TO_DATE == null) ? todate = '' : todate = data.TO_DATE,
+        // TO_DATE: data.TO_DATE,
         DRCR_APPLY: data.DRCR_APPLY,
         IS_RESTRICT: data.IS_RESTRICT,
         DETAILS: data.DETAILS,
@@ -282,11 +308,19 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   * @updateData function for update data 
   */
   updateData() {
+    let fromdate
+    let todate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+      (data.FROM_DATE == 'Invalid date' || data.FROM_DATE == '' || data.FROM_DATE == null) ? (fromdate = '', data['FROM_DATE'] = fromdate) : (fromdate = data.FROM_DATE, data['FROM_DATE'] = moment(fromdate).format('DD/MM/YYYY'))
+      }
+    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+      (data.TO_DATE == 'Invalid date' || data.TO_DATE == '' || data.TO_DATE == null) ? (todate = '', data['TO_DATE'] = todate) : (todate = data.TO_DATE, data['TO_DATE'] = moment(todate).format('DD/MM/YYYY'))
+      }
     this._special.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -421,16 +455,21 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
+    //this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#instructiontable tfoot tr').appendTo('#instructiontable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
           } else {
-            that.search(this["value"]).draw();
+            that
+              .search(this['value'])
+              .draw();
           }
         });
       });

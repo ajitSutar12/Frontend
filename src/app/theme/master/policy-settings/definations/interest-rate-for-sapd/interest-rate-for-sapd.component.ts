@@ -19,6 +19,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -93,6 +94,12 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
   private dataSub: Subscription = null;
   //for date 
   datemax: any;
+  effectdate:any=null
+  maxDate: Date;
+  minDate: Date;
+
+
+
   // dropdown
   allScheme: any[];
   ngscheme:any=null
@@ -106,8 +113,12 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     private fb: FormBuilder,
     private config: NgSelectConfig,) {
           // this.datemax =new Date() ;
-          this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-          console.log(this.datemax);
+          // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+          // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
         
      }
 
@@ -178,8 +189,9 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     };
     this.runTimer();
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      console.log(data)
       var filtered = data.filter(function (scheme) {
-        return (scheme.value == 'PG' && scheme.value == 'SB');
+        return (scheme.name == 'PG' && scheme.name == 'SB');
       });
       this.allScheme = filtered;
       console.log(this.allScheme)
@@ -211,10 +223,12 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       }
   // Method to insert data into database through NestJS
   submit() {
+    let effectdate
     this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
-      'EFFECT_DATE': formVal.EFFECT_DATE,
+      'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
+      //'EFFECT_DATE': formVal.EFFECT_DATE,
       'ACNOTYPE': formVal.ACNOTYPE,
       'INT_CATEGORY': formVal.INT_CATEGORY,
       'INT_RATE': formVal.INT_RATE
@@ -245,15 +259,20 @@ console.log(ele);
     Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
   }
 }
+
+updatecheckdata:any
   //Method for append data into fields
   editClickHandler(id) {
+    let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.savingandPigmyInterestRatesService.getFormData(id).subscribe(data => {
+      this.updatecheckdata=data
       this.updateID = data.id;
       this.angForm.setValue({
-        'EFFECT_DATE': data.EFFECT_DATE,
+        'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
+        //'EFFECT_DATE': data.EFFECT_DATE,
         'ACNOTYPE': data.ACNOTYPE,
         'INT_CATEGORY': data.INT_CATEGORY,
         'INT_RATE': data.INT_RATE
@@ -263,8 +282,12 @@ console.log(ele);
 
   //Method for update data 
   updateData() {
+    let effectdate
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+    }
     this.savingandPigmyInterestRatesService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;

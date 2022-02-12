@@ -5,15 +5,24 @@
         <h5>Book Debts</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
-      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm" (ngSubmit)="submit($event)">
+      <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
-                    formControlName="SUBMISSION_DATE" #autofocus />
+                    formControlName="SUBMISSION_DATE" #autofocus /> -->
+                    <input type="text" placeholder="dd/mm/yyyy"
+                    name="SUBMISSION_DATE" id="subm_date"
+                    class="form-control" [(ngModel)]="submissiondate"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    
+                    [ngClass]="{'form-submitted': formSubmitted}"
+                    formControlName="SUBMISSION_DATE"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                    bsDatepicker>
                   <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -28,9 +37,18 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="date" class="form-control" placeholder=" " id="stmt_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  <!-- <input type="date" class="form-control" placeholder=" " id="stmt_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"
-                    formControlName="STATEMENT_DATE"  id="date" />
+                    formControlName="STATEMENT_DATE"  id="date" /> -->
+                    <input type="text" placeholder="dd/mm/yyyy"
+                    name="STATEMENT_DATE" id="stmt_date"
+                    class="form-control" [(ngModel)]="statementdate"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                    [maxDate]="maxDate"
+                    [ngClass]="{'form-submitted': formSubmitted}"
+                    formControlName="STATEMENT_DATE"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                    bsDatepicker>
                   <label for="stmt_date">Statement Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -51,7 +69,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="DebtorsOpeningBalance" class="form-control" placeholder=" "
-                  [ngClass]="{'form-submitted': formSubmitted}" min="0" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  [ngClass]="{'form-submitted': formSubmitted}" min="0" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     id="DebtorsOpeningBalance" required="" pattern="\d{1,20}(\.\d{2})?" (focusout)="calculateopening()"
                     title="Input allowed only  0-9" formControlName="DEBTORS_OP_BAL">
                   <label for="DebtorsOpeningBalance">Debtors Opening Balance<sub class="required">*
@@ -63,7 +81,7 @@
                 class="alert alert-danger">
                 <div
                   *ngIf="angForm.controls['DEBTORS_OP_BAL'].errors?.pattern || angForm.controls['DEBTORS_OP_BAL'].errors?.required">
-                  This field is required and Input allowed only 0-9
+                  This field is required and Input allowed only . 0-9(after decimal 2 digits)
                 </div>
               </div>
             </div>
@@ -76,7 +94,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="AddCreditSales" class="form-control" placeholder=" " id="AddCreditSales"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="CREDIT_SALE" min="0"
                     (focusout)="calculateopening()">
                   <label for="AddCreditSales">Add Credit Sales</label>
@@ -86,7 +104,7 @@
                 *ngIf="angForm.controls['CREDIT_SALE'].invalid && (angForm.controls['CREDIT_SALE'].dirty || angForm.controls['CREDIT_SALE'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['CREDIT_SALE'].errors?.pattern">
-                  Input allowed only 0-9
+                  Input allowed only . 0-9(after decimal 2 digits)
                 </div>
               </div>
             </div>
@@ -99,7 +117,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="LessRecoveries" class="form-control" placeholder=" " id="LessRecoveries"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="RECOVERY" min="0"
                     (focusout)="calculateopening()">
                   <label for="LessRecoveries">Less Recoveries</label>
@@ -109,7 +127,7 @@
                 *ngIf="angForm.controls['RECOVERY'].invalid && (angForm.controls['RECOVERY'].dirty || angForm.controls['RECOVERY'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['RECOVERY'].errors?.pattern">
-                  Input allowed only 0-9
+                  Input allowed only . 0-9(after decimal 2 digits)
                 </div>
               </div>
             </div>
@@ -122,7 +140,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="LessOveragedDebtors" class="form-control" placeholder=" "
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     id="LessOveragedDebtors" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     min="0"
                     formControlName="OVERAGED_DEBTORS" (focusout)="calculateopening()">
@@ -133,7 +151,7 @@
                 *ngIf="angForm.controls['OVERAGED_DEBTORS'].invalid && (angForm.controls['OVERAGED_DEBTORS'].dirty || angForm.controls['OVERAGED_DEBTORS'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['OVERAGED_DEBTORS'].errors?.pattern">
-                  Input allowed only 0-9
+                  Input allowed only . 0-9(after decimal 2 digits)
                 </div>
               </div>
             </div>
@@ -161,7 +179,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="CreditorsOutstanding" class="form-control" placeholder=" "
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     id="CreditorsOutstanding" required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="CRD_OUTSTAND_BAL">
                   <label for="CreditorsOutstanding">Creditors Outstanding<sub class="required">*
@@ -173,7 +191,7 @@
                 class="alert alert-danger">
                 <div
                   *ngIf="angForm.controls['CRD_OUTSTAND_BAL'].errors?.pattern || angForm.controls['CRD_OUTSTAND_BAL'].errors?.required">
-                  This field is required and Input allowed only 0-9
+                  This field is required and Input allowed only . 0-9(after decimal 2 digits)
                 </div>
               </div>
             </div>
@@ -181,7 +199,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="Margin" class="form-control" placeholder=" " id="Margin" #margin
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     (keyup)="checkmargin(margin.value)" pattern="\d{1,5}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="MARGIN">
                   <label for="Margin">Margin % </label>
@@ -191,7 +209,7 @@
                 *ngIf="angForm.controls['MARGIN'].invalid && (angForm.controls['MARGIN'].dirty || angForm.controls['MARGIN'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['MARGIN'].errors?.pattern">
-                  Input allowed only 0-9
+                  Input allowed only . 0-9(after decimal 2 digits)
                 </div>
               </div>
             </div>
@@ -244,7 +262,7 @@
                     <tr *ngFor="let data of bookMaster">
                       <td>
                         <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                        (click)="editClickHandler(data.id)" placement=" bottom"
+                        (click)="editClickHandler(data.id)" placement="bottom"
                         ngbTooltip="Edit"></span>
                         &nbsp;
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->

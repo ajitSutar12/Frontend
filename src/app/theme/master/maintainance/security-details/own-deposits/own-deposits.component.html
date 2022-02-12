@@ -20,10 +20,10 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch" formControlName="username"
+                                  <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch" 
                                     formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Branch">
-                                    <ng-option *ngFor="let values of branchOption" [value]="values">
+                                    <ng-option *ngFor="let values of branchOption" [value]="values"> 
                                       {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="BRANCH_CODE">Branch<sub class="required"> * </sub></label>
@@ -95,10 +95,19 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="date" class="form-control" placeholder=" " id="subm_date" required=""
+                                    <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required=""
                                         max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="SUBMISSION_DATE"
                                          [ngClass]="{'form-submitted': formSubmitted}"
-                                        onfocus="(this.type='date')" />
+                                        onfocus="(this.type='date')" /> -->
+                                        <input type="text" placeholder="dd/mm/yyyy"
+                                            name="SUBMISSION_DATE" id="subm_date"
+                                            class="form-control" [(ngModel)]="submissiondate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [maxDate]="maxDate"
+                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                            formControlName="SUBMISSION_DATE"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker>
                                     <label for="subm_date">Date of Submission<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -125,7 +134,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="deposit_amount" class="form-control" placeholder=" "
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         id="deposit_amount" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                                         formControlName="DEPOSIT_AMT">
                                     <label for="deposit_amount">Deposit Amount</label>
@@ -135,7 +144,7 @@
                                 *ngIf="angForm.controls['DEPOSIT_AMT'].invalid && (angForm.controls['DEPOSIT_AMT'].dirty || angForm.controls['DEPOSIT_AMT'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['DEPOSIT_AMT'].errors?.pattern">
-                                    Input allowed only 0-9
+                                    Input allowed only . 0-9(after decimal 2 digits)
                                 </div>
                             </div>
                         </div>
@@ -170,7 +179,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="margin" class="form-control" placeholder=" " id="margin"
                                         #margin (keyup)="checkmargin(margin.value)" pattern="\d{1,5}(\.\d{2})?"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         title="Input allowed only  0-9" formControlName="MARGIN">
                                     <label for="margin">Margin %</label>
                                 </span>
@@ -179,7 +188,7 @@
                                 *ngIf="angForm.controls['MARGIN'].invalid && (angForm.controls['MARGIN'].dirty || angForm.controls['MARGIN'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['MARGIN'].errors?.pattern">
-                                    Input allowed only 0-9
+                                    Input allowed only . 0-9(after decimal 2 digits)
                                 </div>
                             </div>
                         </div>
@@ -228,7 +237,7 @@
                                     <tbody *ngIf="depositemasters?.length != 0">
                                         <tr *ngFor="let data of depositemasters">
                                             <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                            (click)="editClickHandler(data.id)" placement=" bottom"
+                                            (click)="editClickHandler(data.id)" placement="bottom"
                                             ngbTooltip="Edit"></span>  &nbsp;
                                                 <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                             </td>

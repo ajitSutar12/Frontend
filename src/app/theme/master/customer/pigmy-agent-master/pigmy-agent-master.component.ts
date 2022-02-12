@@ -350,6 +350,12 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
       this.id = data.id
+      if (data.castMaster == null) {
+        data.castMaster = ""
+      }
+      if (data.occupMaster == null) {
+        data.occupMaster = ""
+      }
       this.angForm.patchValue({
         // AC_CUSTID: id.toString(),
         AC_TITLE: data.AC_TITLE,

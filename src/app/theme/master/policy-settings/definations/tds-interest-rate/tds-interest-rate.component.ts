@@ -11,6 +11,7 @@ import { TdsInterestRateService } from './tds-interest-rate.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import * as moment from 'moment';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -33,6 +34,7 @@ interface TdsInterest {
   styleUrls: ['./tds-interest-rate.component.scss']
 })
 export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   //api 
   url = environment.base_url;
@@ -71,13 +73,20 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
   filterData = {};
     //for date 
     datemax: any;
+    effectdate:any=null
+  maxDate: Date;
+  minDate: Date;
     
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
     private tdsInterestRate: TdsInterestRateService) {
-      this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-      console.log(this.datemax);
+      // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+      // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
     
   }
 
@@ -178,16 +187,20 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
       }
   // Method to insert data into database through NestJS
   submit() {
+    let effectdate
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
       'FIN_YEAR': formVal.FIN_YEAR,
-      'EFFECT_DATE': formVal.EFFECT_DATE,
+      'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
+      // 'EFFECT_DATE': formVal.EFFECT_DATE,
       'INTEREST_AMOUNT': formVal.INTEREST_AMOUNT,
       'TDS_RATE': formVal.TDS_RATE,
       'SURCHARGE_RATE': formVal.SURCHARGE_RATE,
     }
     this.tdsInterestRate.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -205,16 +218,20 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
     this.resetForm();
   }
 
+  updatecheckdata:any
   //Method for append data into fields
   editClickHandler(id) {
+    let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.tdsInterestRate.getFormData(id).subscribe(data => {
+      this.updatecheckdata=data
       this.updateID = data.id;
       this.angForm.setValue({
         'FIN_YEAR': data.FIN_YEAR,
-        'EFFECT_DATE': data.EFFECT_DATE,
+        'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
+        // 'EFFECT_DATE': data.EFFECT_DATE,
         'INTEREST_AMOUNT': data.INTEREST_AMOUNT,
         'TDS_RATE': data.TDS_RATE,
         'SURCHARGE_RATE': data.SURCHARGE_RATE,
@@ -234,8 +251,12 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
   }
   //Method for update data 
   updateData(id) {
+    let effectdate
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+      }
     this.tdsInterestRate.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -286,10 +307,10 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
 
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
+    // this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      $('#informationtable tfoot tr').appendTo('#informationtable thead');
+      $('#definationtable tfoot tr').appendTo('#definationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

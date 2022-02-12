@@ -27,7 +27,10 @@ import { HttpClient } from '@angular/common/http';
 import { SystemMasterParametersService } from './system-master-parameters.service';
 import Swal from 'sweetalert2';
 import { first } from 'rxjs/operators';
-import { environment } from '../../../../../environments/environment'
+import { environment } from '../../../../../environments/environment';
+import { NgSelectConfig } from '@ng-select/ng-select';
+
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -171,6 +174,7 @@ interface SystemMasterParameters {
   ]
 })
 export class SystemMasterParametersComponent implements OnInit, AfterViewInit, OnDestroy {
+  formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   //api 
   url = environment.base_url
@@ -207,6 +211,8 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   //variable to get Id to update
   updateID: number = 0;
 
+  
+
   simpleOption: Array<IOption> = this.StatementTypeService.getCharacters();
   IntrestCalculationMethod: Array<IOption> = this.IntrestCalculationMethodService.getCharacters();
   WeeklyandHalfHoliday: Array<IOption> = this.WeeklyHolidayService.getCharacters();
@@ -217,6 +223,44 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   timeLeft = 5;
   private dataSub: Subscription = null;
   dropDown;
+
+  // dropdown ngModel variables
+    //tab1 variable
+      ngbranch:any=null
+    //tab2 variables
+      ngddcom:any=null
+      ngbonus:any=null
+      ngbill:any=null
+      ngbills:any=null
+      ngbcbr:any=null
+      ngclr:any=null
+      nginward:any=null
+      nginwardbill:any=null
+      ngrecovery:any=null
+    //tab3 variables
+      ngheadoffice:any=null
+      ngbankgaurantee:any=null
+      ngbankgauranteecr:any=null
+      ngpayorder:any=null
+      nginwardbilss:any=null
+      ngyearend:any=null
+      ngprofitloss:any=null
+      ngsharecapital:any=null
+      ngtds:any=null
+      ngsurcharge:any=null
+      ngcheque:any=null
+      ngchequebounce:any=null
+      ngmicrcharges:any=null
+   //tab4 variables
+    ngweeklyholiday:any=null
+    nghalfday:any=null
+    ngintcal:any=null
+   //tab4 variables
+    ngbackoffice:any=null
+    ngcashinhand:any=null
+    ngclrhouse:any=null
+
+
   selectedItems: any;
   FaceValueDividendTrue = true;
   OtherSettings_True = false;
@@ -233,8 +277,10 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     public OwnbranchMasterService: OwnbranchMasterService,
     public StatementTypeService: StatementTypeService,
     public selectOptionService: SelectOptionService,
-    public systemMasterParametersService: SystemMasterParametersService
-    , private fb: FormBuilder) {
+    public systemMasterParametersService: SystemMasterParametersService,
+    
+    private fb: FormBuilder,
+    private config: NgSelectConfig,) {
       this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
       console.log(this.datemax);
 
@@ -812,8 +858,15 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     }
 
   }
+  //to switch to next tab 
+  @ViewChild('ctdTabset') ctdTabset;
+  switchNgBTab(id: string) {
+    this.ctdTabset.select(id); 
+  }
   submit() {
+    this.formSubmitted = true;
     const formVal = this.angForm.value;
+    
     const dataToSend = {
 
       'SYSPARA_CODE': formVal.SYSPARA_CODE,
@@ -949,6 +1002,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     console.log(dataToSend);
     this.systemMasterParametersService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload();
@@ -963,12 +1017,14 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   //Method for append data into fields
 
   editClickHandler(id) {
+    
       this.showButton = false;
       this.updateShow = true;
       this.newbtnShow = true;
       this.systemMasterParametersService.getFormData(id).subscribe(data => {
         this.updateID = data.id;
         this.angForm.patchValue({
+          
           'SYSPARA_CODE': data.SYSPARA_CODE,
           'BANK_NAME': data.BANK_NAME,
     
@@ -1104,6 +1160,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
 
   //Method for update data 
   updateData() {
+    
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.systemMasterParametersService.updateData(data).subscribe(() => {
@@ -1167,6 +1224,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#informationtable tfoot tr').appendTo('#informationtable thead');
       dtInstance.columns().every(function () {
         const that = this;
         $('input', this.footer()).on('keyup change', function () {

@@ -11,9 +11,18 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  <!-- <input type="text" class="form-control" placeholder=" " id="date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"  
-                  formControlName="SUBMISSION_DATE" onfocus="(this.type='date')" id="date" #autofocus />
+                  formControlName="SUBMISSION_DATE" onfocus="(this.type='date')" id="date" #autofocus /> -->
+                  <input type="text" placeholder="dd/mm/yyyy"
+                  name="SUBMISSION_DATE" id="subm_date"
+                  class="form-control" [(ngModel)]="submissiondate"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                  [maxDate]="maxDate"
+                  [ngClass]="{'form-submitted': formSubmitted}"
+                  formControlName="SUBMISSION_DATE"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                  bsDatepicker>
                   <label for="date">Submission Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -28,9 +37,18 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" class="form-control" placeholder=" " id="policy_due" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
+                  <!-- <input type="text" class="form-control" placeholder=" " id="policy_due" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"  
-                  formControlName="POLICY_DUE_DATE" onfocus="(this.type='date')" />
+                  formControlName="POLICY_DUE_DATE" onfocus="(this.type='date')" /> -->
+                  <input type="text" placeholder="dd/mm/yyyy"
+                  name="POLICY_DUE_DATE" id="policy_due"
+                  class="form-control" [(ngModel)]="policyduedate"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                  [minDate]="minDate"
+                  [ngClass]="{'form-submitted': formSubmitted}"
+                  formControlName="POLICY_DUE_DATE"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                  bsDatepicker>
                   <label for="policy_due">Policy Due Date<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -210,9 +228,18 @@
               <div class="col-sm">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
-                    <input type="text" class="form-control" placeholder=" " id="premium_due_date" required=""
+                    <!-- <input type="text" class="form-control" placeholder=" " id="premium_due_date" required=""
                     [ngClass]="{'form-submitted': formSubmitted}"
-                      max="31-12-9999" formControlName="PREMIUM_DUE_DATE" onfocus="(this.type='date')" />
+                      max="31-12-9999" formControlName="PREMIUM_DUE_DATE" onfocus="(this.type='date')" /> -->
+                      <input type="text" placeholder="dd/mm/yyyy"
+                  name="POLICY_DUE_DATE" id="premium_due_date"
+                  class="form-control" [(ngModel)]="premiumduedate"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                  [minDate]="minDate"
+                  [ngClass]="{'form-submitted': formSubmitted}"
+                  formControlName="PREMIUM_DUE_DATE"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                  bsDatepicker>
                     <label for="premium_due_date">Premium Due Date<sub class="required">*
                       </sub></label>
 
@@ -256,7 +283,7 @@
                     <tr *ngFor="let data of firemaster">
                       <td>
                         <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                            (click)="editClickHandler(data.id)" placement=" bottom"
+                                            (click)="editClickHandler(data.id)" placement="bottom"
                                             ngbTooltip="Edit"></span>
                         &nbsp;
                         <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
@@ -268,10 +295,11 @@
                       <td class="td_right">{{ data.POLICY_AMT }}</td>
                       <td class="td_right">{{ data.POLICY_NATURE }}</td>
                       <td class="td_right">{{ data.INSU_CO_CODE }}</td>
+                      <td>{{ data.ADDRESS }}</td>
                       <td>{{ data.CITY }}</td>
                       <td class="td_right">{{ data.PREMIUM }}</td>
                       <td class="td_right">{{ data.PREMIUM_DUE_DATE }}</td>
-                      <td>{{ data.ADDRESS }}</td>
+                      
 
 
 
@@ -304,6 +332,9 @@
                         <input type="text" class="form-control" name="INSU_CO_CODE" />
                       </th>
                       <th>
+                        <input type="text" class="form-control" name="ADDRESS" />
+                      </th>
+                      <th>
                         <input type="text" class="form-control" name="CITY" />
                       </th>
                       <th>
@@ -312,9 +343,7 @@
                       <th>
                         <input type="text" class="form-control" name="PREMIUM_DUE_DATE" />
                       </th>
-                      <th>
-                        <input type="text" class="form-control" name="ADDRESS" />
-                      </th>
+                     
                     </tr>
                   </tfoot>
                 </table>

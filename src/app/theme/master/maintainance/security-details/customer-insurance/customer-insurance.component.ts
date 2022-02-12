@@ -27,6 +27,7 @@ import { environment } from "src/environments/environment";
 import { first } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { NgSelectConfig } from '@ng-select/ng-select';
+import * as moment from 'moment';
 
 // Handling datatable data
 class DataTableResponse {
@@ -80,6 +81,13 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   updateID: number; //variable for updating
   // Store data from backend
   nginsurancecom:any=null
+
+  // for date 
+  insurancedate:any=null
+  insuranceexpirydate:any=null
+  maxDate: Date;
+  minDate: Date;
+
   customerMaster: CustomerMaster[];
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
@@ -98,8 +106,12 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     private _insurancedropdown: InsuranceMasterDropdownService,
     public router: Router,
     private config: NgSelectConfig,) { 
-    this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    console.log(this.datemax);
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
 
   }
 
@@ -206,6 +218,8 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   }
 
   submit(event) {
+    let insurancedate
+    let insuranceexpirydate
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -215,10 +229,12 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     const dataToSend = {
       // AC_TYPE: this.scheme._value[0],
       // AC_NO: this.Accountno,
-      INSURANCE_DATE: formVal.INSURANCE_DATE,
+      'INSURANCE_DATE': (formVal.INSURANCE_DATE == '' || formVal.INSURANCE_DATE == 'Invalid date') ? insurancedate = '' : insurancedate = moment(formVal.INSURANCE_DATE).format('DD/MM/YYYY'),
+      // INSURANCE_DATE: formVal.INSURANCE_DATE,
       POLICY_NO: formVal.POLICY_NO,
       INSU_COMPANY_CODE: formVal.INSU_COMPANY_CODE,
-      INSU_EXP_DATE: formVal.INSU_EXP_DATE,
+      'INSU_EXP_DATE': (formVal.INSU_EXP_DATE == '' || formVal.INSU_EXP_DATE == 'Invalid date') ? insuranceexpirydate = '' : insuranceexpirydate = moment(formVal.INSU_EXP_DATE).format('DD/MM/YYYY'),
+      // INSU_EXP_DATE: formVal.INSU_EXP_DATE,
       INSU_AMOUNT: formVal.INSU_AMOUNT,
     };
     console.log(dataToSend);
@@ -249,41 +265,54 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     
   }
 
+  updatecheckdata:any
   //function for edit button clicked
   editClickHandler(id: any): void {
-
+    let insurancedate
+    let insuranceexpirydate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._customerservice.getFormData(id).subscribe((data) => {
-     
+      this.updatecheckdata=data
+      debugger
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
       dropdown.account = data.AC_NO.toString();
-    
+      this.nginsurancecom=Number(data.INSU_COMPANY_CODE)
         this.updateID = data.id;
       this.angForm.patchValue({
 
 
         // AC_TYPE: this.scheme._value[0],
         // AC_NO: this.Accountno,
-        INSURANCE_DATE: data.INSURANCE_DATE,
+        'INSURANCE_DATE': (data.INSURANCE_DATE == 'Invalid date' || data.INSURANCE_DATE == '' || data.INSURANCE_DATE == null) ? insurancedate = '' : insurancedate = data.INSURANCE_DATE,
+        // INSURANCE_DATE: data.INSURANCE_DATE,
         POLICY_NO: data.POLICY_NO,
-        INSU_COMPANY_CODE: data.INSU_COMPANY_CODE,
-        INSU_EXP_DATE: "2021-11-11",
+        // INSU_COMPANY_CODE: data.INSU_COMPANY_CODE,
+        'INSU_EXP_DATE': (data.INSU_EXP_DATE == 'Invalid date' || data.INSU_EXP_DATE == '' || data.INSU_EXP_DATE == null) ? insuranceexpirydate = '' : insuranceexpirydate = data.INSU_EXP_DATE,
+        // INSU_EXP_DATE: "2021-11-11",
         INSU_AMOUNT: data.INSU_AMOUNT,
       });
     });
   }
 
   updateData() {
+    let insurancedate
+    let insuranceexpirydate
     this.showButton = true;
     this.updateShow = false;
     
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    if(this.updatecheckdata.INSURANCE_DATE!=data.INSURANCE_DATE){
+      (data.INSURANCE_DATE == 'Invalid date' || data.INSURANCE_DATE == '' || data.INSURANCE_DATE == null) ? (insurancedate = '', data['INSURANCE_DATE'] = insurancedate) : (insurancedate = data.INSURANCE_DATE, data['INSURANCE_DATE'] = moment(insurancedate).format('DD/MM/YYYY'))
+      }
+      if(this.updatecheckdata.INSU_EXP_DATE!=data.INSU_EXP_DATE){
+        (data.INSU_EXP_DATE == 'Invalid date' || data.INSU_EXP_DATE == '' || data.INSU_EXP_DATE == null) ? (insuranceexpirydate = '', data['INSU_EXP_DATE'] = insuranceexpirydate) : (insuranceexpirydate = data.INSU_EXP_DATE, data['INSU_EXP_DATE'] = moment(insuranceexpirydate).format('DD/MM/YYYY'))
+        }
     this._customerservice.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -324,7 +353,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   }
   ngAfterViewInit(): void {
 
-    this.myInputField.nativeElement.focus();//for autofocus
+    // this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -347,6 +376,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   // Reset Function
   resetForm() {
     this.createForm();
+    this.nginsurancecom=null
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

@@ -3,16 +3,12 @@
     <div class="card">
       <div class="card-header">
         <h5>General Ledger Scheme Settings</h5>
-        <h6 style="float: right">
-          <sub class="required">* </sub>: Required Fields
-        </h6>
+        <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+          Fields marked with (<sub class="required"> * </sub>) are mandatory
+      </h6>
       </div>
       <div class="card-block">
-        <form
-          action="javascript:"
-          [formGroup]="angForm"
-          novalidate
-          #myform="ngForm"
+        <form action="javascript:" [formGroup]="angForm"novalidate #myform="ngForm"
         >
           <div class="row">
             <div class="col-sm-2">
@@ -28,6 +24,7 @@
                     required=""
                     pattern="^[0-9]+$"
                     maxlength="3" minlength="3"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     title="Input allowed only 0-9"
                     formControlName="S_APPL"
                     #autofocus
@@ -66,6 +63,7 @@
                     placeholder=" "
                     id="Description"
                     required=""
+                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$"
                     maxlength="90"
                     title="Input allowed only  A-Z a-z  - / . (Space)"
@@ -107,6 +105,7 @@
                     placeholder=" "
                     id="S_SHNAME"
                     required=""
+                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$"
                     maxlength="10"
                     title="Input allowed only  A-Z a-z  - / . (Space)"
@@ -171,7 +170,7 @@
                   <div class="card-block">
                     <div class="row">
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
+                        <div class="checkbox checkbox-primary">
                           <div
                             class="
                               border-checkbox-group
@@ -196,7 +195,7 @@
                     </div>
                     <div class="row">
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
+                        <div class="checkbox checkbox-primary">
                           <div
                             class="
                               border-checkbox-group
@@ -221,7 +220,7 @@
                     </div>
                     <div class="row">
                       <div class="col-sm">
-                        <div class="border-checkbox-section">
+                        <div class="checkbox checkbox-primary">
                           <div
                             class="
                               border-checkbox-group
@@ -257,6 +256,7 @@
                               class="form-control"
                               placeholder=" "
                               id="MIN_INT_LIMIT"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
                               pattern="\d{1,2}(\.\d{2})?"
                               title="Input allowed only  0-9"
                               formControlName="MIN_INT_LIMIT"
@@ -281,7 +281,7 @@
                               angForm.controls['MIN_INT_LIMIT'].errors?.pattern
                             "
                           >
-                            Input allowed only 0-9
+                            Input allowed only 0-9 .
                           </div>
                         </div>
                       </div>
@@ -298,12 +298,12 @@
             <div class="card-footer">
               <div class="row" style="float: right;">
                   <div class="col-sm m-b-20">
-                      <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton">
-                          Add
+                      <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid" (click)="submit()" *ngIf="showButton">
+                          Submit
                       </button>
-                      <button class="btn btn-primary ripple light" (click)="updateData()" *ngIf="updateShow">
+                      <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
                           Update</button>&nbsp;
-                      <button class="btn btn-primary ripple light" (click)="addNewData()" *ngIf="newbtnShow">
+                      <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                           Cancel
                       </button>
                   </div>
@@ -324,12 +324,12 @@
 </div>
 <div class="row">
   <div class="col-12">
-    <div class="card">
+    <div class="card shadow">
       <div class="card-block">
         <div class="row">
           <div class="col-sm">
             <div class="table-responsive">
-              <table
+              <table id="schemeparametertable"
                 datatable
                 [dtOptions]="dtExportButtonOptions"
                 [dtTrigger]="dtTrigger"
@@ -338,13 +338,8 @@
                 <tbody *ngIf="generalLedgerScheme?.length != 0">
                   <tr *ngFor="let data of generalLedgerScheme">
                     <td>
-                      <button
-                        class="btn btn-outline-primary btn-sm"
-                        id="editbtn"
-                        (click)="editClickHandler(data.id)"
-                      >
-                        Edit
-                      </button>
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                      placement="bottom" ngbTooltip="Edit"></span>
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
                                                 (click)="delClickHandler(data.id)">Delete</button> -->
                     </td>
@@ -352,10 +347,10 @@
                     <td class="td_right">{{ data.S_APPL }}</td>
                     <td>{{ data.S_NAME }}</td>
                     <td>{{ data.S_SHNAME }}</td>
-                    <td>{{ data.S_INT_APPLICABLE }}</td>
+                    <!-- <td>{{ data.S_INT_APPLICABLE }}</td>
                     <td class="td_right">{{ data.MIN_INT_LIMIT }}</td>
                     <td>{{ data.STAND_INSTRUCTION_ALLOW }}</td>
-                    <td>{{ data.INT_INSTRUCTION_ALLOW }}</td>
+                    <td>{{ data.INT_INSTRUCTION_ALLOW }}</td> -->
                   </tr>
                 </tbody>
                 <tbody *ngIf="generalLedgerScheme?.length == 0">
@@ -363,63 +358,63 @@
                     <td colspan="6" class="no-data-available">No data!</td>
                   </tr>
                 </tbody>
-                <tfoot>
-                  <tr>
-                    <th></th>
+                <tfoot #filters class="filters">
+                  <tr class="testing">
+                    <th class="testing"></th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Type"
+                        
                         class="form-control"  name="S_ACNOTYPE"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Scheme Code"
+                        
                         class="form-control"  name="S_APPL"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Description"
+                        
                         class="form-control"  name="S_NAME"
                       />
                     </th>
                     <th>
                       <input
                         type="text"
-                        placeholder="Search Short Name"
+                        
                         class="form-control"  name="S_SHNAME"
                       />
                     </th>
-                    <th>
+                    <!-- <th>
                       <input
                         type="text"
-                        placeholder="Search Is Interest Applicable ?"
+                        
                         class="form-control"  name="S_INT_APPLICABLE"
                       />
                     </th>
                     <th>
                         <input
                           type="text"
-                          placeholder="Search Minimum Interest Amount"
+                          
                           class="form-control"  name="MIN_INT_LIMIT"
                         />
                       </th><th>
                         <input
                           type="text"
-                          placeholder="Search Is Standing Instruction Applicable?"
+                          
                           class="form-control"  name="STAND_INSTRUCTION_ALLOW"
                         />
                       </th><th>
                         <input
                           type="text"
-                          placeholder="Search Is Interest Instruction Allowed ?"
+                         
                           class="form-control"  name="INT_INSTRUCTION_ALLOW"
                         />
-                      </th>
+                      </th> -->
 
                   </tr>
                 </tfoot>
