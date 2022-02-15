@@ -17,13 +17,13 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="schemeedit" (change)="schemechange($event)"
-                                    formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                     required placeholder="Scheme">
-                                    <ng-option *ngFor="let values of scheme" [value]="values">
-                                      {{values.label}}</ng-option>
-                                  </ng-select>
-                                  <label for="AC_TYPE">Scheme</label>
+                                    <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="schemeedit"
+                                        (change)="schemechange($event)" formControlName="AC_TYPE" bindLabel="label"
+                                        title="Compulsory Selection" required placeholder="Scheme">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_TYPE">Scheme</label>
                                 </span>
                             </div>
                             <!-- <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)" class="alert alert-danger">
@@ -42,14 +42,14 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit" (selected)="Accountnochange()"  (selected)="getIntroducer()"
-                                    formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
-                                     required placeholder="Account No.">
-                                    <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                      {{values.label}}</ng-option>
-                                  </ng-select>
-                                  <label for="AC_NO">Account No.</label>
-                                </span> 
+                                    <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
+                                        (change)="Accountnochange($event)" formControlName="AC_NO" bindLabel="label"
+                                        title="Compulsory Selection" required placeholder="Account No.">
+                                        <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_NO">Account No.</label>
+                                </span>
                             </div>
                             <!-- <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AccountNo'].invalid && (angForm.controls['AccountNo'].dirty || angForm.controls['AccountNo'].touched)" class="alert alert-danger">
                                 <div
@@ -83,46 +83,74 @@
 
                         <ul class="basic-list">
                             <li>
-                                <h6> <a (click)="OpenLink(1)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': ownDepositsTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">1. Own Deposits</a></h6>
+                                <h6> <a (click)="OpenLink(1)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': ownDepositsTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">1. Own Deposits</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(2)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': otherSecurityTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">2. Other Security</a></h6>
+                                <h6> <a (click)="OpenLink(2)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': otherSecurityTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">2. Other Security</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(3)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': firePolicyTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">3. Fire Policy</a></h6>
+                                <h6> <a (click)="OpenLink(3)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': firePolicyTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">3. Fire Policy</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(4)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': marketSharesTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">4. Market Shares</a></h6>
+                                <h6> <a (click)="OpenLink(4)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': marketSharesTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">4. Market Shares</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(5)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': stockStatementTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">5. Stock Statement</a></h6>
+                                <h6> <a (click)="OpenLink(5)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': stockStatementTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">5. Stock Statement</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(6)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': govtSecurityAndLicTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">6. Government Security & LIC</a></h6>
+                                <h6> <a (click)="OpenLink(6)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': govtSecurityAndLicTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">6. Government Security & LIC</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(7)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': plantAndMachineryTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">7. Plant & Machinery</a></h6>
+                                <h6> <a (click)="OpenLink(7)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': plantAndMachineryTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">7. Plant & Machinery</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(8)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': furnitureAndFixtureTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">8. Furniture & Fixture</a></h6>
+                                <h6> <a (click)="OpenLink(8)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': furnitureAndFixtureTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">8. Furniture & Fixture</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(9)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': vehicleTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">9. Vehicle</a></h6>
+                                <h6> <a (click)="OpenLink(9)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': vehicleTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">9. Vehicle</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(10)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': landAndBuildingsTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">10. Land & Buildings</a></h6>
+                                <h6> <a (click)="OpenLink(10)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': landAndBuildingsTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">10. Land & Buildings</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(11)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': goldAndSilverTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">11. Gold & Silver</a></h6>
+                                <h6> <a (click)="OpenLink(11)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': goldAndSilverTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">11. Gold & Silver</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(13)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': customerInsuranceTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">12. Customer Insurance</a></h6>
+                                <h6> <a (click)="OpenLink(13)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': customerInsuranceTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">12. Customer Insurance</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(14)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': bookDebtsTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">13. Book Debts</a></h6>
+                                <h6> <a (click)="OpenLink(14)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': bookDebtsTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">13. Book Debts</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(15)" routerLink="/master/Maintainance/securityDetails" [ngClass]="{'isActive': pleadgeStockTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">14. Pleadge Stock</a></h6>
+                                <h6> <a (click)="OpenLink(15)" routerLink="/master/Maintainance/securityDetails"
+                                        [ngClass]="{'isActive': pleadgeStockTrue}" routerLinkActive="active"
+                                        class="text-right f-w-600" id="pointer">14. Pleadge Stock</a></h6>
                             </li>
 
                         </ul>
@@ -134,49 +162,64 @@
     <div class="col-sm-9">
         <div class="card-block">
             <div *ngIf="ownDepositsTrue">
-                <app-own-deposits [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-own-deposits>
+                <app-own-deposits [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-own-deposits>
             </div>
             <div *ngIf="otherSecurityTrue">
-                <app-other-security [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)" ></app-other-security>
+                <app-other-security [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-other-security>
             </div>
             <div *ngIf="firePolicyTrue">
-                <app-fire-policy  [scheme]="scheme" [Accountno]="Accountno"(newItemEvent)="addItem($event)" ></app-fire-policy>
+                <app-fire-policy [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newItemEvent)="addItem($event)">
+                </app-fire-policy>
             </div>
             <div *ngIf="marketSharesTrue">
-                <app-market-shares [scheme]="scheme" [Accountno]="Accountno"(newItemEvent)="addItem($event)" ></app-market-shares>
+                <app-market-shares [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-market-shares>
             </div>
             <div *ngIf="stockStatementTrue">
-                <app-stock-statement  [scheme]="scheme" [Accountno]="Accountno"(newItemEvent)="addItem($event)" ></app-stock-statement>
+                <app-stock-statement [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-stock-statement>
             </div>
             <div *ngIf="govtSecurityAndLicTrue">
-                <app-govt-security-and-lic  [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-govt-security-and-lic>
+                <app-govt-security-and-lic [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-govt-security-and-lic>
             </div>
             <div *ngIf="plantAndMachineryTrue">
-                <app-plant-and-machinery  [scheme]="scheme" [Accountno]="Accountno"(newItemEvent)="addItem($event)" ></app-plant-and-machinery>
+                <app-plant-and-machinery [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-plant-and-machinery>
             </div>
             <div *ngIf="furnitureAndFixtureTrue">
-                <app-furniture-and-fixture  [scheme]="scheme" [Accountno]="Accountno"(newItemEvent)="addItem($event)" ></app-furniture-and-fixture>
+                <app-furniture-and-fixture [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-furniture-and-fixture>
             </div>
             <div *ngIf="vehicleTrue">
-                <app-vehicle  [scheme]="scheme" [Accountno]="Accountno"(newItemEvent)="addItem($event)" ></app-vehicle>
+                <app-vehicle [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-vehicle>
             </div>
             <div *ngIf="landAndBuildingsTrue">
-                <app-land-and-buildings  [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-land-and-buildings>
+                <app-land-and-buildings [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-land-and-buildings>
             </div>
             <div *ngIf="goldAndSilverTrue">
-                <app-gold-and-silver  [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-gold-and-silver>
+                <app-gold-and-silver [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-gold-and-silver>
             </div>
             <div *ngIf="otherSecurityTrue2">
-                <app-other-security2 [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-other-security2>
+                <app-other-security2 [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-other-security2>
             </div>
             <div *ngIf="customerInsuranceTrue">
-                <app-customer-insurance [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-customer-insurance>
+                <app-customer-insurance [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-customer-insurance>
             </div>
             <div *ngIf="bookDebtsTrue">
-                <app-book-debts [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-book-debts>
+                <app-book-debts [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-book-debts>
             </div>
             <div *ngIf="pleadgeStockTrue">
-                <app-pleadge-stock [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-pleadge-stock>
+                <app-pleadge-stock [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                </app-pleadge-stock>
             </div>
         </div>
     </div>

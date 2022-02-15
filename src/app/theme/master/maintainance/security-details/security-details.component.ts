@@ -20,9 +20,9 @@ import { NgSelectConfig } from '@ng-select/ng-select';
 export class SecurityDetailsComponent implements OnInit {
   formSubmitted = false;
   scheme: any;
-  Accountno: any ;
-  schemeedit: any ;
-  accountedit: any ;
+  Accountno: any;
+  schemeedit: any;
+  accountedit: any;
   acno: any;
 
 
@@ -75,6 +75,7 @@ export class SecurityDetailsComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private config: NgSelectConfig,) { }
   ngOnInit(): void {
+    this.createForm()
     this.dtExportButtonOptions = {
       ajax: 'fake-data/datatable-data.json',
       columns: [
@@ -155,6 +156,7 @@ export class SecurityDetailsComponent implements OnInit {
     //  console.log(this.scheme);
     console.log(event)
     this.getschemename = event.name
+    this.schemeedit = event.value
     this.getIntroducer()
 
 
@@ -166,12 +168,12 @@ export class SecurityDetailsComponent implements OnInit {
     debugger
     // console.log(this.acno, this.accountedit, "this.acno, this.accountedit")
     // this.obj = [this.getscheme, this.branchcode.id]
-    
+
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
 
-    this.obj = [this.schemeedit,branchCode]
+    this.obj = [this.schemeedit, branchCode]
     console.log(this.obj, "this.obj")
     console.log(this.getschemename, "this.getschemename")
 
@@ -189,7 +191,7 @@ export class SecurityDetailsComponent implements OnInit {
         this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
           console.log(this.schemeACNo)
-          
+
         })
         break;
 
@@ -211,8 +213,8 @@ export class SecurityDetailsComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
-      AC_TYPE: [''],
-      AC_NO: [''],
+      AC_TYPE: ['', [Validators.required]],
+      AC_NO: ['', [Validators.required]],
       LEDGER_BAL: ['']
     });
   }
@@ -232,12 +234,15 @@ export class SecurityDetailsComponent implements OnInit {
   addItem(newItem: any) {
     this.schemeedit = newItem.scheme;
     this.accountedit = newItem.account;
+    this.getschemename = newItem.AC_ACNOTYPE
   }
 
 
-  Accountnochange() {
-    let result = this.angForm.value;
-    this.Accountno = result.AC_NO;
+  Accountnochange(event) {
+    console.log(event)
+    // let result = this.angForm.value;
+    this.Accountno = event.value;
+    this.accountedit = event.value
     console.log(this.Accountno);
 
   }

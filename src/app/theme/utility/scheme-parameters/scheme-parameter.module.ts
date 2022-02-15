@@ -65,16 +65,18 @@ import { IntrestCalculationMethodService } from '../../../shared/dropdownService
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { TransactionInputGlHeadSettingModule } from './transaction-input-gl-head-setting/transaction-input-gl-head-setting.module'
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   imports: [
     CommonModule,
     SchemeParametersRoutingModule,
     SharedModule,
     DataTablesModule,
-    SelectModule,
+    // SelectModule,
     FormsModule,
     ReactiveFormsModule,
-    TransactionInputGlHeadSettingModule
+    TransactionInputGlHeadSettingModule,
+    NgSelectModule
   ],
   providers: [SelectOptionService,
     OwnbranchMasterService,

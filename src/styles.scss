@@ -750,3 +750,35 @@ th.ng-tns-c146-1 {
     background-color: #448afa2b;
     color: #333;
 }
+
+.fc th {
+    // background: #cbddf3;
+    background-image: -webkit-linear-gradient(
+        top,
+        #dae7f6,
+        #cddef3 45%,
+        #abc7ec 46%,
+        #abc7ec 50%,
+        #b8cfee 51%,
+        #cbddf3
+    );
+    height: 2em;
+    color: #000;
+    border-color: #448aff;
+}
+
+.fc th,
+.fc td {
+    line-height: 1;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: #c5d9f2 !important;
+    // background-color: rgba(255, 220, 40, 0.15);
+    // background-color: var(--fc-today-bg-color, rgba(255, 220, 40, 0.15));
+}
+
+.fc .fc-toolbar-title {
+    font-size: 1.35em !important;
+    margin: 0 !important;
+}
