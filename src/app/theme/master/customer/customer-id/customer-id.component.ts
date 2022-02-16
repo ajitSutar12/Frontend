@@ -244,7 +244,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           )
           .subscribe((resp) => {
             this.customerMaster = resp.data;
-            console.log(resp.data)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -268,7 +267,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           title: "Member Scheme",
           data: "AC_MEMBTYPE",
         },
-        
+
         {
           title: "Full Name",
           data: "AC_NAME",
@@ -327,7 +326,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           )
           .subscribe((resp) => {
             this.documentMaster = resp.data;
-         
+
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -428,16 +427,18 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       FORM_TYPE: [""],
       TDS_RATE: ["", [Validators.pattern]],
       TDS_LIMIT: ["", [Validators.pattern]],
-     
+
     });
   }
 
   // Method to insert data into database through NestJS
   submit(event) {
+    debugger
     let birthdate
     let submitdate
     event.preventDefault();
     this.formSubmitted = true;
+
     if (this.angForm.controls['TDSDOCUMNET'].value == true) {
       this.SUBMIT_DATE = true
     } else {
@@ -514,11 +515,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.imageObject = []
 
     } else {
-      Swal.fire({
-        icon: 'info',
-        title: 'Warning!',
-        text: 'Please Fill Required Field !'
-      })
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
 
   }
@@ -609,7 +606,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   checkmargin(ele: any) {
     //check  if given value  is below 100
     if (ele <= 100) {
-      console.log(ele);
     } else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
@@ -657,7 +653,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngCast = data.AC_CAST
       this.ngfinyear = data.tdsForm.FIN_YEAR
       this.ngSubmitDate = (data.tdsForm.SUBMIT_DATE == 'Invalid date' || data.tdsForm.SUBMIT_DATE == '' || data.tdsForm.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm.SUBMIT_DATE,
-       
+
         this.angForm.patchValue({
           AC_NO: data.AC_NO,
           AC_MEMBTYPE: data.AC_MEMBTYPE,
@@ -704,7 +700,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         this.SUBMIT_DATE = false;
       }
       if (data.tdsForm.FORM_TYPE == "Form15A") {
-        
+
         this.isForm15A(1)
 
       }

@@ -438,9 +438,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_MEMBNO: [''],
       AC_OPDATE: ['', [Validators.required]],
       AC_RENEW_DATE: [''],
-      AC_CAST: ['', [Validators.required]],
+      AC_CAST: ['',],
       AC_EXPDT: ['', [Validators.required]],
-      AC_OCODE: ['', [Validators.required]],
+      AC_OCODE: ['',],
       AC_CATG: ['', [Validators.required]],
       AC_OPR_CODE: ['', [Validators.required]],
       AC_INTCATA: ['', [Validators.required]],
@@ -448,14 +448,14 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_MONTHS: ['', [Validators.pattern, Validators.required]],
       AC_SCHMAMT: ['', [Validators.pattern, Validators.required]],
       AGENT_ACTYPE: ['', [Validators.required]],
-      AGENT_ACNO: ['',],
+      AGENT_ACNO: ['', [Validators.required]],
       AC_HONO: ['', [Validators.pattern]],
       AC_WARD: ['', [Validators.pattern]],
       AC_GALLI: ['', [Validators.pattern]],
       AC_AREA: ['', [Validators.pattern]],
       AC_ADDR: [''],
-      AC_CTCODE: ['', [Validators.required]],
-      AC_TCTCODE: ['', [Validators.required]],
+      AC_CTCODE: ['',],
+      AC_TCTCODE: ['',],
       AC_EMAIL: [''],
       AC_MOBNO: [''],
       AC_PHNO: [''],
@@ -570,20 +570,12 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   //function to toggle temp address field
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
-    this.angForm.controls['AC_THONO'].reset()
-    this.angForm.controls['AC_TWARD'].reset()
-    this.angForm.controls['AC_TADDR'].reset()
-    this.angForm.controls['AC_TGALLI'].reset()
-    this.angForm.controls['AC_TAREA'].reset()
-    this.angForm.controls['AC_TCTCODE'].reset()
-    this.angForm.controls['AC_TPIN'].reset()
   }
 
   //calculate age for minor details
   ageCalculator(birthDate) {
     let showAge: number
     if (birthDate) {
-
       showAge = moment().diff(moment(birthDate, "DD-MM-YYYY"), 'years');
       if (showAge <= 18) {
         this.angForm.controls['AC_MINOR'].setValue(true);
@@ -591,7 +583,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         this.angForm.controls['AC_GRDRELE'].enable();
         this.angForm.controls['SIGNATURE_AUTHORITY'].enable();
         this.angForm.patchValue({
-          AC_MBDATE: this.angForm.controls['AC_BIRTH_DT'].value
+          // AC_MBDATE: this.angForm.controls['AC_BIRTH_DT'].value
+          AC_MBDATE: birthDate
         })
         this.introducerReq = true
       }
@@ -631,7 +624,12 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
-
+      if (data.castMaster == null) {
+        data.castMaster = ""
+      }
+      if (data.occupMaster == null) {
+        data.occupMaster = ""
+      }
       this.id = data.id
       this.angForm.patchValue({
         AC_TITLE: data.AC_TITLE,
@@ -643,7 +641,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         AC_BIRTH_DT: data.AC_BIRTH_DT,
         AC_MBDATE: data.AC_BIRTH_DT,
         AC_PANNO: data.AC_PANNO,
-        AC_IS_RECOVERY: data.AC_IS_RECOVERY,
         AC_MOBNO: data.AC_MOBILENO,
         AC_PHNO: data.AC_PHONE_RES,
 
@@ -810,117 +807,121 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     let redate
     event.preventDefault();
     this.formSubmitted = true;
-    // if (this.angForm.valid) {
-    let tempcity
-    const formVal = this.angForm.value;
-    if (formVal.AC_ADDFLAG == true) {
-      this.addType = 'P'
-    }
-    else if (formVal.AC_ADDFLAG == false) {
-      this.addType = 'T'
-    }
-    if (this.angForm.controls['AC_TCTCODE'].value == "") {
-      formVal.AC_TCTCODE = 0
-    }
-    var expiry
-    if (this.tempexpiryDate != this.ngexpiry) {
-      expiry = (this.ngexpiry == '' || this.ngexpiry == 'Invalid date') ? expiry = '' : expiry = moment(this.ngexpiry).format('DD/MM/YYYY')
-    } else {
-      expiry = this.ngexpiry
-    }
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
-    
-    let schecode
-    if (this.tempopendate != this.openingDate) {
-      temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
-    } else {
-      temdate = this.openingDate
-    }
-    this.schemeCode.forEach(async (element) => {
-      if (element.value == this.code) {
-        schecode = element.name
+    if (this.angForm.valid) {
+      let tempcity
+      const formVal = this.angForm.value;
+      if (formVal.AC_ADDFLAG == true) {
+        this.addType = 'P'
       }
-    })
+      else if (formVal.AC_ADDFLAG == false) {
+        this.addType = 'T'
+      }
+      if (this.angForm.controls['AC_TCTCODE'].value == "") {
+        formVal.AC_TCTCODE = 0
+      }
+      var expiry
+      if (this.tempexpiryDate != this.ngexpiry) {
+        expiry = (this.ngexpiry == '' || this.ngexpiry == 'Invalid date') ? expiry = '' : expiry = moment(this.ngexpiry).format('DD/MM/YYYY')
+      } else {
+        expiry = this.ngexpiry
+      }
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.id;
 
-    let bankCode = Number(result.branch.syspara.BANK_CODE)
-
-    const dataToSend = {
-      'branchCode': branchCode,
-      'bankCode': bankCode,
-      'schemeCode': schecode,
-      'AC_TYPE': formVal.AC_TYPE,
-      'AC_NAME': formVal.AC_NAME,
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_SHORT_NAME': formVal.AC_SHORT_NAME,
-      'REF_ACNO': formVal.REF_ACNO,
-      'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
-      'AC_MEMBNO': formVal.AC_MEMBNO,
-      'AC_OPDATE': temdate,
-      'AC_RENEW_DATE': (formVal.AC_RENEW_DATE == '' || formVal.AC_RENEW_DATE == 'Invalid date') ? redate = '' : redate = moment(formVal.AC_RENEW_DATE).format('DD/MM/YYYY'),
-      'AC_EXPDT': expiry,
-      'AC_OCODE': formVal.AC_OCODE,
-      'AC_CATG': parseInt(formVal.AC_CATG),
-      'AC_OPR_CODE': parseInt(formVal.AC_OPR_CODE),
-      'AC_INTCATA': parseInt(formVal.AC_INTCATA),
-      'AC_MONTHS': formVal.AC_MONTHS,
-      'AC_SCHMAMT': formVal.AC_SCHMAMT,
-      'AGENT_ACTYPE': formVal.AGENT_ACTYPE,
-      'AGENT_ACNO': formVal.AGENT_ACNO,
-      //temp address 
-      AC_ADDFLAG: formVal.AC_ADDFLAG,
-      AC_ADDTYPE: this.addType,
-      AC_THONO: formVal.AC_THONO,
-      AC_TWARD: formVal.AC_TWARD,
-      AC_TADDR: formVal.AC_TADDR,
-      AC_TGALLI: formVal.AC_TGALLI,
-      AC_TAREA: formVal.AC_TAREA,
-      AC_TCTCODE: formVal.AC_TCTCODE,
-      AC_TPIN: formVal.AC_TPIN,
-
-      //minor and introducer
-      'AC_MINOR': formVal.AC_MINOR,
-      'AC_MBDATE': formVal.AC_MBDATE,
-      'AC_GRDNAME': formVal.AC_GRDNAME,
-      'AC_GRDRELE': formVal.AC_GRDRELE,
-      'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
-      'AC_INTROID': formVal.AC_INTROID,
-      'AC_INTRACNO': formVal.AC_INTRACNO,
-      'AC_INTRNAME': formVal.AC_INTRNAME,
-      'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
-      'PG_COMM_TYPE': formVal.PG_COMM_TYPE,
-      //Nominee 
-      'NomineeData': this.multiNominee,
-      //Joint Account
-      'JointAccountData': this.multiJointAC,
-
-    }
-    this.PigmyAccountMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Account Created successfully!',
-        html:
-          '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
-          '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+      let schecode
+      if (this.tempopendate != this.openingDate) {
+        temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
+      } else {
+        temdate = this.openingDate
+      }
+      this.schemeCode.forEach(async (element) => {
+        if (element.value == this.code) {
+          schecode = element.name
+        }
       })
-      this.formSubmitted = false;
-      // to reload after insertion of data
 
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
+      let bankCode = Number(result.branch.syspara.BANK_CODE)
 
-    }, (error) => {
-      console.log(error)
-    })
-    //To clear form
-    this.resetForm();
-    this.multiNominee = []
-    this.multiJointAC = []
-    this.customerDoc = []
+      const dataToSend = {
+        'branchCode': branchCode,
+        'bankCode': bankCode,
+        'schemeCode': schecode,
+        'AC_TYPE': formVal.AC_TYPE,
+        'AC_NAME': formVal.AC_NAME,
+        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+        'AC_CUSTID': formVal.AC_CUSTID,
+        'AC_SHORT_NAME': formVal.AC_SHORT_NAME,
+        'REF_ACNO': formVal.REF_ACNO,
+        'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
+        'AC_MEMBNO': formVal.AC_MEMBNO,
+        'AC_OPDATE': temdate,
+        'AC_RENEW_DATE': (formVal.AC_RENEW_DATE == '' || formVal.AC_RENEW_DATE == 'Invalid date') ? redate = '' : redate = moment(formVal.AC_RENEW_DATE).format('DD/MM/YYYY'),
+        'AC_EXPDT': expiry,
+        'AC_OCODE': formVal.AC_OCODE,
+        'AC_CATG': parseInt(formVal.AC_CATG),
+        'AC_OPR_CODE': parseInt(formVal.AC_OPR_CODE),
+        'AC_INTCATA': parseInt(formVal.AC_INTCATA),
+        'AC_MONTHS': formVal.AC_MONTHS,
+        'AC_SCHMAMT': formVal.AC_SCHMAMT,
+        'AGENT_ACTYPE': formVal.AGENT_ACTYPE,
+        'AGENT_ACNO': formVal.AGENT_ACNO,
+        //temp address 
+        AC_ADDFLAG: formVal.AC_ADDFLAG,
+        AC_ADDTYPE: this.addType,
+        AC_THONO: formVal.AC_THONO,
+        AC_TWARD: formVal.AC_TWARD,
+        AC_TADDR: formVal.AC_TADDR,
+        AC_TGALLI: formVal.AC_TGALLI,
+        AC_TAREA: formVal.AC_TAREA,
+        AC_TCTCODE: formVal.AC_TCTCODE,
+        AC_TPIN: formVal.AC_TPIN,
+
+        //minor and introducer
+        'AC_MINOR': formVal.AC_MINOR,
+        'AC_MBDATE': formVal.AC_MBDATE,
+        'AC_GRDNAME': formVal.AC_GRDNAME,
+        'AC_GRDRELE': formVal.AC_GRDRELE,
+        'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
+        'AC_INTROID': formVal.AC_INTROID,
+        'AC_INTRACNO': formVal.AC_INTRACNO,
+        'AC_INTRNAME': formVal.AC_INTRNAME,
+        'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+        'PG_COMM_TYPE': formVal.PG_COMM_TYPE,
+        //Nominee 
+        'NomineeData': this.multiNominee,
+        //Joint Account
+        'JointAccountData': this.multiJointAC,
+
+      }
+      this.PigmyAccountMasterService.postData(dataToSend).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Created successfully!',
+          html:
+            '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+            '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+        })
+        this.formSubmitted = false;
+        // to reload after insertion of data
+
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.multiNominee = []
+      this.multiJointAC = []
+      this.customerDoc = []
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
   }
 
   AC_OPDATE: any
@@ -1064,42 +1065,42 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         this.acno = null
         this.obj = null
       }
-      this.ngexpiry= data.AC_EXPDT,
-      this.angForm.patchValue({
+      this.ngexpiry = data.AC_EXPDT,
+        this.angForm.patchValue({
 
-        'AC_ACNOTYPE:': data.AC_ACNOTYPE,
-        AC_TYPE: data.AC_TYPE,
-        'AC_NO': data.AC_NO,
-        'AC_SHORT_NAME': data.AC_SHORT_NAME,
+          'AC_ACNOTYPE:': data.AC_ACNOTYPE,
+          AC_TYPE: data.AC_TYPE,
+          'AC_NO': data.AC_NO,
+          'AC_SHORT_NAME': data.AC_SHORT_NAME,
 
-        'REF_ACNO': data.REF_ACNO,
-        'AC_OPDATE': data.AC_OPDATE,
-        'AC_RENEW_DATE': (data.AC_RENEW_DATE == 'Invalid date' || data.AC_RENEW_DATE == '' || data.AC_RENEW_DATE == null) ? redate = '' : redate = data.AC_RENEW_DATE,
-        AC_MEMBTYPE: data.AC_MEMBTYPE,
-        AC_MEMBNO: data.AC_MEMBNO,
-        // 'AC_EXPDT': data.AC_EXPDT,
-        'AC_OCODE': data.AC_OCODE,
-        'BANKACNO': data.BANKACNO,
-        'AC_MONTHS': data.AC_MONTHS,
-        'AC_SCHMAMT': data.AC_SCHMAMT,
-        //minor and introducer
-        'AC_MINOR': data.AC_MINOR,
-        'AC_MBDATE': data.AC_MBDATE,
-        'AC_GRDNAME': data.AC_GRDNAME,
-        'AC_GRDRELE': data.AC_GRDRELE,
-        'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
-        'PG_COMM_TYPE': data.PG_COMM_TYPE,
-        //nominee controls (NOMINEELINK table)
-        'AC_NNAME': data.AC_NNAME,
-        'AC_NRELA': data.AC_NRELA,
-        'AC_NDATE': data.AC_NDATE,
-        'AGE': data.AGE,
-        'ADDR1': data.ADDR1,
-        'ADDR2': data.ADDR2,
-        'ADDR3': data.ADDR3,
-        'CTCODE': data.CTCODE,
-        'PIN': data.PIN,
-      })
+          'REF_ACNO': data.REF_ACNO,
+          'AC_OPDATE': data.AC_OPDATE,
+          'AC_RENEW_DATE': (data.AC_RENEW_DATE == 'Invalid date' || data.AC_RENEW_DATE == '' || data.AC_RENEW_DATE == null) ? redate = '' : redate = data.AC_RENEW_DATE,
+          AC_MEMBTYPE: data.AC_MEMBTYPE,
+          AC_MEMBNO: data.AC_MEMBNO,
+          // 'AC_EXPDT': data.AC_EXPDT,
+          'AC_OCODE': data.AC_OCODE,
+          'BANKACNO': data.BANKACNO,
+          'AC_MONTHS': data.AC_MONTHS,
+          'AC_SCHMAMT': data.AC_SCHMAMT,
+          //minor and introducer
+          'AC_MINOR': data.AC_MINOR,
+          'AC_MBDATE': data.AC_MBDATE,
+          'AC_GRDNAME': data.AC_GRDNAME,
+          'AC_GRDRELE': data.AC_GRDRELE,
+          'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
+          'PG_COMM_TYPE': data.PG_COMM_TYPE,
+          //nominee controls (NOMINEELINK table)
+          'AC_NNAME': data.AC_NNAME,
+          'AC_NRELA': data.AC_NRELA,
+          'AC_NDATE': data.AC_NDATE,
+          'AGE': data.AGE,
+          'ADDR1': data.ADDR1,
+          'ADDR2': data.ADDR2,
+          'ADDR3': data.ADDR3,
+          'CTCODE': data.CTCODE,
+          'PIN': data.PIN,
+        })
     })
   }
 
@@ -1137,7 +1138,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     // if (this.updatecheckdata.AC_EXPDT != this.ngexpiry) {
     //   (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? (exdate = '', data['AC_EXPDT'] = exdate) : (exdate = data.AC_EXPDT, data['AC_EXPDT'] = exdate)
     // } else {
-      data['AC_EXPDT'] = this.ngexpiry
+    data['AC_EXPDT'] = this.ngexpiry
 
     // }
     this.PigmyAccountMasterService.updateData(data).subscribe(() => {
@@ -1290,7 +1291,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   cityName: boolean = false
   ngnomineedate: any
   //Nominee
-  
+
   addNominee() {
     const formVal = this.angForm.value;
     let date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
@@ -1456,7 +1457,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.controls['AC_NCTCODE'].reset();
     this.angForm.controls['AC_NPIN'].reset();
   }
-  
+
   joint
   tempjoint
   getJointCustomer(event) {

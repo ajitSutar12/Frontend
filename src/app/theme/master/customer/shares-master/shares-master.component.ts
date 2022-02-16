@@ -428,13 +428,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
-    this.angForm.controls['AC_THONO'].reset()
-    this.angForm.controls['AC_TWARD'].reset()
-    this.angForm.controls['AC_TADDR'].reset()
-    this.angForm.controls['AC_TGALLI'].reset()
-    this.angForm.controls['AC_TAREA'].reset()
-    this.angForm.controls['AC_TCTCODE'].reset()
-    this.angForm.controls['AC_TPIN'].reset()
   }
 
   addNewCustomer(newCustomer) {
@@ -567,14 +560,14 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       let new_date = moment(birthdate, "DD-MM-YYYY").add(18, 'y');
       let agedate = moment(new_date).format('DD/MM/YYYY')
       let joinDate = moment(value).format('DD/MM/YYYY')
-     
+
       if (joinDate <= agedate) {
         this.sharesSchemeService.getFormData(this.schemeCode).subscribe(data => {
           let date = data.RETIREMENT_YEARS
           let retireDate = moment(this.angForm.controls['AC_MEM_BIRTH_DT'].value, "DD-MM-YYYY").add(date, 'y');
           let reDate = moment(retireDate).format('DD/MM/YYYY')
           this.retiredate = reDate
-       })
+        })
       } else {
         this.joindate = null
         this.retiredate = null
@@ -681,117 +674,121 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
-    // if (this.angForm.valid) {
-    const formVal = this.angForm.value;
-    if (formVal.AC_ADDFLAG == true) {
-      this.addType = 'P'
-    }
-    else if (formVal.AC_ADDFLAG == false) {
-      this.addType = 'T'
-    }
-    if (this.angForm.controls['AC_TCTCODE'].value == "") {
-      formVal.AC_TCTCODE = null
-    }
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let schecode
-    let branchCode = result.branch.id;
-    this.scheme.forEach(async (element) => {
-      if (element.value == this.schemeCode) {
-        schecode = element.name
+    if (this.angForm.valid) {
+      const formVal = this.angForm.value;
+      if (formVal.AC_ADDFLAG == true) {
+        this.addType = 'P'
       }
-    })
-let bankCode = Number(result.branch.syspara.BANK_CODE)
-    let joindate
-    let opdate
-    let exdate
-    let deadate
-    let retairdate
-    let resdate
-    let temdate
- if (this.tempopendate != this.openingDate) {
-      temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
-    } else {
-      temdate = this.openingDate
-    }
-    const dataToSend = {
-      'branchCode': branchCode,
-      'bankCode': bankCode,
-      'schemeCode': schecode,
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_TYPE': formVal.AC_TYPE,
-      'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_NAME': formVal.AC_NAME,
-      'AC_CATG': parseInt(formVal.AC_CATG),
-      'EMP_NO': formVal.EMP_NO,
-      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
-      'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
-      'AC_JOIN_DATE': (formVal.AC_JOIN_DATE == '' || formVal.AC_JOIN_DATE == 'Invalid date') ? joindate = '' : joindate = moment(formVal.AC_JOIN_DATE).format('DD/MM/YYYY'),
-  'AC_OPDATE': temdate,
-      'AC_EXPDT': (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == 'Invalid date') ? exdate = '' : exdate = moment(formVal.AC_EXPDT).format('DD/MM/YYYY'),
-      'DEATH_DATE': (formVal.DEATH_DATE == '' || formVal.DEATH_DATE == 'Invalid date') ? deadate = '' : deadate = moment(formVal.DEATH_DATE).format('DD/MM/YYYY'),
-      'AC_DIRECT': formVal.AC_DIRECT,
-      'AC_BRANCH': this.branch_codeList,
-      'AC_RETIRE_DATE': this.retiredate,
-      'MEMBERSHIP_BY': formVal.MEMBERSHIP_BY,
-      'AC_SREPRESENT': formVal.AC_SREPRESENT,
-      'SUB_SALARYDIVISION_CODE': formVal.SUB_SALARYDIVISION_CODE,
-      'AC_SBNO': formVal.AC_SBNO,
-      'AC_RESNO': formVal.AC_RESNO,
-      'AC_RESDT': (formVal.AC_RESDT == '' || formVal.AC_RESDT == 'Invalid date') ? resdate = '' : resdate = moment(formVal.AC_RESDT).format('DD/MM/YYYY'),
-      'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
-      'REF_ACNO': formVal.REF_ACNO,
-      'AC_NARR': formVal.AC_NARR,
-      //temp address 
-      AC_ADDFLAG: formVal.AC_ADDFLAG,
-      AC_ADDTYPE: this.addType,
-      AC_THONO: formVal.AC_THONO,
-      AC_TWARD: formVal.AC_TWARD,
-      AC_TADDR: formVal.AC_TADDR,
-      AC_TGALLI: formVal.AC_TGALLI,
-      AC_TAREA: formVal.AC_TAREA,
-      AC_TCTCODE: formVal.AC_TCTCODE,
-      AC_TPIN: formVal.AC_TPIN,
-
-      //marathi details
-      'AC_DEV_NAME': formVal.AC_DEV_NAME,
-      'AC_DEV_WARD': formVal.AC_DEV_WARD,
-      'AC_DEV_ADD': formVal.AC_DEV_ADD,
-      'AC_DEV_GALLI': formVal.AC_DEV_GALLI,
-      'AC_DEV_AREA': formVal.AC_DEV_AREA,
-      'AC_DEV_CITYCODE': formVal.AC_DEV_CITYCODE,
-
-      'DIV_TRANSFER_BRANCH': formVal.DIV_TRANSFER_BRANCH,
-      'DIV_TRANSFER_ACTYPE': formVal.DIV_TRANSFER_ACTYPE,
-      'DIV_TRANSFER_ACNO': formVal.DIV_TRANSFER_ACNO,
-      //Nominee 
-      'NomineeData': this.multiNominee
-    }
-
-
-    this.ShareMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Account Created successfully!',
-        html:
-          '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
-          '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+      else if (formVal.AC_ADDFLAG == false) {
+        this.addType = 'T'
+      }
+      if (this.angForm.controls['AC_TCTCODE'].value == "") {
+        formVal.AC_TCTCODE = null
+      }
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let schecode
+      let branchCode = result.branch.id;
+      this.scheme.forEach(async (element) => {
+        if (element.value == this.schemeCode) {
+          schecode = element.name
+        }
       })
-      this.formSubmitted = false;
-      // to reload after insertion of data
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
+      let bankCode = Number(result.branch.syspara.BANK_CODE)
+      let joindate
+      let opdate
+      let exdate
+      let deadate
+      let retairdate
+      let resdate
+      let temdate
+      if (this.tempopendate != this.openingDate) {
+        temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
+      } else {
+        temdate = this.openingDate
+      }
+      const dataToSend = {
+        'branchCode': branchCode,
+        'bankCode': bankCode,
+        'schemeCode': schecode,
+        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+        'AC_TYPE': formVal.AC_TYPE,
+        'AC_CUSTID': formVal.AC_CUSTID,
+        'AC_NAME': formVal.AC_NAME,
+        'AC_CATG': parseInt(formVal.AC_CATG),
+        'EMP_NO': formVal.EMP_NO,
+        'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+        'AC_SALARYDIVISION_CODE': formVal.AC_SALARYDIVISION_CODE,
+        'AC_JOIN_DATE': (formVal.AC_JOIN_DATE == '' || formVal.AC_JOIN_DATE == 'Invalid date' || formVal.AC_JOIN_DATE == null || formVal.AC_JOIN_DATE == undefined) ? joindate = '' : joindate = moment(formVal.AC_JOIN_DATE).format('DD/MM/YYYY'),
+        'AC_OPDATE': temdate,
+        'AC_EXPDT': (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == 'Invalid date') ? exdate = '' : exdate = moment(formVal.AC_EXPDT).format('DD/MM/YYYY'),
+        'DEATH_DATE': (formVal.DEATH_DATE == '' || formVal.DEATH_DATE == 'Invalid date' || formVal.DEATH_DATE == null || formVal.DEATH_DATE == undefined) ? deadate = '' : deadate = moment(formVal.DEATH_DATE).format('DD/MM/YYYY'),
+        'AC_DIRECT': formVal.AC_DIRECT,
+        'AC_BRANCH': this.branch_codeList,
+        'AC_RETIRE_DATE': this.retiredate,
+        'MEMBERSHIP_BY': formVal.MEMBERSHIP_BY,
+        'AC_SREPRESENT': formVal.AC_SREPRESENT,
+        'SUB_SALARYDIVISION_CODE': formVal.SUB_SALARYDIVISION_CODE,
+        'AC_SBNO': formVal.AC_SBNO,
+        'AC_RESNO': formVal.AC_RESNO,
+        'AC_RESDT': (formVal.AC_RESDT == '' || formVal.AC_RESDT == 'Invalid date') ? resdate = '' : resdate = moment(formVal.AC_RESDT).format('DD/MM/YYYY'),
+        'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
+        'REF_ACNO': formVal.REF_ACNO,
+        'AC_NARR': formVal.AC_NARR,
+        //temp address 
+        AC_ADDFLAG: formVal.AC_ADDFLAG,
+        AC_ADDTYPE: this.addType,
+        AC_THONO: formVal.AC_THONO,
+        AC_TWARD: formVal.AC_TWARD,
+        AC_TADDR: formVal.AC_TADDR,
+        AC_TGALLI: formVal.AC_TGALLI,
+        AC_TAREA: formVal.AC_TAREA,
+        AC_TCTCODE: formVal.AC_TCTCODE,
+        AC_TPIN: formVal.AC_TPIN,
 
-    //To clear form
-    this.resetForm();
-    this.multiNominee = []
-    this.customerDoc = []
-    // }
+        //marathi details
+        'AC_DEV_NAME': formVal.AC_DEV_NAME,
+        'AC_DEV_WARD': formVal.AC_DEV_WARD,
+        'AC_DEV_ADD': formVal.AC_DEV_ADD,
+        'AC_DEV_GALLI': formVal.AC_DEV_GALLI,
+        'AC_DEV_AREA': formVal.AC_DEV_AREA,
+        'AC_DEV_CITYCODE': formVal.AC_DEV_CITYCODE,
+
+        'DIV_TRANSFER_BRANCH': formVal.DIV_TRANSFER_BRANCH,
+        'DIV_TRANSFER_ACTYPE': formVal.DIV_TRANSFER_ACTYPE,
+        'DIV_TRANSFER_ACNO': formVal.DIV_TRANSFER_ACNO,
+        //Nominee 
+        'NomineeData': this.multiNominee
+      }
+
+
+      this.ShareMasterService.postData(dataToSend).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Created successfully!',
+          html:
+            '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+            '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+        })
+        this.formSubmitted = false;
+        // to reload after insertion of data
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+        console.log(error)
+      })
+
+      //To clear form
+      this.resetForm();
+      this.multiNominee = []
+      this.customerDoc = []
+      this.createForm()
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
   }
   tempbranch: any
   updatecheckdata: any
@@ -808,7 +805,6 @@ let bankCode = Number(result.branch.syspara.BANK_CODE)
     this.AC_OPDATE = true
     this.ShareMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
-
       if (data.SYSCHNG_LOGIN == null) {
         this.showButton = false;
         this.updateShow = true;
@@ -951,7 +947,7 @@ let bankCode = Number(result.branch.syspara.BANK_CODE)
           'AC_INSTALLMENT': data.AC_INSTALLMENT,
           'REF_ACNO': data.REF_ACNO,
           'AC_NARR': data.AC_NARR,
-      //marathi details
+          //marathi details
           'AC_DEV_NAME': data.AC_DEV_NAME,
           'AC_DEV_WARD': data.AC_DEV_WARD,
           'AC_DEV_ADD': data.AC_DEV_ADD,

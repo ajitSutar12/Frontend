@@ -296,6 +296,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       }
     }
   }
+  openingReq: boolean = false
   getDate(value: Date): void {
     if (value == null) {
       this.angForm.controls['SUPPLIER_NAME'].disable()
@@ -312,6 +313,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       this.angForm.controls['PURCHASE_OP_QUANTITY'].reset()
       this.angForm.controls['PURCHASE_VALUE'].reset()
       this.angForm.controls['LAST_DEPR_DATE'].reset()
+      this.openingReq = false
     } else {
       this.angForm.controls['SUPPLIER_NAME'].enable()
       this.angForm.controls['OP_BALANCE'].enable()
@@ -319,12 +321,14 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       this.angForm.controls['PURCHASE_RATE'].enable()
       this.angForm.controls['PURCHASE_OP_QUANTITY'].enable()
       this.angForm.controls['LAST_DEPR_DATE'].enable()
+      this.openingReq = true
     }
 
   }
 
   // Method to insert data into database through NestJS
   submit() {
+    debugger
     this.formSubmitted = true;
     let purchase
     let purchase1
@@ -333,55 +337,59 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
     let bankCode = Number(result.branch.syspara.BANK_CODE)
-    // if (this.angForm.valid) {
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      'BRANCH_CODE': branchCode,
-      'bankCode': bankCode,
-      ITEM_TYPE: formVal.ITEM_TYPE,
-      ITEM_CODE: formVal.ITEM_CODE,
-      ITEM_NAME: formVal.ITEM_NAME,
-      PURCHASE_DATE: (formVal.PURCHASE_DATE == '' || formVal.PURCHASE_DATE == 'Invalid date' || formVal.PURCHASE_DATE == undefined || formVal.PURCHASE_DATE == null) ? purchase = '' : purchase = moment(formVal.PURCHASE_DATE).format('DD/MM/YYYY'),
-      DEPR_CATEGORY: formVal.DEPR_CATEGORY,
+    if (this.angForm.valid) {
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        'BRANCH_CODE': branchCode,
+        'bankCode': bankCode,
+        ITEM_TYPE: formVal.ITEM_TYPE,
+        ITEM_CODE: formVal.ITEM_CODE,
+        ITEM_NAME: formVal.ITEM_NAME,
+        PURCHASE_DATE: (formVal.PURCHASE_DATE == '' || formVal.PURCHASE_DATE == 'Invalid date' || formVal.PURCHASE_DATE == undefined || formVal.PURCHASE_DATE == null) ? purchase = '' : purchase = moment(formVal.PURCHASE_DATE).format('DD/MM/YYYY'),
+        DEPR_CATEGORY: formVal.DEPR_CATEGORY,
 
-      OP_BAL_DATE: (formVal.OP_BAL_DATE == '' || formVal.OP_BAL_DATE == 'Invalid date' || formVal.OP_BAL_DATE == undefined || formVal.OP_BAL_DATE == null) ? purchase1 = '' : purchase1 = moment(formVal.OP_BAL_DATE).format('DD/MM/YYYY'),
-      SUPPLIER_NAME: formVal.SUPPLIER_NAME,
-      OP_BALANCE: formVal.OP_BALANCE,
-      OP_QUANTITY: formVal.OP_QUANTITY,
-      PURCHASE_RATE: formVal.PURCHASE_RATE,
-      PURCHASE_OP_QUANTITY: formVal.PURCHASE_OP_QUANTITY,
-      PURCHASE_VALUE: this.firstnumber * this.secondnumber,
-      LAST_DEPR_DATE: (formVal.LAST_DEPR_DATE == '' || formVal.LAST_DEPR_DATE == 'Invalid date' || formVal.LAST_DEPR_DATE == undefined || formVal.LAST_DEPR_DATE == null) ? purchase2 = '' : purchase2 = moment(formVal.LAST_DEPR_DATE).format('DD/MM/YYYY'),
-      GL_ACNO: formVal.GL_ACNO,
+        OP_BAL_DATE: (formVal.OP_BAL_DATE == '' || formVal.OP_BAL_DATE == 'Invalid date' || formVal.OP_BAL_DATE == undefined || formVal.OP_BAL_DATE == null) ? purchase1 = '' : purchase1 = moment(formVal.OP_BAL_DATE).format('DD/MM/YYYY'),
+        SUPPLIER_NAME: formVal.SUPPLIER_NAME,
+        OP_BALANCE: formVal.OP_BALANCE,
+        OP_QUANTITY: formVal.OP_QUANTITY,
+        PURCHASE_RATE: formVal.PURCHASE_RATE,
+        PURCHASE_OP_QUANTITY: formVal.PURCHASE_OP_QUANTITY,
+        PURCHASE_VALUE: this.firstnumber * this.secondnumber,
+        LAST_DEPR_DATE: (formVal.LAST_DEPR_DATE == '' || formVal.LAST_DEPR_DATE == 'Invalid date' || formVal.LAST_DEPR_DATE == undefined || formVal.LAST_DEPR_DATE == null) ? purchase2 = '' : purchase2 = moment(formVal.LAST_DEPR_DATE).format('DD/MM/YYYY'),
+        GL_ACNO: formVal.GL_ACNO,
 
-    };
-    this.deadstockmasterService.postData(dataToSend).subscribe(
-      (data1) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Account Created successfully!',
-          html:
-            '<b>ITEM NAME : </b>' + data1.ITEM_NAME + ',' + '<br>' +
-            '<b>ITEM CODE : </b>' + data1.ITEM_CODE + '<br>'
-        })
-        this.formSubmitted = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload();
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+      };
+      this.deadstockmasterService.postData(dataToSend).subscribe(
+        (data1) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Account Created successfully!',
+            html:
+              '<b>ITEM NAME : </b>' + data1.ITEM_NAME + ',' + '<br>' +
+              '<b>ITEM CODE : </b>' + data1.ITEM_CODE + '<br>'
+          })
+          this.formSubmitted = false;
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload();
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
 
-    // }
-
-
+      // }
 
 
 
-    //To clear form
-    this.angForm.reset();
+
+
+      //To clear form
+      this.angForm.reset();
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
   }
   lddate: any
   nglastdedate: any
@@ -537,6 +545,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.angForm.controls['PURCHASE_OP_QUANTITY'].disable()
     this.angForm.controls['PURCHASE_VALUE'].disable()
     this.angForm.controls['LAST_DEPR_DATE'].disable()
+    this.openingReq = false
   }
   //Method for delete data
   delClickHandler(id: number) {

@@ -10,8 +10,6 @@ import Swal from 'sweetalert2';
 import { DataTableDirective } from 'angular-datatables';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-import { IOption } from 'ng-select';
-import { Subscription } from 'rxjs/Subscription';
 // Service File For Handling CRUD Operation
 import { SavingMasterService } from './saving-master.service'
 import { CustomerIdService } from '../customer-id/customer-id.service';
@@ -29,7 +27,6 @@ import { MinimumBalanceMasterDropdownService } from '../../../../shared/dropdown
 import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdownService/interest-category-master-dropdown.service'
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service'
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
-import { date } from 'ngx-custom-validators/src/app/date/validator';
 
 @Directive({
   selector: 'autofocus'
@@ -217,6 +214,33 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   rejectShow: boolean = false;
   approveShow: boolean = false;
 
+  birthDate: any
+  disableOpenDate: boolean = false
+  openingDate: any
+  selectedImagePreview: any;
+  selectedImgArrayDetails = [];
+  imgBase64: any
+  showImage: boolean = false;
+  obj: any
+  getschemename: any
+  tempopendate: any
+
+  AC_TYPE: boolean = false
+  AC_CUSTID: boolean = false
+  AC_OPDATE: boolean = false
+  updatecheckdata: any
+  NbirthDate: any
+  cityName: boolean = false
+  ngnomineedate: any
+  nomineedataedit: any
+  joint
+  tempjoint
+  tempupdateattorny: any
+  nextButton: boolean = true
+  @ViewChild('ctdTabset') ctdTabset;
+  ngappointeddate: any
+  ngexpiryddate: any
+
   constructor(
     private http: HttpClient,
     private savingMasterService: SavingMasterService,
@@ -385,14 +409,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //function to toggle temp address field
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
-    this.angForm.controls['AC_THONO'].reset()
-    this.angForm.controls['AC_TWARD'].reset()
-    this.angForm.controls['AC_TADDR'].reset()
-    this.angForm.controls['AC_TGALLI'].reset()
-    this.angForm.controls['AC_TAREA'].reset()
-    this.angForm.controls['AC_TCTCODE'].reset()
-    this.angForm.controls['AC_TPIN'].reset()
   }
+
   //function to get new customer data
   addNewCustomer(newCustomer) {
     this._CustomerIDMasterDropdown.getCustomerIDMasterList().pipe(first()).subscribe(data => {
@@ -402,10 +420,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
-  birthDate: any
   //function to get existing customer data according selection
   getCustomer(id) {
-
     this.customerIdService.getFormData(id).subscribe(data => {
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
@@ -417,7 +433,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       this.newcustid = data.id
       this.angForm.patchValue({
-        // AC_CUSTID:data.id,
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
         AC_MEMBTYPE: data.AC_MEMBTYPE,
@@ -429,10 +444,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,
         AC_PANNO: data.AC_PANNO,
-
         AC_MEM_BIRTH_DT: data.AC_BIRTH_DT,
-        // AC_MEM_BIRTH_DT: moment(data.AC_BIRTH_DT).format('DD/MM/YYYY'),
-
       })
       this.ageCalculator(data.AC_BIRTH_DT);
       let permadd
@@ -477,32 +489,26 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   customer(event) {
     this.savingMasterService.getData().subscribe(data => {
-
-
       if (data?.length == 0) {
         this.getCustomer(event.value);
       }
       else {
         if (data.find(data => data['AC_TYPE'] == this.selectedValue && data['AC_CUSTID'] == event.value && (data['AC_CLOSEDT'] == '' || data['AC_CLOSEDT'] == null))) {
-
           Swal.fire({
             icon: 'info',
             title: 'Saving Account Already Exists For This Scheme',
           })
-          //  this.resetForm()
           event.id = null
           this.newcustid = null
           this.newcustid = ''
           this.angForm.controls['AC_CUSTID'].reset()
-
         } else {
           this.getCustomer(event.value);
         }
       }
     })
   }
-  disableOpenDate: boolean = false
-  openingDate: any
+
   //set open date, appointed date and expiry date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -526,10 +532,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  selectedImagePreview: any;
-  selectedImgArrayDetails = [];
-  imgBase64: any
-  showImage: boolean = false;
   viewImagePreview(ele, id) {
     this.selectedImagePreview = id;
   }
@@ -621,13 +623,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getIntroducer()
   }
 
-  obj: any
-  getschemename: any
-
   getIntro(event) {
     this.getschemename = event.name
     this.getIntroducer()
   }
+
   //get account no according scheme for introducer
   getIntroducer() {
     this.obj = [this.acno, this.code]
@@ -717,119 +717,117 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_INTRNAME: value.name
     })
   }
-  tempopendate: any
+
   // Method to insert data into database through NestJS
   submit(event) {
+    debugger
     let temdate
     let opdate
     event.preventDefault();
     this.formSubmitted = true;
-    // if (this.angForm.valid) {
-    let tempcity
-    const formVal = this.angForm.value;
-    if (formVal.AC_ADDFLAG == true) {
-      this.addType = 'P'
-    }
-    else if (formVal.AC_ADDFLAG == false) {
-      this.addType = 'T'
-    }
-    if (this.angForm.controls['AC_TCTCODE'].value == "") {
-      formVal.AC_TCTCODE = 0
-    }
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
-    let schecode
-    if (this.tempopendate != this.openingDate) {
-      temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
-    } else {
-      temdate = this.openingDate
-    }
-    this.scheme.forEach(async (element) => {
-      if (element.value == this.selectedValue) {
-        schecode = element.name
+    if (this.angForm.valid) {
+      let tempcity
+      const formVal = this.angForm.value;
+      if (formVal.AC_ADDFLAG == true) {
+        this.addType = 'P'
       }
-    })
-
-    let bankCode = Number(result.branch.syspara.BANK_CODE)
-    const dataToSend = {
-      'branchCode': branchCode,
-      'bankCode': bankCode,
-      'schemeCode': schecode,
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_TYPE': formVal.AC_TYPE,
-      'AC_CATG': formVal.AC_CATG,
-      'AC_BALCATG': formVal.AC_BALCATG,
-      'AC_OPR_CODE': formVal.AC_OPR_CODE,
-      'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_INTCATA': formVal.AC_INTCATA,
-      'AC_OPDATE': temdate,
-      'AC_NAME': formVal.AC_NAME,
-      'AC_SCHMAMT': formVal.AC_SCHMAMT,
-      'REF_ACNO': formVal.REF_ACNO,
-      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
-      //temp address 
-      AC_ADDFLAG: formVal.AC_ADDFLAG,
-      AC_ADDTYPE: this.addType,
-      AC_THONO: formVal.AC_THONO,
-      AC_TWARD: formVal.AC_TWARD,
-      AC_TADDR: formVal.AC_TADDR,
-      AC_TGALLI: formVal.AC_TGALLI,
-      AC_TAREA: formVal.AC_TAREA,
-      AC_TCTCODE: formVal.AC_TCTCODE,
-      AC_TPIN: formVal.AC_TPIN,
-      //minor and introducer
-      'AC_MINOR': formVal.AC_MINOR,
-      'AC_MBDATE': formVal.AC_MBDATE,
-      'AC_GRDNAME': formVal.AC_GRDNAME,
-      'AC_GRDRELE': formVal.AC_GRDRELE,
-      'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
-      'AC_INTROID': formVal.AC_INTROID,
-      'AC_INTRACNO': formVal.AC_INTRACNO,
-      'AC_INTRNAME': formVal.AC_INTRNAME,
-      'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
-      //nominee
-      'NomineeData': this.multiNominee,
-      //Joint Account
-      'JointAccountData': this.multiJointAC,
-      //Attorney
-      'PowerOfAttorneyData': this.multiAttorney
-    }
-    this.savingMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Account Created successfully!',
-        html:
-          '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
-          '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+      else if (formVal.AC_ADDFLAG == false) {
+        this.addType = 'T'
+      }
+      if (this.angForm.controls['AC_TCTCODE'].value == "") {
+        formVal.AC_TCTCODE = 0
+      }
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.id;
+      let schecode
+      if (this.tempopendate != this.openingDate) {
+        temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
+      } else {
+        temdate = this.openingDate
+      }
+      this.scheme.forEach(async (element) => {
+        if (element.value == this.selectedValue) {
+          schecode = element.name
+        }
       })
-      this.formSubmitted = false;
-      // to reload after insertion of data
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
 
-    //To clear form
-    this.resetForm();
-    this.multiNominee = []
-    this.multiJointAC = []
-    this.multiAttorney = []
-    this.customerDoc = []
-
-    this.selectedValue = this.bindScheme
-
+      let bankCode = Number(result.branch.syspara.BANK_CODE)
+      const dataToSend = {
+        'branchCode': branchCode,
+        'bankCode': bankCode,
+        'schemeCode': schecode,
+        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+        'AC_TYPE': formVal.AC_TYPE,
+        'AC_CATG': formVal.AC_CATG,
+        'AC_BALCATG': formVal.AC_BALCATG,
+        'AC_OPR_CODE': formVal.AC_OPR_CODE,
+        'AC_CUSTID': formVal.AC_CUSTID,
+        'AC_INTCATA': formVal.AC_INTCATA,
+        'AC_OPDATE': temdate,
+        'AC_NAME': formVal.AC_NAME,
+        'AC_SCHMAMT': formVal.AC_SCHMAMT,
+        'REF_ACNO': formVal.REF_ACNO,
+        'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+        //temp address 
+        AC_ADDFLAG: formVal.AC_ADDFLAG,
+        AC_ADDTYPE: this.addType,
+        AC_THONO: formVal.AC_THONO,
+        AC_TWARD: formVal.AC_TWARD,
+        AC_TADDR: formVal.AC_TADDR,
+        AC_TGALLI: formVal.AC_TGALLI,
+        AC_TAREA: formVal.AC_TAREA,
+        AC_TCTCODE: formVal.AC_TCTCODE,
+        AC_TPIN: formVal.AC_TPIN,
+        //minor and introducer
+        'AC_MINOR': formVal.AC_MINOR,
+        'AC_MBDATE': formVal.AC_MBDATE,
+        'AC_GRDNAME': formVal.AC_GRDNAME,
+        'AC_GRDRELE': formVal.AC_GRDRELE,
+        'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
+        'AC_INTROID': formVal.AC_INTROID,
+        'AC_INTRACNO': formVal.AC_INTRACNO,
+        'AC_INTRNAME': formVal.AC_INTRNAME,
+        'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+        //nominee
+        'NomineeData': this.multiNominee,
+        //Joint Account
+        'JointAccountData': this.multiJointAC,
+        //Attorney
+        'PowerOfAttorneyData': this.multiAttorney
+      }
+      this.savingMasterService.postData(dataToSend).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Created successfully!',
+          html:
+            '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+            '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+        })
+        this.formSubmitted = false;
+        // to reload after insertion of data
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.multiNominee = []
+      this.multiJointAC = []
+      this.multiAttorney = []
+      this.customerDoc = []
+      this.selectedValue = this.bindScheme
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
   }
-  AC_TYPE: boolean = false
-  AC_CUSTID: boolean = false
-  AC_OPDATE: boolean = false
-  updatecheckdata: any
+
   //Method for append data into fields
   editClickHandler(id) {
-
     this.angForm.controls['AC_TYPE'].disable()
     this.AC_OPDATE = true
     let opdate
@@ -844,7 +842,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.updateShow = false;
         this.newbtnShow = true;
       }
-
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       //get nominee to edit
@@ -859,11 +856,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngBalCategory = data.AC_BALCATG
       this.ngIntCategory = data.AC_INTCATA
       if ((data.AC_INTROBRANCH != null && data.AC_INTROID != null && data.AC_INTRACNO != null) || (data.AC_INTROBRANCH != "" && data.AC_INTROID != "" && data.AC_INTRACNO != "")) {
-
         this.code = data.AC_INTROBRANCH,
           this.acno = Number(data.AC_INTROID),
           this.obj = [this.acno, this.code]
-
         this.allScheme.forEach(async (element) => {
           if (element.value == this.acno) {
             this.getschemename = element.name
@@ -944,7 +939,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.acno = null
         this.obj = null
       }
-
       this.angForm.patchValue({
         'AC_ACNOTYPE': data.AC_ACNOTYPE,
         'AC_NO': data.AC_NO, 'AC_OPDATE': (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
@@ -1018,6 +1012,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.multiAttorney = []
     this.customerDoc = []
     this.resetForm();
+    this.getSystemParaDate()
   }
 
   //Method for delete data
@@ -1124,7 +1119,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   ageCalculator(birthDate) {
     let showAge: number
     if (birthDate) {
-
       showAge = moment().diff(moment(birthDate, "DD-MM-YYYY"), 'years');
       if (showAge <= 18) {
         this.angForm.controls['AC_MINOR'].setValue(true);
@@ -1149,9 +1143,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
-  NbirthDate: any
-  cityName: boolean = false
-  ngnomineedate: any
+
   //Nominee
   addNominee() {
     const formVal = this.angForm.value;
@@ -1217,7 +1209,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.resetNominee()
   }
-  nomineedataedit: any
+
   editNominee(id) {
     this.nomineeIndex = id
     this.nomineeID = this.multiNominee[id].id;
@@ -1319,8 +1311,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.controls['AC_NCTCODE'].reset();
     this.angForm.controls['AC_NPIN'].reset();
   }
-  joint
-  tempjoint
+
   getJointCustomer(event) {
     this.joint = event.name
     this.tempjoint = event.value
@@ -1435,11 +1426,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.jointID = null
     this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
-    this.getSystemParaDate()
   }
 
-  ngappointeddate: any
-  ngexpiryddate: any
   //power of attorney
   addAttorney() {
     const formVal = this.angForm.value;
@@ -1529,7 +1517,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.nomineeTrue = false;
     }
   }
-  tempupdateattorny: any
+
   editAttorney(id) {
     this.attorneyIndex = id
     this.attorneyID = this.multiAttorney[id].id;
@@ -1605,12 +1593,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getSystemParaDate()
   }
 
-  nextButton: boolean = true
   next() {
     this.nextButton != this.nextButton
   }
 
-  @ViewChild('ctdTabset') ctdTabset;
   switchNgBTab(id: string) {
     this.ctdTabset.select(id);
   }

@@ -24,13 +24,6 @@
                                     <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>
                                 </span>
                             </div>
-                            <!-- <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="scheme" [multiple]="false"
-                                    placeholder="Scheme *" required title="Compulsory Selection"
-                                    formControlName="AC_TYPE" (selected)="getScheme($event)"
-                                    [ngClass]="{'form-submitted': formSubmitted}">
-                                </ng-select>
-                            </div> -->
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
@@ -48,15 +41,6 @@
                                         ngbTooltip="Add New Customer"></span>
                                 </span>
                             </div>
-                            <!-- <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="Cust_ID" [multiple]="false"
-                                    placeholder="Customer ID *" required title="Compulsory Selection"
-                                    formControlName="AC_CUSTID" [(ngModel)]="id" (selected)="getCustomer(id)"
-                                    style="width: 90%;" [ngClass]="{'form-submitted': formSubmitted}">
-                                </ng-select>
-                                <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
-                                    (click)="modalLarge.show()" placement="bottom" ngbTooltip="Add New Customer"></span>
-                            </div> -->
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)"
                                 class="alert alert-danger">
@@ -88,7 +72,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="Name" class="form-control" placeholder=" " id="AC_TITLE"
-                                        value="" pattern="^[A-Za-z\./ -]+$" formControlName="AC_TITLE" disabled>
+                                        value="" formControlName="AC_TITLE" disabled>
                                     <label for="AC_TITLE">Title </label>
                                 </span>
                             </div>
@@ -104,18 +88,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="Name" class="form-control" placeholder=" " id="AC_NAME"
-                                        required="" value="" pattern="^[A-Za-z\./ -]+$" formControlName="AC_NAME"
-                                        disabled>
+                                        value="" formControlName="AC_NAME" disabled>
                                     <label for="AC_NAME">Name </label>
                                 </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_NAME'].invalid && (angForm.controls['AC_NAME'].dirty || angForm.controls['AC_NAME'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['AC_NAME'].errors?.pattern || angForm.controls['AC_NAME'].errors?.required">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
-                                </div>
                             </div>
                         </div>
                         <div class="col-sm-2">
@@ -133,8 +108,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_MEMBTYPE" class="form-control" placeholder=" "
-                                        id="AC_MEMBTYPE" value="" pattern="^[0-9]+$" formControlName="AC_MEMBTYPE"
-                                        disabled>
+                                        id="AC_MEMBTYPE" value="" formControlName="AC_MEMBTYPE" disabled>
                                     <label for="AC_MEMBTYPE">Member Scheme</label>
                                 </span>
                             </div>
@@ -150,7 +124,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_MEMBNO" class="form-control" placeholder=" "
-                                        id="AC_MEMBNO" value="" pattern="^[0-9]+$" formControlName="AC_MEMBNO" disabled>
+                                        id="AC_MEMBNO" value="" formControlName="AC_MEMBNO" disabled>
                                     <label for="AC_MEMBNO">Member Number</label>
                                 </span>
                             </div>
@@ -166,7 +140,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_HONO" class="form-control" placeholder=" " id="AC_HONO"
-                                        maxlength="25" formControlName="AC_HONO" disabled />
+                                        formControlName="AC_HONO" disabled />
                                     <label for="AC_HONO">House</label>
                                 </span>
                             </div>
@@ -175,7 +149,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_WARD" class="form-control" placeholder=" " id="AC_WARD"
-                                        pattern="^[A-Za-z\./ -]+$" maxlength="10" formControlName="AC_WARD" disabled />
+                                        formControlName="AC_WARD" disabled />
                                     <label for="AC_WARD">Ward</label>
                                 </span>
                             </div>
@@ -205,8 +179,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_CTCODE" class="form-control" placeholder=" "
-                                        id="AC_CTCODE" pattern="^[A-Za-z\./ -]+$" formControlName="AC_CTCODE"
-                                        disabled />
+                                        id="AC_CTCODE" formControlName="AC_CTCODE" disabled />
                                     <label for="AC_CTCODE">City</label>
                                 </span>
                             </div>
@@ -215,7 +188,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_AREA" class="form-control" placeholder=" " id="AC_AREA"
-                                        maxlength="60" formControlName="AC_AREA" disabled />
+                                        formControlName="AC_AREA" disabled />
                                     <label for="AC_AREA">Area</label>
                                 </span>
                             </div>
@@ -224,7 +197,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PIN" class="form-control" placeholder=" " id="AC_PIN"
-                                        value="" pattern="^[0-9]+$" formControlName="AC_PIN" disabled>
+                                        value="" formControlName="AC_PIN" disabled>
                                     <label for="AC_PIN">Pincode</label>
                                 </span>
                             </div>
@@ -241,15 +214,6 @@
                                         </sub></label>
                                 </span>
                             </div>
-                            <!-- <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="date" name="AC_OPDATE" class="form-control" placeholder=" "
-                                        id="AC_OPDATE" max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                        (keyup)="disabledate(date.value)" formControlName="AC_OPDATE"
-                                        [ngClass]="{'form-submitted': formSubmitted}">
-                                    <label for="AC_OPDATE">Open Date </label>
-                                </span>
-                            </div> -->
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_OPDATE'].invalid && (angForm.controls['AC_OPDATE'].dirty || angForm.controls['AC_OPDATE'].touched)"
                                 class="alert alert-danger">

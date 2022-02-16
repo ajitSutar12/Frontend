@@ -300,7 +300,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         return (scheme.id == 'AG');
       });
       this.scheme = filtered;
-    
+
       this.code = this.scheme[0].value
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.pgScheme).pipe(first()).subscribe(data => {
@@ -557,67 +557,67 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.formSubmitted = true;
     let opdate
     let temdate
-    // if (this.angForm.valid) {
 
-
-    const formVal = this.angForm.value;
-    let schecode
-    if (this.tempopendate != this.openingDate) {
-      temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
-    } else {
-      temdate = this.openingDate
-    }
-    this.scheme.forEach(async (element) => {
-      if (element.value == this.code) {
-        schecode = element.name
+    if (this.angForm.valid) {
+      const formVal = this.angForm.value;
+      let schecode
+      if (this.tempopendate != this.openingDate) {
+        temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
+      } else {
+        temdate = this.openingDate
       }
-    })
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
-    let bankCode = Number(result.branch.syspara.BANK_CODE)
-   
-    const dataToSend = {
-      'branchCode': branchCode,
-      'bankCode': bankCode,
-      'schemeCode': schecode,
-
-      'AC_TYPE': formVal.AC_TYPE,
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_NAME': formVal.AC_NAME,
-      'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_OPDATE': this.openingDate,
-      'PIGMY_ACTYPE': formVal.PIGMY_ACTYPE,
-      'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
-      'AC_INTROID': formVal.AC_INTROID,
-      'AC_INTRACNO': formVal.AC_INTRACNO,
-      'AC_INTRNAME': formVal.AC_INTRNAME,
-      'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
-      'NomineeData': this.multiNominee
-    }
-    this.PigmyAgentMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Account Created successfully!',
-        html:
-          '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
-          '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+      this.scheme.forEach(async (element) => {
+        if (element.value == this.code) {
+          schecode = element.name
+        }
       })
-      this.formSubmitted = false;
-      // to reload after insertion of data
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.id;
+      let bankCode = Number(result.branch.syspara.BANK_CODE)
+      const dataToSend = {
+        'branchCode': branchCode,
+        'bankCode': bankCode,
+        'schemeCode': schecode,
+        'AC_TYPE': formVal.AC_TYPE,
+        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+        'AC_NAME': formVal.AC_NAME,
+        'AC_CUSTID': formVal.AC_CUSTID,
+        'AC_OPDATE': this.openingDate,
+        'PIGMY_ACTYPE': formVal.PIGMY_ACTYPE,
+        'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
+        'AC_INTROID': formVal.AC_INTROID,
+        'AC_INTRACNO': formVal.AC_INTRACNO,
+        'AC_INTRNAME': formVal.AC_INTRNAME,
+        'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+        'NomineeData': this.multiNominee
+      }
+      this.PigmyAgentMasterService.postData(dataToSend).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Created successfully!',
+          html:
+            '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+            '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+        })
+        this.formSubmitted = false;
+        // to reload after insertion of data
 
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
 
-    }, (error) => {
-      console.log(error)
-    })
-    //To clear form
-    this.resetForm();
-    this.multiNominee = []
-    // }
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.multiNominee = []
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
   }
 
   // Reset Function

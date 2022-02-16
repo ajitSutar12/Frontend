@@ -1,28 +1,20 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter, HostListener, ElementRef, Input } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { environment } from '../../../../../environments/environment'
-
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
-
 // Angular Datatable Directive  
 import { DataTableDirective } from 'angular-datatables';
-
 // Service File For Handling CRUD Operation
 import { TermLoanService } from './term-loan-master.service';
-
 //animation
 import { animate, style, transition, trigger } from '@angular/animations';
-
 // Http Client
 import { HttpClient } from '@angular/common/http';
-
 // Router File
 import { Router } from '@angular/router'
-
 //Service Files
 import { CustomerIdService } from '../customer-id/customer-id.service';
 import { InterestRateForLoanandCCService } from '../../policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
@@ -30,7 +22,6 @@ import { PrioritySectorMasterService } from '../../policy-settings/information/p
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { TermLoanSchemeService } from '../../../utility/scheme-parameters/term-loan-scheme/term-loan-scheme.service';
 import { SecurityCodeService } from '../../policy-settings/definations/security-code/security-code.service';
-
 // Dropdown Files
 import { IOption } from 'ng-select';
 import { first } from 'rxjs/operators';
@@ -307,6 +298,22 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   private dataSub: Subscription = null;
   datemax: any;
+  ngexpiry: any
+  updatecheckdata: any
+  sanctionDate: any
+  ngresodate: any
+  birthDate: any
+  tempopendate: any
+  ngredate: any
+  guarantoredit: any
+  guarantordate: any
+  int_category: any
+  renewDate: any
+  tempexpiryDate: any
+  month: number
+  @ViewChild('ctdTabset') ctdTabset;
+  selectedImagePreview: any;
+
   constructor(
     private http: HttpClient,
     private termLoanService: TermLoanService,
@@ -345,11 +352,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   ngOnInit(): void {
-
     //Call CreateForm Function
-
     this.createForm();
-
     // Fetching Server side data
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
@@ -482,12 +486,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       dom: 'Blrtip',
     };
     this.getSystemParaDate() //function to set date
-
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
       this.code = this.scheme[0].value
     })
-
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
       this.GCust_ID = data;
@@ -542,7 +544,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.security = data;
     })
 
-    this.runTimer();
 
     this.dataSub = this.repayModeService.loadCharacters().subscribe((options) => {
 
@@ -559,25 +560,12 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   };
 
-  // runTimer function
-
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
-
   // Create form Method
-
   createForm() {
     this.angForm = this.fb.group({
-      CoAC_CUSTID: ['', [Validators.required]],
       AC_CUSTID: ['', [Validators.required]],
-      GAC_CUSTID: ['', [Validators.required]],
-      CAC_CUSTID: ['', [Validators.required]],
+      GAC_CUSTID: ['',],
+      CAC_CUSTID: ['',],
       SECURITY_CODE: [''],
       SECURITY_VALUE: [''],
       IS_WEAKER: [''],
@@ -632,7 +620,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_HEALTH: ['', [Validators.required]],
       AC_RELATION_TYPE: ['', [Validators.required]],
       AC_DIRECTOR: [''],
-      AC_DIRECTOR_RELATION: [''],
+      AC_DIRECTOR_RELATION: [' '],
       AC_COREG_NO: ['', [Validators.pattern]],
       AC_COREG_DATE: [''],
       AC_COREG_AMT: ['', [Validators.pattern]],
@@ -644,11 +632,11 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_GALLI: [''],
       AC_AREA: [''],
       AC_CTCODE: [''],
+      AC_MOBNO: [''],
+      AC_PHNO: [''],
+      AC_EMAIL: [''],
       AC_PIN: [''],
       AC_TPIN: [''],
-      AC_MOBILENO: [''],
-      AC_PHONE_RES: [''],
-      AC_PHONE_OFFICE: [''],
       EXP_DATE: [''],
       GAC_MEMBNO: [''],
       GAC_MEMBTYPE: [''],
@@ -660,173 +648,176 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   // Method to insert data into database through NestJS
-  ngexpiry: any
-  submit() {
+  submit(event) {
     this.formSubmitted = true;
     const formVal = this.angForm.value;
-    let temdate
-    let opdate
-    let temredate
-    let date
-    let redate
-    let sanctiondate
-    let expirydate
-    let resodate
-    let schecode
-    if (formVal.AC_ADDFLAG == true) {
-      this.addType = 'P'
-    }
-    else if (formVal.AC_ADDFLAG == false) {
-      this.addType = 'T'
-    }
-    if (this.angForm.controls['AC_TCTCODE'].value == "") {
-      formVal.AC_TCTCODE = 0
-    }
-    if (this.tempopendate != this.openingDate) {
-      temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
-    } else {
-      temdate = this.openingDate
-    }
-
-    if (this.tempopendate != this.ngredate) {
-      temredate = (formVal.AC_COREG_DATE == '' || formVal.AC_COREG_DATE == 'Invalid date') ? date = '' : date = moment(formVal.AC_COREG_DATE).format('DD/MM/YYYY')
-    } else {
-      temredate = this.ngredate
-    }
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
-    let bankCode = Number(result.branch.syspara.BANK_CODE)
-
-    this.scheme.forEach(async (element) => {
-      if (element.value == this.code) {
-
-        schecode = element.name
+    if (this.angForm.valid) {
+      let temdate
+      let opdate
+      let temredate
+      let date
+      let redate
+      let sanctiondate
+      let expirydate
+      let resodate
+      let schecode
+      if (formVal.AC_ADDFLAG == true) {
+        this.addType = 'P'
       }
-    })
-    var expiry
-    if (this.tempexpiryDate != this.ngexpiry) {
-      expiry = (this.ngexpiry == '' || this.ngexpiry == 'Invalid date') ? expiry = '' : expiry = moment(this.ngexpiry).format('DD/MM/YYYY')
-    } else {
-      expiry = this.ngexpiry
-    }
-    const dataToSend = {
-      'branchCode': branchCode,
-      'bankCode': bankCode,
-      'schemeCode': schecode,
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_TYPE': formVal.AC_TYPE,
-      'AC_NO': formVal.AC_NO,
-      'AC_NAME': formVal.AC_NAME,
-      'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_OPDATE': temdate,
-      'AC_OPEN_OLD_DATE': (formVal.AC_OPEN_OLD_DATE == '' || formVal.AC_OPEN_OLD_DATE == 'Invalid date') ? redate = '' : redate = moment(formVal.AC_OPEN_OLD_DATE).format('DD/MM/YYYY'),
-      'REF_ACNO': formVal.REF_ACNO,
-      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
-      'AC_INTCATA': formVal.AC_INTCATA,
-      'AC_SANCTION_AMOUNT': formVal.AC_SANCTION_AMOUNT,
-      'AC_SANCTION_DATE': (formVal.AC_SANCTION_DATE == '' || formVal.AC_SANCTION_DATE == 'Invalid date') ? sanctiondate = '' : sanctiondate = moment(formVal.AC_SANCTION_DATE).format('DD/MM/YYYY'),
-      'AC_DRAWPOWER_AMT': formVal.AC_DRAWPOWER_AMT,
-      'AC_MONTHS': formVal.AC_MONTHS,
-      'AC_EXPIRE_DATE': expiry,
-      'AC_INTRATE': formVal.AC_INTRATE,
-      'AC_REPAYMODE': formVal.AC_REPAYMODE,
-      'INSTALLMENT_METHOD': formVal.INSTALLMENT_METHOD,
-      'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
-      'AC_MORATORIUM_PERIOD': formVal.AC_MORATORIUM_PERIOD,
-      'AC_GRACE_PERIOD': formVal.AC_GRACE_PERIOD,
-      'AC_AUTHORITY': formVal.AC_AUTHORITY,
-      'AC_RECOMMEND_BY': formVal.AC_RECOMMEND_BY,
-      'AC_RECOVERY_CLERK': formVal.AC_RECOVERY_CLERK,
-      'AC_PRIORITY': formVal.AC_PRIORITY,
-      'AC_PRIORITY_SUB1': formVal.AC_PRIORITY_SUB1,
-      'AC_PRIORITY_SUB2': formVal.AC_PRIORITY_SUB2,
-      'AC_PRIORITY_SUB3': formVal.AC_PRIORITY_SUB3,
-      'AC_WEAKER': formVal.AC_WEAKER,
-      'AC_PURPOSE': formVal.AC_PURPOSE,
-      'AC_INDUSTRY': formVal.AC_INDUSTRY,
-      'AC_HEALTH': formVal.AC_HEALTH,
-      'AC_RELATION_TYPE': formVal.AC_RELATION_TYPE,
-      'AC_DIRECTOR': formVal.AC_DIRECTOR,
-      'AC_DIRECTOR_RELATION': formVal.AC_DIRECTOR_RELATION,
-      'AC_COREG_NO': formVal.AC_COREG_NO,
-      'IS_WEAKER': formVal.IS_WEAKER,
-      'AC_COREG_AMT': formVal.AC_COREG_AMT,
-      'AC_RESO_NO': formVal.AC_RESO_NO,
-      'AC_REMARK': formVal.AC_REMARK,
-      'AC_RESO_DATE': (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date') ? resodate = '' : resodate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY'),
-      AC_ADDFLAG: formVal.AC_ADDFLAG,
-      AC_ADDTYPE: this.addType,
-      AC_THONO: formVal.AC_THONO,
-      AC_TWARD: formVal.AC_TWARD,
-      AC_TADDR: formVal.AC_TADDR,
-      AC_TGALLI: formVal.AC_TGALLI,
-      AC_TAREA: formVal.AC_TAREA,
-      AC_TCTCODE: formVal.AC_TCTCODE,
-      AC_TPIN: formVal.AC_TPIN,
-      'CoBorrowerData': this.multiCoBorrower,
-      'GuarantorData': this.multiGuarantor,
-      'SecurityData': this.multiSecurity,
-      'BookDebts': this.bookid,
-      'CustomerInsurance': this.insuranceid,
-      'FirePolicy': this.firepolicyid,
-      'Furniture': this.furnitureid,
-      'GoldSilver': this.goldid,
-      'Goverment': this.govtid,
-      'LandBuilding': this.landid,
-      'MarketShare': this.marketid,
-      'OtherSecurity': this.otherid,
-      'OwnDeposit': this.ownid,
-      'PlantMachinary': this.plantid,
-      'PleadgeStock': this.pledgeid,
-      'StockStatement': this.stockid,
-      'Vehicle': this.vehicleid,
+      else if (formVal.AC_ADDFLAG == false) {
+        this.addType = 'T'
+      }
+      if (this.angForm.controls['AC_TCTCODE'].value == "") {
+        formVal.AC_TCTCODE = 0
+      }
+      if (this.tempopendate != this.openingDate) {
+        temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date' || formVal.AC_OPDATE == null || formVal.AC_OPDATE == undefined) ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
+      } else {
+        temdate = this.openingDate
+      }
 
-    }
+      if (this.tempopendate != this.ngredate) {
+        temredate = (formVal.AC_COREG_DATE == '' || formVal.AC_COREG_DATE == 'Invalid date') ? date = '' : date = moment(formVal.AC_COREG_DATE).format('DD/MM/YYYY')
+      } else {
+        temredate = this.ngredate
+      }
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.id;
+      let bankCode = Number(result.branch.syspara.BANK_CODE)
 
-    this.termLoanService.postData(dataToSend).subscribe(data => {
+      this.scheme.forEach(async (element) => {
+        if (element.value == this.code) {
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Account Created successfully!',
-        html:
-          '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
-          '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+          schecode = element.name
+        }
       })
-      this.formSubmitted = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
+      var expiry
+      if (this.tempexpiryDate != this.ngexpiry) {
+        expiry = (this.ngexpiry == '' || this.ngexpiry == 'Invalid date') ? expiry = '' : expiry = moment(this.ngexpiry).format('DD/MM/YYYY')
+      } else {
+        expiry = this.ngexpiry
+      }
+      const dataToSend = {
+        'branchCode': branchCode,
+        'bankCode': bankCode,
+        'schemeCode': schecode,
+        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+        'AC_TYPE': formVal.AC_TYPE,
+        'AC_NO': formVal.AC_NO,
+        'AC_NAME': formVal.AC_NAME,
+        'AC_CUSTID': formVal.AC_CUSTID,
+        'AC_OPDATE': temdate,
+        'AC_OPEN_OLD_DATE': (formVal.AC_OPEN_OLD_DATE == '' || formVal.AC_OPEN_OLD_DATE == 'Invalid date' || formVal.AC_OPEN_OLD_DATE == null || formVal.AC_OPEN_OLD_DATE == undefined) ? redate = '' : redate = moment(formVal.AC_OPEN_OLD_DATE).format('DD/MM/YYYY'),
+        'REF_ACNO': formVal.REF_ACNO,
+        'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+        'AC_INTCATA': formVal.AC_INTCATA,
+        'AC_SANCTION_AMOUNT': formVal.AC_SANCTION_AMOUNT,
+        'AC_SANCTION_DATE': (formVal.AC_SANCTION_DATE == '' || formVal.AC_SANCTION_DATE == 'Invalid date') ? sanctiondate = '' : sanctiondate = moment(formVal.AC_SANCTION_DATE).format('DD/MM/YYYY'),
+        'AC_DRAWPOWER_AMT': formVal.AC_DRAWPOWER_AMT,
+        'AC_MONTHS': formVal.AC_MONTHS,
+        'AC_EXPIRE_DATE': expiry,
+        'AC_INTRATE': formVal.AC_INTRATE,
+        'AC_REPAYMODE': formVal.AC_REPAYMODE,
+        'INSTALLMENT_METHOD': formVal.INSTALLMENT_METHOD,
+        'AC_INSTALLMENT': formVal.AC_INSTALLMENT,
+        'AC_MORATORIUM_PERIOD': formVal.AC_MORATORIUM_PERIOD,
+        'AC_GRACE_PERIOD': formVal.AC_GRACE_PERIOD,
+        'AC_AUTHORITY': formVal.AC_AUTHORITY,
+        'AC_RECOMMEND_BY': formVal.AC_RECOMMEND_BY,
+        'AC_RECOVERY_CLERK': formVal.AC_RECOVERY_CLERK,
+        'AC_PRIORITY': formVal.AC_PRIORITY,
+        'AC_PRIORITY_SUB1': formVal.AC_PRIORITY_SUB1,
+        'AC_PRIORITY_SUB2': formVal.AC_PRIORITY_SUB2,
+        'AC_PRIORITY_SUB3': formVal.AC_PRIORITY_SUB3,
+        'AC_WEAKER': formVal.AC_WEAKER,
+        'AC_PURPOSE': formVal.AC_PURPOSE,
+        'AC_INDUSTRY': formVal.AC_INDUSTRY,
+        'AC_HEALTH': formVal.AC_HEALTH,
+        'AC_RELATION_TYPE': formVal.AC_RELATION_TYPE,
+        'AC_DIRECTOR': formVal.AC_DIRECTOR,
+        'AC_DIRECTOR_RELATION': formVal.AC_DIRECTOR_RELATION,
+        'AC_COREG_NO': formVal.AC_COREG_NO,
+        'IS_WEAKER': formVal.IS_WEAKER,
+        'AC_COREG_AMT': formVal.AC_COREG_AMT,
+        'AC_RESO_NO': formVal.AC_RESO_NO,
+        'AC_REMARK': formVal.AC_REMARK,
+        'AC_RESO_DATE': (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date') ? resodate = '' : resodate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY'),
+        AC_ADDFLAG: formVal.AC_ADDFLAG,
+        AC_ADDTYPE: this.addType,
+        AC_THONO: formVal.AC_THONO,
+        AC_TWARD: formVal.AC_TWARD,
+        AC_TADDR: formVal.AC_TADDR,
+        AC_TGALLI: formVal.AC_TGALLI,
+        AC_TAREA: formVal.AC_TAREA,
+        AC_TCTCODE: formVal.AC_TCTCODE,
+        AC_TPIN: formVal.AC_TPIN,
+        'CoBorrowerData': this.multiCoBorrower,
+        'GuarantorData': this.multiGuarantor,
+        'SecurityData': this.multiSecurity,
+        'BookDebts': this.bookid,
+        'CustomerInsurance': this.insuranceid,
+        'FirePolicy': this.firepolicyid,
+        'Furniture': this.furnitureid,
+        'GoldSilver': this.goldid,
+        'Goverment': this.govtid,
+        'LandBuilding': this.landid,
+        'MarketShare': this.marketid,
+        'OtherSecurity': this.otherid,
+        'OwnDeposit': this.ownid,
+        'PlantMachinary': this.plantid,
+        'PleadgeStock': this.pledgeid,
+        'StockStatement': this.stockid,
+        'Vehicle': this.vehicleid,
 
-    //To clear form
-    this.resetForm();
-    this.customerDoc = []
-    this.multiCoBorrower = []
-    this.multiGuarantor = []
-    this.multiSecurity = [];
-    this.bookid = []
-    this.insuranceid = []
-    this.firepolicyid = []
-    this.furnitureid = []
-    this.goldid = []
-    this.govtid = []
-    this.landid = []
-    this.marketid = []
-    this.otherid = []
-    this.ownid = []
-    this.plantid = []
-    this.pledgeid = []
-    this.stockid = []
-    this.vehicleid = []
+      }
+
+      this.termLoanService.postData(dataToSend).subscribe(data => {
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Created successfully!',
+          html:
+            '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+            '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+        })
+        this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+        console.log(error)
+      })
+
+      //To clear form
+      this.resetForm();
+      this.customerDoc = []
+      this.multiCoBorrower = []
+      this.multiGuarantor = []
+      this.multiSecurity = [];
+      this.bookid = []
+      this.insuranceid = []
+      this.firepolicyid = []
+      this.furnitureid = []
+      this.goldid = []
+      this.govtid = []
+      this.landid = []
+      this.marketid = []
+      this.otherid = []
+      this.ownid = []
+      this.plantid = []
+      this.pledgeid = []
+      this.stockid = []
+      this.vehicleid = []
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
 
   }
 
   // Reset Function
-
   resetForm() {
     this.createForm();
     this.resetGuarantor()
@@ -859,8 +850,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.getSystemParaDate()
   }
 
-  //Method for append data into fields
-  updatecheckdata: any
+  //Method for append data into fields  
   editClickHandler(id) {
     this.angForm.controls['AC_TYPE'].disable()
     let date
@@ -869,7 +859,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     let sanctiondate
     let expirydate
     let resodate
-
     this.columnShowButton = true
     this.termLoanService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
@@ -887,7 +876,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.multiSecurity = data.securityMaster
       this.multiCoBorrower = data.CoborrowerMaster,
         this.multiGuarantor = data.guaranterMaster
-
       this.int_category = Number(data.AC_INTCATA)
       this.sanctionAutho = Number(data.AC_AUTHORITY)
       this.recomBy = Number(data.AC_RECOMMEND_BY)
@@ -945,12 +933,11 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           AC_REMARK: data.AC_REMARK,
           AC_COREG_AMT: data.AC_COREG_AMT,
           AC_RESO_NO: data.AC_RESO_NO,
-             })
+        })
     })
   }
 
   // Method For New Button
-
   addNewData() {
     this.angForm.controls['AC_TYPE'].enable()
     this.showButton = true;
@@ -965,9 +952,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.getSystemParaDate()
   }
 
-  //Method for update data 
-  sanctionDate: any
-  ngresodate: any
+  //Method for update data  
   updateData() {
     this.angForm.controls['AC_TYPE'].enable()
     let data = this.angForm.value;
@@ -1046,7 +1031,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   //Method for delete data
-
   delClickHandler(id: number) {
     Swal.fire({
       title: 'Are you sure?',
@@ -1093,7 +1077,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.getCustomer(this.id);
     })
   }
-  birthDate: any
+
   //function to get existing customer data according selection
   getCustomer(id) {
 
@@ -1120,7 +1104,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_MOBNO: data.AC_MOBILENO,
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,
-        AC_PANNO: data.AC_PANNO,
+        // AC_PANNO: data.AC_PANNO,
 
       })
 
@@ -1177,8 +1161,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.tempAddress = !this.tempAddress;
   }
 
-  tempopendate: any
-  ngredate: any
   //set open date, appointed date and expiry date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -1235,17 +1217,12 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   // Method for set sanction amount to registration amount and registration date
 
   changeAmt() {
-
     this.angForm.patchValue({
-
       AC_COREG_AMT: this.angForm.controls['AC_SANCTION_AMOUNT'].value
-
     })
-
   }
 
   // Set Priorities
-
   getPriority(idp) {
     this.prioritySectorMaster.getFormData(idp).subscribe(data => {
       this.angForm.patchValue({
@@ -1673,8 +1650,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.resetGuarantor()
   }
 
-  guarantoredit: any
-  guarantordate: any
   // Edit Guarantor
   editGuarantor(id) {
     let exdate
@@ -1740,7 +1715,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
     this.resetGuarantor()
   }
-
 
   // Delete Guarantor
   delGuarantor(id) {
@@ -1883,8 +1857,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   // End CoBorrower tab
 
-
-
   setCategory(int_category) {
     this.InterestRateForLoanandCC.intData().subscribe(data => {
       this.date = this.angForm.controls['AC_OPDATE'].value
@@ -1931,9 +1903,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     })
   }
 
-
-  int_category: any
-
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -1968,8 +1937,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     });
   }
 
-  renewDate: any
-  tempexpiryDate: any
   getExpiryDate() {
     let months = this.angForm.controls['AC_MONTHS'].value
     if (this.renewDate != undefined) {
@@ -2001,14 +1968,11 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       }
     }
   }
-  month: number
 
-  @ViewChild('ctdTabset') ctdTabset;
   switchNgBTab(id: string) {
     this.ctdTabset.select(id);
   }
 
-  selectedImagePreview: any;
   viewImagePreview(ele, id) {
     this.selectedImagePreview = id;
   }
@@ -2034,7 +1998,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       console.log('something is wrong');
     })
   }
-
 
   //reject account
   reject() {

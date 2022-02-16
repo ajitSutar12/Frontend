@@ -4,7 +4,7 @@ import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {environment}  from '../../../../../environments/environment'
+import { environment } from '../../../../../environments/environment'
 @Injectable()
 export class TermLoanService {
     // Variable for handleError
@@ -34,21 +34,21 @@ export class TermLoanService {
     //Deletion Operation
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/term-loan-master/delete/' + id).pipe(catchError(this.handleError));
-    }  
+    }
 
     getData(): Observable<any> {
         return this.http.get(this.url + '/term-loan-master/alldata').pipe(catchError(this.handleError));
     }
 
-      //approve master
-      approve(data:any): Observable<any>{
-        return this.http.post(this.url+ '/term-loan-master/approve',data).pipe(catchError(this.handleError));
+    //approve master
+    approve(data: any): Observable<any> {
+        return this.http.post(this.url + '/term-loan-master/approve', data).pipe(catchError(this.handleError));
     }
 
 
     //reject master
-    reject(data:any): Observable<any>{
-        return this.http.post(this.url+ '/term-loan-master/reject',data).pipe(catchError(this.handleError));
+    reject(data: any): Observable<any> {
+        return this.http.post(this.url + '/term-loan-master/reject', data).pipe(catchError(this.handleError));
     }
 }
 

@@ -270,8 +270,6 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       dom: "Blrtip",
     };
 
-    this.runTimer();
-
     this.prefixMaster.getPrefixMasterList().pipe(first()).subscribe(data => {
       this.prifix = data;
     })
@@ -330,7 +328,6 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getCustomer(id) {
     this.customerIdService.getFormData(id).subscribe(data => {
-      console.log(data)
       if (data.castMaster == null) {
         data.castMaster = ""
       }
@@ -376,6 +373,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.openingDate = data.CURRENT_DATE
+      this.angForm.patchValue({
+        AC_OPDATE: data.CURRENT_DATE
+      })
 
       if (data.ON_LINE === true) {
         this.angForm.controls['AC_OPDATE'].disable()
@@ -399,22 +399,22 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
       AC_ACNOTYPE: ['GS'],
       AC_TYPE: ['', [Validators.required]],
-      AC_NO: ['', [Validators.required]],
-      AC_CUSTID: [''],
+      AC_NO: [''],
+      AC_CUSTID: ['', [Validators.required]],
       AC_TITLE: [''],
-      AC_NAME: ['', [Validators.required, Validators.pattern]],
+      AC_NAME: ['',],
       AC_MEMBTYPE: [''],
       AC_MEMBNO: [''],
-      AC_HONO: ['', [Validators.pattern]],
-      AC_WARD: ['', [Validators.pattern]],
-      AC_ADDR: ['', [Validators.pattern]],
-      AC_GALLI: ['', [Validators.pattern]],
-      AC_AREA: ['', [Validators.pattern]],
-      AC_CTCODE: ['', [Validators.pattern]],
+      AC_HONO: [''],
+      AC_WARD: [''],
+      AC_ADDR: [''],
+      AC_GALLI: [''],
+      AC_AREA: [''],
+      AC_CTCODE: [''],
       AC_PIN: [''],
       BANKACNO: [''],
       AC_OPDATE: ['', [Validators.required]],
-      AC_IS_RECOVERY: [''],
+      AC_IS_RECOVERY: [false],
       DEBIT: new FormControl('Credit'),
       AC_PARTICULAR: ['', [Validators.required, Validators.pattern]],
     });
@@ -428,54 +428,55 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
-    // if (this.angForm.valid) {
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
-    let bankCode = Number(result.branch.syspara.BANK_CODE)
-    let opdate = (document.getElementById("AC_OPDATE") as HTMLInputElement).value;
-
-
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      'branchCode': branchCode,
-      'bankCode': bankCode,
-      'schemeCode': this.schemeCode,
-      AC_ACNOTYPE: formVal.AC_ACNOTYPE,
-      AC_TYPE: formVal.AC_TYPE,
-      AC_NO: formVal.AC_NO,
-      AC_NAME: formVal.AC_NAME,
-      AC_CUSTID: formVal.AC_CUSTID,
-      // AC_OPDATE: formVal.AC_OPDATE,
-      AC_OPDATE: opdate,
-      // 'AC_OPDATE': (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY'),
-      AC_IS_RECOVERY: formVal.AC_IS_RECOVERY,
-      DEBIT: formVal.DEBIT,
-      AC_PARTICULAR: formVal.AC_PARTICULAR,
-    };
-    this.anamatGSMService.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Account Created successfully!',
-          html:
-            '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
-            '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
-        })
-        this.formSubmitted = false;
-        // to reload after insertion of data
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload();
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
-    // }
+    if (this.angForm.valid) {
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.id;
+      let bankCode = Number(result.branch.syspara.BANK_CODE)
+      let opdate = (document.getElementById("AC_OPDATE") as HTMLInputElement).value;
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        'branchCode': branchCode,
+        'bankCode': bankCode,
+        'schemeCode': this.schemeCode,
+        AC_ACNOTYPE: formVal.AC_ACNOTYPE,
+        AC_TYPE: formVal.AC_TYPE,
+        AC_NO: formVal.AC_NO,
+        AC_NAME: formVal.AC_NAME,
+        AC_CUSTID: formVal.AC_CUSTID,
+        // AC_OPDATE: formVal.AC_OPDATE,
+        AC_OPDATE: opdate,
+        // 'AC_OPDATE': (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY'),
+        AC_IS_RECOVERY: formVal.AC_IS_RECOVERY,
+        DEBIT: formVal.DEBIT,
+        AC_PARTICULAR: formVal.AC_PARTICULAR,
+      };
+      this.anamatGSMService.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Account Created successfully!',
+            html:
+              '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+              '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+          })
+          this.formSubmitted = false;
+          // to reload after insertion of data
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload();
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
   }
 
   //Method for append data into fields
@@ -530,7 +531,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload();
       });
-      this.angForm.reset();
+      this.resetForm();
     });
   }
 
@@ -539,7 +540,9 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.getSystemParaDate()
     this.resetForm();
+
   }
 
   // Reset Function
@@ -614,14 +617,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
+
   //approve account
   Approve() {
     let user = JSON.parse(localStorage.getItem('user'));

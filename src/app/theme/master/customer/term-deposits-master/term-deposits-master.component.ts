@@ -427,7 +427,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_ACNOTYPE: ['TD'],
       AC_NO: [''],
       AC_INTRATE: ['', [Validators.pattern]],
-      AC_CUSTID: ['', [Validators.required, Validators.pattern]],
+      AC_CUSTID: ['', [Validators.required]],
       AC_TITLE: [''],
       AC_NAME: [''],
       AC_MEMBTYPE: [''],
@@ -435,14 +435,14 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_MEMBNO: [''],
       AC_OPDATE: ['', [Validators.required]],
       REF_ACNO: ['', [Validators.pattern]],
-      AC_CAST: ['', [Validators.required]],
-      AC_OCODE: ['', [Validators.required]],
+      AC_CAST: ['',],
+      AC_OCODE: ['',],
       AC_CATG: ['', [Validators.required]],
       AC_OPR_CODE: ['', [Validators.required]],
       AC_INTCATA: ['', [Validators.required]],
-      AC_PANNO: ['', [Validators.pattern]],
+      AC_PANNO: ['',],
       AC_IS_RECOVERY: [false],
-      AC_REF_RECEIPTNO: ['', [Validators.pattern]],
+      AC_REF_RECEIPTNO: [''],
       AC_ASON_DATE: [],
       AC_MONTHS: ['', [Validators.pattern, Validators.required]],
       AC_DAYS: [],
@@ -452,14 +452,14 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       IS_DISCOUNTED_INT_RATE: [''],
       AC_BIRTH_DT: [''],
       AC_RENEW_DATE: [''],
-      AC_HONO: ['', [Validators.pattern]],
-      AC_WARD: ['', [Validators.pattern]],
-      AC_GALLI: ['', [Validators.pattern]],
-      AC_AREA: ['', [Validators.pattern]],
+      AC_HONO: ['',],
+      AC_WARD: ['',],
+      AC_GALLI: ['',],
+      AC_AREA: ['',],
       AC_ADDR: [''],
-      AC_CTCODE: ['', [Validators.required]],
-      AC_TCTCODE: ['', [Validators.required]],
-      AC_PIN: ['', [Validators.pattern]],
+      AC_CTCODE: [''],
+      AC_TCTCODE: [''],
+      AC_PIN: ['',],
       AC_EMAIL: [''],
       AC_MOBNO: [''],
       AC_PHNO: [''],
@@ -540,18 +540,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //function to toggle temp address field
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
-    this.angForm.controls['AC_THONO'].reset()
-    this.angForm.controls['AC_TWARD'].reset()
-    this.angForm.controls['AC_TADDR'].reset()
-    this.angForm.controls['AC_TGALLI'].reset()
-    this.angForm.controls['AC_TAREA'].reset()
-    this.angForm.controls['AC_TCTCODE'].reset()
-    this.angForm.controls['AC_TPIN'].reset()
   }
 
   //calculate age for minor details
   ageCalculator(birthDate) {
-
     let showAge: number
     if (birthDate) {
       const convertAge = new Date(birthDate);
@@ -583,7 +575,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   //set open date
   getSystemParaDate() {
-
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
         AC_OPDATE: moment(data.CURRENT_DATE).format('DD/MM/YYYY'),
@@ -1176,114 +1167,118 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   // Method to insert data into database through NestJS
   submit() {
-
-    let opdate
-    let asondate
-    let maturitydate
     this.formSubmitted = true;
-    const formVal = this.angForm.value;
-    if (formVal.AC_ADDFLAG == true) {
-      this.addType = 'P'
-    }
-    else if (formVal.AC_ADDFLAG == false) {
-      this.addType = 'T'
-    }
-    if (this.angForm.controls['AC_TCTCODE'].value == "") {
-      formVal.AC_TCTCODE = 0
-    }
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
-    let bankCode = Number(result.branch.syspara.BANK_CODE)
-
-    let schecode
-    this.scheme.forEach(async (element) => {
-      if (element.value == this.selectedValue) {
-        schecode = element.name
+    if (this.angForm.valid) {
+      let opdate
+      let asondate
+      let maturitydate
+      const formVal = this.angForm.value;
+      if (formVal.AC_ADDFLAG == true) {
+        this.addType = 'P'
       }
-    })
+      else if (formVal.AC_ADDFLAG == false) {
+        this.addType = 'T'
+      }
+      if (this.angForm.controls['AC_TCTCODE'].value == "") {
+        formVal.AC_TCTCODE = 0
+      }
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.id;
+      let bankCode = Number(result.branch.syspara.BANK_CODE)
 
-    const dataToSend = {
-      'branchCode': branchCode,
-      'bankCode': bankCode,
-      'schemeCode': schecode,
-      'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
-      'AC_TYPE': formVal.AC_TYPE,
-      'AC_NO': formVal.AC_NO,
-      // 'AC_INTRATE':formVal.AC_INTRATE,
-      'AC_CUSTID': formVal.AC_CUSTID,
-      'AC_NAME': formVal.AC_NAME,
-      'REF_ACNO': formVal.REF_ACNO,
-      'AC_OPDATE': (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY'),
-      'AC_CATG': formVal.AC_CATG,
-      'AC_OPR_CODE': formVal.AC_OPR_CODE,
-      'AC_INTCATA': formVal.AC_INTCATA,
-      'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
-      'AC_REF_RECEIPTNO': formVal.AC_REF_RECEIPTNO,
-      'AC_ASON_DATE': (formVal.AC_ASON_DATE == '' || formVal.AC_ASON_DATE == 'Invalid date') ? asondate = '' : asondate = moment(formVal.AC_ASON_DATE).format('DD/MM/YYYY'),
-      'AC_MONTHS': formVal.AC_MONTHS,
-      'AC_EXPDT': (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == 'Invalid date') ? maturitydate = '' : maturitydate = moment(formVal.AC_EXPDT).format('DD/MM/YYYY'),
-      'AC_SCHMAMT': formVal.AC_SCHMAMT,
-      'AC_MATUAMT': formVal.AC_MATUAMT,
-      'IS_DISCOUNTED_INT_RATE': formVal.IS_DISCOUNTED_INT_RATE,
+      let schecode
+      this.scheme.forEach(async (element) => {
+        if (element.value == this.selectedValue) {
+          schecode = element.name
+        }
+      })
 
-      //temp address 
-      AC_ADDFLAG: formVal.AC_ADDFLAG,
-      AC_ADDTYPE: this.addType,
-      AC_THONO: formVal.AC_THONO,
-      AC_TWARD: formVal.AC_TWARD,
-      AC_TADDR: formVal.AC_TADDR,
-      AC_TGALLI: formVal.AC_TGALLI,
-      AC_TAREA: formVal.AC_TAREA,
-      AC_TCTCODE: formVal.AC_TCTCODE,
-      AC_TPIN: formVal.AC_TPIN,
-      //minor and introducer
-      'AC_MINOR': formVal.AC_MINOR,
-      'AC_MBDATE': formVal.AC_MBDATE,
-      'AC_GRDNAME': formVal.AC_GRDNAME,
-      'AC_GRDRELE': formVal.AC_GRDRELE,
-      'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
-      'AC_INTROID': formVal.AC_INTROID,
-      'AC_INTRACNO': formVal.AC_INTRACNO,
-      'AC_INTRNAME': formVal.AC_INTRNAME,
-      'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
-      //nominee
-      'NomineeData': this.multiNominee,
-      //Joint Account
-      'JointAccountData': this.multiJointAC,
-      //Attorney
-      'PowerOfAttorneyData': this.multiAttorney
+      const dataToSend = {
+        'branchCode': branchCode,
+        'bankCode': bankCode,
+        'schemeCode': schecode,
+        'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
+        'AC_TYPE': formVal.AC_TYPE,
+        'AC_NO': formVal.AC_NO,
+        // 'AC_INTRATE':formVal.AC_INTRATE,
+        'AC_CUSTID': formVal.AC_CUSTID,
+        'AC_NAME': formVal.AC_NAME,
+        'REF_ACNO': formVal.REF_ACNO,
+        'AC_OPDATE': (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY'),
+        'AC_CATG': formVal.AC_CATG,
+        'AC_OPR_CODE': formVal.AC_OPR_CODE,
+        'AC_INTCATA': formVal.AC_INTCATA,
+        'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
+        'AC_REF_RECEIPTNO': formVal.AC_REF_RECEIPTNO,
+        'AC_ASON_DATE': (formVal.AC_ASON_DATE == '' || formVal.AC_ASON_DATE == 'Invalid date') ? asondate = '' : asondate = moment(formVal.AC_ASON_DATE).format('DD/MM/YYYY'),
+        'AC_MONTHS': formVal.AC_MONTHS,
+        'AC_EXPDT': (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == 'Invalid date') ? maturitydate = '' : maturitydate = moment(formVal.AC_EXPDT).format('DD/MM/YYYY'),
+        'AC_SCHMAMT': formVal.AC_SCHMAMT,
+        'AC_MATUAMT': formVal.AC_MATUAMT,
+        'IS_DISCOUNTED_INT_RATE': formVal.IS_DISCOUNTED_INT_RATE,
+
+        //temp address 
+        AC_ADDFLAG: formVal.AC_ADDFLAG,
+        AC_ADDTYPE: this.addType,
+        AC_THONO: formVal.AC_THONO,
+        AC_TWARD: formVal.AC_TWARD,
+        AC_TADDR: formVal.AC_TADDR,
+        AC_TGALLI: formVal.AC_TGALLI,
+        AC_TAREA: formVal.AC_TAREA,
+        AC_TCTCODE: formVal.AC_TCTCODE,
+        AC_TPIN: formVal.AC_TPIN,
+        //minor and introducer
+        'AC_MINOR': formVal.AC_MINOR,
+        'AC_MBDATE': formVal.AC_MBDATE,
+        'AC_GRDNAME': formVal.AC_GRDNAME,
+        'AC_GRDRELE': formVal.AC_GRDRELE,
+        'AC_INTROBRANCH': formVal.AC_INTROBRANCH,
+        'AC_INTROID': formVal.AC_INTROID,
+        'AC_INTRACNO': formVal.AC_INTRACNO,
+        'AC_INTRNAME': formVal.AC_INTRNAME,
+        'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
+        //nominee
+        'NomineeData': this.multiNominee,
+        //Joint Account
+        'JointAccountData': this.multiJointAC,
+        //Attorney
+        'PowerOfAttorneyData': this.multiAttorney
+
+      }
+      this.TermDepositMasterService.postData(dataToSend).subscribe(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Account Created successfully!',
+          html:
+            '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+            '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
+        })
+        this.formSubmitted = false;
+        // to reload after insertion of data
+
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.multiNominee = []
+      this.multiJointAC = []
+      this.multiAttorney = []
+      this.customerDoc = []
 
     }
-    this.TermDepositMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Account Created successfully!',
-        html:
-          '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
-          '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
-      })
-      this.formSubmitted = false;
-      // to reload after insertion of data
-
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-
-    }, (error) => {
-      console.log(error)
-    })
-    //To clear form
-    this.resetForm();
-    this.multiNominee = []
-    this.multiJointAC = []
-    this.multiAttorney = []
-    this.customerDoc = []
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
   }
   //Method for append data into fields
   editClickHandler(id) {
-
     let opdate
     let asondate
     let maturitydate
@@ -1433,6 +1428,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.ngIntroducer = null
     this.ngNcity = null
     this.jointID = null
+    this.getSystemParaDate()
   }
 
   ngAfterViewInit(): void {
@@ -1471,8 +1467,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
-
-
   addNewData() {
     this.showButton = true;
     this.updateShow = false;
@@ -1482,6 +1476,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.multiAttorney = []
     this.customerDoc = []
     this.resetForm();
+    this.getSystemParaDate()
   }
   nominee($event) {
     if ($event.target.checked) {

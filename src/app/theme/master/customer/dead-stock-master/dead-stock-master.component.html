@@ -13,14 +13,14 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
-                  <ng-select id="ITEM_TYPE" bindValue="value" [(ngModel)]="ngItem" formControlName="ITEM_TYPE"
-                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                    placeholder="Item Type">
-                    <ng-option *ngFor="let values of itemtypeoption" [value]="values">
-                      {{values.label}}</ng-option>
-                  </ng-select>
-                  <label for="ITEM_TYPE">Item Type <sub class="required"> * </sub></label>
-                </span>
+                                    <ng-select id="ITEM_TYPE" bindValue="value" [(ngModel)]="ngItem"
+                                        formControlName="ITEM_TYPE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Type">
+                                        <ng-option *ngFor="let values of itemtypeoption" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="ITEM_TYPE">Item Type <sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['ITEM_TYPE'].invalid &&
@@ -35,10 +35,11 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" name="ITEM_CODE" class="form-control" placeholder=" " id="ITEM_CODE" value=""
-                    pattern="^[0-9]+$" formControlName="ITEM_CODE" disabled />
-                  <label for="ITEM_CODE">Item Code</label>
-                </span>
+                                    <input type="text" name="ITEM_CODE" class="form-control" placeholder=" "
+                                        id="ITEM_CODE" value="" pattern="^[0-9]+$" formControlName="ITEM_CODE"
+                                        disabled />
+                                    <label for="ITEM_CODE">Item Code</label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['ITEM_CODE'].invalid &&
@@ -53,12 +54,13 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" name="Name" class="form-control" placeholder=" " required="" value=""
-                    id="ITEM_NAME" pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
-                    (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                    formControlName="ITEM_NAME" [ngClass]="{'form-submitted': formSubmitted}" />
-                  <label for="ITEM_NAME">Item Name<sub class="required">* </sub></label>
-                </span>
+                                    <input type="text" name="Name" class="form-control" placeholder=" " required=""
+                                        value="" id="ITEM_NAME" pattern="^[A-Za-z\./ -]+$"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                        formControlName="ITEM_NAME" [ngClass]="{'form-submitted': formSubmitted}" />
+                                    <label for="ITEM_NAME">Item Name<sub class="required">* </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['ITEM_NAME'].invalid &&
@@ -76,13 +78,15 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" placeholder="dd/mm/yyyy" name="PURCHASE_DATE" id="PURCHASE_DATE"
-                    class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="PURCHASE_DATE" [bsValue]="bsValue"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="PURCHASE_DATE">Purchase Date<sub class="required">*
-                    </sub></label>
-                </span>
+                                    <input type="text" placeholder="dd/mm/yyyy" name="PURCHASE_DATE" id="PURCHASE_DATE"
+                                        class="form-control" required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                        formControlName="PURCHASE_DATE" [bsValue]="bsValue"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                    <label for="PURCHASE_DATE">Purchase Date<sub class="required">*
+                                        </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['PURCHASE_DATE'].invalid &&
@@ -99,14 +103,16 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                  <ng-select id="DEPR_CATEGORY" bindValue="value" [(ngModel)]="ngDepre" formControlName="DEPR_CATEGORY"
-                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                    placeholder="Depriciation Category">
-                    <ng-option *ngFor="let values of DeprCategoryoption" [value]="values">
-                      {{values.label}}</ng-option>
-                  </ng-select>
-                  <label for="DEPR_CATEGORY">Depreciation Category <sub class="required"> * </sub></label>
-                </span>
+                                    <ng-select id="DEPR_CATEGORY" bindValue="value" [(ngModel)]="ngDepre"
+                                        formControlName="DEPR_CATEGORY" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        placeholder="Depriciation Category">
+                                        <ng-option *ngFor="let values of DeprCategoryoption" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="DEPR_CATEGORY">Depreciation Category <sub class="required"> *
+                                        </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['DEPR_CATEGORY'].invalid &&
@@ -121,13 +127,13 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" placeholder="dd/mm/yyyy" name="OP_BAL_DATE" id="OP_BAL_DATE" class="form-control"
-                    required [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                    [ngClass]="{'form-submitted': formSubmitted}" [maxDate]="maxDate"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                    formControlName="OP_BAL_DATE" (bsValueChange)="getDate($event)" bsDatepicker>
-                  <label for="OP_BAL_DATE">Opening Balance Date</label>
-                </span>
+                                    <input type="text" placeholder="dd/mm/yyyy" name="OP_BAL_DATE" id="OP_BAL_DATE"
+                                        class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [ngClass]="{'form-submitted': formSubmitted}" [maxDate]="maxDate"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        formControlName="OP_BAL_DATE" (bsValueChange)="getDate($event)" bsDatepicker>
+                                    <label for="OP_BAL_DATE">Opening Balance Date</label>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -145,12 +151,14 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" name="Name" class="form-control" placeholder=" " id="SUPPLIER_NAME" value=""
-                    pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
-                    (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                    formControlName="SUPPLIER_NAME" [ngClass]="{'form-submitted': formSubmitted}" disabled />
-                  <label for="SUPPLIER_NAME">Supplier Name</label>
-                </span>
+                                    <input type="text" name="Name" class="form-control" placeholder=" "
+                                        id="SUPPLIER_NAME" value="" pattern="^[A-Za-z\./ -]+$"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                        formControlName="SUPPLIER_NAME" [ngClass]="{'form-submitted': formSubmitted}"
+                                        [required]="openingReq" disabled />
+                                    <label for="SUPPLIER_NAME">Supplier Name</label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['SUPPLIER_NAME'].invalid &&
@@ -168,13 +176,14 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" name="Account" class="form-control" placeholder=" " id="OP_BALANCE"
-                    pattern="\d{1,20}(\.\d{2})?" maxlength="13" title="Input allowed only  0-9"
-                    style="text-align: right;"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    formControlName="OP_BALANCE" disabled />
-                  <label for="OP_BALANCE">Opening Amount</label>
-                </span>
+                                    <input type="text" name="Account" class="form-control" placeholder=" "
+                                        id="OP_BALANCE" pattern="\d{1,20}(\.\d{2})?" maxlength="13"
+                                        title="Input allowed only  0-9" style="text-align: right;"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                        formControlName="OP_BALANCE" [required]="openingReq" disabled />
+                                    <label for="OP_BALANCE">Opening Amount</label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['OP_BALANCE'].invalid &&
@@ -189,12 +198,14 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" name="OP_QUANTITY" class="form-control" placeholder=" " id="OP_QUANTITY"
-                    style="text-align: right;" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                    pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="4" formControlName="OP_QUANTITY"
-                    disabled />
-                  <label for="OP_QUANTITY">Quantity</label>
-                </span>
+                                    <input type="text" name="OP_QUANTITY" class="form-control" placeholder=" "
+                                        id="OP_QUANTITY" style="text-align: right;"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="^[0-9]+$"
+                                        title="Input allowed only  0-9" maxlength="4" formControlName="OP_QUANTITY"
+                                        [ngClass]="{'form-submitted': formSubmitted}" [required]="openingReq"
+                                        disabled />
+                                    <label for="OP_QUANTITY">Quantity</label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
               angForm.controls['OP_QUANTITY'].invalid &&
@@ -209,13 +220,15 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" name="Account" class="form-control" placeholder=" " id="PURCHASE_RATE" value=""
-                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" maxlength="13"
-                    style="text-align: right;"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    formControlName="PURCHASE_RATE" ng-init="firstnumber=0" [(ngModel)]="firstnumber" disabled />
-                  <label for="PURCHASE_RATE">Purchase Rate</label>
-                </span>
+                                    <input type="text" name="Account" class="form-control" placeholder=" "
+                                        id="PURCHASE_RATE" value="" pattern="\d{1,20}(\.\d{2})?"
+                                        title="Input allowed only  0-9" maxlength="13" style="text-align: right;"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                        formControlName="PURCHASE_RATE" ng-init="firstnumber=0"
+                                        [(ngModel)]="firstnumber" [required]="openingReq" disabled
+                                        [ngClass]="{'form-submitted': formSubmitted}" />
+                                    <label for="PURCHASE_RATE">Purchase Rate</label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
               angForm.controls['PURCHASE_RATE'].invalid &&
@@ -232,12 +245,15 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" name="Account" class="form-control" placeholder=" " id="PURCHASE_OP_QUANTITY"
-                    value="" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="4" style="text-align: right;"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)" formControlName="PURCHASE_OP_QUANTITY"
-                    ng-init="secondnumber=0" [(ngModel)]="secondnumber" disabled />
-                  <label for="PURCHASE_OP_QUANTITY">Purchase Qty</label>
-                </span>
+                                    <input type="text" name="Account" class="form-control" placeholder=" "
+                                        id="PURCHASE_OP_QUANTITY" value="" pattern="^[0-9]+$"
+                                        title="Input allowed only  0-9" maxlength="4" style="text-align: right;"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        formControlName="PURCHASE_OP_QUANTITY" ng-init="secondnumber=0"
+                                        [(ngModel)]="secondnumber" [required]="openingReq" disabled
+                                        [ngClass]="{'form-submitted': formSubmitted}" />
+                                    <label for="PURCHASE_OP_QUANTITY">Purchase Qty</label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
               angForm.controls['PURCHASE_OP_QUANTITY'].invalid &&
@@ -252,13 +268,14 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" name="Account" class="form-control" placeholder=" " id="PURCHASE_VALUE"
-                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="PURCHASE_VALUE"
-                    style="text-align: right;" [(ngModel)]="purValue"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    value="{{ firstnumber * secondnumber }}" disabled />
-                  <label for="PURCHASE_VALUE"> Purchase Value</label>
-                </span>
+                                    <input type="text" name="Account" class="form-control" placeholder=" "
+                                        id="PURCHASE_VALUE" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
+                                        formControlName="PURCHASE_VALUE" style="text-align: right;"
+                                        [(ngModel)]="purValue"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                        value="{{ firstnumber * secondnumber }}" disabled />
+                                    <label for="PURCHASE_VALUE"> Purchase Value</label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
               angForm.controls['PURCHASE_VALUE'].invalid &&
@@ -273,12 +290,15 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                  <input type="text" placeholder="dd/mm/yyyy" name="LAST_DEPR_DATE" id="LAST_DEPR_DATE"
-                    class="form-control" [ngClass]="{'form-submitted': formSubmitted}" formControlName="LAST_DEPR_DATE"
-                    [(ngModel)]="nglastdedate" disabled [maxDate]="maxDate"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="LAST_DEPR_DATE">Last Depreciation Date</label>
-                </span>
+                                    <input type="text" placeholder="dd/mm/yyyy" name="LAST_DEPR_DATE"
+                                        id="LAST_DEPR_DATE" class="form-control"
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="LAST_DEPR_DATE"
+                                        [(ngModel)]="nglastdedate" disabled [maxDate]="maxDate"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        [required]="openingReq" bsDatepicker
+                                        [ngClass]="{'form-submitted': formSubmitted}">
+                                    <label for="LAST_DEPR_DATE">Last Depreciation Date</label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
               angForm.controls['LAST_DEPR_DATE'].invalid &&
@@ -293,14 +313,14 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                  <ng-select id="GL_ACNO" bindValue="value" [(ngModel)]="ngGlAC" formControlName="GL_ACNO"
-                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                    placeholder="GL Account Number">
-                    <ng-option *ngFor="let values of GLACNooption" [value]="values">
-                      {{values.label}}</ng-option>
-                  </ng-select>
-                  <label for="GL_ACNO">GL Account Number<sub class="required"> * </sub></label>
-                </span>
+                                    <ng-select id="GL_ACNO" bindValue="value" [(ngModel)]="ngGlAC"
+                                        formControlName="GL_ACNO" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="GL Account Number">
+                                        <ng-option *ngFor="let values of GLACNooption" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="GL_ACNO">GL Account Number<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['GL_ACNO'].invalid &&
@@ -315,18 +335,19 @@
                     </div>
                     <div class="row">
                         <div class="col-sm" style="float: right;">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit($event)">
-                Submit
-              </button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                                (click)="submit($event)">
+                                Submit
+                            </button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
-                Cancel
-              </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                Cancel
+                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
-                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
-                Approve</button>
+                                Approve</button>
                         </div>
                     </div>
                 </form>
@@ -341,31 +362,45 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table id="mastertable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
+                            <table id="mastertable" datatable [dtOptions]="dtExportButtonOptions"
+                                [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="customerMaster?.length != 0">
                                     <tr *ngFor="let data of customerMaster">
                                         <td>
-                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)" placement="bottom" ngbTooltip="Edit"></span>
+                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit"></span>
                                         </td>
-                                        <td class="td_right" [ngClass]="data.ITEM_CODE === '' ? 'td_center' : 'td_right'">{{data.ITEM_CODE === ''? '-' : data.ITEM_CODE}}</td>
+                                        <td class="td_right"
+                                            [ngClass]="data.ITEM_CODE === '' ? 'td_center' : 'td_right'">
+                                            {{data.ITEM_CODE === ''? '-' : data.ITEM_CODE}}</td>
 
-                                        <td [ngClass]="data.ITEM_NAME === '' ? 'td_center' : 'td_left'">{{data.ITEM_NAME === ''? '-' : data.ITEM_NAME}}
+                                        <td [ngClass]="data.ITEM_NAME === '' ? 'td_center' : 'td_left'">{{data.ITEM_NAME
+                                            === ''? '-' : data.ITEM_NAME}}
                                         </td>
-                                        <td [ngClass]="data.SUPPLIER_NAME === '' ? 'td_center' : 'td_left'">{{data.SUPPLIER_NAME === ''? '-' : data.SUPPLIER_NAME}}</td>
+                                        <td [ngClass]="data.SUPPLIER_NAME === '' ? 'td_center' : 'td_left'">
+                                            {{data.SUPPLIER_NAME === ''? '-' : data.SUPPLIER_NAME}}</td>
 
-                                        <td class="td_right" [ngClass]="data.PURCHASE_DATE === '' ? 'td_center' : 'td_right'">
+                                        <td class="td_right"
+                                            [ngClass]="data.PURCHASE_DATE === '' ? 'td_center' : 'td_right'">
                                             {{data.PURCHASE_DATE === ''? '-' : data.PURCHASE_DATE}}</td>
 
-                                        <td [ngClass]="data.DEPR_CATEGORY === '' ? 'td_center' : 'td_left'">{{data.DEPR_CATEGORY === ''? '-' : data.DEPR_CATEGORY}}</td>
-                                        <td class="td_right" [ngClass]="data.PURCHASE_QUANTITY === '' ? 'td_center' : 'td_right'">
+                                        <td [ngClass]="data.DEPR_CATEGORY === '' ? 'td_center' : 'td_left'">
+                                            {{data.DEPR_CATEGORY === ''? '-' : data.DEPR_CATEGORY}}</td>
+                                        <td class="td_right"
+                                            [ngClass]="data.PURCHASE_QUANTITY === '' ? 'td_center' : 'td_right'">
                                             {{data.PURCHASE_QUANTITY === ''? '-' : data.PURCHASE_QUANTITY}}</td>
-                                        <td class="td_right" [ngClass]="data.PURCHASE_RATE === '' ? 'td_center' : 'td_right'">
+                                        <td class="td_right"
+                                            [ngClass]="data.PURCHASE_RATE === '' ? 'td_center' : 'td_right'">
                                             {{data.PURCHASE_RATE === ''? '-' : data.PURCHASE_RATE}}</td>
-                                        <td class="td_right" [ngClass]="data.PURCHASE_VALUE === '' ? 'td_center' : 'td_right'">
+                                        <td class="td_right"
+                                            [ngClass]="data.PURCHASE_VALUE === '' ? 'td_center' : 'td_right'">
                                             {{data.PURCHASE_VALUE === ''? '-' : data.PURCHASE_VALUE}}</td>
-                                        <td class="td_right" [ngClass]="data.LAST_DEPR_DATE === '' ? 'td_center' : 'td_right'">
+                                        <td class="td_right"
+                                            [ngClass]="data.LAST_DEPR_DATE === '' ? 'td_center' : 'td_right'">
                                             {{data.LAST_DEPR_DATE === ''? '-' : data.LAST_DEPR_DATE}}</td>
-                                        <td class="td_right" [ngClass]="data.GL_ACNO === '' ? 'td_center' : 'td_right'">{{data.GL_ACNO === ''? '-' : data.GL_ACNO}}</td>
+                                        <td class="td_right" [ngClass]="data.GL_ACNO === '' ? 'td_center' : 'td_right'">
+                                            {{data.GL_ACNO === ''? '-' : data.GL_ACNO}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="customerMaster?.length == 0">
