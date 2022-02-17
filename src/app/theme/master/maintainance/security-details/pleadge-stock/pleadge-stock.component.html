@@ -118,7 +118,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="ManufacturerMill" class="form-control" placeholder=" " id="ManufacturerMill"
                   (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                    pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z - / . (Space)"
+                  pattern="^[A-Za-z\./ -]+$" maxlength="90" title="Input allowed only  A-Z a-z - / . (Space)"
                     formControlName="MANUF_MILL" />
                   <label for="ManufacturerMill">Manufacturer/Mill</label>
                 </span>
@@ -138,7 +138,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="Description" class="form-control" placeholder=" " id="Description"
                   (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                    pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
+                  pattern="^[A-Za-z\./ -]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="DISCRIPTION" />
                   <label for="Description">Description</label>
                 </span>
@@ -249,7 +249,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="remarks" class="form-control" placeholder=" " id="remarks"
                   (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                    pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
+                  pattern="^[A-Za-z\./ -]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="REMARK" />
                   <label for="Remarks">Remarks</label>
                 </span>

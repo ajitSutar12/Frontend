@@ -26,7 +26,8 @@ import { PayrollSettingsComponent } from './payroll-settings/payroll-settings.co
 import { SmsSettingsComponent } from './sms-settings/sms-settings.component';
 import { DataTablesModule } from 'angular-datatables';
 import { SelectOptionService } from '../../../shared/elements/select-option.service'
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { GeneralSubAcSchemeService } from './general-sub-ac-scheme/general-sub-ac-scheme.service';
 import { TermLoanSchemeService } from './term-loan-scheme/term-loan-scheme.service';
 import { DisputLoanSchemeService } from './disput-loan-scheme/disput-loan-scheme.service';
@@ -65,7 +66,7 @@ import { IntrestCalculationMethodService } from '../../../shared/dropdownService
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { TransactionInputGlHeadSettingModule } from './transaction-input-gl-head-setting/transaction-input-gl-head-setting.module'
-import { NgSelectModule } from '@ng-select/ng-select';
+
 @NgModule({
   imports: [
     CommonModule,

@@ -55,7 +55,7 @@ export class OtherSecurityComponent
   implements OnInit, AfterViewInit, OnDestroy {
     formSubmitted = false;
   //passing data form child to parent
-  @Output() newOtherSecurityEvent = new EventEmitter<string>();
+  @Output() newOtherSecurityEvent = new EventEmitter<any>();
   datemax: string;
   newbtnShow: boolean;
   newItemEvent(value) {
@@ -64,6 +64,7 @@ export class OtherSecurityComponent
   //passing data from parent to child component
   @Input() scheme: any;
   @Input() Accountno: any;
+  @Input() AC_ACNOTYPE: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -205,8 +206,9 @@ export class OtherSecurityComponent
       console.log(this.angForm.value); // Process your form
       const formVal = this.angForm.value;
       const dataToSend = {
-      // AC_TYPE: this.scheme._value[0],
-      // AC_NO: this.Accountno,
+        AC_TYPE: this.scheme,
+        AC_NO: this.Accountno,
+        AC_ACNOTYPE: this.AC_ACNOTYPE,
       'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
       // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       SHORT_DETAILS: formVal.SHORT_DETAILS,
@@ -243,20 +245,34 @@ export class OtherSecurityComponent
   //function for edit button clicked
   editClickHandler(id: any): void {
     let submissiondate
-    
+    debugger
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._security.getFormData(id).subscribe((data) => {
       this.updatecheckdata=data
-      //sending values to parent
-      let dropdown: any = {};
-      dropdown.scheme = data.AC_TYPE;
-      dropdown.account = data.AC_NO.toString();
-      
+     //sending values to parent
+     let dropdown: any = {};
+     dropdown.scheme = data.AC_TYPE;
+     console.log('scheme',data.AC_TYPE)
+     // this.newItemEvent(dropdown.scheme)
+     
+     dropdown.account = data.AC_NO;
+     console.log('account',data.AC_NO)
+     // this.newItemEvent(dropdown.account)
+     let obj1 = {
+       'AccountType' :data.AC_TYPE,
+       'AccountNo': data.AC_NO,
+       'SchemeType':data.AC_ACNOTYPE
+     }
+     this.newOtherSecurityEvent.emit(obj1);
+     
+     this.scheme=data.AC_TYPE
+     this.Accountno=data.AC_NO
         this.updateID = data.id;
-        console.log(this.updateID)
+        // console.log(this.updateID)
         this.angForm.patchValue({
+          
         // AC_TYPE: this.scheme._value[0],
         // AC_NO: this.Accountno,
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
@@ -282,7 +298,7 @@ export class OtherSecurityComponent
   }
 
   updateData() {
-    debugger
+    
     let submissiondate
     this.showButton = true;
     this.updateShow = false;
@@ -290,12 +306,14 @@ export class OtherSecurityComponent
     let data = this.angForm.value;
     console.log("updatedata", data)
     data["id"] = this.updateID;
+    data["AC_TYPE"]=this.scheme
+    data["AC_NO"]=this.Accountno
     if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
       }
       console.log(data)
     this._security.updateData(data).subscribe(() => {
-      debugger
+      
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
@@ -355,6 +373,13 @@ export class OtherSecurityComponent
   // Reset Function
   resetForm() {
     this.createForm();
+    let obj1 = {
+      'AccountType' : null,
+      'AccountNo': null,
+      // 'SchemeType':null
+    }
+    this.newOtherSecurityEvent.emit(obj1);
+
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

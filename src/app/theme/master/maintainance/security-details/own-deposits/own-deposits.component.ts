@@ -38,6 +38,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { number } from "ngx-custom-validators/src/app/number/validator";
+import { data } from "jquery";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -62,6 +63,7 @@ interface DepositeMaster {
   MATURITY_DATE: Date;
   MARGIN: number;
   LEDGER_Bal: number;
+  AC_INTRNAME: string
 }
 @Component({
   selector: "app-own-deposits",
@@ -71,7 +73,7 @@ interface DepositeMaster {
 export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
   //passing data form child to parent
-  @Output() newOwnDepositEvent = new EventEmitter<string>();
+  @Output() newOwnDepositEvent = new EventEmitter<any>();
   datemax: string;
   newbtnShow: boolean;
 
@@ -81,21 +83,22 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   //passing data from parent to child component
   @Input() scheme: any;
   @Input() Accountno: any;
+  @Input() AC_ACNOTYPE: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
   dtExportButtonOptions: any = {};
 
-  simpleOption: Array<IOption> = this.S2Service.getCharacters();
+  // simpleOption: Array<IOption> = this.S2Service.getCharacters();
 
-  Ac: Array<IOption> = this.Ac2Service.getCharacters();
+  // Ac: Array<IOption> = this.Ac2Service.getCharacters();
 
-  selectedOption = "3";
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = "3";
-  timeLeft = 5;
-  private dataSub: Subscription = null;
+  // selectedOption = "3";
+  // isDisabled = true;
+  // characters: Array<IOption>;
+  // selectedCharacter = "3";
+  // timeLeft = 5;
+  // private dataSub: Subscription = null;
 
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -109,7 +112,9 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject();
   //filter variable
   filterData = {};
-  ACNo: any[];
+  ACNo: any;
+
+  schemeList:any
   //Dropdown option variable
   branchOption: any;
   ngbranch:any=null;
@@ -243,31 +248,33 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       ],
       dom: "Blrtip",
     };
-    this.runTimer();
-    // console.log("Term Deposit");
-    this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
-      this.ACNo = data;
-    })
+    // this.runTimer();
+    // // console.log("Term Deposit");
+    // this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+    //   this.ACNo = data;
+    // })
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
         return (scheme.name == 'TD' || scheme.name == 'PG');
       });
-      this.scheme = filtered;
+      this.schemeList = filtered;
+      // this.scheme=data;
     })
-    console.log(this.scheme)
+    
+    console.log(this.scheme,typeof this.scheme)
       this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
         this.branchOption = data;
       })
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
+  // runTimer() {
+  //   const timer = setInterval(() => {
+  //     this.timeLeft -= 1;
+  //     if (this.timeLeft === 0) {
+  //       clearInterval(timer);
+  //     }
+  //   }, 1000);
+  // }
 
   createForm() {
     this.angForm = this.fb.group({
@@ -284,8 +291,55 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       MATURITY_DATE: [""],
       MARGIN: ["", [Validators.pattern]],
       LEDGER_Bal: [""],
+      AC_INTRNAME: [''],
     });
   }
+
+  getBranch() {
+    debugger
+    this.getIntroducer()
+  }
+  obj1: any
+  getschemename: any
+
+  getIntro(event) {
+    debugger
+    this.getschemename = event.name
+    this.getIntroducer()
+  }
+
+   //get account no according scheme for introducer
+   getIntroducer() {
+     debugger
+    this.obj1 = [this.ngscheme, this.ngbranch]
+    switch (this.getschemename) {
+      case 'TD':
+        
+        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj1).pipe(first()).subscribe(data => {
+          debugger
+          this.ACNo = data;
+          console.log(this.ACNo)
+        })
+        break;
+      case 'PG':
+        
+        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj1).pipe(first()).subscribe(data => {
+         debugger
+          this.ACNo = data;
+          console.log(this.ACNo)
+
+        })
+        break;
+      
+    }
+  }
+
+  //get introducer name according account no
+  // getIntroducerName(value: any) {
+  //   this.angForm.patchValue({
+  //     AC_INTRNAME: value.name
+  //   })
+  // }
   submit(event) {
     debugger
     let submissiondate
@@ -293,15 +347,14 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-       debugger
-      console.log(this.angForm.value); // Process your form
       
-    
-    const formVal = this.angForm.value;
-    
-    const dataToSend = {
-      AC_TYPE: this.scheme._value[0],
+      console.log(this.angForm.value); // Process your form
+      const formVal = this.angForm.value;
+      console.log(formVal)
+      const dataToSend = {
+      AC_TYPE: this.scheme,
       AC_NO: this.Accountno,
+      AC_ACNOTYPE: this.AC_ACNOTYPE,
       BRANCH_CODE: formVal.BRANCH_CODE,
       DEPO_AC_TYPE: formVal.DEPO_AC_TYPE,
       DEPO_AC_NO: formVal.DEPO_AC_NO,
@@ -313,9 +366,10 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       MATURITY_DATE: formVal.MATURITY_DATE,
       MARGIN: formVal.MARGIN,
       LEDGER_Bal: formVal.LEDGER_Bal,
+      AC_INTRNAME: formVal.AC_INTRNAME,
     };
     // console.log("own deposit",dataToSend);
-
+    
     this._deposite.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -352,14 +406,29 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = true;
     this._deposite.getFormData(id).subscribe((data) => {
       this.updatecheckdata=data
-      this.updateID = data.id;
+      
       console.log("edit scheme", data);
 
-      //sending values to parent
-      let dropdown: any = {};
-      dropdown.scheme = data.AC_TYPE;
-      dropdown.account = data.AC_NO.toString();
-      this.updateID = data.id;
+     //sending values to parent
+     let dropdown: any = {};
+     dropdown.scheme = data.AC_TYPE;
+     console.log('scheme',data.AC_TYPE)
+     // this.newItemEvent(dropdown.scheme)
+     
+     dropdown.account = data.AC_NO;
+     console.log('account',data.AC_NO)
+     // this.newItemEvent(dropdown.account)
+     let obj1 = {
+       'AccountType' :data.AC_TYPE,
+       'AccountNo': data.AC_NO,
+       'SchemeType':data.AC_ACNOTYPE
+     }
+     this.newOwnDepositEvent.emit(obj1);
+     this.updateID = data.id;
+      
+
+      this.scheme=data.AC_TYPE
+      this.Accountno=data.AC_NO
       //after clicking edit to get value in dropdown
       this.ngbranch=Number(data.BRANCH_CODE)
       this.ngscheme=Number(data.DEPO_AC_TYPE)
@@ -370,6 +439,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
           // BRANCH_CODE: data.BRANCH_CODE,
           // DEPO_AC_TYPE: data.DEPO_AC_TYPE,
           // DEPO_AC_NO: data.DEPO_AC_NO,
+          AC_ACNOTYPE: data.AC_ACNOTYPE,
           'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
           // SUBMISSION_DATE: data.SUBMISSION_DATE,
           RECEIPT_NO: data.RECEIPT_NO,
@@ -378,6 +448,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
           MATURITY_DATE: data.MATURITY_DATE,
           MARGIN: data.MARGIN,
           LEDGER_Bal: data.LEDGER_Bal,
+          AC_INTRNAME: data.AC_INTRNAME,
         });
     });
   }
@@ -389,9 +460,11 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
-      (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['EFFECT_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
-      }
+    data["AC_TYPE"]=this.scheme
+    data["AC_NO"]=this.Accountno
+    if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
+      (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
+    }
     this._deposite.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -473,6 +546,13 @@ console.log(ele);
     this.ngbranch=null
     this.ngscheme=null
     this.ngacno=null
+    // this.Accountno=null
+    let obj1 = {
+      'AccountType' : null,
+      'AccountNo': null,
+      // 'SchemeType':null
+    }
+    this.newOwnDepositEvent.emit(obj1);
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

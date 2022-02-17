@@ -64,7 +64,7 @@ export class GoldAndSilverComponent
 {
   formSubmitted = false;
   //passing data form child to parent
-  @Output() newGoldsilverEvent = new EventEmitter<string>();
+  @Output() newGoldsilverEvent = new EventEmitter<any>();
   newbtnShow: boolean;
   newItemEvent(value) {
     this.newGoldsilverEvent.emit(value);
@@ -72,6 +72,7 @@ export class GoldAndSilverComponent
    //passing data from parent to child component
    @Input() scheme:any;
    @Input() Accountno:any;
+   @Input() AC_ACNOTYPE: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -281,8 +282,9 @@ export class GoldAndSilverComponent
     const formVal = this.angForm.value;
   
     const dataToSend = {
-      // AC_TYPE:this.scheme._value[0],
-      // AC_NO:this.Accountno,
+      AC_TYPE: this.scheme,
+      AC_NO: this.Accountno,
+      AC_ACNOTYPE: this.AC_ACNOTYPE,
       ITEM_TYPE: formVal.ITEM_TYPE,
       'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
       // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
@@ -349,14 +351,27 @@ updatecheckdata:any
     this._goldsilverService.getFormData(id).subscribe((data) => {
       this.updatecheckdata=data
        //sending values to parent
-       let dropdown: any = {};
-       dropdown.scheme = data.AC_TYPE;
-       dropdown.account = data.AC_NO.toString();
-
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      console.log('scheme',data.AC_TYPE)
+      // this.newItemEvent(dropdown.scheme)
+      
+      dropdown.account = data.AC_NO;
+      console.log('account',data.AC_NO)
+      // this.newItemEvent(dropdown.account)
+      let obj1 = {
+        'AccountType' :data.AC_TYPE,
+        'AccountNo': data.AC_NO,
+        'SchemeType':data.AC_ACNOTYPE
+      }
+      this.newGoldsilverEvent.emit(obj1);
+      this.scheme=data.AC_TYPE
+      this.Accountno=data.AC_NO
       this.updateID = data.id;
       this.angForm.patchValue({
         // AC_TYPE:this.scheme._value[0],
         // AC_NO:this.Accountno,
+        AC_ACNOTYPE: data.AC_ACNOTYPE,
         ITEM_TYPE: data.ITEM_TYPE,
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
         // SUBMISSION_DATE: data.SUBMISSION_DATE,
@@ -382,6 +397,8 @@ updatecheckdata:any
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    data["AC_TYPE"]=this.scheme
+    data["AC_NO"]=this.Accountno
     if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
       }
@@ -448,6 +465,12 @@ updatecheckdata:any
   resetForm() {
     this.createForm();
     this.ngitem=null
+    let obj1 = {
+      'AccountType' : null,
+      'AccountNo': null,
+      // 'SchemeType':null
+    }
+    this.newGoldsilverEvent.emit(obj1);
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

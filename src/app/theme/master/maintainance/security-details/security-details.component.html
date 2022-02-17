@@ -162,63 +162,63 @@
     <div class="col-sm-9">
         <div class="card-block">
             <div *ngIf="ownDepositsTrue">
-                <app-own-deposits [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                <app-own-deposits [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newOwnDepositEvent)="addItem($event)">
                 </app-own-deposits>
             </div>
             <div *ngIf="otherSecurityTrue">
-                <app-other-security [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                <app-other-security [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newOtherSecurityEvent)="addItem($event)">
                 </app-other-security>
             </div>
             <div *ngIf="firePolicyTrue">
                 <app-fire-policy [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
-                    (newItemEvent)="addItem($event)">
+                    (newfirePolicyEvent)="addItem($event)">
                 </app-fire-policy>
             </div>
             <div *ngIf="marketSharesTrue">
-                <app-market-shares [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                <app-market-shares [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newmarketShareEvent)="addItem($event)">
                 </app-market-shares>
             </div>
             <div *ngIf="stockStatementTrue">
-                <app-stock-statement [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                <app-stock-statement [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newStockEvent)="addItem($event)">
                 </app-stock-statement>
             </div>
             <div *ngIf="govtSecurityAndLicTrue">
-                <app-govt-security-and-lic [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                <app-govt-security-and-lic [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newgovtSecurityEvent)="addItem($event)">
                 </app-govt-security-and-lic>
             </div>
             <div *ngIf="plantAndMachineryTrue">
-                <app-plant-and-machinery [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                <app-plant-and-machinery [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newPlantandMachiEvent)="addItem($event)">
                 </app-plant-and-machinery>
             </div>
             <div *ngIf="furnitureAndFixtureTrue">
-                <app-furniture-and-fixture [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                <app-furniture-and-fixture [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newfurnitureFixEvent)="addItem($event)">
                 </app-furniture-and-fixture>
             </div>
             <div *ngIf="vehicleTrue">
-                <app-vehicle [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)"></app-vehicle>
+                <app-vehicle [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newVehicalEvent)="addItem($event)"></app-vehicle>
             </div>
             <div *ngIf="landAndBuildingsTrue">
-                <app-land-and-buildings [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                <app-land-and-buildings [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newLandBuldingEvent)="addItem($event)">
                 </app-land-and-buildings>
             </div>
             <div *ngIf="goldAndSilverTrue">
-                <app-gold-and-silver [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                <app-gold-and-silver [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newGoldsilverEvent)="addItem($event)">
                 </app-gold-and-silver>
             </div>
-            <div *ngIf="otherSecurityTrue2">
+            <!-- <div *ngIf="otherSecurityTrue2">
                 <app-other-security2 [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
                 </app-other-security2>
-            </div>
+            </div> -->
             <div *ngIf="customerInsuranceTrue">
-                <app-customer-insurance [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                <app-customer-insurance [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newcustomerInsuranceEvent)="addItem($event)">
                 </app-customer-insurance>
             </div>
             <div *ngIf="bookDebtsTrue">
-                <app-book-debts [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                <app-book-debts [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newbookEvent)="addItem($event)">
                 </app-book-debts>
             </div>
             <div *ngIf="pleadgeStockTrue">
-                <app-pleadge-stock [scheme]="scheme" [Accountno]="Accountno" (newItemEvent)="addItem($event)">
+                <app-pleadge-stock [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newPleadgeEvent)="addItem($event)">
                 </app-pleadge-stock>
             </div>
         </div>

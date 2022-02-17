@@ -56,7 +56,7 @@ interface CustomerMaster {
 export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
   //passing data form child to parent
-  @Output() newcustomerInsuranceEvent = new EventEmitter<string>();
+  @Output() newcustomerInsuranceEvent = new EventEmitter<any>();
   datemax: string;
   newbtnShow: boolean;
   newItemEvent(value) {
@@ -65,6 +65,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   //passing data from parent to child component
   @Input() scheme: any;
   @Input() Accountno: any;
+  @Input() AC_ACNOTYPE: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -222,13 +223,17 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     let insuranceexpirydate
     event.preventDefault();
     this.formSubmitted = true;
+    console.log('scheme', this.scheme)
+    console.log('Accountno', this.Accountno)
+    console.log('Account type', this.AC_ACNOTYPE)
 
     if (this.angForm.valid) {
       console.log(this.angForm.value); // Process your form
       const formVal = this.angForm.value;
     const dataToSend = {
-      // AC_TYPE: this.scheme._value[0],
-      // AC_NO: this.Accountno,
+      AC_TYPE: this.scheme,
+        AC_NO: this.Accountno,
+        AC_ACNOTYPE: this.AC_ACNOTYPE,
       'INSURANCE_DATE': (formVal.INSURANCE_DATE == '' || formVal.INSURANCE_DATE == 'Invalid date') ? insurancedate = '' : insurancedate = moment(formVal.INSURANCE_DATE).format('DD/MM/YYYY'),
       // INSURANCE_DATE: formVal.INSURANCE_DATE,
       POLICY_NO: formVal.POLICY_NO,
@@ -276,17 +281,32 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     this._customerservice.getFormData(id).subscribe((data) => {
       this.updatecheckdata=data
       debugger
-      //sending values to parent
-      let dropdown: any = {};
-      dropdown.scheme = data.AC_TYPE;
-      dropdown.account = data.AC_NO.toString();
+       //sending values to parent
+       let dropdown: any = {};
+       dropdown.scheme = data.AC_TYPE;
+       console.log('scheme',data.AC_TYPE)
+       // this.newItemEvent(dropdown.scheme)
+       
+       dropdown.account = data.AC_NO;
+       console.log('account',data.AC_NO)
+       // this.newItemEvent(dropdown.account)
+       let obj1 = {
+         'AccountType' :data.AC_TYPE,
+         'AccountNo': data.AC_NO,
+         'SchemeType':data.AC_ACNOTYPE
+       }
+       this.newcustomerInsuranceEvent.emit(obj1);
+
+       this.scheme=data.AC_TYPE
+      this.Accountno=data.AC_NO
       this.nginsurancecom=Number(data.INSU_COMPANY_CODE)
-        this.updateID = data.id;
+      this.updateID = data.id;
       this.angForm.patchValue({
 
 
         // AC_TYPE: this.scheme._value[0],
         // AC_NO: this.Accountno,
+        AC_ACNOTYPE: data.AC_ACNOTYPE,
         'INSURANCE_DATE': (data.INSURANCE_DATE == 'Invalid date' || data.INSURANCE_DATE == '' || data.INSURANCE_DATE == null) ? insurancedate = '' : insurancedate = data.INSURANCE_DATE,
         // INSURANCE_DATE: data.INSURANCE_DATE,
         POLICY_NO: data.POLICY_NO,
@@ -307,6 +327,8 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    data["AC_TYPE"]=this.scheme
+    data["AC_NO"]=this.Accountno
     if(this.updatecheckdata.INSURANCE_DATE!=data.INSURANCE_DATE){
       (data.INSURANCE_DATE == 'Invalid date' || data.INSURANCE_DATE == '' || data.INSURANCE_DATE == null) ? (insurancedate = '', data['INSURANCE_DATE'] = insurancedate) : (insurancedate = data.INSURANCE_DATE, data['INSURANCE_DATE'] = moment(insurancedate).format('DD/MM/YYYY'))
       }
@@ -377,6 +399,12 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   resetForm() {
     this.createForm();
     this.nginsurancecom=null
+    let obj1 = {
+      'AccountType' : null,
+      'AccountNo': null,
+      // 'SchemeType':null
+    }
+    this.newcustomerInsuranceEvent.emit(obj1);
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
@@ -389,6 +417,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
       dtInstance.destroy();
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
+      
     });
   }
 }

@@ -58,7 +58,7 @@ interface VehicleMaster {
 export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
    //passing data form child to parent
-   @Output() newVehicalEvent = new EventEmitter<string>();
+   @Output() newVehicalEvent = new EventEmitter<any>();
   datemax: string;
   newbtnShow: boolean;
    newItemEvent(value) {
@@ -67,6 +67,7 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
   //passing data from parent to child component
    @Input() scheme:any;
    @Input() Accountno:any;
+   @Input() AC_ACNOTYPE: any;
    //api
   //api
   url = environment.base_url;
@@ -245,8 +246,9 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log(this.angForm.value); // Process your form
       const formVal = this.angForm.value;
     const dataToSend = {
-      // AC_TYPE:this.scheme._value[0],
-      // AC_NO:this.Accountno,
+      AC_TYPE: this.scheme,
+      AC_NO: this.Accountno,
+      AC_ACNOTYPE: this.AC_ACNOTYPE,
       'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
       // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       RTO_REG_DATE: formVal.RTO_REG_DATE,
@@ -270,11 +272,11 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
-        let info = []
-        info.push(data.id)
-        info.push("vehicle")
+        // let info = []
+        // info.push(data.id)
+        // info.push("vehicle")
 
-        this.newItemEvent(info);
+        // this.newItemEvent(info);
        
         // // to reload after insertion of data
         // this.rerender();
@@ -312,17 +314,31 @@ console.log(ele);
     this.newbtnShow = true;
     this._vehicle.getFormData(id).subscribe((data) => {
       this.updatecheckdata=data
-      this.updateID = data.id;
+      
 
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
-      dropdown.account = data.AC_NO.toString();
- 
+      console.log('scheme',data.AC_TYPE)
+      // this.newItemEvent(dropdown.scheme)
+      
+      dropdown.account = data.AC_NO;
+      console.log('account',data.AC_NO)
+      // this.newItemEvent(dropdown.account)
+      let obj1 = {
+        'AccountType' :data.AC_TYPE,
+        'AccountNo': data.AC_NO,
+        'SchemeType':data.AC_ACNOTYPE
+      }
+      this.newVehicalEvent.emit(obj1);
+      this.updateID = data.id;
 
+      this.scheme=data.AC_TYPE
+      this.Accountno=data.AC_NO
       this.angForm.patchValue({
         // AC_TYPE:this.scheme._value[0],
         // AC_NO:this.Accountno,
+        AC_ACNOTYPE: data.AC_ACNOTYPE,
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
         // SUBMISSION_DATE: data.SUBMISSION_DATE,
         RTO_REG_DATE: data.RTO_REG_DATE,
@@ -356,6 +372,8 @@ console.log(ele);
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    data["AC_TYPE"]=this.scheme
+    data["AC_NO"]=this.Accountno
     if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
       }
@@ -419,6 +437,12 @@ console.log(ele);
   // Reset Function
   resetForm() {
     this.createForm();
+    let obj1 = {
+      'AccountType' : null,
+      'AccountNo': null,
+      // 'SchemeType':null
+    }
+    this.newVehicalEvent.emit(obj1);
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

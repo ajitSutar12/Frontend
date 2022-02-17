@@ -56,7 +56,7 @@ export class FurnitureAndFixtureComponent
   implements OnInit, AfterViewInit, OnDestroy {
     formSubmitted = false;
   //passing data form child to parent
-  @Output() newfurnitureFixEvent = new EventEmitter<string>();
+  @Output() newfurnitureFixEvent = new EventEmitter<any>();
   datemax: any;
   newbtnShow: boolean;
   newItemEvent(value) {
@@ -65,6 +65,7 @@ export class FurnitureAndFixtureComponent
   //passing data from parent to child component
   @Input() scheme: any;
   @Input() Accountno: any;
+  @Input() AC_ACNOTYPE: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -225,8 +226,9 @@ export class FurnitureAndFixtureComponent
       console.log(this.angForm.value); // Process your form
       const formVal = this.angForm.value;
       const dataToSend = {
-        // AC_TYPE: this.scheme._value[0],
-        // AC_NO: this.Accountno,
+        AC_TYPE: this.scheme,
+        AC_NO: this.Accountno,
+        AC_ACNOTYPE: this.AC_ACNOTYPE,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
         // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
         ARTICLE_NAME: formVal.ARTICLE_NAME,
@@ -287,12 +289,25 @@ export class FurnitureAndFixtureComponent
     this.newbtnShow = true;
     this._furniture.getFormData(id).subscribe((data) => {
       this.updatecheckdata=data
-      //sending values to parent
-      let dropdown: any = {};
-      dropdown.scheme = data.AC_TYPE;
-      dropdown.account = data.AC_NO.toString();
+     //sending values to parent
+     let dropdown: any = {};
+     dropdown.scheme = data.AC_TYPE;
+     console.log('scheme',data.AC_TYPE)
+     // this.newItemEvent(dropdown.scheme)
+     
+     dropdown.account = data.AC_NO;
+     console.log('account',data.AC_NO)
+     // this.newItemEvent(dropdown.account)
+     let obj1 = {
+       'AccountType' :data.AC_TYPE,
+       'AccountNo': data.AC_NO,
+       'SchemeType':data.AC_ACNOTYPE
+     }
+     this.newfurnitureFixEvent.emit(obj1);
 
         this.updateID = data.id;
+        this.scheme=data.AC_TYPE
+        this.Accountno=data.AC_NO
         this.angForm.patchValue({
         // AC_TYPE: this.scheme._value[0],
         // AC_NO: this.Accountno,
@@ -319,6 +334,8 @@ export class FurnitureAndFixtureComponent
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
+    data["AC_TYPE"]=this.scheme
+    data["AC_NO"]=this.Accountno
     if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
       }
@@ -387,6 +404,12 @@ export class FurnitureAndFixtureComponent
   // Reset Function
   resetForm() {
     this.createForm();
+    let obj1 = {
+      'AccountType' : null,
+      'AccountNo': null,
+      // 'SchemeType':null
+    }
+    this.newfurnitureFixEvent.emit(obj1);
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

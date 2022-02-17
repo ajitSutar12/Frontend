@@ -127,7 +127,7 @@ export class SecurityDetailsComponent implements OnInit {
       });
       this.scheme = filtered;
     })
-    console.log(this.scheme)
+    // console.log(this.scheme)
     // this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType1).pipe(first()).subscribe(data => {
     //   console.log(this.scheme = data);
     //   this.scheme = data
@@ -149,7 +149,12 @@ export class SecurityDetailsComponent implements OnInit {
 
   //input functionality
 
+  // newItemEvent(scheme){
+  //   console.log(scheme)
+  // }
+
   schemechange(event) {
+    debugger
 
     //  let result = this.angForm.value;
     //  this.scheme = result.AC_TYPE;
@@ -169,8 +174,8 @@ export class SecurityDetailsComponent implements OnInit {
     // console.log(this.acno, this.accountedit, "this.acno, this.accountedit")
     // this.obj = [this.getscheme, this.branchcode.id]
 
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
+    let data1: any = localStorage.getItem('user');
+    let result = JSON.parse(data1);
     let branchCode = result.branch.id;
 
     this.obj = [this.schemeedit, branchCode]
@@ -232,9 +237,25 @@ export class SecurityDetailsComponent implements OnInit {
   }
   //output functionality
   addItem(newItem: any) {
-    this.schemeedit = newItem.scheme;
-    this.accountedit = newItem.account;
-    this.getschemename = newItem.AC_ACNOTYPE
+    console.log(this.schemeACNo)
+    console.log('NEWITEM', newItem);
+    // this.schemeedit = Number(newItem.AccountType)
+
+    newItem.AccountType == null ? this.schemeedit = null : this.schemeedit = Number(newItem.AccountType)
+    newItem.SchemeType == null ? this.getschemename = null : this.getschemename = newItem.SchemeType
+
+    // this.accountedit =newItem.AccountNo
+    console.log(this.accountedit)
+    // this.getschemename = newItem.SchemeType
+    console.log(this.getschemename)
+
+    this.getIntroducer()
+    // this.angForm.patchValue({
+    //   // AC_TYPE:newItem,
+    //   AC_NO:this.accountedit
+    // })
+    this.accountedit = newItem.AccountNo
+    newItem.AccountNo == null ? this.accountedit = null : this.accountedit = newItem.AccountNo
   }
 
 
