@@ -11,6 +11,8 @@ import { ClearingBranchService } from './clearing-branch-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
+import { first } from 'rxjs/operators';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -57,6 +59,8 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
   currentJustify = 'start';
   active = 1;
   activeKeep = 1;
+  ngAcNo: any
+  acno: any[]
   // Variables for search 
   filterObject: { name: string; type: string; }[];
   filter: any;
@@ -71,6 +75,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
   constructor(
     private http: HttpClient,
     private clearingBranchService: ClearingBranchService,
+    private _acMaster: ACMasterDropdownService,
     private fb: FormBuilder) {
   }
 
@@ -108,9 +113,10 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url+'/clearing-branch-master',
+            this.url + '/clearing-branch-master',
             dataTableParameters
           ).subscribe(resp => {
+            debugger
             this.clearingBranches = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -134,19 +140,25 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
           title: 'Name',
           data: 'NAME',
         },
-        {
-          title: 'Account Number',
-          data: 'AC_NO',
-        },
+        // {
+        //   title: 'Account Number',
+        //   data: 'AC_NO',
+        // },
       ],
       dom: 'Blrtip',
     };
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this._acMaster.getACMasterbranch(branchCode).pipe(first()).subscribe(data => {
+      this.acno = data;
+    })
   }
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-      AC_NO: ['', [Validators.pattern]],
+      AC_NO: [''],
       NAME: ['', [Validators.pattern, Validators.required]],
     });
   }
@@ -156,7 +168,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     const formVal = this.angForm.value;
     const dataToSend = {
       'CODE': formVal.CODE,
-      'AC_NO': formVal.AC_NO,
+      'AC_NO': this.ngAcNo,
       'NAME': formVal.NAME,
     }
     this.clearingBranchService.postData(dataToSend).subscribe(data1 => {
@@ -172,7 +184,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     this.resetForm();
   }
 
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -185,10 +197,13 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     this.updateShow = true;
     this.newbtnShow = true;
     this.clearingBranchService.getFormData(id).subscribe(data => {
+      debugger
+
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.ngAcNo = data.AC_NO
+      this.angForm.patchValue({
         'CODE': data.CODE,
-        'AC_NO': data.AC_NO,
+        // 'AC_NO': data.AC_NO,
         'NAME': data.NAME,
       })
     })
@@ -275,6 +290,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngAcNo = null
   }
 
   rerender(): void {

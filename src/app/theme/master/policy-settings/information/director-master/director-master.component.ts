@@ -11,6 +11,8 @@ import { DirectorMasterService } from './director-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { first } from 'rxjs/operators';
+import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
 
 // Handling datatable data
 class DataTableResponse {
@@ -73,7 +75,8 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
-
+  city: any[]
+  ngCity: any
   //variable to get ID to update
   updateID: number = 0;
   //filter variable
@@ -82,6 +85,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
   constructor(
     private http: HttpClient,
     private directorMasterService: DirectorMasterService,
+    private _cityMaster: cityMasterService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -147,21 +151,8 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
           title: 'Designation',
           data: 'DESIGNATION'
         }, {
-          title: 'Address 1',
+          title: 'Address',
           data: 'AC_ADDR1'
-        }, {
-          title: 'Address 2',
-          data: 'AC_ADDR2'
-        }, {
-          title: 'Address 3',
-          data: 'AC_ADDR3'
-        },
-        {
-          title: 'City Code',
-          data: 'AC_CTCODE'
-        }, {
-          title: 'Pin Code',
-          data: 'AC_PIN'
         },
         {
           title: 'Mobile No',
@@ -170,12 +161,11 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
           title: 'IS CURRENT BODY MEMBER',
           data: 'IS_CURRENT_BODY_MEMBER'
         },
-        {
-          title: 'Required SMS Facilities',
-          data: 'SMS_REQUIRED'
-        },
       ], dom: 'Blrtip',
     }
+    this._cityMaster.getcityList1().pipe(first()).subscribe(data => {
+      this.city = data;
+    })
   }
 
   // Method to handle validation of form
@@ -184,7 +174,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       CODE: [''],
       NAME: ['', [Validators.required, Validators.pattern]],
       DESIGNATION: ['', [Validators.required, Validators.pattern]],
-      AC_CTCODE: ['', [Validators.required, Validators.pattern]],
+      AC_CTCODE: [''],
       AC_ADDR1: ['', [Validators.required, Validators.pattern]],
       AC_ADDR2: ['', [Validators.pattern]],
       AC_ADDR3: ['', [Validators.pattern]],
@@ -202,7 +192,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'CODE': formVal.CODE,
       'NAME': formVal.NAME,
       'DESIGNATION': formVal.DESIGNATION,
-      'AC_CTCODE': formVal.AC_CTCODE,
+      'AC_CTCODE': this.ngCity,
       'AC_ADDR1': formVal.AC_ADDR1,
       'AC_ADDR2': formVal.AC_ADDR2,
       'AC_ADDR3': formVal.AC_ADDR3,
@@ -231,19 +221,20 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.newbtnShow = true;
     this.directorMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
-        'CODE': data.CODE,
-        'NAME': data.NAME,
-        'DESIGNATION': data.DESIGNATION,
-        'AC_CTCODE': data.AC_CTCODE,
-        'AC_ADDR1': data.AC_ADDR1,
-        'AC_ADDR2': data.AC_ADDR2,
-        'AC_ADDR3': data.AC_ADDR3,
-        'AC_PIN': data.AC_PIN,
-        'AC_MOBILENO': data.AC_MOBILENO,
-        'SMS_REQUIRED': data.SMS_REQUIRED,
-        'IS_CURRENT_BODY_MEMBER': data.IS_CURRENT_BODY_MEMBER,
-      })
+      this.ngCity = data.AC_CTCODE,
+        this.angForm.patchValue({
+          'CODE': data.CODE,
+          'NAME': data.NAME,
+          'DESIGNATION': data.DESIGNATION,
+
+          'AC_ADDR1': data.AC_ADDR1,
+          'AC_ADDR2': data.AC_ADDR2,
+          'AC_ADDR3': data.AC_ADDR3,
+          'AC_PIN': data.AC_PIN,
+          'AC_MOBILENO': data.AC_MOBILENO,
+          'SMS_REQUIRED': data.SMS_REQUIRED,
+          'IS_CURRENT_BODY_MEMBER': data.IS_CURRENT_BODY_MEMBER,
+        })
     })
   }
   //Method for update data 
@@ -261,7 +252,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.resetForm();
     })
   }
-  
+
   addNewData() {
     this.showButton = true;
     this.updateShow = false;
@@ -335,6 +326,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngCity = null
   }
 
   rerender(): void {

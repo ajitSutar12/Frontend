@@ -301,6 +301,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.createForm();
+    this.nglocker=null
   }
 
   rerender(): void {

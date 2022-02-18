@@ -3,17 +3,23 @@
     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
       <div class="card h-100">
         <div class="card-body">
-          <div class="account-settings">
+          <div class="account-settings" style="text-align: center;">
             <div class="user-profile">
               <div class="user-avatar">
-                <img [src]="profilePath" alt="Maxwell Admin">
+                <div class="row">
+                  <div class="col-sm">
+                    <img [src]="profilePath" alt="Maxwell Admin" class="img"
+                      onError="this.src='assets/images/user.png'">
+                  </div>
+                </div>
               </div>
-              <h5 class="user-name">{{fullName}}</h5>
-              <h6 class="user-email">{{Email}}</h6>
-            </div>
-            <div class="about">
-              <h5>About</h5>
-              <!-- <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p> -->
+
+              <div class="row">
+                <div class="col-sm">
+                  <h5 class="user-name">{{fullName}}</h5>
+                  <h6 class="user-email">{{Email}}</h6>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -85,6 +91,37 @@
               </div> -->
             </div>
             <div class="row">
+              <div class="col-sm-2">
+                <label for="F_NAME">First Name<sub class="required">* </sub></label>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group input-group">
+                  <span class="border-lable-flt">
+                    <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME" required
+                      pattern="^[A-Za-z]+$" maxlength="15" title="Input allowed only A-Z" formControlName="firstName">
+                  </span>
+                </div>
+
+              </div>
+              <div class="col-sm-2">
+                <label for="L_NAME">Last Name<sub class="required">* </sub></label>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group input-group">
+                  <span class="border-lable-flt">
+                    <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME" required
+                      pattern="^[A-Za-z]+$" maxlength="15" #lastname title="Input allowed only A-Z"
+                      formControlName="LastName">
+                  </span>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- <div class="row">
               <div class="col-sm">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
@@ -93,14 +130,7 @@
                     <label for="F_NAME">First Name<sub class="required">* </sub></label>
                   </span>
                 </div>
-                <!-- <div class="form-group form-primary form-static-label"
-                    *ngIf="angForm.controls['F_NAME'].invalid && (angForm.controls['F_NAME'].dirty || angForm.controls['F_NAME'].touched)"
-                    class="alert alert-danger">
-                    <div
-                        *ngIf="angForm.controls['F_NAME'].errors?.pattern || angForm.controls['F_NAME'].errors?.required">
-                        This field is required and Input allowed only A-Z
-                    </div>
-                </div> -->
+               
               </div>
               <div class="col-sm">
                 <div class="form-group input-group">
@@ -112,14 +142,7 @@
 
                   </span>
                 </div>
-                <!-- <div class="form-group form-primary form-static-label"
-                    *ngIf="angForm.controls['L_NAME'].invalid && (angForm.controls['L_NAME'].dirty || angForm.controls['L_NAME'].touched)"
-                    class="alert alert-danger">
-                    <div
-                        *ngIf="angForm.controls['L_NAME'].errors?.pattern || angForm.controls['L_NAME'].errors?.required">
-                        This field is required and Input allowed only A-Z
-                    </div>
-                </div> -->
+               
               </div>
               <div class="col-sm">
                 <div class="form-group input-group">
@@ -130,17 +153,87 @@
                     <label for="AC_EMAILID">Email</label>
                   </span>
                 </div>
-                <!-- <div class="form-group form-primary form-static-label"
-                  *ngIf="angForm.controls['AC_EMAILID'].invalid && (angForm.controls['AC_EMAILID'].dirty || angForm.controls['AC_EMAILID'].touched)"
-                  class="alert alert-danger">
-                  <div *ngIf="angForm.controls['AC_EMAILID'].errors?.pattern">
-                      Enter valid Email
-                  </div>
-              </div> -->
-              </div>
               
+              </div>
+
+            </div> -->
+            <div class="row">
+
+              <div class="col-sm-2">
+                <label for="AC_EMAILID">Email</label>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group input-group">
+                  <span class="border-lable-flt">
+                    <input type="email" name="AC_EMAILID" class="form-control" placeholder=" "
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.com$" title="Enter valid Email" id="AC_EMAILID"
+                      formControlName="email">
+
+                  </span>
+                </div>
+
+              </div>
+
+              <div class="col-sm-2">
+                <label for="AC_MOBILENO">Mobile Number</label>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group input-group">
+                  <span class="border-lable-flt">
+                    <input type="text" name="AC_MOBILENO" class="form-control" placeholder=" "
+                      pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9" id="AC_MOBILENO" maxlength="11"
+                      minlength="10" formControlName="phone">
+
+                  </span>
+                </div>
+
+              </div>
+
+              <!-- <div class="col-sm">
+                  <div class="form-group input-group">
+                      <span class="border-lable-flt">
+                          <input type="file" name="Profile" class="form-control" placeholder=" "
+                              id="Profile" formControlName="Profile" (change)="selectedImage($event)">
+                          <label for="Profile">Profile</label>
+                      </span>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="showImage">
+                      <label for="image">Image</label>
+                      <img [src]="selectedImagePreview" class="form-control"
+                          style="width: 200px;height: 250px;">
+                  </div>
+
+              </div> -->
             </div>
             <div class="row">
+              <div class="col-sm-2">
+                <label for="Profile">Profile</label>
+              </div>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" type="file">
+                      <i class="fa fa-upload" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <input type="file" name="Profile" class="form-control" placeholder=" " id="Profile"
+                  formControlName="Profile" (change)="selectedImage($event)">
+                </div>
+
+              </div>
+              <div class="col-sm-2">
+                <label for="image">Image</label>
+              </div>
+              <!-- <div class="col-md-4"> -->
+              <div class="col-sm-2" *ngIf="showImage">
+                <img [src]="selectedImagePreview" class="form-control" style="width: 200px;height: 140px;">
+              </div>
+              <!-- </div> -->
+
+            </div>
+            <!-- <div class="row">
               <div class="col-sm">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
@@ -150,14 +243,7 @@
                     <label for="AC_MOBILENO">Mobile Number</label>
                   </span>
                 </div>
-                <!-- <div class="form-group form-primary form-static-label"
-                *ngIf="angForm.controls['AC_MOBILENO'].invalid && (angForm.controls['AC_MOBILENO'].dirty || angForm.controls['AC_MOBILENO'].touched)"
-                class="alert alert-danger">
-                <div
-                    *ngIf="angForm.controls['AC_MOBILENO'].errors?.pattern || angForm.controls['AC_MOBILENO'].errors?.maxlength || angForm.controls['AC_MOBILENO'].errors?.minlength">
-                    Input allowed only 0-9 and It starts by either for 7 or 8 or 9,
-                </div>
-                   </div> -->
+
               </div>
               <div class="col-sm">
                 <div class="form-group input-group">
@@ -170,23 +256,16 @@
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="showImage">
                   <label for="image">Image</label>
                   <img [src]="selectedImagePreview" class="form-control" style="width: 200px;height: 250px;">
-              </div>
-                <!-- <div class="form-group form-primary form-static-label"
-                 *ngIf="angForm.controls['AC_MOBILENO'].invalid && (angForm.controls['AC_MOBILENO'].dirty || angForm.controls['AC_MOBILENO'].touched)"
-                class="alert alert-danger">
-                  <div
-                  *ngIf="angForm.controls['AC_MOBILENO'].errors?.pattern || angForm.controls['AC_MOBILENO'].errors?.maxlength || angForm.controls['AC_MOBILENO'].errors?.minlength">
-                  Input allowed only 0-9 and It starts by either for 7 or 8 or 9,
-                   </div>
-                  </div> -->
+                </div>
+
               </div>
               <div class="col-sm">
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12" *ngIf="showImage">
                   <label for="image">Image</label>
                   <img [src]="selectedImagePreview" class="form-control" style="width: 200px;height: 250px;">
+                </div>
               </div>
-              </div>
-            </div>
+            </div> -->
 
 
 
@@ -194,114 +273,68 @@
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <h6 class="mt-3 mb-2 text-primary">Login Details</h6>
               </div>
-              <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <div class="form-group">
-                  <label for="Street">Current Password</label>
-                  <input type="password" class="form-control" id="Street" placeholder="Enter Current Password"
-                    formControlName="currentPassword">
-                </div>
-              </div>
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <div class="form-group">
-                  <label for="ciTy">New Password</label>
-                  <input type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
-                    class="form-control" id="ciTy" placeholder="Enter New Password" formControlName="newPassword">
-                  <div class="form-group form-primary form-static-label"
-                    *ngIf="angEditForm.controls['newPassword'].invalid && (angEditForm.controls['newPassword'].dirty || angEditForm.controls['newPassword'].touched)"
-                    class="alert alert-danger">
-                    <div
-                      *ngIf="angEditForm.controls['newPassword'].errors?.pattern || angEditForm.controls['newPassword'].errors?.maxlength || angEditForm.controls['newPassword'].errors?.minlength">
-                      Check a password between 8 to 12 characters which contain at least one lowercase letter, one
-                      uppercase letter, one numeric digit, and one special character.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                <div class="form-group">
-                  <label for="sTate">Confirm Password</label>
-                  <input type="password" class="form-control" id="sTate" placeholder="Enter Confirm Password"
-                    formControlName="confirmPassword">
-                  <div class="form-group form-primary form-static-label"
-                    *ngIf="angEditForm.controls['confirmPassword'].invalid && (angEditForm.controls['confirmPassword'].dirty || angEditForm.controls['confirmPassword'].touched)"
-                    class="alert alert-danger">
-                    <div
-                      *ngIf="angEditForm.controls['confirmPassword'].errors?.pattern || angEditForm.controls['confirmPassword'].errors?.maxlength || angEditForm.controls['confirmPassword'].errors?.minlength">
-                      Check a password between 8 to 12 characters which contain at least one lowercase letter, one
-                      uppercase letter, one numeric digit, and one special character.
-                    </div>
-                  </div>
-                </div>
-              </div> -->
+
             </div>
             <div class="row">
-              <div class="col-sm">
+              <div class="col-sm-3">
+                <label for="currentPassword">Current Password</label>
+              </div>
+              <div class="col-md-3">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
-                    <input type="password" name="currentPassword" class="form-control" placeholder=" " id="currentPassword"
-                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"  [NgPasswordValidator]="options" (valid)="isValid($event)" (keyup)="onInput($event)"
-                    formControlName="currentPassword" >
-                    <label for="currentPassword">Current Password</label>
+                    <input type="password" name="currentPassword" class="form-control" placeholder=" "
+                      id="currentPassword" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
+                      [NgPasswordValidator]="options" (valid)="isValid($event)" (keyup)="onInput($event)"
+                      formControlName="currentPassword">
+
                   </span>
                 </div>
-                <!-- <div class="form-group form-primary form-static-label"
-                 *ngIf="angForm.controls['AC_MOBILENO'].invalid && (angForm.controls['AC_MOBILENO'].dirty || angForm.controls['AC_MOBILENO'].touched)"
-                class="alert alert-danger">
-                  <div
-                  *ngIf="angForm.controls['AC_MOBILENO'].errors?.pattern || angForm.controls['AC_MOBILENO'].errors?.maxlength || angForm.controls['AC_MOBILENO'].errors?.minlength">
-                  Input allowed only 0-9 and It starts by either for 7 or 8 or 9,
-                   </div>
-                  </div> -->
+
               </div>
-              <div class="col-sm">
+              <div class="col-sm-3">
+                <label for="Create_Password"> New Password<sub class="required">* </sub></label>
+              </div>
+              <div class="col-md-3">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
                     <input type="password" name="Create_Password"
-                      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
-                      minlength="4" 
-                      class="form-control"  [NgPasswordValidator]="options" (valid)="isValid($event)" (keyup)="onInput($event)" placeholder=" " id="Create_Password"
-                      formControlName="Create_Password" required >
-                    <label for="Create_Password"> New Password<sub class="required">* </sub></label>
+                      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" minlength="4"
+                      class="form-control" [NgPasswordValidator]="options" (valid)="isValid($event)"
+                      (keyup)="onInput($event)" placeholder=" " id="Create_Password" formControlName="newPassword"
+                      required>
+
                   </span>
                 </div>
-              
-                <!-- <div class="form-group form-primary form-static-label"
-                  *ngIf="angForm.controls['Create_Password'].invalid && (angForm.controls['Create_Password'].dirty || angForm.controls['Create_Password'].touched)"
-                  class="alert alert-danger">
-                  <div
-                    *ngIf="angForm.controls['Create_Password'].errors?.pattern || angForm.controls['Create_Password'].errors?.maxlength || angForm.controls['Create_Password'].errors?.minlength || angForm.controls['Create_Password'].errors?.required">
-                    Please Enter Valid Password
-                  </div>
-                </div> -->
+
               </div>
-              <div class="col-sm">
+
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label for="confirmPassword">Confirm Password</label>
+              </div>
+              <div class="col-md-3">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
-                    <input type="password" name="confirmPassword" class="form-control" placeholder=" " id="confirmPassword"
-                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"  [NgPasswordValidator]="options" (valid)="isValid($event)" (keyup)="onInput($event)"
-                    formControlName="confirmPassword" >
-                    <label for="confirmPassword">confirm Password</label>
+                    <input type="password" name="confirmPassword" class="form-control" placeholder=" "
+                      id="confirmPassword" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
+                      [NgPasswordValidator]="options" (valid)="isValid($event)" (keyup)="onInput($event)"
+                      formControlName="confirmPassword">
+
                   </span>
                 </div>
-                <!-- <div class="form-group form-primary form-static-label"
-                 *ngIf="angForm.controls['AC_MOBILENO'].invalid && (angForm.controls['AC_MOBILENO'].dirty || angForm.controls['AC_MOBILENO'].touched)"
-                class="alert alert-danger">
-                  <div
-                  *ngIf="angForm.controls['AC_MOBILENO'].errors?.pattern || angForm.controls['AC_MOBILENO'].errors?.maxlength || angForm.controls['AC_MOBILENO'].errors?.minlength">
-                  Input allowed only 0-9 and It starts by either for 7 or 8 or 9,
-                   </div>
-                  </div> -->
+
               </div>
-            </div>
-            <div class="row gutters">
-              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="col-sm">
                 <div class="text-right">
-                  <span style="margin-right: 5px;"><button type="button" id="submit" (click)="updateProfile()"
-                      name="submit" class="btn btn-primary">Update</button></span>
-                  <!-- <button type="button" id="submit" [routerLink]="['dashboard/default']" name="submit" class="btn btn-secondary">Cancel</button> -->
-                  <a [routerLink]="['/dashboard/default']" class="btn btn-secondary">
-                    Cancel
-                  </a>
+                  <span style="margin-right: 5px;">
+                    <a [routerLink]="['/dashboard']" class="btn btn-outline-primary btn-sm">
+                      Cancel
+                    </a>
+                    <button type="button" id="submit" (click)="updateProfile()" name="submit"
+                      class="btn btn-outline-primary btn-sm">Update</button>
+                  </span>
+                
                 </div>
               </div>
             </div>

@@ -25,8 +25,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="Account" class="form-control" placeholder=" " maxlength="4"
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                    #autofocus id="Subcode" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" #autofocus
+                                        id="Subcode" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="SUB1_CODE">
                                     <label for="Subcode">Subcode</label>
                                 </span>
@@ -44,10 +44,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="Account" class="form-control" placeholder=" " maxlength="4"
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        id="Secondsubcode" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        formControlName="SUB2_CODE">
-                                    <label for="Secondsubcode">Second subcode</label>
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="Secondsubcode"
+                                        pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="SUB2_CODE">
+                                    <label for="Secondsubcode">Second Subcode</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -59,16 +58,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="Account" class="form-control" placeholder=" " maxlength="4"
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        id="Thirdsubcode" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        formControlName="SUB3_CODE">
-                                    <label for="Thirdsubcode">Third subcode</label>
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="Thirdsubcode"
+                                        pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="SUB3_CODE">
+                                    <label for="Thirdsubcode">Third Subcode</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -80,11 +76,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="NAME" class="form-control" placeholder=" " maxlength="300"
-                                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         id="Description" required="" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
                                     <label for="Description">Description<sub class="required">* </sub></label>
@@ -99,15 +95,18 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm">
-                            <button  class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
                                 [disabled]="angForm.invalid">Submit</button>
-                                <button  class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">Cancel
-                                </button>
-                            <button  class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                *ngIf="updateShow" [disabled]="angForm.invalid">Update</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
+                                *ngIf="newbtnShow">Cancel
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
+                                [disabled]="angForm.invalid">Update</button>
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -123,12 +122,14 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-                                class="table table-striped table-bordered table-hover compact" style="width: 100%;">
+                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions"
+                                [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact"
+                                style="width: 100%;">
                                 <tbody *ngIf="prioritySectorMaster?.length != 0">
                                     <tr *ngFor="let data of prioritySectorMaster">
-                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                            placement="bottom" ngbTooltip="Edit"></span>  &nbsp;
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit"></span> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
                                         <td class="td_right">{{ data.CODE }}</td>

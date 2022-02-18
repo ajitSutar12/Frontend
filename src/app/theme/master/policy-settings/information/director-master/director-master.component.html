@@ -23,8 +23,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="NAME" class="form-control" placeholder=" " id="NAME"
-                                    #autofocus  required pattern="^[A-Za-z\./ -]+$" maxlength="100"
-                                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                        #autofocus required pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
                                     <label for="NAME">Director Name<sub class="required">* </sub></label>
                                 </span>
@@ -64,9 +64,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <textarea type="text" name="address" class="form-control" placeholder=" "
-                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
-                                        id="AC_ADDR1" required formControlName="AC_ADDR1" maxlength="100"></textarea>
-                                    <label for="AC_ADDR1">Address 1<sub class="required">* </sub></label>
+                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)" id="AC_ADDR1" required
+                                        formControlName="AC_ADDR1" maxlength="100"></textarea>
+                                    <label for="AC_ADDR1">Address<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -82,9 +82,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <textarea type="text" name="address" class="form-control" placeholder=" "
-                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
-                                        id="AC_ADDR2" formControlName="AC_ADDR2" maxlength="100"></textarea>
-                                    <label for="AC_ADDR2">Address 2</label>
+                                        title="Input allowed only  A-Z a-z 0-9  - / . (Space)" id="AC_ADDR2"
+                                        formControlName="AC_ADDR2" maxlength="100"></textarea>
+                                    <label for="AC_ADDR2">Address</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -100,9 +100,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <textarea type="text" name="address" class="form-control" placeholder=" "
-                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
-                                        id="AC_ADDR3" formControlName="AC_ADDR3" maxlength="100" ></textarea>
-                                    <label for="AC_ADDR3">Address 3</label>
+                                        title="Input allowed only  A-Z a-z 0-9  - / . (Space)" id="AC_ADDR3"
+                                        formControlName="AC_ADDR3" maxlength="100"></textarea>
+                                    <label for="AC_ADDR3">Address</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -120,7 +120,18 @@
                     </div>
                     <div class="row">
                         <div class="col-md">
-                            <div class="form-group input-group">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt" autofocus>
+                                    <ng-select bindValue="value" [(ngModel)]="ngCity" id="AC_CTCODE"
+                                        formControlName="AC_CTCODE" title="Compulsory Selection"
+                                        placeholder="City Code">
+                                        <ng-option *ngFor="let values of city" [value]="values">
+                                            {{values.name}} {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_CTCODE">City Code</label>
+                                </span>
+                            </div>
+                            <!-- <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="CODE" class="form-control" placeholder=" " id="AC_CTCODE"
                                         required="" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="4"
@@ -128,15 +139,15 @@
                                         formControlName="AC_CTCODE">
                                     <label for="AC_CTCODE">City Code<sub class="required">* </sub></label>
                                 </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
+                            </div> -->
+                            <!-- <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_CTCODE'].invalid && (angForm.controls['AC_CTCODE'].dirty || angForm.controls['AC_CTCODE'].touched)"
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_CTCODE'].errors?.pattern || angForm.controls['AC_CTCODE'].errors?.required || angForm.controls['AC_CTCODE'].errors?.maxlength">
                                     This field is required and Input allowed only 0-9
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md">
                             <div class="form-group input-group">
@@ -159,15 +170,15 @@
                         </div>
                         <div class="col-md">
                             <div class="checkbox checkbox-primary">
-                              <div class="border-checkbox-group border-checkbox-group-primary">
-                                <input type="checkbox" class="border-checkbox" id="checkbox1" 
-                                  formControlName="IS_CURRENT_BODY_MEMBER">
-                                <label class="border-checkbox-label" for="checkbox1">Current Body Member
-                                </label>
-                              </div>
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="checkbox1"
+                                        formControlName="IS_CURRENT_BODY_MEMBER">
+                                    <label class="border-checkbox-label" for="checkbox1">Current Body Member
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="row">
 
@@ -176,9 +187,10 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="footer-email" class="form-control" placeholder=" "
                                         id="AC_MOBILENO" maxlength="11" minlength="10"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="[7-9 0]{1}[0-9]{9,10}"
-                                        title="Input allowed only  0-9" formControlName="AC_MOBILENO">
-                                    <label for="AC_MOBILENO">Mobile No</label>
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9"
+                                        formControlName="AC_MOBILENO">
+                                    <label for="AC_MOBILENO">Mobile Number</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -192,23 +204,23 @@
                         </div>
                         <div class="col-md">
                             <div class="checkbox checkbox-primary">
-                              <div class="border-checkbox-group border-checkbox-group-primary">
-                                <input type="checkbox" class="border-checkbox" id="checkbox2" 
-                                  formControlName="SMS_REQUIRED">
-                                <label class="border-checkbox-label" for="checkbox2">Require SMS facility
-                                </label>
-                              </div>
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="checkbox2"
+                                        formControlName="SMS_REQUIRED">
+                                    <label class="border-checkbox-label" for="checkbox2">Require SMS facility
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-4">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()" 
-                            [disabled]="angForm.invalid">Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()"
-                            >Cancel</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()" 
-                            [disabled]="angForm.invalid">Update</button>&nbsp;
-                            
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
+                                [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
+                                (click)="addNewData()">Cancel</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"
+                                [disabled]="angForm.invalid">Update</button>&nbsp;
+
                         </div>
                     </div>
                 </div>
@@ -223,26 +235,26 @@
                 <div class="row">
                     <div class="col-md">
                         <div class="table-responsive">
-                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-                                class="table table-striped table-bordered table-hover compact">
+                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions"
+                                [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="directorMaster?.length != 0">
                                     <tr *ngFor="let data of directorMaster">
-                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                            placement="bottom" ngbTooltip="Edit"></span> &nbsp;
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit"></span> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
                                                 (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-                                        <td  class="td_right">{{ data.CODE}}</td>
+                                        <td class="td_right">{{ data.CODE}}</td>
                                         <td>{{ data.NAME}}</td>
                                         <td>{{ data.DESIGNATION}}</td>
                                         <td>{{data.AC_ADDR1 }}</td>
-                                        <td>{{data.AC_ADDR2 }}</td>
-                                        <td>{{data.AC_ADDR3 }}</td>
-                                        <td>{{data.AC_CTCODE }}</td>
-                                        <td>{{data.AC_PIN }}</td>
-                                        <td>{{data.AC_MOBILENO }}</td>
-                                        <td>{{data.IS_CURRENT_BODY_MEMBER }}</td>
-                                        <td>{{data.SMS_REQUIRED }}</td>
+                                        <td>{{data.AC_MOBILENO == '' ? '-' : data.AC_MOBILENO}}</td>
+                                        <td class="td_center"
+                                            [ngClass]="data.IS_CURRENT_BODY_MEMBER === '' ? 'td_center' : 'td_center'">
+                                            {{data.IS_CURRENT_BODY_MEMBER == true? 'Yes' : 'No'}}</td>
+                                        <!-- <td>{{data.IS_CURRENT_BODY_MEMBER }}</td> -->
+
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="directorMaster?.length == 0">
@@ -253,17 +265,12 @@
                                 <tfoot #filters class="filters">
                                     <tr class="testing">
                                         <th class="testing"></th>
-                                        <th><input type="text" class="form-control"  name="CODE"></th>
+                                        <th><input type="text" class="form-control" name="CODE"></th>
                                         <th><input type="text" class="form-control" name="NAME"></th>
                                         <th><input type="text" class="form-control" name="DESIGNATION"></th>
                                         <th><input type="text" class="form-control" name="AC_ADDR1"></th>
-                                        <th><input type="text" class="form-control" name="AC_ADDR2"></th>
-                                        <th><input type="text" class="form-control" name="AC_ADDR3"></th>
-                                        <th><input type="text" class="form-control" name="AC_CTCODE"></th>
-                                        <th><input type="text" class="form-control" ame="AC_PIN"></th>
                                         <th><input type="text" class="form-control" name="AC_MOBILENO"></th>
                                         <th><input type="text" class="form-control" name="IS_CURRENT_BODY_MEMBER"></th>
-                                        <th><input type="text" class="form-control" name="SMS_REQUIRED"></th>
                                     </tr>
                                 </tfoot>
                             </table>

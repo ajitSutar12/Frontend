@@ -11,6 +11,8 @@ import { DepriciationService } from './depriciation-category-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { first } from 'rxjs/operators';
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -64,13 +66,16 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
   newbtnShow: boolean = false;
   //variable to get Id to update
   updateID: number = 0;
-
+  ngAcNo: any
+  acno: any[]
   // column filter
   filterData = {};
 
   constructor(
     private http: HttpClient,
     private depriciationService: DepriciationService,
+    private _acMaster: ACMasterDropdownService,
+
     private fb: FormBuilder) {
   }
   ngOnInit(): void {
@@ -146,6 +151,12 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
       ],
       dom: 'Blrtip',
     };
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this._acMaster.getACMasterbranch(branchCode).pipe(first()).subscribe(data => {
+      this.acno = data;
+    })
   }
   // Method to handle validation of form
   createForm() {
@@ -161,7 +172,7 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
     const dataToSend = {
       'CODE': formVal.CODE,
       'NAME': formVal.NAME,
-      'AC_NO': formVal.AC_NO,
+      'AC_NO': this.ngAcNo,
     }
     this.depriciationService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -181,15 +192,16 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
     this.newbtnShow = true;
     this.depriciationService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.ngAcNo = Number(data.AC_NO)
+      this.angForm.patchValue({
         'CODE': data.CODE,
         'NAME': data.NAME,
-        'AC_NO': data.AC_NO,
+        // 'AC_NO': data.AC_NO,
       })
     })
   }
 
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -276,6 +288,7 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngAcNo = null
   }
 
   rerender(): void {

@@ -295,4 +295,18 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
       this.dtTrigger.next();
     });
   }
+  check(){
+    let from = Number((document.getElementById("LOCKER_FROMNO") as HTMLInputElement).value);
+  let to = Number((document.getElementById("LOCKER_TONO") as HTMLInputElement).value);
+  if(to != 0){
+    if (from > to) {
+      Swal.fire(
+        'Warning!',
+        'Lockers From Should Be Less Than Upto Lockers To',
+        'warning'
+      );
+      (document.getElementById("LOCKER_TONO") as HTMLInputElement).value = ""
+    }
+  }
+  }
 }

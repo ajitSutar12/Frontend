@@ -157,8 +157,10 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
     }
     this.minimumBalanceMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+     // to reload after insertion of data
+     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
     }, (error) => {
       console.log(error)
     })
@@ -225,8 +227,10 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
         }), (error) => {
           console.log(error)
         }
-        // to reload after delete of data
-        this.rerender();
+       // to reload after insertion of data
+     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {

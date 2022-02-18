@@ -263,6 +263,7 @@ export class UserDefinationComponent implements OnInit {
   }
   // Method to insert data into database through NestJS
   submit() {
+    debugger
     const formVal = this.angForm.value;
     const dataToSend = {
       'F_NAME': formVal.F_NAME,

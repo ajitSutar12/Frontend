@@ -151,7 +151,9 @@ export class LoanStageMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.loanstageService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
-      this.rerender();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
     }, (error) => {
       console.log(error)
     })
@@ -180,7 +182,10 @@ export class LoanStageMasterComponent implements OnInit, AfterViewInit, OnDestro
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+     // to reload after insertion of data
+     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
       this.resetForm();
     })
   }
@@ -213,8 +218,11 @@ export class LoanStageMasterComponent implements OnInit, AfterViewInit, OnDestro
         }), (error) => {
           console.log(error)
         }
-        // to reload after delete of data
-        this.rerender();
+    
+     // to reload after insertion of data
+     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {

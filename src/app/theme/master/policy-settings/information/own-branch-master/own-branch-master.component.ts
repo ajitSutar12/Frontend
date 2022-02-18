@@ -11,6 +11,8 @@ import { OwnBranchService } from './own-branch-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { first } from 'rxjs/operators';
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -67,13 +69,15 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
   newbtnShow: boolean = false;
   //variable to get Id to update
   updateID: number = 0;
-
+  ngAcNo: any
+  acno: any[]
   // column filter
   filterData = {};
 
   constructor(
     private http: HttpClient,
     private ownBranchService: OwnBranchService,
+    private _acMaster: ACMasterDropdownService,
     private fb: FormBuilder) {
   }
 
@@ -141,20 +145,26 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
           title: 'Name',
           data: 'NAME',
         },
-        {
-          title: 'Account Number',
-          data: 'AC_NO',
-        },
+        // {
+        //   title: 'Account Number',
+        //   data: 'AC_NO',
+        // },
       ],
       dom: 'Blrtip',
     };
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this._acMaster.getACMasterbranch(branchCode).pipe(first()).subscribe(data => {
+      this.acno = data;
+    })
   }
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
 
       CODE: [''],
-      AC_NO: ['', [Validators.pattern]],
+      AC_NO: [''],
       NAME: ['', [Validators.pattern, Validators.required]],
     });
   }
@@ -168,7 +178,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
       let branchCode = result.branch.syspara.id;
     const dataToSend = {
       'CODE': formVal.CODE,
-      'AC_NO': formVal.AC_NO,
+      'AC_NO': this.ngAcNo,
       'NAME': formVal.NAME,
       'sysparaId': branchCode,
 
@@ -199,9 +209,10 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.newbtnShow = true;
     this.ownBranchService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.ngAcNo =  data.AC_NO
+      this.angForm.patchValue({
         'CODE': data.CODE,
-        'AC_NO': data.AC_NO,
+        // 'AC_NO': data.AC_NO,
         'NAME': data.NAME,
       })
     })
@@ -289,6 +300,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngAcNo=null
   }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

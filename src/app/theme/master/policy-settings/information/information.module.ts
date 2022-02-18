@@ -29,7 +29,7 @@ import { LockerRackWiseMasterComponent } from './locker-rack-wise-master/locker-
 import { CompanyGroupMasterComponent } from './company-group-master/company-group-master.component';
 import { CompanyGroupLinkMasterComponent } from './company-group-link-master/company-group-link-master.component';
 import { NarrationComponent } from './narration/narration.component';
-import { InterestCategoryMasterComponent } from './interest-category-master/interest-category-master.component'; 
+import { InterestCategoryMasterComponent } from './interest-category-master/interest-category-master.component';
 import { HealthMasterComponent } from './health-master/health-master.component';
 import { PrefixMasterComponent } from './prefix-master/prefix-master.component';
 import { MinimumBalanceMasterComponent } from './minimum-balance-master/minimum-balance-master.component';
@@ -91,8 +91,11 @@ import { RiskCatMasterService } from './risk-catagory/risk-category.service';
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { SalaryDMasterdropdownService } from '../../../../shared/dropdownService/salary-division-master-dropdown.service'
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
+import { VoucherEntryService } from 'src/app/theme/transaction/voucher-entry/voucher-entry.service';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -162,11 +165,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RiskCatMasterService,
     OwnbranchMasterService,
     SalaryDMasterdropdownService,
+    ACMasterDropdownService,
+    cityMasterService,
+    VoucherEntryService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
 
-    },{
+    }, {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true

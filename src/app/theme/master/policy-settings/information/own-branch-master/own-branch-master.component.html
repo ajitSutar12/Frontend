@@ -38,7 +38,17 @@
                             </div>
                         </div>
                         <div class="col-md">
-                            <div class="form-group input-group">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt" autofocus>
+                                    <ng-select bindValue="value" bindLabel="label" [(ngModel)]="ngAcNo" id="AC_NO" formControlName="AC_NO"
+                                        title="Compulsory Selection" placeholder="Account Number">
+                                        <ng-option *ngFor="let values of acno" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_NO">Account Number</label>
+                                </span>
+                            </div>
+                            <!-- <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NO" class="form-control" placeholder=" " id="AccountNo"
                                         pattern="^[0-9]+$" minlength="15" maxlength="15" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" title="Input allowed only  0-9"
@@ -50,7 +60,7 @@
                                 <div *ngIf="angForm.controls['AC_NO'].errors?.pattern || angForm.controls['AC_NO'].errors?.maxlength || angForm.controls['AC_NO'].errors?.minlength">
                                     Input allowed only 0-9
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         
                     </div>
@@ -85,7 +95,7 @@
                                         </td>
                                         <td class="td_right">{{ data.CODE }}</td>
                                         <td>{{ data.NAME }}</td>
-                                        <td class="td_right">{{ data.AC_NO }}</td>
+                                        <!-- <td class="td_right">{{ data.AC_NO }}</td> -->
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="ownBranches?.length == 0">
@@ -98,7 +108,7 @@
                                         <th class="testing"></th>
                                         <th><input type="text" class="form-control"  name="CODE"></th>
                                         <th><input type="text" class="form-control"  name="NAME"></th>
-                                        <th><input type="text" class="form-control"  name="AC_NO"></th>
+                                        <!-- <th><input type="text" class="form-control"  name="AC_NO"></th> -->
                                         
                                     </tr>
                                 </tfoot>

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {animate, style, transition, trigger} from '@angular/animations';
-import {HttpClient} from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { UserService } from '../user.service';
 import { environment } from '../../../../environments/environment';
@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 import { NgPasswordValidatorOptions } from "ng-password-validator";
+import { AuthService } from '../../auth/auth.service';
 
 
 
@@ -21,12 +22,12 @@ import { NgPasswordValidatorOptions } from "ng-password-validator";
   animations: [
     trigger('fadeInOutTranslate', [
       transition(':enter', [
-        style({opacity: 0}),
-        animate('400ms ease-in-out', style({opacity: 1}))
+        style({ opacity: 0 }),
+        animate('400ms ease-in-out', style({ opacity: 1 }))
       ]),
       transition(':leave', [
-        style({transform: 'translate(0)'}),
-        animate('400ms ease-in-out', style({opacity: 0}))
+        style({ transform: 'translate(0)' }),
+        animate('400ms ease-in-out', style({ opacity: 0 }))
       ])
     ])
   ]
@@ -36,7 +37,7 @@ export class UserProfileComponent implements OnInit {
   options: NgPasswordValidatorOptions = {
     placement: "bottom",
     "animation-duration": 500
-};
+  };
   editProfile = true;
   editProfileIcon = 'icofont-edit';
 
@@ -46,7 +47,7 @@ export class UserProfileComponent implements OnInit {
   public editor;
   public editorContent: string;
   selectedImagePreview: string = '';
-  showImage : boolean = false;
+  showImage: boolean = false;
   public editorConfig = {
     placeholder: 'About Your Self'
   };
@@ -59,31 +60,31 @@ export class UserProfileComponent implements OnInit {
   angForm: FormGroup;
   angEditForm: FormGroup;
   profitChartOption: any;
-  imgBase64:any;
-  profilePath :any;
-  id:any;
-  fullName : any;
-  Email :any;
+  imgBase64: any;
+  profilePath: any;
+  id: any;
+  fullName: any;
+  Email: any;
   toastr: any;
 
-  constructor(public httpClient: HttpClient,private fb: FormBuilder,private _userService : UserService,private router: Router) {
+  constructor(public httpClient: HttpClient, private _authService: AuthService, private fb: FormBuilder, private _userService: UserService, private router: Router) {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    this.profilePath = environment.base_url+'/'+result.PROFILE_PATH;
+    this.profilePath = environment.base_url + '/' + result.PROFILE_PATH;
     this.id = result.id;
   }
 
   ngOnInit() {
-    this._userService.getUserDetails(this.id).subscribe(data=>{
+    this._userService.getUserDetails(this.id).subscribe(data => {
       console.log(data);
       let userObject = data;
-      this.fullName = data.F_NAME+' '+data.L_NAME;
-      this.Email    = data.EMAIL;
+      this.fullName = data.F_NAME + ' ' + data.L_NAME;
+      this.Email = data.EMAIL;
       this.angEditForm.patchValue({
-        firstName : userObject.F_NAME,
-        LastName  : userObject.L_NAME,
-        email     : userObject.EMAIL,
-        phone     : userObject.MOB_NO,
+        firstName: userObject.F_NAME,
+        LastName: userObject.L_NAME,
+        email: userObject.EMAIL,
+        phone: userObject.MOB_NO,
       })
     })
     this.angEditForm = this.fb.group({
@@ -95,9 +96,10 @@ export class UserProfileComponent implements OnInit {
       currentPassword: [''],
       newPassword: [''],
       confirmPassword: [''],
+      Profile: [''],
     });
 
-    
+
 
 
     setTimeout(() => {
@@ -131,7 +133,7 @@ export class UserProfileComponent implements OnInit {
       this.profitChartOption = {
         tooltip: {
           trigger: 'item',
-          formatter: function(params) {
+          formatter: function (params) {
             const date = new Date(params.value[0]);
             let data = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ';
             data += date.getHours() + ':' + date.getMinutes();
@@ -160,17 +162,17 @@ export class UserProfileComponent implements OnInit {
           name: 'Profit',
           type: 'line',
           showAllSymbol: true,
-          symbolSize: function(value) {
+          symbolSize: function (value) {
             return Math.round(value[2] / 10) + 2;
           },
-          data: (function() {
+          data: (function () {
             const d: any = [];
             let len = 0;
             const now = new Date();
             while (len++ < 200) {
               const random1: any = (Math.random() * 30).toFixed(2);
               const random2: any = (Math.random() * 100).toFixed(2);
-              d.push([ new Date(2014, 9, 1, 0, len * 10000), random1 - 0, random2 - 0 ]);
+              d.push([new Date(2014, 9, 1, 0, len * 10000), random1 - 0, random2 - 0]);
             }
             return d;
           })()
@@ -180,17 +182,17 @@ export class UserProfileComponent implements OnInit {
   }
   onInput(event: any): void {
     this.inputValue = event.target.value;
-}
-isValid(event: boolean): void {
-  if (this.inputValue && this.inputValue.length) {
-      if (event) {
-          this.toastr.success("Password is Valid.", "Successful!");
-      } else {
-          this.toastr.error("Password is invalid.", "Error!");
-      }
   }
+  isValid(event: boolean): void {
+    if (this.inputValue && this.inputValue.length) {
+      if (event) {
+        this.toastr.success("Password is Valid.", "Successful!");
+      } else {
+        this.toastr.error("Password is invalid.", "Error!");
+      }
+    }
 
-}
+  }
   toggleEditProfile() {
     this.editProfileIcon = (this.editProfileIcon === 'icofont-close') ? 'icofont-edit' : 'icofont-close';
     this.editProfile = !this.editProfile;
@@ -218,41 +220,78 @@ isValid(event: boolean): void {
     console.log('quill content is changed!', quill, html, text);
   }
 
-  selectedImage(ele:any){
+  selectedImage(ele: any) {
     let data;
     if (ele.target.files && ele.target.files[0]) {
       var reader = new FileReader();
       reader.onload = (event: any) => {
-          this.showImage = true;
-          this.selectedImagePreview = event.target.result;
-          this.imgBase64 = reader.result;
-          console.log(data);
-          console.log(this.selectedImagePreview);
+        this.showImage = true;
+        this.selectedImagePreview = event.target.result;
+        this.imgBase64 = reader.result;
+        console.log(data);
+        console.log(this.selectedImagePreview);
       }
       reader.readAsDataURL(ele.target.files[0]);
     }
   }
 
-  updateProfile(){
-   
-    let updateObject =  this.angEditForm.value;
-    let user = JSON.parse(localStorage.getItem('user')) ;
+  updateProfile() {
 
-    if(updateObject.newPassword !='' && updateObject.confirmPassword !=''){
-      if(updateObject.newPassword != updateObject.confirmPassword){
+    let updateObject = this.angEditForm.value;
+    let user = JSON.parse(localStorage.getItem('user'));
+
+    if (updateObject.newPassword != '' && updateObject.confirmPassword != '') {
+      if (updateObject.newPassword != updateObject.confirmPassword) {
         Swal.fire('Error!', 'New password and Confirm password not matched', 'error');
         throw Error("");
-      } 
+      }
     }
 
-    updateObject['imgbase64'] =  this.imgBase64;   
+    updateObject['imgbase64'] = this.imgBase64;
     updateObject['id'] = user.id;
-    
-    this._userService.updateUser(updateObject).subscribe(data=>{
+
+    this._userService.updateUser(updateObject).subscribe(data => {
+      debugger
       Swal.fire('Success!', 'Profile update successfully please login again', 'success');
-      this.router.navigate(['/dashboard/default']);
-    },err=>{
-      Swal.fire('Error!',err.error.message,'error');
+      console.log(data)
+
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      console.log(result.USER_NAME, result.PASSWORD)
+
+
+
+      // let obj = {
+      //   "username": result.USER_NAME,
+      //   "password": 'Admin@21'
+      // }
+
+      // this._authService.login(obj).subscribe(data => {
+      //   debugger
+      //   // localStorage.setItem('token', data.access_token);
+      //   localStorage.setItem('user', JSON.stringify(data.user));
+      //   // if (data.user) {
+      //   //   this.router.navigate(['/dashboard']);
+      //   let data1: any = localStorage.getItem('user');
+      //   let result = JSON.parse(data1);
+      //   this.profilePath = environment.base_url + '/' + result.PROFILE_PATH;
+      //   // }
+      // })
+      this._userService.editlocal(data.id).subscribe(data => {
+        debugger
+        // localStorage.setItem('token', data.access_token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        // if (data.user) {
+        //   this.router.navigate(['/dashboard']);
+        let data1: any = localStorage.getItem('user');
+        let result = JSON.parse(data1);
+        this.profilePath = environment.base_url + '/' + result.PROFILE_PATH;
+        // }
+      })
+
+
+    }, err => {
+      Swal.fire('Error!', err.error.message, 'error');
 
     })
   }

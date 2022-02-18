@@ -20,7 +20,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="RACK_DESC" class="form-control" placeholder=" " #autofocus
@@ -46,7 +46,8 @@
                                     <input type="text" name="LOCKER_FROMNO" class="form-control" placeholder=" "
                                         id="LOCKER_FROMNO" required="" pattern="^[0-9]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        title="Input allowed only  0-9" formControlName="LOCKER_FROMNO">
+                                        (focusout)="check()" title="Input allowed only  0-9"
+                                        formControlName="LOCKER_FROMNO">
                                     <label for="LOCKER_FROMNO">Lockers From<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -59,17 +60,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="LOCKER_TONO" class="form-control" placeholder=" "
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        id="LOCKER_TONO" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                                        formControlName="LOCKER_TONO" maxlength="10">
-                                    <label for="LOCKER_TONO">Lockers to<sub class="required">* </sub></label>
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="LOCKER_TONO"
+                                        required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        (focusout)="check()" formControlName="LOCKER_TONO" maxlength="10">
+                                    <label for="LOCKER_TONO">Lockers To<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -81,15 +79,19 @@
                                 </div>
                             </div>
                         </div>
-                       
+                    </div>
+
+                    <div class="row">
+
+
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm" (click)="submit()" *ngIf="showButton"
-                            [disabled]="angForm.invalid">Submit</button>
+                                [disabled]="angForm.invalid">Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                            *ngIf="newbtnShow">Cancel</button>
+                                *ngIf="newbtnShow">Cancel</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
-                            [disabled]="angForm.invalid">Update</button>&nbsp;
-                            
+                                [disabled]="angForm.invalid">Update</button>&nbsp;
+
                         </div>
                     </div>
                 </form>
@@ -104,12 +106,13 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-                                class="table table-striped table-bordered table-hover compact">
+                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions"
+                                [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="lockerRackMaster?.length != 0">
                                     <tr *ngFor="let data of lockerRackMaster">
-                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                            placement="bottom" ngbTooltip="Edit"></span> &nbsp;
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit"></span> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
                                                 (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
@@ -127,10 +130,10 @@
                                 <tfoot #filters class="filters">
                                     <tr class="testing">
                                         <th class="testing"></th>
-                                        <th><input type="text" class="form-control"  name="RACK_NO" /></th>
-                                        <th><input type="text" class="form-control"  name="RACK_DESC" /></th>
-                                        <th><input type="text" class="form-control"  name="LOCKER_FROMNO" /></th>
-                                        <th><input type="text" class="form-control"  name="LOCKER_TONO" /></th>
+                                        <th><input type="text" class="form-control" name="RACK_NO" /></th>
+                                        <th><input type="text" class="form-control" name="RACK_DESC" /></th>
+                                        <th><input type="text" class="form-control" name="LOCKER_FROMNO" /></th>
+                                        <th><input type="text" class="form-control" name="LOCKER_TONO" /></th>
                                     </tr>
                                 </tfoot>
                             </table>

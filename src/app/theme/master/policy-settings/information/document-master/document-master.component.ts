@@ -143,18 +143,20 @@ export class DocumentMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   // Method to insert data into database through NestJS
-  submit() {
+  submit() {debugger
     const formVal = this.angForm.value;
     const dataToSend = {
       'CODE': formVal.CODE,
       'NAME': formVal.NAME
     }
+
     this.documentMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
-      });    }, (error) => {
+      });
+    }, (error) => {
       console.log(error)
     })
     //To clear form
@@ -163,11 +165,21 @@ export class DocumentMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   //Method for append data into fields
   editClickHandler(id) {
-    this.showButton = false;
-    this.updateShow = true;
-    this.newbtnShow = true;
+
+
 
     this.documentMasterService.getFormData(id).subscribe(data => {
+      if (id == 1 || id == 2) {
+        this.showButton = false;
+        this.updateShow = false;
+        this.newbtnShow = true;
+
+      } else {
+        this.showButton = false;
+        this.updateShow = true;
+        this.newbtnShow = true;
+
+      }
       this.updateID = data.id;
       this.angForm.setValue({
         'CODE': data.CODE,
@@ -175,7 +187,7 @@ export class DocumentMasterComponent implements OnInit, AfterViewInit, OnDestroy
       })
     })
   }
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -193,7 +205,7 @@ export class DocumentMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
-      });      this.resetForm();
+      }); this.resetForm();
     })
   }
 

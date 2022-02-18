@@ -24,7 +24,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="NAME" class="form-control" placeholder=" " id="Name"
-                                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         maxlength="200" #autofocus required="" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME"
                                         [ngClass]="{'form-submitted': formSubmitted}">
@@ -71,15 +71,23 @@
 
                             </div> -->
                             <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                  <ng-select id="AC_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
-                                    formControlName="AC_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type">
-                                    <ng-option *ngFor="let values of schemeType" [value]="values">
-                                      {{values.label}}</ng-option>
-                                  </ng-select>
-                                  <label for="AC_ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
-                                </span>
+                                <!-- <span class="border-lable-flt"> -->
+                                   
+                                    <span class="border-lable-flt">
+                                        <ng-select [(ngModel)]="selectedCode" formControlName="AC_ACNOTYPE"   [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type" (change)="selectedSchemeCode()">
+                                            <ng-option *ngFor="let item of schemeType" [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
+                                        </ng-select>
+                                        <label for="AC_ACNOTYPE">Scheme Type<sub class="required">*</sub></label>
+                                    </span>
+                                    <!-- <ng-select id="AC_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                        formControlName="AC_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="Scheme Type">
+                                        <ng-option *ngFor="let values of schemeType" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
+                                </span> -->
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_ACNOTYPE'].invalid && (angForm.controls['AC_ACNOTYPE'].dirty || angForm.controls['AC_ACNOTYPE'].touched)"
@@ -100,13 +108,14 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="acno" 
-                                    formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" (selected)="getIntroducer(acno)" required placeholder="Scheme Code">
-                                    <ng-option *ngFor="let values of scheme" [value]="values">
-                                      {{values.label}}</ng-option>
-                                  </ng-select> 
-                                  <label for="AC_TYPE">Scheme Code<sub class="required"> * </sub></label> 
+                                    <ng-select id="AC_TYPE" [(ngModel)]="ngscheme"
+                                        formControlName="AC_TYPE" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getIntroducer()"
+                                        required placeholder="Scheme Code">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{values.S_APPL}} {{values.S_NAME}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_TYPE">Scheme Code<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -119,16 +128,28 @@
                             </div>
                         </div>
                         <div class="col-md">
-                            <div class="form-group input-group">
+                            <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_NO" class="form-control" placeholder=" " maxlength="15"
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        minlength="15" id="AcNo" required="" pattern="^[0-9]+$"
-                                        title="Input allowed only  0-9" formControlName="AC_NO"
-                                        (selected)="getAC_NO($event)" [ngClass]="{'form-submitted': formSubmitted}">
-                                    <label for="AcNo">A/C No.<sub class="required">* </sub></label>
+                                    <ng-select id="AC_NO" [(ngModel)]="ngacno"
+                                        formControlName="AC_NO" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getIntroducer()"
+                                        required placeholder="Account Number">
+                                        <ng-option *ngFor="let values of account" [value]="values">
+                                            {{values.S_APPL}} {{values.S_NAME}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_TYPE">Scheme Code<sub class="required"> * </sub></label>
                                 </span>
                             </div>
+                            <!-- <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="AC_NO" class="form-control" placeholder=" " maxlength="15"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" minlength="15"
+                                        id="AC_NO" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        formControlName="AC_NO" (selected)="getAC_NO($event)"
+                                        [ngClass]="{'form-submitted': formSubmitted}">
+                                    <label for="AcNo">A/C No.<sub class="required">* </sub></label>
+                                </span>
+                            </div> -->
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                 class="alert alert-danger">
@@ -143,13 +164,13 @@
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
                                 [disabled]="angForm.invalid">Submit</button>
-                                <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                 *ngIf="newbtnShow">Cancel
                             </button>
-                                <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 [disabled]="angForm.invalid" *ngIf="updateShow">Update</button>
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -164,20 +185,31 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact" style="width: 100%;">
+                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions"
+                                [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact"
+                                style="width: 100%;">
                                 <tbody *ngIf="companyGroupMaster?.length != 0">
                                     <tr *ngFor="let data of companyGroupMaster">
-                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                            placement="bottom" ngbTooltip="Edit"></span>&nbsp;
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit"></span>&nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-                                        <td class="td_right" [ngClass]="data.COMP_CODE === '' ? 'td_center' : 'td_right'">{{data.COMP_CODE === ''? '-' : data.COMP_CODE}}</td>
-                                        <td class="td_left" [ngClass]="data.NAME === '' ? 'td_center' : 'td_left'">{{data.NAME === ''? '-' : data.NAME}}</td>
-                                        <td class="td_left" [ngClass]="data.ADDRESS === '' ? 'td_center' : 'td_left'">{{data.ADDRESS === ''? '-' : data.ADDRESS}}</td>
-                                        <td class="td_left" [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_left'">{{data.AC_ACNOTYPE === ''? '-' : data.AC_ACNOTYPE}}</td>
-                                        <td class="td_left" [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_left'">{{data.AC_TYPE === ''? '-' : data.AC_TYPE}}</td>
-                                       
-                                        <td class="td_right" [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">{{data.AC_NO === ''? '-' : data.AC_NO}}</td>
+                                        <td class="td_right"
+                                            [ngClass]="data.COMP_CODE === '' ? 'td_center' : 'td_right'">
+                                            {{data.COMP_CODE === ''? '-' : data.COMP_CODE}}</td>
+                                        <td class="td_left" [ngClass]="data.NAME === '' ? 'td_center' : 'td_left'">
+                                            {{data.NAME === ''? '-' : data.NAME}}</td>
+                                        <td class="td_left" [ngClass]="data.ADDRESS === '' ? 'td_center' : 'td_left'">
+                                            {{data.ADDRESS === ''? '-' : data.ADDRESS}}</td>
+                                        <td class="td_left"
+                                            [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_left'">
+                                            {{data.AC_ACNOTYPE === ''? '-' : data.AC_ACNOTYPE}}</td>
+                                        <td class="td_left" [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_left'">
+                                            {{data.AC_TYPE === ''? '-' : data.AC_TYPE}}</td>
+
+                                        <td class="td_right" [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
+                                            {{data.AC_NO === ''? '-' : data.AC_NO}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="companyGroupMaster?.length == 0">

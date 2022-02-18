@@ -29,6 +29,15 @@ export class UserService {
             return throwError(error);
     }))
   }
+
+  //get login user data
+  editlocal(id:number):Observable<any>{
+    return this.http.get(this.url + '/user-defination/localData/'+id).pipe(map((res)=>res),
+    catchError((error)=>{
+      Swal.fire(error.error.message);
+            return throwError(error);
+    }))
+  }
 }
 
 

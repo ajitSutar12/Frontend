@@ -118,6 +118,11 @@ export class GlAccountsMasterComponent implements OnInit {
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -197,7 +202,11 @@ export class GlAccountsMasterComponent implements OnInit {
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
     const dataToSend = {
+      'BRANCH_CODE': branchCode,
       'AC_NO': formVal.AC_NO,
       'AC_NAME': formVal.AC_NAME,
       'AC_BCD': formVal.AC_BCD,

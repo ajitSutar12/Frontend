@@ -19,6 +19,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { NgSelectConfig } from '@ng-select/ng-select';
+import { VoucherEntryService } from 'src/app/theme/transaction/voucher-entry/voucher-entry.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -72,7 +73,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   activeKeep = 1;
 
   ngscheme: any = null
-   
+
 
   // Variables for search 
   filterObject: { name: string; type: string; }[];
@@ -85,7 +86,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   updateID: number = 0;
   schemeCode: any;
 
-  schemeType: Array<IOption> = this.schemeTypeDropdown.getCharacters();
+  // schemeType: Array<IOption> = this.schemeTypeDropdown.getCharacters();
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -95,18 +96,21 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   filterData = {};
   private dataSub: Subscription = null;
   scheme: any;
-
+  selectedCode: any
   //Scheme type variable
   schemeTypeCode: string = 'GL'
   companyACNo: any;
-
+  schemeType: any[]
+  master: any[]
   constructor(
     private http: HttpClient,
     private companyGroupMasterService: CompanyGroupMasterService,
     private fb: FormBuilder,
     public schemeTypeDropdown: SchemeTypeDropdownService,
-    private schemeService: SchemeAccountNoService,
+    private _schemeService: SchemeAccountNoService,
     public SchemeCodeDropdownService: SchemeCodeDropdownService,
+    private _service: VoucherEntryService,
+
     private config: NgSelectConfig,) { }
 
 
@@ -189,8 +193,15 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     this.dataSub = this.schemeTypeDropdown.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
-    this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeTypeCode).pipe(first()).subscribe(data => {
-      this.scheme = data;
+    // this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeTypeCode).pipe(first()).subscribe(data => {
+    //   this.scheme = data;
+    // })
+    //Scheme Code
+    this._service.getSchemeCodeList().subscribe(data => {
+      console.log(data);
+      this.master = data;
+      this.schemeType = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
+
     })
 
   }
@@ -362,94 +373,114 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     });
   }
 
-  acno: any=null
-    //get account no according scheme for introducer
-    getIntroducer(acno) {
-      switch (acno) {
-        case 'SB':
-          console.log("saving");
-          this.schemeService.getSavingSchemeList().pipe(first()).subscribe(data => {
-            this.companyACNo = data;
-          })
-          break;
-  
-        case 'SH':
-          console.log("Share");
-          this.schemeService.getShareSchemeList().pipe(first()).subscribe(data => {
-            this.companyACNo = data;
-          })
-          break;
-  
-        case 'CA':
-          console.log("Current account");
-          this.schemeService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
-            this.companyACNo = data;
-          })
-          break;
-  
-        case 'LN':
-          console.log("Term Loan");
-          this.schemeService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
-            this.companyACNo = data;
-          })
-          break;
-  
-        case 'TD':
-          console.log("Term Deposit");
-          this.schemeService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
-            this.companyACNo = data;
-          })
-          break;
-  
-        case 'DS':
-          console.log("Dispute Loan");
-          this.schemeService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
-            this.companyACNo = data;
-          })
-          break;
-  
-        case 'CC':
-          console.log("Cash Credit Loan");
-          this.schemeService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
-            this.companyACNo = data;
-          })
-          break;
-  
-        case 'GS':
-          console.log("anamat");
-          this.schemeService.getAnamatSchemeList().pipe(first()).subscribe(data => {
-            this.companyACNo = data;
-          })
-          break;
-  
-        case 'PG':
-          console.log("Pigmy account");
-          this.schemeService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
-            this.companyACNo = data;
-          })
-          break;
-  
-        case 'AG':
-          console.log("Pigmy agent");
-          this.schemeService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
-            this.companyACNo = data;
-          })
-          break;
-  
-        case 'IV':
-          console.log("Investment");
-          this.schemeService.getInvestmentSchemeList().pipe(first()).subscribe(data => {
-            this.companyACNo = data;
-          })
-          break;
+  selectedSchemeCode() {
+    debugger
+    this.scheme = [];
+    this.master.forEach(element => {
+      debugger
+      if (element.S_ACNOTYPE == this.selectedCode) {
+        debugger
+        this.scheme.push(element)
       }
-    }
+    });
+  }
 
-      //get introducer name according account no
-   
+  acno: any = null
+  obj: any
+  account:any[]
+  ngacno:any
+  //get account no according scheme for introducer
+  getIntroducer() {
+    debugger
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this.obj = [this.acno, branchCode]
+    switch (this.selectedCode) {
+      case 'SB':
+        this._schemeService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.account = data;
+          this.ngacno = null
+        })
+        break;
+
+      case 'SH':
+        this._schemeService.getShareSchemeList1(this.obj).subscribe(data => {
+          this.account = data;
+          this.ngacno = null
+        })
+        break;
+
+      case 'CA':
+        this._schemeService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.account = data;
+          this.ngacno = null
+        })
+        break;
+
+      case 'LN':
+        this._schemeService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.account = data;
+          this.ngacno = null
+        })
+        break;
+
+      case 'TD':
+        this._schemeService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.account = data;
+          this.ngacno = null
+        })
+        break;
+
+      case 'DS':
+        this._schemeService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.account = data;
+          this.ngacno = null
+        })
+        break;
+
+      case 'CC':
+        this._schemeService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.account = data;
+          this.ngacno = null
+        })
+        break;
+
+      case 'GS':
+        this._schemeService.getAnamatSchemeList1(this.obj).subscribe(data => {
+          this.account = data;
+          this.ngacno = null
+        })
+        break;
+
+      case 'PG':
+        this._schemeService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+          this.account = data;
+          this.ngacno = null
+        })
+        break;
+
+      case 'AG':
+        this._schemeService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.account = data;
+          this.ngacno = null
+        })
+        break;
+
+      case 'IV':
+        this._schemeService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+          this.account = data;
+          this.ngacno = null
+        })
+        break;
+    }
+  }
+
+  //get introducer name according account no
+
   getAC_NO(value: any) {
     this.angForm.patchValue({
-      'AC_NO' : value.AC_NO
+      'AC_NO': value.AC_NO
     })
   }
 }

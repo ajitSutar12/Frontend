@@ -782,3 +782,21 @@ th.ng-tns-c146-1 {
     font-size: 1.35em !important;
     margin: 0 !important;
 }
+
+input[type="file" i]::-webkit-file-upload-button {
+    element.style {
+        display: none;
+    }
+}
+input[type="file" i]::-webkit-file-upload-button {
+    font: inherit;
+    -webkit-appearance: button;
+    display: none !important;
+}
+
+.input-group-append .input-group-text,
+.input-group-prepend .input-group-text {
+    background-color: #cad1d6;
+    border-color: rgba(0, 0, 0, 0.15);
+    color: rgb(16, 16, 17);
+}
