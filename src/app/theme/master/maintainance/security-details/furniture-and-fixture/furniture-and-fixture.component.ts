@@ -99,8 +99,7 @@ export class FurnitureAndFixtureComponent
     private _furniture: furnitureandfixtureservice,
     public router: Router
   ) {
-    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
+   
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -223,18 +222,17 @@ export class FurnitureAndFixtureComponent
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
       const formVal = this.angForm.value;
       const dataToSend = {
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-        // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+        
         ARTICLE_NAME: formVal.ARTICLE_NAME,
         ARTICLE_MAKE: formVal.ARTICLE_MAKE,
         'AQUISITION_DATE': (formVal.AQUISITION_DATE == '' || formVal.AQUISITION_DATE == 'Invalid date') ? acquistitiondate = '' : acquistitiondate = moment(formVal.AQUISITION_DATE).format('DD/MM/YYYY'),
-        // AQUISITION_DATE: formVal.AQUISITION_DATE,
+        
         NEW_ARTICLE: formVal.NEW_ARTICLE,
         SUPPLIER_NAME: formVal.SUPPLIER_NAME,
         PURCHASE_PRICE: formVal.PURCHASE_PRICE,
@@ -248,14 +246,6 @@ export class FurnitureAndFixtureComponent
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
-          // let info = []
-          // info.push(data.id)
-          // info.push("furniture")
-  
-          // this.newItemEvent(info);
-          
-          // // to reload after insertion of data
-          // this.rerender();
         },
         (error) => {
           console.log(error);
@@ -270,9 +260,9 @@ export class FurnitureAndFixtureComponent
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
-    console.log(ele);
+    
     if (ele <= 100) {
-      console.log(ele);
+      
     }
     else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
@@ -292,12 +282,7 @@ export class FurnitureAndFixtureComponent
      //sending values to parent
      let dropdown: any = {};
      dropdown.scheme = data.AC_TYPE;
-     console.log('scheme',data.AC_TYPE)
-     // this.newItemEvent(dropdown.scheme)
-     
      dropdown.account = data.AC_NO;
-     console.log('account',data.AC_NO)
-     // this.newItemEvent(dropdown.account)
      let obj1 = {
        'AccountType' :data.AC_TYPE,
        'AccountNo': data.AC_NO,
@@ -309,14 +294,11 @@ export class FurnitureAndFixtureComponent
         this.scheme=data.AC_TYPE
         this.Accountno=data.AC_NO
         this.angForm.patchValue({
-        // AC_TYPE: this.scheme._value[0],
-        // AC_NO: this.Accountno,
-        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-        // SUBMISSION_DATE: data.SUBMISSION_DATE,
+       
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,  
         ARTICLE_NAME: data.ARTICLE_NAME,
         ARTICLE_MAKE: data.ARTICLE_MAKE,
         'AQUISITION_DATE': (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? acquistitiondate = '' : acquistitiondate = data.AQUISITION_DATE,
-        // AQUISITION_DATE: data.AQUISITION_DATE,
         NEW_ARTICLE: data.NEW_ARTICLE,
         SUPPLIER_NAME: data.SUPPLIER_NAME,
         PURCHASE_PRICE: data.PURCHASE_PRICE,
@@ -381,7 +363,6 @@ export class FurnitureAndFixtureComponent
     });
   }
   ngAfterViewInit(): void {
-    // this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -407,7 +388,6 @@ export class FurnitureAndFixtureComponent
     let obj1 = {
       'AccountType' : null,
       'AccountNo': null,
-      // 'SchemeType':null
     }
     this.newfurnitureFixEvent.emit(obj1);
   }

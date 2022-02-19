@@ -109,8 +109,8 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     private _book: BookdebtsService,
     public router: Router
   ) {
-    // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
+    
+    
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -157,7 +157,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
           )
           .subscribe((resp) => {
             this.bookMaster = resp.data;
-            console.log("datable response", resp.data);
+            
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -233,7 +233,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submit(event) {
-    debugger
+  
     event.preventDefault();
     this.formSubmitted = true;
     let submissiondate
@@ -249,7 +249,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     
 
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
+      
       const formVal = this.angForm.value;
       
       const dataToSend = {
@@ -269,7 +269,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
         MARGIN: formVal.MARGIN,
         REMARK: formVal.REMARK,
       };
-      console.log(dataToSend);
+      
       this._book.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -280,13 +280,13 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
           // info.push("book")
 
           // this.newItemEvent(info);
-          // console.log("book id", info)
+          
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
         },
         (error) => {
-          console.log(error);
+          
         }
       );
       //To clear form
@@ -299,9 +299,9 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
-    console.log(ele);
+    
     if (ele <= 100) {
-      console.log(ele);
+     
     }
     else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
@@ -322,11 +322,11 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
        //sending values to parent
        let dropdown: any = {};
        dropdown.scheme = data.AC_TYPE;
-       console.log('scheme',data.AC_TYPE)
+       
        // this.newItemEvent(dropdown.scheme)
        
        dropdown.account = data.AC_NO;
-       console.log('account',data.AC_NO)
+       
        // this.newItemEvent(dropdown.account)
        let obj1 = {
          'AccountType' :data.AC_TYPE,

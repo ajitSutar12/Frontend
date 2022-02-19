@@ -120,8 +120,7 @@ export class StockStatementComponent
     private http: HttpClient,
     public router: Router
   ) {
-    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
+    
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -167,7 +166,7 @@ export class StockStatementComponent
           )
           .subscribe((resp) => {
             this.stockmasters = resp.data;
-            console.log("stock:", resp);
+           
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -243,21 +242,17 @@ export class StockStatementComponent
     let statementdate
     event.preventDefault();
     this.formSubmitted = true;
-    console.log('scheme', this.scheme)
-    console.log('Accountno', this.Accountno)
-    console.log('Account type', this.AC_ACNOTYPE)
-
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
+      
       const formVal = this.angForm.value;
       const dataToSend = {
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-        // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+       
         'STATEMENT_DATE': (formVal.STATEMENT_DATE == '' || formVal.STATEMENT_DATE == 'Invalid date') ? statementdate = '' : statementdate = moment(formVal.STATEMENT_DATE).format('DD/MM/YYYY'),
-        // STATEMENT_DATE: formVal.STATEMENT_DATE,
+        
         RAW_MATERIAL: formVal.RAW_MATERIAL,
         RAW_MARGIN: formVal.RAW_MARGIN,
         WORK_PROGRESS: formVal.WORK_PROGRESS,
@@ -275,13 +270,7 @@ export class StockStatementComponent
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
-          // let info = []
-          // info.push(data.id)
-          // info.push("stockStatement")
-  
-          // this.newItemEvent(info);
-          // to reload after insertion of data
-          // this.rerender();
+          
         },
         (error) => {
           console.log(error);
@@ -294,11 +283,11 @@ export class StockStatementComponent
   }
   //check  if margin values are below 100
   checkmargin(ele: any) {
-    debugger
+    
     //check  if given value  is below 100
-    console.log(ele);
+   
     if (ele <= 100) {
-      console.log(ele);
+     
     }
     else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
@@ -308,7 +297,7 @@ export class StockStatementComponent
   updatecheckdata:any
   //function for edit button clicked
   editClickHandler(id: any): void {
-    //debugger
+    
     let submissiondate
     let statementdate
     this.showButton = false;
@@ -316,17 +305,11 @@ export class StockStatementComponent
     this.newbtnShow = true;
     this._stock.getFormData(id).subscribe((data) => {
       this.updatecheckdata=data
-      //debugger
-      console.log(data);
+   
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
-      console.log('scheme',data.AC_TYPE)
-      // this.newItemEvent(dropdown.scheme)
-      
       dropdown.account = data.AC_NO;
-      console.log('account',data.AC_NO)
-      // this.newItemEvent(dropdown.account)
       let obj1 = {
         'AccountType' :data.AC_TYPE,
         'AccountNo': data.AC_NO,
@@ -337,12 +320,11 @@ export class StockStatementComponent
       this.scheme=data.AC_TYPE
       this.Accountno=data.AC_NO
       this.angForm.patchValue({
-        // AC_TYPE: this.scheme._value[0],
-        // AC_NO: this.Accountno,
+        
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-        // SUBMISSION_DATE: data.SUBMISSION_DATE,
+       
         'STATEMENT_DATE': (data.STATEMENT_DATE == 'Invalid date' || data.STATEMENT_DATE == '' || data.STATEMENT_DATE == null) ? statementdate = '' : statementdate = data.STATEMENT_DATE,
-        // STATEMENT_DATE: data.STATEMENT_DATE,
+        
         RAW_MATERIAL: data.RAW_MATERIAL,
         RAW_MARGIN: data.RAW_MARGIN,
         WORK_PROGRESS: data.WORK_PROGRESS,
@@ -412,8 +394,6 @@ export class StockStatementComponent
     });
   }
   ngAfterViewInit(): void {
-
-    // this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -439,7 +419,7 @@ export class StockStatementComponent
     let obj1 = {
       'AccountType' : null,
       'AccountNo': null,
-      // 'SchemeType':null
+     
     }
     this.newStockEvent.emit(obj1);
   }

@@ -103,8 +103,7 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
     private _vehicle: VehicleService,
     public router: Router
   ) {
-    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
+    
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -250,14 +249,14 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NO: this.Accountno,
       AC_ACNOTYPE: this.AC_ACNOTYPE,
       'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-      // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+      
       RTO_REG_DATE: formVal.RTO_REG_DATE,
       VEHICLE_MAKE: formVal.VEHICLE_MAKE,
       MANUFACTURE_YEAR: formVal.MANUFACTURE_YEAR,
       VEHICLE_NO: formVal.VEHICLE_NO,
       CHASSIS_NO: formVal.CHASSIS_NO,
       'AQUISITION_DATE': (formVal.AQUISITION_DATE == '' || formVal.AQUISITION_DATE == 'Invalid date') ? acquisitiondate = '' : acquisitiondate = moment(formVal.AQUISITION_DATE).format('DD/MM/YYYY'),
-      // AQUISITION_DATE: formVal.AQUISITION_DATE,
+     
       NEW_VEHICLE: formVal.NEW_VEHICLE,
       SUPPLIER_NAME: formVal.SUPPLIER_NAME,
       PURCHASE_PRICE: formVal.PURCHASE_PRICE,
@@ -272,14 +271,7 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
-        // let info = []
-        // info.push(data.id)
-        // info.push("vehicle")
-
-        // this.newItemEvent(info);
        
-        // // to reload after insertion of data
-        // this.rerender();
       },
       (error) => {
         console.log(error);
@@ -319,12 +311,10 @@ console.log(ele);
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
-      console.log('scheme',data.AC_TYPE)
-      // this.newItemEvent(dropdown.scheme)
+     
       
       dropdown.account = data.AC_NO;
-      console.log('account',data.AC_NO)
-      // this.newItemEvent(dropdown.account)
+     
       let obj1 = {
         'AccountType' :data.AC_TYPE,
         'AccountNo': data.AC_NO,
@@ -336,18 +326,17 @@ console.log(ele);
       this.scheme=data.AC_TYPE
       this.Accountno=data.AC_NO
       this.angForm.patchValue({
-        // AC_TYPE:this.scheme._value[0],
-        // AC_NO:this.Accountno,
+       
         AC_ACNOTYPE: data.AC_ACNOTYPE,
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-        // SUBMISSION_DATE: data.SUBMISSION_DATE,
+       
         RTO_REG_DATE: data.RTO_REG_DATE,
         VEHICLE_MAKE: data.VEHICLE_MAKE,
         MANUFACTURE_YEAR: data.MANUFACTURE_YEAR,
         VEHICLE_NO: data.VEHICLE_NO,
         CHASSIS_NO: data.CHASSIS_NO,
         'AQUISITION_DATE': (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? acquisitiondate = '' : acquisitiondate = data.AQUISITION_DATE,
-        // AQUISITION_DATE: data.AQUISITION_DATE,
+        
         NEW_VEHICLE: data.NEW_VEHICLE,
         SUPPLIER_NAME: data.SUPPLIER_NAME,
         PURCHASE_PRICE: data.PURCHASE_PRICE,
@@ -388,7 +377,7 @@ console.log(ele);
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
       });
-      // this.rerender();
+      
       this.resetForm();
     });
   }
@@ -414,7 +403,7 @@ console.log(ele);
       });
     }
   ngAfterViewInit(): void {
-    // this.myInputField.nativeElement.focus();//for autofocus
+    
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -440,7 +429,7 @@ console.log(ele);
     let obj1 = {
       'AccountType' : null,
       'AccountNo': null,
-      // 'SchemeType':null
+     
     }
     this.newVehicalEvent.emit(obj1);
   }

@@ -271,8 +271,6 @@ export class GoldAndSilverComponent
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
-      
     let totalvalueid = (document.getElementById("TotalAmount")as HTMLInputElement).value;
     
     this.angForm.patchValue({
@@ -287,7 +285,6 @@ export class GoldAndSilverComponent
       AC_ACNOTYPE: this.AC_ACNOTYPE,
       ITEM_TYPE: formVal.ITEM_TYPE,
       'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-      // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
       BAG_RECEIPT_NO: formVal.BAG_RECEIPT_NO,
       GOLD_BOX_NO: formVal.GOLD_BOX_NO,
       MARGIN: formVal.MARGIN,
@@ -300,7 +297,6 @@ export class GoldAndSilverComponent
       NOMINEE: formVal.NOMINEE,
       NOMINEE_RELATION: formVal.NOMINEE_RELATION,
     };
-    console.log(dataToSend);
     this._goldsilverService.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -308,14 +304,6 @@ export class GoldAndSilverComponent
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
-
-        // let info = []
-        // info.push(data.id)
-        // info.push("goldSilver")
-
-        // this.newItemEvent(info);
-        // // to reload after insertion of data
-        // this.rerender();
       },
       (error) => {
         console.log(error);
@@ -331,9 +319,9 @@ export class GoldAndSilverComponent
    //check  if margin values are below 100
 checkmargin(ele:any){ 
   //check  if given value  is below 100
-  console.log(ele);
+  
   if(ele <= 100){
-console.log(ele);
+
   }
   else{
     Swal.fire("Invalid Input", "Please insert values below 100", "error");
@@ -353,12 +341,9 @@ updatecheckdata:any
        //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
-      console.log('scheme',data.AC_TYPE)
-      // this.newItemEvent(dropdown.scheme)
-      
+     
       dropdown.account = data.AC_NO;
-      console.log('account',data.AC_NO)
-      // this.newItemEvent(dropdown.account)
+    
       let obj1 = {
         'AccountType' :data.AC_TYPE,
         'AccountNo': data.AC_NO,
@@ -369,12 +354,9 @@ updatecheckdata:any
       this.Accountno=data.AC_NO
       this.updateID = data.id;
       this.angForm.patchValue({
-        // AC_TYPE:this.scheme._value[0],
-        // AC_NO:this.Accountno,
         AC_ACNOTYPE: data.AC_ACNOTYPE,
         ITEM_TYPE: data.ITEM_TYPE,
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-        // SUBMISSION_DATE: data.SUBMISSION_DATE,
         BAG_RECEIPT_NO: data.BAG_RECEIPT_NO,
         GOLD_BOX_NO: data.GOLD_BOX_NO,
         MARGIN: data.MARGIN,
@@ -409,7 +391,6 @@ updatecheckdata:any
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
-      // this.rerender();
       this.resetForm();
     });
   }
@@ -468,7 +449,6 @@ updatecheckdata:any
     let obj1 = {
       'AccountType' : null,
       'AccountNo': null,
-      // 'SchemeType':null
     }
     this.newGoldsilverEvent.emit(obj1);
   }

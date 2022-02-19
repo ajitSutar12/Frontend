@@ -107,8 +107,8 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     private _insurancedropdown: InsuranceMasterDropdownService,
     public router: Router,
     private config: NgSelectConfig,) { 
-    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
+    
+    
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -223,26 +223,26 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     let insuranceexpirydate
     event.preventDefault();
     this.formSubmitted = true;
-    console.log('scheme', this.scheme)
-    console.log('Accountno', this.Accountno)
-    console.log('Account type', this.AC_ACNOTYPE)
+    
+    
+    
 
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
+     
       const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
       'INSURANCE_DATE': (formVal.INSURANCE_DATE == '' || formVal.INSURANCE_DATE == 'Invalid date') ? insurancedate = '' : insurancedate = moment(formVal.INSURANCE_DATE).format('DD/MM/YYYY'),
-      // INSURANCE_DATE: formVal.INSURANCE_DATE,
+     
       POLICY_NO: formVal.POLICY_NO,
       INSU_COMPANY_CODE: formVal.INSU_COMPANY_CODE,
       'INSU_EXP_DATE': (formVal.INSU_EXP_DATE == '' || formVal.INSU_EXP_DATE == 'Invalid date') ? insuranceexpirydate = '' : insuranceexpirydate = moment(formVal.INSU_EXP_DATE).format('DD/MM/YYYY'),
-      // INSU_EXP_DATE: formVal.INSU_EXP_DATE,
+      
       INSU_AMOUNT: formVal.INSU_AMOUNT,
     };
-    console.log(dataToSend);
+    
     this._customerservice.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -250,14 +250,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
-        // let info = []
-        // info.push(data.id)
-        // info.push("customerInsurance")
-
-        // this.newItemEvent(info);
-        // console.log("book id", info)
-        // to reload after insertion of data
-        // this.rerender();
+       
       },
       (error) => {
         console.log(error);
@@ -280,16 +273,16 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     this.newbtnShow = true;
     this._customerservice.getFormData(id).subscribe((data) => {
       this.updatecheckdata=data
-      debugger
+      
        //sending values to parent
        let dropdown: any = {};
        dropdown.scheme = data.AC_TYPE;
-       console.log('scheme',data.AC_TYPE)
-       // this.newItemEvent(dropdown.scheme)
+       
+       
        
        dropdown.account = data.AC_NO;
-       console.log('account',data.AC_NO)
-       // this.newItemEvent(dropdown.account)
+       
+       
        let obj1 = {
          'AccountType' :data.AC_TYPE,
          'AccountNo': data.AC_NO,
@@ -302,17 +295,10 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
       this.nginsurancecom=Number(data.INSU_COMPANY_CODE)
       this.updateID = data.id;
       this.angForm.patchValue({
-
-
-        // AC_TYPE: this.scheme._value[0],
-        // AC_NO: this.Accountno,
         AC_ACNOTYPE: data.AC_ACNOTYPE,
         'INSURANCE_DATE': (data.INSURANCE_DATE == 'Invalid date' || data.INSURANCE_DATE == '' || data.INSURANCE_DATE == null) ? insurancedate = '' : insurancedate = data.INSURANCE_DATE,
-        // INSURANCE_DATE: data.INSURANCE_DATE,
         POLICY_NO: data.POLICY_NO,
-        // INSU_COMPANY_CODE: data.INSU_COMPANY_CODE,
         'INSU_EXP_DATE': (data.INSU_EXP_DATE == 'Invalid date' || data.INSU_EXP_DATE == '' || data.INSU_EXP_DATE == null) ? insuranceexpirydate = '' : insuranceexpirydate = data.INSU_EXP_DATE,
-        // INSU_EXP_DATE: "2021-11-11",
         INSU_AMOUNT: data.INSU_AMOUNT,
       });
     });
@@ -342,7 +328,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
-      // this.rerender();
+      
       this.resetForm();
     });
   }
@@ -402,7 +388,6 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     let obj1 = {
       'AccountType' : null,
       'AccountNo': null,
-      // 'SchemeType':null
     }
     this.newcustomerInsuranceEvent.emit(obj1);
   }

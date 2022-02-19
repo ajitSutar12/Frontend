@@ -101,8 +101,7 @@ minDate: Date;
     private _pleadge: pleadgestockService,
     public router: Router
   ) { 
-    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
+    
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -235,17 +234,17 @@ minDate: Date;
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
+     
       const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE: this.scheme,
       AC_NO: this.Accountno,
       AC_ACNOTYPE: this.AC_ACNOTYPE,
       'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-      // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+      
       STORAGE_MEMO_NO: formVal.STORAGE_MEMO_NO,
       'STORAGE_DATE': (formVal.STORAGE_DATE == '' || formVal.STORAGE_DATE == 'Invalid date') ? storagedate = '' : storagedate = moment(formVal.STORAGE_DATE).format('DD/MM/YYYY'),
-      // STORAGE_DATE: formVal.STORAGE_DATE,
+      
       GOODS_QTY: formVal.GOODS_QTY,
       MANUF_MILL: formVal.MANUF_MILL,
       DISCRIPTION: formVal.DISCRIPTION,
@@ -263,13 +262,6 @@ minDate: Date;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
-        // let info = []
-        // info.push(data.id)
-        // info.push("pleadge")
-
-        // this.newItemEvent(info);
-        // // to reload after insertion of data
-        // this.rerender();
       },
       (error) => {
         console.log(error);
@@ -284,9 +276,9 @@ minDate: Date;
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
-    console.log(ele);
+    
     if (ele <= 100) {
-      console.log(ele);
+     
     }
     else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
@@ -308,12 +300,8 @@ minDate: Date;
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
-      console.log('scheme',data.AC_TYPE)
-      // this.newItemEvent(dropdown.scheme)
-      
       dropdown.account = data.AC_NO;
-      console.log('account',data.AC_NO)
-      // this.newItemEvent(dropdown.account)
+    
       let obj1 = {
         'AccountType' :data.AC_TYPE,
         'AccountNo': data.AC_NO,
@@ -323,13 +311,12 @@ minDate: Date;
       this.scheme=data.AC_TYPE
       this.Accountno=data.AC_NO
         this.angForm.patchValue({
-          // AC_TYPE: this.scheme._value[0],
-          // AC_NO: this.Accountno,
+         
           'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-          // SUBMISSION_DATE: data.SUBMISSION_DATE,
+          
           STORAGE_MEMO_NO: data.STORAGE_MEMO_NO,
           'STORAGE_DATE': (data.STORAGE_DATE == 'Invalid date' || data.STORAGE_DATE == '' || data.STORAGE_DATE == null) ? storagedate = '' : storagedate = data.STORAGE_DATE,
-          // STORAGE_DATE: data.STORAGE_DATE,
+          
           GOODS_QTY: data.GOODS_QTY,
           MANUF_MILL: data.MANUF_MILL,
           DISCRIPTION: data.DISCRIPTION,
@@ -397,7 +384,7 @@ minDate: Date;
     });
   }
   ngAfterViewInit(): void {
-    // this.myInputField.nativeElement.focus();//for autofocus
+   
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -423,7 +410,6 @@ minDate: Date;
     let obj1 = {
       'AccountType' : null,
       'AccountNo': null,
-      // 'SchemeType':null
     }
     this.newPleadgeEvent.emit(obj1);
   }

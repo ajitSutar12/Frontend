@@ -116,10 +116,7 @@ export class SecurityDetailsComponent implements OnInit {
 
 
     this.runTimer();
-    // this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-    //   console.log(this.scheme = data);
-    //   this.scheme = data
-    // })
+   
 
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
@@ -127,39 +124,14 @@ export class SecurityDetailsComponent implements OnInit {
       });
       this.scheme = filtered;
     })
-    // console.log(this.scheme)
-    // this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType1).pipe(first()).subscribe(data => {
-    //   console.log(this.scheme = data);
-    //   this.scheme = data
-    // })
-    // this.dataSub = this.S1Service.loadCharacters().subscribe((options) => {
-    //   this.characters = options;
-    // });
-    // this.dataSub = this.Ac1Service.loadCharacters().subscribe((options) => {
-    //   this.characters = options;
-    // });
+    
   }
 
-  // getIntro(event) {
-  //   console.log(event)
-  //   // this.getscheme = event.id
-  //   this.getschemename = event.name
-  //   this.getIntroducer()
-  // }
-
-  //input functionality
-
-  // newItemEvent(scheme){
-  //   console.log(scheme)
-  // }
+  
+  
 
   schemechange(event) {
-    debugger
-
-    //  let result = this.angForm.value;
-    //  this.scheme = result.AC_TYPE;
-    //  console.log(this.scheme);
-    console.log(event)
+    
     this.getschemename = event.name
     this.schemeedit = event.value
     this.getIntroducer()
@@ -170,32 +142,29 @@ export class SecurityDetailsComponent implements OnInit {
   getschemename: any
   //get account no according scheme for introducer
   getIntroducer() {
-    debugger
-    // console.log(this.acno, this.accountedit, "this.acno, this.accountedit")
-    // this.obj = [this.getscheme, this.branchcode.id]
+    
 
     let data1: any = localStorage.getItem('user');
     let result = JSON.parse(data1);
     let branchCode = result.branch.id;
 
     this.obj = [this.schemeedit, branchCode]
-    console.log(this.obj, "this.obj")
-    console.log(this.getschemename, "this.getschemename")
+  
 
     switch (this.getschemename) {
 
       case 'CC':
-        console.log("Cash Credit Loan");
+       
         this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
-          console.log(this.schemeACNo)
+         
         })
         break;
       case 'LN':
-        console.log("Term Loan");
+    
         this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
-          console.log(this.schemeACNo)
+         
 
         })
         break;
@@ -225,10 +194,10 @@ export class SecurityDetailsComponent implements OnInit {
   }
   submit() {
     this.formSubmitted = true;
-    console.log(this.angForm.valid);
+  
 
     if (this.angForm.valid) {
-      console.log(this.angForm.value);
+      
     }
     //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
@@ -237,34 +206,26 @@ export class SecurityDetailsComponent implements OnInit {
   }
   //output functionality
   addItem(newItem: any) {
-    console.log(this.schemeACNo)
+    
     console.log('NEWITEM', newItem);
-    // this.schemeedit = Number(newItem.AccountType)
+    
 
     newItem.AccountType == null ? this.schemeedit = null : this.schemeedit = Number(newItem.AccountType)
     newItem.SchemeType == null ? this.getschemename = null : this.getschemename = newItem.SchemeType
 
-    // this.accountedit =newItem.AccountNo
-    console.log(this.accountedit)
-    // this.getschemename = newItem.SchemeType
-    console.log(this.getschemename)
-
+  
     this.getIntroducer()
-    // this.angForm.patchValue({
-    //   // AC_TYPE:newItem,
-    //   AC_NO:this.accountedit
-    // })
+    
     this.accountedit = newItem.AccountNo
     newItem.AccountNo == null ? this.accountedit = null : this.accountedit = newItem.AccountNo
   }
 
 
   Accountnochange(event) {
-    console.log(event)
-    // let result = this.angForm.value;
+   
     this.Accountno = event.value;
     this.accountedit = event.value
-    console.log(this.Accountno);
+    
 
   }
   OpenLink(val) {

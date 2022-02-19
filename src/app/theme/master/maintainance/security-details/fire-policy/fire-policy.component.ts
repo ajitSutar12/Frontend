@@ -69,7 +69,6 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   insuranceNo: any;
   newbtnShow: boolean;
   newItemEvent(value) {
-    debugger
     this.newfirePolicyEvent.emit(value);
   }
   //passing data from parent to child component
@@ -108,8 +107,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     public router: Router,
     private _insurancedropdownservice: InsuranceMasterDropdownService,
     private config: NgSelectConfig,) {
-    //      this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
+    
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -245,7 +243,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
    
 
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
+      
       const formVal = this.angForm.value;
       
       const dataToSend = {
@@ -253,9 +251,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-        // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
-        'POLICY_DUE_DATE': (formVal.POLICY_DUE_DATE == '' || formVal.POLICY_DUE_DATE == 'Invalid date') ? policyduedate = '' : policyduedate = moment(formVal.POLICY_DUE_DATE).format('DD/MM/YYYY'),
-        // POLICY_DUE_DATE: formVal.POLICY_DUE_DATE,
+        'POLICY_DUE_DATE': (formVal.POLICY_DUE_DATE == '' || formVal.POLICY_DUE_DATE == 'Invalid date') ? policyduedate = '' : policyduedate = moment(formVal.POLICY_DUE_DATE).format('DD/MM/YYYY'),  
         POLICY_NO: formVal.POLICY_NO,
         POLICY_AMT: formVal.POLICY_AMT,
         POLICY_NATURE: formVal.POLICY_NATURE,
@@ -263,7 +259,6 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
         CITY: formVal.CITY,
         PREMIUM: formVal.PREMIUM,
         'PREMIUM_DUE_DATE': (formVal.PREMIUM_DUE_DATE == '' || formVal.PREMIUM_DUE_DATE == 'Invalid date') ? premiumduedate = '' : premiumduedate = moment(formVal.PREMIUM_DUE_DATE).format('DD/MM/YYYY'),
-        // PREMIUM_DUE_DATE: formVal.PREMIUM_DUE_DATE,
         ADDRESS: formVal.ADDRESS,
       };
       this._fire.postData(dataToSend).subscribe(
@@ -273,13 +268,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
-          // let info = []
-          // info.push(data.id)
-          // info.push("firePolicy")
-
-          // this.newItemEvent(info);
-          // // to reload after insertion of data
-          // this.rerender();
+         
         },
         (error) => {
           console.log(error);
@@ -307,52 +296,37 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
-      console.log('scheme',data.AC_TYPE)
-      // this.newItemEvent(dropdown.scheme)
-      
       dropdown.account = data.AC_NO;
-      console.log('account',data.AC_NO)
-      // this.newItemEvent(dropdown.account)
       let obj1 = {
         'AccountType' :data.AC_TYPE,
         'AccountNo': data.AC_NO,
         'SchemeType':data.AC_ACNOTYPE
       }
       this.newfirePolicyEvent.emit(obj1);
-      // this.newfirePolicyEvent.emit(data.AC_NO);
+      
 
       this.updateID = data.id;
-      // this.newItemEvent(data.AC_TYPE.toString());
-      // console.log('account type',data.AC_tYPE);
-      // this.newItemEvent(data.AC_NO.toString());
-      // console.log('account number',data.AC_NO)
+      
       this.scheme=data.AC_TYPE
       this.Accountno=data.AC_NO
-      // console.log(this.scheme)
       this.nginsurance = Number(data.INSU_CO_CODE)
       this.angForm.patchValue({
-        // AC_TYPE: data.AC_TYPE,
-        // AC_NO: data.AC_NO,
+       
         AC_ACNOTYPE: data.AC_ACNOTYPE,
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-        // SUBMISSION_DATE: data.SUBMISSION_DATE,
         'POLICY_DUE_DATE': (data.POLICY_DUE_DATE == 'Invalid date' || data.POLICY_DUE_DATE == '' || data.POLICY_DUE_DATE == null) ? policyduedate = '' : policyduedate = data.POLICY_DUE_DATE,
-        // POLICY_DUE_DATE: data.POLICY_DUE_DATE,
         POLICY_NO: data.POLICY_NO,
         POLICY_AMT: data.POLICY_AMT,
         POLICY_NATURE: data.POLICY_NATURE,
-        // INSU_CO_CODE: data.INSU_CO_CODE,
         CITY: data.CITY,
         PREMIUM: data.PREMIUM,
         'PREMIUM_DUE_DATE': (data.PREMIUM_DUE_DATE == 'Invalid date' || data.PREMIUM_DUE_DATE == '' || data.PREMIUM_DUE_DATE == null) ? premiumduedate = '' : premiumduedate = data.PREMIUM_DUE_DATE,
-        // PREMIUM_DUE_DATE: data.PREMIUM_DUE_DATE,
         ADDRESS: data.ADDRESS,
       });
     });
   }
 
   updateData() {
-    debugger
     let submissiondate
     let policyduedate
     let premiumduedate
@@ -361,7 +335,6 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    
     data["AC_TYPE"]=this.scheme
     data["AC_NO"]=this.Accountno
     if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
@@ -375,11 +348,10 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     
     this._fire.updateData(data).subscribe(() => {
-      console.log(data)
+      
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      // this.addNewCustomer(data.id);
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -416,9 +388,6 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   ngAfterViewInit(): void {
-
-    // this.myInputField.nativeElement.focus();//autofocus
-
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -442,12 +411,10 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   resetForm() {
     this.createForm();
     this.nginsurance = null
-    // this.scheme=null
-    // this.Accountno=null
+   
     let obj1 = {
       'AccountType' : null,
       'AccountNo': null,
-      // 'SchemeType':null
     }
     this.newfirePolicyEvent.emit(obj1);
 

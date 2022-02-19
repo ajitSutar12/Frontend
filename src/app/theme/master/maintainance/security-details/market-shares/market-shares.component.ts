@@ -124,8 +124,7 @@ minDate: Date;
     private http: HttpClient,
     public router: Router
   ) {
-    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
+  
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -250,13 +249,8 @@ minDate: Date;
    let submissiondate
    let releaseddate
     event.preventDefault();
-    this.formSubmitted = true;
-    console.log('scheme', this.scheme)
-    console.log('Accountno', this.Accountno)
-    console.log('Account type', this.AC_ACNOTYPE)
-
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
+      
       
     const formVal = this.angForm.value;
     const dataToSend = {
@@ -264,7 +258,7 @@ minDate: Date;
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
       'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-      // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+      
       CO_CODE: formVal.CO_CODE,
       CO_NAME: formVal.CO_NAME,
       MARKET_VALUE: formVal.MARKET_VALUE,
@@ -272,7 +266,7 @@ minDate: Date;
       SHARES: formVal.SHARES,
       UPDATED_BY: formVal.UPDATED_BY,
       'RELEASE_DATE': (formVal.RELEASE_DATE == '' || formVal.RELEASE_DATE == 'Invalid date') ? releaseddate = '' : releaseddate = moment(formVal.RELEASE_DATE).format('DD/MM/YYYY'),
-      // RELEASE_DATE: formVal.RELEASE_DATE,
+      
       RELEASE_BY: formVal.RELEASE_BY,
     };
     this._marketservice.postData(dataToSend).subscribe(
@@ -282,14 +276,7 @@ minDate: Date;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
-        // let info = []
-        // info.push(data.id)
-        // info.push("marketShare")
-
-        // this.newItemEvent(info);
-        // to reload after insertion of data
-
-        // this.rerender();
+        
       },
       (error) => {
         console.log(error);
@@ -314,15 +301,9 @@ minDate: Date;
       this.updatecheckdata=data
       
   //sending values to parent
-  //sending values to parent
   let dropdown: any = {};
   dropdown.scheme = data.AC_TYPE;
-  console.log('scheme',data.AC_TYPE)
-  // this.newItemEvent(dropdown.scheme)
-  
   dropdown.account = data.AC_NO;
-  console.log('account',data.AC_NO)
-  // this.newItemEvent(dropdown.account)
   let obj1 = {
     'AccountType' :data.AC_TYPE,
     'AccountNo': data.AC_NO,
@@ -333,10 +314,9 @@ minDate: Date;
       this.scheme=data.AC_TYPE
       this.Accountno=data.AC_NO
       this.angForm.patchValue({
-        // AC_TYPE:this.scheme._value[0],
-        // AC_NO:this.Accountno,
+       
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-        // SUBMISSION_DATE: data.SUBMISSION_DATE,
+        
         CO_CODE: data.CO_CODE,
         CO_NAME: data.CO_NAME,
         MARKET_VALUE: data.MARKET_VALUE,
@@ -344,17 +324,16 @@ minDate: Date;
         SHARES: data.SHARES,
         UPDATED_BY: data.UPDATED_BY,
         'RELEASE_DATE': (data.RELEASE_DATE == 'Invalid date' || data.RELEASE_DATE == '' || data.RELEASE_DATE == null) ? releaseddate = '' : releaseddate = data.RELEASE_DATE,
-        // RELEASE_DATE: data.RELEASE_DATE,
+        
         RELEASE_BY: data.RELEASE_BY,
       });
     });
   }
   //check  if margin values are below 100
 checkmargin(ele:any){ 
-  //check  if given value  is below 100
-  console.log(ele);
+  
+  
   if(ele <= 100){
-console.log(ele);
   }
   else{
     Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
@@ -416,7 +395,6 @@ console.log(ele);
     });
   }
   ngAfterViewInit(): void {
-    // this.myInputField.nativeElement.focus();//autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -442,7 +420,6 @@ console.log(ele);
     let obj1 = {
       'AccountType' : null,
       'AccountNo': null,
-      // 'SchemeType':null
     }
     this.newmarketShareEvent.emit(obj1);
   }

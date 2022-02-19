@@ -96,12 +96,7 @@ export class OtherSecurityComponent
     private _security: othersecuritycomponentservice,
     public router: Router
   ) {
-    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
-    // this.maxDate = new Date();
-    // this.minDate = new Date();
-    // this.minDate.setDate(this.minDate.getDate() - 1);
-    // this.maxDate.setDate(this.maxDate.getDate())
+    
 
    }
 
@@ -144,7 +139,7 @@ export class OtherSecurityComponent
           )
           .subscribe((resp) => {
             this.securitymasters = resp.data;
-            console.log("fetch", this.securitymasters);
+           
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -203,20 +198,19 @@ export class OtherSecurityComponent
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
+     
       const formVal = this.angForm.value;
       const dataToSend = {
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
       'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-      // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+     
       SHORT_DETAILS: formVal.SHORT_DETAILS,
       TOTAL_VALUE: formVal.TOTAL_VALUE,
       MARGIN: formVal.MARGIN,
       DETAILS: formVal.DETAILS,
     };
-    console.log("in submit", dataToSend);
     this._security.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -224,13 +218,7 @@ export class OtherSecurityComponent
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
-        // let info = []
-        // info.push(data.id)
-        // info.push("otherSecurity")
-
-        // this.newItemEvent(info);
-        // // to reload after insertion of data
-        // this.rerender();
+        
       },
       (error) => {
         console.log(error);
@@ -245,7 +233,6 @@ export class OtherSecurityComponent
   //function for edit button clicked
   editClickHandler(id: any): void {
     let submissiondate
-    debugger
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
@@ -254,12 +241,9 @@ export class OtherSecurityComponent
      //sending values to parent
      let dropdown: any = {};
      dropdown.scheme = data.AC_TYPE;
-     console.log('scheme',data.AC_TYPE)
-     // this.newItemEvent(dropdown.scheme)
-     
+    
      dropdown.account = data.AC_NO;
-     console.log('account',data.AC_NO)
-     // this.newItemEvent(dropdown.account)
+     
      let obj1 = {
        'AccountType' :data.AC_TYPE,
        'AccountNo': data.AC_NO,
@@ -270,27 +254,23 @@ export class OtherSecurityComponent
      this.scheme=data.AC_TYPE
      this.Accountno=data.AC_NO
         this.updateID = data.id;
-        // console.log(this.updateID)
+        
         this.angForm.patchValue({
-          
-        // AC_TYPE: this.scheme._value[0],
-        // AC_NO: this.Accountno,
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-        // SUBMISSION_DATE: data.SUBMISSION_DATE,
+        
         SHORT_DETAILS: data.SHORT_DETAILS,
         TOTAL_VALUE: data.TOTAL_VALUE,
         MARGIN: data.MARGIN,
-        DETAILS: data.DETAILS,
-        
+        DETAILS: data.DETAILS,  
       });
     });
   }
   //check  if margin values are below 100
   checkmargin(ele: any) {
-    //check  if given value  is below 100
-    console.log(ele);
+   
+    
     if (ele <= 100) {
-      console.log(ele);
+      
     }
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
@@ -304,14 +284,14 @@ export class OtherSecurityComponent
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
-    console.log("updatedata", data)
+    
     data["id"] = this.updateID;
     data["AC_TYPE"]=this.scheme
     data["AC_NO"]=this.Accountno
     if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
       }
-      console.log(data)
+      
     this._security.updateData(data).subscribe(() => {
       
       Swal.fire("Success!", "Record Updated Successfully !", "success");
@@ -350,7 +330,7 @@ export class OtherSecurityComponent
   }
   ngAfterViewInit(): void {
 
-    // this.myInputField.nativeElement.focus();//autofocus
+    
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -376,7 +356,7 @@ export class OtherSecurityComponent
     let obj1 = {
       'AccountType' : null,
       'AccountNo': null,
-      // 'SchemeType':null
+      
     }
     this.newOtherSecurityEvent.emit(obj1);
 

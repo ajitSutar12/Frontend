@@ -1,4 +1,3 @@
-// import { Component, OnInit,ViewChild } from '@angular/core';
 import {
   AfterViewInit,
   Component,
@@ -103,8 +102,7 @@ export class PlantAndMachineryComponent
     private http: HttpClient,
     public router: Router
   ) {
-    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
+    
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -212,19 +210,6 @@ export class PlantAndMachineryComponent
         },
       ],
       dom: "Blrtip",
-
-      // //row click handler code
-      // rowCallback: (row: Node, data: any[] | Object, index: number) => {
-      //   const self = this;
-      //   $('td', row).off('click');
-      //   $('td', row).on('click', '#editbtn', () => {
-      //     self.editClickHandler(data);
-      //   });
-      //   $('td', row).on('click', '#delbtn', () => {
-      //     self.delClickHandler(data);
-      //   });
-      //   return row;
-      // }
     };
   }
   createForm() {
@@ -250,20 +235,20 @@ export class PlantAndMachineryComponent
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
+    
       const formVal = this.angForm.value;
     const dataToSend = {
       AC_TYPE: this.scheme,
       AC_NO: this.Accountno,
       AC_ACNOTYPE: this.AC_ACNOTYPE,
       'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-      // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
+     
       MACHINE_NAME: formVal.MACHINE_NAME,
       MACHINE_TYPE: formVal.MACHINE_TYPE,
       DISTINCTIVE_NO: formVal.DISTINCTIVE_NO,
       SPECIFICATION: formVal.SPECIFICATION,
       'AQUISITION_DATE': (formVal.AQUISITION_DATE == '' || formVal.AQUISITION_DATE == 'Invalid date') ? acquisitiondate = '' : acquisitiondate = moment(formVal.AQUISITION_DATE).format('DD/MM/YYYY'),
-      // AQUISITION_DATE: formVal.AQUISITION_DATE,
+      
       NEW_EQUIPEMENT: formVal.NEW_EQUIPEMENT,
       SUPPLIER_NAME: formVal.SUPPLIER_NAME,
       PURCHASE_PRICE: formVal.PURCHASE_PRICE,
@@ -277,13 +262,7 @@ export class PlantAndMachineryComponent
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
         });
-        // let info = []
-        // info.push(data.id)
-        // info.push("plantMachinary")
-
-        // this.newItemEvent(info);
-        // // to reload after insertion of data
-        // this.rerender();
+        
       },
       (error) => {
         console.log(error);
@@ -298,9 +277,9 @@ export class PlantAndMachineryComponent
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
-    console.log(ele);
+  
     if (ele <= 100) {
-      console.log(ele);
+      
     }
     else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
@@ -321,12 +300,7 @@ export class PlantAndMachineryComponent
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
-      console.log('scheme',data.AC_TYPE)
-      // this.newItemEvent(dropdown.scheme)
-      
       dropdown.account = data.AC_NO;
-      console.log('account',data.AC_NO)
-      // this.newItemEvent(dropdown.account)
       let obj1 = {
         'AccountType' :data.AC_TYPE,
         'AccountNo': data.AC_NO,
@@ -334,25 +308,21 @@ export class PlantAndMachineryComponent
       }
       this.newPlantandMachiEvent.emit(obj1);
       this.updateID = data.id;
-      // this.newItemEvent(data.AC_TYPE.toString());
-      // console.log('account type',data.AC_tYPE);
-      // this.newItemEvent(data.AC_NO.toString());
-      // console.log('account number',data.AC_NO)
+      
       this.scheme=data.AC_TYPE
       this.Accountno=data.AC_NO
         this.angForm.patchValue({
 
-          // AC_TYPE: this.scheme._value[0],
-          // AC_NO: this.Accountno,
+         
           AC_ACNOTYPE: data.AC_ACNOTYPE,
           'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-          // SUBMISSION_DATE: data.SUBMISSION_DATE,
+         
           MACHINE_NAME: data.MACHINE_NAME,
           MACHINE_TYPE: data.MACHINE_TYPE,
           DISTINCTIVE_NO: data.DISTINCTIVE_NO,
           SPECIFICATION: data.SPECIFICATION,
           'AQUISITION_DATE': (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? acquisitiondate = '' : acquisitiondate = data.AQUISITION_DATE,
-          // AQUISITION_DATE: data.AQUISITION_DATE,
+          
           NEW_EQUIPEMENT: data.NEW_EQUIPEMENT,
           SUPPLIER_NAME: data.SUPPLIER_NAME,
           PURCHASE_PRICE: data.PURCHASE_PRICE,
@@ -419,7 +389,6 @@ export class PlantAndMachineryComponent
   }
   ngAfterViewInit(): void {
 
-    // this.myInputField.nativeElement.focus();//for autofocus
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -445,7 +414,7 @@ export class PlantAndMachineryComponent
     let obj1 = {
       'AccountType' : null,
       'AccountNo': null,
-      // 'SchemeType':null
+     
     }
     this.newPlantandMachiEvent.emit(obj1);
   }

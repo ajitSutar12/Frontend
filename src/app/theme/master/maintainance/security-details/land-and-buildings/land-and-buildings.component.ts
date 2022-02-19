@@ -102,8 +102,7 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
     private _land: landandbuildingsService,
     public router: Router
   ) {
-    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-    // console.log(this.datemax);
+    
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -235,15 +234,12 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-      console.log(this.angForm.value); // Process your form
-      
       const formVal = this.angForm.value;
       const dataToSend = {
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-        // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
         VALUE: formVal.VALUE,
         LOCATION: formVal.LOCATION,
         AREA: formVal.AREA,
@@ -252,7 +248,6 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
         REMARK: formVal.REMARK,
         CITY_SURVEY_NO: formVal.CITY_SURVEY_NO,
         'CITY_SURVEY_DATE': (formVal.CITY_SURVEY_DATE == '' || formVal.CITY_SURVEY_DATE == 'Invalid date') ? citysurveydate = '' : citysurveydate = moment(formVal.CITY_SURVEY_DATE).format('DD/MM/YYYY'),
-        // CITY_SURVEY_DATE: formVal.CITY_SURVEY_DATE,
         REG_NO: formVal.REG_NO,
       };
       this._land.postData(dataToSend).subscribe(
@@ -262,13 +257,6 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
-          // to reload after insertion of data
-          // let info = []
-          // info.push(data.id)
-          // info.push("landBuilding")
-
-          // this.newItemEvent(info);
-          // this.rerender();
         },
         (error) => {
           console.log(error);
@@ -282,9 +270,8 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
    //check  if margin values are below 100
 checkmargin(ele:any){ 
   //check  if given value  is below 100
-  console.log(ele);
+  
   if(ele <= 100){
-console.log(ele);
   }
   else{
     Swal.fire("Invalid Input", "Please insert values below 100", "error");
@@ -305,12 +292,9 @@ console.log(ele);
         //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
-      console.log('scheme',data.AC_TYPE)
-      // this.newItemEvent(dropdown.scheme)
       
       dropdown.account = data.AC_NO;
-      console.log('account',data.AC_NO)
-      // this.newItemEvent(dropdown.account)
+      
       let obj1 = {
         'AccountType' :data.AC_TYPE,
         'AccountNo': data.AC_NO,
@@ -320,10 +304,9 @@ console.log(ele);
       this.scheme=data.AC_TYPE
       this.Accountno=data.AC_NO
       this.angForm.patchValue({
-        // AC_TYPE:this.scheme._value[0],
-        // AC_NO:this.Accountno,
+        
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-        // SUBMISSION_DATE: data.SUBMISSION_DATE,
+        
         VALUE: data.VALUE,
         LOCATION: data.LOCATION,
         AREA: data.AREA,
@@ -332,7 +315,7 @@ console.log(ele);
         REMARK: data.REMARK,
         CITY_SURVEY_NO: data.CITY_SURVEY_NO,
         'CITY_SURVEY_DATE': (data.CITY_SURVEY_DATE == 'Invalid date' || data.CITY_SURVEY_DATE == '' || data.CITY_SURVEY_DATE == null) ? citysurveydate = '' : citysurveydate = data.CITY_SURVEY_DATE,
-        // CITY_SURVEY_DATE: data.CITY_SURVEY_DATE,
+        
         REG_NO: data.REG_NO,
       });
     });
@@ -393,7 +376,7 @@ console.log(ele);
     });
   }
   ngAfterViewInit(): void {
-    // this.myInputField.nativeElement.focus();//for autofocus
+    
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -419,7 +402,7 @@ console.log(ele);
     let obj1 = {
       'AccountType' : null,
       'AccountNo': null,
-      // 'SchemeType':null
+      
     }
     this.newLandBuldingEvent.emit(obj1);
   }
