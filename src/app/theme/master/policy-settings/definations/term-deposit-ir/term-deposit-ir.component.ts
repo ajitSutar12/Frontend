@@ -51,7 +51,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   //api 
-  
+
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -80,8 +80,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   filterForm: FormGroup;
 
   // for dropdown ngmodule
-  ngscheme:any=null
-  ngintcat:any=null
+  ngscheme: any = null
+  ngintcat: any = null
   // Variables for hide/show add and update and new button
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -103,21 +103,21 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
   //for date 
   datemax: any;
-  effectdate:any=null
+  effectdate: any = null
   maxDate: Date;
   minDate: Date;
 
   //scheme dropdown variables
   //Scheme type variable
-  
-  schemeType: string = 'SB'
+
+  schemeType: string = 'TD'
   timeLeft = 5;
   private dataSub: Subscription = null;
   delbtn: boolean;
   interestcategory: any[];
   scheme: any[];
-   
-    
+
+
   constructor(
     private http: HttpClient,
     private termDepositInterestRateService: TermDepositInterestRateService,
@@ -126,14 +126,14 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     private systemParameter: SystemMasterParametersService,
     private fb: FormBuilder,
     private config: NgSelectConfig,) {
-      // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-      // console.log(this.datemax);
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-    
-     }
+
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -170,6 +170,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
             this.url + '/interest-rate-for-term-deposit',
             dataTableParameters
           ).subscribe(resp => {
+            console.log(resp.data)
             this.termDepositInterestRate = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -198,10 +199,16 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     };
 
     this.runTimer();
-    
+
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      this.scheme = data;
+   
+      var filtered = data.filter(function (scheme) {
+
+        return (scheme.id == 'TD');
+      });
+      this.scheme = filtered;
+      // this.scheme = data;
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;
@@ -233,61 +240,61 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   // Method to insert data into database through NestJS
   submit() {
     let effectdate
-    if(this.multiField.length!=0){    
-    this.formSubmitted = true;
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
-      //'EFFECT_DATE': formVal.EFFECT_DATE,
-      'ACNOTYPE': formVal.ACNOTYPE,
-      'INT_CATEGORY': formVal.INT_CATEGORY,
-      'FieldData': this.multiField,
+    if (this.multiField.length != 0) {
+      this.formSubmitted = true;
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
+        //'EFFECT_DATE': formVal.EFFECT_DATE,
+        'ACNOTYPE': formVal.ACNOTYPE,
+        'INT_CATEGORY': formVal.INT_CATEGORY,
+        'FieldData': this.multiField,
+      }
+      this.termDepositInterestRateService.postData(dataToSend).subscribe(data1 => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.multiField = []
     }
-    this.termDepositInterestRateService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.formSubmitted = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
-    //To clear form
-    this.resetForm();
-    this.multiField = []
-  }
-  else{
-    Swal.fire(
-      'Info',
-      'Please Input Slab Details ',
-      'info'
+    else {
+      Swal.fire(
+        'Info',
+        'Please Input Slab Details ',
+        'info'
       )
-  }
-  
+    }
+
 
   }
-  updatecheckdata:any
+  updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
-  
+
     let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.addShowButton = true
     this.termDepositInterestRateService.getFormData(id).subscribe(data => {
-      
-      this.updatecheckdata=data
+
+      this.updatecheckdata = data
       console.log("edit", data)
       this.multiField = data.rate
       this.updateID = data.id;
 
       //after clicking edit to get value in dropdown
-      this.ngscheme=Number(data.ACNOTYPE)
-      this.ngintcat=Number(data.INT_CATEGORY)
+      this.ngscheme = Number(data.ACNOTYPE)
+      this.ngintcat = Number(data.INT_CATEGORY)
       console.log(this.ngscheme)
       this.angForm.patchValue({
-        
+
         'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
         //'EFFECT_DATE': data.EFFECT_DATE,
         // ngscheme:data.ACNOTYPE,
@@ -329,9 +336,9 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
     let from = Number((document.getElementById("Formdays") as HTMLInputElement).value);
     let to = Number((document.getElementById("todays") as HTMLInputElement).value);
-    if(to != 0){
+    if (to != 0) {
       if (from > to) {
-        Swal.fire(  
+        Swal.fire(
           'Warning!',
           'From Days Should Be Less Than To Days',
           'warning'
@@ -339,15 +346,15 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
         (document.getElementById("todays") as HTMLInputElement).value = ""
       }
     }
-   
-  } 
+
+  }
   compareamountmonths() {
 
     let from = Number((document.getElementById("FROM_months") as HTMLInputElement).value);
     let to = Number((document.getElementById("TO_months") as HTMLInputElement).value);
-    if(to != 0){
+    if (to != 0) {
       if (from > to) {
-        Swal.fire(  
+        Swal.fire(
           'Warning!',
           'From Months Should Be Less Than To Months',
           'warning'
@@ -355,43 +362,43 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
         (document.getElementById("TO_months") as HTMLInputElement).value = ""
       }
     }
-   
-  } 
+
+  }
 
   //check  if percentage  is below 100
-  checkmargin(ele:any){ 
+  checkmargin(ele: any) {
     //check  if given value  is below 100
     console.log(ele);
-    if(ele <= 100){
-  console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
     }
-    else{
+    else {
       Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
     }
   }
   //disabledate on keyup
-  disabledate(data:any){
-    
+  disabledate(data: any) {
+
     console.log(data);
-    if(data != ""){
-      if(data > this.datemax){
+    if (data != "") {
+      if (data > this.datemax) {
         Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
-        (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
-            
+        (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
+
       }
-    } 
-  }
-    //set open date, appointed date and expiry date
-    getSystemParaDate() {
-      this.systemParameter.getFormData(1).subscribe(data => {
-        let date1 = moment(data.CURRENT_DATE).format('DD/MM/YYYY');
-        this.angForm.patchValue({
-          AC_OPDATE: data.CURRENT_DATE,
-          DATE_APPOINTED: data.CURRENT_DATE,
-          DATE_EXPIRY: data.CURRENT_DATE
-        })
-      })
     }
+  }
+  //set open date, appointed date and expiry date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let date1 = moment(data.CURRENT_DATE).format('DD/MM/YYYY');
+      this.angForm.patchValue({
+        AC_OPDATE: data.CURRENT_DATE,
+        DATE_APPOINTED: data.CURRENT_DATE,
+        DATE_EXPIRY: data.CURRENT_DATE
+      })
+    })
+  }
   // //disable input fields 
   // disableinput() {
   //   this.fromdays = (document.getElementById("Formdays") as HTMLInputElement);
@@ -426,8 +433,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     console.log("updatedata", data)
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField;
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
-    (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
+    if (this.updatecheckdata.EFFECT_DATE != data.EFFECT_DATE) {
+      (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
     }
     this.termDepositInterestRateService.updateData(data).subscribe(() => {
       console.log("update", data)
@@ -513,8 +520,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngscheme=null
-    this.ngintcat=null
+    this.ngscheme = null
+    this.ngintcat = null
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
@@ -530,29 +537,28 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     });
   }
 
-  addField() { 
-    
+  addField() {
+
     let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
     let penint = (document.getElementById("PENAL_INT_RATE") as HTMLInputElement).value;
-    if(penint == ""){
+    if (penint == "") {
       Swal.fire(
         'Info',
         'Please Input Panel Interest Rate',
         'info'
       )
     }
-    if(intrate == ""){
+    if (intrate == "") {
 
       Swal.fire(
         'Info',
         'Please Input Interest Rate ',
         'info'
       )
-        
+
     }
-    
-    if(intrate!="" && penint != "")
-    {
+
+    if (intrate != "" && penint != "") {
       const formVal = this.angForm.value;
       var object = {
         FROM_DAYS: formVal.FROM_DAYS,
@@ -564,10 +570,10 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       }
       this.multiField.push(object);
       console.log(this.multiField)
-      
+
       this.resetField()
     }
-    
+
   }
   resetField() {
     this.angForm.controls['FROM_DAYS'].reset();
@@ -602,7 +608,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     this.intID = this.multiField[id].id;
     this.addShowButton = false;
     this.UpdateShowButton = true;
-    this.delbtn=false;
+    this.delbtn = false;
     this.angForm.patchValue({
       FROM_DAYS: this.multiField[id].FROM_DAYS,
       FROM_MONTHS: this.multiField[id].FROM_MONTHS,

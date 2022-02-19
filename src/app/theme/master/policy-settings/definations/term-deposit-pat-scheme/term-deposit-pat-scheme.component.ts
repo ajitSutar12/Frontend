@@ -89,11 +89,11 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   days: any;
   months: any;
 
-  ngscheme:any=null
-  ngintcat:any=null
+  ngscheme: any = null
+  ngintcat: any = null
   //for date 
   datemax: any;
-  effectdate:any=null
+  effectdate: any = null
   maxDate: Date;
   minDate: Date;
 
@@ -157,6 +157,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
             this.url + '/pat-scheme-interest-rates',
             dataTableParameters
           ).subscribe(resp => {
+            console.log(resp.data)
             this.termDepositPatScheme = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -203,7 +204,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       INT_CATEGORY: ['', [Validators.required]],
       MONTHS: ['', [Validators.pattern]],
       DAYS: ['', [Validators.pattern]],
-      INT_RATE: ['', [ Validators.pattern]],
+      INT_RATE: ['', [Validators.pattern]],
 
     });
   }
@@ -221,7 +222,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   }
 
   // if value present in datatable
- 
+
 
 
 
@@ -229,61 +230,61 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   // Method to insert data into database through NestJS
   submit() {
     let effectdate
-    if(this.multiField.length!=0){
+    if (this.multiField.length != 0) {
       this.formSubmitted = true;
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
-      //'EFFECT_DATE': formVal.EFFECT_DATE,
-      'AC_TYPE': formVal.AC_TYPE,
-      'INT_CATEGORY': formVal.INT_CATEGORY,
-      'FieldData': this.multiField,
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        'EFFECT_DATE': (formVal.EFFECT_DATE == '' || formVal.EFFECT_DATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
+        //'EFFECT_DATE': formVal.EFFECT_DATE,
+        'AC_TYPE': formVal.AC_TYPE,
+        'INT_CATEGORY': formVal.INT_CATEGORY,
+        'FieldData': this.multiField,
+      }
+      this.termDepositPatSchemeService.postData(dataToSend).subscribe(data1 => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.multiField = []
     }
-    this.termDepositPatSchemeService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.formSubmitted = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
-    //To clear form
-    this.resetForm();
-    this.multiField = []
-  }
-  else{
-    Swal.fire(
-      'Info',
-      'Please Input Slab Details ',
-      'info'
+    else {
+      Swal.fire(
+        'Info',
+        'Please Input Slab Details ',
+        'info'
       )
-  }
-    
+    }
+
   }
   tableButton: boolean = true
-  updatecheckdata:any
+  updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
-    
+
     let effectdate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.addShowButton = true
 
-   
+
     this.termDepositPatSchemeService.getFormData(id).subscribe(data => {
-      this.updatecheckdata=data
-      
+      this.updatecheckdata = data
+
       this.multiField = data.rate
       this.updateID = data.id;
-       
+
       //after clicking edit to get value in dropdown
-       this.ngscheme=Number(data.AC_TYPE)
-       this.ngintcat=Number(data.INT_CATEGORY)
+      this.ngscheme = Number(data.AC_TYPE)
+      this.ngintcat = Number(data.INT_CATEGORY)
       this.angForm.patchValue({
-        
+
         'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
         //'EFFECT_DATE': data.EFFECT_DATE,
         // 'AC_TYPE': data.AC_TYPE,
@@ -298,9 +299,9 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     let data = this.angForm.value;
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+    if (this.updatecheckdata.EFFECT_DATE != data.EFFECT_DATE) {
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
-      }
+    }
     this.termDepositPatSchemeService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -427,8 +428,8 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngscheme=null
-    this.ngintcat=null
+    this.ngscheme = null
+    this.ngintcat = null
   }
 
   ngOnDestroy(): void {

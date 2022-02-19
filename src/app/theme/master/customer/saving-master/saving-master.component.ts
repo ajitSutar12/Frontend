@@ -720,7 +720,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit(event) {
-    debugger
     let temdate
     let opdate
     event.preventDefault();

@@ -69,7 +69,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
   // Variables for search 
   filterObject: { name: string; type: string; }[];
   filter: any;
-  ngbranchcode:any=null
+  ngbranchcode: any = null
   filterForm: FormGroup;
   // Variables for hide/show add and update button
   showButton: boolean = true;
@@ -130,6 +130,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
             this.url + '/salary-division-master',
             dataTableParameters
           ).subscribe(resp => {
+            console.log(resp.data)
             this.salarymasters = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -152,32 +153,19 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
         {
           title: 'Code',
           data: 'CODE'
-        }, {
+        },
+        {
           title: 'Full Name',
           data: 'NAME'
-        }, {
-          title: 'Short Name',
-          data: 'SHORT_NAME'
-        }, {
-          title: 'At Post',
-          data: 'AT_POST'
-        }, {
-          title: 'Taluka Name',
-          data: 'TALUKA_NAME'
-        }, {
+        },
+        {
           title: 'District Name',
           data: 'DISTRICT_NAME'
         },
         {
           title: 'Branch Code',
           data: 'BRANCH_CODE'
-        }, {
-          title: 'Telephone(R)',
-          data: 'PHNO'
-        }, {
-          title: 'Telephone(Mob)',
-          data: 'MOBNO'
-        }
+        },
       ], dom: 'Blrtip',
     };
 
@@ -233,6 +221,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
     this.updateShow = true;
     this.newbtnShow = true;
     this.salaryDivisionService.getFormData(id).subscribe(data => {
+      console.log(data)
       this.updateID = data.id;
       this.angForm.setValue({
         'CODE': data.CODE,
@@ -263,7 +252,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
       this.resetForm();
     })
   }
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -334,6 +323,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngbranchcode= null
   }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

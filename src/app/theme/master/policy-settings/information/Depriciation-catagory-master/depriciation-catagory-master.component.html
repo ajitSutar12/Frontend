@@ -15,8 +15,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="footer-email" class="form-control" placeholder=" "
-                                        id="Code" pattern="^[0-9]+$" disabled
-                                        title="Input allowed only  0-9" formControlName="CODE">
+                                        id="Code" pattern="^[0-9]+$" disabled title="Input allowed only  0-9"
+                                        formControlName="CODE">
                                     <label for="Code">Code</label>
                                 </span>
                             </div>
@@ -26,15 +26,17 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="NAME" class="form-control" placeholder=" " id="Description"
-                                    #autofocus  required=""  pattern="^[A-Za-z\./ -]+$" maxlength="100"
-                                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                                        title="Input allowed only  A-Z a-z  - / . (Space)"
-                                        formControlName="NAME">
+                                        #autofocus required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                        title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
                                     <label for="Description">Description<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['NAME'].invalid && (angForm.controls['NAME'].dirty || angForm.controls['NAME'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required || angForm.controls['NAME'].errors?.maxlength">
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['NAME'].invalid && (angForm.controls['NAME'].dirty || angForm.controls['NAME'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required || angForm.controls['NAME'].errors?.maxlength">
                                     This field is required and Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>
@@ -42,8 +44,9 @@
                         <div class="col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
-                                    <ng-select bindValue="value" bindLabel="label" [(ngModel)]="ngAcNo" id="AC_NO" formControlName="AC_NO"
-                                        title="Compulsory Selection" placeholder="Account Number">
+                                    <ng-select bindValue="value" bindLabel="label" [(ngModel)]="ngAcNo" id="AC_NO"
+                                        formControlName="AC_NO" title="Compulsory Selection"
+                                        placeholder="Account Number">
                                         <ng-option *ngFor="let values of acno" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -65,15 +68,18 @@
                                 </div>
                             </div> -->
                         </div>
-                        
+
                     </div>
                     <div class="row">
-                        
+
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" [disabled]="angForm.invalid" *ngIf="updateShow">Update</button> &nbsp;
-                            
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
+                                [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
+                                (click)="addNewData()">Cancel</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                [disabled]="angForm.invalid" *ngIf="updateShow">Update</button> &nbsp;
+
                         </div>
                     </div>
 
@@ -90,16 +96,18 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
+                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions"
+                                [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="descriptionCategoryMasters?.length != 0">
                                     <tr *ngFor="let data of descriptionCategoryMasters">
-                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                                            placement="bottom" ngbTooltip="Edit"></span> &nbsp;
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit"></span> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-                                        <td  class="td_right">{{ data.CODE }}</td>
+                                        <td class="td_right">{{ data.CODE }}</td>
                                         <td>{{ data.NAME }}</td>
-                                        <td  class="td_right">{{ data.AC_NO }}</td>
+                                        <!-- <td  class="td_right">{{ data.AC_NO }}</td> -->
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="descriptionCategoryMasters?.length == 0">
@@ -110,10 +118,11 @@
                                 <tfoot #filters class="filters">
                                     <tr class="testing">
                                         <th class="testing"></th>
-                                        <th><input type="text" class="form-control" name="search-CODE">
-                                            <th><input type="text" class="form-control" name="search-NAME">
-                                                <th><input type="text" class="form-control" name="search-AC_NO">
-                                                </th>
+                                        <th><input type="text" class="form-control" name="search-CODE"></th>
+                                        <th><input type="text" class="form-control" name="search-NAME"></th>
+
+                                        <!-- <th><input type="text" class="form-control" name="search-AC_NO"> -->
+                                        <!-- </th> -->
                                     </tr>
                                 </tfoot>
                             </table>

@@ -46,7 +46,7 @@
                                     formControlName="CATEGORY" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Category Code">
                                     <ng-option *ngFor="let values of category" [value]="values">
-                                      {{values.label}}</ng-option>
+                                        {{values.name}} {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="CATEGORY">Category Code<sub class="required"> * </sub></label>
                                 </span>
@@ -104,7 +104,7 @@
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
                                         <td class="td_right">{{ data.EFFECT_DATE }}</td>
-                                        <td>{{ data.CATEGORY }}</td>
+                                        <td>{{ data.decategory.NAME }}</td>
                                         <td class="td_right">{{ data.DEPR_RATE }}</td>
                                     </tr>
                                 </tbody>

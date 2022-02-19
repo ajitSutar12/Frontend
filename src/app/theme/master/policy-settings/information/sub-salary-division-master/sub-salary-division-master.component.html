@@ -33,7 +33,7 @@
                                     formControlName="SAL_CODE" bindLabel="label" title="Compulsory Selection" (selected)="checkId(id)"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Division Code">
                                     <ng-option *ngFor="let values of division" [value]="values">
-                                      {{values.label}}</ng-option>
+                                        {{values.name}} {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="SAL_CODE">Division Code<sub class="required"> * </sub></label>
                                 </span>
@@ -190,15 +190,9 @@
                                             placement="bottom" ngbTooltip="Edit"></span>&nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
-                                        <td class="td_right">{{ data.SAL_CODE }}</td>
                                         <td class="td_right">{{ data.CODE }}</td>
+                                        <td class="td_right">{{ data.sub?.NAME }}</td>
                                         <td>{{ data.NAME }}</td>
-                                        <td>{{data.AT_POST}}</td>
-                                        <td>{{data.TALUKA_NAME}}</td>
-                                        <td>{{data.DISTRICT_NAME}}</td>
-                                        <td>{{data.AC_EMAILID}}</td>
-                                        <td class="td_right">{{data.PHNO}}</td>
-                                        <td class="td_right">{{data.MOBNO}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="subsalarymasters?.length == 0">
@@ -209,15 +203,9 @@
                                 <tfoot #filters class="filters">
                                     <tr class="testing">
                                         <th class="testing"></th>
-                                        <th><input type="text" class="form-control" name="Division_Code"></th>
                                         <th><input type="text" class="form-control" name="Sub_Code"></th>
+                                        <th><input type="text" class="form-control" name="Division_Code"></th>
                                         <th><input type="text" class="form-control" name="NAME"></th>
-                                        <th><input type="text" class="form-control" name="At-Post"></th>
-                                        <th><input type="text" class="form-control" name="Taluka_Name"></th>
-                                        <th><input type="text" class="form-control" name="District_Name"></th>
-                                        <th><input type="text" class="form-control" name="Email_ID"></th>
-                                        <th><input type="text" class="form-control" name="Telephone"></th>
-                                        <th><input type="text" class="form-control" name="MOBNO"></th>
                                     </tr>
                                 </tfoot>
                             </table>

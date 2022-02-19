@@ -102,7 +102,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.page = dataTableParameters.start / dataTableParameters.length;
 
         dataTableParameters.columns.forEach(element => {
-          debugger
+   
           if (element.search.value != '') {
             let string = element.search.value;
             this.filterData[element.data] = string;
@@ -110,7 +110,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             let getColumnName = element.data;
             let columnValue = element.value;
             if (this.filterData.hasOwnProperty(element.data)) {
-              debugger
+           
               let value = this.filterData[getColumnName];
               if (columnValue != undefined || value != undefined) {
                 delete this.filterData[element.data];

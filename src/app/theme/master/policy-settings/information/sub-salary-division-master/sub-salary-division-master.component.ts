@@ -64,7 +64,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
   active = 1;
   activeKeep = 1;
   // Variables for search 
-  ngdivcode:any=null
+  ngdivcode: any = null
   filterObject: { name: string; type: string; }[];
   filter: any;
   filterForm: FormGroup;
@@ -77,7 +77,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
   id: string = '';
   // column filter 
   filterData = {};
-  division= []
+  division = []
   constructor(
     private http: HttpClient,
     private subSalaryDivisionService: SubSalaryService,
@@ -125,6 +125,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
             this.url + '/sub-salary-division-master',
             dataTableParameters
           ).subscribe(resp => {
+            console.log(resp.data)
             this.subsalarymasters = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -133,7 +134,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
             });
           });
       },
-     
+
       columns: [
         {
           title: 'Action',
@@ -142,36 +143,17 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
           }
         },
         {
-          title: 'Division Code',
-          data: 'SAL_CODE'
-        }, {
           title: 'Sub Code',
           data: 'CODE'
-        }, {
+        },
+        {
+          title: 'Division Code',
+          data: 'SAL_CODE'
+        },
+        {
           title: 'Name',
           data: 'NAME'
-        }, {
-          title: 'At-Post',
-          data: 'AT_POST'
-        }, {
-          title: 'Taluka Name',
-          data: 'TALUKA_NAME'
-        }, {
-          title: 'District Name',
-          data: 'DISTRICT_NAME'
-        },
-        {
-          title: 'Email ID',
-          data: 'AC_EMAILID'
-        },
-        {
-          title: 'Telephone(R)',
-          data: 'PHNO'
-        },
-        {
-          title: 'Telephone(Mob)',
-          data: 'MOBNO'
-        },
+        }
       ],
       dom: 'Blrtip',
     };
@@ -229,6 +211,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
     this.updateShow = true;
     this.newbtnShow = true;
     this.subSalaryDivisionService.getFormData(id).subscribe(data => {
+      console.log(data)
       this.updateID = data.id;
       this.angForm.setValue({
         'SAL_CODE': data.SAL_CODE,
@@ -323,6 +306,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngdivcode = null
   }
 
   rerender(): void {
@@ -333,16 +317,16 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
       this.dtTrigger.next();
     });
   }
-  value = 0; 
- checkId(id){
-  
-  this.subSalaryDivisionService.getFormData(id).subscribe(data => {
-    if(data.CODE == null){
-      this.angForm.setValue({
-        'CODE': this.value + 1
-      })
-    }
-  })
+  value = 0;
+  checkId(id) {
+
+    this.subSalaryDivisionService.getFormData(id).subscribe(data => {
+      if (data.CODE == null) {
+        this.angForm.setValue({
+          'CODE': this.value + 1
+        })
+      }
+    })
 
   }
 }

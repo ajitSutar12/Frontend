@@ -328,7 +328,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
 
   // Method to insert data into database through NestJS
   submit() {
-    debugger
     this.formSubmitted = true;
     let purchase
     let purchase1

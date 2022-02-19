@@ -302,6 +302,7 @@ export class VoucherEntryComponent implements OnInit {
 
   //submit Form
   submit(){
+    debugger
     let user   = JSON.parse(localStorage.getItem('user'));
     let obj    = this.angForm.value;
     obj['user']= user;

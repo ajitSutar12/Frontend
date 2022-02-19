@@ -72,14 +72,17 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <!-- <span class="border-lable-flt"> -->
-                                   
-                                    <span class="border-lable-flt">
-                                        <ng-select [(ngModel)]="selectedCode" formControlName="AC_ACNOTYPE"   [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type" (change)="selectedSchemeCode()">
-                                            <ng-option *ngFor="let item of schemeType" [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
-                                        </ng-select>
-                                        <label for="AC_ACNOTYPE">Scheme Type<sub class="required">*</sub></label>
-                                    </span>
-                                    <!-- <ng-select id="AC_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
+
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedCode" formControlName="AC_ACNOTYPE" bindValue="id"
+                                        bindLabel="S_ACNOTYPE" [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="Scheme Type" (change)="selectedSchemeCode()">
+                                        <ng-option *ngFor="let item of schemeType" [value]="item.S_ACNOTYPE">
+                                            {{item.S_ACNOTYPE}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_ACNOTYPE">Scheme Type<sub class="required">*</sub></label>
+                                </span>
+                                <!-- <ng-select id="AC_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Scheme Type">
@@ -108,12 +111,12 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_TYPE" [(ngModel)]="ngscheme"
-                                        formControlName="AC_TYPE" title="Compulsory Selection"
+                                    <ng-select id="AC_TYPE" [(ngModel)]="ngscheme" formControlName="AC_TYPE"
+                                        title="Compulsory Selection" bindValue="value" bindLabel="label"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getIntroducer()"
                                         required placeholder="Scheme Code">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
-                                            {{values.S_APPL}} {{values.S_NAME}}</ng-option>
+                                            {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
                                     <label for="AC_TYPE">Scheme Code<sub class="required"> * </sub></label>
                                 </span>
@@ -130,14 +133,14 @@
                         <div class="col-md">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_NO" [(ngModel)]="ngacno"
-                                        formControlName="AC_NO" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getIntroducer()"
-                                        required placeholder="Account Number">
+                                    <ng-select id="AC_NO" [(ngModel)]="ngacno" bindValue="value" formControlName="AC_NO"
+                                        title="Compulsory Selection" bindLabel="label"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="Account Number">
                                         <ng-option *ngFor="let values of account" [value]="values">
-                                            {{values.S_APPL}} {{values.S_NAME}}</ng-option>
+                                            {{values.value}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_TYPE">Scheme Code<sub class="required"> * </sub></label>
+                                    <label for="AC_NO">Account Number<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <!-- <div class="form-group input-group">
@@ -205,8 +208,8 @@
                                         <td class="td_left"
                                             [ngClass]="data.AC_ACNOTYPE === '' ? 'td_center' : 'td_left'">
                                             {{data.AC_ACNOTYPE === ''? '-' : data.AC_ACNOTYPE}}</td>
-                                        <td class="td_left" [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_left'">
-                                            {{data.AC_TYPE === ''? '-' : data.AC_TYPE}}</td>
+                                        <td class="td_right" [ngClass]="data.AC_TYPE === '' ? 'td_center' : 'td_right'">
+                                            {{data.company?.S_APPL === ''? '-' : data.company?.S_APPL}}</td>
 
                                         <td class="td_right" [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_NO === ''? '-' : data.AC_NO}}</td>

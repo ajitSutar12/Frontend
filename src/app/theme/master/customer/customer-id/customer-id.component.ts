@@ -433,7 +433,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Method to insert data into database through NestJS
   submit(event) {
-    debugger
     let birthdate
     let submitdate
     event.preventDefault();

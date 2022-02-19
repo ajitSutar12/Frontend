@@ -84,7 +84,6 @@ export class DividendTransferEntryComponent implements OnInit {
     })
     // console.log(this.scheme[0].value)
     // this._schemeAccountNoService.getShareSchemeList2(this.scheme[0].value).subscribe(data => {
-    //   debugger
     //   console.log('data', data)
     //   this.memnoACNo = data;
     // })
@@ -123,7 +122,7 @@ export class DividendTransferEntryComponent implements OnInit {
   updateDataPyatrans() {
     this.showButton = true;
     this.updateShow = false;
-    debugger
+    
     let data = this.angForm.value;
     data['AC_TYPE'] = this.schemeDT
     data['AC_NO'] = Number(this.updatememno)
@@ -155,7 +154,7 @@ console.log(this.memValue)
   }
   //get account no according scheme for dividend transfer
   getDiviTransfer() {
-    debugger
+
     this.obj = [this.ngDivACType, this.ngBranchCode]
     switch (this.getschemename) {
 

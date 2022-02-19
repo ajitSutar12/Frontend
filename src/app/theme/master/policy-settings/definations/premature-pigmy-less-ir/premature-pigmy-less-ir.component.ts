@@ -15,6 +15,8 @@ import { IOption } from 'ng-select';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { first } from 'rxjs/operators';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -84,14 +86,14 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   ngschemetype:any=null
 
   //title select variables
-  schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
-
+  // schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
+  schemeType: string = 'TD'
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
   selectedCharacter = '3';
   timeLeft = 5;
-
+  scheme: any[]
   private dataSub: Subscription = null;
   //for date 
   datemax: any;
@@ -102,6 +104,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     private http: HttpClient,
     private fb: FormBuilder,
     // for dropdown
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+
     public SchemeTypes: SchemeTypeDropdownService,
     private prematurePigmyService: PrematurePigmyService,
     private config: NgSelectConfig,) {
@@ -176,6 +180,15 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       ],
       dom: 'Blrtip',
     };
+    
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+      var filtered = data.filter(function (scheme) {
+
+        return (scheme.id == 'TD');
+      });
+      this.scheme = filtered;
+      // this.scheme = data;
+    })
     this.createForm();
   }
   createForm() {
@@ -245,7 +258,6 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     this.newbtnShow = true;
     this.addShowButton = true
     this.prematurePigmyService.getFormData(id).subscribe(data => {
-      debugger
       this.updatecheckdata=data
       console.log("edit", data)
       this.multiField = data.rate

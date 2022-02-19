@@ -37,7 +37,7 @@ export class TermemeDepositeSchMasterDropdownService {
                     console.log(element)
                     //  if (element.INTEREST_RULE == ){
                     if (element.INTEREST_RULE== "Compounding") {
-                        let obj = { label: element.S_ACNOTYPE + ' ' + element.S_APPL, value: element.id };
+                        let obj = { label: element.S_APPL + ' ' + element.S_ACNOTYPE, value: element.id };
                         this.TermDepositschemeMasterObject.push(obj)
                         // }
                     }

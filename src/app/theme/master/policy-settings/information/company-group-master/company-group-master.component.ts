@@ -150,6 +150,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
             this.url + '/company-group-master',
             dataTableParameters
           ).subscribe(resp => {
+            console.log(resp.data)
             this.companyGroupMaster = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -227,6 +228,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   // Method to insert data into database through NestJS
   submit() {
+
     this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
@@ -264,17 +266,19 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     this.updateShow = true;
     this.newbtnShow = true;
     this.companyGroupMasterService.getFormData(id).subscribe(data => {
+  
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.selectedCode = data.AC_ACNOTYPE,
+        this.selectedSchemeCode()
+      this.ngscheme = data.AC_TYPE,
+        this.getIntroducer();
+      this.ngacno = Number(data.AC_NO),
+        this.angForm.patchValue({
 
-        'COMP_CODE': data.COMP_CODE,
-        'NAME': data.NAME,
-        'ADDRESS': data.ADDRESS,
-        'AC_ACNOTYPE': data.AC_ACNOTYPE,
-        'AC_TYPE': data.AC_TYPE,
-        'AC_NO': data.AC_NO,
-
-      })
+          'COMP_CODE': data.COMP_CODE,
+          'NAME': data.NAME,
+          'ADDRESS': data.ADDRESS,
+        })
     })
   }
 
@@ -362,6 +366,9 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   // Reset Function
   resetForm() {
     this.createForm();
+    this.selectedCode = null
+    this.ngscheme = null
+    this.ngacno = null
   }
 
   rerender(): void {
@@ -374,103 +381,110 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   selectedSchemeCode() {
-    debugger
+
     this.scheme = [];
     this.master.forEach(element => {
-      debugger
+  
       if (element.S_ACNOTYPE == this.selectedCode) {
-        debugger
-        this.scheme.push(element)
+ 
+
+        let obj = { label: element.S_APPL, value: element.id, name: element.S_NAME };
+        this.scheme.push(obj)
+
+
       }
     });
   }
 
   acno: any = null
   obj: any
-  account:any[]
-  ngacno:any
+  account: any[]
+  ngacno: any
+
   //get account no according scheme for introducer
   getIntroducer() {
-    debugger
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
+    let data1: any = localStorage.getItem('user');
+    let result = JSON.parse(data1);
     let branchCode = result.branch.id;
-    this.obj = [this.acno, branchCode]
+    let scheme = this.ngscheme
+    this.obj = [scheme, branchCode]
+    this.ngacno = null
     switch (this.selectedCode) {
       case 'SB':
         this._schemeService.getSavingSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-          this.ngacno = null
+          console.log(this.account)
+         
         })
         break;
 
       case 'SH':
         this._schemeService.getShareSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-          this.ngacno = null
+         
         })
         break;
 
       case 'CA':
         this._schemeService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-          this.ngacno = null
+         
         })
         break;
 
       case 'LN':
         this._schemeService.getTermLoanSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-          this.ngacno = null
+         
         })
         break;
 
       case 'TD':
         this._schemeService.getTermDepositSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-          this.ngacno = null
+         
         })
         break;
 
       case 'DS':
         this._schemeService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-          this.ngacno = null
+         
         })
         break;
 
       case 'CC':
         this._schemeService.getCashCreditSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-          this.ngacno = null
+         
         })
         break;
 
       case 'GS':
         this._schemeService.getAnamatSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-          this.ngacno = null
+         
         })
         break;
 
       case 'PG':
         this._schemeService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-          this.ngacno = null
+         
         })
         break;
 
       case 'AG':
         this._schemeService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-          this.ngacno = null
+         
         })
         break;
 
       case 'IV':
         this._schemeService.getInvestmentSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-          this.ngacno = null
+         
         })
         break;
     }

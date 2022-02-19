@@ -144,10 +144,10 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
           title: 'Description',
           data: 'NAME'
         },
-        {
-          title: 'Account No.',
-          data: 'AC_NO'
-        },
+        // {
+        //   title: 'Account No.',
+        //   data: 'AC_NO'
+        // },
       ],
       dom: 'Blrtip',
     };

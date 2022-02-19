@@ -143,7 +143,7 @@ export class DocumentMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   // Method to insert data into database through NestJS
-  submit() {debugger
+  submit() {
     const formVal = this.angForm.value;
     const dataToSend = {
       'CODE': formVal.CODE,

@@ -69,7 +69,7 @@
                                     formControlName="SIZE_SR_NO" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Locker Size">
                                     <ng-option *ngFor="let values of lockerMaster" [value]="values">
-                                      {{values.label}}</ng-option>
+                                        {{values.name}} {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="SIZE_SR_NO">Locker Size<sub class="required"> * </sub></label>
                                 </span>
@@ -116,7 +116,7 @@
                                         <td class="td_right">{{ data.RACK_NO}}</td>
                                         <td class="td_right">{{ data.LOCKER_NO}}</td>
                                         <td class="td_right">{{ data.KEY_NO}}</td>
-                                        <td class="td_right">{{ data.SIZE_SR_NO}}</td>
+                                        <td class="td_right">{{ data.rack.SIZE_NAME}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="lockerRackWiseMaster?.length == 0">

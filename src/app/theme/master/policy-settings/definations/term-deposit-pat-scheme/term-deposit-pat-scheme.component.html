@@ -157,7 +157,7 @@
                                                     <tr *ngFor="let data of multiField; let indexOfelement=index;">
                                                         <td>
                                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                        (click)="editField(indexOfelement)" placement=" bottom"
+                                                        (click)="editField(indexOfelement)" placement="bottom"
                                                         ngbTooltip="Edit"></span> &nbsp;
                                                         <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delField(indexOfelement)" placement="bottom"
                                                         ngbTooltip="Delete"></span>
@@ -203,14 +203,14 @@
                                 <tbody *ngIf="termDepositPatScheme?.length != 0">
                                     <tr *ngFor="let data of termDepositPatScheme">
                                         <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                            (click)="editClickHandler(data.id)" placement=" bottom"
+                                            (click)="editClickHandler(data.id)" placement="bottom"
                                             ngbTooltip="Edit"></span> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" -->
                                             <!-- (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
                                         <td class="td_right">{{ data.EFFECT_DATE}}</td>
-                                        <td>{{ data.AC_TYPE}}</td>
-                                        <td>{{ data.INT_CATEGORY}}</td>
+                                        <td class="td_right">{{ data.scheme?.S_APPL}}</td>
+                                        <td>{{ data.category?.NAME}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="termDepositPatScheme?.length == 0">

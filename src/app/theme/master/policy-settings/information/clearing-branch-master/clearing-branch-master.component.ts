@@ -116,7 +116,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
             this.url + '/clearing-branch-master',
             dataTableParameters
           ).subscribe(resp => {
-            debugger
+  
             this.clearingBranches = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -197,7 +197,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     this.updateShow = true;
     this.newbtnShow = true;
     this.clearingBranchService.getFormData(id).subscribe(data => {
-      debugger
+
 
       this.updateID = data.id;
       this.ngAcNo = data.AC_NO

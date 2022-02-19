@@ -19,6 +19,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -86,11 +87,10 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   //filter variable
   filterData = {};
   
-  
+  allScheme: any[]
 
   //scheme dropdown variables
   interestcategory: any[];
-  simpleOption: Array<IOption> = this.schemeTypeDropdownService.getCharacters();
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -105,7 +105,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   constructor(
     private http: HttpClient,
     private interestRateForLoanandCCService: InterestRateForLoanandCCService,
-    private schemeTypeDropdownService: SchemeTypeDropdownService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private fb: FormBuilder,
     private config: NgSelectConfig,) {
@@ -182,9 +182,15 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
       dom: 'Blrtip',
     };
     this.runTimer();
-    this.dataSub = this.schemeTypeDropdownService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
+
+   
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
+      });
+      this.allScheme = filtered;
+    })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;
     })

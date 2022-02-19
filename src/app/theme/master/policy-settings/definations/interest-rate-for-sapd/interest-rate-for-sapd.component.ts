@@ -82,9 +82,9 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
 
 
   //scheme dropdown variables
-    //Scheme type variable
-    schemeType: string = 'SB , PG'
-   interestcategory: any[];
+  //Scheme type variable
+  schemeType: string = 'SB , PG'
+  interestcategory: any[];
   //   simpleOption: Array<IOption> = this.schemeTypeDropdownService.getCharacters();
   // selectedOption = '3';
   // isDisabled = true;
@@ -94,7 +94,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
   private dataSub: Subscription = null;
   //for date 
   datemax: any;
-  effectdate:any=null
+  effectdate: any = null
   maxDate: Date;
   minDate: Date;
 
@@ -102,8 +102,8 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
 
   // dropdown
   allScheme: any[];
-  ngscheme:any=null
-  ngintcat:any=null
+  ngscheme: any = null
+  ngintcat: any = null
   constructor(
     private http: HttpClient,
     private savingandPigmyInterestRatesService: SavingandPigmyInterestRatesService,
@@ -112,15 +112,15 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private fb: FormBuilder,
     private config: NgSelectConfig,) {
-          // this.datemax =new Date() ;
-          // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
-          // console.log(this.datemax);
+    // this.datemax =new Date() ;
+    // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
+    // console.log(this.datemax);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-        
-     }
+
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -157,6 +157,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
             this.url + '/saving-and-pigmy-interest-rates',
             dataTableParameters
           ).subscribe(resp => {
+            console.log(resp.data)
             this.savingandPigmyInterestRate = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -189,12 +190,10 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     };
     this.runTimer();
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      console.log(data)
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'PG' && scheme.name == 'SB');
+        return (scheme.name == 'PG' || scheme.name == 'SB');
       });
       this.allScheme = filtered;
-      console.log(this.allScheme)
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;
@@ -209,18 +208,18 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       INT_RATE: ['', [Validators.required, Validators.pattern]],
     });
   }
-      //disabledate on keyup
-      disabledate(data:any){
-    
-        console.log(data);
-        if(data != ""){
-          if(data > this.datemax){
-            Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
-            (document.getElementById("EFFECT_DATE")as HTMLInputElement).value = ""
-                
-          }
-        } 
+  //disabledate on keyup
+  disabledate(data: any) {
+
+    console.log(data);
+    if (data != "") {
+      if (data > this.datemax) {
+        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
+        (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
+
       }
+    }
+  }
   // Method to insert data into database through NestJS
   submit() {
     let effectdate
@@ -235,7 +234,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     }
     this.savingandPigmyInterestRatesService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.formSubmitted =false;
+      this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -247,20 +246,20 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     //To clear form
     this.resetForm();
   }
-  
-//check  if percentage  is below 100
-checkmargin(ele:any){ 
-  //check  if given value  is below 100
-  console.log(ele);
-  if(ele <= 100){
-console.log(ele);
-  }
-  else{
-    Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
-  }
-}
 
-updatecheckdata:any
+  //check  if percentage  is below 100
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
+    console.log(ele);
+    if (ele <= 100) {
+      console.log(ele);
+    }
+    else {
+      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+    }
+  }
+
+  updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
     let effectdate
@@ -268,7 +267,7 @@ updatecheckdata:any
     this.updateShow = true;
     this.newbtnShow = true;
     this.savingandPigmyInterestRatesService.getFormData(id).subscribe(data => {
-      this.updatecheckdata=data
+      this.updatecheckdata = data
       this.updateID = data.id;
       this.angForm.setValue({
         'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
@@ -285,7 +284,7 @@ updatecheckdata:any
     let effectdate
     let data = this.angForm.value;
     data['id'] = this.updateID;
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+    if (this.updatecheckdata.EFFECT_DATE != data.EFFECT_DATE) {
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
     }
     this.savingandPigmyInterestRatesService.updateData(data).subscribe(() => {
@@ -368,6 +367,8 @@ updatecheckdata:any
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngintcat = null
+    this.ngscheme = null
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

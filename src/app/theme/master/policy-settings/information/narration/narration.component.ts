@@ -86,7 +86,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       processing: true,
 
       ajax: (dataTableParameters: any, callback) => {
-      //  debugger
+   
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
           dataTableParameters.start + dataTableParameters.length;
@@ -179,7 +179,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
 
   //Method for append data into fields
   editClickHandler(id) {
-   // debugger
+
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;

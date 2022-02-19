@@ -46,7 +46,7 @@
                                   <ng-select id="AC_ACNOTYPE" bindValue="value" [(ngModel)]="ngschemetype"
                                     formControlName="AC_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type">
-                                    <ng-option *ngFor="let values of schemetype" [value]="values">
+                                    <ng-option *ngFor="let values of scheme" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="AC_ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
@@ -143,12 +143,12 @@
                                                 <tr *ngFor="let data of multiField; let indexOfelement=index;">
                                                     <td>
                                                         <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                        (click)="editField(indexOfelement)" placement=" bottom"
+                                                        (click)="editField(indexOfelement)" placement="bottom"
                                                         ngbTooltip="Edit"></span> &nbsp;
                                                         <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delField(indexOfelement)" placement="bottom"
                                                         ngbTooltip="Delete"></span>
                                                     </td>
-                                                    <td class="td_right">{{ data.SERIAL_NO }}</td>
+                                                    <td class="td_right">{{ indexOfelement + 1 }}</td>
                                                     <td class="td_right">{{ data.FROM_MONTHS }}</td>
                                                     <td class="td_right">{{ data.TO_MONTHS }}</td>
                                                     <td class="td_right">{{ data.LESS_INT_RATE }}</td>
@@ -189,13 +189,13 @@
                                 <tbody *ngIf="prematurePigmy?.length != 0">
                                     <tr *ngFor="let data of prematurePigmy">
                                         <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                            (click)="editClickHandler(data.id)" placement=" bottom"
+                                            (click)="editClickHandler(data.id)" placement="bottom"
                                             ngbTooltip="Edit"></span> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
 
                                         <td class="td_right">{{ data.EFFECT_DATE }}</td>
-                                        <td>{{ data.AC_ACNOTYPE }}</td>
+                                        <td class="td_right">{{ data.scheme?.S_APPL}}</td>
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="prematurePigmy?.length == 0">
