@@ -38,6 +38,19 @@ export class FreezeAccountService {
     deleteData(id: any): Observable<any> {
         return this.http.delete(this.url + '/freez-account/delete/' + id).pipe(catchError(this.handleError));
     }
+
+
+    public fetchSchemeData(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/freez-account/check/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_FREEZE_STATUS, value: element.AC_FREEZE_STATUS, name: element.AC_FREEZE_STATUS };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
 }
 
 

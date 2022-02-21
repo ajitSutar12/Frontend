@@ -54,7 +54,7 @@ interface FurnitureMaster {
 })
 export class FurnitureAndFixtureComponent
   implements OnInit, AfterViewInit, OnDestroy {
-    formSubmitted = false;
+  formSubmitted = false;
   //passing data form child to parent
   @Output() newfurnitureFixEvent = new EventEmitter<any>();
   datemax: any;
@@ -78,8 +78,8 @@ export class FurnitureAndFixtureComponent
   updateID: number; //variable for updating
 
   // for date 
-  submissiondate:any=null
-  acquistitiondate:any=null
+  submissiondate: any = null
+  acquistitiondate: any = null
   maxDate: Date;
   minDate: Date;
 
@@ -99,7 +99,7 @@ export class FurnitureAndFixtureComponent
     private _furniture: furnitureandfixtureservice,
     public router: Router
   ) {
-   
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -228,11 +228,11 @@ export class FurnitureAndFixtureComponent
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-        
+
         ARTICLE_NAME: formVal.ARTICLE_NAME,
         ARTICLE_MAKE: formVal.ARTICLE_MAKE,
         'AQUISITION_DATE': (formVal.AQUISITION_DATE == '' || formVal.AQUISITION_DATE == 'Invalid date') ? acquistitiondate = '' : acquistitiondate = moment(formVal.AQUISITION_DATE).format('DD/MM/YYYY'),
-        
+
         NEW_ARTICLE: formVal.NEW_ARTICLE,
         SUPPLIER_NAME: formVal.SUPPLIER_NAME,
         PURCHASE_PRICE: formVal.PURCHASE_PRICE,
@@ -254,22 +254,22 @@ export class FurnitureAndFixtureComponent
       //To clear form
       this.resetForm();
     }
- 
+
   }
 
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
-    
+
     if (ele <= 100) {
-      
+
     }
     else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
 
-  updatecheckdata:any
+  updatecheckdata: any
   //function for edit button clicked
   editClickHandler(id: any): void {
     let submissiondate
@@ -278,24 +278,24 @@ export class FurnitureAndFixtureComponent
     this.updateShow = true;
     this.newbtnShow = true;
     this._furniture.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
-     //sending values to parent
-     let dropdown: any = {};
-     dropdown.scheme = data.AC_TYPE;
-     dropdown.account = data.AC_NO;
-     let obj1 = {
-       'AccountType' :data.AC_TYPE,
-       'AccountNo': data.AC_NO,
-       'SchemeType':data.AC_ACNOTYPE
-     }
-     this.newfurnitureFixEvent.emit(obj1);
+      this.updatecheckdata = data
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      dropdown.account = data.AC_NO;
+      let obj1 = {
+        'AccountType': data.AC_TYPE,
+        'AccountNo': data.AC_NO,
+        'SchemeType': data.AC_ACNOTYPE
+      }
+      this.newfurnitureFixEvent.emit(obj1);
 
-        this.updateID = data.id;
-        this.scheme=data.AC_TYPE
-        this.Accountno=data.AC_NO
-        this.angForm.patchValue({
-       
-        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,  
+      this.updateID = data.id;
+      this.scheme = data.AC_TYPE
+      this.Accountno = data.AC_NO
+      this.angForm.patchValue({
+
+        'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
         ARTICLE_NAME: data.ARTICLE_NAME,
         ARTICLE_MAKE: data.ARTICLE_MAKE,
         'AQUISITION_DATE': (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? acquistitiondate = '' : acquistitiondate = data.AQUISITION_DATE,
@@ -316,14 +316,14 @@ export class FurnitureAndFixtureComponent
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    data["AC_TYPE"]=this.scheme
-    data["AC_NO"]=this.Accountno
-    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+    data["AC_TYPE"] = this.scheme
+    data["AC_NO"] = this.Accountno
+    if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
-      }
-      if(this.updatecheckdata.AQUISITION_DATE!=data.AQUISITION_DATE){
-        (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? (acquistitiondate = '', data['AQUISITION_DATE'] = acquistitiondate) : (acquistitiondate = data.AQUISITION_DATE, data['AQUISITION_DATE'] = moment(acquistitiondate).format('DD/MM/YYYY'))
-        }
+    }
+    if (this.updatecheckdata.AQUISITION_DATE != data.AQUISITION_DATE) {
+      (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? (acquistitiondate = '', data['AQUISITION_DATE'] = acquistitiondate) : (acquistitiondate = data.AQUISITION_DATE, data['AQUISITION_DATE'] = moment(acquistitiondate).format('DD/MM/YYYY'))
+    }
     this._furniture.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -386,7 +386,7 @@ export class FurnitureAndFixtureComponent
   resetForm() {
     this.createForm();
     let obj1 = {
-      'AccountType' : null,
+      'AccountType': null,
       'AccountNo': null,
     }
     this.newfurnitureFixEvent.emit(obj1);

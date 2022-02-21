@@ -103,20 +103,21 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   filterData = {};
   ACNo: any;
 
-  schemeList:any
+  // schemeList:any
   //Dropdown option variable
   branchOption: any;
-  ngbranch:any=null;
-  ngscheme:any=null;
-  ngacno:any=null;
+  ngbranch: any = null;
+  ngscheme: any = null;
+  ngacno: any = null;
   // for date
-  submissiondate:any=null
+  submissiondate: any = null
   maxDate: Date;
   minDate: Date;
   obj: any = { type: "own deposite form" };
   page: number;
-      //Scheme type variable
-      schemeType: string = 'TD'
+  //Scheme type variable
+  schemeList
+  schemeType: string = 'TD'
 
   constructor(
     private fb: FormBuilder,
@@ -127,7 +128,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     private _sheme: schemedropdownService,
     private http: HttpClient,
     public router: Router,
- 
+
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private config: NgSelectConfig,) {
@@ -255,7 +256,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
       AC_TYPE: [""],
       AC_NO: [""],
-      AC_ACNOTYPE:['LN'],
+      AC_ACNOTYPE: ['LN'],
       BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
       DEPO_AC_TYPE: ["", [Validators.required]],
       DEPO_AC_NO: ["", [Validators.required]],
@@ -354,10 +355,10 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetForm();
     }
 
-    
+
   }
 
-  updatecheckdata:any
+  updatecheckdata: any
   //function for edit button clicked
   editClickHandler(id: any): void {
     let submissiondate

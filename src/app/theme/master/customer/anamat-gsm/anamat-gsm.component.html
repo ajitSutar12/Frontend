@@ -15,9 +15,9 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select bindValue="value" [(ngModel)]="code" id="AC_TYPE"
-                                        formControlName="AC_TYPE" [disabled]="AC_TYPE" title="Compulsory Selection"
-                                        [disabled]="AC_TYPE" (change)="getScheme($event)"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                        formControlName="AC_TYPE" title="Compulsory Selection" [disabled]="AC_TYPE"
+                                        (change)="getScheme($event)" [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>

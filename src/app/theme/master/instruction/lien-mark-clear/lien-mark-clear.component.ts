@@ -275,7 +275,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
       this.updateID = data.id;
       this.angForm.setValue({
         DEPO_AC_TYPE: data.DEPO_AC_TYPE,
-        DEPO_AC_NO: data.DEPO_AC_NO.toString(),
+        DEPO_AC_NO: data.DEPO_AC_NO,
         // SECU_CODE: data.SECU_CODE,
         LEDGER_BAL: data.LEDGER_BAL,
         DEPOSIT_AMT: data.DEPOSIT_AMT,

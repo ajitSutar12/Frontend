@@ -60,7 +60,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   acno
   allScheme // all scheme
   schemeACNo //account no 
-  ngscheme:any=null
+  ngscheme: any = null
 
   selectedOption = "3";
   isDisabled = true;
@@ -69,7 +69,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   timeLeft = 5;
 
   //  for Date
-  effectdate:any=null
+  effectdate: any = null
   maxDate: Date;
   minDate: Date;
 
@@ -84,6 +84,9 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   newbtnShow: boolean = false;
   page: number;
 
+  bankAcno
+  actype
+
   constructor(
     private fb: FormBuilder,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -91,7 +94,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     private _overdraft: overdraftservice,
     private http: HttpClient,
     private config: NgSelectConfig,
-  ) { 
+  ) {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -174,16 +177,6 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       this.allScheme = filtered;
     })
-    console.log(this.allScheme)
-  }
-
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
   }
 
   createForm() {
@@ -202,23 +195,18 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     this.formSubmitted = true;
     const formVal = this.angForm.value;
     const dataToSend = {
-      AC_TYPE: formVal.AC_TYPE,
+      AC_TYPE: this.actype,
       AC_NO: formVal.AC_NO,
+      BANKACNO: this.bankAcno,
       AC_SODAMT: formVal.AC_SODAMT,
       AC_ODAMT: formVal.AC_ODAMT,
       AC_ODDAYS: formVal.AC_ODDAYS,
-      // AC_ODDATE: formVal.AC_ODDATE,
-      'AC_ODDATE': (formVal.AC_ODDATE == '' || formVal.AC_ODDATE == 'Invalid date') ? effectdate = '' : effectdate = moment(formVal.AC_ODDATE).format('DD/MM/YYYY'),
+      'AC_ODDATE': (formVal.AC_ODDATE == '' || formVal.AC_ODDATE == 'Invalid date' || formVal.AC_ODDATE == null || formVal.AC_ODDATE == undefined) ? effectdate = '' : effectdate = moment(formVal.AC_ODDATE).format('DD/MM/YYYY'),
     };
     this._overdraft.postData(dataToSend).subscribe(
       (data1) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
         this.formSubmitted = false;
-        // to reload after insertion of data
-        // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        //   dtInstance.ajax.reload()
-        // });
-        // this.rerender()
       },
       (error) => {
         console.log(error);
@@ -227,7 +215,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     //To clear form
     this.resetForm();
   }
-  updatecheckdata:any
+  updatecheckdata: any
   //  editClickHandler function for edit button clicked
   editClickHandler(id: any): void {
     let effectdate
@@ -235,18 +223,16 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateShow = true;
     this.newbtnShow = true;
     this._overdraft.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
-      this.updatecheckdata=data
+      this.updatecheckdata = data
+      this.updatecheckdata = data
       this.updateID = data.id;
       this.angForm.setValue({
-        
         AC_TYPE: data.AC_TYPE,
         AC_NO: data.AC_NO,
         AC_SODAMT: data.AC_SODAMT,
         AC_ODAMT: data.AC_ODAMT,
         AC_ODDAYS: data.AC_ODDAYS,
-        // AC_ODDATE: data.AC_ODDATE,
-        'AC_ODDATE': (data.AC_ODDATE == 'Invalid date' || data.AC_ODDATE == '' || data.AC_ODDATE == null) ? effectdate = '' : effectdate = data.AC_ODDATE,
+        AC_ODDATE: data.AC_ODDATE
       });
     });
   }
@@ -259,9 +245,9 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+    if (this.updatecheckdata.EFFECT_DATE != data.EFFECT_DATE) {
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
-      }
+    }
     this._overdraft.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -273,39 +259,83 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   //get account no according scheme 
-  getSchemeAcNO(acno) {
-    switch (acno) {
+  getSchemeAcNO(event) {
+    this.actype = event.name
+    this.angForm.patchValue({
+      AC_ODAMT: '',
+      AC_SODAMT: '',
+      AC_ODDAYS: '',
+      AC_ODDATE: '',
+    })
+    this.ngscheme = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    let obj = [this.acno, branchCode]
+    switch (event.name) {
       case 'SB':
-        this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getSavingSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'CA':
-        this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getCurrentAccountSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'LN':
-        this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermLoanSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'CC':
-        this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'PG':
-        this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAccountSchemeList1(obj).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
-
     }
+  }
+  mem
+  getBankAcno(event) {
+    this.bankAcno = event.bankacno
+    this.mem = [this.actype, this.bankAcno]
+    this.http.get(this.url + '/over-draft/check/' + this.mem).subscribe((data) => {
+      if (data != null) {
+        this.angForm.patchValue({
+          AC_ODAMT: data[0]?.AC_ODAMT,
+          AC_SODAMT: data[0]?.AC_SODAMT,
+          AC_ODDAYS: data[0]?.AC_ODDAYS,
+          AC_ODDATE: data[0]?.AC_ODDATE,
+        })
+        if (data[0].AC_SODAMT == 'PeriodicallyOverDraft') {
+          this.PeriodicallyOverDraftTrue = true
+          this.TemporaryOverDraftTrue = false
+        }
+        else {
+          this.TemporaryOverDraftTrue = true
+          this.PeriodicallyOverDraftTrue = false
+        }
+      }
+      else {
+        this.angForm.patchValue({
+          AC_ODAMT: '',
+          AC_SODAMT: '',
+          AC_ODDAYS: '',
+          AC_ODDATE: '',
+        })
+        this.PeriodicallyOverDraftTrue = false
+        this.TemporaryOverDraftTrue = false
+      }
+    })
   }
 
   /**
@@ -354,6 +384,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   // Reset Function
   resetForm() {
     this.createForm();
+    this.acno = null
+    this.ngscheme = null
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
@@ -375,7 +407,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       this.periodoverdraft = true
       this.TemporaryOverDraftTrue = false;
     }
-    if (val == 2) {      
+    if (val == 2) {
       this.angForm.controls['AC_ODAMT'].reset()
       this.PeriodicallyOverDraftTrue = false;
       this.periodoverdraft = false

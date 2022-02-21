@@ -16,8 +16,8 @@ import { ExecutionDayService } from '../../../../shared/dropdownService/executio
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
-import { IOption } from 'ng-select';
-import { Subscription } from 'rxjs/Subscription';
+
+import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { Router } from "@angular/router";
 //date pipe
@@ -92,27 +92,28 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
 
   // Store data from backend
   interestInstruction: InterestInstruction[];
-  frequencyOption: Array<IOption> = this.frequencyService.getCharacters();
-  executionDay: Array<IOption> = this.executionDayService.getCharacters();
-  selectedOption = '3';
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = '3';
-  timeLeft = 5;
-  private dataSub: Subscription = null;
+  frequencyOption = this.frequencyService.getCharacters();
+  executionDay = this.executionDayService.getCharacters();
+  ngExecutionDay: any = null
+  ngFrequency: any = null
+  acno: any = null
+  ngAccno: any = null
+  crno: any = null
+  ngCrAccno: any = null
 
   //Scheme type variable
   schemeType: string = 'TD'
   termSchemeAC
   //Dropdown options
   scheme //scheme code from schemast(S_ACNOTYPE)
-  acno
+
   crACno
-  crno
+
   allscheme
 
   cashTrue: boolean = true;
   transferTrue: boolean = false;
+  formSubmitted = false;
 
   constructor(private fb: FormBuilder, public frequencyService: FrequencyService,
     public executionDayService: ExecutionDayService,
@@ -239,31 +240,20 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         },],
       dom: 'Blrtip'
     };
-    this.runTimer();
-    this.dataSub = this.frequencyService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.executionDayService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
-        return (scheme.value == 'TD');
+        return (scheme.name == 'TD');
       });
       this.scheme = filtered;
       var allscheme = data.filter(function (scheme) {
-        return (scheme.value != 'AG' && scheme.value != 'SH' && scheme.value != 'IV'); //scheme.value == TD  scheme having only RD option 
+        return (scheme.name != 'AG' && scheme.name != 'SH' && scheme.name != 'IV');  
       });
       this.allscheme = allscheme;
     })
-  }
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
+
+    this.schemeCodeDropdownService.getTermDepositSchemeRD().pipe(first()).subscribe(data => {
+      this.allscheme.push(data)
+    })
   }
   cashoption: boolean = false
   transferoption: boolean = false
@@ -278,25 +268,35 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         this.cashoption = false
       }
 
+      this.crno = null
+      this.angForm.patchValue({
+        CR_PARTICULARS: '',
+        CR_AC_NO: '',
+        ADV_NARRATION: ''
+      })
+      this.ngCrAccno = null
       document.getElementById('cashScheme').setAttribute("required", "true")
-      console.log('cashoption value', this.cashoption)
     }
     else if (val == 2) {
       this.cashTrue = false;
       this.transferTrue = true;
+      this.acno = null
+
+      this.angForm.patchValue({
+        DR_PARTICULARS: '',
+        DR_AC_NO: '',
+      })
+      this.ngAccno = null
       if (this.transferTrue == true) {
         this.transferoption = true
       }
       else if (this.transferTrue === false) {
         this.transferoption = false
       }
-      console.log('cashoption value', this.cashoption)
-      console.log('transferoption value', this.transferoption)
     }
     else {
       this.cashTrue = false;
       this.transferTrue = false;
-      console.log('3cash value', this.cashTrue)
     }
   }
 
@@ -310,10 +310,15 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
   }
 
   //get account no according scheme
-  getTermAc(acno) {
-    switch (acno) {
+  getTermAc(event) {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    let obj = [this.acno, branchCode]
+    this.ngAccno = null
+    switch (event.name) {
       case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermDepositSchemeList1(obj).subscribe(data => {
           this.termSchemeAC = data;
         })
         break;
@@ -321,28 +326,44 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
   }
   //calculation of start day based on execution day
   setStartDate(exe_day) {
+    this.angForm.patchValue({
+      FROM_DATE: '',
+      NEXT_EXE_DATE: ''
+    })
     var date = new Date();
     if (exe_day.value == 'Month Begin') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
       var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
       var firstDate = this.datePipe.transform(firstDay, "yyyy-MM-dd")
+      var full = []
+      var fullDate = firstDate;
+      full = fullDate.split(' ');
+      var ndate = full[0].split(/\-/);
+      var newDate = ndate[2] + '/' + ndate[1] + '/' + ndate[0]
       this.angForm.patchValue({
-        FROM_DATE: firstDate
+        FROM_DATE: newDate
       })
     }
     else if (exe_day.value == 'Month End') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
+      let date = new Date()
       var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
       var lastDate = this.datePipe.transform(lastDay, "yyyy-MM-dd")
+      var full = []
+      var fullDate = lastDate;
+      full = fullDate.split(' ');
+      var ndate = full[0].split(/\-/);
+      var newDate = ndate[2] + '/' + ndate[1] + '/' + ndate[0]
       this.angForm.patchValue({
-        FROM_DATE: lastDate
+        FROM_DATE: newDate
       })
     }
     else {
       this.angForm.controls['DAYS'].enable()
     }
+    this.ngFrequency = null
   }
   //calculation for start date based on sepcific days
   fromDate() {
@@ -354,13 +375,24 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     var startDay = day + Number(days)
     var startDate = new Date(year, month, startDay);
     var fromDate = this.datePipe.transform(startDate, "yyyy-MM-dd")
+    var full = []
+    var fullDate = fromDate;
+    full = fullDate.split(' ');
+    var ndate = full[0].split(/\-/);
+    var newDate = ndate[2] + '/' + ndate[1] + '/' + ndate[0]
     this.angForm.patchValue({
-      FROM_DATE: fromDate
+      FROM_DATE: newDate
     })
   }
   //calculation of next execution day based on frequency
   setNextExeDate(next_exe_day) {
-    var date = new Date(this.angForm.controls['FROM_DATE'].value);
+    let startDate = this.angForm.controls['FROM_DATE'].value
+    var startfull = []
+    var formatfullDate = startDate;
+    startfull = formatfullDate.split(' ');
+    var fdate = startfull[0].split(/\//);
+    var newformatDate = fdate[2] + '-' + fdate[1] + '-' + fdate[0]
+    var date = new Date(newformatDate);
     if (next_exe_day.value == 'Monthly') {
       var year = date.getFullYear();
       var month = new Date(date).getMonth();
@@ -368,8 +400,13 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       var exe_day = month + 1
       var nextDate = new Date(year, exe_day, day);
       var nextExeDate = this.datePipe.transform(nextDate, "yyyy-MM-dd")
+      var full = []
+      var fullDate = nextExeDate;
+      full = fullDate.split(' ');
+      var ndate = full[0].split(/\-/);
+      var newDate = ndate[2] + '/' + ndate[1] + '/' + ndate[0]
       this.angForm.patchValue({
-        NEXT_EXE_DATE: nextExeDate
+        NEXT_EXE_DATE: newDate
       })
     }
     else if (next_exe_day.value == 'Quarterly') {
@@ -379,14 +416,20 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       var exe_day = month + 3
       var nextDate = new Date(year, exe_day, day);
       var nextExeDate = this.datePipe.transform(nextDate, "yyyy-MM-dd")
+      var full = []
+      var fullDate = nextExeDate;
+      full = fullDate.split(' ');
+      var ndate = full[0].split(/\-/);
+      var newDate = ndate[2] + '/' + ndate[1] + '/' + ndate[0]
       this.angForm.patchValue({
-        NEXT_EXE_DATE: nextExeDate
+        NEXT_EXE_DATE: newDate
       })
     }
     else if (next_exe_day.value == 'Fixed Quarterly') {
       var year = date.getFullYear();
       var month = new Date(date).getMonth();
       var day = new Date(date).getDate();
+
       if (month <= 5 && month >= 3) {
         var exe_day = 5
         var nextDate = new Date(year, exe_day, day);
@@ -411,8 +454,13 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         var lastDay = new Date(date.getFullYear(), nextDate.getMonth() + 1, 0);
         var nextExeDate = this.datePipe.transform(lastDay, "yyyy-MM-dd")
       }
+      var full = []
+      var fullDate = nextExeDate;
+      full = fullDate.split(' ');
+      var ndate = full[0].split(/\-/);
+      var newDate = ndate[2] + '/' + ndate[1] + '/' + ndate[0]
       this.angForm.patchValue({
-        NEXT_EXE_DATE: nextExeDate
+        NEXT_EXE_DATE: newDate
       })
     }
     else if (next_exe_day.value == 'Half Yearly') {
@@ -422,68 +470,77 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       var exe_day = month + 6
       var nextDate = new Date(year, exe_day, day);
       var nextExeDate = this.datePipe.transform(nextDate, "yyyy-MM-dd")
+      var full = []
+      var fullDate = nextExeDate;
+      full = fullDate.split(' ');
+      var ndate = full[0].split(/\-/);
+      var newDate = ndate[2] + '/' + ndate[1] + '/' + ndate[0]
       this.angForm.patchValue({
-        NEXT_EXE_DATE: nextExeDate
+        NEXT_EXE_DATE: newDate
       })
     }
   }
 
   //get account no according scheme
-  getTermCreditAc(crno) {
-    switch (crno) {
+  getTermCreditAc(event) {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    let obj = [this.crno, branchCode]
+    this.ngCrAccno = null
+    switch (event.name) {
       case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermDepositSchemeList1(obj).pipe(first()).subscribe(data => {
           this.crACno = data;
         })
         break;
       case 'SB':
-        this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getSavingSchemeList1(obj).pipe(first()).subscribe(data => {
           this.crACno = data;
         })
         break;
 
       case 'CA':
-        this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getCurrentAccountSchemeList1(obj).pipe(first()).subscribe(data => {
           this.crACno = data;
         })
         break;
 
       case 'LN':
-        this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermLoanSchemeList1(obj).pipe(first()).subscribe(data => {
           this.crACno = data;
         })
         break;
 
       case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermDepositSchemeList1(obj).pipe(first()).subscribe(data => {
           this.crACno = data;
         })
         break;
 
       case 'DS':
-        this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getDisputeLoanSchemeList1(obj).pipe(first()).subscribe(data => {
           this.crACno = data;
         })
         break;
 
       case 'CC':
-        this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(data => {
           this.crACno = data;
         })
         break;
 
       case 'GS':
-        this.schemeAccountNoService.getAnamatSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getAnamatSchemeList1(obj).pipe(first()).subscribe(data => {
           this.crACno = data;
         })
         break;
 
       case 'PG':
-        this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAccountSchemeList1(obj).subscribe(data => {
           this.crACno = data;
         })
         break;
-
     }
 
   }
@@ -513,8 +570,14 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
   }
 
   submit() {
+    // if (this.angForm.valid) {
     const formVal = this.angForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    let redate
     const dataToSend = {
+      'BRANCH_CODE': branchCode,
       'INSTRUCTION_NO': formVal.INSTRUCTION_NO,
       'INSTRUCTION_DATE': formVal.INSTRUCTION_DATE,
       'DAYS': formVal.DAYS,
@@ -534,7 +597,6 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       'ADV_NARRATION': formVal.ADV_NARRATION,
       'DEFAULT_INTEREST_APPLICABLE': formVal.DEFAULT_INTEREST_APPLICABLE,
     };
-    // console.log(this.angForm.value);
     this._interestInstruction.postData(dataToSend).subscribe(
       (data) => {
         Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -549,16 +611,105 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     );
     //To clear form
     this.resetForm();
-  }
+    // }
+    // else {
+    //   Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    // }
 
+  }
+  updatecheckdata: any
   //function for edit button clicked
   editClickHandler(id): void {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
-    this.angForm.controls['LAST_EXEC_DATE'].enable()
-    this.angForm.controls['REVOKE_DATE'].enable()
     this._interestInstruction.getFormData(id).subscribe(data => {
+      this.updatecheckdata = data
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      let branchCode = result.branch.id;
+      if (data.interestDr != null) {
+        this.acno = data.DR_ACTYPE
+        let obj = [this.acno, branchCode]
+        this.ngAccno = null
+        switch (data.interestDr.S_SHNAME) {
+          case 'TD':
+            this.schemeAccountNoService.getTermDepositSchemeList1(obj).subscribe(data => {
+              this.termSchemeAC = data;
+            })
+            break;
+        }
+        this.ngAccno = Number(data.DR_AC_NO)
+      }
+      else {
+        this.crno = data.CR_ACTYPE
+        let obj = [this.crno, branchCode]
+        this.ngCrAccno = null
+        switch (data.interestCr.S_SHNAME) {
+          case 'TD':
+            this.schemeAccountNoService.getTermDepositSchemeList1(obj).pipe(first()).subscribe(data => {
+              this.crACno = data;
+            })
+            break;
+          case 'SB':
+            this.schemeAccountNoService.getSavingSchemeList1(obj).pipe(first()).subscribe(data => {
+              this.crACno = data;
+            })
+            break;
+
+          case 'CA':
+            this.schemeAccountNoService.getCurrentAccountSchemeList1(obj).pipe(first()).subscribe(data => {
+              this.crACno = data;
+            })
+            break;
+
+          case 'LN':
+            this.schemeAccountNoService.getTermLoanSchemeList1(obj).pipe(first()).subscribe(data => {
+              this.crACno = data;
+            })
+            break;
+
+          case 'TD':
+            this.schemeAccountNoService.getTermDepositSchemeList1(obj).pipe(first()).subscribe(data => {
+              this.crACno = data;
+            })
+            break;
+
+          case 'DS':
+            this.schemeAccountNoService.getDisputeLoanSchemeList1(obj).pipe(first()).subscribe(data => {
+              this.crACno = data;
+            })
+            break;
+
+          case 'CC':
+            this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(data => {
+              this.crACno = data;
+            })
+            break;
+
+          case 'GS':
+            this.schemeAccountNoService.getAnamatSchemeList1(obj).pipe(first()).subscribe(data => {
+              this.crACno = data;
+            })
+            break;
+
+          case 'PG':
+            this.schemeAccountNoService.getPigmyAccountSchemeList1(obj).subscribe(data => {
+              this.crACno = data;
+            })
+            break;
+        }
+        this.ngCrAccno = Number(data.CR_AC_NO)
+      }
+
+      if (data.TRAN_TYPE == "Transfer") {
+        this.transferTrue = true
+        this.cashTrue = false
+      }
+      else {
+        this.cashTrue = true
+        this.transferTrue = false
+      }
       this.updateID = data.id;
       this.angForm.patchValue({
         'INSTRUCTION_NO': data.INSTRUCTION_NO,
@@ -568,10 +719,10 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         'NEXT_EXE_DATE': data.NEXT_EXE_DATE,
         'EXECUTION_DAY': data.EXECUTION_DAY,
         'DR_ACTYPE': data.DR_ACTYPE,
-        'DR_AC_NO': data.DR_AC_NO.toString(),
+        'DR_AC_NO': data.DR_AC_NO,
         'DR_PARTICULARS': data.DR_PARTICULARS,
         'CR_ACTYPE': data.CR_ACTYPE,
-        'CR_AC_NO': data.CR_AC_NO.toString(),
+        'CR_AC_NO': data.CR_AC_NO,
         'CR_PARTICULARS': data.CR_PARTICULARS,
         'SI_FREQUENCY': data.SI_FREQUENCY,
         'LAST_EXEC_DATE': data.LAST_EXEC_DATE,
@@ -581,12 +732,34 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
         'DEFAULT_INTEREST_APPLICABLE': data.DEFAULT_INTEREST_APPLICABLE,
       })
     })
+    this.angForm.controls['LAST_EXEC_DATE'].enable()
+    this.angForm.controls['REVOKE_DATE'].enable()
   }
 
   //function toggle update to add button
   updateData() {
+    let fromdate
+    let todate
+    let lastExe
+    let revokeDate
+    let startDate
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    if (this.updatecheckdata.INSTRUCTION_DATE != data.INSTRUCTION_DATE) {
+      (data.INSTRUCTION_DATE == 'Invalid date' || data.INSTRUCTION_DATE == '' || data.INSTRUCTION_DATE == null) ? (fromdate = '', data['INSTRUCTION_DATE'] = fromdate) : (fromdate = data.INSTRUCTION_DATE, data['INSTRUCTION_DATE'] = moment(fromdate).format('DD/MM/YYYY'))
+    }
+    if (this.updatecheckdata.FROM_DATE != data.FROM_DATE) {
+      (data.FROM_DATE == 'Invalid date' || data.FROM_DATE == '' || data.FROM_DATE == null) ? (startDate = '', data['FROM_DATE'] = startDate) : (startDate = data.FROM_DATE, data['FROM_DATE'] = moment(startDate).format('DD/MM/YYYY'))
+    }
+    if (this.updatecheckdata.NEXT_EXE_DATE != data.NEXT_EXE_DATE) {
+      (data.NEXT_EXE_DATE == 'Invalid date' || data.NEXT_EXE_DATE == '' || data.NEXT_EXE_DATE == null) ? (todate = '', data['NEXT_EXE_DATE'] = todate) : (todate = data.NEXT_EXE_DATE, data['NEXT_EXE_DATE'] = moment(todate).format('DD/MM/YYYY'))
+    }
+    if (this.updatecheckdata.LAST_EXEC_DATE != data.LAST_EXEC_DATE) {
+      (data.LAST_EXEC_DATE == 'Invalid date' || data.LAST_EXEC_DATE == '' || data.LAST_EXEC_DATE == null) ? (lastExe = '', data['LAST_EXEC_DATE'] = lastExe) : (lastExe = data.LAST_EXEC_DATE, data['LAST_EXEC_DATE'] = moment(lastExe).format('DD/MM/YYYY'))
+    }
+    if (this.updatecheckdata.REVOKE_DATE != data.REVOKE_DATE) {
+      (data.REVOKE_DATE == 'Invalid date' || data.REVOKE_DATE == '' || data.REVOKE_DATE == null) ? (revokeDate = '', data['REVOKE_DATE'] = revokeDate) : (revokeDate = data.REVOKE_DATE, data['REVOKE_DATE'] = moment(revokeDate).format('DD/MM/YYYY'))
+    }
     this._interestInstruction.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -603,6 +776,12 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     this.createForm();
     this.angForm.controls['LAST_EXEC_DATE'].disable()
     this.angForm.controls['REVOKE_DATE'].disable()
+    this.ngExecutionDay = null
+    this.ngFrequency = null
+    this.acno = null
+    this.ngAccno = null
+    this.crno = null
+    this.ngCrAccno = null
   }
 
   //reset function while update
@@ -611,6 +790,14 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     this.updateShow = false;
     this.newbtnShow = false;
     this.resetForm();
+    this.ngExecutionDay = null
+    this.ngFrequency = null
+    this.acno = null
+    this.ngAccno = null
+    this.crno = null
+    this.ngCrAccno = null
+    this.angForm.controls['LAST_EXEC_DATE'].disable()
+    this.angForm.controls['REVOKE_DATE'].disable()
   }
 
   delClickHandler(info: any): void {
@@ -647,6 +834,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
   ngAfterViewInit(): void {
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#mastertable tfoot tr').appendTo('#mastertable thead');
       // dtInstance.columns().every(function () {
       //   const that = this;
       //   $('input', this.footer()).on('keyup change', function () {

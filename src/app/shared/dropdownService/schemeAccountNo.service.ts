@@ -27,7 +27,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/saving-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -49,7 +49,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/share-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -95,7 +95,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/current-account-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -118,7 +118,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/term-loan-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -140,7 +140,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/term-deposits-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -162,7 +162,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/dispute-loan-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -185,7 +185,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/cash-credit-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -207,7 +207,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/anamat-gsm/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -230,7 +230,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-account-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -254,7 +254,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-agent-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -302,7 +302,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-agent-master/scheme/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;

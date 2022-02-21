@@ -112,7 +112,7 @@
                   <label class="border-checkbox-label" for="checkbox1">Is Lien Mark Clear ?</label>
                 </div>
               </div>
-              
+
             </div>
           </div>
           <h6>Term Loan Details</h6>
@@ -169,9 +169,8 @@
                 <tbody *ngIf="lienMaster?.length != 0">
                   <tr *ngFor="let data of lienMaster">
                     <td>
-                      <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                        (click)="editClickHandler(data.id)" placement=" bottom"
-                        ngbTooltip="Edit"></span>
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                        placement=" bottom" ngbTooltip="Edit"></span>
 
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                     </td>
@@ -182,14 +181,10 @@
                     <td>{{ data.LEDGER_BAL }}</td>
                     <td>{{ data.DEPOSIT_AMT }}</td>
                     <td>{{ data.RECEIPT_NO }}</td>
-                    <td>{{ data.IS_LIEN_MARK_CLEAR }}</td>
+                    <td>{{ data.IS_LIEN_MARK_CLEAR == true ? 'Yes' : 'No' }}</td>
                     <td>{{ data.AC_TYPE }}</td>
                     <td>{{ data.BALANCE_OF_LOAN_ACCOUNT }}</td>
                     <td>{{ data.AC_EXPIRE_DATE }}</td>
-
-
-
-
                   </tr>
                 </tbody>
                 <tbody *ngIf="lienMaster?.length == 0">
@@ -201,7 +196,7 @@
                   <tr class="testing">
                     <th class="testing"></th>
                     <th>
-                      <input type="text" class="form-control"  name="DEPO_AC_TYPE" />
+                      <input type="text" class="form-control" name="DEPO_AC_TYPE" />
                     </th>
                     <th>
                       <input type="text" class="form-control" name="DEPO_AC_NO" />

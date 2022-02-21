@@ -81,11 +81,11 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   updateShow: boolean = false;
   updateID: number; //variable for updating
   // Store data from backend
-  nginsurancecom:any=null
+  nginsurancecom: any = null
 
   // for date 
-  insurancedate:any=null
-  insuranceexpirydate:any=null
+  insurancedate: any = null
+  insuranceexpirydate: any = null
   maxDate: Date;
   minDate: Date;
 
@@ -106,9 +106,9 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     private http: HttpClient,
     private _insurancedropdown: InsuranceMasterDropdownService,
     public router: Router,
-    private config: NgSelectConfig,) { 
-    
-    
+    private config: NgSelectConfig,) {
+
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -223,47 +223,47 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     let insuranceexpirydate
     event.preventDefault();
     this.formSubmitted = true;
-    
-    
-    
+
+
+
 
     if (this.angForm.valid) {
-     
+
       const formVal = this.angForm.value;
-    const dataToSend = {
-      AC_TYPE: this.scheme,
+      const dataToSend = {
+        AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
-      'INSURANCE_DATE': (formVal.INSURANCE_DATE == '' || formVal.INSURANCE_DATE == 'Invalid date') ? insurancedate = '' : insurancedate = moment(formVal.INSURANCE_DATE).format('DD/MM/YYYY'),
-     
-      POLICY_NO: formVal.POLICY_NO,
-      INSU_COMPANY_CODE: formVal.INSU_COMPANY_CODE,
-      'INSU_EXP_DATE': (formVal.INSU_EXP_DATE == '' || formVal.INSU_EXP_DATE == 'Invalid date') ? insuranceexpirydate = '' : insuranceexpirydate = moment(formVal.INSU_EXP_DATE).format('DD/MM/YYYY'),
-      
-      INSU_AMOUNT: formVal.INSU_AMOUNT,
-    };
-    
-    this._customerservice.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        this.formSubmitted = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-       
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+        'INSURANCE_DATE': (formVal.INSURANCE_DATE == '' || formVal.INSURANCE_DATE == 'Invalid date') ? insurancedate = '' : insurancedate = moment(formVal.INSURANCE_DATE).format('DD/MM/YYYY'),
+
+        POLICY_NO: formVal.POLICY_NO,
+        INSU_COMPANY_CODE: formVal.INSU_COMPANY_CODE,
+        'INSU_EXP_DATE': (formVal.INSU_EXP_DATE == '' || formVal.INSU_EXP_DATE == 'Invalid date') ? insuranceexpirydate = '' : insuranceexpirydate = moment(formVal.INSU_EXP_DATE).format('DD/MM/YYYY'),
+
+        INSU_AMOUNT: formVal.INSU_AMOUNT,
+      };
+
+      this._customerservice.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.formSubmitted = false;
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
     }
 
-    
+
   }
 
-  updatecheckdata:any
+  updatecheckdata: any
   //function for edit button clicked
   editClickHandler(id: any): void {
     let insurancedate
@@ -272,27 +272,27 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     this.updateShow = true;
     this.newbtnShow = true;
     this._customerservice.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
-      
-       //sending values to parent
-       let dropdown: any = {};
-       dropdown.scheme = data.AC_TYPE;
-       
-       
-       
-       dropdown.account = data.AC_NO;
-       
-       
-       let obj1 = {
-         'AccountType' :data.AC_TYPE,
-         'AccountNo': data.AC_NO,
-         'SchemeType':data.AC_ACNOTYPE
-       }
-       this.newcustomerInsuranceEvent.emit(obj1);
+      this.updatecheckdata = data
 
-       this.scheme=data.AC_TYPE
-      this.Accountno=data.AC_NO
-      this.nginsurancecom=Number(data.INSU_COMPANY_CODE)
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+
+
+
+      dropdown.account = data.AC_NO;
+
+
+      let obj1 = {
+        'AccountType': data.AC_TYPE,
+        'AccountNo': data.AC_NO,
+        'SchemeType': data.AC_ACNOTYPE
+      }
+      this.newcustomerInsuranceEvent.emit(obj1);
+
+      this.scheme = data.AC_TYPE
+      this.Accountno = data.AC_NO
+      this.nginsurancecom = Number(data.INSU_COMPANY_CODE)
       this.updateID = data.id;
       this.angForm.patchValue({
         AC_ACNOTYPE: data.AC_ACNOTYPE,
@@ -309,18 +309,18 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     let insuranceexpirydate
     this.showButton = true;
     this.updateShow = false;
-    
+
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    data["AC_TYPE"]=this.scheme
-    data["AC_NO"]=this.Accountno
-    if(this.updatecheckdata.INSURANCE_DATE!=data.INSURANCE_DATE){
+    data["AC_TYPE"] = this.scheme
+    data["AC_NO"] = this.Accountno
+    if (this.updatecheckdata.INSURANCE_DATE != data.INSURANCE_DATE) {
       (data.INSURANCE_DATE == 'Invalid date' || data.INSURANCE_DATE == '' || data.INSURANCE_DATE == null) ? (insurancedate = '', data['INSURANCE_DATE'] = insurancedate) : (insurancedate = data.INSURANCE_DATE, data['INSURANCE_DATE'] = moment(insurancedate).format('DD/MM/YYYY'))
-      }
-      if(this.updatecheckdata.INSU_EXP_DATE!=data.INSU_EXP_DATE){
-        (data.INSU_EXP_DATE == 'Invalid date' || data.INSU_EXP_DATE == '' || data.INSU_EXP_DATE == null) ? (insuranceexpirydate = '', data['INSU_EXP_DATE'] = insuranceexpirydate) : (insuranceexpirydate = data.INSU_EXP_DATE, data['INSU_EXP_DATE'] = moment(insuranceexpirydate).format('DD/MM/YYYY'))
-        }
+    }
+    if (this.updatecheckdata.INSU_EXP_DATE != data.INSU_EXP_DATE) {
+      (data.INSU_EXP_DATE == 'Invalid date' || data.INSU_EXP_DATE == '' || data.INSU_EXP_DATE == null) ? (insuranceexpirydate = '', data['INSU_EXP_DATE'] = insuranceexpirydate) : (insuranceexpirydate = data.INSU_EXP_DATE, data['INSU_EXP_DATE'] = moment(insuranceexpirydate).format('DD/MM/YYYY'))
+    }
     this._customerservice.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -328,7 +328,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
-      
+
       this.resetForm();
     });
   }
@@ -384,9 +384,9 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   // Reset Function
   resetForm() {
     this.createForm();
-    this.nginsurancecom=null
+    this.nginsurancecom = null
     let obj1 = {
-      'AccountType' : null,
+      'AccountType': null,
       'AccountNo': null,
     }
     this.newcustomerInsuranceEvent.emit(obj1);
@@ -402,7 +402,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
       dtInstance.destroy();
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
-      
+
     });
   }
 }

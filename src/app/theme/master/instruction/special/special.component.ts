@@ -25,6 +25,7 @@ import { first } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { data } from "jquery";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -68,7 +69,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Datatable
   dtExportButtonOptions: any = {};
-  acno: any
+  acno: any = null
   excuteonOption: Array<IOption> = this.exucuteOnService.getCharacters();
   allScheme // all scheme
   schemeACNo //account no 
@@ -77,8 +78,8 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   characters: Array<IOption>;
   selectedCharacter = '3';
   timeLeft = 5;
-  todate:any=null
-  fromdate:any=null
+  todate: any = null
+  fromdate: any = null
   maxDate: Date;
   minDate: Date;
 
@@ -90,19 +91,19 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   isIsRestrictTransactionEntry: boolean = false;
   page: number;
   updateID: any;
-  ngacno:any=null
-  ngexecuteon:any=null
+  ngacno: any = null
+  ngexecuteon: any = null
   constructor(private fb: FormBuilder, private datePipe: DatePipe, public exucuteOnService: ExucuteOnService,
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private http: HttpClient,
     private _special: specialservice,
     private config: NgSelectConfig,) {
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
-     }
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -198,20 +199,11 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       this.allScheme = data;
     })
 
-    this.runTimer();
     this.dataSub = this.exucuteOnService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
 
   createForm() {
     this.angForm = this.fb.group({
@@ -226,7 +218,8 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       DETAILS: ['', [Validators.required]],
     });
     let sysdate = new Date()
-    let sysDate = this.datePipe.transform(sysdate, "yyyy-MM-dd")
+    // let sysDate = this.datePipe.transform(sysdate, "yyyy-MM-dd")
+    let sysDate = moment(sysdate).format('DD/MM/YYYY')
     this.angForm.patchValue({
       'INSTRUCTION_DATE': sysDate,
       'FROM_DATE': sysDate,
@@ -239,46 +232,55 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateShow = false;
     this.newbtnShow = false;
     this.resetForm();
+    this.acno = null
+    this.ngacno = null
+    this.ngexecuteon = null
   }
 
   submit() {
     let fromdate
-    let  todate
-    this.formSubmitted=true;
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      INSTRUCTION_NO: formVal.INSTRUCTION_NO,
-      INSTRUCTION_DATE: formVal.INSTRUCTION_DATE,
-      TRAN_ACTYPE: formVal.TRAN_ACTYPE,
-      TRAN_ACNO: formVal.TRAN_ACNO,
-      FROM_DATE: (formVal.FROM_DATE == '' || formVal.FROM_DATE == 'Invalid date') ? fromdate = '' : fromdate = moment(formVal.FROM_DATE).format('DD/MM/YYYY'),
-      // FROM_DATE: formVal.FROM_DATE,
-      TO_DATE: (formVal.TO_DATE == '' || formVal.TO_DATE == 'Invalid date') ? todate = '' : todate = moment(formVal.TO_DATE).format('DD/MM/YYYY'),
-      // TO_DATE: formVal.TO_DATE,
-      DRCR_APPLY: formVal.DRCR_APPLY,
-      IS_RESTRICT: formVal.IS_RESTRICT,
-      DETAILS: formVal.DETAILS,
-    };
-    this._special.postData(dataToSend).subscribe(
-      (data1) => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
-        this.formSubmitted = false;
-        // to reload after delete of data
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+    let todate
+    this.formSubmitted = true;
+    if (this.angForm.valid) {
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        INSTRUCTION_NO: formVal.INSTRUCTION_NO,
+        INSTRUCTION_DATE: formVal.INSTRUCTION_DATE,
+        TRAN_ACTYPE: formVal.TRAN_ACTYPE,
+        TRAN_ACNO: formVal.TRAN_ACNO,
+        FROM_DATE: (formVal.FROM_DATE == '' || formVal.FROM_DATE == 'Invalid date' || formVal.FROM_DATE == null || formVal.FROM_DATE == undefined) ? fromdate = '' : fromdate = moment(formVal.FROM_DATE).format('DD/MM/YYYY'),
+        // FROM_DATE: formVal.FROM_DATE,
+        TO_DATE: (formVal.TO_DATE == '' || formVal.TO_DATE == 'Invalid date' || formVal.TO_DATE == null || formVal.TO_DATE == undefined) ? todate = '' : todate = moment(formVal.TO_DATE).format('DD/MM/YYYY'),
+        // TO_DATE: formVal.TO_DATE,
+        DRCR_APPLY: formVal.DRCR_APPLY,
+        IS_RESTRICT: formVal.IS_RESTRICT,
+        DETAILS: formVal.DETAILS,
+      };
+      this._special.postData(dataToSend).subscribe(
+        (data1) => {
+          Swal.fire('Success!', 'Data Added Successfully !', 'success');
+          this.formSubmitted = false;
+          // to reload after delete of data
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
+
   }
   /**
 * @editClickHandler function for edit button clicked
 */
-  updatecheckdata:any 
+  updatecheckdata: any
   editClickHandler(id: any): void {
     let fromdate
     let todate
@@ -286,21 +288,91 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateShow = true;
     this.newbtnShow = true;
     this._special.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
+      this.updatecheckdata = data
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.acno = data.TRAN_ACTYPE
+      this.angForm.patchValue({
         INSTRUCTION_NO: data.INSTRUCTION_NO,
         INSTRUCTION_DATE: data.INSTRUCTION_DATE,
-        TRAN_ACTYPE: data.TRAN_ACTYPE,
-        TRAN_ACNO: data.TRAN_ACNO,
-        FROM_DATE: (data.FROM_DATE == 'Invalid date' || data.FROM_DATE == '' || data.FROM_DATE == null) ? fromdate = '' : fromdate = data.FROM_DATE,
-        // FROM_DATE: data.FROM_DATE,
-        TO_DATE: (data.TO_DATE == 'Invalid date' || data.TO_DATE == '' || data.TO_DATE == null) ? todate = '' : todate = data.TO_DATE,
-        // TO_DATE: data.TO_DATE,
+        FROM_DATE: data.FROM_DATE,
+        TO_DATE: data.TO_DATE,
         DRCR_APPLY: data.DRCR_APPLY,
         IS_RESTRICT: data.IS_RESTRICT,
         DETAILS: data.DETAILS,
       });
+
+      this.ngacno = null
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      let branchCode = result.branch.id;
+      let obj = [this.acno, branchCode]
+      switch (data.specialIns.S_SHNAME) {
+        case 'SB':
+          this.schemeAccountNoService.getSavingSchemeList1(obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+
+        case 'SH':
+          this.schemeAccountNoService.getShareSchemeList1(obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+
+        case 'CA':
+          this.schemeAccountNoService.getCurrentAccountSchemeList1(obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+
+        case 'LN':
+          this.schemeAccountNoService.getTermLoanSchemeList1(obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+
+        case 'TD':
+          this.schemeAccountNoService.getTermDepositSchemeList1(obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+
+        case 'DS':
+          this.schemeAccountNoService.getDisputeLoanSchemeList1(obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+
+        case 'CC':
+          this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+
+        case 'GS':
+          this.schemeAccountNoService.getAnamatSchemeList1(obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+
+        case 'PG':
+          this.schemeAccountNoService.getPigmyAccountSchemeList1(obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+
+        case 'AG':
+          this.schemeAccountNoService.getPigmyAgentSchemeList1(obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+
+        case 'IV':
+          this.schemeAccountNoService.getInvestmentSchemeList1(obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+      }      this.ngacno = Number(data.TRAN_ACNO)
     });
   }
 
@@ -315,12 +387,12 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+    if (this.updatecheckdata.FROM_DATE != data.FROM_DATE) {
       (data.FROM_DATE == 'Invalid date' || data.FROM_DATE == '' || data.FROM_DATE == null) ? (fromdate = '', data['FROM_DATE'] = fromdate) : (fromdate = data.FROM_DATE, data['FROM_DATE'] = moment(fromdate).format('DD/MM/YYYY'))
-      }
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+    }
+    if (this.updatecheckdata.TO_DATE != data.TO_DATE) {
       (data.TO_DATE == 'Invalid date' || data.TO_DATE == '' || data.TO_DATE == null) ? (todate = '', data['TO_DATE'] = todate) : (todate = data.TO_DATE, data['TO_DATE'] = moment(todate).format('DD/MM/YYYY'))
-      }
+    }
     this._special.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -335,81 +407,75 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   //get account no according scheme for introducer
-  getSchemeAcNO(acno) {
-    switch (acno) {
+  getSchemeAcNO(event) {
+    this.ngacno = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    let obj = [this.acno, branchCode]
+    switch (event.name) {
       case 'SB':
-        console.log("saving");
-        this.schemeAccountNoService.getSavingSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getSavingSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'SH':
-        console.log("Share");
-        this.schemeAccountNoService.getShareSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getShareSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'CA':
-        console.log("Current account");
-        this.schemeAccountNoService.getCurrentAccountSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getCurrentAccountSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'LN':
-        console.log("Term Loan");
-        this.schemeAccountNoService.getTermLoanSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermLoanSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'TD':
-        console.log("Term Deposit");
-        this.schemeAccountNoService.getTermDepositSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermDepositSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'DS':
-        console.log("Dispute Loan");
-        this.schemeAccountNoService.getDisputeLoanSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getDisputeLoanSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'CC':
-        console.log("Cash Credit Loan");
-        this.schemeAccountNoService.getCashCreditSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'GS':
-        console.log("anamat");
-        this.schemeAccountNoService.getAnamatSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getAnamatSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'PG':
-        console.log("Pigmy account");
-        this.schemeAccountNoService.getPigmyAccountSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAccountSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'AG':
-        console.log("Pigmy agent");
-        this.schemeAccountNoService.getPigmyAgentSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAgentSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
 
       case 'IV':
-        console.log("Investment");
-        this.schemeAccountNoService.getInvestmentSchemeList().pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getInvestmentSchemeList1(obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
@@ -478,6 +544,9 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   // Reset Function
   resetForm() {
     this.createForm();
+    this.acno = null
+    this.ngacno = null
+    this.ngexecuteon = null
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

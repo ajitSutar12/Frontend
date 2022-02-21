@@ -3,7 +3,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewChild,Input,
+  ViewChild, Input,
   Output,
   EventEmitter,
   ElementRef,
@@ -34,9 +34,9 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface LandMaster {
-  id:number;
-    AC_ACNOTYPE:string;
-    AC_TYPE:number;
+  id: number;
+  AC_ACNOTYPE: string;
+  AC_TYPE: number;
   SUBMISSION_DATE: Date;
   VALUE: number;
   LOCATION: string;
@@ -64,9 +64,9 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
     this.newLandBuldingEvent.emit(value);
   }
   //passing data from parent to child component
-   @Input() scheme:any;
-   @Input() Accountno:any;
-   @Input() AC_ACNOTYPE: any;
+  @Input() scheme: any;
+  @Input() Accountno: any;
+  @Input() AC_ACNOTYPE: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -79,14 +79,14 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
   updateID: number; //variable for updating
 
   // for date 
-  submissiondate:any=null
-  citysurveydate:any=null
+  submissiondate: any = null
+  citysurveydate: any = null
   maxDate: Date;
   minDate: Date;
 
   // Store data from backend
   landMasters: LandMaster[];
-  
+
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -94,7 +94,7 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   page: number;
-  filterData= {};
+  filterData = {};
 
   constructor(
     private fb: FormBuilder,
@@ -102,7 +102,7 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
     private _land: landandbuildingsService,
     public router: Router
   ) {
-    
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -191,7 +191,7 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
           title: "Remarks",
           data: "REMARK",
         },
-          
+
         {
           title: "City Survey Number",
           data: "CITY_SURVEY_NO",
@@ -204,9 +204,9 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
           title: "Registration Number",
           data: "REG_NO",
         },
-       
-      
-       
+
+
+
       ],
       dom: "Blrtip",
     };
@@ -267,18 +267,18 @@ export class LandAndBuildingsComponent implements OnInit, AfterViewInit, OnDestr
     }
   }
 
-   //check  if margin values are below 100
-checkmargin(ele:any){ 
-  //check  if given value  is below 100
-  
-  if(ele <= 100){
-  }
-  else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
-  }
-}
+  //check  if margin values are below 100
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
 
-  updatecheckdata:any
+    if (ele <= 100) {
+    }
+    else {
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
+  }
+
+  updatecheckdata: any
   //function for edit button clicked
   editClickHandler(id: any): void {
     let submissiondate
@@ -287,26 +287,26 @@ checkmargin(ele:any){
     this.updateShow = true;
     this.newbtnShow = true;
     this._land.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
+      this.updatecheckdata = data
       this.updateID = data.id;
-        //sending values to parent
+      //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
-      
+
       dropdown.account = data.AC_NO;
-      
+
       let obj1 = {
-        'AccountType' :data.AC_TYPE,
+        'AccountType': data.AC_TYPE,
         'AccountNo': data.AC_NO,
-        'SchemeType':data.AC_ACNOTYPE
+        'SchemeType': data.AC_ACNOTYPE
       }
       this.newLandBuldingEvent.emit(obj1);
-      this.scheme=data.AC_TYPE
-      this.Accountno=data.AC_NO
+      this.scheme = data.AC_TYPE
+      this.Accountno = data.AC_NO
       this.angForm.patchValue({
-        
+
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-        
+
         VALUE: data.VALUE,
         LOCATION: data.LOCATION,
         AREA: data.AREA,
@@ -315,7 +315,7 @@ checkmargin(ele:any){
         REMARK: data.REMARK,
         CITY_SURVEY_NO: data.CITY_SURVEY_NO,
         'CITY_SURVEY_DATE': (data.CITY_SURVEY_DATE == 'Invalid date' || data.CITY_SURVEY_DATE == '' || data.CITY_SURVEY_DATE == null) ? citysurveydate = '' : citysurveydate = data.CITY_SURVEY_DATE,
-        
+
         REG_NO: data.REG_NO,
       });
     });
@@ -329,14 +329,14 @@ checkmargin(ele:any){
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    data["AC_TYPE"]=this.scheme
-    data["AC_NO"]=this.Accountno
-    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+    data["AC_TYPE"] = this.scheme
+    data["AC_NO"] = this.Accountno
+    if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
-      }
-      if(this.updatecheckdata.CITY_SURVEY_DATE!=data.CITY_SURVEY_DATE){
-        (data.CITY_SURVEY_DATE == 'Invalid date' || data.CITY_SURVEY_DATE == '' || data.CITY_SURVEY_DATE == null) ? (citysurveydate = '', data['CITY_SURVEY_DATE'] = citysurveydate) : (citysurveydate = data.SUBMISSION_DATE, data['CITY_SURVEY_DATE'] = moment(citysurveydate).format('DD/MM/YYYY'))
-        }
+    }
+    if (this.updatecheckdata.CITY_SURVEY_DATE != data.CITY_SURVEY_DATE) {
+      (data.CITY_SURVEY_DATE == 'Invalid date' || data.CITY_SURVEY_DATE == '' || data.CITY_SURVEY_DATE == null) ? (citysurveydate = '', data['CITY_SURVEY_DATE'] = citysurveydate) : (citysurveydate = data.SUBMISSION_DATE, data['CITY_SURVEY_DATE'] = moment(citysurveydate).format('DD/MM/YYYY'))
+    }
     this._land.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -376,7 +376,7 @@ checkmargin(ele:any){
     });
   }
   ngAfterViewInit(): void {
-    
+
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -400,9 +400,9 @@ checkmargin(ele:any){
   resetForm() {
     this.createForm();
     let obj1 = {
-      'AccountType' : null,
+      'AccountType': null,
       'AccountNo': null,
-      
+
     }
     this.newLandBuldingEvent.emit(obj1);
   }

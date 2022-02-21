@@ -3,7 +3,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewChild,Input,
+  ViewChild, Input,
   Output,
   EventEmitter,
   ElementRef,
@@ -36,12 +36,12 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface MarketMaster {
-  id:number;
-  AC_ACNOTYPE:string;
-  AC_TYPE:number;
-  AC_NO:number;
-  SECU_CODE:number;
-  BRANCH_CODE:number;
+  id: number;
+  AC_ACNOTYPE: string;
+  AC_TYPE: number;
+  AC_NO: number;
+  SECU_CODE: number;
+  BRANCH_CODE: number;
   SUBMISSION_DATE: Date;
   CO_CODE: number;
   CO_NAME: string;
@@ -51,7 +51,7 @@ interface MarketMaster {
   UPDATED_BY: string;
   RELEASE_DATE: Date;
   RELEASE_BY: string;
-  SECURITY_TYPE:string;
+  SECURITY_TYPE: string;
 }
 
 @Component({
@@ -69,9 +69,9 @@ export class MarketSharesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newmarketShareEvent.emit(value);
   }
   //passing data from parent to child component
-     @Input() scheme:any;
-     @Input() Accountno:any;
-     @Input() AC_ACNOTYPE: any;
+  @Input() scheme: any;
+  @Input() Accountno: any;
+  @Input() AC_ACNOTYPE: any;
   //api 
   url = environment.base_url;
   //autofocus
@@ -83,7 +83,7 @@ export class MarketSharesComponent implements OnInit, AfterViewInit, OnDestroy {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   // Store data from backend
-marketmaster: MarketMaster[];
+  marketmaster: MarketMaster[];
   // Created Form Group
   angForm: FormGroup;
   //Datatable variable
@@ -111,11 +111,11 @@ marketmaster: MarketMaster[];
   //filter variable
   filterData = {};
 
-//  variables for date
-submissiondate:any=null
-releaseddate:any=null
-maxDate: Date;
-minDate: Date;
+  //  variables for date
+  submissiondate: any = null
+  releaseddate: any = null
+  maxDate: Date;
+  minDate: Date;
 
 
   constructor(
@@ -124,7 +124,7 @@ minDate: Date;
     private http: HttpClient,
     public router: Router
   ) {
-  
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -170,7 +170,7 @@ minDate: Date;
             dataTableParameters
           )
           .subscribe((resp) => {
-            this.marketmaster= resp.data;
+            this.marketmaster = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -178,7 +178,7 @@ minDate: Date;
             });
           });
       },
-    
+
       columns: [
         {
           title: "Action",
@@ -186,7 +186,7 @@ minDate: Date;
             return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           },
         },
-        
+
         {
           title: "Co. Code",
           data: "CO_CODE",
@@ -215,8 +215,8 @@ minDate: Date;
           title: "Updated By",
           data: "UPDATED_BY",
         },
-       
-        
+
+
         {
           title: "Release Date",
           data: "RELEASE_DATE",
@@ -227,8 +227,8 @@ minDate: Date;
         },
       ],
       dom: "Blrtip",
-  
-     
+
+
     };
   }
 
@@ -246,50 +246,50 @@ minDate: Date;
     });
   }
   submit(event) {
-   let submissiondate
-   let releaseddate
+    let submissiondate
+    let releaseddate
     event.preventDefault();
     if (this.angForm.valid) {
-      
-      
-    const formVal = this.angForm.value;
-    const dataToSend = {
-      AC_TYPE: this.scheme,
+
+
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
-      'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-      
-      CO_CODE: formVal.CO_CODE,
-      CO_NAME: formVal.CO_NAME,
-      MARKET_VALUE: formVal.MARKET_VALUE,
-      MARGIN: formVal.MARGIN,
-      SHARES: formVal.SHARES,
-      UPDATED_BY: formVal.UPDATED_BY,
-      'RELEASE_DATE': (formVal.RELEASE_DATE == '' || formVal.RELEASE_DATE == 'Invalid date') ? releaseddate = '' : releaseddate = moment(formVal.RELEASE_DATE).format('DD/MM/YYYY'),
-      
-      RELEASE_BY: formVal.RELEASE_BY,
-    };
-    this._marketservice.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        this.formSubmitted = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-        
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+        'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+
+        CO_CODE: formVal.CO_CODE,
+        CO_NAME: formVal.CO_NAME,
+        MARKET_VALUE: formVal.MARKET_VALUE,
+        MARGIN: formVal.MARGIN,
+        SHARES: formVal.SHARES,
+        UPDATED_BY: formVal.UPDATED_BY,
+        'RELEASE_DATE': (formVal.RELEASE_DATE == '' || formVal.RELEASE_DATE == 'Invalid date') ? releaseddate = '' : releaseddate = moment(formVal.RELEASE_DATE).format('DD/MM/YYYY'),
+
+        RELEASE_BY: formVal.RELEASE_BY,
+      };
+      this._marketservice.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.formSubmitted = false;
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
 
     }
   }
 
 
-  updatecheckdata:any
+  updatecheckdata: any
   //function for edit button clicked
   editClickHandler(id: any): void {
     let submissiondate
@@ -298,25 +298,26 @@ minDate: Date;
     this.updateShow = true;
     this.newbtnShow = true;
     this._marketservice.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
-      
-  //sending values to parent
-  let dropdown: any = {};
-  dropdown.scheme = data.AC_TYPE;
-  dropdown.account = data.AC_NO;
-  let obj1 = {
-    'AccountType' :data.AC_TYPE,
-    'AccountNo': data.AC_NO,
-    'SchemeType':data.AC_ACNOTYPE
-  }
-  this.newmarketShareEvent.emit(obj1);
+      this.updatecheckdata = data
+
+      //sending values to parent
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+      dropdown.account = data.AC_NO;
+      let obj1 = {
+        'AccountType': data.AC_TYPE,
+        'AccountNo': data.AC_NO,
+        'SchemeType': data.AC_ACNOTYPE
+      }
+      this.newmarketShareEvent.emit(obj1);
       this.updateID = data.id;
-      this.scheme=data.AC_TYPE
-      this.Accountno=data.AC_NO
+      this.scheme = data.AC_TYPE
+      this.Accountno = data.AC_NO
       this.angForm.patchValue({
-       
+
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-        
+
         CO_CODE: data.CO_CODE,
         CO_NAME: data.CO_NAME,
         MARKET_VALUE: data.MARKET_VALUE,
@@ -324,21 +325,21 @@ minDate: Date;
         SHARES: data.SHARES,
         UPDATED_BY: data.UPDATED_BY,
         'RELEASE_DATE': (data.RELEASE_DATE == 'Invalid date' || data.RELEASE_DATE == '' || data.RELEASE_DATE == null) ? releaseddate = '' : releaseddate = data.RELEASE_DATE,
-        
+
         RELEASE_BY: data.RELEASE_BY,
       });
     });
   }
   //check  if margin values are below 100
-checkmargin(ele:any){ 
-  
-  
-  if(ele <= 100){
+  checkmargin(ele: any) {
+
+
+    if (ele <= 100) {
+    }
+    else {
+      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+    }
   }
-  else{
-    Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
-  }
-}
 
   updateData() {
     let submissiondate
@@ -348,14 +349,14 @@ checkmargin(ele:any){
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    data["AC_TYPE"]=this.scheme
-    data["AC_NO"]=this.Accountno
-    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+    data["AC_TYPE"] = this.scheme
+    data["AC_NO"] = this.Accountno
+    if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
-      }
-      if(this.updatecheckdata.RELEASE_DATE!=data.RELEASE_DATE){
-        (data.RELEASE_DATE == 'Invalid date' || data.RELEASE_DATE == '' || data.RELEASE_DATE == null) ? (releaseddate = '', data['RELEASE_DATE'] = releaseddate) : (releaseddate = data.RELEASE_DATE, data['RELEASE_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
-        }
+    }
+    if (this.updatecheckdata.RELEASE_DATE != data.RELEASE_DATE) {
+      (data.RELEASE_DATE == 'Invalid date' || data.RELEASE_DATE == '' || data.RELEASE_DATE == null) ? (releaseddate = '', data['RELEASE_DATE'] = releaseddate) : (releaseddate = data.RELEASE_DATE, data['RELEASE_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
+    }
     this._marketservice.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -418,7 +419,7 @@ checkmargin(ele:any){
   resetForm() {
     this.createForm();
     let obj1 = {
-      'AccountType' : null,
+      'AccountType': null,
       'AccountNo': null,
     }
     this.newmarketShareEvent.emit(obj1);

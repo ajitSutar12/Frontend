@@ -53,7 +53,7 @@ interface SecurityMaster {
 })
 export class OtherSecurityComponent
   implements OnInit, AfterViewInit, OnDestroy {
-    formSubmitted = false;
+  formSubmitted = false;
   //passing data form child to parent
   @Output() newOtherSecurityEvent = new EventEmitter<any>();
   datemax: string;
@@ -73,7 +73,7 @@ export class OtherSecurityComponent
   updateShow: boolean = false;
   updateID: number; //variable for updating
   //for date
-  submissiondate:any=null
+  submissiondate: any = null
   maxDate: Date;
   minDate: Date;
   // Store data from backend
@@ -96,9 +96,9 @@ export class OtherSecurityComponent
     private _security: othersecuritycomponentservice,
     public router: Router
   ) {
-    
 
-   }
+
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -139,7 +139,7 @@ export class OtherSecurityComponent
           )
           .subscribe((resp) => {
             this.securitymasters = resp.data;
-           
+
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -198,38 +198,38 @@ export class OtherSecurityComponent
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-     
+
       const formVal = this.angForm.value;
       const dataToSend = {
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
-      'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-     
-      SHORT_DETAILS: formVal.SHORT_DETAILS,
-      TOTAL_VALUE: formVal.TOTAL_VALUE,
-      MARGIN: formVal.MARGIN,
-      DETAILS: formVal.DETAILS,
-    };
-    this._security.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        this.formSubmitted = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-        
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+        'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+
+        SHORT_DETAILS: formVal.SHORT_DETAILS,
+        TOTAL_VALUE: formVal.TOTAL_VALUE,
+        MARGIN: formVal.MARGIN,
+        DETAILS: formVal.DETAILS,
+      };
+      this._security.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.formSubmitted = false;
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
     }
-    
+
   }
-  updatecheckdata:any
+  updatecheckdata: any
   //function for edit button clicked
   editClickHandler(id: any): void {
     let submissiondate
@@ -237,40 +237,40 @@ export class OtherSecurityComponent
     this.updateShow = true;
     this.newbtnShow = true;
     this._security.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
-     //sending values to parent
-     let dropdown: any = {};
-     dropdown.scheme = data.AC_TYPE;
-    
-     dropdown.account = data.AC_NO;
-     
-     let obj1 = {
-       'AccountType' :data.AC_TYPE,
-       'AccountNo': data.AC_NO,
-       'SchemeType':data.AC_ACNOTYPE
-     }
-     this.newOtherSecurityEvent.emit(obj1);
-     
-     this.scheme=data.AC_TYPE
-     this.Accountno=data.AC_NO
-        this.updateID = data.id;
-        
-        this.angForm.patchValue({
+      this.updatecheckdata = data
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+
+      dropdown.account = data.AC_NO;
+
+      let obj1 = {
+        'AccountType': data.AC_TYPE,
+        'AccountNo': data.AC_NO,
+        'SchemeType': data.AC_ACNOTYPE
+      }
+      this.newOtherSecurityEvent.emit(obj1);
+
+      this.scheme = data.AC_TYPE
+      this.Accountno = data.AC_NO
+      this.updateID = data.id;
+
+      this.angForm.patchValue({
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
-        
+
         SHORT_DETAILS: data.SHORT_DETAILS,
         TOTAL_VALUE: data.TOTAL_VALUE,
         MARGIN: data.MARGIN,
-        DETAILS: data.DETAILS,  
+        DETAILS: data.DETAILS,
       });
     });
   }
   //check  if margin values are below 100
   checkmargin(ele: any) {
-   
-    
+
+
     if (ele <= 100) {
-      
+
     }
     else {
       Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
@@ -278,22 +278,22 @@ export class OtherSecurityComponent
   }
 
   updateData() {
-    
+
     let submissiondate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     let data = this.angForm.value;
-    
+
     data["id"] = this.updateID;
-    data["AC_TYPE"]=this.scheme
-    data["AC_NO"]=this.Accountno
-    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+    data["AC_TYPE"] = this.scheme
+    data["AC_NO"] = this.Accountno
+    if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
-      }
-      
+    }
+
     this._security.updateData(data).subscribe(() => {
-      
+
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
@@ -330,7 +330,7 @@ export class OtherSecurityComponent
   }
   ngAfterViewInit(): void {
 
-    
+
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -354,9 +354,9 @@ export class OtherSecurityComponent
   resetForm() {
     this.createForm();
     let obj1 = {
-      'AccountType' : null,
+      'AccountType': null,
       'AccountNo': null,
-      
+
     }
     this.newOtherSecurityEvent.emit(obj1);
 

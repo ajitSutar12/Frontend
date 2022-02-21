@@ -130,6 +130,10 @@ export class SecurityDetailsComponent implements OnInit {
   
   
 
+  // newItemEvent(scheme){
+  //   console.log(scheme)
+  // }
+
   schemechange(event) {
     
     this.getschemename = event.name

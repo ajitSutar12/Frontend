@@ -3,7 +3,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewChild,Input,
+  ViewChild, Input,
   Output,
   EventEmitter,
 } from "@angular/core";
@@ -36,9 +36,9 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface GoldMaster {
-  id:number;
-    AC_ACNOTYPE:string;
-    AC_TYPE:number;
+  id: number;
+  AC_ACNOTYPE: string;
+  AC_TYPE: number;
   ITEM_TYPE: string;
   SUBMISSION_DATE: Date;
   BAG_RECEIPT_NO: string;
@@ -60,8 +60,7 @@ interface GoldMaster {
   styleUrls: ["./gold-and-silver.component.scss"],
 })
 export class GoldAndSilverComponent
-  implements OnInit, AfterViewInit, OnDestroy
-{
+  implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
   //passing data form child to parent
   @Output() newGoldsilverEvent = new EventEmitter<any>();
@@ -69,10 +68,10 @@ export class GoldAndSilverComponent
   newItemEvent(value) {
     this.newGoldsilverEvent.emit(value);
   }
-   //passing data from parent to child component
-   @Input() scheme:any;
-   @Input() Accountno:any;
-   @Input() AC_ACNOTYPE: any;
+  //passing data from parent to child component
+  @Input() scheme: any;
+  @Input() Accountno: any;
+  @Input() AC_ACNOTYPE: any;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -87,11 +86,11 @@ export class GoldAndSilverComponent
   showButton: boolean = true;
   updateShow: boolean = false;
 
-  ngitem:any=null
+  ngitem: any = null
   updateID: number; //variable for updating
 
   // for date 
-  submissiondate:any=null
+  submissiondate: any = null
   maxDate: Date;
   minDate: Date;
 
@@ -103,12 +102,12 @@ export class GoldAndSilverComponent
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   page: number;
-  filterData={};
+  filterData = {};
   clearvalue: any;
   ratevalue: string;
   //varaible for total value calculation
-  ClearWeight:number;
-  rate:number
+  ClearWeight: number;
+  rate: number
 
   constructor(
     private fb: FormBuilder,
@@ -121,7 +120,7 @@ export class GoldAndSilverComponent
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-    }
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -271,65 +270,65 @@ export class GoldAndSilverComponent
     this.formSubmitted = true;
 
     if (this.angForm.valid) {
-    let totalvalueid = (document.getElementById("TotalAmount")as HTMLInputElement).value;
-    
-    this.angForm.patchValue({
-      TOTAL_VALUE:totalvalueid,
-     
-    });
-    const formVal = this.angForm.value;
-  
-    const dataToSend = {
-      AC_TYPE: this.scheme,
-      AC_NO: this.Accountno,
-      AC_ACNOTYPE: this.AC_ACNOTYPE,
-      ITEM_TYPE: formVal.ITEM_TYPE,
-      'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-      BAG_RECEIPT_NO: formVal.BAG_RECEIPT_NO,
-      GOLD_BOX_NO: formVal.GOLD_BOX_NO,
-      MARGIN: formVal.MARGIN,
-      ARTICLE_NAME: formVal.ARTICLE_NAME,
-      TOTAL_WEIGHT_GMS: formVal.TOTAL_WEIGHT_GMS,
-      CLEAR_WEIGHT_GMS: formVal.CLEAR_WEIGHT_GMS,
-      RATE: formVal.RATE,
-      TOTAL_VALUE: formVal.TOTAL_VALUE,
-      REMARK: formVal.REMARK,
-      NOMINEE: formVal.NOMINEE,
-      NOMINEE_RELATION: formVal.NOMINEE_RELATION,
-    };
-    this._goldsilverService.postData(dataToSend).subscribe(
-      (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
-        this.formSubmitted = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //To clear form
-    this.resetForm();
+      let totalvalueid = (document.getElementById("TotalAmount") as HTMLInputElement).value;
+
+      this.angForm.patchValue({
+        TOTAL_VALUE: totalvalueid,
+
+      });
+      const formVal = this.angForm.value;
+
+      const dataToSend = {
+        AC_TYPE: this.scheme,
+        AC_NO: this.Accountno,
+        AC_ACNOTYPE: this.AC_ACNOTYPE,
+        ITEM_TYPE: formVal.ITEM_TYPE,
+        'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
+        BAG_RECEIPT_NO: formVal.BAG_RECEIPT_NO,
+        GOLD_BOX_NO: formVal.GOLD_BOX_NO,
+        MARGIN: formVal.MARGIN,
+        ARTICLE_NAME: formVal.ARTICLE_NAME,
+        TOTAL_WEIGHT_GMS: formVal.TOTAL_WEIGHT_GMS,
+        CLEAR_WEIGHT_GMS: formVal.CLEAR_WEIGHT_GMS,
+        RATE: formVal.RATE,
+        TOTAL_VALUE: formVal.TOTAL_VALUE,
+        REMARK: formVal.REMARK,
+        NOMINEE: formVal.NOMINEE,
+        NOMINEE_RELATION: formVal.NOMINEE_RELATION,
+      };
+      this._goldsilverService.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Added Successfully !", "success");
+          this.formSubmitted = false;
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload()
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
     }
-    
-   
+
+
   }
 
-   //check  if margin values are below 100
-checkmargin(ele:any){ 
-  //check  if given value  is below 100
-  
-  if(ele <= 100){
+  //check  if margin values are below 100
+  checkmargin(ele: any) {
+    //check  if given value  is below 100
 
+    if (ele <= 100) {
+
+    }
+    else {
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+    }
   }
-  else{
-    Swal.fire("Invalid Input", "Please insert values below 100", "error");
-  }
-}
 
 
-updatecheckdata:any
+  updatecheckdata: any
   //function for edit button clicked
   editClickHandler(id: any): void {
     let submissiondate
@@ -337,21 +336,21 @@ updatecheckdata:any
     this.updateShow = true;
     this.newbtnShow = true;
     this._goldsilverService.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
-       //sending values to parent
+      this.updatecheckdata = data
+      //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
-     
+
       dropdown.account = data.AC_NO;
-    
+
       let obj1 = {
-        'AccountType' :data.AC_TYPE,
+        'AccountType': data.AC_TYPE,
         'AccountNo': data.AC_NO,
-        'SchemeType':data.AC_ACNOTYPE
+        'SchemeType': data.AC_ACNOTYPE
       }
       this.newGoldsilverEvent.emit(obj1);
-      this.scheme=data.AC_TYPE
-      this.Accountno=data.AC_NO
+      this.scheme = data.AC_TYPE
+      this.Accountno = data.AC_NO
       this.updateID = data.id;
       this.angForm.patchValue({
         AC_ACNOTYPE: data.AC_ACNOTYPE,
@@ -379,11 +378,11 @@ updatecheckdata:any
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    data["AC_TYPE"]=this.scheme
-    data["AC_NO"]=this.Accountno
-    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+    data["AC_TYPE"] = this.scheme
+    data["AC_NO"] = this.Accountno
+    if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
-      }
+    }
     this._goldsilverService.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -445,9 +444,9 @@ updatecheckdata:any
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngitem=null
+    this.ngitem = null
     let obj1 = {
-      'AccountType' : null,
+      'AccountType': null,
       'AccountNo': null,
     }
     this.newGoldsilverEvent.emit(obj1);

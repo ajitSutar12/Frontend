@@ -84,14 +84,14 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   updateID: number;
   firemaster: FireMaster[];
   nginsurance: any = null
- 
+
   // for date 
   submissiondate: any = null
   policyduedate: any = null
   premiumduedate: any = null
   maxDate: Date;
   minDate: Date;
- 
+
   //for autofocus
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
@@ -107,7 +107,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     public router: Router,
     private _insurancedropdownservice: InsuranceMasterDropdownService,
     private config: NgSelectConfig,) {
-    
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -240,18 +240,18 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     let premiumduedate
     event.preventDefault();
     this.formSubmitted = true;
-   
+
 
     if (this.angForm.valid) {
-      
+
       const formVal = this.angForm.value;
-      
+
       const dataToSend = {
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
-        'POLICY_DUE_DATE': (formVal.POLICY_DUE_DATE == '' || formVal.POLICY_DUE_DATE == 'Invalid date') ? policyduedate = '' : policyduedate = moment(formVal.POLICY_DUE_DATE).format('DD/MM/YYYY'),  
+        'POLICY_DUE_DATE': (formVal.POLICY_DUE_DATE == '' || formVal.POLICY_DUE_DATE == 'Invalid date') ? policyduedate = '' : policyduedate = moment(formVal.POLICY_DUE_DATE).format('DD/MM/YYYY'),
         POLICY_NO: formVal.POLICY_NO,
         POLICY_AMT: formVal.POLICY_AMT,
         POLICY_NATURE: formVal.POLICY_NATURE,
@@ -268,7 +268,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
-         
+
         },
         (error) => {
           console.log(error);
@@ -286,32 +286,32 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     let submissiondate
     let policyduedate
     let premiumduedate
-   
+
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this._fire.getFormData(id).subscribe((data) => {
-      
+
       this.updatecheckdata = data
       //sending values to parent
       let dropdown: any = {};
       dropdown.scheme = data.AC_TYPE;
       dropdown.account = data.AC_NO;
       let obj1 = {
-        'AccountType' :data.AC_TYPE,
+        'AccountType': data.AC_TYPE,
         'AccountNo': data.AC_NO,
-        'SchemeType':data.AC_ACNOTYPE
+        'SchemeType': data.AC_ACNOTYPE
       }
       this.newfirePolicyEvent.emit(obj1);
-      
+
 
       this.updateID = data.id;
-      
-      this.scheme=data.AC_TYPE
-      this.Accountno=data.AC_NO
+
+      this.scheme = data.AC_TYPE
+      this.Accountno = data.AC_NO
       this.nginsurance = Number(data.INSU_CO_CODE)
       this.angForm.patchValue({
-       
+
         AC_ACNOTYPE: data.AC_ACNOTYPE,
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
         'POLICY_DUE_DATE': (data.POLICY_DUE_DATE == 'Invalid date' || data.POLICY_DUE_DATE == '' || data.POLICY_DUE_DATE == null) ? policyduedate = '' : policyduedate = data.POLICY_DUE_DATE,
@@ -327,6 +327,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateData() {
+    debugger
     let submissiondate
     let policyduedate
     let premiumduedate
@@ -335,8 +336,8 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    data["AC_TYPE"]=this.scheme
-    data["AC_NO"]=this.Accountno
+    data["AC_TYPE"] = this.scheme
+    data["AC_NO"] = this.Accountno
     if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
     }
@@ -346,12 +347,13 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.updatecheckdata.PREMIUM_DUE_DATE != data.PREMIUM_DUE_DATE) {
       (data.PREMIUM_DUE_DATE == 'Invalid date' || data.PREMIUM_DUE_DATE == '' || data.PREMIUM_DUE_DATE == null) ? (premiumduedate = '', data['PREMIUM_DUE_DATE'] = premiumduedate) : (premiumduedate = data.PREMIUM_DUE_DATE, data['PREMIUM_DUE_DATE'] = moment(premiumduedate).format('DD/MM/YYYY'))
     }
-    
+
     this._fire.updateData(data).subscribe(() => {
-      
+
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
+      // this.addNewCustomer(data.id);
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -411,9 +413,9 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   resetForm() {
     this.createForm();
     this.nginsurance = null
-   
+
     let obj1 = {
-      'AccountType' : null,
+      'AccountType': null,
       'AccountNo': null,
     }
     this.newfirePolicyEvent.emit(obj1);
