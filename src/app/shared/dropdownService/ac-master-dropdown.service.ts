@@ -17,6 +17,7 @@ export class ACMasterDropdownService {
         return this.http.get<any>(this.url + '/gl-account-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
+<<<<<<< Updated upstream
                     let obj = { label: element.AC_NAME, value: element.id, name: element.AC_NO };
                     this.acMasterObject.push(obj)
                 });
@@ -30,6 +31,10 @@ export class ACMasterDropdownService {
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NAME, value: element.id, name: element.AC_NO };
+=======
+                    // let obj = { label: element.AC_NO + ' ' + element.AC_NAME + ' ', value: element.id };
+                    let obj = { label: element.AC_NO + ' ' + element.AC_NAME + ' ', value: element.id, name: element.AC_NO };
+>>>>>>> Stashed changes
                     this.acMasterObject.push(obj)
                 });
                 return this.acMasterObject;

@@ -157,6 +157,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   public bankName: any;
   public profilePath: any;
 
+  public currentDate : any;
+
   scroll = (): void => {
     const scrollPosition = window.pageYOffset;
     if (scrollPosition > 56) {
@@ -183,7 +185,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.verticalPlacement = 'left';
     this.verticalLayout = 'wide';
     this.pcodedDeviceType = 'desktop';
-    this.verticalNavType = 'expanded';
+    this.verticalNavType = 'offcanvas';
     this.verticalEffect = 'shrink';
     this.vnavigationView = 'view1';
     this.freamType = 'theme1';
@@ -204,9 +206,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     this.searchWidth = 0;
 
-    this.navRight = 'nav-on';
+    this.navRight = 'nav-off';
 
-    this.toggleOn = true;
+    this.toggleOn = false;
     this.toggleIcon = 'icon-toggle-right';
     this.navBarTheme = 'themelight1'; // themelight1(default) theme1(dark)
     this.activeItemTheme = 'theme1';
@@ -259,6 +261,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     this.userData = result;
+    this.currentDate = result.branch.syspara.CURRENT_DATE;
     
     let menuData:string = '';
     result.RoleDefine.forEach(ele=>{
@@ -398,7 +401,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.headerFixedMargin = '0';
     } else {
       this.pcodedDeviceType = 'desktop';
-      this.verticalNavType = 'expanded';
+      this.verticalNavType = 'offcanvas';
       this.verticalEffect = 'shrink';
       this.toggleIcon = 'icon-toggle-right';
       this.headerFixedMargin = '56px';
@@ -415,6 +418,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   toggleHeaderNavRight() {
+    debugger
     this.navRight = this.navRight === 'nav-on' ? 'nav-off' : 'nav-on';
     this.chatTopPosition = this.chatTopPosition === 'nav-on' ? '112px' : '';
     if (this.navRight === 'nav-off' && this.innerChatSlideInOut === 'in') {
@@ -508,6 +512,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   toggleOpened(e) {
+    debugger
     if (this.windowWidth <= 992) {
       this.toggleOn = this.verticalNavType === 'offcanvas' ? true : this.toggleOn;
       if (this.navRight === 'nav-on') {

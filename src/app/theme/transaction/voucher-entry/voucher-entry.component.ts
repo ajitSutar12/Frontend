@@ -13,7 +13,8 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { VoucherEntryService } from './voucher-entry.service';
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
 import * as moment from 'moment';
-
+import { Router } from '@angular/router';
+import { data } from 'jquery';
 @Component({
   selector: 'app-voucher-entry',
   templateUrl: './voucher-entry.component.html',
@@ -40,6 +41,11 @@ export class VoucherEntryComponent implements OnInit {
   syspara: any;
   // Created Form Group
   angForm: FormGroup;
+  Pass:number = 0;
+  Unpass:number = 0;
+  ClearBalance:number =0;
+  AfterVoucher:number=0;
+  InputHeadAmt:number = 0.00;
 
   //object created to get data when row is clicked
 
@@ -64,7 +70,7 @@ export class VoucherEntryComponent implements OnInit {
   TranModeCash = [
     { id: 1, value: 'Deposit / Receipts', tran_drcr: 'C', tran_type: 'CS' },
     { id: 2, value: 'Deposit Closing', tran_drcr: 'C', tran_type: 'CS' },
-    { id: 3, value: 'Deposit Penal Interest', tran_drcr: '', tran_type: 'CS' },
+    { id: 3, value: 'Deposit Penal Interest', tran_drcr: 'D', tran_type: 'CS' },
     { id: 4, value: 'Withdrawals / Payments', tran_drcr: 'D', tran_type: 'CS' },
     { id: 5, value: 'Withdrawals for Closing', tran_drcr: 'D', tran_type: 'CS' },
     { id: 6, value: 'Withdrawals Interest', tran_drcr: 'D', tran_type: 'CS' },
@@ -108,7 +114,13 @@ export class VoucherEntryComponent implements OnInit {
   isture: boolean = true;
   totalAmt: any;
   showChequeDetails: boolean = false;
+  DayOpBal : number;
+  headData : any;
+  headShow: boolean = false;
+  lastday: any;
 
+  customerImg:string = '../../../../assets/images/user-card/img-round4.jpg';
+  signture: string = '../../../../assets/sign/signture.jpg';
   constructor(
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -118,6 +130,7 @@ export class VoucherEntryComponent implements OnInit {
     private _service: VoucherEntryService,
     private savingMasterService: SavingMasterService,
     private fb: FormBuilder,
+    private router : Router
   ) { }
 
   ngOnInit(): void {
@@ -125,7 +138,7 @@ export class VoucherEntryComponent implements OnInit {
       branch_code : ['', [Validators.required]],
       temp_over_draft: [''],
       over_draft: [''],
-      token: [''],
+      token: [''], 
       particulars: [''],
       total_amt: [''],
       amt: [''],
@@ -135,11 +148,15 @@ export class VoucherEntryComponent implements OnInit {
       scheme:[''],
       scheme_type:[''],
       date:[''],
-      type:[''],
+      type:new FormControl('cash'),
       chequeDate:[''],
       chequeNo:[''],
-      bank: ['']
+      bank: [''],
+      Intdate:['']
     })
+
+    //Day opening Amount
+    this.DayOpBal = 1000;
     // get session branch data
     let user = JSON.parse(localStorage.getItem('user'));
     this.type = 'cash';
@@ -172,8 +189,11 @@ export class VoucherEntryComponent implements OnInit {
     this._service.getNarrationMaster().subscribe(data => {
       this.narrationList = data;
     })
+
+    
   }
 
+  IntersetHeadDate:any;
   selectedSchemeCode() {
     this.allScheme = [];
     this.master.forEach(element => {
@@ -197,6 +217,30 @@ export class VoucherEntryComponent implements OnInit {
         this.tranModeList.push(obj);
       })
     }
+
+    //get Head details
+    let obj       = {'code': this.selectedCode};
+    let date      = this.date;
+    var rowData   = date.split('/');
+    let lastdate  = Number(rowData[0])-1;
+    // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
+    this.IntersetHeadDate    = lastdate+'/'+rowData[1]+'/'+rowData[2];
+    console.log('IntrestDate', this.IntersetHeadDate);
+    this._service.getHeadDetails(obj).subscribe(data=>{
+      if(data.length !=0){
+        this.headData = data;
+        this.headShow = true;
+        this.headData.forEach(element => {
+          element['date'] = this.IntersetHeadDate;
+          element['Amount'] = 0.00
+        });
+        console.log(this.headData);
+      }else{
+        this.headShow = false;
+      }
+    },err=>{
+      console.log(err);
+    })
   }
 
   //get account no according scheme for introducer
@@ -306,9 +350,29 @@ export class VoucherEntryComponent implements OnInit {
     let user   = JSON.parse(localStorage.getItem('user'));
     let obj    = this.angForm.value;
     obj['user']= user;
+    obj['InputHead'] = this.headData;
     console.log(obj);
     this._service.insertVoucher(obj).subscribe(data=>{
+      this.getVoucherData();
       Swal.fire('Success!', 'Voucher update Successfully !', 'success');
+      this.angForm.controls['temp_over_draft'].reset()
+      this.angForm.controls['over_draft'].reset()
+      this.angForm.controls['token'].reset()
+      this.angForm.controls['particulars'].reset()
+      this.angForm.controls['total_amt'].reset()
+      this.angForm.controls['amt'].reset()
+      this.angForm.controls['slip_no'].reset()
+      this.angForm.controls['tran_mode'].reset()
+      this.angForm.controls['account_no'].reset()
+      this.angForm.controls['scheme'].reset()
+      this.angForm.controls['scheme_type'].reset()
+      this.angForm.controls['type'].reset()
+      this.angForm.controls['chequeDate'].reset()
+      this.angForm.controls['chequeDate'].reset()
+      this.angForm.controls['chequeNo'].reset()
+      this.angForm.controls['bank'].reset()
+      this.headData = [];
+      this.headShow = false;
     },err=>{
       console.log(err);
     })
@@ -330,5 +394,104 @@ export class VoucherEntryComponent implements OnInit {
     if(this.selectedCode == 'GL'){
       this.showChequeDetails = true
     }
+  }
+
+  //get customer today voucher data
+  getVoucherData(){
+    debugger
+    let customer = this.angForm.controls['account_no'].value;
+    let obj = {
+      'customer' : customer.BANKACNO,
+      'date'     : this.date
+    }
+
+    //Check Account Close or not
+    let Obj = {
+      'customer_ACNO' : customer.BANKACNO,
+      'type': this.selectedCode
+    }
+    this._service.checkAccountCloseOrNot(Obj).subscribe(data=>{
+      if(data == true){
+        Swal.fire('Error!', 'Access dined Account Close Already!', 'error');
+        return 0;
+      }
+    },err=>{
+      console.log(err);
+    })
+    
+    this._service.getVoucherPassAndUnpassData(obj).subscribe(data=>{
+      debugger
+      let passType   = '';
+      let unpassType = '';
+
+      //DayOfOpening 
+      this.ClearBalance = this.ClearBalance + this.DayOpBal;
+
+      //Pass condition checked
+      if(data.passObj.pass == undefined){
+        this.Pass =  0;
+        passType  = 'Cr';
+      }else{
+        this.Pass =  data.passObj.pass;
+        passType  = data.passObj.type;
+      }
+
+      //Unpass condition checked
+      if(data.unpassObj.UnPass == undefined){
+        this.Unpass = 0;
+        let unpassType = 'Cr';
+      }else{
+        this.Unpass = data.unpassObj.UnPass;
+        let unpassType = data.unpassObj.type;
+      }
+
+
+      if(passType == 'Cr'){ 
+        this.ClearBalance = this.Pass + this.ClearBalance;
+      }else{
+        this.ClearBalance = this.Pass - this.ClearBalance;
+      }
+
+      if(unpassType == 'Cr'){
+        this.ClearBalance = this.Unpass + this.ClearBalance;
+      }else{
+        this.ClearBalance = this.Unpass - this.ClearBalance;
+      }
+      // this.ClearBalance = this.DayOpBal + this.Pass + this.Unpass;
+      this.AfterVoucher = this.ClearBalance;
+    },err=>{
+      console.log(err);
+    })
+  }
+
+
+  //get Input head Amount
+  getInputHeadAmt(ele,i){
+    let value = ele.target.value;
+    this.headData[i].Amount = value;
+    console.log(this.headData);
+  }
+
+  //decimal content show purpose wrote below function
+  decimalAllContent($event) {
+    let value = Number($event.target.value);
+    let data = value.toFixed(2);
+    $event.target.value = data;
+  }
+
+  hideImage() {
+    // document.getElementById("full").src = "";
+    this.previewImg = '';
+    this.PreviewDiv = false;
+  }
+  previewImg:string;
+  PreviewDiv : boolean = false;
+  showImage(img) {
+    var src = img;
+    console.log(src)
+    var largeSrc = src.replace('small', 'large');
+    this.previewImg = src;
+    this.PreviewDiv = true;
+    // document.getElementById('full').src = largeSrc;
   }
 }

@@ -28,7 +28,11 @@
         </div>
         <div class="navbar-container">
           <ul class="nav-left">
-
+            <!-- <li class="ripple light" appToggleFullScreen>
+              <a href="javascript:">
+                <i class="icon-fullscreen"></i>
+              </a>
+            </li> -->
             <!--start bank name label  -->
             <li class="header-notification ripple light">
               <a href="javascript:">
@@ -54,11 +58,7 @@
                 </div>
               </div>
             </li> -->
-            <!--<li class="ripple light" appToggleFullScreen>
-              <a href="javascript:">
-                <i class="icon-fullscreen"></i>
-              </a>
-            </li>-->
+            
             <!-- </perfect-scrollbar> -->
 
           </ul>
@@ -508,10 +508,19 @@
 <footer class="customfooter">
   <div>
     <span class="text-muted">
-      <marquee behavior="scroll" direction="left" scrollamount="5">
-        <label class="text"><b>Tomorrow there will be holiday to bank.........</b>
-        </label>
-      </marquee>
+      <div class="row">
+        <div class="col-md-3">
+          <h6 style="color:black">Branch: {{barnchName}}  Today Date: {{currentDate}}</h6>
+        </div>
+        <div class="col-md-8">
+          <marquee behavior="scroll" direction="left" scrollamount="5">
+            <label class="text"><b>Tomorrow there will be holiday to bank.........</b>
+            </label>
+          </marquee>
+        </div>
+      </div>
+     
+     
     </span>
   </div>
 </footer>

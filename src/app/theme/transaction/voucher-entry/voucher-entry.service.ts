@@ -34,4 +34,19 @@ export class VoucherEntryService {
     insertVoucher(data):Observable<any>{
       return this.http.post(this.url+'/voucher',data);
     }
+
+     //Get Head details using head
+     getHeadDetails(data):Observable<any>{
+      return this.http.post(this.url+'/voucher/intrestHead',data);
+    }
+
+    //get voucher pass and unpass data
+    getVoucherPassAndUnpassData(data):Observable<any>{
+      return this.http.post(this.url+'/voucher/PassUnpassData',data);
+    }
+
+    //check customer account close or not
+    checkAccountCloseOrNot(data):Observable<any>{
+      return this.http.post(this.url+'/voucher/checkAccountCloseDetails',data);
+    }
 }
