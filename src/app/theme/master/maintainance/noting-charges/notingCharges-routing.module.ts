@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { NotingChargesComponent} from './noting-charges.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes),NgSelectModule],
   exports: [RouterModule]
 })
 export class NotingChargesRoutingModule { }

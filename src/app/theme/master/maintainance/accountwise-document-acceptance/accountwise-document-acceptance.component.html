@@ -3,18 +3,31 @@
         <div class="card">
             <div class="card-header">
                 <h5>Accountwise Document Acceptance</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false"
                                     placeholder="Scheme *" required title="Compulsory Selection"
                                     formControlName="AC_TYPE">
                                 </ng-select>
                                 <label>{{message.scheme}}</label>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme2"
+                                    formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                    <ng-option *ngFor="let values of simpleOption" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="AC_TYPE">Scheme<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
@@ -25,12 +38,23 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Ac" [multiple]="false"
                                     placeholder="Account No. *" required title="Compulsory Selection"
                                     formControlName="AC_NO">
                                 </ng-select>
                                 <label>{{message.accno}}</label>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngacno2"
+                                    formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Account No">
+                                    <ng-option *ngFor="let values of Ac" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="AC_NO">Account No<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
@@ -41,9 +65,9 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                                [disabled]="angForm.invalid">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
                         </div>
                     </div>
@@ -54,13 +78,48 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-block">
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions"
-                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            <table id="accountwisetable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                            class="table table-striped table-bordered table-hover compact" style="width: 100%;">
+                                <tbody *ngIf="accountwise?.length != 0">
+                                    <tr *ngFor="let data of accountwise">
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                            (click)="editClickHandler(data.id)" placement="bottom"
+                                            ngbTooltip="Edit"></span>
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
+                                                (click)="delClickHandler(data.id)">Delete</button> -->
+                                                <span class="fa fa-fw fa-trash-o" id="delbtn" (click)="delClickHandler(data.id)" placement="bottom"
+                                                        ngbTooltip="Delete"></span>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="accountwise?.length == 0">
+                                    <tr>
+                                        <td colspan="3" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot #filters class="filters">
+                                    <tr class="testing">
+                                        <th class="testing"></th>
+                                        
+                                        <th><input type="text" class="form-control" /></th>
+                                        <th><input type="text" class="form-control" /></th>
+                                        <th><input type="text" class="form-control" /></th>
+                                        <th><input type="text" class="form-control" /></th>
+                                        <th><input type="text" class="form-control" /></th>
+                                        
+                                        
+                                       
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

@@ -8,21 +8,26 @@ import { S8Service } from '../../../../shared/elements/s8.service';
 import { Ac8Service } from '../../../../shared/elements/ac8.service';
 import { S18Service } from '../../../../shared/elements/s18.service'
 import { S19Service } from '../../../../shared/elements/s19.service'
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   imports: [
     CommonModule,
     NotingChargesRoutingModule,
     DataTablesModule,
-    SelectModule,
+    // SelectModule,
+    NgSelectModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   declarations: [NotingChargesComponent],
   providers: [SimService, S8Service, Ac8Service, S18Service, S19Service,{

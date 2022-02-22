@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoanAndCCInterestRateChangesComponent } from './loan-and-ccinterest-rate-changes.component';
 import { LoanAndCCInterestRateChangesRoutingModule } from './loan-And-CC-Interest-Rate-Changes-routing.module'
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { StatementTypeService } from '../../../../shared/elements/statment-type.service';
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -19,7 +20,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     NgbModule,
     LoanAndCCInterestRateChangesRoutingModule,
     DataTablesModule,
-    SelectModule,
+    // SelectModule,
+    NgSelectModule,
     FormsModule,
     ReactiveFormsModule
   ],

@@ -6,6 +6,27 @@ import { Ac7Service } from '../../../../shared/elements/ac7.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import{environment} from '../../../../../environments/environment'
+import { HttpClient } from '@angular/common/http'
+import { NgSelectConfig } from '@ng-select/ng-select';
+
+
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+
+// For fetching values from backend
+interface AccountWise{
+  id: number;
+  AC_ACNOTYPE: string
+  AC_TYPE: number
+  AC_NO: number
+  DOCUMENT_CODE: number
+
+}
 
 @Component({
   selector: 'app-accountwise-document-acceptance',
@@ -14,6 +35,7 @@ import{environment} from '../../../../../environments/environment'
 })
 
 export class AccountwiseDocumentAcceptanceComponent implements OnInit {
+  formSubmitted = false;
  url = environment.base_url;
   angForm: FormGroup;
 
@@ -34,6 +56,10 @@ export class AccountwiseDocumentAcceptanceComponent implements OnInit {
   showButton: boolean = true;
   updateShow: boolean = false;
 
+  //dropdown ngmodel variables
+  ngscheme2:any=null
+  ngacno2:any=null
+  
   message = {
     scheme: "",
     accno: "",
@@ -42,7 +68,13 @@ export class AccountwiseDocumentAcceptanceComponent implements OnInit {
     isaccepted: "",
   };
 
-  constructor(private fb: FormBuilder, public S7Service: S7Service, public Ac7Service: Ac7Service) { this.createForm(); }
+  // data table 
+  accountwise:AccountWise[];
+  dtTrigger: any;
+  dtElement: any;
+
+  constructor(private http: HttpClient,private fb: FormBuilder, public S7Service: S7Service, 
+    public Ac7Service: Ac7Service,private config: NgSelectConfig,) { this.createForm(); }
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {
@@ -92,7 +124,7 @@ export class AccountwiseDocumentAcceptanceComponent implements OnInit {
         return row;
       }
     };
-    this.runTimer();
+    // this.runTimer();
     this.dataSub = this.S7Service.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
@@ -101,14 +133,14 @@ export class AccountwiseDocumentAcceptanceComponent implements OnInit {
     });
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
+  // runTimer() {
+  //   const timer = setInterval(() => {
+  //     this.timeLeft -= 1;
+  //     if (this.timeLeft === 0) {
+  //       clearInterval(timer);
+  //     }
+  //   }, 1000);
+  // }
 
   createForm() {
     this.angForm = this.fb.group({
@@ -118,6 +150,7 @@ export class AccountwiseDocumentAcceptanceComponent implements OnInit {
   }
 
   submit() {
+    this.formSubmitted = true;
     console.log(this.angForm.valid);
     if (this.angForm.valid) {
       console.log(this.angForm.value);
@@ -163,6 +196,28 @@ export class AccountwiseDocumentAcceptanceComponent implements OnInit {
         )
       }
     })
+  }
+
+  ngAfterViewInit(): void {
+    
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#accountwisetable tfoot tr').appendTo('#accountwisetable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
   }
 
   updateData() {

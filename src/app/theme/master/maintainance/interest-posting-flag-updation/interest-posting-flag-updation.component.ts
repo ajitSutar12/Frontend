@@ -6,6 +6,9 @@ import { Ac6Service } from '../../../../shared/elements/ac6.service';
 import { S17Service } from '../../../../shared/elements/s17.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http'
+import { NgSelectConfig } from '@ng-select/ng-select';
+
 
 @Component({
   selector: 'app-interest-posting-flag-updation',
@@ -14,6 +17,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 
 export class InterestPostingFlagUpdationComponent implements OnInit {
+  formSubmitted = false;
   angForm: FormGroup;
 
   simpleOption: Array<IOption> = this.S6Service.getCharacters();
@@ -26,6 +30,10 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
   timeLeft = 5;
   private dataSub: Subscription = null;
 
+  // dropdown ngmodel variables
+  ngscheme1:any=null
+  ngfromac:any=null
+  ngtoac:any=null
   //Datatable
 
   dtExportButtonOptions: any = {};
@@ -41,8 +49,13 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     acc_name: "",
     isPostInterest: "",
   };
+  dtTrigger: any;
+  dtElement: any;
 
-  constructor(private fb: FormBuilder, public S6Service: S6Service, public Ac6Service: Ac6Service, public S17Service: S17Service) { this.createForm(); }
+  constructor(
+    private http: HttpClient,private fb: FormBuilder, public S6Service: S6Service, public Ac6Service: Ac6Service,
+     public S17Service: S17Service,
+     private config: NgSelectConfig,) { this.createForm(); }
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {
@@ -94,7 +107,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
         return row;
       }
     };
-    this.runTimer();
+    // this.runTimer();
     this.dataSub = this.S6Service.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
@@ -106,14 +119,14 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     });
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
+  // runTimer() {
+  //   const timer = setInterval(() => {
+  //     this.timeLeft -= 1;
+  //     if (this.timeLeft === 0) {
+  //       clearInterval(timer);
+  //     }
+  //   }, 1000);
+  // }
 
   createForm() {
     this.angForm = this.fb.group({
@@ -124,6 +137,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
   }
 
   submit() {
+    this.formSubmitted = true;
     console.log(this.angForm.valid);
     if (this.angForm.valid) {
       console.log(this.angForm.value);
@@ -173,9 +187,31 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
       }
     })
   }
+  ngAfterViewInit(): void {
+    
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#interestpostingflagtable tfoot tr').appendTo('#interestpostingflagtable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
 
   updateData() {
     this.showButton = true;
     this.updateShow = false;
   }
+  
 }

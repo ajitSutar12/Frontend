@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef, ViewChild, } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { SimService } from '../../../../shared/elements/sim.service'
@@ -8,6 +8,47 @@ import { S18Service } from '../../../../shared/elements/s18.service'
 import { S19Service } from '../../../../shared/elements/s19.service'
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { Subject } from "rxjs";
+import * as moment from 'moment';
+// Angular Datatable Directive
+import { DataTableDirective } from "angular-datatables";
+
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+
+// For fetching values from backend
+interface NotingCharges{
+  id: number;
+  TRAN_DATE:string;
+  TRAN_ACNOTYPE:string;
+  TRAN_ACTYPE	:number;
+  TRAN_ACNO	:	number;
+  TRAN_DRCR	:	string;
+  AMOUNT_TYPE	:	string;
+  TRAN_AMOUNT	:	number;
+  OTHER1_AMOUNT:		number;
+  OTHER2_AMOUNT	:	number;
+  OTHER3_AMOUNT	:	number;
+  OTHER4_AMOUNT	:	number;
+  OTHER5_AMOUNT	:	number;
+  OTHER6_AMOUNT	:	number;
+  OTHER7_AMOUNT	:	number;
+  OTHER8_AMOUNT	:	number;
+  OTHER9_AMOUNT	:	number;
+  OTHER10_AMOUNT	:	number;
+  TRAN_STATUS		:string;
+  NARRATION	:	string;
+  USER_CODE	:	string;
+  GL_ENTRY	:	number;
+
+}
 
 @Component({
   selector: 'app-noting-charges',
@@ -16,6 +57,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 
 export class NotingChargesComponent implements OnInit {
+  formSubmitted = false;
   angForm: FormGroup;
 
   simpleOption: Array<IOption> = this.SimService.getCharacters();
@@ -43,7 +85,12 @@ export class NotingChargesComponent implements OnInit {
   isCreateglentry: boolean = false;
   isDebit: boolean = false;
   // isiscreateglentry: boolean = false;
-
+  // dropdown ngmodel variables
+  ngscheme3:any=null
+  ngfromac3:any=null
+  ngtoac3:any=null
+  ngchargestype:any=null
+  ngtransferglacno:any=null
   message = {
     schemecode: "",
     fromacc: "",
@@ -60,8 +107,32 @@ export class NotingChargesComponent implements OnInit {
 
 
   };
+  // dtElement: any;
+  // dtTrigger: any;
+  // Date variables
+  maxDate: Date;
+  minDate: Date;
+  notingdate:any=null
 
-  constructor(private fb: FormBuilder, public SimService: SimService, public S8Service: S8Service, public Ac8Service: Ac8Service, public S18Service: S18Service, public S19Service: S19Service) { this.createForm(); }
+  // Data table
+  notingcharges:NotingCharges[];
+
+// For reloading angular datatable after CRUD operation
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtTrigger: Subject<any> = new Subject();
+  page: number;
+  filterData = {};
+
+  constructor(private fb: FormBuilder, public SimService: SimService, public S8Service: S8Service, 
+    public Ac8Service: Ac8Service, public S18Service: S18Service, public S19Service: S19Service,
+    private http: HttpClient,private config: NgSelectConfig,) {
+       this.createForm(); 
+       this.maxDate = new Date();
+       this.minDate = new Date();
+       this.minDate.setDate(this.minDate.getDate() - 1);
+       this.maxDate.setDate(this.maxDate.getDate())
+      }
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {
@@ -135,7 +206,7 @@ export class NotingChargesComponent implements OnInit {
       }
     };
 
-    this.runTimer();
+    // this.runTimer();
     this.dataSub = this.SimService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
@@ -153,14 +224,14 @@ export class NotingChargesComponent implements OnInit {
     });
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
+  // runTimer() {
+  //   const timer = setInterval(() => {
+  //     this.timeLeft -= 1;
+  //     if (this.timeLeft === 0) {
+  //       clearInterval(timer);
+  //     }
+  //   }, 1000);
+  // }
 
   createForm() {
     this.angForm = this.fb.group({
@@ -175,14 +246,30 @@ export class NotingChargesComponent implements OnInit {
   }
 
   submit() {
+    let notingdate
+    this.formSubmitted = true;
     console.log(this.angForm.valid);
     if (this.angForm.valid) {
+      const formVal = this.angForm.value;
+      const dataToSend = {
+        Scheme:formVal.Scheme,
+        FROM_AC:formVal.FROM_AC,
+        TO_AC:formVal.TO_AC,
+        Date:formVal.Date,
+        chargestype:formVal.chargestype,
+        transeferglaccno:formVal.transeferglaccno,
+        ChargesAmount:formVal.ChargesAmount,
+
+      };
+     
+
       console.log(this.angForm.value);
     }
   }
 
   //function for edit button clicked
   editClickHandler(info: any): void {
+    let notingdate
     this.message.schemecode = info.schemecode;
     this.message.fromacc = info.fromacc;
     this.message.toacc = info.toacc;
@@ -250,7 +337,30 @@ export class NotingChargesComponent implements OnInit {
     })
   }
 
+  ngAfterViewInit(): void {
+    
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#notingtable tfoot tr').appendTo('#notingtable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
+  }
+  
   updateData() {
+    let notingdate
     this.showButton = true;
     this.updateShow = false;
   }

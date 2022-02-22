@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoanAndCCInterestRateChangesService } from './loan-and-ccinterest-rate-changes.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 
 class DataTableResponse {
@@ -23,6 +24,7 @@ class DataTableResponse {
 })
 
 export class LoanAndCCInterestRateChangesComponent implements OnInit {
+  formSubmitted = false;
   httpData: any;
   dtExportButtonOptions: any = {};
   makeForm: any;
@@ -54,8 +56,16 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
   };
 
   jsonData: any;
+  dtTrigger: any;
+  dtElement: any;
 
-  constructor(private fb: FormBuilder, public S3Service: S3Service, public Ac3Service: Ac3Service, private http: HttpClient, private loanAndCCInterestRateChangesService: LoanAndCCInterestRateChangesService) { this.createForm(); }
+  //dropdown ngModel variables
+  ngscheme:any=null
+  ngacno:any=null
+
+  constructor(private fb: FormBuilder, public S3Service: S3Service, public Ac3Service: Ac3Service, private http: HttpClient, 
+    private loanAndCCInterestRateChangesService: LoanAndCCInterestRateChangesService,
+    private config: NgSelectConfig,) { this.createForm(); }
 
   ngOnInit(): void {
     //   this.dtExportButtonOptions = {
@@ -106,7 +116,7 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
     //   }
     // };
 
-    this.runTimer();
+    // this.runTimer();
     this.dataSub = this.S3Service.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
@@ -122,14 +132,14 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
     this.test();
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
+  // runTimer() {
+  //   const timer = setInterval(() => {
+  //     this.timeLeft -= 1;
+  //     if (this.timeLeft === 0) {
+  //       clearInterval(timer);
+  //     }
+  //   }, 1000);
+  // }
 
   createForm() {
     this.loanAndCCForm = this.fb.group({
@@ -139,6 +149,7 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
   }
 
   submit() {
+    this.formSubmitted = true;
     console.log(this.loanAndCCForm.valid);
     if (this.loanAndCCForm.valid) {
       console.log(this.loanAndCCForm.value);
@@ -162,6 +173,7 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
       showConfirmButton: false,
       timer: 3000,
     })
+    this.formSubmitted = false;
     this.test();
     this.loanAndCCForm.reset();
   }
@@ -211,6 +223,27 @@ export class LoanAndCCInterestRateChangesComponent implements OnInit {
         )
       }
     })
+  }
+  ngAfterViewInit(): void {
+    // this.myInputField.nativeElement.focus();
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#loancctable tfoot tr').appendTo('#loancctable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
   }
 
   test() {

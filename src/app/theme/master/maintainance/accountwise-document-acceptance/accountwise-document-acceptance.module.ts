@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AccountwiseDocumentAcceptanceComponent } from './accountwise-document-acceptance.component';
 import { AccountwiseDocumentAcceptanceRoutingModule } from './accountwise-document-acceptance-routing.module'
 import { DataTablesModule } from 'angular-datatables';
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { S7Service } from '../../../../shared/elements/s7.service';
 import { Ac7Service } from '../../../../shared/elements/ac7.service';
@@ -15,7 +16,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     CommonModule,
     AccountwiseDocumentAcceptanceRoutingModule,
     DataTablesModule,
-    SelectModule,
+    // SelectModule,
+    NgSelectModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule

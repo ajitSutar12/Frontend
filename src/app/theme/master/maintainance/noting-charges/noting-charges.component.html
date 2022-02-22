@@ -3,18 +3,31 @@
         <div class="card">
             <div class="card-header">
                 <h5>Charges Noting</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="s" [multiple]="false"
                                     placeholder="Scheme Code *" required title="Compulsory Selection"
                                     formControlName="Scheme">
                                 </ng-select>
                                 <label>{{message.schemecode}}</label>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="Scheme" bindValue="value" [(ngModel)]="ngscheme3"
+                                    formControlName="Scheme" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Code">
+                                    <ng-option *ngFor="let values of s" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="Scheme">Scheme Code<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)"
@@ -25,12 +38,23 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Ac" [multiple]="false"
                                     placeholder="From A/C *" required title="Compulsory Selection"
                                     formControlName="FROM_AC">
                                 </ng-select>
                                 <label>{{message.fromacc}}</label>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac3"
+                                    formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C">
+                                    <ng-option *ngFor="let values of Ac" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="FROM_AC">From A/C<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
@@ -41,12 +65,23 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Ac2" [multiple]="false"
                                     placeholder="To A/C *" required title="Compulsory Selection"
                                     formControlName="TO_AC">
                                 </ng-select>
                                 <label>{{message.toacc}}</label>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngtoac3"
+                                    formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C">
+                                    <ng-option *ngFor="let values of Ac2" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="TO_AC">To A/C<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['TO_AC'].invalid && (angForm.controls['TO_AC'].dirty || angForm.controls['TO_AC'].touched)"
@@ -61,9 +96,18 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" class="form-control" placeholder=" " required="" max="9999-12-31"
+                                    <!-- <input type="text" class="form-control" placeholder=" " required="" max="9999-12-31"
                                         formControlName="Date" value="{{ message.notingdate}}"
-                                        onfocus="(this.type='date')" id="date" />
+                                        onfocus="(this.type='date')" id="date" /> -->
+                                        <input type="text" placeholder="dd/mm/yyyy"
+                                            name="date" id="date"
+                                            class="form-control" [(ngModel)]="notingdate"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            
+                                            [ngClass]="{'form-submitted': formSubmitted}"
+                                            formControlName="Date"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker>
                                     <label for="date">Noting Date<sub class="required">*</sub></label>
                                 </span>
                             </div>
@@ -76,7 +120,7 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="border-checkbox-section">
+                            <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="checkbox1" value="checkbox"
                                         [checked]="isAddinprinciple == true">
@@ -86,11 +130,22 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="simpleOption" [multiple]="false" required
                                     name="chargestype" placeholder="Charges Type *" formControlName="chargestype">
                                 </ng-select>
                                 <label>{{message.chargestype}}</label>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="chargestype" bindValue="value" [(ngModel)]="ngchargestype"
+                                    formControlName="chargestype" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Charges Type">
+                                    <ng-option *ngFor="let values of simpleOption" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="chargestype">Charges Type<sub class="required"> * </sub></label>
+                                </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['chargestype'].invalid && (angForm.controls['chargestype'].dirty || angForm.controls['chargestype'].touched)"
@@ -138,7 +193,7 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="border-checkbox-section">
+                            <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="checkbox2" value="checkbox"
                                         [checked]="isCreateglentry == true">
@@ -149,20 +204,31 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
+                            <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="Ac3" [multiple]="false"
                                     placeholder="Transfer G.L. A/C No." title="Compulsory Selection"
                                     formControlName="transeferglaccno">
                                 </ng-select>
                                 <label>{{message.transeferglaccno}}</label>
+                            </div> -->
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                  <ng-select id="transeferglaccno" bindValue="value" [(ngModel)]="ngtransferglacno"
+                                    formControlName="transeferglaccno" bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Transfer G.L. A/C No">
+                                    <ng-option *ngFor="let values of Ac3" [value]="values">
+                                      {{values.label}}</ng-option>
+                                  </ng-select>
+                                  <label for="transeferglaccno">Transfer G.L. A/C No<sub class="required"> * </sub></label>
+                                </span>
                             </div>
 
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Process</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                            [disabled]="angForm.invalid">Submit</button>
+                        <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                            *ngIf="updateShow">Update</button>
                         </div>
                     </div>
                 </div>
@@ -172,13 +238,53 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-block">
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions"
-                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            <table id="notingtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                            class="table table-striped table-bordered table-hover compact" style="width: 100%;">
+                                <tbody *ngIf="notingcharges?.length != 0">
+                                    <tr *ngFor="let data of notingcharges">
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                            (click)="editClickHandler(data.id)" placement="bottom"
+                                            ngbTooltip="Edit"></span>
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"
+                                                (click)="delClickHandler(data.id)">Delete</button> -->
+                                                <span class="fa fa-fw fa-trash-o" id="delbtn" (click)="delClickHandler(data.id)" placement="bottom"
+                                                        ngbTooltip="Delete"></span>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="notingcharges?.length == 0">
+                                    <tr>
+                                        <td colspan="3" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot #filters class="filters">
+                                    <tr class="testing">
+                                        <th class="testing"></th>
+                                        
+                                        <th><input type="text" class="form-control" name="Scheme" /></th>
+                                        <th><input type="text" class="form-control" name="FROM_AC" /></th>
+                                        <th><input type="text" class="form-control" name="TO_AC" /></th>
+                                        <th><input type="text" class="form-control" name="Date" /></th>
+                                        <th><input type="text" class="form-control" name="Add in Principle" /></th>
+                                        <th><input type="text" class="form-control" name="chargestype" /></th>
+                                        <th><input type="text" class="form-control" name="Debit" /></th>
+                                        <th><input type="text" class="form-control" name="Credit" /></th>
+                                        <th><input type="text" class="form-control" name="ChargesAmount" /></th>
+                                        <th><input type="text" class="form-control" name="Create GL Entry" /></th>
+                                        <th><input type="text" class="form-control" name="transeferglaccno" /></th>
+                                        
+                                       
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

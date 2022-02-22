@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NpaOpeningDetailsEntryService } from './npa-opening-details-entry.service';
 import { HttpClient } from '@angular/common/http'
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 class DataTableResponse {
   data: any[];
@@ -23,6 +24,7 @@ class DataTableResponse {
 })
 
 export class NpaOpeningDetailsEntryComponent implements OnInit {
+  formSubmitted = false;
 
   httpData: any;
   dtExportButtonOptions: any = {};
@@ -62,8 +64,19 @@ export class NpaOpeningDetailsEntryComponent implements OnInit {
     totdepositamt: "",
     isdisputeloan: "",
   };
+  dtElement: any;
+  dtTrigger: any;
 
-  constructor(private fb: FormBuilder, public S5Service: S5Service, public Ac5Service: Ac5Service, public S16Service: S16Service, private http: HttpClient, private npaOpeningDetailsEntryService: NpaOpeningDetailsEntryService) {
+  //dropdown ngmodel variables
+
+  ngscheme:any=null
+  ngfromac:any=null
+  ngtoac:any=null
+
+
+  constructor(private fb: FormBuilder, public S5Service: S5Service, public Ac5Service: Ac5Service, public S16Service: S16Service, private http: HttpClient,
+     private npaOpeningDetailsEntryService: NpaOpeningDetailsEntryService,
+     private config: NgSelectConfig,) {
     this.createForm();
   }
 
@@ -133,7 +146,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit {
     //   }
     // };
 
-    this.runTimer();
+    // this.runTimer();
     this.dataSub = this.S5Service.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
@@ -155,14 +168,14 @@ export class NpaOpeningDetailsEntryComponent implements OnInit {
 
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
+  // runTimer() {
+  //   const timer = setInterval(() => {
+  //     this.timeLeft -= 1;
+  //     if (this.timeLeft === 0) {
+  //       clearInterval(timer);
+  //     }
+  //   }, 1000);
+  // }
 
   createForm() {
     this.npaOpeningForm = this.fb.group({
@@ -173,6 +186,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit {
   }
 
   submit() {
+    this.formSubmitted = true;
     console.log(this.npaOpeningForm.valid);
     if (this.npaOpeningForm.valid) {
       console.log(this.npaOpeningForm.value);
@@ -227,6 +241,28 @@ export class NpaOpeningDetailsEntryComponent implements OnInit {
   updateData() {
     this.showButton = true;
     this.updateShow = false;
+  }
+
+  ngAfterViewInit(): void {
+    
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#npaopeningdetailstable tfoot tr').appendTo('#npaopeningdetailstable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
   }
 
   test() {

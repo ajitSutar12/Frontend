@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NpaOpeningDetailsEntryComponent } from './npa-opening-details-entry.component';
 import { NpaOpeningDetailsEntryRoutingModule } from './npa-opening-details-entry-routing.module'
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { StatementTypeService } from '../../../../shared/elements/statment-type.service';
 import { S5Service } from '../../../../shared/elements/s5.service';
 import { Ac5Service } from '../../../../shared/elements/ac5.service';
@@ -20,7 +21,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     NgbModule,
     NpaOpeningDetailsEntryRoutingModule,
     DataTablesModule,
-    SelectModule,
+    // SelectModule,
+    NgSelectModule,
     FormsModule,
     ReactiveFormsModule
   ],
