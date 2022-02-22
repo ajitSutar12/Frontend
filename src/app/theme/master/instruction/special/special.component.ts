@@ -44,6 +44,7 @@ interface SpecialMaster {
   DRCR_APPLY: string;
   IS_RESTRICT: boolean;
   DETAILS: string;
+  REVOKE_DATE: string
 }
 
 @Component({
@@ -185,10 +186,13 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Is Restrict Transaction Entry',
           data: 'IS_RESTRICT'
         },
-
         {
           title: 'Details',
           data: 'DETAILS'
+        },
+        {
+          title: 'Revoke Date',
+          data: 'REVOKE_DATE'
         },
 
       ],
@@ -216,6 +220,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       DRCR_APPLY: ['', [Validators.required]],
       IS_RESTRICT: [''],
       DETAILS: ['', [Validators.required]],
+      REVOKE_DATE: ['',]
     });
     let sysdate = new Date()
     // let sysDate = this.datePipe.transform(sysdate, "yyyy-MM-dd")
@@ -235,6 +240,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     this.acno = null
     this.ngacno = null
     this.ngexecuteon = null
+    this.angForm.controls['REVOKE_DATE'].disable()
   }
 
   submit() {
@@ -299,8 +305,8 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
         DRCR_APPLY: data.DRCR_APPLY,
         IS_RESTRICT: data.IS_RESTRICT,
         DETAILS: data.DETAILS,
+        REVOKE_DATE: data.REVOKE_DATE,
       });
-
       this.ngacno = null
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
@@ -374,6 +380,8 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
           break;
       }      this.ngacno = Number(data.TRAN_ACNO)
     });
+    this.angForm.controls['REVOKE_DATE'].enable()
+
   }
 
   /**
@@ -382,6 +390,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   updateData() {
     let fromdate
     let todate
+    let revokeDate
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -392,6 +401,9 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     if (this.updatecheckdata.TO_DATE != data.TO_DATE) {
       (data.TO_DATE == 'Invalid date' || data.TO_DATE == '' || data.TO_DATE == null) ? (todate = '', data['TO_DATE'] = todate) : (todate = data.TO_DATE, data['TO_DATE'] = moment(todate).format('DD/MM/YYYY'))
+    }
+    if (this.updatecheckdata.REVOKE_DATE != data.REVOKE_DATE) {
+      (data.REVOKE_DATE == 'Invalid date' || data.REVOKE_DATE == '' || data.REVOKE_DATE == null) ? (revokeDate = '', data['REVOKE_DATE'] = revokeDate) : (revokeDate = data.REVOKE_DATE, data['REVOKE_DATE'] = moment(revokeDate).format('DD/MM/YYYY'))
     }
     this._special.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
@@ -547,6 +559,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     this.acno = null
     this.ngacno = null
     this.ngexecuteon = null
+    this.angForm.controls['REVOKE_DATE'].disable()
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

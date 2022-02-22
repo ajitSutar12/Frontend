@@ -155,16 +155,25 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="col-sm-3">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" class="form-control" placeholder=" " id="Date2" required=""
-                                        max="9999-12-31" formControlName="Date2" value="{{ message.Date2}}"
-                                        onfocus="(this.type='date')" />
-                                    <label for="Date2">Revoke Date</label>
-                                </span>
-                            </div>
-                        </div> -->
+            <div class="col-sm">
+              <div class="form-group input-group">
+                <span class="border-lable-flt">
+                  <input type="text" placeholder="dd/mm/yyyy" name="REVOKE_DATE" id="REVOKE_DATE" class="form-control"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [ngClass]="{'form-submitted': formSubmitted}"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                    formControlName="REVOKE_DATE" bsDatepicker disabled>
+                  <label for="REVOKE_DATE">Revoke Date<sub class="required">*
+                    </sub></label>
+                </span>
+              </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['REVOKE_DATE'].invalid && (angForm.controls['REVOKE_DATE'].dirty || angForm.controls['REVOKE_DATE'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="angForm.controls['REVOKE_DATE'].errors?.required">
+                  This field is required
+                </div>
+              </div>
+            </div>
             <div class="col-sm">
               <button class="btn btn-outline-primary btn-sm" (click)="submit()" *ngIf="showButton">Submit</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
@@ -203,6 +212,8 @@
                     <td>{{ data.DRCR_APPLY }}</td>
                     <td class="td_center">{{ data.IS_RESTRICT == true ? 'Yes' :'No' }}</td>
                     <td>{{ data.DETAILS }}</td>
+                    <td class="td_center">{{data.REVOKE_DATE == null || data.REVOKE_DATE == '' ?
+                      '-' :data.REVOKE_DATE}}</td>
                   </tr>
                 </tbody>
                 <tbody *ngIf="specialMaster?.length == 0">
@@ -213,33 +224,16 @@
                 <tfoot #filters class="filters">
                   <tr class="testing">
                     <th class="testing"></th>
-                    <th>
-                      <input type="text" class="form-control" name="INSTRUCTION_NO">
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="INSTRUCTION_DATE">
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="TRAN_ACTYPE">
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="TRAN_ACNO">
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="FROM_DATE">
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="TO_DATE">
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="DRCR_APPLY">
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="IS_RESTRICT">
-                    </th>
-                    <th>
-                      <input type="text" class="form-control" name="DETAILS" />
-                    </th>
+                    <th> <input type="text" class="form-control" name="INSTRUCTION_NO"> </th>
+                    <th> <input type="text" class="form-control" name="INSTRUCTION_DATE"> </th>
+                    <th> <input type="text" class="form-control" name="TRAN_ACTYPE"> </th>
+                    <th> <input type="text" class="form-control" name="TRAN_ACNO"> </th>
+                    <th> <input type="text" class="form-control" name="FROM_DATE"> </th>
+                    <th> <input type="text" class="form-control" name="TO_DATE"> </th>
+                    <th> <input type="text" class="form-control" name="DRCR_APPLY"> </th>
+                    <th> <input type="text" class="form-control" name="IS_RESTRICT"> </th>
+                    <th> <input type="text" class="form-control" name="DETAILS" /> </th>
+                    <th><input type="text" class="form-control" name="REVOKE_DATE"> </th>
                   </tr>
                 </tfoot>
               </table>
