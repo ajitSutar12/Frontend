@@ -44,6 +44,7 @@ export class InformationComponent implements OnInit {
   salarydivisionTrue: boolean = false;
   subsalarydivisionTrue: boolean = false;
   riskCategoryTrue: boolean = false;
+  bankotherdetailsTrue:boolean=false;
 
   constructor(private_router: Router) {
   }
@@ -90,8 +91,10 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
+      
     }
-    if (val == 2) {
+    else if (val == 2) {
       this.narationmasterTrue = false;
       this.bankTrue = true;
       this.clearingTrue = false;
@@ -128,8 +131,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 3) {
+    else if(val == 3) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = true;
@@ -167,8 +171,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 4) {
+    else if (val == 4) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -205,8 +210,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 5) {
+    else if (val == 5) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -243,8 +249,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 6) {
+    else if (val == 6) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -282,8 +289,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 7) {
+    else if (val == 7) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -321,8 +329,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 8) {
+    else if(val == 8) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -360,8 +369,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 9) {
+    else if (val == 9) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -395,12 +405,14 @@ export class InformationComponent implements OnInit {
       this.reporttypeTrue = false;
       this.itemcategoryTrue = false;
       this.depriciationTrue = false;
+     
 
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 10) {
+    else if (val == 10) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -438,8 +450,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 11) {
+    else if (val == 11) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -477,8 +490,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 12) {
+    else if (val == 12) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -516,8 +530,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 13) {
+    else if (val == 13) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -555,8 +570,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 14) {
+    else if (val == 14) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -594,8 +610,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 15) {
+    else if (val == 15) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -633,8 +650,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 16) {
+    else if (val == 16) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -672,8 +690,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 17) {
+    else if (val == 17) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -711,8 +730,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 18) {
+    else if (val == 18) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -750,8 +770,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 19) {
+    else if (val == 19) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -789,8 +810,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 20) {
+    else if (val == 20) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -828,8 +850,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 21) {
+    else if (val == 21) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -867,8 +890,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 22) {
+    else if (val == 22) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -906,8 +930,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 23) {
+    else if (val == 23) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -945,8 +970,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 24) {
+    else if (val == 24) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -984,8 +1010,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 25) {
+    else if (val == 25) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -1023,8 +1050,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 26) {
+    else if (val == 26) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -1062,8 +1090,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 27) {
+    else if (val == 27) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -1101,8 +1130,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 28) {
+    else if (val == 28) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -1140,8 +1170,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 29) {
+    else if (val == 29) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -1179,8 +1210,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 30) {
+    else if (val == 30) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -1218,8 +1250,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 31) {
+    else if (val == 31) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -1257,8 +1290,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 32) {
+    else if (val == 32) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -1296,8 +1330,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 33) {
+    else if (val == 33) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -1335,8 +1370,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 34) {
+    else if (val == 34) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -1374,8 +1410,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = true;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 35) {
+    else if (val == 35) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -1413,8 +1450,9 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = true;
       this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=false;
     }
-    if (val == 36) {
+    else if (val == 36) {
       this.narationmasterTrue = false;
       this.bankTrue = false;
       this.clearingTrue = false;
@@ -1452,6 +1490,47 @@ export class InformationComponent implements OnInit {
       this.salarydivisionTrue = false;
       this.subsalarydivisionTrue = false;
       this.riskCategoryTrue = true;
+      this.bankotherdetailsTrue=false;
+    }
+    else if (val == 37) {
+      this.narationmasterTrue = false;
+      this.bankTrue = false;
+      this.clearingTrue = false;
+      this.ownbranchTrue = false;
+      this.categoryTrue = false;
+      this.cityTrue = false;
+      this.castTrue = false;
+      this.occupationTrue = false;
+      this.diectorTrue = false;
+      this.authorityTrue = false;
+      this.recoveryTrue = false;
+      this.insuranceTrue = false;
+      this.operationTrue = false;
+      this.purposeTrue = false;
+      this.priorityTrue = false;
+      this.courtTrue = false;
+      this.advocateTrue = false;
+      this.industryTrue = false;
+      this.weakerTrue = false;
+      this.loanstageTrue = false;
+      this.interestTrue = false;
+      this.healthTrue = false;
+      this.prefixTrue = false;
+      this.minimumTrue = false;
+      this.documentTrue = false;
+      this.lockerrackTrue = false;
+      this.lockerrackwiseTrue = false;
+      this.lockersizeTrue = false;
+      this.companygroupTrue = false;
+      this.companygrouplinkTrue = false;
+      this.reporttypeTrue = false;
+      this.itemcategoryTrue = false;
+      this.depriciationTrue = false;
+
+      this.salarydivisionTrue = false;
+      this.subsalarydivisionTrue = false;
+      this.riskCategoryTrue = false;
+      this.bankotherdetailsTrue=true;
     }
   }
 

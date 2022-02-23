@@ -96,8 +96,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
 import { VoucherEntryService } from 'src/app/theme/transaction/voucher-entry/voucher-entry.service';
+import { BankDetails } from './bank-other-details/bank-other-details.service';
 
 import { NgSelectModule } from '@ng-select/ng-select';
+import { BankOtherDetailsComponent } from './bank-other-details/bank-other-details.component';
 
 // import { NgSelectModule } from '@ng-select/ng-select';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -126,6 +128,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     OwnBranchService,
     ClearingBranchService,
     BankService,
+    BankDetails,
     AdvocateService,
     IndustryService,
     WeakerService,
@@ -216,7 +219,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SubSalaryDivisionMasterComponent,
     ItemCategoryMasterComponent,
     ReportTypeMasterComponent,
-    RiskCatagoryComponent
+    RiskCatagoryComponent,
+    BankOtherDetailsComponent
   ]
 })
 export class InformationModule { }

@@ -117,6 +117,9 @@
                             <li>
                                 <h6> <a (click)="OpenLink(36)" routerLink="/master/PolicySettings/information" routerLinkActive="active" [ngClass]="{'isActive': riskCategoryTrue}" class="text-right f-w-600" id="pointer">36. Risk Category</a></h6>
                             </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(37)" routerLink="/master/PolicySettings/information" routerLinkActive="active" [ngClass]="{'isActive': bankotherdetailsTrue}" class="text-right f-w-600" id="pointer">37. Bank Other Details</a></h6>
+                            </li>
                         </ul>
                     </perfect-scrollbar>
                 </div>
@@ -232,6 +235,9 @@
             </div>
             <div *ngIf="riskCategoryTrue">
                 <app-risk-catagory></app-risk-catagory>
+            </div>
+            <div *ngIf="bankotherdetailsTrue">
+                <app-bank-other-details></app-bank-other-details>
             </div>
         </div>
 
