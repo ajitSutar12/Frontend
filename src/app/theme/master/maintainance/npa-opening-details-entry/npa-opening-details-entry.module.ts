@@ -4,16 +4,15 @@ import { NpaOpeningDetailsEntryComponent } from './npa-opening-details-entry.com
 import { NpaOpeningDetailsEntryRoutingModule } from './npa-opening-details-entry-routing.module'
 // import { SelectModule } from 'ng-select';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { StatementTypeService } from '../../../../shared/elements/statment-type.service';
-import { S5Service } from '../../../../shared/elements/s5.service';
-import { Ac5Service } from '../../../../shared/elements/ac5.service';
-import { S16Service } from '../../../../shared/elements/s16.service';
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NpaOpeningDetailsEntryService } from './npa-opening-details-entry.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   imports: [
@@ -24,9 +23,11 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     // SelectModule,
     NgSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
-  providers: [StatementTypeService, S5Service, Ac5Service, S16Service, NpaOpeningDetailsEntryService,{
+  providers: [SchemeCodeDropdownService, SchemeAccountNoService, NpaOpeningDetailsEntryService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

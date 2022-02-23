@@ -1,5 +1,4 @@
 import { DataTablesModule } from 'angular-datatables';
-// import { SelectModule } from 'ng-select';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -22,7 +21,6 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     CommonModule,
     SharedModule,
     DataTablesModule,
-    // SelectModule,
     NgSelectModule,
     InterestInstructionRoutingModule,
     FormsModule,

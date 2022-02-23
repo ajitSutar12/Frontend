@@ -16,6 +16,7 @@ export class StatementCodeDropdownService {
                 let obj = {label:element.head_name, value:`${element.id}`};
                 this.statementObject.push(obj)
             });
+            console.log(this.statementObject)
         return this.statementObject;
         }));
     }

@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { IOption } from 'ng-select';
-import { Subscription } from 'rxjs/Subscription';
-import { S5Service } from '../../../../shared/elements/s5.service';
-import { Ac5Service } from '../../../../shared/elements/ac5.service';
-import { S16Service } from '../../../../shared/elements/s16.service';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { NpaOpeningDetailsEntryService } from './npa-opening-details-entry.service';
 import { HttpClient } from '@angular/common/http'
-import { NgSelectConfig } from '@ng-select/ng-select';
-
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+import { environment } from "src/environments/environment";
+import { first } from 'rxjs/operators';
+import { Subject } from "rxjs";
+// Angular Datatable Directive
+import { DataTableDirective } from "angular-datatables";
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -23,159 +23,53 @@ class DataTableResponse {
   styleUrls: ['./npa-opening-details-entry.component.scss']
 })
 
-export class NpaOpeningDetailsEntryComponent implements OnInit {
+export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, OnDestroy {
+  //api
+  url = environment.base_url;
   formSubmitted = false;
 
   httpData: any;
   dtExportButtonOptions: any = {};
   makeForm: any;
 
-  stringifiedData: any;
-  parsedJson: any;
-  data3: any;
-  loading = true;
-
   npaOpeningForm: FormGroup;
-
-  jsonData: any;
-
-  simpleOption: Array<IOption> = this.S5Service.getCharacters();
-  Ac: Array<IOption> = this.Ac5Service.getCharacters();
-  Ac2: Array<IOption> = this.S16Service.getCharacters();
-  selectedOption = '3';
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = '3';
-  timeLeft = 5;
-
-  private dataSub: Subscription = null;
 
   showButton: boolean = true;
   updateShow: boolean = false;
 
-  message = {
-    schemecode: "",
-    fromacc: "",
-    toacc: "",
-    accno: "",
-    accname: "",
-    lasttransdate: "",
-    totpostedinterest: "",
-    totdepositamt: "",
-    isdisputeloan: "",
-  };
-  dtElement: any;
-  dtTrigger: any;
+
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+
 
   //dropdown ngmodel variables
 
-  ngscheme:any=null
-  ngfromac:any=null
-  ngtoac:any=null
+  ngscheme: any = null
+  ngfromac: any = null
+  ngtoac: any = null
+  scheme
 
-
-  constructor(private fb: FormBuilder, public S5Service: S5Service, public Ac5Service: Ac5Service, public S16Service: S16Service, private http: HttpClient,
-     private npaOpeningDetailsEntryService: NpaOpeningDetailsEntryService,
-     private config: NgSelectConfig,) {
-    this.createForm();
-  }
+  constructor(private fb: FormBuilder, private http: HttpClient,
+    private _npaService: NpaOpeningDetailsEntryService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private schemeAccountNoService: SchemeAccountNoService,) { }
 
   ngOnInit(): void {
-    // this.dtExportButtonOptions = {
-    //   ajax: 'fake-data/npa_ode.json',
-    //   columns: [
-    //     {
-    //       title: 'Action',
-    //       render: function (data: any, type: any, full: any) {
-    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-    //       }
-    //     },
-
-    //     {
-    //       title: 'A/c No.',
-    //       data: 'accno'
-    //     }, {
-    //       title: 'A/c Name',
-    //       data: 'accname'
-    //     }, {
-    //       title: 'Last Trans Date',
-    //       data: 'lasttransdate'
-    //     }, {
-    //       title: 'Tot.Posted Interest',
-    //       data: 'totpostedinterest'
-    //     }, {
-    //       title: 'Tot.Deposit Amt.',
-    //       data: 'totdepositamt'
-    //     },
-    //     {
-    //       title: 'Is Dispute Loan',
-    //       data: 'isdisputeloan'
-    //     },
-    //     {
-    //       title: 'Scheme Code',
-    //       data: 'schemecode'
-    //     },
-    //     {
-    //       title: 'From A/c',
-    //       data: 'fromacc'
-    //     },
-    //     {
-    //       title: 'To A/c',
-    //       data: 'toacc'
-    //     }
-
-    //   ],
-    //   dom: 'Bfrtip',
-    //   buttons: [
-    //     'copy',
-    //     'print',
-    //     'excel',
-    //     'csv'
-    //   ],
-    //   //row click handler code
-    //   rowCallback: (row: Node, data: any[] | Object, index: number) => {
-    //     const self = this;
-    //     $('td', row).off('click');
-    //     $('td', row).on('click', '#editbtn', () => {
-    //       self.editClickHandler(data);
-    //     });
-    //     $('td', row).on('click', '#delbtn', () => {
-    //       self.delClickHandler(data);
-    //     });
-    //     return row;
-    //   }
-    // };
-
-    // this.runTimer();
-    this.dataSub = this.S5Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.Ac5Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.dataSub = this.S16Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-
-    this.npaOpeningForm = new FormGroup({
-      'AC_TYPE': new FormControl(''),
-      'FROM_AC': new FormControl(''),
-      'TO_AC': new FormControl('')
-
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      dom: 'ftip'
+    };
+    this.createForm()
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var allscheme = data.filter(function (scheme) {
+        return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
+      });
+      this.scheme = allscheme;
     })
-
-    this.test();
-
   }
-
-  // runTimer() {
-  //   const timer = setInterval(() => {
-  //     this.timeLeft -= 1;
-  //     if (this.timeLeft === 0) {
-  //       clearInterval(timer);
-  //     }
-  //   }, 1000);
-  // }
 
   createForm() {
     this.npaOpeningForm = this.fb.group({
@@ -185,35 +79,280 @@ export class NpaOpeningDetailsEntryComponent implements OnInit {
     });
   }
 
-  submit() {
-    this.formSubmitted = true;
-    console.log(this.npaOpeningForm.valid);
-    if (this.npaOpeningForm.valid) {
-      console.log(this.npaOpeningForm.value);
+  ToAC
+  fromAC
+  getschemename
+  //get account no according scheme
+  getAccountList(event) {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this.ngfromac = null
+    this.ngtoac = null
+    this.arrTable = []
+    let obj = [this.ngscheme, branchCode]
+    switch (event.name) {
+      case 'DS':
+        this.schemeAccountNoService.getDisputeLoanSchemeList1(obj).pipe(first()).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'LN':
+        this.schemeAccountNoService.getTermLoanSchemeList1(obj).pipe(first()).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+        })
+        break;
+
+      case 'CC':
+        this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+          console.log(data)
+        })
+        break;
+    }
+    this.getschemename = event.name
+  }
+
+  showTable: boolean = false
+  mem
+  arrTable
+  getTable() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    var memFrom = this.npaOpeningForm.controls['FROM_AC'].value
+    var memTo = this.npaOpeningForm.controls['TO_AC'].value
+    if (this.npaOpeningForm.controls['FROM_AC'].value < this.npaOpeningForm.controls['TO_AC'].value) {
+      this.showTable = true
+      this.mem = [memFrom, memTo, this.ngscheme, branchCode, this.getschemename]
+      // this.shareDatatable()
+      this.http.get(this.url + '/term-loan-master/npaopening/' + this.mem).subscribe((data) => {
+        this.arrTable = data;
+        console.log('arrTable', this.arrTable)
+        // this.arrTable.forEach(element => {
+        //   if (element.shareDividend == null) {
+        //     element.shareDividend = 0
+        //   }
+        // });
+      });
+    }
+    else {
+      Swal.fire("Select Different Member", "error");
+      this.npaOpeningForm.patchValue({
+        TO_AC: ''
+      })
+    }
+
+  }
+
+  //select content of field
+  selectAllContent($event) {
+    $event.target.select();
+  }
+
+  npaEntryArray = []
+
+  //push receipt no into object
+  getLastTranDate(id, acno, AC_ACTDATE, OP_POSTED_INT, AC_OP_TOTAL_DEPOSITAMT, IS_DISPUTE_LOAN) {
+    if (AC_ACTDATE != '' || AC_ACTDATE != 'Invalid date') {
+      if (this.npaEntryArray.length != 0) {
+        if (this.npaEntryArray.some(item => item.AC_NO === acno)) {
+          this.npaEntryArray.forEach((element) => {
+            if (element.AC_NO == acno) {
+              element['AC_ACTDATE'] = AC_ACTDATE
+            }
+          })
+        }
+        else {
+          var object = {
+            AC_ACTDATE: AC_ACTDATE,
+            AC_NO: acno,
+            id: id,
+            OP_POSTED_INT: OP_POSTED_INT,
+            AC_OP_TOTAL_DEPOSITAMT: AC_OP_TOTAL_DEPOSITAMT,
+            IS_DISPUTE_LOAN: IS_DISPUTE_LOAN
+          }
+          this.npaEntryArray.push(object)
+        }
+      }
+      else {
+        var object = {
+          AC_ACTDATE: AC_ACTDATE,
+          AC_NO: acno,
+          id: id,
+          OP_POSTED_INT: OP_POSTED_INT,
+          AC_OP_TOTAL_DEPOSITAMT: AC_OP_TOTAL_DEPOSITAMT,
+          IS_DISPUTE_LOAN: IS_DISPUTE_LOAN
+        }
+        this.npaEntryArray.push(object)
+      }
+    }
+    console.log(this.npaEntryArray)
+  }
+
+  //push amount in npaEntryArray array
+  getPostedInterest(id, acno, OP_POSTED_INT, AC_ACTDATE, AC_OP_TOTAL_DEPOSITAMT, IS_DISPUTE_LOAN) {
+    if (OP_POSTED_INT != '') {
+      if (this.npaEntryArray.length != 0) {
+        if (this.npaEntryArray.some(item => item.AC_NO === acno)) {
+          this.npaEntryArray.forEach((element) => {
+            if (element.AC_NO == acno) {
+              element['OP_POSTED_INT'] = OP_POSTED_INT
+            }
+          })
+        }
+        else {
+          var object = {
+            AC_ACTDATE: AC_ACTDATE,
+            AC_NO: acno,
+            id: id,
+            OP_POSTED_INT: OP_POSTED_INT,
+            AC_OP_TOTAL_DEPOSITAMT: AC_OP_TOTAL_DEPOSITAMT,
+            IS_DISPUTE_LOAN: IS_DISPUTE_LOAN
+          }
+          this.npaEntryArray.push(object)
+        }
+      }
+      else {
+        var object = {
+          AC_ACTDATE: AC_ACTDATE,
+          AC_NO: acno,
+          id: id,
+          OP_POSTED_INT: OP_POSTED_INT,
+          AC_OP_TOTAL_DEPOSITAMT: AC_OP_TOTAL_DEPOSITAMT,
+          IS_DISPUTE_LOAN: IS_DISPUTE_LOAN
+        }
+        this.npaEntryArray.push(object)
+      }
+    }
+    console.log(this.npaEntryArray)
+  }
+
+  getDepositAmount(id, acno, AC_OP_TOTAL_DEPOSITAMT, AC_ACTDATE, OP_POSTED_INT, IS_DISPUTE_LOAN) {
+
+    if (AC_OP_TOTAL_DEPOSITAMT != '') {
+      if (this.npaEntryArray.length != 0) {
+        if (this.npaEntryArray.some(item => item.AC_NO === acno)) {
+          this.npaEntryArray.forEach((element) => {
+            if (element.AC_NO == acno) {
+              element['AC_OP_TOTAL_DEPOSITAMT'] = AC_OP_TOTAL_DEPOSITAMT
+            }
+          })
+        }
+        else {
+          var object = {
+            AC_ACTDATE: AC_ACTDATE,
+            AC_NO: acno,
+            id: id,
+            OP_POSTED_INT: OP_POSTED_INT,
+            AC_OP_TOTAL_DEPOSITAMT: AC_OP_TOTAL_DEPOSITAMT,
+            IS_DISPUTE_LOAN: IS_DISPUTE_LOAN
+          }
+          this.npaEntryArray.push(object)
+        }
+      }
+      else {
+        var object = {
+          AC_ACTDATE: AC_ACTDATE,
+          AC_NO: acno,
+          id: id,
+          OP_POSTED_INT: OP_POSTED_INT,
+          AC_OP_TOTAL_DEPOSITAMT: AC_OP_TOTAL_DEPOSITAMT,
+          IS_DISPUTE_LOAN: IS_DISPUTE_LOAN
+        }
+        this.npaEntryArray.push(object)
+      }
+    }
+    console.log(this.npaEntryArray)
+  }
+
+  checkDisputeFlag(id, acno, flag, AC_ACTDATE, OP_POSTED_INT, AC_OP_TOTAL_DEPOSITAMT) {
+
+    let isDispute: boolean = false
+    if (flag.target.checked) {
+      isDispute = true
+    }
+    else {
+      console.log('uncheck')
+      isDispute = false
+    }
+
+    if (this.npaEntryArray.length != 0) {
+      if (this.npaEntryArray.some(item => item.AC_NO === acno)) {
+        this.npaEntryArray.forEach((element) => {
+          if (element.AC_NO == acno) {
+            element['IS_DISPUTE_LOAN'] = isDispute
+          }
+        })
+      }
+      else {
+        var object = {
+          AC_ACTDATE: AC_ACTDATE,
+          AC_NO: acno,
+          id: id,
+          OP_POSTED_INT: OP_POSTED_INT,
+          AC_OP_TOTAL_DEPOSITAMT: AC_OP_TOTAL_DEPOSITAMT,
+          IS_DISPUTE_LOAN: isDispute
+        }
+        this.npaEntryArray.push(object)
+      }
+    }
+    else {
+      var object = {
+        AC_ACTDATE: AC_ACTDATE,
+        AC_NO: acno,
+        id: id,
+        OP_POSTED_INT: OP_POSTED_INT,
+        AC_OP_TOTAL_DEPOSITAMT: AC_OP_TOTAL_DEPOSITAMT,
+        IS_DISPUTE_LOAN: isDispute
+      }
+      this.npaEntryArray.push(object)
     }
   }
 
+  submit() {
+    if (this.npaEntryArray.length != 0) {
+      const dataToSend = {
+        'npaEntryArray': this.npaEntryArray
+      };
+      console.log(dataToSend)
+      this._npaService.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Updated Successfully !", "success");
+
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      //To clear form
+      this.resetForm();
+      this.arrTable = []
+      this.npaEntryArray = []
+    }
+  }
+
+  resetForm() {
+    this.createForm()
+    this.ngscheme = null
+    this.ngfromac = null
+    this.ngtoac = null
+  }
   //function for edit button clicked
   editClickHandler(info: any): void {
-    this.message.schemecode = info.schemecode;
-    this.message.fromacc = info.fromacc;
-    this.message.toacc = info.toacc;
-    this.message.accno = info.accno;
-    this.message.accname = info.accname;
-    this.message.lasttransdate = info.lasttransdate;
-    this.message.totpostedinterest = info.totpostedinterest;
-    this.message.totdepositamt = info.totdepositamt;
-    this.message.isdisputeloan = info.isdisputeloan;
     this.showButton = false;
     this.updateShow = true;
   }
 
   //function for delete button clicked
   delClickHandler(info: any): void {
-    this.message.accno = info.accno;
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to delete A/c no." + this.message.accno + "  data",
+      text: "Do you want to delete A/c no  data",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -244,7 +383,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    
+
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#npaopeningdetailstable tfoot tr').appendTo('#npaopeningdetailstable thead');
@@ -264,83 +403,10 @@ export class NpaOpeningDetailsEntryComponent implements OnInit {
       });
     });
   }
-
-  test() {
-    this.npaOpeningDetailsEntryService.loadData().subscribe(data1 => {
-      console.log(data1);
-      console.log("this is data");
-      console.log(JSON.stringify(data1));
-      console.log("this is stringify data");
-      this.jsonData = data1;
-    })
-
-    const that = this;
-    this.dtExportButtonOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 2,
-      serverSide: true,
-
-
-      // processing:true,
-      ajax: (dataTableParameters: any, callback) => {
-        that.http
-          .post<DataTableResponse>(
-            dataTableParameters, {}
-          ).subscribe(resp => {
-            that.jsonData = resp.data;
-            console.log("this is table data");
-            console.log(resp.data);
-
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
-              data: []
-            });
-          });
-      },
-
-      // ajax: 'fake-data/gl_statement_code.json',
-
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          title: 'Scheme',
-          data: 'AC_TYPE',
-
-        },
-        {
-          title: 'Account No',
-          data: 'AC_NO',
-
-        },
-      ],
-      dom: 'Bfrtip',
-      // buttons: [
-      //   'copy',
-      //   'print',
-      //   'excel',
-      //   'csv'
-      // ],
-
-      //row click handler code
-
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        // $('td', row).off('click');
-        // $('td', row).on('click', '#editbtn', () => {
-        //   self.editClickHandler(person,id);
-        // });
-        // $('td', row).on('click', '#delbtn', () => {
-        //   self.delClickHandler(data);
-        // });
-        return row;
-      }
-    };
-
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
+
+
 }

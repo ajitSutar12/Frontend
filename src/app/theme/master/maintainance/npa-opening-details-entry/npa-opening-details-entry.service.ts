@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from '../../../../../environments/environment';
 @Injectable()
 export class NpaOpeningDetailsEntryService {
     [x: string]: any;
     httpData: any;
-    // npa-opening-details";
-
+    // API 
+    url = environment.base_url;
     constructor(private http: HttpClient) { }
 
     //get data for form
@@ -19,11 +20,11 @@ export class NpaOpeningDetailsEntryService {
 
     //submit data for form
     postData(data1: any): Observable<any> {
-        return this.http.post(this.url, data1).pipe(map((res) => res),
+        return this.http.post(this.url + '/term-loan-master/entryNpa', data1).pipe(map((res) => res),
             catchError((error) => {
                 let errorMessage = 'Please add valid length';
                 console.log(error)
-                window.alert(errorMessage);
+                // window.alert(errorMessage);
                 return throwError(errorMessage);
             })
         )
@@ -45,9 +46,10 @@ export class NpaOpeningDetailsEntryService {
     //   return this.http.post(this.url +'/update/'+id,data).pipe(catchError(this.handleError));
     // }
 
-    // getFormData(id: any): Observable<any> {
-    //     return this.http.get(this.url + id).pipe(catchError(this.handleError));
-    // }
+    // For append data
+    getFormData(id: any): Observable<any> {
+        return this.http.get(this.url + '/term-loan-master/' + id).pipe(catchError(this.handleError));
+    }
 
 }
 
