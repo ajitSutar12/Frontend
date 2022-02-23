@@ -1,0 +1,145 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>TDS Form Submission</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="FIN_YEAR">Financial Year</label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="FIN_YEAR" class="form-control" placeholder=" " #finyear
+                                        id="FIN_YEAR" maxlength="9" (keyup)="addhyphen(finyear.value)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        formControlName="FIN_YEAR" [(ngModel)]="ngfinyear">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_CUSTID">Customer Id<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="ngcustomer" id="AC_CUSTID" bindValue="value"
+                                        formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
+                                          title="Compulsory Selection"
+                                        required placeholder="Customer Id">
+                                        <ng-option *ngFor="let values of Cust_ID" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-sm-12 col-md-1"> <label for="SUBMIT_DATE">Submission Date</label></div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy"
+                                    name="SUBMIT_DATE" id="SUBMIT_DATE"
+                                    class="form-control" [(ngModel)]="ngSubmitDate"
+                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                    [maxDate]="maxDate"
+                                    [ngClass]="{'form-submitted': formSubmitted}"
+                                    formControlName="SUBMIT_DATE"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                    bsDatepicker>
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <h6>Form Type</h6>
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" formControlName="FORM_TYPE" name="FORM_TYPE" value="Form15A"
+                                            id="formA" (change)="isForm15A(1)">
+                                        <i class="helper"></i>Form - 15 A
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" value="Form15H" formControlName="FORM_TYPE" id="formH"
+                                            name="FORM_TYPE" (change)="isForm15A(2)">
+                                        <i class="helper"></i>Form - 15 H
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" value="Latter" formControlName="FORM_TYPE" id="latter"
+                                            name="FORM_TYPE" (change)="isForm15A(3)">
+                                        <i class="helper"></i>Letter
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="FORMA" *ngIf="isTdsFormA">
+                        <div class="col-sm-2">
+                            <h6>Form - 15 A</h6>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="TDS_RATE">TDS Rate %<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control"
+                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="TDS_RATE"
+                                    title="Input allowed only  0-9" #margin (keyup)="checkmargin(margin.value)"
+                                    formControlName="TDS_RATE"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
+                                    
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['STATE'].invalid && (angForm.controls['STATE'].dirty || angForm.controls['STATE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['STATE'].errors?.pattern || angForm.controls['STATE'].errors?.required || angForm.controls['STATE'].errors?.maxlength">
+                                    Input allowed only 0-9 .
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="TDS_LIMIT">TDS Limit<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="TDS_LIMIT" class="form-control"
+                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="TDS_LIMIT"
+                                        title="Input allowed only  0-9" maxlength="10" formControlName="TDS_LIMIT"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
+                                    
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['TDS_LIMIT'].invalid && (angForm.controls['TDS_LIMIT'].dirty || angForm.controls['TDS_LIMIT'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['TDS_LIMIT'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button class="btn btn-outline-primary btn-sm" (click)="submit($event)" *ngIf="showButton">Submit</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Moratorium Period Master</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Installment Number<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text"  style="text-align: right;" name="INSTALLMENT_NO" class="form-control" placeholder=" " pattern="^[0-9]+$"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)" 
+                                    title="Input allowed only 0-9" maxlength="3"
+                                    id="INSTALLMENT_NO" formControlName="INSTALLMENT_NO" >
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['INSTALLMENT_NO'].invalid && (angForm.controls['INSTALLMENT_NO'].dirty || angForm.controls['INSTALLMENT_NO'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['INSTALLMENT_NO'].errors?.pattern || angForm.controls['INSTALLMENT_NO'].errors?.required || angForm.controls['INSTALLMENT_NO'].errors?.maxlength">
+                                    Input allowed only 0-9 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="PERIOD">Moratorium Period(in months)</label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="PERIOD" class="form-control" placeholder=" "
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                id="PERIOD" #month pattern="^[0-9]+$"   maxlength="3"   title="Input allowed only 0-9"
+                                                formControlName="PERIOD">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['PERIOD'].invalid && (angForm.controls['PERIOD'].dirty || angForm.controls['PERIOD'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['PERIOD'].errors?.pattern || angForm.controls['PERIOD'].errors?.required || angForm.controls['PERIOD'].errors?.maxlength">
+                                    Input allowed only 0-9 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                            <div class="col-sm-12 col-md-1"> <label for="TRAN_DATE">Transaction Date</label></div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy"
+                                        name="TRAN_DATE" id="TRAN_DATE"
+                                        class="form-control" 
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [maxDate]="maxDate"
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        formControlName="TRAN_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker disabled>
+                                    </span>
+                                </div>
+                            </div>
+                        
+                        
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-sm-12 col-md-1"> <label for="AC_RESO_DATE">Resolution Date</label></div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy"
+                                    name="AC_RESO_DATE" id="AC_RESO_DATE"
+                                    class="form-control" [(ngModel)]="ngresolutiondate"
+                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                    [maxDate]="maxDate"
+                                    [ngClass]="{'form-submitted': formSubmitted}"
+                                    formControlName="AC_RESO_DATE"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                    bsDatepicker>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_RESO_NO">Resolution Number</label></div>
+                        <div class="col-sm-12 col-md-2">
+                        <div class="form-group input-group">
+                            <span class="border-lable-flt">
+                                <input type="text" style="text-align: right;" name="AC_RESO_NO" class="form-control" placeholder=" "
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            id="AC_RESO_NO"  pattern="^[0-9]+$"   maxlength="3"   title="Input allowed only 0-9"
+                                            formControlName="AC_RESO_NO">
+                            </span>
+                        </div>
+                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_RESO_NO'].invalid && (angForm.controls['AC_RESO_NO'].dirty || angForm.controls['AC_RESO_NO'].touched)" class="alert alert-danger">
+                            <div *ngIf="angForm.controls['AC_RESO_NO'].errors?.pattern || angForm.controls['AC_RESO_NO'].errors?.required || angForm.controls['PEAC_RESO_NORIOD'].errors?.maxlength">
+                                Input allowed only 0-9 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

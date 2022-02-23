@@ -327,6 +327,16 @@ const MENUITEMS = [
                 state: 'notingCharges',
                 name: 'Noting Charges',
                 id: 39
+              },
+              {
+                state: 'tdsformsubmission',
+                name: 'TDS Form Submission',
+                id: 185
+              },
+              {
+                state: 'monotoriumperiodmaster',
+                name: 'Monotorium Period Master',
+                id: 186
               }
             ]
 

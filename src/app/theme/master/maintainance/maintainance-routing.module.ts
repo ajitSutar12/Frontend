@@ -39,6 +39,14 @@ const routes: Routes = [
       path:'notingCharges',
       loadChildren: () => import('./noting-charges/notingCharges.module').then(m => m.NotingChargesModule )
     },
+    {
+      path:'tdsformsubmission',
+      loadChildren: () => import('./tds-form-submission/tdsformsubmission.module').then(m=>m.TDSFormSubmissionModule)
+    },
+    {
+      path:'monotoriumperiodmaster',
+      loadChildren: () => import('./moratoriumperiodmaster/monotoriumperiodmaster.module').then(m=>m.MonotoriumPeriodMasterModule)
+    },
   ]
   }
 ];

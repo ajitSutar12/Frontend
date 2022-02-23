@@ -16,6 +16,8 @@ import {SelectModule} from 'ng-select';
 // import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+// import { MoratoriumperiodmasterComponent } from './moratoriumperiodmaster/moratoriumperiodmaster.component';
+// import { TDSFormSubmissionComponent } from './tds-form-submission/tds-form-submission.component';
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     CommonModule,
     MaintainanceRoutingModule,
     SharedModule,
-    SelectModule
+    SelectModule,
+    
     // FormsModule,
     // ReactiveFormsModule
   ],
