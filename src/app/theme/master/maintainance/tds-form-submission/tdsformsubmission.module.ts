@@ -8,6 +8,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
+import { TDSFormSubmissionService } from './tds-form-submission.service';
+
+
 @NgModule({
     imports: [
       CommonModule,
@@ -22,7 +26,10 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ],
     declarations: [TDSFormSubmissionComponent],
     bootstrap: [TDSFormSubmissionComponent],
-    providers: [{
+    providers: [
+      CustomerIDMasterDropdownService,
+      TDSFormSubmissionService,{
+
         provide: HTTP_INTERCEPTORS,
               useClass: UserAuthInterceptor,
               multi: true

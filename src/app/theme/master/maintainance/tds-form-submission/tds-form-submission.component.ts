@@ -10,20 +10,23 @@ import { Subject } from "rxjs";
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
+import { first } from 'rxjs/operators';
+import { TDSFormSubmissionService } from './tds-form-submission.service';
 
 
 
 // For fetching values from backend
 interface TDSFormSubmission {
   id: number;
-  SUBMIT_DATE: Date,
-  FIN_YEAR: number,
-  AC_CUSTID: number,
-  FORM_TYPE: string,
-  TDS_RATE: number,
-  TDS_LIMIT: number,
-  IS_EXEMPT_TDS: number,
-  USER_CODE: string
+  SUBMIT_DATE:Date,
+  FIN_YEAR:number,
+  AC_CUSTID:number,
+  FORM_TYPE:string,
+  TDS_RATE:number,
+  TDS_LIMIT:number,
+  // IS_EXEMPT_TDS:number,
+  // USER_CODE:string
 
 }
 
@@ -59,12 +62,16 @@ export class TDSFormSubmissionComponent implements OnInit {
   Cust_ID: any[] //customer id from idmaster
 
 
-  ngfinyear: any = null
+  ngfinyear:any=null
+  dtElement: any;
 
+  
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private_router: Router,
+    private TDSformsubmission :TDSFormSubmissionService,
+    private customerID: CustomerIDMasterDropdownService,
     private config: NgSelectConfig,) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -73,23 +80,71 @@ export class TDSFormSubmissionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+      this.Cust_ID = data;
+    })
+  
     this.createForm()
   }
 
   createForm() {
     this.angForm = this.fb.group({
-      FIN_YEAR: [""],
-      AC_CUSTID: ["", [Validators.required]],
-      SUBMIT_DATE: [""],
-      FORM_TYPE: [""],
-      TDS_RATE: ["", [Validators.pattern]],
-      TDS_LIMIT: ["", [Validators.pattern]],
+      FIN_YEAR: ["",[Validators.required,Validators.pattern]],
+      AC_CUSTID:["",[Validators.required,Validators.pattern]],
+      SUBMIT_DATE: ["",[Validators.required,Validators.pattern]],
+      FORM_TYPE: ["",[Validators.required,Validators.pattern]],
+      TDS_RATE: ["", [Validators.required,Validators.pattern]],
+      TDS_LIMIT: ["", [Validators.required,Validators.pattern]],
     });
   }
 
-  submit(event) {
-
+  //checks percentage of interest rate
+  checkInt(event) {
+    if (Number(event) > 100) {
+      Swal.fire('Info', 'Please Input Interest upto 100', 'info')
+      this.angForm.patchValue({
+        TDS_RATE: ''
+      })
+    }
   }
+
+  // Method to insert data into database through NestJS
+  submit() {
+    let ngSubmitDate
+   this.formSubmitted = true;
+   if (this.angForm.valid){
+    const formVal = this.angForm.value;
+   const dataToSend = {
+
+    //  'SUBMIT_DATE': formVal.SUBMIT_DATE,
+     'FIN_YEAR': formVal.FIN_YEAR,
+     'AC_CUSTID': formVal.AC_CUSTID,
+     'FORM_TYPE': formVal.FORM_TYPE,
+     'TDS_RATE': formVal.TDS_RATE,
+     'TDS_LIMIT': formVal.TDS_LIMIT,
+     'SUBMIT_DATE': (formVal.SUBMIT_DATE == '' || formVal.SUBMIT_DATE == 'Invalid date') ? ngSubmitDate = '' : ngSubmitDate = moment(formVal.SUBMIT_DATE).format('DD/MM/YYYY'),
+     // 'AC_RESO_DATE': formVal.AC_RESO_DATE,
+     
+   }
+   this.TDSformsubmission.postData(dataToSend).subscribe(data1 => {
+     Swal.fire('Success!', 'Data Added Successfully !', 'success');
+     this.formSubmitted = false;
+     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+       dtInstance.ajax.reload()
+     });
+   }, (error) => {
+     console.log(error)
+   })
+   //To clear form
+   this.resetForm();
+   }
+   else {
+    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+  }
+   
+
+ }
 
   //method for adding hyphen in date
   addhyphen(data: any) {

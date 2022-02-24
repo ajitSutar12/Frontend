@@ -165,74 +165,52 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
         {
           title: 'Action',
         },
-        // {
-        //   title: 'Bank Code',
-        //   data: 'BANK_CODE'
-        // },
         {
           title: 'Name',
           data: 'NAME'
         },
-        // {
-        //   title: 'Short Name',
-        //   data: 'SHORT_NAME'
-        // },
         {
-          title: 'Account Number',
-          data: 'SBI_BANKCODE'
-        },
-        // {
-        //   title: 'Tan Number',
-        //   data: 'TAN_NO'
-        // },
-        {
-          title: 'Pan Number',
-          data: 'PAN_NO'
+          title:'Account Number',
+          data:'SBI_BANKCODE'
         },
         {
-          title: 'GST Number',
-          data: 'GST_NO'
-        },
-        // {
-        //   title: 'Flat premise Number',
-        //   data: 'FLAT_PRM_NO'
-        // },
-        {
-          title: 'Flat Premise/Building Name',
-          data: 'FLAT_PRM_NAME'
-        },
-        // {
-        //   title: 'Road/Streets/Lane',
-        //   data: 'RD_LANE_NAME'
-        // },
-        // {
-        //   title: 'Location',
-        //   data: 'AREA_LOCATION'
-        // },
-        {
-          title: 'Town/City/District',
-          data: 'CITY_CODE'
+          title:'Pan Number',
+          data:'PAN_NO'
         },
         {
-          title: 'State',
-          data: 'STATE'
+          title:'GST Number',
+          data:'GST_NO'
         },
         {
-          title: 'Pin Code',
-          data: 'PIN_CODE'
+          title:'Flat Premise Name',
+          data:'FLAT_PRM_NAME'
+        },
+        {
+          title:'Town/City/District',
+          data:'CITY_CODE'
+        },
+        {
+          title:'State',
+          data:'STATE'
+        },
+        {
+          title:'Pin Code',
+          data:'PIN_CODE'
         },
         // {
         //   title: 'Telephone Number',
         //   data: 'PHONE_OFFICE'
         // },
         {
-          title: 'Mobile Number',
-          data: 'MOB_NUM'
+          title:'Mobile Number',
+          data:'MOB_NUM'
         },
         {
-          title: 'Email',
-          data: 'EMAIL'
+          title:'Email',
+          data:'EMAIL'
         },
+
+        
       ],
       dom: 'Blrtip',
     }

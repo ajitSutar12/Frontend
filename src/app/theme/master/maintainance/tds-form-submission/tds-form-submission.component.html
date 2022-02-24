@@ -20,6 +20,13 @@
                                         formControlName="FIN_YEAR" [(ngModel)]="ngfinyear">
                                 </span>
                             </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['FIN_YEAR'].invalid && (angForm.controls['FIN_YEAR'].dirty || angForm.controls['FIN_YEAR'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['FIN_YEAR'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-2"> <label for="AC_CUSTID">Customer Id<sub class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
@@ -35,17 +42,15 @@
                                     
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
-                                    This field is required.
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_CUSTID'].errors?.pattern || angForm.controls['AC_CUSTID'].errors?.required || angForm.controls['AC_CUSTID'].errors?.maxlength">
+                                    This Field id required.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1"></div>
-                        <div class="col-sm-12 col-md-1"> <label for="SUBMIT_DATE">Submission Date</label></div>
-                        <div class="col-md-2">
+                        
+                        <div class="col-sm-12 col-md-2"> <label for="SUBMIT_DATE">Submission Date</label></div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy"
@@ -58,6 +63,13 @@
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                     bsDatepicker>
                                 </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['SUBMIT_DATE'].invalid && (angForm.controls['SUBMIT_DATE'].dirty || angForm.controls['SUBMIT_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['SUBMIT_DATE'].errors?.required">
+                                    This field is required.
+                                </div>
                             </div>
                         </div>
                         
@@ -99,16 +111,16 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control"
-                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="TDS_RATE"
-                                    title="Input allowed only  0-9" #margin (keyup)="checkmargin(margin.value)"
-                                    formControlName="TDS_RATE"
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
+                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="TDS_RATE"  max="100"
+                                    title="Input allowed only  0-9" #INT
+                                    formControlName="TDS_RATE"  (keyup)="checkInt(INT.value)"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                     
-                                </span>
+                                </span> 
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['STATE'].invalid && (angForm.controls['STATE'].dirty || angForm.controls['STATE'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['STATE'].errors?.pattern || angForm.controls['STATE'].errors?.required || angForm.controls['STATE'].errors?.maxlength">
-                                    Input allowed only 0-9 .
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TDS_RATE'].invalid && (angForm.controls['TDS_RATE'].dirty || angForm.controls['TDS_RATE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['TDS_RATE'].errors?.pattern || angForm.controls['TDS_RATE'].errors?.required || angForm.controls['TDS_RATE'].errors?.maxlength">
+                                    Input allowed only 0-9 .(after decimal 2 digits)
                                 </div>
                             </div>
                         </div>
@@ -117,17 +129,15 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" style="text-align: right;" name="TDS_LIMIT" class="form-control"
-                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="TDS_LIMIT"
+                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="TDS_LIMIT" 
                                         title="Input allowed only  0-9" maxlength="10" formControlName="TDS_LIMIT"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )">
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                     
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['TDS_LIMIT'].invalid && (angForm.controls['TDS_LIMIT'].dirty || angForm.controls['TDS_LIMIT'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['TDS_LIMIT'].errors?.pattern">
-                                    Input allowed only 0-9
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TDS_LIMIT'].invalid && (angForm.controls['TDS_LIMIT'].dirty || angForm.controls['TDS_LIMIT'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['TDS_LIMIT'].errors?.pattern || angForm.controls['TDS_LIMIT'].errors?.required || angForm.controls['TDS_LIMIT'].errors?.maxlength">
+                                    Input allowed only 0-9 .(after decimal 2 digits)
                                 </div>
                             </div>
                         </div>

@@ -20,4 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MonotoriumPeriodMasterRoutingModule { }
+export class MoratoriumPeriodMasterRoutingModule { }

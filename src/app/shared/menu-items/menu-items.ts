@@ -334,8 +334,8 @@ const MENUITEMS = [
                 id: 185
               },
               {
-                state: 'monotoriumperiodmaster',
-                name: 'Monotorium Period Master',
+                state: 'moratoriumperiodmaster',
+                name: 'Moratorium Period Master',
                 id: 186
               }
             ]

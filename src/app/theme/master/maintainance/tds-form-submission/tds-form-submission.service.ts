@@ -9,18 +9,20 @@ import { environment } from 'src/environments/environment';
 
 
 
+
+
 @Injectable()
-export class MoratoriumPeriod {
+export class TDSFormSubmissionService {
   // Variable for handleError
   [x: string]: any;
   // API 
-  url = environment.base_url;
+    url = environment.base_url;
 
   constructor(private http: HttpClient) { }
 
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + '/moratorium-period-master/insert', data).pipe(map((res) => res),
+    return this.http.post(this.url + '/tds-form-submission/insert', data).pipe(map((res) => res),
     catchError((error) => {
       Swal.fire('Please Input Proper Data !');
       return throwError(error);
@@ -29,14 +31,14 @@ export class MoratoriumPeriod {
   }
   // For append data
   getFormData(id: any): Observable<any> {
-    return this.http.get(this.url + '/moratorium-period-master/' + id).pipe(catchError(this.handleError));
+    return this.http.get(this.url + '/tds-form-submission/' + id).pipe(catchError(this.handleError));
   }
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + '/moratorium-period-master/update', data);
+    return this.http.put(this.url + '/tds-form-submission/update', data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
-    return this.http.delete(this.url + '/moratorium-period-master/delete/' + id).pipe(catchError(this.handleError));
+    return this.http.delete(this.url + '/tds-form-submission/delete/' + id).pipe(catchError(this.handleError));
   }
 }

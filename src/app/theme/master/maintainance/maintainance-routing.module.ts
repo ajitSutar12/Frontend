@@ -44,8 +44,8 @@ const routes: Routes = [
       loadChildren: () => import('./tds-form-submission/tdsformsubmission.module').then(m=>m.TDSFormSubmissionModule)
     },
     {
-      path:'monotoriumperiodmaster',
-      loadChildren: () => import('./moratoriumperiodmaster/monotoriumperiodmaster.module').then(m=>m.MonotoriumPeriodMasterModule)
+      path:'moratoriumperiodmaster',
+      loadChildren: () => import('./moratoriumperiodmaster/moratoriumperiodmaster.module').then(m=>m.MoratoriumPeriodMasterModule)
     },
   ]
   }
