@@ -1,4 +1,4 @@
-import { Component, OnInit,ElementRef, ViewChild,  } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
@@ -14,16 +14,16 @@ import { Router } from '@angular/router';
 
 
 // For fetching values from backend
-interface TDSFormSubmission{
+interface TDSFormSubmission {
   id: number;
-  SUBMIT_DATE:Date,
-  FIN_YEAR:number,
-  AC_CUSTID:number,
-  FORM_TYPE:string,
-  TDS_RATE:number,
-  TDS_LIMIT:number,
-  IS_EXEMPT_TDS:number,
-  USER_CODE:string
+  SUBMIT_DATE: Date,
+  FIN_YEAR: number,
+  AC_CUSTID: number,
+  FORM_TYPE: string,
+  TDS_RATE: number,
+  TDS_LIMIT: number,
+  IS_EXEMPT_TDS: number,
+  USER_CODE: string
 
 }
 
@@ -41,7 +41,7 @@ export class TDSFormSubmissionComponent implements OnInit {
   url = environment.base_url;
 
   angForm: FormGroup;
-  
+
 
   showButton: boolean = true;
   // Store data from backend
@@ -50,7 +50,7 @@ export class TDSFormSubmissionComponent implements OnInit {
   isTdsFormA: boolean = false;
 
   // for date 
-  ngSubmitDate:any=null
+  ngSubmitDate: any = null
   maxDate: Date;
   minDate: Date;
 
@@ -59,18 +59,18 @@ export class TDSFormSubmissionComponent implements OnInit {
   Cust_ID: any[] //customer id from idmaster
 
 
-  ngfinyear:any=null
+  ngfinyear: any = null
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private_router: Router,
     private config: NgSelectConfig,) {
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
-   }
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
     this.createForm()
@@ -79,7 +79,7 @@ export class TDSFormSubmissionComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       FIN_YEAR: [""],
-      AC_CUSTID:["",[Validators.required]],
+      AC_CUSTID: ["", [Validators.required]],
       SUBMIT_DATE: [""],
       FORM_TYPE: [""],
       TDS_RATE: ["", [Validators.pattern]],
@@ -108,14 +108,13 @@ export class TDSFormSubmissionComponent implements OnInit {
     }
   }
 
-  
+
   addNewData() {
     this.showButton = true;
-    
     this.resetForm();
   }
   resetForm() {
-
+    this.createForm()
   }
 
   isForm15A(value) {

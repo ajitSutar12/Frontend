@@ -31,20 +31,20 @@ interface BankOtherDetails {
   BANK_CODE: number;
   NAME: string;
   SHORT_NAME: string;
-  TAN_NO:string
-  PAN_NO:string;
-  FLAT_PRM_NO:string;
-  FLAT_PRM_NAME:string;
-  RD_LANE_NAME:string;
-  AREA_LOCATION:string;
-  CITY_CODE:number;
-  STATE:string;
-  PIN_CODE:number;
-  PHONE_OFICE:string;
-  MOB_NUM:string;
-  EMAIL:string;
-  SBI_BANKCODE:string;
-  GST_NO:string;
+  TAN_NO: string
+  PAN_NO: string;
+  FLAT_PRM_NO: string;
+  FLAT_PRM_NAME: string;
+  RD_LANE_NAME: string;
+  AREA_LOCATION: string;
+  CITY_CODE: number;
+  STATE: string;
+  PIN_CODE: number;
+  PHONE_OFFICE: string;
+  MOB_NUM: string;
+  EMAIL: string;
+  SBI_BANKCODE: string;
+  GST_NO: string;
 
 }
 
@@ -53,7 +53,7 @@ interface BankOtherDetails {
   templateUrl: './bank-other-details.component.html',
   styleUrls: ['./bank-other-details.component.scss']
 })
-export class BankOtherDetailsComponent implements OnInit, AfterViewInit,OnDestroy {
+export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
@@ -64,7 +64,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit,OnDestro
   angForm: FormGroup;
 
   // dropdown variables
-  ngCity:any=null
+  ngCity: any = null
   city: any[];
 
   // For reloading angular datatable after CRUD operation
@@ -74,7 +74,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit,OnDestro
   dtTrigger: Subject<any> = new Subject();
   // Store data from backend
   bankotherdetails: BankOtherDetails[];
- 
+
   //Datatable variable
   dtExportButtonOptions: any = {};
   Data: any;
@@ -127,7 +127,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit,OnDestro
         this.page = dataTableParameters.start / dataTableParameters.length;
 
         dataTableParameters.columns.forEach(element => {
-   
+
           if (element.search.value != '') {
             let string = element.search.value;
             this.filterData[element.data] = string;
@@ -135,7 +135,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit,OnDestro
             let getColumnName = element.data;
             let columnValue = element.value;
             if (this.filterData.hasOwnProperty(element.data)) {
-           
+
               let value = this.filterData[getColumnName];
               if (columnValue != undefined || value != undefined) {
                 delete this.filterData[element.data];
@@ -223,7 +223,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit,OnDestro
         },
         // {
         //   title: 'Telephone Number',
-        //   data: 'PHONE_OFICE'
+        //   data: 'PHONE_OFFICE'
         // },
         {
           title: 'Mobile Number',
@@ -240,25 +240,25 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit,OnDestro
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
-      BANK_CODE: ['', [Validators.pattern]], 
-      NAME: ['', [Validators.pattern,Validators.required]],
+      BANK_CODE: ['', [Validators.pattern]],
+      NAME: ['', [Validators.pattern, Validators.required]],
       SHORT_NAME: ['', [Validators.pattern, Validators.required]],
-      TAN_NO:['',[Validators.pattern]],
-      PAN_NO:['',[Validators.pattern, Validators.required]],
-      FLAT_PRM_NO:['',[Validators.pattern]],
-      FLAT_PRM_NAME:['',[Validators.pattern]],
-      RD_LANE_NAME:['',[Validators.pattern]],
-      AREA_LOCATION:['',[Validators.pattern]],
-      CITY_CODE:['',[Validators.pattern]],
-      STATE:['',[Validators.pattern]],
-      PIN_CODE:['',[Validators.pattern, Validators.required]],
-      PHONE_OFICE:['',[Validators.pattern]],
-      MOB_NUM:['',[Validators.pattern,Validators.required]],
-      EMAIL:['',[Validators.pattern, Validators.required]],
-      SBI_BANKCODE:['',[Validators.pattern, Validators.required]],
-      GST_NO:['',[Validators.pattern]],
+      TAN_NO: ['', [Validators.pattern]],
+      PAN_NO: ['', [Validators.pattern, Validators.required]],
+      FLAT_PRM_NO: ['', [Validators.pattern]],
+      FLAT_PRM_NAME: ['', [Validators.pattern]],
+      RD_LANE_NAME: ['', [Validators.pattern]],
+      AREA_LOCATION: ['', [Validators.pattern]],
+      CITY_CODE: ['', [Validators.pattern]],
+      STATE: ['', [Validators.pattern]],
+      PIN_CODE: ['', [Validators.pattern, Validators.required]],
+      PHONE_OFFICE: ['', [Validators.pattern]],
+      MOB_NUM: ['', [Validators.pattern, Validators.required]],
+      EMAIL: ['', [Validators.pattern, Validators.required]],
+      SBI_BANKCODE: ['', [Validators.pattern, Validators.required]],
+      GST_NO: ['', [Validators.pattern]],
 
-      
+
     });
   }
 
@@ -280,7 +280,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit,OnDestro
       'CITY_CODE': formVal.CITY_CODE,
       'STATE': formVal.STATE,
       'PIN_CODE': formVal.PIN_CODE,
-      'PHONE_OFICE': formVal.PHONE_OFICE,
+      'PHONE_OFFICE': formVal.PHONE_OFFICE,
       'MOB_NUM': formVal.MOB_NUM,
       'EMAIL': formVal.EMAIL,
       'SBI_BANKCODE': formVal.SBI_BANKCODE,
@@ -300,10 +300,11 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit,OnDestro
 
   }
 
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.ngCity = null
     this.resetForm();
   }
 
@@ -313,30 +314,32 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit,OnDestro
     this.updateShow = true;
     this.newbtnShow = true;
     this.bankDetails.getFormData(id).subscribe(data => {
+      console.log(data)
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.angForm.patchValue({
         'BANK_CODE': data.BANK_CODE,
-      'NAME': data.NAME,
-      'SHORT_NAME': data.SHORT_NAME,
-      'TAN_NO': data.TAN_NO,
-      'PAN_NO': data.PAN_NO,
-      'FLAT_PRM_NO': data.FLAT_PRM_NO,
-      'FLAT_PRM_NAME': data.FLAT_PRM_NAME,
-      'RD_LANE_NAME': data.RD_LANE_NAME,
-      'AREA_LOCATION': data.AREA_LOCATION,
-      'CITY_CODE': data.CITY_CODE,
-      'STATE': data.STATE,
-      'PIN_CODE': data.PIN_CODE,
-      'PHONE_OFICE': data.PHONE_OFICE,
-      'MOB_NUM': data.MOB_NUM,
-      'EMAIL': data.EMAIL,
-      'SBI_BANKCODE': data.SBI_BANKCODE,
-      'GST_NO': data.GST_NO,
+        'NAME': data.NAME,
+        'SHORT_NAME': data.SHORT_NAME,
+        'TAN_NO': data.TAN_NO,
+        'PAN_NO': data.PAN_NO,
+        'FLAT_PRM_NO': data.FLAT_PRM_NO,
+        'FLAT_PRM_NAME': data.FLAT_PRM_NAME,
+        'RD_LANE_NAME': data.RD_LANE_NAME,
+        'AREA_LOCATION': data.AREA_LOCATION,
+        'CITY_CODE': data.CITY_CODE,
+        'STATE': data.STATE,
+        'PIN_CODE': data.PIN_CODE,
+        'PHONE_OFFICE': data.PHONE_OFFICE,
+        'MOB_NUM': data.MOB_NUM,
+        'EMAIL': data.EMAIL,
+        'SBI_BANKCODE': data.SBI_BANKCODE,
+        'GST_NO': data.GST_NO,
       })
     })
   }
   //Method for update data 
   updateData() {
+    debugger
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.bankDetails.updateData(data).subscribe(() => {
@@ -354,6 +357,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit,OnDestro
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngCity = null
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

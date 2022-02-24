@@ -277,7 +277,6 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       isDispute = true
     }
     else {
-      console.log('uncheck')
       isDispute = false
     }
 
