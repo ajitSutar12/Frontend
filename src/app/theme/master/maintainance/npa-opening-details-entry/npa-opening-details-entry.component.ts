@@ -141,7 +141,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       });
     }
     else {
-      Swal.fire("Select Different Member", "error");
+      Swal.fire("To Account Number Must Be Greater Than From Account Number");
       this.npaOpeningForm.patchValue({
         TO_AC: ''
       })

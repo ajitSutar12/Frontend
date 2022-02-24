@@ -8,6 +8,7 @@ import { NgSelectConfig } from '@ng-select/ng-select';
 import { environment } from "src/environments/environment";
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { InterestPostingFlagUpdationService } from './interest-posting-flag-updation.service'
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-interest-posting-flag-updation',
   templateUrl: './interest-posting-flag-updation.component.html',
@@ -31,8 +32,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
   toAc
   showButton: boolean = true;
   updateShow: boolean = false;
-
-  dtTrigger: any;
+  dtTrigger: Subject<any> = new Subject<any>();
   dtElement: any;
 
   constructor(
@@ -57,12 +57,13 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
 
 
   getSchemeAcno(event) {
-    debugger
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
     let obj = [this.ngscheme, branchCode]
-    console.log(this.ngscheme)
+    this.ngfromac = null
+    this.ngtoac = null
+    this.arrTable = []
     switch (event.S_ACNOTYPE) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(obj).subscribe(data => {
@@ -101,11 +102,8 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
 
       case 'CC':
         this.schemeAccountNoService.getCashCreditSchemeList1(obj).subscribe(data => {
-          console.log(data)
           this.fromAc = data;
           this.toAc = data
-          console.log(this.fromAc)
-          console.log(this.toAc)
         })
         break;
 
@@ -138,7 +136,6 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
   arrTable
   getschemename
   getTable() {
-    debugger
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
@@ -149,11 +146,19 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
       this.mem = [memFrom, memTo, this.ngscheme, branchCode, this.getschemename]
       this.http.get(this.url + '/interest-posting-updation/accounts/' + this.mem).subscribe((data) => {
         this.arrTable = data;
-        console.log(this.arrTable)
+        this.arrTable.forEach(element => {
+          var object = {
+            AC_NO: element.AC_NO,
+            AC_NAME: element.AC_NAME,
+            id: element.id,
+            IS_POST_INT_AC: element.IS_POST_INT_AC
+          }
+          this.InterestArr.push(object)
+        });
       });
     }
     else {
-      Swal.fire("Select Different Member", "error");
+      Swal.fire("To Account Number Must Be Greater Than From Account Number");
       this.angForm.patchValue({
         TO_AC: ''
       })
@@ -169,7 +174,6 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
       isIntUpdate = true
     }
     else {
-      console.log('uncheck')
       isIntUpdate = false
     }
 
@@ -199,16 +203,26 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
       this.InterestArr.push(object)
     }
   }
+  selectAll() {
+    const checkedTrue = true
+    this.InterestArr.forEach(item => item.IS_POST_INT_AC = checkedTrue);
+  }
+
+  deselectAll() {
+    const checkedFalse = false
+    this.InterestArr.forEach(item => item.IS_POST_INT_AC = checkedFalse);
+  }
+
   submit() {
     if (this.InterestArr.length != 0) {
       const dataToSend = {
+        'AC_TYPE': this.getschemename,
         'InterestArr': this.InterestArr
       };
-      console.log(dataToSend)
+
       this._service.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Updated Successfully !", "success");
-
         },
         (error) => {
           console.log(error);
