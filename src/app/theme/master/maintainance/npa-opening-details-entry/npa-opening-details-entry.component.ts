@@ -8,6 +8,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import { environment } from "src/environments/environment";
 import { first } from 'rxjs/operators';
 import { Subject } from "rxjs";
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 class DataTableResponse {
@@ -50,11 +51,20 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
   ngfromac: any = null
   ngtoac: any = null
   scheme
-
+  ngBranchCode: any = null
+  branch_code
+  ToAC
+  fromAC
+  getschemename
+  showTable: boolean = false
+  mem
+  arrTable
+  npaEntryArray = []
   constructor(private fb: FormBuilder, private http: HttpClient,
     private _npaService: NpaOpeningDetailsEntryService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private schemeAccountNoService: SchemeAccountNoService,) { }
+    private schemeAccountNoService: SchemeAccountNoService,
+    private ownbranchMasterService: OwnbranchMasterService,) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -69,28 +79,45 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       });
       this.scheme = allscheme;
     })
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.npaOpeningForm.controls['BRANCH'].enable()
+    }
+    else {
+      this.npaOpeningForm.controls['BRANCH'].disable()
+      this.ngBranchCode = result.branch.id
+    }
   }
 
   createForm() {
     this.npaOpeningForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
       FROM_AC: ['', [Validators.required]],
-      TO_AC: ['', [Validators.required]]
+      TO_AC: ['', [Validators.required]],
+      BRANCH: ['', [Validators.required]]
     });
   }
 
-  ToAC
-  fromAC
-  getschemename
-  //get account no according scheme
-  getAccountList(event) {
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
+  getBranch() {
+    this.ngscheme = null
     this.ngfromac = null
     this.ngtoac = null
     this.arrTable = []
-    let obj = [this.ngscheme, branchCode]
+    this.npaEntryArray = []
+  }
+
+  //get account no according scheme
+  getAccountList(event) {
+    this.ngfromac = null
+    this.ngtoac = null
+    this.arrTable = []
+    this.npaEntryArray = []
+    let obj = [this.ngscheme, this.ngBranchCode]
     switch (event.name) {
       case 'DS':
         this.schemeAccountNoService.getDisputeLoanSchemeList1(obj).pipe(first()).subscribe(data => {
@@ -110,34 +137,23 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
         this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
-          console.log(data)
         })
         break;
     }
     this.getschemename = event.name
   }
 
-  showTable: boolean = false
-  mem
-  arrTable
+
   getTable() {
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
+    this.arrTable = []
+    this.npaEntryArray = []
     var memFrom = this.npaOpeningForm.controls['FROM_AC'].value
     var memTo = this.npaOpeningForm.controls['TO_AC'].value
     if (this.npaOpeningForm.controls['FROM_AC'].value < this.npaOpeningForm.controls['TO_AC'].value) {
       this.showTable = true
-      this.mem = [memFrom, memTo, this.ngscheme, branchCode, this.getschemename]
-      // this.shareDatatable()
+      this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
       this.http.get(this.url + '/term-loan-master/npaopening/' + this.mem).subscribe((data) => {
         this.arrTable = data;
-        console.log('arrTable', this.arrTable)
-        // this.arrTable.forEach(element => {
-        //   if (element.shareDividend == null) {
-        //     element.shareDividend = 0
-        //   }
-        // });
       });
     }
     else {
@@ -145,8 +161,9 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       this.npaOpeningForm.patchValue({
         TO_AC: ''
       })
+      this.arrTable = []
+      this.npaEntryArray = []
     }
-
   }
 
   //select content of field
@@ -154,7 +171,6 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     $event.target.select();
   }
 
-  npaEntryArray = []
 
   //push receipt no into object
   getLastTranDate(id, acno, AC_ACTDATE, OP_POSTED_INT, AC_OP_TOTAL_DEPOSITAMT, IS_DISPUTE_LOAN) {
@@ -340,6 +356,9 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     this.ngscheme = null
     this.ngfromac = null
     this.ngtoac = null
+    this.ngBranchCode = null
+    this.arrTable = []
+    this.npaEntryArray = []
   }
   //function for edit button clicked
   editClickHandler(info: any): void {
@@ -384,23 +403,23 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
   ngAfterViewInit(): void {
 
     this.dtTrigger.next();
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      $('#npaopeningdetailstable tfoot tr').appendTo('#npaopeningdetailstable thead');
-      dtInstance.columns().every(function () {
-        const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-          if (this['value'] != '') {
-            that
-              .search(this['value'])
-              .draw();
-          } else {
-            that
-              .search(this['value'])
-              .draw();
-          }
-        });
-      });
-    });
+    // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    //   $('#npaopeningdetailstable tfoot tr').appendTo('#npaopeningdetailstable thead');
+    //   dtInstance.columns().every(function () {
+    //     const that = this;
+    //     $('input', this.footer()).on('keyup change', function () {
+    //       if (this['value'] != '') {
+    //         that
+    //           .search(this['value'])
+    //           .draw();
+    //       } else {
+    //         that
+    //           .search(this['value'])
+    //           .draw();
+    //       }
+    //     });
+    //   });
+    // });
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

@@ -13,7 +13,7 @@ import { NpaOpeningDetailsEntryService } from './npa-opening-details-entry.servi
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +27,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot()
   ],
-  providers: [SchemeCodeDropdownService, SchemeAccountNoService, NpaOpeningDetailsEntryService, {
+  providers: [SchemeCodeDropdownService, SchemeAccountNoService, NpaOpeningDetailsEntryService,OwnbranchMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

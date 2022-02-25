@@ -189,7 +189,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     this.userID = result.USER_NAME
-    if (result.RoleDefine[0].Role.NAME == "Admin") {
+    if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH'].enable()
     }
     else {
@@ -224,7 +224,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     this.branchCode = event.name
     this.getPigmyAgentAcnoList()
   }
-  
+
   //get syspara table data for date and pigmy auto voucher flag
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -520,7 +520,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     this.userID = result.USER_NAME
-    if (result.RoleDefine[0].Role.NAME == "Admin") {
+    if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH'].enable()
     }
     else {
@@ -555,7 +555,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     this.userID = result.USER_NAME
-    if (result.RoleDefine[0].Role.NAME == "Admin") {
+    if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH'].enable()
     }
     else {

@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { IOption } from 'ng-select';
-import { Subscription } from 'rxjs/Subscription';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http'
-import { NgSelectConfig } from '@ng-select/ng-select';
 import { environment } from "src/environments/environment";
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { InterestPostingFlagUpdationService } from './interest-posting-flag-updation.service'
 import { Subject } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 @Component({
   selector: 'app-interest-posting-flag-updation',
   templateUrl: './interest-posting-flag-updation.component.html',
@@ -24,8 +23,8 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
   ngscheme: any = null
   ngfromac: any = null
   ngtoac: any = null
-  //Datatable
 
+  branch_code
   scheme
   dtExportButtonOptions: any = {};
   fromAc
@@ -34,36 +33,62 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
   updateShow: boolean = false;
   dtTrigger: Subject<any> = new Subject<any>();
   dtElement: any;
-
-  constructor(
+  ngBranchCode: any = null
+  showTable: boolean = false
+  mem
+  arrTable
+  getschemename
+  InterestArr = []
+    constructor(
     private http: HttpClient, private fb: FormBuilder,
     private schemeAccountNoService: SchemeAccountNoService,
-    private _service: InterestPostingFlagUpdationService) { }
+    private _service: InterestPostingFlagUpdationService,
+    private ownbranchMasterService: OwnbranchMasterService,) { }
 
   ngOnInit(): void {
     this.createForm();
     this.http.get(this.url + '/scheme-parameters/FlagInterest').subscribe((data) => {
       this.scheme = data
     })
+
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH'].disable()
+      this.ngBranchCode = result.branch.id
+    }
   }
 
   createForm() {
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
       FROM_AC: ['', [Validators.required]],
-      TO_AC: ['', [Validators.required]]
+      TO_AC: ['', [Validators.required]],
+      BRANCH: ['', [Validators.required]]
     });
   }
-
-
-  getSchemeAcno(event) {
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
-    let obj = [this.ngscheme, branchCode]
+//clear scheme and account no
+  getBranch() {
+    this.ngscheme = null
     this.ngfromac = null
     this.ngtoac = null
     this.arrTable = []
+    this.InterestArr = []
+  }
+//get scheme wise account number
+  getSchemeAcno(event) {
+    let obj = [this.ngscheme, this.ngBranchCode]
+    this.ngfromac = null
+    this.ngtoac = null
+    this.arrTable = []
+    this.InterestArr = []
     switch (event.S_ACNOTYPE) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(obj).subscribe(data => {
@@ -131,19 +156,14 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     this.getschemename = event.S_ACNOTYPE
   }
 
-  showTable: boolean = false
-  mem
-  arrTable
-  getschemename
+  //load table according account range
   getTable() {
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
+    this.InterestArr = []
     var memFrom = this.angForm.controls['FROM_AC'].value
     var memTo = this.angForm.controls['TO_AC'].value
     if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
       this.showTable = true
-      this.mem = [memFrom, memTo, this.ngscheme, branchCode, this.getschemename]
+      this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
       this.http.get(this.url + '/interest-posting-updation/accounts/' + this.mem).subscribe((data) => {
         this.arrTable = data;
         this.arrTable.forEach(element => {
@@ -159,15 +179,14 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     }
     else {
       Swal.fire("To Account Number Must Be Greater Than From Account Number");
+      this.InterestArr = []
       this.angForm.patchValue({
         TO_AC: ''
       })
     }
-
   }
-  InterestArr = []
 
-
+  //update checkbox status in array
   checkInterestFlag(id, acno, flag) {
     let isIntUpdate: boolean = false
     if (flag.target.checked) {
@@ -176,7 +195,6 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     else {
       isIntUpdate = false
     }
-
     if (this.InterestArr.length != 0) {
       if (this.InterestArr.some(item => item.AC_NO === acno)) {
         this.InterestArr.forEach((element) => {
@@ -203,16 +221,19 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
       this.InterestArr.push(object)
     }
   }
+  //checks all checkbox
   selectAll() {
     const checkedTrue = true
     this.InterestArr.forEach(item => item.IS_POST_INT_AC = checkedTrue);
   }
 
+  //unchecks all checkbox
   deselectAll() {
     const checkedFalse = false
     this.InterestArr.forEach(item => item.IS_POST_INT_AC = checkedFalse);
   }
 
+  //submit method for update records
   submit() {
     if (this.InterestArr.length != 0) {
       const dataToSend = {
@@ -235,11 +256,22 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     }
   }
 
+  //clear form
   resetForm() {
     this.createForm()
     this.ngscheme = null
     this.ngfromac = null
     this.ngtoac = null
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH'].disable()
+      this.ngBranchCode = result.branch.id
+    }
   }
 
   //function for delete button clicked

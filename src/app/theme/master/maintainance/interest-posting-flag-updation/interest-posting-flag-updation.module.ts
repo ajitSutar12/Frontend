@@ -10,6 +10,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { InterestPostingFlagUpdationService } from './interest-posting-flag-updation.service'
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +22,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
     ReactiveFormsModule
   ],
   declarations: [InterestPostingFlagUpdationComponent],
-  providers: [InterestPostingFlagUpdationService, SchemeAccountNoService, {
+  providers: [InterestPostingFlagUpdationService, SchemeAccountNoService,OwnbranchMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

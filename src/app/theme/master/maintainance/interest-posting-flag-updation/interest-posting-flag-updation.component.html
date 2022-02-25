@@ -10,6 +10,27 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
+                                        placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="BRANCH">Branch</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -36,7 +57,8 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/c">
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/c"
+                                        (change)="getTable()">
                                         <ng-option *ngFor="let values of fromAc" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -52,13 +74,6 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                            <!-- <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="Ac2" [multiple]="false"
-                                    placeholder="To A/c *" required title="Compulsory Selection"
-                                    formControlName="TO_AC">
-                                </ng-select>
-                                <label>{{message.accnoto}}</label>
-                            </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
@@ -81,8 +96,7 @@
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
                                 [disabled]="angForm.invalid" (click)="submit()">Update</button>
-                            <button class="btn btn-outline-primary btn-sm" 
-                                *ngIf="updateShow">Update</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow">Update</button>
                         </div>
                     </div>
                     <div class="row">
@@ -130,7 +144,7 @@
                     <div class="row" style="float: right;">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm" (click)="selectAll()">Select All</button>
-                      &nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="deselectAll()">Deselect All</button>
                         </div>
                     </div>

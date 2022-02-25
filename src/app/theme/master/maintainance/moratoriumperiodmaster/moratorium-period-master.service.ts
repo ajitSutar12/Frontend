@@ -21,10 +21,10 @@ export class MoratoriumPeriod {
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http.post(this.url + '/moratorium-period-master/insert', data).pipe(map((res) => res),
-    catchError((error) => {
-      Swal.fire('Please Input Proper Data !');
-      return throwError(error);
-    })
+      catchError((error) => {
+        Swal.fire('Please Input Proper Data !');
+        return throwError(error);
+      })
     )
   }
   // For append data

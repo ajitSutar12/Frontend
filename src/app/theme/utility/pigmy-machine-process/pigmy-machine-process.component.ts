@@ -115,7 +115,7 @@ export class PigmyMachineProcessComponent implements OnInit {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     this.userID = result.USER_NAME
-    if (result.RoleDefine[0].Role.NAME == "Admin") {
+    if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH'].enable()
     }
     else {
@@ -206,7 +206,7 @@ export class PigmyMachineProcessComponent implements OnInit {
     })
 
     this.userID = result.USER_NAME
-    if (result.RoleDefine[0].Role.NAME == "Admin") {
+    if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH'].enable()
     }
     else {
@@ -227,7 +227,7 @@ export class PigmyMachineProcessComponent implements OnInit {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     this.userID = result.USER_NAME
-    if (result.RoleDefine[0].Role.NAME == "Admin") {
+    if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH'].enable()
     }
     else {

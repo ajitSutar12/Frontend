@@ -1,4 +1,4 @@
-import { Component, OnInit,ElementRef, ViewChild,  } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
@@ -17,7 +17,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { MoratoriumPeriod } from './moratorium-period-master.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
-
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -27,21 +27,17 @@ class DataTableResponse {
 }
 
 // For fetching values from backend
-interface MoratoriumPeriodMaster{
-  AC_ACNOTYPE:string;
-  AC_TYPE:string;
-  AC_NO:number;
-  INSTALLMENT_NO:number;
-  PERIOD:number;
-  TRAN_DATE:Date;
+interface MoratoriumPeriodMaster {
+  AC_ACNOTYPE: string;
+  AC_TYPE: string;
+  AC_NO: number;
+  INSTALLMENT_NO: number;
+  PERIOD: number;
+  TRAN_DATE: Date;
   // USER_CODE:string;
-  AC_RESO_NO:string;
-  AC_RESO_DATE:Date
-
+  AC_RESO_NO: string;
+  AC_RESO_DATE: Date
 }
-
-
-
 
 @Component({
   selector: 'app-moratoriumperiodmaster',
@@ -62,13 +58,11 @@ export class MoratoriumperiodmasterComponent implements OnInit {
   // dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
 
-  
-
   // Store data from backend
   moratoriumperiodmaster: MoratoriumPeriodMaster[];
 
   // for date 
-  resolutiondate:any=null
+  resolutiondate: any = null
   maxDate: Date;
   minDate: Date;
 
@@ -84,7 +78,7 @@ export class MoratoriumperiodmasterComponent implements OnInit {
   currentJustify = 'start';
   active = 1;
   activeKeep = 1;
-  
+
   // Variables for search 
   filterObject: { name: string; type: string; }[];
   filter: any;
@@ -92,7 +86,7 @@ export class MoratoriumperiodmasterComponent implements OnInit {
 
   // Filter Variable
   filterData = {};
-  
+
 
   // Variables for hide/show add and update button
   showButton: boolean = true;
@@ -102,14 +96,21 @@ export class MoratoriumperiodmasterComponent implements OnInit {
   updateID: number = 0;
 
   //dropdown variables
-  scheme:any
-  schemeedit:any=null
-  accountedit:any=null
+  scheme: any
+  schemeedit: any = null
+  accountedit: any = null
   schemeACNo: unknown;
   Accountno: any;
   openingDate: any;
   datemax: any;
   AC_ACNOTYPE: any;
+  branch_code
+
+  branchCode
+  obj: any
+  getschemename: any
+  ngBranchCode: any = null
+  updatecheckdata: any
 
   constructor(
     private fb: FormBuilder,
@@ -119,15 +120,15 @@ export class MoratoriumperiodmasterComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private systemParameter: SystemMasterParametersService,
     private_router: Router,
-    private config: NgSelectConfig,) {
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
-   }
+    private config: NgSelectConfig,
+    private ownbranchMasterService: OwnbranchMasterService,) {
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
-
     this.getSystemParaDate()
     this.createForm();
     // Fetching Server side data
@@ -145,7 +146,7 @@ export class MoratoriumperiodmasterComponent implements OnInit {
         this.page = dataTableParameters.start / dataTableParameters.length;
 
         dataTableParameters.columns.forEach(element => {
-   
+
           if (element.search.value != '') {
             let string = element.search.value;
             this.filterData[element.data] = string;
@@ -153,7 +154,7 @@ export class MoratoriumperiodmasterComponent implements OnInit {
             let getColumnName = element.data;
             let columnValue = element.value;
             if (this.filterData.hasOwnProperty(element.data)) {
-           
+
               let value = this.filterData[getColumnName];
               if (columnValue != undefined || value != undefined) {
                 delete this.filterData[element.data];
@@ -164,7 +165,7 @@ export class MoratoriumperiodmasterComponent implements OnInit {
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url + '/bank-other-details',
+            this.url + '/moratorium-period-master',
             dataTableParameters
           ).subscribe(resp => {
             this.moratoriumperiodmaster = resp.data;
@@ -183,17 +184,17 @@ export class MoratoriumperiodmasterComponent implements OnInit {
         {
           title: 'Action',
         },
-        
+
         {
           title: 'Scheme',
           data: 'AC_TYPE'
         },
-        
+
         {
           title: 'Account Number',
           data: 'AC_NO'
         },
-        
+
         {
           title: 'Installment Number',
           data: 'INSTALLMENT_NO'
@@ -202,112 +203,99 @@ export class MoratoriumperiodmasterComponent implements OnInit {
           title: 'Moratorium Period',
           data: 'PERIOD'
         },
-       
+
         {
           title: 'Resolution Date',
           data: 'AC_RESO_DATE'
         },
-        
+
         {
           title: 'Resolution Number',
           data: 'AC_RESO_NO'
         },
-       
+
       ],
       dom: 'Blrtip',
     }
 
-    this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
-      var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'LN' || scheme.name == 'CC');
-      });
-      this.scheme = filtered;
+    this.http.get(this.url + '/scheme-parameters/moratorium').subscribe((data) => {
+      this.scheme = data
     })
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
 
   }
   createForm() {
     this.angForm = this.fb.group({
-      AC_TYPE: ['', [Validators.required,Validators.pattern]],
-      AC_NO: ['', [Validators.required,Validators.pattern]],
-      INSTALLMENT_NO:['',[Validators.required,Validators.pattern]],
-      PERIOD:['',[Validators.required,Validators.pattern]],
-      AC_RESO_DATE:['',[Validators.required,Validators.pattern]],
-      AC_RESO_NO:['',[Validators.required,Validators.pattern]]
-
-
-      
+      AC_TYPE: ['', [Validators.required, Validators.pattern]],
+      AC_NO: ['', [Validators.required, Validators.pattern]],
+      INSTALLMENT_NO: ['', [Validators.required, Validators.pattern]],
+      PERIOD: ['', [Validators.required, Validators.pattern]],
+      AC_RESO_DATE: ['', [Validators.required, Validators.pattern]],
+      AC_RESO_NO: ['', [Validators.required, Validators.pattern]],
+      TRAN_DATE: [''],
+      BRANCH_CODE: ['', [Validators.required]]
     });
   }
 
+  //get scheme value and type
   schemechange(event) {
-    
-    this.getschemename = event.name
-    this.schemeedit = event.value
-    this.getIntroducer()
-
+    this.getschemename = event.S_ACNOTYPE
+    this.schemeedit = event.id
+    this.getSchemeAccount()
   }
 
-  obj: any
-  getschemename: any
+  //get agent account number after branch selection
+  getBranch(event) {
+    this.branchCode = event.name
+    this.schemeedit = null
+    this.getSchemeAccount()
+  }
+
   //get account no according scheme for introducer
-  getIntroducer() {
-    
-
-    let data1: any = localStorage.getItem('user');
-    let result = JSON.parse(data1);
-    let branchCode = result.branch.id;
-
-    this.obj = [this.schemeedit, branchCode]
-  
-
+  getSchemeAccount() {
+    this.obj = [this.schemeedit, this.ngBranchCode]
+    this.accountedit = null
     switch (this.getschemename) {
-
-      case 'CC':
-       
-        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-         
-        })
-        break;
       case 'LN':
-    
         this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
-         
-
         })
         break;
-
-
     }
   }
 
   Accountnochange(event) {
-   
     this.Accountno = event.value;
     this.accountedit = event.value
-    
-
   }
 
-   // Method to insert data into database through NestJS
-   submit() {
-     let resolutiondate
+  // Method to insert data into database through NestJS
+  submit() {
+    let resolutiondate
     this.formSubmitted = true;
     if (this.angForm.valid) {
       const formVal = this.angForm.value;
       const dataToSend = {
-  
-        AC_TYPE: this.scheme,
-          AC_NO: this.Accountno,
-          AC_ACNOTYPE: this.AC_ACNOTYPE,
+        AC_TYPE: this.schemeedit,
+        AC_NO: this.Accountno,
+        'BRANCH_CODE': this.ngBranchCode,
         'INSTALLMENT_NO': formVal.INSTALLMENT_NO,
         'PERIOD': formVal.PERIOD,
         'TRAN_DATE': formVal.TRAN_DATE,
         'AC_RESO_NO': formVal.AC_RESO_NO,
-        'AC_RESO_DATE': (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date') ? resolutiondate = '' : resolutiondate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY'),
-        // 'AC_RESO_DATE': formVal.AC_RESO_DATE,
-        
+        'AC_RESO_DATE': (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date' || formVal.AC_RESO_DATE == undefined || formVal.AC_RESO_DATE == null) ? resolutiondate = '' : resolutiondate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY'),
       }
       this.moratoriumPeriod.postData(dataToSend).subscribe(data1 => {
         Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -324,67 +312,58 @@ export class MoratoriumperiodmasterComponent implements OnInit {
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
-   
-
   }
 
-
-  // disabledate(data: any) {
-  //   if (data != "") {
-  //     if (data > this.datemax) {
-  //       Swal.fire('Invalid Input!', 'Please insert valid date!', 'error');
-  //       (document.getElementById("TRAN_DATE") as HTMLInputElement).value = ""
-  //     }
-  //   }
-  // }
-  //set open date, appointed date and expiry date 
- 
+  //get sys para current date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
-      
-     
-        // this.angForm.patchValue([
-        //   'TRAN_DATE':data.TRAN_DATE,
-        // ])
-      
+      this.angForm.patchValue({
+        'TRAN_DATE': data.CURRENT_DATE,
       })
+    })
   }
 
-  addNewData(){
+  //cancel button function
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     this.resetForm();
+    this.schemeedit = null
+    this.accountedit = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
   }
 
-  updatecheckdata:any
   //Method for append data into fields
   editClickHandler(id) {
     let resolutiondate
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
-
-    
     this.moratoriumPeriod.getFormData(id).subscribe(data => {
-      this.updatecheckdata=data
-
+      this.updatecheckdata = data
       this.updateID = data.id;
-      this.scheme = data.AC_TYPE
-      this.Accountno = data.AC_NO
-      this.angForm.setValue({
-      
-      // 'AC_TYPE': data.AC_TYPE,
-      // 'AC_NO': data.AC_NO,
-      'AC_ACNOTYPE': data.AC_ACNOTYPE,
-      'INSTALLMENT_NO': data.INSTALLMENT_NO,
-      'PERIOD': data.PERIOD,
-      'TRAN_DATE': data.TRAN_DATE,
-      'AC_RESO_NO': data.AC_RESO_NO,
-      'AC_RESO_DATE': (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? resolutiondate = '' : resolutiondate = data.AC_RESO_DATE,
-      // 'AC_RESO_DATE': data.AC_RESO_DATE,
-      
+      this.schemeedit = data.AC_TYPE
+      this.ngBranchCode = data.BRANCH_CODE
+      this.getschemename = data.AC_ACNOTYPE
+      this.getSchemeAccount()
+      this.angForm.patchValue({
+        'AC_ACNOTYPE': data.AC_ACNOTYPE,
+        'INSTALLMENT_NO': data.INSTALLMENT_NO,
+        'PERIOD': data.PERIOD,
+        'TRAN_DATE': data.TRAN_DATE,
+        'AC_RESO_NO': data.AC_RESO_NO,
+        'AC_RESO_DATE': (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? resolutiondate = '' : resolutiondate = data.AC_RESO_DATE,
       })
+      this.accountedit = data.AC_NO
     })
   }
 
@@ -394,15 +373,14 @@ export class MoratoriumperiodmasterComponent implements OnInit {
     let resolutiondate
     let data = this.angForm.value;
     data['id'] = this.updateID;
-    data["AC_TYPE"] = this.scheme
-    data["AC_NO"] = this.Accountno
-    if(this.updatecheckdata.EFFECT_DATE!=data.EFFECT_DATE){
+    if (this.updatecheckdata.AC_RESO_DATE != data.AC_RESO_DATE) {
       (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? (resolutiondate = '', data['AC_RESO_DATE'] = resolutiondate) : (resolutiondate = data.AC_RESO_DATE, data['AC_RESO_DATE'] = moment(resolutiondate).format('DD/MM/YYYY'))
-      }
+    }
     this.moratoriumPeriod.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
-      
+      this.updateShow = false;
+      this.newbtnShow = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -413,12 +391,23 @@ export class MoratoriumperiodmasterComponent implements OnInit {
   resetForm() {
     this.createForm();
     this.getSystemParaDate()
+    this.ngBranchCode = null
+    this.schemeedit = null
+    this.accountedit = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
-
 
   ngAfterViewInit(): void {
     // this.myInputField.nativeElement.focus();

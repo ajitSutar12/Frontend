@@ -10,6 +10,27 @@
             <form action="javascript:" [formGroup]="npaOpeningForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
+                                        placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="BRANCH">Branch</label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="npaOpeningForm.controls['BRANCH'].invalid && (npaOpeningForm.controls['BRANCH'].dirty || npaOpeningForm.controls['BRANCH'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="npaOpeningForm.controls['BRANCH'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -73,7 +94,7 @@
                         </div>
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                [disabled]="npaOpeningForm.invalid">Submit</button>
+                                [disabled]="npaOpeningForm.invalid">Update</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
                         </div>

@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: MoratoriumperiodmasterComponent,
     data: {
-      title: 'Tds Form Submission',
+      title: 'Moratorium Period Master',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

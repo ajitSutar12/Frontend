@@ -45,9 +45,7 @@ interface NotingCharges{
   OTHER10_AMOUNT	:	number;
   TRAN_STATUS		:string;
   NARRATION	:	string;
-  USER_CODE	:	string;
   GL_ENTRY	:	number;
-
 }
 
 @Component({
