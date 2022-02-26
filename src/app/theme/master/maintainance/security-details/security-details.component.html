@@ -46,7 +46,7 @@
                                         (change)="Accountnochange($event)" formControlName="AC_NO" bindLabel="label"
                                         title="Compulsory Selection" required placeholder="Account No.">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
                                     <label for="AC_NO">Account No.</label>
                                 </span>
@@ -57,6 +57,20 @@
                                 Please Select Account No.
                                 </div>
                             </div> -->
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="SECURITY_CODE" bindValue="value" [(ngModel)]="ngsecurityCode"
+                                        formControlName="SECURITY_CODE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="securityDetails($event)"
+                                        placeholder="Security Details">
+                                        <ng-option *ngFor="let values of security" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="SECURITY_CODE">Security Details</label>
+                                </span>
+                            </div>
                         </div>
                         <div class="col-sm">
                             <div class="form-group input-group">
@@ -74,7 +88,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="securityTrue">
     <div class="col-sm-3">
         <div class="card">
             <div class="card-block">
@@ -82,75 +96,75 @@
                     <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
 
                         <ul class="basic-list">
-                            <li>
+                            <li *ngIf="OWN_DEPOSIT">
                                 <h6> <a (click)="OpenLink(1)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': ownDepositsTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">1. Own Deposits</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Own Deposits</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="OTHER_SECURITY">
                                 <h6> <a (click)="OpenLink(2)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': otherSecurityTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">2. Other Security</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Other Security</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="FIRE_POLICY">
                                 <h6> <a (click)="OpenLink(3)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': firePolicyTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">3. Fire Policy</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Fire Policy</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="MARKET_SHARE">
                                 <h6> <a (click)="OpenLink(4)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': marketSharesTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">4. Market Shares</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Market Shares</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="STOCK_STATEMENT">
                                 <h6> <a (click)="OpenLink(5)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': stockStatementTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">5. Stock Statement</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Stock Statement</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="GOVT_SECU_LIC">
                                 <h6> <a (click)="OpenLink(6)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': govtSecurityAndLicTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">6. Government Security & LIC</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Government Security & LIC</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="PLANT_MACHINARY">
                                 <h6> <a (click)="OpenLink(7)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': plantAndMachineryTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">7. Plant & Machinery</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Plant & Machinery</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="FURNITURE_FIXTURE">
                                 <h6> <a (click)="OpenLink(8)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': furnitureAndFixtureTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">8. Furniture & Fixture</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Furniture & Fixture</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="VEHICLE">
                                 <h6> <a (click)="OpenLink(9)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': vehicleTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">9. Vehicle</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Vehicle</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="LAND_BUILDING">
                                 <h6> <a (click)="OpenLink(10)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': landAndBuildingsTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">10. Land & Buildings</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Land & Buildings</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="GOLD_SILVER">
                                 <h6> <a (click)="OpenLink(11)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': goldAndSilverTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">11. Gold & Silver</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Gold & Silver</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="CUST_INSURANCE">
                                 <h6> <a (click)="OpenLink(13)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': customerInsuranceTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">12. Customer Insurance</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Customer Insurance</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="BOOK_DEBTS">
                                 <h6> <a (click)="OpenLink(14)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': bookDebtsTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">13. Book Debts</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Book Debts</a></h6>
                             </li>
-                            <li>
+                            <li *ngIf="PLEDGE_STOCK">
                                 <h6> <a (click)="OpenLink(15)" routerLink="/master/Maintainance/securityDetails"
                                         [ngClass]="{'isActive': pleadgeStockTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">14. Pleadge Stock</a></h6>
+                                        class="text-right f-w-600" id="pointer"> Pleadge Stock</a></h6>
                             </li>
 
                         </ul>
@@ -162,11 +176,13 @@
     <div class="col-sm-9">
         <div class="card-block">
             <div *ngIf="ownDepositsTrue">
-                <app-own-deposits [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newOwnDepositEvent)="addItem($event)">
+                <app-own-deposits [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newOwnDepositEvent)="addItem($event)">
                 </app-own-deposits>
             </div>
             <div *ngIf="otherSecurityTrue">
-                <app-other-security [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newOtherSecurityEvent)="addItem($event)">
+                <app-other-security [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newOtherSecurityEvent)="addItem($event)">
                 </app-other-security>
             </div>
             <div *ngIf="firePolicyTrue">
@@ -175,34 +191,42 @@
                 </app-fire-policy>
             </div>
             <div *ngIf="marketSharesTrue">
-                <app-market-shares [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newmarketShareEvent)="addItem($event)">
+                <app-market-shares [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newmarketShareEvent)="addItem($event)">
                 </app-market-shares>
             </div>
             <div *ngIf="stockStatementTrue">
-                <app-stock-statement [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newStockEvent)="addItem($event)">
+                <app-stock-statement [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newStockEvent)="addItem($event)">
                 </app-stock-statement>
             </div>
             <div *ngIf="govtSecurityAndLicTrue">
-                <app-govt-security-and-lic [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newgovtSecurityEvent)="addItem($event)">
+                <app-govt-security-and-lic [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newgovtSecurityEvent)="addItem($event)">
                 </app-govt-security-and-lic>
             </div>
             <div *ngIf="plantAndMachineryTrue">
-                <app-plant-and-machinery [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newPlantandMachiEvent)="addItem($event)">
+                <app-plant-and-machinery [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newPlantandMachiEvent)="addItem($event)">
                 </app-plant-and-machinery>
             </div>
             <div *ngIf="furnitureAndFixtureTrue">
-                <app-furniture-and-fixture [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newfurnitureFixEvent)="addItem($event)">
+                <app-furniture-and-fixture [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newfurnitureFixEvent)="addItem($event)">
                 </app-furniture-and-fixture>
             </div>
             <div *ngIf="vehicleTrue">
-                <app-vehicle [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newVehicalEvent)="addItem($event)"></app-vehicle>
+                <app-vehicle [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newVehicalEvent)="addItem($event)"></app-vehicle>
             </div>
             <div *ngIf="landAndBuildingsTrue">
-                <app-land-and-buildings [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newLandBuldingEvent)="addItem($event)">
+                <app-land-and-buildings [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newLandBuldingEvent)="addItem($event)">
                 </app-land-and-buildings>
             </div>
             <div *ngIf="goldAndSilverTrue">
-                <app-gold-and-silver [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newGoldsilverEvent)="addItem($event)">
+                <app-gold-and-silver [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newGoldsilverEvent)="addItem($event)">
                 </app-gold-and-silver>
             </div>
             <!-- <div *ngIf="otherSecurityTrue2">
@@ -210,15 +234,18 @@
                 </app-other-security2>
             </div> -->
             <div *ngIf="customerInsuranceTrue">
-                <app-customer-insurance [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newcustomerInsuranceEvent)="addItem($event)">
+                <app-customer-insurance [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newcustomerInsuranceEvent)="addItem($event)">
                 </app-customer-insurance>
             </div>
             <div *ngIf="bookDebtsTrue">
-                <app-book-debts [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newbookEvent)="addItem($event)">
+                <app-book-debts [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newbookEvent)="addItem($event)">
                 </app-book-debts>
             </div>
             <div *ngIf="pleadgeStockTrue">
-                <app-pleadge-stock [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit" (newPleadgeEvent)="addItem($event)">
+                <app-pleadge-stock [AC_ACNOTYPE]="getschemename" [scheme]="schemeedit" [Accountno]="accountedit"
+                    (newPleadgeEvent)="addItem($event)">
                 </app-pleadge-stock>
             </div>
         </div>

@@ -229,11 +229,25 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
         this.SchemeCodeObject = data;
       });
 
-    this.SalaryDMasterdropdownService.getSalaryDMasterList()
-      .pipe(first())
-      .subscribe((data) => {
-        this.SalaryDMasterObject = data;
-      });
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.SalaryDMasterdropdownService.getSalaryDMasterList(branchCode)
+        .pipe(first())
+        .subscribe((data) => {
+          this.SalaryDMasterObject = data;
+        });
+    }
+    else {
+      this.SalaryDMasterdropdownService.getSalaryDMasterList(branchCode)
+        .pipe(first())
+        .subscribe((data) => {
+          this.SalaryDMasterObject = data;
+        });
+
+    }
+
 
     this.ShareMasterDropdownService.getShareAccountMasterNameList()
       .pipe(first())
@@ -375,7 +389,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
         if (this.multiDividend.some(item => item.AC_NO === acno)) {
           this.multiDividend.forEach((element) => {
             if (element.AC_NO == acno) {
-              element['MEMBER_CLOSE_DATE'] = date 
+              element['MEMBER_CLOSE_DATE'] = date
               // element['MEMBER_CLOSE_DATE'] = (date == '' || date == 'Invalid date') ? date = '' : date = moment(date).format('DD/MM/YYYY')
               console.log('ele date', element['MEMBER_CLOSE_DATE'])
             }

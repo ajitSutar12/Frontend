@@ -22,7 +22,28 @@
                             </div>
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-sm">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        bindLabel="label" title="Compulsory Selection" placeholder="Branch Code"
+                                        formControlName="BRANCH_CODE" (click)="getBranch()">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="BRANCH_CODE">Branch</label>
+                                </span>
+                            </div>
+                            <!-- 
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="NAME" class="form-control" placeholder=" " id="Description"

@@ -97,6 +97,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
 import { VoucherEntryService } from 'src/app/theme/transaction/voucher-entry/voucher-entry.service';
 import { BankDetails } from './bank-other-details/bank-other-details.service';
+import { AllAccountDropdownService } from '../../../../shared/dropdownService/all-account-dropdown.service';
+// import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BankOtherDetailsComponent } from './bank-other-details/bank-other-details.component';
@@ -171,6 +173,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ACMasterDropdownService,
     cityMasterService,
     VoucherEntryService,
+    AllAccountDropdownService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

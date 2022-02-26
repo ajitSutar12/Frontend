@@ -11,6 +11,8 @@ import { LockerSizeMasterService } from './locker-size-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { first } from 'rxjs/operators';
 
 // Handling datatable data
 class DataTableResponse {
@@ -65,7 +67,9 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
-
+  ngBranchCode
+  branch_code
+  branchCode
   //variable to get ID to update
   updateID: number = 0;
   //for search functionality
@@ -74,6 +78,7 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
   constructor(
     private http: HttpClient,
     private lockerSizeMasterService: LockerSizeMasterService,
+    private ownbranchMasterService: OwnbranchMasterService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -108,6 +113,11 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -143,13 +153,29 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
       ],
       dom: 'Blrtip',
     };
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      debugger
+      this.branch_code = data;
+    })
   }
 
   createForm() {
     this.angForm = this.fb.group({
       SIZE_SR_NO: [''],
       SIZE_NAME: ['', [Validators.required, Validators.pattern]],
-      RENT: ['', [Validators.required, Validators.pattern]]
+      RENT: ['', [Validators.required, Validators.pattern]],
+      BRANCH_CODE:['']
     });
   }
 
@@ -159,7 +185,8 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
     const dataToSend = {
       'SIZE_SR_NO': formVal.SIZE_SR_NO,
       'SIZE_NAME': formVal.SIZE_NAME,
-      'RENT': formVal.RENT
+      'RENT': formVal.RENT,
+      'BRANCH_CODE': this.ngBranchCode
     }
     this.lockerSizeMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -169,6 +196,21 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
       });
     }, (error) => {
       console.log(error)
+    })
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
     })
     //To clear form
     this.resetForm();
@@ -181,11 +223,12 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.newbtnShow = true;
     this.lockerSizeMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
-        'SIZE_SR_NO': data.SIZE_SR_NO,
-        'SIZE_NAME': data.SIZE_NAME,
-        'RENT': data.RENT
-      })
+      this.ngBranchCode = Number(data.BRANCH_CODE),
+        this.angForm.patchValue({
+          'SIZE_SR_NO': data.SIZE_SR_NO,
+          'SIZE_NAME': data.SIZE_NAME,
+          'RENT': data.RENT
+        })
     })
   }
 
@@ -276,6 +319,21 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
+    })
   }
 
   rerender(): void {

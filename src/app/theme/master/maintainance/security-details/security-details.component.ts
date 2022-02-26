@@ -11,6 +11,8 @@ import { environment } from '../../../../../environments/environment'
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { NgSelectConfig } from '@ng-select/ng-select';
+import { SecurityMasterdropdownService } from 'src/app/shared/dropdownService/security-master-dropdown.service';
+import { SecurityCodeService } from '../../policy-settings/definations/security-code/security-code.service';
 
 @Component({
   selector: 'app-security-details',
@@ -27,7 +29,7 @@ export class SecurityDetailsComponent implements OnInit {
 
 
   angForm: FormGroup;
-  ownDepositsTrue: boolean = true;
+  ownDepositsTrue: boolean = false;
   otherSecurityTrue: boolean = false;
   firePolicyTrue: boolean = false;
   marketSharesTrue: boolean = false;
@@ -51,7 +53,8 @@ export class SecurityDetailsComponent implements OnInit {
   schemeType1: string = 'LN'
 
   Data: any;
-
+  security: any[]
+  ngsecurityCode: any
   //title select variables
   simpleOption: Array<IOption> = this.S1Service.getCharacters();
   Ac: Array<IOption> = this.Ac1Service.getCharacters();
@@ -70,7 +73,8 @@ export class SecurityDetailsComponent implements OnInit {
     private_router: Router,
     public S1Service: S1Service,
     public Ac1Service: Ac1Service,
-
+    private securityMaster: SecurityMasterdropdownService,
+    private _SecurityCode: SecurityCodeService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private config: NgSelectConfig,) { }
@@ -116,7 +120,7 @@ export class SecurityDetailsComponent implements OnInit {
 
 
     this.runTimer();
-   
+
 
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
@@ -124,18 +128,21 @@ export class SecurityDetailsComponent implements OnInit {
       });
       this.scheme = filtered;
     })
-    
+
+    this.securityMaster.getsecurityMasterList().pipe(first()).subscribe(data => {
+      this.security = data;
+    })
   }
 
-  
-  
+
+
 
   // newItemEvent(scheme){
   //   console.log(scheme)
   // }
 
   schemechange(event) {
-    
+
     this.getschemename = event.name
     this.schemeedit = event.value
     this.getIntroducer()
@@ -146,29 +153,29 @@ export class SecurityDetailsComponent implements OnInit {
   getschemename: any
   //get account no according scheme for introducer
   getIntroducer() {
-    
+
 
     let data1: any = localStorage.getItem('user');
     let result = JSON.parse(data1);
     let branchCode = result.branch.id;
 
     this.obj = [this.schemeedit, branchCode]
-  
+
 
     switch (this.getschemename) {
 
       case 'CC':
-       
+
         this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
-         
+
         })
         break;
       case 'LN':
-    
+
         this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
-         
+
 
         })
         break;
@@ -198,10 +205,10 @@ export class SecurityDetailsComponent implements OnInit {
   }
   submit() {
     this.formSubmitted = true;
-  
+
 
     if (this.angForm.valid) {
-      
+
     }
     //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
@@ -210,26 +217,26 @@ export class SecurityDetailsComponent implements OnInit {
   }
   //output functionality
   addItem(newItem: any) {
-    
+
     console.log('NEWITEM', newItem);
-    
+
 
     newItem.AccountType == null ? this.schemeedit = null : this.schemeedit = Number(newItem.AccountType)
     newItem.SchemeType == null ? this.getschemename = null : this.getschemename = newItem.SchemeType
 
-  
+
     this.getIntroducer()
-    
+
     this.accountedit = newItem.AccountNo
     newItem.AccountNo == null ? this.accountedit = null : this.accountedit = newItem.AccountNo
   }
 
 
   Accountnochange(event) {
-   
+
     this.Accountno = event.value;
     this.accountedit = event.value
-    
+
 
   }
   OpenLink(val) {
@@ -491,6 +498,330 @@ export class SecurityDetailsComponent implements OnInit {
       this.bookDebtsTrue = false;
       this.pleadgeStockTrue = true;
     }
+  }
+  securityTrue: boolean = false
+  BOOK_DEBTS: boolean = false
+  CUST_INSURANCE: boolean = false
+  FIRE_POLICY: boolean = false
+  FURNITURE_FIXTURE: boolean = false
+  GOLD_SILVER: boolean = false
+  GOVT_SECU_LIC: boolean = false
+  LAND_BUILDING: boolean = false
+  MARKET_SHARE: boolean = false
+  OTHER_SECURITY: boolean = false
+  OWN_DEPOSIT: boolean = false
+  PLANT_MACHINARY: boolean = false
+  PLEDGE_STOCK: boolean = false
+  STOCK_STATEMENT: boolean = false
+  VEHICLE: boolean = false
+  securityDetails(event) {
+    if (event == undefined) {
+      this.securityTrue = false
+      console.log(event)
+    } else {
+      this.securityTrue = true
+      console.log(event, ' else block')
+      this._SecurityCode.getFormData(event.id).subscribe(data => {
+
+        if (data.BOOK_DEBTS == true) {
+          this.BOOK_DEBTS = true
+        } else {
+          this.BOOK_DEBTS = false
+
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+
+        }
+        if (data.CUST_INSURANCE == true) {
+          this.CUST_INSURANCE = true
+        } else {
+          this.CUST_INSURANCE = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+
+        if (data.FIRE_POLICY == true) {
+          this.FIRE_POLICY = true
+        } else {
+          this.FIRE_POLICY = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+
+        if (data.FURNITURE_FIXTURE == true) {
+          this.FURNITURE_FIXTURE = true
+        }
+        else {
+          this.FURNITURE_FIXTURE = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+
+        if (data.GOLD_SILVER == true) {
+          this.GOLD_SILVER = true
+        }
+        else {
+          this.GOLD_SILVER = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+
+        if (data.GOVT_SECU_LIC == true) {
+          this.GOVT_SECU_LIC = true
+        } else {
+          this.GOVT_SECU_LIC = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+
+        if (data.LAND_BUILDING == true) {
+          this.LAND_BUILDING = true
+        } else {
+          this.LAND_BUILDING = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+
+        if (data.MARKET_SHARE == true) {
+          this.MARKET_SHARE = true
+        } else {
+          this.MARKET_SHARE = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+
+        if (data.OTHER_SECURITY == true) {
+          this.OTHER_SECURITY = true
+        } else {
+          this.OTHER_SECURITY = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+
+        if (data.OWN_DEPOSIT == true) {
+          this.OWN_DEPOSIT = true
+        } else {
+          this.OWN_DEPOSIT = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+
+        if (data.PLANT_MACHINARY == true) {
+          this.PLANT_MACHINARY = true
+        } else {
+          this.PLANT_MACHINARY = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+
+        if (data.PLEDGE_STOCK == true) {
+          this.PLEDGE_STOCK = true
+        } else {
+          this.PLEDGE_STOCK = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+
+        if (data.STOCK_STATEMENT == true) {
+          this.STOCK_STATEMENT = true
+        } else {
+          this.STOCK_STATEMENT = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+
+        if (data.VEHICLE == true) {
+          this.VEHICLE = true
+        } else {
+          this.VEHICLE = false
+          this.ownDepositsTrue = false;
+          this.otherSecurityTrue = false;
+          this.firePolicyTrue = false;
+          this.marketSharesTrue = false;
+          this.stockStatementTrue = false;
+          this.govtSecurityAndLicTrue = false;
+          this.plantAndMachineryTrue = false;
+          this.furnitureAndFixtureTrue = false;
+          this.vehicleTrue = false;
+          this.landAndBuildingsTrue = false;
+          this.goldAndSilverTrue = false;
+          this.otherSecurityTrue2 = false;
+          this.customerInsuranceTrue = false;
+          this.bookDebtsTrue = false;
+          this.pleadgeStockTrue = false;
+        }
+      });
+    }
+
   }
 
 }

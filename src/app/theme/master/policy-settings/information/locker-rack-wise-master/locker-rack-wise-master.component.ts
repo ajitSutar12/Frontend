@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectConfig } from '@ng-select/ng-select';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -78,12 +79,16 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
 
   //for search functionality
   filterData = {};
-
+  ngBranchCode
+  branchCode
+  branch_code
   constructor(
     private http: HttpClient,
     private lockerRackWiseMasterService: LockerRackWiseMasterService,
     private fb: FormBuilder,
     private lockerSMaster: LockerSMasterDropDownService,
+    private ownbranchMasterService: OwnbranchMasterService,
+
     private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
@@ -118,6 +123,11 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -159,8 +169,29 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
       dom: 'Blrtip',
     };
 
-    this.lockerSMaster.getLockerSMasterList().pipe(first()).subscribe(data => {
-      this.lockerMaster = data;
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      debugger
+      this.angForm.controls['BRANCH_CODE'].enable()
+
+      this.lockerSMaster.getLockerSMasterList().pipe(first()).subscribe(data => {
+        this.lockerMaster = data;
+      })
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+      this.lockerSMaster.getLockerSMasterListbranch(this.ngBranchCode).pipe(first()).subscribe(data => {
+        this.lockerMaster = data;
+      })
+    }
+
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      debugger
+      this.branch_code = data;
     })
   }
 
@@ -170,6 +201,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
       SIZE_SR_NO: ['', [Validators.required]],
       LOCKER_NO: ['', [Validators.required, Validators.pattern]],
       KEY_NO: ['', [Validators.required, Validators.pattern]],
+      BRANCH_CODE:['']
     });
   }
 
@@ -181,7 +213,8 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
       'RACK_NO': formVal.RACK_NO,
       'LOCKER_NO': formVal.LOCKER_NO,
       'KEY_NO': formVal.KEY_NO,
-      'SIZE_SR_NO': formVal.SIZE_SR_NO
+      'SIZE_SR_NO': formVal.SIZE_SR_NO,
+      'BRANCH_CODE': this.ngBranchCode
     }
     this.lockerRackWiseMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -194,6 +227,21 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
     }, (error) => {
       console.log(error)
     })
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
+    })
     //To clear form
     this.resetForm();
   }
@@ -204,6 +252,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
     this.updateShow = true;
     this.newbtnShow = true;
     this.lockerRackWiseMasterService.getFormData(id).subscribe(data => {
+      this.ngBranchCode = Number(data.BRANCH_CODE),
       this.updateID = data.id;
       this.angForm.patchValue({
         'RACK_NO': data.RACK_NO,
@@ -301,7 +350,22 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.createForm();
-    this.nglocker=null
+    this.nglocker = null
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
+    })
   }
 
   rerender(): void {
@@ -312,7 +376,13 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
       this.dtTrigger.next();
     });
   }
-
+  getlocker(event){
+    console.log(event)
+    console.log(this.ngBranchCode)
+    this.lockerSMaster.getLockerSMasterListbranch(this.ngBranchCode).pipe(first()).subscribe(data => {
+      this.lockerMaster = data;
+    })
+  }
 
 
 

@@ -409,9 +409,21 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.branch_code = data;
     })
 
-    this.salaryDMasterdropdownService.getSalaryDMasterList().pipe(first()).subscribe(data => {
-      this.salary_div = data;
-    })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.salaryDMasterdropdownService.getSalaryDMasterList(branchCode).pipe(first()).subscribe(data => {
+        this.salary_div = data;
+      })
+    }
+    else {
+      this.salaryDMasterdropdownService.getSalaryDMasterList(branchCode).pipe(first()).subscribe(data => {
+        this.salary_div = data;
+      })
+
+    }
+    
 
     this.subSalaryDMasterdropdownService.getSubSalaryDMasterList().pipe(first()).subscribe(data => {
       this.sub_salary_div = data;

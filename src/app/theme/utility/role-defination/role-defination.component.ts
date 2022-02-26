@@ -56,6 +56,7 @@ export class RoleDefinationComponent implements OnInit {
   RoleResult :any;
   constructor(private _service: RoleDefinationService,private _roleServices: UserDefinationService) { 
     this._roleServices.getRoleList().subscribe(data => {
+      debugger
       this.ROLE = data;
     });
 

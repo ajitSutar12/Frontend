@@ -113,10 +113,10 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranchcode"
+                                  <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                     formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Branch Code">
-                                    <ng-option *ngFor="let values of branchCode" [value]="values">
+                                    <ng-option *ngFor="let values of branch_code" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
                                   <label for="BRANCH_CODE">Branch Code<sub class="required"> * </sub></label>

@@ -372,12 +372,27 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((data) => {
         this.occupation = data;
       });
-    this.salaryDMaster
-      .getSalaryDMasterList()
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.CODE
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.salaryDMaster
+        .getSalaryDMasterList(branchCode)
+        .pipe(first())
+        .subscribe((data) => {
+          this.salaryDivision = data;
+        });
+    }
+    else {
+      this.salaryDMaster
+      .getSalaryDMasterList(branchCode)
       .pipe(first())
       .subscribe((data) => {
         this.salaryDivision = data;
       });
+      
+    }
+    
     this.cityMaster.getcityList().pipe(first()).subscribe((data) => {
       this.city = data;
     });

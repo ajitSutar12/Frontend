@@ -57,7 +57,8 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
+import { SecurityMasterdropdownService } from 'src/app/shared/dropdownService/security-master-dropdown.service';
+import { SecurityCodeService } from '../../policy-settings/definations/security-code/security-code.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -100,6 +101,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     S1Service,
     Ac2Service,
     S2Service,
+    SecurityCodeService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
@@ -117,7 +119,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     goldandsilverService,
     SchemeCodeDropdownService,
     SchemeAccountNoService,
-     {
+    SecurityMasterdropdownService,
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true

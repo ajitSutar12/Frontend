@@ -19,4 +19,16 @@ export class LockerSMasterDropDownService {
                 return this.lockerSObject;
             }));
     }
+
+    public getLockerSMasterListbranch(branch) {
+        this.lockerSObject = []
+        return this.http.get<any>(this.url + '/locker-size-master/getBranch/' + branch)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.SIZE_NAME, value: element.id , name: element.SIZE_SR_NO};
+                    this.lockerSObject.push(obj)
+                });
+                return this.lockerSObject;
+            }));
+    }
 }

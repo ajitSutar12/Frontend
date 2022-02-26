@@ -15,9 +15,12 @@ import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { SchemeCodeDropdownService } from '../../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { CompanyGroupMasterDropdownService } from '../../../../../shared/dropdownService/company-group-master-dropdown.service';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
 import { NgSelectConfig } from '@ng-select/ng-select';
+import { AllAccountDropdownService } from '../../../../../shared/dropdownService/all-account-dropdown.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -74,16 +77,21 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   newbtnShow: boolean = false;
 
   updateID: number = 0;
-
+  ngToAccount: any
   companyCode: any;
   schemeCode: any;
-  ngcompany:any=null
-  ngcode:any=null
+  ngcompany: any = null
+  ngcode: any = null
   //Scheme type variable
   schemeType: string = 'GL'
-
+  account: any[]
+  ngAccount: any
   //for search functionality
   filterData = {};
+  ngBranchCode
+  branchCode
+  branch_code
+
 
   constructor(
     private http: HttpClient,
@@ -91,6 +99,9 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     private fb: FormBuilder,
     public schemeCodeService: SchemeCodeDropdownService,
     public companyGroupService: CompanyGroupMasterDropdownService,
+    private _allAcc: AllAccountDropdownService,
+    private ownbranchMasterService: OwnbranchMasterService,
+
     private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
@@ -124,6 +135,11 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -164,12 +180,37 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       dom: 'Blrtip',
     };
     this.createForm();
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
 
-    this.companyGroupService.getCompanyGroupMasterList().pipe(first()).subscribe(data => {
-      this.companyCode = data;
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.companyGroupService.getCompanyGroupMasterList().pipe(first()).subscribe(data => {
+        this.companyCode = data;
+      })
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+      this.companyGroupService.getCompanyGroupMasterBranchList(this.ngBranchCode).pipe(first()).subscribe(data => {
+        this.companyCode = data;
+      })
+
+    }
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
     })
-    this.schemeCodeService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      this.schemeCode = data;
+    // this.schemeCodeService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+    //   this.schemeCode = data;
+    // })
+    this.schemeCodeService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var filtered = data.filter(function (scheme) {
+        debugger
+        return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'TD' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'GS' || scheme.name == 'SH');
+      });
+      this.schemeCode = filtered;
+
     })
   }
 
@@ -177,8 +218,10 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.angForm = this.fb.group({
       COMP_CODE: ['', [Validators.required]],
       CODE: ['', [Validators.required]],
-      FROM_AC: ['', [Validators.pattern]],
-      TO_AC: ['', [Validators.pattern]],
+      FROM_AC: [''],
+      TO_AC: [''],
+      BRANCH_CODE: ['']
+
     });
   }
   // Method to insert data into database through NestJS
@@ -190,6 +233,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       'CODE': formVal.CODE,
       'FROM_AC': formVal.FROM_AC,
       'TO_AC': formVal.TO_AC,
+      'BRANCH_CODE': this.ngBranchCode
+
     }
     this.companyGroupLinkMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -197,8 +242,24 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
-      });    }, (error) => {
+      });
+    }, (error) => {
 
+    })
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
     })
     //To clear form
     this.resetForm();
@@ -212,15 +273,21 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
     this.companyGroupLinkMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
-        'COMP_CODE': data.COMP_CODE,
-        'CODE': data.CODE,
-        'FROM_AC': data.FROM_AC,
-        'TO_AC': data.TO_AC
-      })
+      this.ngBranchCode = Number(data.BRANCH_CODE)
+      this.ngcompany = data.COMP_CODE
+      this.ngcode = data.CODE
+      this.ngAccount = data.FROM_AC
+      this.ngToAccount = data.TO_AC
+      // })
+      // this.angForm.patchValue({
+      //   'COMP_CODE': data.COMP_CODE,
+      //   'CODE': data.CODE,
+      //   'FROM_AC': data.FROM_AC,
+      //   'TO_AC': data.TO_AC
+      // })
     })
   }
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -239,7 +306,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
-      });      this.resetForm();
+      }); this.resetForm();
     })
   }
 
@@ -310,6 +377,25 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngBranchCode = null
+    this.ngcompany = null
+    this.ngcode = null
+    this.ngAccount = null
+    this.ngToAccount = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data)
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
+    })
   }
 
   rerender(): void {
@@ -319,5 +405,167 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+  scheme: any
+  getAccount(event) {
+    console.log(event)
+    this._allAcc
+    this.account = null
+    this.scheme = event.name
+    switch (event.name) {
+      case 'SB':
+        this._allAcc.getSavingList(this.ngBranchCode).subscribe(data => {
+          this.account = data;
+
+        })
+        break;
+
+      case 'SH':
+        this._allAcc.getShareList(this.ngBranchCode).subscribe(data => {
+          this.account = data;
+
+        })
+        break;
+
+      case 'CA':
+        this._allAcc.getCurrentList(this.ngBranchCode).subscribe(data => {
+          this.account = data;
+
+        })
+        break;
+
+      case 'LN':
+        this._allAcc.getTermLoanList(this.ngBranchCode).subscribe(data => {
+          this.account = data;
+
+        })
+        break;
+
+      case 'TD':
+        this._allAcc.getTermDepositList(this.ngBranchCode).subscribe(data => {
+          this.account = data;
+
+        })
+        break;
+      case 'CC':
+        this._allAcc.getCashCreditList(this.ngBranchCode).subscribe(data => {
+          this.account = data;
+
+        })
+        break;
+
+      case 'GS':
+        this._allAcc.getAnamatList(this.ngBranchCode).subscribe(data => {
+          this.account = data;
+
+        })
+        break;
+
+      case 'PG':
+        this._allAcc.getPigmyAccountList(this.ngBranchCode).subscribe(data => {
+          this.account = data;
+
+        })
+        break;
+    }
+
+  }
+  multiData: any
+  accountno: any
+  checkValidaion() {
+    console.log(this.angForm.controls['TO_AC'].value)
+    var fromac = this.angForm.controls['FROM_AC'].value
+    var toac = this.angForm.controls['TO_AC'].value;
+    this.accountno = [fromac, toac]
+    debugger
+    if (this.angForm.controls['TO_AC'].value == '' || this.angForm.controls['TO_AC'].value == null) {
+
+    } else if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
+      console.log('true')
+      switch (this.scheme) {
+        case 'SB':
+          this.http.get(this.url + '/saving-master/listalldata' + this.accountno).subscribe((data) => {
+            this.multiData = data;
+            console.log('multiShare', this.multiData)
+          });
+
+
+        case 'SH':
+          this._allAcc.getShareListAccount(this.accountno).subscribe(data => {
+            this.multiData = data;
+
+          })
+          this.http.get(this.url + '/share-master/listalldata' + this.accountno).subscribe((data) => {
+            this.multiData = data;
+            console.log('multiShare', this.multiData)
+          });
+          break;
+
+        case 'CA':
+
+          this.http.get(this.url + '/current-account-master/listalldata' + this.accountno).subscribe((data) => {
+            this.multiData = data;
+            console.log('multiShare', this.multiData)
+          });
+          break;
+
+        case 'LN':
+
+          this.http.get(this.url + '/term-loan-master/listalldata' + this.accountno).subscribe((data) => {
+            this.multiData = data;
+            console.log('multiShare', this.multiData)
+          });
+          break;
+
+        case 'TD':
+
+          this.http.get(this.url + '/term-deposits-master/listalldata' + this.accountno).subscribe((data) => {
+            this.multiData = data;
+            console.log('multiShare', this.multiData)
+          });
+          break;
+        case 'CC':
+
+          this.http.get(this.url + '/cash-credit-master/listalldata' + this.accountno).subscribe((data) => {
+            this.multiData = data;
+            console.log('multiShare', this.multiData)
+          });
+          break;
+
+        case 'GS':
+          this.http.get(this.url + '/anamat-gsm/listalldata' + this.accountno).subscribe((data) => {
+            this.multiData = data;
+            console.log('multiShare', this.multiData)
+          });
+
+          break;
+
+        case 'PG':
+
+          this.http.get(this.url + '/pigmy-account-master/listalldata' + this.accountno).subscribe((data) => {
+            this.multiData = data;
+            console.log('multiShare', this.multiData)
+          });
+          break;
+
+
+      }
+
+
+    } else {
+      Swal.fire('Error', 'To Account Number Must Be Greater Than From Account Number', 'error');
+      this.ngToAccount = null
+      this.angForm.controls['TO_AC'].reset()
+    }
+
+  }
+  getData() {
+    this.companyGroupService.getCompanyGroupMasterBranchList(this.ngBranchCode).pipe(first()).subscribe(data => {
+      this.companyCode = data;
+    })
+  }
+
+  delfields(id) {
+    this.multiData.splice(id, 1)
   }
 }

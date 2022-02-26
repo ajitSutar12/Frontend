@@ -8,9 +8,20 @@ export class SalaryDMasterdropdownService {
     // // salary-division-master";
     url = environment.base_url;
     constructor(private http: HttpClient) { }
-    public getSalaryDMasterList() {
+    public getSalaryMasterList() {
         this.salaryObject = []
         return this.http.get<any>(this.url + '/salary-division-master')
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.NAME, value: element.id, name: element.CODE};
+                    this.salaryObject.push(obj)
+                });
+                return this.salaryObject;
+            }));
+    }
+    public getSalaryDMasterList(branch) {
+        this.salaryObject = []
+        return this.http.get<any>(this.url + '/salary-division-master/getBranch/' + branch)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.NAME, value: element.id, name: element.CODE};

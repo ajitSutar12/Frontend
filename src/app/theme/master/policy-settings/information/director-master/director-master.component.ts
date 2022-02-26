@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 
 // Handling datatable data
 class DataTableResponse {
@@ -81,11 +82,15 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
   updateID: number = 0;
   //filter variable
   filterData = {};
-
+  ngBranchCode: any
+  branch_code: any[]
+  userID
+  branchCode
   constructor(
     private http: HttpClient,
     private directorMasterService: DirectorMasterService,
     private _cityMaster: cityMasterService,
+    private ownbranchMasterService: OwnbranchMasterService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -119,6 +124,11 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         this.http
           .post<DataTableResponse>(
             this.url + '/director-master',
@@ -163,6 +173,21 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
         },
       ], dom: 'Blrtip',
     }
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
     this._cityMaster.getcityList1().pipe(first()).subscribe(data => {
       this.city = data;
     })
@@ -181,7 +206,8 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_PIN: ['', [Validators.pattern]],
       AC_MOBILENO: ['', [Validators.pattern]],
       SMS_REQUIRED: [false],
-      IS_CURRENT_BODY_MEMBER: [false]
+      IS_CURRENT_BODY_MEMBER: [false],
+      BRANCH_CODE: []
     });
   }
 
@@ -200,6 +226,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_MOBILENO': formVal.AC_MOBILENO,
       'SMS_REQUIRED': formVal.SMS_REQUIRED,
       'IS_CURRENT_BODY_MEMBER': formVal.IS_CURRENT_BODY_MEMBER,
+      'BRANCH_CODE': this.ngBranchCode
     }
     this.directorMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -209,6 +236,22 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       });
     }, (error) => {
       console.log(error)
+    })
+
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
     })
     //To clear form
     this.resetForm();
@@ -220,28 +263,32 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.updateShow = true;
     this.newbtnShow = true;
     this.directorMasterService.getFormData(id).subscribe(data => {
+      debugger
       this.updateID = data.id;
-      this.ngCity = data.AC_CTCODE,
-        this.angForm.patchValue({
-          'CODE': data.CODE,
-          'NAME': data.NAME,
-          'DESIGNATION': data.DESIGNATION,
+      this.ngCity = data.AC_CTCODE
+      this.ngBranchCode = Number(data.BRANCH_CODE)
+      this.angForm.patchValue({
+        'CODE': data.CODE,
+        'NAME': data.NAME,
+        'DESIGNATION': data.DESIGNATION,
+        'AC_ADDR1': data.AC_ADDR1,
+        'AC_ADDR2': data.AC_ADDR2,
+        'AC_ADDR3': data.AC_ADDR3,
+        'AC_PIN': data.AC_PIN,
+        'AC_MOBILENO': data.AC_MOBILENO,
+        'SMS_REQUIRED': data.SMS_REQUIRED,
+        'IS_CURRENT_BODY_MEMBER': data.IS_CURRENT_BODY_MEMBER,
 
-          'AC_ADDR1': data.AC_ADDR1,
-          'AC_ADDR2': data.AC_ADDR2,
-          'AC_ADDR3': data.AC_ADDR3,
-          'AC_PIN': data.AC_PIN,
-          'AC_MOBILENO': data.AC_MOBILENO,
-          'SMS_REQUIRED': data.SMS_REQUIRED,
-          'IS_CURRENT_BODY_MEMBER': data.IS_CURRENT_BODY_MEMBER,
-        })
+      })
     })
   }
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
+    debugger
     data['id'] = this.updateID;
     this.directorMasterService.updateData(data).subscribe(() => {
+      debugger
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
@@ -251,6 +298,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       });
       this.resetForm();
     })
+
   }
 
   addNewData() {
@@ -327,6 +375,22 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
   resetForm() {
     this.createForm();
     this.ngCity = null
+
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
+    })
   }
 
   rerender(): void {

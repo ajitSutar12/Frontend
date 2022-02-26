@@ -78,10 +78,12 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
   //variable to get Id to update
   updateID: number = 0;
 
-  branchCode = [];
+  // branchCode = [];
   // column filter
   filterData = {}
-
+  ngBranchCode
+  branch_code
+  branchCode
   constructor(
     private http: HttpClient,
     private salaryDivisionService: SalaryDivisionService,
@@ -123,6 +125,12 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
             }
           }
         });
+
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
 
         this.http
@@ -168,9 +176,19 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
         },
       ], dom: 'Blrtip',
     };
+let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
 
     this.ownbranchMaster.getOwnbranchList().pipe(first()).subscribe(data => {
-      this.branchCode = data;
+      this.branch_code = data;
     })
   }
   // Method to handle validation of form
@@ -198,7 +216,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
       'AT_POST': formVal.AT_POST,
       'TALUKA_NAME': formVal.TALUKA_NAME,
       'DISTRICT_NAME': formVal.DISTRICT_NAME,
-      'BRANCH_CODE': formVal.BRANCH_CODE,
+      'BRANCH_CODE': this.ngBranchCode,
       'PHNO': formVal.PHNO,
       'MOBNO': formVal.MOBNO,
 
@@ -212,6 +230,21 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
     }, (error) => {
       console.log(error)
     })
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
+    })
     //To clear form
     this.resetForm();
   }
@@ -223,14 +256,15 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
     this.salaryDivisionService.getFormData(id).subscribe(data => {
       console.log(data)
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.ngBranchCode = Number(data.BRANCH_CODE),
+      this.angForm.patchValue({
         'CODE': data.CODE,
         'NAME': data.NAME,
         'SHORT_NAME': data.SHORT_NAME,
         'AT_POST': data.AT_POST,
         'TALUKA_NAME': data.TALUKA_NAME,
         'DISTRICT_NAME': data.DISTRICT_NAME,
-        'BRANCH_CODE': data.BRANCH_CODE,
+        // 'BRANCH_CODE': data.BRANCH_CODE,
         'PHNO': data.PHNO,
         'MOBNO': data.MOBNO,
       })
@@ -323,7 +357,22 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngbranchcode= null
+    // this.ngbranchcode= null
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
+    })
   }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

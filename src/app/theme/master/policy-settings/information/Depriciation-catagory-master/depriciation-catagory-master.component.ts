@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -70,12 +71,15 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
   acno: any[]
   // column filter
   filterData = {};
+  ngBranchCode
+  branch_code
+  branchCode
 
   constructor(
     private http: HttpClient,
     private depriciationService: DepriciationService,
     private _acMaster: ACMasterDropdownService,
-
+    private ownbranchMasterService: OwnbranchMasterService,
     private fb: FormBuilder) {
   }
   ngOnInit(): void {
@@ -111,6 +115,11 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -151,19 +160,39 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
       ],
       dom: 'Blrtip',
     };
+    // let data: any = localStorage.getItem('user');
+    // let result = JSON.parse(data);
+    // let branchCode = result.branch.id;
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    let branchCode = result.branch.id;
-    this._acMaster.getACMasterbranch(branchCode).pipe(first()).subscribe(data => {
-      this.acno = data;
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+      this._acMaster.getACMasterbranch(this.ngBranchCode).pipe(first()).subscribe(data => {
+        this.acno = data;
+      })
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+      this._acMaster.getACMasterbranch(this.ngBranchCode).pipe(first()).subscribe(data => {
+        this.acno = data;
+      })
+    }
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
     })
+
+
   }
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
       NAME: ['', [Validators.pattern, Validators.required]],
-      AC_NO: ['', [Validators.pattern, Validators.required]]
+      AC_NO: ['', [Validators.pattern, Validators.required]],
+      BRANCH_CODE: ['']
     });
   }
   // Method to insert data into database through NestJS
@@ -173,6 +202,7 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
       'CODE': formVal.CODE,
       'NAME': formVal.NAME,
       'AC_NO': this.ngAcNo,
+      'BRANCH_CODE': this.ngBranchCode
     }
     this.depriciationService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -181,6 +211,21 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
       });
     }, (error) => {
       console.log(error)
+    })
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
     })
     //To clear form
     this.resetForm();
@@ -191,7 +236,8 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
     this.updateShow = true;
     this.newbtnShow = true;
     this.depriciationService.getFormData(id).subscribe(data => {
-      this.updateID = data.id;
+      this.ngBranchCode = Number(data.BRANCH_CODE),
+        this.updateID = data.id;
       this.ngAcNo = Number(data.AC_NO)
       this.angForm.patchValue({
         'CODE': data.CODE,
@@ -289,6 +335,27 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
   resetForm() {
     this.createForm();
     this.ngAcNo = null
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
+    })
+  }
+
+  getBranch(){
+    this._acMaster.getACMasterbranch(this.ngBranchCode).pipe(first()).subscribe(data => {
+      this.acno = data;
+    })
   }
 
   rerender(): void {

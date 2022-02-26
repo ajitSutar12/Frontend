@@ -26,6 +26,7 @@ import { isNullOrUndefined } from "@swimlane/ngx-datatable";
 import { data } from "jquery";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
+import { SecurityDetailsComponent } from "../security-details.component";
 
 
 // Handling datatable data
@@ -59,6 +60,7 @@ interface BookMaster {
 })
 export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
+  @ViewChild(SecurityDetailsComponent) child: SecurityDetailsComponent;
   //passing data form child to parent
   @Output() newbookEvent = new EventEmitter<any>();
   datemax: any;
@@ -78,8 +80,8 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   updateShow: boolean = false;
   updateID: number; //variable for updating
 
-  submissiondate:any=null
-  statementdate:any=null
+  submissiondate: any = null
+  statementdate: any = null
   maxDate: Date;
   minDate: Date;
 
@@ -109,8 +111,10 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     private _book: BookdebtsService,
     public router: Router
   ) {
+  
     
-    
+    console.log(this.scheme)
+    console.log(this.Accountno)
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -119,6 +123,8 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log(this.scheme)
+    console.log(this.Accountno)
     this.createForm();
     // Fetching Server side data
     this.dtExportButtonOptions = {
@@ -149,6 +155,12 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+        console.log(this.scheme)
+        console.log(this.Accountno)
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters["filterData"] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -157,7 +169,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
           )
           .subscribe((resp) => {
             this.bookMaster = resp.data;
-            
+
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -233,29 +245,34 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   submit(event) {
-  
+
     event.preventDefault();
     this.formSubmitted = true;
     let submissiondate
     let statementdate
-    
+
     // let closingbalid = (document.getElementById("DebtorsClosingBalance") as HTMLInputElement).value;
 
     // this.angForm.patchValue({
     //   CLOSE_BAL: closingbalid,
 
     // });
-    
-    
+
+
 
     if (this.angForm.valid) {
-      
+
       const formVal = this.angForm.value;
-      
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.id;
+
       const dataToSend = {
         AC_TYPE: this.scheme,
         AC_NO: this.Accountno,
         AC_ACNOTYPE: this.AC_ACNOTYPE,
+        BRANCH_CODE: branchCode,
         SUBMISSION_DATE: (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
         // SUBMISSION_DATE: formVal.SUBMISSION_DATE,
         STATEMENT_DATE: (formVal.STATEMENT_DATE == '' || formVal.STATEMENT_DATE == 'Invalid date') ? statementdate = '' : statementdate = moment(formVal.STATEMENT_DATE).format('DD/MM/YYYY'),
@@ -269,7 +286,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
         MARGIN: formVal.MARGIN,
         REMARK: formVal.REMARK,
       };
-      
+
       this._book.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -280,13 +297,13 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
           // info.push("book")
 
           // this.newItemEvent(info);
-          
+
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
         },
         (error) => {
-          
+
         }
       );
       //To clear form
@@ -299,16 +316,16 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   //check  if margin values are below 100
   checkmargin(ele: any) {
     //check  if given value  is below 100
-    
+
     if (ele <= 100) {
-     
+
     }
     else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
 
-  updatecheckdata:any
+  updatecheckdata: any
   //function for edit button clicked
   editClickHandler(id: any): void {
     let submissiondate
@@ -317,26 +334,26 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.updateShow = true;
     this.newbtnShow = true;
     this._book.getFormData(id).subscribe((data) => {
-      this.updatecheckdata=data
+      this.updatecheckdata = data
       this.updateID = data.id;
-       //sending values to parent
-       let dropdown: any = {};
-       dropdown.scheme = data.AC_TYPE;
-       
-       // this.newItemEvent(dropdown.scheme)
-       
-       dropdown.account = data.AC_NO;
-       
-       // this.newItemEvent(dropdown.account)
-       let obj1 = {
-         'AccountType' :data.AC_TYPE,
-         'AccountNo': data.AC_NO,
-         'SchemeType':data.AC_ACNOTYPE
-       }
-       this.newbookEvent.emit(obj1);
-       
-       this.scheme=data.AC_TYPE
-       this.Accountno=data.AC_NO
+      //sending values to parent
+      let dropdown: any = {};
+      dropdown.scheme = data.AC_TYPE;
+
+      // this.newItemEvent(dropdown.scheme)
+
+      dropdown.account = data.AC_NO;
+
+      // this.newItemEvent(dropdown.account)
+      let obj1 = {
+        'AccountType': data.AC_TYPE,
+        'AccountNo': data.AC_NO,
+        'SchemeType': data.AC_ACNOTYPE
+      }
+      this.newbookEvent.emit(obj1);
+
+      this.scheme = data.AC_TYPE
+      this.Accountno = data.AC_NO
       this.angForm.patchValue({
         // AC_TYPE: this.scheme._value[0],
         // AC_NO: this.Accountno,
@@ -364,14 +381,14 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = false;
     let data = this.angForm.value;
     data["id"] = this.updateID;
-    data["AC_TYPE"]=this.scheme
-    data["AC_NO"]=this.Accountno
-    if(this.updatecheckdata.SUBMISSION_DATE!=data.SUBMISSION_DATE){
+    data["AC_TYPE"] = this.scheme
+    data["AC_NO"] = this.Accountno
+    if (this.updatecheckdata.SUBMISSION_DATE != data.SUBMISSION_DATE) {
       (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? (submissiondate = '', data['SUBMISSION_DATE'] = submissiondate) : (submissiondate = data.SUBMISSION_DATE, data['SUBMISSION_DATE'] = moment(submissiondate).format('DD/MM/YYYY'))
-      }
-      if(this.updatecheckdata.STATEMENT_DATE!=data.STATEMENT_DATE){
-        (data.STATEMENT_DATE == 'Invalid date' || data.STATEMENT_DATE == '' || data.STATEMENT_DATE == null) ? (submissiondate = '', data['STATEMENT_DATE'] = statementdate) : (statementdate = data.STATEMENT_DATE, data['STATEMENT_DATE'] = moment(statementdate).format('DD/MM/YYYY'))
-        }
+    }
+    if (this.updatecheckdata.STATEMENT_DATE != data.STATEMENT_DATE) {
+      (data.STATEMENT_DATE == 'Invalid date' || data.STATEMENT_DATE == '' || data.STATEMENT_DATE == null) ? (submissiondate = '', data['STATEMENT_DATE'] = statementdate) : (statementdate = data.STATEMENT_DATE, data['STATEMENT_DATE'] = moment(statementdate).format('DD/MM/YYYY'))
+    }
     this._book.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
@@ -435,7 +452,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   resetForm() {
     this.createForm();
     let obj1 = {
-      'AccountType' : null,
+      'AccountType': null,
       'AccountNo': null,
       // 'SchemeType':null
     }
@@ -457,7 +474,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
   calculateopening() {
 
 
-    let opbal =Number( this.angForm.controls['DEBTORS_OP_BAL'].value);
+    let opbal = Number(this.angForm.controls['DEBTORS_OP_BAL'].value);
     let credit = Number(this.angForm.controls['CREDIT_SALE'].value)
     let recovery = Number(this.angForm.controls['RECOVERY'].value);
     let debt = Number(this.angForm.controls['OVERAGED_DEBTORS'].value)
@@ -470,7 +487,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     }
 
-   
+
   }
 
 }

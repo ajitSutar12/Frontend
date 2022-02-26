@@ -14,6 +14,7 @@ import { environment } from '../../../../../../environments/environment';
 import { SalaryDMasterdropdownService } from '../../../../../shared/dropdownService/salary-division-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { NgSelectConfig } from '@ng-select/ng-select';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -72,6 +73,11 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
+
+  ngBranchCode
+  branchCode
+  branch_code
+
   //variable to get Id to update
   updateID: number = 0;
   id: string = '';
@@ -82,6 +88,8 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
     private http: HttpClient,
     private subSalaryDivisionService: SubSalaryService,
     private subSalaryDivision: SalaryDMasterdropdownService,
+    private ownbranchMasterService: OwnbranchMasterService,
+
     private fb: FormBuilder,
     private config: NgSelectConfig,) {
   }
@@ -119,6 +127,11 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -157,8 +170,34 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
       ],
       dom: 'Blrtip',
     };
-    this.subSalaryDivision.getSalaryDMasterList().pipe(first()).subscribe(data => {
-      this.division = data;
+    // let data: any = localStorage.getItem('user');
+    // let result = JSON.parse(data);
+    // this.angForm.controls['BRANCH_CODE'].disable()
+    // this.ngBranchCode = result.branch.id
+    // this.branchCode = result.branch.CODE
+
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.subSalaryDivision.getSalaryMasterList().pipe(first()).subscribe(data => {
+        this.division = data;
+      })
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+      this.subSalaryDivision.getSalaryDMasterList(this.ngBranchCode).pipe(first()).subscribe(data => {
+        this.division = data;
+      })
+    }
+    // this.subSalaryDivision.getSalaryMasterList().pipe(first()).subscribe(data => {
+    //   this.division = data;
+    // })
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
     })
   }
   // Method to handle validation of form
@@ -173,6 +212,8 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
       AC_EMAILID: ['', [Validators.pattern]],
       PHNO: ['', [Validators.pattern]],
       MOBNO: ['', [Validators.pattern]],
+      BRANCH_CODE: ['']
+
     });
   }
   // Method to insert data into database through NestJS
@@ -189,6 +230,8 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
       'AC_EMAILID': formVal.AC_EMAILID,
       'PHNO': formVal.PHNO,
       'MOBNO': formVal.MOBNO,
+      'BRANCH_CODE': this.ngBranchCode
+
 
     }
     this.subSalaryDivisionService.postData(dataToSend).subscribe(data1 => {
@@ -202,6 +245,21 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
     }, (error) => {
       console.log(error)
     })
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
+    })
     //To clear form
     this.resetForm();
   }
@@ -211,10 +269,12 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
     this.updateShow = true;
     this.newbtnShow = true;
     this.subSalaryDivisionService.getFormData(id).subscribe(data => {
-      console.log(data)
+      this.ngBranchCode = Number(data.BRANCH_CODE),
+        console.log(data)
       this.updateID = data.id;
-      this.angForm.setValue({
-        'SAL_CODE': data.SAL_CODE,
+      this.ngdivcode = data.SAL_CODE
+      this.angForm.patchValue({
+
         'CODE': data.CODE,
         'NAME': data.NAME,
         'AT_POST': data.AT_POST,
@@ -307,6 +367,21 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
   resetForm() {
     this.createForm();
     this.ngdivcode = null
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
+    })
   }
 
   rerender(): void {
@@ -328,5 +403,11 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
       }
     })
 
+  }
+
+  getData() {
+    this.subSalaryDivision.getSalaryDMasterList(this.ngBranchCode).pipe(first()).subscribe(data => {
+      this.division = data;
+    })
   }
 }

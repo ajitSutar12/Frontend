@@ -23,7 +23,7 @@ export class SchemeCodeDropdownService {
     }
 
 
-    public getAllSchemeList() {
+    public getAllSchemeList() { 
         this.schemeObject = []
         return this.http.get<any>(this.url + '/scheme-parameters/')
             .pipe(map(ele => {

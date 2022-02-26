@@ -20,6 +20,7 @@ import { environment } from '../../../../../../environments/environment'
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { VoucherEntryService } from 'src/app/theme/transaction/voucher-entry/voucher-entry.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -73,7 +74,9 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   activeKeep = 1;
 
   ngscheme: any = null
-
+  ngBranchCode
+  branchCode
+  branch_code
 
   // Variables for search 
   filterObject: { name: string; type: string; }[];
@@ -110,6 +113,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     private _schemeService: SchemeAccountNoService,
     public SchemeCodeDropdownService: SchemeCodeDropdownService,
     private _service: VoucherEntryService,
+    private ownbranchMasterService: OwnbranchMasterService,
 
     private config: NgSelectConfig,) { }
 
@@ -144,6 +148,11 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -205,6 +214,25 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
 
     })
 
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+
+    }
+    // this.subSalaryDivision.getSalaryMasterList().pipe(first()).subscribe(data => {
+    //   this.division = data;
+    // })
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
+
   }
   runTimer() {
     const timer = setInterval(() => {
@@ -223,7 +251,9 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
       ADDRESS: [''],
       AC_ACNOTYPE: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.pattern]],
-      AC_NO: ['', [Validators.pattern, Validators.required]]
+      AC_NO: ['', [Validators.pattern, Validators.required]],
+      BRANCH_CODE: ['']
+
     });
   }
   // Method to insert data into database through NestJS
@@ -239,6 +269,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
+      'BRANCH_CODE': this.ngBranchCode
 
     }
     this.companyGroupMasterService.postData(dataToSend).subscribe(data1 => {
@@ -250,6 +281,21 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
       });
     }, (error) => {
 
+    })
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
     })
     //To clear form
     this.resetForm();
@@ -266,8 +312,9 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     this.updateShow = true;
     this.newbtnShow = true;
     this.companyGroupMasterService.getFormData(id).subscribe(data => {
-  
-      this.updateID = data.id;
+      this.ngBranchCode = Number(data.BRANCH_CODE),
+
+        this.updateID = data.id;
       this.selectedCode = data.AC_ACNOTYPE,
         this.selectedSchemeCode()
       this.ngscheme = data.AC_TYPE,
@@ -369,6 +416,21 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     this.selectedCode = null
     this.ngscheme = null
     this.ngacno = null
+    this.ngBranchCode = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data)
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+      this.branchCode = result.branch.CODE
+    }
+
+    this.angForm.patchValue({
+      BRANCH_CODE: result.branch.id
+    })
   }
 
   rerender(): void {
@@ -384,16 +446,13 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
 
     this.scheme = [];
     this.master.forEach(element => {
-  
       if (element.S_ACNOTYPE == this.selectedCode) {
- 
-
         let obj = { label: element.S_APPL, value: element.id, name: element.S_NAME };
         this.scheme.push(obj)
-
-
       }
     });
+    this.ngscheme = null
+    this.ngacno = null
   }
 
   acno: any = null
@@ -403,88 +462,88 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
 
   //get account no according scheme for introducer
   getIntroducer() {
-    let data1: any = localStorage.getItem('user');
-    let result = JSON.parse(data1);
-    let branchCode = result.branch.id;
+    // let data1: any = localStorage.getItem('user');
+    // let result = JSON.parse(data1);
+    // let branchCode = result.branch.id;
     let scheme = this.ngscheme
-    this.obj = [scheme, branchCode]
+    this.obj = [scheme, this.ngBranchCode]
     this.ngacno = null
     switch (this.selectedCode) {
       case 'SB':
         this._schemeService.getSavingSchemeList1(this.obj).subscribe(data => {
           this.account = data;
           console.log(this.account)
-         
+
         })
         break;
 
       case 'SH':
         this._schemeService.getShareSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-         
+
         })
         break;
 
       case 'CA':
         this._schemeService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-         
+
         })
         break;
 
       case 'LN':
         this._schemeService.getTermLoanSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-         
+
         })
         break;
 
       case 'TD':
         this._schemeService.getTermDepositSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-         
+
         })
         break;
 
       case 'DS':
         this._schemeService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-         
+
         })
         break;
 
       case 'CC':
         this._schemeService.getCashCreditSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-         
+
         })
         break;
 
       case 'GS':
         this._schemeService.getAnamatSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-         
+
         })
         break;
 
       case 'PG':
         this._schemeService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-         
+
         })
         break;
 
       case 'AG':
         this._schemeService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-         
+
         })
         break;
 
       case 'IV':
         this._schemeService.getInvestmentSchemeList1(this.obj).subscribe(data => {
           this.account = data;
-         
+
         })
         break;
     }
@@ -496,5 +555,12 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.patchValue({
       'AC_NO': value.AC_NO
     })
+  }
+
+  getData() {
+    // this.ngscheme = null
+    this.ngacno = null
+    // this.selectedCode = null
+    this.getIntroducer()
   }
 }

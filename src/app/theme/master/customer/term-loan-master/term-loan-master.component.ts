@@ -1505,7 +1505,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       } else {
         this.BOOK_DEBTS = false
       }
-
       if (data.CUST_INSURANCE == true) {
         this.CUST_INSURANCE = true
       } else {
