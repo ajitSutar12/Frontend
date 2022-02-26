@@ -8,13 +8,15 @@ import {SharedModule} from '../../../shared/shared.module';
 // import { ReconciliationTransactionEntryComponent } from './reconciliation-transaction-entry/reconciliation-transaction-entry.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
   imports: [
     CommonModule,
     BalanceEntryRoutingModule,
-    SharedModule
+    SharedModule,
+    NgSelectModule
   ],
   declarations: [BalanceEntryComponent],
   providers:[{

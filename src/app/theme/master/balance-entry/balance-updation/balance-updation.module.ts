@@ -6,20 +6,36 @@ import { BalanceUpdationRoutingModule } from './balance-updation.routing.module'
 import { BalanceUpdationComponent } from './balance-updation.component';
 import { BalanceUpdationService } from '../../../../shared/elements/balance-updation.service';
 import { DebitService } from '../../../../shared/elements/debit.service';
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 @NgModule({
   imports: [
     CommonModule,
     BalanceUpdationRoutingModule,
     DataTablesModule,
-    SelectModule,
-    FormsModule, ReactiveFormsModule
+    // SelectModule,
+    NgSelectModule,
+    FormsModule, ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   declarations: [BalanceUpdationComponent],
-  providers: [BalanceUpdationService, DebitService,{
+  providers: [
+    SystemMasterParametersService,
+    OwnbranchMasterService,
+    SchemeAccountNoService,
+    SchemeCodeDropdownService,
+    BalanceUpdationService, 
+    DebitService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

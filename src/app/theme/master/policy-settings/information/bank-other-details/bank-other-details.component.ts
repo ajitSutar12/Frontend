@@ -181,6 +181,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
           title:'GST Number',
           data:'GST_NO'
         },
+        
         {
           title:'Flat Premise Name',
           data:'FLAT_PRM_NAME'
@@ -197,14 +198,12 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
           title:'Pin Code',
           data:'PIN_CODE'
         },
-        // {
-        //   title: 'Telephone Number',
-        //   data: 'PHONE_OFFICE'
-        // },
+        
         {
           title:'Mobile Number',
           data:'MOB_NUM'
         },
+        
         {
           title:'Email',
           data:'EMAIL'

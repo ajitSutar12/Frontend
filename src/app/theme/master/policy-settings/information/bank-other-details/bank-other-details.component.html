@@ -418,15 +418,17 @@
                                             
                                         </td>
                                         <td>{{data.NAME}}</td>
-                                        <td>{{data.SBI_BANKCODE}}</td>
+                                        <td class="td_right">{{data.SBI_BANKCODE}}</td>
                                         <td>{{data.PAN_NO}}</td>
-                                        <td>{{data.FLAT_PRM_NAME}}</td>
-                                        <td>{{data.bankDetailCity.CITY_NAME}}</td>
-                                        <td>{{data.PIN_CODE}}</td>
-                                        <td>{{data.MOB_NUM}}</td>
-                                        <td>{{data.EMAIL}}</td>
                                         <td>{{data.GST_NO}}</td>
+                                        <td>{{data.FLAT_PRM_NAME}}</td>
+                                        <td class="td_right" [ngClass]="data.CITY_CODE === '' ? 'td_center' : 'td_right'">{{data.bankDetailCity.CITY_NAME}}</td>
                                         <td>{{data.STATE}}</td>
+                                        <td class="td_right">{{data.PIN_CODE}}</td>
+                                        <td class="td_right">{{data.MOB_NUM}}</td>
+                                        <td>{{data.EMAIL}}</td>
+                                        
+                                        
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="bankotherdetails?.length == 0">
@@ -440,13 +442,14 @@
                                         <th><input type="text" class="form-control" name="NAME"></th>
                                         <th><input type="text" class="form-control" name="SBI_BANKCODE"></th>
                                         <th><input type="text" class="form-control" name="PAN_NO"></th>
+                                        <th><input type="text" class="form-control" name="GST_NO"></th>
                                         <th><input type="text" class="form-control" name="FLAT_PRM_NAME"></th>
                                         <th><input type="text" class="form-control" name="CITY_CODE"></th>
+                                        <th><input type="text" class="form-control" name="STATE"></th>
                                         <th><input type="text" class="form-control" name="PIN_CODE"></th>
                                         <th><input type="text" class="form-control" name="MOB_NUM"></th>
                                         <th><input type="text" class="form-control" name="EMAIL"></th>
-                                        <th><input type="text" class="form-control" name="GST_NO"></th>
-                                        <th><input type="text" class="form-control" name="STATE"></th>
+                                       
                                     </tr>
                                 </tfoot>
                             </table>
