@@ -146,6 +146,19 @@ export class SchemeAccountNoService {
                 return this.schemeObject;
             }));
     }
+
+    public getGeneralLedgerList1(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/gl-account-master/scheme/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.AC_NO, acnotype: element.AC_ACNOTYPE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
+
     public getDisputeLoanSchemeList() {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/dispute-loan-master/')

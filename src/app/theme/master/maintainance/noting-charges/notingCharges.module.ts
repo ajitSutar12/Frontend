@@ -3,19 +3,16 @@ import { CommonModule } from '@angular/common';
 import { NotingChargesComponent } from './noting-charges.component';
 import { NotingChargesRoutingModule } from './notingCharges-routing.module'
 import { DataTablesModule } from 'angular-datatables';
-import { SimService } from '../../../../shared/elements/sim.service'
-import { S8Service } from '../../../../shared/elements/s8.service';
-import { Ac8Service } from '../../../../shared/elements/ac8.service';
-import { S18Service } from '../../../../shared/elements/s18.service'
-import { S19Service } from '../../../../shared/elements/s19.service'
-// import { SelectModule } from 'ng-select';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
+import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { ACMasterDropdownService } from "../../../../shared/dropdownService/ac-master-dropdown.service";
 @NgModule({
   imports: [
     CommonModule,
@@ -30,7 +27,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     DatepickerModule.forRoot()
   ],
   declarations: [NotingChargesComponent],
-  providers: [SimService, S8Service, Ac8Service, S18Service, S19Service,{
+  providers: [SystemMasterParametersService, OwnbranchMasterService, SchemeAccountNoService,ACMasterDropdownService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
