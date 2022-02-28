@@ -13,6 +13,7 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { ACMasterDropdownService } from "../../../../shared/dropdownService/ac-master-dropdown.service";
+import { NotingChargesService } from './noting-charges.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +28,7 @@ import { ACMasterDropdownService } from "../../../../shared/dropdownService/ac-m
     DatepickerModule.forRoot()
   ],
   declarations: [NotingChargesComponent],
-  providers: [SystemMasterParametersService, OwnbranchMasterService, SchemeAccountNoService,ACMasterDropdownService, {
+  providers: [SystemMasterParametersService, OwnbranchMasterService, SchemeAccountNoService, ACMasterDropdownService, NotingChargesService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

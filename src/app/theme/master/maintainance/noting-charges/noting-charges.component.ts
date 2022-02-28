@@ -12,6 +12,7 @@ import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { ACMasterDropdownService } from "../../../../shared/dropdownService/ac-master-dropdown.service";
+import { NotingChargesService } from './noting-charges.service'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -101,6 +102,7 @@ export class NotingChargesComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
     private acMasterDropdownService: ACMasterDropdownService,
+    private _service: NotingChargesService,
     private http: HttpClient,) {
 
     this.maxDate = new Date();
@@ -148,7 +150,8 @@ export class NotingChargesComponent implements OnInit {
       TRAN_DATE: [''],
       TRAN_AMOUNT: ['', [Validators.pattern]],
       addInPrinciple: [false],
-      TRAN_DRCR: ['D']
+      TRAN_DRCR: ['', [Validators.required]],
+      GL_ENTRY: [false]
 
     });
   }
@@ -252,14 +255,16 @@ export class NotingChargesComponent implements OnInit {
     this.notingChargesArr = []
     var memFrom = this.angForm.controls['FROM_AC'].value
     var memTo = this.angForm.controls['TO_AC'].value
-    if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value) {
+    if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value && this.angForm.controls['TO_AC'].value != '') {
       this.showTable = true
       this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
+
+      this.http.get(this.url + '/noting-charges/glacno/' + this.ngscheme).subscribe((data) => {
+        console.log(data
+        )
+      })
       this.http.get(this.url + '/noting-charges/accounts/' + this.mem).subscribe((data) => {
         this.arrTable = data;
-        console.log(this.arrTable)
-
-
         this.arrTable.forEach(element => {
           var object = {
             AC_NO: element.AC_NO,
@@ -370,24 +375,58 @@ export class NotingChargesComponent implements OnInit {
     let notingdate
     this.formSubmitted = true;
     console.log(this.angForm.valid);
-    if (this.angForm.valid) {
+    if (this.notingChargesArr.length != 0) {
       const formVal = this.angForm.value;
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.CODE;
+      let branchid = result.branch.id
       const dataToSend = {
-        Scheme: formVal.Scheme,
-        FROM_AC: formVal.FROM_AC,
-        TO_AC: formVal.TO_AC,
-        Date: formVal.Date,
-        chargestype: formVal.chargestype,
-        transeferglaccno: formVal.transeferglaccno,
-        ChargesAmount: formVal.ChargesAmount,
+        // Scheme: formVal.Scheme,
+        TRAN_DATE: formVal.TRAN_DATE,
+        // chargestype: formVal.chargestype,
+        // transeferglaccno: formVal.transeferglaccno,
+        // ChargesAmount: formVal.ChargesAmount,
+        USER: result.USER_NAME,
+        TRAN_GLACNO: this.ngglacno,
+        notingChargesArr: this.notingChargesArr,
+        TRAN_AMOUNT: formVal.TRAN_AMOUNT,
+        TRAN_ACNOTYPE: this.getschemename,
+        TRAN_ACTYPE: this.ngscheme,
+        TRAN_DRCR: formVal.TRAN_DRCR,
+        GL_ENTRY: formVal.GL_ENTRY,
+        BRANCH_CODE: branchCode,
+        addInPrinciple: formVal.addInPrinciple,
+        AMOUNT_TYPE: this.ngchargestype,
+        BranchID: branchid
 
       };
-
-
-      console.log(this.angForm.value);
+      console.log(dataToSend);
+      this._service.postData(dataToSend).subscribe(data1 => {
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        this.formSubmitted = false;
+      }, (error) => {
+        console.log(error)
+      })
+      //To clear form
+      this.resetForm();
+      this.notingChargesArr = []
+      this.arrTable = []
     }
   }
 
+  resetForm() {
+    this.createForm()
+    this.ngscheme = null
+    this.ngchargestype = null
+    this.ngBranchCode = null
+    this.ngfromac = null
+    this.ngtoac = null
+    this.ngglacno = null
+    this.notingChargesArr = []
+    this.arrTable = []
+    this.getSystemParaDate()
+  }
   //function for edit button clicked
   editClickHandler(info: any): void {
     let notingdate
