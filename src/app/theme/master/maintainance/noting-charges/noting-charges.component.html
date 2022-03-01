@@ -15,7 +15,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
+                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)"
                                         placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
@@ -117,12 +117,12 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AMOUNT_TYPE" bindValue="FIELD_AMOUNT" [(ngModel)]="ngchargestype"
-                                        formControlName="AMOUNT_TYPE" bindLabel="FIELD_AMOUNT"
-                                        (change)="getCommanNarration()" title="Compulsory Selection"
+                                        formControlName="AMOUNT_TYPE" bindLabel="DESCRIPTION"
+                                        (change)="getCommanNarration($event)" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Charges Type">
                                         <ng-option *ngFor="let values of chargesType" [value]="values">
-                                            {{values.FIELD_AMOUNT}}</ng-option>
+                                            {{values.DESCRIPTION}}</ng-option>
                                     </ng-select>
                                     <label for="AMOUNT_TYPE">Charges Type<sub class="required"> * </sub></label>
                                 </span>

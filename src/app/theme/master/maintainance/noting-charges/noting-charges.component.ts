@@ -98,13 +98,24 @@ export class NotingChargesComponent implements OnInit {
   notingChargesArr
   obj
   getschemename
+  glAcno
+  chargesType
+  ngglacno: any = null
+  acMaster
+  showTable: boolean = false
+  mem
+  S_GLACNO
+  FIELD_GL
+  GL_CODE
+  FIELD_AMOUNT
+  DESCRIPTION
+
   constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
     private acMasterDropdownService: ACMasterDropdownService,
     private _service: NotingChargesService,
     private http: HttpClient,) {
-
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -133,10 +144,7 @@ export class NotingChargesComponent implements OnInit {
       this.ngBranchCode = result.branch.id
     }
   }
-  glAcno
-  chargesType
-  ngglacno: any = null
-  acMaster
+
 
   createForm() {
     this.angForm = this.fb.group({
@@ -155,8 +163,12 @@ export class NotingChargesComponent implements OnInit {
 
     });
   }
+  branchCode
+  branchid
 
-  getBranch() {
+  getBranch(event) {
+    this.branchCode = event.name
+    this.branchid = event.value
     this.ngscheme = null
     this.ngfromac = null
     this.ngtoac = null
@@ -248,8 +260,7 @@ export class NotingChargesComponent implements OnInit {
       })
     })
   }
-  showTable: boolean = false
-  mem
+  //load table based on from and to account number
   getTable() {
     this.arrTable = []
     this.notingChargesArr = []
@@ -260,8 +271,7 @@ export class NotingChargesComponent implements OnInit {
       this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
 
       this.http.get(this.url + '/noting-charges/glacno/' + this.ngscheme).subscribe((data) => {
-        console.log(data
-        )
+        this.S_GLACNO = data
       })
       this.http.get(this.url + '/noting-charges/accounts/' + this.mem).subscribe((data) => {
         this.arrTable = data;
@@ -276,7 +286,6 @@ export class NotingChargesComponent implements OnInit {
           }
           this.notingChargesArr.push(object)
         });
-        console.log(this.notingChargesArr)
       });
     }
     else {
@@ -288,14 +297,20 @@ export class NotingChargesComponent implements OnInit {
       this.notingChargesArr = []
     }
   }
-
+  //get charge amount to all account number
   getCommanChargeAmount() {
     this.notingChargesArr.forEach(item => item.TRAN_AMOUNT = this.angForm.controls['TRAN_AMOUNT'].value);
   }
-  getCommanNarration() {
-    this.notingChargesArr.forEach(item => item.NARRATION = this.angForm.controls['AMOUNT_TYPE'].value);
+  //get narration to all account number
+  getCommanNarration(event) {
+    this.FIELD_GL = event.FIELD_GL
+    this.GL_CODE = event.GL_CODE
+    this.FIELD_AMOUNT = event.FIELD_AMOUNT
+    this.DESCRIPTION = event.DESCRIPTION
+    this.notingChargesArr.forEach(item => item.NARRATION = event.DESCRIPTION);
   }
 
+  //get charge amount to particular account number
   getChargesAmount(id, AC_NO, BANKACNO, chargesAmt, Narration) {
     if (chargesAmt != '' || chargesAmt != 0) {
       if (this.notingChargesArr.length != 0) {
@@ -328,9 +343,8 @@ export class NotingChargesComponent implements OnInit {
         this.notingChargesArr.push(object)
       }
     }
-    console.log(this.notingChargesArr)
   }
-
+  //get narration to particular account number
   getNarration(id, AC_NO, BANKACNO, Narration, chargesAmt) {
     if (Narration != '') {
       if (this.notingChargesArr.length != 0) {
@@ -363,7 +377,6 @@ export class NotingChargesComponent implements OnInit {
         this.notingChargesArr.push(object)
       }
     }
-    console.log(this.notingChargesArr)
   }
 
   //select content of field
@@ -374,19 +387,12 @@ export class NotingChargesComponent implements OnInit {
   submit() {
     let notingdate
     this.formSubmitted = true;
-    console.log(this.angForm.valid);
     if (this.notingChargesArr.length != 0) {
       const formVal = this.angForm.value;
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
-      let branchCode = result.branch.CODE;
-      let branchid = result.branch.id
       const dataToSend = {
-        // Scheme: formVal.Scheme,
         TRAN_DATE: formVal.TRAN_DATE,
-        // chargestype: formVal.chargestype,
-        // transeferglaccno: formVal.transeferglaccno,
-        // ChargesAmount: formVal.ChargesAmount,
         USER: result.USER_NAME,
         TRAN_GLACNO: this.ngglacno,
         notingChargesArr: this.notingChargesArr,
@@ -395,16 +401,49 @@ export class NotingChargesComponent implements OnInit {
         TRAN_ACTYPE: this.ngscheme,
         TRAN_DRCR: formVal.TRAN_DRCR,
         GL_ENTRY: formVal.GL_ENTRY,
-        BRANCH_CODE: branchCode,
+        BRANCH_CODE: this.branchCode,
         addInPrinciple: formVal.addInPrinciple,
         AMOUNT_TYPE: this.ngchargestype,
-        BranchID: branchid
+        BranchID: this.branchid,
+        S_GLACNO: this.S_GLACNO,
+        FIELD_GL: this.FIELD_GL,
+        GL_CODE: this.GL_CODE,
+        FIELD_AMOUNT: this.FIELD_AMOUNT,
+        DESCRIPTION: this.DESCRIPTION
 
       };
-      console.log(dataToSend);
-      this._service.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      this._service.postData(dataToSend).subscribe(data => {
         this.formSubmitted = false;
+        if (data == '') {
+          dataToSend['DailyFlag'] = 'Insert'
+          this._service.dailyTableInsert(dataToSend).subscribe(data => {
+            Swal.fire('Success!', 'Data Added Successfully !', 'success');
+          })
+        }
+        else {
+          Swal.fire({
+            text: "Today's Charges Posting Already Done.Do You Want To Overwrite?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#229954",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Overwrite it!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              dataToSend['DailyFlag'] = 'Overwrite'
+              this._service.dailyTableInsert(dataToSend).subscribe((data) => {
+                Swal.fire("Overwritten!", "success");
+              }),
+                (error) => {
+                  console.log(error);
+                };
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              dataToSend['DailyFlag'] = 'Insert'
+              this._service.dailyTableInsert(dataToSend).subscribe(data => {
+              })
+            }
+          });
+        }
       }, (error) => {
         console.log(error)
       })

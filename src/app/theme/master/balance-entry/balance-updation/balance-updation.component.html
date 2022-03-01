@@ -216,11 +216,7 @@
                                             <td *ngIf="purchasevalue" class="td_right">Purchase value</td>
                                             <td *ngIf="openingamt" class="td_right">Opening Amount</td>
                                             <td *ngIf="openingquantity" class="td_right">Opening Quantity</td>
-                                            <td *ngIf="lastdepreciationDate" class="td_center">Last Depreciation Date</td>
-
-
-
-                                            
+                                            <td *ngIf="lastdepreciationDate" class="td_center">Last Depreciation Date</td>                                            
                                         </thead>
                                         <tbody *ngIf="arrTable?.length != 0">
                                             <tr *ngFor="let data of arrTable;
@@ -484,19 +480,3 @@
         </div>
     </div>
 </div>
-<!-- <div class="row">
-    <div class="col-12">
-        <div class="card shadow">
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="table-responsive">
-                            <table id="balanceupdationtable" datatable [dtOptions]="dtExportButtonOptions" class="table table-striped table-bordered table-hover" style="width: 100%;">
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->

@@ -23,12 +23,22 @@ export class NotingChargesService {
         )
     }
 
+    //submit data for form
+    dailyTableInsert(data1: any): Observable<any> {
+        return this.http.post(this.url + '/noting-charges/dailyInsert', data1).pipe(map((res) => res),
+            catchError((error) => {
+                let errorMessage = 'Please add valid length';
+                console.log(error)
+                // window.alert(errorMessage);
+                return throwError(errorMessage);
+            })
+        )
+    }
 
     // For append data
     getFormData(id: any): Observable<any> {
         return this.http.get(this.url + '/term-loan-master/' + id).pipe(catchError(this.handleError));
     }
-
 }
 
 

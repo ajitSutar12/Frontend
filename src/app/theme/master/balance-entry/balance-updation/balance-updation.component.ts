@@ -45,7 +45,7 @@ export class BalanceUpdationComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  
+
   //title select variables
   debit: Array<IOption> = this.DebitService.getCharacters();
   simpleOption: Array<IOption> = this.BalanceUpdationService.getCharacters();
@@ -55,9 +55,9 @@ export class BalanceUpdationComponent implements OnInit {
   selectedCharacter = '3';
   timeLeft = 5;
 
-  ngscheme:any=null
-  ngfromac:any=null
-  ngtoac:any=null
+  ngscheme: any = null
+  ngfromac: any = null
+  ngtoac: any = null
 
   private dataSub: Subscription = null;
 
@@ -70,142 +70,44 @@ export class BalanceUpdationComponent implements OnInit {
   warrentdate:any=null
 
 
-  
-  
+
+
   scheme: any[];
   arrTable: any[];
   ToAC: any[];
   fromAC: any[];
   getschemename: any;
-  ngbranch:any=null;
+  ngbranch: any = null;
   branchOption: any;
-  
 
-  constructor(public BalanceUpdationService: BalanceUpdationService, 
+
+  constructor(public BalanceUpdationService: BalanceUpdationService,
     private http: HttpClient,
     public DebitService: DebitService, private fb: FormBuilder,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private config: NgSelectConfig,) { 
-       
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
-    }
+    private config: NgSelectConfig,) {
+
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      dom: 'ftip'
-    };
     this.createForm();
     this.getSystemParaDate()
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/balance-updation.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        // {
-        //   title: 'Branch Code',
-        //   data: 'BranchCode'
-        // }, {
-        //   title: 'Scheme Type',
-        //   data: 'SchemeType'
-        // }, {
-        //   title: 'Branch Code',
-        //   data: 'SchemeCode'
-        // }, {
-        //   title: 'Balance Date',
-        //   data: 'BalanceDate'
-        // }, {
-        //   title: 'From Ac No',
-        //   data: 'FromAcNo'
-        // },
-        // {
-        //   title: 'To Ac No',
-        //   data: 'ToAcNo'
-        // },
-        // {
-        //   title: 'Ac No',
-        //   data: 'AcNo'
-        // },
-        // {
-        //   title: 'Ac Name',
-        //   data: 'AcName'
-        // },
-        // {
-        //   title: 'Ledger Balance',
-        //   data: 'LedgerBalance'
-        // },
-        // {
-        //   title: 'Product Amount',
-        //   data: 'ProductAmount'
-        // },
-        // {
-        //   title: 'Last TransDate',
-        //   data: 'LastTransDate'
-        // },
-        // {
-        //   title: 'Last Interest Paid Date',
-        //   data: 'LastInterestPaidDate'
-        // },
-        // {
-        //   title: 'Closing Date',
-        //   data: 'ClosingDate'
-        // },
-        // {
-        //   title: 'Debit Credit',
-        //   data: 'DebitCredit'
-        // }
-
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-      //row click handler code
-      // rowCallback: (row: Node, data: any[] | Object, index: number) => {
-      //   const self = this;
-      //   $('td', row).off('click');
-      //   $('td', row).on('click', '#editbtn', () => {
-      //     self.editClickHandler(data);
-      //   });
-      //   $('td', row).on('click', '#delbtn', () => {
-      //     self.delClickHandler();
-      //   });
-      //   return row;
-      // }
-    };
-    // this.runTimer();
-    // this.dataSub = this.BalanceUpdationService.loadCharacters().subscribe((options) => {
-    //   this.characters = options;
-    // });
-
-    // this.runTimer();
-    // this.dataSub = this.DebitService.loadCharacters().subscribe((options) => {
-    //   this.characters = options;
-    // });
 
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       dom: 'ftip'
     };
-    this.createForm()
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV'|| scheme.name == 'GS'|| scheme.name == 'AG'|| scheme.name == 'PG'|| scheme.name == 'CC'|| scheme.name == 'SH')
+        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH')
       });
       this.scheme = allscheme;
     })
@@ -215,58 +117,49 @@ export class BalanceUpdationComponent implements OnInit {
     })
   }
 
-  // runTimer() {
-  //   const timer = setInterval(() => {
-  //     this.timeLeft -= 1;
-  //     if (this.timeLeft === 0) {
-  //       clearInterval(timer);
-  //     }
-  //   }, 1000);
-  // }
 
   getBranch() {
-   
     this.getAccountList(event)
   }
 
 
   // for grid variable declaration
-  ledgerbalance:boolean=false
-  lastTranDate:boolean=false
-  productamount:boolean=false
-  lastintpaidDate:boolean=false
-  closingdate:boolean=false
-  debitcredit:boolean=false
-  payableint:boolean=false
-  totalintpaid:boolean=false
-  totalpenalint:boolean=false
-  totalinstallmentrec:boolean=false
-  tdsopDate:boolean=false
-  intinfinancialyear:boolean=false
-  opintpaidfinyear:boolean=false
-  acopenDate:boolean=false
-  lastcreditDate:boolean=false
-  lastintDate:boolean=false
-  opproduct:boolean=false
-  balanceDate:boolean=false
-  receivableint:boolean=false
-  totalintrec:boolean=false
-  penalint:boolean=false
-  totaldepositamt:boolean=false
-  totalpostedint:boolean=false
-  npaDate:boolean=false
-  isdisputeloan:boolean=false
-  noofshares:boolean=false
-  shareamt:boolean=false
-  accloseDate:boolean=false
-  purchaseDate:boolean=false
-  supliername:boolean=false
-  purchaserate:boolean=false
-  purchasequantity:boolean=false
-  purchasevalue:boolean=false
-  openingamt:boolean=false
-  openingquantity:boolean=false
-  lastdepreciationDate:boolean=false
+  ledgerbalance: boolean = false
+  lastTranDate: boolean = false
+  productamount: boolean = false
+  lastintpaidDate: boolean = false
+  closingdate: boolean = false
+  debitcredit: boolean = false
+  payableint: boolean = false
+  totalintpaid: boolean = false
+  totalpenalint: boolean = false
+  totalinstallmentrec: boolean = false
+  tdsopDate: boolean = false
+  intinfinancialyear: boolean = false
+  opintpaidfinyear: boolean = false
+  acopenDate: boolean = false
+  lastcreditDate: boolean = false
+  lastintDate: boolean = false
+  opproduct: boolean = false
+  balanceDate: boolean = false
+  receivableint: boolean = false
+  totalintrec: boolean = false
+  penalint: boolean = false
+  totaldepositamt: boolean = false
+  totalpostedint: boolean = false
+  npaDate: boolean = false
+  isdisputeloan: boolean = false
+  noofshares: boolean = false
+  shareamt: boolean = false
+  accloseDate: boolean = false
+  purchaseDate: boolean = false
+  supliername: boolean = false
+  purchaserate: boolean = false
+  purchasequantity: boolean = false
+  purchasevalue: boolean = false
+  openingamt: boolean = false
+  openingquantity: boolean = false
+  lastdepreciationDate: boolean = false
 
 
   //get account no according scheme
@@ -283,345 +176,346 @@ export class BalanceUpdationComponent implements OnInit {
         this.schemeAccountNoService.getSavingSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
-          this.lastTranDate=true
-          this.ledgerbalance=true
-          this.productamount=true
-          this.lastintpaidDate=true
-          this.closingdate=true
-          this.debitcredit=true
-          this.payableint=false
-          this.totalintpaid=false
-          this.totalpenalint=false
-          this.totalinstallmentrec=false
-          this.tdsopDate=false
-          this.intinfinancialyear=false
-          this.opintpaidfinyear=false
-          this.acopenDate=false
-          this.lastcreditDate=false
-          this.lastintDate=false
-          this.opproduct=false
-          this.balanceDate=false
-          this.receivableint=false
-          this.totalintrec=false
-          this.penalint=false
-          this.totaldepositamt=false
-          this.totalpostedint=false
-          this.npaDate=false
-          this.isdisputeloan=false
-          this.noofshares=false
-          this.shareamt=false
-          this.accloseDate=false
-          
-         
-        
+          this.lastTranDate = true
+          this.ledgerbalance = true
+          this.productamount = true
+          this.lastintpaidDate = true
+          this.closingdate = true
+          this.debitcredit = true
+          this.payableint = false
+          this.totalintpaid = false
+          this.totalpenalint = false
+          this.totalinstallmentrec = false
+          this.tdsopDate = false
+          this.intinfinancialyear = false
+          this.opintpaidfinyear = false
+          this.acopenDate = false
+          this.lastcreditDate = false
+          this.lastintDate = false
+          this.opproduct = false
+          this.balanceDate = false
+          this.receivableint = false
+          this.totalintrec = false
+          this.penalint = false
+          this.totaldepositamt = false
+          this.totalpostedint = false
+          this.npaDate = false
+          this.isdisputeloan = false
+          this.noofshares = false
+          this.shareamt = false
+          this.accloseDate = false
+
+
+
         })
         break;
 
-        case 'TD':
+      case 'TD':
         this.schemeAccountNoService.getTermDepositSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
-          this.ledgerbalance=true
-          this.lastTranDate=true
-          this.productamount=false
-          this.lastintpaidDate=true
-          this.closingdate=true
-          this.debitcredit=true
-          this.payableint=true
-          this.totalintpaid=true
-          this.totalpenalint=true
-          this.totalinstallmentrec=true
-          this.tdsopDate=true
-          this.intinfinancialyear=true
-          this.opintpaidfinyear=true
-          this.acopenDate=false
-          this.lastcreditDate=false
-          this.lastintDate=false
-          this.opproduct=false
-          this.balanceDate=false
-          this.receivableint=false
-          this.totalintrec=false
-          this.penalint=false
-          this.totaldepositamt=false
-          this.totalpostedint=false
-          this.npaDate=false
-          this.isdisputeloan=false
-          this.noofshares=false
-          this.shareamt=false
-          this.accloseDate=false
-          
-          
-          
+          this.ledgerbalance = true
+          this.lastTranDate = true
+          this.productamount = false
+          this.lastintpaidDate = true
+          this.closingdate = true
+          this.debitcredit = true
+          this.payableint = true
+          this.totalintpaid = true
+          this.totalpenalint = true
+          this.totalinstallmentrec = true
+          this.tdsopDate = true
+          this.intinfinancialyear = true
+          this.opintpaidfinyear = true
+          this.acopenDate = false
+          this.lastcreditDate = false
+          this.lastintDate = false
+          this.opproduct = false
+          this.balanceDate = false
+          this.receivableint = false
+          this.totalintrec = false
+          this.penalint = false
+          this.totaldepositamt = false
+          this.totalpostedint = false
+          this.npaDate = false
+          this.isdisputeloan = false
+          this.noofshares = false
+          this.shareamt = false
+          this.accloseDate = false
+
+
+
 
 
         })
         break;
 
-        case 'IV':
+      case 'IV':
         this.schemeAccountNoService.getInvestmentSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
           console.log(data)
-          this.ledgerbalance=true
-          this.lastTranDate=true
-          this.productamount=false
-          this.lastintpaidDate=true
-          this.closingdate=true
-          this.debitcredit=true
-          this.payableint=true
-          this.totalintpaid=true
-          this.totalpenalint=false
-          this.totalinstallmentrec=false
-          this.tdsopDate=false
-          this.intinfinancialyear=false
-          this.opintpaidfinyear=false
-          this.acopenDate=false
-          this.lastcreditDate=false
-          this.lastintDate=false
-          this.opproduct=false
-          this.balanceDate=false
-          this.receivableint=false
-          this.penalint=false
-          this.totaldepositamt=false
-          this.totalpostedint=false
-          this.npaDate=false
-          this.isdisputeloan=false
-          this.noofshares=false
-          this.shareamt=false
-          this.accloseDate=false
-          
-          
+          this.ledgerbalance = true
+          this.lastTranDate = true
+          this.productamount = false
+          this.lastintpaidDate = true
+          this.closingdate = true
+          this.debitcredit = true
+          this.payableint = true
+          this.totalintpaid = true
+          this.totalpenalint = false
+          this.totalinstallmentrec = false
+          this.tdsopDate = false
+          this.intinfinancialyear = false
+          this.opintpaidfinyear = false
+          this.acopenDate = false
+          this.lastcreditDate = false
+          this.lastintDate = false
+          this.opproduct = false
+          this.balanceDate = false
+          this.receivableint = false
+          this.penalint = false
+          this.totaldepositamt = false
+          this.totalpostedint = false
+          this.npaDate = false
+          this.isdisputeloan = false
+          this.noofshares = false
+          this.shareamt = false
+          this.accloseDate = false
+
+
         })
         break;
 
-        case 'GS':
+      case 'GS':
         this.schemeAccountNoService.getAnamatSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
-          this.ledgerbalance=true
-          this.lastTranDate=false
-          this.productamount=false
-          this.lastintpaidDate=false
-          this.closingdate=true
-          this.debitcredit=true
-          this.payableint=false
-          this.totalintpaid=false
-          this.totalpenalint=false
-          this.totalinstallmentrec=false
-          this.tdsopDate=false
-          this.intinfinancialyear=false
-          this.opintpaidfinyear=true
-          this.lastcreditDate=false
-          this.lastintDate=false
-          this.opproduct=false
-          this.balanceDate=false
-          this.receivableint=false
-          this.totalintrec=false
-          this.penalint=false
-          this.totaldepositamt=false
-          this.totalpostedint=false
-          this.npaDate=false
-          this.isdisputeloan=false
-          this.noofshares=false
-          this.shareamt=false
-          this.accloseDate=false
-          
-          
+          this.ledgerbalance = true
+          this.lastTranDate = false
+          this.productamount = false
+          this.lastintpaidDate = false
+          this.closingdate = true
+          this.debitcredit = true
+          this.payableint = false
+          this.totalintpaid = false
+          this.totalpenalint = false
+          this.totalinstallmentrec = false
+          this.tdsopDate = false
+          this.intinfinancialyear = false
+          this.opintpaidfinyear = true
+          this.lastcreditDate = false
+          this.lastintDate = false
+          this.opproduct = false
+          this.balanceDate = false
+          this.receivableint = false
+          this.totalintrec = false
+          this.penalint = false
+          this.totaldepositamt = false
+          this.totalpostedint = false
+          this.npaDate = false
+          this.isdisputeloan = false
+          this.noofshares = false
+          this.shareamt = false
+          this.accloseDate = false
+
+
         })
         break;
 
-        case 'AG':
+      case 'AG':
         this.schemeAccountNoService.getPigmyAgentSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
-          this.ledgerbalance=true
-          this.lastTranDate=true
-          this.productamount=false
-          this.lastintpaidDate=true
-          this.closingdate=true
-          this.debitcredit=true
-          this.payableint=false
-          this.totalintpaid=false
-          this.totalpenalint=false
-          this.totalinstallmentrec=false
-          this.tdsopDate=false
-          this.intinfinancialyear=false
-          this.opintpaidfinyear=false
-          this.acopenDate=false
-          this.lastcreditDate=false
-          this.lastintDate=false
-          this.opproduct=false
-          this.balanceDate=false
-          this.receivableint=false
-          this.totalintrec=false
-          this.penalint=false
-          this.totaldepositamt=false
-          this.totalpostedint=false
-          this.npaDate=false
-          this.isdisputeloan=false
-          this.noofshares=false
-          this.shareamt=false
-          this.accloseDate=false
-          
-         
-          
+          this.ledgerbalance = true
+          this.lastTranDate = true
+          this.productamount = false
+          this.lastintpaidDate = true
+          this.closingdate = true
+          this.debitcredit = true
+          this.payableint = false
+          this.totalintpaid = false
+          this.totalpenalint = false
+          this.totalinstallmentrec = false
+          this.tdsopDate = false
+          this.intinfinancialyear = false
+          this.opintpaidfinyear = false
+          this.acopenDate = false
+          this.lastcreditDate = false
+          this.lastintDate = false
+          this.opproduct = false
+          this.balanceDate = false
+          this.receivableint = false
+          this.totalintrec = false
+          this.penalint = false
+          this.totaldepositamt = false
+          this.totalpostedint = false
+          this.npaDate = false
+          this.isdisputeloan = false
+          this.noofshares = false
+          this.shareamt = false
+          this.accloseDate = false
+
+
+
         })
         break;
 
-        case 'PG':
+      case 'PG':
         this.schemeAccountNoService.getPigmyAccountSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
           console.log(data)
-          this.ledgerbalance=true
-          this.lastTranDate=false
-          this.productamount=false
-          this.lastintpaidDate=false
-          this.closingdate=true
-          this.debitcredit=true
-          this.payableint=true
-          this.totalintpaid=false
-          this.totalpenalint=false
-          this.totalinstallmentrec=false
-          this.tdsopDate=false
-          this.intinfinancialyear=false
-          this.opintpaidfinyear=false
-          this.acopenDate=false
-          this.lastcreditDate=true
-          this.lastintDate=true
-          this.opproduct=true
-          this.balanceDate=false
-          this.receivableint=false
-          this.totalintrec=false
-          this.penalint=false
-          this.totaldepositamt=false
-          this.npaDate=false
-          this.isdisputeloan=false
-          this.noofshares=false
-          this.shareamt=false
-          this.accloseDate=false
-          this.totalpostedint=false
-          
+          this.ledgerbalance = true
+          this.lastTranDate = false
+          this.productamount = false
+          this.lastintpaidDate = false
+          this.closingdate = true
+          this.debitcredit = true
+          this.payableint = true
+          this.totalintpaid = false
+          this.totalpenalint = false
+          this.totalinstallmentrec = false
+          this.tdsopDate = false
+          this.intinfinancialyear = false
+          this.opintpaidfinyear = false
+          this.acopenDate = false
+          this.lastcreditDate = true
+          this.lastintDate = true
+          this.opproduct = true
+          this.balanceDate = false
+          this.receivableint = false
+          this.totalintrec = false
+          this.penalint = false
+          this.totaldepositamt = false
+          this.npaDate = false
+          this.isdisputeloan = false
+          this.noofshares = false
+          this.shareamt = false
+          this.accloseDate = false
+          this.totalpostedint = false
+
         })
         break;
-      
 
+      case 'LN':
       case 'CC':
+      case 'DS':
         this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
           console.log(data)
-          this.ledgerbalance=true
-          this.lastTranDate=true
-          this.productamount=false
-          this.lastintpaidDate=false
-          this.closingdate=false
-          this.debitcredit=true
-          this.payableint=false
-          this.totalintpaid=false
-          this.totalpenalint=false
-          this.totalinstallmentrec=false
-          this.tdsopDate=false
-          this.intinfinancialyear=false
-          this.opintpaidfinyear=false
-          this.acopenDate=false
-          this.lastcreditDate=false
-          this.lastintDate=true
-          this.opproduct=false
-          this.balanceDate=true
-          this.receivableint=true
-          this.totalintrec=true
-          this.penalint=true
-          this.totaldepositamt=true
-          this.totalpostedint=true
-          this.npaDate=true
-          this.isdisputeloan=true
-          this.noofshares=false
-          this.shareamt=false
-          this.accloseDate=false
-          
-          
-          
+          this.ledgerbalance = true
+          this.lastTranDate = true
+          this.productamount = false
+          this.lastintpaidDate = false
+          this.closingdate = false
+          this.debitcredit = true
+          this.payableint = false
+          this.totalintpaid = false
+          this.totalpenalint = false
+          this.totalinstallmentrec = false
+          this.tdsopDate = false
+          this.intinfinancialyear = false
+          this.opintpaidfinyear = false
+          this.acopenDate = false
+          this.lastcreditDate = false
+          this.lastintDate = true
+          this.opproduct = false
+          this.balanceDate = true
+          this.receivableint = true
+          this.totalintrec = true
+          this.penalint = true
+          this.totaldepositamt = true
+          this.totalpostedint = true
+          this.npaDate = true
+          this.isdisputeloan = true
+          this.noofshares = false
+          this.shareamt = false
+          this.accloseDate = false
+
+
+
         })
         break;
 
-        
-        case 'SH':
+
+      case 'SH':
         this.schemeAccountNoService.getShareSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
           console.log(data)
-          this.ledgerbalance=false
-          this.lastTranDate=false
-          this.productamount=false
-          this.lastintpaidDate=false
-          this.closingdate=false
-          this.debitcredit=true
-          this.payableint=false
-          this.totalintpaid=false
-          this.totalpenalint=false
-          this.totalinstallmentrec=false
-          this.tdsopDate=false
-          this.intinfinancialyear=false
-          this.opintpaidfinyear=false
-          this.acopenDate=false
-          this.lastcreditDate=false
-          this.lastintDate=false
-          this.opproduct=false
-          this.balanceDate=false
-          this.receivableint=false
-          this.totalintrec=false
-          this.penalint=false
-          this.totaldepositamt=false
-          this.totalpostedint=false
-          this.npaDate=false
-          this.isdisputeloan=false
-          this.noofshares=true
-          this.shareamt=true
-          this.accloseDate=true
-          
-         
+          this.ledgerbalance = false
+          this.lastTranDate = false
+          this.productamount = false
+          this.lastintpaidDate = false
+          this.closingdate = false
+          this.debitcredit = true
+          this.payableint = false
+          this.totalintpaid = false
+          this.totalpenalint = false
+          this.totalinstallmentrec = false
+          this.tdsopDate = false
+          this.intinfinancialyear = false
+          this.opintpaidfinyear = false
+          this.acopenDate = false
+          this.lastcreditDate = false
+          this.lastintDate = false
+          this.opproduct = false
+          this.balanceDate = false
+          this.receivableint = false
+          this.totalintrec = false
+          this.penalint = false
+          this.totaldepositamt = false
+          this.totalpostedint = false
+          this.npaDate = false
+          this.isdisputeloan = false
+          this.noofshares = true
+          this.shareamt = true
+          this.accloseDate = true
+
+
 
         })
         break;
-    
-        
+
+
     }
     this.getschemename = event.name
   }
 
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE: ['',[Validators.required, Validators.pattern]],
+      BRANCH_CODE: ['', [Validators.required, Validators.pattern]],
       AC_TYPE: ['', [Validators.required, Validators.pattern]],
       TRAN_DATE: ['', [Validators.required, Validators.pattern]],
       FROM_AC: ['', [Validators.pattern]],
       TO_AC: ['', [Validators.pattern]],
-     
+
     });
   }
-ngAfterViewInit():void{
-  this.dtTrigger.next();
-  this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-    $('#sharemastertable tfoot tr').appendTo('#sharemastertable thead');
-    dtInstance.columns().every(function () {
-      const that = this;
-      $('input', this.footer()).on('keyup change', function () {
-        if (this['value'] != '') {
-          that
-            .search(this['value'])
-            .draw();
-        } else {
-          that
-            .search(this['value'])
-            .draw();
-        }
-      });
-    });
-  });
-  
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    //   $('#sharemastertable tfoot tr').appendTo('#sharemastertable thead');
+    //   dtInstance.columns().every(function () {
+    //     const that = this;
+    //     $('input', this.footer()).on('keyup change', function () {
+    //       if (this['value'] != '') {
+    //         that
+    //           .search(this['value'])
+    //           .draw();
+    //       } else {
+    //         that
+    //           .search(this['value'])
+    //           .draw();
+    //       }
+    //     });
+    //   });
+    // });
 
-}
+
+  }
   submit() {
     console.log(this.angForm.valid);
     if (this.angForm.valid) {
@@ -629,7 +523,7 @@ ngAfterViewInit():void{
     }
   }
 
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     // this.updateShow = false;
     this.resetForm();
@@ -672,23 +566,23 @@ ngAfterViewInit():void{
 
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
-      
-     
-        this.angForm.patchValue({
-          'TRAN_DATE':data.CURRENT_DATE
-        })
-          
-        
-      
+
+
+      this.angForm.patchValue({
+        'TRAN_DATE': data.CURRENT_DATE
       })
+
+
+
+    })
   }
   // Reset Function
   resetForm() {
     this.createForm();
     this.getSystemParaDate()
-    this.ngscheme=null
-    this.ngfromac=null
-    this.ngtoac=null
+    this.ngscheme = null
+    this.ngfromac = null
+    this.ngtoac = null
   }
 
   //function toggle update to add button
