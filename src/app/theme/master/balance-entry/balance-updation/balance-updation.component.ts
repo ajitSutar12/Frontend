@@ -67,6 +67,7 @@ export class BalanceUpdationComponent implements OnInit {
   //for date
   maxDate: Date;
   minDate: Date;
+  warrentdate:any=null
 
 
   

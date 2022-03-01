@@ -5,12 +5,16 @@ import { DividendCalculationRoutingModule } from './dividend-calculation-routing
 import { DividendCalculationComponent } from './dividend-calculation.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
+import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
+import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 import { MembernoService } from '../../../../shared/elements/memberno.service';
 import { BranchService } from '../../../../shared/elements/branch.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SelectModule } from 'ng-select';
+// import { SelectModule } from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 
@@ -21,12 +25,15 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     DividendCalculationRoutingModule,
     DataTablesModule,
     NgbModule,
-    SelectModule,
+    // SelectModule,
+    NgSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   declarations: [DividendCalculationComponent],
-  providers: [SchemeCodeService, MembernoService, BranchService,{
+  providers: [SchemeCodeService,SchemeAccountNoService, SchemeCodeDropdownService,MembernoService, BranchService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

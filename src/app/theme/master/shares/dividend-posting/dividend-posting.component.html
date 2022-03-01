@@ -4,48 +4,61 @@
         <div class="card">
             <div class="card-header">
                 <h5>Dividend Posting</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
-                                    placeholder="Scheme Code*" required title="Compulsory Selection"
-                                    formControlName="SchemeCode">
-                                </ng-select>
-                                <label>{{ message.SchemeCode}}</label>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['SchemeCode'].invalid && (angForm.controls['SchemeCode'].dirty || angForm.controls['SchemeCode'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['SchemeCode'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" class="form-control" placeholder=" " required="" max="9999-12-31"
-                                        formControlName="Date" value="{{ message.WarrantDate  }}"
-                                        onfocus="(this.type='date')" id="date" />
-                                    <label for="date">Div.Warrant Date <sub class="required">* </sub> </label>
+                                    <ng-select id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
+                                         formControlName="AC_TYPE" bindLabel="label" 
+                                        title="Compulsory Selection" required placeholder="Scheme Code">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['Date'].invalid && (angForm.controls['Date'].dirty || angForm.controls['Date'].touched)"
+                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['Date'].errors?.required">
-                                    This field is required
+                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="WARRENT_DATE">Div.Warrent Date<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy"
+                                    name="WARRENT_DATE" id="WARRENT_DATE"
+                                    class="form-control" [(ngModel)]="warrentdate"
+                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                    [maxDate]="maxDate"
+                                    [ngClass]="{'form-submitted': formSubmitted}"
+                                    formControlName="WARRENT_DATE"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                    bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['WARRENT_DATE'].invalid && (angForm.controls['WARRENT_DATE'].dirty || angForm.controls['WARRENT_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['WARRENT_DATE'].errors?.required">
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton"
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
                                 [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
                         </div>
                     </div>
@@ -61,8 +74,39 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions"
-                                class="table table-striped table-bordered table-hover" style="width: 100%;">
+                            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
+                                <tbody *ngIf="dividendposting?.length != 0">
+                                    <tr *ngFor="let data of dividendposting">
+                                        <td>
+                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit"></span>
+                                            &nbsp;
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
+                                        </td>
+                                        <td>{{ data.AC_TYPE }}</td>
+                                        <td class="td_center">{{ data.WARRENT_DATE }}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="dividendposting?.length == 0">
+                                    <tr>
+                                      <td colspan="6" class="no-data-available">No data!</td>
+                                    </tr>
+                                  </tbody>
+                                  <tfoot #filters class="filters">
+                                    <tr class="testing">
+                                        <th class="testing"></th>
+
+                                        
+                                        <th>
+                                            <input type="text" class="form-control" name="AC_TYPE" />
+                                          </th>
+                                          <th>
+                                            <input type="text" class="form-control" name="WARRENT_DATE" />
+                                          </th>
+                                    </tr>
+                                  </tfoot>
+                            
                             </table>
                         </div>
                     </div>
