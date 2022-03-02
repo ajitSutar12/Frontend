@@ -1,16 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'; 
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/first';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http'
 import Swal from 'sweetalert2';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { environment } from 'src/environments/environment';
+import { first } from 'rxjs/operators';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { IntrestCategoryMasterDropdownService } from 'src/app/shared/dropdownService/interest-category-master-dropdown.service';
+import { CashCreditLoanRenewalService } from './cash-credit-loan-renewal.service'
+// Handling datatable data
+class DataTableResponse {
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
+// For fetching values from backend
+interface CashCreditLoanRenewal {
+  id: number;
+  BRANCH_CODE:string
+  AC_TYPE:string
+  AC_NO:number
+  REN_DATE:Date
+  AC_OPENING_DATE:Date
+  AC_RENEWAL_COUNTER:Date
 
-
+}
 
 
 
@@ -21,230 +39,179 @@ import Swal from 'sweetalert2';
 })
 export class CashCreditAcRenewalComponent implements OnInit {
 
-  dtExportButtonOptions: any = {};
+  formSubmitted = false;
+   //api
+   url = environment.base_url;
+
+  // Formgroup variable
+  angForm: FormGroup;
+  // cashcreditloanrenewalForm: FormGroup;
+
+  // Variables for hide/show add and update button
   showButton: boolean = true;
-  updateShow: boolean = false;
 
-  message = {
-    scheme: "",
-    acc_no: "",
-    renewal_date: "",
-    acc_date: "",
-    renewal_times: "",
-    period:"",
-    expiry: "",
-    s_limit: "",
-    sanction: "",
-    securities_amount: "",
-    drawing_power: "",
-    installment: "",
-    r_period: "",
-    r_expiry: "",
-    r_s_limit: "",
-    r_sanction: "",
-    r_securities_amount: "",
-    r_drawing_power: "",
-    r_installment: "",
-    int_category: "",
-    l_interest: "",
-    no:"",
-    date:"",
-    n_interest:"",
-    p_interest:"",
-    e_date:"",
-    year:"",
-    subm_date:"",
-    tds_rate:"",
-    tds_limit:"",
+  // interface variable
+  cashcreditloanrenewal: CashCreditLoanRenewal[];
 
-  };
+  // dropdown variables
+  ngscheme: any=null
+  ngBranchCode:any=null
+  ngacno:any=null
+  getschemename: any;
+  schemeACNo: any[];
+  scheme: any[];
+  obj: any;
+  int_category:any=null
+  branch_code: any[];
+  intCat: any[];
+  
+  // date variables
+  maxDate: Date;
+  minDate: Date;
+  renewaldate:any=null
+  acopeningdate:any=null
+  ngexpirydate:any=null
+  ngsansctiondate:any=null
+  nglastintdate:any=null
+  ngeffectivedate:any=null
+  
 
-//function for edit button clicked
-  editClickHandler(info: any): void {
-    this.message.scheme = info.scheme;
-    this.message.tds_rate = info.tds_rate;
-    this.message.tds_limit = info.tds_limit;
-    this.message.acc_no = info.acc_no;
-    this.message.renewal_date = info.renewal_date;
-    this.message.acc_date = info.acc_date;
-    this.message.renewal_times = info.renewal_times;
-    this.message.period = info.period;
-    this.message.expiry = info.expiry;
-    this.message.s_limit = info.s_limit;
-    this.message.sanction = info.sanction;
-    this.message.securities_amount = info.securities_amount;
-    this.message.drawing_power = info.drawing_power;
-    this.message.installment = info.installment;
-    this.message.r_period = info.r_period;
-    this.message.r_expiry = info.r_expiry;
-    this.message.r_s_limit = info.r_s_limit;
-    this.message.r_sanction = info.r_sanction;
-    this.message.r_installment = info.r_installment;
-    this.message.int_category = info.int_category;
-    this.message.l_interest = info.l_interest;
-    this.message.r_securities_amount = info.r_securities_amount;
-    this.message.r_drawing_power = info.r_drawing_power;
-    this.message.no = info.no;
-    this.message.date = info.date;
-    this.message.n_interest = info.n_interest;
-    this.message.p_interest = info.p_interest;
-    this.message.year = info.year;
-    this.message.e_date = info.e_date;
-    this.message.subm_date = info.subm_date;
-    this.showButton = false;
-    this.updateShow = true;
+  
 
 
-  }
 
-//function for delete button clicked
-delClickHandler(info:any):void  {
-  this.message.scheme=info.scheme;
-      Swal.fire({
-    title: 'Are you sure?',
-    text: "Do you want to delete title." + this.message.scheme + "  data", 
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
-      }
-    })
-  }
+  constructor(
+    private fb: FormBuilder, private http: HttpClient,
+    private systemParameter: SystemMasterParametersService,
+    private cashcreditservice: CashCreditLoanRenewalService,
+    private interstCate: IntrestCategoryMasterDropdownService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private schemeAccountNoService: SchemeAccountNoService,
+    private ownbranchMasterService: OwnbranchMasterService,
+    private config: NgSelectConfig,) { 
 
-  constructor() { }
+      this.maxDate = new Date();
+      this.minDate = new Date();
+      this.minDate.setDate(this.minDate.getDate() - 1);
+      this.maxDate.setDate(this.maxDate.getDate())
+    }
  
   
     ngOnInit(): void {
-      this.dtExportButtonOptions = {
-        ajax: 'fake-data/cash_acc_renewal.json',
-        columns: [
-          {
-            title: 'Action',
-            render: function (data: any, type: any, full: any) {
-              return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-            }
-          }, {
-            title: 'Scheme',
-            data: 'scheme'
-          }, {
-          title: 'Account No ',
-          data: 'acc_no'
-        }, {
-          title: 'Renewal Date',
-          data: 'renewal_date'
-        },{
-          title: 'Account Opening Date',
-          data: 'acc_date'
-        }, {
-          title: 'Account Renewal Times',
-          data: 'renewal_times'
-        }, {
-          title: 'Old Period',
-          data: 'period'
-        }, {
-          title: 'Old Expiry Date',
-          data: 'expiry'
-        }, {
-          title: 'Sanction Limit',
-          data: 's_limit'
-        }, {
-          title: 'Sanction Date',
-          data: 'sanction'
-        }, {
-          title: 'Securities Amount ',
-          data: 'securities_amount'
-        }, {
-          title: 'Drawing Power',
-          data: 'drawing_power'
-        }, {
-          title: 'Installment',
-          data: 'installment'
-        }, {
-          title: 'Renew Period',
-          data: 'r_period'
-        }, {
-          title: 'Renew Expiry Date',
-          data: 'r_expiry'
-        }, {
-          title: 'Renew Sanction Limit',
-          data: 'r_s_limit'
-        }, {
-          title: 'Renew Sanction Date',
-          data: 'r_sanction'
-        }, {
-          title: 'Renew Securities Amount ',
-          data: 'r_securities_amount'
-        }, {
-          title: 'Renew Drawing Power',
-          data: 'r_drawing_power'
-        }, {
-          title: 'Renew Installment',
-          data: 'r_installment'
-        }, {
-          title: 'Interest Category',
-          data: 'int_category'
-        }, {
-          title: 'Last Interest Date',
-          data: 'l_interest'
-        }, {
-          title: 'No',
-          data: 'no'
-        }, {
-          title: 'Date',
-          data: 'date'
-        },{
-          title: 'Normal Interest Date',
-          data: 'n_interest'
-        },{
-          title: 'Penal Interst Rate',
-          data: 'p_interest'
-        }, {
-          title: 'Effective Date',
-          data: 'e_date'
-        }, 
-      ],
-        dom: 'Bfrtip',
-        buttons: [
-          'copy',
-          'print',
-          'excel',
-          'csv'
-        ],
-        //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
+      this.createForm();
+
+      this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
+        var filtered = data.filter(function (scheme) {
+          return (scheme.name == 'LN' || scheme.name == 'CC');
         });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-      };
+        this.scheme = filtered;
+      })
+      this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+        this.branch_code = data;
+        this.ngBranchCode = data[0].value
+      })
+      this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
+        this.intCat = data;
+      })
+    }
+    createForm() {
+      this.angForm = this.fb.group({
+        BRANCH_CODE:['',[Validators.required,Validators.pattern]],
+        AC_TYPE:['',[Validators.required,Validators.pattern]],
+        AC_NO:['',[Validators.pattern,Validators.required]],
+        RENEWAL_DATE:['',[Validators.required]],
+        AC_OPDATE:['',[Validators.required]],
+        AC_RENEWAL_COUNTER:['',[Validators.required,Validators.pattern]],
+        OLDAC_MONTHS:[''],
+        OLDAC_EXPIRE_DATE:[''],
+        OLDAC_SANCTION_AMOUNT:[''],
+        OLDAC_SANCTION_DATE:[''],
+        OLDAC_SECURITY_AMT:[''],
+        OLDAC_DRAWPOWER_AMT:[''],
+        OLDAC_INSTALLMENT:[''],
+        AC_MONTHS:['',[Validators.required,Validators.pattern]],
+        AC_EXPIRE_DATE:['',[Validators.required]],
+        AC_SANCTION_AMOUNT:['',[Validators.required,Validators.pattern]],
+        AC_SANCTION_DATE:['',[Validators.required]],
+        AC_SECURITY_AMT:['',[Validators.required,Validators.pattern]],
+        AC_DRAWPOWER_AMT:['',[Validators.required,Validators.pattern]],
+        AC_INSTALLMENT:['',[Validators.required,Validators.pattern]],
+        AC_INTCATA:['',[Validators.required,Validators.pattern]],
+        LAST_INTDATE:['',[Validators.required]],
+        AC_RESO_NO:['',[Validators.required,Validators.pattern]],
+        AC_RESO_DATE:['',[Validators.required]],
+        INT_RATE:['',[Validators.required,Validators.pattern]],
+        PENAL_INT_RATE:['',[Validators.required,Validators.pattern]],
+        EFFECT_DATE:['',[Validators.required]],
+
+
+      });
+    }
+    addNewData() {
+      this.showButton = true;
+      
+      this.resetForm();
+    }
+  resetForm() {
+    
   }
+
+    getBranch() {
+   
+      this.getIntroducer()
+    }
+    
+    
+  
+    getIntro(event) {
+    
+      this.getschemename = event.name
+      this.getIntroducer()
+    }
+  
+    //get account no according scheme
+    getIntroducer() {
+    
+    debugger
+    
+    let obj = [this.ngscheme, this.ngBranchCode]
+    switch (this.getschemename) {
+
+      case 'CC':
+
+        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+
+        })
+        break;
+      case 'LN':
+
+        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+          
+        })
+        break;
+
+
+    }
+    // this.getschemename = event.name
+  }
+
+  //get sys para current date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        'RENEWAL_DATE': data.CURRENT_DATE,
+      })
+    })
+  }
+
+    submit() {
+      
+    }
+    
   
 
-  updateData() {
-    this.showButton = true;
-    this.updateShow = false;
-  }
+  
 
 }
