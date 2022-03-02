@@ -23,12 +23,12 @@ export class SchemeCodeDropdownService {
     }
 
 
-    public getAllSchemeList() { 
+    public getAllSchemeList() {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/scheme-parameters/')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.S_NAME, value: element.id, name: element.S_ACNOTYPE, id: element.S_APPL};
+                    let obj = { label: element.S_NAME, value: element.id, name: element.S_ACNOTYPE, id: element.S_APPL, glacno: element.S_GLACNO };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -42,11 +42,11 @@ export class SchemeCodeDropdownService {
                 ele.forEach(element => {
                     let obj = { label: element.S_APPL + ' ' + element.S_NAME, value: element.id, name: element.S_ACNOTYPE };
                     this.schemeObject.push(obj)
-                });console.log('in service',this.schemeObject)
+                }); console.log('in service', this.schemeObject)
 
                 return this.schemeObject;
             }));
-            
+
     }
 
     public getTermDepositSchemeRD() {

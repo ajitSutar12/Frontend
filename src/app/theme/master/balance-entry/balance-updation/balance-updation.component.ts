@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
-import { BalanceUpdationService } from '../../../../shared/elements/balance-updation.service';
+import { BalanceUpdationService } from './balance-updation.service';
 import { DebitService } from '../../../../shared/elements/debit.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -47,8 +47,8 @@ export class BalanceUpdationComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
 
   //title select variables
-  debit: Array<IOption> = this.DebitService.getCharacters();
-  simpleOption: Array<IOption> = this.BalanceUpdationService.getCharacters();
+  // debit: Array<IOption> = this.DebitService.getCharacters();
+  // simpleOption: Array<IOption> = this.BalanceUpdationService.getCharacters();
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -67,61 +67,7 @@ export class BalanceUpdationComponent implements OnInit {
   //for date
   maxDate: Date;
   minDate: Date;
-  warrentdate:any=null
-
-
-
-
-  scheme: any[];
-  arrTable: any[];
-  ToAC: any[];
-  fromAC: any[];
-  getschemename: any;
-  ngbranch: any = null;
-  branchOption: any;
-
-
-  constructor(public BalanceUpdationService: BalanceUpdationService,
-    private http: HttpClient,
-    public DebitService: DebitService, private fb: FormBuilder,
-    private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private _ownbranchmasterservice: OwnbranchMasterService,
-    private systemParameter: SystemMasterParametersService,
-    private schemeAccountNoService: SchemeAccountNoService,
-    private config: NgSelectConfig,) {
-
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
-  }
-
-  ngOnInit(): void {
-    this.createForm();
-    this.getSystemParaDate()
-
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      dom: 'ftip'
-    };
-    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH')
-      });
-      this.scheme = allscheme;
-    })
-
-    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
-      this.branchOption = data;
-    })
-  }
-
-
-  getBranch() {
-    this.getAccountList(event)
-  }
-
+  warrentdate: any = null
 
   // for grid variable declaration
   ledgerbalance: boolean = false
@@ -162,16 +108,81 @@ export class BalanceUpdationComponent implements OnInit {
   lastdepreciationDate: boolean = false
 
 
+  debitCredit = [
+    { value: 'D', label: 'Debit' },
+    { value: 'C', label: 'Credit' },
+  ]
+
+
+  scheme: any[];
+  arrTable
+  ToAC: any[];
+  fromAC: any[];
+  // getschemename: any;
+  ngbranch: any = null;
+  branchOption: any;
+
+
+  constructor(public _service: BalanceUpdationService,
+    private http: HttpClient,
+    public DebitService: DebitService, private fb: FormBuilder,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private _ownbranchmasterservice: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
+    private schemeAccountNoService: SchemeAccountNoService,
+    private config: NgSelectConfig,) {
+
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
+
+  ngOnInit(): void {
+    this.createForm();
+    // this.getSystemParaDate()
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      dom: 'ftip'
+    };
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var allscheme = data.filter(function (scheme) {
+        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH')
+      });
+      this.scheme = allscheme;
+    })
+
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
+  }
+  branchCode
+  branchid
+  getschemename
+  S_GLACNO
+
+  getBranch(event) {
+    this.branchCode = event.name
+    this.branchid = event.value
+    this.getAccountList()
+  }
+
+  //get scheme value and type
+  schemechange(event) {
+    this.getschemename = event.name
+    this.S_GLACNO = event.glacno
+    this.getAccountList()
+  }
+
   //get account no according scheme
-  getAccountList(event) {
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
+  getAccountList() {
     this.ngfromac = null
     this.ngtoac = null
     this.arrTable = []
     let obj = [this.ngscheme, this.ngbranch]
-    switch (event.name) {
+    switch (this.getschemename) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
@@ -204,9 +215,6 @@ export class BalanceUpdationComponent implements OnInit {
           this.noofshares = false
           this.shareamt = false
           this.accloseDate = false
-
-
-
         })
         break;
 
@@ -242,11 +250,6 @@ export class BalanceUpdationComponent implements OnInit {
           this.noofshares = false
           this.shareamt = false
           this.accloseDate = false
-
-
-
-
-
         })
         break;
 
@@ -254,7 +257,6 @@ export class BalanceUpdationComponent implements OnInit {
         this.schemeAccountNoService.getInvestmentSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
-          console.log(data)
           this.ledgerbalance = true
           this.lastTranDate = true
           this.productamount = false
@@ -365,7 +367,6 @@ export class BalanceUpdationComponent implements OnInit {
         this.schemeAccountNoService.getPigmyAccountSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
-          console.log(data)
           this.ledgerbalance = true
           this.lastTranDate = false
           this.productamount = false
@@ -404,7 +405,6 @@ export class BalanceUpdationComponent implements OnInit {
         this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
-          console.log(data)
           this.ledgerbalance = true
           this.lastTranDate = true
           this.productamount = false
@@ -433,18 +433,13 @@ export class BalanceUpdationComponent implements OnInit {
           this.noofshares = false
           this.shareamt = false
           this.accloseDate = false
-
-
-
         })
         break;
-
 
       case 'SH':
         this.schemeAccountNoService.getShareSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
-          console.log(data)
           this.ledgerbalance = false
           this.lastTranDate = false
           this.productamount = false
@@ -479,10 +474,118 @@ export class BalanceUpdationComponent implements OnInit {
         })
         break;
 
-
     }
-    this.getschemename = event.name
   }
+  balanceUpdateArr
+  showTable: boolean = false
+  mem
+
+  //load table based on from and to account number
+  getTable() {
+    this.arrTable = []
+    this.balanceUpdateArr = []
+    var memFrom = this.angForm.controls['FROM_AC'].value
+    var memTo = this.angForm.controls['TO_AC'].value
+    if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value && this.angForm.controls['TO_AC'].value != '') {
+      this.showTable = true
+      this.mem = [memFrom, memTo, this.ngscheme, this.ngbranch, this.getschemename]
+      this.http.get(this.url + '/balance-updation/accounts/' + this.mem).subscribe((data) => {
+        this.arrTable = data;
+        console.log('array', this.arrTable)
+        // this.arrTable.forEach(element => {
+        //   var object = {
+        //     AC_NO: element.AC_NO,
+        //     AC_NAME: element.AC_NAME,
+        //     id: element.id,
+        //     BANKACNO: element.BANKACNO == undefined || element.BANKACNO == null ? '' : element.BANKACNO,
+        //     TRAN_AMOUNT: '',
+        //     NARRATION: ''
+        //   }
+        //   this.balanceUpdateArr.push(object)
+        // });
+      });
+    }
+    else {
+      Swal.fire("To Account Number Must Be Greater Than From Account Number");
+      this.angForm.patchValue({
+        TO_AC: ''
+      })
+      this.arrTable = []
+      this.balanceUpdateArr = []
+    }
+  }
+
+
+  getColumnValue(id, AC_NO, BANKACNO, columnValue, ColumnName) {
+    if (columnValue != '' || columnValue != 0) {
+      debugger
+      if (this.balanceUpdateArr.length != 0) {
+        if (this.balanceUpdateArr.some(item => item.AC_NO === AC_NO)) {
+          this.balanceUpdateArr.forEach((element) => {
+            if (element.AC_NO == AC_NO) {
+              element[`${ColumnName}`] = columnValue
+            }
+          })
+        }
+        else {
+          var object = {
+            AC_NO: AC_NO,
+            id: id,
+            BANKACNO: BANKACNO
+          }
+          object[`${ColumnName}`] = columnValue
+          this.balanceUpdateArr.push(object)
+        }
+      }
+      else {
+        var object = {
+          AC_NO: AC_NO,
+          id: id,
+          BANKACNO: BANKACNO
+        }
+        object[`${ColumnName}`] = columnValue
+        this.balanceUpdateArr.push(object)
+      }
+    }
+    console.log(this.balanceUpdateArr)
+  }
+  ngDebitCredit: any = null
+  getDebitCredit(id, AC_NO, BANKACNO, AC_OP_CD) {
+
+    if (this.balanceUpdateArr.length != 0) {
+      debugger
+      if (this.balanceUpdateArr.some(item => item.AC_NO === AC_NO)) {
+        this.balanceUpdateArr.forEach((element) => {
+          if (element.AC_NO == AC_NO) {
+            element['AC_OP_CD'] = AC_OP_CD == 1 ? 'D' : 'C'
+          }
+        })
+      }
+      else {
+        var object = {
+          AC_NO: AC_NO,
+          id: id,
+          BANKACNO: BANKACNO,
+          AC_OP_CD: AC_OP_CD == 1 ? 'D' : 'C'
+        }
+        // object[`${ColumnName}`] = columnValue
+        this.balanceUpdateArr.push(object)
+      }
+    }
+    else {
+      var object = {
+        AC_NO: AC_NO,
+        id: id,
+        BANKACNO: BANKACNO,
+        AC_OP_CD: AC_OP_CD == 1 ? 'D' : 'C'
+      }
+      // object[`${ColumnName}`] = columnValue
+      this.balanceUpdateArr.push(object)
+    }
+
+    console.log(this.balanceUpdateArr)
+  }
+
 
   createForm() {
     this.angForm = this.fb.group({
@@ -491,7 +594,7 @@ export class BalanceUpdationComponent implements OnInit {
       TRAN_DATE: ['', [Validators.required, Validators.pattern]],
       FROM_AC: ['', [Validators.pattern]],
       TO_AC: ['', [Validators.pattern]],
-
+      debitcredit: ['']
     });
   }
   ngAfterViewInit(): void {
@@ -520,6 +623,25 @@ export class BalanceUpdationComponent implements OnInit {
     console.log(this.angForm.valid);
     if (this.angForm.valid) {
       console.log(this.angForm.value);
+    }
+    let notingdate
+    this.formSubmitted = true;
+    if (this.balanceUpdateArr.length != 0) {
+      const formVal = this.angForm.value;
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      const dataToSend = {
+        balanceUpdateArr: this.balanceUpdateArr,
+        AC_TYPE: this.getschemename
+      };
+      this._service.postData(dataToSend).subscribe(data => {
+        this.formSubmitted = false;
+
+
+      })
+      this.resetForm()
+      this.balanceUpdateArr = []
+      this.arrTable = []
     }
   }
 
@@ -566,23 +688,20 @@ export class BalanceUpdationComponent implements OnInit {
 
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
-
-
       this.angForm.patchValue({
         'TRAN_DATE': data.CURRENT_DATE
       })
-
-
-
     })
   }
   // Reset Function
   resetForm() {
     this.createForm();
-    this.getSystemParaDate()
+    // this.getSystemParaDate()
     this.ngscheme = null
     this.ngfromac = null
     this.ngtoac = null
+    this.balanceUpdateArr = []
+    this.ngbranch = null
   }
 
   //function toggle update to add button

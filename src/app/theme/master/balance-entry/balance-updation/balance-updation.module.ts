@@ -4,7 +4,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BalanceUpdationRoutingModule } from './balance-updation.routing.module';
 import { BalanceUpdationComponent } from './balance-updation.component';
-import { BalanceUpdationService } from '../../../../shared/elements/balance-updation.service';
 import { DebitService } from '../../../../shared/elements/debit.service';
 // import { SelectModule } from 'ng-select';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -15,7 +14,7 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
+import { BalanceUpdationService } from './balance-updation.service'
 
 @NgModule({
   imports: [
@@ -34,11 +33,11 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     OwnbranchMasterService,
     SchemeAccountNoService,
     SchemeCodeDropdownService,
-    BalanceUpdationService, 
-    DebitService,{
-    provide: HTTP_INTERCEPTORS,
-    useClass: UserAuthInterceptor,
-    multi: true
-  },]
+    BalanceUpdationService,
+    DebitService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },]
 })
 export class BalanceUpdationModule { }
