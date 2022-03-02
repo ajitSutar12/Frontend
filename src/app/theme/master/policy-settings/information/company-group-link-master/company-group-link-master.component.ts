@@ -205,6 +205,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     //   this.schemeCode = data;
     // })
     this.schemeCodeService.getAllSchemeList().pipe(first()).subscribe(data => {
+      console.log(data)
       var filtered = data.filter(function (scheme) {
         debugger
         return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'TD' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'GS' || scheme.name == 'SH');
@@ -412,57 +413,62 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this._allAcc
     this.account = null
     this.scheme = event.name
+    var actype = event.value
+    var obj = [this.ngBranchCode, actype]
+    this.ngAccount = null
+    this.ngToAccount = null
+    this.multiData = []
     switch (event.name) {
       case 'SB':
-        this._allAcc.getSavingList(this.ngBranchCode).subscribe(data => {
+        this._allAcc.getSavingList(obj).subscribe(data => {
           this.account = data;
 
         })
         break;
 
       case 'SH':
-        this._allAcc.getShareList(this.ngBranchCode).subscribe(data => {
+        this._allAcc.getShareList(obj).subscribe(data => {
           this.account = data;
 
         })
         break;
 
       case 'CA':
-        this._allAcc.getCurrentList(this.ngBranchCode).subscribe(data => {
+        this._allAcc.getCurrentList(obj).subscribe(data => {
           this.account = data;
 
         })
         break;
 
       case 'LN':
-        this._allAcc.getTermLoanList(this.ngBranchCode).subscribe(data => {
+        this._allAcc.getTermLoanList(obj).subscribe(data => {
           this.account = data;
 
         })
         break;
 
       case 'TD':
-        this._allAcc.getTermDepositList(this.ngBranchCode).subscribe(data => {
+        this._allAcc.getTermDepositList(obj).subscribe(data => {
           this.account = data;
 
         })
         break;
       case 'CC':
-        this._allAcc.getCashCreditList(this.ngBranchCode).subscribe(data => {
+        this._allAcc.getCashCreditList(obj).subscribe(data => {
           this.account = data;
 
         })
         break;
 
       case 'GS':
-        this._allAcc.getAnamatList(this.ngBranchCode).subscribe(data => {
+        this._allAcc.getAnamatList(obj).subscribe(data => {
           this.account = data;
 
         })
         break;
 
       case 'PG':
-        this._allAcc.getPigmyAccountList(this.ngBranchCode).subscribe(data => {
+        this._allAcc.getPigmyAccountList(obj).subscribe(data => {
           this.account = data;
 
         })
@@ -476,7 +482,10 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     console.log(this.angForm.controls['TO_AC'].value)
     var fromac = this.angForm.controls['FROM_AC'].value
     var toac = this.angForm.controls['TO_AC'].value;
-    this.accountno = [fromac, toac]
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this.accountno = [fromac, toac, branchCode]
     debugger
     if (this.angForm.controls['TO_AC'].value == '' || this.angForm.controls['TO_AC'].value == null) {
 
