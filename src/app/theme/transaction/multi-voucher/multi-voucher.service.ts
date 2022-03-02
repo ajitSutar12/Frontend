@@ -32,7 +32,7 @@ export class MultiVoucherService {
 
     //insert voucher entyr
     insertVoucher(data): Observable<any> {
-        return this.http.post(this.url + '/voucher', data);
+        return this.http.post(this.url + '/voucher/insertMultiVoucher', data);
     }
 
     //Get Head details using head

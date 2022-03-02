@@ -1,535 +1,604 @@
-<div style="width: 270px;height: 335px;z-index: 1000;
-position: absolute;margin-top: 14%;margin-left:51%" *ngIf="PreviewDiv">
-    <img [src]="previewImg" width="400" height="300">
+<!-- <div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-3">
+                    <button class="btn btn-sm">Ledger View</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-sm">Interset Paid</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-sm">Unpassed Details</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-sm">Enquiry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- <div class="container"> -->
+    <div style="width: 270px;height: 335px;z-index: 1000;
+    position: absolute;margin-top: 14%;margin-left:51%" *ngIf="PreviewDiv">
+  <img [src]="previewImg" width="400" height="300">
 </div>
 <div class="row">
-    <div class="col-md-9">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        Multi Voucher
-                    </div>
-                    <div class="card-body">
-                        <form [formGroup]="angForm" novalidate>
-                            <div class="solid">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="voucherNo">Voucher Number</label></div>
-                                    <div class="col-sm-12 col-md-2">
-                                        <div class="form-group form-primary form-static-label">
-                                            <span class="border-lable-flt">
-                                                <input type="text" name="voucherNo" class="form-control" placeholder=" "
-                                                    id="voucherNo" formControlName="voucherNo" disabled>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="voucherDate">Voucher Date</label>
-                                    </div>
-                                    <div class="col-sm-12 col-md-2">
-                                        <div class="form-group form-primary form-static-label">
-                                            <span class="border-lable-flt">
-                                                <input type="text" name="voucherDate" class="form-control"
-                                                    placeholder=" " id="voucherDate" formControlName="voucherDate"
-                                                    disabled>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="BRANCH">Branch Code<sub
-                                                class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-2">
-                                        <div class="form-group form-primary form-static-label">
-                                            <span class="border-lable-flt">
-                                                <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
-                                                    formControlName="BRANCH" bindLabel="label"
-                                                    title="Compulsory Selection" placeholder="Branch">
-                                                    <ng-option *ngFor="let values of branch_code" [value]="values">
-                                                        {{values.label}}</ng-option>
-                                                </ng-select>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="SchemeType">Scheme Type</label></div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group input-group">
-                                            <span class="border-lable-flt">
-                                                <input type="text" name="SchemeType" class="form-control"
-                                                    placeholder=" " id="SchemeType" formControlName="SchemeType"
-                                                    disabled>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="SchemeCode">Scheme Code</label></div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="form-group input-group">
-                                            <span class="border-lable-flt">
-                                                <input type="text" name="SchemeCode" class="form-control"
-                                                    placeholder=" " id="SchemeCode" formControlName="SchemeCode"
-                                                    disabled>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-2"><label for="AccountNumber">Account Number</label>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group input-group">
-                                            <span class="border-lable-flt">
-                                                <input type="text" name="AccountNumber" class="form-control"
-                                                    placeholder=" " id="AccountNumber" formControlName="AccountNumber"
-                                                    disabled>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-2"><label for="TransactionMode">Transaction
-                                            Mode</label></div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group input-group">
-                                            <span class="border-lable-flt">
-                                                <input type="text" name="TransactionMode" class="form-control"
-                                                    placeholder=" " id="TransactionMode"
-                                                    formControlName="TransactionMode" disabled>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="chequeno">Cheque Number</label></div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group input-group">
-                                            <span class="border-lable-flt">
-                                                <input type="text" name="chequeno" class="form-control" placeholder=" "
-                                                    id="chequeno" formControlName="chequeno" disabled>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="voucheramount">Voucher Amount</label>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group input-group">
-                                            <span class="border-lable-flt">
-                                                <input type="text" name="voucheramount" class="form-control"
-                                                    placeholder=" " id="voucheramount" formControlName="voucheramount"
-                                                    disabled>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-4">
-                                        <div class="form-radio">
-                                            <div class="radio radio-inline">
-                                                <label>
-                                                    <input type="radio" formControlName="creditRadio"
-                                                        name="creditRadio">
-                                                    <i class="helper"></i>Credit<span class="required"> </span>
-                                                </label>
-                                            </div>
-                                            <div class="radio radio-inline">
-                                                <label>
-                                                    <input type="radio" formControlName="creditRadio"
-                                                        name="creditRadio">
-                                                    <i class="helper"></i>Debit<span class="required"> </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-2"><label for="particulars">Particulars</label>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group input-group">
-                                            <span class="border-lable-flt">
-                                                <input type="text" name="particulars" class="form-control"
-                                                    placeholder=" " id="particulars" formControlName="particulars"
-                                                    disabled>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-8"></div>
-                                    <div class="col-sm-12 col-md-2"> <label for="totaldebitamount">Total Debit
-                                            Amount</label></div>
-                                    <div class="col-md-2">
-                                        <div class="form-group input-group">
-                                            <span class="border-lable-flt">
-                                                <input type="text" name="totaldebitamount" class="form-control"
-                                                    placeholder=" " id="totaldebitamount"
-                                                    formControlName="totaldebitamount" disabled>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-8"></div>
-                                    <div class="col-sm-12 col-md-2"><label for="totalcreditamount">Total Credit
-                                            Amount</label></div>
-                                    <div class="col-md-2">
-                                        <div class="form-group input-group">
-                                            <span class="border-lable-flt">
-                                                <input type="text" name="totalcreditamount" class="form-control"
-                                                    placeholder=" " id="totalcreditamount"
-                                                    formControlName="totalcreditamount" disabled>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+  <div class="col-md-9">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header">
+                    Multi Voucher Entry
+                  </div>
+                  <div class="card-body">
+                      <form [formGroup]="angForm" novalidate>
+                          <div class="solid">
+                              <div class="row">
+                                  <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
+                                              class="required">*</sub></label></div>
+                                  <div class="col-sm-12 col-md-2">
+                                      <div class="form-group form-primary form-static-label">
+                                          <span class="border-lable-flt">
+                                              <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code">
+                                                  <ng-option *ngFor="let item of branch_code" [value]="item.value">
+                                                      {{item.label}}</ng-option>
+                                              </ng-select>
 
-                            </div>
+                                          </span>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-12 col-md-4">
+                                      <!-- <div class="form-radio">
+                                          <div class="radio radio-inline">
+                                              <label>
+                                                  <input type="radio" name="DEBIT" value="cash" formControlName="type"
+                                                      [checked]="true" (change)="transactionMode('cash')">
+                                                  <i class="helper"></i>Cash </label>
+                                          </div>
+                                          <div class="radio radio-inline">
+                                              <label>
+                                                  <input type="radio" name="DEBIT" value="transfer"
+                                                      formControlName="type" (change)="transactionMode('transfer')">
+                                                  <i class="helper"></i>Transfer </label>
+                                          </div>
+                                      </div> -->
+                                  </div>
+                                  <div class="col-md-1"></div>
+                                  <div class="col-sm-12 col-md-1"> <label for="AC_EXPDT">Date</label></div>
+                                  <div class="col-md-2">
+                                      <div class="form-group input-group">
+                                          <span class="border-lable-flt">
+                                              <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                                  [(ngModel)]="date" [isDisabled]="isture" formControlName="date"
+                                                  disabled>
+                                          </span>
+                                      </div>
+                                  </div>
 
-                            <div class="row">
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Scheme Type<sub
+                                              class="required">*</sub></label></div>
+                                  <div class="col-sm-2">
+                                      <div class="form-group form-primary form-static-label">
+                                          <span class="border-lable-flt">
+                                              <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
+                                                  formControlName="scheme_type">
+                                                  <ng-option *ngFor="let item of allSchemeCode"
+                                                      [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
+                                              </ng-select>
+
+                                          </span>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
+                                              class="required">*</sub></label></div>
+                                  <div class="col-sm-12 col-md-6">
+                                      <div class="form-group form-primary form-static-label">
+                                          <span class="border-lable-flt">
+                                              <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
+                                                  formControlName="scheme">
+                                                  <ng-option *ngFor="let item of allScheme" [value]="item">
+                                                      {{item.S_APPL}} {{item.S_NAME}}</ng-option>
+                                              </ng-select>
+
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Account No.<sub
+                                              class="required">*</sub></label></div>
+
+                                  <div class="col-sm-6">
+                                      <div class="form-group form-primary form-static-label">
+                                          <span class="border-lable-flt">
+                                              <ng-select [(ngModel)]="customer" formControlName="account_no" (change)="getVoucherData()">
+                                                  <ng-option *ngFor="let item of introducerACNo" [value]="item">
+                                                      {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
+                                              </ng-select>
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Transaction Mode<sub
+                                              class="required">*</sub></label></div>
+                                  <div class="col-sm-4">
+                                      <div class="form-group form-primary form-static-label">
+                                          <span class="border-lable-flt">
+                                              <ng-select [(ngModel)]="selectedMode" formControlName="tran_mode"
+                                                  (change)="changeMode()">
+                                                  <ng-option *ngFor="let item of tranModeList" [value]="item">
+                                                      {{item.id}} {{item.value}}</ng-option>
+                                              </ng-select>
+
+                                          </span>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-12 col-md-2  "><label
+                                    for="AC_PARTICULAR">Particulars</label></div>
+                                    <div class="col-md-4">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <textarea class="form-control" formControlName="particulars"
+                                                    [(ngModel)]="particulars"></textarea>
+                                                <i class="fa fa-info-circle errspan"
+                                                    (click)="modalLarge.show()"></i>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                              </div>
+                              <div *ngIf="showChequeDetails">
+                                  <div class="row" *ngIf="showChequeDetails">
+                                      <div class="col-sm-12 col-md-2"><label for="ChequeNo">Cheque No.</label></div>
+                                      <div class="col-md-2">
+                                          <div class="form-group input-group">
+                                              <span class="border-lable-flt">
+                                                  <input type="text" name="ChequeNo" class="form-control"
+                                                      placeholder=" " id="ChequeNo" value=""
+                                                      style="text-transform: capitalize;"
+                                                      title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
+                                                      formControlName="chequeNo">
+                                              </span>
+                                          </div>
+                                      </div>
+                                      <div class="col-sm-12 col-md-2"><label for="ChequeDate">Cheque Date</label>
+                                      </div>
+                                      <div class="col-md-2">
+                                          <div class="form-group input-group">
+                                              <span class="border-lable-flt">
+                                                  <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                                      formControlName="chequeDate">
+                                              </span>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-sm-12 col-md-2"><label for="">Bank Name</label></div>
+
+                                      <div class="col-md-6">
+                                          <div class="form-group form-primary form-static-label">
+                                              <span class="border-lable-flt">
+                                                  <ng-select formControlName="bank" [(ngModel)]="bank">
+                                                      <ng-option *ngFor="let item of bankName" [value]="item.id">
+                                                          {{item.name}}</ng-option>
+                                                  </ng-select>
+
+                                              </span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <!-- <div class="col-sm-12 col-md-2"> <label for="AC_PARTICULAR">Slip No.</label></div>
+                                      <div class="col-md-2">
+                                          <div class="form-group input-group">
+                                              <span class="border-lable-flt">
+                                                  <input type="text" name="AC_PARTICULAR" class="form-control" placeholder=" "
+                                                      id="AC_PARTICULAR" value="" style="text-transform: capitalize;"
+                                                      title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                      required formControlName="slip_no">
+                                                 
+                                              </span>
+                                          </div>
+                                      </div> -->
+                                  <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">Amount</label></div>
+                                  <div class="col-md-2">
+                                      <div class="form-group input-group">
+                                          <span class="border-lable-flt">
+                                              <input type="text" name="AC_PARTICULAR"
+                                                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                  class="form-control" placeholder=" " id="AC_PARTICULAR"
+                                                  style="text-transform: capitalize;"
+                                                  title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
+                                                  formControlName="amt" (keyup)="getAmt($event)">
+
+                                          </span>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-4"></div>
+                                  <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Total Amount</label>
+                                  </div>
+
+                                  <div class="col-md-2">
+                                      <div class="form-group input-group">
+                                          <span class="border-lable-flt">
+                                              <input type="text" name="AC_PARTICULAR" class="form-control"
+                                                  placeholder=" " id="AC_PARTICULAR" [(ngModel)]="totalAmt"
+                                                  style="text-transform: capitalize;font-size: 15px;"
+                                                  title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
+                                                  formControlName="total_amt" disabled>
+                                          </span>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row" *ngIf="headShow">
                                 <div class="col-md-12">
                                     <div class="solid">
                                         <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="table-responsive">
-                                                    <table
-                                                        class="table table-striped table-bordered table-hover compact">
+                                            <div class="col-md-12">
+                                                <table class="table table-bordered table-hover compact">
+                                                    <thead>
+                                                        <!-- <th>Sr  No</th> -->
+                                                        <td>Head</td>
+                                                        <td>Interset Date</td>
+                                                        <td style="text-align: right;">Interset Amt</td>
+                                                        <td style="text-align: right;">Balance</td>
+                                                        <td>Type</td>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of headData;let i=index">
+                                                            <!-- <td>{{i+1}}</td> -->
+                                                            <td>{{item.DESCRIPTION}}</td>
+                                                            <td *ngIf="item.INTEREST_DATE_INPUT">
+                                                                <input type="text" placeholder="dd/mm/yyyy"
+                                                                    class="form-control"
+                                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                    bsDatepicker [(ngModel)]="IntersetHeadDate"
+                                                                    formControlName="Intdate">
+                                                            </td>
+                                                            <td *ngIf="!item.INTEREST_DATE_INPUT"></td>
+                                                            <td><input type="text"
+                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                    style="width: 100%;border:none;text-align: right;"
+                                                                    (keyup)="getInputHeadAmt($event,i)"
+                                                                    (focusout)="decimalAllContent($event)" value="{{EditFlag?item.Amount:0.00}}">
+                                                            </td>
+                                                            <td class="bg-light-danger text-right"><span
+                                                                    class="text-danger">0.00</span></td>
+                                                            <td>{{item.DRCR_APPLICABLE == 'C'?'Cr':'Dr'}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-sm" (click)="Add()" style="float: right;" *ngIf="showAdd">Add</button>
+                                    <button class="btn btn-sm" (click)="update()" style="float: right" *ngIf="showUpdate">Update</button>
+                                </div>
+                            </div>
+                          </div>
+
+
+                          <!-- Multiple Transaction details data show here -->
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="solid">
+                                    <table class="table table-bordered table-hover compact">
+                                        <thead>
+                                            <td></td>
+                                            <td>Scheme</td>
+                                            <td>Scheme Code</td>
+                                            <td>Account NO.</td>
+                                            <td>Transaction Code</td>
+                                            <td style="text-align: right;">Amount</td>
+                                        </thead>
+                                        <ng-container *ngFor="let item of mainMaster;let in = index;">
+                                            <tr>
+                                                <td><span class="fa fa-plus-circle grab" (click)="showHide(in)"></span>&nbsp; <span class="fa fa-fw fa-edit field-icon grab" (click)="editVoucher(in)"></span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-fw fa-trash-o grab" (click)="deleteData(in)"></span></td>
+                                                <td>{{item.scheme_type}}</td>
+                                                <td>{{item.scheme.S_NAME}}</td>
+                                                <td>{{item.account_no.BANKACNO}}</td>
+                                                <td>{{item.tran_mode.value}}</td>
+                                                <td style="text-align: right;">{{item.total_amt}}</td>
+                                            </tr>
+                                            <tr id="{{in}}" [hidden]="true">
+                                                <td></td>
+                                                <td [attr.colspan]="5">
+                                                    <html>
                                                         <thead>
-                                                            <td style="width: 8%;">Type</td>
-                                                            <td>Scheme Code</td>
-                                                            <td>A/C Number</td>
-                                                            <td>Transaction Mode</td>
-                                                            <td>Cheque Number</td>
-                                                            <td class="td_right">Amount</td>
-                                                            <td>Paticulars</td>
+                                                            <td>Head</td>
+                                                            <td>Int. Date</td>
+                                                            <td>Int. Amount</td>
+                                                            <td>Balance Amount</td>
+                                                            <td>Type</td>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td class="td_right">
-                                                                    <ng-select [(ngModel)]="selectedCode"
-                                                                        (change)="selectedSchemeCode()"
-                                                                        formControlName="acnotype">
-                                                                        <ng-option *ngFor="let item of allSchemeCode"
-                                                                            [value]="item.S_ACNOTYPE">
-                                                                            {{item.S_ACNOTYPE}}</ng-option>
-                                                                    </ng-select>
-                                                                </td>
-                                                                <td class="td_right">
-                                                                    <ng-select [(ngModel)]="selectedScheme"
-                                                                        (change)="getIntroducer()"
-                                                                        formControlName="acnocode">
-                                                                        <ng-option *ngFor="let item of allScheme"
-                                                                            [value]="item">
-                                                                            {{item.S_APPL}} {{item.S_NAME}}</ng-option>
-                                                                    </ng-select>
-                                                                </td>
-                                                                <td class="td_right">
-                                                                    <ng-select (change)="getVoucherData()">
-                                                                        <ng-option *ngFor="let item of introducerACNo"
-                                                                            [value]="item">
-                                                                            {{item.label}} {{item.name}}</ng-option>
-                                                                    </ng-select>
-                                                                </td>
-                                                                <td class="td_right">
-                                                                    <ng-select [(ngModel)]="selectedMode"
-                                                                        (change)="changeMode()"
-                                                                        formControlName="transCode">
-                                                                        <ng-option *ngFor="let item of tranModeList"
-                                                                            [value]="item">
-                                                                            {{item.id}} {{item.value}}</ng-option>
-                                                                    </ng-select>
-                                                                </td>
-                                                                <td> <input type="text" name="ChequeNo"
-                                                                        class="form-control" placeholder=" "
-                                                                        id="ChequeNo" value=""
-                                                                        style="text-transform: capitalize;"
-                                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)">
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" name="fieldamount"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                        class="form-control" placeholder=" "
-                                                                        id="fieldamount" value=""
-                                                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)">
-                                                                    <!-- (keyup)="getAmt($event)" -->
-                                                                </td>
-                                                                <td>
-                                                                    <input class="form-control"
-                                                                        [(ngModel)]="particulars"
-                                                                        formControlName="narration" />
-                                                                    <i class="fa fa-info-circle errspan"
-                                                                        (click)="modalLarge.show()"></i>
-                                                                </td>
+                                                            <tr *ngFor="let i of item.InputHead">
+                                                                <td>{{i.SHORT_NAME}}</td> 
+                                                                <td>{{i.date}}</td> 
+                                                                <td>{{i.Amount}}</td>
+                                                                <td>0.00</td> 
+                                                                <td>{{i.DRCR_APPLICABLE == 'C'?CR:DR}}</td>  
                                                             </tr>
                                                         </tbody>
+                                                    </html>
+                                                </td>
+                                            </tr>  
+                                        </ng-container>
+                                    </table>
+                                  </div>
+                              </div>
+                          </div>
 
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 col-sm-12 col-xm-12">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        Balance
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="avatar bg-light-primary rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Day Opening Bal.</h6>
-                                            <!-- <small>Starbucks</small> -->
-                                        </div>
-                                    </div>
-                                    <div class="fw-bolder transaction-title text-primary"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{DayOpBal}}.00</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="avatar bg-light-success rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Passed</h6>
-                                            <!-- <small>Starbucks</small> -->
-                                        </div>
-                                    </div>
-                                    <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{Pass}}.00</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="avatar bg-light-danger rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Unpassed</h6>
-                                            <!-- <small>Starbucks</small> -->
-                                        </div>
-                                    </div>
-                                    <div class="fw-bolder transaction-title text-danger"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> <span>{{Unpass}}.00</span></div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="avatar bg-light-danger rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Uneffected Clearing
-                                            </h6>
-                                            <!-- <small>Starbucks</small> -->
-                                        </div>
-                                    </div>
-                                    <div class="fw-bolder transaction-title text-danger"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> 0.00</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="avatar bg-light-info rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Sanctions Amt</h6>
-                                            <!-- <small>Starbucks</small> -->
-                                        </div>
-                                    </div>
-                                    <div class="fw-bolder transaction-title text-info"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> 0.00</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="avatar bg-light-info rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Temp. overdraft Amt
-                                            </h6>
-                                            <!-- <small>Starbucks</small> -->
-                                        </div>
-                                    </div>
-                                    <div class="fw-bolder transaction-title text-info"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> 0.00</div>
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="avatar bg-light-success rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 15px;">Cleared Balance</h6>
-                                            <!-- <small>Starbucks</small> -->
-                                        </div>
-                                    </div>
-                                    <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{ClearBalance}}.00</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="avatar bg-light-primary rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">After this voucher
-                                            </h6>
-                                            <!-- <small>Starbucks</small> -->
-                                        </div>
-                                    </div>
-                                    <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">= <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{AfterVoucher}}.00</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="user-avatar-section">
-                                            <div class="d-flex align-items-center flex-column">
-                                                <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
-                                                    height="110" width="110" (mouseover)="showImage(customerImg)"
-                                                    (mouseout)="hideImage()" alt="User avatar" />
-                                                <div class="user-info text-center">
-                                                    <h4>Ajit Sutar</h4>
-                                                    <!-- <span class="badge bg-light-secondary">Author</span> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="user-avatar-section">
-                                            <div class="d-flex align-items-center flex-column">
-                                                <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
-                                                    (mouseover)="showImage(signture)" (mouseout)="hideImage()"
-                                                    height="50" width="110" alt="User avatar" />
+                          <!-- //////End Multi Transaction Data -->
 
-                                            </div>
-                                        </div>
-
-                                        <!-- <div class="d-flex justify-content-around my-2 pt-75">
-                                      <div class="d-flex align-items-start me-2">
-                                        <span class="badge bg-light-primary p-75 rounded">
-                                          <i data-feather="check" class="font-medium-2"></i>
-                                        </span>
-                                        <div class="ms-75">
-                                          <h4 class="mb-0">1.23k</h4>
-                                          <small>Tasks Done</small>
-                                        </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="solid">
+                                      <!-- <div class="row">
+                                          <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Token
+                                                  No.</label></div>
+                                          <div class="col-md-2">
+                                              <div class="form-group input-group">
+                                                  <span class="border-lable-flt">
+                                                      <input type="text" class="form-control"
+                                                          (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                          formControlName="token">
+                                                  </span>
+                                              </div>
+                                          </div>
+                                      </div> -->
+                                      <div class="row">
+                                          <div class="col-md-12 text-center">
+                                              <button type="button" class="btn btn-sm"
+                                                  (click)="submit()">Update</button>
+                                          </div>
                                       </div>
-                                      <div class="d-flex align-items-start">
-                                        <span class="badge bg-light-primary p-75 rounded">
-                                          <i data-feather="briefcase" class="font-medium-2"></i>
-                                        </span>
-                                        <div class="ms-75">
-                                          <h4 class="mb-0">568</h4>
-                                          <small>Projects Done</small>
-                                        </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-md-3 col-sm-12 col-xm-12">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header">
+                      Balance
+                  </div>
+                  <div class="card-body">
+                      <div class="row">
+                          <div class="col-md-12">
+                              <div class="transaction-item">
+                                  <div class="d-flex">
+                                      <div class="avatar bg-light-primary rounded float-start">
+                                          <div class="avatar-content">
+                                              <i class="fa fa-google-wallet field-icon"></i>
+                                          </div>
                                       </div>
-                                    </div> -->
-                                        <!-- <h4 class="fw-bolder border-bottom pb-50 mb-1">Details</h4> -->
-                                        <div class="info-container">
-                                            <ul class="list-unstyled">
-                                                <li class="mb-75">
-                                                    <span class="fw-bolder me-25">Status:</span>
-                                                    <span class="badge bg-light-success">Active</span>
-                                                </li>
+                                      <div class="transaction-percentage">
+                                          <h6 class="transaction-title" style="font-size: 12px;">Day Opening Bal.</h6>
+                                          <!-- <small>Starbucks</small> -->
+                                      </div>
+                                  </div>
+                                  <div class="fw-bolder transaction-title text-primary"
+                                      style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
+                                          aria-hidden="true"></i> {{DayOpBal}}.00</div>
+                              </div>
+                          </div>
+                          <div class="col-md-12">
+                              <div class="transaction-item">
+                                  <div class="d-flex">
+                                      <div class="avatar bg-light-success rounded float-start">
+                                          <div class="avatar-content">
+                                              <i class="fa fa-google-wallet field-icon"></i>
+                                          </div>
+                                      </div>
+                                      <div class="transaction-percentage">
+                                          <h6 class="transaction-title" style="font-size: 12px;">Passed</h6>
+                                          <!-- <small>Starbucks</small> -->
+                                      </div>
+                                  </div>
+                                  <div class="fw-bolder transaction-title text-success"
+                                      style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                          aria-hidden="true"></i> {{Pass}}.00</div>
+                              </div>
+                          </div>
+                          <div class="col-md-12">
+                              <div class="transaction-item">
+                                  <div class="d-flex">
+                                      <div class="avatar bg-light-danger rounded float-start">
+                                          <div class="avatar-content">
+                                              <i class="fa fa-google-wallet field-icon"></i>
+                                          </div>
+                                      </div>
+                                      <div class="transaction-percentage">
+                                          <h6 class="transaction-title" style="font-size: 12px;">Unpassed</h6>
+                                          <!-- <small>Starbucks</small> -->
+                                      </div>
+                                  </div>
+                                  <div class="fw-bolder transaction-title text-danger"
+                                      style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                          aria-hidden="true"></i> <span>{{Unpass}}.00</span></div>
+                              </div>
+                          </div>
+                          <div class="col-md-12">
+                              <div class="transaction-item">
+                                  <div class="d-flex">
+                                      <div class="avatar bg-light-danger rounded float-start">
+                                          <div class="avatar-content">
+                                              <i class="fa fa-google-wallet field-icon"></i>
+                                          </div>
+                                      </div>
+                                      <div class="transaction-percentage">
+                                          <h6 class="transaction-title" style="font-size: 12px;">Uneffected Clearing
+                                          </h6>
+                                      </div>
+                                  </div>
+                                  <div class="fw-bolder transaction-title text-danger"
+                                      style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                          aria-hidden="true"></i> 0.00</div>
+                              </div>
+                          </div>
+                          <div class="col-md">
+                              <div class="transaction-item">
+                                  <div class="d-flex">
+                                      <div class="avatar bg-light-success rounded float-start">
+                                          <div class="avatar-content">
+                                              <i class="fa fa-google-wallet field-icon"></i>
+                                          </div>
+                                      </div>
+                                      <div class="transaction-percentage">
+                                          <h6 class="transaction-title" style="font-size: 15px;">Cleared Balance</h6>
+                                          <!-- <small>Starbucks</small> -->
+                                      </div>
+                                  </div>
+                                  <div class="fw-bolder transaction-title text-success"
+                                      style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr"
+                                          aria-hidden="true"></i> {{ClearBalance}}.00</div>
+                              </div>
+                          </div>
+                          <div class="col-md-12">
+                              <div class="transaction-item">
+                                  <div class="d-flex">
+                                      <div class="avatar bg-light-primary rounded float-start">
+                                          <div class="avatar-content">
+                                              <i class="fa fa-google-wallet field-icon"></i>
+                                          </div>
+                                      </div>
+                                      <div class="transaction-percentage">
+                                          <h6 class="transaction-title" style="font-size: 12px;">After this voucher
+                                          </h6>
+                                          <!-- <small>Starbucks</small> -->
+                                      </div>
+                                  </div>
+                                  <div class="fw-bolder transaction-title text-success"
+                                      style="margin-left: auto;order: 2;font-size: 12px;">= <i class="fa fa-inr"
+                                          aria-hidden="true"></i> {{AfterVoucher}}.00</div>
+                              </div>
+                          </div>
+                          <div class="col-md-12">
+                              <div class="card">
+                                  <div class="card-body">
+                                      <div class="user-avatar-section">
+                                          <div class="d-flex align-items-center flex-column">
+                                              <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
+                                                  height="110" width="110" (mouseover)="showImage(customerImg)"
+                                                  (mouseout)="hideImage()" alt="User avatar" />
+                                              <div class="user-info text-center">
+                                                  <h4>Ajit Sutar</h4>
+                                                  <!-- <span class="badge bg-light-secondary">Author</span> -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="user-avatar-section">
+                                          <div class="d-flex align-items-center flex-column">
+                                              <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
+                                                  (mouseover)="showImage(signture)" (mouseout)="hideImage()"
+                                                  height="50" width="110" alt="User avatar" />
 
-                                                <li class="mb-75">
-                                                    <span class="fw-bolder me-25">PAN ID:</span>
-                                                    <span>ADFE2323D</span>
-                                                </li>
-                                                <li class="mb-75">
-                                                    <span class="fw-bolder me-25">Contact:</span>
-                                                    <span>+91 7636456273</span>
-                                                </li>
+                                          </div>
+                                      </div>
 
-                                            </ul>
+                                      <!-- <div class="d-flex justify-content-around my-2 pt-75">
+                                          <div class="d-flex align-items-start me-2">
+                                            <span class="badge bg-light-primary p-75 rounded">
+                                              <i data-feather="check" class="font-medium-2"></i>
+                                            </span>
+                                            <div class="ms-75">
+                                              <h4 class="mb-0">1.23k</h4>
+                                              <small>Tasks Done</small>
+                                            </div>
+                                          </div>
+                                          <div class="d-flex align-items-start">
+                                            <span class="badge bg-light-primary p-75 rounded">
+                                              <i data-feather="briefcase" class="font-medium-2"></i>
+                                            </span>
+                                            <div class="ms-75">
+                                              <h4 class="mb-0">568</h4>
+                                              <small>Projects Done</small>
+                                            </div>
+                                          </div>
+                                        </div> -->
+                                      <!-- <h4 class="fw-bolder border-bottom pb-50 mb-1">Details</h4> -->
+                                      <div class="info-container">
+                                          <ul class="list-unstyled">
+                                              <li class="mb-75">
+                                                  <span class="fw-bolder me-25">Status:</span>
+                                                  <span class="badge bg-light-success">Active</span>
+                                              </li>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                              <li class="mb-75">
+                                                  <span class="fw-bolder me-25">PAN ID:</span>
+                                                  <span>ADFE2323D</span>
+                                              </li>
+                                              <li class="mb-75">
+                                                  <span class="fw-bolder me-25">Contact:</span>
+                                                  <span>+91 7636456273</span>
+                                              </li>
 
-    </div>
+                                          </ul>
+
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </div>
 </div>
+
 <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
-    <div class="app-modal-header">
-        <h4 class="modal-title">Narration Master</h4>
-        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="app-modal-body">
-        <perfect-scrollbar style="overflow-y: auto;">
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <thead>
-                            <th>Paticulars</th>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
-                                {{item.NARRATION}}
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #triggerhide
-                        (click)="modalLarge.hide()">Close</button>
-                </div>
-            </div>
-        </perfect-scrollbar>
-    </div>
+  <div class="app-modal-header">
+      <h4 class="modal-title">Narration Master</h4>
+      <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="app-modal-body">
+      <perfect-scrollbar style="overflow-y: auto;">
+          <div class="row">
+              <div class="col-md-12">
+                  <table class="table table-bordered">
+                      <thead>
+                          <th>Paticulars</th>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
+                              {{item.NARRATION}}
+                          </tr>
+                      </tbody>
+                  </table>
+                  <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #triggerhide
+                      (click)="modalLarge.hide()">Close</button>
+              </div>
+          </div>
+      </perfect-scrollbar>
+  </div>
+  <!-- <div class="app-modal-footer">
+        
+      </div> -->
 </app-modal-basic>
+
+
+<!-- </div> -->

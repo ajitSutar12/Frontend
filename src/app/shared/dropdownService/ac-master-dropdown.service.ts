@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ACMasterDropdownService {
@@ -29,11 +30,15 @@ export class ACMasterDropdownService {
         return this.http.get<any>(this.url + '/gl-account-master/branch/' + branchid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NAME, value: element.id, name: element.AC_NO };
+                    // let obj = { label: element.AC_NAME, value: element.id, name: element.AC_NO };
+                    // let obj = { label: element.AC_NO + ' ' + element.AC_NAME + ' ', value: element.id };
+                    let obj = { label: element.AC_NO + ' ' + element.AC_NAME + ' ', value: element.id, name: element.AC_NO };
                     this.acMasterObject.push(obj)
                 });
                 return this.acMasterObject;
             }));
     }
+
+
 
 }
