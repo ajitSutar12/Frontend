@@ -1148,9 +1148,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   customer(event) {
-    this.termLoanService.getData().subscribe(data => {
+    // this.termLoanService.getData().subscribe(data => {
       this.getCustomer(event.value);
-    })
+    // })
   }
   onCloseModal() {
     this.visibleAnimate = false;

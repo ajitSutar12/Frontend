@@ -368,53 +368,54 @@
                                                         name="OP_POSTED_INT" id="OP_POSTED_INT" #OP_POSTED_INT
                                                         (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_POSTED_INT.value,OP_POSTED_INT.name)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-
                                                 </td>
                                                 <td *ngIf="npaDate" class="td_center">
-
-                                                    <input type="text" name="npa_Date" id="npa_Date"
+                                                    <input type="text" name="OP_NPA_DATE" id="OP_NPA_DATE"
                                                         placeholder="dd/mm/yyyy" class="form-control"
                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.npa_Date == null || data.npa_Date == '' ? '' : data.npa_Date }}"
-                                                        #npa_Date
+                                                        value="{{data.OP_NPA_DATE == null || data.OP_NPA_DATE == '' ? '' : data.OP_NPA_DATE }}"
+                                                        #OP_NPA_DATE
+                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,OP_NPA_DATE.value,OP_NPA_DATE.name)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                         bsDatepicker>
                                                 </td>
                                                 <td *ngIf="isdisputeloan" class="td_right">
-                                                    <input type="checkbox" class="border-checkbox" id="dispute_loan"
-                                                        #dispute_loan [value]="data.dispute_loan===true ? true : null"
-                                                        [attr.checked]="data.dispute_loan===true ? true :null">
-
-
+                                                    <input type="checkbox" class="border-checkbox" id="IS_DISPUTE_LOAN"
+                                                        #IS_DISPUTE_LOAN
+                                                        [value]="data.IS_DISPUTE_LOAN===true ? true : null"
+                                                        [attr.checked]="data.IS_DISPUTE_LOAN===true ? true :null"
+                                                        (change)="checkInterestFlag(data.id,data.AC_NO,data.BANKACNO,$event)">
                                                 </td>
                                                 <td *ngIf="noofshares" class="td_right">
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="no_of_shares" id="no_of_shares"
+                                                        name="NO_OF_SHARES" id="NO_OF_SHARES" #NO_OF_SHARES
+                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,NO_OF_SHARES.value,NO_OF_SHARES.name)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                                 </td>
                                                 <td *ngIf="shareamt" class="td_right">
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="share_amt" id="share_amt"
+                                                        name="TRAN_AMOUNT" id="shareamt" #TRAN_AMOUNT
+                                                        (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,TRAN_AMOUNT.value,TRAN_AMOUNT.name)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                                 </td>
                                                 <td *ngIf="accloseDate" class="td_center">
-                                                    <input type="text" name="AC_CLOSEDT" id="ac_close_date"
+                                                    <input type="text" name="AC_CLOSEDT" id="AC_CLOSEDT"
                                                         placeholder="dd/mm/yyyy" class="form-control"
                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                         value="{{data.AC_CLOSEDT == null || data.AC_CLOSEDT == '' ? '' : data.AC_CLOSEDT }}"
-                                                        #ac_close_date
+                                                        #AC_CLOSEDT
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,ac_close_date.value,ac_close_date.name)"
+                                                        (bsValueChange)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_CLOSEDT.value,AC_CLOSEDT.name)"
                                                         bsDatepicker>
                                                 </td>
                                                 <td *ngIf="purchaseDate" class="td_center">
-                                                    <input type="text" name="purchase_date" id="purchase_date"
+                                                    <input type="text" name="PURCHASE_DATE" id="PURCHASE_DATE"
                                                         placeholder="dd/mm/yyyy" class="form-control"
                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.purchase_date == null || data.purchase_date == '' ? '' : data.purchase_date }}"
-                                                        #purchase_date
+                                                        value="{{data.PURCHASE_DATE == null || data.PURCHASE_DATE == '' ? '' : data.PURCHASE_DATE }}"
+                                                        #PURCHASE_DATE
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                         bsDatepicker>
 
@@ -422,52 +423,49 @@
                                                 </td>
                                                 <td *ngIf="supliername" class="td_right">
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="suplier_name" id="suplier_name"
+                                                        name="SUPPLIER_NAME" id="SUPPLIER_NAME" #SUPPLIER_NAME
                                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47">
 
                                                 </td>
                                                 <td *ngIf="purchaserate" class="td_right">
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="purchase_rate" id="purchase_rate"
+                                                        name="PURCHASE_RATE" id="PURCHASE_RATE" #PURCHASE_RATE
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                                 </td>
                                                 <td *ngIf="purchasequantity" class="td_right">
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="purchase_quantity" id="purchase_quantity"
+                                                        name="PURCHASE_QUANTITY" id="PURCHASE_QUANTITY"
+                                                        #PURCHASE_QUANTITY
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                                 </td>
                                                 <td *ngIf="purchasevalue" class="td_right">
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="purchase_value" id="purchase_value"
+                                                        name="PURCHASE_VALUE" id="PURCHASE_VALUE" #PURCHASE_VALUE
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                                 </td>
                                                 <td *ngIf="openingamt" class="td_right">
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="opening_amt" id="opening_amt"
+                                                        name="OP_BALANCE" id="OP_BALANCE" #OP_BALANCE
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                                 </td>
                                                 <td *ngIf="openingquantity" class="td_right">
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="opening_quantity" id="opening_quantity"
+                                                        name="OP_QUANTITY" id="OP_QUANTITY" #OP_QUANTITY
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
 
                                                 </td>
                                                 <td *ngIf="lastdepreciationDate" class="td_center">
-
-                                                    <input type="text" name="last_depreciation_date"
-                                                        id="last_depreciation_date" placeholder="dd/mm/yyyy"
-                                                        class="form-control"
+                                                    <input type="text" name="LAST_DEPR_DATE" id="LAST_DEPR_DATE"
+                                                        placeholder="dd/mm/yyyy" class="form-control"
                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                        value="{{data.last_depreciation_date == null || data.last_depreciation_date == '' ? '' : data.last_depreciation_date }}"
-                                                        #last_depreciation_date
+                                                        value="{{data.LAST_DEPR_DATE == null || data.LAST_DEPR_DATE == '' ? '' : data.LAST_DEPR_DATE }}"
+                                                        #LAST_DEPR_DATE
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                         bsDatepicker>
-
-
                                                 </td>
                                             </tr>
                                         </tbody>

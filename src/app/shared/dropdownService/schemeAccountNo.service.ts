@@ -22,6 +22,7 @@ export class SchemeAccountNoService {
                 return this.schemeObject;
             }));
     }
+
     public getSavingSchemeList1(schemeid) {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/saving-master/scheme/' + schemeid)
@@ -33,6 +34,19 @@ export class SchemeAccountNoService {
                 return this.schemeObject;
             }));
     }
+
+    public getSavingMasterAcListForBalUpdation(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/saving-master/balUpdate/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
+
     public getShareSchemeList() {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/share-master/')
@@ -44,9 +58,22 @@ export class SchemeAccountNoService {
                 return this.schemeObject;
             }));
     }
+
     public getShareSchemeList1(schemeid) {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/share-master/scheme/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, branch: element.BRANCH_CODE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
+
+    public getShareMasterAcListForBalUpdation(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/share-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
@@ -101,6 +128,17 @@ export class SchemeAccountNoService {
                 return this.schemeObject;
             }));
     }
+    public getCurrentMasterAcListForBalUpdation(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/current-account-master/balUpdate/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
 
     public getTermLoanSchemeList() {
         this.schemeObject = []
@@ -116,6 +154,17 @@ export class SchemeAccountNoService {
     public getTermLoanSchemeList1(schemeid) {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/term-loan-master/scheme/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
+    public getTermLoanMasterAcListForBalUpdation(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/term-loan-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
@@ -146,10 +195,33 @@ export class SchemeAccountNoService {
                 return this.schemeObject;
             }));
     }
+    public getTermDepositMasterAcListForBalUpdation(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/term-deposits-master/balUpdate/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
 
     public getGeneralLedgerList1(schemeid) {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/gl-account-master/scheme/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.AC_NO, acnotype: element.AC_ACNOTYPE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
+
+    public getGeneralLedgerMasterAcListForBalUpdation(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/gl-account-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.AC_NO, acnotype: element.AC_ACNOTYPE };
@@ -181,6 +253,17 @@ export class SchemeAccountNoService {
                 return this.schemeObject;
             }));
     }
+    public getDisputeLoanMasterAcListForBalUpdation(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/dispute-loan-master/balUpdate/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
     public getCashCreditSchemeList() {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/cash-credit-master/')
@@ -204,6 +287,18 @@ export class SchemeAccountNoService {
                 return this.schemeObject;
             }));
     }
+
+    public getCashCreditMasterAcListForBalUpdation(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/cash-credit-master/balUpdate/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, id: element.id, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
     public getAnamatSchemeList() {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/anamat-gsm/')
@@ -218,6 +313,17 @@ export class SchemeAccountNoService {
     public getAnamatSchemeList1(schemeid) {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/anamat-gsm/scheme/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
+    public getAnamatMasterAcListForBalUpdation(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/anamat-gsm/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
@@ -250,6 +356,18 @@ export class SchemeAccountNoService {
             }));
     }
 
+    public getPigmyAccountMasterAcListForBalUpdation(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/pigmy-account-master/balUpdate/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
+
     public getPigmyAgentSchemeList() {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/pigmy-agent-master/')
@@ -265,6 +383,18 @@ export class SchemeAccountNoService {
     public getPigmyAgentSchemeList1(schemeid) {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/pigmy-agent-master/scheme/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
+
+    public getPigmyAgentMasterAcListForBalUpdation(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/pigmy-agent-master/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
@@ -312,7 +442,18 @@ export class SchemeAccountNoService {
     }
     public getInvestmentSchemeList1(schemeid) {
         this.schemeObject = []
-        return this.http.get<any>(this.url + '/pigmy-agent-master/scheme/' + schemeid)
+        return this.http.get<any>(this.url + '/investment/scheme/' + schemeid)
+            .pipe(map(ele => {
+                ele.forEach(element => {
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };
+                    this.schemeObject.push(obj)
+                });
+                return this.schemeObject;
+            }));
+    }
+    public getInvestmentMasterAcListForBalUpdation(schemeid) {
+        this.schemeObject = []
+        return this.http.get<any>(this.url + '/investment/balUpdate/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
                     let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE };

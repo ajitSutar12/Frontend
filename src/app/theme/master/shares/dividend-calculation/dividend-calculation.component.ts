@@ -17,8 +17,11 @@ import { DataTableDirective } from "angular-datatables";
 import { data } from 'jquery';
 import { Subject } from 'rxjs-compat';
 import { HttpClient } from '@angular/common/http';
-
-
+//date pipe
+import { DatePipe } from '@angular/common';
+import { DividendCalculationService } from './dividend-calculation.service'
+import { catchError, map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -30,14 +33,14 @@ class DataTableResponse {
 // For fetching values from backend
 interface DividendCalculation {
   id: number;
-  AC_TYPE:string
-  FROM_AC:string
-  TO_AC:string
-  DIV_FROMDATE:Date
-  DIV_TODATE:Date
-  WARRENT_DATE:Date
-  Dividend:number
-  Bonus:number
+  AC_TYPE: string
+  FROM_AC: string
+  TO_AC: string
+  DIV_FROMDATE: Date
+  DIV_TODATE: Date
+  WARRENT_DATE: Date
+  Dividend: number
+  Bonus: number
 }
 
 @Component({
@@ -53,18 +56,16 @@ export class DividendCalculationComponent implements OnInit {
   angForm: FormGroup;
 
   dividendcalculation: DividendCalculation[];
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
   dtExportButtonOptions: any = {};
 
   // a: Array<IOption> = this.SchemeCodeService.getCharacters();
   WarrantDate: Array<IOption> = this.SchemeCodeService.getCharacters();
   BranchCode: Array<IOption> = this.BranchService.getCharacters();
   // b: Array<IOption> = this.MembernoService.getCharacters();
-
-  // For reloading angular datatable after CRUD operation
-  @ViewChild(DataTableDirective, { static: false })
-  dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
 
   selectedOption = '3';
   isDisabled = true;
@@ -77,47 +78,53 @@ export class DividendCalculationComponent implements OnInit {
 
 
   // dropdown ngmodel names
-  
+
   //Scheme type variable
   schemeType: string = 'SH'
   shareSchemeType
   scheme: any[];
-  ngscheme:any=null
-  ngfromac:any=null
-  ngtoac:any=null
+  ngscheme: any = null
+  ngfromac: any = null
+  ngtoac: any = null
 
   // date variables
-  divfromdate:any=null
-  divtodate:any=null
-  warrentdate:any=null
+  divfromdate: any = null
+  divtodate: any = null
+  warrentdate: any = null
   maxDate: Date;
   minDate: Date;
-  
+
 
   private dataSub: Subscription = null;
-  fromAC: any[];
-  ToAC: any[];
+  fromAC
+  ToAC
   getschemename: any;
   filterData: any;
   page: number;
-  
 
-  constructor(private fb: FormBuilder, public SchemeCodeService: SchemeCodeService, 
-    public BranchService: BranchService, 
+  INT_ROUND_OFF
+  shareDividend
+  divMethod
+  isAddBonusInDividend
+
+
+  constructor(private fb: FormBuilder, public SchemeCodeService: SchemeCodeService,
+    public BranchService: BranchService,
     private http: HttpClient,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
+    private _service: DividendCalculationService,
     // public MembernoService: MembernoService,
-    private config: NgSelectConfig,) { 
-      
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
-    }
+    private datePipe: DatePipe,) {
+
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate());
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
-    this.createForm(); 
+    this.createForm();
     // Fetching Server side data
     this.dtExportButtonOptions = {
       pagingType: "full_numbers",
@@ -150,7 +157,7 @@ export class DividendCalculationComponent implements OnInit {
         dataTableParameters["filterData"] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url + "/market-shares",
+            this.url + '/dividend-calculation',
             dataTableParameters
           )
           .subscribe((resp) => {
@@ -166,14 +173,11 @@ export class DividendCalculationComponent implements OnInit {
       columns: [
         {
           title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm"id="editbtn">Edit</button>' + ' ' + '<button  id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
         },
         {
           title: 'Scheme Code',
           data: 'AC_TYPE'
-        }, 
+        },
         {
           title: 'Membership From',
           data: 'FROM_AC'
@@ -181,15 +185,15 @@ export class DividendCalculationComponent implements OnInit {
         {
           title: 'Membership To',
           data: 'TO_AC'
-        }, 
+        },
         {
           title: 'Div.Date From',
           data: 'DIV_FROMDATE'
-        }, 
+        },
         {
           title: 'Div.Date To',
           data: 'DIV_TODATE'
-        }, 
+        },
         {
           title: 'Warrent Date',
           data: 'WARRENT_DATE'
@@ -197,64 +201,30 @@ export class DividendCalculationComponent implements OnInit {
         {
           title: 'Dividend %',
           data: 'Dividend'
-        },  
+        },
         {
           title: 'Bonus %',
           data: 'Bonus'
-        },  
+        },
 
       ],
       dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-
     };
 
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/dividend-calculation.json',
-      
-      //row click handler code
-
-      /**
-     * @rowCallback function for editClickHandler and delClickHandler to passes table data to there filds
-     @return row 
-     */
-      // rowCallback: (row: Node, data: any[] | Object, index: number) => {
-      //   const self = this;
-      //   $('td', row).off('click');
-      //   $('td', row).on('click', '#editbtn', () => {
-      //     self.editClickHandler(data);
-      //   });
-      //   $('td', row).on('click', '#delbtn', () => {
-      //     self.delClickHandler(data);
-      //   });
-      //   return row;
-      // }
-    };
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data
       this.ngscheme = data[0].value
+      this.shareDividend = data[0].dividend
+      this.divMethod = data[0].divMethod
+      this.isAddBonusInDividend = data[0].isAddBonus
+      this.INT_ROUND_OFF = data[0].INT_ROUND_OFF
+      this.angForm.patchValue({
+        Dividend: this.shareDividend
+      })
+      this.getAccountList()
+      this.getDivTOYear()
     })
-    // this.dataSub = this.BranchService.loadCharacters().subscribe((options) => {
-    //   this.characters = options;
-    // });
-    // this.dataSub = this.MembernoService.loadCharacters().subscribe((options) => {
-    //   this.characters = options;
-    // });
   }
-
-  // runTimer() {
-  //   const timer = setInterval(() => {
-  //     this.timeLeft -= 1;
-  //     if (this.timeLeft === 0) {
-  //       clearInterval(timer);
-  //     }
-  //   }, 1000);
-  // }
 
   createForm() {
     this.angForm = this.fb.group({
@@ -270,41 +240,199 @@ export class DividendCalculationComponent implements OnInit {
   }
 
   //get account no according scheme
-  getAccountList(event) {
-    debugger
+  getAccountList() {
     this.ngfromac = null
     this.ngtoac = null
     let data1: any = localStorage.getItem('user');
     let result = JSON.parse(data1);
     let branchCode = result.branch.id;
-    // this.arrTable = []
-    // this.npaEntryArray = []
-    let obj = [this.ngscheme,branchCode]
-    console.log(obj)
-    // this.schemeAccountNoService.getShareSchemeList1(obj).subscribe(data => {
-    //         this.ToAC = data
-    //         this.fromAC = data
-    // }),
-    switch (event.name) {
-      case 'SH':
-        this.schemeAccountNoService.getShareSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.ToAC = data
-          this.fromAC = data
-        })
-        break;
-
-      
-    }
-    
-    // this.getschemename = event.name
-    console.log(data)
+    let trandate = this.angForm.controls['DIV_FROMDATE'].value
+    var full = []
+    var fullDate = trandate;
+    full = fullDate.split(' ');
+    var date = full[0].split(/\//);
+    var newDate = date[1] + '/' + date[0] + '/' + date[2]
+    var k = new Date(newDate);
+    var expiryDate = moment(k).format('DD.MM.YYYY');
+    let obj = [this.ngscheme, branchCode, expiryDate]
+    this.http.get(this.url + '/dividend-calculation/check/' + obj).subscribe((data) => {
+      this.ToAC = data
+      this.fromAC = data
+    })
   }
+
+  getShareDividend(event) {
+    this.shareDividend = event.dividend
+    this.divMethod = event.divMethod
+    this.isAddBonusInDividend = event.isAddBonus
+    this.INT_ROUND_OFF = event.INT_ROUND_OFF
+    this.angForm.patchValue({
+      Dividend: event.dividend
+    })
+  }
+
+  //checks percentage of interest rate
+  checkInt(event) {
+    if (Number(event) > 25) {
+      Swal.fire('Info', 'Please Input Dividend Percentage upto 25', 'info')
+      this.angForm.patchValue({
+        Dividend: ''
+      })
+    }
+  }
+
+  //checks percentage of interest rate
+  checkBonus(event) {
+    if (Number(event) > 99) {
+      Swal.fire('Info', 'Please Input Bonus Percentage upto 99', 'info')
+      this.angForm.patchValue({
+        Bonus: ''
+      })
+    }
+  }
+
+  //select content of field
+  selectAllContent($event) {
+    $event.target.select();
+  }
+
+  getDivTOYear() {
+    let finYear
+    var sysDate = new Date()
+    var year = sysDate.getFullYear();
+    var month = new Date().getMonth();
+    month > 2 ? finYear = year : finYear = year - 1
+    var full = []
+    var fullDate = `01/04/${finYear}`;
+    full = fullDate.split(' ');
+    var date = full[0].split(/\//);
+    var newDate = date[1] + '/' + date[0] + '/' + date[2]
+    var formatDate = new Date(newDate);
+    // starting and end date
+    let start = moment(formatDate);
+    let end = moment(start).add(12, 'M');
+    var endDT = moment(end).subtract(1, "days").format("DD/MM/YYYY");
+    let starting = moment(start).format('DD/MM/YYYY')
+    let ending = moment(end).format('DD/MM/YYYY')
+    this.angForm.patchValue({
+      DIV_FROMDATE: starting,
+      DIV_TODATE: endDT
+    })
+  }
+
+  send = {}
+  endYr
+  startYr
+  DIV_FROM_MONTH
+  DIV_TO_MONTH
+  checkDivYear() {
+    let startDate = this.angForm.controls['DIV_FROMDATE'].value
+    let endDate = this.angForm.controls['DIV_TODATE'].value
+    var full = []
+    var startDT = startDate;
+    full = startDT.split(' ');
+    var sdate = full[0].split(/\//);
+    this.startYr = sdate[2]
+    this.DIV_FROM_MONTH = sdate[1]
+
+    var full = []
+    var endDT = endDate;
+    full = endDT.split(' ');
+    var date = full[0].split(/\//);
+    this.endYr = date[2]
+    this.DIV_TO_MONTH = date[1]
+    let obj = [this.startYr, this.endYr]
+    this.http.get(this.url + '/dividend-calculation/divYrcheck/' + obj).subscribe((data) => {
+      if (data['historyCheck'] == "Already Posted") {
+        this.send['Flag'] = 'history'
+        Swal.fire("Warning!", "Dividend Already Posted !", "warning");
+      }
+      else if (data['divCheck'] == 'Already Processed') {
+        Swal.fire({
+          text: "Dividend Already Processed.Do You Want To Overwrite?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#229954",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, Overwrite it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.send['Flag'] = 'Overwrite'
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            this.send['Flag'] = 'Insert'
+          }
+        });
+      }
+    })
+  }
+
+  getAccNumbers() {
+    this.arrTable = []
+    this.divArr = []
+    var memFrom = this.angForm.controls['FROM_AC'].value
+    var memTo = this.angForm.controls['TO_AC'].value
+    if (this.angForm.controls['FROM_AC'].value < this.angForm.controls['TO_AC'].value && this.angForm.controls['TO_AC'].value != '') {
+      let mem = [memFrom, memTo, this.ngscheme]
+      this.http.get(this.url + '/dividend-calculation/accounts/' + mem).subscribe((data) => {
+        this.arrTable = data;
+        this.arrTable.forEach(element => {
+          var object = {
+            AC_NO: element.AC_NO,
+            AC_NAME: element.AC_NAME,
+            id: element.id,
+            AC_CLOSEDT: element.AC_CLOSEDT,
+            BANKACNO: element.BANKACNO == undefined || element.BANKACNO == null ? '' : element.BANKACNO,
+            BRANCH_CODE: element.BRANCH_CODE,
+          }
+          this.divArr.push(object)
+        });
+      });
+    }
+    console.log(this.divArr, 'div arr')
+  }
+
+  divArr = []
+  arrTable
 
   submit() {
     console.log(this.angForm.valid);
     if (this.angForm.valid) {
       console.log(this.angForm.value);
     }
+    // if (this.send['Flag'] == 'history') {
+    //   Swal.fire("Warning!", "Dividend Already Posted !", "warning");
+    // }
+    this.send['Flag'] = 'Insert'
+
+    const formVal = this.angForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    const dataToSend = {
+      DIV_FROMDATE: formVal.DIV_FROMDATE,
+      DIV_TODATE: formVal.DIV_TODATE,
+      USER: result.USER_NAME,
+      divMethod: this.divMethod,
+      Dividend: formVal.Dividend,
+      Bonus: formVal.Bonus,
+      WARRENT_DATE: (formVal.WARRENT_DATE == '' || formVal.WARRENT_DATE == 'Invalid date') ? '' : moment(formVal.WARRENT_DATE).format('DD/MM/YYYY'),
+      DIV_FROM_YEAR: this.startYr,
+      DIV_TO_YEAR: this.endYr,
+      ACTYPE: this.ngscheme,
+      DIV_FROM_MONTH: this.DIV_FROM_MONTH,
+      DIV_TO_MONTH: this.DIV_TO_MONTH,
+      divArr: this.divArr,
+      send: this.send,
+      isAddBonus: this.isAddBonusInDividend
+    };
+    console.log(dataToSend);
+    this._service.postData(dataToSend).subscribe(data => {
+      this.formSubmitted = false;
+      Swal.fire("Success!", "Data Updated Successfully !", "success");
+
+    })
+    this.arrTable = []
+    this.divArr = []
+    this.resetForm()
   }
 
   /**
@@ -312,16 +440,16 @@ export class DividendCalculationComponent implements OnInit {
 */
 
   editClickHandler(info: any): void {
-    
+
     this.updateShow = true;
   }
 
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngscheme=null
-    this.ngfromac=null
-    this.ngtoac=null
+    this.ngscheme = null
+    this.ngfromac = null
+    this.ngtoac = null
   }
 
   /**

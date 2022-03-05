@@ -15,8 +15,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
-
-
+import { DatePipe } from '@angular/common';
+import { DividendCalculationService } from './dividend-calculation.service'
 
 
 @NgModule({
@@ -33,13 +33,14 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
     DatepickerModule.forRoot()
   ],
   declarations: [DividendCalculationComponent],
-  providers: [SchemeCodeService,SchemeAccountNoService, SchemeCodeDropdownService,MembernoService, BranchService,{
-    provide: HTTP_INTERCEPTORS,
-    useClass: UserAuthInterceptor,
-    multi: true
-  },
+  providers: [SchemeCodeService, SchemeAccountNoService, SchemeCodeDropdownService, MembernoService, BranchService,
+    DatePipe, DividendCalculationService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
 
-]
+  ]
 
 })
 export class DividendCalculationModule { }

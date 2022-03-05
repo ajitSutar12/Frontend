@@ -54,7 +54,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //api 
   url = environment.base_url;
-  
+
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -87,7 +87,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Dropdown option variable
   acMaster: any
-  ngglacno:any=null
+  ngglacno: any = null
   selectedOption = '3';
   isDisabled = true;
   characters: Array<IOption>;
@@ -98,7 +98,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedItems: any;
   FaceValueDividendTrue = true;
   OtherSettings_True = false;
-  filterData={};
+  filterData = {};
   newbtnShow: boolean = false;
 
   constructor(
@@ -246,7 +246,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
         //   title: 'Shares Certificate On',
         //   data: 'SH_CERTIFICATE_METHOD'
         // },
-        
+
       ],
       dom: 'Bfrtip',
     };
@@ -258,7 +258,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   createForm() {
     this.angForm = this.fb.group({
       S_ACNOTYPE: ['SH'],
-      S_APPL: ["", [Validators.required,Validators.pattern, Validators.min(901),Validators.max(999)]],
+      S_APPL: ["", [Validators.required, Validators.pattern, Validators.min(901), Validators.max(999)]],
       S_SHNAME: ['', [Validators.required, Validators.pattern]],
       S_NAME: ['', [Validators.required, Validators.pattern]],
       S_GLACNO: [''],
@@ -267,7 +267,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       SHARES_FACE_VALUE: ['', [Validators.pattern]],
       MAX_SHARES_LIMIT: ['', [Validators.pattern]],
       DIVIDEND_PERCENTAGE: ['', [Validators.pattern]],
-      IS_ADD_BONUS_IN_DIVIDEND: [''],
+      IS_ADD_BONUS_IN_DIVIDEND: [false],
       INT_ROUND_OFF: [''],
       ROUNDOFF_FACTOR: ['', [Validators.pattern]],
       SANCT_LIMIT_PERCENTAGE: ['', [Validators.pattern]],

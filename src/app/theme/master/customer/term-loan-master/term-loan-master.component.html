@@ -357,7 +357,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_MONTHS" required="" pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
-                                                                        formControlName="AC_MONTHS"
+                                                                        formControlName="AC_MONTHS" maxlength="3"
                                                                         style="text-align: right;"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                         (ngModelChange)="getExpiryDate();calculation()"
@@ -371,7 +371,7 @@
                                                                 *ngIf="angForm.controls['AC_MONTHS'].invalid && (angForm.controls['AC_MONTHS'].dirty || angForm.controls['AC_MONTHS'].touched)"
                                                                 class="alert alert-danger">
                                                                 <div
-                                                                    *ngIf="angForm.controls['AC_MONTHS'].errors?.pattern || angForm.controls['AC_MONTHS'].errors?.required">
+                                                                    *ngIf="angForm.controls['AC_MONTHS'].errors?.pattern || angForm.controls['AC_MONTHS'].errors?.required || angForm.controls['AC_MONTHS'].errors?.maxlength">
                                                                     This field is required and Input allowed only 0-9
                                                                 </div>
                                                             </div>

@@ -11,11 +11,11 @@ import { first } from 'rxjs/operators';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
-import { event } from 'jquery';
 import { environment } from 'src/environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs-compat';
 import { HttpClient } from '@angular/common/http';
+import * as moment from 'moment';
 
 class DataTableResponse {
   data: any[];
@@ -184,7 +184,7 @@ export class BalanceUpdationComponent implements OnInit {
     let obj = [this.ngscheme, this.ngbranch]
     switch (this.getschemename) {
       case 'SB':
-        this.schemeAccountNoService.getSavingSchemeList1(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getSavingMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
           this.lastTranDate = true
@@ -219,7 +219,7 @@ export class BalanceUpdationComponent implements OnInit {
         break;
 
       case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList1(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermDepositMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
           this.ledgerbalance = true
@@ -254,7 +254,7 @@ export class BalanceUpdationComponent implements OnInit {
         break;
 
       case 'IV':
-        this.schemeAccountNoService.getInvestmentSchemeList1(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getInvestmentMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
           this.ledgerbalance = true
@@ -290,7 +290,7 @@ export class BalanceUpdationComponent implements OnInit {
         break;
 
       case 'GS':
-        this.schemeAccountNoService.getAnamatSchemeList1(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getAnamatMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
           this.ledgerbalance = true
@@ -326,7 +326,7 @@ export class BalanceUpdationComponent implements OnInit {
         break;
 
       case 'AG':
-        this.schemeAccountNoService.getPigmyAgentSchemeList1(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAgentMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
           this.ledgerbalance = true
@@ -364,7 +364,7 @@ export class BalanceUpdationComponent implements OnInit {
         break;
 
       case 'PG':
-        this.schemeAccountNoService.getPigmyAccountSchemeList1(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAccountMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
           this.ledgerbalance = true
@@ -400,9 +400,75 @@ export class BalanceUpdationComponent implements OnInit {
         break;
 
       case 'LN':
+        this.schemeAccountNoService.getTermLoanMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+          this.ledgerbalance = true
+          this.lastTranDate = true
+          this.productamount = false
+          this.lastintpaidDate = false
+          this.closingdate = false
+          this.debitcredit = true
+          this.payableint = false
+          this.totalintpaid = false
+          this.totalpenalint = false
+          this.totalinstallmentrec = false
+          this.tdsopDate = false
+          this.intinfinancialyear = false
+          this.opintpaidfinyear = false
+          this.acopenDate = false
+          this.lastcreditDate = false
+          this.lastintDate = true
+          this.opproduct = false
+          this.balanceDate = true
+          this.receivableint = true
+          this.totalintrec = true
+          this.penalint = true
+          this.totaldepositamt = true
+          this.totalpostedint = true
+          this.npaDate = true
+          this.isdisputeloan = true
+          this.noofshares = false
+          this.shareamt = false
+          this.accloseDate = false
+        })
+        break;
       case 'CC':
+        this.schemeAccountNoService.getCashCreditMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
+          this.ToAC = data
+          this.fromAC = data
+          this.ledgerbalance = true
+          this.lastTranDate = true
+          this.productamount = false
+          this.lastintpaidDate = false
+          this.closingdate = false
+          this.debitcredit = true
+          this.payableint = false
+          this.totalintpaid = false
+          this.totalpenalint = false
+          this.totalinstallmentrec = false
+          this.tdsopDate = false
+          this.intinfinancialyear = false
+          this.opintpaidfinyear = false
+          this.acopenDate = false
+          this.lastcreditDate = false
+          this.lastintDate = true
+          this.opproduct = false
+          this.balanceDate = true
+          this.receivableint = true
+          this.totalintrec = true
+          this.penalint = true
+          this.totaldepositamt = true
+          this.totalpostedint = true
+          this.npaDate = true
+          this.isdisputeloan = true
+          this.noofshares = false
+          this.shareamt = false
+          this.accloseDate = false
+        })
+        break;
       case 'DS':
-        this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getDisputeLoanMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
           this.ledgerbalance = true
@@ -437,7 +503,7 @@ export class BalanceUpdationComponent implements OnInit {
         break;
 
       case 'SH':
-        this.schemeAccountNoService.getShareSchemeList1(obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getShareMasterAcListForBalUpdation(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
           this.fromAC = data
           this.ledgerbalance = false
@@ -492,17 +558,33 @@ export class BalanceUpdationComponent implements OnInit {
       this.http.get(this.url + '/balance-updation/accounts/' + this.mem).subscribe((data) => {
         this.arrTable = data;
         console.log('array', this.arrTable)
-        // this.arrTable.forEach(element => {
-        //   var object = {
-        //     AC_NO: element.AC_NO,
-        //     AC_NAME: element.AC_NAME,
-        //     id: element.id,
-        //     BANKACNO: element.BANKACNO == undefined || element.BANKACNO == null ? '' : element.BANKACNO,
-        //     TRAN_AMOUNT: '',
-        //     NARRATION: ''
-        //   }
-        //   this.balanceUpdateArr.push(object)
-        // });
+        this.arrTable.forEach(element => {
+          var object = {
+            AC_NO: element.AC_NO,
+            AC_NAME: element.AC_NAME,
+            id: element.id,
+            BANKACNO: element.BANKACNO,
+            AC_OP_TOTAL_DEPOSITAMT: element.AC_OP_TOTAL_DEPOSITAMT,
+            AC_OP_CD: element.AC_OP_CD,
+            AC_BALDATE: element.AC_BALDATE,
+            AC_ACTDATE: element.AC_ACTDATE,
+            AC_PAID_INT_OP: element.AC_PAID_INT_OP,
+            AC_LINTEDT: element.AC_LINTEDT,
+            OP_POSTED_INT: element.OP_POSTED_INT,
+            AC_RECBLEODUEINT_OP: element.AC_RECBLEODUEINT_OP,
+            OP_NPA_DATE: element.OP_NPA_DATE,
+            IS_DISPUTE_LOAN: element.IS_DISPUTE_LOAN,
+            AC_CLOSEDT: element.AC_CLOSEDT,
+            AC_PRODUCT: element.AC_PRODUCT,
+            AC_PINT_OP: element.AC_PINT_OP,
+            AC_ODEPINS: element.AC_ODEPINS,
+            OP_CR_INT_FIN_YEAR: element.OP_CR_INT_FIN_YEAR,
+            OP_INT_PAID_FIN_YEAR: element.OP_INT_PAID_FIN_YEAR,
+            LAST_TDS_DATE: element.LAST_TDS_DATE,
+            ExistFlag: 'Y'
+          }
+          this.balanceUpdateArr.push(object)
+        });
       });
     }
     else {
@@ -518,12 +600,12 @@ export class BalanceUpdationComponent implements OnInit {
 
   getColumnValue(id, AC_NO, BANKACNO, columnValue, ColumnName) {
     if (columnValue != '' || columnValue != 0) {
-      debugger
       if (this.balanceUpdateArr.length != 0) {
         if (this.balanceUpdateArr.some(item => item.AC_NO === AC_NO)) {
           this.balanceUpdateArr.forEach((element) => {
             if (element.AC_NO == AC_NO) {
               element[`${ColumnName}`] = columnValue
+              element['ExistFlag'] = 'N'
             }
           })
         }
@@ -531,7 +613,8 @@ export class BalanceUpdationComponent implements OnInit {
           var object = {
             AC_NO: AC_NO,
             id: id,
-            BANKACNO: BANKACNO
+            BANKACNO: BANKACNO,
+            ExistFlag: 'N'
           }
           object[`${ColumnName}`] = columnValue
           this.balanceUpdateArr.push(object)
@@ -541,7 +624,8 @@ export class BalanceUpdationComponent implements OnInit {
         var object = {
           AC_NO: AC_NO,
           id: id,
-          BANKACNO: BANKACNO
+          BANKACNO: BANKACNO,
+          ExistFlag: 'N'
         }
         object[`${ColumnName}`] = columnValue
         this.balanceUpdateArr.push(object)
@@ -553,11 +637,12 @@ export class BalanceUpdationComponent implements OnInit {
   getDebitCredit(id, AC_NO, BANKACNO, AC_OP_CD) {
 
     if (this.balanceUpdateArr.length != 0) {
-      debugger
+
       if (this.balanceUpdateArr.some(item => item.AC_NO === AC_NO)) {
         this.balanceUpdateArr.forEach((element) => {
           if (element.AC_NO == AC_NO) {
             element['AC_OP_CD'] = AC_OP_CD == 1 ? 'D' : 'C'
+            element['ExistFlag'] = 'N'
           }
         })
       }
@@ -566,6 +651,7 @@ export class BalanceUpdationComponent implements OnInit {
           AC_NO: AC_NO,
           id: id,
           BANKACNO: BANKACNO,
+          ExistFlag: 'N',
           AC_OP_CD: AC_OP_CD == 1 ? 'D' : 'C'
         }
         // object[`${ColumnName}`] = columnValue
@@ -577,9 +663,54 @@ export class BalanceUpdationComponent implements OnInit {
         AC_NO: AC_NO,
         id: id,
         BANKACNO: BANKACNO,
+        ExistFlag: 'N',
         AC_OP_CD: AC_OP_CD == 1 ? 'D' : 'C'
       }
       // object[`${ColumnName}`] = columnValue
+      this.balanceUpdateArr.push(object)
+    }
+
+    console.log(this.balanceUpdateArr)
+  }
+
+  //update checkbox status in array
+  checkInterestFlag(id, AC_NO, BANKACNO, flag) {
+
+    let isIntUpdate: boolean = false
+    if (flag.target.checked) {
+      isIntUpdate = true
+    }
+    else {
+      isIntUpdate = false
+    }
+    if (this.balanceUpdateArr.length != 0) {
+      if (this.balanceUpdateArr.some(item => item.AC_NO === AC_NO)) {
+        this.balanceUpdateArr.forEach((element) => {
+          if (element.AC_NO == AC_NO) {
+            element['IS_DISPUTE_LOAN'] = isIntUpdate
+            element['ExistFlag'] = 'N'
+          }
+        })
+      }
+      else {
+        var object = {
+          AC_NO: AC_NO,
+          id: id,
+          BANKACNO: BANKACNO,
+          IS_DISPUTE_LOAN: isIntUpdate,
+          ExistFlag: 'N'
+        }
+        this.balanceUpdateArr.push(object)
+      }
+    }
+    else {
+      var object = {
+        AC_NO: AC_NO,
+        id: id,
+        BANKACNO: BANKACNO,
+        ExistFlag: 'N',
+        IS_DISPUTE_LOAN: isIntUpdate
+      }
       this.balanceUpdateArr.push(object)
     }
 
@@ -620,10 +751,6 @@ export class BalanceUpdationComponent implements OnInit {
 
   }
   submit() {
-    console.log(this.angForm.valid);
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
-    }
     let notingdate
     this.formSubmitted = true;
     if (this.balanceUpdateArr.length != 0) {
@@ -631,12 +758,20 @@ export class BalanceUpdationComponent implements OnInit {
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
       const dataToSend = {
+        // TRAN_DATE: formVal.TRAN_DATE,
+        TRAN_DATE: (formVal.TRAN_DATE == '' || formVal.TRAN_DATE == 'Invalid date') ? '' : moment(formVal.TRAN_DATE).format('DD/MM/YYYY'),
+        TRAN_ACNOTYPE: this.getschemename,
+        TRAN_ACTYPE: this.ngscheme,
         balanceUpdateArr: this.balanceUpdateArr,
-        AC_TYPE: this.getschemename
+        AC_TYPE: this.getschemename,
+        BRANCH_CODE: this.branchCode,
+        S_GLACNO: this.S_GLACNO,
+        USER: result.USER_NAME,
       };
+      console.log(dataToSend);
       this._service.postData(dataToSend).subscribe(data => {
         this.formSubmitted = false;
-
+        Swal.fire("Success!", "Data Updated Successfully !", "success");
 
       })
       this.resetForm()
