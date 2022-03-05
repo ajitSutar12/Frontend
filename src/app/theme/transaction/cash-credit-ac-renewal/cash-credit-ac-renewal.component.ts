@@ -98,6 +98,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
  
   
     ngOnInit(): void {
+      this.getSystemParaDate()
       this.createForm();
 
       this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
@@ -160,14 +161,18 @@ export class CashCreditAcRenewalComponent implements OnInit {
    
       this.getIntroducer()
     }
+    schemechange(event) {
+
+      this.getschemename = event.name
+      this.ngscheme = event.value
+      this.getIntroducer()
+  
+  
+    }
     
     
   
-    getIntro(event) {
-    
-      this.getschemename = event.name
-      this.getIntroducer()
-    }
+   
   
     //get account no according scheme
     getIntroducer() {

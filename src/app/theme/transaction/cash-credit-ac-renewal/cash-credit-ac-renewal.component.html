@@ -16,7 +16,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
+                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()" 
                                         placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
@@ -36,10 +36,10 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                    <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme" 
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        (change)="getIntro($event)" placeholder="Scheme">
+                                        (change)="schemechange($event)" placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -601,12 +601,13 @@
                             </div>
                             
                         </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Renew</button>
-                            </div>
-                        </div>
+                        
 
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Renew</button>
+                        </div>
                     </div>
                 </div>
 

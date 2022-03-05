@@ -1,129 +1,321 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs-compat';
+import { first } from 'rxjs/operators';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { DeadStockTransactionService } from './dead-stock-transaction.service';
+import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-master-dropdown.service';
+import { reset } from 'mousetrap';
+import { data } from 'jquery';
 
-import {IOption} from 'ng-select';
-import {Subscription} from 'rxjs/Subscription';
-import {SelectOptionService} from '../../../shared/elements/select-option.service'
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/first';
 @Component({
   selector: 'app-dead-stock-transaction',
   templateUrl: './dead-stock-transaction.component.html',
   styleUrls: ['./dead-stock-transaction.component.scss']
 })
 export class DeadStockTransactionComponent implements OnInit {
-  simpleOption: Array<IOption> = this.selectOptionService.getCharacters();
-  selectedOption = '3';
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = '3';
-  timeLeft = 5;
+  @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
 
-  countries: Array<IOption> = this.selectOptionService.getCountries();
-  selectedCountry = 'IN';
-  selectedCountries: Array<string> = ['IN', 'BE', 'LU', 'NL'];
+  formSubmitted = false;
+   //api
+   url = environment.base_url;
+  //  Formgroup variable
+   angForm: FormGroup;
+  
+  // dropdown variables
+  itemcode:any[];
+  ngBranchCode:any=null
+  ngtransactiondate:any=null
+  branch_code: any[];
+  schemeedit: any;
 
-  private dataSub: Subscription = null;
+  // Date variables
+  ngresolutiondate:any=null
+  maxDate: Date;
+  minDate: Date;
 
-  autocompleteItems = ['Alabama', 'Wyoming', 'Henry Die', 'John Doe'];
-  autocompleteItemsAsObjects = [
-    {value: 'Alabama', id: 0},
-    {value: 'Wyoming', id: 1},
-    {value: 'Coming', id: 2},
-    {value: 'Josephin Doe', id: 3},
-    {value: 'Henry Die', id: 4},
-    {value: 'Lary Doe', id: 5},
-    {value: 'Alice', id: 6},
-    {value: 'Alia', id: 7},
-    {value: 'Suzen', id: 8},
-    {value: 'Michael Scofield', id: 9},
-    {value: 'Irina Shayk', id: 10},
-    {value: 'Sara Tancredi', id: 11},
-    {value: 'Daizy Mendize', id: 12},
-    {value: 'Loren Scofield', id: 13},
-    {value: 'Shayk', id: 14},
-    {value: 'Sara', id: 15},
-    {value: 'Doe', id: 16},
-    {value: 'Lary', id: 17},
-    {value: 'Roni Sommerfield', id: 18},
-    {value: 'Mickey Amavisca', id: 19},
-    {value: 'Dorethea Hennigan', id: 20},
-    {value: 'Marisha Haughey', id: 21},
-    {value: 'Justin Czajkowski', id: 22},
-    {value: 'Reyes Hodges', id: 23},
-    {value: 'Vicky Hadley', id: 24},
-    {value: 'Lezlie Baumert', id: 25},
-    {value: 'Otha Vanorden', id: 26},
-    {value: 'Glayds Inabinet', id: 27},
-    {value: 'Hang Owsley', id: 28},
-    {value: 'Carlotta Buttner', id: 29},
-    {value: 'Randa Vanloan', id: 30},
-    {value: 'Elana Fulk', id: 31},
-    {value: 'Amos Spearman', id: 32},
-    {value: 'Samon', id: 33},
-    {value: 'John Doe', id:  34}
-  ];
-  constructor(public selectOptionService: SelectOptionService) { }
+  isTransfer:boolean=false
+  isCash: boolean;
+  accountedit: any;
+
+  narration: any;
+  narrationList: any;
+  
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+
+  //Transaction type variable
+  ngtransactiontype: any = null
+  transactiontype = [
+    { id: 'S', label: 'Sales' },
+    { id: 'B', label: 'Breakage' },
+    { id: 'G', label: 'Gain' },
+    { id: 'L', label: 'Loss' },
+    { id: 'D', label: 'Depriciation' },
+    { id: 'T', label: 'Transfer' }
+  ]
+  schemeACNo: any[];
+  scheme: any[];
+  ACMasterDropdown: any;
+  ngresolutionnum: boolean;
+  cash: boolean;
+
+  
+  constructor(
+    private fb: FormBuilder, private http: HttpClient,
+    private systemParameter: SystemMasterParametersService,
+    private deadstocktransaction:DeadStockTransactionService,
+    public ACMasterDropdownService: ACMasterDropdownService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private schemeAccountNoService: SchemeAccountNoService,
+    private ownbranchMasterService: OwnbranchMasterService,
+    private config: NgSelectConfig,
+  ) { 
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   dtExportButtonOptions: any = {};
  
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
-    this.runTimer();
-    this.dataSub = this.selectOptionService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-  }
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
+    this.getSystemParaDate()
+    this.createForm()
 
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+      this.ngBranchCode = data[0].value
+    })
+
+    this.ACMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
+
+      this.ACMasterDropdown = data;
+    })
+
+
+    // /Narration List
+    this.deadstocktransaction.getNarrationMaster().subscribe(data => {
+      this.narrationList = data;
+    })
+  
+  }
+  createForm() {
+    this.angForm = this.fb.group({
+      BRANCH_CODE:['',[Validators.required]],
+      TRAN_DATE:[''],
+      TRAN_YEAR:[''],
+      TRANSACTION_TYPE:['',[Validators.required]],
+      ITEM_CODE:[''],
+      DEAD_STOCK:[''],
+      AC_TYPE:['',[Validators.required]],
+      AC_NO:['',[Validators.required]],
+      RESOLUTION_DATE:['',[Validators.required]],
+      RESOLUTION_NUM:['',[Validators.required,Validators.pattern]],
+      NARRATION:['',[Validators.required,Validators.pattern]],
+  
+  
+    })
+  }
+
+  
+  getBranch() {
+   
+    this.getIntroducer()
+  }
+
+  schemechange(event) {
+
+    this.getschemename = event.name
+    this.schemeedit = event.value
+    this.getIntroducer()
+
+
+  }
+
+
+  obj: any
+  getschemename: any
+  //get account no according scheme for introducer
+  getIntroducer() {
+
+
+    this.obj = [this.schemeedit, this.ngBranchCode]
+
+
+    switch (this.getschemename) {
+      
+        case 'GL':
+          this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
+            this.schemeACNo = data;
+          })
+          break;
+    }
+  }
+
+  //get sys para current date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        'TRAN_DATE': data.CURRENT_DATE,
+
+      })
+      // var full = []
+      var formatfullDate =data.CURRENT_DATE;
+      var nyear = formatfullDate.split(/\//);
+      let next= Number(nyear[2]) + 1 
+      console.log(next)
+      var transactionDate = nyear[2] + next
+      this.angForm.patchValue({
+            TRAN_YEAR: transactionDate
+          })
+          console.log(transactionDate)
+
+    })
+    
+  }
+
+   //get Narration Details 
+   getNarration(ele) {
+    this.narration = ele;
+    let el: HTMLElement = this.triggerhide.nativeElement;
+    el.click();
+  }
+
+  changetransaction(){
+    this.schemeedit=null,
+    this.accountedit=null,
+    this.ngresolutionnum=null,
+    this.narration=null,
+    this.angForm.patchValue({
+      // RESOLUTION_DATE: this.angForm.controls['RESOLUTION_DATE'].value,
+      RESOLUTION_DATE:'',
+    })
+
+  }
+
+
+  Narration: boolean=false
+  Resolution:boolean=false
+  GLAccount:boolean=false
+  isFormA(value) {
+
+    debugger
+    if (this.ngtransactiontype.label == 'Sales'){
+
+      document.getElementById('formC').removeAttribute("disabled");
+      if (value == 1) {
+        this.GLAccount=true
+
+        this.Resolution=true
+       
+        this.Narration=true;
+        
+      }
+      else if (value == 2) {
+        this.GLAccount=false
+        this.Resolution=true
+
+        this.Narration=true;
+      
+        
+      }
+      
+      // this.angForm.get('type').reset();
+    }
+    
+    if (this.ngtransactiontype.label == 'Breakage'){
+      document.getElementById('formC').setAttribute("disabled", "true");
+      if (value == 1) {
+        this.GLAccount=true
+
+        this.Resolution=true
+       
+        this.Narration=true;
+      }
+    }
+    
+    if (this.ngtransactiontype.label == 'Gain'){
+      document.getElementById('formC').setAttribute("disabled", "true");
+      if (value == 1) {
+        this.GLAccount=true
+
+        this.Resolution=true
+        
+        this.Narration=true;
+      }
+      
+    }
+    if (this.ngtransactiontype.label == 'Loss'){
+      document.getElementById('formC').setAttribute("disabled", "true");
+      if (value == 1) {
+        this.GLAccount=true
+
+        this.Resolution=true
+        
+        this.Narration=true;
+      }
+      
+      
+    }
+    if (this.ngtransactiontype.label == 'Depriciation'){
+      document.getElementById('formC').removeAttribute("disabled");
+      if (value == 1) {
+        this.GLAccount=true
+
+        this.Resolution=true
+        
+        this.Narration=true;
+      }
+      else if (value == 2) {
+        
+        
+        this.GLAccount=false
+
+        this.Resolution=true
+        
+        this.Narration=true;
+        
+      }
+      
+    }
+    if (this.ngtransactiontype.label == 'Transfer'){
+      document.getElementById('formC').setAttribute("disabled", "true");
+      if (value == 1) {
+        this.GLAccount=true
+
+        this.Resolution=true
+        
+        this.Narration=true;
+      }
+     
+    }
+    // this.angForm.patchValue({
+        
+      // })
+    
+    
+  }
+
+  
+
+  // Reset Function
+  resetForm() {
+    this.createForm();
+    
+    this.ngBranchCode = null
+    this.schemeedit = null
+    this.accountedit = null
+    
   }
 
 }
