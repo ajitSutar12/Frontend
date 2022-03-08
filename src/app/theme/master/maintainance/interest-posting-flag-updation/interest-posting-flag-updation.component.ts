@@ -84,6 +84,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
   }
 //get scheme wise account number
   getSchemeAcno(event) {
+    debugger
     let obj = [this.ngscheme, this.ngBranchCode]
     this.ngfromac = null
     this.ngtoac = null
