@@ -800,9 +800,3 @@ input[type="file" i]::-webkit-file-upload-button {
     border-color: rgba(0, 0, 0, 0.15);
     color: rgb(16, 16, 17);
 }
-
-
-// for hand cursor below css
-.grab {cursor: -webkit-grab; cursor: grab;}
-// solid style
-div.solid {border-style: solid;padding:2%}

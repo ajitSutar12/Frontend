@@ -11,17 +11,18 @@
             <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
-                                         formControlName="AC_TYPE" bindLabel="label" 
-                                        title="Compulsory Selection" required placeholder="Scheme Code">
+                                        formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                        required placeholder="Scheme Code">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    
+
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -32,9 +33,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="WARRENT_DATE">Div.Warrent Date<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="WARRENT_DATE">Div.Warrent Date<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
-                            <div class="form-group input-group">
+                            <!-- <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy"
                                     name="WARRENT_DATE" id="WARRENT_DATE"
@@ -45,6 +47,19 @@
                                     formControlName="WARRENT_DATE"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                     bsDatepicker>
+                                </span>
+                            </div> -->
+
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
+                                        formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE" title="Compulsory Selection"
+                                        required placeholder="Warrent Date" (change)="getWarrentDetails($event)">
+                                        <ng-option *ngFor="let values of warrentDate" [value]="values">
+                                            {{values.WARRENT_DATE}} ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}})
+                                        </ng-option>
+                                    </ng-select>
+
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -57,7 +72,7 @@
                         </div>
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Add</button>
+                                [disabled]="angForm.invalid">Process</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 *ngIf="updateShow">Update</button>
                         </div>
@@ -67,7 +82,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-block">
@@ -82,7 +97,6 @@
                                                 (click)="editClickHandler(data.id)" placement="bottom"
                                                 ngbTooltip="Edit"></span>
                                             &nbsp;
-                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
                                         <td>{{ data.AC_TYPE }}</td>
                                         <td class="td_center">{{ data.WARRENT_DATE }}</td>
@@ -95,9 +109,7 @@
                                   </tbody>
                                   <tfoot #filters class="filters">
                                     <tr class="testing">
-                                        <th class="testing"></th>
-
-                                        
+                                        <th class="testing"></th>                                        
                                         <th>
                                             <input type="text" class="form-control" name="AC_TYPE" />
                                           </th>
@@ -105,8 +117,7 @@
                                             <input type="text" class="form-control" name="WARRENT_DATE" />
                                           </th>
                                     </tr>
-                                  </tfoot>
-                            
+                                  </tfoot>                            
                             </table>
                         </div>
                     </div>
@@ -114,4 +125,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

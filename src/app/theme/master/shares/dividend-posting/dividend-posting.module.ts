@@ -12,7 +12,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
-
+import { DividendPostingService } from './dividend-posting.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +27,7 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
     DatepickerModule.forRoot()
   ],
   declarations: [DividendPostingComponent],
-  providers: [SchemeCodeService,SchemeCodeDropdownService,{
+  providers: [SchemeCodeService, SchemeCodeDropdownService, DividendPostingService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

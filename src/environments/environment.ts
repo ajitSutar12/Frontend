@@ -9,6 +9,8 @@ export const environment = {
   // base_url: 'http://192.168.1.179:4000'
   // base_url : 'http://139.59.86.29:4000'
   base_url : 'http://localhost:4000'
+
+  // base_url: 'http://192.168.1.154:4000'  //sudam sir PC
 };
 
 /*

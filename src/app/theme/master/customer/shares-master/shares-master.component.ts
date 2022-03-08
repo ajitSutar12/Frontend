@@ -423,7 +423,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       })
 
     }
-    
+
 
     this.subSalaryDMasterdropdownService.getSubSalaryDMasterList().pipe(first()).subscribe(data => {
       this.sub_salary_div = data;
@@ -768,6 +768,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_DEV_CITYCODE': formVal.AC_DEV_CITYCODE,
 
         'DIV_TRANSFER_BRANCH': formVal.DIV_TRANSFER_BRANCH,
+        'DIV_TRANSFER_ACNOTYPE': this.getschemename,
         'DIV_TRANSFER_ACTYPE': formVal.DIV_TRANSFER_ACTYPE,
         'DIV_TRANSFER_ACNO': formVal.DIV_TRANSFER_ACNO,
         //Nominee 
@@ -842,6 +843,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.ngBranchCode = data.DIV_TRANSFER_BRANCH
         this.tempbranch = data.DIV_TRANSFER_BRANCH
+        this.getschemename = data.DIV_TRANSFER_ACNOTYPE
         this.ngDivACType = Number(data.DIV_TRANSFER_ACTYPE),
           this.obj = [this.ngDivACType, this.ngBranchCode]
 
@@ -972,6 +974,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for update data 
   updateData() {
+    console.log(this.ngDivACNO)
 
     let joindate
     let opdate
@@ -1041,6 +1044,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['SUB_SALARYDIVISION_CODE'] = this.sub_salary_divList
     data['DIV_TRANSFER_BRANCH'] = this.ngBranchCode
     data['DIV_TRANSFER_ACTYPE'] = this.ngDivACType
+    data['DIV_TRANSFER_ACNOTYPE'] = this.getschemename
     data['DIV_TRANSFER_ACNO'] = this.ngDivACNO
     this.ShareMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
@@ -1437,10 +1441,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getDivTrans(event) {
+
     this.getscheme = event.value
     this.getschemename = event.name
     this.getDiviTransfer()
   }
+
 
   //get account no according scheme for dividend transfer
   getDiviTransfer() {

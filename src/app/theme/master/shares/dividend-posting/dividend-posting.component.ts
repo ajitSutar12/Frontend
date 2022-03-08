@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 import { Subject } from 'rxjs-compat';
 import { DataTableDirective } from 'angular-datatables';
 import { HttpClient } from '@angular/common/http';
-
+import { DividendPostingService } from './dividend-posting.service'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -23,10 +23,10 @@ class DataTableResponse {
 // For fetching values from backend
 interface DividendPosting {
   id: number;
-  
+
   AC_TYPE: number;
-  WARRENT_DATE:Date
-  
+  WARRENT_DATE: Date
+
 }
 @Component({
   selector: 'app-dividend-posting',
@@ -36,9 +36,9 @@ interface DividendPosting {
 
 export class DividendPostingComponent implements OnInit {
 
-   //api
-   url = environment.base_url;
-   formSubmitted = false;
+  //api
+  url = environment.base_url;
+  formSubmitted = false;
   angForm: FormGroup;
 
   httpData: any;
@@ -46,7 +46,7 @@ export class DividendPostingComponent implements OnInit {
   makeForm: any;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
- 
+
 
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
@@ -54,7 +54,7 @@ export class DividendPostingComponent implements OnInit {
   page: number;
   filterData = {};
 
-  
+
 
   selectedOption = '3';
   isDisabled = true;
@@ -65,33 +65,32 @@ export class DividendPostingComponent implements OnInit {
   showButton: boolean = true;
   updateShow: boolean = false;
 
-  dividendposting:DividendPosting[]
-
-  // dropdown variables
-  ngscheme:any=null
-  scheme: any[];
-
+  dividendposting: DividendPosting[]
   //for date
   maxDate: Date;
   minDate: Date;
-  warrentdate:any=null
+  warrentdate: any = null
 
-  message = {
-    WarrantDate: "",
-    SchemeCode: "",
-  };
+  // dropdown variables
+  ngscheme: any = null
+  scheme;
+  //Scheme type variable
+  schemeType: string = 'SH'
+  warrentDate
+  ngwarrentDate: any = null
 
   private dataSub: Subscription = null;
 
   constructor(private fb: FormBuilder,
     private http: HttpClient,
     private config: NgSelectConfig,
+    private _service: DividendPostingService,
     private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService) {
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
-    }
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -155,28 +154,31 @@ export class DividendPostingComponent implements OnInit {
           data: 'WARRENT_DATE'
         },],
       dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-     
+
     };
-    // this.dataSub = this.SchemeCodeService.loadCharacters().subscribe((options) => {
-    //   this.characters = options;
-    // });
-    
-    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV'|| scheme.name == 'GS'|| scheme.name == 'AG'|| scheme.name == 'PG'|| scheme.name == 'CC'|| scheme.name == 'SH')
-      });
-      this.scheme = allscheme;
-    })
+
+
+    // this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+    //   var allscheme = data.filter(function (scheme) {
+    //     return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'CC' || scheme.name == 'SH')
+    //   });
+    //   this.scheme = allscheme;
+    // })
     this.createForm()
+
+
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+      this.scheme = data
+      this.ngscheme = data[0].value
+    })
+
+    this.http.get(this.url + '/dividend-calculation').subscribe((data) => {
+      this.warrentDate = data
+    })
+
   }
 
-  
+
 
   createForm() {
     this.angForm = this.fb.group({
@@ -184,11 +186,51 @@ export class DividendPostingComponent implements OnInit {
       WARRENT_DATE: ['', [Validators.required]]
     });
   }
+  selectedWarrentDate
+  selectedDivFromYear
+  selectedDivToYear
+
+  getWarrentDetails(event) {
+    debugger
+    this.selectedWarrentDate = event.WARRENT_DATE
+    this.selectedDivFromYear = event.DIV_FROM_YEAR
+    this.selectedDivToYear = event.DIV_TO_YEAR
+  }
 
   submit() {
+    debugger
     console.log(this.angForm.valid);
     if (this.angForm.valid) {
-      console.log(this.angForm.value);
+      const dataToSend = {
+        WARRENT_DATE: this.selectedWarrentDate,
+        DIV_FROM_YEAR: this.selectedDivFromYear,
+        DIV_TO_YEAR: this.selectedDivToYear
+      }
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to process data",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#229954',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Process it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this._service.postData(dataToSend).subscribe((data) => {
+            Swal.fire("Processed!", "success");
+          }),
+            (error) => {
+              console.log(error);
+            };
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.createForm()
+          this.ngscheme = null
+          this.ngwarrentDate = null
+
+        }
+      });
+      this.resetForm()
     }
   }
   /**
@@ -196,8 +238,6 @@ export class DividendPostingComponent implements OnInit {
   */
 
   editClickHandler(info: any): void {
-    this.message.WarrantDate = info.WarrantDate;
-    this.message.SchemeCode = info.SchemeCode;
     this.showButton = false;
     this.updateShow = true;
   }
@@ -214,12 +254,14 @@ export class DividendPostingComponent implements OnInit {
   // reset form
   resetForm() {
     this.createForm();
+    this.ngscheme = null
+    this.ngwarrentDate = null
   }
 
   addNewData() {
     this.showButton = true;
     this.updateShow = false;
-    
+
     this.resetForm();
   }
 
@@ -229,10 +271,9 @@ export class DividendPostingComponent implements OnInit {
     @Swal.fire open a modal window to display message
   */
   delClickHandler(info: any): void {
-    this.message.SchemeCode = info.SchemeCode;
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to delete Scheme Code." + this.message.SchemeCode + "  data",
+      text: "Do you want to delete Scheme Code. data",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
