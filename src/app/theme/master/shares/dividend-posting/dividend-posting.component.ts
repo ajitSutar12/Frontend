@@ -190,15 +190,13 @@ export class DividendPostingComponent implements OnInit {
   selectedDivFromYear
   selectedDivToYear
 
-  getWarrentDetails(event) {
-    debugger
+  getWarrentDetails(event) {    
     this.selectedWarrentDate = event.WARRENT_DATE
     this.selectedDivFromYear = event.DIV_FROM_YEAR
     this.selectedDivToYear = event.DIV_TO_YEAR
   }
 
-  submit() {
-    debugger
+  submit() {    
     console.log(this.angForm.valid);
     if (this.angForm.valid) {
       const dataToSend = {

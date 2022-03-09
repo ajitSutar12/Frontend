@@ -12,13 +12,14 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="WARRENT_DATE">Div.Warrent Date<sub
-                            class="required">*</sub></label></div>
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
-                                        formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE" title="Compulsory Selection"
-                                        required placeholder="Warrent Date" (change)="getWarrentDetails($event)">
+                                        formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE"
+                                        title="Compulsory Selection" required placeholder="Warrent Date"
+                                        (change)="getWarrentDetails($event)">
                                         <ng-option *ngFor="let values of warrentDate" [value]="values">
                                             {{values.WARRENT_DATE}} ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}})
                                         </ng-option>
@@ -33,26 +34,28 @@
                                     This field is required.
                                 </div>
                             </div>
-                            
+
                         </div>
-                        <div class="col-md">
+                        <div class="col-sm">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="checkbox1"
-                                        [checked]="isTransferToReserveFundOrOtherAccount == true">
+                                        (change)="checkTranserReserve($event)">
                                     <label class="border-checkbox-label" for="checkbox1">Transfer To Reserve Fund Or
                                         Other Account<span class="required"> </span></label>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
-                            class="required">*</sub></label></div>
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        required placeholder="Scheme Code">
+                                        required placeholder="Scheme Code" (change)="getAccountList()">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -67,30 +70,33 @@
                                 </div>
                             </div>
                         </div>
-                       
-                        
-                       
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_NO">Select Account<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_NO">Select Account<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngtoac" formControlName="AC_NO"
-                                    bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Select Account">
-                                    <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                        {{values.label}} {{values.name}}</ng-option>
-                                </ng-select>
+                                    <ng-select id="AC_NO" bindValue="AC_NO" [(ngModel)]="ngtoac" formControlName="AC_NO"
+                                        bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        placeholder="Select Account">
+                                        <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
+                                    </ng-select>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                            *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
-                            class="alert alert-danger">
+                                *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
+                                class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_NO'].errors?.required">
                                     This field is required
                                 </div>
-                            </div>       
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                            (click)="submit()"  >Process</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                *ngIf="updateShow">Update</button>
                         </div>
                     </div>
                 </div>
@@ -98,7 +104,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-block">
@@ -114,4 +120,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

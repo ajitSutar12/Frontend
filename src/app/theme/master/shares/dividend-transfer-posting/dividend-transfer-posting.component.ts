@@ -9,7 +9,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { environment } from 'src/environments/environment';
 import { first } from 'rxjs/operators';
 import { NgSelectConfig } from '@ng-select/ng-select';
-
+import { DividendTransferPostingService } from './dividend-transfer-posting.service'
 @Component({
   selector: 'app-dividend-transfer-posting',
   templateUrl: './dividend-transfer-posting.component.html',
@@ -17,7 +17,7 @@ import { NgSelectConfig } from '@ng-select/ng-select';
 })
 
 export class DividendTransferPostingComponent implements OnInit {
-  formSubmitted:false;
+  formSubmitted: false;
   //api
   url = environment.base_url;
   angForm: FormGroup;
@@ -36,7 +36,7 @@ export class DividendTransferPostingComponent implements OnInit {
   // dropdown variables
   ngscheme: any = null
   scheme;
-  ngtoac:any=null
+  ngtoac: any = null
   schemeACNo
 
   //for date
@@ -47,7 +47,7 @@ export class DividendTransferPostingComponent implements OnInit {
   //Scheme type variable
   schemeType: string = 'GL'
 
-  ngwarrentDate:any=null;
+  ngwarrentDate: any = null;
   showButton: boolean = true;
   updateShow: boolean = false;
 
@@ -62,10 +62,11 @@ export class DividendTransferPostingComponent implements OnInit {
   };
   warrentDate: any;
 
-  constructor(private fb: FormBuilder, private http: HttpClient,private config: NgSelectConfig,
-    private schemeCodeDropdownService: SchemeCodeDropdownService,public SchemeCodeService: SchemeCodeService) { this.createForm(); }
+  constructor(private fb: FormBuilder, private http: HttpClient, private config: NgSelectConfig, private _service: DividendTransferPostingService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService) { }
 
   ngOnInit(): void {
+    this.createForm();
     this.dtExportButtonOptions = {
       ajax: 'fake-data/dividend-transfer-posting.json',
       columns: [
@@ -113,54 +114,103 @@ export class DividendTransferPostingComponent implements OnInit {
         return row;
       }
     };
-    this.dataSub = this.SchemeCodeService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data
-      this.ngscheme = data[0].value
+      // this.ngscheme = data[0].value
+      this.getAccountList()
     })
 
-    this.http.get(this.url + '/dividend-calculation').subscribe((data) => {
+    this.http.get(this.url + '/dividend-transfer-posting').subscribe((data) => {
       this.warrentDate = data
     })
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
+
 
   createForm() {
     this.angForm = this.fb.group({
-      AC_TYPE: ['',[Validators.required]],
+      AC_TYPE: [''],
       WARRENT_DATE: ['', [Validators.required]],
-      AC_NO: ['', [Validators.pattern]]
+      AC_NO: ['']
     });
+    this.angForm.controls['AC_TYPE'].disable()
+    this.angForm.controls['AC_NO'].disable()
+    this.ngscheme = null
+    this.ngtoac = null
   }
   selectedWarrentDate
   selectedDivFromYear
   selectedDivToYear
 
   getWarrentDetails(event) {
-    
     this.selectedWarrentDate = event.WARRENT_DATE
     this.selectedDivFromYear = event.DIV_FROM_YEAR
     this.selectedDivToYear = event.DIV_TO_YEAR
   }
 
+
+  //get account no according scheme
+  getAccountList() {
+    this.ngtoac = null
+    this.http.get(this.url + '/gl-account-master/divAccount/' + this.ngscheme).subscribe((data) => {
+      console.log(data)
+      this.schemeACNo = data
+    })
+
+  }
+  isTransferReserve: boolean = false
+  //update checkbox status in array
+  checkTranserReserve(flag) {
+    if (flag.target.checked) {
+      this.angForm.controls['AC_TYPE'].enable()
+      this.angForm.controls['AC_NO'].enable()
+      this.isTransferReserve = true
+    }
+    else {
+      this.angForm.controls['AC_TYPE'].disable()
+      this.angForm.controls['AC_NO'].disable()
+      this.ngscheme = null
+      this.ngtoac = null
+      this.isTransferReserve = true
+    }
+  }
+
+
   submit() {
+
     console.log(this.angForm.valid);
     if (this.angForm.valid) {
       console.log(this.angForm.value);
     }
+    const formVal = this.angForm.value;
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+
+    const dataToSend = {
+      DIV_TRANSFER_ACTYPE: this.ngscheme,
+      DIV_TRANSFER_ACNO: this.ngtoac,
+      WARRENT_DATE: this.selectedWarrentDate,
+      DIV_FROM_YEAR: this.selectedDivFromYear,
+      DIV_TO_YEAR: this.selectedDivToYear,
+      USER: result.USER_NAME,
+      isTransferReserve: this.isTransferReserve
+    }
+
+
+    this._service.postData(dataToSend).subscribe(data1 => {
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+    }, (error) => {
+      console.log(error)
+    })
+    //To clear form
+    this.resetForm();
+
   }
 
+  resetForm() {
+    this.createForm()
+  }
   /**
 * @editClickHandler function for edit button clicked
 */

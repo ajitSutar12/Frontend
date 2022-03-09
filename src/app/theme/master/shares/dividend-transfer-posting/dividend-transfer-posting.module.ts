@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
-
+import { DividendTransferPostingService } from './dividend-transfer-posting.service'
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
     ReactiveFormsModule
   ],
   declarations: [DividendTransferPostingComponent],
-  providers: [SchemeCodeService,SchemeCodeDropdownService,{
+  providers: [SchemeCodeService, SchemeCodeDropdownService, DividendTransferPostingService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

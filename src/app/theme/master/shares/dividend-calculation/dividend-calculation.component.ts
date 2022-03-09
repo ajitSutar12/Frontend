@@ -221,9 +221,9 @@ export class DividendCalculationComponent implements OnInit {
       this.angForm.patchValue({
         Dividend: this.shareDividend
       })
-      this.getAccountList()
-      this.getDivTOYear()
     })
+    this.getAccountList()
+    this.getDivTOYear()
   }
 
   createForm() {
@@ -302,6 +302,7 @@ export class DividendCalculationComponent implements OnInit {
     var year = sysDate.getFullYear();
     var month = new Date().getMonth();
     month > 2 ? finYear = year : finYear = year - 1
+    finYear = finYear - 1
     var full = []
     var fullDate = `01/04/${finYear}`;
     full = fullDate.split(' ');
