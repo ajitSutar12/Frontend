@@ -12,7 +12,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { elementAt } from 'rxjs-compat/operator/elementAt';
 import Swal from 'sweetalert2';
-import { data } from 'jquery';
+import { data, event } from 'jquery';
 @Component({
   selector: 'app-interest-calculation',
   templateUrl: './interest-calculation.component.html',
@@ -53,6 +53,7 @@ export class InterestCalculationComponent implements OnInit {
   mem: any[];
   getschemename: any;
   schemeACNo: any[];
+  UpdateData: [];
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -86,7 +87,7 @@ export class InterestCalculationComponent implements OnInit {
       
      
     })
-
+    
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
     })
@@ -150,8 +151,6 @@ export class InterestCalculationComponent implements OnInit {
           var object = {
             AC_NO: element.AC_NO,
             AC_NAME: element.AC_NAME,
-           
-            
           }
           this.InterestArr.push(object)
         });
@@ -270,26 +269,18 @@ export class InterestCalculationComponent implements OnInit {
     
   }
   //load table according account range
-  getTable() {
+  getTable(event) {
     debugger
-    this.InterestArr = []
-    
-    var memAC = this.angForm.controls['AC_NO'].value
-    
-
+    // this.InterestArr = []
     this.showTable = true
-      this.mem = [memAC,  this.ngscheme, this.ngBranchCode, this.getschemename]
-      this.http.get(this.url + '/interest-calculation/accounts/' + this.mem).subscribe((data) => {
-        this.arrTable = data;
-        this.arrTable.forEach(element => {
-          var object = {
-            AC_NO: element.AC_NO,
-            AC_NAME: element.AC_NAME,
-            
-          }
-          this.InterestArr.push(object)
-        });
-      });
+    var object = {
+      AC_NO: event.value,
+      AC_NAME: event.name,
+      
+    }
+    this.InterestArr.push(object)
+    
+      
     
   }
 
@@ -298,13 +289,17 @@ export class InterestCalculationComponent implements OnInit {
       this.isSchemeWise = true;
       this.isAccountWise=false;
       this.isSelectiveAccountWise=false;
-      this.angForm.controls['BRANCH'].reset()
-      this.angForm.controls['AC_TYPE'].reset()
-      this.angForm.controls['FROM_AC'].reset()
-      this.angForm.controls['TO_AC'].reset()
-      this.angForm.controls['BRANCH1'].reset()
-      this.angForm.controls['AC_TYPE1'].reset()
-      this.angForm.controls['AC_TYPE1'].reset()
+      this.ngBranchCode=null
+      this.ngscheme=null
+      this.ngfromac=null
+      this.ngtoac=null
+      // this.angForm.controls['BRANCH'].reset()
+      // this.angForm.controls['AC_TYPE'].reset()
+      // this.angForm.controls['FROM_AC'].reset()
+      // this.angForm.controls['TO_AC'].reset()
+      // this.angForm.controls['BRANCH1'].reset()
+      // this.angForm.controls['AC_TYPE1'].reset()
+      // this.angForm.controls['AC_NO'].reset()
       
     }
     if (value == 2) {
@@ -313,7 +308,7 @@ export class InterestCalculationComponent implements OnInit {
       this.isSelectiveAccountWise=false;
       this.angForm.controls['BRANCH1'].reset()
       this.angForm.controls['AC_TYPE1'].reset()
-      this.angForm.controls['AC_TYPE1'].reset()
+      this.angForm.controls['AC_NO'].reset()
       
     }
     if (value == 3) {
@@ -327,41 +322,41 @@ export class InterestCalculationComponent implements OnInit {
     
   }
 
-   //update checkbox status in array
-   checkInterestFlag(uptodate, ledgerdate, flag) {
-    let isIntUpdate: boolean = false
-    if (flag.target.checked) {
-      isIntUpdate = true
-    }
-    else {
-      isIntUpdate = false
-    }
-    if (this.InterestArr.length != 0) {
-      if (this.InterestArr.some(item => item.INT_UPTO_DATE === uptodate)) {
-        this.InterestArr.forEach((element) => {
-          if (element.INT_UPTO_DATE == uptodate) {
-            element['IS_POST_INT_AC'] = isIntUpdate
-          }
-        })
-      }
-      else {
-        var object = {
-          INT_UPTO_DATE: uptodate,
-          Ledger_Date: ledgerdate,
+  //  //update checkbox status in array
+  //  checkInterestFlag(uptodate, ledgerdate, flag) {
+  //   let isIntUpdate: boolean = false
+  //   if (flag.target.checked) {
+  //     isIntUpdate = true
+  //   }
+  //   else {
+  //     isIntUpdate = false
+  //   }
+  //   if (this.InterestArr.length != 0) {
+  //     if (this.InterestArr.some(item => item.INT_UPTO_DATE === uptodate)) {
+  //       this.InterestArr.forEach((element) => {
+  //         if (element.INT_UPTO_DATE == uptodate) {
+  //           element['IS_POST_INT_AC'] = isIntUpdate
+  //         }
+  //       })
+  //     }
+  //     else {
+  //       var object = {
+  //         INT_UPTO_DATE: uptodate,
+  //         Ledger_Date: ledgerdate,
           
-        }
-        this.InterestArr.push(object)
-      }
-    }
-    else {
-      var object = {
-        INT_UPTO_DATE: uptodate,
-        Ledger_Date: ledgerdate,
+  //       }
+  //       this.InterestArr.push(object)
+  //     }
+  //   }
+  //   else {
+  //     var object = {
+  //       INT_UPTO_DATE: uptodate,
+  //       Ledger_Date: ledgerdate,
         
-      }
-      this.InterestArr.push(object)
-    }
-  }
+  //     }
+  //     this.InterestArr.push(object)
+  //   }
+  // }
 
   
 

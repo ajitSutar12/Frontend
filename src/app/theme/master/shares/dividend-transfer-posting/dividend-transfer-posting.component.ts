@@ -3,7 +3,12 @@ import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
 import Swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { environment } from 'src/environments/environment';
+import { first } from 'rxjs/operators';
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-dividend-transfer-posting',
@@ -12,6 +17,9 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 
 export class DividendTransferPostingComponent implements OnInit {
+  formSubmitted:false;
+  //api
+  url = environment.base_url;
   angForm: FormGroup;
 
   dtExportButtonOptions: any = {};
@@ -25,7 +33,21 @@ export class DividendTransferPostingComponent implements OnInit {
   timeLeft = 5;
 
   private dataSub: Subscription = null;
+  // dropdown variables
+  ngscheme: any = null
+  scheme;
+  ngtoac:any=null
+  schemeACNo
 
+  //for date
+  maxDate: Date;
+  minDate: Date;
+  warrentdate: any = null
+
+  //Scheme type variable
+  schemeType: string = 'GL'
+
+  ngwarrentDate:any=null;
   showButton: boolean = true;
   updateShow: boolean = false;
 
@@ -38,8 +60,10 @@ export class DividendTransferPostingComponent implements OnInit {
     SchemeCode: " ",
     AccountNo: "",
   };
+  warrentDate: any;
 
-  constructor(private fb: FormBuilder, public SchemeCodeService: SchemeCodeService) { this.createForm(); }
+  constructor(private fb: FormBuilder, private http: HttpClient,private config: NgSelectConfig,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,public SchemeCodeService: SchemeCodeService) { this.createForm(); }
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {
@@ -92,6 +116,15 @@ export class DividendTransferPostingComponent implements OnInit {
     this.dataSub = this.SchemeCodeService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
+
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+      this.scheme = data
+      this.ngscheme = data[0].value
+    })
+
+    this.http.get(this.url + '/dividend-calculation').subscribe((data) => {
+      this.warrentDate = data
+    })
   }
 
   runTimer() {
@@ -105,10 +138,20 @@ export class DividendTransferPostingComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
-      SchemeCode: [''],
-      WarrantDate: ['', [Validators.required]],
-      AccountNo: ['', [Validators.pattern]]
+      AC_TYPE: ['',[Validators.required]],
+      WARRENT_DATE: ['', [Validators.required]],
+      AC_NO: ['', [Validators.pattern]]
     });
+  }
+  selectedWarrentDate
+  selectedDivFromYear
+  selectedDivToYear
+
+  getWarrentDetails(event) {
+    
+    this.selectedWarrentDate = event.WARRENT_DATE
+    this.selectedDivFromYear = event.DIV_FROM_YEAR
+    this.selectedDivToYear = event.DIV_TO_YEAR
   }
 
   submit() {

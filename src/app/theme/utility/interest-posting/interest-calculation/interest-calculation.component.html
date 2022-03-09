@@ -242,7 +242,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngtoac" formControlName="AC_NO"
-                                    bindLabel="label" title="Compulsory Selection" (change)="getTable()"
+                                    bindLabel="label" title="Compulsory Selection" (change)="getTable($event)"
                                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Select Account">
                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                         {{values.label}} {{values.name}}</ng-option>
@@ -267,7 +267,7 @@
                                         <thead>
                                             <td class="td_right">Account Number</td>
                                             <td>Account Name</td>
-                                            <td class="td_center">Is Post Interest?</td>
+                                            
                                         </thead>
                                         <tbody *ngIf="InterestArr?.length != 0">
                                             <tr *ngFor="let data of InterestArr;
@@ -276,13 +276,7 @@
                                                 <td>{{data.AC_NAME == '' || data.AC_NAME == null ? '-' :
                                                     data.AC_NAME}}</td>
 
-                                                <td class="td_center">
-                                                    <input type="checkbox" class="border-checkbox"
-                                                        id="IS_POST_INT_AC" #IS_POST_INT_AC
-                                                        [value]="data.IS_POST_INT_AC===true ? true : null"
-                                                        [attr.checked]="data.IS_POST_INT_AC===true ? true :null"
-                                                        (change)="checkInterestFlag(data.INT_UPTO_DATE,data.Ledger_Date,$event)">
-                                                </td>
+                                               
                                             </tr>
                                         </tbody>
                                         <tbody *ngIf="InterestArr?.length == 0">

@@ -4,30 +4,39 @@
         <div class="card">
             <div class="card-header">
                 <h5>Dividend Transfer Posting</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group input-group">
+                        <div class="col-sm-12 col-md-2"> <label for="WARRENT_DATE">Div.Warrent Date<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <input type="text" class="form-control" placeholder=" " id="WarrantDate" required=""
-                                        max="9999-12-31" formControlName="WarrantDate" value="{{ message.WarrantDate}}"
-                                        onfocus="(this.type='date')" />
-                                    <label for="WarrantDate">Warrant Date <sub class="required">* </sub></label>
+                                    <ng-select id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
+                                        formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE" title="Compulsory Selection"
+                                        required placeholder="Warrent Date" (change)="getWarrentDetails($event)">
+                                        <ng-option *ngFor="let values of warrentDate" [value]="values">
+                                            {{values.WARRENT_DATE}} ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}})
+                                        </ng-option>
+                                    </ng-select>
+
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['WarrantDate'].invalid && (angForm.controls['WarrantDate'].dirty || angForm.controls['WarrantDate'].touched)"
+                                *ngIf="angForm.controls['WARRENT_DATE'].invalid && (angForm.controls['WARRENT_DATE'].dirty || angForm.controls['WARRENT_DATE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['WarrantDate'].errors?.required">
-                                    This field is required
+                                <div *ngIf="angForm.controls['WARRENT_DATE'].errors?.required">
+                                    This field is required.
                                 </div>
                             </div>
+                            
                         </div>
-                        <div class="col-sm">
-                            <div class="border-checkbox-section">
+                        <div class="col-md">
+                            <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="checkbox1"
                                         [checked]="isTransferToReserveFundOrOtherAccount == true">
@@ -36,38 +45,52 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
-                                <ng-select [ngClass]="'ng-select'" [options]="a" [multiple]="false"
-                                    placeholder="Scheme Code" formControlName="SchemeCode">
-                                </ng-select>
-                                <label>{{ message.SchemeCode}}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md">
-                            <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="Dividend" class="form-control" placeholder=" "
-                                        id="AccountNo" value="{{ message.AccountNo }}" pattern="^[0-9]+$"
-                                        title="Input allowed only 0-9" formControlName="AccountNo">
-                                    <label for="AccountNo">Account Number</label>
+                                    <ng-select id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
+                                        formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                        required placeholder="Scheme Code">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AccountNo'].invalid && (angForm.controls['AccountNo'].dirty || angForm.controls['AccountNo'].touched)"
+                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AccountNo'].errors?.pattern">
-                                    Input allowed only 0-9
+                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Add</button>
-                            <button class="btn btn-primary ripple light" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
+                       
+                        
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="AC_NO">Select Account<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngtoac" formControlName="AC_NO"
+                                    bindLabel="label" title="Compulsory Selection"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Select Account">
+                                    <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                        {{values.label}} {{values.name}}</ng-option>
+                                </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                            *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
+                            class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_NO'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>       
                         </div>
                     </div>
                 </div>

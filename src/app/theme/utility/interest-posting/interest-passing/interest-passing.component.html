@@ -4,6 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <h5>Interest Passing</h5>
+                
             </div>
             <div class="card-block">
                 <div class="col-md-12">
@@ -11,16 +12,28 @@
 
                         <ul class="basic-list">
                             <li>
-                                <h6> <a (click)="OpenLink(1)" routerLinkActive="active" class="text-right f-w-600" id="pointer">Edit Interest Calculation</a></h6>
+                                <h6> <a (click)="OpenLink(1)"
+                                    routerLink="/utility/interestposting/interestPassing"
+                                        [ngClass]="{'isActive': EditInterestCalculationTrue}"
+                                     routerLinkActive="active" class="text-right f-w-600" id="pointer">Edit Interest Calculation</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(2)" routerLinkActive="active" class="text-right f-w-600" id="pointer">Calculate Interest Passing</a></h6>
+                                <h6> <a (click)="OpenLink(2)" 
+                                    routerLink="/utility/interestposting/interestPassing"
+                                    [ngClass]="{'isActive': CalculateInterestPassingTrue}"
+                                    routerLinkActive="active" class="text-right f-w-600" id="pointer">Calculate Interest Passing</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(3)" routerLinkActive="active" class="text-right f-w-600" id="pointer">Calculate Interest Unpassing</a></h6>
+                                <h6> <a (click)="OpenLink(3)"
+                                   routerLink="/utility/interestposting/interestPassing"
+                                    [ngClass]="{'isActive': CalculateInterestUnpassingTrue}"
+                                    routerLinkActive="active" class="text-right f-w-600" id="pointer">Calculate Interest Unpassing</a></h6>
                             </li>
                             <li>
-                                <h6> <a (click)="OpenLink(4)" routerLinkActive="active" class="text-right f-w-600" id="pointer">Calculate Interest Deletion</a></h6>
+                                <h6> <a (click)="OpenLink(4)"
+                                    routerLink="/utility/interestposting/interestPassing"
+                                    [ngClass]="{'isActive': CalculateInterestDeletionTrue}"
+                                    routerLinkActive="active" class="text-right f-w-600" id="pointer">Calculate Interest Deletion</a></h6>
                             </li>                           
                         </ul>
                     </perfect-scrollbar>
