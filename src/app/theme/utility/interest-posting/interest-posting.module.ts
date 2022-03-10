@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 import { InterestPostingComponent } from './interest-posting.component';
 import { InterestPostingRoutingModule } from './interest-posting-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
@@ -12,6 +12,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
   imports: [
     CommonModule,
     InterestPostingRoutingModule,
+    NgSelectModule,
     SharedModule
   ],
   declarations: [InterestPostingComponent],

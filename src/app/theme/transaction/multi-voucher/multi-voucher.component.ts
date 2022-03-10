@@ -137,6 +137,7 @@ export class MultiVoucherComponent implements OnInit {
   showUpdate:boolean =false;
   customerImg:string = '../../../../assets/images/user-card/img-round4.jpg';
   signture: string = '../../../../assets/sign/signture.jpg';
+  maxDate: Date;
   constructor(
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -147,29 +148,13 @@ export class MultiVoucherComponent implements OnInit {
     private savingMasterService: SavingMasterService,
     private fb: FormBuilder,
     private router : Router
-  ) { }
+  ) {
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate());
+   }
 
   ngOnInit(): void {
-    this.angForm = this.fb.group({
-      branch_code : ['', [Validators.required]],
-      temp_over_draft: [''],
-      over_draft: [''],
-      token: [''], 
-      particulars: [''],
-      total_amt: [''],
-      amt: [''],
-      slip_no: [''],
-      tran_mode: [''],
-      account_no:[''],
-      scheme:[''],
-      scheme_type:[''],
-      date:[''],
-      type:new FormControl('cash'),
-      chequeDate:[''],
-      chequeNo:[''],
-      bank: [''],
-      Intdate:['']
-    })
+    this.createForm()
 
     //Day opening Amount
     this.DayOpBal = 1000;
@@ -206,6 +191,30 @@ export class MultiVoucherComponent implements OnInit {
     })
 
     
+  }
+
+  createForm(){
+    this.angForm = this.fb.group({
+      branch_code : ['',[Validators.required]],
+      temp_over_draft: [''],
+      over_draft: [''],
+      token: [''], 
+      particulars: [''],
+      total_amt: [''],
+      amt: [''],
+      slip_no: [''],
+      tran_mode: ['',[Validators.required]],
+      account_no:['',[Validators.required]],
+      scheme:['',[Validators.required]],
+      scheme_type:['',[Validators.required]],
+      date:[''],
+      type:new FormControl('cash'),
+      chequeDate:[''],
+      chequeNo:[''],
+      bank: [''],
+      Intdate:['']
+    })
+
   }
 
   IntersetHeadDate:any;

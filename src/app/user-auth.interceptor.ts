@@ -24,7 +24,7 @@ export class UserAuthInterceptor implements HttpInterceptor {
     this.createOnline$().subscribe(async function (isOnline) {
       let data = await isOnline;
       if (data == false) {
-        Swal.fire("Warning!", "Please check your internet connection !", "warning");
+        // Swal.fire("Warning!", "Please check your internet connection !", "warning");
         return false;
       }
     });

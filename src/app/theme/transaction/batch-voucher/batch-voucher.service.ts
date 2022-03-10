@@ -20,6 +20,11 @@ export class BatchVoucherService {
     return this.http.get(this.url + '/system-master-parameters');
   }
 
+  //get narration data
+  getNarrationMaster():Observable<any>{
+    return this.http.get(this.url+'/narration')
+  }
+
   submitData(data):Observable<any>{
     return this.http.post(this.url+'/voucher/insertBatchVoucher',data);
   }

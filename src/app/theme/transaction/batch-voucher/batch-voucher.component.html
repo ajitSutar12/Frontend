@@ -2,7 +2,11 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                Batch Transfer Voucher
+                <h5>Batch Transfer Voucher</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+                
             </div>
             <div class="card-body">
                 <form [formGroup]="angForm" novalidate>
@@ -20,14 +24,24 @@
 
                                     </span>
                                 </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['branch_code'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div> 
                             </div>
                             <div class="col-md-5"></div>
-                            <div class="col-md-1"><label for="AC_EXPDT">Date</label></div>
+                            <div class="col-md-1"><label for="date">Date</label></div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
-                                <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                    [isDisabled]="isture" [(ngModel)]="date" disabled formControlName="date">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                        [isDisabled]="isture" [(ngModel)]="date" disabled formControlName="date">
+                                    </span>
+                                
                                 </div>
                             </div>
                         </div>
@@ -45,6 +59,13 @@
 
                                     </span>
                                 </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['company_code'].invalid && (angForm.controls['company_code'].dirty || angForm.controls['company_code'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['company_code'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div> 
                             </div>
                         </div>
                         <div class="row">
@@ -76,18 +97,29 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <div class="form-group input-group">
-                                        <input type="text" class="form-control" value="0.00" disabled formControlName="ledger_balance">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="ledger_balance" value="0.00" disabled
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            class="form-control" placeholder=" " id="ledger_balance" maxlength="15"
+                                            title="Input allowed only  0-9" required
+                                            formControlName="ledger_balance">
+                                        </span>
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2">
-                                <label for="AC_BRANCH">Cheque Number</label>
-                            </div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-2"><label for="chequeNo">Cheque No.</label></div>
+                            <div class="col-md-2">
                                 <div class="form-group input-group">
-                                    <input type="text" formControlName="chequeNo" class="form-control">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="chequeNo" class="form-control"
+                                            placeholder=" " id="chequeNo" value=""
+                                            style="text-transform: capitalize;"
+                                            title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
+                                            formControlName="chequeNo">
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-1">
@@ -106,8 +138,15 @@
                             </div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
-                                    <input type="text" class="form-control" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" formControlName="voucherAmount">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="voucherAmount"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        class="form-control" placeholder=" " id="voucherAmount" maxlength="15"
+                                        title="Input allowed only  0-9" required
+                                        formControlName="voucherAmount">
+                                    </span>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -149,20 +188,28 @@
                             </div>  
                             <hr>
                             <div class="row">
-                            <div class="col-sm-12 col-md-2">
-                                <label for="AC_BRANCH">Narration</label>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div class="form-group input-group">
-                                    <textarea style="width:100%" class="form-control" formControlName="narration"></textarea>
+                                <div class="col-sm-12 col-md-2  "><label
+                                    for="AC_PARTICULAR">Particulars</label></div>
+                                <div class="col-md-5">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <textarea class="form-control" formControlName="particulars"
+                                                [(ngModel)]="particulars"></textarea>
+                                            <i class="fa fa-info-circle errspan"
+                                                (click)="modalLarge.show()"></i>
+                                        </span>
+                                    </div>
+
                                 </div>
-                            </div>
                             <div class="col-sm-12 col-md-2">
                                 <label for="">Total Amount</label>
                             </div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
-                                    <input type="text" class="form-control" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"  [value]="totalAmt" readonly formControlName="TotalAmt">                          
+                                    <span class="border-lable-flt">
+                                        <input type="text" class="form-control" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"  [value]="totalAmt" readonly formControlName="TotalAmt">
+                                    </span>
+                                                             
                                 </div>  
                             </div>
                         </div>
@@ -177,3 +224,31 @@
         </div>
     </div>
 </div>
+<app-modal-basic #modalLarge [dialogClass]="'modal-md'">
+    <div class="app-modal-header">
+        <h4 class="modal-title">Narration Master</h4>
+        <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <perfect-scrollbar style="overflow-y: auto;">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <th>Paticulars</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
+                                {{item.NARRATION}}
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #triggerhide
+                        (click)="modalLarge.hide()">Close</button>
+                </div>
+            </div>
+        </perfect-scrollbar>
+    </div>
+</app-modal-basic>

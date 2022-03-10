@@ -29,7 +29,11 @@
           <div class="col-md-12">
               <div class="card">
                   <div class="card-header">
-                    Multi Voucher Entry
+                    <h5>Multi Voucher Entry</h5>
+                    <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                        Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    </h6>
+                    
                   </div>
                   <div class="card-body">
                       <form [formGroup]="angForm" novalidate>
@@ -47,6 +51,13 @@
 
                                           </span>
                                       </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['branch_code'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div> 
                                   </div>
                                   <div class="col-sm-12 col-md-4">
                                       <!-- <div class="form-radio">
@@ -93,6 +104,13 @@
 
                                           </span>
                                       </div>
+                                      <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['scheme_type'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
                                   </div>
                                   <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
                                               class="required">*</sub></label></div>
@@ -107,6 +125,13 @@
 
                                           </span>
                                       </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['scheme'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div> 
                                   </div>
                               </div>
 
@@ -115,14 +140,21 @@
                                               class="required">*</sub></label></div>
 
                                   <div class="col-sm-6">
-                                      <div class="form-group form-primary form-static-label">
-                                          <span class="border-lable-flt">
-                                              <ng-select [(ngModel)]="customer" formControlName="account_no" (change)="getVoucherData()">
-                                                  <ng-option *ngFor="let item of introducerACNo" [value]="item">
-                                                      {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
-                                              </ng-select>
-                                          </span>
-                                      </div>
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select [(ngModel)]="customer" formControlName="account_no" (change)="getVoucherData()">
+                                                    <ng-option *ngFor="let item of introducerACNo" [value]="item">
+                                                        {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['account_no'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div> 
                                   </div>
                               </div>
                               <div class="row">
@@ -139,6 +171,13 @@
 
                                           </span>
                                       </div>
+                                      <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['tran_mode'].invalid && (angForm.controls['tran_mode'].dirty || angForm.controls['tran_mode'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['tran_mode'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
                                   </div>
                                   <div class="col-sm-12 col-md-2  "><label
                                     for="AC_PARTICULAR">Particulars</label></div>
@@ -175,7 +214,7 @@
                                               <span class="border-lable-flt">
                                                   <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                       [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                      formControlName="chequeDate">
+                                                      [maxDate]="maxDate"  formControlName="chequeDate">
                                               </span>
                                           </div>
                                       </div>
@@ -216,7 +255,7 @@
                                               <input type="text" name="AC_PARTICULAR"
                                                   (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                   class="form-control" placeholder=" " id="AC_PARTICULAR"
-                                                  style="text-transform: capitalize;"
+                                                  style="text-transform: capitalize;" maxlength="15" (focusout)="decimalAllContent($event)"
                                                   title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
                                                   formControlName="amt" (keyup)="getAmt($event)">
 

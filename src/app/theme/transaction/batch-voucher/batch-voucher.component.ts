@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { StatementTypeService } from '../../../shared/elements/statement-type.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -16,6 +16,7 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
   styleUrls: ['./batch-voucher.component.scss']
 })
 export class BatchVoucherComponent implements OnInit {
+  @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   date: any;
   angForm: FormGroup;
   isture: boolean = true;
@@ -30,6 +31,8 @@ export class BatchVoucherComponent implements OnInit {
   selectCompanyCode: any;
   totalAmt:number = 0;
   filterArray:any;
+  narrationList: any;
+  particulars: any;
   constructor(
     private fb: FormBuilder,
     private ownbranchMasterService: OwnbranchMasterService,
@@ -38,17 +41,7 @@ export class BatchVoucherComponent implements OnInit {
     private _multiService: MultiVoucherService
   ) {}
   ngOnInit(): void {
-    this.angForm = this.fb.group({
-      branch_code: ['', [Validators.required]],
-      company_code: [''],
-      ledger_balance: [''],
-      chequeNo: [''],
-      ChequeDate: [''],
-      voucherAmount: [''],
-      narration: [''],
-      TotalAmt: [''],
-      date:['']
-    })
+   this.createForm()
     let user = JSON.parse(localStorage.getItem('user'));
 
     //branch List
@@ -66,6 +59,25 @@ export class BatchVoucherComponent implements OnInit {
     //sys para details
     this._multiService.getSysParaData().subscribe(data => {
       this.date = data[0].CURRENT_DATE;
+    })
+
+    //Narration List
+    this._service.getNarrationMaster().subscribe(data => {
+      this.narrationList = data;
+    })
+  }
+
+  createForm(){
+    this.angForm = this.fb.group({
+      branch_code: ['', [Validators.required]],
+      company_code: ['', [Validators.required]],
+      ledger_balance: [''],
+      chequeNo: [''],
+      ChequeDate: [''],
+      voucherAmount: [''],
+      particulars: [''],
+      TotalAmt: [''],
+      date:['']
     })
   }
 
@@ -116,6 +128,12 @@ export class BatchVoucherComponent implements OnInit {
       debugger
       this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
     });
+  }
+  //get Narration Details 
+  getNarration(ele) {
+    this.particulars = ele;
+    let el: HTMLElement = this.triggerhide.nativeElement;
+    el.click();
   }
 
   Submit(){
