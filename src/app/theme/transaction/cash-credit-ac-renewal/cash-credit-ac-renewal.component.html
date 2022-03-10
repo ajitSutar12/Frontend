@@ -10,13 +10,14 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()" 
+                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
                                         placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
@@ -32,18 +33,19 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme" 
+                                    <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         (change)="schemechange($event)" placeholder="Scheme">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    
+
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -54,17 +56,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account No.<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngacno"
-                                         formControlName="AC_NO" bindLabel="label"  
-                                        title="Compulsory Selection" required placeholder="Account No.">
+                                    <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngacno" formControlName="AC_NO"
+                                        bindLabel="label" (change)="getAccountDetails($event)"
+                                        title="Compulsory Selection" required placeholder="Account Number">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                     </ng-select>
-                                    
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -74,6 +76,14 @@
                                     This field is required.
                                 </div>
                             </div>
+
+                            <!-- <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_NO'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="row">
@@ -82,9 +92,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                    [(ngModel)]="renewaldate"  formControlName="RENEWAL_DATE">
-                                                   
+                                        formControlName="RENEWAL_DATE" disabled>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -99,12 +107,15 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
+                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                        formControlName="AC_OPDATE" disabled>
+
+                                    <!-- <input type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
                                         class="form-control" [(ngModel)]="acopeningdate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_OPDATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
+                                        bsDatepicker> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -115,14 +126,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"><label for="AC_RENEWAL_COUNTER">Account Renewal Numbers of Times</label></div>
+                        <div class="col-sm-12 col-md-2"><label for="AC_RENEWAL_COUNTER">Account Renewal Numbers of
+                                Times</label></div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" style="text-align: right;" name="AC_RENEWAL_COUNTER" class="form-control" placeholder=" "
-                                    [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                      id="AC_RENEWAL_COUNTER" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" 
-                                      formControlName="AC_RENEWAL_COUNTER" />
+                                    <input type="text" style="text-align: right;" name="AC_RENEWAL_COUNTER"
+                                        class="form-control" placeholder=" "
+                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        id="AC_RENEWAL_COUNTER" pattern="^[0-9]+$" disabled
+                                        title="Input allowed only  0-9" formControlName="AC_RENEWAL_COUNTER" />
 
                                 </span>
                             </div>
@@ -136,19 +150,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_INTCATA">Interest Category<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_INTCATA">Interest Category<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_INTCATA" bindValue="value"
-                                        [(ngModel)]="int_category"
-                                        formControlName="AC_INTCATA" bindLabel="label"
-                                        title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}"
-                                         required
+                                    <ng-select id="AC_INTCATA" bindValue="value" [(ngModel)]="int_category"
+                                        formControlName="AC_INTCATA" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Interest Category">
-                                        <ng-option *ngFor="let values of intCat"
-                                            [value]="values">
+                                        <ng-option *ngFor="let values of intCat" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
                                 </span>
@@ -161,7 +172,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="LAST_INTDATE">Last Interest Date<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="LAST_INTDATE">Last Interest Date<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -181,142 +193,154 @@
                                 </div>
                             </div>
                         </div>
-                        
 
-                            
+
+
                     </div>
 
                     <div class="row">
-                        
+
                         <div class="col-sm">
                             <div class="solid">
-                                
+
                                 <h6>Old Details:</h6>
-                                
-                                
+
+
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_MONTHS">Period in Months</label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_MONTHS">Period in Months</label>
+                                    </div>
                                     <div class="col-sm-12 col-md-4">
                                         <span class="border-lable-flt">
                                             <input type="text" name="OLDAC_MONTHS" class="form-control" placeholder=" "
-                                            id="OLDAC_MONTHS" pattern="^[0-9]+$" title="Input allowed only 0-9"
-                                            maxlength="3"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            formControlName="OLDAC_MONTHS" disabled>
+                                                id="OLDAC_MONTHS" pattern="^[0-9]+$" title="Input allowed only 0-9"
+                                                maxlength="3"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                formControlName="OLDAC_MONTHS" disabled>
                                         </span>
 
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_EXPIRE_DATE">Expiry Date</label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_EXPIRE_DATE">Expiry Date</label>
+                                    </div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" placeholder="dd/mm/yyyy" name="OLDAC_EXPIRE_DATE" id="OLDAC_EXPIRE_DATE"
-                                                    class="form-control" [(ngModel)]="ngexpirydate"
-                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" 
-                                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="OLDAC_EXPIRE_DATE"
+                                                <input type="text" placeholder="dd/mm/yyyy" name="OLDAC_EXPIRE_DATE"
+                                                    id="OLDAC_EXPIRE_DATE" class="form-control"
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                    [ngClass]="{'form-submitted': formSubmitted}"
+                                                    formControlName="OLDAC_EXPIRE_DATE"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker disabled>
                                             </span>
                                         </div>
-                                        
+
                                     </div>
-                                    
+
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_SANCTION_AMOUNT">Sanction Limit</label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_SANCTION_AMOUNT">Sanction
+                                            Limit</label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" style="text-align: right;" name="OLDAC_SANCTION_AMOUNT" class="form-control"
-                                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="OLDAC_SANCTION_AMOUNT"
-                                                    title="Input allowed only  0-9"  formControlName="OLDAC_SANCTION_AMOUNT"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" disabled>
-            
+                                                <input type="text" style="text-align: right;"
+                                                    name="OLDAC_SANCTION_AMOUNT" class="form-control" placeholder=" "
+                                                    pattern="\d{1,20}(\.\d{2})?" id="OLDAC_SANCTION_AMOUNT"
+                                                    title="Input allowed only  0-9"
+                                                    formControlName="OLDAC_SANCTION_AMOUNT"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                    disabled>
+
                                             </span>
                                         </div>
-                                        
+
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_SANCTION_DATE">Sanction Date</label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_SANCTION_DATE">Sanction
+                                            Date</label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" placeholder="dd/mm/yyyy" name="OLDAC_SANCTION_DATE" id="OLDAC_SANCTION_DATE"
-                                                    class="form-control" [(ngModel)]="ngsansctiondate"
+                                                <input type="text" placeholder="dd/mm/yyyy" name="OLDAC_SANCTION_DATE"
+                                                    id="OLDAC_SANCTION_DATE" class="form-control"
+                                                    [(ngModel)]="ngsansctiondate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="OLDAC_SANCTION_DATE"
+                                                    [ngClass]="{'form-submitted': formSubmitted}"
+                                                    formControlName="OLDAC_SANCTION_DATE"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker disabled>
                                             </span>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_SECURITY_AMT">Security Amount</label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_SECURITY_AMT">Security
+                                            Amount</label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" style="text-align: right;" name="OLDAC_SECURITY_AMT" class="form-control"
-                                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="OLDAC_SECURITY_AMT"
-                                                    title="Input allowed only  0-9"  formControlName="OLDAC_SECURITY_AMT"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" disabled>
-            
+                                                <input type="text" style="text-align: right;" name="OLDAC_SECURITY_AMT"
+                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
+                                                    id="OLDAC_SECURITY_AMT" title="Input allowed only  0-9"
+                                                    formControlName="OLDAC_SECURITY_AMT"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                    disabled>
+
                                             </span>
                                         </div>
-                                        
+
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_DRAWPOWER_AMT">Drawing Power</label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_DRAWPOWER_AMT">Drawing
+                                            Power</label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" style="text-align: right;" name="OLDAC_DRAWPOWER_AMT" class="form-control"
-                                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="OLDAC_DRAWPOWER_AMT"
-                                                    title="Input allowed only  0-9"  formControlName="OLDAC_DRAWPOWER_AMT"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" disabled>
-            
+                                                <input type="text" style="text-align: right;" name="OLDAC_DRAWPOWER_AMT"
+                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
+                                                    id="OLDAC_DRAWPOWER_AMT" title="Input allowed only  0-9"
+                                                    formControlName="OLDAC_DRAWPOWER_AMT"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                    disabled>
+
                                             </span>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_INSTALLMENT">Installment</label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_INSTALLMENT">Installment</label>
+                                    </div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" style="text-align: right;" name="OLDAC_INSTALLMENT" class="form-control"
-                                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="OLDAC_INSTALLMENT"
-                                                    title="Input allowed only  0-9"  formControlName="OLDAC_INSTALLMENT"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" disabled>
-            
+                                                <input type="text" style="text-align: right;" name="OLDAC_INSTALLMENT"
+                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
+                                                    id="OLDAC_INSTALLMENT" title="Input allowed only  0-9"
+                                                    formControlName="OLDAC_INSTALLMENT"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                    disabled>
                                             </span>
                                         </div>
-                                        
                                     </div>
                                 </div>
-
-                                
-
                             </div>
-
                         </div>
                         <div class="col-sm">
                             <div class="solid">
-                                
                                 <h6>Renewal Details:</h6>
-                                
-                                
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_MONTHS">Period in Months<sub class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_MONTHS">Period in Months<sub
+                                                class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" style="text-align: right;" name="AC_MONTHS" class="form-control" placeholder=" "
-                                                id="AC_MONTHS" pattern="^[0-9]+$" title="Input allowed only 0-9"
-                                                maxlength="3"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                formControlName="AC_MONTHS">
+                                                <input type="text" style="text-align: right;" name="AC_MONTHS"
+                                                    class="form-control" placeholder=" " id="AC_MONTHS"
+                                                    (keyup)="getExpiryDate()" pattern="^[0-9]+$"
+                                                    title="Input allowed only 0-9" maxlength="3"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                    formControlName="AC_MONTHS">
                                             </span>
                                         </div>
                                         <div class="form-group form-primary form-static-label"
@@ -326,17 +350,17 @@
                                                 This field is required and input allowed 0-9
                                             </div>
                                         </div>
-                                        
-
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_EXPIRE_DATE">Expiry Date<sub class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_EXPIRE_DATE">Expiry Date<sub
+                                                class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" placeholder="dd/mm/yyyy" name="AC_EXPIRE_DATE" id="AC_EXPIRE_DATE"
-                                                    class="form-control" [(ngModel)]="ngexpirydate"
-                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" 
-                                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_EXPIRE_DATE"
+                                                <input type="text" placeholder="dd/mm/yyyy" name="AC_EXPIRE_DATE"
+                                                    id="AC_EXPIRE_DATE" class="form-control" [(ngModel)]="ngexpirydate"
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                    [ngClass]="{'form-submitted': formSubmitted}"
+                                                    formControlName="AC_EXPIRE_DATE"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -349,19 +373,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
-
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_SANCTION_AMOUNT">Sanction Limit<sub class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_SANCTION_AMOUNT">Sanction Limit<sub
+                                                class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" style="text-align: right;" name="AC_SANCTION_AMOUNT" class="form-control"
-                                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="AC_SANCTION_AMOUNT"
-                                                    title="Input allowed only  0-9"  formControlName="AC_SANCTION_AMOUNT"
+                                                <input type="text" style="text-align: right;" name="AC_SANCTION_AMOUNT"
+                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
+                                                    id="AC_SANCTION_AMOUNT" title="Input allowed only  0-9"
+                                                    formControlName="AC_SANCTION_AMOUNT"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-            
+
                                             </span>
                                         </div>
                                         <div class="form-group form-primary form-static-label"
@@ -372,16 +396,19 @@
                                                 Input allowed only 0-9 .(after decimal 2 digits)
                                             </div>
                                         </div>
-                                        
+
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_SANCTION_DATE">Sanction Date<sub class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_SANCTION_DATE">Sanction Date<sub
+                                                class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" placeholder="dd/mm/yyyy" name="AC_SANCTION_DATE" id="AC_SANCTION_DATE"
-                                                    class="form-control" [(ngModel)]="ngsansctiondate"
+                                                <input type="text" placeholder="dd/mm/yyyy" name="AC_SANCTION_DATE"
+                                                    id="AC_SANCTION_DATE" class="form-control"
+                                                    [(ngModel)]="ngsansctiondate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_SANCTION_DATE"
+                                                    [ngClass]="{'form-submitted': formSubmitted}"
+                                                    formControlName="AC_SANCTION_DATE"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -396,15 +423,17 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_SECURITY_AMT">Security Amount<sub class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_SECURITY_AMT">Security Amount<sub
+                                                class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" style="text-align: right;" name="AC_SECURITY_AMT" class="form-control"
-                                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="AC_SECURITY_AMT"
-                                                    title="Input allowed only  0-9"  formControlName="AC_SECURITY_AMT"
+                                                <input type="text" style="text-align: right;" name="AC_SECURITY_AMT"
+                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
+                                                    id="AC_SECURITY_AMT" title="Input allowed only  0-9"
+                                                    formControlName="AC_SECURITY_AMT"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-            
+
                                             </span>
                                         </div>
                                         <div class="form-group form-primary form-static-label"
@@ -415,18 +444,20 @@
                                                 Input allowed only 0-9 .(after decimal 2 digits)
                                             </div>
                                         </div>
-                                        
+
                                     </div>
 
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_DRAWPOWER_AMT">Drawing Power<sub class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_DRAWPOWER_AMT">Drawing Power<sub
+                                                class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" style="text-align: right;" name="AC_DRAWPOWER_AMT" class="form-control"
-                                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="AC_DRAWPOWER_AMT"
-                                                    title="Input allowed only  0-9"  formControlName="AC_DRAWPOWER_AMT"
+                                                <input type="text" style="text-align: right;" name="AC_DRAWPOWER_AMT"
+                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
+                                                    id="AC_DRAWPOWER_AMT" title="Input allowed only  0-9"
+                                                    formControlName="AC_DRAWPOWER_AMT"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-            
+
                                             </span>
                                         </div>
                                         <div class="form-group form-primary form-static-label"
@@ -437,20 +468,22 @@
                                                 Input allowed only 0-9 .(after decimal 2 digits)
                                             </div>
                                         </div>
-                                        
+
                                     </div>
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_INSTALLMENT">Installment<sub class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_INSTALLMENT">Installment<sub
+                                                class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" style="text-align: right;" name="AC_INSTALLMENT" class="form-control"
-                                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="AC_INSTALLMENT"
-                                                    title="Input allowed only  0-9"  formControlName="AC_INSTALLMENT"
+                                                <input type="text" style="text-align: right;" name="AC_INSTALLMENT"
+                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
+                                                    id="AC_INSTALLMENT" title="Input allowed only  0-9"
+                                                    formControlName="AC_INSTALLMENT"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-            
+
                                             </span>
                                         </div>
                                         <div class="form-group form-primary form-static-label"
@@ -461,31 +494,34 @@
                                                 Input allowed only 0-9 .(after decimal 2 digits)
                                             </div>
                                         </div>
-                                        
+
                                     </div>
-                                </div> 
-                                
+                                </div>
+
 
                             </div>
 
                         </div>
-                        
+
 
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-sm">
                             <div class="solid">
                                 <h6>Resolution Details:</h6>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"><label for="AC_RESO_NO">Number<sub class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2"><label for="AC_RESO_NO">Number<sub
+                                                class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" style="text-align: right;" name="AC_RESO_NO" class="form-control" placeholder=" "
-                                                [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                id="AC_RESO_NO" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" 
-                                                formControlName="AC_RESO_NO" />
+                                                <input type="text" style="text-align: right;" name="AC_RESO_NO"
+                                                    class="form-control" placeholder=" "
+                                                    [ngClass]="{'form-submitted': formSubmitted}"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                    id="AC_RESO_NO" required="" pattern="^[0-9]+$" maxlength="4"
+                                                    title="Input allowed only  0-9" formControlName="AC_RESO_NO" />
 
                                             </span>
                                         </div>
@@ -497,14 +533,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_RESO_DATE">Date<sub class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_RESO_DATE">Date<sub
+                                                class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" placeholder="dd/mm/yyyy" name="AC_RESO_DATE" id="AC_RESO_DATE"
-                                                    class="form-control" [(ngModel)]="ngeffectivedate"
+                                                <input type="text" placeholder="dd/mm/yyyy" name="AC_RESO_DATE"
+                                                    id="AC_RESO_DATE" class="form-control" [(ngModel)]="ngeffectivedate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_RESO_DATE"
+                                                    [ngClass]="{'form-submitted': formSubmitted}"
+                                                    formControlName="AC_RESO_DATE"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -518,7 +556,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
 
 
                             </div>
@@ -528,15 +566,17 @@
                             <div class="solid">
                                 <h6>Interest Details:</h6>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="INT_RATE">Normal Interest Rate</label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="INT_RATE">Normal Interest Rate</label>
+                                    </div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" style="text-align: right;" name="INT_RATE" class="form-control"
-                                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="INT_RATE"
-                                                    title="Input allowed only  0-9"  formControlName="INT_RATE"
+                                                <input type="text" style="text-align: right;" name="INT_RATE"
+                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
+                                                    id="INT_RATE" title="Input allowed only  0-9"
+                                                    formControlName="INT_RATE"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-            
+
                                             </span>
                                         </div>
                                         <div class="form-group form-primary form-static-label"
@@ -547,17 +587,19 @@
                                                 Input allowed only 0-9 .(after decimal 2 digits)
                                             </div>
                                         </div>
-                                        
+
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="PENAL_INT_RATE">Penal Interest Rate</label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="PENAL_INT_RATE">Penal Interest
+                                            Rate</label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" style="text-align: right;" name="PENAL_INT_RATE" class="form-control"
-                                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="PENAL_INT_RATE"
-                                                    title="Input allowed only  0-9"  formControlName="PENAL_INT_RATE"
+                                                <input type="text" style="text-align: right;" name="PENAL_INT_RATE"
+                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
+                                                    id="PENAL_INT_RATE" title="Input allowed only  0-9"
+                                                    formControlName="PENAL_INT_RATE"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-            
+
                                             </span>
                                         </div>
                                         <div class="form-group form-primary form-static-label"
@@ -568,19 +610,21 @@
                                                 Input allowed only 0-9 .(after decimal 2 digits)
                                             </div>
                                         </div>
-                                        
+
                                     </div>
-                                    
+
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="EFFECT_DATE">Effective Date</label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="EFFECT_DATE">Effective Date</label>
+                                    </div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
-                                                    class="form-control" [(ngModel)]="ngeffectivedate"
+                                                <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE"
+                                                    id="EFFECT_DATE" class="form-control" [(ngModel)]="ngeffectivedate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="EFFECT_DATE"
+                                                    [ngClass]="{'form-submitted': formSubmitted}"
+                                                    formControlName="EFFECT_DATE"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -594,19 +638,20 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                
 
-                                
+
+
+
                             </div>
-                            
+
                         </div>
-                        
+
 
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid">Renew</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
+                                (click)="submit()">Renew</button>
                         </div>
                     </div>
                 </div>

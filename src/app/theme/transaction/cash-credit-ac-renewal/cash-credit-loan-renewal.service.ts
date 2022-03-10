@@ -4,7 +4,7 @@ import "rxjs/Rx";
 import { HttpClient } from "@angular/common/http";
 import { catchError, map } from "rxjs/operators";
 import Swal from "sweetalert2";
-import {environment}  from '../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 
 
@@ -18,9 +18,9 @@ export class CashCreditLoanRenewalService {
   [x: string]: any;
   // API
   url = environment.base_url;
-  
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) { }
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http.post(this.url + "/cash-credit-ac-renewal/insert", data).pipe(
