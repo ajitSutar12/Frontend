@@ -1,408 +1,540 @@
 <div class="row">
-    <div class="col-12">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5>Term Deposite A/c Renewal</h5>
+                Term Deposit Account Renewal
             </div>
-            <form class="form-material">
-                <div class="card-block">
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Scheme<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Account no<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="input-group">
-                                <input placeholder=" Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-                            </div>
-                        </div>
-
-
-
-
-
-                    </div>
-                </div>
-                <div class="card-block">
-                    <div class="row">
-                        <div class="card-block">
-                            <h6>Previous Details</h6>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Deposite Amt<span class="required"> *</span></label>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="input-group">
-                                <input placeholder="A/c opening Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="input-group">
-                                <input placeholder="Maturity Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="form-group form-primary form-static-label">
-                                <input type="text" name="footer-email" class="form-control" required="">
-                                <span class="form-bar"></span>
-                                <label class="float-label">Maturity Amount<span class="required"> *</span></label>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card-block">
+            <div class="card-body">
+                <form [formGroup]="angForm" novalidate>
+                    <div>
                         <div class="row">
-                            <div class="col-sm">
-                                <div class="input-group">
-                                    <input placeholder="As On Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                            <div class="col-sm-12 col-md-2 labelWidth"> <label for="AC_BRANCH">Branch Code<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code">
+                                            <ng-option *ngFor="let item of branch_code" [value]="item.value">
+                                                {{item.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
                                 </div>
                             </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Receipt No<span class="required"> *</span></label>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Months<span class="required"> *</span></label>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Days<span class="required"> *</span></label>
+                            <div class="col-sm-12 col-md-5"></div>
+                            <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_EXPDT">Date</label></div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                            [(ngModel)]="date" [isDisabled]="isture" formControlName="date" disabled>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm">
+                            <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Scheme Type<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-2">
                                 <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Interest Category<span class="required"> *</span></label>
+                                    <span class="border-lable-flt">
+                                        <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
+                                            formControlName="scheme_type">
+                                            <ng-option *ngFor="let item of allSchemeCode" [value]="item.S_ACNOTYPE">
+                                                {{item.S_ACNOTYPE}}</ng-option>
+                                        </ng-select>
+                                    </span>
                                 </div>
                             </div>
-                            <div class="col-sm">
-                                <div class="input-group">
-                                    <input placeholder="Last TRN Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                            <div class="col-sm-12 col-md-2 labelWidth"> <label for="AC_BRANCH">Scheme<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
+                                            formControlName="scheme">
+                                            <ng-option *ngFor="let item of allScheme" [value]="item">{{item.S_APPL}}
+                                                {{item.S_NAME}}</ng-option>
+                                        </ng-select>
+                                    </span>
                                 </div>
-                            </div>
-                            <div class="col-sm">
-
-                            </div>
-                            <div class="col-sm">
-
                             </div>
                         </div>
-                    </div>
-                    <div class="card-block">
-                        <div class="row">
-                            <h6>Interest Status</h6>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <div class="border-checkbox-section">
-                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                        <input class="border-checkbox" type="checkbox" id="checkbox1">
-                                        <label class="border-checkbox-label" for="checkbox1">Normal Interest<span class="required"> </span></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Interest Upto<span class="required"> *</span></label>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Interest<span class="required"> *</span></label>
-                                </div>
-                            </div>
 
-                        </div>
                         <div class="row">
+                            <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Account No.<sub
+                                        class="required">*</sub></label></div>
                             <div class="col-sm-6">
-                                <div class="form-radio">
-                                    <form>
-                                        <div class="radio radio-inline">
-                                            <label>
-                                                <input type="radio" name="radio" checked="checked">
-                                                <i class="helper"></i>Cash<span class="required"> </span>
-                                            </label>
-                                        </div>
-                                        <div class="radio radio-inline">
-                                            <label>
-                                                <input type="radio" name="radio">
-                                                <i class="helper"></i>Add in Deposite<span class="required"> </span>
-                                            </label>
-                                        </div>
-                                        <div class="radio radio-inline">
-                                            <label>
-                                                <input type="radio" name="radio" >
-                                                <i class="helper"></i>Transfer<span class="required"> </span>
-                                            </label>
-                                        </div>
-                                        <div class="radio radio-inline">
-                                            <label>
-                                                <input type="radio" name="radio">
-                                                <i class="helper"></i>Keep As Payable<span class="required"> </span>
-                                            </label>
-                                        </div>
-
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="col-sm">
                                 <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Scheme<span class="required"> *</span></label>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">A/c no.<span class="required"> *</span></label>
+                                    <span class="border-lable-flt">
+                                        <ng-select [(ngModel)]="customer" formControlName="account_no"
+                                            (change)="getVoucherData()">
+                                            <ng-option *ngFor="let item of introducerACNo" [value]="item">{{item.AC_NO}}
+                                                {{item.AC_NAME}}</ng-option>
+                                        </ng-select>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-block">
-                        <div class="row">
-                            <h6>Payable Status</h6>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <div class="border-checkbox-section">
-                                    <div class="border-checkbox-group border-checkbox-group-primary">
-                                        <input class="border-checkbox" type="checkbox" id="checkbox1">
-                                        <label class="border-checkbox-label" for="checkbox1">Payable Interest<span class="required"> </span></label>
+                        <div class="solid">
+                            <h1><span>Previous Details</span></h1>
+                            <div class="row">
+                                <div class="col-md-2 labelWidth">
+                                    <label>Deposit Amount</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" disabled value="{{customer?.AC_SCHMAMT}}">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 labelWidth">
+                                    <label>A/c Open Date</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" disabled value="{{customer?.AC_OPDATE}}">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 labelWidth">
+                                    <label>Maturity Date</label>
+                                </div>
+                                <div class="col-md-2 labelWidth">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Interest Upto<span class="required"> *</span></label>
+                            <div class="row">
+                                <div class="col-md-2 labelWidth">
+                                    <label>Maturity Amount</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_MATUAMT}}">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 labelWidth">
+                                    <label>As On Date</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_ASON_DATE}}">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 labelWidth">
+                                    <label>Receipt No</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Interest<span class="required"> *</span></label>
+                            <div class="row">
+                                <div class="col-md-2 labelWidth">
+                                    <label>Months & Days</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 labelWidth">
+                                    <label>Int. Rate</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 labelWidth">
+                                    <label>Total Int. Paid</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="col-md-2 labelWidth">
+                                    <label>Last Intrest Date</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 labelWidth">
+                                    <label>Interest Category</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 labelWidth">
+                                    <label>Last Trn Date</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-radio">
-                                    <form>
+                        <br>
+                        <div class="solid">
+                            <h1><span>Interest Status</span></h1>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="checkbox checkbox-primary">
+                                        <div class="border-checkbox-group border-checkbox-group-primary">
+                                            <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY"
+                                                formControlName="NormalInt">
+                                            <label class="border-checkbox-label" for="AC_IS_RECOVERY">Normal
+                                                Interest</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_EXPDT">Interest Upto</label></div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                                formControlName="IntUpto">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_EXPDT">Interest</label></div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control">
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-radio">
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="radio" checked="checked">
-                                                <i class="helper"></i>Cash<span class="required"> </span>
-                                            </label>
+                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
+                                                    value="cash">
+                                                <i class="helper"></i>Cash </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="radio">
-                                                <i class="helper"></i>Add in Deposite<span class="required"> </span>
-                                            </label>
+                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
+                                                    value="AddInDeposit">
+                                                <i class="helper"></i>Add In Deposit </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="radio" >
-                                                <i class="helper"></i>Transfer<span class="required"> </span>
-                                            </label>
+                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
+                                                    value="transfer">
+                                                <i class="helper"></i>Transfer </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="radio">
-                                                <i class="helper"></i>Keep As Payable<span class="required"> </span>
-                                            </label>
+                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
+                                                    value="keepaspayable">
+                                                <i class="helper"></i>Keep As Payable </label>
                                         </div>
-
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Scheme<span class="required"> *</span></label>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">A/c no.<span class="required"> *</span></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-block">
-                        <div class="row">
-                            <h6>Renewable Details</h6>
-
-                        </div><br>
-                        <div class="row"></div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Renewal tran. no.<span class="required"> *</span></label>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Int Category <span class="required"> *</span></label>
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="input-group">
-                                    <input placeholder="New As On Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="col-sm">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Scheme Type<sub
+                                            class="required">*</sub></label></div>
+                                <div class="col-sm-1">
                                     <div class="form-group form-primary form-static-label">
-                                        <input type="text" name="footer-email" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label">Months<span class="required"> *</span></label>
+                                        <span class="border-lable-flt">
+                                            <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
+                                                formControlName="scheme_type">
+                                                <ng-option *ngFor="let item of allSchemeCode" [value]="item.S_ACNOTYPE">
+                                                    {{item.S_ACNOTYPE}}</ng-option>
+                                            </ng-select>
+                                        </span>
                                     </div>
                                 </div>
-                                <div class="col-sm">
+                                <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_BRANCH">Scheme<sub
+                                            class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-3">
                                     <div class="form-group form-primary form-static-label">
-                                        <input type="text" name="footer-email" class="form-control" required="">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label">Days<span class="required"> *</span></label>
-
+                                        <span class="border-lable-flt">
+                                            <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
+                                                formControlName="scheme">
+                                                <ng-option *ngFor="let item of allScheme" [value]="item">{{item.S_APPL}}
+                                                    {{item.S_NAME}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Account No.<sub
+                                            class="required">*</sub></label></div>
+                                <div class="col-sm-3">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select [(ngModel)]="customer" formControlName="account_no"
+                                                (change)="getVoucherData()">
+                                                <ng-option *ngFor="let item of introducerACNo" [value]="item">
+                                                    {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="checkbox checkbox-primary">
+                                        <div class="border-checkbox-group border-checkbox-group-primary">
+                                            <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY"
+                                                formControlName="NormalInt">
+                                            <label class="border-checkbox-label" for="AC_IS_RECOVERY">Payable
+                                                Interest</label>
+                                        </div>
                                     </div>
                                 </div>
 
-                                total days =366
+                                <div class="col-sm-12 col-md-1"> <label for="AC_EXPDT">Payable Int</label></div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control">
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-radio">
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
+                                                    value="cash">
+                                                <i class="helper"></i>Cash </label>
+                                        </div>
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
+                                                    value="AddInDeposit">
+                                                <i class="helper"></i>Add In Deposit </label>
+                                        </div>
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
+                                                    value="transfer">
+                                                <i class="helper"></i>Transfer </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Scheme Type<sub
+                                            class="required">*</sub></label></div>
+                                <div class="col-sm-1">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
+                                                formControlName="scheme_type">
+                                                <ng-option *ngFor="let item of allSchemeCode" [value]="item.S_ACNOTYPE">
+                                                    {{item.S_ACNOTYPE}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_BRANCH">Scheme<sub
+                                            class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-3">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
+                                                formControlName="scheme">
+                                                <ng-option *ngFor="let item of allScheme" [value]="item">{{item.S_APPL}}
+                                                    {{item.S_NAME}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Account No.<sub
+                                            class="required">*</sub></label></div>
+                                <div class="col-sm-3">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select [(ngModel)]="customer" formControlName="account_no"
+                                                (change)="getVoucherData()">
+                                                <ng-option *ngFor="let item of introducerACNo" [value]="item">
+                                                    {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
                         </div>
 
-
-                        <div class="row">
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Receipt no.<span class="required"> *</span></label>
+                        <br>
+                        <div class="solid">
+                            <h1><span>Renewal Details</span></h1>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>Renewal Tran No.</label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Interest Category<sub
+                                            class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code">
+                                                <ng-option *ngFor="let item of branch_code" [value]="item.value">
+                                                    {{item.label}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-12 col-md-1"> <label for="AC_EXPDT">As On Date</label></div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                                formControlName="date"
+                                                disabled>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Deposite Amt<span class="required"> *</span></label>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>Months & Days</label>
+                                </div>
+                                <div class="col-md-1 col-sm-6">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control">
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- <span>&</span> -->
+                                <div class="col-md-1 col-sm-6">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Total Days =</label>
+                                </div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-1">
+                                    Receipt No.
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control">
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Rate<span class="required"> *</span></label>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    Deposit Amount
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    Rate
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control">
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3"></div>
+                                <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">New Last Interest Date</label></div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                                formControlName="date"
+                                                disabled>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm">
-                                <div class="input-group">
-                                    <input placeholder="New Last Int Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                            <div class="row">
+                                <div class="col-md-2">
+                                    Maturity Amount
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <div class="form-group form-primary form-static-label">
-                                    <input type="text" name="footer-email" class="form-control" required="">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Maturity Amt<span class="required"> *</span></label>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" class="form-control">
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="input-group">
-                                    <input placeholder="Maturity Date *" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" />
+                                <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">Maturity Date</label></div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                                formControlName="date"
+                                                >
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm">
-
-                            </div>
-                            <div class="col-sm">
-
                             </div>
                         </div>
                     </div>
-                    <div class="card-block">
-                        <div class="col-sm">
-                            <button class="btn btn-primary ripple light">Add</button>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-
-                    </div>
-                    <div class="col-sm">
-                        <h6><span class="required">* </span>: Required Fields</h6>
-                    </div>
-                </div>
-            </form>
-
-            
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="table-responsive">
-                            <table datatable [dtOptions]="dtExportButtonOptions"
-                                class="table table-striped table-bordered table-hover" style="width: 100%;">
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
-
         </div>
     </div>
 </div>

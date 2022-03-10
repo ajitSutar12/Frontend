@@ -10,6 +10,9 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { CompanyGroupMasterDropdownService } from 'src/app/shared/dropdownService/company-group-master-dropdown.service';
+import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 
 @NgModule({
   imports: [
@@ -23,7 +26,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     DatepickerModule.forRoot(),
     SharedModule,
   ],
-  providers: [StatementTypeService, {
+  providers: [StatementTypeService,OwnbranchMasterService,CompanyGroupMasterDropdownService,MultiVoucherService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

@@ -198,7 +198,6 @@ export class MultiVoucherComponent implements OnInit {
       console.log(data);
       this.master = data;
       this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
-
     })
 
     //Narration List

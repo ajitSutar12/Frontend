@@ -134,7 +134,7 @@
                                             <td>{{data.AC_NO}}</td>
                                             <td>{{data.AC_NAME}}</td>
                                             <td>
-                                                <input type="text" name="DEFAULT_AMOUNT" id="DEFAULT_AMOUNT" value=""
+                                                <input type="text" name="DEFAULT_AMOUNT" id="DEFAULT_AMOUNT" (focusout)="setAmountData($event,indexOfelement)"
                                                     #divAmt>
                                             </td>
 

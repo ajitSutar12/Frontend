@@ -800,3 +800,14 @@ input[type="file" i]::-webkit-file-upload-button {
     border-color: rgba(0, 0, 0, 0.15);
     color: rgb(16, 16, 17);
 }
+
+
+// for hand cursor below css
+.grab {cursor: -webkit-grab; cursor: grab;}
+
+// label space
+@media (min-width: 768px) {
+    .labelWidth{
+        max-width: 11% !important;
+    }
+  }

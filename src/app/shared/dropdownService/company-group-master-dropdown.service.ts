@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
 @Injectable()
 export class CompanyGroupMasterDropdownService {
     companyGroupObject = new Array();
@@ -31,4 +32,14 @@ export class CompanyGroupMasterDropdownService {
                 return this.companyGroupObject;
             }));
     }
+
+    public getCompanyData(id):Observable<any>{
+        let obj = {'id':id}
+        return this.http.post(this.url+'/company-group-master/companyData/',obj);
+    }
+
+    public getCompanyGridData(id):Observable<any>{
+        let data = {'id':id};
+        return this.http.post(this.url+'/company-group-link-master/gridDataIdWise/',data);
+      }
 }

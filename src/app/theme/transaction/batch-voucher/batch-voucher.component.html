@@ -5,7 +5,7 @@
                 Batch Transfer Voucher
             </div>
             <div class="card-body">
-                <form >
+                <form [formGroup]="angForm" novalidate>
                     <div class="solid">
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
@@ -13,7 +13,7 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select>
+                                        <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code">
                                             <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                 {{item.label}}</ng-option>
                                         </ng-select>
@@ -24,9 +24,11 @@
                             <div class="col-md-5"></div>
                             <div class="col-md-1"><label for="AC_EXPDT">Date</label></div>
                             <div class="col-md-2">
+                                <div class="form-group input-group">
                                 <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                    [isDisabled]="isture" formControlName="date" disabled>
+                                    [isDisabled]="isture" [(ngModel)]="date" disabled formControlName="date">
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -36,14 +38,138 @@
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select>
-                                            <ng-option *ngFor="let item of branch_code" [value]="item.value">
-                                                {{item.label}}</ng-option>
+                                        <ng-select (change)="getCompanyData($event)" [(ngModel)]="selectCompanyCode" name="date" formControlName="company_code">
+                                            <ng-option *ngFor="let item of company_code" [value]="item.value">
+                                                {{item.value}} {{item.name}}</ng-option>
                                         </ng-select>
 
                                     </span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2">
+                                <label for="AC_BRANCH">Scheme</label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" disabled readonly class="form-control" [value]="company_data?.AC_ACNOTYPE">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <label for="AC_BRANCH">Debit Account</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" disabled readonly class="form-control" [value]="company_data?.AC_NO">
+                                    </span>
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2">
+                                <label for="AC_BRANCH">Ledger Balance<sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <div class="form-group input-group">
+                                        <input type="text" class="form-control" value="0.00" disabled formControlName="ledger_balance">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2">
+                                <label for="AC_BRANCH">Cheque Number</label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <input type="text" formControlName="chequeNo" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-1">
+                                <label for="AC_BRANCH">Date</label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <input type="text" placeholder="dd/mm/yyyy"
+                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker formControlName="ChequeDate"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-sm-12 col-md-2">
+                                <label for="AC_BRANCH">Voucher Amount</label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <input type="text" class="form-control" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" formControlName="voucherAmount">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>Credit Amount Details</h5>
+                        </div>
+                    </div>
+                    <div class="solid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-hover compact">
+                                    <thead>
+                                        <tr>
+                                            <td></td>
+                                            <td>Scheme</td>
+                                            <td>Account No</td>
+                                            <!-- <td>Name</td> -->
+                                            <td>Amount</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><input type="text" (keyup)="filterObject($event,'AC_TYPE')"></td>
+                                            <td><input type="text" (keyup)="filterObject($event,'AC_NO')"></td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of filterArray; let i =index;">
+                                            <td></td>
+                                            <td>{{item.AC_TYPE}}</td>
+                                            <td>{{item.AC_NO}}</td>
+                                            <td><input type="text" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" value="{{item.DEFAULT_AMOUNT}}" (focusout)="changeAmount($event,i)" ></td>
+                                        </tr>
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>  
+                            <hr>
+                            <div class="row">
+                            <div class="col-sm-12 col-md-2">
+                                <label for="AC_BRANCH">Narration</label>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group input-group">
+                                    <textarea style="width:100%" class="form-control" formControlName="narration"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <label for="">Total Amount</label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <input type="text" class="form-control" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"  [value]="totalAmt" readonly formControlName="TotalAmt">                          
+                                </div>  
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button class="btn-sm" (click)="Submit()">Submit</button>
+                            </div>  
                         </div>
                     </div>
                 </form>

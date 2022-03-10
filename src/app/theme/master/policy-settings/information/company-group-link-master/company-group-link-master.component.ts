@@ -234,8 +234,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       'CODE': formVal.CODE,
       'FROM_AC': formVal.FROM_AC,
       'TO_AC': formVal.TO_AC,
-      'BRANCH_CODE': this.ngBranchCode
-
+      'BRANCH_CODE': this.ngBranchCode,
+      'Company_Data':this.multiData
     }
     this.companyGroupLinkMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -273,6 +273,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.newbtnShow = true;
 
     this.companyGroupLinkMasterService.getFormData(id).subscribe(data => {
+      debugger
       this.updateID = data.id;
       this.ngBranchCode = Number(data.BRANCH_CODE)
       this.ngcompany = data.COMP_CODE
@@ -556,8 +557,6 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
             console.log('multiShare', this.multiData)
           });
           break;
-
-
       }
 
 
@@ -576,5 +575,17 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
   delfields(id) {
     this.multiData.splice(id, 1)
+  }
+
+  //set Amount Data when edit
+  setAmountData(data,index){
+    console.log('test',data.target.value);
+
+    if(this.multiData[index].hasOwnProperty('Amount')){
+      this.multiData[index].Amount = data.target.value;
+    }else{
+      this.multiData[index]['Amount'] = data.target.value;
+    }
+    console.log(this.multiData);
   }
 }
