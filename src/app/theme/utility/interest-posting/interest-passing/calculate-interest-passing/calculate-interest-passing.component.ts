@@ -1,4 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-calculate-interest-passing',
@@ -6,47 +11,56 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./calculate-interest-passing.component.scss']
 })
 export class CalculateInterestPassingComponent implements OnInit {
-  dtExportButtonOptions : any = {};
 
-  constructor() { }
+  formSubmitted = false;
+  //api
+  url = environment.base_url;
+
+  // Formgroup variable
+  angForm: FormGroup;
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  // date variables
+  ngintDate:any=null
+  warrentDate
+  dtExportButtonOptions : any = {};
+  selectedWarrentDate: any;
+  selectedDivFromYear: any;
+  selectedDivToYear: any;
+
+  constructor(
+    private fb: FormBuilder, private http: HttpClient,
+    private config: NgSelectConfig,
+  ) { }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
+
+    this.createForm()
+    this.http.get(this.url + '/interest-passing').subscribe((data) => {
+      this.warrentDate = data
+    })
+  }
+
+  createForm() {
+   
+    this.angForm = this.fb.group({
+     
+      INT_DATE:['',[Validators.required]],
+      
+    });
+  }
+
+  getIntDetails(event) {
+    this.selectedWarrentDate = event.WARRENT_DATE
+    this.selectedDivFromYear = event.DIV_FROM_YEAR
+    this.selectedDivToYear = event.DIV_TO_YEAR
+  }
+
+  editClickHandler(): void {
+
+  }
+  delField() {
     
   }
 

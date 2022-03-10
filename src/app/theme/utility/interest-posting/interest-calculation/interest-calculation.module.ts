@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgSelectModule } from '@ng-select/ng-select';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InterestCalculationComponent } from './interest-calculation.component';
 import { InterestCalculationRoutingModule } from './interest-calculation-routing.module';
 import {DataTablesModule} from 'angular-datatables';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SystemMasterParametersService } from '../../scheme-parameters/system-master-parameters/system-master-parameters.service';

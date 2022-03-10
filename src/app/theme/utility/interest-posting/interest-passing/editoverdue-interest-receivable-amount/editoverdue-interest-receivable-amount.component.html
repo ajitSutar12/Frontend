@@ -1,14 +1,12 @@
-<!-- Edit Interest Calculation-->
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Edit Interest Calculation</h5>
+                <h5>Edit Overdue Interest Receivable Amount</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
@@ -34,25 +32,25 @@
                             </div>     
                                 
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="INT_DATE">Interest Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">Tran Date<sub
                         class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="INT_DATE" bindValue="INT_DATE" [(ngModel)]="ngintDate"
-                                        formControlName="INT_DATE" bindLabel="INT_DATE" title="Compulsory Selection"
-                                        required placeholder="Interest Date" (change)="getIntDetails($event)">
+                                    <ng-select id="TRAN_DATE" bindValue="TRAN_DATE" [(ngModel)]="ngtrandate"
+                                        formControlName="TRAN_DATE" bindLabel="TRAN_DATE" title="Compulsory Selection"
+                                        required placeholder="Tran Date" (change)="getIntDetails($event)">
                                         <ng-option *ngFor="let values of warrentDate" [value]="values">
-                                            {{values.INT_DATE}} ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}})
+                                            {{values.TRAN_DATE}} ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}})
                                         </ng-option>
                                     </ng-select>
 
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['INT_DATE'].invalid && (angForm.controls['INT_DATE'].dirty || angForm.controls['INT_DATE'].touched)"
+                                *ngIf="angForm.controls['TRAN_DATE'].invalid && (angForm.controls['TRAN_DATE'].dirty || angForm.controls['TRAN_DATE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['INT_DATE'].errors?.required">
+                                <div *ngIf="angForm.controls['TRAN_DATE'].errors?.required">
                                     This field is required.
                                 </div>
                             </div>
@@ -119,11 +117,6 @@
                                 </div>
                             </div>       
                         </div>
-                        <div class="col-sm">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                            (click)="submit($event)">Calculate</button>
-                        </div>
-                        
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
@@ -134,11 +127,11 @@
                                             <td class="td_right">Sr.NO</td>
                                             <td class="td_right">Account Number</td>
                                             <td>Account Name</td>
-                                            <td class="td_right">Normal Interest</td>
-                                            <td class="td_right">Recble/Payable</td>
-                                            <td class="td_right">Penal Interest</td>
-                                            <td class="td_right">OverDue Interest</td>
-                                            <td class="td_right">OverDraft Interest</td>   
+                                            <td class="td_center">NPA Date</td>
+                                            <td class="td_right">Overdue Amount</td>
+                                            <td class="td_right">Interest</td>
+                                            <td class="td_right">OIR Amount</td>
+                                               
                                         </thead>
                                         <tbody>
                                             <tr>
@@ -152,66 +145,8 @@
                             </div>
                         </div>
                     </div>       
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <label>Total</label>
-                        </div>
-                        <div class="col-sm">
-                            <label style="text-align: center;padding-inline: initial;">Normal Interest</label>
-                            <span class="border-lable-flt">
-                                <input type="text" class="form-control" placeholder=" "
-                                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only 0-9"
-                                maxlength="12"
-                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                            </span>
-                        </div>
-                        <div class="col-sm">
-                            <label style="text-align: center;padding-inline: initial;">Recble/Payable</label>
-                            <span class="border-lable-flt">
-                                <input type="text" class="form-control" placeholder=" "
-                                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only 0-9"
-                                maxlength="12"
-                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                            </span>
-                            
-                        </div>
-                        <div class="col-sm">
-                            <label style="text-align: center;padding-inline: initial;">Penal Interest</label>
-                            <span class="border-lable-flt">
-                                <input type="text" class="form-control" placeholder=" "
-                                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only 0-9"
-                                maxlength="12"
-                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                            </span>
-                            
-                        </div>
-                        
-                        <div class="col-sm">
-                            <label style="text-align: center;padding-inline: initial;">OverDue Interest</label>
-                            <span class="border-lable-flt">
-                                <input type="text" class="form-control" placeholder=" "
-                                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only 0-9"
-                                maxlength="12"
-                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                            </span>
-                            
-                        </div>
-                        <div class="col-sm">
-                            <label style="text-align: center;padding-inline: initial;">OverDraft Interest</label>
-                            <span class="border-lable-flt">
-                                <input type="text" class="form-control" placeholder=" "
-                                    pattern="\d{1,20}(\.\d{2})?" title="Input allowed only 0-9"
-                                maxlength="12"
-                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                            </span>
-                        </div>
-                    </div>
                 </div>
             </form>
-            
         </div>
     </div>
 </div>
-
-
-            

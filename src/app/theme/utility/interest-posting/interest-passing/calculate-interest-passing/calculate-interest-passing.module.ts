@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { CalculateInterestPassingComponent } from './calculate-interest-passing.component';
 import { CalculateInterestPassingRoutingModule } from './calculate-interest-passing-routing.module';
 import {SharedModule} from '../../../../../shared/shared.module';
@@ -13,6 +14,9 @@ import { UserAuthInterceptor } from '../../../../../user-auth.interceptor';
     CommonModule,
     CalculateInterestPassingRoutingModule,
     SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgSelectModule,
     DataTablesModule
   ],
   declarations: [ CalculateInterestPassingComponent],
