@@ -1,12 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { ProcessACMComponent } from './process-acm.component';
 import { ProcessACMRoutingModule } from './process-acm-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { NPAProcessComponent } from './npaprocess/npaprocess.component';
+import { NPAMarkingComponent } from './npamarking/npamarking.component';
+import { NPAProcessLockingComponent } from './npaprocess-locking/npaprocess-locking.component';
+import { DeadStockDepreciationComponent } from './dead-stock-depreciation/dead-stock-depreciation.component';
+import { OverdraftInterestPostingComponent } from './overdraft-interest-posting/overdraft-interest-posting.component';
+import { PenalInterestCalculationComponent } from './penal-interest-calculation/penal-interest-calculation.component';
+import { TransferToGLbyClosingACComponent } from './transfer-to-glby-closing-ac/transfer-to-glby-closing-ac.component';
+import { PayrolldatatransferComponent } from './payrolldatatransfer/payrolldatatransfer.component';
+import { PayrollexportfileprocessComponent } from './payrollexportfileprocess/payrollexportfileprocess.component';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 @NgModule({
@@ -14,10 +26,25 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     CommonModule,
     ProcessACMRoutingModule,
     SharedModule,
-    DataTablesModule
+    FormsModule,
+    NgSelectModule,
+    ReactiveFormsModule,
+    DataTablesModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
-  declarations: [ProcessACMComponent],
-  providers:[{
+  declarations: [
+    ProcessACMComponent,
+    NPAProcessComponent,
+    NPAMarkingComponent,
+    NPAProcessLockingComponent, 
+    DeadStockDepreciationComponent, 
+    OverdraftInterestPostingComponent, 
+    PenalInterestCalculationComponent, 
+    TransferToGLbyClosingACComponent,
+    PayrolldatatransferComponent, 
+    PayrollexportfileprocessComponent],
+  providers:[OwnbranchMasterService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

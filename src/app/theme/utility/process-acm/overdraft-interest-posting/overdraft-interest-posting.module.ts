@@ -1,0 +1,37 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import {OverdraftInterestPostingComponent} from './overdraft-interest-posting.component'
+import {SharedModule} from '../../../../shared/shared.module';
+// import {SelectModule} from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {DataTablesModule} from 'angular-datatables';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UserAuthInterceptor } from '../../../../user-auth.interceptor';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service';
+
+
+@NgModule({
+  imports: [
+    CommonModule,
+    SharedModule,
+    DataTablesModule,
+    // SelectModule
+    NgbModule,
+    NgSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
+  ],
+  declarations: [OverdraftInterestPostingComponent],
+  providers:[OwnbranchMasterService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
+})
+export class OverdraftInterestPostingModule { }

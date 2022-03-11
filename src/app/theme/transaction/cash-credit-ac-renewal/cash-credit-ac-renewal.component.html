@@ -126,9 +126,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"><label for="AC_RENEWAL_COUNTER">Account Renewal Numbers of
+                        <div class="col-sm-12 col-md-3"><label for="AC_RENEWAL_COUNTER">Account Renewal Numbers of
                                 Times</label></div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" style="text-align: right;" name="AC_RENEWAL_COUNTER"
@@ -207,21 +207,24 @@
 
 
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_MONTHS">Period in Months</label>
-                                    </div>
-                                    <div class="col-sm-12 col-md-4">
-                                        <span class="border-lable-flt">
-                                            <input type="text" name="OLDAC_MONTHS" class="form-control" placeholder=" "
-                                                id="OLDAC_MONTHS" pattern="^[0-9]+$" title="Input allowed only 0-9"
-                                                maxlength="3"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                formControlName="OLDAC_MONTHS" disabled>
-                                        </span>
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_MONTHS">Period in Months</label></div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" style="text-align: right;" name="OLDAC_MONTHS"
+                                                    class="form-control" placeholder=" " pattern="^[0-9]+$"
+                                                    id="OLDAC_MONTHS" title="Input allowed only  0-9"
+                                                    formControlName="OLDAC_MONTHS"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                    disabled>
+
+                                            </span>
+                                        </div>
 
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_EXPIRE_DATE">Expiry Date</label>
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_EXPIRE_DATE">Expiry Date</label>
                                     </div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="OLDAC_EXPIRE_DATE"
@@ -239,9 +242,9 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_SANCTION_AMOUNT">Sanction
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_SANCTION_AMOUNT">Sanction
                                             Limit</label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;"
@@ -251,14 +254,13 @@
                                                     formControlName="OLDAC_SANCTION_AMOUNT"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                     disabled>
-
                                             </span>
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_SANCTION_DATE">Sanction
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_SANCTION_DATE">Sanction
                                             Date</label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="OLDAC_SANCTION_DATE"
@@ -275,9 +277,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_SECURITY_AMT">Security
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_SECURITY_AMT">Security
                                             Amount</label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="OLDAC_SECURITY_AMT"
@@ -291,9 +293,9 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_DRAWPOWER_AMT">Drawing
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_DRAWPOWER_AMT">Drawing
                                             Power</label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="OLDAC_DRAWPOWER_AMT"
@@ -309,9 +311,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="OLDAC_INSTALLMENT">Installment</label>
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_INSTALLMENT">Installment</label>
                                     </div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="OLDAC_INSTALLMENT"
@@ -330,9 +332,9 @@
                             <div class="solid">
                                 <h6>Renewal Details:</h6>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_MONTHS">Period in Months<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_MONTHS">Period in Months<sub
                                                 class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="AC_MONTHS"
@@ -351,9 +353,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_EXPIRE_DATE">Expiry Date<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_EXPIRE_DATE">Expiry Date<sub
                                                 class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="AC_EXPIRE_DATE"
@@ -375,9 +377,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_SANCTION_AMOUNT">Sanction Limit<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_SANCTION_AMOUNT">Sanction Limit<sub
                                                 class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="AC_SANCTION_AMOUNT"
@@ -398,9 +400,9 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_SANCTION_DATE">Sanction Date<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_SANCTION_DATE">Sanction Date<sub
                                                 class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="AC_SANCTION_DATE"
@@ -423,9 +425,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_SECURITY_AMT">Security Amount<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_SECURITY_AMT">Security Amount<sub
                                                 class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="AC_SECURITY_AMT"
@@ -447,9 +449,9 @@
 
                                     </div>
 
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_DRAWPOWER_AMT">Drawing Power<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_DRAWPOWER_AMT">Drawing Power<sub
                                                 class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="AC_DRAWPOWER_AMT"
@@ -473,9 +475,9 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_INSTALLMENT">Installment<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_INSTALLMENT">Installment<sub
                                                 class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="AC_INSTALLMENT"
@@ -566,9 +568,9 @@
                             <div class="solid">
                                 <h6>Interest Details:</h6>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="INT_RATE">Normal Interest Rate</label>
+                                    <div class="col-sm-12 col-md-3"> <label for="INT_RATE">Normal Interest Rate</label>
                                     </div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="INT_RATE"
@@ -589,9 +591,9 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="PENAL_INT_RATE">Penal Interest
+                                    <div class="col-sm-12 col-md-3"> <label for="PENAL_INT_RATE">Penal Interest
                                             Rate</label></div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="PENAL_INT_RATE"
@@ -615,9 +617,9 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="EFFECT_DATE">Effective Date</label>
+                                    <div class="col-sm-12 col-md-3"> <label for="EFFECT_DATE">Effective Date</label>
                                     </div>
-                                    <div class="col-sm-12 col-md-4">
+                                    <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE"

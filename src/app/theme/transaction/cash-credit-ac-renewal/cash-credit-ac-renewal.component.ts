@@ -277,12 +277,18 @@ export class CashCreditAcRenewalComponent implements OnInit {
   }
 
   submit() {
+    let ngsansctiondate
+    var updatecheckdata
     const formVal = this.angForm.value;
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let expiryDate
     let sancationDate
     let resoDate
+    // if (updatecheckdata.AC_SANCTION_DATE!=data.AC_SANCTION_DATE) {
+    //   (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? (ngsansctiondate = '', data['AC_SANCTION_DATE'] = ngsansctiondate) : (ngsansctiondate = data.AC_SANCTION_DATE, data['AC_SANCTION_DATE'] = moment(ngsansctiondate).format('DD/MM/YYYY'))
+      
+    // }
     const dataToSend = {
       BANKACNO: this.bankacno,
       EFFECT_DATE: formVal.EFFECT_DATE,
