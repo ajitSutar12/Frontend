@@ -10,16 +10,38 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="GL_AC">GL Account<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="GL_AC">GL Account<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="GL_AC" bindValue="value" [(ngModel)]="glaccount"
-                                        formControlName="GL_AC" bindLabel="label"
-                                    title="Compulsory Selection" required placeholder="GL Account">
-                                    <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                        {{values.label}} {{values.name}}</ng-option>
-                                </ng-select>
+                                        formControlName="GL_AC" bindLabel="label" title="Compulsory Selection" required
+                                        placeholder="GL Account" (change)="getTable()">
+                                        <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                            {{values.label}} {{values.name}}</ng-option>
+                                    </ng-select>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -31,7 +53,7 @@
                             </div>
                         </div>
                         <div class="col-sm">
-                    
+
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
@@ -47,7 +69,7 @@
                                         <i class="helper"></i>Pending Entries
                                     </label>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -60,6 +82,7 @@
                                         class="form-control" [(ngModel)]="fromdate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
+                                        (bsValueChange)="getTable()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -81,7 +104,7 @@
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="TO_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
+                                        bsDatepicker (bsValueChange)="getTable()">
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -96,49 +119,58 @@
                     <div class="row">
                         <div class="col-sm">
                             <button type="submit" class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                                    (click)="submit($event)">
-                                    Submit
-                                </button>
+                                (click)="submit($event)">
+                                Submit
+                            </button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="col-12">
-                                <div class="table-responsive">
-                                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
-                                                class="table table-striped table-bordered table-hover compact">
-                    
-                                        <thead>
-                                            <td class="td_center">Date</td>
-                                            <td>Type</td>
-                                            <td class="td_right">Cheque Number</td>
-                                            <td>Particulars</td>
-                                            <td class="td_right">Debit Amount</td>
-                                            <td class="td_right">Credit Amount</td>
-                                            <td class="td_center">Statement Date</td>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="td_center">
-                                                    <input  type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
-                                                    class="form-control" 
-                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                                    [ngClass]="{'form-submitted': formSubmitted}" 
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                    bsDatepicker> 
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                    
-                                                        
-                                                
-                                    </table>
+                            <div *ngIf="showTable">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                            class="table table-striped table-bordered table-hover compact">
+                                            <thead>
+                                                <td class="td_center">Date</td>
+                                                <td>Voucher Type</td>
+                                                <td class="td_right">Cheque Number</td>
+                                                <td>Narration</td>
+                                                <td class="td_right">Debit Amount</td>
+                                                <td class="td_right">Credit Amount</td>
+                                                <td class="td_center">Statement Date</td>
+                                            </thead>
+                                            <tbody *ngIf="entryArr?.length != 0">
+                                                <tr *ngFor="let data of entryArr;
+                                                let indexOfelement = index">
+                                                    <td>{{data.TRAN_DATE}}</td>
+                                                    <td>{{data.TRAN_TYPE}}</td>
+                                                    <td>{{data.CHEQUE_NO}}</td>
+                                                    <td>{{data.NARRATION}}</td>
+                                                    <td>{{data.TRAN_DRCR=='D'? data.TRAN_AMOUNT : ''}}</td>
+                                                    <td>{{data.TRAN_DRCR=='C'? data.TRAN_AMOUNT : ''}}</td>
+                                                    <td class="td_center">
+                                                        <input type="text" name="STATEMENT_DATE" id="STATEMENT_DATE"
+                                                            placeholder="dd/mm/yyyy" class="form-control"
+                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                            value="{{data.STATEMENT_DATE == null || data.STATEMENT_DATE == '' ? '' : data.STATEMENT_DATE }}"
+                                                            #STATEMENT_DATE
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                            (bsValueChange)="getStatementDate(data.id,data.TRAN_ACNO,data.TRAN_DRCR,data.TRAN_AMOUNT,STATEMENT_DATE.value)"
+                                                            bsDatepicker>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="entryArr?.length == 0">
+                                                <tr>
+                                                    <td colspan="7" class="no-data-available"
+                                                        style="text-align: center;">
+                                                        No data!
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -148,39 +180,28 @@
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-sm">
-                                        
-                                            <h6 style="text-align: right;padding-inline: initial;">No of Records</h6>
-                                        
-                                        
-                                        
+                                        <h6 style="text-align: right;padding-inline: initial;">No of Records</h6>
                                     </div>
                                     <div class="col-sm">
-                                        
-                                            <h6 style="text-align: right;padding-inline: initial;">Uncleared Amounts</h6>
-                                        
-                                        
+                                        <h6 style="text-align: right;padding-inline: initial;">Uncleared Amounts</h6>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
-                                    <div class="col-sm"> <label style="padding-right: 5px;" for="WITH_DRAW">Withdrawls</label></div>
+                                    <div class="col-sm"> <label style="padding-right: 5px;"
+                                            for="WITH_DRAW">Withdrawls</label></div>
                                     <div class="col-sm-2">
                                         <span class="border-lable-flt">
                                             <input type="text" name="RECORDS" class="form-control" placeholder=" "
-                                            id="RECORDS" pattern="^[0-9]+$" title="Input allowed only 0-9"
-                                            maxlength="3"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                                id="RECORDS" formControlName="Withdrawls">
                                         </span>
-                    
                                     </div>
                                     <div class="col-sm">
                                         <span class="border-lable-flt">
                                             <input type="text" name="AMOUNTS" class="form-control" placeholder=" "
-                                            id="AMOUNTS" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only 0-9"
-                                            maxlength="12"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                id="AMOUNTS" formControlName="WithdrawlsAmt">
                                         </span>
-                    
+
                                     </div>
                                 </div>
                                 <div class="row">
@@ -188,40 +209,30 @@
                                     <div class="col-sm-2">
                                         <span class="border-lable-flt">
                                             <input type="text" name="RECORDS" class="form-control" placeholder=" "
-                                            id="RECORDS" pattern="^[0-9]+$" title="Input allowed only 0-9"
-                                            maxlength="3"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                                id="RECORDS" formControlName="Deposits">
                                         </span>
-                    
+
                                     </div>
                                     <div class="col-sm">
                                         <span class="border-lable-flt">
                                             <input type="text" name="AMOUNTS" class="form-control" placeholder=" "
-                                            id="AMOUNTS" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only 0-9" maxlength="12"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                id="AMOUNTS" formControlName="DepositsAmt">
                                         </span>
-                    
+
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm"> <label for="AMT">Amount</label></div>
                                     <div class="col-sm-2">
                                         <span class="border-lable-flt">
-                                            <!-- <input type="text" name="AMT" class="form-control" placeholder=" "
-                                            id="AMT" pattern="^[0-9]+$" title="Input allowed only 0-9"
-                                            maxlength="3"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            formControlName="AMT"> -->
                                         </span>
-                    
                                     </div>
                                     <div class="col-sm">
                                         <span class="border-lable-flt">
-                                            <input type="text" name="AMOUNTS" class="form-control" placeholder=" " maxlength="12"
-                                            id="AMOUNTS" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only 0-9"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                            <input type="text" name="AMOUNTS" class="form-control" placeholder=" "
+                                                maxlength="12" id="AMOUNTS" formControlName="UnclearedAmt">
                                         </span>
-                    
+
                                     </div>
                                 </div>
                             </div>
@@ -232,5 +243,3 @@
         </div>
     </div>
 </div>
-
-

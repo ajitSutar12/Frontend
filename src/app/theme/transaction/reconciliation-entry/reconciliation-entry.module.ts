@@ -11,7 +11,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { ReconciliationEntryService } from './reconciliation-entry.service';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
-
+import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +25,7 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
     DatepickerModule.forRoot()
   ],
   declarations: [ReconciliationEntryComponent],
-  providers:[ACMasterDropdownService,ReconciliationEntryService,{
+  providers:[ACMasterDropdownService,ReconciliationEntryService,OwnbranchMasterService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

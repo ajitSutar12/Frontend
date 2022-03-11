@@ -8,7 +8,8 @@ import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-master-dropdown.service';
-import {ReconciliationEntryService} from './reconciliation-entry.service'
+import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
+import { ReconciliationEntryService } from './reconciliation-entry.service'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -21,8 +22,8 @@ class DataTableResponse {
 interface ReconciliationEntry {
   id: number;
   GL_AC: string;
-  FROM_DATE:Date;
-  TO_DATE:Date;
+  FROM_DATE: Date;
+  TO_DATE: Date;
 }
 @Component({
   selector: 'app-reconciliation-entry',
@@ -31,15 +32,15 @@ interface ReconciliationEntry {
 })
 export class ReconciliationEntryComponent implements OnInit {
   formSubmitted = false;
-   //api
-   url = environment.base_url;
+  //api
+  url = environment.base_url;
   //  Formgroup variable
-   angForm: FormGroup;
+  angForm: FormGroup;
   //  dropdown variables
-   glaccount: any=null;
-   ACMasterDropdown: any[];
-   schemeACNo: any[];
-   todate:any=null;
+  glaccount: any = null;
+  ACMasterDropdown: any[];
+  schemeACNo
+  todate: any = null;
   dtExportButtonOptions: any = {};
 
   // For reloading angular datatable after CRUD operation
@@ -47,190 +48,232 @@ export class ReconciliationEntryComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  
+
 
   // Store data from backend
-  reconciliationentry:ReconciliationEntry[];
+  reconciliationentry: ReconciliationEntry[];
 
   // date variables
-  fromdate:any=null
+  fromdate: any = null
   minDate: Date;
   maxDate: Date;
-  showButton: boolean;
+  showButton: boolean = true;
   updateShow: boolean;
   newbtnShow: boolean;
   filterData: any;
   page: number;
- 
-  
-  
 
+  arrTable
+  totalDebitRec: number = 0
+  totalCreditRec: number = 0
+  totalDebitAmt: number = 0
+  totalCreditAmt: number = 0
+  remainAmt: number = 0
+  entryArr = []
+
+  branch_code
+  ngBranchCode: any = null
+  showTable: boolean = false
+  
   constructor(
     private fb: FormBuilder, private http: HttpClient,
-    private reconciliation:ReconciliationEntryService,
-    public ACMasterDropdownService:ACMasterDropdownService,
+    private reconciliation: ReconciliationEntryService,
+    public ACMasterDropdownService: ACMasterDropdownService,
     private config: NgSelectConfig,
-  ) { 
+    private ownbranchMasterService: OwnbranchMasterService,
+  ) {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
   }
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      dom: 'ftip'
+    };
     this.createForm()
     this.ACMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
-
-      this.ACMasterDropdown = data;
+      this.schemeACNo = data;
     })
 
-    // Fetching Server side data
-    // this.dtExportButtonOptions = {
-    //   pagingType: 'full_numbers',
-    //   paging: true,
-    //   pageLength: 10,
-    //   serverSide: true,
-    //   processing: true,
-    //   ajax: (dataTableParameters: any, callback) => {
-    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
-    //     dataTableParameters.maxNumber =
-    //       dataTableParameters.start + dataTableParameters.length;
-    //     let datatableRequestParam: any;
-    //     this.page = dataTableParameters.start / dataTableParameters.length;
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
 
-    //     dataTableParameters.columns.forEach(element => {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
 
-    //       if (element.search.value != '') {
-    //         let string = element.search.value;
-    //         this.filterData[element.data] = string;
-    //       } else {
-    //         let getColumnName = element.data;
-    //         let columnValue = element.value;
-    //         if (this.filterData.hasOwnProperty(element.data)) {
-
-    //           let value = this.filterData[getColumnName];
-    //           if (columnValue != undefined || value != undefined) {
-    //             delete this.filterData[element.data];
-    //           }
-    //         }
-    //       }
-    //     });
-    //     dataTableParameters['filterData'] = this.filterData;
-    //     this.http
-    //       .post<DataTableResponse>(
-    //         this.url + '/bank-other-details',
-    //         dataTableParameters
-    //       ).subscribe(resp => {
-    //         this.reconciliationentry = resp.data;
-    //         callback({
-    //           recordsTotal: resp.recordsTotal,
-    //           recordsFiltered: resp.recordsTotal,
-    //           data: []
-    //         });
-    //       });
-    //   },
-    //   columnDefs: [{
-    //     targets: '_all',
-    //     defaultContent: ""
-    //   }],
-    //   columns: [
-    //     // {
-    //     //   title: 'Action',
-    //     // },
-    //     // {
-    //     //   title: 'Date',
-    //     //   data: ' '
-    //     // },
-    //     // {
-    //     //   title:'Type',
-    //     //   data:' '
-    //     // },
-    //     // {
-    //     //   title:'Cheque Number',
-    //     //   data:' '
-    //     // },
-    //     // {
-    //     //   title:'Particulars',
-    //     //   data:' '
-    //     // },
-        
-    //     // {
-    //     //   title:'Debit amount',
-    //     //   data:' '
-    //     // },
-    //     // {
-    //     //   title:'Credit amunt',
-    //     //   data:' '
-    //     // },
-    //     // {
-    //     //   title:'Statement Date',
-    //     //   data:' '
-    //     // },
-        
-        
-    //   ],
-    //   dom: 'Blrtip',
-    // }
-    
-    
   }
-  createForm(){
+  createForm() {
     this.angForm = this.fb.group({
-      GL_AC:['',[Validators.required]],
-      ENTRIES:[''],
-      FROM_DATE:['',[Validators.required]],
-      TO_DATE:['',[Validators.required]],
-      WITH_DRAW:['',[Validators.required,Validators.pattern]]
+      BRANCH_CODE: ['', [Validators.required]],
+      GL_AC: ['', [Validators.required]],
+      ENTRIES: [''],
+      FROM_DATE: ['', [Validators.required]],
+      TO_DATE: ['', [Validators.required]],
+      WITH_DRAW: ['', [Validators.required, Validators.pattern]],
+      Withdrawls: [''],
+      WithdrawlsAmt: [''],
+      Deposits: [''],
+      DepositsAmt: [''],
+      UnclearedAmt: ['']
     })
+  }
+
+  getTable() {
+    this.entryArr = []
+    this.arrTable = []
+    this.totalDebitAmt = 0
+    this.totalCreditAmt = 0
+    this.totalDebitRec = 0
+    this.totalCreditRec = 0
+    this.remainAmt = 0
+    this.angForm.patchValue({
+      Withdrawls: this.totalDebitRec,
+      WithdrawlsAmt: this.totalDebitAmt,
+      Deposits: this.totalCreditRec,
+      DepositsAmt: this.totalCreditAmt,
+      UnclearedAmt: this.remainAmt
+    })
+
+    let obj = [this.glaccount, this.ngBranchCode, this.angForm.controls['ENTRIES'].value, this.angForm.controls['FROM_DATE'].value, this.angForm.controls['TO_DATE'].value]
+    this.http.get(this.url + '/reconciliation-entry/allAccount/' + obj).subscribe((data) => {
+      this.arrTable = data;
+      this.arrTable?.forEach(element => {
+        let obj = {
+          id: element.id,
+          TRAN_NO: element.TRAN_NO,
+          TRAN_DATE: element.TRAN_DATE,
+          TRAN_TYPE: element.TRAN_TYPE,
+          TRAN_DRCR: element.TRAN_DRCR,
+          TRAN_AMOUNT: element.TRAN_AMOUNT,
+          TRAN_ACNO: element.TRAN_ACNO,
+          CHEQUE_NO: element.CHEQUE_NO,
+          NARRATION: element.NARRATION,
+          STATEMENT_DATE: element.STATEMENT_DATE
+        }
+        if (element.TRAN_DRCR == 'D' && element.STATEMENT_DATE == null) {
+          this.totalDebitRec = this.totalDebitRec + 1
+          this.totalDebitAmt = this.totalDebitAmt + Number(element.TRAN_AMOUNT)
+        }
+        else if (element.TRAN_DRCR == 'C' && element.STATEMENT_DATE == null) {
+          this.totalCreditRec = this.totalCreditRec + 1
+          this.totalCreditAmt = this.totalCreditAmt + Number(element.TRAN_AMOUNT)
+        }
+        if (this.totalCreditAmt > this.totalDebitAmt) {
+          this.remainAmt = this.totalCreditAmt - this.totalDebitAmt
+        }
+        else {
+          this.remainAmt = this.totalDebitAmt - this.totalCreditAmt
+        }
+        this.angForm.patchValue({
+          Withdrawls: this.totalDebitRec,
+          WithdrawlsAmt: this.totalDebitAmt,
+          Deposits: this.totalCreditRec,
+          DepositsAmt: this.totalCreditAmt,
+          UnclearedAmt: this.remainAmt
+        })
+
+        this.entryArr.push(obj)
+        this.showTable = true
+      });
+    })
+  }
+
+  getStatementDate(id, acno, tranDRCR, tranAmt, date) {
+    if (date != '' || date != 'Invalid Date') {
+      if (this.entryArr.length != 0) {
+        if (this.entryArr.some(item => item.id === id)) {
+          this.entryArr.forEach((element) => {
+            if (element.id == id) {
+              element['STATEMENT_DATE'] = date
+              if (tranDRCR == 'D' && date != "" && date != null) {
+                this.totalDebitAmt = this.totalDebitAmt - Number(tranAmt)
+              }
+              else if (tranDRCR == 'C' && date != "" && date != null) {
+                this.totalCreditAmt = this.totalCreditAmt - Number(tranAmt)
+              }
+              if (tranDRCR == 'D' && (date == "" || date == null)) {
+                this.totalDebitAmt = this.totalDebitAmt + Number(tranAmt)
+              }
+              else if (tranDRCR == 'C' && (date == "" || date == null)) {
+                this.totalCreditAmt = this.totalCreditAmt + Number(tranAmt)
+              }
+              if (this.totalCreditAmt > this.totalDebitAmt) {
+                this.remainAmt = this.totalCreditAmt - this.totalDebitAmt
+              }
+              else {
+                this.remainAmt = this.totalDebitAmt - this.totalCreditAmt
+              }
+              this.angForm.patchValue({
+                WithdrawlsAmt: this.totalDebitAmt,
+                DepositsAmt: this.totalCreditAmt,
+                UnclearedAmt: this.remainAmt
+              })
+            }
+
+          })
+        }
+        else {
+          let object = {
+            id: id,
+            TRAN_ACNO: acno,
+            STATEMENT_DATE: date
+          }
+          this.entryArr.push(object)
+        }
+      }
+      else {
+        let object = {
+          id: id,
+          TRAN_ACNO: acno,
+          STATEMENT_DATE: date
+        }
+        this.entryArr.push(object)
+      }
+    }
+
   }
   // Method to insert data into database through NestJS
   submit(event) {
-    
     event.preventDefault();
     this.formSubmitted = true;
-
-    
-    if (this.angForm.valid) {
-
+    if (this.entryArr.length != 0) {
       const formVal = this.angForm.value;
       const dataToSend = {
-        'GL_AC': formVal.AC_NO,
-        'FROM_DATE': formVal.AC_MEMBTYPE,
-        'TO_DATE': formVal.AC_MEMBNO,
-        
+        entryArr: this.entryArr
       }
-
       this.reconciliation.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Account Created successfully!',
-            html:
-              '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
-              '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>'
-          })
-          this.formSubmitted = false;
-          
-          // to reload after insertion of data
-          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            dtInstance.ajax.reload()
-          });
+          Swal.fire("Success!", "Data Updated Successfully !", "success");
+          this.formSubmitted = false
         },
         (error) => {
           console.log(error);
         }
       );
-      
+
       //To clear form
       this.resetForm();
-      
-
     } else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
 
   }
-  resetForm(){
-
+  resetForm() {
+    this.createForm()
+    this.ngBranchCode = null
+    this.glaccount = null
   }
   addNewData() {
     this.showButton = true;
@@ -239,28 +282,6 @@ export class ReconciliationEntryComponent implements OnInit {
     this.resetForm();
   }
 
-  //Method for append data into fields
-  editClickHandler(id){
-
-  }
-
-  ngAfterViewInit(): void {
-    //  this.ngSelect.focus();
-    this.dtTrigger.next();
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.columns().every(function () {
-        const that = this;
-        $('#reconciliationentrytable tfoot tr').appendTo('#reconciliationentrytable thead');
-        $("input", this.footer()).on("keyup change", function () {
-          if (this["value"] != "") {
-            that.search(this["value"]).draw();
-          } else {
-            that.search(this["value"]).draw();
-          }
-        });
-      });
-    });
-  }
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

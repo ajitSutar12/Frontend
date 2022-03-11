@@ -3,7 +3,7 @@ import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {environment} from '../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class ReconciliationEntryService {
@@ -17,7 +17,7 @@ export class ReconciliationEntryService {
 
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + '/reconciliation-entry/insert', data).pipe(map((res) => res),
+    return this.http.post(this.url + '/reconciliation-entry/update', data).pipe(map((res) => res),
       catchError((error) => {
         Swal.fire('Please Input Proper Data!');
         return throwError(error);
