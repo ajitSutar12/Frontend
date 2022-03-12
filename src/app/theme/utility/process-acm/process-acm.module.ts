@@ -19,6 +19,9 @@ import { PayrolldatatransferComponent } from './payrolldatatransfer/payrolldatat
 import { PayrollexportfileprocessComponent } from './payrollexportfileprocess/payrollexportfileprocess.component';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 
 
 @NgModule({
@@ -44,7 +47,7 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
     TransferToGLbyClosingACComponent,
     PayrolldatatransferComponent, 
     PayrollexportfileprocessComponent],
-  providers:[OwnbranchMasterService,{
+  providers:[OwnbranchMasterService,SchemeCodeDropdownService,ACMasterDropdownService,SchemeAccountNoService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

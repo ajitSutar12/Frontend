@@ -1,1 +1,176 @@
-<p>7. Transfer To GL by Closing A/c</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Transfer To GL by Closing A/c</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" 
+                                        placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                        formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        (change)="schemechange($event)"  (change)="getACmastercode($event)"placeholder="Scheme">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="GL_AC">GL Account<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="GL_AC" bindValue="value" [(ngModel)]="schemeedit"
+                                (change)="schemechange($event)" formControlName="GL_AC" bindLabel="label"
+                                title="Compulsory Selection" required placeholder="GL Account Code">
+                                <ng-option *ngFor="let values of ACMasterDropdown" [value]="values">
+                                    {{values.label}}</ng-option>
+                            </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['GL_AC'].invalid && (angForm.controls['GL_AC'].dirty || angForm.controls['GL_AC'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['GL_AC'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">From Date</label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
+                                        class="form-control" [(ngModel)]="fromdate"  (bsValueChange)="checkdate($event)"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate" 
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['FROM_DATE'].invalid && (angForm.controls['FROM_DATE'].dirty || angForm.controls['FROM_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="TO_DATE">To Date</label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
+                                        class="form-control" [(ngModel)]="todate"  (bsValueChange)="checkdate($event)"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate" 
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="TO_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['TO_DATE'].invalid && (angForm.controls['TO_DATE'].dirty || angForm.controls['TO_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2  "><label for="TOTAL_CHARGES">Total Charges</label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text"  style="text-align: right;" name="TOTAL_CHARGES" class="form-control"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                        placeholder=" " id="TOTAL_CHARGES" [(ngModel)]="totalCharges"
+                                        title="Input allowed only  0-9 - / . (Space)" required
+                                        formControlName="TOTAL_CHARGES">
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-12 col-md-2  "><label for="PARTICULAR">Particulars</label>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group input-group">
+                            <span class="border-lable-flt">
+                                <input type="text" name="PARTICULAR" class="form-control"
+                                    placeholder=" " id="PARTICULAR" 
+                                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) ||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode <= 32)"
+                                    style="text-transform: capitalize;font-size: 15px;"
+                                    title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                    formControlName="PARTICULAR">
+                            </span>
+                        </div>
+                        <div class="form-group form-primary form-static-label"
+                        *ngIf="angForm.controls['PARTICULAR'].invalid && (angForm.controls['GL_AC'].dirty || angForm.controls['GL_AC'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="angForm.controls['PARTICULAR'].errors?.required">
+                            This field is required.
+                        </div>
+                    </div>
+                    </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="TRAN_PASSING"
+                                        formControlName="TRAN_PASSING">
+                                    <label class="border-checkbox-label" for="TRAN_PASSING">Auto Transactions Passing
+                                        ?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton">Posting</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

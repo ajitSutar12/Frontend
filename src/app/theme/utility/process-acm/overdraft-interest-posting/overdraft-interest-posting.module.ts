@@ -12,8 +12,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from '../../../../user-auth.interceptor';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service';
-
-
+import {SchemeCodeDropdownService} from '../../../../shared/dropdownService/scheme-code-dropdown.service'
+import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service';
+import {SchemeAccountNoService} from '../../../../shared/dropdownService/schemeAccountNo.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +29,7 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
     DatepickerModule.forRoot()
   ],
   declarations: [OverdraftInterestPostingComponent],
-  providers:[OwnbranchMasterService,{
+  providers:[OwnbranchMasterService,SchemeCodeDropdownService,ACMasterDropdownService,SchemeAccountNoService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
