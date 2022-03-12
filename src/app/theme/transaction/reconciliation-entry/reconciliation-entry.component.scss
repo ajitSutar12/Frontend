@@ -2,10 +2,11 @@
     color: red;
   }
 
-  .solid{
+  div.solid{
     float: right;
     width: 500px;
     height: 200px;  
-    // padding: 50px;
+    border-style: solid;
+    padding: 1%;
   
   }

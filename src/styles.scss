@@ -811,3 +811,15 @@ input[type="file" i]::-webkit-file-upload-button {
         max-width: 11% !important;
     }
   }
+
+
+  
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: white;
+  opacity: 1;
+}
+
+.ng-select.ng-select-disabled > .ng-select-container {
+    background-color: white !important;
+  }

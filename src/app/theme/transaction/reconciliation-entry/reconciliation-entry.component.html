@@ -40,7 +40,7 @@
                                         formControlName="GL_AC" bindLabel="label" title="Compulsory Selection" required
                                         placeholder="GL Account" (change)="getTable()">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                            {{values.label}} {{values.name}}</ng-option>
+                                            {{values.name}} {{values.label}} </ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -53,7 +53,6 @@
                             </div>
                         </div>
                         <div class="col-sm">
-
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
@@ -193,13 +192,15 @@
                                     <div class="col-sm-2">
                                         <span class="border-lable-flt">
                                             <input type="text" name="RECORDS" class="form-control" placeholder=" "
-                                                id="RECORDS" formControlName="Withdrawls">
+                                                id="RECORDS" formControlName="Withdrawls" disabled
+                                                style="text-align: right;">
                                         </span>
                                     </div>
                                     <div class="col-sm">
                                         <span class="border-lable-flt">
                                             <input type="text" name="AMOUNTS" class="form-control" placeholder=" "
-                                                id="AMOUNTS" formControlName="WithdrawlsAmt">
+                                                id="AMOUNTS" formControlName="WithdrawlsAmt" disabled
+                                                style="text-align: right;">
                                         </span>
 
                                     </div>
@@ -209,14 +210,16 @@
                                     <div class="col-sm-2">
                                         <span class="border-lable-flt">
                                             <input type="text" name="RECORDS" class="form-control" placeholder=" "
-                                                id="RECORDS" formControlName="Deposits">
+                                                id="RECORDS" formControlName="Deposits" disabled
+                                                style="text-align: right;">
                                         </span>
 
                                     </div>
                                     <div class="col-sm">
                                         <span class="border-lable-flt">
                                             <input type="text" name="AMOUNTS" class="form-control" placeholder=" "
-                                                id="AMOUNTS" formControlName="DepositsAmt">
+                                                id="AMOUNTS" formControlName="DepositsAmt" disabled
+                                                style="text-align: right;">
                                         </span>
 
                                     </div>
@@ -230,7 +233,8 @@
                                     <div class="col-sm">
                                         <span class="border-lable-flt">
                                             <input type="text" name="AMOUNTS" class="form-control" placeholder=" "
-                                                maxlength="12" id="AMOUNTS" formControlName="UnclearedAmt">
+                                                maxlength="12" id="AMOUNTS" formControlName="UnclearedAmt" disabled
+                                                style="text-align: right;">
                                         </span>
 
                                     </div>

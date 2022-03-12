@@ -152,16 +152,26 @@ export class CashCreditAcRenewalComponent implements OnInit {
       AC_SECURITY_AMT: ['', [Validators.required, Validators.pattern]],
       AC_DRAWPOWER_AMT: ['', [Validators.required, Validators.pattern]],
       AC_INSTALLMENT: ['', [Validators.required, Validators.pattern]],
-      AC_INTCATA: ['', [Validators.required, Validators.pattern]],
-      LAST_INTDATE: ['', [Validators.required]],
+      AC_INTCATA: ['',],
+      LAST_INTDATE: [''],
       AC_RESO_NO: ['', [Validators.required, Validators.pattern]],
       AC_RESO_DATE: ['', [Validators.required]],
       INT_RATE: ['', [Validators.required, Validators.pattern]],
-      PENAL_INT_RATE: ['', [Validators.required, Validators.pattern]],
+      PENAL_INT_RATE: ['', [Validators.pattern]],
       EFFECT_DATE: ['', [Validators.required]],
     });
     this.angForm.controls['AC_INTCATA'].disable()
     this.angForm.controls['LAST_INTDATE'].disable()
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
   }
   addNewData() {
     this.showButton = true;
@@ -169,6 +179,19 @@ export class CashCreditAcRenewalComponent implements OnInit {
   }
   resetForm() {
     this.createForm()
+    this.ngscheme = null
+    this.ngacno = null
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
+  
   }
 
   getBranch() {
@@ -184,33 +207,17 @@ export class CashCreditAcRenewalComponent implements OnInit {
   getIntroducer() {
     let obj = [this.ngscheme, this.getschemename, this.ngBranchCode]
     this.http.get(this.url + '/cash-credit-ac-renewal/accounts/' + obj).subscribe((data) => {
+      console.log(data)
       this.schemeACNo = data;
     })
-    // switch (this.getschemename) {
-
-    //   case 'CC':
-
-    //     this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).pipe(first()).subscribe(data => {
-    //       this.schemeACNo = data;
-
-    //     })
-    //     break;
-    //   case 'LN':
-
-    //     this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
-    //       this.schemeACNo = data;
-
-    //     })
-    //     break;
-
-
-    // }
-    // this.getschemename = event.name
   }
   bankacno
   LNMASTERID
 
+  expiryDate
+  AC_NO
   getAccountDetails(event) {
+    this.AC_NO = event.AC_NO
     this.bankacno = event.BANKACNO
     this.LNMASTERID = event.id
     this.http.get(this.url + '/cash-credit-ac-renewal/details/' + event.BANKACNO).subscribe((data) => {
@@ -227,6 +234,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
         // AC_EXPIRE_DATE: data[0].AC_EXPIRE_DATE,
         AC_SANCTION_AMOUNT: data[0].AC_SANCTION_AMOUNT,
         AC_SANCTION_DATE: this.sysparaData.CURRENT_DATE,
+
         AC_RESO_DATE: this.sysparaData.CURRENT_DATE,
         EFFECT_DATE: this.sysparaData.CURRENT_DATE,
         AC_SECURITY_AMT: data[0].AC_SECURITY_AMT,
@@ -238,7 +246,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
 
       var TranDT = moment(data[0].AC_EXPIRE_DATE, "DD/MM/YYYY");
       var DivTODate = moment(TranDT, 'DD/MM/YYYY').add(data[0].AC_MONTHS, 'M').format('DD/MM/YYYY')
-
+      this.expiryDate = DivTODate
       this.angForm.patchValue({
         AC_EXPIRE_DATE: DivTODate
       })
@@ -264,6 +272,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
     this.angForm.patchValue({
       AC_EXPIRE_DATE: DivTODate
     })
+    this.expiryDate = DivTODate
   }
   sysparaData
   //get sys para current date
@@ -277,62 +286,84 @@ export class CashCreditAcRenewalComponent implements OnInit {
   }
 
   submit() {
-    let ngsansctiondate
-    var updatecheckdata
-    const formVal = this.angForm.value;
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let expiryDate
-    let sancationDate
-    let resoDate
-    // if (updatecheckdata.AC_SANCTION_DATE!=data.AC_SANCTION_DATE) {
-    //   (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? (ngsansctiondate = '', data['AC_SANCTION_DATE'] = ngsansctiondate) : (ngsansctiondate = data.AC_SANCTION_DATE, data['AC_SANCTION_DATE'] = moment(ngsansctiondate).format('DD/MM/YYYY'))
-      
-    // }
-    const dataToSend = {
-      BANKACNO: this.bankacno,
-      EFFECT_DATE: formVal.EFFECT_DATE,
-      AC_ACNOTYPE: this.getschemename,
-      AC_TYPE: this.ngscheme,
-      BRANCH_CODE: this.ngBranchCode,
-      LNMASTERID: this.LNMASTERID,
-      INT_RATE: formVal.INT_RATE,
-      AC_MONTHS: formVal.AC_MONTHS,
-      PENAL_INT_RATE: formVal.PENAL_INT_RATE,
-      AC_EXPIRE_DATE: (formVal.AC_EXPIRE_DATE == '' || formVal.AC_EXPIRE_DATE == 'Invalid date' || formVal.AC_EXPIRE_DATE == null || formVal.AC_EXPIRE_DATE == undefined) ? expiryDate = '' : expiryDate = moment(formVal.AC_EXPIRE_DATE).format('DD/MM/YYYY'),
+    this.formSubmitted = true
+    if (this.angForm.valid) {
+      console.log(this.angForm.valid)
+      const formVal = this.angForm.value;
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let resoDate
+      let sancationDate
+      let expiryDate
+      const dataToSend = {
+        AC_NO: this.AC_NO,
+        BANKACNO: this.bankacno,
+        EFFECT_DATE: formVal.EFFECT_DATE,
+        AC_ACNOTYPE: this.getschemename,
+        AC_TYPE: this.ngscheme,
+        BRANCH_CODE: this.ngBranchCode,
+        LNMASTERID: this.LNMASTERID,
+        INT_RATE: formVal.INT_RATE,
+        AC_MONTHS: formVal.AC_MONTHS,
+        PENAL_INT_RATE: formVal.PENAL_INT_RATE,
+        AC_SANCTION_AMOUNT: formVal.AC_SANCTION_AMOUNT,
+        AC_SECURITY_AMT: formVal.AC_SECURITY_AMT,
+        AC_DRAWPOWER_AMT: formVal.AC_DRAWPOWER_AMT,
+        AC_INSTALLMENT: formVal.AC_INSTALLMENT,
 
-      AC_SANCTION_AMOUNT: formVal.AC_SANCTION_AMOUNT,
-      AC_SANCTION_DATE: (formVal.AC_SANCTION_DATE == '' || formVal.AC_SANCTION_DATE == 'Invalid date' || formVal.AC_SANCTION_DATE == null || formVal.AC_SANCTION_DATE == undefined) ? sancationDate = '' : sancationDate = moment(formVal.AC_SANCTION_DATE).format('DD/MM/YYYY'),
+        //disable fields value
 
-      AC_RESO_DATE: (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date' || formVal.AC_RESO_DATE == null || formVal.AC_RESO_DATE == undefined) ? resoDate = '' : resoDate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY'),
+        AC_OPDATE: formVal.AC_OPDATE,
+        RENEWAL_DATE: formVal.RENEWAL_DATE,
+        OLD_MONTH: formVal.OLDAC_MONTHS,
+        OLD_EXPIRY_DATE: formVal.OLDAC_EXPIRE_DATE,
+        OLD_SANCTION_LIMIT: formVal.OLDAC_SANCTION_AMOUNT,
+        OLD_SANCTION_DATE: formVal.OLDAC_SANCTION_DATE,
+        OLD_SECURITY_AMOUNT: formVal.OLDAC_SECURITY_AMT,
+        OLD_DRAWING_POWER: formVal.OLDAC_DRAWPOWER_AMT,
+        OLD_AC_INSTALLMENT: formVal.OLDAC_INSTALLMENT,
+        USER: result.USER_NAME,
+      }
+      dataToSend['LAST_INTDATE'] = formVal.LAST_INTDATE
+      if (this.sysparaData.CURRENT_DATE == formVal.AC_SANCTION_DATE) {
+        dataToSend['AC_SANCTION_DATE'] = formVal.AC_SANCTION_DATE
+      }
+      else {
+        dataToSend['AC_SANCTION_DATE'] = (formVal.AC_SANCTION_DATE == '' || formVal.AC_SANCTION_DATE == 'Invalid date' || formVal.AC_SANCTION_DATE == null || formVal.AC_SANCTION_DATE == undefined) ? sancationDate = '' : sancationDate = moment(formVal.AC_SANCTION_DATE).format('DD/MM/YYYY')
+      }
 
-      AC_SECURITY_AMT: formVal.AC_SECURITY_AMT,
-      AC_DRAWPOWER_AMT: formVal.AC_DRAWPOWER_AMT,
-      AC_INSTALLMENT: formVal.AC_INSTALLMENT,
+      if (this.sysparaData.CURRENT_DATE == formVal.AC_RESO_DATE) {
+        dataToSend['AC_RESO_DATE'] = formVal.AC_RESO_DATE
+      }
+      else {
+        dataToSend['AC_RESO_DATE'] = (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date' || formVal.AC_RESO_DATE == null || formVal.AC_RESO_DATE == undefined) ? resoDate = '' : resoDate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY')
+      }
 
-      //disable fields value
-      LAST_INTDATE: formVal.AC_LINTEDT,
-      AC_OPDATE: formVal.AC_OPDATE,
-      RENEWAL_DATE: formVal.RENEWAL_DATE,
-      OLD_MONTH: formVal.OLDAC_MONTHS,
-      OLD_EXPIRY_DATE: formVal.OLDAC_EXPIRE_DATE,
-      OLD_SANCTION_LIMIT: formVal.OLDAC_SANCTION_AMOUNT,
-      OLD_SANCTION_DATE: formVal.OLDAC_SANCTION_DATE,
-      OLD_SECURITY_AMOUNT: formVal.OLDAC_SECURITY_AMT,
-      OLD_DRAWING_POWER: formVal.OLDAC_DRAWPOWER_AMT,
-      OLD_AC_INSTALLMENT: formVal.OLDAC_INSTALLMENT,
-      USER: result.USER_NAME,
+      if (this.expiryDate == formVal.AC_EXPIRE_DATE) {
+        dataToSend['AC_EXPIRE_DATE'] = formVal.AC_EXPIRE_DATE
+      }
+      else {
+        dataToSend['AC_EXPIRE_DATE'] = (formVal.AC_EXPIRE_DATE == '' || formVal.AC_EXPIRE_DATE == 'Invalid date' || formVal.AC_EXPIRE_DATE == null || formVal.AC_EXPIRE_DATE == undefined) ? expiryDate = '' : expiryDate = moment(formVal.AC_EXPIRE_DATE).format('DD/MM/YYYY')
+      }
+      this._service.postData(dataToSend).subscribe(data => {
+        this.formSubmitted = false;
+        Swal.fire("Success!", "Data Updated Successfully !", "success");
+      })
+      this.resetForm()
+      this.formSubmitted = false
+      if (result.RoleDefine[0].Role.id == 1) {
+        this.angForm.controls['BRANCH_CODE'].enable()
+        this.ngBranchCode = result.branch.id
+      }
+      else {
+        this.angForm.controls['BRANCH_CODE'].disable()
+        this.ngBranchCode = result.branch.id
+      }
+
     }
-    console.log(dataToSend)
-    this._service.postData(dataToSend).subscribe(data => {
-      this.formSubmitted = false;
-      Swal.fire("Success!", "Data Updated Successfully !", "success");
-
-    })
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
   }
-
-
-
-
 
 }

@@ -61,12 +61,20 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngacno" formControlName="AC_NO"
+                                    <ng-select id="AC_NO" bindValue="id" [(ngModel)]="ngacno"
+                                        formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        (change)="getAccountDetails($event)" placeholder="Scheme">
+                                        <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
+                                    </ng-select>
+
+                                    <!-- <ng-select id="AC_NO" bindValue="value" [(ngModel)]="ngacno" formControlName="AC_NO"
                                         bindLabel="label" (change)="getAccountDetails($event)"
                                         title="Compulsory Selection" required placeholder="Account Number">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
-                                    </ng-select>
+                                    </ng-select> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -109,21 +117,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                         formControlName="AC_OPDATE" disabled>
-
-                                    <!-- <input type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
-                                        class="form-control" [(ngModel)]="acopeningdate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_OPDATE"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker> -->
                                 </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_OPDATE'].invalid && (angForm.controls['AC_OPDATE'].dirty || angForm.controls['AC_OPDATE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_OPDATE'].errors?.required">
-                                    This field is required.
-                                </div>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-3"><label for="AC_RENEWAL_COUNTER">Account Renewal Numbers of
@@ -132,11 +126,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" style="text-align: right;" name="AC_RENEWAL_COUNTER"
-                                        class="form-control" placeholder=" "
-                                        [ngClass]="{'form-submitted': formSubmitted}"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        id="AC_RENEWAL_COUNTER" pattern="^[0-9]+$" disabled
-                                        title="Input allowed only  0-9" formControlName="AC_RENEWAL_COUNTER" />
+                                        class="form-control" placeholder=" " disabled
+                                        formControlName="AC_RENEWAL_COUNTER" />
 
                                 </span>
                             </div>
@@ -178,11 +169,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="LAST_INTDATE" id="LAST_INTDATE"
-                                        class="form-control" [(ngModel)]="nglastintdate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="LAST_INTDATE"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
+                                        class="form-control" formControlName="LAST_INTDATE" disabled>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -193,34 +180,22 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
-
                     <div class="row">
-
                         <div class="col-sm">
                             <div class="solid">
-
                                 <h6>Old Details:</h6>
-
-
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_MONTHS">Period in Months</label></div>
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_MONTHS">Period in Months</label>
+                                    </div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="OLDAC_MONTHS"
-                                                    class="form-control" placeholder=" " pattern="^[0-9]+$"
-                                                    id="OLDAC_MONTHS" title="Input allowed only  0-9"
-                                                    formControlName="OLDAC_MONTHS"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                    disabled>
-
+                                                    class="form-control" placeholder=" " id="OLDAC_MONTHS"
+                                                    formControlName="OLDAC_MONTHS" disabled>
                                             </span>
                                         </div>
-
                                     </div>
                                     <div class="col-sm-12 col-md-3"> <label for="OLDAC_EXPIRE_DATE">Expiry Date</label>
                                     </div>
@@ -229,17 +204,10 @@
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="OLDAC_EXPIRE_DATE"
                                                     id="OLDAC_EXPIRE_DATE" class="form-control"
-                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                    [ngClass]="{'form-submitted': formSubmitted}"
-                                                    formControlName="OLDAC_EXPIRE_DATE"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                    bsDatepicker disabled>
+                                                    formControlName="OLDAC_EXPIRE_DATE" disabled>
                                             </span>
                                         </div>
-
                                     </div>
-
-
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-3"> <label for="OLDAC_SANCTION_AMOUNT">Sanction
@@ -249,14 +217,10 @@
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;"
                                                     name="OLDAC_SANCTION_AMOUNT" class="form-control" placeholder=" "
-                                                    pattern="\d{1,20}(\.\d{2})?" id="OLDAC_SANCTION_AMOUNT"
-                                                    title="Input allowed only  0-9"
-                                                    formControlName="OLDAC_SANCTION_AMOUNT"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                    id="OLDAC_SANCTION_AMOUNT" formControlName="OLDAC_SANCTION_AMOUNT"
                                                     disabled>
                                             </span>
                                         </div>
-
                                     </div>
                                     <div class="col-sm-12 col-md-3"> <label for="OLDAC_SANCTION_DATE">Sanction
                                             Date</label></div>
@@ -265,15 +229,9 @@
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="OLDAC_SANCTION_DATE"
                                                     id="OLDAC_SANCTION_DATE" class="form-control"
-                                                    [(ngModel)]="ngsansctiondate"
-                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                                    [ngClass]="{'form-submitted': formSubmitted}"
-                                                    formControlName="OLDAC_SANCTION_DATE"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                    bsDatepicker disabled>
+                                                    formControlName="OLDAC_SANCTION_DATE" disabled>
                                             </span>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="row">
@@ -283,15 +241,10 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="OLDAC_SECURITY_AMT"
-                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
-                                                    id="OLDAC_SECURITY_AMT" title="Input allowed only  0-9"
-                                                    formControlName="OLDAC_SECURITY_AMT"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                                    disabled>
-
+                                                    class="form-control" placeholder=" " id="OLDAC_SECURITY_AMT"
+                                                    formControlName="OLDAC_SECURITY_AMT" disabled>
                                             </span>
                                         </div>
-
                                     </div>
                                     <div class="col-sm-12 col-md-3"> <label for="OLDAC_DRAWPOWER_AMT">Drawing
                                             Power</label></div>
@@ -299,15 +252,10 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="OLDAC_DRAWPOWER_AMT"
-                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
-                                                    id="OLDAC_DRAWPOWER_AMT" title="Input allowed only  0-9"
-                                                    formControlName="OLDAC_DRAWPOWER_AMT"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                                    disabled>
-
+                                                    class="form-control" placeholder=" " id="OLDAC_DRAWPOWER_AMT"
+                                                    formControlName="OLDAC_DRAWPOWER_AMT" disabled>
                                             </span>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="row">
@@ -317,11 +265,8 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" style="text-align: right;" name="OLDAC_INSTALLMENT"
-                                                    class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
-                                                    id="OLDAC_INSTALLMENT" title="Input allowed only  0-9"
-                                                    formControlName="OLDAC_INSTALLMENT"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                                    disabled>
+                                                    class="form-control" placeholder=" " id="OLDAC_INSTALLMENT"
+                                                    formControlName="OLDAC_INSTALLMENT" disabled>
                                             </span>
                                         </div>
                                     </div>
@@ -496,18 +441,11 @@
                                                 Input allowed only 0-9 .(after decimal 2 digits)
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-
-
                             </div>
-
                         </div>
-
-
                     </div>
-
                     <div class="row">
                         <div class="col-sm">
                             <div class="solid">
@@ -558,11 +496,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
                             </div>
-
                         </div>
                         <div class="col-sm">
                             <div class="solid">
@@ -612,9 +546,7 @@
                                                 Input allowed only 0-9 .(after decimal 2 digits)
                                             </div>
                                         </div>
-
                                     </div>
-
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-3"> <label for="EFFECT_DATE">Effective Date</label>
@@ -640,15 +572,8 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
                             </div>
-
                         </div>
-
-
                     </div>
                     <div class="row">
                         <div class="col-sm">
@@ -657,7 +582,6 @@
                         </div>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
