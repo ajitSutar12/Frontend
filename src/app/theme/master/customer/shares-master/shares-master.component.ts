@@ -567,6 +567,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getRetirementDate(value: Date): void {
+    debugger
     if (value != null) {
       let birthdate = this.angForm.controls['AC_MEM_BIRTH_DT'].value
       let new_date = moment(birthdate, "DD-MM-YYYY").add(18, 'y');
@@ -656,14 +657,14 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //nominee controls (NOMINEELINK table)
       AC_NNAME: ['', [Validators.pattern]],
       AC_NRELA: ['', [Validators.pattern]],
-      AC_NDATE: ['', []],
+      AC_NDATE: [''],
       AGE: ['', [Validators.pattern, Validators.min(1), Validators.max(100)]],
       AC_NHONO: ['', [Validators.pattern]],
       AC_NWARD: ['', [Validators.pattern]],
       AC_NADDR: ['', [Validators.pattern]],
       AC_NGALLI: ['', [Validators.pattern]],
       AC_NAREA: ['', [Validators.pattern]],
-      AC_NCTCODE: ['', [Validators.pattern]],
+      AC_NCTCODE: ['',],
       AC_NPIN: ['', [Validators.pattern]],
       //marathi details
       AC_DEV_NAME: [''],

@@ -433,7 +433,7 @@
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
                                                                     <ng-select id="DIVIDEND_ACNO" bindValue="value"
-                                                                        [(ngModel)]="ngddcom"
+                                                                        [(ngModel)]="ngdividend"
                                                                         formControlName="DIVIDEND_ACNO"
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -657,6 +657,70 @@
                                                                     </ng-select>
                                                                     <label for="INWARD_BILL_RECEIVABLE_ACNO">Inward Bill
                                                                         Receivable GL A/c<sub class="required"> *
+                                                                        </sub></label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <span class="border-lable-flt">
+                                                                    <ng-select id="CGST_GLACNO" bindValue="value"
+                                                                        [(ngModel)]="ngcgstGL"
+                                                                        formControlName="CGST_GLACNO" bindLabel="label"
+                                                                        title="Compulsory Selection"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        required placeholder="CGST GL Account">
+                                                                        <ng-option
+                                                                            *ngFor="let values of ACMasterDropdown"
+                                                                            [value]="values">{{values.label}}
+                                                                        </ng-option>
+                                                                    </ng-select>
+                                                                    <label for="CGST_GLACNO">CGST GL Account<sub
+                                                                            class="required"> *
+                                                                        </sub></label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <span class="border-lable-flt">
+                                                                    <ng-select id="SGST_GLACNO" bindValue="value"
+                                                                        [(ngModel)]="ngsgstGL"
+                                                                        formControlName="SGST_GLACNO" bindLabel="label"
+                                                                        title="Compulsory Selection"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        required placeholder="SGST GL Account">
+                                                                        <ng-option
+                                                                            *ngFor="let values of ACMasterDropdown"
+                                                                            [value]="values">{{values.label}}
+                                                                        </ng-option>
+                                                                    </ng-select>
+                                                                    <label for="SGST_GLACNO">SGST GL Account<sub
+                                                                            class="required"> *
+                                                                        </sub></label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm">
+
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <span class="border-lable-flt">
+                                                                    <ng-select id="IGST_GLACNO" bindValue="value"
+                                                                        [(ngModel)]="ngigstGL"
+                                                                        formControlName="IGST_GLACNO" bindLabel="label"
+                                                                        title="Compulsory Selection"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        required placeholder="IGST GL Account">
+                                                                        <ng-option
+                                                                            *ngFor="let values of ACMasterDropdown"
+                                                                            [value]="values">{{values.label}}
+                                                                        </ng-option>
+                                                                    </ng-select>
+                                                                    <label for="IGST_GLACNO">IGST GL Account<sub
+                                                                            class="required"> *
                                                                         </sub></label>
                                                                 </span>
                                                             </div>

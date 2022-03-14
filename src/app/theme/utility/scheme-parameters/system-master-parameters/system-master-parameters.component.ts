@@ -268,6 +268,10 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   ngbackoffice: any = null
   ngcashinhand: any = null
   ngclrhouse: any = null
+  ngcgstGL: any = null
+  ngsgstGL: any = null
+  ngigstGL: any = null
+  ngdividend: any = null
 
 
   selectedItems: any;
@@ -780,6 +784,9 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       DD_COMMISSION_ACNO: [''],
       DIVIDEND_ACNO: ['', [Validators.required]],
       BONUS_GLACNO: ['', [Validators.required]],
+      CGST_GLACNO: ['', [Validators.required]],
+      SGST_GLACNO: ['', [Validators.required]],
+      IGST_GLACNO: ['', [Validators.required]],
       INWARD_BILL_COLLECTION_ACNO: [''],
       INWARD_BILL_RECEIVABLE_ACNO: [''],
       BCBR_DR_GLACNO: [''],
@@ -1049,6 +1056,9 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       'CLG_HOUSE_METHOD': formVal.CLG_HOUSE_METHOD,
       'LINES_PER_PASSBOOKPAGE': formVal.LINES_PER_PASSBOOKPAGE,
 
+      CGST_GLACNO: formVal.CGST_GLACNO,
+      SGST_GLACNO: formVal.SGST_GLACNO,
+      IGST_GLACNO: formVal.IGST_GLACNO,
 
 
     }
@@ -1205,6 +1215,9 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         'CLG_HOUSE_METHOD': data.CLG_HOUSE_METHOD,
         'LINES_PER_PASSBOOKPAGE': data.LINES_PER_PASSBOOKPAGE,
 
+        CGST_GLACNO: data.CGST_GLACNO,
+        SGST_GLACNO: data.SGST_GLACNO,
+        IGST_GLACNO: data.IGST_GLACNO,
 
       })
     })
@@ -1276,23 +1289,23 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   ngAfterViewInit(): void {
     this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      $('#informationtable tfoot tr').appendTo('#informationtable thead');
-      dtInstance.columns().every(function () {
-        const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-          if (this['value'] != '') {
-            that
-              .search(this['value'])
-              .draw();
-          } else {
-            that
-              .search(this['value'])
-              .draw();
-          }
-        });
-      });
-    });
+    // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    //   $('#informationtable tfoot tr').appendTo('#informationtable thead');
+    //   dtInstance.columns().every(function () {
+    //     const that = this;
+    //     $('input', this.footer()).on('keyup change', function () {
+    //       if (this['value'] != '') {
+    //         that
+    //           .search(this['value'])
+    //           .draw();
+    //       } else {
+    //         that
+    //           .search(this['value'])
+    //           .draw();
+    //       }
+    //     });
+    //   });
+    // });
   }
 
   ngOnDestroy(): void {

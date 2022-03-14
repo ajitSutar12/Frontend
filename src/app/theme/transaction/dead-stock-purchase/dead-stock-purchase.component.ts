@@ -11,7 +11,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { environment } from 'src/environments/environment';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
-import {DeadStockPurchaseService} from './dead-stock-purchase.service'
+import { DeadStockPurchaseService } from './dead-stock-purchase.service'
 
 class DataTableResponse {
   data: any[];
@@ -29,26 +29,26 @@ export class DeadStockPurchaseComponent implements OnInit {
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
 
   formSubmitted = false;
-   //api
-   url = environment.base_url;
+  //api
+  url = environment.base_url;
 
   // Formgroup variable
   angForm: FormGroup;
 
   // dropdown variables
-  itemcode:any[];
-  ngBranchCode:any=null
-  ngtransactiondate:any=null
+  itemcode
+  ngBranchCode: any = null
+  ngtransactiondate: any = null
   branch_code: any[];
   schemeedit: any;
 
   // Date variables
   maxDate: Date;
   minDate: Date;
-  ngbilldate:any=null
-  ngchequedate:any=null
+  ngbilldate: any = null
+  ngchequedate: any = null
 
-  isTransfer:boolean=false
+  isTransfer: boolean = false
 
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
@@ -71,7 +71,7 @@ export class DeadStockPurchaseComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-  ) { 
+  ) {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -82,47 +82,72 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.getSystemParaDate()
     this.createForm()
 
+
+
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
-      this.ngBranchCode = data[0].value
+      // this.ngBranchCode = data[0].value
     })
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      this.scheme = data;
+      // this.scheme = data;
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'GL' || scheme.name == 'GS');
+      });
+      this.scheme = filtered;
     })
 
     //Narration List
     this.deadstockpurchase.getNarrationMaster().subscribe(data => {
       this.narrationList = data;
     })
-    
+
+    this.http.get(this.url + '/deadstock-purchase/itemList').subscribe((data) => {
+      this.itemcode = data
+    })
+
+
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
+
 
   }
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE:['',[Validators.required]],
-      TRAN_DATE:[''],
-      TRAN_YEAR:[''],
-      ITEM_CODE:[''],
-      SUPPLIER_NAME:['',[Validators.required,Validators.pattern]],
-      BILL_NUM:['',[Validators.required,Validators.pattern]],
-      BILL_DATE:['',[Validators.required]],
-      DEAD_STOCK:[''],
-      AC_TYPE:['',[Validators.required]],
-      AC_NO:['',[Validators.required]],
-      CHEQUE_DATE:['',[Validators.required]],
-      CHEQUE_NUM:['',[Validators.required,Validators.pattern]],
-      NARRATION:['',[Validators.required,Validators.pattern]],
-
-
+      BRANCH_CODE: ['', [Validators.required]],
+      TRAN_DATE: [''],
+      TRAN_YEAR: [''],
+      ITEM_CODE: [''],
+      SUPPLIER_NAME: ['', [Validators.required, Validators.pattern]],
+      BILL_NUM: ['', [Validators.required, Validators.pattern]],
+      BILL_DATE: ['', [Validators.required]],
+      DEAD_STOCK: [''],
+      AC_TYPE: ['', [Validators.required]],
+      AC_NO: ['', [Validators.required]],
+      CHEQUE_DATE: ['', [Validators.required]],
+      CHEQUE_NUM: ['', [Validators.required, Validators.pattern]],
+      NARRATION: ['', [Validators.required, Validators.pattern]],
+      CGST_AMT: ['', [Validators.required]],
+      SGST_AMT: ['', [Validators.required]],
+      IGST_AMT: ['', [Validators.pattern]],
+      GST_NO: ['', [Validators.required]],
     })
-    
 
-    
+
+
   }
 
   getBranch() {
-   
+
     this.getIntroducer()
   }
 
@@ -147,25 +172,19 @@ export class DeadStockPurchaseComponent implements OnInit {
   getschemename: any
   //get account no according scheme for introducer
   getIntroducer() {
-
-
-    
-
     this.obj = [this.schemeedit, this.ngBranchCode]
-
-
     switch (this.getschemename) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
-        case 'SH':
+      case 'SH':
         this.schemeAccountNoService.getShareSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
-        case 'CA':
+      case 'CA':
         this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
@@ -178,22 +197,22 @@ export class DeadStockPurchaseComponent implements OnInit {
 
         })
         break;
-        case 'TD':
+      case 'TD':
         this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
-        case 'DS':
+      case 'DS':
         this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
-        case 'GS':
+      case 'GS':
         this.schemeAccountNoService.getAnamatSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
-        case 'PG':
+      case 'PG':
         this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
@@ -207,22 +226,43 @@ export class DeadStockPurchaseComponent implements OnInit {
 
         })
         break;
-        case 'AG':
+      case 'AG':
         this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
-        case 'IV':
+      case 'IV':
         this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
-        case 'GL':
-          this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
-            this.schemeACNo = data;
-          })
-          break;
+      case 'GL':
+        this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
     }
+  }
+
+  addItem() {
+    const formVal = this.angForm.value;
+    // let date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
+    // this.cityName = true
+    // this.NbirthDate = date1;
+    // var object = {
+    //   AC_NNAME: formVal.AC_NNAME,
+    //   AC_NRELA: formVal.AC_NRELA,
+    //   AC_NDATE: this.NbirthDate,
+    //   AGE: formVal.AGE,
+    //   AC_NHONO: formVal.AC_NHONO,
+    //   AC_NWARD: formVal.AC_NWARD,
+    //   AC_NADDR: formVal.AC_NADDR,
+    //   AC_NGALLI: formVal.AC_NGALLI,
+    //   AC_NAREA: formVal.AC_NAREA,
+    //   AC_NCTCODE: formVal.AC_NCTCODE.id,
+    //   AC_NPIN: formVal.AC_NPIN,
+    //   AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
+    // }
   }
 
   addNewData() {
@@ -233,29 +273,29 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.schemeedit = null
     this.accountedit = null
     this.resetForm();
-    
+
   }
-//get sys para current date
-getSystemParaDate() {
-  this.systemParameter.getFormData(1).subscribe(data => {
-    this.angForm.patchValue({
-      'TRAN_DATE': data.CURRENT_DATE,
+  //get sys para current date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        'TRAN_DATE': data.CURRENT_DATE,
+
+      })
+      // var full = []
+      var formatfullDate = data.CURRENT_DATE;
+      var nyear = formatfullDate.split(/\//);
+      let next = Number(nyear[2]) + 1
+      console.log(next)
+      var transactionDate = nyear[2] + next
+      this.angForm.patchValue({
+        TRAN_YEAR: transactionDate
+      })
+      console.log(transactionDate)
 
     })
-    // var full = []
-    var formatfullDate =data.CURRENT_DATE;
-    var nyear = formatfullDate.split(/\//);
-    let next= Number(nyear[2]) + 1 
-    console.log(next)
-    var transactionDate = nyear[2] + next
-    this.angForm.patchValue({
-          TRAN_YEAR: transactionDate
-        })
-        console.log(transactionDate)
 
-  })
-  
-}
+  }
   // fromYear(){
   //   var full = []
   //   var fullYear =this.ngtransactiondate;
@@ -277,30 +317,30 @@ getSystemParaDate() {
   isFormA(value) {
     if (value == 1) {
       this.isTransfer = true;
-      this.isCash=false;
+      this.isCash = false;
       this.angForm.controls['NARRATION'].reset()
     }
     if (value == 2) {
       this.isTransfer = false;
-      this.isCash=true;
+      this.isCash = true;
       this.angForm.controls['AC_TYPE'].reset()
       this.angForm.controls['AC_NO'].reset()
       this.angForm.controls['CHEQUE_DATE'].reset()
       this.angForm.controls['CHEQUE_NUM'].reset()
     }
-    
+
   }
 
   // Reset Function
   resetForm() {
     this.createForm();
-    
+
     this.ngBranchCode = null
     this.schemeedit = null
     this.accountedit = null
-    
+
   }
-  
-  
+
+
 
 }

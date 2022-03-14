@@ -47,8 +47,8 @@ export class ReconciliationEntryComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
-
+  // dtTrigger: Subject<any> = new Subject();
+  dtTrigger: Subject<any> = new Subject<any>();
 
   // Store data from backend
   reconciliationentry: ReconciliationEntry[];
@@ -112,7 +112,7 @@ export class ReconciliationEntryComponent implements OnInit {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngBranchCode = result.branch.id
     }
-
+    this.dtTrigger.next();
   }
   createForm() {
     this.angForm = this.fb.group({
@@ -186,6 +186,7 @@ export class ReconciliationEntryComponent implements OnInit {
 
         this.entryArr.push(obj)
         this.showTable = true
+        
       });
     })
   }
