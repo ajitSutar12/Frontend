@@ -17,7 +17,7 @@ export class DeadStockPurchaseService {
 
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + '/dead-stock-purchase/insert', data).pipe(map((res) => res),
+    return this.http.post(this.url + '/deadstock-purchase/insert', data).pipe(map((res) => res),
       catchError((error) => {
         Swal.fire('Please Input Proper Data!');
         return throwError(error);

@@ -557,7 +557,6 @@ export class BalanceUpdationComponent implements OnInit {
       this.mem = [memFrom, memTo, this.ngscheme, this.ngbranch, this.getschemename]
       this.http.get(this.url + '/balance-updation/accounts/' + this.mem).subscribe((data) => {
         this.arrTable = data;
-        console.log('array', this.arrTable)
         this.arrTable.forEach(element => {
           var object = {
             AC_NO: element.AC_NO,
@@ -631,7 +630,6 @@ export class BalanceUpdationComponent implements OnInit {
         this.balanceUpdateArr.push(object)
       }
     }
-    console.log(this.balanceUpdateArr)
   }
   ngDebitCredit: any = null
   getDebitCredit(id, AC_NO, BANKACNO, AC_OP_CD) {
@@ -669,8 +667,6 @@ export class BalanceUpdationComponent implements OnInit {
       // object[`${ColumnName}`] = columnValue
       this.balanceUpdateArr.push(object)
     }
-
-    console.log(this.balanceUpdateArr)
   }
 
   //update checkbox status in array
@@ -713,8 +709,6 @@ export class BalanceUpdationComponent implements OnInit {
       }
       this.balanceUpdateArr.push(object)
     }
-
-    console.log(this.balanceUpdateArr)
   }
 
 
@@ -768,7 +762,6 @@ export class BalanceUpdationComponent implements OnInit {
         S_GLACNO: this.S_GLACNO,
         USER: result.USER_NAME,
       };
-      console.log(dataToSend);
       this._service.postData(dataToSend).subscribe(data => {
         this.formSubmitted = false;
         Swal.fire("Success!", "Data Updated Successfully !", "success");

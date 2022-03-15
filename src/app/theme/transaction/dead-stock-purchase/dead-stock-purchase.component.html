@@ -298,12 +298,17 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <ng-select id="ITEM_CODE" bindValue="id" formControlName="ITEM_CODE"
-                                        bindLabel="label" title="Compulsory Selection"
+                                    <ng-select id="ITEM_CODE" [items]="itemcode" [(ngModel)]="ngItem"
+                                        bindLabel="ITEM_NAME" formControlName="ITEM_CODE"
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Code">
+                                    </ng-select>
+
+                                    <!-- <ng-select id="ITEM_CODE" bindValue="id" formControlName="ITEM_CODE"
+                                        bindLabel="label" title="Compulsory Selection" [(ngModel)]="ngItem"
                                         [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Code">
                                         <ng-option *ngFor="let values of itemcode" [value]="values">
                                             {{values.ITEM_CODE}} {{values.ITEM_NAME}}</ng-option>
-                                    </ng-select>
+                                    </ng-select> -->
                                     <label for="ITEM_CODE">Item Code<sub class="required">*
                                         </sub></label>
                                 </span>
@@ -313,7 +318,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" class="form-control" name="Quantity"
-                                        id="Quantity" (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
+                                        id="Quantity" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        formControlName="Quantity">
                                     <label for="Quantity">Quantity<sub class="required">*
                                         </sub></label>
                                 </span>
@@ -323,7 +329,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" class="form-control" name="Rate"
-                                        id="Rate"
+                                        id="Rate" formControlName="Rate"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                     <label for="Rate">Rate<sub class="required">*
                                         </sub></label>
@@ -334,7 +340,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" class="form-control" name="amount"
-                                        id="amount"
+                                        id="amount" formControlName="amount"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                     <label for="amount">Amount<sub class="required">*
                                         </sub></label>
@@ -354,62 +360,88 @@
                                     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                                         class="table table-striped table-bordered table-hover compact">
                                         <thead>
-                                            <td>Item Code</td>
-                                            <!-- <td>Name</td> -->
+                                            <td>Item</td>
                                             <td>Quantity</td>
                                             <td>Rate</td>
-                                            <td>CGST</td>
-                                            <td>SCGST</td>
+                                            <!-- <td>CGST</td>
+                                            <td>SCGST</td> -->
                                             <td>Amount</td>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <ng-select id="ITEM_CODE" bindValue="value"
-                                                        formControlName="ITEM_CODE" bindLabel="label"
-                                                        title="Compulsory Selection"
-                                                        [ngClass]="{'form-submitted': formSubmitted}"
-                                                        placeholder="Item Code">
-                                                        <ng-option *ngFor="let values of itemcode" [value]="values">
-                                                            {{values.label}}</ng-option>
-                                                    </ng-select>
-                                                </td>
-                                                <!-- <td></td> -->
+                                        <tbody *ngIf="itemArr?.length != 0">
+                                            <tr *ngFor="let data of itemArr;">
+                                                <td>{{data.ITEM_CODE}} {{data.ITEM_NAME}}</td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="Quantity" id="Quantity"
+                                                        name="Quantity" id="Quantity" value="{{data.Quantity}}"
+                                                        #Quantity
+                                                        (change)="getColumnValue(data.ITEM_CODE,Quantity.name,Quantity.value)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                                 </td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="Rate" id="Rate"
+                                                        name="Rate" id="Rate" value="{{data.Rate}}" #Rate
+                                                        (change)="getColumnValue(data.ITEM_CODE,Rate.name,Rate.value)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="cgst" id="cgst"
+                                                        name="Amount" id="Amount" value="{{data.Amount}}" #Amount
+                                                        (change)="getColumnValue(data.ITEM_CODE,Amount.name,Amount.value)"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" style="text-align: right;">IGST</td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="scgst" id="scgst"
+                                                        name="IGST" id="IGST" formControlName="IGST_AMT"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" style="text-align: right;">CGST</td>
                                                 <td>
                                                     <input style="text-align: right;" type="text" class="form-control"
-                                                        name="amount" id="amount"
+                                                        name="cgst" id="cgst" formControlName="CGST_AMT"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" style="text-align: right;">SGST</td>
+                                                <td>
+                                                    <input style="text-align: right;" type="text" class="form-control"
+                                                        name="scgst" id="scgst" formControlName="SGST_AMT"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" style="text-align: right;">Total Amount</td>
+                                                <td>
+                                                    <input style="text-align: right;" type="text" class="form-control"
+                                                        name="cgst" id="cgst" formControlName="Total_AMT"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                 </td>
                                             </tr>
                                         </tbody>
-
+                                        <tbody *ngIf="itemArr?.length == 0">
+                                            <tr>
+                                                <td colspan="4" class="no-data-available" style="text-align: center;">
+                                                    No data!
+                                                </td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
+                    <div class="row">
+                        <div class="col-sm">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" (click)="submit()">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

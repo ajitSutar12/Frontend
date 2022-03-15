@@ -10,7 +10,9 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { environment } from 'src/environments/environment';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import * as moment from 'moment';
+// Displaying Sweet Alert
+import Swal from 'sweetalert2';
 import { DeadStockPurchaseService } from './dead-stock-purchase.service'
 
 class DataTableResponse {
@@ -62,11 +64,17 @@ export class DeadStockPurchaseComponent implements OnInit {
   scheme: any[];
   narration: any;
   narrationList: any;
+  itemArr = []
+  GL_ACNO
+  obj: any
+  getschemename: any
+  ngItem: any = null
+  totalAmt: number = 0
   // systemParameter: any;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
-    private deadstockpurchase: DeadStockPurchaseService,
+    private _service: DeadStockPurchaseService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
@@ -81,16 +89,11 @@ export class DeadStockPurchaseComponent implements OnInit {
   ngOnInit(): void {
     this.getSystemParaDate()
     this.createForm()
-
-
-
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
-      // this.ngBranchCode = data[0].value
     })
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      // this.scheme = data;
       var filtered = data.filter(function (scheme) {
         return (scheme.name == 'GL' || scheme.name == 'GS');
       });
@@ -98,15 +101,13 @@ export class DeadStockPurchaseComponent implements OnInit {
     })
 
     //Narration List
-    this.deadstockpurchase.getNarrationMaster().subscribe(data => {
+    this._service.getNarrationMaster().subscribe(data => {
       this.narrationList = data;
     })
 
     this.http.get(this.url + '/deadstock-purchase/itemList').subscribe((data) => {
       this.itemcode = data
     })
-
-
 
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -119,8 +120,8 @@ export class DeadStockPurchaseComponent implements OnInit {
       this.ngBranchCode = result.branch.id
     }
 
-
   }
+
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
@@ -140,102 +141,39 @@ export class DeadStockPurchaseComponent implements OnInit {
       SGST_AMT: ['', [Validators.required]],
       IGST_AMT: ['', [Validators.pattern]],
       GST_NO: ['', [Validators.required]],
+      amount: [''],
+      Rate: [''],
+      Quantity: [''],
+      Total_AMT: [''],
     })
-
-
-
   }
 
+  //get branch selection wise effect
   getBranch() {
-
     this.getIntroducer()
   }
 
-  schemechange(event) {
 
+  //get scheme selection wise effect
+  schemechange(event) {
     this.getschemename = event.name
     this.schemeedit = event.value
+    this.GL_ACNO = event.glacno
     this.getIntroducer()
-
-
   }
 
-  // Accountnochange(event) {
 
-  //   this.Accountno = event.value;
-  //   this.accountedit = event.value
-
-
-  // }
-
-  obj: any
-  getschemename: any
   //get account no according scheme for introducer
   getIntroducer() {
+    this.accountedit = null
     this.obj = [this.schemeedit, this.ngBranchCode]
     switch (this.getschemename) {
-      case 'SB':
-        this.schemeAccountNoService.getSavingSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-      case 'SH':
-        this.schemeAccountNoService.getShareSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-      case 'CA':
-        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-
-      case 'CC':
-
-        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-
-        })
-        break;
-      case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-      case 'DS':
-        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
       case 'GS':
         this.schemeAccountNoService.getAnamatSchemeList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
         })
         break;
-      case 'PG':
-        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
 
-      case 'LN':
-
-        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-
-
-        })
-        break;
-      case 'AG':
-        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
-      case 'IV':
-        this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).pipe(first()).subscribe(data => {
-          this.schemeACNo = data;
-        })
-        break;
       case 'GL':
         this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
           this.schemeACNo = data;
@@ -244,31 +182,70 @@ export class DeadStockPurchaseComponent implements OnInit {
     }
   }
 
+  //add items details in array
   addItem() {
     const formVal = this.angForm.value;
-    // let date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
-    // this.cityName = true
-    // this.NbirthDate = date1;
-    // var object = {
-    //   AC_NNAME: formVal.AC_NNAME,
-    //   AC_NRELA: formVal.AC_NRELA,
-    //   AC_NDATE: this.NbirthDate,
-    //   AGE: formVal.AGE,
-    //   AC_NHONO: formVal.AC_NHONO,
-    //   AC_NWARD: formVal.AC_NWARD,
-    //   AC_NADDR: formVal.AC_NADDR,
-    //   AC_NGALLI: formVal.AC_NGALLI,
-    //   AC_NAREA: formVal.AC_NAREA,
-    //   AC_NCTCODE: formVal.AC_NCTCODE.id,
-    //   AC_NPIN: formVal.AC_NPIN,
-    //   AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
-    // }
+    let object = {
+      id: formVal.ITEM_CODE.id,
+      ITEM_CODE: formVal.ITEM_CODE.ITEM_CODE,
+      ITEM_TYPE: formVal.ITEM_CODE.ITEM_TYPE,
+      ITEM_NAME: formVal.ITEM_CODE.ITEM_NAME,
+      Quantity: formVal.Quantity,
+      Rate: formVal.Rate,
+      Amount: formVal.amount,
+    }
+    if (this.itemArr.length != 0) {
+      if (this.itemArr.some(item => item.id === object.id)) {
+        this.itemArr.forEach((element) => {
+          if (element.id == object.id) {
+            Swal.fire('', 'This Item is Already Exists!', 'info');
+          }
+        })
+      }
+      else {
+        this.itemArr.push(object)
+        // this.totalAmt = this.totalAmt + parseInt(object.Amount)
+        // this.angForm.patchValue({
+        //   Total_AMT: this.totalAmt
+        // })
+      }
+    }
+    else {
+      this.itemArr.push(object)
+      // this.totalAmt = this.totalAmt + parseInt(object.Amount)
+      // this.angForm.patchValue({
+      //   Total_AMT: this.totalAmt
+      // })
+    }
+    this.resetItem()
+  }
+
+  //reset table controls
+  resetItem() {
+    this.angForm.patchValue({
+      amount: '',
+      Rate: '',
+      Quantity: '',
+    })
+    this.ngItem = null
+  }
+
+  //get table Column wise value in array
+  getColumnValue(id, ColumnName, columnValue) {
+    if (columnValue != '' || columnValue != 0) {
+      if (this.itemArr.length != 0) {
+        if (this.itemArr.some(item => item.id === id)) {
+          this.itemArr.forEach((element) => {
+            if (element.id == id) {
+              element[`${ColumnName}`] = columnValue
+            }
+          })
+        }
+      }
+    }
   }
 
   addNewData() {
-    // this.showButton = true;
-    // this.updateShow = false;
-    // this.newbtnShow = false;
     this.ngBranchCode = null
     this.schemeedit = null
     this.accountedit = null
@@ -280,32 +257,16 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
         'TRAN_DATE': data.CURRENT_DATE,
-
       })
-      // var full = []
       var formatfullDate = data.CURRENT_DATE;
       var nyear = formatfullDate.split(/\//);
       let next = Number(nyear[2]) + 1
-      console.log(next)
       var transactionDate = nyear[2] + next
       this.angForm.patchValue({
         TRAN_YEAR: transactionDate
       })
-      console.log(transactionDate)
-
     })
-
   }
-  // fromYear(){
-  //   var full = []
-  //   var fullYear =this.ngtransactiondate;
-  //   full = fullYear.split(' ');
-  //   var nyear = full[0].split(/\//);
-  //   var transactionDate = nyear[2] + '/' 
-  //   this.angForm.patchValue({
-  //     TRAN_YEAR: transactionDate
-  //   })
-  // }
 
   //get Narration Details 
   getNarration(ele) {
@@ -314,6 +275,7 @@ export class DeadStockPurchaseComponent implements OnInit {
     el.click();
   }
 
+  //transfer and cash radio button effect
   isFormA(value) {
     if (value == 1) {
       this.isTransfer = true;
@@ -328,17 +290,77 @@ export class DeadStockPurchaseComponent implements OnInit {
       this.angForm.controls['CHEQUE_DATE'].reset()
       this.angForm.controls['CHEQUE_NUM'].reset()
     }
+  }
 
+  //insert method
+  submit() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+
+    let billDate
+    let chequeDate
+    if (this.itemArr.length != 0) {
+      const formVal = this.angForm.value
+      const dataToSend = {
+        itemArr: this.itemArr,
+        BRANCH_CODE: this.ngBranchCode,
+        TRAN_DATE: formVal.TRAN_DATE,
+        TRAN_YEAR: formVal.TRAN_YEAR,
+        SUPPLIER_NAME: formVal.SUPPLIER_NAME,
+        BILL_NUM: formVal.BILL_NUM,
+
+        BILL_DATE: (formVal.BILL_DATE == '' || formVal.BILL_DATE == 'Invalid date' || formVal.BILL_DATE == null || formVal.BILL_DATE == undefined) ? billDate = '' : billDate = moment(formVal.BILL_DATE).format('DD/MM/YYYY'),
+
+        DEAD_STOCK: formVal.DEAD_STOCK,
+        AC_TYPE: formVal.AC_TYPE,
+        AC_NO: formVal.AC_NO,
+        CHEQUE_DATE: (formVal.CHEQUE_DATE == '' || formVal.CHEQUE_DATE == 'Invalid date' || formVal.CHEQUE_DATE == null || formVal.CHEQUE_DATE == undefined) ? chequeDate = '' : chequeDate = moment(formVal.CHEQUE_DATE).format('DD/MM/YYYY'),
+
+        CHEQUE_NUM: formVal.CHEQUE_NUM,
+        NARRATION: formVal.NARRATION,
+        CGST_AMT: formVal.CGST_AMT,
+        SGST_AMT: formVal.SGST_AMT,
+        IGST_AMT: formVal.IGST_AMT,
+        GST_NO: formVal.GST_NO,
+        Total_AMT: formVal.Total_AMT,
+        USER: result.USER_NAME,
+        ACNOTYPE: this.getschemename,
+        GL_ACNO: this.GL_ACNO
+      }
+      this._service.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Updated Successfully !", "success");
+          this.formSubmitted = false
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      this.resetForm()
+      this.itemArr = []
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
   }
 
   // Reset Function
   resetForm() {
     this.createForm();
-
-    this.ngBranchCode = null
+    this.getSystemParaDate()
+    this.itemArr = []
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
     this.schemeedit = null
     this.accountedit = null
-
   }
 
 
