@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { IOption } from 'ng-select';
-import {Scheme9Service} from '../../../shared/elements/scheme9.service';
-import {AccountnoService} from '../../../shared/elements/Accountno.service';
-
-import { Subscription } from 'rxjs/Subscription';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-
+import { environment } from 'src/environments/environment';
+import { first } from 'rxjs/operators';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { HttpClient } from '@angular/common/http';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import * as moment from 'moment';
+import { Subject } from 'rxjs-compat';
+import { DataTableDirective } from 'angular-datatables';
 @Component({
   selector: 'app-shares-ledger-view',
   templateUrl: './shares-ledger-view.component.html',
@@ -14,193 +17,95 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 })
 export class SharesLedgerViewComponent implements OnInit {
   angForm: FormGroup;
+  formSubmitted = false;
 
-  dtExportButtonOptions : any = {};
+  //api 
+
+  url = environment.base_url;
+
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
   
-  //Select option for title, account type
-  simpleOption: Array<IOption> = this.Scheme9Service.getCharacters();
-  a : Array<IOption> = this.Scheme9Service.getCharacters();
-  // b : Array<IOption> = this.Scheme9Service.getCharacters();
+  // dropdown variables
+  allScheme: any[]
+  ngscheme:any=null
+  accountedit:any=null
+  schemeACNo: any;
 
-  selectedOption = '3';
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = '3';
-  timeLeft = 5;
+  // Date variables
+  todate: any = null;
+  fromdate:any=null
+  maxDate: any;
+  minDate: any;
 
-  private dataSub: Subscription = null;
+  
 
-  //variables for  add and update button
-  showButton: boolean = true;
-  updateShow: boolean = false;
-
-  GuarantorTrue = false;
-  ATrue = false;
-
-  //object created to get data when row is clicked
-  message = {
-    Scheme: "",
-    Accountno: "",
-    FromDate: "",
-    ToDate: "",
-    AccountOpeningDate:"",
-    Date:"",
-    particulars:"",
-    TranType:"",
-    DrAmount:"",
-    CrAmount:"",
-    ClosingBalance:"",
-    DrDividend:"",
-    CrDividend:"",
-    DividendBalance:"",
-    BonusAmount:"",
-    RebitInt:"",
-    CertificateNo:"",
-    NoOfShares:"",
-    SharesFromTo:"",
-    FaceValue:"",
-    OfficerID:"",
-    VoucherNo:"",
-    FreezeAccountStatus:"",
-    AccountClosedOn:"",
-
-  };
-
-  constructor(public Scheme9Service: Scheme9Service,public AccountnoService: AccountnoService,private fb: FormBuilder) { this.createForm(); }
+  constructor( 
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private schemeAccountNoService: SchemeAccountNoService,
+    private config: NgSelectConfig,
+    
+    ) {
+      this.maxDate = new Date();
+      this.minDate = new Date();
+      this.minDate.setDate(this.minDate.getDate() - 1);
+      this.maxDate.setDate(this.maxDate.getDate())
+     }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/shares-ledger-view.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'SCHEME',
-        data: 'Scheme'
-      }, {
-        title: 'Account No.',
-        data: 'Accountno'
-      }, {
-        title: 'From Date',
-        data: 'FromDate'
-      }, {
-        title: 'To Date',
-        data: 'ToDate'
-      }, {
-        title: 'DATE',
-        data: 'Date'
-      },{
-        title: 'Account Opening Date',
-        data: 'AccountOpeningDate'
-      }, {
-        title: 'Freeze Account Status',
-        data: 'FreezeAccountStatus'
-      },{
-        title: 'A/c Closed On xx/xx/xxxx',
-        data: 'AccountClosedOn'
-      },{
-        title: 'Particulars',
-        data: 'particulars'
-      },{
-        title: 'Tran. Type',
-        data: 'TranType'
-      },{
-        title: 'Dr. Amount',
-        data: 'DrAmount'
-      },{
-        title: 'Cr. Amount',
-        data: 'CrAmount'
-      },{
-        title: 'Closing Balance',
-        data: 'ClosingBalance'
-      },{
-        title: 'Dr. Dividend',
-        data: 'DrDividend'
-      },{
-        title: 'Cr. Dividend',
-        data: 'CrDividend'
-      },{
-        title: 'Dividend Balance',
-        data: 'DividendBalance'
-      },{
-        title: 'Bonus Amount',
-        data: 'BonusAmount'
-      },{
-        title: 'Rebit Int.',
-        data: 'RebitInt'
-      },{
-        title: 'Certificate No.',
-        data: 'CertificateNo'
-      },{
-        title: 'No.Of Shares',
-        data: 'NoOfShares'
-      },{
-        title: 'Shares From-To',
-        data: 'SharesFromTo'
-      },{
-        title: 'Face Value',
-        data: 'FaceValue'
-      },{
-        title: 'Officer ID',
-        data: 'OfficerID'
-      },{
-        title: 'Voucher No.',
-        data: 'VoucherNo'
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-      //row click handler code
-       rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
-    this.runTimer();
-    this.dataSub = this.Scheme9Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.runTimer();
-    this.dataSub = this.AccountnoService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
+    this.createForm()
+
+    
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'SH');
+      });
+      this.allScheme = filtered;
+    })
+    
+    
   }
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
+  
   createForm() {
     this.angForm = this.fb.group({
-      Scheme: ['', [Validators.required]],
-      Accountno: ['', [Validators.required]],
-      FromDate: ['',[Validators.required]],
-      ToDate: ['',[Validators.required]],
-      AccountOpeningDate: [''],
-      FreezeAccountStatus: [''],
-      AccountClosedOn: [''],
-      // title: ['',Validators.required],
-
+      AC_TYPE: ['', [Validators.required]],
+      AC_NO: ['', [Validators.required]],
+      FROM_DATE: ['', [Validators.required]],
+      TO_DATE: ['', [Validators.required]],
+      AC_OPDATE:['', [Validators.required]],
 
     });
+  }
+
+
+  schemechange(event) {
+
+    this.getschemename = event.name
+    this.ngscheme = event.value
+    this.getIntroducer()
+
+
+  }
+  obj: any
+  getschemename: any
+  //get account no according scheme for introducer
+  getIntroducer() {
+
+    switch (this.getschemename) {
+
+      case 'SH':
+
+        this.schemeAccountNoService.getShareSchemeList1(this.obj).pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+
+        })
+        break;
+      
+    }
   }
   submit() {
     console.log(this.angForm.valid);
@@ -209,78 +114,41 @@ export class SharesLedgerViewComponent implements OnInit {
       console.log(this.angForm.value);
     }
   }
-  //function toggle update to add button
-  updateData() {
-    this.showButton = true;
-    this.updateShow = false;
-  }
-  //function for edit button clicked
-  editClickHandler(info: any): void {
-    this.message.Scheme = info.Scheme;
-    this.message.Accountno = info.Accountno;
-    this.message.FromDate = info.FromDate;
-    this.message.ToDate = info.ToDate;
-    this.message.AccountOpeningDate = info.AccountOpeningDate;
-    this.message.Date = info.Date;
-    this.message.particulars = info.particulars;
-    this.message.TranType = info.TranType;
-    this.message.DrAmount = info.DrAmount;
-    this.message.CrAmount = info.CrAmount;
-    this.message.ClosingBalance = info.ClosingBalance;
-    this.message.DrDividend = info.DrDividend;
-    this.message.CrDividend = info.CrDividend;
-    this.message.DividendBalance = info.DividendBalance;
-    this.message.BonusAmount = info.BonusAmount;
-    this.message.RebitInt = info.RebitInt;
-    this.message.CertificateNo = info.CertificateNo;
-    this.message.NoOfShares = info.NoOfShares;
-    this.message.SharesFromTo = info.SharesFromTo;
-    this.message.FaceValue = info.FaceValue;
-    this.message.OfficerID = info.OfficerID;
-    this.message.VoucherNo = info.VoucherNo;
-    this.message.FreezeAccountStatus = info.FreezeAccountStatus;
-    this.message.AccountClosedOn = info.AccountClosedOn;
-  }
+  
 
-  //function for delete button clicked
-  delClickHandler(info: any): void {
-    this.message.Scheme = info.Scheme;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete title." + this.message.Scheme + "  data",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
+
+  // Camparing frm date and to date
+  checkdate(event){
+    let value1
+    let value2
+    value1 = moment(this.fromdate).format('DD/MM/YYYY');
+    console.log(value1)
+    value2 = moment(this.todate).format('DD/MM/YYYY');
+    console.log(value2)
+    if(this.fromdate== null || this.todate== null){
+
+    }else{
+      if(moment(value2).isAfter(value1)){
+
       }
-    })
-  }
-  OpenLink(val) {
-    if (val == 1) {
-      this.GuarantorTrue = true;
-
+      else if(moment(value1)===moment(value2)){
+        Swal.fire("To date should be after from date");
+        // this.fromdate=null
+        // this.todate=null
+        this.angForm.controls['FROM_DATE'].reset()
+        this.angForm.controls['TO_DATE'].reset()
+      }
+      else{
+        Swal.fire("To date should be after from date");
+        // this.fromdate=null
+        // this.todate=null
+        this.angForm.controls['FROM_DATE'].reset()
+        this.angForm.controls['TO_DATE'].reset()
+      }
     }
-    if (val == 2) {
-      this.ATrue = true;
-
-    }
   }
+  
+  
 
 
 }

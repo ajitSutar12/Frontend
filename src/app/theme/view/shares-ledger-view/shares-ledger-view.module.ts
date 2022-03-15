@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {Scheme9Service} from '../../../shared/elements/scheme9.service';
-import {AccountnoService} from '../../../shared/elements/Accountno.service';
-import { SelectModule } from 'ng-select';
 
+import { NgSelectModule } from '@ng-select/ng-select';
 import { SharesLedgerViewComponent } from './shares-ledger-view.component';
 import { SharesLedgerViewRoutingModule } from './shares-ledger-view-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
@@ -12,18 +10,24 @@ import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   imports: [
     CommonModule,
     SharesLedgerViewRoutingModule,
     SharedModule,
+    NgSelectModule,
     DataTablesModule,
     FormsModule,ReactiveFormsModule,
-    SelectModule
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
+    
   ],
   declarations: [SharesLedgerViewComponent],
-  providers: [Scheme9Service,AccountnoService,
+  providers: [SchemeCodeDropdownService,SchemeAccountNoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

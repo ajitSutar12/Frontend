@@ -430,7 +430,7 @@
                       <div class="radio radio-inline">
                         <label>
                           <input type="radio" value="Compounding" name="INTEREST_RULE" formControlName="INTEREST_RULE"
-                            (click)="PatDeposits($event)" />
+                            (change)="PatDeposits(1)" />
                           <i class="helper"></i> Pat Deposits<span class="required">
                           </span>
                         </label>
@@ -440,7 +440,7 @@
                       <div class="radio radio-inline">
                         <label>
                           <input type="radio" value="SimpleasperSharesClosingBalance" name="INTEREST_RULE"
-                            formControlName="INTEREST_RULE" />
+                            formControlName="INTEREST_RULE" (change)="PatDeposits(2)" />
                           <i class="helper"></i>Recurring Deposits<span class="required">
                           </span>
                         </label>
@@ -450,7 +450,7 @@
                       <div class="radio radio-inline">
                         <label>
                           <input type="radio" value="SimpleDaysBasis+Transactionwise" name="INTEREST_RULE"
-                            formControlName="INTEREST_RULE" />
+                            formControlName="INTEREST_RULE" (change)="PatDeposits(3)" />
                           <i class="helper"></i>Call Deposits<span class="required">
                           </span>
                         </label>
@@ -460,7 +460,7 @@
                       <div class="radio radio-inline">
                         <label>
                           <input type="radio" value="TransactionWise" name="INTEREST_RULE"
-                            formControlName="INTEREST_RULE" />
+                            formControlName="INTEREST_RULE" (change)="PatDeposits(4)" />
                           <i class="helper"></i>Auto Renewal
                           <span class="required"> </span>
                         </label>
@@ -470,7 +470,7 @@
                       <div class="radio radio-inline">
                         <label>
                           <input type="radio" value="MonthBasis+Transactionwise" name="INTEREST_RULE"
-                            formControlName="INTEREST_RULE" />
+                            formControlName="INTEREST_RULE" (change)="PatDeposits(5)" />
                           <i class="helper"></i>Fixed Deposit<span class="required">
                           </span>
                         </label>

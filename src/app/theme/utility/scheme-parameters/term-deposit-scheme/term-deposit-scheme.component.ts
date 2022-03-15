@@ -795,15 +795,21 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     }
   }
 
-  PatDeposits($event){
-    if ($event.target.checked) {
-      document.getElementById('IS_CAL_MATURITY_AMT').setAttribute("checked", "true");
-      document.getElementById('FIXED_MATURITY_AMT').setAttribute("checked", "true");
+  PatDeposits(value){
+  
+    if (value == 1) {
+      this.angForm.patchValue({
+        'IS_CAL_MATURITY_AMT':true,
+        'FIXED_MATURITY_AMT':true
+      })
     }
     else{
-      document.getElementById('IS_CAL_MATURITY_AMT').setAttribute("checked", "false");
-      document.getElementById('FIXED_MATURITY_AMT').setAttribute("checked", "false");
+      this.angForm.patchValue({
+        'IS_CAL_MATURITY_AMT':false,
+        'FIXED_MATURITY_AMT':false,
+      })
     }
+    
   }
   
   createForm() {
@@ -820,7 +826,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       S_RECBL_PENAL_ACNO: [''],
       S_CASH_INT_ACNO: ['', [Validators.pattern]],
       MATURED_BUT_NOT_PAID_GLAC: [''],
-      INTEREST_RULE: ['', [Validators.pattern]],
+      INTEREST_RULE: [''],
       IS_RECURRING_TYPE: ['', [Validators.pattern]],
       IS_CALLDEPOSIT_TYPE: ['', [Validators.pattern]],
       REINVESTMENT: ['', [Validators.pattern]],
