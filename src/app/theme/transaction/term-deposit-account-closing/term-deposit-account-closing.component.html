@@ -1,24 +1,3 @@
-<!-- <div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="row">
-                <div class="col-md-3">
-                    <button class="btn btn-sm">Ledger View</button>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-sm">Interset Paid</button>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-sm">Unpassed Details</button>
-                </div>
-                <div class="col-md-3">
-                    <button class="btn btn-sm">Enquiry</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-<!-- <div class="container"> -->
 <div style="width: 270px;height: 335px;z-index: 1000;
     position: absolute;margin-top: 14%;margin-left:51%" *ngIf="PreviewDiv">
     <img [src]="previewImg" width="400" height="300">
@@ -58,8 +37,7 @@
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                    [(ngModel)]="date" formControlName="date"
-                                                    disabled>
+                                                    [(ngModel)]="date" formControlName="date" disabled>
                                             </span>
                                         </div>
                                     </div>
@@ -113,6 +91,177 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 solid1">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Interest Rate %</label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" class="form-control">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table>
+                                                    <tr>
+                                                        <td colspan="2">Closing Period</td>
+                                                        <td>Interest</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Quaters</td>
+                                                        <td><input style="width:50%" type="text"></td>
+                                                        <td><input type="text"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Months</td>
+                                                        <td><input style="width:50%" type="text"></td>
+                                                        <td><input type="text"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Days</td>
+                                                        <td><input style="width:50%" type="text"></td>
+                                                        <td><input type="text"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3">0 Months & 144 Days</td>
+                                                        
+                                                    </tr>
+                                                </table>
+                                                <!-- <hr> -->
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label><b>Total Interest @ 6.00 %</b></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="border-lable-flt">
+                                                    <input type="text">
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label><b>Paid/Posted Interest -</b></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="border-lable-flt">
+                                                    <input type="text">
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label><b>Excess Interest</b></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span class="border-lable-flt">
+                                                    <input type="text">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 solid1">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Ledger Balance
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span class="border-lable-flt">
+                                                    <input type="text">
+                                                </span>
+                                            </div>
+                                        </div>   
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Matured Process Amt
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span class="border-lable-flt">
+                                                    <input type="text">
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Payable Interest
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span class="border-lable-flt">
+                                                    <input type="text">
+                                                </span>
+                                            </div>
+                                        </div>  
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                - Net Interest
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span class="border-lable-flt">
+                                                    <input type="text">
+                                                </span>
+                                            </div>
+                                        </div>  
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                - TDS Amount
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span class="border-lable-flt">
+                                                    <input type="text">
+                                                </span>
+                                            </div>
+                                        </div>  
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                - Surcharge Amount
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span class="border-lable-flt">
+                                                    <input type="text">
+                                                </span>
+                                            </div>
+                                        </div>  
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                - Penal Interest
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span class="border-lable-flt">
+                                                    <input type="text">
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <hr>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                Net Payable Amount
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span class="border-lable-flt">
+                                                    <input type="text">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -125,21 +274,15 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Balance
+                        Details
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-primary rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">Deposit Amount</h6>
-                                            <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-primary"
@@ -150,15 +293,9 @@
                             <div class="col-md-12">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-success rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">Maturity Amount
                                             </h6>
-                                            <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
@@ -169,131 +306,83 @@
                             <div class="col-md-12">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-danger rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">Int Rate%</h6>
-                                            <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-danger"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> <span>{{Unpass}}.00</span></div>
+                                        style="margin-left: auto;order: 2;font-size: 12px;">7.75</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-danger rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">Last Int. Date
                                             </h6>
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-danger"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> 0.00</div>
+                                        style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
                                 </div>
                             </div>
                             <div class="col-md">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-success rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">Opening Date</h6>
-                                            <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{ClearBalance}}.00</div>
+                                        style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-primary rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">As On Date
                                             </h6>
-                                            <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">= <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{AfterVoucher}}.00</div>
+                                        style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-primary rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">Maturity Date
                                             </h6>
-                                            <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">= <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{AfterVoucher}}.00</div>
+                                        style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-primary rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">Receipt No.
                                             </h6>
-                                            <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">= <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{AfterVoucher}}.00</div>
+                                        style="margin-left: auto;order: 2;font-size: 12px;">1</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="transaction-item">
                                     <div class="d-flex">
-                                        <div class="avatar bg-light-primary rounded float-start">
-                                            <div class="avatar-content">
-                                                <i class="fa fa-google-wallet field-icon"></i>
-                                            </div>
-                                        </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">Operation
                                             </h6>
-                                            <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
                                     <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">= <i class="fa fa-inr"
-                                            aria-hidden="true"></i> {{AfterVoucher}}.00</div>
+                                        style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -306,7 +395,6 @@
                                                     (mouseout)="hideImage()" alt="User avatar" />
                                                 <div class="user-info text-center">
                                                     <h4>Ajit Sutar</h4>
-                                                    <!-- <span class="badge bg-light-secondary">Author</span> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -318,28 +406,6 @@
 
                                             </div>
                                         </div>
-
-                                        <!-- <div class="d-flex justify-content-around my-2 pt-75">
-                                          <div class="d-flex align-items-start me-2">
-                                            <span class="badge bg-light-primary p-75 rounded">
-                                              <i data-feather="check" class="font-medium-2"></i>
-                                            </span>
-                                            <div class="ms-75">
-                                              <h4 class="mb-0">1.23k</h4>
-                                              <small>Tasks Done</small>
-                                            </div>
-                                          </div>
-                                          <div class="d-flex align-items-start">
-                                            <span class="badge bg-light-primary p-75 rounded">
-                                              <i data-feather="briefcase" class="font-medium-2"></i>
-                                            </span>
-                                            <div class="ms-75">
-                                              <h4 class="mb-0">568</h4>
-                                              <small>Projects Done</small>
-                                            </div>
-                                          </div>
-                                        </div> -->
-                                        <!-- <h4 class="fw-bolder border-bottom pb-50 mb-1">Details</h4> -->
                                         <div class="info-container">
                                             <ul class="list-unstyled">
                                                 <li class="mb-75">
@@ -355,9 +421,7 @@
                                                     <span class="fw-bolder me-25">Contact:</span>
                                                     <span>+91 7636456273</span>
                                                 </li>
-
                                             </ul>
-
                                         </div>
                                     </div>
                                 </div>
@@ -398,9 +462,6 @@
             </div>
         </perfect-scrollbar>
     </div>
-    <!-- <div class="app-modal-footer">
-        
-      </div> -->
 </app-modal-basic>
 
 

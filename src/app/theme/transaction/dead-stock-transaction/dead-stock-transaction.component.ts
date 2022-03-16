@@ -12,9 +12,9 @@ import { environment } from 'src/environments/environment';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { DeadStockTransactionService } from './dead-stock-transaction.service';
 import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-master-dropdown.service';
-import { reset } from 'mousetrap';
-import { data } from 'jquery';
-
+import * as moment from 'moment';
+// Displaying Sweet Alert
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-dead-stock-transaction',
   templateUrl: './dead-stock-transaction.component.html',
@@ -24,30 +24,30 @@ export class DeadStockTransactionComponent implements OnInit {
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
 
   formSubmitted = false;
-   //api
-   url = environment.base_url;
+  //api
+  url = environment.base_url;
   //  Formgroup variable
-   angForm: FormGroup;
-  
+  angForm: FormGroup;
+
   // dropdown variables
-  itemcode:any[];
-  ngBranchCode:any=null
-  ngtransactiondate:any=null
+  itemcode
+  ngBranchCode: any = null
+  ngtransactiondate: any = null
   branch_code: any[];
   schemeedit: any;
 
   // Date variables
-  ngresolutiondate:any=null
+  ngresolutiondate: any = null
   maxDate: Date;
   minDate: Date;
 
-  isTransfer:boolean=false
+  isTransfer: boolean = false
   isCash: boolean;
   accountedit: any;
 
   narration: any;
   narrationList: any;
-  
+
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -68,17 +68,17 @@ export class DeadStockTransactionComponent implements OnInit {
   ngresolutionnum: boolean;
   cash: boolean;
 
-  
+
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
-    private deadstocktransaction:DeadStockTransactionService,
+    private deadstocktransaction: DeadStockTransactionService,
     public ACMasterDropdownService: ACMasterDropdownService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-  ) { 
+  ) {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -86,7 +86,7 @@ export class DeadStockTransactionComponent implements OnInit {
   }
 
   dtExportButtonOptions: any = {};
- 
+
 
   ngOnInit(): void {
     this.getSystemParaDate()
@@ -97,39 +97,53 @@ export class DeadStockTransactionComponent implements OnInit {
       this.ngBranchCode = data[0].value
     })
 
-    this.ACMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
+    // this.ACMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
 
-      this.ACMasterDropdown = data;
+    //   this.ACMasterDropdown = data;
+    // })
+
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'GL' || scheme.name == 'GS');
+      });
+      this.ACMasterDropdown = filtered;
+      console.log(this.ACMasterDropdown, 'schme')
     })
-
 
     // /Narration List
     this.deadstocktransaction.getNarrationMaster().subscribe(data => {
       this.narrationList = data;
     })
-  
+
+    this.http.get(this.url + '/deadstock-purchase/itemList').subscribe((data) => {
+      this.itemcode = data
+    })
+
   }
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE:['',[Validators.required]],
-      TRAN_DATE:[''],
-      TRAN_YEAR:[''],
-      TRANSACTION_TYPE:['',[Validators.required]],
-      ITEM_CODE:[''],
-      DEAD_STOCK:[''],
-      AC_TYPE:['',[Validators.required]],
-      AC_NO:['',[Validators.required]],
-      RESOLUTION_DATE:['',[Validators.required]],
-      RESOLUTION_NUM:['',[Validators.required,Validators.pattern]],
-      NARRATION:['',[Validators.required,Validators.pattern]],
-  
-  
+      BRANCH_CODE: ['', [Validators.required]],
+      TRAN_DATE: [''],
+      TRAN_YEAR: [''],
+      TRANSACTION_TYPE: ['', [Validators.required]],
+      ITEM_CODE: [''],
+      DEAD_STOCK: [''],
+      AC_TYPE: ['', [Validators.required]],
+      AC_NO: ['', [Validators.required]],
+      RESOLUTION_DATE: ['', [Validators.required]],
+      RESOLUTION_NUM: ['', [Validators.required, Validators.pattern]],
+      NARRATION: ['', [Validators.required, Validators.pattern]],
+      amount: [''],
+      Rate: [''],
+      Quantity: [''],
+      Total_AMT: [''],
+
     })
   }
 
-  
+
   getBranch() {
-   
+
     this.getIntroducer()
   }
 
@@ -147,18 +161,21 @@ export class DeadStockTransactionComponent implements OnInit {
   getschemename: any
   //get account no according scheme for introducer
   getIntroducer() {
-
-
+    debugger
+    this.accountedit = null
     this.obj = [this.schemeedit, this.ngBranchCode]
-
-
     switch (this.getschemename) {
-      
-        case 'GL':
-          this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
-            this.schemeACNo = data;
-          })
-          break;
+      case 'GS':
+        this.schemeAccountNoService.getAnamatSchemeList1(this.obj).pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
+
+      case 'GL':
+        this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
+          this.schemeACNo = data;
+        })
+        break;
     }
   }
 
@@ -170,152 +187,180 @@ export class DeadStockTransactionComponent implements OnInit {
 
       })
       // var full = []
-      var formatfullDate =data.CURRENT_DATE;
+      var formatfullDate = data.CURRENT_DATE;
       var nyear = formatfullDate.split(/\//);
-      let next= Number(nyear[2]) + 1 
+      let next = Number(nyear[2]) + 1
       console.log(next)
       var transactionDate = nyear[2] + next
       this.angForm.patchValue({
-            TRAN_YEAR: transactionDate
-          })
-          console.log(transactionDate)
+        TRAN_YEAR: transactionDate
+      })
+      console.log(transactionDate)
 
     })
-    
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        'TRAN_DATE': data.CURRENT_DATE,
+      })
+      var formatfullDate = data.CURRENT_DATE;
+      var nyear = formatfullDate.split(/\//);
+      let next = Number(nyear[2]) + 1
+      var transactionDate = nyear[2] + next
+      this.angForm.patchValue({
+        TRAN_YEAR: transactionDate
+      })
+    })
+
   }
 
-   //get Narration Details 
-   getNarration(ele) {
+  //get Narration Details 
+  getNarration(ele) {
     this.narration = ele;
     let el: HTMLElement = this.triggerhide.nativeElement;
     el.click();
   }
 
-  changetransaction(){
-    this.schemeedit=null,
-    this.accountedit=null,
-    this.ngresolutionnum=null,
-    this.narration=null,
+  changetransaction() {
+    debugger
+    console.log(this.ngtransactiontype)
+
+    if (this.ngtransactiontype.label == 'Sales') {
+      this.angForm.patchValue({
+        DEAD_STOCK: 'FormT'
+      })
+      this.angForm.controls['DEAD_STOCK'].enable()
+    }
+    else {
+      this.angForm.patchValue({
+        DEAD_STOCK: 'FormT'
+      })
+      this.GLAccount = true
+      this.Resolution = true
+      this.Narration = true;
+      this.angForm.controls['DEAD_STOCK'].disable()
+    }
+    this.schemeedit = null
+    this.accountedit = null
+    this.ngresolutionnum = null
+    this.narration = null
     this.angForm.patchValue({
       // RESOLUTION_DATE: this.angForm.controls['RESOLUTION_DATE'].value,
-      RESOLUTION_DATE:'',
+      RESOLUTION_DATE: '',
     })
 
   }
 
 
-  Narration: boolean=false
-  Resolution:boolean=false
-  GLAccount:boolean=false
+  Narration: boolean = false
+  Resolution: boolean = false
+  GLAccount: boolean = false
   isFormA(value) {
-
-    debugger
-    if (this.ngtransactiontype.label == 'Sales'){
-
+    if (this.ngtransactiontype.label == 'Sales') {
       document.getElementById('formC').removeAttribute("disabled");
       if (value == 1) {
-        this.GLAccount=true
-
-        this.Resolution=true
-       
-        this.Narration=true;
-        
+        this.GLAccount = true
+        this.Resolution = true
+        this.Narration = true;
       }
       else if (value == 2) {
-        this.GLAccount=false
-        this.Resolution=true
-
-        this.Narration=true;
-      
-        
-      }
-      
-      // this.angForm.get('type').reset();
-    }
-    
-    if (this.ngtransactiontype.label == 'Breakage'){
-      document.getElementById('formC').setAttribute("disabled", "true");
-      if (value == 1) {
-        this.GLAccount=true
-
-        this.Resolution=true
-       
-        this.Narration=true;
+        this.GLAccount = false
+        this.Resolution = true
+        this.Narration = true;
       }
     }
-    
-    if (this.ngtransactiontype.label == 'Gain'){
-      document.getElementById('formC').setAttribute("disabled", "true");
-      if (value == 1) {
-        this.GLAccount=true
-
-        this.Resolution=true
-        
-        this.Narration=true;
-      }
-      
-    }
-    if (this.ngtransactiontype.label == 'Loss'){
-      document.getElementById('formC').setAttribute("disabled", "true");
-      if (value == 1) {
-        this.GLAccount=true
-
-        this.Resolution=true
-        
-        this.Narration=true;
-      }
-      
-      
-    }
-    if (this.ngtransactiontype.label == 'Depriciation'){
-      document.getElementById('formC').removeAttribute("disabled");
-      if (value == 1) {
-        this.GLAccount=true
-
-        this.Resolution=true
-        
-        this.Narration=true;
-      }
-      else if (value == 2) {
-        
-        
-        this.GLAccount=false
-
-        this.Resolution=true
-        
-        this.Narration=true;
-        
-      }
-      
-    }
-    if (this.ngtransactiontype.label == 'Transfer'){
-      document.getElementById('formC').setAttribute("disabled", "true");
-      if (value == 1) {
-        this.GLAccount=true
-
-        this.Resolution=true
-        
-        this.Narration=true;
-      }
-     
-    }
-    // this.angForm.patchValue({
-        
-      // })
-    
-    
   }
 
-  
+  itemArr = []
+
+  //add items details in array
+  addItem() {
+    const formVal = this.angForm.value;
+    let object = {
+      id: formVal.ITEM_CODE.id,
+      ITEM_CODE: formVal.ITEM_CODE.ITEM_CODE,
+      ITEM_TYPE: formVal.ITEM_CODE.ITEM_TYPE,
+      ITEM_NAME: formVal.ITEM_CODE.ITEM_NAME,
+      Quantity: formVal.Quantity,
+      Rate: formVal.Rate,
+      Amount: formVal.amount,
+    }
+    if (this.itemArr.length != 0) {
+      if (this.itemArr.some(item => item.id === object.id)) {
+        this.itemArr.forEach((element) => {
+          if (element.id == object.id) {
+            Swal.fire('', 'This Item is Already Exists!', 'info');
+          }
+        })
+      }
+      else {
+        this.itemArr.push(object)
+        // this.totalAmt = this.totalAmt + parseInt(object.Amount)
+        // this.angForm.patchValue({
+        //   Total_AMT: this.totalAmt
+        // })
+      }
+    }
+    else {
+      this.itemArr.push(object)
+      // this.totalAmt = this.totalAmt + parseInt(object.Amount)
+      // this.angForm.patchValue({
+      //   Total_AMT: this.totalAmt
+      // })
+    }
+    this.resetItem()
+  }
+  ngItem: any = null
+  //reset table controls
+  resetItem() {
+    this.angForm.patchValue({
+      amount: '',
+      Rate: '',
+      Quantity: '',
+    })
+    this.ngItem = null
+  }
+
+  //get table Column wise value in array
+  getColumnValue(id, ColumnName, columnValue) {
+    if (columnValue != '' || columnValue != 0) {
+      if (this.itemArr.length != 0) {
+        if (this.itemArr.some(item => item.id === id)) {
+          this.itemArr.forEach((element) => {
+            if (element.id == id) {
+              element[`${ColumnName}`] = columnValue
+            }
+          })
+        }
+      }
+    }
+  }
+  OP_BALANCE
+  deadstockDetailAmount: number = 0
+  getItemDetails(event) {
+    debugger
+    let obj = [event.ITEM_CODE, event.ITEM_TYPE]
+    this.http.get(this.url + '/deadstock-purchase/amount/' + obj).subscribe((data) => {
+      console.log(data, 'data[0]')
+      this.deadstockDetailAmount = Number(data)
+    })
+    console.log(this.deadstockDetailAmount, 'details')
+    this.angForm.patchValue({
+      Quantity: event.PURCHASE_QUANTITY,
+    })
+    this.OP_BALANCE = event.OP_BALANCE
+    let gridAmount: number = 0
+    gridAmount = -this.OP_BALANCE + this.deadstockDetailAmount
+  }
 
   // Reset Function
   resetForm() {
     this.createForm();
-    
+
     this.ngBranchCode = null
     this.schemeedit = null
     this.accountedit = null
-    
+
   }
 
 }
