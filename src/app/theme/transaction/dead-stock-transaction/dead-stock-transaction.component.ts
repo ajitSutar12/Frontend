@@ -336,31 +336,26 @@ export class DeadStockTransactionComponent implements OnInit {
     }
   }
   OP_BALANCE
-  deadstockDetailAmount: number = 0
+  deadstockDetailAmount = {}
+  backamount
   getItemDetails(event) {
-    debugger
-    let obj = [event.ITEM_CODE, event.ITEM_TYPE]
-    this.http.get(this.url + '/deadstock-purchase/amount/' + obj).subscribe((data) => {
-      console.log(data, 'data[0]')
-      this.deadstockDetailAmount = Number(data)
-    })
-    console.log(this.deadstockDetailAmount, 'details')
-    this.angForm.patchValue({
-      Quantity: event.PURCHASE_QUANTITY,
-    })
+    let obj = [event.ITEM_CODE, event.ITEM_TYPE, event.id]
     this.OP_BALANCE = event.OP_BALANCE
-    let gridAmount: number = 0
-    gridAmount = -this.OP_BALANCE + this.deadstockDetailAmount
+    this.http.get(this.url + '/deadstock-purchase/amount/' + obj).subscribe((data) => {
+      this.angForm.patchValue({
+        amount: data['totalAmt'],
+        Quantity: event.PURCHASE_QUANTITY,
+      })
+      this.deadstockDetailAmount['totalAmt'] = data['totalAmt']
+    })
   }
 
   // Reset Function
   resetForm() {
     this.createForm();
-
     this.ngBranchCode = null
     this.schemeedit = null
     this.accountedit = null
-
   }
 
 }
