@@ -83,14 +83,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="DIV_FROMDATE">Div.Date From<sub
+                        <div class="col-sm-12 col-md-2"> <label for="DIV_FROMDATE">Dividend Date From<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="DIV_FROMDATE" id="DIV_FROMDATE"
-                                        class="form-control" [(ngModel)]="divfromdate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                    [bsValue]="bsValue"
+                                        [maxDate]="maxDate"
+                                        class="form-control" [(ngModel)]="divfromdate" 
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="fromdate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="DIV_FROMDATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
@@ -104,16 +106,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="DIV_TODATE">Div.Date To<sub
+                        <div class="col-sm-12 col-md-2"> <label for="DIV_TODATE">Dividend Date To<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="DIV_TODATE" id="DIV_TODATE"
                                         class="form-control" [(ngModel)]="divtodate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="todate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="DIV_TODATE"
-                                        (bsValueChange)="checkDivYear()"
+                                       
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>

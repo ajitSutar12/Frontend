@@ -1,1 +1,1208 @@
-<p>manager-view works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Manager view</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="SYSPARADATE">As on Date</label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker [(ngModel)]="date"
+                                         formControlName="SYSPARADATE" disabled>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6"> 
+                            <div class="solid">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <h6 style="font-size:15px">
+                                            Transaction Details
+                                        </h6>
+                                    </div>
+                                </div>
+                               
+            
+                                    <div class="row">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-4">Credit</div>
+                                        <div class="col-md-4">Debit</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">Cash</div>
+                                        <div class="col-md-4">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="CASH_CREDIT" class="form-control" placeholder=" "
+                                                        id="CASH_CREDIT" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                        title="Input allowed only  0-9" formControlName="CASH_CREDIT"
+                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                        value="{{ CASH_CREDIT != null ?CASH_CREDIT.toFixed(2) : 0.00}}" disabled />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="CASH_DEBIT" class="form-control" placeholder=" "
+                                                        id="CASH_DEBIT" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                        title="Input allowed only  0-9" formControlName="CASH_DEBIT"
+                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                        value="{{ CASH_DEBIT != null ?CASH_DEBIT.toFixed(2) : 0.00}}" disabled/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">Transfer</div>
+                                        <div class="col-md-4">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="TRANSFER_CREDIT" class="form-control" placeholder=" "
+                                                        id="TRANSFER_CREDIT" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                        title="Input allowed only  0-9" formControlName="TRANSFER_CREDIT"
+                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                        value="{{ TRANSFER_CREDIT != null ?TRANSFER_CREDIT.toFixed(2) : 0.00}}" disabled/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="TRANSFER_DEBIT" class="form-control" placeholder=" "
+                                                        id="TRANSFER_DEBIT" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                        title="Input allowed only  0-9" formControlName="TRANSFER_DEBIT"
+                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                        value="{{ TRANSFER_DEBIT != null ?TRANSFER_DEBIT.toFixed(2) : 0.00}}" disabled/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                
+                                    <div class="row">
+                                        <div class="col-md-4">Total</div>
+                                        <div class="col-md-4">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+            
+                                                    <input type="text" name="TOTAL_CREDIT" class="form-control" placeholder=" "
+                                                        id="TOTAL_CREDIT" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                        title="Input allowed only  0-9" formControlName="TOTAL_CREDIT"
+                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                        value="{{ TOTAL_CREDIT != null ?TOTAL_CREDIT.toFixed(2) : 0.00}}" disabled/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="TOTAL_DEBIT" class="form-control" placeholder=" "
+                                                        id="TOTAL_DEBIT" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                        title="Input allowed only  0-9" formControlName="TOTAL_DEBIT"
+                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                        value="{{ TOTAL_DEBIT != null ?TOTAL_DEBIT.toFixed(2) : 0.00}}" disabled />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                              
+
+                                
+                                    <div class="row">
+                                        <div class="col-md-4">Cash Opening Balance</div>
+                                        <div class="col-md-4">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="CASH_OPENING" class="form-control" placeholder=" "
+                                                        id="CASH_OPENING" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                        title="Input allowed only  0-9" formControlName="CASH_OPENING"
+                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                        value="{{ CASH_OPENING != null ?CASH_OPENING.toFixed(2) : 0.00}}" disabled/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="" class="form-control" placeholder=" "
+                                                        id="" 
+                                                        title="Input allowed only  0-9" formControlName=""
+                                                       disabled />
+                                                </span>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">Cash Closing Balance</div>
+                                        <div class="col-md-4">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="" class="form-control" placeholder=" "
+                                                        id="" 
+                                                        title="Input allowed only  0-9" formControlName=""
+                                                       disabled />
+                                                </span>
+                                            </div> 
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="CASH_CLOSING" class="form-control" placeholder=" "
+                                                        id="CASH_CLOSING" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                        title="Input allowed only  0-9" formControlName="CASH_CLOSING"
+                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                        value="{{ CASH_CLOSING != null ?CASH_CLOSING.toFixed(2) : 0.00}}" disabled />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">Total</div>
+                                        <div class="col-md-4">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                
+                                                    <input type="text" name="TOTAL_CREDIT" class="form-control" placeholder=" "
+                                                        id="TOTAL_CREDIT" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                        title="Input allowed only  0-9" formControlName="TOTAL_CREDIT"
+                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                        value="{{ TOTAL_CREDIT != null ?TOTAL_CREDIT.toFixed(2) : 0.00}}" disabled/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="TOTAL_DEBIT" class="form-control" placeholder=" "
+                                                        id="TOTAL_DEBIT" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                        title="Input allowed only  0-9" formControlName="TOTAL_DEBIT"
+                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                        value="{{ TOTAL_DEBIT != null ?TOTAL_DEBIT.toFixed(2) : 0.00}}" disabled />
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6"> 
+                            <div class="solid">
+                     <!-- Start of Tab forms -->
+                     <div class="row">
+                        <div class="col-12">
+                            <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
+                                <!-- Start of Liquidity Tab forms -->
+                                <ngb-tab title="Liquidity">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <div class="card border-primary">
+                                                <div class="card-block highlight ">
+                                                    <div class="row">
+                                                        <div class="col-md-4"><label for="NDTL_AMT">NDTL Amount</label>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="NDTL_AMT" class="form-control" placeholder=" "
+                                                                    id="NDTL_AMT" pattern="\d{1,20}(\.\d{2})?" 
+                                                                    title="Input allowed only  0-9" formControlName="NDTL_AMT"
+                                                                    style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                    value="{{ NDTL_AMT != null ?NDTL_AMT.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label for="CASH_RESERV">Cash Reserved</label>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label for="LIQUID_ASSET">Liquid Assets</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="CASH_RESERV" class="form-control" placeholder=" "
+                                                                    id="CASH_RESERV" pattern="\d{1,20}(\.\d{2})?" 
+                                                                    title="Input allowed only  0-9" formControlName="CASH_RESERV"
+                                                                    style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                    value="{{ CASH_RESERV != null ?CASH_RESERV.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="LIQUID_ASSET" class="form-control" placeholder=" "
+                                                                    id="LIQUID_ASSET" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                    title="Input allowed only  0-9" formControlName="LIQUID_ASSET"
+                                                                    style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                    value="{{ LIQUID_ASSET != null ?LIQUID_ASSET.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                      
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Required</div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                
+                                                                    <input type="text" name="CASH_RESERV_a" class="form-control" placeholder=" "
+                                                                        id="CASH_RESERV_a" pattern="\d{1,20}(\.\d{2})?" maxlength="6" 
+                                                                        title="Input allowed only  0-9" formControlName="CASH_RESERV_a"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ CASH_RESERV_a != null ?CASH_RESERV_a.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="LIQUID_ASSET_a" class="form-control" placeholder=" "
+                                                                        id="LIQUID_ASSET_a" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="LIQUID_ASSET_a"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ LIQUID_ASSET_a != null ?LIQUID_ASSET_a.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Maintained</div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                
+                                                                    <input type="text" name="CASH_RESERV_b" class="form-control" placeholder=" "
+                                                                        id="CASH_RESERV_b" pattern="\d{1,20}(\.\d{2})?" maxlength="6" 
+                                                                        title="Input allowed only  0-9" formControlName="CASH_RESERV_b"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ CASH_RESERV_b != null ?CASH_RESERV_b.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="LIQUID_ASSET_b" class="form-control" placeholder=" "
+                                                                        id="LIQUID_ASSET_b" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="LIQUID_ASSET_b"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ LIQUID_ASSET_b != null ?LIQUID_ASSET_b.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Surplus/Deflict</div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                
+                                                                    <input type="text" name="CASH_RESERV_c" class="form-control" placeholder=" "
+                                                                        id="CASH_RESERV_c" pattern="\d{1,20}(\.\d{2})?" maxlength="6" 
+                                                                        title="Input allowed only  0-9" formControlName="CASH_RESERV_c"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ CASH_RESERV_c != null ?CASH_RESERV_c.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="LIQUID_ASSET_c" class="form-control" placeholder=" "
+                                                                        id="LIQUID_ASSET_c" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="LIQUID_ASSET_c"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ LIQUID_ASSET_c != null ?LIQUID_ASSET_c.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Liquidity Ratio</div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                
+                                                                    <input type="text" name="Liquidity_ratio" class="form-control" placeholder=" "
+                                                                        id="Liquidity_ratio" pattern="\d{1,20}(\.\d{2})?" maxlength="6" 
+                                                                        title="Input allowed only  0-9" formControlName="Liquidity_ratio"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ Liquidity_ratio != null ?Liquidity_ratio.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <!-- End of Liquidity Tab forms -->
+                                <!-- Start of Denomination Tab forms -->
+                                <ngb-tab title="Denomination" id="Denomination">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <div class="card border-primary">
+                                                <div class="card-block highlight ">
+                                                    <div class="row">
+                                                     <table>
+                                                         <tr>
+                                                             <td>2000</td>
+                                                             <td>*</td>
+                                                             <td>0</td>
+                                                             <td>=</td>
+                                                             <td>{{value}}</td>
+                                                         </tr>
+                                                         <tr>
+                                                            <td>1000</td>
+                                                            <td>*</td>
+                                                             <td>0</td>
+                                                             <td>=</td>
+                                                             <td>{{value}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>500</td>
+                                                            <td>*</td>
+                                                             <td>0</td>
+                                                             <td>=</td>
+                                                             <td>{{value}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>200</td>
+                                                            <td>*</td>
+                                                             <td>0</td>
+                                                             <td>=</td>
+                                                             <td>{{value}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>100</td>
+                                                            <td>*</td>
+                                                             <td>0</td>
+                                                             <td>=</td>
+                                                             <td>{{value}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>50</td>
+                                                            <td>*</td>
+                                                            <td>0</td>
+                                                            <td>=</td>
+                                                            <td>{{value}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>20</td>
+                                                            <td>*</td>
+                                                             <td>0</td>
+                                                             <td>=</td>
+                                                             <td>{{value}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>10</td>
+                                                            <td>*</td>
+                                                             <td>0</td>
+                                                             <td>=</td>
+                                                             <td>{{value}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>5</td>
+                                                            <td>*</td>
+                                                             <td>0</td>
+                                                             <td>=</td>
+                                                             <td>{{value}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>*</td>
+                                                            <td>0</td>
+                                                            <td>=</td>
+                                                            <td>{{value}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>*</td>
+                                                             <td>0</td>
+                                                             <td>=</td>
+                                                             <td>{{value}}</td>
+                                                        </tr>
+                                                     </table>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <!-- End of Denomination Tab forms -->
+                                <!-- Start of GLPosition Tab forms -->
+                                <ngb-tab title="GL Positions" id="GLPosition">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <div class="card border-primary">
+                                                <div class="card-block highlight ">
+                                                    <div class="row">
+                                                        <div class="col-md-4">Deposits</div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                            
+                                                                    <input type="text" name="DepositeDr" class="form-control" placeholder=" "
+                                                                        id="DepositeDr" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="DepositeDr"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ DepositeDr != null ?DepositeDr.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="Depositeper" class="form-control" placeholder=" "
+                                                                        id="Depositeper" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="Depositeper"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ Depositeper != null ?Depositeper.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Rajrambapu Bank OD</div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                            
+                                                                    <input type="text" name="BankOD" class="form-control" placeholder=" "
+                                                                        id="BankOD" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="BankOD"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ BankOD != null ?BankOD.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="BankODper" class="form-control" placeholder=" "
+                                                                        id="BankODper" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="BankODper"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ BankODper != null ?BankODper.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Ashta People Bank Current</div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                            
+                                                                    <input type="text" name="Bankcurrentdr" class="form-control" placeholder=" "
+                                                                        id="Bankcurrentdr" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="Bankcurrentdr"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ Bankcurrentdr != null ?Bankcurrentdr.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="Bankcurrentper" class="form-control" placeholder=" "
+                                                                        id="Bankcurrentper" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="Bankcurrentper"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ Bankcurrentper != null ?Bankcurrentper.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">ICICI Bank Current </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                            
+                                                                    <input type="text" name="bankcdr" class="form-control" placeholder=" "
+                                                                        id="bankcdr" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="bankcdr"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="bankcper" class="form-control" placeholder=" "
+                                                                        id="bankcper" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="bankcper"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ bankcper != null ?bankcper.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Rajarambapu Bank Current</div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                            
+                                                                    <input type="text" name="bankcdr" class="form-control" placeholder=" "
+                                                                        id="bankcdr" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="bankcdr"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="TOTAL_DEBIT" class="form-control" placeholder=" "
+                                                                        id="TOTAL_DEBIT" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="TOTAL_DEBIT"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ TOTAL_DEBIT != null ?TOTAL_DEBIT.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Investment</div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                            
+                                                                    <input type="text" name="bankcdr" class="form-control" placeholder=" "
+                                                                        id="bankcdr" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="bankcdr"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="bankcdr" class="form-control" placeholder=" "
+                                                                        id="bankcdr" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="bankcdr"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4">Loans</div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                            
+                                                                    <input type="text" name="bankcdr" class="form-control" placeholder=" "
+                                                                        id="bankcdr" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="bankcdr"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="bankcdr" class="form-control" placeholder=" "
+                                                                        id="bankcdr" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="bankcdr"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-4">
+                                                            <label>CD Ratio</label>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="bankcdr" class="form-control" placeholder=" "
+                                                                        id="bankcdr" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="bankcdr"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-4">
+                                                            <label>Net Profit</label>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="bankcdr" class="form-control" placeholder=" "
+                                                                        id="bankcdr" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="bankcdr"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-4"></div>
+                                                        <div class="col-md-4">
+                                                            <label>Working Capital	</label>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
+                                                                    <input type="text" name="bankcdr" class="form-control" placeholder=" "
+                                                                        id="bankcdr" pattern="\d{1,20}(\.\d{2})?" maxlength="6"
+                                                                        title="Input allowed only  0-9" formControlName="bankcdr"
+                                                                        style="text-align: right;" (focusout)="decimalAllContent($event)"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        value="{{ bankcdr != null ?bankcdr.toFixed(2) : 0.00}}" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                      
+                            </ngb-tabset>
+                        </div>
+                    </div>
+                    <!-- End of Tab forms -->
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="solid">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label style="font-size:15px">Pending Details</label>
+                            </div>
+                        
+                            
+                                    <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="allpdetails"
+                                    (click)="AllPendingDetails()">All</button>
+                               
+                                    <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="dayscrollpd"
+                                    (click)="CashPendingDetails()">Cash</button>
+                               
+                                    <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="rejectpd"
+                                    (click)="TransferPendingDetails()">Transfer</button>
+                                
+                                    <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="transferpd"
+                                    (click)="RejectedPendingDetails()">Rejected</button>
+                                
+                                    <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="cashpd"
+                                    (click)="DayScrollPendingDetails()">Day
+                                    Scroll</button>
+                           
+
+                        </div>
+                        <div *ngIf="showAllPendingDetails">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover compact">
+                                            <thead>
+
+                                                <td class="td_right">Record no</td>
+                                                <td class="td_center">Time</td>
+                                                <td class="td_left">Type</td>
+                                                <td class="td_right">Scheme</td>
+                                                <td class="td_right">Account no</td>
+                                                <td class="td_left">Name</td>
+                                                <td class="td_right">Amount</td>
+                                                <td>DR/CR</td>
+                                                <td>Bank</td>
+                                                <td class="td_left">Narration</td>
+                                                <td class="td_right">Token no</td>
+                                                <td class="td_left">User</td>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="td_right">3</td>
+                                                    <td class="td_right">04.00</td>
+                                                    <td class="td_left">Cash</td>
+                                                    <td class="td_right">10100</td>
+                                                    <td class="td_right">3459</td>
+                                                    <td>Shinde Ashok Pandurang</td>
+                                                    <td class="td_right">1000</td>
+                                                    <td class="td_left">Credit</td>
+                                                    <td></td>
+                                                    <td class="td_left">By Cash</td>
+                                                    <td></td>
+                                                    <td class="td_left">MBP</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_right">7</td>
+                                                    <td class="td_right">05.00</td>
+                                                    <td class="td_left">Transfer</td>
+                                                    <td class="td_right">20100</td>
+                                                    <td class="td_right">5871</td>
+                                                    <td class="td_left">Kale Ranjit Digamber</td>
+                                                    <td class="td_right">2000</td>
+                                                    <td class="td_left">Debit</td>
+                                                    <td></td>
+                                                    <td class="td_left">To Transfer</td>
+                                                    <td class="td_right">568</td>
+                                                    <td class="td_left">CCP</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="showDayScrollPendingDetails">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover compact">
+                                            <thead>
+
+                                                <td class="td_right">Record no</td>
+                                                <td class="td_center">Time</td>
+                                                <td class="td_left">Type</td>
+                                                <td class="td_right">Scheme</td>
+                                                <td class="td_right">Account no</td>
+                                                <td class="td_left">Name</td>
+                                                <td class="td_right">Amount</td>
+                                                <td>DR/CR</td>
+                                                <td>Bank</td>
+                                                <td class="td_left">Narration</td>
+                                                <td class="td_right">Token no</td>
+                                                <td class="td_left">User</td>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="td_right">1</td>
+                                                    <td class="td_right">01:00:00</td>
+                                                    <td class="td_left">Cash</td>
+                                                    <td class="td_right">10100</td>
+                                                    <td class="td_right">587</td>
+                                                    <td>Shinde Ashok Pandurang</td>
+                                                    <td class="td_right">1000</td>
+                                                    <td class="td_left">Credit</td>
+                                                    <td></td>
+                                                    <td class="td_left">By Cash</td>
+                                                    <td></td>
+                                                    <td class="td_left">MBP</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_right">2</td>
+                                                    <td class="td_right">05:18:00</td>
+                                                    <td class="td_left">Cash</td>
+                                                    <td class="td_right">10100</td>
+                                                    <td class="td_right">541</td>
+                                                    <td class="td_left">Kale Ranjit Digamber</td>
+                                                    <td class="td_right">2000</td>
+                                                    <td class="td_left">Debit</td>
+                                                    <td></td>
+                                                    <td class="td_left">To Transfer</td>
+                                                    <td class="td_right">568</td>
+                                                    <td class="td_left">CCP</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="showRejectedPendingDetails">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover compact">
+                                            <thead>
+
+                                                <td class="td_right">Record no</td>
+                                                <td class="td_center">Time</td>
+                                                <td class="td_left">Type</td>
+                                                <td class="td_right">Scheme</td>
+                                                <td class="td_right">Account no</td>
+                                                <td class="td_left">Name</td>
+                                                <td class="td_right">Amount</td>
+                                                <td>DR/CR</td>
+                                                <td>Bank</td>
+                                                <td class="td_left">Narration</td>
+                                                <td class="td_right">Token no</td>
+                                                <td class="td_left">User</td>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="td_right">1</td>
+                                                    <td class="td_right">01:00:00</td>
+                                                    <td class="td_left">Cash</td>
+                                                    <td class="td_right">10100</td>
+                                                    <td class="td_right">587</td>
+                                                    <td>Shinde Ashok Pandurang</td>
+                                                    <td class="td_right">1000</td>
+                                                    <td class="td_left">Credit</td>
+                                                    <td></td>
+                                                    <td class="td_left">By Cash</td>
+                                                    <td></td>
+                                                    <td class="td_left">MBP</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_right">2</td>
+                                                    <td class="td_right">05:18:00</td>
+                                                    <td class="td_left">Cash</td>
+                                                    <td class="td_right">10100</td>
+                                                    <td class="td_right">541</td>
+                                                    <td class="td_left">Kale Ranjit Digamber</td>
+                                                    <td class="td_right">2000</td>
+                                                    <td class="td_left">Debit</td>
+                                                    <td></td>
+                                                    <td class="td_left">To Transfer</td>
+                                                    <td class="td_right">568</td>
+                                                    <td class="td_left">CCP</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="showTransferPendingDetails">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover compact">
+                                            <thead>
+
+                                                <td class="td_right">Record no</td>
+                                                <td class="td_center">Time</td>
+                                                <td class="td_left">Type</td>
+                                                <td class="td_right">Scheme</td>
+                                                <td class="td_right">Account no</td>
+                                                <td class="td_left">Name</td>
+                                                <td class="td_right">Amount</td>
+                                                <td>DR/CR</td>
+                                                <td>Bank</td>
+                                                <td class="td_left">Narration</td>
+                                                <td class="td_right">Token no</td>
+                                                <td class="td_left">User</td>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="td_right">1</td>
+                                                    <td class="td_right">01:00:00</td>
+                                                    <td class="td_left">Cash</td>
+                                                    <td class="td_right">10100</td>
+                                                    <td class="td_right">587</td>
+                                                    <td>Shinde Ashok Pandurang</td>
+                                                    <td class="td_right">1000</td>
+                                                    <td class="td_left">Credit</td>
+                                                    <td></td>
+                                                    <td class="td_left">By Cash</td>
+                                                    <td></td>
+                                                    <td class="td_left">MBP</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_right">2</td>
+                                                    <td class="td_right">05:18:00</td>
+                                                    <td class="td_left">Cash</td>
+                                                    <td class="td_right">10100</td>
+                                                    <td class="td_right">541</td>
+                                                    <td class="td_left">Kale Ranjit Digamber</td>
+                                                    <td class="td_right">2000</td>
+                                                    <td class="td_left">Debit</td>
+                                                    <td></td>
+                                                    <td class="td_left">To Transfer</td>
+                                                    <td class="td_right">568</td>
+                                                    <td class="td_left">CCP</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="showCashPendingDetails">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover compact">
+                                            <thead>
+
+                                                <td class="td_right">Record no</td>
+                                                <td class="td_center">Time</td>
+                                                <td class="td_left">Type</td>
+                                                <td class="td_right">Scheme</td>
+                                                <td class="td_right">Account no</td>
+                                                <td class="td_left">Name</td>
+                                                <td class="td_right">Amount</td>
+                                                <td>DR/CR</td>
+                                                <td>Bank</td>
+                                                <td class="td_left">Narration</td>
+                                                <td class="td_right">Token no</td>
+                                                <td class="td_left">User</td>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="td_right">1</td>
+                                                    <td class="td_right">01:00:00</td>
+                                                    <td class="td_left">Cash</td>
+                                                    <td class="td_right">10100</td>
+                                                    <td class="td_right">587</td>
+                                                    <td>Shinde Ashok Pandurang</td>
+                                                    <td class="td_right">1000</td>
+                                                    <td class="td_left">Credit</td>
+                                                    <td></td>
+                                                    <td class="td_left">By Cash</td>
+                                                    <td></td>
+                                                    <td class="td_left">MBP</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_right">2</td>
+                                                    <td class="td_right">05:18:00</td>
+                                                    <td class="td_left">Cash</td>
+                                                    <td class="td_right">10100</td>
+                                                    <td class="td_right">541</td>
+                                                    <td class="td_left">Kale Ranjit Digamber</td>
+                                                    <td class="td_right">2000</td>
+                                                    <td class="td_left">Debit</td>
+                                                    <td></td>
+                                                    <td class="td_left">To Transfer</td>
+                                                    <td class="td_right">568</td>
+                                                    <td class="td_left">CCP</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Start of Tab forms -->
+                    <div class="row">
+                        <div class="col-12">
+                            <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
+                                <!-- Start of Positions Tab forms -->
+                                <ngb-tab title="Positions">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <div class="card border-primary">
+                                                <div class="card-block highlight ">
+                                                    <div class="row">
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">User's Work</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Users Login</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">User's Cash</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Delay Works</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Scheme Log</button>
+                                                        <button type="button" class="btn btn-outline-primary btn-sm">GL
+                                                            Pos. Detail</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Nearest Secu</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Incompletion</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <!-- End of Positions Tab forms -->
+                                <!-- Start of Analysis Tab forms -->
+                                <ngb-tab title="Analysis" id="analysis">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <div class="card border-primary">
+                                                <div class="card-block highlight ">
+                                                    <div class="row">
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Rate of
+                                                            Margin</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Loan
+                                                            Analysis</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Ratio
+                                                            Analysis</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Daily
+                                                            Liquidity</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Remind Me !</button>
+                                                        <button type="button" class="btn btn-outline-primary btn-sm">NPA
+                                                            Analysis</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <!-- End of Analysis Tab forms -->
+                                <!-- Start of Dues/Matured Tab forms -->
+                                <ngb-tab title="Dues/Matured" id="Dues">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <div class="card border-primary">
+                                                <div class="card-block highlight ">
+                                                    <div class="row">
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Overdue</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Matured
+                                                            TD/LN</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Insurance
+                                                            Due</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Expenses</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Excess Cash</button>
+                                                        <button type="button" class="btn btn-outline-primary btn-sm">FD
+                                                            Payment</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <!-- End of Dues/Matured Tab forms -->
+                                <!-- Start of Balance Tab forms -->
+                                <ngb-tab title="Balance" id="Balance">
+                                    <ng-template ngbTabContent>
+                                        <div [@fadeInOutTranslate] class="m-t-15">
+                                            <div class="card border-primary">
+                                                <div class="card-block highlight ">
+                                                    <div class="row">
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Dr.Balances</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Cr.Balances</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Zero
+                                                            Balance</button>
+                                                        <button type="button" class="btn btn-outline-primary btn-sm">CC
+                                                            Overdraft</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Overdraft(OD)</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Consistency</button>
+                                                        <button type="button"
+                                                            class="btn btn-outline-primary btn-sm">Hight
+                                                            Rec Pay</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <!-- End of Balance Tab forms -->
+                            </ngb-tabset>
+                        </div>
+                    </div>
+                    <!-- End of Tab forms -->
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

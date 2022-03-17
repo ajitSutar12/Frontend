@@ -164,7 +164,7 @@
                         </div>
                     </div>
                     <div class="row" id="FORMA" *ngIf="isTransfer">
-                        <h6>Transfer Details:</h6>
+                        <h6 class="col-sm-12">Transfer Details:</h6>
                         <div class="col-sm-12">
                             <div class="row">
                                 <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Transfer Scheme Code<sub
@@ -295,57 +295,60 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-md"><label for="ITEM_CODE">Item Code<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <ng-select id="ITEM_CODE" [items]="itemcode" [(ngModel)]="ngItem"
-                                        bindLabel="ITEM_NAME" formControlName="ITEM_CODE"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Code">
-                                    </ng-select>
-                                    <label for="ITEM_CODE">Item Code<sub class="required">*
-                                        </sub></label>
+                                    bindLabel="ITEM_NAME" formControlName="ITEM_CODE"
+                                    [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Code">
+                                    <ng-option *ngFor="let values of itemCode" [value]="values">
+                                        {{values.ITEM_NAME}}</ng-option>
+                                </ng-select>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-md"><label for="Quantity">Quantity<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" class="form-control" name="Quantity"
                                         id="Quantity" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="Quantity">
-                                    <label for="Quantity">Quantity<sub class="required">*
-                                        </sub></label>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-md"><label for="Rate">Rate<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" class="form-control" name="Rate"
-                                        id="Rate" formControlName="Rate"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                    <label for="Rate">Rate<sub class="required">*
-                                        </sub></label>
+                                    id="Rate" formControlName="Rate"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-md"><label for="amount">Amount<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" class="form-control" name="amount"
                                         id="amount" formControlName="amount"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                    <label for="amount">Amount<sub class="required">*
-                                        </sub></label>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm" style="float: right;">
+                        <div class="col-md" style="float: right;">
                             <button type="submit" class="btn btn-outline-primary btn-sm" (click)="addItem()">
                                 Add Item
                             </button>
                         </div>
                     </div>
+                    
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="col-12">
@@ -353,12 +356,10 @@
                                     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                                         class="table table-striped table-bordered table-hover compact">
                                         <thead>
-                                            <td>Item</td>
-                                            <td>Quantity</td>
-                                            <td>Rate</td>
-                                            <!-- <td>CGST</td>
-                                            <td>SCGST</td> -->
-                                            <td>Amount</td>
+                                            <td class="td_right">Item</td>
+                                            <td class="td_right">Quantity</td>
+                                            <td class="td_right">Rate</td>
+                                            <td class="td_right">Amount</td>
                                         </thead>
                                         <tbody *ngIf="itemArr?.length != 0">
                                             <tr *ngFor="let data of itemArr;">
@@ -426,6 +427,13 @@
                                     </table>
                                 </div>
                             </div>
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-sm">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" (click)="submit()">
+                                Submit
+                            </button>
                         </div>
                     </div>
                     <div class="row">

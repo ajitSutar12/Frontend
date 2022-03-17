@@ -336,7 +336,7 @@ const MENUITEMS = [
               {
                 state: 'moratoriumperiodmaster',
                 name: 'Moratorium Period Master',
-                id: 186
+                id: 187
               }
             ]
 
@@ -853,6 +853,12 @@ const MENUITEMS = [
             state: 'otherView',
             name: 'Other View',
             id: 128
+          },
+          {
+            state: 'managerView',
+            name: 'Manager View',
+            id: 188
+           
           },
         ],
 

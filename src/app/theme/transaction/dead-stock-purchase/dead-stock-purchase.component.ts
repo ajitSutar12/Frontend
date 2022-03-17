@@ -71,6 +71,12 @@ export class DeadStockPurchaseComponent implements OnInit {
   ngItem: any = null
   totalAmt: number = 0
   // systemParameter: any;
+  itemCode
+
+  showbtn: boolean;
+  updateshowbtn: boolean;
+  editbutton: boolean;
+
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
@@ -184,6 +190,7 @@ export class DeadStockPurchaseComponent implements OnInit {
 
   //add items details in array
   addItem() {
+    debugger
     const formVal = this.angForm.value;
     let object = {
       id: formVal.ITEM_CODE.id,
@@ -194,14 +201,24 @@ export class DeadStockPurchaseComponent implements OnInit {
       Rate: formVal.Rate,
       Amount: formVal.amount,
     }
-    if (this.itemArr.length != 0) {
-      if (this.itemArr.some(item => item.id === object.id)) {
-        this.itemArr.forEach((element) => {
-          if (element.id == object.id) {
-            Swal.fire('', 'This Item is Already Exists!', 'info');
-          }
-        })
+
+     if (formVal.ITEM_CODE == "" || formVal.ITEM_CODE == null) {
+        Swal.fire("Warning!", "Please Insert Mandatory Record for item!", "info");
+      } else if (formVal.Quantity == "" || formVal.Quantity == null) {
+        Swal.fire("Warning!", "Please Insert Mandatory Record for Quantity!", "info");
+      } else if (formVal.Rate == "" || formVal.Rate == null) {
+        Swal.fire("Warning!", "Please Insert Mandatory Record for Rate!", "info");
+      } else if (formVal.amount == "" || formVal.amount == null) {
+        Swal.fire("Warning!", "Please Insert Mandatory Record for Amount", "info");
       }
+       else if (this.itemArr.length != 0) {
+        if (this.itemArr.some(item => item.id === object.id)) {
+          this.itemArr.forEach((element) => {
+            if (element.id == object.id) {
+              Swal.fire('', 'This Item is Already Exists!', 'info');
+            }
+          })
+        }
       else {
         this.itemArr.push(object)
         // this.totalAmt = this.totalAmt + parseInt(object.Amount)
@@ -222,6 +239,7 @@ export class DeadStockPurchaseComponent implements OnInit {
 
   //reset table controls
   resetItem() {
+   
     this.angForm.patchValue({
       amount: '',
       Rate: '',

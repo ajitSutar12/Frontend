@@ -38,6 +38,7 @@ export class SharesLedgerViewComponent implements OnInit {
   fromdate:any=null
   maxDate: any;
   minDate: any;
+  bsValue = new Date();
 
   
 
@@ -51,7 +52,7 @@ export class SharesLedgerViewComponent implements OnInit {
     ) {
       this.maxDate = new Date();
       this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
+      this.minDate.setDate(this.minDate.getDate());
       this.maxDate.setDate(this.maxDate.getDate())
      }
 
@@ -114,41 +115,28 @@ export class SharesLedgerViewComponent implements OnInit {
       console.log(this.angForm.value);
     }
   }
+
+  counter = 0;
   
 
+  // checking date 
+  checkDate(event){
 
-  // Camparing frm date and to date
-  checkdate(event){
-    let value1
-    let value2
-    value1 = moment(this.fromdate).format('DD/MM/YYYY');
-    console.log(value1)
-    value2 = moment(this.todate).format('DD/MM/YYYY');
-    console.log(value2)
-    if(this.fromdate== null || this.todate== null){
-
-    }else{
-      if(moment(value2).isAfter(value1)){
-
-      }
-      else if(moment(value1)===moment(value2)){
-        Swal.fire("To date should be after from date");
-        // this.fromdate=null
-        // this.todate=null
-        this.angForm.controls['FROM_DATE'].reset()
-        this.angForm.controls['TO_DATE'].reset()
-      }
-      else{
-        Swal.fire("To date should be after from date");
-        // this.fromdate=null
-        // this.todate=null
-        this.angForm.controls['FROM_DATE'].reset()
+    this.counter = this.counter+1;
+    if(this.counter>2 && event.length!=0){
+        let value1
+      let value2
+      value1 = moment(this.fromdate).format('DD/MM/YYYY');
+      // console.log(value1)
+      value2 = moment(this.todate).format('DD/MM/YYYY');
+      // console.log(value2)
+      if(moment(value1).isSame(value2)){
+        Swal.fire("from date should not be same as to date")
         this.angForm.controls['TO_DATE'].reset()
       }
     }
+    
   }
   
-  
-
 
 }

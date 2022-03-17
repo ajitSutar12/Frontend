@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { DataTableDirective } from 'angular-datatables';
+import * as moment from 'moment';
+import { reset } from 'mousetrap';
 import { Subject } from 'rxjs-compat';
 import { first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -55,8 +57,11 @@ export class ReconciliationEntryComponent implements OnInit {
 
   // date variables
   fromdate: any = null
+
   minDate: Date;
   maxDate: Date;
+  bsValue = new Date();
+  bsRangeValue: Date[];
   showButton: boolean = true;
   updateShow: boolean;
   newbtnShow: boolean;
@@ -74,7 +79,8 @@ export class ReconciliationEntryComponent implements OnInit {
   branch_code
   ngBranchCode: any = null
   showTable: boolean = false
-  
+ 
+
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private reconciliation: ReconciliationEntryService,
@@ -82,10 +88,13 @@ export class ReconciliationEntryComponent implements OnInit {
     private config: NgSelectConfig,
     private ownbranchMasterService: OwnbranchMasterService,
   ) {
+    debugger
+    
     this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate())
+
   }
   ngOnInit(): void {
     this.dtOptions = {
@@ -186,7 +195,7 @@ export class ReconciliationEntryComponent implements OnInit {
 
         this.entryArr.push(obj)
         this.showTable = true
-        
+
       });
     })
   }
@@ -247,6 +256,7 @@ export class ReconciliationEntryComponent implements OnInit {
   }
   // Method to insert data into database through NestJS
   submit(event) {
+    debugger
     event.preventDefault();
     this.formSubmitted = true;
     if (this.entryArr.length != 0) {
@@ -275,6 +285,8 @@ export class ReconciliationEntryComponent implements OnInit {
     this.createForm()
     this.ngBranchCode = null
     this.glaccount = null
+    this.angForm.controls['FROM_DATE'].reset()
+    this.angForm.controls['TO_DATE'].reset()
   }
   addNewData() {
     this.showButton = true;
@@ -289,5 +301,41 @@ export class ReconciliationEntryComponent implements OnInit {
     this.dtTrigger.unsubscribe();
   }
 
+//   counter = 0;
+//   // Camparing frm date and to date
+//   checkdate(event) {
+//     // this.maxDate = new Date();
+//     // this.minDate = new Date();
+//     // this.minDate.setDate(this.minDate.getDate()+1);
+//     // this.maxDate.setDate(this.maxDate.getDate())
 
+//     this.counter = this.counter+1;
+//     if(this.counter>2 && event.length!=0){
+
+//    if(moment(this.todate).isSame(this.fromdate)){
+//      Swal.fire("To date should be after from date");
+//      this.angForm.controls['TO_DATE'].reset()
+//    }
+
+//     }
+// }
+  // checking date 
+  counter = 0;
+  checkDate(event){
+
+    this.counter = this.counter+1;
+    if(this.counter>2 && event.length!=0){
+      let value1
+    let value2
+    value1 = moment(this.fromdate).format('DD/MM/YYYY');
+    // console.log(value1)
+    value2 = moment(this.todate).format('DD/MM/YYYY');
+    // console.log(value2)
+    if(moment(value1).isSame(value2)){
+      Swal.fire("from date should not be same as to date")
+      this.angForm.controls['TO_DATE'].reset()
+    }
+    }
+    
+  }
 }
