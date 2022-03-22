@@ -195,16 +195,16 @@ export class CashCreditAcRenewalComponent implements OnInit {
   }
 
   getBranch() {
-    this.getIntroducer()
+    this.getAccountNumber()
   }
   schemechange(event) {
     this.getschemename = event.name
     this.ngscheme = event.value
-    this.getIntroducer()
+    this.getAccountNumber()
   }
 
   //get account no according scheme
-  getIntroducer() {
+  getAccountNumber() {
     let obj = [this.ngscheme, this.getschemename, this.ngBranchCode]
     this.http.get(this.url + '/cash-credit-ac-renewal/accounts/' + obj).subscribe((data) => {
       console.log(data)

@@ -2,12 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import Swal from 'sweetalert2';
-import { Scheme14Service } from '../../../shared/elements/scheme14.service';
-import { Scheme15Service } from '../../../shared/elements/scheme15.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { OtherChargesGLAccountService } from '../../../shared/elements/OtherChargesGLAccount.service';
-import { NarrationService } from '../../../shared/elements/Narration.service';
 
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+
+// import { NarrationService } from '../../../shared/elements/Narration.service';
+import { HttpClient } from '@angular/common/http';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { first } from 'rxjs/operators';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { environment } from 'src/environments/environment';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import {SavingPigmyAccountClosingService} from './savings-Pigmy-Account-Closing.service';
+import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 
 
 @Component({
@@ -17,283 +25,360 @@ import { NarrationService } from '../../../shared/elements/Narration.service';
 })
 export class SavingsPigmyAccountClosingComponent implements OnInit {
 
+  formSubmitted = false;
+  //api
+  url = environment.base_url;
+
   angForm: FormGroup;
 
-  dtExportButtonOptions: any = {};
-  dtExportButtonOptions1: any = {};
-
-  simpleOption: Array<IOption> = this.Scheme14Service.getCharacters();
-  accountNo: Array<IOption> = this.Scheme15Service.getCharacters();
-  OtherChargesGLAccount: Array<IOption> = this.OtherChargesGLAccountService.getCharacters();
-  Narration: Array<IOption> = this.NarrationService.getCharacters();
   
-  selectedOption = '3';
-  isDisabled = true;
-  characters: Array<IOption>;
-  selectedCharacter = '3';
-  timeLeft = 5;
 
-  private dataSub: Subscription = null;
+  
+  
+  
 
   CashTrue = true
   TransferTrue = false
 
+  // Dropdown variables
+  branch_code: any;
+  ngbranch:any=null;
+  ngdate:any=null;
+  scheme: any[];
+  ngscheme:any=null;
+  ngacno:any=null;
+  schemeACNo: any[];
+  ngglacno:any=null;
+  selectedScheme:any=null
+  
+
+
+  multigrid = [];
   
   //variables for  add and update button
   showButton: boolean = true;
   updateShow: boolean = false;
+  dataSub: Subscription;
+  characters: IOption[];
+  sysparaData: any;
 
-  GuarantorTrue = false;
-  ATrue = false;
-
+  // for radio button
+  isTransfer: boolean = false
+  master: any;
+  selectedCode:any=null
+  allSchemeCode: any//from schme master
+  allScheme = new Array()//from schme master
+  narrationList: any;
   
+  
+  tranModeList: any;
+  particulars: any;
+  date: any;
+  totalAmt: any;
+  showChequeDetails: boolean = false;
+  DayOpBal: number;
+  headData: any;
+  headShow: boolean = false;
+  lastday: any;
+  mainMaster = new Array();
+  showAdd: boolean = true;
+  showUpdate: boolean = false;
+  customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
+  signture: string = '../../../../assets/sign/signture.jpg';
+  introducerACNo: any;
+ 
 
-  //object created to get data when row is clicked
-  message = {
-    OpeningDate: "",
-    BranchCode: "",
-    schemeCode: "",
-    Date: "",
-    AccountNo: "",
-    Voucher_Number: "",
-    DepositAmt: "",
-    maturityDate: "",
-    asOnDate: "",
-    Receipt_No: "",
-    Operation: "",
-    Months:"",
-    Days:"",
-    Interest_Rate:"",
-    LastInterestDate:"",
-    InterestRate:"",
-    Quarters:"",
-    QuartersInterest:"",
-    month:"",
-    monthInterest:"",
-    day:"",
-    dayInterest:"",
-    TotalInterest:"",
-    paid_postInterest:"",
-    netInterest:"",
-    LedgerBalance:"",
-    maturedamt:"",
-    PayableInterest:"",
-    Net_Interest:"",
-    TDS_Amount:"",
-    Sercharge_Amount:"",
-    Penal_Interest:"",
-    NetPayableAmount:"",
-    Cheque:"",
-    Narration:"",
-    RenewalDate:"",
-    OtherChargesGLAccount:"",
-    TokenNo:"",
-    OtherChargesAmount:"",
-    SchemeCode:"",
-    AccountNumber:"",
-    HOSubGL:"",
-    Amount:"",
-    AccountName:"",
-    Cheque1:"",
-    
-  };
-
-  constructor(public NarrationService: NarrationService,public OtherChargesGLAccountService: OtherChargesGLAccountService,public Scheme14Service: Scheme14Service, public Scheme15Service: Scheme15Service, private fb: FormBuilder) {this.createForm(); }
+  constructor(
+    // public NarrationService: NarrationService,
+    private fb: FormBuilder, private http: HttpClient,
+    private ownbranchMasterService: OwnbranchMasterService,
+    private config: NgSelectConfig,
+    private systemParameter: SystemMasterParametersService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private schemeAccountNoService: SchemeAccountNoService,
+    private _service1: MultiVoucherService,
+    private _service:SavingPigmyAccountClosingService
+    ) {}
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/Savingpigmyaccountclosing.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          title: 'Branch Code',
-          data: 'BranchCode'
-        }, {
-          title: 'Date',
-          data: 'Date'
-        }, {
-          title: 'Scheme Code',
-          data: 'schemeCode'
-        }, {
-          title: 'Voucher Number',
-          data: 'Voucher_Number'
-        }, {
-          title: 'Account Number',
-          data: 'AccountNumber'
-        },
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
-    this.dtExportButtonOptions1 = {
-      ajax: 'fake-data/Savingpigmyaccountclosing1.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-          title: 'Scheme Code',
-          data: 'SchemeCode'
-        }, {
-          title: 'Account Number',
-          data: 'AccountNumber'
-        }, {
-          title: 'HO Sub GL',
-          data: 'HOSubGL'
-        }, {
-          title: 'Amount',
-          data: 'Amount'
-        }, {
-          title: 'Account Name',
-          data: 'AccountName'
-        }, 
-      ],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ],
-      //row click handler code
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        $('td', row).off('click');
-        $('td', row).on('click', '#editbtn', () => {
-          self.editClickHandler(data);
-        });
-        $('td', row).on('click', '#delbtn', () => {
-          self.delClickHandler(data);
-        });
-        return row;
-      }
-    };
-    this.runTimer();
-    this.dataSub = this.Scheme14Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.runTimer();
-    this.dataSub = this.Scheme15Service.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.runTimer();
-    this.dataSub = this.OtherChargesGLAccountService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
-    this.runTimer();
-    this.dataSub = this.NarrationService.loadCharacters().subscribe((options) => {
-      this.characters = options;
-    });
+    this.createForm(); 
+    this.getSystemParaDate();
+
+    //Narration List
+    this._service.getNarrationMaster().subscribe(data => {
+      this.narrationList = data;
+    })
+    
+    // this.dataSub = this.NarrationService.loadCharacters().subscribe((options) => {
+    //   this.narrationList = options;
+    // });
+
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
+
+    this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
+     this.allSchemeCode=data;
+     console.log('data',data)
+     console.log(this.allSchemeCode);
+    })
+
+    
+        //Scheme Code
+        this._service1.getSchemeCodeList().subscribe(data => {
+          console.log(data);
+          this.master = data;
+          this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
+        })
+    
+
+
+   
+   
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
 
   createForm() {
     this.angForm = this.fb.group({
-      BranchCode: [''],
-      schemeCode: ['', [Validators.required]],
-      Date: [''],
-      AccountNo: ['',[Validators.required]],
-      Voucher_Number: [''],
-      DepositAmt: [''],
-      maturityDate: [''],
-      maturityAmt: [''],
-      asOnDate: [''],
-      Receipt_No: [''],
-      Operation: [''],
-      Months: [''],
-      Days: [''],
-      Interest_Rate: [''],
-      LastInterestDate: [''],
-      OpeningDate: [''],
-      InterestRate: [''],
-      Quarters: [''],
-      QuartersInterest: [''],
-      month: [''],
-      monthInterest: [''],
-      day: [''],
-      dayInterest: [''],
-      TotalInterest: ['',[Validators.pattern]],
-      paid_postInterest: [''],
-      netInterest: [''],
-      LedgerBalance: [''],
-      maturedamt: [''],
-      PayableInterest: [''],
-      Net_Interest: [''],
-      TDS_Amount: [''],
-      Sercharge_Amount: [''],
-      Penal_Interest: [''],
-      NetPayableAmount: [''],
-      Cheque: [''],
-      Cheque1: [''],
-      Narration: [''],
-      RenewalDate: [''],
-      OtherChargesGLAccount: [''],
-      TokenNo: [''],
-      OtherChargesAmount: ['',[Validators.pattern]],
+      BRANCH_CODE: ['',[Validators.required]],
+      DATE:['',[Validators.required]],
+      AC_TYPE:['',[Validators.required]],
+      AC_NO:['',[Validators.required]],
+      Voucher_Number:[''],
+      OP_Date:[''],
+      RENEWAL_DATE:[''],
+      INT_RATE:[''],
+      LAST_INT:[''],
+      MATURITY_DATE:[''],
+      INT_RATE2:[''],
+      LEDGER_BAL:[''],
+      MONTHS:[''],
+      INT_RATE3:['',[Validators.pattern]],
+      INT_RATE4:[''],
+      INT_RATE5:[''],
+      AMOUNT:['',[Validators.pattern]],
+      INT_RATE6:[''],
+      GL_AC:[''],
+
+      SAVING_PIGMY:[''],
+      chequeNo:['',[Validators.pattern]],
+      ChequeDate:['',[Validators.pattern]],
+      Token_Num:['',[Validators.pattern]],
+      particulars:[''],
+      scheme_type:['',],
+      scheme:[''],
+      
+
+
+
+      // 
+      
+      temp_over_draft: [''],
+      over_draft: [''],
+      token: [''], 
+      slip_no: [''],
+      Intdate:[''],
+      amount:[''],
+     
     
 
     });
   }
 
+
+  selectedSchemeCode(event){
+    this.allScheme = [];
+    this.master.forEach(element => {
+      if (element.S_ACNOTYPE == this.selectedCode) {
+        this.allScheme.push(element)
+      }
+    });
+    this.getschemename = event.name
+    this.selectedCode = event.value
+
+  }
+
+  
+
+
+  obj: any
+  getschemename: any
+  //get account no according scheme for introducer
+   //get account no according scheme for introducer
+   getIntroducer() {
+    this.introducerACNo = [];
+    this.obj = [this.selectedCode, this.ngbranch]
+    switch (this.getschemename) {
+      case 'SB':
+        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'SH':
+        this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CA':
+        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'LN':
+        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'TD':
+        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'DS':
+        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CC':
+        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'GS':
+        this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'PG':
+        this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'AG':
+        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'IV':
+        this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+    }
+  }
+
+  //get sys para current date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.sysparaData = data
+      this.angForm.patchValue({
+        'DATE': data.CURRENT_DATE,
+      })
+    })
+  }
+
+  hideImage() {
+    // document.getElementById("full").src = "";
+    this.previewImg = '';
+    this.PreviewDiv = false;
+  }
+  previewImg:string;
+  PreviewDiv : boolean = false;
+  showImage(img) {
+    var src = img;
+    console.log(src)
+    var largeSrc = src.replace('small', 'large');
+    this.previewImg = src;
+    this.PreviewDiv = true;
+    // document.getElementById('full').src = largeSrc;
+  }
+
+
   submit() {
-    console.log(this.angForm.valid);
-    if (this.angForm.valid) {
-      console.log(this.angForm.value);
+    this.formSubmitted = true;
+    const formVal = this.angForm.value;
+    var object ={
+      chequeNo: formVal.chequeNo,
+      ChequeDate: formVal.ChequeDate,
+      scheme_type: formVal.scheme_type,
+      AC_NO: formVal.AC_NO,
+      particulars: formVal.particulars,
+      amount: formVal.amount,
+    }
+    if (formVal.chequeNo == "" || formVal.chequeNo == null) {
+      Swal.fire("Warning!","Please Insert Mandatory Record for type!","error");
+    } else if (formVal.ChequeDate == "" || formVal.ChequeDate == null) {
+      Swal.fire(
+        "Warning!",
+        "Please Insert Mandatory Record for Head!",
+        "info"
+      );
+    } else if (formVal.scheme_type == "" || formVal.scheme_type == null) {
+      Swal.fire(
+        "Warning!",
+        "Please Insert Mandatory Record for Sub Head!",
+        "info"
+      );
+    } 
+    else {
+      this.multigrid.push(object);
+      console.log(this.multigrid)
+
+    }
+    // this.multigrid.push(object);
+    this.resetgrid();
+  }
+
+  resetgrid() {
+    this.angForm.controls["chequeNo"].reset();
+    this.angForm.controls["ChequeDate"].reset();
+    this.angForm.controls["scheme_type"].reset();
+    this.angForm.controls["particulars"].reset();
+    this.angForm.controls["AC_NO"].reset();
+    this.angForm.controls["amount"].reset();
+
+
+  }
+
+  //transfer and cash radio button effect
+  isFormA(value) {
+    if (value == 1) {
+      this.isTransfer=false
+    }
+    if (value == 2) {
+      this.isTransfer=true
     }
   }
 
   //function toggle update to add button
   updateData() {
-    this.showButton = true;
-    this.updateShow = false;
+    // this.showButton = true;
+    // this.updateShow = false;
   }
 
   //function for edit button clicked
   editClickHandler(info: any): void {
-    this.message.BranchCode = info.SchemeCode;
-    this.message.OtherChargesGLAccount = info.OtherChargesGLAccount;
-    this.message.TokenNo = info.TokenNo;
-    this.message.InterestRate = info.InterestRate;
-    this.message.TotalInterest = info.TotalInterest;
-    this.message.OtherChargesAmount = info.OtherChargesAmount;
-    this.message.SchemeCode = info.SchemeCode;
-    this.message.AccountNumber = info.AccountNumber;
-    this.message.HOSubGL = info.HOSubGL;
-    this.message.Amount = info.Amount;
-    this.message.AccountName = info.AccountName;
+    // this.message.BranchCode = info.SchemeCode;
+    // this.message.OtherChargesGLAccount = info.OtherChargesGLAccount;
+    // this.message.TokenNo = info.TokenNo;
+    // this.message.InterestRate = info.InterestRate;
+    // this.message.TotalInterest = info.TotalInterest;
+    // this.message.OtherChargesAmount = info.OtherChargesAmount;
+    // this.message.SchemeCode = info.SchemeCode;
+    // this.message.AccountNumber = info.AccountNumber;
+    // this.message.HOSubGL = info.HOSubGL;
+    // this.message.Amount = info.Amount;
+    // this.message.AccountName = info.AccountName;
 
     // this.showButton = false;
     // this.updateShow = true;
@@ -301,32 +386,32 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
 
   //function for delete button clicked
   delClickHandler(info: any): void {
-    this.message.BranchCode = info.title;
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete title." + this.message.BranchCode + "  data",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#229954',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
-        )
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
-        )
-      }
-    })
+    // this.message.BranchCode = info.title;
+    // Swal.fire({
+    //   title: 'Are you sure?',
+    //   text: "Do you want to delete title." + this.message.BranchCode + "  data",
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#229954',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'Yes, delete it!'
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     Swal.fire(
+    //       'Deleted!',
+    //       'Your data has been deleted.',
+    //       'success'
+    //     )
+    //   } else if (
+    //     result.dismiss === Swal.DismissReason.cancel
+    //   ) {
+    //     Swal.fire(
+    //       'Cancelled',
+    //       'Your data is safe.',
+    //       'error'
+    //     )
+    //   }
+    // })
   }
 
   OpenLink(val) {

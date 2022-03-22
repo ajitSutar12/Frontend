@@ -738,6 +738,16 @@ const MENUITEMS = [
             name: 'Reconciliation Entry',
             id: 108
           },
+          {
+            state: 'savingspigmyaccountclosing',
+            name: 'Savings-Pigmy Account Closing',
+            id: 189
+          },
+          {
+            state: 'goldsilverreturnentry',
+            name: 'Gold/Silver Return Entry',
+            id: 190
+          },
         ]
       },
       {

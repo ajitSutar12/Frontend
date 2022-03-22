@@ -16,6 +16,7 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-term-deposit-account-closing',
@@ -23,8 +24,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./term-deposit-account-closing.component.scss']
 })
 export class TermDepositAccountClosingComponent implements OnInit {
+
+  formSubmitted = false;
+  //api
+  url = environment.base_url;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
 
+  // for radio button
+  isTransfer: boolean = false
   branchCode: any = null
 
   selectedBranch: number;
@@ -129,6 +136,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   showUpdate: boolean = false;
   customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
   signture: string = '../../../../assets/sign/signture.jpg';
+
+  multigrid=[]
   constructor(public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
     public SchemeTypeService: SchemeTypeService,
@@ -158,7 +167,13 @@ export class TermDepositAccountClosingComponent implements OnInit {
       // chequeDate:[''],
       // chequeNo:[''],
       // bank: [''],
-      Intdate:['']
+      Intdate:[''],
+
+      SAVING_PIGMY:[''],
+      chequeNo:['',[Validators.pattern]],
+      ChequeDate:['',[Validators.pattern]],
+      Token_Num:['',[Validators.pattern]],
+      particulars:[''],
     })
 
         //Day opening Amount
@@ -340,6 +355,16 @@ export class TermDepositAccountClosingComponent implements OnInit {
     }
   }
 
+  //transfer and cash radio button effect
+  isFormA(value) {
+    if (value == 1) {
+      this.isTransfer=false
+    }
+    if (value == 2) {
+      this.isTransfer=true
+    }
+  }
+
 
   //get Narration Details 
   getNarration(ele) {
@@ -390,7 +415,52 @@ export class TermDepositAccountClosingComponent implements OnInit {
     },err=>{
       console.log(err);
     })
+
+    // Submit  transfer data in table
+    this.formSubmitted = true;
+    const formVal = this.angForm.value;
+    var object ={
+      chequeNo: formVal.chequeNo,
+      ChequeDate: formVal.ChequeDate,
+      scheme_type: formVal.scheme_type,
+      AC_NO: formVal.AC_NO,
+      particulars: formVal.particulars,
+      amount: formVal.amount,
+    }
+    if (formVal.chequeNo == "" || formVal.chequeNo == null) {
+      Swal.fire("Warning!","Please Insert Mandatory Record for type!","error");
+    } else if (formVal.ChequeDate == "" || formVal.ChequeDate == null) {
+      Swal.fire(
+        "Warning!",
+        "Please Insert Mandatory Record for Head!",
+        "info"
+      );
+    } else if (formVal.scheme_type == "" || formVal.scheme_type == null) {
+      Swal.fire(
+        "Warning!",
+        "Please Insert Mandatory Record for Sub Head!",
+        "info"
+      );
+    } 
+    else {
+      this.multigrid.push(object);
+      console.log(this.multigrid)
+
+    }
+    // this.multigrid.push(object);
+    this.resetgrid();
   }
+
+  resetgrid() {
+    this.angForm.controls["chequeNo"].reset();
+    this.angForm.controls["ChequeDate"].reset();
+    this.angForm.controls["scheme_type"].reset();
+    this.angForm.controls["particulars"].reset();
+    this.angForm.controls["AC_NO"].reset();
+    this.angForm.controls["amount"].reset();
+
+  }
+
 
   //get Amount Details
   getAmt(ele){

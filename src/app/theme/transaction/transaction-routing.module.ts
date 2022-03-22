@@ -89,6 +89,14 @@ const routes: Routes = [
         path: 'reconciliationEntry',
         loadChildren: () => import('./reconciliation-entry/reconciliation-entry.module').then(m => m.ReconciliationEntryModule)
       },
+      {
+        path: 'savingspigmyaccountclosing',
+        loadChildren: () => import('./savings-pigmy-account-closing/savings-Pigmy-Account-Closing.module').then(m => m.SavingsPigmyAccountClosingModule)
+      },
+      {
+        path: 'goldsilverreturnentry',
+        loadChildren: () => import('./gold-silver-return-entry/gold-silver-return-entry.module').then(m => m.GoldSilverReturnEntryModule)
+      },
     ]
   }
 ];

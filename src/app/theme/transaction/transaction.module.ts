@@ -24,6 +24,7 @@ import { TransactionRoutingModule } from './transaction-routing.module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+// import { PigmyAccountClosingComponent } from './Savings/pigmy-account-closing/pigmy-account-closing.component';
 @NgModule({
   declarations: [],
   imports: [

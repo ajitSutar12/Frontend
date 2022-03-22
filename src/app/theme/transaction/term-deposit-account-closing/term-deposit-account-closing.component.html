@@ -262,6 +262,182 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <h4>Payment Details:</h4>
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="form-radio">
+                                                    <div class="radio radio-inline">
+                                                        <label>
+                                                            <input type="radio" formControlName="SAVING_PIGMY" name="SAVING_PIGMY" value="FormT"
+                                                                id="formT" (change)="isFormA(1)">
+                                                            <i class="helper"></i>Cash
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio radio-inline">
+                                                        <label>
+                                                            <input type="radio" value="FormC" formControlName="SAVING_PIGMY" id="formC"
+                                                                name="SAVING_PIGMY" (change)="isFormA(2)">
+                                                            <i class="helper"></i>Transfer
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" id="FORMA" *ngIf="isTransfer">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-2"><label for="chequeNo">Cheque No.</label></div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="chequeNo" class="form-control"
+                                                                    placeholder=" " id="chequeNo" value=""
+                                                                    style="text-transform: capitalize;"
+                                                                    title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
+                                                                    formControlName="chequeNo">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-2"><label for="ChequeDate">Cheque Date</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
+                                                                    [maxDate]="maxDate"  formControlName="ChequeDate">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-2"><label for="Token_Num">Token Number</label>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input type="text" name="Token_Num" class="form-control"
+                                                                    placeholder=" " id="Token_Num" value=""
+                                                                    style="text-transform: capitalize;"
+                                                                    title="Input allowed only  0-9" 
+                                                                    formControlName="Token_Num">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+
+                                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Scheme Type<sub
+                                                        class="required">*</sub></label></div>
+                                                    <div class="col-sm-2">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <span class="border-lable-flt">
+                                                                <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
+                                                                    formControlName="scheme_type">
+                                                                    <ng-option *ngFor="let item of allSchemeCode"
+                                                                        [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
+                                                                </ng-select>
+                
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
+                                                                class="required">*</sub></label></div>
+                                                    <div class="col-sm-12 col-md-2">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <span class="border-lable-flt">
+                                                                <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
+                                                                    formControlName="scheme">
+                                                                    <ng-option *ngFor="let item of allScheme" [value]="item">
+                                                                        {{item.S_APPL}} {{item.S_NAME}}</ng-option>
+                                                                </ng-select>
+                
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Account No.<sub
+                                                        class="required">*</sub></label></div>
+        
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group form-primary form-static-label">
+                                                            <span class="border-lable-flt">
+                                                                <ng-select [(ngModel)]="customer" formControlName="account_no"
+                                                                    (change)="getVoucherData()">
+                                                                    <ng-option *ngFor="let item of introducerACNo" [value]="item">
+                                                                        {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
+                                                                </ng-select>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-2  "><label
+                                                        for="AC_PARTICULAR">Particulars</label></div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <textarea class="form-control" formControlName="particulars"
+                                                                    [(ngModel)]="particulars"></textarea>
+                                                                <i class="fa fa-info-circle errspan"
+                                                                    (click)="modalLarge.show()"></i>
+                                                            </span>
+                                                        </div>
+        
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2"><label for="amount">Amount<sub
+                                                        class="required">*</sub></label></div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+                                                                <input style="text-align: right;" type="text" class="form-control" name="amount"
+                                                                    id="amount" formControlName="amount"
+                                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md" style="float: right;">
+                                                        <button type="submit" class="btn btn-outline-primary btn-sm" (click)="submit()">
+                                                            Submit
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                 <!-- Multiple Transaction details data show here -->
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <table class="table table-bordered table-hover compact">
+                                                            <thead>
+                                                                <td>Action</td>
+                                                                <td>Cheque Number</td>
+                                                                <td>Cheque Date</td>
+                                                                <td>Scheme Type</td>
+                                                                <td>Account Number</td>
+                                                                <td>Particulars</td>
+                                                                <td style="text-align: right;">Amount</td>
+                                                            </thead>
+
+                                                            <tbody *ngIf="multigrid?.length != 0">
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td>{{ data.chequeNo }}</td>
+                                                                    <td>{{ data.ChequeDate }}</td>
+                                                                    <td>{{ data.scheme_type }}</td>
+                                                                    <td>{{ data.AC_NO }}</td>
+                                                                    <td>{{ data.particulars }}</td>
+                                                                    <td>{{ data.amount }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                            
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -269,6 +445,8 @@
             </div>
         </div>
     </div>
+    
+    
     <div class="col-md-3 col-sm-12 col-xm-12">
         <div class="row">
             <div class="col-md-12">

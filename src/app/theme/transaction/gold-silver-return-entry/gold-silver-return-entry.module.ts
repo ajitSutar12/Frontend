@@ -3,10 +3,8 @@ import { CommonModule } from '@angular/common';
 import {  GoldSilverReturnEntryComponent } from './gold-silver-return-entry.component';
 import {  GoldSilverReturnEntryRoutingModule } from './gold-silver-return-entry-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
-import {  StatementTypeService} from '../../../shared/elements/statement-type.service';
-import {  Scheme16Service} from '../../../shared/elements/scheme16.service';
-import {  Scheme17Service} from '../../../shared/elements/scheme17.service';
-import {SelectModule} from 'ng-select';
+// import {SelectModule} from 'ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import {DataTablesModule} from 'angular-datatables';
 import {FileUploadModule} from 'ng2-file-upload';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +13,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from '../../../user-auth.interceptor';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 @NgModule({
@@ -23,13 +25,16 @@ import { UserAuthInterceptor } from '../../../user-auth.interceptor';
     GoldSilverReturnEntryRoutingModule,
      DataTablesModule,
      FileUploadModule,
-     SelectModule,
+    //  SelectModule,
+    NgSelectModule,
      SharedModule,
-     FormsModule, ReactiveFormsModule
+     FormsModule, ReactiveFormsModule,
+     BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
 
     
   ],
-  providers:[Scheme16Service,Scheme17Service,{
+  providers:[SchemeCodeDropdownService,SchemeAccountNoService,OwnbranchMasterService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

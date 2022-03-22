@@ -1,4 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgSelectConfig } from '@ng-select/ng-select';
+import { first } from 'rxjs/operators';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-voucher-view',
@@ -6,47 +13,57 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./voucher-view.component.scss']
 })
 export class VoucherViewComponent implements OnInit {
+
+  formSubmitted = false;
+  //api
+  url = environment.base_url;
+  
+
+  // Formgroup variable
+  angForm: FormGroup;
+
   dtExportButtonOptions : any = {};
 
-  constructor() { }
+  // dropdown variables 
+  ngBranchCode:any=null
+  branch_code: any[];
+
+  ngdate:any=null
+
+  constructor(
+    private fb: FormBuilder, private http: HttpClient,
+    private config: NgSelectConfig,
+    private ownbranchMasterService: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
+  ) { }
 
   ngOnInit(): void {
-    this.dtExportButtonOptions = {
-      ajax: 'fake-data/datatable-data.json',
-      columns: [
-        {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
-          }
-        },
-        {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'copy',
-        'print',
-        'excel',
-        'csv'
-      ]
-    };
+    this.createForm()
+    this.getSystemParaDate()
+
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
+   
+    
+  }
+
+  createForm() {
+    this.angForm = this.fb.group({
+      BRANCH_CODE: ['', [Validators.required]],
+      TRAN_DATE:['']
+      
+    })
+  }
+
+  //get sys para current date
+  getSystemParaDate() {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.angForm.patchValue({
+        'TRAN_DATE': data.CURRENT_DATE,
+      })
+      
+    })
   }
 
 }

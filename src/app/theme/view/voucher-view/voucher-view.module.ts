@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 import { VoucherViewComponent } from './voucher-view.component';
 import { VoucherViewRoutingModule } from './voucher-view-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { BsDatepickerModule,DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,8 +19,18 @@ import {DataTablesModule} from 'angular-datatables';
     CommonModule,
     VoucherViewRoutingModule,
     SharedModule,
-    DataTablesModule
+    DataTablesModule,
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
+    FormsModule, ReactiveFormsModule,
   ],
-  declarations: [VoucherViewComponent]
+
+  declarations: [VoucherViewComponent],
+  providers:[OwnbranchMasterService,SystemMasterParametersService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: UserAuthInterceptor,
+    multi: true
+  },]
 })
 export class VoucherViewModule { }

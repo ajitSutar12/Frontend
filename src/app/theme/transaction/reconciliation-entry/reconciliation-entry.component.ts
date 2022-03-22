@@ -88,7 +88,7 @@ export class ReconciliationEntryComponent implements OnInit {
     private config: NgSelectConfig,
     private ownbranchMasterService: OwnbranchMasterService,
   ) {
-    debugger
+    
     
     this.maxDate = new Date();
     this.minDate = new Date();
