@@ -11,7 +11,7 @@ import { UserAuthInterceptor } from '../../../../../user-auth.interceptor';
 import {OwnbranchMasterService} from '../../../../../../app/shared/dropdownService/own-branch-master-dropdown.service';
 import {SchemeCodeDropdownService} from '../../../../../shared/dropdownService/scheme-code-dropdown.service';
 import {SchemeAccountNoService} from '../../../../../shared/dropdownService/schemeAccountNo.service';
-
+import {EditOverdueInterestReceivableService} from './editoverdue-interest-receivable-amount.service'
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import {SchemeAccountNoService} from '../../../../../shared/dropdownService/sche
       ReactiveFormsModule
     ],
     declarations: [ ],
-    providers:[OwnbranchMasterService,SchemeCodeDropdownService,SchemeAccountNoService,{
+    providers:[OwnbranchMasterService,SchemeCodeDropdownService,SchemeAccountNoService,EditOverdueInterestReceivableService,{
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true

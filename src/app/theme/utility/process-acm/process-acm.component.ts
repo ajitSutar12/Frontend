@@ -15,6 +15,7 @@ export class ProcessACMComponent implements OnInit {
   TransferToGLbyClosingAC = false;
   payrollexportfileprocess = false;
   payrolldatatransfer = false;
+  ChargesPosting=false;
 
 
   dtExportButtonOptions : any = {};
@@ -66,15 +67,17 @@ export class ProcessACMComponent implements OnInit {
     // 
     if (val == 1) {
       this.NPAProcess = true;
-  this.NPAMarking = false;
-  this.NPAProcessLocking = false;
-  this.DeadStockDepreciation = false;
-  this.OverdraftInterestPosting = false;
-  this.PenalInterestCalculation = false;
-  this.TransferToGLbyClosingAC = false;
-  this.payrollexportfileprocess = false;
-  this.payrolldatatransfer = false;
-    }
+      this.NPAMarking = false;
+      this.NPAProcessLocking = false;
+      this.DeadStockDepreciation = false;
+      this.OverdraftInterestPosting = false;
+      this.PenalInterestCalculation = false;
+      this.TransferToGLbyClosingAC = false;
+      this.payrollexportfileprocess = false;
+      this.payrolldatatransfer = false;
+      this.ChargesPosting=false;
+        
+      }
     if (val == 2) {
       this.NPAProcess = false;
       this.NPAMarking = true;
@@ -85,6 +88,7 @@ export class ProcessACMComponent implements OnInit {
       this.TransferToGLbyClosingAC = false;
       this.payrollexportfileprocess = false;
       this.payrolldatatransfer = false;
+      this.ChargesPosting=false;
     }
     if (val == 3) {
       this.NPAProcess = false;
@@ -96,6 +100,7 @@ export class ProcessACMComponent implements OnInit {
       this.TransferToGLbyClosingAC = false;
       this.payrollexportfileprocess = false;
       this.payrolldatatransfer = false;
+      this.ChargesPosting=false;
 
     }
     if (val == 4) {
@@ -108,6 +113,7 @@ export class ProcessACMComponent implements OnInit {
       this.TransferToGLbyClosingAC = false;
       this.payrollexportfileprocess = false;
       this.payrolldatatransfer = false;
+      this.ChargesPosting=false;
     }
     if (val == 5) {
       this.NPAProcess = false;
@@ -119,6 +125,7 @@ export class ProcessACMComponent implements OnInit {
       this.TransferToGLbyClosingAC = false;
       this.payrollexportfileprocess = false;
       this.payrolldatatransfer = false;
+      this.ChargesPosting=false;
 
     }
     if (val == 6) {
@@ -131,6 +138,7 @@ export class ProcessACMComponent implements OnInit {
       this.TransferToGLbyClosingAC = false;
       this.payrollexportfileprocess = false;
       this.payrolldatatransfer = false;
+      this.ChargesPosting=false;
     }
     if (val == 7) {
       this.NPAProcess = false;
@@ -142,6 +150,7 @@ export class ProcessACMComponent implements OnInit {
       this.TransferToGLbyClosingAC = true;
       this.payrollexportfileprocess = false;
       this.payrolldatatransfer = false;
+      this.ChargesPosting=false;
 
     }
     if (val == 8) {
@@ -154,6 +163,7 @@ export class ProcessACMComponent implements OnInit {
       this.TransferToGLbyClosingAC = false;
       this.payrollexportfileprocess = true;
       this.payrolldatatransfer = false;
+      this.ChargesPosting=false;
       
 
     }
@@ -167,7 +177,21 @@ export class ProcessACMComponent implements OnInit {
       this.TransferToGLbyClosingAC = false;
       this.payrollexportfileprocess = false;
       this.payrolldatatransfer = true;
+      this.ChargesPosting=false;
 
+    }
+    if (val == 10) {
+      this.NPAProcess = false;
+      this.NPAMarking = false;
+      this.NPAProcessLocking = false;
+      this.DeadStockDepreciation = false;
+      this.OverdraftInterestPosting = false;
+      this.PenalInterestCalculation = false;
+      this.TransferToGLbyClosingAC = false;
+      this.payrollexportfileprocess = false;
+      this.payrolldatatransfer = false;
+      this.ChargesPosting=true;
+  
     }
   }
 }

@@ -1,106 +1,3 @@
-<!-- Process Options -->
-<!-- <div class="row">
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-header">
-                <h5>Process Options</h5> -->
-            <!-- </div>
-            <div class="card-block">
-                <div class="row">
-                    <div class="col-sm">
-                        <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
-
-                            <ul class="basic-list">
-                                <li>
-                                    <h6>NPA Process</h6>
-                                </li>
-                                <li>
-                                    <h6>NPA Marking</h6>
-                                </li>
-                                <li>
-                                    <h6>NPA Process Locking</h6>
-                                </li>
-                                <li>
-                                    <h6>Dead Stock Depreciation</h6>
-                                </li>
-                                <li>
-                                    <h6>Overdraft Interest Posting (On Debit Bal. only)</h6>
-                                </li>
-                                <li>
-                                    <h6>Penal Interest Calculation</h6>
-                                </li>
-                                <li>
-                                    <h6> Transfer To GL by Closing A/c</h6>
-                                </li>
-                                <li>
-                                    <h6>Payroll Export File Process</h6>
-                                </li>
-                                <li>
-                                    <h6> Payroll Data Transfer</h6>
-                                </li>
-                            </ul>
-                        </perfect-scrollbar>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm">
-                        <button class="btn btn-primary ripple light">Close</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-9">
-                    
-                      </div>
-                       <div class="col-sm">
-                         <h6><span class="required">* </span>: Required Fields</h6>
-                      </div>
-                   </div>
-            </div>
-        </div>
-    </div>
-     -->
-    <!-- <div class="col-sm-9">
-        <div class="card-block">
-            <div *ngIf="interestrateftdTrue">
-                <app-term-deposit-ir></app-term-deposit-ir>
-            </div>
-            <div *ngIf="termdepositpsTrue">
-                <app-term-deposit-pat-scheme></app-term-deposit-pat-scheme>
-            </div>
-            <div *ngIf="interestrateforsapdTrue">
-                <app-interest-rate-for-sapd></app-interest-rate-for-sapd>
-            </div>
-            <div *ngIf="interestrateforlaccTrue">
-                <app-interest-rate-for-lacc></app-interest-rate-for-lacc>
-            </div>
-            <div *ngIf="securitycodeTrue">
-                <app-security-code></app-security-code>
-            </div>
-            <div *ngIf="managerviewglpTrue">
-                <app-manager-view-glp></app-manager-view-glp>
-            </div>
-            <div *ngIf="schemelinkingwdTrue">
-                <app-scheme-linking-with-d></app-scheme-linking-with-d>
-            </div>
-            <div *ngIf="schemetypecdTrue">
-                <app-scheme-type-charges-d></app-scheme-type-charges-d>
-            </div>
-            <div *ngIf="depreciationrmTrue">
-                <app-depreciation-rate-master></app-depreciation-rate-master>
-            </div>
-            <div *ngIf="prematurepigmylirTrue">
-                <app-premature-pigmy-less-ir></app-premature-pigmy-less-ir>
-            </div>
-            <div *ngIf="tdsinterestrateTrue">
-                <app-tds-interest-rate></app-tds-interest-rate>
-            </div>
-            <div *ngIf="sizeslabwarTrue">
-                <app-size-slab-wise-ar></app-size-slab-wise-ar>
-            </div>
-        </div>
-    </div> -->
-<!-- </div> -->
-
 
 <div class="row">
     <div class="col-sm-3">
@@ -140,6 +37,9 @@
                             <li>
                                 <h6> <a (click)="OpenLink(9)" routerLink="/utility/processACM" [ngClass]="{'isActive': payrolldatatransfer}" routerLinkActive="active" class="text-right f-w-600" id="pointer">9.Payroll Data Transfer</a></h6>
                             </li> 
+                            <li>
+                                <h6> <a (click)="OpenLink(10)" routerLink="/utility/processACM" [ngClass]="{'isActive': ChargesPosting}" routerLinkActive="active" class="text-right f-w-600" id="pointer">10.Charges Posting</a></h6>
+                            </li> 
                       
                            
                         </ul>
@@ -176,6 +76,9 @@
             </div>
             <div *ngIf="payrolldatatransfer">
                 <app-payrolldatatransfer></app-payrolldatatransfer>
+            </div>
+            <div *ngIf="ChargesPosting">
+                <app-charges-posting></app-charges-posting>
             </div>
           
         </div>

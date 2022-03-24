@@ -4,7 +4,7 @@ import "rxjs/Rx";
 import { HttpClient } from "@angular/common/http";
 import { catchError, map } from "rxjs/operators";
 import Swal from "sweetalert2";
-import { environment } from '../../../../environments/environment';
+import {environment} from '../../../../../../environments/environment'
 
 
 
@@ -13,7 +13,7 @@ import { environment } from '../../../../environments/environment';
 @Injectable({
   providedIn: "root",
 })
-export class SavingPigmyAccountClosingService {
+export class CalculateInterestPassingService {
   // Variable for handleError
   [x: string]: any;
   // API
@@ -23,7 +23,7 @@ export class SavingPigmyAccountClosingService {
   constructor(private http: HttpClient) { }
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + "/savings-pigmy-account-closing/insert", data).pipe(
+    return this.http.post(this.url + "/calculate-interest-passing/insert", data).pipe(
       map((res) => res),
       catchError((error) => {
         Swal.fire("Please Input Proper Data !");
@@ -34,32 +34,17 @@ export class SavingPigmyAccountClosingService {
   // For append data
   getFormData(id: any): Observable<any> {
     return this.http
-      .get(this.url + "/savings-pigmy-account-closing/" + id)
+      .get(this.url + "/calculate-interest-passing/" + id)
       .pipe(catchError(this.handleError));
   }
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url + "/savings-pigmy-account-closing/update", data);
+    return this.http.put(this.url + "/calculate-interest-passing/update", data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
     return this.http
-      .delete(this.url + "/savings-pigmy-account-closing/delete/" + id)
+      .delete(this.url + "/calculate-interest-passing/delete/" + id)
       .pipe(catchError(this.handleError));
   }
-
-  getSchemeCodeList():Observable<any>{
-    return this.http.get(this.url+'/scheme-parameters')
-  }
-
-  //get narration data
-  getNarrationMaster():Observable<any>{
-    return this.http.get(this.url+'/narration')
-  }
-
-  //get syspara 
-  getSysParaData():Observable<any>{
-    return this.http.get(this.url+'/system-master-parameters');
-  }
-
 }

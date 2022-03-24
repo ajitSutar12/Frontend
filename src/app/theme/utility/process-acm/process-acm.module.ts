@@ -22,6 +22,7 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { ChargesPostingComponent } from './charges-posting/charges-posting.component';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
     PenalInterestCalculationComponent, 
     TransferToGLbyClosingACComponent,
     PayrolldatatransferComponent, 
-    PayrollexportfileprocessComponent],
+    PayrollexportfileprocessComponent, ChargesPostingComponent],
   providers:[OwnbranchMasterService,SchemeCodeDropdownService,ACMasterDropdownService,SchemeAccountNoService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

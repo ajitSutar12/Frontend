@@ -20,6 +20,7 @@ import { TransactionTransferModeService } from 'src/app/shared/elements/transact
 import { SchemeTypeService } from 'src/app/shared/elements/scheme-type.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
+import {TermDepositAccountClosingService} from './term-deposit-account-closing.service'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
@@ -39,6 +40,6 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
       multi: true
-    },SystemMasterParametersService, OwnbranchMasterService, MultiVoucherService, SchemeAccountNoService,TransactionCashModeService,TransactionTransferModeService,SchemeTypeService,SchemeCodeDropdownService,SavingMasterService,]
+    },TermDepositAccountClosingService,SystemMasterParametersService, OwnbranchMasterService, MultiVoucherService, SchemeAccountNoService,TransactionCashModeService,TransactionTransferModeService,SchemeTypeService,SchemeCodeDropdownService,SavingMasterService,]
 })
 export class TermDepositAccountClosingModule { }

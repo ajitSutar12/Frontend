@@ -1,0 +1,489 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Charges Posting</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                    formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                    
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                    <ng-option *ngFor="let values of allScheme" [value]="values">
+                                        {{values.id}} {{values.label}} </ng-option>
+                                </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" formControlName="FORM_TYPE" #charges1 name="FORM_TYPE" value="Service Charges"
+                                            id="FORM_TYPE" (change)="isForm(1,charges1.value)">
+                                        <i class="helper"></i>Service Charges
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" value="Minimum Balance Charges" #charges2 formControlName="FORM_TYPE" id="form2"
+                                            name="FORM_TYPE" (change)="isForm(2,charges2.value)">
+                                        <i class="helper"></i>Minimum Balance Charges
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" value="Dormant Charges" #charges3 formControlName="FORM_TYPE" id="form3"
+                                            name="FORM_TYPE" (change)="isForm(3,charges3.value)">
+                                        <i class="helper"></i>Dormant Charges
+                                    </label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" value="Charges Per Entry" #charges4 formControlName="FORM_TYPE" id="form4"
+                                            name="FORM_TYPE" (change)="isForm(4,charges4.value)">
+                                        <i class="helper"></i>Charges Per Entry
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="solid">
+                                <div class="row" id="form1" *ngIf="isServiceCharges">
+                                
+                                   
+                                    <div class="col-sm-12 col-md-2"> <label for="CHARGES_AMT">Charges Amount<sub
+                                        class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input style="text-align: right;" type="text" name="CHARGES_AMT" class="form-control"
+                                                    placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="CHARGES_AMT" max="10"
+                                                    title="Input allowed only  0-9" #INT formControlName="CHARGES_AMT"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+        
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['CHARGES_AMT'].invalid && (angForm.controls['CHARGES_AMT'].dirty || angForm.controls['CHARGES_AMT'].touched)"
+                                            class="alert alert-danger">
+                                            <div
+                                                *ngIf="angForm.controls['CHARGES_AMT'].errors?.pattern || angForm.controls['CHARGES_AMT'].errors?.required || angForm.controls['CHARGES_AMT'].errors?.maxlength">
+                                                Input allowed only 0-9 .(after decimal 2 digits)
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                            </div>
+                            <div class="row" id="form2" *ngIf="isMinimumBalanceCharges">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-2"> <label for="TRANFROM_DATE">Transaction Date From<sub
+                                            class="required">*</sub></label></div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" placeholder="dd/mm/yyyy" name="TRANFROM_DATE" id="TRANFROM_DATE"
+                                                    class="form-control" 
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRANFROM_DATE"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                    bsDatepicker>
+                
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['TRANFROM_DATE'].invalid && (angForm.controls['TRANFROM_DATE'].dirty || angForm.controls['TRANFROM_DATE'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="angForm.controls['TRANFROM_DATE'].errors?.required">
+                                                    This field is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-2"> <label for="TRANTO_DATE">Transaction Date To<sub
+                                            class="required">*</sub></label></div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" placeholder="dd/mm/yyyy" name="TRANTO_DATE" id="TRANTO_DATE"
+                                                    class="form-control" 
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRANTO_DATE"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                    bsDatepicker>
+                
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['TRANTO_DATE'].invalid && (angForm.controls['TRANTO_DATE'].dirty || angForm.controls['TRANTO_DATE'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="angForm.controls['TRANTO_DATE'].errors?.required">
+                                                    This field is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-2"> <label for="BALCHARGES_AMT">Charges Amount<sub
+                                            class="required">*</sub></label></div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input style="text-align: right;" type="text" name="BALCHARGES_AMT" class="form-control"
+                                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="BALCHARGES_AMT" max="10"
+                                                        title="Input allowed only  0-9" #INT formControlName="BALCHARGES_AMT"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['BALCHARGES_AMT'].invalid && (angForm.controls['BALCHARGES_AMT'].dirty || angForm.controls['BALCHARGES_AMT'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['BALCHARGES_AMT'].errors?.pattern || angForm.controls['BALCHARGES_AMT'].errors?.required || angForm.controls['BALCHARGES_AMT'].errors?.maxlength">
+                                                    Input allowed only 0-9 .(after decimal 2 digits)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                               
+                                
+                            </div>
+                            <div class="row" id="form3" *ngIf="isDormantCharges">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-2"> <label for="DORMANTFROM_DATE">Transaction Date From<sub
+                                            class="required">*</sub></label></div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" placeholder="dd/mm/yyyy" name="DORMANTFROM_DATE" id="DORMANTFROM_DATE"
+                                                    class="form-control" 
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="DORMANTFROM_DATE"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                    bsDatepicker>
+                
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['DORMANTFROM_DATE'].invalid && (angForm.controls['DORMANTFROM_DATE'].dirty || angForm.controls['DORMANTFROM_DATE'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="angForm.controls['DORMANTFROM_DATE'].errors?.required">
+                                                    This field is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-2"> <label for="DORMANTTO_DATE">Transaction Date To<sub
+                                            class="required">*</sub></label></div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" placeholder="dd/mm/yyyy" name="DORMANTTO_DATE" id="DORMANTTO_DATE"
+                                                    class="form-control" 
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="DORMANTTO_DATE"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                    bsDatepicker>
+                
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['DORMANTTO_DATE'].invalid && (angForm.controls['DORMANTTO_DATE'].dirty || angForm.controls['DORMANTTO_DATE'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="angForm.controls['DORMANTTO_DATE'].errors?.required">
+                                                    This field is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-2"> <label for="DORMANTCHARGES_AMT">Charges Amount<sub
+                                            class="required">*</sub></label></div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input style="text-align: right;" type="text" name="DORMANTCHARGES_AMT" class="form-control"
+                                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="DORMANTCHARGES_AMT" max="10"
+                                                        title="Input allowed only  0-9" #INT formControlName="DORMANTCHARGES_AMT"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['DORMANTCHARGES_AMT'].invalid && (angForm.controls['DORMANTCHARGES_AMT'].dirty || angForm.controls['DORMANTCHARGES_AMT'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['DORMANTCHARGES_AMT'].errors?.pattern || angForm.controls['DORMANTCHARGES_AMT'].errors?.required || angForm.controls['DORMANTCHARGES_AMT'].errors?.maxlength">
+                                                    Input allowed only 0-9 .(after decimal 2 digits)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <button class="btn btn-outline-primary btn-sm"> Show Report</button>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                            </div>
+                            <div class="row" id="form4" *ngIf="isChargesEntry">
+                                <div class="col-sm-12">
+                                    <h6>Transaction Type</h6>
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <div class="form-radio">
+                                                <div class="radio radio-inline">
+                                                    <label>
+                                                        <input type="radio" formControlName="BALANCE" name="BALANCE" value="bal1"
+                                                            id="BAL1">
+                                                        <i class="helper"></i>Minimum Balance
+                                                    </label>
+                                                </div>
+                                                <div class="radio radio-inline">
+                                                    <label>
+                                                        <input type="radio"  formControlName="BALANCE"  name="BALANCE" value="bal2" 
+                                                        id="BAL2">
+                                                        <i class="helper"></i>Maximum Balance 
+                                                    </label>
+                                                </div>
+                                            </div>
+        
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-2"> <label for="BAL_AMT">Balance Amount<sub
+                                            class="required">*</sub></label></div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input style="text-align: right;" type="text" name="BAL_AMT" class="form-control"
+                                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="BAL_AMT" max="10"
+                                                        title="Input allowed only  0-9" #INT formControlName="BAL_AMT"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['BAL_AMT'].invalid && (angForm.controls['BAL_AMT'].dirty || angForm.controls['BAL_AMT'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['BAL_AMT'].errors?.pattern || angForm.controls['BAL_AMT'].errors?.required || angForm.controls['BAL_AMT'].errors?.maxlength">
+                                                    Input allowed only 0-9 .(after decimal 2 digits)
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-sm-12 col-md-2"> <label for="ENTRY_CHARGES">Per Entry Charges<sub
+                                            class="required">*</sub></label></div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input style="text-align: right;" type="text" name="ENTRY_CHARGES" class="form-control"
+                                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="ENTRY_CHARGES" max="10"
+                                                        title="Input allowed only  0-9" #INT formControlName="ENTRY_CHARGES"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['ENTRY_CHARGES'].invalid && (angForm.controls['ENTRY_CHARGES'].dirty || angForm.controls['ENTRY_CHARGES'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['ENTRY_CHARGES'].errors?.pattern || angForm.controls['ENTRY_CHARGES'].errors?.required || angForm.controls['ENTRY_CHARGES'].errors?.maxlength">
+                                                    Input allowed only 0-9 .(after decimal 2 digits)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-2"> <label for="MIN_CHARGES">Minimum Charges<sub
+                                            class="required">*</sub></label></div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input style="text-align: right;" type="text" name="MIN_CHARGES" class="form-control"
+                                                        placeholder=" " pattern="\d{1,20}(\.\d{2})?" id="MIN_CHARGES" max="10"
+                                                        title="Input allowed only  0-9" #INT formControlName="MIN_CHARGES"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['MIN_CHARGES'].invalid && (angForm.controls['MIN_CHARGES'].dirty || angForm.controls['MIN_CHARGES'].touched)"
+                                                class="alert alert-danger">
+                                                <div
+                                                    *ngIf="angForm.controls['MIN_CHARGES'].errors?.pattern || angForm.controls['MIN_CHARGES'].errors?.required || angForm.controls['MIN_CHARGES'].errors?.maxlength">
+                                                    Input allowed only 0-9 .(after decimal 2 digits)
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-2"> <label for="TRAN_PERIOD">Transaction Period<sub
+                                            class="required">*</sub></label></div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" placeholder="dd/mm/yyyy" name="TRAN_PERIOD" id="TRAN_PERIOD"
+                                                    class="form-control" 
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRAN_PERIOD"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                    bsDatepicker>
+                
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['TRAN_PERIOD'].invalid && (angForm.controls['TRAN_PERIOD'].dirty || angForm.controls['TRAN_PERIOD'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="angForm.controls['TRAN_PERIOD'].errors?.required">
+                                                    This field is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-2"> <label for="TRANPERIOD_TO">To<sub
+                                            class="required">*</sub></label></div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" placeholder="dd/mm/yyyy" name="TRANPERIOD_TO" id="TRANPERIOD_TO"
+                                                    class="form-control" 
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRANPERIOD_TO"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                    bsDatepicker>
+                
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['TRANPERIOD_TO'].invalid && (angForm.controls['TRANPERIOD_TO'].dirty || angForm.controls['TRANPERIOD_TO'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="angForm.controls['TRANPERIOD_TO'].errors?.required">
+                                                    This field is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm">
+                                                    
+                                                    <div class="form-radio">
+                                                        <div class="radio radio-inline">
+                                                            
+                                                            <label>
+                                                                <input type="radio" formControlName="TYPE" name="TYPE" value="type1"
+                                                                    id="TYPE1">
+                                                                <i class="helper"></i>Debit
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio radio-inline">
+                                                            <label>
+                                                                <input type="radio"  formControlName="TYPE"  name="TYPE" value="type2" 
+                                                                id="TYPE2">
+                                                                <i class="helper"></i>Credit
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio radio-inline">
+                                                            <label>
+                                                                <input type="radio"  formControlName="TYPE"  name="TYPE" value="type3" 
+                                                                id="TYPE3">
+                                                                <i class="helper"></i>All
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                   
+                    
+                    
+                    
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4"> <label for="GL_ACNO">Charges GL Account Number<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="GL_ACNO" bindValue="value" [(ngModel)]="ngGlAC"
+                                        formControlName="GL_ACNO" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="">
+                                        <ng-option *ngFor="let values of GLACNooption" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['GL_ACNO'].invalid && (angForm.controls['GL_ACNO'].dirty || angForm.controls['GL_ACNO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['GL_ACNO'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"><label for="PARTICULAR">Particulars</label></div>
+                        <div class="col-md-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="PARTICULAR" class="form-control"
+                                        placeholder=" " id="PARTICULAR" value="charges.value"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) ||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode <= 32)"
+                                        
+                                        title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                        formControlName="PARTICULAR">
+                                </span>
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-12 col-md-2"><label for="TOTAL_CHARGE">Total Charges</label></div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="TOTAL_CHARGE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        class="form-control" placeholder=" " id="TOTAL_CHARGE" value=""
+                                        maxlength="15" 
+                                        title="Input allowed only   0-9" required
+                                        formControlName="TOTAL_CHARGE" disabled>
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

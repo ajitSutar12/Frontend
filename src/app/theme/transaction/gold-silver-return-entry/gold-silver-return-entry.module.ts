@@ -16,6 +16,7 @@ import { UserAuthInterceptor } from '../../../user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import {GoldSilverReturnEntryService} from './gold-silver-return-entry.service'
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
@@ -34,7 +35,7 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 
     
   ],
-  providers:[SchemeCodeDropdownService,SchemeAccountNoService,OwnbranchMasterService,{
+  providers:[SchemeCodeDropdownService,SchemeAccountNoService,OwnbranchMasterService,GoldSilverReturnEntryService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

@@ -14,7 +14,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { CompanyGroupMasterDropdownService } from 'src/app/shared/dropdownService/company-group-master-dropdown.service';
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
-
+import {TermDepositeAcRenewalService} from './term-deposite-ac-renewal.service'
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
 
 @NgModule({
@@ -37,7 +37,8 @@ import { SavingMasterService } from '../../master/customer/saving-master/saving-
     OwnbranchMasterService,
     CompanyGroupMasterDropdownService,
     MultiVoucherService,
-    SavingMasterService
+    SavingMasterService,
+    TermDepositeAcRenewalService,
   ]
 })
 export class TermDepositeAcRenewalModule { }

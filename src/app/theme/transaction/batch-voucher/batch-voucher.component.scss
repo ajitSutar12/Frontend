@@ -3,11 +3,23 @@
  }
 
  div.solid {border-style: solid;padding:2%}
- .box-title {
-    background: white none repeat scroll 0 0;
-    display: inline-block;
-    padding: 0 2px;
-    margin-left: 8em;
+//  .box-title {
+//     background: white none repeat scroll 0 0;
+//     display: inline-block;
+//     padding: 0 2px;
+//     margin-left: 8em;
+// }
+
+div.solid h3{
+    text-align: left;
+    margin-top: -4%;
+    height: 20px;
+    line-height: 20px;
+    font-size: 17px;
+}
+
+div.solid h3 span{
+    background-color: white;
 }
 
 .errspan {
