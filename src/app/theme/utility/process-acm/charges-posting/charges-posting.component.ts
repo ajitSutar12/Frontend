@@ -23,7 +23,7 @@ export class ChargesPostingComponent implements OnInit {
   // dropdown variables
   allScheme: any[]
   ngscheme:any=null
-  isServiceCharges: boolean=false
+  isServiceCharges: boolean=true
   isMinimumBalanceCharges=false
   isDormantCharges=false
   isChargesEntry=false
@@ -34,6 +34,7 @@ export class ChargesPostingComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
 
+  label:string='Service Charges'
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
@@ -66,7 +67,7 @@ export class ChargesPostingComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
-      FORM_TYPE:[''],
+      FORM_TYPE:['Service Charges'],
       CHARGES_AMT:['',[Validators.required,Validators.pattern]],
       TRANFROM_DATE:['',[Validators.required]],
       TRANTO_DATE:['',[Validators.required]],
@@ -83,12 +84,15 @@ export class ChargesPostingComponent implements OnInit {
       TYPE:[''],
       GL_ACNO:['',[Validators.required]],
       TOTAL_CHARGE:[''],
-      PARTICULAR:[''],
+      PARTICULAR:['Service Charges'],
 
     });
   }
 
   isForm(value,data) {
+
+    this.label=data
+    // console.log(this.label)
     this.angForm.patchValue({
       'PARTICULAR':data
       

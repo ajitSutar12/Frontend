@@ -11,6 +11,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs-compat';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 
 @Component({
   selector: 'app-ledger-view',
@@ -33,6 +34,8 @@ export class LedgerViewComponent implements OnInit {
   schemeACNo: any;
   scheme: any[];
   GLACNooption: any[];
+  branch_code//from ownbranchmaster
+  ngBranchCode: any = null
 
   // Date variables
   todate: any = null;
@@ -61,6 +64,7 @@ export class LedgerViewComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ACMasterDropdownService: ACMasterDropdownService,
+    private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
   ) { 
     this.maxDate = new Date();
@@ -85,6 +89,11 @@ export class LedgerViewComponent implements OnInit {
     this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
       this.allScheme.push(data)
     })
+    //branch List
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branch_code = data;
+    })
+
 
     // this.ACMasterDropdownService.getACMasterList()
     //   .pipe(first())
@@ -96,6 +105,7 @@ export class LedgerViewComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
+      BRANCH_CODE: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.required]],
       AC_NO: ['', [Validators.required]],
       FROM_DATE: ['', [Validators.required]],
@@ -121,11 +131,11 @@ export class LedgerViewComponent implements OnInit {
   // Fetching account from seleted scheme
   getAccountlist() {
     this.accountedit = null
-    let obj = [this.ngscheme]
+    let obj = [this.ngscheme,this.ngBranchCode]
     switch (this.getschemename) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.accountedit = data
+          this.schemeACNo = data
           this.dormantac=true
           this.acclosedon=true
           this.freezeac=true
@@ -135,7 +145,7 @@ export class LedgerViewComponent implements OnInit {
       break;
       case 'CA':
         this.schemeAccountNoService.getCurrentAccountSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.accountedit = data
+          this.schemeACNo = data
           this.dormantac=true
           this.acclosedon=true
           this.freezeac=true
@@ -145,7 +155,7 @@ export class LedgerViewComponent implements OnInit {
       break;
       case 'AG':
         this.schemeAccountNoService.getPigmyAgentSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.accountedit = data
+          this.schemeACNo = data
           this.dormantac=false
           this.acclosedon=true
           this.freezeac=false
@@ -155,7 +165,7 @@ export class LedgerViewComponent implements OnInit {
       break;
       case 'GS':
         this.schemeAccountNoService.getAnamatSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.accountedit = data
+          this.schemeACNo = data
           this.dormantac=false
           this.acclosedon=true
           this.freezeac=false
@@ -165,7 +175,7 @@ export class LedgerViewComponent implements OnInit {
       break;
       case 'PG':
         this.schemeAccountNoService.getPigmyAccountSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.accountedit = data
+          this.schemeACNo = data
           this.dormantac=false
           this.acclosedon=true
           this.freezeac=false
@@ -175,7 +185,7 @@ export class LedgerViewComponent implements OnInit {
       break;
       case 'TD':
         this.schemeAccountNoService.getTermDepositSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.accountedit = data
+          this.schemeACNo = data
           this.dormantac=false
           this.acclosedon=true
           this.freezeac=true
@@ -185,7 +195,7 @@ export class LedgerViewComponent implements OnInit {
       break;
       case 'LN':
         this.schemeAccountNoService.getTermLoanSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.accountedit = data
+          this.schemeACNo = data
           this.dormantac=false
           this.acclosedon=true
           this.freezeac=false
@@ -195,7 +205,7 @@ export class LedgerViewComponent implements OnInit {
       break;
       case 'DS':
         this.schemeAccountNoService.getDisputeLoanSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.accountedit = data
+          this.schemeACNo = data
           this.dormantac=false
           this.acclosedon=true
           this.freezeac=false
@@ -205,7 +215,7 @@ export class LedgerViewComponent implements OnInit {
       break;
       case 'CC':
         this.schemeAccountNoService.getCashCreditSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.accountedit = data
+          this.schemeACNo = data
           this.dormantac=false
           this.acclosedon=true
           this.freezeac=false
@@ -215,7 +225,7 @@ export class LedgerViewComponent implements OnInit {
       break;
       case 'SH':
         this.schemeAccountNoService.getShareSchemeList1(obj).pipe(first()).subscribe(data => {
-          this.accountedit = data
+          this.schemeACNo = data
           this.dormantac=true
           this.acclosedon=true
           this.freezeac=true
@@ -225,7 +235,7 @@ export class LedgerViewComponent implements OnInit {
       break;
       case 'GL':
         this.schemeAccountNoService.getGeneralLedgerList1(obj).pipe(first()).subscribe(data => {
-          this.accountedit = data
+          this.schemeACNo = data
           this.dormantac=false
           this.acclosedon=true
           this.freezeac=false
@@ -235,7 +245,7 @@ export class LedgerViewComponent implements OnInit {
       break;
       case 'GL':
         this.schemeAccountNoService.getGeneralLedgerList1(obj).pipe(first()).subscribe(data => {
-          this.accountedit = data
+          this.schemeACNo = data
           this.dormantac=true
           this.acclosedon=true
           this.freezeac=true
@@ -249,26 +259,26 @@ export class LedgerViewComponent implements OnInit {
     
   }
 
-  counter = 0;
+  // counter = 0;
 
-  // checking date 
-  checkDate(event){
+  // // checking date 
+  // checkDate(event){
 
-    this.counter = this.counter+1;
-    if(this.counter>2 && event.length!=0){
-        let value1
-      let value2
-      value1 = moment(this.fromdate).format('DD/MM/YYYY');
-      // console.log(value1)
-      value2 = moment(this.todate).format('DD/MM/YYYY');
-      // console.log(value2)
-      if(moment(value1).isSame(value2)){
-        Swal.fire("from date should not be same as to date")
-        this.angForm.controls['TO_DATE'].reset()
-      }
-    }
+  //   this.counter = this.counter+1;
+  //   if(this.counter>2 && event.length!=0){
+  //       let value1
+  //     let value2
+  //     value1 = moment(this.fromdate).format('DD/MM/YYYY');
+  //     // console.log(value1)
+  //     value2 = moment(this.todate).format('DD/MM/YYYY');
+  //     // console.log(value2)
+  //     if(moment(value1).isSame(value2)){
+  //       Swal.fire("from date should not be same as to date")
+  //       this.angForm.controls['TO_DATE'].reset()
+  //     }
+  //   }
     
-  }
+  
 
 
   

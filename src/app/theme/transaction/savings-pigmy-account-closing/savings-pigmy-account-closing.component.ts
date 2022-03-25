@@ -42,10 +42,11 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
 
   // Dropdown variables
   branch_code: any;
-  ngbranch:any=null;
+  ngBranchCode:any=null;
   ngdate:any=null;
-  scheme: any[];
+  allScheme: any[];
   ngscheme:any=null;
+  accountedit:any=null;
   ngacno:any=null;
   schemeACNo: any[];
   ngglacno:any=null;
@@ -67,7 +68,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   master: any;
   selectedCode:any=null
   allSchemeCode: any//from schme master
-  allScheme = new Array()//from schme master
+  // allScheme = new Array()//from schme master
+  narration: any;
   narrationList: any;
   
   
@@ -86,6 +88,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
   signture: string = '../../../../assets/sign/signture.jpg';
   introducerACNo: any;
+  triggerhide: any;
  
 
   constructor(
@@ -104,10 +107,11 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.createForm(); 
     this.getSystemParaDate();
 
-    //Narration List
-    this._service.getNarrationMaster().subscribe(data => {
+     //Narration List
+     this._service.getNarrationMaster().subscribe(data => {
       this.narrationList = data;
     })
+
     
     // this.dataSub = this.NarrationService.loadCharacters().subscribe((options) => {
     //   this.narrationList = options;
@@ -117,19 +121,29 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       this.branch_code = data;
     })
 
-    this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
-     this.allSchemeCode=data;
-     console.log('data',data)
-     console.log(this.allSchemeCode);
+    
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var allscheme = data.filter(function (scheme) {
+        return (scheme.name == 'SB' || scheme.name == 'PG')
+      });
+      this.allScheme = allscheme;
     })
 
+    // this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
+    //  this.allSchemeCode=data;
+    //  console.log('data',data)
+    //  console.log(this.allSchemeCode);
+    // })
+
     
-        //Scheme Code
-        this._service1.getSchemeCodeList().subscribe(data => {
-          console.log(data);
-          this.master = data;
-          this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
-        })
+        // //Scheme Code
+        // this._service1.getSchemeCodeList().subscribe(data => {
+        //   console.log(data);
+          
+        //   this.master = data;
+        //   this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
+          
+        // })
     
 
 
@@ -164,7 +178,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       chequeNo:['',[Validators.pattern]],
       ChequeDate:['',[Validators.pattern]],
       Token_Num:['',[Validators.pattern]],
-      particulars:[''],
+      NARRATION: ['', [Validators.pattern]],
       scheme_type:['',],
       scheme:[''],
       
@@ -186,94 +200,41 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   }
 
 
-  selectedSchemeCode(event){
-    this.allScheme = [];
-    this.master.forEach(element => {
-      if (element.S_ACNOTYPE == this.selectedCode) {
-        this.allScheme.push(element)
-      }
-    });
+  obj: any
+  getschemename: any
+
+  schemechange(event) {
+
     this.getschemename = event.name
-    this.selectedCode = event.value
+    this.ngscheme = event.value
+    this.getAccountlist()
+
 
   }
 
   
-
-
-  obj: any
-  getschemename: any
-  //get account no according scheme for introducer
-   //get account no according scheme for introducer
-   getIntroducer() {
-    this.introducerACNo = [];
-    this.obj = [this.selectedCode, this.ngbranch]
+   
+  //  Fetching account from seleted scheme
+  getAccountlist() {
+     
+    this.accountedit = null
+    this.obj = [this.ngscheme, this.ngBranchCode]
     switch (this.getschemename) {
       case 'SB':
         this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
+          this.schemeACNo = data;
         })
         break;
 
-      case 'SH':
-        this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'CA':
-        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'LN':
-        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'DS':
-        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'CC':
-        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'GS':
-        this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
+      
 
       case 'PG':
         this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
+          this.schemeACNo = data;
         })
         break;
 
-      case 'AG':
-        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
-
-      case 'IV':
-        this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-          this.introducerACNo = data;
-        })
-        break;
+      
     }
   }
 
@@ -424,6 +385,13 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       this.CashTrue = false;
       this.TransferTrue = true;
     }
+  }
+
+   //get Narration Details 
+   getNarration(ele) {
+    this.narration = ele;
+    let el: HTMLElement = this.triggerhide.nativeElement;
+    el.click();
   }
 
   

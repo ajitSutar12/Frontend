@@ -18,7 +18,7 @@
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
-                                        placeholder="Branch">
+                                        placeholder="">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -41,7 +41,7 @@
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        (change)="schemechange($event)" placeholder="Scheme">
+                                        (change)="schemechange($event)" placeholder="">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -64,7 +64,7 @@
                                     <ng-select id="AC_NO" bindValue="id" [(ngModel)]="ngacno"
                                         formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        (change)="getAccountDetails($event)" placeholder="Scheme">
+                                        (change)="getAccountDetails($event)" placeholder="">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                     </ng-select>

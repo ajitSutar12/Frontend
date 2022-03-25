@@ -38,7 +38,7 @@
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" formControlName="FORM_TYPE" #charges1 name="FORM_TYPE" value="Service Charges"
-                                            id="FORM_TYPE" (change)="isForm(1,charges1.value)">
+                                            id="FORM_TYPE" (change)="isForm(1,charges1.value)" checked>
                                         <i class="helper"></i>Service Charges
                                     </label>
                                 </div>
@@ -69,7 +69,8 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="solid">
-                                <div class="row" id="form1" *ngIf="isServiceCharges">
+                                <h3><span>{{label}}</span></h3>
+                                <div class="row" id="form1"  *ngIf="isServiceCharges">
                                 
                                    
                                     <div class="col-sm-12 col-md-2"> <label for="CHARGES_AMT">Charges Amount<sub

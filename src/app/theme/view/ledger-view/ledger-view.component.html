@@ -10,8 +10,29 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch<sub
+                            class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
@@ -31,11 +52,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2" *ngIf="dormantac">
+                        <div class="col-sm" *ngIf="dormantac">
                             <div class="col-sm-12 col-md-2"><label style="color: #1e5bc5">Dormant Account</label></div>
                         </div>
-                        <div class="col-sm-2" *ngIf="acclosedon">
+                        <div class="col-sm" *ngIf="acclosedon">
                             <div class="col-sm-12 col-md-2"><label style="color: #1e5bc5">A/c Closed On xx/xx/xxxx</label></div>
+                        </div>
+                        <div class="col-sm" *ngIf="freezeac">
+                            <div class="col-sm-12 col-md-2"><label style="color: #1e5bc5">Freeze Account</label></div>
                         </div>
                         
                         
@@ -63,9 +87,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2" *ngIf="freezeac">
-                            <div class="col-sm-12 col-md-2"><label style="color: #1e5bc5">Freeze Account Status</label></div>
-                        </div>
+                        
                         
                     </div>
                     <div class="row">
@@ -95,7 +117,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
-                                        class="form-control" [(ngModel)]="todate"  (bsValueChange)="checkDate($event)"
+                                        class="form-control" [(ngModel)]="todate"  
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="TO_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"

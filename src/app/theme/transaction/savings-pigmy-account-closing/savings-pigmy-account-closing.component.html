@@ -15,8 +15,72 @@
                     </div>
                     <div class="card-body">
                         <form [formGroup]="angForm" novalidate>
-                            
                             <div class="row">
+                                <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch<sub
+                                    class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                                formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                                [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                                <ng-option *ngFor="let values of branch_code" [value]="values">
+                                                    {{values.label}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                            This field is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme<sub class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                            formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                            (change)="schemechange($event)"
+                                            [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
+                                            <ng-option *ngFor="let values of allScheme" [value]="values">
+                                                {{values.id}} {{values.label}} </ng-option>
+                                        </ng-select>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                            This field is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
+                                            formControlName="AC_NO" bindLabel="label"
+                                            title="Compulsory Selection" required placeholder="Account No.">
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                                {{values.label}} {{values.name}}</ng-option>
+                                        </ng-select>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['AC_NO'].errors?.required">
+                                            This field is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- <div class="row">
                                 <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch Code<sub
                                     class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-2">
@@ -48,9 +112,9 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
-                                <div class="col-sm-12 col-md-2"><label for="scheme_type">Scheme Type<sub
+                                <!-- <div class="col-sm-12 col-md-2"><label for="scheme_type">Scheme Type<sub
                                     class="required">*</sub></label></div>
                                 <div class="col-sm-2">
                                     <div class="form-group form-primary form-static-label">
@@ -115,7 +179,7 @@
                                             This field is required.
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-sm-12 col-md-2"> <label for="Voucher_Number">Voucher Number<sub
                                     class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-2">
@@ -399,18 +463,17 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-2  "><label
-                                                        for="AC_PARTICULAR">Particulars</label></div>
+                                                    <div class="col-sm-12 col-md-2"><label for="NARRATION">Particulars</label></div>
                                                     <div class="col-md-5">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <textarea class="form-control" formControlName="particulars"
-                                                                    [(ngModel)]="particulars"></textarea>
-                                                                <i class="fa fa-info-circle errspan"
-                                                                    (click)="modalLarge.show()"></i>
+
+                                                                <textarea class="form-control" formControlName="NARRATION"
+                                                                    [(ngModel)]="narration"></textarea>
+                                                                <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i>
                                                             </span>
                                                         </div>
-        
+                                                        
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -497,19 +560,7 @@
                                             aria-hidden="true"></i>1000.00</div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Maturity Amount
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
-                                            aria-hidden="true"></i>0.00</div>
-                                </div>
-                            </div>
+                            
                             <div class="col-md-12">
                                 <div class="transaction-item">
                                     <div class="d-flex">
@@ -568,30 +619,7 @@
                                         style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Receipt No.
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">1</div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Operation
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
-                                </div>
-                            </div>
+                            
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -655,7 +683,7 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Paticulars</th>
+                            <th>Narration</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
