@@ -85,7 +85,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled value="{{customer?.AC_SCHMAMT}}">
+                                            <input type="text" class="form-control" disabled
+                                                value="{{customer?.AC_SCHMAMT}}" formControlName="old_deposit_Amt">
                                         </span>
                                     </div>
                                 </div>
@@ -95,7 +96,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled value="{{customer?.AC_OPDATE}}">
+                                            <input type="text" class="form-control" disabled
+                                                value="{{customer?.AC_OPDATE}}" formControlName="old_Ac_op_date">
                                         </span>
                                     </div>
                                 </div>
@@ -105,7 +107,8 @@
                                 <div class="col-md-2 labelWidth">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                            <input type="text" class="form-control" disabled
+                                                value="{{customer?.AC_EXPDT}}" formControlName="old_ac_expdt">
                                         </span>
                                     </div>
                                 </div>
@@ -117,7 +120,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_MATUAMT}}">
+                                            <input type="text" class="form-control" disabled
+                                                value="{{customer?.AC_MATUAMT}}" formControlName="old_ac_matuamt">
                                         </span>
                                     </div>
                                 </div>
@@ -127,7 +131,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_ASON_DATE}}">
+                                            <input type="text" class="form-control" disabled
+                                                value="{{customer?.AC_ASON_DATE}}" formControlName="old_ac_ason_date">
                                         </span>
                                     </div>
                                 </div>
@@ -137,7 +142,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                            <input type="text" class="form-control" disabled
+                                                value="{{customer?.AC_REF_RECEIPTNO}}" formControlName="old_receipt_no">
                                         </span>
                                     </div>
                                 </div>
@@ -149,7 +155,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                            <input type="text" class="form-control" disabled
+                                                value="{{customer?.AC_MONTHS}}" formControlName="old_month">
                                         </span>
                                     </div>
                                 </div>
@@ -159,7 +166,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                            <input type="text" class="form-control" disabled
+                                                value="{{customer?.AC_INTRATE}}" formControlName="old_intrate">
                                         </span>
                                     </div>
                                 </div>
@@ -169,7 +177,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                            <input type="text" class="form-control" disabled value="0" formControlName="old_total_int_paid">
                                         </span>
                                     </div>
                                 </div>
@@ -181,7 +189,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                            <input type="text" class="form-control" disabled
+                                                value="{{customer?.AC_LINTEDT}}" formControlName="old_last_int_date">
                                         </span>
                                     </div>
                                 </div>
@@ -191,7 +200,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                            <input type="text" class="form-control" disabled
+                                                value="{{customer?.AC_INTCATA}}" formControlName="old_int_cate">
                                         </span>
                                     </div>
                                 </div>
@@ -201,7 +211,8 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled  value="{{customer?.AC_OPDATE}}">
+                                            <input type="text" class="form-control" disabled
+                                                value="{{customer?.AC_ACTDATE}}" formControlName="old_last_trn_date">
                                         </span>
                                     </div>
                                 </div>
@@ -215,19 +226,20 @@
                                     <div class="checkbox checkbox-primary">
                                         <div class="border-checkbox-group border-checkbox-group-primary">
                                             <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY"
-                                                formControlName="NormalInt">
+                                                formControlName="NormalInt" (click)="normalCheck($event)">
                                             <label class="border-checkbox-label" for="AC_IS_RECOVERY">Normal
                                                 Interest</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_EXPDT">Interest Upto</label></div>
+                                <div class="col-sm-12 col-md-2 labelWidth"> <label for="AC_EXPDT">Interest Upto</label>
+                                </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                formControlName="IntUpto">
+                                                formControlName="IntUpto" [isDisabled]="NormalCheck" [(ngModel)]="InterestDate">
                                         </span>
                                     </div>
                                 </div>
@@ -235,7 +247,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" [disabled]="NormalCheck" formControlName="NormalInt">
                                         </span>
                                     </div>
                                 </div>
@@ -245,39 +257,43 @@
                                     <div class="form-radio">
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
-                                                    value="cash">
+                                                <input type="radio" (click)="changeNormal($event)" name="DEBIT"
+                                                    [disabled]="NormalCheck" formControlName="NormalIntRadio"
+                                                    value="cash" >
                                                 <i class="helper"></i>Cash </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
+                                                <input type="radio" (click)="changeNormal($event)" name="DEBIT"
+                                                    [disabled]="NormalCheck" formControlName="NormalIntRadio"
                                                     value="AddInDeposit">
                                                 <i class="helper"></i>Add In Deposit </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
+                                                <input type="radio" (click)="changeNormal($event)" name="DEBIT"
+                                                    [disabled]="NormalCheck" formControlName="NormalIntRadio"
                                                     value="transfer">
                                                 <i class="helper"></i>Transfer </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
+                                                <input type="radio" (click)="changeNormal($event)" name="DEBIT"
+                                                    [disabled]="NormalCheck" formControlName="NormalIntRadio"
                                                     value="keepaspayable">
                                                 <i class="helper"></i>Keep As Payable </label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="transferShowNormal">
                                 <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Scheme Type<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-1">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
-                                                formControlName="scheme_type">
+                                                formControlName="normal_scheme_type">
                                                 <ng-option *ngFor="let item of allSchemeCode" [value]="item.S_ACNOTYPE">
                                                     {{item.S_ACNOTYPE}}</ng-option>
                                             </ng-select>
@@ -290,7 +306,7 @@
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
-                                                formControlName="scheme">
+                                                formControlName="normal_scheme">
                                                 <ng-option *ngFor="let item of allScheme" [value]="item">{{item.S_APPL}}
                                                     {{item.S_NAME}}</ng-option>
                                             </ng-select>
@@ -302,7 +318,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="customer" formControlName="account_no"
+                                            <ng-select [(ngModel)]="customer" formControlName="normal_account_no"
                                                 (change)="getVoucherData()">
                                                 <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                     {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
@@ -316,10 +332,11 @@
                                 <div class="col-sm-2">
                                     <div class="checkbox checkbox-primary">
                                         <div class="border-checkbox-group border-checkbox-group-primary">
-                                            <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY"
-                                                formControlName="NormalInt">
-                                            <label class="border-checkbox-label" for="AC_IS_RECOVERY">Payable
+                                            <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY1"
+                                                formControlName="NormalInt" (click)="payableInt($event)">
+                                            <label class="border-checkbox-label" for="AC_IS_RECOVERY1">Payable
                                                 Interest</label>
+
                                         </div>
                                     </div>
                                 </div>
@@ -328,7 +345,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" formControlName="payableCheck" [disabled]="PayableCheck">
                                         </span>
                                     </div>
                                 </div>
@@ -338,33 +355,33 @@
                                     <div class="form-radio">
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
-                                                    value="cash">
+                                                <input type="radio" name="DEBIT" formControlName="PayableIntRadio"
+                                                    (click)="payableStatus($event)" value="cash">
                                                 <i class="helper"></i>Cash </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
-                                                    value="AddInDeposit">
+                                                <input type="radio" name="DEBIT" formControlName="PayableIntRadio"
+                                                    (click)="payableStatus($event)" value="AddInDeposit">
                                                 <i class="helper"></i>Add In Deposit </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="DEBIT" formControlName="NormalIntRadio"
-                                                    value="transfer">
+                                                <input type="radio" name="DEBIT" formControlName="PayableIntRadio"
+                                                    (click)="payableStatus($event)" value="transfer">
                                                 <i class="helper"></i>Transfer </label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="payableTranferShow">
                                 <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Scheme Type<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-1">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
-                                                formControlName="scheme_type">
+                                                formControlName="payable_scheme_type">
                                                 <ng-option *ngFor="let item of allSchemeCode" [value]="item.S_ACNOTYPE">
                                                     {{item.S_ACNOTYPE}}</ng-option>
                                             </ng-select>
@@ -377,7 +394,7 @@
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
-                                                formControlName="scheme">
+                                                formControlName="payable_scheme">
                                                 <ng-option *ngFor="let item of allScheme" [value]="item">{{item.S_APPL}}
                                                     {{item.S_NAME}}</ng-option>
                                             </ng-select>
@@ -389,7 +406,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="customer" formControlName="account_no"
+                                            <ng-select [(ngModel)]="customer" formControlName="payable_account_no"
                                                 (change)="getVoucherData()">
                                                 <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                                     {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
@@ -411,7 +428,7 @@
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" formControlName="renewal_tran_no">
                                         </span>
                                     </div>
                                 </div>
@@ -420,7 +437,7 @@
                                 <div class="col-sm-12 col-md-2">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code">
+                                            <ng-select [(ngModel)]="selectedBranch" formControlName="new_category">
                                                 <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                     {{item.label}}</ng-option>
                                             </ng-select>
@@ -434,8 +451,7 @@
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                formControlName="date"
-                                                disabled>
+                                                formControlName="new_ason_date" disabled>
                                         </span>
                                     </div>
                                 </div>
@@ -447,7 +463,7 @@
                                 <div class="col-md-1 col-sm-6">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" formControlName="new_month">
                                         </span>
                                     </div>
                                 </div>
@@ -455,7 +471,7 @@
                                 <div class="col-md-1 col-sm-6">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" formControlName="new_day">
                                         </span>
                                     </div>
                                 </div>
@@ -469,7 +485,7 @@
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" formControlName="new_receipt">
                                         </span>
                                     </div>
                                 </div>
@@ -481,7 +497,7 @@
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" formControlName="new_deposit">
                                         </span>
                                     </div>
                                 </div>
@@ -491,19 +507,19 @@
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" formControlName="new_rate">
                                         </span>
                                     </div>
                                 </div>
                                 <div class="col-md-3"></div>
-                                <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">New Last Interest Date</label></div>
+                                <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">New Last Interest Date</label>
+                                </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                formControlName="date"
-                                                disabled>
+                                                formControlName="new_last_date">
                                         </span>
                                     </div>
                                 </div>
@@ -515,7 +531,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" formControlName="new_maturity_amt">
                                         </span>
                                     </div>
                                 </div>
@@ -525,11 +541,15 @@
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                formControlName="date"
-                                                >
+                                                formControlName="new_matu_date">
                                         </span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="btn btn-sm">Submit</div>
                             </div>
                         </div>
                     </div>

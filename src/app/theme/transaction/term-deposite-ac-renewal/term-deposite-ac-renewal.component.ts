@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-term-deposite-ac-renewal',
@@ -30,6 +31,11 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   allSchemeCode: any//from schme master
   isture: boolean = true;
 
+  NormalCheck:boolean = true;
+  transferShowNormal:boolean = false;
+  payableTranferShow:boolean = false;
+  InterestDate : any;
+  current_date : any;
 
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
@@ -56,9 +62,31 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       account_no: [''],
       NormalInt:[''],
       IntUpto:[''],
-      NormalIntRadio:['']
+      NormalIntRadio:[''],
+      PayableCheck:[''],
+      new_matu_date:[''],
+      new_maturity_amt:[''],
+      new_last_date:[''],
+      new_rate:[''],
+      new_deposit:[''],
+      new_receipt:[''],
+      new_day:[''],
+      new_month:[''],
+      new_ason_date:[''],
+      new_category:[''],
+      renewal_tran_no:[''],
+      payable_account_no:[''],
+      payable_scheme:[''],
+      payable_scheme_type:[''],
+      PayableIntRadio:[''],
+      payableCheck:[''],
+      normal_account_no:['']
     })
     let user = JSON.parse(localStorage.getItem('user'));
+
+    this.current_date = user.branch.syspara.CURRENT_DATE;
+    console.log(this.current_date);
+
     //get syspara details
     this.multiService.getSysParaData().subscribe(data => {
       debugger
@@ -169,5 +197,38 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       }
     });
   }
+<<<<<<< Updated upstream
   editClickHandler(id) {}
+=======
+
+  changeNormal(ele){
+    if(ele.target.value == 'transfer'){
+      this.transferShowNormal = true;
+    }else{
+      this.transferShowNormal = false;
+    }
+  }
+
+  normalCheck(ele){
+    if(ele.target.checked){
+      this.NormalCheck = false;
+      this.InterestDate = this.current_date;
+    }
+  }
+
+  PayableCheck:boolean = true;
+  payableInt(ele){
+    if(ele.target.checked){
+      this.PayableCheck = false;
+    }
+  }
+
+  payableStatus(ele){
+    if(ele.target.value == 'transfer'){
+      this.payableTranferShow = true;
+    }else{
+      this.payableTranferShow = false;
+    }
+  }
+>>>>>>> Stashed changes
 }
