@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -9,6 +9,8 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { first } from 'rxjs/operators';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs-compat';
 
 
 
@@ -19,6 +21,8 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./gold-silver-return-entry.component.scss']
 })
 export class GoldSilverReturnEntryComponent implements OnInit {
+  @Input() childMessage: string;
+  @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
 
   formSubmitted = false;
   //api
@@ -49,6 +53,12 @@ export class GoldSilverReturnEntryComponent implements OnInit {
 
   
 
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  DatatableHideShow: boolean;
+  rejectShow: boolean;
+  approveShow: boolean;
 
   constructor(
     private fb: FormBuilder,private http: HttpClient,
@@ -57,6 +67,11 @@ export class GoldSilverReturnEntryComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
     ) {
+
+      if (this.childMessage != undefined) {
+
+        this.editClickHandler(this.childMessage);
+      }
 
       this.maxDate = new Date();
     this.minDate = new Date();

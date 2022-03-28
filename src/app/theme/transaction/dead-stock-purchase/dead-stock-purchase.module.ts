@@ -29,6 +29,7 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
     DatepickerModule.forRoot()
   ],
   declarations: [DeadStockPurchaseComponent],
+  exports:[DeadStockPurchaseComponent],
   providers:[DeadStockPurchaseService,SchemeCodeDropdownService,SchemeAccountNoService,OwnbranchMasterService,SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

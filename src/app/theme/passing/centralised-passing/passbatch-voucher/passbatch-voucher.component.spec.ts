@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CashRemitanceComponent } from './cash-remitance.component';
+import { PassbatchVoucherComponent } from './passbatch-voucher.component';
 
-describe('CashRemitanceComponent', () => {
-  let component: CashRemitanceComponent;
-  let fixture: ComponentFixture<CashRemitanceComponent>;
+describe('PassbatchVoucherComponent', () => {
+  let component: PassbatchVoucherComponent;
+  let fixture: ComponentFixture<PassbatchVoucherComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CashRemitanceComponent ]
+      declarations: [ PassbatchVoucherComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CashRemitanceComponent);
+    fixture = TestBed.createComponent(PassbatchVoucherComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

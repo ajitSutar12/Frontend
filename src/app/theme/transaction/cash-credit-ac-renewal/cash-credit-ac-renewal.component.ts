@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http'
 import Swal from 'sweetalert2';
@@ -40,6 +40,8 @@ interface CashCreditLoanRenewal {
 })
 export class CashCreditAcRenewalComponent implements OnInit {
 
+  @Input() childMessage: string;
+  @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   formSubmitted = false;
   //api
   url = environment.base_url;
@@ -80,6 +82,9 @@ export class CashCreditAcRenewalComponent implements OnInit {
 
 
 
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -91,6 +96,10 @@ export class CashCreditAcRenewalComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,) {
 
+      if (this.childMessage != undefined) {
+
+        this.editClickHandler(this.childMessage);
+      }
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -365,5 +374,6 @@ export class CashCreditAcRenewalComponent implements OnInit {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
+  editClickHandler(id) {}
 
 }

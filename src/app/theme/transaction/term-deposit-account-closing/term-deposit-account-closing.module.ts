@@ -35,6 +35,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     DatepickerModule.forRoot(),
   ],
   declarations: [TermDepositAccountClosingComponent],
+  exports:[TermDepositAccountClosingComponent],
   providers: [SchemeCodeService, AcountnoService,
     {
       provide: HTTP_INTERCEPTORS,

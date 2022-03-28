@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { TransactionCashModeService } from '../../../shared/elements/transaction-cash-mode.service';
@@ -31,6 +31,7 @@ class DataTableResponse {
 })
 
 export class MultiVoucherComponent implements OnInit {
+  @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
 
   branchCode: any = null
@@ -138,6 +139,11 @@ export class MultiVoucherComponent implements OnInit {
   customerImg:string = '../../../../assets/images/user-card/img-round4.jpg';
   signture: string = '../../../../assets/sign/signture.jpg';
   maxDate: Date;
+
+
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
   constructor(
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -149,6 +155,10 @@ export class MultiVoucherComponent implements OnInit {
     private fb: FormBuilder,
     private router : Router
   ) {
+    if (this.childMessage != undefined) {
+
+      this.editClickHandler(this.childMessage);
+    }
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
    }
@@ -604,4 +614,6 @@ export class MultiVoucherComponent implements OnInit {
     this.headShow = false;
     this.showChequeDetails = false;
   }
+
+  editClickHandler(id) {}
 }

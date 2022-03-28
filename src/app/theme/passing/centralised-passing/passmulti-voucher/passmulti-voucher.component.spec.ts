@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BatchVoucherComponent } from './batch-voucher.component';
+import { PassmultiVoucherComponent } from './passmulti-voucher.component';
 
-describe('BatchVoucherComponent', () => {
-  let component: BatchVoucherComponent;
-  let fixture: ComponentFixture<BatchVoucherComponent>;
+describe('PassmultiVoucherComponent', () => {
+  let component: PassmultiVoucherComponent;
+  let fixture: ComponentFixture<PassmultiVoucherComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BatchVoucherComponent ]
+      declarations: [ PassmultiVoucherComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BatchVoucherComponent);
+    fixture = TestBed.createComponent(PassmultiVoucherComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

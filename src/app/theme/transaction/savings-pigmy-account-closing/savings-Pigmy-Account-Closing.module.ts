@@ -46,6 +46,7 @@ import { SavingPigmyAccountClosingService } from './savings-Pigmy-Account-Closin
     useClass: UserAuthInterceptor,
     multi: true
   },],
-  declarations: [ SavingsPigmyAccountClosingComponent]
+  declarations: [ SavingsPigmyAccountClosingComponent],
+  exports:[SavingsPigmyAccountClosingComponent],
 })
 export class  SavingsPigmyAccountClosingModule { }

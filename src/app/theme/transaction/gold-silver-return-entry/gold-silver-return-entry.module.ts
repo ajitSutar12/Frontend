@@ -40,6 +40,7 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
     useClass: UserAuthInterceptor,
     multi: true
   },],
-  declarations: [ GoldSilverReturnEntryComponent]
+  declarations: [ GoldSilverReturnEntryComponent],
+  exports:[GoldSilverReturnEntryComponent],
 })
 export class  GoldSilverReturnEntryModule { }

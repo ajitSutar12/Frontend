@@ -9,33 +9,19 @@
                     <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
 
                         <ul class="basic-list">
-                            <!-- <li>
-                                <h6> <a (click)="OpenLink(1)" routerLinkActive="active" class="text-right f-w-600" id="pointer">1. Voucher</a> <span class="badge badge-secondary badgeAlign" >{{voucher}}</span></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(2)" routerLinkActive="active" class="text-right f-w-600" id="pointer">2. Batch Voucher</a><span class="badge badge-secondary badgeAlign" >{{batch_voucher}}</span></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(3)" routerLinkActive="active" class="text-right f-w-600" id="pointer">3. Deposit Closing Vouchers</a><span class="badge badge-secondary badgeAlign" >{{deposit_closing}}</span></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(4)" routerLinkActive="active" class="text-right f-w-600" id="pointer">4. Saving Pigmy Closing</a><span class="badge badge-secondary badgeAlign" >{{saving_pigmy_closing}}</span></h6>
-                            </li>
+                            <!-- 
+                            
+                            
+                            
                             <li>
                                 <h6> <a (click)="OpenLink(5)" routerLinkActive="active" class="text-right f-w-600" id="pointer">5. Remittance Advice</a><span class="badge badge-secondary badgeAlign" >{{remittance_advice}}</span></h6>
                             </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(6)" routerLinkActive="active" class="text-right f-w-600" id="pointer">6. Cash Remitance</a><span class="badge badge-secondary badgeAlign" >{{cash_remitance}}</span></h6>
-                            </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(7)" routerLinkActive="active" class="text-right f-w-600" id="pointer">7. Dead Stock Purchase</a><span class="badge badge-secondary badgeAlign" >{{dead_stock_purchase}}</span></h6>
-                            </li>
+                            
+                            
                             <li>
                                 <h6> <a (click)="OpenLink(8)" routerLinkActive="active" class="text-right f-w-600" id="pointer">8. Dead Stock Transaction</a><span class="badge badge-secondary badgeAlign" >{{dead_stock_transaction}}</span></h6>
                             </li>
-                            <li>
-                                <h6> <a (click)="OpenLink(9)" routerLinkActive="active" class="text-right f-w-600" id="pointer">9. Locker A/c Close / Rent</a><span class="badge badge-secondary badgeAlign" >{{locaker_ac_close}}</span></h6>
-                            </li> -->
+                            
                             <li>
                                 <h6> <a (click)="OpenLink(10)" routerLinkActive="active" class="text-right f-w-600" id="pointer">10. Master Shares</a><span class="badge badge-secondary badgeAlign" >{{share_master}}</span></h6>
                             </li>
@@ -73,8 +59,41 @@
                                 <h6> <a (click)="OpenLink(21)" routerLinkActive="active" class="text-right f-w-600" id="pointer">21. Master Locker Deposit</a><span class="badge badge-secondary badgeAlign" >{{locker_master}}</span></h6>
                             </li> -->
                             <li>
-                                <h6> <a (click)="OpenLink(20)" routerLinkActive="active" class="text-right f-w-600" id="pointer">22. Master Dead Stock</a><span class="badge badge-secondary badgeAlign" >{{dead_stock_master}}</span></h6>
+                                <h6> <a (click)="OpenLink(20)" routerLinkActive="active" class="text-right f-w-600" id="pointer">20. Master Dead Stock</a><span class="badge badge-secondary badgeAlign" >{{dead_stock_master}}</span></h6>
                             </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(21)" routerLinkActive="active" class="text-right f-w-600" id="pointer">21. Voucher</a> <span class="badge badge-secondary badgeAlign" >{{voucher}}</span></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(22)" routerLinkActive="active" class="text-right f-w-600" id="pointer">22. Batch Voucher</a><span class="badge badge-secondary badgeAlign" >{{batch_voucher}}</span></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(23)" routerLinkActive="active" class="text-right f-w-600" id="pointer">23.Multi Voucher</a><span class="badge badge-secondary badgeAlign" >{{multi_voucher}}</span></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(24)" routerLinkActive="active" class="text-right f-w-600" id="pointer">24. Deposit Closing Vouchers</a><span class="badge badge-secondary badgeAlign" >{{deposit_closing}}</span></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(25)" routerLinkActive="active" class="text-right f-w-600" id="pointer">25. Saving Pigmy Closing</a><span class="badge badge-secondary badgeAlign" >{{saving_pigmy_closing}}</span></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(26)" routerLinkActive="active" class="text-right f-w-600" id="pointer">26. Dead Stock Purchase</a><span class="badge badge-secondary badgeAlign" >{{dead_stock_purchase}}</span></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(27)" routerLinkActive="active" class="text-right f-w-600" id="pointer">27. Dead Stock Transaction</a><span class="badge badge-secondary badgeAlign" >{{dead_stock_transaction}}</span></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(28)" routerLinkActive="active" class="text-right f-w-600" id="pointer">28. Cash Credit A/c Renewal</a><span class="badge badge-secondary badgeAlign" >{{cash_remitance}}</span></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(29)" routerLinkActive="active" class="text-right f-w-600" id="pointer">29. Gold Silver Return Entry</a><span class="badge badge-secondary badgeAlign" >{{gold_silver_return}}</span></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(30)" routerLinkActive="active" class="text-right f-w-600" id="pointer">30. Term Deposit A/c Renewal</a><span class="badge badge-secondary badgeAlign" >{{term_deposit_ac_renewal}}</span></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(31)" routerLinkActive="active" class="text-right f-w-600" id="pointer">31. Locker A/c Close / Rent</a><span class="badge badge-secondary badgeAlign" >{{locaker_ac_close}}</span></h6>
+                            </li> 
                         </ul>
                     </perfect-scrollbar>
                 </div>
@@ -84,33 +103,17 @@
     <div class="col-sm-9">
         <div class="card-block">
             
-            <!-- <div *ngIf="voucherTrue">
-                <app-voucher></app-voucher>
-            </div>
-            <div *ngIf="batchvoucherTrue">
-                <app-batch-voucher></app-batch-voucher>
-            </div>
-            <div *ngIf="depositclosingvouchersTrue">
-                <app-deposit-closing-voucher></app-deposit-closing-voucher>
-            </div>
-            <div *ngIf="savingpigmyclosingTrue">
-                <app-saving-pigmy-closing></app-saving-pigmy-closing>
-            </div>
+            <!-- 
+           
+            
+            
             <div *ngIf="remittanceadviceTrue">
                 <app-remittance-advice></app-remittance-advice>
             </div>
-            <div *ngIf="cashremitanceTrue">
-                <app-cash-remitance></app-cash-remitance>
-            </div>
-            <div *ngIf="deadstockpurchaseTrue">
-                <app-dead-stock-purchase></app-dead-stock-purchase>
-            </div>
-            <div *ngIf="deadstocktransactionTrue">
-                <app-dead-stock-transaction></app-dead-stock-transaction>
-            </div>
-            <div *ngIf="lockeraccloserentTrue">
-                <app-locker-ac-close-rent></app-locker-ac-close-rent>
-            </div>-->
+            
+            
+            
+           -->
             <div *ngIf="mastersharesTrue">
                 <app-master-shares></app-master-shares>
             </div>
@@ -150,6 +153,39 @@
             <div *ngIf="masterdeadstockTrue">
                 <app-master-dead-stock></app-master-dead-stock>
             </div> 
+            <div *ngIf="voucherTrue">
+                <app-voucher></app-voucher>
+            </div>
+            <div *ngIf="batchvoucherTrue">
+               <app-passbatch-voucher></app-passbatch-voucher>
+            </div>
+            <div *ngIf="multivoucherTrue">
+                <app-passmulti-voucher></app-passmulti-voucher>
+            </div>
+            <div *ngIf="depositclosingvouchersTrue">
+                <app-deposit-closing-voucher></app-deposit-closing-voucher>
+            </div>
+            <div *ngIf="savingpigmyclosingTrue">
+                <app-saving-pigmy-closing></app-saving-pigmy-closing>
+            </div>
+            <div *ngIf="deadstockpurchaseTrue">
+               <app-passdead-stock-purchase></app-passdead-stock-purchase>
+            </div>
+            <div *ngIf="deadstocktransactionTrue">
+               <app-passdead-stock-transaction></app-passdead-stock-transaction>
+            </div>
+            <div *ngIf="cashremitanceTrue">
+               <app-passcash-credit-ac-renewal></app-passcash-credit-ac-renewal>
+            </div>
+            <div *ngIf="goldsilverreturnTrue">
+                <app-passgold-silver-return-entry></app-passgold-silver-return-entry>
+            </div>
+            <div *ngIf="termdepositacrenewalTrue">
+               <app-passterm-deposit-ac-renewal></app-passterm-deposit-ac-renewal>
+            </div>
+            <div *ngIf="lockeraccloserentTrue">
+                <app-locker-ac-close-rent></app-locker-ac-close-rent>
+            </div>
         </div>
     </div>
 </div>

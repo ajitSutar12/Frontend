@@ -31,6 +31,7 @@ import { SavingMasterService } from '../../master/customer/saving-master/saving-
     DatepickerModule.forRoot(),
   ],
   declarations: [MultiVoucherComponent],
+  exports:[MultiVoucherComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

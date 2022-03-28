@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { TransactionCashModeService } from '../../../shared/elements/transaction-cash-mode.service';
@@ -21,6 +21,7 @@ import { data } from 'jquery';
   styleUrls: ['./voucher-entry.component.scss']
 })
 export class VoucherEntryComponent implements OnInit {
+  @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
 
   branchCode: any = null
@@ -46,6 +47,10 @@ export class VoucherEntryComponent implements OnInit {
   ClearBalance:number =0;
   AfterVoucher:number=0;
   InputHeadAmt:number = 0.00;
+
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
 
   //object created to get data when row is clicked
 
@@ -122,6 +127,8 @@ export class VoucherEntryComponent implements OnInit {
   customerImg:string = '../../../../assets/images/user-card/img-round4.jpg';
   signture: string = '../../../../assets/sign/signture.jpg';
   maxDate: Date;
+  dtTrigger: any;
+  dtElement: any;
   constructor(
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -133,6 +140,10 @@ export class VoucherEntryComponent implements OnInit {
     private fb: FormBuilder,
     private router : Router
   ) {
+    if (this.childMessage != undefined) {
+
+      this.editClickHandler(this.childMessage);
+    }
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
    }
@@ -505,5 +516,27 @@ export class VoucherEntryComponent implements OnInit {
     this.previewImg = src;
     this.PreviewDiv = true;
     // document.getElementById('full').src = largeSrc;
+  }
+  editClickHandler(id) {}
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
   }
 }

@@ -33,6 +33,7 @@ import { IntrestCategoryMasterDropdownService } from 'src/app/shared/dropdownSer
     DatepickerModule.forRoot()
   ],
   declarations: [CashCreditAcRenewalComponent],
+  exports:[CashCreditAcRenewalComponent],
   providers:[IntrestCategoryMasterDropdownService,SystemMasterParametersService,SchemeCodeDropdownService, SchemeAccountNoService,OwnbranchMasterService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

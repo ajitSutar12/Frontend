@@ -37,5 +37,6 @@ import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-maste
     multi: true
   },],
   declarations: [DeadStockTransactionComponent],
+  exports:[DeadStockTransactionComponent],
 })
 export class DeadStockTransactionModule { }

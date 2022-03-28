@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import Swal from 'sweetalert2';
@@ -24,6 +24,8 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
   styleUrls: ['./savings-pigmy-account-closing.component.scss']
 })
 export class SavingsPigmyAccountClosingComponent implements OnInit {
+  @Input() childMessage: string;
+  @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
 
   formSubmitted = false;
   //api
@@ -88,8 +90,11 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   customerImg: string = '../../../../assets/images/user-card/img-round4.jpg';
   signture: string = '../../../../assets/sign/signture.jpg';
   introducerACNo: any;
-  triggerhide: any;
  
+ 
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
 
   constructor(
     // public NarrationService: NarrationService,
@@ -101,7 +106,12 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private _service1: MultiVoucherService,
     private _service:SavingPigmyAccountClosingService
-    ) {}
+    ) {
+      if (this.childMessage != undefined) {
+
+        this.editClickHandler(this.childMessage);
+      }
+    }
 
   ngOnInit(): void {
     this.createForm(); 

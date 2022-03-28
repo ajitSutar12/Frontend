@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { StatementTypeService } from '../../../shared/elements/statement-type.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -16,6 +16,7 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
   styleUrls: ['./batch-voucher.component.scss']
 })
 export class BatchVoucherComponent implements OnInit {
+  @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   date: any;
   angForm: FormGroup;
@@ -33,13 +34,24 @@ export class BatchVoucherComponent implements OnInit {
   filterArray:any;
   narrationList: any;
   particulars: any;
+  dtTrigger: any;
+  dtElement: any;
+
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
   constructor(
     private fb: FormBuilder,
     private ownbranchMasterService: OwnbranchMasterService,
     private _service: BatchVoucherService,
     private CompanyGroupMasterDropdownService: CompanyGroupMasterDropdownService,
     private _multiService: MultiVoucherService
-  ) {}
+  ) {
+    if (this.childMessage != undefined) {
+
+      this.editClickHandler(this.childMessage);
+    }
+  }
   ngOnInit(): void {
    this.createForm()
     let user = JSON.parse(localStorage.getItem('user'));
@@ -155,6 +167,28 @@ export class BatchVoucherComponent implements OnInit {
     },err=>{
       console.log(err);
     })
+  }
+  editClickHandler(id) {}
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      $('#transactiontable tfoot tr').appendTo('#transactiontable thead');
+      dtInstance.columns().every(function () {
+        const that = this;
+        $('input', this.footer()).on('keyup change', function () {
+          if (this['value'] != '') {
+            that
+              .search(this['value'])
+              .draw();
+          } else {
+            that
+              .search(this['value'])
+              .draw();
+          }
+        });
+      });
+    });
   }
 };
 

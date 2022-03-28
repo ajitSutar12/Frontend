@@ -32,6 +32,7 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
     multi: true
   },],
   declarations: [BatchVoucherComponent],
+  exports:[BatchVoucherComponent],
 
 })
 export class BatchVoucherModule { }

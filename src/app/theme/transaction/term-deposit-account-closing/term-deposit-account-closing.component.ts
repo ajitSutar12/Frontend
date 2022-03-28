@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import Swal from 'sweetalert2';
@@ -24,11 +24,13 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./term-deposit-account-closing.component.scss']
 })
 export class TermDepositAccountClosingComponent implements OnInit {
+  @Input() childMessage: string;
+  @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
 
   formSubmitted = false;
   //api
   url = environment.base_url;
-  @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
+  
 
   // for radio button
   isTransfer: boolean = false
@@ -138,6 +140,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
   signture: string = '../../../../assets/sign/signture.jpg';
 
   multigrid=[]
+
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
   constructor(public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
     public SchemeTypeService: SchemeTypeService,
@@ -146,7 +152,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
     private _service: MultiVoucherService,
     private savingMasterService: SavingMasterService,
     private fb: FormBuilder,
-    private router: Router) {  }
+    private router: Router) { 
+      if (this.childMessage != undefined) {
+
+        this.editClickHandler(this.childMessage);
+      }
+     }
 
   ngOnInit(): void {
     this.angForm = this.fb.group({
@@ -654,6 +665,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.headShow = false;
     this.showChequeDetails = false;
   }
+  editClickHandler(id) {}
 
 
 

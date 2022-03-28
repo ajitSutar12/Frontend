@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { DataTableDirective } from 'angular-datatables';
@@ -27,8 +27,10 @@ class DataTableResponse {
   styleUrls: ['./dead-stock-purchase.component.scss']
 })
 export class DeadStockPurchaseComponent implements OnInit {
-
+  @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
+
+  
 
   formSubmitted = false;
   //api
@@ -77,6 +79,10 @@ export class DeadStockPurchaseComponent implements OnInit {
   updateshowbtn: boolean;
   editbutton: boolean;
 
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
+
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
@@ -86,6 +92,10 @@ export class DeadStockPurchaseComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
   ) {
+    if (this.childMessage != undefined) {
+
+      this.editClickHandler(this.childMessage);
+    }
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -381,6 +391,7 @@ export class DeadStockPurchaseComponent implements OnInit {
     this.accountedit = null
   }
 
+  editClickHandler(id) {}
 
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
@@ -11,6 +11,9 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
   styleUrls: ['./term-deposite-ac-renewal.component.scss']
 })
 export class TermDepositeAcRenewalComponent implements OnInit {
+  @Input() childMessage: string;
+  @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
+
 
   selectedBranch: any;
   selectedCode: any;
@@ -28,13 +31,21 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   isture: boolean = true;
 
 
+  DatatableHideShow: boolean = true;
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
 
   constructor(private fb: FormBuilder,
     private multiService: MultiVoucherService,
     private ownbranchMasterService: OwnbranchMasterService,
     private savingMasterService: SavingMasterService,
     private Multiservice: MultiVoucherService,
-  ) { }
+  ) { 
+    if (this.childMessage != undefined) {
+
+      this.editClickHandler(this.childMessage);
+    }
+  }
 
   ngOnInit(): void {
     this.angForm = this.fb.group({
@@ -158,4 +169,5 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       }
     });
   }
+  editClickHandler(id) {}
 }

@@ -29,6 +29,7 @@ import { SavingMasterService } from '../../master/customer/saving-master/saving-
     SharedModule,
   ],
   declarations: [TermDepositeAcRenewalComponent],
+  exports:[TermDepositeAcRenewalComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

@@ -38,6 +38,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule
   ],
   declarations: [VoucherEntryComponent],
+  exports:[VoucherEntryComponent],
   providers:[TransactionCashModeService,TransactionTransferModeService,SchemeTypeService,OwnbranchMasterService,SchemeCodeDropdownService,SavingMasterService,
     {
       provide: HTTP_INTERCEPTORS,
