@@ -3,7 +3,7 @@ import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {environment} from '../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class DeadStockTransactionService {
@@ -17,7 +17,7 @@ export class DeadStockTransactionService {
 
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + '/dead-stock-transaction/insert', data).pipe(map((res) => res),
+    return this.http.post(this.url + '/deadstock-purchase/TranInsert', data).pipe(map((res) => res),
       catchError((error) => {
         Swal.fire('Please Input Proper Data!');
         return throwError(error);
@@ -26,8 +26,8 @@ export class DeadStockTransactionService {
   }
 
   //get narration data
-  getNarrationMaster():Observable<any>{
-    return this.http.get(this.url+'/narration')
+  getNarrationMaster(): Observable<any> {
+    return this.http.get(this.url + '/narration')
   }
   // For append data
   getFormData(id: any): Observable<any> {

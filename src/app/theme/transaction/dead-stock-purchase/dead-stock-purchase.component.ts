@@ -200,37 +200,37 @@ export class DeadStockPurchaseComponent implements OnInit {
 
   //add items details in array
   addItem() {
-    debugger
     const formVal = this.angForm.value;
     let object = {
-      id: formVal.ITEM_CODE.id,
-      ITEM_CODE: formVal.ITEM_CODE.ITEM_CODE,
-      ITEM_TYPE: formVal.ITEM_CODE.ITEM_TYPE,
-      ITEM_NAME: formVal.ITEM_CODE.ITEM_NAME,
+      id: formVal.ITEM_CODE?.id,
+      ITEM_CODE: formVal.ITEM_CODE?.ITEM_CODE,
+      ITEM_TYPE: formVal.ITEM_CODE?.ITEM_TYPE,
+      ITEM_NAME: formVal.ITEM_CODE?.ITEM_NAME,
       Quantity: formVal.Quantity,
       Rate: formVal.Rate,
       Amount: formVal.amount,
     }
 
-     if (formVal.ITEM_CODE == "" || formVal.ITEM_CODE == null) {
-        Swal.fire("Warning!", "Please Insert Mandatory Record for item!", "info");
-      } else if (formVal.Quantity == "" || formVal.Quantity == null) {
-        Swal.fire("Warning!", "Please Insert Mandatory Record for Quantity!", "info");
-      } else if (formVal.Rate == "" || formVal.Rate == null) {
-        Swal.fire("Warning!", "Please Insert Mandatory Record for Rate!", "info");
-      } else if (formVal.amount == "" || formVal.amount == null) {
-        Swal.fire("Warning!", "Please Insert Mandatory Record for Amount", "info");
+    if (formVal.ITEM_CODE == "" || formVal.ITEM_CODE == null) {
+      Swal.fire("Warning!", "Please Insert Mandatory Record for item!", "info");
+    } else if (formVal.Quantity == "" || formVal.Quantity == null) {
+      Swal.fire("Warning!", "Please Insert Mandatory Record for Quantity!", "info");
+    } else if (formVal.Rate == "" || formVal.Rate == null) {
+      Swal.fire("Warning!", "Please Insert Mandatory Record for Rate!", "info");
+    } else if (formVal.amount == "" || formVal.amount == null) {
+      Swal.fire("Warning!", "Please Insert Mandatory Record for Amount", "info");
+    }
+    else if (this.itemArr.length != 0) {
+      if (this.itemArr.some(item => item.id === object.id)) {
+        this.itemArr.forEach((element) => {
+          if (element.id == object.id) {
+            Swal.fire('', 'This Item is Already Exists!', 'info');
+          }
+        })
       }
-       else if (this.itemArr.length != 0) {
-        if (this.itemArr.some(item => item.id === object.id)) {
-          this.itemArr.forEach((element) => {
-            if (element.id == object.id) {
-              Swal.fire('', 'This Item is Already Exists!', 'info');
-            }
-          })
-        }
       else {
         this.itemArr.push(object)
+        this.resetItem()
         // this.totalAmt = this.totalAmt + parseInt(object.Amount)
         // this.angForm.patchValue({
         //   Total_AMT: this.totalAmt
@@ -239,17 +239,18 @@ export class DeadStockPurchaseComponent implements OnInit {
     }
     else {
       this.itemArr.push(object)
+      this.resetItem()
       // this.totalAmt = this.totalAmt + parseInt(object.Amount)
       // this.angForm.patchValue({
       //   Total_AMT: this.totalAmt
       // })
     }
-    this.resetItem()
+
   }
 
   //reset table controls
   resetItem() {
-   
+
     this.angForm.patchValue({
       amount: '',
       Rate: '',
@@ -288,11 +289,19 @@ export class DeadStockPurchaseComponent implements OnInit {
       })
       var formatfullDate = data.CURRENT_DATE;
       var nyear = formatfullDate.split(/\//);
-      let next = Number(nyear[2]) + 1
-      var transactionDate = nyear[2] + next
+      let transactionDate
+      let prev = Number(nyear[2]) - 1
+      if (nyear[1] > 3) {
+        transactionDate = prev + nyear[2]
+      }
+      else {
+        let next = Number(nyear[2]) + 1
+        transactionDate = nyear[2] + next
+      }
       this.angForm.patchValue({
         TRAN_YEAR: transactionDate
       })
+
     })
   }
 
@@ -327,7 +336,8 @@ export class DeadStockPurchaseComponent implements OnInit {
 
     let billDate
     let chequeDate
-    if (this.itemArr.length != 0) {
+    // if (this.itemArr.length != 0) {
+    if (this.angForm.controls['Total_AMT'].value > 0) {
       const formVal = this.angForm.value
       const dataToSend = {
         itemArr: this.itemArr,

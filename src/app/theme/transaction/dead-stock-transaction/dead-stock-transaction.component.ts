@@ -49,6 +49,7 @@ export class DeadStockTransactionComponent implements OnInit {
 
   narration: any;
   narrationList: any;
+  totalAmt: number = 0
 
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
@@ -74,11 +75,23 @@ export class DeadStockTransactionComponent implements OnInit {
   rejectShow: boolean = false;
   approveShow: boolean = false;
 
+  GL_ACNO
+  obj: any
+  getschemename: any
 
+  Narration: boolean = false
+  Resolution: boolean = false
+  GLAccount: boolean = false
+  itemArr = []
+  ngItem: any = null
+  OP_BALANCE
+  deadstockDetailAmount = {}
+  backamount
+  itemQuan: number
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
-    private deadstocktransaction: DeadStockTransactionService,
+    private _service: DeadStockTransactionService,
     public ACMasterDropdownService: ACMasterDropdownService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -105,24 +118,17 @@ export class DeadStockTransactionComponent implements OnInit {
 
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
-      this.ngBranchCode = data[0].value
     })
-
-    // this.ACMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
-
-    //   this.ACMasterDropdown = data;
-    // })
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
         return (scheme.name == 'GL' || scheme.name == 'GS');
       });
       this.ACMasterDropdown = filtered;
-      console.log(this.ACMasterDropdown, 'schme')
     })
 
     // /Narration List
-    this.deadstocktransaction.getNarrationMaster().subscribe(data => {
+    this._service.getNarrationMaster().subscribe(data => {
       this.narrationList = data;
     })
 
@@ -150,29 +156,33 @@ export class DeadStockTransactionComponent implements OnInit {
       Total_AMT: [''],
 
     })
+    this.getSystemParaDate()
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngBranchCode = result.branch.id
+    }
   }
 
 
   getBranch() {
-
     this.getIntroducer()
   }
 
   schemechange(event) {
-
     this.getschemename = event.name
     this.schemeedit = event.value
+    this.GL_ACNO = event.glacno
     this.getIntroducer()
-
-
   }
 
-
-  obj: any
-  getschemename: any
   //get account no according scheme for introducer
   getIntroducer() {
-    debugger
     this.accountedit = null
     this.obj = [this.schemeedit, this.ngBranchCode]
     switch (this.getschemename) {
@@ -195,34 +205,22 @@ export class DeadStockTransactionComponent implements OnInit {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
         'TRAN_DATE': data.CURRENT_DATE,
-
-      })
-      // var full = []
-      var formatfullDate = data.CURRENT_DATE;
-      var nyear = formatfullDate.split(/\//);
-      let next = Number(nyear[2]) + 1
-      console.log(next)
-      var transactionDate = nyear[2] + next
-      this.angForm.patchValue({
-        TRAN_YEAR: transactionDate
-      })
-      console.log(transactionDate)
-
-    })
-
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.angForm.patchValue({
-        'TRAN_DATE': data.CURRENT_DATE,
       })
       var formatfullDate = data.CURRENT_DATE;
       var nyear = formatfullDate.split(/\//);
-      let next = Number(nyear[2]) + 1
-      var transactionDate = nyear[2] + next
+      let transactionDate
+      let prev = Number(nyear[2]) - 1
+      if (nyear[1] > 3) {
+        transactionDate = prev + nyear[2]
+      }
+      else {
+        let next = Number(nyear[2]) + 1
+        transactionDate = nyear[2] + next
+      }
       this.angForm.patchValue({
         TRAN_YEAR: transactionDate
       })
     })
-
   }
 
   //get Narration Details 
@@ -231,11 +229,9 @@ export class DeadStockTransactionComponent implements OnInit {
     let el: HTMLElement = this.triggerhide.nativeElement;
     el.click();
   }
-
+  tranType
   changetransaction() {
-    debugger
-    console.log(this.ngtransactiontype)
-
+    this.tranType = this.ngtransactiontype.label
     if (this.ngtransactiontype.label == 'Sales') {
       this.angForm.patchValue({
         DEAD_STOCK: 'FormT'
@@ -246,26 +242,22 @@ export class DeadStockTransactionComponent implements OnInit {
       this.angForm.patchValue({
         DEAD_STOCK: 'FormT'
       })
-      this.GLAccount = true
-      this.Resolution = true
-      this.Narration = true;
       this.angForm.controls['DEAD_STOCK'].disable()
     }
+    this.GLAccount = true
+    this.Resolution = true
+    this.Narration = true;
     this.schemeedit = null
     this.accountedit = null
     this.ngresolutionnum = null
     this.narration = null
     this.angForm.patchValue({
-      // RESOLUTION_DATE: this.angForm.controls['RESOLUTION_DATE'].value,
       RESOLUTION_DATE: '',
     })
 
   }
 
 
-  Narration: boolean = false
-  Resolution: boolean = false
-  GLAccount: boolean = false
   isFormA(value) {
     if (this.ngtransactiontype.label == 'Sales') {
       document.getElementById('formC').removeAttribute("disabled");
@@ -282,21 +274,31 @@ export class DeadStockTransactionComponent implements OnInit {
     }
   }
 
-  itemArr = []
+  depTotal: number = 0
 
   //add items details in array
   addItem() {
     const formVal = this.angForm.value;
     let object = {
-      id: formVal.ITEM_CODE.id,
-      ITEM_CODE: formVal.ITEM_CODE.ITEM_CODE,
-      ITEM_TYPE: formVal.ITEM_CODE.ITEM_TYPE,
-      ITEM_NAME: formVal.ITEM_CODE.ITEM_NAME,
+      id: formVal.ITEM_CODE?.id,
+      ITEM_CODE: formVal.ITEM_CODE?.ITEM_CODE,
+      ITEM_TYPE: formVal.ITEM_CODE?.ITEM_TYPE,
+      ITEM_NAME: formVal.ITEM_CODE?.ITEM_NAME,
       Quantity: formVal.Quantity,
       Rate: formVal.Rate,
       Amount: formVal.amount,
     }
-    if (this.itemArr.length != 0) {
+
+    if (formVal.ITEM_CODE == "" || formVal.ITEM_CODE == null) {
+      Swal.fire("Warning!", "Please Insert Mandatory Record for item!", "info");
+    } else if (formVal.Quantity == "" || formVal.Quantity == null) {
+      Swal.fire("Warning!", "Please Insert Mandatory Record for Quantity!", "info");
+    } else if (formVal.Rate == "" || formVal.Rate == null) {
+      Swal.fire("Warning!", "Please Insert Mandatory Record for Rate!", "info");
+    } else if (formVal.amount == "" || formVal.amount == null) {
+      Swal.fire("Warning!", "Please Insert Mandatory Record for Amount", "info");
+    }
+    else if (this.itemArr.length != 0) {
       if (this.itemArr.some(item => item.id === object.id)) {
         this.itemArr.forEach((element) => {
           if (element.id == object.id) {
@@ -305,23 +307,32 @@ export class DeadStockTransactionComponent implements OnInit {
         })
       }
       else {
+        if (this.deadstockDetailAmount['totalAmt'] > formVal.amount) {
+          object['dep'] = this.deadstockDetailAmount['totalAmt'] - formVal.amount
+          this.depTotal = this.depTotal + Number(object['dep'])
+        }
         this.itemArr.push(object)
-        // this.totalAmt = this.totalAmt + parseInt(object.Amount)
-        // this.angForm.patchValue({
-        //   Total_AMT: this.totalAmt
-        // })
+        this.resetItem()
+        this.totalAmt = this.totalAmt + parseInt(object.Amount)
+        this.angForm.patchValue({
+          Total_AMT: this.totalAmt
+        })
       }
     }
     else {
+      if (this.deadstockDetailAmount['totalAmt'] > formVal.amount) {
+        object['dep'] = this.deadstockDetailAmount['totalAmt'] - formVal.amount
+        this.depTotal = this.depTotal + Number(object['dep'])
+      }
       this.itemArr.push(object)
-      // this.totalAmt = this.totalAmt + parseInt(object.Amount)
-      // this.angForm.patchValue({
-      //   Total_AMT: this.totalAmt
-      // })
+      this.resetItem()
+      this.totalAmt = this.totalAmt + parseInt(object.Amount)
+      this.angForm.patchValue({
+        Total_AMT: this.totalAmt
+      })
     }
-    this.resetItem()
   }
-  ngItem: any = null
+
   //reset table controls
   resetItem() {
     this.angForm.patchValue({
@@ -333,33 +344,112 @@ export class DeadStockTransactionComponent implements OnInit {
   }
 
   //get table Column wise value in array
-  getColumnValue(id, ColumnName, columnValue) {
-    if (columnValue != '' || columnValue != 0) {
+  getColumnValue(id, quanName, quanValue, rateName, rateValue, amountName, amountValue) {
+    if ((quanValue != '' || quanValue != 0) && Number(quanValue) <= this.itemQuan) {
       if (this.itemArr.length != 0) {
         if (this.itemArr.some(item => item.id === id)) {
           this.itemArr.forEach((element) => {
             if (element.id == id) {
-              element[`${ColumnName}`] = columnValue
+              this.totalAmt = this.totalAmt + Number(amountValue) - Number(element[`${amountName}`])
+              element[`${quanName}`] = quanValue
+              element[`${rateName}`] = rateValue
+              element[`${amountName}`] = amountValue
+              let rate = (amountValue / quanValue)
+              element[`${rateName}`] = rate
+              this.angForm.patchValue({
+                Total_AMT: this.totalAmt
+              })
             }
           })
         }
       }
     }
+    else {
+      if (this.itemArr.some(item => item.id === id)) {
+        this.itemArr.forEach((element) => {
+          if (element.id == id) {
+            element[`Quantity`] = this.itemQuan
+          }
+        })
+      }
+      Swal.fire('', 'This Item Quantity Limit Exceeded !', 'info');
+    }
   }
-  OP_BALANCE
-  deadstockDetailAmount = {}
-  backamount
+
   getItemDetails(event) {
     let obj = [event.ITEM_CODE, event.ITEM_TYPE, event.id]
     this.OP_BALANCE = event.OP_BALANCE
     this.http.get(this.url + '/deadstock-purchase/amount/' + obj).subscribe((data) => {
+      this.deadstockDetailAmount['totalAmt'] = data['totalAmt']
+      let rate = (this.deadstockDetailAmount['totalAmt'] / event.PURCHASE_QUANTITY)
       this.angForm.patchValue({
         amount: data['totalAmt'],
         Quantity: event.PURCHASE_QUANTITY,
+        Rate: rate
       })
-      this.deadstockDetailAmount['totalAmt'] = data['totalAmt']
+      this.itemQuan = event.PURCHASE_QUANTITY
+    })
+
+  }
+
+  getRate() {
+    let Quantity = this.angForm.controls['Quantity'].value
+    let rate = (this.angForm.controls['amount'].value / Quantity)
+    this.angForm.patchValue({
+      Rate: rate
     })
   }
+
+  //select content of field
+  selectAllContent($event) {
+    $event.target.select();
+  }
+
+  //insert method
+  submit() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+
+    let billDate
+    let chequeDate
+    // if (this.itemArr.length != 0) {
+    if (this.angForm.controls['Total_AMT'].value > 0) {
+      const formVal = this.angForm.value
+      const dataToSend = {
+        itemArr: this.itemArr,
+        BRANCH_CODE: this.ngBranchCode,
+        TRAN_DATE: formVal.TRAN_DATE,
+        TRAN_YEAR: formVal.TRAN_YEAR,
+        RESO_DATE: (formVal.RESOLUTION_DATE == '' || formVal.RESOLUTION_DATE == 'Invalid date' || formVal.RESOLUTION_DATE == null || formVal.RESOLUTION_DATE == undefined) ? billDate = '' : billDate = moment(formVal.RESOLUTION_DATE).format('DD/MM/YYYY'),
+        DEAD_STOCK: formVal.DEAD_STOCK,
+        AC_TYPE: formVal.AC_TYPE,
+        AC_NO: formVal.AC_NO,
+        RESO_NO: formVal.RESOLUTION_NUM,
+        NARRATION: formVal.NARRATION,
+        Total_AMT: formVal.Total_AMT,
+        USER: result.USER_NAME,
+        ACNOTYPE: this.getschemename,
+        GL_ACNO: this.GL_ACNO,
+        tranType: this.tranType,
+        depTotal: this.depTotal
+      }
+      this._service.postData(dataToSend).subscribe(
+        (data) => {
+          Swal.fire("Success!", "Data Updated Successfully !", "success");
+          this.formSubmitted = false
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      this.resetForm()
+      this.itemArr = []
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
+  }
+
 
   // Reset Function
   resetForm() {
@@ -367,6 +457,8 @@ export class DeadStockTransactionComponent implements OnInit {
     this.ngBranchCode = null
     this.schemeedit = null
     this.accountedit = null
+    this.depTotal = 0
+    this.totalAmt = 0
   }
 
   editClickHandler(id) {}

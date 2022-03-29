@@ -197,9 +197,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       }
     });
   }
-<<<<<<< Updated upstream
   editClickHandler(id) {}
-=======
 
   changeNormal(ele){
     if(ele.target.value == 'transfer'){
@@ -230,5 +228,4 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       this.payableTranferShow = false;
     }
   }
->>>>>>> Stashed changes
 }

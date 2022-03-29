@@ -295,22 +295,20 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md"><label for="ITEM_CODE">Item Code<sub
-                            class="required">*</sub></label></div>
+                        <div class="col-md"><label for="ITEM_CODE">Item Code<sub class="required">*</sub></label></div>
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <ng-select id="ITEM_CODE" [items]="itemcode" [(ngModel)]="ngItem"
-                                    bindLabel="ITEM_NAME" formControlName="ITEM_CODE"
-                                    [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Code">
-                                    <ng-option *ngFor="let values of itemCode" [value]="values">
-                                        {{values.ITEM_NAME}}</ng-option>
-                                </ng-select>
+                                        bindLabel="ITEM_NAME" formControlName="ITEM_CODE"
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Code">
+                                        <ng-option *ngFor="let values of itemcode" [value]="values">
+                                            {{values.ITEM_NAME}}</ng-option>
+                                    </ng-select>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md"><label for="Quantity">Quantity<sub
-                            class="required">*</sub></label></div>
+                        <div class="col-md"><label for="Quantity">Quantity<sub class="required">*</sub></label></div>
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -320,19 +318,17 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md"><label for="Rate">Rate<sub
-                            class="required">*</sub></label></div>
+                        <div class="col-md"><label for="Rate">Rate<sub class="required">*</sub></label></div>
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" class="form-control" name="Rate"
-                                    id="Rate" formControlName="Rate"
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                        id="Rate" formControlName="Rate"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md"><label for="amount">Amount<sub
-                            class="required">*</sub></label></div>
+                        <div class="col-md"><label for="amount">Amount<sub class="required">*</sub></label></div>
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -348,7 +344,7 @@
                             </button>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="col-12">
@@ -427,13 +423,6 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
-                    </div> 
-                    <div class="row">
-                        <div class="col-sm">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" (click)="submit()">
-                                Submit
-                            </button>
                         </div>
                     </div>
                     
