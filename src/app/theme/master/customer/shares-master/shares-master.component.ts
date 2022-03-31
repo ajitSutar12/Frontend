@@ -107,13 +107,15 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
   //api 
   url = environment.base_url;
+
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
 
   bsValue
-  dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
   // Store data from backend
   shareMaster: ShareMaster[];
   // Created Form Group
@@ -263,7 +265,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate())
 
   }
@@ -380,7 +382,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       dom: 'Blrtip',
     };
 
-    this.runTimer();
     this.dataSub = this.signTypeDropdownService.loadCharacters().subscribe((options) => {
       this.characters = options;
     });
@@ -438,6 +439,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
+  //function to toggle temp address field
   tempAsPermanent() {
     this.tempAddress = !this.tempAddress;
   }
@@ -496,7 +498,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           temp = element
         }
       })
-      this.ngCity = temp?.city.id,
+      this.ngCity = temp?.city?.id,
         this.angForm.patchValue({
           AC_THONO: temp?.AC_HONO,
           AC_TWARD: temp?.AC_WARD,
@@ -511,7 +513,11 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   customer(event) {
-    this.ShareMasterService.getData().subscribe(data => {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id
+    let obj = [branchCode, this.schemeCode]
+    this.ShareMasterService.getData(obj).subscribe(data => {
       if (data?.length == 0) {
         this.getCustomer(event.value);
       }
@@ -522,10 +528,14 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             icon: 'info',
             title: 'Share Account Already Exists For This Scheme',
           })
-          this.angForm.controls['AC_CUSTID'].reset()
           event.id = null
           this.id = null
           this.id = ''
+          this.angForm.controls['AC_CUSTID'].reset()
+          this.angForm.patchValue({
+            AC_TITLE: '',
+            AC_NAME: ''
+          })
 
 
         } else {
@@ -567,7 +577,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getRetirementDate(value: Date): void {
-    debugger
     if (value != null) {
       let birthdate = this.angForm.controls['AC_MEM_BIRTH_DT'].value
       let new_date = moment(birthdate, "DD-MM-YYYY").add(18, 'y');
@@ -775,8 +784,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         //Nominee 
         'NomineeData': this.multiNominee
       }
-
-
       this.ShareMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
           icon: 'success',
@@ -935,7 +942,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             })
             break;
         }
-        this.ngDivACNO = Number(data.DIV_TRANSFER_ACNO)
+        this.ngDivACNO = (data.DIV_TRANSFER_ACNO)
 
       } else {
         this.ngBranchCode = null
@@ -975,8 +982,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for update data 
   updateData() {
-    console.log(this.ngDivACNO)
-
     let joindate
     let opdate
     let exdate
@@ -1109,23 +1114,41 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     })
   }
+  // ngAfterViewInit(): void {
+  //   this.angForm.controls['AC_TYPE'].enable()
+
+  //   this.dtTrigger.next();
+  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //     $('#sharemastertable tfoot tr').appendTo('#sharemastertable thead');
+  //     dtInstance.columns().every(function () {
+  //       const that = this;
+  //       $('input', this.footer()).on('keyup change', function () {
+  //         if (this['value'] != '') {
+  //           that
+  //             .search(this['value'])
+  //             .draw();
+  //         } else {
+  //           that
+  //             .search(this['value'])
+  //             .draw();
+  //         }
+  //       });
+  //     });
+  //   });
+  // }
+
   ngAfterViewInit(): void {
     this.angForm.controls['AC_TYPE'].enable()
-
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      $('#sharemastertable tfoot tr').appendTo('#sharemastertable thead');
       dtInstance.columns().every(function () {
         const that = this;
-        $('input', this.footer()).on('keyup change', function () {
-          if (this['value'] != '') {
-            that
-              .search(this['value'])
-              .draw();
+        $('#sharemastertable tfoot tr').appendTo('#sharemastertable thead');
+        $("input", this.footer()).on("keyup change", function () {
+          if (this["value"] != "") {
+            that.search(this["value"]).draw();
           } else {
-            that
-              .search(this['value'])
-              .draw();
+            that.search(this["value"]).draw();
           }
         });
       });
@@ -1175,15 +1198,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
-
   OpenLink() {
     this.nomineeTrue = !this.nomineeTrue;
   }
@@ -1204,11 +1218,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE.id,
+      AC_NCTCODE: formVal.AC_NCTCODE?.id,
       AC_NPIN: formVal.AC_NPIN,
-      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
+      AC_CITYNAME: formVal.AC_NCTCODE?.CITY_NAME
     }
-
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
     }
@@ -1236,6 +1249,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
               object['AC_NCTCODE'] = formVal.AC_NCTCODE.id,
                 object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
               this.multiNominee.push(object);
+              this.resetNominee()
             }
           }
         }
@@ -1244,14 +1258,16 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         object['AC_NCTCODE'] = formVal.AC_NCTCODE.id
         object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
         this.multiNominee.push(object);
+        this.resetNominee()
       }
     }
     else {
       object['AC_NCTCODE'] = formVal.AC_NCTCODE.id
       object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
       this.multiNominee.push(object);
+      this.resetNominee()
     }
-    this.resetNominee()
+
   }
   nomineedataedit: any
   editNominee(id) {
@@ -1409,7 +1425,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       var button = document.getElementById('triggerhide');
       button.click();
 
-      this.getUserData.emit('welcome to stackoverflow!');
+      this.getUserData.emit('welcome!');
     }, err => {
       console.log('something is wrong');
     })

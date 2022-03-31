@@ -264,7 +264,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate())
   }
 
@@ -470,7 +470,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           temp = element
         }
       })
-      this.ngCity = temp?.city.id,
+      this.ngCity = temp?.city?.id,
         this.angForm.patchValue({
 
           AC_THONO: temp?.AC_HONO,
@@ -488,7 +488,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   customer(event) {
-    this.savingMasterService.getData().subscribe(data => {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id
+    let obj = [branchCode, this.selectedValue]
+    this.savingMasterService.getData(obj).subscribe(data => {
       if (data?.length == 0) {
         this.getCustomer(event.value);
       }
@@ -502,6 +506,21 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           this.newcustid = null
           this.newcustid = ''
           this.angForm.controls['AC_CUSTID'].reset()
+          this.angForm.patchValue({
+            AC_TITLE: '',
+            AC_NAME: '',
+            AC_MEMBTYPE: '',
+            AC_MEMBNO: '',
+            AC_CAST: '',
+            AC_OCODE: '',
+            AC_BIRTH_DT: '',
+            AC_MOBNO: '',
+            AC_PHNO: '',
+            AC_EMAIL: '',
+            AC_PANNO: '',
+            AC_MEM_BIRTH_DT: '',
+          })
+
         } else {
           this.getCustomer(event.value);
         }
@@ -856,7 +875,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngIntCategory = data.AC_INTCATA
       if ((data.AC_INTROBRANCH != null && data.AC_INTROID != null && data.AC_INTRACNO != null) || (data.AC_INTROBRANCH != "" && data.AC_INTROID != "" && data.AC_INTRACNO != "")) {
         this.code = data.AC_INTROBRANCH,
-          this.acno = Number(data.AC_INTROID),
+          this.acno = (data.AC_INTROID),
           this.obj = [this.acno, this.code]
         this.allScheme.forEach(async (element) => {
           if (element.value == this.acno) {
@@ -931,16 +950,18 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             })
             break;
         }
-        this.ngIntroducer = Number(data.AC_INTRACNO)
+        this.ngIntroducer = (data.AC_INTRACNO)
 
       } else {
         this.code = null
         this.acno = null
+        this.ngIntroducer = null
         this.obj = null
       }
       this.angForm.patchValue({
         'AC_ACNOTYPE': data.AC_ACNOTYPE,
-        'AC_NO': data.AC_NO, 'AC_OPDATE': (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
+        'AC_NO': data.AC_NO,
+        'AC_OPDATE': data.AC_OPDATE,
         'AC_SCHMAMT': data.AC_SCHMAMT,
         'REF_ACNO': data.REF_ACNO,
         'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
@@ -952,7 +973,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_GRDRELE': data.AC_GRDRELE,
         'AC_INTRNAME': data.AC_INTRNAME,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
+        AC_TYPE: data.AC_TYPE
       })
+      this.selectedValue = data.AC_TYPE
     })
   }
 
@@ -966,6 +989,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     else if (data.AC_ADDFLAG == false) {
       this.addType = 'T'
+    }
+    if (this.angForm.controls['AC_TCTCODE'].value == "") {
+      data['AC_TCTCODE '] = null
     }
     data['AC_TYPE'] = this.selectedValue
     data['AC_ADDTYPE'] = this.addType
@@ -1010,6 +1036,13 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.multiJointAC = []
     this.multiAttorney = []
     this.customerDoc = []
+    this.tempAddress = true
+    this.acno = null
+    this.ngIntroducer = null
+    this.ngCategory = null
+    this.ngBalCategory = null
+    this.ngIntCategory = null
+    this.ngOccupation = null
     this.resetForm();
     this.getSystemParaDate()
   }
@@ -1097,6 +1130,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.jointID = null
     this.selectedValue = null
     this.code = null
+    this.tempAddress = true
+    this.angForm.controls['AC_TYPE'].enable()
     this.getSystemParaDate()
   }
 
@@ -1159,9 +1194,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE.id,
+      AC_NCTCODE: formVal.AC_NCTCODE?.id,
       AC_NPIN: formVal.AC_NPIN,
-      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME
+      AC_CITYNAME: formVal.AC_NCTCODE?.CITY_NAME
     }
 
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
@@ -1191,6 +1226,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
               object['AC_NCTCODE'] = formVal.AC_NCTCODE.id,
                 object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
               this.multiNominee.push(object);
+              this.resetNominee()
             }
           }
         }
@@ -1199,14 +1235,16 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         object['AC_NCTCODE'] = formVal.AC_NCTCODE.id
         object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
         this.multiNominee.push(object);
+        this.resetNominee()
       }
     }
     else {
       object['AC_NCTCODE'] = formVal.AC_NCTCODE.id
       object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
       this.multiNominee.push(object);
+      this.resetNominee()
     }
-    this.resetNominee()
+
   }
 
   editNominee(id) {
@@ -1336,14 +1374,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
-
       if (object.JOINT_AC_CUSTID != undefined) {
-
         if (this.newcustid != this.joint) {
-
           if (this.multiJointAC.length == 0) {
-
             this.multiJointAC.push(object);
+            this.angForm.controls['JOINT_AC_CUSTID'].reset()
+            this.jointID = null
+            this.jointID = ''
+            this.resetJointAC()
           }
           else {
             if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.joint)) {
@@ -1351,6 +1389,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
               Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');
             } else {
               this.multiJointAC.push(object);
+              this.jointID = null
+              this.jointID = ''
+              this.angForm.controls['JOINT_AC_CUSTID'].reset()
+              this.resetJointAC()
             }
           }
         }
@@ -1364,8 +1406,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       Swal.fire('', "Please Select Customer Id", 'warning');
     }
-    this.resetJointAC()
-    this.jointID = null
+
   }
 
 
@@ -1422,9 +1463,20 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   resetJointAC() {
-    this.jointID = null
-    this.angForm.controls['JOINT_AC_CUSTID'].reset();
+    // this.jointID = null
+    // this.jointID.handleClearClick();
+
+    // this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.patchValue({
+      JOINT_ACNAME: ''
+    })
+    this.jointID.clearFilter();
+    // .handleClearClick();
+  }
+
+  clearFilter() {
+    this.jointID = ''
   }
 
   //power of attorney
@@ -1456,17 +1508,20 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             Swal.fire('', 'This Attorney is Already Exists!', 'error');
           } else {
             this.multiAttorney.push(object);
+            this.resetAttorney()
           }
         }
       }
       else {
         this.multiAttorney.push(object);
+        this.resetAttorney()
       }
     }
     else {
       this.multiAttorney.push(object);
+      this.resetAttorney()
     }
-    this.resetAttorney()
+
   }
 
   ispowerof($event) {

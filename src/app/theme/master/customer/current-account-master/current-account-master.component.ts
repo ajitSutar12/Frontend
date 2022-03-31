@@ -420,7 +420,11 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   customer(event) {
     this.getCustomer(event.value);
-    this.currentAccountMasterService.getData().subscribe(data => {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id
+    let obj = [branchCode, this.selectedValue]
+    this.currentAccountMasterService.getData(obj).subscribe(data => {
       if (data?.length == 0) {
         this.getCustomer(event.value);
       }
@@ -436,6 +440,19 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           this.newcustid = null
           this.newcustid = ''
           this.angForm.controls['AC_CUSTID'].reset()
+          this.angForm.patchValue({
+            AC_TITLE: '',
+            AC_NAME: '',
+            AC_MEMBTYPE: '',
+            AC_MEMBNO: '',
+            AC_CAST: '',
+            AC_OCODE: '',
+            AC_BIRTH_DT: '',
+            AC_MOBNO: '',
+            AC_PHNO: '',
+            AC_EMAIL: '',
+            AC_PANNO: '',
+          })
 
         } else {
           this.getCustomer(event.value);
@@ -491,7 +508,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           temp = element
         }
       })
-      this.ngCity = temp?.city.id,
+      this.ngCity = temp?.city?.id,
         this.angForm.patchValue({
           AC_THONO: temp?.AC_HONO,
           AC_TWARD: temp?.AC_WARD,
@@ -812,7 +829,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'AC_GRDRELE': data.AC_GRDRELE,
         'AC_INTRNAME': data.AC_INTRNAME,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
+        AC_TYPE: data.AC_TYPE
       })
+      this.selectedValue = data.AC_TYPE
     })
   }
 
@@ -826,6 +845,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
     else if (data.AC_ADDFLAG == false) {
       this.addType = 'T'
+    }
+    if (this.angForm.controls['AC_TCTCODE'].value == "") {
+      data['AC_TCTCODE '] = null
     }
     data['AC_TYPE'] = this.selectedValue
     data['AC_ADDTYPE'] = this.addType
@@ -861,6 +883,21 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     })
   }
   //reset function while update
+  // addNewData() {
+  //   this.angForm.controls['AC_TYPE'].enable()
+  //   this.showButton = true;
+  //   this.updateShow = false;
+  //   this.newbtnShow = false;
+  //   this.multiNominee = []
+  //   this.multiJointAC = []
+  //   this.multiAttorney = []
+  //   this.customerDoc = []
+  //   this.tempAddress = true
+  //   this.resetForm();
+  //   this.getSystemParaDate()
+  // }
+
+
   addNewData() {
     this.angForm.controls['AC_TYPE'].enable()
     this.showButton = true;
@@ -871,10 +908,15 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.multiAttorney = []
     this.customerDoc = []
     this.tempAddress = true
+    this.acno = null
+    this.ngIntroducer = null
+    this.ngCategory = null
+    this.ngBalCategory = null
+    this.ngIntCategory = null
+    this.ngOccupation = null
     this.resetForm();
     this.getSystemParaDate()
   }
-
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
@@ -936,7 +978,6 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
   // Reset Function
   resetForm() {
-    this.createForm();
     this.resetNominee();
     this.resetJointAC()
     this.resetAttorney()
@@ -958,6 +999,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.ngIntroducer = null
     this.ngNcity = null
     this.jointID = null
+    this.createForm();
     this.getSystemParaDate()
   }
 
@@ -1141,15 +1183,16 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NCTCODE: formVal.AC_NCTCODE?.id,
       AC_NPIN: formVal.AC_NPIN,
+      AC_CITYNAME: formVal.AC_NCTCODE?.CITY_NAME
     }
+
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-
         Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
 
@@ -1172,6 +1215,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
               object['AC_NCTCODE'] = formVal.AC_NCTCODE.id,
                 object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
               this.multiNominee.push(object);
+              this.resetNominee()
             }
           }
         }
@@ -1180,14 +1224,16 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         object['AC_NCTCODE'] = formVal.AC_NCTCODE.id
         object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
         this.multiNominee.push(object);
+        this.resetNominee()
       }
     }
     else {
       object['AC_NCTCODE'] = formVal.AC_NCTCODE.id
       object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
       this.multiNominee.push(object);
+      this.resetNominee()
     }
-    this.resetNominee()
+
   }
 
   editNominee(id) {
@@ -1260,18 +1306,21 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           }
           else {
             this.multiNominee[index] = object;
+            this.resetNominee()
           }
         }
       }
       else {
         this.multiNominee[index] = object;
+        this.resetNominee()
       }
 
     }
     else {
       this.multiNominee[index] = object;
+      this.resetNominee()
     }
-    this.resetNominee()
+
   }
 
   delNominee(id) {
@@ -1324,6 +1373,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           if (this.multiJointAC.length == 0) {
 
             this.multiJointAC.push(object);
+            this.resetJointAC()
+            this.jointID = null
           }
           else {
             if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.joint)) {
@@ -1331,6 +1382,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
               Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');
             } else {
               this.multiJointAC.push(object);
+              this.resetJointAC()
+              this.jointID = null
             }
           }
         }
@@ -1344,8 +1397,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     } else {
       Swal.fire('', "Please Select Customer Id", 'warning');
     }
-    this.resetJointAC()
-    this.jointID = null
+
   }
 
   editJointAc(id) {
@@ -1400,9 +1452,20 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   }
 
   resetJointAC() {
-    this.jointID = null
-    this.angForm.controls['JOINT_AC_CUSTID'].reset();
+    // this.jointID = null
+    // this.jointID.handleClearClick();
+
+    // this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.patchValue({
+      JOINT_ACNAME: ''
+    })
+    this.jointID.clearFilter();
+    // .handleClearClick();
+  }
+
+  clearFilter() {
+    this.jointID = ''
   }
   //power of attorney
   addAttorney() {
@@ -1433,17 +1496,20 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
             Swal.fire('', 'This Attorney is Already Exists!', 'error');
           } else {
             this.multiAttorney.push(object);
+            this.resetAttorney()
           }
         }
       }
       else {
         this.multiAttorney.push(object);
+        this.resetAttorney()
       }
     }
     else {
       this.multiAttorney.push(object);
+      this.resetAttorney()
     }
-    this.resetAttorney()
+
   }
 
   ispowerof($event) {
@@ -1545,17 +1611,20 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         }
         else {
           this.multiAttorney[index] = object;
+          this.resetAttorney()
 
         }
       }
       else {
         this.multiAttorney[index] = object;
+        this.resetAttorney()
       }
     }
     else {
       this.multiAttorney[index] = object;
+      this.resetAttorney()
     }
-    this.resetAttorney()
+
   }
 
   delAttorney(id) {

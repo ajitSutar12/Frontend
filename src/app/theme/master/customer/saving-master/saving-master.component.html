@@ -127,11 +127,12 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" placeholder="dd/mm/yyyy"
                                                                         name="AC_OPDATE" id="AC_OPDATE"
-                                                                        class="form-control" required
+                                                                        class="form-control" [(ngModel)]="openingDate"
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                        [(ngModel)]="openingDate" disabled
+                                                                        [maxDate]="maxDate"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        formControlName="AC_OPDATE" bsDatepicker>
+                                                                        formControlName="AC_OPDATE" required disabled
+                                                                        bsDatepicker>
                                                                     <label for="AC_OPDATE">Opening Date<sub
                                                                             class="required">*
                                                                         </sub></label>
@@ -882,6 +883,7 @@
                                                                     <input type="text" name="AC_GRDNAME"
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_GRDNAME" pattern="^[A-Za-z\./ -]+$"
+                                                                        [ngClass]="introducerReq === true ? 'formSubmitted' : ''"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                         maxlength="100" formControlName="AC_GRDNAME"
                                                                         [required]="introducerReq" />
@@ -911,6 +913,7 @@
                                                                     <input type="text" name="AC_GRDRELE"
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_GRDRELE" pattern="^[A-Za-z\./ -]+$"
+                                                                        [ngClass]="introducerReq === true ? 'formSubmitted' : ''"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                         maxlength="25" formControlName="AC_GRDRELE"
                                                                         [required]="introducerReq" />
@@ -941,6 +944,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         id="SIGNATURE_AUTHORITY"
                                                                         pattern="^[A-Za-z\./ -]+$"
+                                                                        [ngClass]="introducerReq === true ? 'formSubmitted' : ''"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                         maxlength="100"
                                                                         formControlName="SIGNATURE_AUTHORITY" />
@@ -2047,7 +2051,7 @@
                                             data.idmaster.custAddress[0]?.AC_ADDR }}
                                         </td>
                                         <td
-                                            [ngClass]="data.idmaster.custAddress[0].city?.CITY_NAME  === '' ? 'td_center' : 'td_right'">
+                                            [ngClass]="data.idmaster.custAddress[0].city?.CITY_NAME  === '' ? 'td_center' : 'td_left'">
                                             {{ data.idmaster.custAddress[0].city?.CITY_NAME === "" ? "-" :
                                             data.idmaster.custAddress[0].city?.CITY_NAME }}
                                         </td>

@@ -22,8 +22,8 @@ export class ShareMasterService {
             })
         )
     }
-    getData(): Observable<any> {
-        return this.http.get(this.url + '/share-master/alldata').pipe(catchError(this.handleError));
+    getData(obj): Observable<any> {
+        return this.http.get(this.url + '/share-master/alldata' + obj).pipe(catchError(this.handleError));
     }
     // For append data
     getFormData(id: any): Observable<any> {

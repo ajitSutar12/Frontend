@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <!-- <ng-container *ngIf="showModalStatus"> -->
-                        <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
+                        <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
                             <div class="app-modal-header">
                                 <h4 class="modal-title">Customer ID </h4>
                                 <button type="button" class="close basic-close" (click)="modalLarge.hide()">
@@ -58,16 +58,33 @@
                                 </button>
                             </div>
                             <div class="app-modal-body">
-                                <perfect-scrollbar style="max-width: 800px; max-height: 450px;">
+                                <perfect-scrollbar style="overflow-y: auto;">
                                     <app-customer-id (newCustomerEvent)="addNewCustomer($event)"></app-customer-id>
                                 </perfect-scrollbar>
                             </div>
 
                             <div class="app-modal-footer">
-                                <button type="button" class="btn btn-primary ripple light"
+                                <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
                                     (click)="modalLarge.hide()">Close</button>
                             </div>
                         </app-modal-basic>
+                        <!-- <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
+                            <div class="app-modal-header">
+                                <h4 class="modal-title">Customer ID</h4>
+                                <button type="button" class="close basic-close" (click)="modalLarge.hide()">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="app-modal-body">
+                                <perfect-scrollbar style="overflow-y: auto;">
+                                    <app-customer-id (newCustomerEvent)="addNewCustomer($event)"></app-customer-id>
+                                </perfect-scrollbar>
+                            </div>
+                            <div class="app-modal-footer">
+                                <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
+                                    (click)="modalLarge.hide();onCloseModal();">Close</button>
+                            </div>
+                        </app-modal-basic> -->
                         <div class="col-sm-1">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -380,15 +397,15 @@
                                             data.idmaster.custAddress[0].AC_ADDR }}
                                         </td>
                                         <td
-                                            [ngClass]="data.idmaster.custAddress[0].city.CITY_NAME === '' ? 'td_center' : 'td_right'">
+                                            [ngClass]="data.idmaster.custAddress[0].city.CITY_NAME === '' ? 'td_center' : 'td_left'">
                                             {{ data.idmaster.custAddress[0].city.CITY_NAME === "" ? "-" :
                                             data.idmaster.custAddress[0].city.CITY_NAME }}
                                         </td>
                                         <td class="td_right"
-                                            [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_right'">
+                                            [ngClass]="data.AC_OPDATE === '' ? 'td_center' : 'td_center'">
                                             {{data.AC_OPDATE === ''? '-' : data.AC_OPDATE}}</td>
 
-                                        <td [ngClass]="data.AC_PARTICULAR === '' ? 'td_center' : 'td_right'">
+                                        <td [ngClass]="data.AC_PARTICULAR === '' ? 'td_center' : 'td_left'">
                                             {{data.AC_PARTICULAR ===
                                             ''? '-' : data.AC_PARTICULAR}}</td>
                                     </tr>

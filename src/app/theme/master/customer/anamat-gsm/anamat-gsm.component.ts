@@ -114,7 +114,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
-
+  public visible = false;
+  public visibleAnimate = false;
   //for search functionality
   filterData = {};
 
@@ -415,7 +416,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       BANKACNO: [''],
       AC_OPDATE: ['', [Validators.required]],
       AC_IS_RECOVERY: [false],
-      DEBIT: new FormControl('Credit'),
+      DEBIT: new FormControl('DEBIT'),
       AC_PARTICULAR: ['', [Validators.required, Validators.pattern]],
     });
   }
@@ -660,6 +661,11 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     }, err => {
       console.log('something is wrong');
     })
+  }
+
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
   }
 
 }

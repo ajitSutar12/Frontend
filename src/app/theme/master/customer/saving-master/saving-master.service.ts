@@ -26,8 +26,8 @@ export class SavingMasterService {
     getFormData(id: any): Observable<any> {
         return this.http.get(this.url + '/saving-master/' + id).pipe(catchError(this.handleError));
     }
-    getData(): Observable<any> {
-        return this.http.get(this.url + '/saving-master/alldata').pipe(catchError(this.handleError));
+    getData(obj): Observable<any> {
+        return this.http.get(this.url + '/saving-master/alldata' + obj).pipe(catchError(this.handleError));
     }
 
     getSchemeCodeList(scheme): Observable<any> {
@@ -104,14 +104,14 @@ export class SavingMasterService {
 
 
     //approve master
-    approve(data:any): Observable<any>{
-        return this.http.post(this.url+ '/saving-master/approve',data).pipe(catchError(this.handleError));
+    approve(data: any): Observable<any> {
+        return this.http.post(this.url + '/saving-master/approve', data).pipe(catchError(this.handleError));
     }
 
 
     //reject master
-    reject(data:any): Observable<any>{
-        return this.http.post(this.url+ '/saving-master/reject',data).pipe(catchError(this.handleError));
+    reject(data: any): Observable<any> {
+        return this.http.post(this.url + '/saving-master/reject', data).pipe(catchError(this.handleError));
     }
 }
 

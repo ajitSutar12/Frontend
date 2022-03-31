@@ -385,14 +385,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     else {
       this.salaryDMaster
-      .getSalaryDMasterList(branchCode)
-      .pipe(first())
-      .subscribe((data) => {
-        this.salaryDivision = data;
-      });
-      
+        .getSalaryDMasterList(branchCode)
+        .pipe(first())
+        .subscribe((data) => {
+          this.salaryDivision = data;
+        });
+
     }
-    
+
     this.cityMaster.getcityList().pipe(first()).subscribe((data) => {
       this.city = data;
     });
@@ -665,8 +665,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngRisk = data.AC_RISKCATG
       this.ngoccupation = data.AC_OCODE
       this.ngCast = data.AC_CAST
-      this.ngfinyear = data.tdsForm.FIN_YEAR
-      this.ngSubmitDate = (data.tdsForm.SUBMIT_DATE == 'Invalid date' || data.tdsForm.SUBMIT_DATE == '' || data.tdsForm.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm.SUBMIT_DATE,
+      this.ngfinyear = data.tdsForm?.FIN_YEAR
+      this.ngSubmitDate = (data.tdsForm?.SUBMIT_DATE == 'Invalid date' || data.tdsForm?.SUBMIT_DATE == '' || data.tdsForm?.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm?.SUBMIT_DATE,
 
         this.angForm.patchValue({
           AC_NO: data.AC_NO,
@@ -697,9 +697,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           TDS_REQUIRED: data.TDS_REQUIRED,
           SMS_REQUIRED: data.SMS_REQUIRED,
           IS_KYC_RECEIVED: data.IS_KYC_RECEIVED,
-          FORM_TYPE: data.tdsForm.FORM_TYPE,
-          TDS_RATE: data.tdsForm.TDS_RATE,
-          TDS_LIMIT: data.tdsForm.TDS_LIMIT,
+          FORM_TYPE: data.tdsForm?.FORM_TYPE,
+          TDS_RATE: data.tdsForm?.TDS_RATE,
+          TDS_LIMIT: data.tdsForm?.TDS_LIMIT,
 
         });
 
@@ -713,7 +713,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         this.isTdsFormA = false;
         this.SUBMIT_DATE = false;
       }
-      if (data.tdsForm.FORM_TYPE == "Form15A") {
+      if (data.tdsForm?.FORM_TYPE == "Form15A") {
 
         this.isForm15A(1)
 
@@ -747,7 +747,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.updatecheckdata.AC_BIRTH_DT != data.AC_BIRTH_DT) {
       (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
     }
-    if (this.updatecheckdata.tdsForm.SUBMIT_DATE != data.SUBMIT_DATE) {
+    if (this.updatecheckdata.tdsForm?.SUBMIT_DATE != data.SUBMIT_DATE) {
       (data.SUBMIT_DATE == 'Invalid date' || data.SUBMIT_DATE == '' || data.SUBMIT_DATE == null) ? (sudate = '', data['SUBMIT_DATE'] = sudate) : (sudate = data.SUBMIT_DATE, data['SUBMIT_DATE'] = moment(sudate).format('DD/MM/YYYY'));
     }
     data['FIN_YEAR'] = this.ngfinyear
