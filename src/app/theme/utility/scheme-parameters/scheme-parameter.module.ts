@@ -66,6 +66,7 @@ import { IntrestCalculationMethodService } from '../../../shared/dropdownService
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { TransactionInputGlHeadSettingModule } from './transaction-input-gl-head-setting/transaction-input-gl-head-setting.module'
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   imports: [
@@ -77,7 +78,9 @@ import { TransactionInputGlHeadSettingModule } from './transaction-input-gl-head
     FormsModule,
     ReactiveFormsModule,
     TransactionInputGlHeadSettingModule,
-    NgSelectModule
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()
   ],
   providers: [SelectOptionService,
     OwnbranchMasterService,

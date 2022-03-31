@@ -290,7 +290,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngAcNo = null
+    this.angForm.controls['AC_NO'].reset()
   }
 
   rerender(): void {

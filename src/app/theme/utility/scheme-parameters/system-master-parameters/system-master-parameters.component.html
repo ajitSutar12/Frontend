@@ -132,22 +132,20 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="date" name="COMPANY_START_DATE"
+                                                                    <!-- <input type="date" name="COMPANY_START_DATE"
                                                                         class="form-control" placeholder=" "
                                                                         id="COMPANY_START_DATE"
                                                                         max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                        formControlName="COMPANY_START_DATE">
-                                                                    <!-- <input type="text" placeholder="dd/mm/yyyy"
-                                                                            name="COMPANY_START_DATE" id="COMPANY_START_DATE"
-                                                                            class="form-control"
-                                                                            [(ngModel)]="bankstartdate"
-                                                                            max="{{datemax | date:'yyyy-MM-dd'}}" #date
-                                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                                            [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            formControlName="COMPANY_START_DATE"
-                                                                            minlength="10" maxlength="10"
-                                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                                            bsDatepicker> -->
+                                                                        formControlName="COMPANY_START_DATE"> -->
+                                                                        <input type="text" placeholder="dd/mm/yyyy"
+                                                                        name="COMPANY_START_DATE" id="COMPANY_START_DATE"
+                                                                        class="form-control" [(ngModel)]="ngbankstartdate"
+                                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                        [maxDate]="maxDate"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        formControlName="COMPANY_START_DATE"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                        bsDatepicker>
                                                                     <label for="COMPANY_START_DATE">Bank Start
                                                                         Date<sub class="required">* </sub></label>
                                                                 </span>
@@ -420,6 +418,14 @@
                                                                             class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['DD_COMMISSION_ACNO'].invalid && (angForm.controls['DD_COMMISSION_ACNO'].dirty || angForm.controls['DD_COMMISSION_ACNO'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['DD_COMMISSION_ACNO'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
 
                                                         </div>
                                                         <div class="col-sm">
@@ -519,6 +525,14 @@
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['BILL_FOR_COLLECTION_ACNO'].invalid && (angForm.controls['BILL_FOR_COLLECTION_ACNO'].dirty || angForm.controls['BILL_FOR_COLLECTION_ACNO'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['BILL_FOR_COLLECTION_ACNO'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="col-sm">
                                                             <!-- <div class="form-group form-primary form-static-label">
@@ -546,6 +560,14 @@
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['BILL_RECEIVABLE_ACNO'].invalid && (angForm.controls['BILL_RECEIVABLE_ACNO'].dirty || angForm.controls['BILL_RECEIVABLE_ACNO'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['BILL_RECEIVABLE_ACNO'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="col-sm">
                                                             <!-- <div class="form-group form-primary form-static-label">
@@ -571,6 +593,14 @@
                                                                     <label for="BCBR_DR_GLACNO">BC BR Clearing Dr.<sub
                                                                             class="required"> * </sub></label>
                                                                 </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['BCBR_DR_GLACNO'].invalid && (angForm.controls['BCBR_DR_GLACNO'].dirty || angForm.controls['BCBR_DR_GLACNO'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['BCBR_DR_GLACNO'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
                                                             </div>
                                                         </div>
 
@@ -604,6 +634,14 @@
                                                                         A/c<sub class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['CLG_SUSPENCE_ACNO'].invalid && (angForm.controls['CLG_SUSPENCE_ACNO'].dirty || angForm.controls['CLG_SUSPENCE_ACNO'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['CLG_SUSPENCE_ACNO'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="col-sm">
                                                             <!-- <div class="form-group form-primary form-static-label">
@@ -633,6 +671,14 @@
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['INWARD_BILL_COLLECTION_ACNO'].invalid && (angForm.controls['INWARD_BILL_COLLECTION_ACNO'].dirty || angForm.controls['INWARD_BILL_COLLECTION_ACNO'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['INWARD_BILL_COLLECTION_ACNO'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="col-sm">
                                                             <!-- <div class="form-group form-primary form-static-label">
@@ -660,6 +706,14 @@
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['INWARD_BILL_COLLECTION_ACNO'].invalid && (angForm.controls['INWARD_BILL_COLLECTION_ACNO'].dirty || angForm.controls['INWARD_BILL_COLLECTION_ACNO'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['INWARD_BILL_COLLECTION_ACNO'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -683,6 +737,14 @@
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['CGST_GLACNO'].invalid && (angForm.controls['CGST_GLACNO'].dirty || angForm.controls['CGST_GLACNO'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['CGST_GLACNO'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="col-sm">
                                                             <div class="form-group form-primary form-static-label">
@@ -702,6 +764,14 @@
                                                                             class="required"> *
                                                                         </sub></label>
                                                                 </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['SGST_GLACNO'].invalid && (angForm.controls['SGST_GLACNO'].dirty || angForm.controls['SGST_GLACNO'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['SGST_GLACNO'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm">
@@ -723,6 +793,14 @@
                                                                             class="required"> *
                                                                         </sub></label>
                                                                 </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['IGST_GLACNO'].invalid && (angForm.controls['IGST_GLACNO'].dirty || angForm.controls['IGST_GLACNO'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf=" angForm.controls['IGST_GLACNO'].errors?.required ">
+                                                                    This field is required
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -846,6 +924,14 @@
                                                                                 A/c No.<sub class="required"> *
                                                                                 </sub></label>
                                                                         </span>
+                                                                    </div>
+                                                                    <div class="form-group form-primary form-static-label"
+                                                                        *ngIf="angForm.controls['RECOVERY_DR_ACNO'].invalid && (angForm.controls['RECOVERY_DR_ACNO'].dirty || angForm.controls['RECOVERY_DR_ACNO'].touched)"
+                                                                        class="alert alert-danger">
+                                                                        <div
+                                                                            *ngIf=" angForm.controls['RECOVERY_DR_ACNO'].errors?.required ">
+                                                                            This field is required
+                                                                        </div>
                                                                     </div>
                                                                 </div>
 
@@ -2496,11 +2582,20 @@
                                                                 <div class="col-sm-3">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
-                                                                            <input type="date" name="PREVIOUS_DATE"
+                                                                            <!-- <input type="date" name="PREVIOUS_DATE"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="PREVIOUS_DATE"
                                                                                 max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                formControlName="PREVIOUS_DATE">
+                                                                                formControlName="PREVIOUS_DATE"> -->
+                                                                                <input type="text" placeholder="dd/mm/yyyy"
+                                                                        name="PREVIOUS_DATE" id="PREVIOUS_DATE"
+                                                                        class="form-control" [(ngModel)]="ngpreviousdate"
+                                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                        [maxDate]="maxDate"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        formControlName="PREVIOUS_DATE"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                        bsDatepicker>
                                                                             <label for="PREVIOUS_DATE">Previous Date
                                                                                 <sub class="required">* </sub></label>
                                                                         </span>
@@ -2517,11 +2612,20 @@
                                                                 <div class="col-sm-3">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
-                                                                            <input type="date" name="CURRENT_DATE"
+                                                                            <!-- <input type="date" name="CURRENT_DATE"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="CURRENT_DATE"
                                                                                 max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                formControlName="CURRENT_DATE">
+                                                                                formControlName="CURRENT_DATE"> -->
+                                                                                <input type="text" placeholder="dd/mm/yyyy"
+                                                                                name="CURRENT_DATE" id="CURRENT_DATE"
+                                                                                class="form-control" [(ngModel)]="ngcurrentdate"
+                                                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                                [maxDate]="maxDate"
+                                                                                [ngClass]="{'form-submitted': formSubmitted}"
+                                                                                formControlName="CURRENT_DATE"
+                                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                                bsDatepicker>
                                                                             <label for="CURRENT_DATE"> Current Date<sub
                                                                                     class="required">* </sub></label>
                                                                         </span>
@@ -2567,12 +2671,21 @@
                                                                 <div class="col-sm-3">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
-                                                                            <input type="date"
+                                                                            <!-- <input type="date"
                                                                                 name="PIGMY_PREVIOUS_DATE"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="PIGMY_PREVIOUS_DATE"
                                                                                 max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                formControlName="PIGMY_PREVIOUS_DATE">
+                                                                                formControlName="PIGMY_PREVIOUS_DATE"> -->
+                                                                                <input type="text" placeholder="dd/mm/yyyy"
+                                                                                name="PIGMY_PREVIOUS_DATE" id="PIGMY_PREVIOUS_DATE"
+                                                                                class="form-control" [(ngModel)]="ngpigmypreviousdate"
+                                                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                                [maxDate]="maxDate"
+                                                                                [ngClass]="{'form-submitted': formSubmitted}"
+                                                                                formControlName="PIGMY_PREVIOUS_DATE"
+                                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                                bsDatepicker>
                                                                             <label for="PIGMY_PREVIOUS_DATE"> Pigmy
                                                                                 Previous
                                                                                 Date<sub class="required">*
@@ -2591,11 +2704,20 @@
                                                                 <div class="col-sm-3">
                                                                     <div class="form-group input-group">
                                                                         <span class="border-lable-flt">
-                                                                            <input type="date" name="PIGMY_CURRENT_DATE"
+                                                                            <!-- <input type="date" name="PIGMY_CURRENT_DATE"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="PIGMY_CURRENT_DATE"
                                                                                 max="{{datemax | date:'yyyy-MM-dd'}}"
-                                                                                formControlName="PIGMY_CURRENT_DATE">
+                                                                                formControlName="PIGMY_CURRENT_DATE"> -->
+                                                                                <input type="text" placeholder="dd/mm/yyyy"
+                                                                                name="PIGMY_CURRENT_DATE" id="PIGMY_CURRENT_DATE"
+                                                                                class="form-control" [(ngModel)]="ngpigmycurrentdate"
+                                                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                                [maxDate]="maxDate"
+                                                                                [ngClass]="{'form-submitted': formSubmitted}"
+                                                                                formControlName="PIGMY_CURRENT_DATE"
+                                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                                bsDatepicker>
                                                                             <label for="PIGMY_CURRENT_DATE">Pigmy
                                                                                 Current
                                                                                 Date <sub class="required">*
@@ -2670,6 +2792,14 @@
                                                                                 Options<sub class="required"> *
                                                                                 </sub></label>
                                                                         </span>
+                                                                    </div>
+                                                                    <div class="form-group form-primary form-static-label"
+                                                                        *ngIf="angForm.controls['BACK_DAY_OPTION'].invalid && (angForm.controls['BACK_DAY_OPTION'].dirty || angForm.controls['BACK_DAY_OPTION'].touched)"
+                                                                        class="alert alert-danger">
+                                                                        <div
+                                                                            *ngIf=" angForm.controls['BACK_DAY_OPTION'].errors?.required ">
+                                                                            This field is required
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm">
@@ -2826,11 +2956,11 @@
                                                                             (click)="submit()" *ngIf="showButton">
                                                                             Submit
                                                                         </button>
-                                                                        <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                                                                        <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
                                                                             Update</button>&nbsp;
                                                                         <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                                                                             Cancel
-                                                                        </button> -->
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2855,7 +2985,7 @@
         </div>
     </div>
 </div>
-<!-- <div class="row">
+<div class="row">
     <div class="col-12">
         <div class="card shadow">
             <div class="card-block">
@@ -2868,17 +2998,22 @@
                                     <tr *ngFor="let data of systemParameters">
                                         <td><span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
                                             placement="bottom" ngbTooltip="Edit"></span> &nbsp;
-                                             <button id="delbtn" class="btn btn-outline-primary btn-sm"
-                                                (click)="delClickHandler(data.id)">Delete</button>
+                                             
                                         </td>
-                                        <td>{{ data.SYSPARA_CODE }}</td>
-                                        <td>{{ data.BANK_CODE }}</td>
+                                        <!-- <td>{{ data.SYSPARA_CODE }}</td> -->
+                                        <td class="td_right">{{ data.BANK_CODE }}</td>
                                         <td>{{ data.BANK_NAME }}</td>
-                                        <td>{{ data.BRANCH_CODE }}</td>
+                                        <td class="td_right">{{ data.BRANCH_CODE }}</td>
 
                                         <td>{{ data.ADDRESS }}</td>
-                                        <td>{{ data.COMPANY_START_DATE }}</td>
-                                        <td>{{ data.NO_OF_EMPLOYEES }}</td>
+                                        <td class="td_center">{{ data.COMPANY_START_DATE }}</td>
+                                        <td class="td_center">{{ data.PREVIOUS_DATE }}</td>
+                                        <td class="td_center">{{ data.CURRENT_DATE }}</td>
+                                        <td class="td_center">{{ data.PIGMY_PREVIOUS_DATE }}</td>
+                                        <td class="td_center">{{ data.PIGMY_CURRENT_DATE }}</td>
+                                        
+                                        
+                                        <!-- <td>{{ data.NO_OF_EMPLOYEES }}</td>
                                         <td>{{ data.ACCOUNTANT }}</td>
                                         <td>{{ data.GENERAL_MANAGER }}</td>
                                         <td>{{ data.CHAIRMAN }}</td>
@@ -2973,12 +3108,10 @@
                                         <td>{{ data.WITHDRW_CLOSING_FOR_GURMEMBERS }}</td>
                                         <td>{{ data.SCHMWISE_REC_IMPEXP }}</td>
 
-                                        <td>{{ data.PREVIOUS_DATE }}</td>
-                                        <td>{{ data.CURRENT_DATE }}</td>
+                                       
                                         <td>{{ data.DAY_BEGIN_EXECUTED }}</td>
                                         <td>{{ data.DAY_END_EXECUTED }}</td>
-                                        <td>{{ data.PIGMY_PREVIOUS_DATE }}</td>
-                                        <td>{{ data.PIGMY_CURRENT_DATE }}</td>
+                                       
                                         <td>{{ data.PIGMY_DAY_BEGIN_EXECUTED }}</td>
                                         <td>{{ data.PIGMY_DAY_END_EXECUTED }}</td>
                                         <td>{{ data.ON_LINE }}</td>
@@ -2986,7 +3119,7 @@
                                         <td>{{ data.CASH_IN_HAND_ACNO }}</td>
                                         <td>{{ data.CLG_HOUSE_METHOD }}</td>
 
-                                        <td>{{ data.LINES_PER_PASSBOOKPAGE }}</td>
+                                        <td>{{ data.LINES_PER_PASSBOOKPAGE }}</td> -->
 
                                     </tr>
 
@@ -3000,20 +3133,28 @@
                                     <tr class="testing">
                                         <th class="testing"></th>
 
-                                        <th><input type="text" class="form-control"
-                                                name="SYSPARA_CODE"></th>
-                                        <th><input type="text" class="form-control"
+                                        <!-- <th><input type="text" class="form-control"
+                                                name="SYSPARA_CODE"></th> -->
+                                        <th class="td_right"><input type="text" class="form-control"
                                                 name="BANK_CODE"></th>
                                         <th><input type="text" class="form-control"
                                                 name="BANK_NAME"></th>
-                                        <th><input type="text" class="form-control"
+                                        <th class="td_right"><input type="text" class="form-control"
                                                 name="BRANCH_CODE"></th>
                                         <th><input type="text" class="form-control"
                                                 name="ADDRESS"></th>
-                                        <th><input type="text" class="form-control"
+                                        <th class="td_center"><input type="text" class="form-control"
                                                 name="COMPANY_START_DATE">
                                         </th>
-                                        <th><input type="text" class="form-control"
+                                        <th class="td_center"><input type="text" class="form-control"
+                                            name="PREVIOUS_DATE"></th>
+                                        <th class="td_center"><input type="text" class="form-control"
+                                            name="CURRENT_DATE"></th>
+                                            <th><input type="text" class="form-control"
+                                                name="PIGMY_PREVIOUS_DATE"></th>
+                                        <th class="td_center"><input type="text" class="form-control"
+                                                name="PIGMY_CURRENT_DATE"></th>
+                                        <!-- <th><input type="text" class="form-control"
                                                 name="NO_OF_EMPLOYEES">
                                         </th>
                                         <th><input type="text" class="form-control"
@@ -3214,21 +3355,15 @@
                                                 
                                                 class="form-control" name="WITHDRW_CLOSING_FOR_GURMEMBERS"></th>
                                         <th><input type="text" 
-                                                class="form-control" name="SCHMWISE_REC_IMPEXP"></th>
-                                        <th><input type="text" class="form-control"
-                                                name="PREVIOUS_DATE"></th>
-                                        <th><input type="text" class="form-control"
-                                                name="CURRENT_DATE"></th>
-                                        <th><input type="text" class="form-control"
+                                                class="form-control" name="SCHMWISE_REC_IMPEXP"></th> -->
+                                       
+                                        <!-- <th><input type="text" class="form-control"
                                                 name="DAY_BEGIN_EXECUTED"></th>
                                         <th><input type="text" class="form-control"
                                                 name="DAY_END_EXECUTED">
-                                        </th>
-                                        <th><input type="text" class="form-control"
-                                                name="PIGMY_PREVIOUS_DATE"></th>
-                                        <th><input type="text" class="form-control"
-                                                name="PIGMY_CURRENT_DATE"></th>
-                                        <th><input type="text" class="form-control"
+                                        </th> -->
+                                        
+                                        <!-- <th><input type="text" class="form-control"
                                                 name="PIGMY_DAY_BEGIN_EXECUTED"></th>
                                         <th><input type="text" class="form-control"
                                                 name="PIGMY_DAY_END_EXECUTED"></th>
@@ -3244,7 +3379,7 @@
                                         <th><input type="text" class="form-control"
                                                 name="CLG_HOUSE_METHOD"></th>
                                         <th><input type="text" 
-                                                class="form-control" name="LINES_PER_PASSBOOKPAGE"></th>
+                                                class="form-control" name="LINES_PER_PASSBOOKPAGE"></th> -->
 
                                     </tr>
                                 </tfoot>
@@ -3257,4 +3392,4 @@
 
         </div>
     </div>
-</div> -->
+</div>

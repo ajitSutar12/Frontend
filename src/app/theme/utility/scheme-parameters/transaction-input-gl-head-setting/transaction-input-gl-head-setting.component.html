@@ -161,7 +161,7 @@
                                         class="form-control" placeholder=" " maxlength="100" id="DESCRIPTION"
                                         required="" pattern="^[A-Za-z\ ]+$"
                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode < 90)||($event.charCode >= 97 && $event.charCode < 122) || ($event.charCode <= 32)"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
                                         title="Input allowed only  A-Z a-z (Space)">
                                     <label for="DESCRIPTION">Description<sub class="required">* </sub></label>
                                 </span>

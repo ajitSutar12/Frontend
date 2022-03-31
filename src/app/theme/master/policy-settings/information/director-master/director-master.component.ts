@@ -178,6 +178,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
@@ -187,6 +188,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
+      
     })
     this._cityMaster.getcityList1().pipe(first()).subscribe(data => {
       this.city = data;

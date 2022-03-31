@@ -300,7 +300,8 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngAcNo=null
+    // this.ngAcNo=null
+    this.angForm.controls['AC_NO'].reset()
   }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
