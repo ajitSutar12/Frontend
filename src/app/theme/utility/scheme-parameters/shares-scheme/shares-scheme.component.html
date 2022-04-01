@@ -169,21 +169,9 @@
                     <label for="S_GLACNO">G.L. A/c No<sub
                             class="required"> * </sub></label>
                 </span>
-            </div>
-
-              <div
-                class="form-group form-primary form-static-label"
-                *ngIf="
-                  angForm.controls['S_GLACNO'].invalid &&
-                  (angForm.controls['S_GLACNO'].dirty ||
-                    angForm.controls['S_GLACNO'].touched)
-                "
-                class="alert alert-danger"
-              >
-                <div *ngIf="angForm.controls['S_GLACNO'].errors?.required">
-                  This field is required
-                </div>
               </div>
+
+            
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
@@ -298,10 +286,10 @@
                             name="SHARES_FACE_VALUE"
                             class="form-control"
                             placeholder=" "
-                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                             id="SHARES_FACE_VALUE"
-                            title="Input allowed only  0-9"
-                            pattern="\d{1,20}(\.\d{2})?"
+                            title="Input allowed only . 0-9 "
+                            pattern="\d{1,2}(\.\d{2})?" 
                             formControlName="SHARES_FACE_VALUE"
                           />
                           <label for="SHARES_FACE_VALUE"
@@ -324,7 +312,7 @@
                               ?.pattern
                           "
                         >
-                          Input allowed only 0-9
+                          Input allowed only . 0-9(After decimal only 2 digits allowed)
                         </div>
                       </div>
                     </div>
@@ -337,9 +325,9 @@
                             class="form-control"
                             placeholder=" "
                             id="MAX_SHARES_LIMIT"
-                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                            pattern="\d{1,20}(\.\d{2})?"
-                            title="Input allowed only  0-9"
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                            pattern="\d{1,2}(\.\d{2})?"
+                            title="Input allowed only . 0-9"
                             formControlName="MAX_SHARES_LIMIT"
                           />
                           <label for="MAX_SHARES_LIMIT"
@@ -361,7 +349,7 @@
                             angForm.controls['MAX_SHARES_LIMIT'].errors?.pattern
                           "
                         >
-                          Input allowed only 0-9
+                          Input allowed only . 0-9
                         </div>
                       </div>
                     </div>

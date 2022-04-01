@@ -398,7 +398,7 @@ export class SchemeTypeSettingComponent
     this.schemetypeservice.getFormData(id).subscribe((data) => {
       console.log(data);
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.angForm.patchValue({
         id:data.id,
         S_ACNOTYPE: data.S_ACNOTYPE,
         S_NAME: data.S_NAME,

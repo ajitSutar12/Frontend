@@ -416,7 +416,7 @@
                             <div *ngIf="BalanceEntryAllow">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>Interest Calculation Type</h5>
+                                        <h5>Balance Entry Allow</h5>
                                     </div>
                                     <div class="card-block">
                                         <div class="row">
@@ -468,7 +468,7 @@
                                             <div class="form-group form-primary form-static-label">
                                                 <span class="border-lable-flt">
                                                     <ng-select id="OVERDRAFT_INTEREST_APPLICABLE" bindValue="value"
-                                                        [(ngModel)]="OVERDRAFT_INTEREST_APPLICABLE"
+                                                        [(ngModel)]="ngintapplicapble"
                                                         formControlName="OVERDRAFT_INTEREST_APPLICABLE" bindLabel="label"
                                                         title="Compulsory Selection" (click)="isOverdraftInterest()"
                                                         [ngClass]="{'form-submitted': formSubmitted}"

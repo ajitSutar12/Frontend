@@ -164,6 +164,14 @@
                                     <label for="S_RECBL_PYBL_INT_ACNO">Receivable Int. A/c<sub class="required"> * </sub></label>
                                 </span>
                             </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['S_RECBL_PYBL_INT_ACNO'].invalid && (angForm.controls['S_RECBL_PYBL_INT_ACNO'].dirty || angForm.controls['S_RECBL_PYBL_INT_ACNO'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['S_RECBL_PYBL_INT_ACNO'].errors?.pattern || angForm.controls['S_RECBL_PYBL_INT_ACNO'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm">
                             <!-- <div class="form-group form-primary form-static-label">
@@ -183,6 +191,14 @@
                                     </ng-select>
                                     <label for="S_PENAL_ACNO">Penal Int. A/c<sub class="required"> * </sub></label>
                                 </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['S_PENAL_ACNO'].invalid && (angForm.controls['S_PENAL_ACNO'].dirty || angForm.controls['S_PENAL_ACNO'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['S_PENAL_ACNO'].errors?.pattern || angForm.controls['S_PENAL_ACNO'].errors?.required">
+                                    This field is required
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm">
@@ -204,6 +220,14 @@
                                     <label for="S_RECBL_PENAL_ACNO">Recble Penal Int. A/c<sub class="required"> * </sub></label>
                                 </span>
                             </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['S_RECBL_PENAL_ACNO'].invalid && (angForm.controls['S_RECBL_PENAL_ACNO'].dirty || angForm.controls['S_RECBL_PENAL_ACNO'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['S_RECBL_PENAL_ACNO'].errors?.pattern || angForm.controls['S_RECBL_PENAL_ACNO'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm">
                             <!-- <div class="form-group form-primary form-static-label">
@@ -223,6 +247,14 @@
                                     </ng-select>
                                     <label for="S_RECBL_ODUE_INT_ACNO">Recble Overdue Int<sub class="required"> * </sub></label>
                                 </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['S_RECBL_ODUE_INT_ACNO'].invalid && (angForm.controls['S_RECBL_ODUE_INT_ACNO'].dirty || angForm.controls['S_RECBL_ODUE_INT_ACNO'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['S_RECBL_ODUE_INT_ACNO'].errors?.pattern || angForm.controls['S_RECBL_ODUE_INT_ACNO'].errors?.required">
+                                    This field is required
+                                </div>
                             </div>
                         </div>
                     </div>

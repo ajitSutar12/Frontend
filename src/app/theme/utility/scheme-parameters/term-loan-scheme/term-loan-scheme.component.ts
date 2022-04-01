@@ -600,18 +600,27 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
     this.newbtnShow = true;
     this.termLoanSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
+      this.ngglacno=Number(data.S_GLACNO)
+      this.ngintglac=Number(data.S_INT_ACNO)
+      this.ngreceivableintac=Number(data.S_RECBL_PYBL_INT_ACNO)
+      this.ngpenalintac=Number(data.S_PENAL_ACNO)
+      this.ngrecblepenalintac=Number(data.S_RECBL_PENAL_ACNO)
+      this.ngrecbleoverdueint=Number(data.S_RECBL_ODUE_INT_ACNO)
+      this.ngoutstandingintac=Number(data.S_OUTSTANDING_INT_ACNO)
+      this.nginstallment=Number(data.INSTALLMENT_METHOD)
+      
       this.angForm.setValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
         'S_NAME': data.S_NAME,
         'S_SHNAME': data.S_SHNAME,
-        'S_GLACNO': data.S_GLACNO,
-        'S_INT_ACNO': data.S_INT_ACNO,
-        'S_RECBL_PYBL_INT_ACNO': data.S_RECBL_PYBL_INT_ACNO,
-        'S_PENAL_ACNO': data.S_PENAL_ACNO,
-        'S_RECBL_PENAL_ACNO': data.S_RECBL_PENAL_ACNO,
-        'S_RECBL_ODUE_INT_ACNO': data.S_RECBL_ODUE_INT_ACNO,
-        'S_OUTSTANDING_INT_ACNO': data.S_OUTSTANDING_INT_ACNO,
+        // 'S_GLACNO': data.S_GLACNO,
+        // 'S_INT_ACNO': data.S_INT_ACNO,
+        // 'S_RECBL_PYBL_INT_ACNO': data.S_RECBL_PYBL_INT_ACNO,
+        // 'S_PENAL_ACNO': data.S_PENAL_ACNO,
+        // 'S_RECBL_PENAL_ACNO': data.S_RECBL_PENAL_ACNO,
+        // 'S_RECBL_ODUE_INT_ACNO': data.S_RECBL_ODUE_INT_ACNO,
+        // 'S_OUTSTANDING_INT_ACNO': data.S_OUTSTANDING_INT_ACNO,
         'IS_DEPO_LOAN': data.IS_DEPO_LOAN,
         'S_INT_APPLICABLE': data.S_INT_APPLICABLE,
         'POST_TO_INDIVIDUAL_AC': data.POST_TO_INDIVIDUAL_AC,
@@ -643,7 +652,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
         'MIN_LOAN_PERIOD': data.MIN_LOAN_PERIOD,
         'MAX_LOAN_PERIOD': data.MAX_LOAN_PERIOD,
         'S_INSTTYPE': data.S_INSTTYPE,
-        'INSTALLMENT_METHOD': data.INSTALLMENT_METHOD,
+        // 'INSTALLMENT_METHOD': data.INSTALLMENT_METHOD,
         'IS_OVERDUE_ON_INSTALLMENT': data.IS_OVERDUE_ON_INSTALLMENT,
         'IS_SHOW_INT_AS_RECINT_IFDUEBAL': data.IS_SHOW_INT_AS_RECINT_IFDUEBAL,
         'MIN_DUE_INSTALLMENTS': data.MIN_DUE_INSTALLMENTS
@@ -676,6 +685,14 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   }
   resetForm() {
     this.createForm();
+    this.ngglacno=null
+    this.ngintglac=null
+    this.ngreceivableintac=null
+    this.ngpenalintac=null
+    this.ngrecblepenalintac=null
+    this.ngrecbleoverdueint=null
+    this.ngoutstandingintac=null
+    this.nginstallment=null
   }
 
   ngAfterViewInit(): void {

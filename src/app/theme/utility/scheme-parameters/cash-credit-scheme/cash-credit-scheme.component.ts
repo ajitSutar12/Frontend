@@ -554,36 +554,42 @@ export class CashCreditSchemeComponent implements OnInit {
     this.newbtnShow = true;
     this.cashcreditservice.getFormData(id).subscribe((data) => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.ngglacno=Number(data.S_GLACNO)
+      this.ngintglac=Number(data.S_INT_ACNO)
+      this.ngreceivableintac=Number(data.S_RECBL_PYBL_INT_ACNO)
+      this.ngpenalintac=Number(data.S_PENAL_ACNO)
+      this.ngrecblepenalintac=Number(data.S_RECBL_PENAL_ACNO)
+      this.ngrecbleoverdueint=Number(data.S_RECBL_ODUE_INT_ACNO)
+      this.angForm.patchValue({
         S_ACNOTYPE: data.S_ACNOTYPE,
         S_APPL: data.S_APPL,
         S_NAME: data.S_NAME,
         S_SHNAME: data.S_SHNAME,
-        S_GLACNO: data.S_GLACNO,
-        S_INT_ACNO: data.S_INT_ACNO,
-        S_RECBL_PYBL_INT_ACNO: data.S_RECBL_PYBL_INT_ACNO,
-        S_PENAL_ACNO: data.S_PENAL_ACNO,
-        S_RECBL_PENAL_ACNO: data.S_RECBL_PENAL_ACNO,
-        S_RECBL_ODUE_INT_ACNO: data.S_RECBL_ODUE_INT_ACNO,
+        // S_GLACNO: data.S_GLACNO,
+        // S_INT_ACNO: data.S_INT_ACNO,
+        // S_RECBL_PYBL_INT_ACNO: data.S_RECBL_PYBL_INT_ACNO,
+        // S_PENAL_ACNO: data.S_PENAL_ACNO,
+        // S_RECBL_PENAL_ACNO: data.S_RECBL_PENAL_ACNO,
+        // S_RECBL_ODUE_INT_ACNO: data.S_RECBL_ODUE_INT_ACNO,
         S_INT_APPLICABLE: data.S_INT_APPLICABLE,
-        POST_TO_INDIVIDUAL_AC: data.POST_TO_INDIVIDUAL_AC,
-        S_RECEIVABLE_INT_ALLOW: data.S_RECEIVABLE_INT_ALLOW,
-        IS_SHOW_INT_AS_RECINT_IFDUEBAL: data.IS_SHOW_INT_AS_RECINT_IFDUEBAL,
-        IS_INTUPTODATE: data.IS_INTUPTODATE,
-        IS_NO_POST_INT_AFT_OD: data.IS_NO_POST_INT_AFT_OD,
+        POST_TO_INDIVIDUAL_AC: (data.POST_TO_INDIVIDUAL_AC=="true"?true:false),
+        S_RECEIVABLE_INT_ALLOW: (data.S_RECEIVABLE_INT_ALLOW=="true"?true:false),
+        IS_SHOW_INT_AS_RECINT_IFDUEBAL: (data.IS_SHOW_INT_AS_RECINT_IFDUEBAL=="true"?true:false),
+        IS_INTUPTODATE: (data.IS_INTUPTODATE=="true"?true:false),
+        IS_NO_POST_INT_AFT_OD: (data.IS_NO_POST_INT_AFT_OD=="true"?true:false),
         MIN_INT_LIMIT: data.MIN_INT_LIMIT,
         ROUNDOFF_FACTOR: data.ROUNDOFF_FACTOR,
-        S_PENAL_INT_APPLICABLE: data.S_PENAL_INT_APPLICABLE,
-        IS_POST_PENAL_TO_AC: data.IS_POST_PENAL_TO_AC,
-        POST_PENALINT_IN_INTEREST: data.POST_PENALINT_IN_INTEREST,
-        IS_CAL_EXTRAPENAL_FOR_CC: data.IS_CAL_EXTRAPENAL_FOR_CC,
+        S_PENAL_INT_APPLICABLE: (data.S_PENAL_INT_APPLICABLE=="true"?true:false),
+        IS_POST_PENAL_TO_AC: (data.IS_POST_PENAL_TO_AC=="true"?true:false),
+        POST_PENALINT_IN_INTEREST: (data.POST_PENALINT_IN_INTEREST=="true"?true:false),
+        IS_CAL_EXTRAPENAL_FOR_CC: (data.IS_CAL_EXTRAPENAL_FOR_CCT=="true"?true:false),
         S_PENAL_INT_RATE: data.S_PENAL_INT_RATE,
         OVERDRAFT_INTEREST_APPLICABLE: data.OVERDRAFT_INTEREST_APPLICABLE,
         OVERDRAFT_INTEREST_RATE: data.OVERDRAFT_INTEREST_RATE,
-        ODPENALTY_ON_EXPIRED_LEDGERBAL: data.ODPENALTY_ON_EXPIRED_LEDGERBAL,
-        BALANCE_ADD_APPLICABLE: data.BALANCE_ADD_APPLICABLE,
-        INT_INSTRUCTION_ALLOW: data.INT_INSTRUCTION_ALLOW,
-        STAND_INSTRUCTION_ALLOW: data.STAND_INSTRUCTION_ALLOW,
+        ODPENALTY_ON_EXPIRED_LEDGERBAL: (data.ODPENALTY_ON_EXPIRED_LEDGERBAL=="true"?true:false),
+        BALANCE_ADD_APPLICABLE: (data.BALANCE_ADD_APPLICABLE=="true"?true:false),
+        INT_INSTRUCTION_ALLOW: (data.INT_INSTRUCTION_ALLOW=="true"?true:false),
+        STAND_INSTRUCTION_ALLOW: (data.STAND_INSTRUCTION_ALLOW=="true"?true:false),
         CHEQUEBOOK_MIN_BAL: data.CHEQUEBOOK_MIN_BAL,
         IS_DEPO_LOAN: data.IS_DEPO_LOAN,
         IS_GOLDLOAN: data.IS_GOLDLOAN,
@@ -617,6 +623,14 @@ export class CashCreditSchemeComponent implements OnInit {
   // Reset Function
   resetForm() {
     this.createForm();
+    
+    this.ngglacno=null
+    this.ngintglac=null
+    this.ngreceivableintac=null
+    this.ngpenalintac=null
+    this.ngrecblepenalintac=null
+    this.ngrecbleoverdueint=null
+    this.ngoverdraftint=null
   }
   //Method for delete data
   delClickHandler(id: number) {

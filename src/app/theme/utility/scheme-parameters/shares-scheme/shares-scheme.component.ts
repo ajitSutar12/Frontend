@@ -313,7 +313,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       'SH_CERTIFICATE_METHOD': formVal.SH_CERTIFICATE_METHOD,
 
     }
-    console.log(dataToSend);
+   
     this.sharesSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.formSubmitted = false;
@@ -336,22 +336,22 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sharesSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.ngglacno=Number(data.S_GLACNO)
-      this.angForm.setValue({
+      this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
         'S_SHNAME': data.S_SHNAME,
         'S_NAME': data.S_NAME,
         // 'S_GLACNO': data.S_GLACNO,
         'MEMBER_TYPE': data.MEMBER_TYPE,
-        'IS_AUTO_NO': data.IS_AUTO_NO,
+        'IS_AUTO_NO': (data.IS_AUTO_NO=="true"?true:false),
         'SHARES_FACE_VALUE': data.SHARES_FACE_VALUE,
         'MAX_SHARES_LIMIT': data.MAX_SHARES_LIMIT,
         'DIVIDEND_PERCENTAGE': data.DIVIDEND_PERCENTAGE,
         'INTEREST_RULE': data.INTEREST_RULE,
         'IS_ADD_BONUS_IN_DIVIDEND': data.IS_ADD_BONUS_IN_DIVIDEND,
-        'BALANCE_ADD_APPLICABLE': data.BALANCE_ADD_APPLICABLE,
+        'BALANCE_ADD_APPLICABLE':(data.BALANCE_ADD_APPLICABLE=="true"?true:false),
         'ROUNDOFF_FACTOR': data.ROUNDOFF_FACTOR,
-        'INT_ROUND_OFF': data.INT_ROUND_OFF,
+        'INT_ROUND_OFF':data.INT_ROUND_OFF,
         'SANCT_LIMIT_PERCENTAGE': data.SANCT_LIMIT_PERCENTAGE,
         'RETIREMENT_YEARS': data.RETIREMENT_YEARS,
         'SH_CERTIFICATE_METHOD': data.SH_CERTIFICATE_METHOD,
@@ -383,6 +383,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   resetForm() {
     this.createForm();
+    this.ngglacno=null
   }
   //Method for delete data
   delClickHandler(id: number) {

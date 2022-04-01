@@ -111,6 +111,13 @@
                             class="required"> * </sub></label>
                 </span>
               </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['S_GLACNO'].invalid && (angForm.controls['S_GLACNO'].dirty || angForm.controls['S_GLACNO'].touched)"
+                class="alert alert-danger">
+                <div *ngIf=" angForm.controls['S_GLACNO'].errors?.required">
+                    This field is required
+                </div>
+              </div>
             </div>
             <div class="col-sm">
               <!-- <div class="form-group form-primary form-static-label">
@@ -135,6 +142,14 @@
                             class="required"> * </sub></label>
                 </span>
               </div>
+              <div class="form-group form-primary form-static-label"
+                *ngIf="angForm.controls['S_INT_ACNO'].invalid && (angForm.controls['S_INT_ACNO'].dirty || angForm.controls['S_INT_ACNO'].touched)"
+                class="alert alert-danger">
+                <div *ngIf=" angForm.controls['S_INT_ACNO'].errors?.required">
+                    This field is required
+                </div>
+              </div>
+              
             </div>
 
           </div>
@@ -338,9 +353,9 @@
                       <div class="col-sm-8">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input type="text" name="MIN_INT_LIMIT" class="form-control" placeholder=" " maxlength="2"
-                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                              id="MIN_INT_LIMIT" pattern="\d{1,2}(\.\d{2})?" title="Input allowed only  0-9"
+                            <input type="text" name="MIN_INT_LIMIT" class="form-control" placeholder=" "
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" max="100"
+                              id="MIN_INT_LIMIT"  pattern="\d{1,2}(\.\d{2})?"  title="Input allowed only . 0-9"
                               formControlName="MIN_INT_LIMIT" disabled />
                             <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
                           </span>
@@ -353,7 +368,7 @@
                           <div *ngIf="
                               angForm.controls['MIN_INT_LIMIT'].errors?.pattern
                             ">
-                            Input allowed only 0-9
+                            Input allowed only . 0-9(After decimal only 2 digits allowed)
                           </div>
                         </div>
                       </div>
@@ -392,9 +407,9 @@
                     <div class="col-sm">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input type="text" name="ROUNDOFF_FACTOR" class="form-control" placeholder=" "
-                            id="ROUNDOFF_FACTOR" required="" pattern="^[0-9]+$" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 || $event.charCode <= 32 "
-                            title="Input allowed only  0-9 . (Space)" formControlName="ROUNDOFF_FACTOR" />
+                          <input type="text" name="ROUNDOFF_FACTOR" class="form-control" placeholder=" " maxlength="2"
+                            id="ROUNDOFF_FACTOR" required="" pattern="^[0-9]+$" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )"
+                            title="Input allowed only  0-9" formControlName="ROUNDOFF_FACTOR" />
                           <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in Paise<sub class="required">*
                             </sub></label>
                         </span>
@@ -409,7 +424,7 @@
                               ?.pattern ||
                             angForm.controls['ROUNDOFF_FACTOR'].errors?.required
                           ">
-                          This field is required and Input allowed only 0-9 .
+                          This field is required and Input allowed only 0-9
                           (Space)
                         </div>
                       </div>
@@ -431,7 +446,7 @@
                             id="CHEQUEBOOK_MIN_BAL" required="" pattern="\d{1,20}(\.\d{2})?"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 || $event.charCode <= 32 "
 
-                            title="Input allowed only  0-9 . (Space)" formControlName="CHEQUEBOOK_MIN_BAL" />
+                            title="Input allowed only  0-9 ." formControlName="CHEQUEBOOK_MIN_BAL" />
                           <label for="CHEQUEBOOK_MIN_BAL">Cheque Book Minimum Balance<sub class="required">*
                             </sub></label>
                         </span>
@@ -447,8 +462,7 @@
                             angForm.controls['CHEQUEBOOK_MIN_BAL'].errors
                               ?.required
                           ">
-                          This field is required and Input allowed only 0-9 .
-                          (Space)
+                          This field is required and Input allowed only . 0-9(After decimal only 2 digits allowed)
                         </div>
                       </div>
                     </div>
@@ -533,7 +547,9 @@
                       <label for="OVERDRAFT_INTEREST_RATE">Overdraft Interest Rate ?<sub class="required">*
                         </sub></label>
                     </span>
-                    <div class="form-group form-primary form-static-label" *ngIf="
+                    
+                  </div>
+                  <div class="form-group form-primary form-static-label" *ngIf="
                         angForm.controls['OVERDRAFT_INTEREST_RATE'].invalid &&
                         (angForm.controls['OVERDRAFT_INTEREST_RATE'].dirty ||
                           angForm.controls['OVERDRAFT_INTEREST_RATE'].touched)
@@ -548,7 +564,6 @@
                         (Space)
                       </div>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>

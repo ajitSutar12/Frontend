@@ -1145,63 +1145,71 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     this.newbtnShow = true;
     this.TermDepositSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.ngsglacno=Number(data.S_GLACNO)
+      this.ngintglac=Number(data.S_INT_ACNO)
+      this.ngintcreditgl=Number(data.S_INT_CR_ACNO)
+      this.ngpayable=Number(data.S_RECBL_PYBL_INT_ACNO)
+      this.ngpenalintac=Number(data.S_PENAL_ACNO)
+      this.ngrecble=Number(data.S_RECBL_PENAL_ACNO)
+      this.ngcashint=Number(data.S_CASH_INT_ACNO)
+      this.ngmaturebtntpd=Number(data.MATURED_BUT_NOT_PAID_GLAC)
+      this.angForm.patchValue({
 
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
         'S_SHNAME': data.S_SHNAME,
         'S_NAME': data.S_NAME,
-        'S_GLACNO': data.S_GLACNO,
-        'S_INT_ACNO': data.S_INT_ACNO,
-        'S_INT_CR_ACNO': data.S_INT_CR_ACNO,
-        'S_RECBL_PYBL_INT_ACNO': data.S_RECBL_PYBL_INT_ACNO,
-        'S_PENAL_ACNO': data.S_PENAL_ACNO,
-        'S_RECBL_PENAL_ACNO': data.S_RECBL_PENAL_ACNO,
-        'S_CASH_INT_ACNO': data.S_CASH_INT_ACNO,
-        'MATURED_BUT_NOT_PAID_GLAC': data.MATURED_BUT_NOT_PAID_GLAC,
+        // 'S_GLACNO': data.S_GLACNO,
+        // 'S_INT_ACNO': data.S_INT_ACNO,
+        // 'S_INT_CR_ACNO': data.S_INT_CR_ACNO,
+        // 'S_RECBL_PYBL_INT_ACNO': data.S_RECBL_PYBL_INT_ACNO,
+        // 'S_PENAL_ACNO': data.S_PENAL_ACNO,
+        // 'S_RECBL_PENAL_ACNO': data.S_RECBL_PENAL_ACNO,
+        // 'S_CASH_INT_ACNO': data.S_CASH_INT_ACNO,
+        // 'MATURED_BUT_NOT_PAID_GLAC': data.MATURED_BUT_NOT_PAID_GLAC,
         'INTEREST_RULE': data.INTEREST_RULE,
         'IS_RECURRING_TYPE': data.IS_RECURRING_TYPE,
         'IS_CALLDEPOSIT_TYPE': data.IS_CALLDEPOSIT_TYPE,
         'REINVESTMENT': data.REINVESTMENT,
-        'IS_RENEWAL_ALLOW': data.IS_RENEWAL_ALLOW,
+        'IS_RENEWAL_ALLOW':(data.IS_RENEWAL_ALLOW=="true"?true:false),
         'S_INT_APPLICABLE': data.S_INT_APPLICABLE,
-        'POST_TO_INDIVIDUAL_AC': data.POST_TO_INDIVIDUAL_AC,
-        'S_PAYABLE_INT_ALLOW': data.S_PAYABLE_INT_ALLOW,
-        'IS_INT_ON_DEPO_AMT': data.IS_INT_ON_DEPO_AMT,
+        'POST_TO_INDIVIDUAL_AC': (data.POST_TO_INDIVIDUAL_AC=="true"?true:false),
+        'S_PAYABLE_INT_ALLOW': (data.S_PAYABLE_INT_ALLOW=="true"?true:false),
+        'IS_INT_ON_DEPO_AMT':(data.IS_INT_ON_DEPO_AMT=="true"?true:false),
         'MIN_INT_LIMIT': data.MIN_INT_LIMIT,
-        'IS_INTUPTODATE': data.IS_INTUPTODATE,
+        'IS_INTUPTODATE':(data.IS_INTUPTODATE=="true"?true:false),
         'ROUNDOFF_FACTOR': data.ROUNDOFF_FACTOR,
         'S_INTCALTP': data.S_INTCALTP,
         'S_PRODUCT_DAY_BASE': data.S_PRODUCT_DAY_BASE,
         'S_PRODUCT_DAY_BASE_END': data.S_PRODUCT_DAY_BASE_END,
-        'IS_PRODUCTUPTODATE': data.IS_PRODUCTUPTODATE,
-        'IS_START_WITH_MONTHS': data.IS_START_WITH_MONTHS,
+        'IS_PRODUCTUPTODATE':(data.IS_PRODUCTUPTODATE=="true"?true:false),
+        'IS_START_WITH_MONTHS':(data.IS_START_WITH_MONTHS=="true"?true:false),
         'IS_PRODUCT_BAL_BASE': data.IS_PRODUCT_BAL_BASE,
-        'IS_DAYSBASE_INSTRUCTION': data.IS_DAYSBASE_INSTRUCTION,
+        'IS_DAYSBASE_INSTRUCTION':(data.IS_DAYSBASE_INSTRUCTION=="true"?true:false),
         'S_INTCALC_METHOD': data.S_INTCALC_METHOD,
-        'FIX_QUARTER': data.FIX_QUARTER,
-        'QUARTER_PLUS_DAYS': data.QUARTER_PLUS_DAYS,
+        'FIX_QUARTER': (data.FIX_QUARTER=="true"?true:false),
+        'QUARTER_PLUS_DAYS': (data.QUARTER_PLUS_DAYS=="true"?true:false),
         'COMPOUND_INT_BASIS': data.COMPOUND_INT_BASIS,
         'COMPOUND_INT_DAYS': data.COMPOUND_INT_DAYS,
         'IS_DISCOUNTED_INT_RATE': data.IS_DISCOUNTED_INT_RATE,
         'S_INSTTYPE': data.S_INSTTYPE,
         'INSTALLMENT_BASIS': data.INSTALLMENT_BASIS,
-        'IS_ASSUMED_INSTALLMENTS': data.IS_ASSUMED_INSTALLMENTS,
-        'INSTALLMENT_COMPULSORY_IN_PAT': data.INSTALLMENT_COMPULSORY_IN_PAT,
-        'PREMATURE_ON_DEPOSIT_INST': data.PREMATURE_ON_DEPOSIT_INST,
-        'ALLOW_EXTRA_INSTALLMENTS': data.ALLOW_EXTRA_INSTALLMENTS,
-        'S_PENAL_INT_APPLICABLE': data.S_PENAL_INT_APPLICABLE,
+        'IS_ASSUMED_INSTALLMENTS': (data.IS_ASSUMED_INSTALLMENTS=="true"?true:false),
+        'INSTALLMENT_COMPULSORY_IN_PAT': (data.INSTALLMENT_COMPULSORY_IN_PAT=="true"?true:false),
+        'PREMATURE_ON_DEPOSIT_INST':(data.PREMATURE_ON_DEPOSIT_INST=="true"?true:false),
+        'ALLOW_EXTRA_INSTALLMENTS': (data.ALLOW_EXTRA_INSTALLMENTS=="true"?true:false),
+        'S_PENAL_INT_APPLICABLE': (data.S_PENAL_INT_APPLICABLE=="true"?true:false),
         'DEPOSIT_PENAL_INT_CALC_DAY': data.DEPOSIT_PENAL_INT_CALC_DAY,
-        'POST_PENALINT_IN_INTEREST': data.POST_PENALINT_IN_INTEREST,
+        'POST_PENALINT_IN_INTEREST': (data.POST_PENALINT_IN_INTEREST=="true"?true:false),
         'S_PENAL_INT_RATE': data.S_PENAL_INT_RATE,
         'S_MATUCALC': data.S_MATUCALC,
         'IS_CAL_MATURITY_AMT': data.IS_CAL_MATURITY_AMT,
-        'FIXED_MATURITY_AMT': data.FIXED_MATURITY_AMT,
-        'PREMATURE_COMPOUND_INT': data.PREMATURE_COMPOUND_INT,
-        'TRANSFER_TO_MATURE_DEPOSIT': data.TRANSFER_TO_MATURE_DEPOSIT,
+        'FIXED_MATURITY_AMT': (data.FIXED_MATURITY_AMT=="true"?true:false),
+        'PREMATURE_COMPOUND_INT': (data.PREMATURE_COMPOUND_INT=="true"?true:false),
+        'TRANSFER_TO_MATURE_DEPOSIT': (data.TRANSFER_TO_MATURE_DEPOSIT=="true"?true:false),
         'MATURE_GRACE_MONTHS': data.MATURE_GRACE_MONTHS,
         'MATURE_GRACE_DAYS': data.MATURE_GRACE_DAYS,
-        'IS_AUTO_CUTTING': data.IS_AUTO_CUTTING,
+        'IS_AUTO_CUTTING': (data.IS_AUTO_CUTTING=="true"?true:false),
         'S_INTASON': data.S_INTASON,
         'PERIOD_APPLICABLE': data.PERIOD_APPLICABLE,
         'IS_AUTO_PERIOD_CALCULATE': data.IS_AUTO_PERIOD_CALCULATE,
@@ -1212,21 +1220,21 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         'MULTIPLE_OF_AMT': data.MULTIPLE_OF_AMT,
         'MULTIPLE_OF_DAYS': data.MULTIPLE_OF_DAYS,
         'MULTIPLE_OF_MONTH': data.MULTIPLE_OF_MONTH,
-        'S_INTPAID': data.S_INTPAID,
-        'S_INTPAID_ON_CLOSING': data.S_INTPAID_ON_CLOSING,
-        'IS_TDS_APPLICABLE': data.IS_TDS_APPLICABLE,
-        'S_INTADD_PRINCIPLE': data.S_INTADD_PRINCIPLE,
-        'STAND_INSTRUCTION_ALLOW': data.STAND_INSTRUCTION_ALLOW,
-        'IS_STD_INSTR_UPTO_MATURITY': data.IS_STD_INSTR_UPTO_MATURITY,
-        'IS_AUTO_CUT_INSTRUCTION': data.IS_AUTO_CUT_INSTRUCTION,
-        'IS_ALLOW_SI_MINBAL': data.IS_ALLOW_SI_MINBAL,
-        'INT_INSTRUCTION_ALLOW': data.INT_INSTRUCTION_ALLOW,
-        'IS_ADD_PAYINT_IN_INSTRUCTION': data.IS_ADD_PAYINT_IN_INSTRUCTION,
-        'IS_INSTRUCTION_UPTO_MATURITY': data.IS_INSTRUCTION_UPTO_MATURITY,
+        'S_INTPAID': (data.S_INTPAID=="true"?true:false),
+        'S_INTPAID_ON_CLOSING': (data.S_INTPAID_ON_CLOSING=="true"?true:false),
+        'IS_TDS_APPLICABLE': (data.IS_TDS_APPLICABLE=="true"?true:false),
+        'S_INTADD_PRINCIPLE': (data.S_INTADD_PRINCIPLE=="true"?true:false),
+        'STAND_INSTRUCTION_ALLOW': (data.STAND_INSTRUCTION_ALLOW=="true"?true:false),
+        'IS_STD_INSTR_UPTO_MATURITY': (data.IS_STD_INSTR_UPTO_MATURITY=="true"?true:false),
+        'IS_AUTO_CUT_INSTRUCTION': (data.IS_AUTO_CUT_INSTRUCTION=="true"?true:false),
+        'IS_ALLOW_SI_MINBAL': (data.IS_ALLOW_SI_MINBAL=="true"?true:false),
+        'INT_INSTRUCTION_ALLOW': (data.INT_INSTRUCTION_ALLOW=="true"?true:false),
+        'IS_ADD_PAYINT_IN_INSTRUCTION': (data.IS_ADD_PAYINT_IN_INSTRUCTION=="true"?true:false),
+        'IS_INSTRUCTION_UPTO_MATURITY': (data.IS_INSTRUCTION_UPTO_MATURITY=="true"?true:false),
         'RECEIPT_NO_INPUT': data.RECEIPT_NO_INPUT,
         'RECEIPT_TYPE': data.RECEIPT_TYPE,
-        'WITHDRAWAL_APPLICABLE': data.WITHDRAWAL_APPLICABLE,
-        'BALANCE_ADD_APPLICABLE': data.BALANCE_ADD_APPLICABLE,
+        'WITHDRAWAL_APPLICABLE': (data.WITHDRAWAL_APPLICABLE=="true"?true:false),
+        'BALANCE_ADD_APPLICABLE': (data.BALANCE_ADD_APPLICABLE=="true"?true:false),
         'LESS_PREMATURE_INT_RATE': data.LESS_PREMATURE_INT_RATE,
         'PREMATURE_INTRATE_ASPER': data.PREMATURE_INTRATE_ASPER,
         'AFTER_MATURE_INT_RATE': data.AFTER_MATURE_INT_RATE,
@@ -1262,6 +1270,16 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngsglacno=null
+    this.ngintglac=null
+    this.ngintcreditgl=null
+    this.ngpayable=null
+    this.ngpenalintac=null
+    this.ngrecble=null
+    this.ngcashint=null
+    this.ngmaturebtntpd=null
+    this.nginstallmentbase=null
+    this.ngunittdperiod=null
   }
 
   //Method for delete data

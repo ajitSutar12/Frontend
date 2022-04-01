@@ -97,6 +97,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   acMaster: any
   ngsglac:any=null
   ngintglac:any=null
+  ngintapplicapble:any=null
   //ngoverdraft:any=null
 
   interestApplicableTypeOption: Array<IOption> = this.interestApplicableTypeService.getCharacters();
@@ -351,23 +352,25 @@ console.log(ele);
     this.newbtnShow = true
     this.currentSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.ngsglac=Number(data.S_GLACNO)
+      this.ngintglac=Number(data.S_INT_ACNO)
+      this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
         'S_NAME': data.S_NAME,
         'S_SHNAME': data.S_SHNAME,
-        'S_GLACNO': data.S_GLACNO,
-        'S_INT_ACNO': data.S_INT_ACNO,
+        // 'S_GLACNO': data.S_GLACNO,
+        // 'S_INT_ACNO': data.S_INT_ACNO,
         'S_INT_APPLICABLE': data.S_INT_APPLICABLE,
-        'POST_TO_INDIVIDUAL_AC': data.POST_TO_INDIVIDUAL_AC,
+        'POST_TO_INDIVIDUAL_AC':(data.POST_TO_INDIVIDUAL_AC=="true"?true:false),
         'S_PRODUCT_DAY_BASE': data.S_PRODUCT_DAY_BASE,
         'S_PRODUCT_DAY_BASE_END': data.S_PRODUCT_DAY_BASE_END,
         'MIN_INT_LIMIT': data.MIN_INT_LIMIT,
-        'STAND_INSTRUCTION_ALLOW': data.STAND_INSTRUCTION_ALLOW,
+        'STAND_INSTRUCTION_ALLOW':(data.STAND_INSTRUCTION_ALLOW=="true"?true:false),
         'ROUNDOFF_FACTOR': data.ROUNDOFF_FACTOR,
         'CHEQUEBOOK_MIN_BAL': data.CHEQUEBOOK_MIN_BAL,
-        'BALANCE_ADD_APPLICABLE': data.BALANCE_ADD_APPLICABLE,
-        'DORMANT_FLAG_APPLICABLE': data.DORMANT_FLAG_APPLICABLE,
+        'BALANCE_ADD_APPLICABLE':(data.BALANCE_ADD_APPLICABLE=="true"?true:false),
+        'DORMANT_FLAG_APPLICABLE':(data.DORMANT_FLAG_APPLICABLE=="true"?true:false),
         'OVERDRAFT_INTEREST_APPLICABLE': data.OVERDRAFT_INTEREST_APPLICABLE,
         'OVERDRAFT_INTEREST_RATE': data.OVERDRAFT_INTEREST_RATE
       })
@@ -400,6 +403,9 @@ console.log(ele);
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngsglac=null
+    this.ngintglac=null
+    this.ngintapplicapble=null
   }
 
   //Method for delete data
