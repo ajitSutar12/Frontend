@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
+import { TermDepositeAcRenewalService } from './term-deposite-ac-renewal.service';
 import * as moment from 'moment';
 
 @Component({
@@ -17,18 +18,30 @@ export class TermDepositeAcRenewalComponent implements OnInit {
 
 
   selectedBranch: any;
+  selectedIntCate:any;
   selectedCode: any;
   selectedScheme: any;
   customer: any;
+  selectedCodeNormal: any;
+  selectedSchemeNormal: any;
+  customerNormal: any;
+  selectedCodePayable: any;
+  selectedSchemePayable: any;
+  renewalAsOnDate:any;
+  customerPayable: any;
   angForm: FormGroup;
 
   date: any;
   branch_code: any;
   introducerACNo
+  introducerACNoNormal
+  introducerACNoPayable
   obj: any
   allScheme = new Array()//from schme master
   master: any;
   allSchemeCode: any//from schme master
+  allSchemeCodeNormal:any;
+  allSchemeCodePayable:any;
   isture: boolean = true;
 
   NormalCheck:boolean = true;
@@ -40,15 +53,17 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  InterestCategoryData : any;
+
 
   constructor(private fb: FormBuilder,
     private multiService: MultiVoucherService,
     private ownbranchMasterService: OwnbranchMasterService,
     private savingMasterService: SavingMasterService,
     private Multiservice: MultiVoucherService,
+    private _service: TermDepositeAcRenewalService,
   ) { 
     if (this.childMessage != undefined) {
-
       this.editClickHandler(this.childMessage);
     }
   }
@@ -80,7 +95,21 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       payable_scheme_type:[''],
       PayableIntRadio:[''],
       payableCheck:[''],
-      normal_account_no:['']
+      normal_account_no:[''],
+      normal_scheme:[''],
+      normal_scheme_type:[''],
+      old_last_trn_date:[''],
+      old_int_cate:[''],
+      old_last_int_date:[''],
+      old_total_int_paid:[''],
+      old_intrate:[''],
+      old_month:[''],
+      old_receipt_no:[''],
+      old_ac_ason_date:[''],
+      old_ac_matuamt:[''],
+      old_ac_expdt:[''],
+      old_Ac_op_date:[''],
+      old_deposit_Amt:[''],
     })
     let user = JSON.parse(localStorage.getItem('user'));
 
@@ -103,19 +132,37 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     //Scheme Code
     this.Multiservice.getSchemeCodeList().subscribe(data => {
       this.master = data;
-      this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
+      this.allSchemeCode       = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()];
+      this.allSchemeCodeNormal = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()];
+      this.allSchemeCodePayable= [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()];
       this.selectedCode = 'TD';
       this.selectedSchemeCode()
+    })
+
+    //Data
+    this._service.interestCategory().subscribe(data=>{
+      this.InterestCategoryData = data;
+      console.log(this.InterestCategoryData);
     })
   }
 
   //Customer change function
   getVoucherData() {
     console.log(this.customer);
+    this.selectedIntCate = this.customer.AC_INTCATA;
+    this.renewalAsOnDate = this.customer.AC_EXPDT;
+    this.angForm.patchValue({
+      'new_month':this.customer.AC_MONTHS,
+      'new_day' : this.customer.AC_DAYS,
+      'new_deposit' : this.customer.AC_SCHMAMT,
+      'new_rate': this.customer.AC_INTRATE,
+      'new_last_date': this.customer.AC_LINTEDT,
+      'new_maturity_amt': this.customer.AC_MATUAMT,
+    })
   }
 
   //get account no according scheme for introducer
-  getIntroducer() {
+  async getIntroducer() {
     this.introducerACNo = [];
     this.obj = [this.selectedScheme.id, this.selectedBranch]
     switch (this.selectedCode) {
@@ -187,13 +234,182 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         })
         break;
     }
+
+
   }
 
+  getIntroducerNormal() {
+    debugger
+    this.introducerACNoNormal = [];
+    this.obj = [this.selectedSchemeNormal.id, this.selectedBranch]
+    switch (this.selectedCodeNormal) {
+      case 'SB':
+        this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoNormal = data;
+        })
+        break;
+
+      case 'SH':
+        this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoNormal = data;
+        })
+        break;
+
+      case 'CA':
+        this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoNormal = data;
+        })
+        break;
+
+      case 'LN':
+        this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoNormal = data;
+        })
+        break;
+
+      case 'TD':
+        this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          debugger
+          this.introducerACNoNormal = data;
+          console.log(this.introducerACNoNormal);
+        })
+        break;
+
+      case 'DS':
+        this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoNormal = data;
+        })
+        break;
+
+      case 'CC':
+        this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoNormal = data;
+        })
+        break;
+
+      case 'GS':
+        this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoNormal = data;
+        })
+        break;
+
+      case 'PG':
+        this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoNormal = data;
+        })
+        break;
+
+      case 'AG':
+        this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoNormal = data;
+        })
+        break;
+
+      case 'IV':
+        this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoNormal = data;
+        })
+        break;
+    }
+  }
+
+  getIntroducerPayable() {
+    this.introducerACNoPayable = [];
+    this.obj = [this.selectedSchemePayable.id, this.selectedBranch]
+    switch (this.selectedCodePayable) {
+      case 'SB':
+        this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoPayable = data;
+        })
+        break;
+
+      case 'SH':
+        this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoPayable = data;
+        })
+        break;
+
+      case 'CA':
+        this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoPayable = data;
+        })
+        break;
+
+      case 'LN':
+        this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoPayable = data;
+        })
+        break;
+
+      case 'TD':
+        this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          debugger
+          this.introducerACNoPayable = data;
+          console.log(this.introducerACNoPayable);
+        })
+        break;
+
+      case 'DS':
+        this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoPayable = data;
+        })
+        break;
+
+      case 'CC':
+        this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoPayable = data;
+        })
+        break;
+
+      case 'GS':
+        this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoPayable = data;
+        })
+        break;
+
+      case 'PG':
+        this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoPayable = data;
+        })
+        break;
+
+      case 'AG':
+        this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoPayable = data;
+        })
+        break;
+
+      case 'IV':
+        this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNoPayable = data;
+        })
+        break;
+    }
+  }
   selectedSchemeCode() {
     this.allScheme = [];
     this.master.forEach(element => {
       if (element.S_ACNOTYPE == this.selectedCode) {
         this.allScheme.push(element)
+      }
+    });
+  }
+
+  allSchemeNormal :any;
+  selectedSchemeCodeNormal() {
+    this.allSchemeNormal = [];
+    this.master.forEach(element => {
+      if (element.S_ACNOTYPE == this.selectedCodeNormal) {
+        this.allSchemeNormal.push(element)
+      }
+    });
+  }
+  allSchemePayable:any;
+  selectedSchemeCodePayable(){
+    this.allSchemePayable = [];
+    this.master.forEach(element => {
+      if (element.S_ACNOTYPE == this.selectedCodePayable) {
+        this.allSchemePayable.push(element)
       }
     });
   }
@@ -227,5 +443,9 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     }else{
       this.payableTranferShow = false;
     }
+  }
+
+  submit(){
+    console.log(this.angForm.value);
   }
 }

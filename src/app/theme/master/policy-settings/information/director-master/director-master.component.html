@@ -20,11 +20,11 @@
                             </div>
                         </div>
                         <div class="col-sm-3">
-                            <div class="form-group form-primary form-static-label">
+                            <div class="form-group form-primary form-static-label" style=" pointer-events: none;  ">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         bindLabel="label" title="Compulsory Selection" placeholder="Branch Code"
-                                        formControlName="BRANCH_CODE">
+                                        formControlName="BRANCH_CODE" >
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>

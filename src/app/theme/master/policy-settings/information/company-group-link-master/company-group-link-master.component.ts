@@ -240,6 +240,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.companyGroupLinkMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.formSubmitted = false;
+      this.multiData = [];
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()

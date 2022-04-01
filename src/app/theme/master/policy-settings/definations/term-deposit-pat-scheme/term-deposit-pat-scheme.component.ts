@@ -20,6 +20,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -103,6 +104,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   scheme: any;
 
   timeLeft = 5;
+  schemeType: string = 'TD'
   private dataSub: Subscription = null;
 
 
@@ -112,6 +114,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private TermemeDepositeSchMasterDropdownService: TermemeDepositeSchMasterDropdownService,
     private fb: FormBuilder,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
     private config: NgSelectConfig,) {
     // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
     // console.log(this.datemax);
@@ -188,9 +191,19 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     // this.dataSub = this.schemeTypeDropdownService.loadCharacters().subscribe((options) => {
     //   this.characters = options;
     // });
-    this.TermemeDepositeSchMasterDropdownService.getTermdepositeschemeMasterList().pipe(first()).subscribe(data => {
-      this.scheme = data;
-      console.log(data)
+    // this.TermemeDepositeSchMasterDropdownService.getTermdepositeschemeMasterList().pipe(first()).subscribe(data => {
+    //   this.scheme = data;
+    //   console.log('Scheme Data',data)
+    // })
+
+    this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
+   
+      var filtered = data.filter(function (scheme) {
+
+        return (scheme.id == 'TD');
+      });
+      this.scheme = filtered;
+      // this.scheme = data;
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;

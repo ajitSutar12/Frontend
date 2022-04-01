@@ -85,7 +85,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled
+                                            <input type="text" class="form-control" readonly
                                                 value="{{customer?.AC_SCHMAMT}}" formControlName="old_deposit_Amt">
                                         </span>
                                     </div>
@@ -96,7 +96,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled
+                                            <input type="text" class="form-control" readonly
                                                 value="{{customer?.AC_OPDATE}}" formControlName="old_Ac_op_date">
                                         </span>
                                     </div>
@@ -107,7 +107,7 @@
                                 <div class="col-md-2 labelWidth">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled
+                                            <input type="text" class="form-control" readonly
                                                 value="{{customer?.AC_EXPDT}}" formControlName="old_ac_expdt">
                                         </span>
                                     </div>
@@ -120,7 +120,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled
+                                            <input type="text" class="form-control" readonly
                                                 value="{{customer?.AC_MATUAMT}}" formControlName="old_ac_matuamt">
                                         </span>
                                     </div>
@@ -131,7 +131,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled
+                                            <input type="text" class="form-control" readonly
                                                 value="{{customer?.AC_ASON_DATE}}" formControlName="old_ac_ason_date">
                                         </span>
                                     </div>
@@ -142,7 +142,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled
+                                            <input type="text" class="form-control" readonly
                                                 value="{{customer?.AC_REF_RECEIPTNO}}" formControlName="old_receipt_no">
                                         </span>
                                     </div>
@@ -155,7 +155,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled
+                                            <input type="text" class="form-control" readonly
                                                 value="{{customer?.AC_MONTHS}}" formControlName="old_month">
                                         </span>
                                     </div>
@@ -166,7 +166,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled
+                                            <input type="text" class="form-control" readonly
                                                 value="{{customer?.AC_INTRATE}}" formControlName="old_intrate">
                                         </span>
                                     </div>
@@ -177,7 +177,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled value="0" formControlName="old_total_int_paid">
+                                            <input type="text" class="form-control" readonly value="0" formControlName="old_total_int_paid">
                                         </span>
                                     </div>
                                 </div>
@@ -189,7 +189,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled
+                                            <input type="text" class="form-control" readonly
                                                 value="{{customer?.AC_LINTEDT}}" formControlName="old_last_int_date">
                                         </span>
                                     </div>
@@ -292,9 +292,9 @@
                                 <div class="col-sm-1">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
+                                            <ng-select [(ngModel)]="selectedCodeNormal" (change)="selectedSchemeCodeNormal()"
                                                 formControlName="normal_scheme_type">
-                                                <ng-option *ngFor="let item of allSchemeCode" [value]="item.S_ACNOTYPE">
+                                                <ng-option *ngFor="let item of allSchemeCodeNormal" [value]="item.S_ACNOTYPE">
                                                     {{item.S_ACNOTYPE}}</ng-option>
                                             </ng-select>
                                         </span>
@@ -305,9 +305,9 @@
                                 <div class="col-sm-12 col-md-3">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
+                                            <ng-select [(ngModel)]="selectedSchemeNormal" (change)="getIntroducerNormal()"
                                                 formControlName="normal_scheme">
-                                                <ng-option *ngFor="let item of allScheme" [value]="item">{{item.S_APPL}}
+                                                <ng-option *ngFor="let item of allSchemeNormal" [value]="item">{{item.S_APPL}}
                                                     {{item.S_NAME}}</ng-option>
                                             </ng-select>
                                         </span>
@@ -318,9 +318,9 @@
                                 <div class="col-sm-3">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="customer" formControlName="normal_account_no"
+                                            <ng-select [(ngModel)]="customerNormal" formControlName="normal_account_no"
                                                 (change)="getVoucherData()">
-                                                <ng-option *ngFor="let item of introducerACNo" [value]="item">
+                                                <ng-option *ngFor="let item of introducerACNoNormal" [value]="item">
                                                     {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                             </ng-select>
                                         </span>
@@ -380,9 +380,9 @@
                                 <div class="col-sm-1">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="selectedCode" (change)="selectedSchemeCode()"
+                                            <ng-select [(ngModel)]="selectedCodePayable" (change)="selectedSchemeCodePayable()"
                                                 formControlName="payable_scheme_type">
-                                                <ng-option *ngFor="let item of allSchemeCode" [value]="item.S_ACNOTYPE">
+                                                <ng-option *ngFor="let item of allSchemeCodePayable" [value]="item.S_ACNOTYPE">
                                                     {{item.S_ACNOTYPE}}</ng-option>
                                             </ng-select>
                                         </span>
@@ -393,9 +393,9 @@
                                 <div class="col-sm-12 col-md-3">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="selectedScheme" (change)="getIntroducer()"
+                                            <ng-select [(ngModel)]="selectedSchemePayable" (change)="getIntroducerPayable()"
                                                 formControlName="payable_scheme">
-                                                <ng-option *ngFor="let item of allScheme" [value]="item">{{item.S_APPL}}
+                                                <ng-option *ngFor="let item of allSchemePayable" [value]="item">{{item.S_APPL}}
                                                     {{item.S_NAME}}</ng-option>
                                             </ng-select>
                                         </span>
@@ -406,9 +406,9 @@
                                 <div class="col-sm-3">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="customer" formControlName="payable_account_no"
+                                            <ng-select [(ngModel)]="customerPayable" formControlName="payable_account_no"
                                                 (change)="getVoucherData()">
-                                                <ng-option *ngFor="let item of introducerACNo" [value]="item">
+                                                <ng-option *ngFor="let item of introducerACNoPayable" [value]="item">
                                                     {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                             </ng-select>
                                         </span>
@@ -437,9 +437,9 @@
                                 <div class="col-sm-12 col-md-2">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="selectedBranch" formControlName="new_category">
-                                                <ng-option *ngFor="let item of branch_code" [value]="item.value">
-                                                    {{item.label}}</ng-option>
+                                            <ng-select [(ngModel)]="selectedIntCate" formControlName="new_category">
+                                                <ng-option *ngFor="let item of InterestCategoryData" [value]="item.id">
+                                                    {{item.NAME}}</ng-option>
                                             </ng-select>
                                         </span>
                                     </div>
@@ -451,7 +451,7 @@
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" class="form-control"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                formControlName="new_ason_date" disabled>
+                                                formControlName="new_ason_date" [(ngModel)]="renewalAsOnDate">
                                         </span>
                                     </div>
                                 </div>
@@ -549,7 +549,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <div class="btn btn-sm">Submit</div>
+                                <div class="btn btn-sm" (click)="submit()">Submit</div>
                             </div>
                         </div>
                     </div>

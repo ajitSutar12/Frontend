@@ -47,4 +47,9 @@ export class TermDepositeAcRenewalService {
       .delete(this.url + "/term-deposite-ac-renewal/delete/" + id)
       .pipe(catchError(this.handleError));
   }
+
+  //Interest Category List
+  interestCategory():Observable<any>{
+    return this.http.get(this.url+'/interest-category-master').pipe(catchError(this.handleError));
+  }
 }
