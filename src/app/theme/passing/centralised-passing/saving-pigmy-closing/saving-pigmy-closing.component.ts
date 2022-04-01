@@ -162,7 +162,6 @@ export class SavingPigmyClosingComponent implements OnInit {
   }
   //get saving customer data
   getSavingPigmyClosingData(data) {
-    console.log(data.id);
     this.savingPigmyClosingData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

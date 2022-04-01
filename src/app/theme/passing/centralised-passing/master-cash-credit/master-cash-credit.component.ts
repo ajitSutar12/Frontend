@@ -225,7 +225,6 @@ export class MasterCashCreditComponent implements OnInit {
 
   //get saving customer data
   getCashCreditData(data) {
-    console.log(data.id);
     this.cashCreditData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

@@ -139,7 +139,6 @@ export class PassdeadStockTransactionComponent implements OnInit {
   }
   //get saving customer data
   getDeadStockTransactionData(data) {
-    console.log(data.id);
     this.deadStockTransactionData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

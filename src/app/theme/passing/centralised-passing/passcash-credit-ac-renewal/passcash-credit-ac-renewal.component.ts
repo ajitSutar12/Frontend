@@ -20,8 +20,8 @@ interface CashCreditAcRenewal {
   AC_TYPE: string
   AC_NO: string
   NEW_RECEIPTNO: string
-  
-    
+
+
 }
 @Component({
   selector: 'app-passcash-credit-ac-renewal',
@@ -84,18 +84,18 @@ export class PasscashCreditAcRenewalComponent implements OnInit {
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.mySubscription = interval(1000).subscribe((x => {
-        this.http
-          .post<DataTableResponse>(
-            this.url + '/cash-credit-ac-renewal/passing',
-            dataTableParameters
-          ).subscribe(resp => {
-            this.cashCreditAcRenewal = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: []
+          this.http
+            .post<DataTableResponse>(
+              this.url + '/cash-credit-ac-renewal/passing',
+              dataTableParameters
+            ).subscribe(resp => {
+              this.cashCreditAcRenewal = resp.data;
+              callback({
+                recordsTotal: resp.recordsTotal,
+                recordsFiltered: resp.recordsTotal,
+                data: []
+              });
             });
-          });
         }));
       },
       columnDefs: [{
@@ -119,7 +119,7 @@ export class PasscashCreditAcRenewalComponent implements OnInit {
         //   title: 'Account Name',
         //   data: 'AC_NAME'
         // },
-        
+
         {
           title: 'Account Number',
           data: 'AC_NO'
@@ -128,19 +128,18 @@ export class PasscashCreditAcRenewalComponent implements OnInit {
         //   title: 'Receipt Number',
         //   data: 'NEW_RECEIPTNO'
         // },
-       
+
       ],
       dom: 'Blrtip',
 
     };
 
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription.unsubscribe();
   }
   //get saving customer data
   getCashCreditAcRenewalData(data) {
-    console.log(data.id);
     this.cashCreditAcRenewalData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

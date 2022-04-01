@@ -132,7 +132,6 @@ export class MasterLoanComponent implements OnInit {
               dataTableParameters
             ).subscribe(resp => {
               this.termLoanMaster = resp.data;
-              console.log(this.termLoanMaster, "data")
               callback({
                 recordsTotal: resp.recordsTotal,
                 recordsFiltered: resp.recordsTotal,
@@ -231,7 +230,6 @@ export class MasterLoanComponent implements OnInit {
   }
   //get saving customer data
   getLoanData(data) {
-    console.log(data.id);
     this.loanData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

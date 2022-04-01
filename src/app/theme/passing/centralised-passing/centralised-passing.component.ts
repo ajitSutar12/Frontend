@@ -13,7 +13,7 @@ export class CentralisedPassingComponent implements OnInit {
   mySubscription: Subscription
   voucherTrue = false;
   batchvoucherTrue = false;
-  multivoucherTrue=false;
+  multivoucherTrue = false;
   depositclosingvouchersTrue = false;
   savingpigmyclosingTrue = false;
   remittanceadviceTrue = false;
@@ -34,65 +34,64 @@ export class CentralisedPassingComponent implements OnInit {
   masterdisputeloanTrue = false;
   masterlockerdepositTrue = false;
   masterdeadstockTrue = false;
-  goldsilverreturnTrue=false;
-  termdepositacrenewalTrue=false;
+  goldsilverreturnTrue = false;
+  termdepositacrenewalTrue = false;
 
 
   //count variable
-  voucher : any = 0;
-  batch_voucher : any = 0;
-  multi_voucher:any=0;
-  deposit_closing : any = 0;
-  saving_pigmy_closing : any = 0;
-  remittance_advice:any = 0;
-  cash_remitance: any =0;
-  dead_stock_purchase: any=0;
+  voucher: any = 0;
+  batch_voucher: any = 0;
+  multi_voucher: any = 0;
+  deposit_closing: any = 0;
+  saving_pigmy_closing: any = 0;
+  remittance_advice: any = 0;
+  cash_remitance: any = 0;
+  dead_stock_purchase: any = 0;
   dead_stock_transaction: any = 0;
-  gold_silver_return:any=0;
+  gold_silver_return: any = 0;
   locaker_ac_close: any = 0;
   share_master: any = 0;
   anamat_master: any = 0;
-  saving_master:any = 0;
-  current_master:any =0;
-  deposit_master:any =0;
-  investment_master:any=0;
-  pigmy_agent_master:any=0;
-  pigmy_master:any=0;
-  cash_credit_master:any=0;
-  loan_master:any=0;
-  dispute_loan_master:any=0;
-  locker_master:any=0;
-  dead_stock_master:any=0;
-  term_deposit_ac_renewal:any=0;
+  saving_master: any = 0;
+  current_master: any = 0;
+  deposit_master: any = 0;
+  investment_master: any = 0;
+  pigmy_agent_master: any = 0;
+  pigmy_master: any = 0;
+  cash_credit_master: any = 0;
+  loan_master: any = 0;
+  dispute_loan_master: any = 0;
+  locker_master: any = 0;
+  dead_stock_master: any = 0;
+  term_deposit_ac_renewal: any = 0;
 
-  constructor(private _router: Router,private _service:CentralisedPassingService) {
+  constructor(private _router: Router, private _service: CentralisedPassingService) {
   }
   ngOnInit(): void {
-    this.mySubscription= interval(1000).subscribe((x =>{
-        this._service.getCountOfPassing().subscribe(data=>{
-          console.log(data)
-          this.saving_master = data.savingcount;
-          this.current_master = data.currentcount;
-          this.pigmy_agent_master = data.pigmyAgentCount;
-          this.share_master = data.shareCount;
-          this.anamat_master = data.anamatCount;
-          this.deposit_master = data.termdepositCount;
-          this.investment_master = data.investmentCount;
-          this.pigmy_master = data.pigmyCount;
-          this.cash_credit_master = data.cashCount;
-          this.loan_master = data.loanCount;
-          
-        })
+    this.mySubscription = interval(1000).subscribe((x => {
+      this._service.getCountOfPassing().subscribe(data => {
+        this.saving_master = data.savingcount;
+        this.current_master = data.currentcount;
+        this.pigmy_agent_master = data.pigmyAgentCount;
+        this.share_master = data.shareCount;
+        this.anamat_master = data.anamatCount;
+        this.deposit_master = data.termdepositcount;
+        this.investment_master = data.investmentCount;
+        this.pigmy_master = data.pigmyCount;
+        this.cash_credit_master = data.cashCount;
+        this.loan_master = data.loanCount;
+
+      })
     }));
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription.unsubscribe();
   }
 
   OpenLink(val) {
-    
-    
+
+
     // 
     // 
     // if (val == 5) {
@@ -127,7 +126,7 @@ export class CentralisedPassingComponent implements OnInit {
     if (val == 10) {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       // this.remittanceadviceTrue = false;
@@ -148,13 +147,13 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       // this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 11) {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       // this.remittanceadviceTrue = false;
@@ -175,14 +174,14 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       // this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 12) {
       this.mastersavingTrue = true;
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       // this.remittanceadviceTrue = false;
@@ -192,7 +191,7 @@ export class CentralisedPassingComponent implements OnInit {
       // this.lockeraccloserentTrue = false;
       this.mastersharesTrue = false;
       this.masteranamatTrue = false;
-      
+
       this.mastercurrentTrue = false;
       this.masterdepositsTrue = false;
       this.masterinvestmentsTrue = false;
@@ -203,13 +202,13 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       // this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 13) {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       // this.remittanceadviceTrue = false;
@@ -230,13 +229,13 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       // this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 14) {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       // this.remittanceadviceTrue = false;
@@ -257,13 +256,13 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       // this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 15) {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       // this.remittanceadviceTrue = false;
@@ -284,13 +283,13 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       // this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 16) {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -311,13 +310,13 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       // this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 17) {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -338,13 +337,13 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       // this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 18) {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -365,13 +364,13 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       // this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 19) {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -392,13 +391,13 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       // this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 20) {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -419,13 +418,13 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       // this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = true;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 21) {
       this.voucherTrue = true;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -446,13 +445,13 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 22) {
       this.voucherTrue = false;
       this.batchvoucherTrue = true;
-      this.multivoucherTrue=false;
+      this.multivoucherTrue = false;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -473,13 +472,13 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 23) {
       this.voucherTrue = false;
       this.batchvoucherTrue = false;
-      this.multivoucherTrue=true;
+      this.multivoucherTrue = true;
       this.depositclosingvouchersTrue = false;
       this.savingpigmyclosingTrue = false;
       this.remittanceadviceTrue = false;
@@ -500,227 +499,227 @@ export class CentralisedPassingComponent implements OnInit {
       this.masterdisputeloanTrue = false;
       this.masterlockerdepositTrue = false;
       this.masterdeadstockTrue = false;
-      this.goldsilverreturnTrue=false;
-      this.termdepositacrenewalTrue=false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
     }
     else if (val == 24) {
-        this.voucherTrue = false;
-        this.batchvoucherTrue = false;
-        this.multivoucherTrue=false;
-        this.depositclosingvouchersTrue = true;
-        this.savingpigmyclosingTrue = false;
-        this.remittanceadviceTrue = false;
-        this.cashremitanceTrue = false;
-        this.deadstockpurchaseTrue = false;
-        this.deadstocktransactionTrue = false;
-        this.lockeraccloserentTrue = false;
-        this.mastersharesTrue = false;
-        this.masteranamatTrue = false;
-        this.mastersavingTrue = false;
-        this.mastercurrentTrue = false;
-        this.masterdepositsTrue = false;
-        this.masterinvestmentsTrue = false;
-        this.masterpigmyagentTrue = false;
-        this.masterpigmyTrue = false;
-        this.mastercashcreditTrue = false;
-        this.masterloanTrue = false;
-        this.masterdisputeloanTrue = false;
-        this.masterlockerdepositTrue = false;
-        this.masterdeadstockTrue = false;
-        this.goldsilverreturnTrue=false;
-        this.termdepositacrenewalTrue=false;
-      }
-      else if (val == 25) {
-          this.voucherTrue = false;
-          this.batchvoucherTrue = false;
-          this.multivoucherTrue=false;
-          this.depositclosingvouchersTrue = false;
-          this.savingpigmyclosingTrue = true;
-          this.remittanceadviceTrue = false;
-          this.cashremitanceTrue = false;
-          this.deadstockpurchaseTrue = false;
-          this.deadstocktransactionTrue = false;
-          this.lockeraccloserentTrue = false;
-          this.mastersharesTrue = false;
-          this.masteranamatTrue = false;
-          this.mastersavingTrue = false;
-          this.mastercurrentTrue = false;
-          this.masterdepositsTrue = false;
-          this.masterinvestmentsTrue = false;
-          this.masterpigmyagentTrue = false;
-          this.masterpigmyTrue = false;
-          this.mastercashcreditTrue = false;
-          this.masterloanTrue = false;
-          this.masterdisputeloanTrue = false;
-          this.masterlockerdepositTrue = false;
-          this.masterdeadstockTrue = false;
-          this.goldsilverreturnTrue=false;
-          this.termdepositacrenewalTrue=false;
-        }
-      else if (val == 26) {
-        this.voucherTrue = false;
-        this.batchvoucherTrue = false;
-        this.multivoucherTrue=false;
-        this.depositclosingvouchersTrue = false;
-        this.savingpigmyclosingTrue = false;
-        this.remittanceadviceTrue = false;
-        this.cashremitanceTrue = false;
-        this.deadstockpurchaseTrue = true;
-        this.deadstocktransactionTrue = false;
-        this.lockeraccloserentTrue = false;
-        this.mastersharesTrue = false;
-        this.masteranamatTrue = false;
-        this.mastersavingTrue = false;
-        this.mastercurrentTrue = false;
-        this.masterdepositsTrue = false;
-        this.masterinvestmentsTrue = false;
-        this.masterpigmyagentTrue = false;
-        this.masterpigmyTrue = false;
-        this.mastercashcreditTrue = false;
-        this.masterloanTrue = false;
-        this.masterdisputeloanTrue = false;
-        this.masterlockerdepositTrue = false;
-        this.masterdeadstockTrue = false;
-        this.goldsilverreturnTrue=false;
-        this.termdepositacrenewalTrue=false;
-      }
-      else if (val == 27) {
-          this.voucherTrue = false;
-          this.batchvoucherTrue = false;
-          this.multivoucherTrue=false;
-          this.depositclosingvouchersTrue = false;
-          this.savingpigmyclosingTrue = false;
-          this.remittanceadviceTrue = false;
-          this.cashremitanceTrue = false;
-          this.deadstockpurchaseTrue = false;
-          this.deadstocktransactionTrue = true;
-          this.lockeraccloserentTrue = false;
-          this.mastersharesTrue = false;
-          this.masteranamatTrue = false;
-          this.mastersavingTrue = false;
-          this.mastercurrentTrue = false;
-          this.masterdepositsTrue = false;
-          this.masterinvestmentsTrue = false;
-          this.masterpigmyagentTrue = false;
-          this.masterpigmyTrue = false;
-          this.mastercashcreditTrue = false;
-          this.masterloanTrue = false;
-          this.masterdisputeloanTrue = false;
-          this.masterlockerdepositTrue = false;
-          this.masterdeadstockTrue = false;
-          this.goldsilverreturnTrue=false;
-          this.termdepositacrenewalTrue=false;
-        }
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.depositclosingvouchersTrue = true;
+      this.savingpigmyclosingTrue = false;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = false;
+      this.deadstockpurchaseTrue = false;
+      this.deadstocktransactionTrue = false;
+      this.lockeraccloserentTrue = false;
+      this.mastersharesTrue = false;
+      this.masteranamatTrue = false;
+      this.mastersavingTrue = false;
+      this.mastercurrentTrue = false;
+      this.masterdepositsTrue = false;
+      this.masterinvestmentsTrue = false;
+      this.masterpigmyagentTrue = false;
+      this.masterpigmyTrue = false;
+      this.mastercashcreditTrue = false;
+      this.masterloanTrue = false;
+      this.masterdisputeloanTrue = false;
+      this.masterlockerdepositTrue = false;
+      this.masterdeadstockTrue = false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
+    }
+    else if (val == 25) {
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.depositclosingvouchersTrue = false;
+      this.savingpigmyclosingTrue = true;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = false;
+      this.deadstockpurchaseTrue = false;
+      this.deadstocktransactionTrue = false;
+      this.lockeraccloserentTrue = false;
+      this.mastersharesTrue = false;
+      this.masteranamatTrue = false;
+      this.mastersavingTrue = false;
+      this.mastercurrentTrue = false;
+      this.masterdepositsTrue = false;
+      this.masterinvestmentsTrue = false;
+      this.masterpigmyagentTrue = false;
+      this.masterpigmyTrue = false;
+      this.mastercashcreditTrue = false;
+      this.masterloanTrue = false;
+      this.masterdisputeloanTrue = false;
+      this.masterlockerdepositTrue = false;
+      this.masterdeadstockTrue = false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
+    }
+    else if (val == 26) {
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.depositclosingvouchersTrue = false;
+      this.savingpigmyclosingTrue = false;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = false;
+      this.deadstockpurchaseTrue = true;
+      this.deadstocktransactionTrue = false;
+      this.lockeraccloserentTrue = false;
+      this.mastersharesTrue = false;
+      this.masteranamatTrue = false;
+      this.mastersavingTrue = false;
+      this.mastercurrentTrue = false;
+      this.masterdepositsTrue = false;
+      this.masterinvestmentsTrue = false;
+      this.masterpigmyagentTrue = false;
+      this.masterpigmyTrue = false;
+      this.mastercashcreditTrue = false;
+      this.masterloanTrue = false;
+      this.masterdisputeloanTrue = false;
+      this.masterlockerdepositTrue = false;
+      this.masterdeadstockTrue = false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
+    }
+    else if (val == 27) {
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.depositclosingvouchersTrue = false;
+      this.savingpigmyclosingTrue = false;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = false;
+      this.deadstockpurchaseTrue = false;
+      this.deadstocktransactionTrue = true;
+      this.lockeraccloserentTrue = false;
+      this.mastersharesTrue = false;
+      this.masteranamatTrue = false;
+      this.mastersavingTrue = false;
+      this.mastercurrentTrue = false;
+      this.masterdepositsTrue = false;
+      this.masterinvestmentsTrue = false;
+      this.masterpigmyagentTrue = false;
+      this.masterpigmyTrue = false;
+      this.mastercashcreditTrue = false;
+      this.masterloanTrue = false;
+      this.masterdisputeloanTrue = false;
+      this.masterlockerdepositTrue = false;
+      this.masterdeadstockTrue = false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
+    }
 
-        else if (val == 28) {
-            this.voucherTrue = false;
-            this.batchvoucherTrue = false;
-            this.multivoucherTrue=false;
-            this.depositclosingvouchersTrue = false;
-            this.savingpigmyclosingTrue = false;
-            this.remittanceadviceTrue = false;
-            this.cashremitanceTrue = true;
-            this.deadstockpurchaseTrue = false;
-            this.deadstocktransactionTrue = false;
-            this.lockeraccloserentTrue = false;
-            this.mastersharesTrue = false;
-            this.masteranamatTrue = false;
-            this.mastersavingTrue = false;
-            this.mastercurrentTrue = false;
-            this.masterdepositsTrue = false;
-            this.masterinvestmentsTrue = false;
-            this.masterpigmyagentTrue = false;
-            this.masterpigmyTrue = false;
-            this.mastercashcreditTrue = false;
-            this.masterloanTrue = false;
-            this.masterdisputeloanTrue = false;
-            this.masterlockerdepositTrue = false;
-            this.masterdeadstockTrue = false;
-            this.goldsilverreturnTrue=false;
-            this.termdepositacrenewalTrue=false;
-          }
-          else if (val == 29) {
-            this.voucherTrue = false;
-            this.batchvoucherTrue = false;
-            this.multivoucherTrue=false;
-            this.depositclosingvouchersTrue = false;
-            this.savingpigmyclosingTrue = false;
-            this.remittanceadviceTrue = false;
-            this.cashremitanceTrue = false;
-            this.deadstockpurchaseTrue = false;
-            this.deadstocktransactionTrue = false;
-            this.lockeraccloserentTrue = false;
-            this.mastersharesTrue = false;
-            this.masteranamatTrue = false;
-            this.mastersavingTrue = false;
-            this.mastercurrentTrue = false;
-            this.masterdepositsTrue = false;
-            this.masterinvestmentsTrue = false;
-            this.masterpigmyagentTrue = false;
-            this.masterpigmyTrue = false;
-            this.mastercashcreditTrue = false;
-            this.masterloanTrue = false;
-            this.masterdisputeloanTrue = false;
-            this.masterlockerdepositTrue = false;
-            this.masterdeadstockTrue = false;
-            this.goldsilverreturnTrue=true;
-            this.termdepositacrenewalTrue=false;
-          }
-          else if (val == 30) {
-            this.voucherTrue = false;
-            this.batchvoucherTrue = false;
-            this.multivoucherTrue=false;
-            this.depositclosingvouchersTrue = false;
-            this.savingpigmyclosingTrue = false;
-            this.remittanceadviceTrue = false;
-            this.cashremitanceTrue = false;
-            this.deadstockpurchaseTrue = false;
-            this.deadstocktransactionTrue = false;
-            this.lockeraccloserentTrue = false;
-            this.mastersharesTrue = false;
-            this.masteranamatTrue = false;
-            this.mastersavingTrue = false;
-            this.mastercurrentTrue = false;
-            this.masterdepositsTrue = false;
-            this.masterinvestmentsTrue = false;
-            this.masterpigmyagentTrue = false;
-            this.masterpigmyTrue = false;
-            this.mastercashcreditTrue = false;
-            this.masterloanTrue = false;
-            this.masterdisputeloanTrue = false;
-            this.masterlockerdepositTrue = false;
-            this.masterdeadstockTrue = false;
-            this.goldsilverreturnTrue=false;
-            this.termdepositacrenewalTrue=true;
-          }
-          if (val == 9) {
-            this.voucherTrue = false;
-            this.batchvoucherTrue = false;
-            this.multivoucherTrue=false;
-            this.depositclosingvouchersTrue = false;
-            this.savingpigmyclosingTrue = false;
-            this.remittanceadviceTrue = false;
-            this.cashremitanceTrue = false;
-            this.deadstockpurchaseTrue = false;
-            this.deadstocktransactionTrue = false;
-            this.lockeraccloserentTrue = true;
-            this.mastersharesTrue = false;
-            this.masteranamatTrue = false;
-            this.mastersavingTrue = false;
-            this.mastercurrentTrue = false;
-            this.masterdepositsTrue = false;
-            this.masterinvestmentsTrue = false;
-            this.masterpigmyagentTrue = false;
-            this.masterpigmyTrue = false;
-            this.mastercashcreditTrue = false;
-            this.masterloanTrue = false;
-            this.masterdisputeloanTrue = false;
-            this.masterlockerdepositTrue = false;
-            this.masterdeadstockTrue = false;
-            this.goldsilverreturnTrue=false;
-            this.termdepositacrenewalTrue=false;
-            }
-    
+    else if (val == 28) {
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.depositclosingvouchersTrue = false;
+      this.savingpigmyclosingTrue = false;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = true;
+      this.deadstockpurchaseTrue = false;
+      this.deadstocktransactionTrue = false;
+      this.lockeraccloserentTrue = false;
+      this.mastersharesTrue = false;
+      this.masteranamatTrue = false;
+      this.mastersavingTrue = false;
+      this.mastercurrentTrue = false;
+      this.masterdepositsTrue = false;
+      this.masterinvestmentsTrue = false;
+      this.masterpigmyagentTrue = false;
+      this.masterpigmyTrue = false;
+      this.mastercashcreditTrue = false;
+      this.masterloanTrue = false;
+      this.masterdisputeloanTrue = false;
+      this.masterlockerdepositTrue = false;
+      this.masterdeadstockTrue = false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
+    }
+    else if (val == 29) {
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.depositclosingvouchersTrue = false;
+      this.savingpigmyclosingTrue = false;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = false;
+      this.deadstockpurchaseTrue = false;
+      this.deadstocktransactionTrue = false;
+      this.lockeraccloserentTrue = false;
+      this.mastersharesTrue = false;
+      this.masteranamatTrue = false;
+      this.mastersavingTrue = false;
+      this.mastercurrentTrue = false;
+      this.masterdepositsTrue = false;
+      this.masterinvestmentsTrue = false;
+      this.masterpigmyagentTrue = false;
+      this.masterpigmyTrue = false;
+      this.mastercashcreditTrue = false;
+      this.masterloanTrue = false;
+      this.masterdisputeloanTrue = false;
+      this.masterlockerdepositTrue = false;
+      this.masterdeadstockTrue = false;
+      this.goldsilverreturnTrue = true;
+      this.termdepositacrenewalTrue = false;
+    }
+    else if (val == 30) {
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.depositclosingvouchersTrue = false;
+      this.savingpigmyclosingTrue = false;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = false;
+      this.deadstockpurchaseTrue = false;
+      this.deadstocktransactionTrue = false;
+      this.lockeraccloserentTrue = false;
+      this.mastersharesTrue = false;
+      this.masteranamatTrue = false;
+      this.mastersavingTrue = false;
+      this.mastercurrentTrue = false;
+      this.masterdepositsTrue = false;
+      this.masterinvestmentsTrue = false;
+      this.masterpigmyagentTrue = false;
+      this.masterpigmyTrue = false;
+      this.mastercashcreditTrue = false;
+      this.masterloanTrue = false;
+      this.masterdisputeloanTrue = false;
+      this.masterlockerdepositTrue = false;
+      this.masterdeadstockTrue = false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = true;
+    }
+    if (val == 9) {
+      this.voucherTrue = false;
+      this.batchvoucherTrue = false;
+      this.multivoucherTrue = false;
+      this.depositclosingvouchersTrue = false;
+      this.savingpigmyclosingTrue = false;
+      this.remittanceadviceTrue = false;
+      this.cashremitanceTrue = false;
+      this.deadstockpurchaseTrue = false;
+      this.deadstocktransactionTrue = false;
+      this.lockeraccloserentTrue = true;
+      this.mastersharesTrue = false;
+      this.masteranamatTrue = false;
+      this.mastersavingTrue = false;
+      this.mastercurrentTrue = false;
+      this.masterdepositsTrue = false;
+      this.masterinvestmentsTrue = false;
+      this.masterpigmyagentTrue = false;
+      this.masterpigmyTrue = false;
+      this.mastercashcreditTrue = false;
+      this.masterloanTrue = false;
+      this.masterdisputeloanTrue = false;
+      this.masterlockerdepositTrue = false;
+      this.masterdeadstockTrue = false;
+      this.goldsilverreturnTrue = false;
+      this.termdepositacrenewalTrue = false;
+    }
+
   }
 
 }

@@ -163,7 +163,6 @@ export class DepositClosingVoucherComponent implements OnInit {
   }
   //get saving customer data
   getDepositeClosingVoucherData(data) {
-    console.log(data.id);
     this.termDepositClosingVoucherData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

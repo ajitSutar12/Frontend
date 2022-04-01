@@ -158,7 +158,6 @@ export class MasterSharesComponent implements OnInit, AfterViewInit {
             dataTableParameters
           ).subscribe(resp => {
             this.shareMaster = resp.data;
-            console.log('share table', this.shareMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -242,7 +241,6 @@ export class MasterSharesComponent implements OnInit, AfterViewInit {
   }
   //get saving customer data
   getShareData(data) {
-    console.log(data.id);
     this.shareData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

@@ -130,7 +130,6 @@ export class MasterInvestmentsComponent implements OnInit {
               dataTableParameters
             ).subscribe(resp => {
               this.investmentMaster = resp.data;
-              console.log(this.investmentMaster)
               callback({
                 recordsTotal: resp.recordsTotal,
                 recordsFiltered: resp.recordsTotal,
@@ -211,7 +210,6 @@ export class MasterInvestmentsComponent implements OnInit {
 
   //get saving customer data
   getInvestmentData(data) {
-    console.log(data.id);
     this.investmentData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

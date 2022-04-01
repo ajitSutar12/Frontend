@@ -170,7 +170,7 @@
                                                                             name="AC_OPDATE" id="AC_OPDATE"
                                                                             [(ngModel)]="openingDate"
                                                                             class="form-control" required
-                                                                            max="{{datemax | date:'yyyy-MM-dd'}}" #date
+                                                                            [maxDate]="maxDate" #date
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             disabled
                                                                             [ngClass]="{'form-submitted': formSubmitted}"

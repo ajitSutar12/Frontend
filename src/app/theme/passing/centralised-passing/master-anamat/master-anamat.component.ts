@@ -210,7 +210,6 @@ export class MasterAnamatComponent implements OnInit {
   }
   //get saving customer data
   getAnamatData(data) {
-    console.log(data.id);
     this.anamatData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

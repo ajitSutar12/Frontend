@@ -98,18 +98,18 @@ export class MasterPigmyAgentComponent implements OnInit {
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.mySubscription = interval(1000).subscribe((x => {
-        this.http
-          .post<DataTableResponse>(
-            this.url + '/pigmy-agent-master/passing',
-            dataTableParameters
-          ).subscribe(resp => {
-            this.pigmyAgentMaster = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: []
+          this.http
+            .post<DataTableResponse>(
+              this.url + '/pigmy-agent-master/passing',
+              dataTableParameters
+            ).subscribe(resp => {
+              this.pigmyAgentMaster = resp.data;
+              callback({
+                recordsTotal: resp.recordsTotal,
+                recordsFiltered: resp.recordsTotal,
+                data: []
+              });
             });
-          });
         }));
       },
       columnDefs: [{
@@ -151,12 +151,11 @@ export class MasterPigmyAgentComponent implements OnInit {
 
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription.unsubscribe();
   }
   //get saving customer data
   getPigmyAgentData(data) {
-    console.log(data.id);
     this.pigmyAgentData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

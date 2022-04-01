@@ -15,16 +15,16 @@ class DataTableResponse {
 
 // For fetching values from backend
 interface BatchVoucher {
-  TRAN_NO:string;
-  TRAN_AMOUNT:string;
-  
-  TRAN_TIME:string;
-  TRAN_ACTYPE:string;
-  TRAN_TYPE:string;
-  TRAN_ACNO:string;
-  USER_CODE:string;
-    
-  
+  TRAN_NO: string;
+  TRAN_AMOUNT: string;
+
+  TRAN_TIME: string;
+  TRAN_ACTYPE: string;
+  TRAN_TYPE: string;
+  TRAN_ACNO: string;
+  USER_CODE: string;
+
+
 }
 
 @Component({
@@ -51,9 +51,9 @@ export class PassbatchVoucherComponent implements OnInit {
   constructor(private http: HttpClient,) { }
 
   batchVoucherData: any = {};
-  
 
-  
+
+
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {
@@ -91,18 +91,18 @@ export class PassbatchVoucherComponent implements OnInit {
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.mySubscription = interval(1000).subscribe((x => {
-        this.http
-          .post<DataTableResponse>(
-            this.url + '/batch-voucher/passing',
-            dataTableParameters
-          ).subscribe(resp => {
-            this.batchVoucher = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: []
+          this.http
+            .post<DataTableResponse>(
+              this.url + '/batch-voucher/passing',
+              dataTableParameters
+            ).subscribe(resp => {
+              this.batchVoucher = resp.data;
+              callback({
+                recordsTotal: resp.recordsTotal,
+                recordsFiltered: resp.recordsTotal,
+                data: []
+              });
             });
-          });
         }));
       },
       columnDefs: [{
@@ -121,7 +121,7 @@ export class PassbatchVoucherComponent implements OnInit {
           title: 'Amount',
           data: 'TRAN_AMOUNT'
         },
-        
+
         {
           title: 'Time',
           data: 'TRAN_TIME'
@@ -161,12 +161,11 @@ export class PassbatchVoucherComponent implements OnInit {
 
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mySubscription.unsubscribe();
   }
   //get saving customer data
   getBatchVoucherData(data) {
-    console.log(data.id);
     this.batchVoucherData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

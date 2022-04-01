@@ -147,7 +147,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   showDialog = false;
   SchemeCodeDropdownDropdown: any[];
   categoryMasterdropdown: any[];
-
+  tempupdateattorny: any
   // @Input() visible: boolean;
   public config: any;
   scheme //scheme code from schemast(S_ACNOTYPE)
@@ -162,11 +162,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   //temp address flag variable
   tempAddress: boolean = true;
-  Cust_ID: any[]
+  Cust_ID
   // id: string = '';
   introducerACNo //account no for introducer
   // acno
-
+  nomineedataedit: any
   //nominee, joint ac and attorney variables 
   nomineeShowButton: boolean = true
   nomineeUpdateShow: boolean = false
@@ -183,7 +183,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   nomineeTrue: boolean = false;
   JointAccountsTrue: boolean = false;
   PowerofAttorneyTrue: boolean = false;
-
+  ngnomineedate: any
   jointShowButton: boolean = true
   jointUpdateShow: boolean = false
   attorneyShowButton: boolean = true
@@ -215,7 +215,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   jointID: any = null
 
   AC_TYPE: boolean = false
-
+  tempopendate: any
+  openingDate: any
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
@@ -227,7 +228,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   public visibleAnimate = false;
   bsValue
   getschemename: any
-
+  maxDate: Date;
+  minDate: Date;
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
     private fb: FormBuilder,
@@ -252,6 +254,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
       this.editClickHandler(this.childMessage);
     }
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate());
+    this.maxDate.setDate(this.maxDate.getDate())
   }
 
   ngOnInit(): void {
@@ -377,7 +383,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       dom: 'Blrtip',
     };
 
-    this.runTimer();
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
       this.joint_Cust_ID = data
@@ -398,9 +403,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.OperationMasterDropdownService.getOperationMasterList().pipe(first()).subscribe(data => {
       this.OperationMasterDropdown = data;
     })
-    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
-      this.Cust_ID = data;
-    })
     this.categoryMasterService.getcategoryList().pipe(first()).subscribe(data => {
       this.categoryMasterdropdown = data;
     })
@@ -412,16 +414,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.selectedValue = this.scheme[0].value
     })
   }
-  runTimer() {
-    const timer = setInterval(() => {
-      this.timeLeft -= 1;
-      if (this.timeLeft === 0) {
-        clearInterval(timer);
-      }
-    }, 1000);
-  }
 
   createForm() {
+    this.getSystemParaDate()
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
       AC_ACNOTYPE: ['TD'],
@@ -500,6 +495,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_NPIN: ['', [Validators.pattern]],
 
       //joint ac
+      JOINT_AC_CUSTID: ['',],
       JOINT_ACNAME: ['', [Validators.pattern]],
       OPERATOR: [true],
 
@@ -576,9 +572,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //set open date
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
+      this.tempopendate = data.CURRENT_DATE
+      this.openingDate = data.CURRENT_DATE
       this.angForm.patchValue({
-        AC_OPDATE: moment(data.CURRENT_DATE).format('DD/MM/YYYY'),
-        AC_ASON_DATE: moment(data.CURRENT_DATE).format('DD/MM/YYYY'),
+        AC_OPDATE: data.CURRENT_DATE,
+        AC_ASON_DATE: data.CURRENT_DATE
       })
       if (data.ON_LINE === true) {
         this.angForm.controls['AC_OPDATE'].disable()
@@ -586,16 +584,16 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.angForm.controls['AC_OPDATE'].enable()
       }
     })
+    this.getMaturityDate()
   }
 
 
 
   result: number
+  expiryDate
   //get maturity date
   getMaturityDate() {
-
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
-
       if (data.S_INTASON == true) {
         document.getElementById('AC_ASON_DATE').removeAttribute("disabled");
       }
@@ -603,14 +601,31 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         document.getElementById('AC_ASON_DATE').setAttribute("disabled", "true");
         let months = this.angForm.controls['AC_MONTHS'].value
         let days = this.angForm.controls['AC_DAYS'].value
-        var maturityDt = new Date(this.angForm.controls['AC_ASON_DATE'].value)
-        var year = maturityDt.getFullYear();
-        var month = new Date(maturityDt).getMonth();
-        var day = new Date(maturityDt).getDate();
-        var maturityMonth = month + Number(months)
-        var maturityDay = day + Number(days)
-        var date = new Date(year, maturityMonth, maturityDay);
-        var maturityDate = this.datePipe.transform(date, "DD/MM/YYYY")
+        // var maturityDt = new Date(this.angForm.controls['AC_ASON_DATE'].value)
+        // var year = maturityDt.getFullYear();
+        // var month = new Date(maturityDt).getMonth();
+        // var day = new Date(maturityDt).getDate();
+        // var maturityMonth = month + Number(months)
+        // var maturityDay = day + Number(days)
+        // var date = new Date(year, maturityMonth, maturityDay);
+        // var maturityDate = this.datePipe.transform(date, "DD/MM/YYYY")
+
+        // var check = moment(n.entry.date_entered, 'YYYY/MM/DD');
+
+        // var month = check.format('M');
+        // var day = check.format('D');
+        // var year = check.format('YYYY');
+
+        var maturityDt = moment(this.angForm.controls['AC_ASON_DATE'].value, 'DD/MM/YYYY')
+        var year = maturityDt.format('YYYY');
+        var month = maturityDt.format('M');
+        var day = maturityDt.format('D');
+
+        var maturityMonth = Number(month) + Number(months)
+        var maturityDay = Number(day) + Number(days)
+        var date = new Date(Number(year), Number(maturityMonth), Number(maturityDay));
+        var maturityDate = moment(date).format("DD/MM/YYYY")
+        this.expiryDate = maturityDate
         this.angForm.patchValue({
           AC_EXPDT: maturityDate
         })
@@ -694,8 +709,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     var date1 = this.angForm.controls['AC_ASON_DATE'].value;
     var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-    date1 = moment(date1).format('DD/MM/YYYY');
-    date2 = moment(date2).format('DD/MM/YYYY');
+    // date1 = moment(date1).format('DD/MM/YYYY');
+    // date2 = moment(date2).format('DD/MM/YYYY');
 
     var startDate = moment(date1, "DD/MM/YYYY");
     var endDate = moment(date2, "DD/MM/YYYY");
@@ -708,6 +723,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   checkAmount() {
+
     const formVal = this.angForm.value;
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
       if (data.MAX_DEP_LMT != '' || data.MULTIPLE_OF_AMT != '') {
@@ -777,14 +793,15 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
   monthDays() {
+
+
     const formVal = this.angForm.value;
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
-
       var date1 = this.angForm.controls['AC_ASON_DATE'].value;
       var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-      date1 = moment(date1).format('DD/MM/YYYY');
-      date2 = moment(date2).format('DD/MM/YYYY');
+      // date1 = moment(date1).format('DD/MM/YYYY');
+      // date2 = moment(date2).format('DD/MM/YYYY');
 
       var b = moment(date1, "DD/MM/YYYY");
       var a = moment(date2, "DD/MM/YYYY");
@@ -820,7 +837,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     var date1 = this.angForm.controls['AC_ASON_DATE'].value;
     var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-    date1 = moment(date1).format('DD/MM/YYYY');
+    // date1 = moment(date1).format('DD/MM/YYYY');
 
     var startDate = moment(date1, "DD/MM/YYYY");
     var endDate = moment(date2, "DD/MM/YYYY");
@@ -861,7 +878,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     var date1 = this.angForm.controls['AC_ASON_DATE'].value;
     var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-    date1 = moment(date1).format('DD/MM/YYYY');
+    // date1 = moment(date1).format('DD/MM/YYYY');
 
     var b = moment(date1, "DD/MM/YYYY");
     var a = moment(date2, "DD/MM/YYYY");
@@ -991,7 +1008,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     var date1 = this.angForm.controls['AC_ASON_DATE'].value;
     var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-    date1 = moment(date1).format('DD/MM/YYYY');
+    // date1 = moment(date1).format('DD/MM/YYYY');
 
     var b = moment(date1, "DD/MM/YYYY");
     var a = moment(date2, "DD/MM/YYYY");
@@ -1100,8 +1117,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
 
   getCustomer(id) {
-    this.getSystemParaDate() //function to set date
     this.customerIdService.getFormData(id).subscribe(data => {
+      
       this.customerDoc = data.custdocument
       this.tempAddress = data.custAddress[0].AC_ADDFLAG
 
@@ -1111,7 +1128,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       if (data.occupMaster == null) {
         data.occupMaster = ""
       }
-      this.id = data.id
+
       this.angForm.patchValue({
         AC_TITLE: data.AC_TITLE,
         AC_NAME: data.AC_NAME,
@@ -1124,7 +1141,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         AC_PHNO: data.AC_PHONE_RES,
         AC_EMAIL: data.AC_EMAILID,
         AC_PANNO: data.AC_PANNO,
+        AC_CUSTID: data.id
+        // AC_MONTHS: '',
+        // AC_DAYS: '',
       })
+      this.id = data.id
       this.ageCalculator(data.AC_BIRTH_DT);
       let permadd
       let temp
@@ -1149,7 +1170,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           temp = element
         }
       })
-      this.ngCity = temp?.city.id,
+      this.ngCity = temp?.city?.id,
         this.angForm.patchValue({
           AC_THONO: temp?.AC_HONO,
           AC_TWARD: temp?.AC_WARD,
@@ -1170,6 +1191,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.formSubmitted = true;
     if (this.angForm.valid) {
       let opdate
+      let temdate
       let asondate
       let maturitydate
       const formVal = this.angForm.value;
@@ -1194,6 +1216,24 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           schecode = element.name
         }
       })
+      if (this.tempopendate != this.openingDate) {
+        temdate = (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY')
+      } else {
+        temdate = this.openingDate
+      }
+      let asonDate
+
+      if (this.tempopendate != formVal.AC_ASON_DATE) {
+        asondate = (formVal.AC_ASON_DATE == '' || formVal.AC_ASON_DATE == 'Invalid date') ? asonDate = '' : asonDate = moment(formVal.AC_ASON_DATE).format('DD/MM/YYYY')
+      } else {
+        asondate = this.tempopendate
+      }
+      let expiry
+      if (this.expiryDate != formVal.AC_EXPDT) {
+        expiry = (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == 'Invalid date') ? expiry = '' : asonDate = moment(formVal.AC_EXPDT).format('DD/MM/YYYY')
+      } else {
+        expiry = this.expiryDate
+      }
 
       const dataToSend = {
         'branchCode': branchCode,
@@ -1202,19 +1242,21 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
         'AC_TYPE': formVal.AC_TYPE,
         'AC_NO': formVal.AC_NO,
-        // 'AC_INTRATE':formVal.AC_INTRATE,
+        'AC_INTRATE': formVal.AC_INTRATE,
         'AC_CUSTID': formVal.AC_CUSTID,
         'AC_NAME': formVal.AC_NAME,
         'REF_ACNO': formVal.REF_ACNO,
-        'AC_OPDATE': (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == 'Invalid date') ? opdate = '' : opdate = moment(formVal.AC_OPDATE).format('DD/MM/YYYY'),
+        'AC_OPDATE': temdate,
         'AC_CATG': formVal.AC_CATG,
         'AC_OPR_CODE': formVal.AC_OPR_CODE,
         'AC_INTCATA': formVal.AC_INTCATA,
         'AC_IS_RECOVERY': formVal.AC_IS_RECOVERY,
         'AC_REF_RECEIPTNO': formVal.AC_REF_RECEIPTNO,
-        'AC_ASON_DATE': (formVal.AC_ASON_DATE == '' || formVal.AC_ASON_DATE == 'Invalid date') ? asondate = '' : asondate = moment(formVal.AC_ASON_DATE).format('DD/MM/YYYY'),
+        'AC_ASON_DATE': asondate,
+        // 'AC_ASON_DATE': (formVal.AC_ASON_DATE == '' || formVal.AC_ASON_DATE == 'Invalid date') ? asondate = '' : asondate = moment(formVal.AC_ASON_DATE).format('DD/MM/YYYY'),
         'AC_MONTHS': formVal.AC_MONTHS,
-        'AC_EXPDT': (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == 'Invalid date') ? maturitydate = '' : maturitydate = moment(formVal.AC_EXPDT).format('DD/MM/YYYY'),
+        'AC_EXPDT': expiry,
+        // 'AC_EXPDT': (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == 'Invalid date') ? maturitydate = '' : maturitydate = moment(formVal.AC_EXPDT).format('DD/MM/YYYY'),
         'AC_SCHMAMT': formVal.AC_SCHMAMT,
         'AC_MATUAMT': formVal.AC_MATUAMT,
         'IS_DISCOUNTED_INT_RATE': formVal.IS_DISCOUNTED_INT_RATE,
@@ -1277,6 +1319,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
+  updatecheckdata: any
   //Method for append data into fields
   editClickHandler(id) {
     let opdate
@@ -1287,7 +1330,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.newbtnShow = true;
 
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
+      
       this.updateID = data.id;
+      this.updatecheckdata = data
       this.getCustomer(data.AC_CUSTID)
       //get nominee to edit
       this.multiNominee = data.nomineeDetails
@@ -1306,16 +1351,16 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_SHORT_NAME': data.AC_SHORT_NAME,
         'AC_AGE': data.AC_AGE,
         'REF_ACNO': data.REF_ACNO,
-        'AC_OPDATE': (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
+        'AC_OPDATE': data.AC_OPDATE,
         'AC_RENEW_DATE': data.AC_RENEW_DATE,
-        'AC_EXPDT': (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? maturitydate = '' : maturitydate = data.AC_EXPDT,
+        'AC_EXPDT': data.AC_EXPDT,
         // 'AC_CATG': data.AC_CATG,
         // AC_INTCATA: data.AC_INTCATA,
         'AC_MONTHS': data.AC_MONTHS,
         'AC_SCHMAMT': data.AC_SCHMAMT,
         'AC_IS_RECOVERY': data.AC_IS_RECOVERY,
         'AC_REF_RECEIPTNO': data.AC_REF_RECEIPTNO,
-        'AC_ASON_DATE': (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? asondate = '' : asondate = data.AC_ASON_DATE,
+        'AC_ASON_DATE': data.AC_ASON_DATE,
         'AC_MATUAMT': data.AC_MATUAMT,
         'IS_DISCOUNTED_INT_RATE': data.IS_DISCOUNTED_INT_RATE,
         //minor and introducer
@@ -1345,28 +1390,54 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     else if (data.AC_ADDFLAG == false) {
       this.addType = 'T'
     }
+    if (this.angForm.controls['AC_TCTCODE'].value == "") {
+      data['AC_TCTCODE'] = null
+    }
     data['AC_ADDTYPE'] = this.addType
     data['NomineeData'] = this.multiNominee
     data['JointAccountData'] = this.multiJointAC
     data['PowerOfAttorneyData'] = this.multiAttorney
     data['id'] = this.updateID;
-    (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')),
-      (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY')),
-      (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? (maturitydate = '', data['AC_EXPDT'] = maturitydate) : (maturitydate = data.AC_EXPDT, data['AC_EXPDT'] = moment(maturitydate).format('DD/MM/YYYY')),
-      this.TermDepositMasterService.updateData(data).subscribe(() => {
-        Swal.fire('Success!', 'Record Updated Successfully !', 'success');
-        this.showButton = true;
-        this.updateShow = false;
-        this.newbtnShow = false;
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
-        this.multiNominee = []
-        this.multiJointAC = []
-        this.multiAttorney = []
-        this.customerDoc = []
-        this.resetForm();
-      })
+    // (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')),
+    // (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY')),
+
+    // (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? (maturitydate = '', data['AC_EXPDT'] = maturitydate) : (maturitydate = data.AC_EXPDT, data['AC_EXPDT'] = moment(maturitydate).format('DD/MM/YYYY'))
+
+
+    if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
+      (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
+    } else {
+      data['AC_OPDATE'] = this.openingDate
+    }
+
+
+    if (this.updatecheckdata.AC_ASON_DATE != data.AC_ASON_DATE) {
+      (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY'))
+    } else {
+      data['AC_ASON_DATE'] = data.AC_ASON_DATE
+    }
+
+    if (this.updatecheckdata.AC_EXPDT != data.AC_EXPDT) {
+      (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? (maturitydate = '', data['AC_EXPDT'] = maturitydate) : (maturitydate = data.AC_EXPDT, data['AC_EXPDT'] = moment(maturitydate).format('DD/MM/YYYY'))
+    } else {
+      data['AC_EXPDT'] = data.AC_EXPDT
+    }
+
+
+    this.TermDepositMasterService.updateData(data).subscribe(() => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.showButton = true;
+      this.updateShow = false;
+      this.newbtnShow = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
+      this.multiNominee = []
+      this.multiJointAC = []
+      this.multiAttorney = []
+      this.customerDoc = []
+      this.resetForm();
+    })
   }
 
   //Method for delete data
@@ -1416,7 +1487,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.PowerofAttorneyTrue = false
     this.JointAccountsTrue = false
     this.nomineeTrue = false
-
+    this.tempAddress = true
     this.selectedValue = null
     this.id = null
     this.ngCategory = null
@@ -1475,6 +1546,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.multiJointAC = []
     this.multiAttorney = []
     this.customerDoc = []
+    this.tempAddress = true
     this.resetForm();
     this.getSystemParaDate()
   }
@@ -1487,107 +1559,233 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   addNominee() {
-    let date
     const formVal = this.angForm.value;
     var object = {
       AC_NNAME: formVal.AC_NNAME,
       AC_NRELA: formVal.AC_NRELA,
-      AC_NDATE: (formVal.AC_NDATE == '' || formVal.AC_NDATE == 'Invalid date') ? date = '' : date = moment(formVal.AC_NDATE).format('DD/MM/YYYY'),
+      AC_NDATE: moment(formVal.AC_NDATE).format('DD/MM/YYYY'),
       AGE: formVal.AGE,
       AC_NHONO: formVal.AC_NHONO,
       AC_NWARD: formVal.AC_NWARD,
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NCTCODE: formVal.AC_NCTCODE?.id,
       AC_NPIN: formVal.AC_NPIN,
+      AC_CITYNAME: formVal.AC_NCTCODE?.CITY_NAME
     }
+
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-      Swal.fire("Please Insert Mandatory Record For Nominee");
+      Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire("Please Insert Mandatory Record For Nominee");
+        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
+
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
-          Swal.fire("Please Insert Mandatory Record For Nominee");
-        }
-        else {
-          if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
-            Swal.fire("This Nominee is Already Exists", "error");
+
+          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+        } else if (formVal.AC_NCTCODE != "") {
+
+          if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
+
+            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
           } else {
-            this.multiNominee.push(object);
+
+            if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
+
+              Swal.fire('', 'This Nominee is Already Exists!', 'error');
+
+            } else {
+
+              object['AC_NCTCODE'] = formVal.AC_NCTCODE.id,
+                object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
+              this.multiNominee.push(object);
+              this.resetNominee()
+            }
           }
         }
       }
       else {
+        object['AC_NCTCODE'] = formVal.AC_NCTCODE.id
+        object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
         this.multiNominee.push(object);
+        this.resetNominee()
       }
     }
     else {
+      object['AC_NCTCODE'] = formVal.AC_NCTCODE.id
+      object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
       this.multiNominee.push(object);
+      this.resetNominee()
     }
-    this.resetNominee()
+
   }
 
+  // editNominee(id) {
+  //   this.nomineeIndex = id
+  //   this.nomineeID = this.multiNominee[id].id;
+  //   this.nomineedataedit = this.multiNominee[id]
+  //   this.nomineeTrue = true
+  //   this.nomineeShowButton = false;
+  //   this.nomineeUpdateShow = true;
+  //   this.ngnomineedate = this.multiNominee[id].AC_NDATE
+  //   this.ngNcity = this.multiNominee[id].AC_CITYNAME,
+  //     this.angForm.patchValue({
+  //       AC_NNAME: this.multiNominee[id].AC_NNAME,
+  //       AC_NRELA: this.multiNominee[id].AC_NRELA,
+  //       AGE: this.multiNominee[id].AGE,
+  //       AC_NHONO: this.multiNominee[id].AC_NHONO,
+  //       AC_NWARD: this.multiNominee[id].AC_NWARD,
+  //       AC_NADDR: this.multiNominee[id].AC_NADDR,
+  //       AC_NGALLI: this.multiNominee[id].AC_NGALLI,
+  //       AC_NAREA: this.multiNominee[id].AC_NAREA,
+  //       AC_NPIN: this.multiNominee[id].AC_NPIN,
+  //     })
+  // }
+
   editNominee(id) {
-    let nodate
     this.nomineeIndex = id
     this.nomineeID = this.multiNominee[id].id;
+    this.nomineedataedit = this.multiNominee[id]
     this.nomineeTrue = true
     this.nomineeShowButton = false;
     this.nomineeUpdateShow = true;
-    this.angForm.patchValue({
-      AC_NNAME: this.multiNominee[id].AC_NNAME,
-      AC_NRELA: this.multiNominee[id].AC_NRELA,
-      // AC_NDATE: this.multiNominee[id].AC_NDATE,
-      AC_NDATE: (this.multiNominee[id].AC_NDATE == 'Invalid date' || this.multiNominee[id].AC_NDATE == '' || this.multiNominee[id].AC_NDATE == null) ? nodate = '' : nodate = this.multiNominee[id].AC_NDATE,
-      AGE: this.multiNominee[id].AGE,
-      AC_NHONO: this.multiNominee[id].AC_NHONO,
-      AC_NWARD: this.multiNominee[id].AC_NWARD,
-      AC_NADDR: this.multiNominee[id].AC_NADDR,
-      AC_NGALLI: this.multiNominee[id].AC_NGALLI,
-      AC_NAREA: this.multiNominee[id].AC_NAREA,
-      AC_NCTCODE: this.multiNominee[id].AC_NCTCODE,
-      AC_NPIN: this.multiNominee[id].AC_NPIN,
-    })
+    this.ngnomineedate = this.multiNominee[id].AC_NDATE
+    this.ngNcity = this.multiNominee[id].AC_CITYNAME,
+      this.angForm.patchValue({
+        AC_NNAME: this.multiNominee[id].AC_NNAME,
+        AC_NRELA: this.multiNominee[id].AC_NRELA,
+        AGE: this.multiNominee[id].AGE,
+        AC_NHONO: this.multiNominee[id].AC_NHONO,
+        AC_NWARD: this.multiNominee[id].AC_NWARD,
+        AC_NADDR: this.multiNominee[id].AC_NADDR,
+        AC_NGALLI: this.multiNominee[id].AC_NGALLI,
+        AC_NAREA: this.multiNominee[id].AC_NAREA,
+        AC_NPIN: this.multiNominee[id].AC_NPIN,
+      })
   }
+
+  // editNominee(id) {
+  //   let nodate
+  //   this.nomineeIndex = id
+  //   this.nomineeID = this.multiNominee[id].id;
+  //   this.nomineeTrue = true
+  //   this.nomineeShowButton = false;
+  //   this.nomineeUpdateShow = true;
+  //   this.angForm.patchValue({
+  //     AC_NNAME: this.multiNominee[id].AC_NNAME,
+  //     AC_NRELA: this.multiNominee[id].AC_NRELA,
+  //     // AC_NDATE: this.multiNominee[id].AC_NDATE,
+  //     AC_NDATE: (this.multiNominee[id].AC_NDATE == 'Invalid date' || this.multiNominee[id].AC_NDATE == '' || this.multiNominee[id].AC_NDATE == null) ? nodate = '' : nodate = this.multiNominee[id].AC_NDATE,
+  //     AGE: this.multiNominee[id].AGE,
+  //     AC_NHONO: this.multiNominee[id].AC_NHONO,
+  //     AC_NWARD: this.multiNominee[id].AC_NWARD,
+  //     AC_NADDR: this.multiNominee[id].AC_NADDR,
+  //     AC_NGALLI: this.multiNominee[id].AC_NGALLI,
+  //     AC_NAREA: this.multiNominee[id].AC_NAREA,
+  //     AC_NCTCODE: this.multiNominee[id].AC_NCTCODE,
+  //     AC_NPIN: this.multiNominee[id].AC_NPIN,
+  //   })
+  // }
+
+  // updateNominee() {
+  //   let index = this.nomineeIndex;
+  //   this.nomineeShowButton = true;
+  //   this.nomineeUpdateShow = false;
+  //   const formVal = this.angForm.value;
+  //   let nodate
+  //   var object = {
+  //     AC_NNAME: formVal.AC_NNAME,
+  //     AC_NRELA: formVal.AC_NRELA,
+  //     AC_NDATE: (formVal.AC_NDATE == '' || formVal.AC_NDATE == 'Invalid date' || formVal.AC_NDATE == null) ? nodate = '' : nodate = moment(formVal.AC_NDATE).format('DD/MM/YYYY'),
+  //     AGE: formVal.AGE,
+  //     AC_NHONO: formVal.AC_NHONO,
+  //     AC_NWARD: formVal.AC_NWARD,
+  //     AC_NADDR: formVal.AC_NADDR,
+  //     AC_NGALLI: formVal.AC_NGALLI,
+  //     AC_NAREA: formVal.AC_NAREA,
+  //     AC_NCTCODE: formVal.AC_NCTCODE,
+  //     AC_NPIN: formVal.AC_NPIN,
+  //     id: this.nomineeID
+  //   }
+
+  //   if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
+  //     Swal.fire("Please Insert Mandatory Record For Nominee");
+  //   }
+  //   else if (formVal.AC_NNAME != "") {
+  //     if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+  //       Swal.fire("Please Insert Mandatory Record For Nominee");
+  //     } else if (formVal.AC_NRELA != "") {
+  //       if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
+  //         Swal.fire("Please Insert Mandatory Record For Nominee");
+  //       }
+  //       else {
+  //         if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
+  //           Swal.fire("This Nominee is Already Exists", "error");
+  //         } else {
+  //           this.multiNominee[index] = object;
+  //         }
+  //       }
+  //     }
+  //     else {
+  //       this.multiNominee[index] = object;
+  //     }
+  //   }
+  //   else {
+  //     this.multiNominee[index] = object;
+  //   }
+  //   this.resetNominee()
+  // }
 
   updateNominee() {
     let index = this.nomineeIndex;
     this.nomineeShowButton = true;
     this.nomineeUpdateShow = false;
+    let date1
     const formVal = this.angForm.value;
-    let nodate
+    if (this.nomineedataedit.AC_NDATE != formVal.AC_NDATE) {
+      date1 = moment(formVal.AC_NDATE).format('DD/MM/YYYY');
+    } else {
+      date1 = formVal.AC_NDATE
+    }
+
     var object = {
       AC_NNAME: formVal.AC_NNAME,
       AC_NRELA: formVal.AC_NRELA,
-      AC_NDATE: (formVal.AC_NDATE == '' || formVal.AC_NDATE == 'Invalid date' || formVal.AC_NDATE == null) ? nodate = '' : nodate = moment(formVal.AC_NDATE).format('DD/MM/YYYY'),
+      AC_NDATE: date1,
       AGE: formVal.AGE,
       AC_NHONO: formVal.AC_NHONO,
       AC_NWARD: formVal.AC_NWARD,
       AC_NADDR: formVal.AC_NADDR,
       AC_NGALLI: formVal.AC_NGALLI,
       AC_NAREA: formVal.AC_NAREA,
-      AC_NCTCODE: formVal.AC_NCTCODE,
+      AC_NCTCODE: formVal.AC_NCTCODE.id,
       AC_NPIN: formVal.AC_NPIN,
+      AC_CITYNAME: formVal.AC_NCTCODE.CITY_NAME,
       id: this.nomineeID
     }
-
+    if (typeof (formVal.AC_NCTCODE) == 'string') {
+      object['AC_CITYNAME'] = formVal.AC_NCTCODE
+    }
+    else {
+      object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
+    }
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
       Swal.fire("Please Insert Mandatory Record For Nominee");
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire("Please Insert Mandatory Record For Nominee");
+        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
-          Swal.fire("Please Insert Mandatory Record For Nominee");
-        }
-        else {
-          if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
-            Swal.fire("This Nominee is Already Exists", "error");
-          } else {
+          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+        } else if (formVal.AC_NCTCODE != "") {
+          if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
+            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+          }
+          else {
             this.multiNominee[index] = object;
           }
         }
@@ -1595,6 +1793,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       else {
         this.multiNominee[index] = object;
       }
+
     }
     else {
       this.multiNominee[index] = object;
@@ -1620,6 +1819,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.controls['AC_NPIN'].reset();
   }
 
+
+
+
   //Joint ac
   jointAccount($event) {
     if ($event.target.checked) {
@@ -1628,17 +1830,17 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.JointAccountsTrue = false
     }
   }
-
   getJointCustomer(id) {
     this.customerIdService.getFormData(id.value).subscribe(data => {
       this.angForm.patchValue({
-        JOINT_ACNAME: data.AC_NAME
+        JOINT_ACNAME: data.AC_NAME,
+        JOINT_AC_CUSTID: id.value
       })
     })
+    this.jointID = id.value
   }
 
   addJointAcccount() {
-
     const formVal = this.angForm.value;
     let value
     if (formVal.OPERATOR == true) {
@@ -1647,32 +1849,63 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       value = 'No'
     }
     var object = {
-      JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
+      JOINT_AC_CUSTID: this.jointID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
       OPERATOR: value,
     }
-    if (object.JOINT_AC_CUSTID != undefined) {
-      if (this.id != this.jointID) {
-        if (this.multiJointAC.length == 0) {
-          this.multiJointAC.push(object);
-        }
-        else {
-          if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID.id)) {
-            Swal.fire('', 'This Customer is Already Joint Account Holder', 'error');
+    if (formVal.AC_CUSTID != "") {
+      if (object.JOINT_AC_CUSTID != undefined) {
+        if (this.id != this.jointID) {
+          if (this.multiJointAC.length == 0) {
+            this.multiJointAC.push(object);
+            this.angForm.controls['JOINT_AC_CUSTID'].reset()
+            this.jointID = null
+            this.jointID = ''
+            this.resetJointAC()
           }
           else {
-            this.multiJointAC.push(object);
+            if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.jointID)) {
+
+              Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');
+              this.jointID = null
+              this.jointID = ''
+              this.angForm.controls['JOINT_AC_CUSTID'].reset()
+              this.resetJointAC()
+            } else {
+              this.multiJointAC.push(object);
+              this.jointID = null
+              this.jointID = ''
+              this.angForm.controls['JOINT_AC_CUSTID'].reset()
+              this.resetJointAC()
+            }
           }
+        }
+        else {
+          Swal.fire('', "Please Select Different Customer id", 'warning');
+          this.jointID = null
+          this.jointID = ''
+          this.angForm.controls['JOINT_AC_CUSTID'].reset()
+          this.resetJointAC()
         }
       }
       else {
-        Swal.fire('', 'Please Select Differet Customer Id!', 'warning');
+        Swal.fire('', "Please Select Guarantor Customer Id", 'warning');
+        this.jointID = null
+        this.jointID = ''
+        this.angForm.controls['JOINT_AC_CUSTID'].reset()
+        this.resetJointAC()
       }
     } else {
-      Swal.fire('', 'Please Select Customer Id!', 'warning');
+      Swal.fire('', "Please Select Customer Id", 'warning');
+      this.jointID = null
+      this.jointID = ''
+      this.angForm.controls['JOINT_AC_CUSTID'].reset()
+      this.resetJointAC()
     }
-    this.resetJointAC()
+
   }
+
+
 
   editJointAc(id) {
     this.jointIndex = id
@@ -1681,7 +1914,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.jointShowButton = false;
     this.jointUpdateShow = true;
     this.angForm.patchValue({
-      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
+      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID,
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
@@ -1702,23 +1935,42 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       if (this.id != this.jointID) {
         if (this.multiJointAC.length == 0) {
           this.multiJointAC[index] = object
+          this.jointID = null
+          this.jointID = ''
+          this.angForm.controls['JOINT_AC_CUSTID'].reset()
+          this.resetJointAC()
         }
         else {
           if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
             Swal.fire("This Customer is Already Exists", "error");
+            this.jointID = null
+            this.jointID = ''
+            this.angForm.controls['JOINT_AC_CUSTID'].reset()
+            this.resetJointAC()
           }
           else {
             this.multiJointAC[index] = object
+            this.jointID = null
+            this.jointID = ''
+            this.angForm.controls['JOINT_AC_CUSTID'].reset()
+            this.resetJointAC()
           }
         }
       }
       else {
         Swal.fire("Please Select Different Customer id", "error");
+        this.jointID = null
+        this.jointID = ''
+        this.angForm.controls['JOINT_AC_CUSTID'].reset()
+        this.resetJointAC()
       }
     } else {
       Swal.fire("Please Select Customer Id", "error");
+      this.jointID = null
+      this.jointID = ''
+      this.angForm.controls['JOINT_AC_CUSTID'].reset()
+      this.resetJointAC()
     }
-    this.resetJointAC()
   }
 
   delJointAc(id) {
@@ -1726,64 +1978,111 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
   resetJointAC() {
-    this.JointAccountsTrue = false
-    this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.patchValue({
+      JOINT_ACNAME: ''
+    })
+    this.jointID.clearFilter();
   }
 
+  clearFilter() {
+    this.jointID = ''
+  }
+  ngappointeddate: any
+  //power of attorney
+  // addAttorney() {
+  //   let appdate
+  //   let exdate
+  //   const formVal = this.angForm.value;
+  //   var object = {
+  //     ATTERONEY_NAME: formVal.ATTERONEY_NAME,
+  //     DATE_APPOINTED: (formVal.DATE_APPOINTED == '' || formVal.DATE_APPOINTED == 'Invalid date') ? appdate = '' : appdate = moment(formVal.DATE_APPOINTED).format('DD/MM/YYYY'),
+  //     DATE_EXPIRY: (formVal.DATE_EXPIRY == '' || formVal.DATE_EXPIRY == 'Invalid date') ? exdate = '' : exdate = moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY')
+  //   }
+  //   if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
+  //     Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+  //   } else if (formVal.ATTERONEY_NAME != "") {
+  //     if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
+  //       Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+  //     } else if (formVal.DATE_APPOINTED != "") {
+  //       if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
+  //         Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+  //       }
+  //       else {
+  //         if (this.multiAttorney.find(ob => ob['ATTERONEY_NAME'].toUpperCase() === formVal.ATTERONEY_NAME.toUpperCase())) {
+  //           Swal.fire("This Attorney is Already Exists", "error");
+  //         } else {
+  //           this.multiAttorney.push(object);
+  //         }
+  //       }
+  //     }
+  //     else {
+  //       this.multiAttorney.push(object);
+  //     }
+  //   }
+  //   else {
+  //     this.multiAttorney.push(object);
+  //   }
+  //   this.resetAttorney()
+  // }
 
 
   //power of attorney
   addAttorney() {
-    let appdate
-    let exdate
     const formVal = this.angForm.value;
+    let temdate
+    let apdate
+    if (this.tempopendate != this.ngappointeddate) {
+      temdate = (formVal.DATE_APPOINTED == '' || formVal.DATE_APPOINTED == 'Invalid date') ? apdate = '' : apdate = moment(formVal.DATE_APPOINTED).format('DD/MM/YYYY')
+    } else {
+      temdate = this.ngappointeddate
+    }
     var object = {
       ATTERONEY_NAME: formVal.ATTERONEY_NAME,
-      DATE_APPOINTED: (formVal.DATE_APPOINTED == '' || formVal.DATE_APPOINTED == 'Invalid date') ? appdate = '' : appdate = moment(formVal.DATE_APPOINTED).format('DD/MM/YYYY'),
-      DATE_EXPIRY: (formVal.DATE_EXPIRY == '' || formVal.DATE_EXPIRY == 'Invalid date') ? exdate = '' : exdate = moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY')
+      DATE_APPOINTED: temdate,
+      DATE_EXPIRY: moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY')
     }
     if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
-      Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+      Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
     } else if (formVal.ATTERONEY_NAME != "") {
       if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
-        Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+        Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
       } else if (formVal.DATE_APPOINTED != "") {
         if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
-          Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+          Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
         }
         else {
           if (this.multiAttorney.find(ob => ob['ATTERONEY_NAME'].toUpperCase() === formVal.ATTERONEY_NAME.toUpperCase())) {
-            Swal.fire("This Attorney is Already Exists", "error");
+            Swal.fire('', 'This Attorney is Already Exists!', 'error');
           } else {
             this.multiAttorney.push(object);
+            this.resetAttorney()
           }
         }
       }
       else {
         this.multiAttorney.push(object);
+        this.resetAttorney()
       }
     }
     else {
       this.multiAttorney.push(object);
+      this.resetAttorney()
     }
-    this.resetAttorney()
+
   }
 
-
   editAttorney(id) {
-    let appdate
-    let exdate
     this.attorneyIndex = id
     this.attorneyID = this.multiAttorney[id].id;
+    this.tempupdateattorny = this.multiAttorney[id]
     this.PowerofAttorneyTrue = true
     this.attorneyShowButton = false;
     this.attorneyUpdateShow = true;
     this.angForm.patchValue({
       ATTERONEY_NAME: this.multiAttorney[id].ATTERONEY_NAME,
       DATE_APPOINTED: this.multiAttorney[id].DATE_APPOINTED,
-      // DATE_APPOINTED: (this.multiAttorney[id].DATE_APPOINTED == 'Invalid date' || this.multiAttorney[id].DATE_APPOINTED == '' || this.multiAttorney[id].DATE_APPOINTED == null) ? appdate = '' : appdate = this.multiAttorney[id].DATE_APPOINTED,
-      DATE_EXPIRY: (this.multiAttorney[id].DATE_EXPIRY == 'Invalid date' || this.multiAttorney[id].DATE_EXPIRY == '' || this.multiAttorney[id].DATE_EXPIRY == null) ? exdate = '' : exdate = this.multiAttorney[id].DATE_EXPIRY,
+      DATE_EXPIRY: this.multiAttorney[id].DATE_EXPIRY
     })
   }
 
@@ -1793,11 +2092,23 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.attorneyUpdateShow = false;
     const formVal = this.angForm.value;
     let appdate
-    let exdate
+    let EXdate
+    let date1
+    let date2
+    if (this.tempupdateattorny.DATE_APPOINTED != formVal.DATE_APPOINTED) {
+      date1 = (formVal.DATE_APPOINTED == '' || formVal.DATE_APPOINTED == 'Invalid date' || formVal.DATE_APPOINTED == null) ? appdate = '' : appdate = moment(formVal.DATE_APPOINTED).format('DD/MM/YYYY')
+    } else {
+      date1 = formVal.DATE_APPOINTED
+    }
+    if (this.tempupdateattorny.DATE_EXPIRY != formVal.DATE_EXPIRY) {
+      date2 = (formVal.DATE_EXPIRY == '' || formVal.DATE_EXPIRY == 'Invalid date' || formVal.DATE_EXPIRY == null) ? EXdate = '' : EXdate = moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY')
+    } else {
+      date2 = formVal.DATE_EXPIRY
+    }
     var object = {
       ATTERONEY_NAME: formVal.ATTERONEY_NAME,
-      DATE_APPOINTED: (formVal.DATE_APPOINTED == '' || formVal.DATE_APPOINTED == 'Invalid date' || formVal.DATE_APPOINTED == null) ? appdate = '' : appdate = moment(formVal.DATE_APPOINTED).format('DD/MM/YYYY'),
-      DATE_EXPIRY: (formVal.DATE_EXPIRY == '' || formVal.DATE_EXPIRY == 'Invalid date' || formVal.DATE_EXPIRY == null) ? exdate = '' : exdate = moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY'),
+      DATE_APPOINTED: date1,
+      DATE_EXPIRY: date2,
       id: this.attorneyID
     }
 
@@ -1811,21 +2122,21 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
         }
         else {
-          if (this.multiAttorney.find(ob => ob['ATTERONEY_NAME'].toUpperCase() === formVal.ATTERONEY_NAME.toUpperCase())) {
-            Swal.fire("This Attorney is Already Exists", "error");
-          } else {
-            this.multiAttorney[index] = object;
-          }
+          this.multiAttorney[index] = object;
+          this.resetAttorney()
+
         }
       }
       else {
         this.multiAttorney[index] = object;
+        this.resetAttorney()
       }
     }
     else {
       this.multiAttorney[index] = object;
+      this.resetAttorney()
     }
-    this.resetAttorney()
+
   }
 
   delAttorney(id) {
@@ -1885,7 +2196,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             var date1 = this.angForm.controls['AC_ASON_DATE'].value;
             var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-            date1 = moment(date1).format('DD/MM/YYYY');
+            // date1 = moment(date1).format('DD/MM/YYYY');
 
             var startDate = moment(date1, "DD/MM/YYYY");
             var endDate = moment(date2, "DD/MM/YYYY");
@@ -1915,8 +2226,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             var date1 = this.angForm.controls['AC_ASON_DATE'].value;
             var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-            date1 = moment(date1).format('DD/MM/YYYY');
-            date2 = moment(date2).format('DD/MM/YYYY');
+            // date1 = moment(date1).format('DD/MM/YYYY');
+            // date2 = moment(date2).format('DD/MM/YYYY');
 
             var b = moment(date1, "DD/MM/YYYY");
             var a = moment(date2, "DD/MM/YYYY");
@@ -1942,8 +2253,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             var date1 = this.angForm.controls['AC_ASON_DATE'].value;
             var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-            date1 = moment(date1).format('DD/MM/YYYY');
-            date2 = moment(date2).format('DD/MM/YYYY');
+            // date1 = moment(date1).format('DD/MM/YYYY');
+            // date2 = moment(date2).format('DD/MM/YYYY');
 
             var b = moment(date1, "DD/MM/YYYY");
             var a = moment(date2, "DD/MM/YYYY");
@@ -1966,7 +2277,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             var date1 = this.angForm.controls['AC_ASON_DATE'].value;
             var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-            date1 = moment(date1).format('DD/MM/YYYY');
+            // date1 = moment(date1).format('DD/MM/YYYY');
 
             var b = moment(date1, "DD/MM/YYYY");
             var a = moment(date2, "DD/MM/YYYY");
@@ -2092,8 +2403,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             var date1 = this.angForm.controls['AC_ASON_DATE'].value;
             var date2 = this.angForm.controls['AC_EXPDT'].value;
 
-            date1 = moment(date1).format('DD/MM/YYYY');
-            date2 = moment(date2).format('DD/MM/YYYY');
+            // date1 = moment(date1).format('DD/MM/YYYY');
+            // date2 = moment(date2).format('DD/MM/YYYY');
 
             var b = moment(date1, "DD/MM/YYYY");
             var a = moment(date2, "DD/MM/YYYY");

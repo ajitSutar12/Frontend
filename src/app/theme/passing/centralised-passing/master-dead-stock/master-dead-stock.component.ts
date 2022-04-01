@@ -226,7 +226,6 @@ export class MasterDeadStockComponent implements OnInit {
   }
   //get saving customer data
   getCurrentData(data) {
-    console.log(data.id);
     this.deadstockData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

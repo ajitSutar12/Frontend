@@ -682,6 +682,7 @@
                                                                         <input type="text" placeholder="dd/mm/yyyy"
                                                                             name="AC_OPDATE" id="AC_OPDATE"
                                                                             class="form-control" required
+                                                                            [maxDate]="maxDate"
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_OPDATE" minlength="10"

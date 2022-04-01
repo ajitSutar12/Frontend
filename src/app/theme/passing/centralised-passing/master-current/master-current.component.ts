@@ -146,7 +146,6 @@ export class MasterCurrentComponent implements OnInit {
             dataTableParameters
           ).subscribe(resp => {
             this.currentAccountMaster = resp.data;
-            console.log(this.currentAccountMaster)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -206,7 +205,6 @@ export class MasterCurrentComponent implements OnInit {
 
     //get saving customer data
     getCurrentData(data){
-      console.log(data.id);
       this.currentData = data.id;
       this.child.editClickHandler(data.id);
       this.child.DatatableHideShow = false;

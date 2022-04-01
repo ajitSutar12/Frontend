@@ -225,7 +225,6 @@ export class MasterSavingComponent implements OnInit {
   }
   //get saving customer data
   getSavingData(data){
-    console.log(data.id);
     this.savingData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

@@ -164,7 +164,6 @@ export class PassmultiVoucherComponent implements OnInit {
   }
   //get saving customer data
   getMultiVoucherData(data) {
-    console.log(data.id);
     this.multiVoucherData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

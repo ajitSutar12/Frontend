@@ -140,7 +140,6 @@ export class PasstermDepositAcRenewalComponent implements OnInit {
   }
   //get saving customer data
   getTermDepositAcRenewalData(data) {
-    console.log(data.id);
     this.termDepositAcRenewalData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

@@ -139,7 +139,6 @@ export class PassgoldSilverReturnEntryComponent implements OnInit {
   }
   //get saving customer data
   getGoldSilverReturnEntryData(data) {
-    console.log(data.id);
     this.goldSilverReturnEntryData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

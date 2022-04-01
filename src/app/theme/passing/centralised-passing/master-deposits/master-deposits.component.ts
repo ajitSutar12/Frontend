@@ -249,7 +249,6 @@ export class MasterDepositsComponent implements OnInit {
   }
   //get saving customer data
   getTermDepositData(data) {
-    console.log(data.id);
     this.termDepositData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;

@@ -1387,6 +1387,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.joint)) {
 
               Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');
+              this.multiJointAC.push(object);
+              this.jointID = null
+              this.jointID = ''
+              this.angForm.controls['JOINT_AC_CUSTID'].reset()
+              this.resetJointAC()
             } else {
               this.multiJointAC.push(object);
               this.jointID = null
@@ -1398,13 +1403,28 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         else {
           Swal.fire('', "Please Select Different Customer id", 'warning');
+          this.multiJointAC.push(object);
+          this.jointID = null
+          this.jointID = ''
+          this.angForm.controls['JOINT_AC_CUSTID'].reset()
+          this.resetJointAC()
         }
       }
       else {
         Swal.fire('', "Please Select Guarantor Customer Id", 'warning');
+        this.multiJointAC.push(object);
+        this.jointID = null
+        this.jointID = ''
+        this.angForm.controls['JOINT_AC_CUSTID'].reset()
+        this.resetJointAC()
       }
     } else {
       Swal.fire('', "Please Select Customer Id", 'warning');
+      this.multiJointAC.push(object);
+      this.jointID = null
+      this.jointID = ''
+      this.angForm.controls['JOINT_AC_CUSTID'].reset()
+      this.resetJointAC()
     }
 
   }
@@ -1417,7 +1437,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.jointShowButton = false;
     this.jointUpdateShow = true;
     this.angForm.patchValue({
-      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
+      JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID,
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
@@ -1438,24 +1458,101 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.newcustid != this.jointID) {
         if (this.multiJointAC.length == 0) {
           this.multiJointAC[index] = object
+          this.jointID = null
+          this.jointID = ''
+          this.angForm.controls['JOINT_AC_CUSTID'].reset()
+          this.resetJointAC()
         }
         else {
           if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
             Swal.fire("This Customer is Already Exists", "error");
+            this.jointID = null
+            this.jointID = ''
+            this.angForm.controls['JOINT_AC_CUSTID'].reset()
+            this.resetJointAC()
           }
           else {
             this.multiJointAC[index] = object
+            this.jointID = null
+            this.jointID = ''
+            this.angForm.controls['JOINT_AC_CUSTID'].reset()
+            this.resetJointAC()
           }
         }
       }
       else {
         Swal.fire("Please Select Different Customer id", "error");
+        this.jointID = null
+        this.jointID = ''
+        this.angForm.controls['JOINT_AC_CUSTID'].reset()
+        this.resetJointAC()
       }
     } else {
       Swal.fire("Please Select Customer Id", "error");
+      this.jointID = null
+      this.jointID = ''
+      this.angForm.controls['JOINT_AC_CUSTID'].reset()
+      this.resetJointAC()
     }
-    this.resetJointAC()
   }
+
+  // updateJointAcccount() {
+  //   let index = this.jointIndex;
+  //   this.jointShowButton = true;
+  //   this.jointUpdateShow = false;
+  //   const formVal = this.angForm.value;
+  //   var object = {
+  //     JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
+  //     JOINT_ACNAME: formVal.JOINT_ACNAME,
+  //     OPERATOR: formVal.OPERATOR,
+  //     id: this.jointACID
+  //   }
+  //   if (object.JOINT_AC_CUSTID != undefined) {
+  //     if (this.newcustid != this.jointID) {
+  //       if (this.multiJointAC.length == 0) {
+  //         this.multiJointAC[index] = object
+  //         this.multiJointAC.push(object);
+  //         this.jointID = null
+  //         this.jointID = ''
+  //         this.angForm.controls['JOINT_AC_CUSTID'].reset()
+  //         this.resetJointAC()
+  //       }
+  //       else {
+  //         if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
+  //           Swal.fire("This Customer is Already Exists", "error");
+  //           this.multiJointAC.push(object);
+  //           this.jointID = null
+  //           this.jointID = ''
+  //           this.angForm.controls['JOINT_AC_CUSTID'].reset()
+  //           this.resetJointAC()
+  //         }
+  //         else {
+  //           this.multiJointAC[index] = object
+  //           this.multiJointAC.push(object);
+  //           this.jointID = null
+  //           this.jointID = ''
+  //           this.angForm.controls['JOINT_AC_CUSTID'].reset()
+  //           this.resetJointAC()
+  //         }
+  //       }
+  //     }
+  //     else {
+  //       Swal.fire("Please Select Different Customer id", "error");
+  //       this.multiJointAC.push(object);
+  //       this.jointID = null
+  //       this.jointID = ''
+  //       this.angForm.controls['JOINT_AC_CUSTID'].reset()
+  //       this.resetJointAC()
+  //     }
+  //   } else {
+  //     Swal.fire("Please Select Customer Id", "error");
+  //     this.multiJointAC.push(object);
+  //     this.jointID = null
+  //     this.jointID = ''
+  //     this.angForm.controls['JOINT_AC_CUSTID'].reset()
+  //     this.resetJointAC()
+  //   }
+  // }
 
 
   delJointAc(id) {
@@ -1463,16 +1560,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   resetJointAC() {
-    // this.jointID = null
-    // this.jointID.handleClearClick();
-
-    // this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
     this.angForm.patchValue({
       JOINT_ACNAME: ''
     })
     this.jointID.clearFilter();
-    // .handleClearClick();
   }
 
   clearFilter() {
@@ -1623,17 +1715,20 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         else {
           this.multiAttorney[index] = object;
+          this.resetAttorney()
 
         }
       }
       else {
         this.multiAttorney[index] = object;
+        this.resetAttorney()
       }
     }
     else {
       this.multiAttorney[index] = object;
+      this.resetAttorney()
     }
-    this.resetAttorney()
+
   }
 
   delAttorney(id) {

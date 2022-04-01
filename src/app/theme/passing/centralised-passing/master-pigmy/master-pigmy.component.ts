@@ -156,7 +156,6 @@ export class MasterPigmyComponent implements OnInit {
               dataTableParameters
             ).subscribe(resp => {
               this.pigmyAccountMaster = resp.data;
-              console.log('fetch', resp.data)
               callback({
                 recordsTotal: resp.recordsTotal,
                 recordsFiltered: resp.recordsTotal,
@@ -312,7 +311,6 @@ export class MasterPigmyComponent implements OnInit {
 
   //get saving customer data
   getPigmyAccountData(data) {
-    console.log(data.id);
     this.PigmyData = data.id;
     this.child.editClickHandler(data.id);
     this.child.DatatableHideShow = false;
