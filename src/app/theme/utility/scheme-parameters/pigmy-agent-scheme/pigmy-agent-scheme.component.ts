@@ -255,9 +255,9 @@ export class PigmyAgentSchemeComponent
         S_SHNAME: data.S_SHNAME,
         S_INT_APPLICABLE: data.S_INT_APPLICABLE,
         MIN_INT_LIMIT: data.MIN_INT_LIMIT,
-        STAND_INSTRUCTION_ALLOW: data.STAND_INSTRUCTION_ALLOW,
-        WITHDRAWAL_APPLICABLE: data.WITHDRAWAL_APPLICABLE,
-        BALANCE_ADD_APPLICABLE: data.BALANCE_ADD_APPLICABLE,
+        STAND_INSTRUCTION_ALLOW:(data.STAND_INSTRUCTION_ALLOW=="true"?true:false),
+        WITHDRAWAL_APPLICABLE: (data.WITHDRAWAL_APPLICABLE=="true"?true:false),
+        BALANCE_ADD_APPLICABLE: (data.BALANCE_ADD_APPLICABLE=="true"?true:false),
       });
     });
   }

@@ -513,18 +513,25 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
     this.newbtnShow = true;
     this.disputLoanSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.ngglacno=Number(data.S_GLACNO)
+      this.ngintglac=Number(data.S_INT_ACNO)
+      this.ngreceivableintac=Number(data.S_RECBL_PYBL_INT_ACNO)
+      this.ngpenalintac=Number(data.S_PENAL_ACNO)
+      this.ngrecblepenalintac=Number(data.S_RECBL_PENAL_ACNO)
+      this.ngrecbleoverdueint=Number(data.S_RECBL_ODUE_INT_ACNO)
+      this.ngoutstandingintac=Number(data.S_OUTSTANDING_INT_ACNO)
+      this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
         'S_NAME': data.S_NAME,
         'S_SHNAME': data.S_SHNAME,
-        'S_GLACNO': data.S_GLACNO,
-        'S_INT_ACNO': data.S_INT_ACNO,
-        'S_RECBL_PYBL_INT_ACNO': data.S_RECBL_PYBL_INT_ACNO,
-        'S_PENAL_ACNO': data.S_PENAL_ACNO,
-        'S_RECBL_PENAL_ACNO': data.S_RECBL_PENAL_ACNO,
-        'S_RECBL_ODUE_INT_ACNO': data.S_RECBL_ODUE_INT_ACNO,
-        'S_OUTSTANDING_INT_ACNO': data.S_OUTSTANDING_INT_ACNO,
+        // 'S_GLACNO': data.S_GLACNO,
+        // 'S_INT_ACNO': data.S_INT_ACNO,
+        // 'S_RECBL_PYBL_INT_ACNO': data.S_RECBL_PYBL_INT_ACNO,
+        // 'S_PENAL_ACNO': data.S_PENAL_ACNO,
+        // 'S_RECBL_PENAL_ACNO': data.S_RECBL_PENAL_ACNO,
+        // 'S_RECBL_ODUE_INT_ACNO': data.S_RECBL_ODUE_INT_ACNO,
+        // 'S_OUTSTANDING_INT_ACNO': data.S_OUTSTANDING_INT_ACNO,
         'IS_DEPO_LOAN': data.IS_DEPO_LOAN,
         'S_INT_APPLICABLE': data.S_INT_APPLICABLE,
         'POST_TO_INDIVIDUAL_AC': data.POST_TO_INDIVIDUAL_AC,

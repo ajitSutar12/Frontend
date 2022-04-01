@@ -115,6 +115,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   ngglacno:any=null
   ngintglac:any=null
   ngpayableintac:any=null
+  ngservicecharges:any=null
 
   constructor(
     private http: HttpClient,
@@ -364,30 +365,34 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.newbtnShow = true;
     this.pigmyAcSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.ngglacno=Number(data.S_GLACNO)
+      this.ngintglac=Number(data.S_INT_ACNO)
+      this.ngpayableintac=Number(data.S_RECBL_PYBL_INT_ACNO)
+      this.ngservicecharges=Number(data.SVR_CHARGE_GLCODE)
+      this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
         'S_NAME': data.S_NAME,
         'S_SHNAME': data.S_SHNAME,
-        'S_GLACNO': data.S_GLACNO,
-        'S_INT_ACNO': data.S_INT_ACNO,
-        'S_RECBL_PYBL_INT_ACNO': data.S_RECBL_PYBL_INT_ACNO,
+        // 'S_GLACNO': data.S_GLACNO,
+        // 'S_INT_ACNO': data.S_INT_ACNO,
+        // 'S_RECBL_PYBL_INT_ACNO': data.S_RECBL_PYBL_INT_ACNO,
         'S_INT_APPLICABLE': data.S_INT_APPLICABLE,
-        'POST_TO_INDIVIDUAL_AC': data.POST_TO_INDIVIDUAL_AC,
-        'S_PAYABLE_INT_ALLOW': data.S_PAYABLE_INT_ALLOW,
+        'POST_TO_INDIVIDUAL_AC': (data.POST_TO_INDIVIDUAL_AC=="true"?true:false),
+        'S_PAYABLE_INT_ALLOW': (data.S_PAYABLE_INT_ALLOW=="true"?true:false),
         'S_PRODUCT_DAY_BASE': data.S_PRODUCT_DAY_BASE,
         'S_PRODUCT_DAY_BASE_END': data.S_PRODUCT_DAY_BASE_END,
         'MIN_INT_LIMIT': data.MIN_INT_LIMIT,
-        'STAND_INSTRUCTION_ALLOW': data.STAND_INSTRUCTION_ALLOW,
-        'IS_AUTO_CUT_INSTRUCTION': data.IS_AUTO_CUT_INSTRUCTION,
-        'IS_ALLOW_SI_MINBAL': data.IS_ALLOW_SI_MINBAL,
-        'WITHDRAWAL_APPLICABLE': data.WITHDRAWAL_APPLICABLE,
-        'S_INTPAID_ON_CLOSING': data.S_INTPAID_ON_CLOSING,
+        'STAND_INSTRUCTION_ALLOW': (data.STAND_INSTRUCTION_ALLOW=="true"?true:false),
+        'IS_AUTO_CUT_INSTRUCTION': (data.IS_AUTO_CUT_INSTRUCTION=="true"?true:false),
+        'IS_ALLOW_SI_MINBAL': (data.IS_ALLOW_SI_MINBAL=="true"?true:false),
+        'WITHDRAWAL_APPLICABLE': (data.WITHDRAWAL_APPLICABLE=="true"?true:false),
+        'S_INTPAID_ON_CLOSING': (data.S_INTPAID_ON_CLOSING=="true"?true:false),
         'ROUNDOFF_FACTOR': data.ROUNDOFF_FACTOR,
-        'BALANCE_ADD_APPLICABLE': data.BALANCE_ADD_APPLICABLE,
-        'PREMATURE_COMPOUND_INT': data.PREMATURE_COMPOUND_INT,
+        'BALANCE_ADD_APPLICABLE': (data.BALANCE_ADD_APPLICABLE=="true"?true:false),
+        'PREMATURE_COMPOUND_INT': (data.PREMATURE_COMPOUND_INT=="true"?true:false),
         'PIGMY_MACHINE_SCHEME': data.PIGMY_MACHINE_SCHEME,
-        'OVERDRAFT_INTEREST_APPLICABLE': data.OVERDRAFT_INTEREST_APPLICABLE,
+        'OVERDRAFT_INTEREST_APPLICABLE': (data.OVERDRAFT_INTEREST_APPLICABLE=="true"?true:false),
         'OVERDRAFT_INTEREST_RATE': data.OVERDRAFT_INTEREST_RATE,
         'SVR_CHARGE_GLCODE': data.SVR_CHARGE_GLCODE,
         'SVR_CHARGE_RATE': data.SVR_CHARGE_RATE
@@ -421,6 +426,11 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngglacno=null
+    this.ngintglac=null
+    this.ngpayableintac=null
+    this.ngservicecharges=null
+  
   }
   //Method for delete data
   // delClickHandler(id: number) {

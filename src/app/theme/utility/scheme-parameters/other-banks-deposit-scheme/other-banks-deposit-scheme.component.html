@@ -28,7 +28,7 @@
                     angForm.controls['S_APPL'].errors?.required ||
                     angForm.controls['S_APPL'].errors?.pattern
                   ">
-                  This field is required and Input allowed only 0-9
+                  This field is required and valid range 701 to 799
                 </div>
               </div>
             </div>
@@ -173,6 +173,15 @@
                             class="required"> * </sub></label>
                 </span>
               </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['S_RECBL_PYBL_INT_ACNO'].invalid &&
+                  (angForm.controls['S_RECBL_PYBL_INT_ACNO'].dirty ||
+                    angForm.controls['S_RECBL_PYBL_INT_ACNO'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['S_RECBL_PYBL_INT_ACNO'].errors?.required">
+                  This field is required
+                </div>
+              </div>
             </div>
           </div>
           <div class="row">
@@ -199,6 +208,15 @@
                             class="required"> * </sub></label>
                 </span>
               </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['S_PENAL_ACNO'].invalid &&
+                  (angForm.controls['S_PENAL_ACNO'].dirty ||
+                    angForm.controls['S_PENAL_ACNO'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['S_PENAL_ACNO'].errors?.required">
+                  This field is required
+                </div>
+              </div>
             </div>
             <div class="col-sm">
               <!-- <div class="form-group form-primary form-static-label">
@@ -223,6 +241,15 @@
                             class="required"> * </sub></label>
                 </span>
               </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['S_RECBL_PENAL_ACNO'].invalid &&
+                  (angForm.controls['S_RECBL_PENAL_ACNO'].dirty ||
+                    angForm.controls['S_RECBL_PENAL_ACNO'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['S_RECBL_PENAL_ACNO'].errors?.required">
+                  This field is required
+                </div>
+              </div>
             </div>
             <div class="col-sm">
               <!-- <div class="form-group form-primary form-static-label">
@@ -246,6 +273,15 @@
                     <label for="S_CASH_INT_ACNO">Cash Interest A/C<sub
                             class="required"> * </sub></label>
                 </span>
+              </div>
+              <div class="form-group form-primary form-static-label" *ngIf="
+                  angForm.controls['S_CASH_INT_ACNO'].invalid &&
+                  (angForm.controls['S_CASH_INT_ACNO'].dirty ||
+                    angForm.controls['S_CASH_INT_ACNO'].touched)
+                " class="alert alert-danger">
+                <div *ngIf="angForm.controls['S_CASH_INT_ACNO'].errors?.required">
+                  This field is required
+                </div>
               </div>
             </div>
           </div>
