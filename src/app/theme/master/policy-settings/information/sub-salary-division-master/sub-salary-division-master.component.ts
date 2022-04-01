@@ -184,6 +184,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
         this.division = data;
       })
       this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()

@@ -222,12 +222,13 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
     this.newbtnShow = true;
     this.generalSubAcSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.ngglac=Number(data.S_GLACNO)
+      this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
         'S_NAME': data.S_NAME,
         'S_SHNAME': data.S_SHNAME,
-        'S_GLACNO': data.S_GLACNO,
+        // 'S_GLACNO': data.S_GLACNO,
         'BALANCE_ADD_APPLICABLE': data.BALANCE_ADD_APPLICABLE,
       })
     })
@@ -252,6 +253,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
 
   resetForm() {
     this.createForm();
+    this.ngglac=null
   }
   addNewData() {
     this.showButton = true;

@@ -335,12 +335,13 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.newbtnShow = true;
     this.sharesSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
+      this.ngglacno=Number(data.S_GLACNO)
       this.angForm.setValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
         'S_SHNAME': data.S_SHNAME,
         'S_NAME': data.S_NAME,
-        'S_GLACNO': data.S_GLACNO,
+        // 'S_GLACNO': data.S_GLACNO,
         'MEMBER_TYPE': data.MEMBER_TYPE,
         'IS_AUTO_NO': data.IS_AUTO_NO,
         'SHARES_FACE_VALUE': data.SHARES_FACE_VALUE,

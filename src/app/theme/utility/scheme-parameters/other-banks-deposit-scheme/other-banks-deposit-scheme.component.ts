@@ -463,6 +463,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
     });
     this.acMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
       this.acMaster = data;
+      console.log(this.acMaster)
     })
   }
 

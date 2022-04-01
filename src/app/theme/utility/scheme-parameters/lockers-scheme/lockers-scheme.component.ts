@@ -78,6 +78,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   ngglac:any=null
   nglocker:any=null
   ngreceivablelocker:any=null
+  ngschemecode:any=null
 
 
 
@@ -159,15 +160,15 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
           data: 'S_SHNAME'
         },
         {
-          title: 'G.L. A/c No.',
+          title: 'G.L. Account No.',
           data: 'S_GLACNO'
         },
         {
-          title: 'Locker Rent A/c',
+          title: 'Locker Rent Account',
           data: 'LOCKER_RENT_ACNO'
         },
         {
-          title: 'Receivable Locker Rend A/C',
+          title: 'Receivable Locker Rend Account',
           data: 'LOCKER_RECBL_RENT_ACNO'
         },
         {
@@ -189,7 +190,7 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       S_APPL: ['', [Validators.required]],
       S_SHNAME: ['', [Validators.pattern, Validators.required]],
       S_NAME: ['', [Validators.pattern, Validators.required]],
-      S_GLACNO: [''],
+      S_GLACNO: ['',[ Validators.required]],
       LOCKER_RENT_ACNO: [''],
       LOCKER_RECBL_RENT_ACNO: [''],
       LOCKER_DEPOSIT_APPLICABLE: ['']
@@ -233,15 +234,19 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     this.newbtnShow = true;
     this.lockersSchemeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.angForm.setValue({
+      this.ngglac=Number(data.S_GLACNO)
+      this.nglocker=Number(data.LOCKER_RECBL_RENT_ACNO)
+      this.ngreceivablelocker=Number(data.LOCKER_RECBL_RENT_ACNO)
+      // this.ngschemecode=Number(data.S_APPL)
+      this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
         'S_SHNAME': data.S_SHNAME,
         'S_NAME': data.S_NAME,
-        'S_GLACNO': data.S_GLACNO,
-        'LOCKER_RENT_ACNO': data.LOCKER_RENT_ACNO,
-        'LOCKER_RECBL_RENT_ACNO': data.LOCKER_RECBL_RENT_ACNO,
-        'LOCKER_DEPOSIT_APPLICABLE': data.LOCKER_DEPOSIT_APPLICABLE
+        // 'S_GLACNO': data.S_GLACNO,
+        // 'LOCKER_RENT_ACNO': data.LOCKER_RENT_ACNO,
+        // 'LOCKER_RECBL_RENT_ACNO': data.LOCKER_RECBL_RENT_ACNO,
+        'LOCKER_DEPOSIT_APPLICABLE': (data.LOCKER_DEPOSIT_APPLICABLE=="true"?true:false),
 
       })
     })
@@ -264,6 +269,9 @@ export class LockersSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   }
   resetForm() {
     this.createForm();
+    this.ngglac=null
+    this.nglocker=null
+    this.ngreceivablelocker=null
   }
   addNewData() {
     this.showButton = true;

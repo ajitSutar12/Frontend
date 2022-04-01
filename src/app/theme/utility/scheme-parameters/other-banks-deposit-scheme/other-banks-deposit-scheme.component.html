@@ -1018,7 +1018,7 @@
                                   title="Compulsory Selection"
                                   [ngClass]="{'form-submitted': formSubmitted}"
                                   required placeholder="Unit of TD Period">
-                                  <ng-option *ngFor="let values of ACMasterDropdown" [value]="values">{{values.label}}</ng-option>      
+                                  <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>      
                               </ng-select>
                               <label for="UNIT_OF_PERIOD">Unit of TD Period<sub class="required"> * </sub></label>
                           </span>

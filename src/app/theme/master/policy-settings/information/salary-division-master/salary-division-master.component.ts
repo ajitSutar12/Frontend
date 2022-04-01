@@ -180,6 +180,7 @@ let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
