@@ -32,6 +32,9 @@
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
+                   Fill valid Date 
+                </div>
               </div>
             </div>
             <div class="col-sm">
@@ -69,7 +72,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="DebtorsOpeningBalance" class="form-control" placeholder=" "
-                  [ngClass]="{'form-submitted': formSubmitted}" min="0" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  [ngClass]="{'form-submitted': formSubmitted}" min="0" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     id="DebtorsOpeningBalance" required="" pattern="\d{1,20}(\.\d{2})?" (focusout)="calculateopening()"
                     title="Input allowed only  0-9" formControlName="DEBTORS_OP_BAL">
                   <label for="DebtorsOpeningBalance">Debtors Opening Balance<sub class="required">*
@@ -94,7 +97,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="AddCreditSales" class="form-control" placeholder=" " id="AddCreditSales"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="CREDIT_SALE" min="0"
                     (focusout)="calculateopening()">
                   <label for="AddCreditSales">Add Credit Sales</label>
@@ -117,7 +120,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="LessRecoveries" class="form-control" placeholder=" " id="LessRecoveries"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="RECOVERY" min="0"
                     (focusout)="calculateopening()">
                   <label for="LessRecoveries">Less Recoveries</label>
@@ -140,7 +143,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="LessOveragedDebtors" class="form-control" placeholder=" "
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     id="LessOveragedDebtors" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     min="0"
                     formControlName="OVERAGED_DEBTORS" (focusout)="calculateopening()">
@@ -179,7 +182,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="CreditorsOutstanding" class="form-control" placeholder=" "
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     id="CreditorsOutstanding" required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="CRD_OUTSTAND_BAL">
                   <label for="CreditorsOutstanding">Creditors Outstanding<sub class="required">*
@@ -199,7 +202,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="Margin" class="form-control" placeholder=" " id="Margin" #margin
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     (keyup)="checkmargin(margin.value)" pattern="\d{1,5}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="MARGIN">
                   <label for="Margin">Margin % </label>

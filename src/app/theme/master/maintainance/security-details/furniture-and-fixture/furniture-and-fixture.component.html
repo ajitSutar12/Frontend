@@ -35,6 +35,9 @@
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
+                  Fill valid Date 
+               </div>
               </div>
             </div>
             <div class="col-sm">
@@ -116,6 +119,9 @@
                 <div *ngIf="angForm.controls['AQUISITION_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['AQUISITION_DATE'].invalid">
+                  Fill valid Date 
+               </div>
               </div>
             </div>
             <div class="col-sm">
@@ -163,7 +169,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="PurchasePrice" class="form-control" placeholder=" " id="PurchasePrice"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="PURCHASE_PRICE" />
                   <label for="PurchasePrice">Purchase Price</label>
                 </span>
@@ -182,7 +188,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="margin" class="form-control" placeholder=" " id="margin" #margin
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     (keyup)="checkmargin(margin.value)" pattern="^[0-9]+$" title="Input allowed only  0-9"
                     pattern="\d{1,5}(\.\d{2})?" formControlName="MARGIN" />
                   <label for="margin">margin %</label>

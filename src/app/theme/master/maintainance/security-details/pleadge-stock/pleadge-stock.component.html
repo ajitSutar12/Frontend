@@ -34,6 +34,9 @@
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
+                  Fill valid Date 
+               </div>
               </div>
             </div>
             <div class="col-sm-4">
@@ -86,13 +89,16 @@
                 <div *ngIf="angForm.controls['STORAGE_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['STORAGE_DATE'].invalid">
+                  Fill valid Date 
+               </div>
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="GoodsQuantity" class="form-control" placeholder=" " id="GoodsQuantity"
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="GOODS_QTY" />
                   <label for="GoodsQuantity">Goods Quantity<sub class="required">* </sub></label>
@@ -161,7 +167,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="BalanceQuantity" class="form-control" placeholder=" " id="BalanceQuantity"
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="BALANCE_QTY" />
                   <label for="BalanceQuantity">Balance Quantity<sub class="required">* </sub></label>
@@ -184,7 +190,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="Rate" class="form-control" placeholder=" " id="Rate"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="RATE" />
                   <label for="Rate">Rate</label>
                 </span>
@@ -203,7 +209,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="Value" class="form-control" placeholder=" " id="Value"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="VALUE" />
                   <label for="label-nameValue">Value</label>
                 </span>
@@ -225,7 +231,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="margin" #margin (keyup)="checkmargin(margin.value)" class="form-control"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     placeholder=" " id="margin" pattern="\d{1,5}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="MARGIN" />
                   <label for="margin">Margin %</label>

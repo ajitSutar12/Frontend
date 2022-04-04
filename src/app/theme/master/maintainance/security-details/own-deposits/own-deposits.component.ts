@@ -246,7 +246,6 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       
     })
     
-   
       this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
         this.branchOption = data;
       })
@@ -294,6 +293,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.schemeAccountNoService.getTermDepositSchemeList1(this.obj1).pipe(first()).subscribe(data => {
           
           this.ACNo = data;
+          console.log()
         })
         break;
       case 'PG':
@@ -388,8 +388,8 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngbranch=Number(data.BRANCH_CODE)
       this.ngscheme=Number(data.DEPO_AC_TYPE)
       this.ngacno=Number(data.DEPO_AC_NO)
-
-
+     console.log( this.ngacno)
+      
         this.angForm.patchValue({
          
           AC_ACNOTYPE: data.AC_ACNOTYPE,

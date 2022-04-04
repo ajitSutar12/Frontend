@@ -286,7 +286,7 @@ export class BookDebtsComponent implements OnInit, AfterViewInit, OnDestroy {
         MARGIN: formVal.MARGIN,
         REMARK: formVal.REMARK,
       };
-
+      
       this._book.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");

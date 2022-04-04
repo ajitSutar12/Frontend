@@ -204,17 +204,18 @@ export class SecurityDetailsComponent implements OnInit {
     });
   }
   submit() {
-    this.formSubmitted = true;
+    // this.formSubmitted = true;
 
 
     if (this.angForm.valid) {
-
+ 
     }
     //get bank code and branch code from session
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id;
   }
+  
   //output functionality
   addItem(newItem: any) {
 

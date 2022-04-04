@@ -39,6 +39,8 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
   arrTable
   getschemename
   InterestArr = []
+  filterArray: any[];
+  gridData: any;
     constructor(
     private http: HttpClient, private fb: FormBuilder,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -167,6 +169,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
       this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
       this.http.get(this.url + '/interest-posting-updation/accounts/' + this.mem).subscribe((data) => {
         this.arrTable = data;
+        this.gridData = data;
         this.arrTable.forEach(element => {
           var object = {
             AC_NO: element.AC_NO,
@@ -186,7 +189,24 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
       })
     }
   }
-
+  //filter object
+  filterObject(ele, type) {
+    console.log(this.InterestArr);
+    let matchArray = new Array()
+    this.InterestArr = [];
+    this.gridData.forEach(element => {
+      if(type == 'AC_NAME'){
+        if(JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())){
+          this.InterestArr.push(element);
+        }
+      }else{
+        if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
+          this.InterestArr.push(element);
+        }
+      }
+      
+    });
+  }
   //update checkbox status in array
   checkInterestFlag(id, acno, flag) {
     let isIntUpdate: boolean = false

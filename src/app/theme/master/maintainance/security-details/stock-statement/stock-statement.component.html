@@ -34,6 +34,9 @@
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
+                  Fill valid Date 
+               </div>
               </div>
             </div>
             <div class="col-sm">
@@ -62,13 +65,16 @@
                 <div *ngIf="angForm.controls['STATEMENT_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['STATEMENT_DATE'].invalid">
+                  Fill valid Date 
+               </div>
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="raw_material" class="form-control" placeholder=" " id="raw_material"
-                    pattern="\d{1,20}(\.\d{2})?" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" 
+                    pattern="\d{1,20}(\.\d{2})?" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     title="Input allowed only 0-9" formControlName="RAW_MATERIAL" />
                   <label for="raw_material">Raw Material Cost</label>
                 </span>
@@ -87,9 +93,9 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="rm_margin" class="form-control" placeholder=" " id="rm_margin"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     #marginmaterialcost (keyup)="checkmargin(marginmaterialcost.value)" pattern="\d{1,5}(\.\d{2})?"
-                    
+                    maxlength="3"
                     title="Input allowed only  0-9" formControlName="RAW_MARGIN" />
                   <label for="rm_margin">(Margin) Raw Material Cost </label>
                 </span>
@@ -149,7 +155,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="fg_cost" class="form-control" placeholder=" " id="fg_cost" required=""
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="FINISHED_GOODS" />
                   <label for="fg_cost">Finished Goods Cost<sub class="required">* </sub></label>
                 </span>

@@ -32,6 +32,9 @@
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
+                   Fill valid Date 
+                </div>
               </div>
             </div>
             <div class="col-sm">
@@ -57,6 +60,9 @@
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['POLICY_DUE_DATE'].errors?.required">
                   This field is required
+                </div>
+                <div *ngIf="angForm.controls['POLICY_DUE_DATE'].invalid">
+                   Fill valid Date 
                 </div>
               </div>
             </div>
@@ -84,7 +90,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="policy_amount" class="form-control" placeholder=" " id="policy_amount"
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="POLICY_AMT">
                   <label for="policy_amount">Policy Amount<sub class="required">* </sub></label>
@@ -210,7 +216,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="premium_amount" class="form-control" placeholder=" " id="premium_amount"
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="PREMIUM">
                   <label for="premium_amount">Premium Amount<sub class="required">* </sub></label>
                 </span>
@@ -252,6 +258,9 @@
                   class="alert alert-danger">
                   <div *ngIf="angForm.controls['PREMIUM_DUE_DATE'].errors?.required">
                     This field is required
+                  </div>
+                  <div *ngIf="angForm.controls['PREMIUM_DUE_DATE'].invalid">
+                   Fill valid Date 
                   </div>
                 </div>
               </div>

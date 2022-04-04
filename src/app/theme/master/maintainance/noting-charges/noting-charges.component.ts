@@ -109,6 +109,8 @@ export class NotingChargesComponent implements OnInit {
   GL_CODE
   FIELD_AMOUNT
   DESCRIPTION
+  filterArray: any[];
+  gridData: any;
 
   constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
@@ -275,6 +277,7 @@ export class NotingChargesComponent implements OnInit {
       })
       this.http.get(this.url + '/noting-charges/accounts/' + this.mem).subscribe((data) => {
         this.arrTable = data;
+        this.gridData = data;
         this.arrTable.forEach(element => {
           var object = {
             AC_NO: element.AC_NO,
@@ -285,6 +288,7 @@ export class NotingChargesComponent implements OnInit {
             NARRATION: ''
           }
           this.notingChargesArr.push(object)
+        
         });
       });
     }
@@ -295,8 +299,27 @@ export class NotingChargesComponent implements OnInit {
       })
       this.arrTable = []
       this.notingChargesArr = []
+      
     }
   }
+    //filter object
+    filterObject(ele, type) {
+      debugger
+      console.log(this.notingChargesArr);
+      let matchArray = new Array()
+      this.notingChargesArr = [];
+      this.gridData.forEach(element => {
+          if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
+            this.notingChargesArr.push(element);
+          }
+        else if(JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())){
+          this.notingChargesArr.push(element);
+          
+        }
+        
+        
+      });
+    }
   //get charge amount to all account number
   getCommanChargeAmount() {
     this.notingChargesArr.forEach(item => item.TRAN_AMOUNT = this.angForm.controls['TRAN_AMOUNT'].value);

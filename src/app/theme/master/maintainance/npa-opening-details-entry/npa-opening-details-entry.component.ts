@@ -58,8 +58,11 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
   getschemename
   showTable: boolean = false
   mem
-  arrTable
+  arrTable: any; 
   npaEntryArray = []
+  gridData: any;
+  Code: any;
+  filtername: any;
   constructor(private fb: FormBuilder, private http: HttpClient,
     private _npaService: NpaOpeningDetailsEntryService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -93,7 +96,6 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       this.ngBranchCode = result.branch.id
     }
   }
-
   createForm() {
     this.npaOpeningForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
@@ -102,7 +104,6 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       BRANCH: ['', [Validators.required]]
     });
   }
-
   getBranch() {
     this.ngscheme = null
     this.ngfromac = null
@@ -110,7 +111,6 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     this.arrTable = []
     this.npaEntryArray = []
   }
-
   //get account no according scheme
   getAccountList(event) {
     this.ngfromac = null
@@ -122,7 +122,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       case 'DS':
         this.schemeAccountNoService.getDisputeLoanSchemeList1(obj).pipe(first()).subscribe(data => {
           this.ToAC = data
-          this.fromAC = data
+          this.fromAC = data 
         })
         break;
 
@@ -131,6 +131,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
           this.ToAC = data
           this.fromAC = data
         })
+
         break;
 
       case 'CC':
@@ -142,9 +143,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     }
     this.getschemename = event.name
   }
-
-
-  getTable() {
+  getTable() { 
     this.arrTable = []
     this.npaEntryArray = []
     var memFrom = this.npaOpeningForm.controls['FROM_AC'].value
@@ -154,6 +153,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       this.mem = [memFrom, memTo, this.ngscheme, this.ngBranchCode, this.getschemename]
       this.http.get(this.url + '/term-loan-master/npaopening/' + this.mem).subscribe((data) => {
         this.arrTable = data;
+        this.gridData = data;
       });
     }
     else {
@@ -166,12 +166,30 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     }
   }
 
-  //select content of field
+  //filter object
+filterObject(ele, type) {
+  console.log(this.arrTable);
+  let matchArray = new Array()
+  this.arrTable = [];
+  this.gridData.forEach(element => {
+    if(type == 'AC_NAME'){
+      if(JSON.stringify(element.AC_NAME).includes(ele.target.value.toUpperCase())){
+        this.arrTable.push(element);
+      }
+    }else{
+      if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
+        this.arrTable.push(element);
+      }
+    }
+    
+  });
+}
+
+
+//select content of field
   selectAllContent($event) {
     $event.target.select();
   }
-
-
   //push receipt no into object
   getLastTranDate(id, acno, AC_ACTDATE, OP_POSTED_INT, AC_OP_TOTAL_DEPOSITAMT, IS_DISPUTE_LOAN) {
     if (AC_ACTDATE != '' || AC_ACTDATE != 'Invalid date') {
@@ -330,6 +348,9 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
   }
 
   submit() {
+    let dataObj = this.npaOpeningForm.value;
+    dataObj['gridData'] = this.arrTable;
+
     if (this.npaEntryArray.length != 0) {
       const dataToSend = {
         'npaEntryArray': this.npaEntryArray
@@ -401,7 +422,6 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
   }
 
   ngAfterViewInit(): void {
-
     this.dtTrigger.next();
     // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
     //   $('#npaopeningdetailstable tfoot tr').appendTo('#npaopeningdetailstable thead');

@@ -34,13 +34,16 @@
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
+                  Fill valid Date 
+               </div>
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="ValuationAmount" class="form-control" placeholder=" " id="ValuationAmount"
-                    [ngClass]="{'form-submitted': formSubmitted}" pattern="\d{1,20}(\.\d{2})?" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                    [ngClass]="{'form-submitted': formSubmitted}" pattern="\d{1,20}(\.\d{2})?" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     title="Input allowed only  0-9" formControlName="VALUE" />
                   <label for="ValuationAmount">Valuation Amount<sub class="required">* </sub></label>
                 </span>
@@ -87,7 +90,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="area" class="form-control" placeholder=" " id="area" required=""
                     [ngClass]="{'form-submitted': formSubmitted}" pattern="\d{1,20}(\.\d{2})?"
-                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     title="Input allowed only 0-9 " formControlName="AREA" />
                   <label for="area">Area<sub class="required">* </sub></label>
                 </span>
@@ -199,6 +202,9 @@
                 <div *ngIf="angForm.controls['CITY_SURVEY_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['CITY_SURVEY_DATE'].invalid">
+                  Fill valid Date 
+               </div>
               </div>
             </div>
           </div>

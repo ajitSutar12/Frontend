@@ -58,7 +58,7 @@
                                     <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/c"
-                                        (change)="getTable()">
+                                       >
                                         <ng-option *ngFor="let values of fromAc" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -110,6 +110,12 @@
                                                 <td class="td_right">Account Number</td>
                                                 <td>Account Name</td>
                                                 <td class="td_center">Is Post Interest?</td>
+                                                <tr>
+                                                    <td><input type="text" class="form-control" (keyup)="filterObject($event,'AC_NO')"></td>
+                                                    <td><input type="text" class="form-control" style="text-transform:uppercase;" (keyup)="filterObject($event,'AC_NAME')"></td>
+                                                    <td></td>
+                                                   
+                                                </tr>
                                             </thead>
                                             <tbody *ngIf="InterestArr?.length != 0">
                                                 <tr *ngFor="let data of InterestArr;

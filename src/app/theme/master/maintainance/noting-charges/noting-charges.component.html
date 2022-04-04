@@ -57,7 +57,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        (change)="getTable()" [ngClass]="{'form-submitted': formSubmitted}" required
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="From A/C">
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -211,10 +211,18 @@
                                         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                                             class="table table-striped table-bordered table-hover compact">
                                             <thead>
-                                                <td class="td_right">Account Number</td>
-                                                <td>Account Name</td>
-                                                <td class="td_center">Charges Amount</td>
-                                                <td class="td_right">Narration</td>
+                                                <tr>
+                                                    <td class="td_right">Account Number</td>
+                                                    <td>Account Name</td>
+                                                    <td class="td_center">Charges Amount</td>
+                                                    <td class="td_right">Narration</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" class="form-control" (keyup)="filterObject($event,'AC_NO')"></td>
+                                                    <td><input type="text" class="form-control" style="text-transform:uppercase;" (keyup)="filterObject($event,'AC_NAME')"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
                                             </thead>
                                             <tbody *ngIf="notingChargesArr?.length != 0">
                                                 <tr *ngFor="let data of notingChargesArr;

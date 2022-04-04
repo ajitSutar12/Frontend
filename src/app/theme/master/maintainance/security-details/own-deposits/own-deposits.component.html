@@ -130,6 +130,9 @@
                                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
                                     This field is required
                                 </div>
+                                <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
+                                    Fill valid Date 
+                                 </div>
                             </div>
                         </div>
                         <div class="col-sm">
@@ -147,7 +150,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="deposit_amount" class="form-control" placeholder=" "
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         id="deposit_amount" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                                         formControlName="DEPOSIT_AMT">
                                     <label for="deposit_amount">Deposit Amount</label>
@@ -191,7 +194,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="margin" class="form-control" placeholder=" " id="margin"
                                         #margin (keyup)="checkmargin(margin.value)" pattern="\d{1,5}(\.\d{2})?"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         title="Input allowed only  0-9" formControlName="MARGIN">
                                     <label for="margin">Margin %</label>
                                 </span>

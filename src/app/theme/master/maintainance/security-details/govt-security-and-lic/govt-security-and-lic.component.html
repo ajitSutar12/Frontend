@@ -34,6 +34,9 @@
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
+                   Fill valid Date 
+                </div>
               </div>
             </div>
             <div class="col-sm">
@@ -63,6 +66,9 @@
                 <div *ngIf="angForm.controls['CERT_POLICY_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['CERT_POLICY_DATE'].invalid">
+                   Fill valid Date 
+                </div>
               </div>
             </div>
             <div class="col-sm">
@@ -70,7 +76,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="policy_no" class="form-control" placeholder=" " id="policy_no" required=""
                   [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                    pattern="^[0-9]+$" maxlength="50" title="Input allowed only  0-9"
+                    pattern="^[0-9]+$" maxlength="20" title="Input allowed only  0-9"
                     formControlName="CERT_POLICY_NO" />
                   <label for="policy_no">Certicate / Policy No.<sub class="required">* </sub></label>
                 </span>
@@ -137,7 +143,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="PaidUpAmount" class="form-control" placeholder=" " id="PaidUpAmount"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="PAIDUP_AMT" />
                   <label for="PaidUpAmount">Paid up Amount</label>
                 </span>
@@ -158,7 +164,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="SumAssured" class="form-control" placeholder=" " id="SumAssured" required=""
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="SUM_ASSURED" />
                   <label for="SumAssured">Sum Assured<sub class="required">* </sub></label>
                 </span>
@@ -194,7 +200,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="premium_amount" class="form-control" placeholder=" " id="premium_amount"
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                     formControlName="PREMIUM" />
                   <label for="premium_amount">Premium Amount<sub class="required">* </sub></label>
@@ -217,7 +223,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="SurrenderValue" class="form-control" placeholder=" " id="SurrenderValue"
-                  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                  (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="SURRENDER_VALUE" />
                   <label for="SurrenderValue">Surrender Value</label>
                 </span>
@@ -261,6 +267,9 @@
                 <div *ngIf="angForm.controls['PREMIUM_DUE_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['PREMIUM_DUE_DATE'].invalid">
+                   Fill valid Date 
+                </div>
               </div>
             </div>
             <div class="col-sm">
@@ -290,6 +299,9 @@
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['MATURE_DUE_DATE'].errors?.required">
                   This field is required
+                </div>
+                <div *ngIf="angForm.controls['MATURE_DUE_DATE'].invalid">
+                   Fill valid Date 
                 </div>
               </div>
             </div>

@@ -162,6 +162,12 @@ export class SchemeAccountNoService {
                 return this.schemeObject;
             }));
     }
+
+    public getTermLoanSchemeListGridData(id):Observable<any>{
+        let data = {'id':id};
+        return this.http.post(this.url+'/term-loan-master/scheme/',data);
+      }
+
     public getTermLoanMasterAcListForBalUpdation(schemeid) {
         this.schemeObject = []
         return this.http.get<any>(this.url + '/term-loan-master/balUpdate/' + schemeid)

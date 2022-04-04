@@ -308,6 +308,7 @@ export class GovtSecurityAndLicComponent
       );
       //To clear form
       this.resetForm();
+      this.formSubmitted = false;
     }
 
   }

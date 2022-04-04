@@ -46,6 +46,8 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   memTo
   branch
   InterestRate: string
+  gridData: any;
+
 
   constructor(private fb: FormBuilder, private _SchemeCodeDropdown: SchemeCodeDropdownService,
     private http: HttpClient, private _schemeAccountNoService: SchemeAccountNoService,
@@ -181,17 +183,21 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
       if (this.getschemename == 'TD') {
         this.http.get(this.url + '/term-deposits-master/interest/' + this.mem).subscribe((data) => {
           this.tableArr = data;
+          console.log(this.tableArr,'table')
+          this.gridData = data;
         });
       }
       else if (this.getschemename == 'CC') {
         this.http.get(this.url + '/cash-credit-master/interest/' + this.mem).subscribe((data) => {
           this.tableArr = data;
+          this.gridData = data;
           console.log('table cc data', data)
         });
       }
       else if (this.getschemename == 'LN') {
         this.http.get(this.url + '/term-loan-master/interest/' + this.mem).subscribe((data) => {
           this.tableArr = data;
+          this.gridData = data;
           console.log('table ln data', data)
         });
       }
@@ -210,6 +216,26 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
       Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
       this.showTable = false
     }
+  }
+  //filter object
+  filterObject(ele, type) {
+    console.log(this.gridData);
+    let matchArray = new Array()
+    this.tableArr = [];
+    this.gridData.forEach(element => {
+      
+      if(type == 'AC_NAME'){
+        if(JSON.stringify(element.termLoan.AC_NAME||element.AC_NAME).includes(ele.target.value.toUpperCase())){
+          this.tableArr.push(element);
+        }
+      }
+      else{
+        if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
+          this.tableArr.push(element);
+        }
+      }
+      
+    });
   }
   //radio button selection variable 
   changeInterestRate(value) {

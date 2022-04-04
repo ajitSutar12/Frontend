@@ -59,8 +59,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="market_value" class="form-control" placeholder=" " id="market_value"
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                    required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                    required="" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" maxlength="20"
                     formControlName="MARKET_VALUE" />
                   <label for="market_value">Market Value<sub class="required">* </sub></label>
                 </span>
@@ -82,7 +82,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input type="text" name="margin" class="form-control" placeholder=" " id="margin" #margin
-                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                  [ngClass]="{'form-submitted': formSubmitted}" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     (keyup)="checkmargin(margin.value)" required="" pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9" formControlName="MARGIN" />
                   <label for="margin">Margin %<sub class="required">* </sub></label>
@@ -148,6 +148,12 @@
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
                   This field is required
                 </div>
+                <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
+                  Invalid Date 
+                </div>
+                <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
+                  Fill valid Date 
+               </div>
               </div>
             </div>
             <div class="col-sm">
@@ -196,10 +202,13 @@
               <div class="form-group form-primary form-static-label" *ngIf="
                   angForm.controls['RELEASE_DATE'].invalid &&
                   (angForm.controls['RELEASE_DATE'].dirty ||
-                    angForm.controls['RELEASE_DATE'].touched)
+                    angForm.controls['RELEASE_DATE'].touched   )
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['RELEASE_DATE'].errors?.required">
                   This field is required
+                </div>
+                <div *ngIf="angForm.controls['RELEASE_DATE'].invalid">
+                  Invalid Date 
                 </div>
               </div>
             </div>

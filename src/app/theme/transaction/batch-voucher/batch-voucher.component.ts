@@ -58,7 +58,7 @@ export class BatchVoucherComponent implements OnInit {
 
     //branch List
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
-      debugger
+  //debugger
       this.branch_code = data;
       this.selectedBranch = user.branchId;
     })
@@ -92,52 +92,52 @@ export class BatchVoucherComponent implements OnInit {
       date:['']
     })
   }
+ //Get Company Code Details
+ getCompanyData(ele) {
+  this.CompanyGroupMasterDropdownService.getCompanyData(this.selectCompanyCode).subscribe(data => {
+    this.company_data = data;
+  }, err => {
+    console.log(err);
+  })
 
-  //Get Company Code Details
-  getCompanyData(ele) {
-    this.CompanyGroupMasterDropdownService.getCompanyData(this.selectCompanyCode).subscribe(data => {
-      this.company_data = data;
-    }, err => {
-      console.log(err);
-    })
-
-    this.CompanyGroupMasterDropdownService.getCompanyGridData(this.selectCompanyCode).subscribe(data => {
-      this.company_main_data = data[0];
-      this.gridData = data[0].comapnylink;
-      this.filterArray = data[0].comapnylink;
-      this.filterArray.forEach(element => {
-        this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
-      });
-    }, err => {
-      console.log(err);
-    })
-  }
-
-  //filter object
-  filterObject(ele, type) {
-    console.log(this.gridData);
-    let matchArray = new Array()
-    this.filterArray = [];
-    this.gridData.forEach(element => {
-      if(type == 'AC_TYPE'){
-        if(JSON.stringify(element.AC_TYPE).includes(ele.target.value)){
-          this.filterArray.push(element);
-        }
-      }else{
-        if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
-          this.filterArray.push(element);
-        }
-      }
-      
+  this.CompanyGroupMasterDropdownService.getCompanyGridData(this.selectCompanyCode).subscribe(data => {
+    this.company_main_data = data[0];
+    this.gridData = data[0].comapnylink;
+    this.filterArray = data[0].comapnylink;
+    this.filterArray.forEach(element => {
+      this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
     });
-  }
+  }, err => {
+    console.log(err);
+  })
+}
+
+//filter object
+filterObject(ele, type) {
+  console.log(this.gridData);
+  let matchArray = new Array()
+  this.filterArray = [];
+  this.gridData.forEach(element => {
+    if(type == 'AC_TYPE'){
+      if(JSON.stringify(element.AC_TYPE).includes(ele.target.value)){
+        this.filterArray.push(element);
+      }
+    }else{
+      if(JSON.stringify(element.AC_NO).includes(ele.target.value)){
+        this.filterArray.push(element);
+      }
+    }
+    
+  });
+}
+
 
   changeAmount(ele,i){
-    debugger
+// debugger
     this.filterArray[i].DEFAULT_AMOUNT = Number(ele.target.value);
     this.totalAmt = 0;
     this.filterArray.forEach(element => {
-      debugger
+  //debugger
       this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
     });
   }
@@ -149,7 +149,7 @@ export class BatchVoucherComponent implements OnInit {
   }
 
   Submit(){
-    debugger
+//debugger
     var obj = this.angForm.value;
     if(Number(obj.voucherAmount) != Number(this.totalAmt)){
       Swal.fire('Error!', 'Voucher amount not equal to Total Amount', 'error');
