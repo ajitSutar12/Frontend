@@ -274,13 +274,14 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.newbtnShow = true;
 
     this.companyGroupLinkMasterService.getFormData(id).subscribe(data => {
-      debugger
+      
       this.updateID = data.id;
       this.ngBranchCode = Number(data.BRANCH_CODE)
       this.ngcompany = data.COMP_CODE
       this.ngcode = data.CODE
-      this.ngAccount = data.FROM_AC
-      this.ngToAccount = data.TO_AC
+      
+      this.ngAccount = Number(data.FROM_AC)
+      this.ngToAccount =Number(data.TO_AC)
       // })
       // this.angForm.patchValue({
       //   'COMP_CODE': data.COMP_CODE,

@@ -265,9 +265,9 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.updateShow = true;
     this.newbtnShow = true;
     this.directorMasterService.getFormData(id).subscribe(data => {
-      debugger
+      
       this.updateID = data.id;
-      this.ngCity = data.AC_CTCODE
+      this.ngCity = Number(data.AC_CTCODE)
       this.ngBranchCode = Number(data.BRANCH_CODE)
       this.angForm.patchValue({
         'CODE': data.CODE,
@@ -288,10 +288,10 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
-    debugger
+    
     data['id'] = this.updateID;
     this.directorMasterService.updateData(data).subscribe(() => {
-      debugger
+      
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;

@@ -64,7 +64,7 @@
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="LOCKER_FROMNO" class="form-control" placeholder=" "
+                                    <input style="text-align: right;" type="text" name="LOCKER_FROMNO" class="form-control" placeholder=" "
                                         id="LOCKER_FROMNO" required="" pattern="^[0-9]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         (focusout)="check()" title="Input allowed only  0-9"
@@ -84,7 +84,7 @@
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="LOCKER_TONO" class="form-control" placeholder=" "
+                                    <input style="text-align: right;" type="text" name="LOCKER_TONO" class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="LOCKER_TONO"
                                         required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         (focusout)="check()" formControlName="LOCKER_TONO" maxlength="10">

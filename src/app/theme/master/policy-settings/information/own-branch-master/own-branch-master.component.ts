@@ -209,7 +209,8 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.newbtnShow = true;
     this.ownBranchService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
-      this.ngAcNo =  data.AC_NO
+      // this.ngAcNo =  data.AC_NO
+      this.ngAcNo = Number(data.AC_NO)
       this.angForm.patchValue({
         'CODE': data.CODE,
         // 'AC_NO': data.AC_NO,
@@ -300,8 +301,8 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
   // Reset Function
   resetForm() {
     this.createForm();
-    // this.ngAcNo=null
-    this.angForm.controls['AC_NO'].reset()
+    this.ngAcNo=null
+    // this.angForm.controls['AC_NO'].reset()
   }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
