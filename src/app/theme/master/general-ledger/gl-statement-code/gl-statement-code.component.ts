@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ElementRef , } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ElementRef, } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { StatementTypeService } from '../../../../shared/dropdownService/statement-type.service';
@@ -35,6 +35,7 @@ interface GlStatementCodeMaster {
 
 export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild("statement_head") myInputField: ElementRef;//autofocus input field
+  @ViewChild('triggerhide') triggerhide: ElementRef;
   //api 
   url = environment.base_url;
 
@@ -80,10 +81,10 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   alternate: any;
   // Filter Variable
   filterData = {};
-  glCodeList : any;
-  parentCode : any;
-  newCode : any;
-  parentId : any;
+  glCodeList: any;
+  parentCode: any;
+  newCode: any;
+  parentId: any;
   parentCodeArray = new Array();
   //constructor
   constructor(
@@ -96,13 +97,8 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   }
 
 
-  
+
   ngOnInit(): void {
-
-
-
-
-
     this.treeview();
     this.createForm();
 
@@ -111,7 +107,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
       paging: true,
       pageLength: 10,
       serverSide: true,
-      processing: true, 
+      processing: true,
       ajax: (dataTableParameters: any, callback) => {
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
@@ -135,7 +131,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
             }
           }
         });
-        
+
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -188,36 +184,36 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
       this.characters = options;
     });
 
-//     this.alternateCode.getAlternetCodeList().pipe(first()).subscribe(data => {
-//       this.alternate = data;
-//  })
+    //     this.alternateCode.getAlternetCodeList().pipe(first()).subscribe(data => {
+    //       this.alternate = data;
+    //  })
 
 
   }
 
 
   ///get treeview data
-  treeview(){
+  treeview() {
     this.parentCodeArray = [];
-    this.glStatementCodeService.getCodeList().subscribe(data=>{
+    this.glStatementCodeService.getCodeList().subscribe(data => {
       this.glCodeList = data;
       console.log(this.glCodeList);
       this.glCodeList.forEach(element => {
-        if(element.parent_node == 0){
+        if (element.parent_node == 0) {
           this.parentCodeArray.push(element);
         }
       });
 
       console.log(this.parentCodeArray);
-      this.parentCodeArray.forEach((ele,index)=>{
+      this.parentCodeArray.forEach((ele, index) => {
         let newArray = new Array();
 
-        this.glCodeList.forEach(element=>{
+        this.glCodeList.forEach(element => {
           let subArray = new Array();
 
-          if(element.parent_node == ele.id){
+          if (element.parent_node == ele.id) {
             this.glCodeList.forEach(ele1 => {
-              if(ele1.parent_node == element.id){
+              if (ele1.parent_node == element.id) {
                 subArray.push(ele1)
               }
             });
@@ -226,8 +222,8 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
           }
         })
         this.parentCodeArray[index]['child'] = newArray;
-        
-      })      
+
+      })
     })
   }
   runTimer() {
@@ -271,13 +267,13 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
       });
     }, (error) => {
     })
- 
+
     //To clear form
     this.resetForm();
-    
+
 
   }
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -389,7 +385,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     this.createForm();
     this.alternateCode.getAlternetCodeList().pipe(first()).subscribe(data => {
       this.alternate = data;
- })
+    })
   }
 
   rerender(): void {
@@ -401,25 +397,25 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
 
-  AddnewHead(id,name){
-    this.parentCode =  name;
+  AddnewHead(id, name) {
+    this.parentCode = name;
     this.parentId = id;
   }
 
-  submitNewCode(){
-    if(this.newCode == undefined){
+  submitNewCode() {
+    if (this.newCode == undefined) {
       Swal.fire('Warning!', 'Please add new Code!', 'warning');
-    }else{
-      let obj ={
-        'parentid':this.parentId,
+    } else {
+      let obj = {
+        'parentid': this.parentId,
         'newCode': this.newCode
       }
 
-      this.glStatementCodeService.insertNewCode(obj).subscribe(data=>{
+      this.glStatementCodeService.insertNewCode(obj).subscribe(data => {
         Swal.fire('Success!', 'new Code Added Successfully!', 'success');
         this.treeview();
-
-      },err=>{
+        this.triggerhide.nativeElement.click();
+      }, err => {
         console.log(err);
       })
     }

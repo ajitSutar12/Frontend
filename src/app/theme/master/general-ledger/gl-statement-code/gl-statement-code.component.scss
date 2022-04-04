@@ -9,10 +9,10 @@ ul.tree, ul.tree ul {
    ul.tree li {
      margin: 0;
      padding: 0 7px;
-     line-height: 20px;
+     line-height: 35px;
      color: #369;
      font-weight: bold;
-     border-left:1px solid rgb(100,100,100);
+     border-left:3px solid rgb(100,100,100);
 
    }
    ul.tree li:last-child {
@@ -21,14 +21,14 @@ ul.tree, ul.tree ul {
    ul.tree li:before {
       position:relative;
       top:-0.3em;
-      height:1em;
-      width:12px;
+      height:2em;
+      width:35px;
       color:white;
-      border-bottom:1px solid rgb(100,100,100);
+      border-bottom:3px solid rgb(100,100,100);
       content:"";
       display:inline-block;
       left:-7px;
    }
    ul.tree li:last-child:before {
-      border-left:1px solid rgb(100,100,100);   
+      border-left:3px solid rgb(100,100,100);   
    }

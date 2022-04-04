@@ -197,13 +197,13 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     this.updateShow = true;
     this.newbtnShow = true;
     this.clearingBranchService.getFormData(id).subscribe(data => {
-
-
+      debugger
+      console.log(data);
       this.updateID = data.id;
       this.ngAcNo = data.AC_NO
       this.angForm.patchValue({
         'CODE': data.CODE,
-        // 'AC_NO': data.AC_NO,
+        'AC_NO': data.AC_NO, 
         'NAME': data.NAME,
       })
     })

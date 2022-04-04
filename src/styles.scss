@@ -801,25 +801,31 @@ input[type="file" i]::-webkit-file-upload-button {
     color: rgb(16, 16, 17);
 }
 
-
 // for hand cursor below css
-.grab {cursor: -webkit-grab; cursor: grab;}
+.grab {
+    cursor: -webkit-grab;
+    cursor: grab;
+}
 
 // label space
 @media (min-width: 768px) {
-    .labelWidth{
+    .labelWidth {
         max-width: 11% !important;
     }
-  }
+}
 
-
-  
 .form-control:disabled,
 .form-control[readonly] {
-  background-color: white;
-  opacity: 1;
+    background-color: white;
+    opacity: 1;
 }
 
 .ng-select.ng-select-disabled > .ng-select-container {
     background-color: white !important;
-  }
+}
+
+.main-body .page-wrapper {
+    padding: 0.5rem;
+    padding-bottom: 5% !important;
+    transition: all ease-in 0.3s;
+}

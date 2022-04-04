@@ -199,7 +199,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'BANKCODE': formVal.BANKCODE,
     }
     this.bankService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire('Success!', 'Bank Master Data Added Successfully !', 'success');
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -248,7 +248,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.bankService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire('Success!', 'Bank Master Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -327,7 +327,6 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
       dtInstance.destroy();
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();

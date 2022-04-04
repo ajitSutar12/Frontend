@@ -163,7 +163,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
         'NARRATION': formVal.NARRATION,
       }
       this.narrationService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire('Success!', 'Narration Detail Added Successfully !', 'success');
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -201,7 +201,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.narrationService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire('Success!', 'Narration Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -228,7 +228,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
           // this.narrations = data1;
           Swal.fire(
             'Deleted!',
-            'Your data has been deleted.',
+            'Your Narration data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -241,7 +241,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       ) {
         Swal.fire(
           'Cancelled',
-          'Your data is safe.',
+          'Your Narration data is safe.',
           'error'
         )
       }

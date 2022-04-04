@@ -280,6 +280,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
         'AC_MOBILENO': data.AC_MOBILENO,
         'SMS_REQUIRED': data.SMS_REQUIRED,
         'IS_CURRENT_BODY_MEMBER': data.IS_CURRENT_BODY_MEMBER,
+        'AC_CTCODE': data.AC_CTCODE,
 
       })
     })

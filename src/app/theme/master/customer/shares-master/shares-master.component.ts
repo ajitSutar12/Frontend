@@ -279,6 +279,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       pageLength: 10,
       serverSide: true,
       processing: true,
+      scrollX:true,
       ajax: (dataTableParameters: any, callback) => {
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
