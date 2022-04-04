@@ -205,8 +205,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PANNO" class="form-control" placeholder=" "
-                                        pattern="^[A-Z0-9]+$" title="Enter Uppercase letters and digits only"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58)"
+                                        pattern="^[A-Za-z0-9]+$" title="Enter Uppercase letters and digits only"
+                                        style="text-transform:uppercase;"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
                                         maxlength="10" id="AC_PANNO" formControlName="AC_PANNO">
                                     <label for="AC_PANNO">Pan Number</label>
                                     <!-- (focusout)=" checkPancard()" -->
@@ -232,10 +233,10 @@
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_PANNO'].invalid && (angForm.controls['AC_PANNO'].dirty || angForm.controls['AC_PANNO'].touched)"
+                                *ngIf="angForm.controls['AC_BIRTH_DT'].invalid && (angForm.controls['AC_BIRTH_DT'].dirty || angForm.controls['AC_BIRTH_DT'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_PANNO'].errors?.required">
-                                    Enter Uppercase letters and digits only
+                                <div *ngIf="angForm.controls['AC_BIRTH_DT'].errors?.required">
+                                    Enter Valid Date
                                 </div>
                             </div>
                         </div>
@@ -398,7 +399,7 @@
                                         title="Input allowed only  0-9" id="AC_PHONE_RES" maxlength="11" minlength="10"
                                         formControlName="AC_PHONE_RES"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
-                                    <label for=" AC_PHONE_RES">Residential/Mobile Number</label>
+                                    <label for=" AC_PHONE_RES">Residential Number</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"

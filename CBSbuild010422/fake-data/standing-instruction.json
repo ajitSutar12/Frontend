@@ -1,0 +1,26 @@
+{
+    "data": [{
+            "Date":"25/12/2000",
+            "StartFrom":"30/09/2012",
+            "InstructionNo": 31,
+            "NextExecutionOn":"15/12/2021",
+            "LastExecutedOn":"12/11/2021",
+            "Day": "Monday",
+            "TransactionAmount": 12000,
+            "IsAutoBalanceTransferRemainingthisMinimumBalance":"Yes"
+           
+        },
+        {
+            "Date":"25/12/2000",
+            "StartFrom":"30/09/2012",
+            "InstructionNo": 32,
+            "NextExecutionOn":"15/12/2021",
+            "LastExecutedOn":"12/11/2021",
+            "Day": "Tuesday",
+            "TransactionAmount": 12000,
+            "IsAutoBalanceTransferRemainingthisMinimumBalance":"No"
+        }
+        
+       
+    ]
+}
