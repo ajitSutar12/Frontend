@@ -345,7 +345,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" formControlName="payableCheck" [disabled]="PayableCheck">
+                                            <input type="text" class="form-control" formControlName="payableInt" [disabled]="PayableCheck">
                                         </span>
                                     </div>
                                 </div>
@@ -355,19 +355,19 @@
                                     <div class="form-radio">
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="DEBIT" formControlName="PayableIntRadio"
+                                                <input type="radio" name="DEBIT1" formControlName="PayableIntRadio"
                                                     (click)="payableStatus($event)" value="cash">
                                                 <i class="helper"></i>Cash </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="DEBIT" formControlName="PayableIntRadio"
+                                                <input type="radio" name="DEBIT1" formControlName="PayableIntRadio"
                                                     (click)="payableStatus($event)" value="AddInDeposit">
                                                 <i class="helper"></i>Add In Deposit </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
-                                                <input type="radio" name="DEBIT" formControlName="PayableIntRadio"
+                                                <input type="radio" name="DEBIT1" formControlName="PayableIntRadio"
                                                     (click)="payableStatus($event)" value="transfer">
                                                 <i class="helper"></i>Transfer </label>
                                         </div>
@@ -478,7 +478,7 @@
                                 <div class="col-md-2">
                                     <label>Total Days =</label>
                                 </div>
-                                <div class="col-md-3"></div>
+                                <div class="col-md-3">{{TotalDays}}</div>
                                 <div class="col-md-1">
                                     Receipt No.
                                 </div>

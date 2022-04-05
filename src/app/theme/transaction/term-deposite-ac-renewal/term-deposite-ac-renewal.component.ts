@@ -110,6 +110,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       old_ac_expdt:[''],
       old_Ac_op_date:[''],
       old_deposit_Amt:[''],
+      payableInt:['']
     })
     let user = JSON.parse(localStorage.getItem('user'));
 
@@ -147,6 +148,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   }
 
   //Customer change function
+  TotalDays : number;
   getVoucherData() {
     console.log(this.customer);
     this.selectedIntCate = this.customer.AC_INTCATA;
@@ -159,6 +161,11 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       'new_last_date': this.customer.AC_LINTEDT,
       'new_maturity_amt': this.customer.AC_MATUAMT,
     })
+
+    //Calculate Total Days
+    let total = Number(this.customer.AC_MONTHS) / 12 * 365;
+    this.TotalDays = total + Number(this.customer.AC_DAYS);
+
   }
 
   //get account no according scheme for introducer
@@ -418,7 +425,18 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   changeNormal(ele){
     if(ele.target.value == 'transfer'){
       this.transferShowNormal = true;
-    }else{
+    }
+    else if(ele.target.value == 'AddInDeposit'){
+        let depositeAmount  = this.angForm.controls['new_deposit'].value;
+        let intValue        = this.angForm.controls['NormalInt'].value;
+
+        let Int =  Number(depositeAmount) + Number(intValue);
+
+        this.angForm.patchValue({
+          'new_deposit' : Int
+        })
+    }
+    else{
       this.transferShowNormal = false;
     }
   }
@@ -440,12 +458,31 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   payableStatus(ele){
     if(ele.target.value == 'transfer'){
       this.payableTranferShow = true;
-    }else{
+    }else if(ele.target.value == 'AddInDeposit'){
+      let depositeAmount = Number(this.angForm.controls['new_deposit'].value);
+      let IntAmt         = Number(this.angForm.controls['payableInt'].value);
+
+      let Int =  depositeAmount +  IntAmt;
+
+      this.angForm.patchValue({
+        'new_deposit': Int
+      })
+    }
+    else{
       this.payableTranferShow = false;
     }
   }
 
   submit(){
-    console.log(this.angForm.value);
+
+
+    let obj = this.angForm.value;
+    obj['current_date'] =  this.date;
+    obj['user'] = JSON.parse(localStorage.getItem('user'))
+    this._service.postData(obj).subscribe(data=>{
+      alert('Data insert succssfully');
+    },err=>{
+      console.log(err?.error?.message)
+    })
   }
 }

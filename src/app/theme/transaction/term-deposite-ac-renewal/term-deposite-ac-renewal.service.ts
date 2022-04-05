@@ -23,7 +23,7 @@ export class TermDepositeAcRenewalService {
   constructor(private http: HttpClient) { }
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + "/term-deposite-ac-renewal/insert", data).pipe(
+    return this.http.post(this.url + "/cash-credit-ac-renewal/term-deposit-renewal-insert", data).pipe(
       map((res) => res),
       catchError((error) => {
         Swal.fire("Please Input Proper Data !");
