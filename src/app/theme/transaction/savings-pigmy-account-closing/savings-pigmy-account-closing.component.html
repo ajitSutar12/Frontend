@@ -2,27 +2,30 @@
     position: absolute;margin-top: 14%;margin-left:51%" *ngIf="PreviewDiv">
     <img [src]="previewImg" width="400" height="300">
 </div>
-<div class="row">
-    <div class="col-md-9">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Savings-Pigmy Account Closing</h5>
-                        <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                            Fields marked with (<sub class="required"> * </sub>) are mandatory
-                        </h6>
-                    </div>
-                    <div class="card-body">
-                        <form [formGroup]="angForm" novalidate>
+<form [formGroup]="angForm" novalidate>
+    <div class="row">
+
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Savings-Pigmy Account Closing</h5>
+                            <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                                Fields marked with (<sub class="required"> * </sub>) are mandatory
+                            </h6>
+                        </div>
+                        <div class="card-body">
+
                             <div class="row">
                                 <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch<sub
-                                    class="required">*</sub></label></div>
+                                            class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-2">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
-                                                formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
+                                                formControlName="BRANCH_CODE" bindLabel="label"
+                                                title="Compulsory Selection"
                                                 [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
                                                 <ng-option *ngFor="let values of branch_code" [value]="values">
                                                     {{values.label}}</ng-option>
@@ -37,17 +40,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme<sub class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme<sub
+                                            class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-2">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
-                                            formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                            (change)="schemechange($event)"
-                                            [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
-                                            <ng-option *ngFor="let values of allScheme" [value]="values">
-                                                {{values.id}} {{values.label}} </ng-option>
-                                        </ng-select>
+                                                formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                                (change)="schemechange($event)"
+                                                [ngClass]="{'form-submitted': formSubmitted}" required
+                                                placeholder="Scheme">
+                                                <ng-option *ngFor="let values of allScheme" [value]="values">
+                                                    {{values.id}} {{values.label}} </ng-option>
+                                            </ng-select>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -58,16 +63,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
+                                            class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
-                                            formControlName="AC_NO" bindLabel="label"
-                                            title="Compulsory Selection" required placeholder="Account No.">
-                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                                {{values.label}} {{values.name}}</ng-option>
-                                        </ng-select>
+                                                (change)="getAccountDetails($event)" formControlName="AC_NO"
+                                                bindLabel="label" title="Compulsory Selection" required
+                                                placeholder="Account No.">
+                                                <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                                    {{values.label}} {{values.name}}</ng-option>
+                                            </ng-select>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -79,7 +86,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- <div class="row">
                                 <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch Code<sub
                                     class="required">*</sub></label></div>
@@ -180,20 +187,28 @@
                                         </div>
                                     </div>
                                 </div> -->
-                                <div class="col-sm-12 col-md-2"> <label for="Voucher_Number">Voucher Number<sub
-                                    class="required">*</sub></label></div>
+                                <!-- <div class="col-sm-12 col-md-2"> <label for="Voucher_Number">Voucher Number<sub
+                                            class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" style="text-align: right;" name="Voucher_Number"
-                                                class="form-control" placeholder=" " 
-                                                id="Voucher_Number" title="Input allowed only  0-9"
-                                                formControlName="Voucher_Number"
+                                                class="form-control" placeholder=" " id="Voucher_Number"
+                                                title="Input allowed only  0-9" formControlName="Voucher_Number"
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-        
+
                                         </span>
                                     </div>
-        
+
+                                </div> -->
+                                <div class="col-sm-12 col-md-1 labelWidth"><label for="DATE">Date</label></div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                                formControlName="DATE" disabled>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -205,7 +220,8 @@
                                         <div class="col-md-3">
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" formControlName="INTREST_RATE"
+                                                        class="form-control">
                                                 </span>
                                             </div>
                                         </div>
@@ -217,13 +233,15 @@
                                                     <td colspan="2">Enter Interest Rate</td>
                                                     <td>Interest Amount 0 For Fresh Calculation</td>
                                                 </tr>
-                                                
+
                                                 <tr>
                                                     <td>Months</td>
-                                                    <td><input style="text-align: right;" type="text"></td>
-                                                    <td><input style="text-align: right;" type="text"></td>
+                                                    <td><input style="text-align: right;" type="text"
+                                                            formControlName="Months"></td>
+                                                    <td><input style="text-align: right;" formControlName="CalCulateAmt"
+                                                            type="text"></td>
                                                 </tr>
-                                                
+
                                             </table>
                                         </div>
                                     </div>
@@ -233,7 +251,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <span class="border-lable-flt">
-                                                <input style="text-align: right;" type="text">
+                                                <input style="text-align: right;" formControlName="TotalInterest"
+                                                    type="text">
                                             </span>
                                         </div>
                                     </div>
@@ -243,7 +262,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <span class="border-lable-flt">
-                                                <input style="text-align: right;" type="text">
+                                                <input style="text-align: right;" formControlName="POSTED_INT"
+                                                    type="text">
                                             </span>
                                         </div>
                                     </div>
@@ -258,12 +278,12 @@
                                         </div>
                                         <div class="col-md-6">
                                             <span class="border-lable-flt">
-                                                <input style="text-align: right;" type="text">
+                                                <input style="text-align: right;" formControlName="NET_INT" type="text">
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-        
+
                                 <div class="col-md-6 solid1">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -271,42 +291,99 @@
                                         </div>
                                         <div class="col-md-4">
                                             <span class="border-lable-flt">
-                                                <input style="text-align: right;" type="text">
+                                                <input style="text-align: right;" formControlName="LEDGER_BAL"
+                                                    type="text">
                                             </span>
                                         </div>
-                                    </div>   
-                                    
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             Payable Interest
                                         </div>
                                         <div class="col-md-4">
                                             <span class="border-lable-flt">
-                                                <input style="text-align: right;" type="text">
+                                                <input style="text-align: right;" formControlName="PAYABLE_INT"
+                                                    type="text">
                                             </span>
                                         </div>
-                                    </div>  
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             + Net Interest
                                         </div>
                                         <div class="col-md-4">
                                             <span class="border-lable-flt">
-                                                <input style="text-align: right;" type="text">
+                                                <input style="text-align: right;"  formControlName="NET_INT" type="text">
                                             </span>
                                         </div>
-                                    </div>  
-                                    <div class="row">
+                                    </div>
+                                    <div class="row" *ngIf="isHideForSaving">
                                         <div class="col-md-6">
-                                            -  Other Charges Amount
+                                            - Other Charges Amount
                                         </div>
                                         <div class="col-md-4">
                                             <span class="border-lable-flt">
-                                                <input style="text-align: right;" type="text">
+                                                <input style="text-align: right;" formControlName="SVR_CHARGE_RATE"
+                                                    type="text">
                                             </span>
                                         </div>
-                                    </div>  
-                                    
+                                    </div>
+                                    <div class="row" *ngIf="isHideForSaving">
+                                        <div class="col-md-6">
+                                            Other Charges General ledger Account
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!-- <span class="border-lable-flt">
+                                                <input style="text-align: right;" formControlName="GlACNo" type="text">
+                                            </span> -->
+                                            <div class="form-group form-primary form-static-label">
+                                                <span class="border-lable-flt">
+                                                    <ng-select id="GlACNo" bindValue="value" [(ngModel)]="ngGlAcno"
+                                                        formControlName="SVR_CHARGE_GLCODE" bindLabel="label"
+                                                        title="Compulsory Selection" required placeholder="Account No.">
+                                                        <ng-option *ngFor="let values of GlACNo" [value]="values">
+                                                            {{values.label}} {{values.name}}</ng-option>
+                                                    </ng-select>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row" *ngIf="isHideForSaving">
+                                        <div class="col-md-6">
+                                            - Commission Amount
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span class="border-lable-flt">
+                                                <input style="text-align: right;" formControlName="CommsionAmt"
+                                                    type="text">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="isHideForSaving">
+                                        <div class="col-md-6">
+                                            Commission General ledger Account
+                                        </div>
+                                        <div class="col-md-4">
+                                            <!-- <span class="border-lable-flt">
+                                                <input style="text-align: right;" formControlName="GlACNo" type="text">
+                                            </span> -->
+                                            <div class="form-group form-primary form-static-label">
+                                                <span class="border-lable-flt">
+                                                    <ng-select id="COMM_GLCODE" bindValue="value"
+                                                        [(ngModel)]="ngCommission" formControlName="COMM_GLCODE"
+                                                        bindLabel="label" title="Compulsory Selection" required
+                                                        placeholder="Account No.">
+                                                        <ng-option *ngFor="let values of GlACNo" [value]="values">
+                                                            {{values.label}} {{values.name}}</ng-option>
+                                                    </ng-select>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             - Penal Interest
@@ -344,14 +421,16 @@
                                                 <div class="form-radio">
                                                     <div class="radio radio-inline">
                                                         <label>
-                                                            <input type="radio" formControlName="SAVING_PIGMY" name="SAVING_PIGMY" value="FormT"
-                                                                id="formT" (change)="isFormA(1)">
+                                                            <input type="radio" formControlName="SAVING_PIGMY"
+                                                                name="SAVING_PIGMY" value="FormT" id="formT"
+                                                                (change)="isFormA(1)">
                                                             <i class="helper"></i>Cash
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
                                                         <label>
-                                                            <input type="radio" value="FormC" formControlName="SAVING_PIGMY" id="formC"
+                                                            <input type="radio" value="FormC"
+                                                                formControlName="SAVING_PIGMY" id="formC"
                                                                 name="SAVING_PIGMY" (change)="isFormA(2)">
                                                             <i class="helper"></i>Transfer
                                                         </label>
@@ -362,30 +441,35 @@
                                         <div class="row" id="FORMA" *ngIf="isTransfer">
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    <div class="col-sm-12 col-md-2"><label for="chequeNo">Cheque Number</label></div>
+                                                    <div class="col-sm-12 col-md-2"><label for="chequeNo">Cheque
+                                                            Number</label></div>
                                                     <div class="col-md-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
                                                                 <input type="text" name="chequeNo" class="form-control"
                                                                     placeholder=" " id="chequeNo" value=""
                                                                     style="text-transform: capitalize;"
-                                                                    title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
-                                                                    formControlName="chequeNo">
+                                                                    title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
+                                                                    required formControlName="chequeNo">
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-2"><label for="ChequeDate">Cheque Date</label>
+                                                    <div class="col-sm-12 col-md-2"><label for="ChequeDate">Cheque
+                                                            Date</label>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                                    [maxDate]="maxDate"  formControlName="ChequeDate">
+                                                                <input type="text" placeholder="dd/mm/yyyy"
+                                                                    class="form-control"
+                                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                                    bsDatepicker [maxDate]="maxDate"
+                                                                    formControlName="ChequeDate">
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-2"><label for="Token_Num">Token Number</label>
+                                                    <div class="col-sm-12 col-md-2"><label for="Token_Num">Token
+                                                            Number</label>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="form-group input-group">
@@ -393,109 +477,104 @@
                                                                 <input type="text" name="Token_Num" class="form-control"
                                                                     placeholder=" " id="Token_Num" value=""
                                                                     style="text-transform: capitalize;"
-                                                                    title="Input allowed only  0-9" 
+                                                                    title="Input allowed only  0-9"
                                                                     formControlName="Token_Num">
                                                             </span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-
-                                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Scheme Type<sub
-                                                        class="required">*</sub></label></div>
-                                                    <div class="col-sm-2">
-                                                        <div class="form-group form-primary form-static-label">
-                                                            <span class="border-lable-flt">
-                                                                <ng-select [(ngModel)]="selectedCode" 
-                                                                    formControlName="scheme_type">
-                                                                    <ng-option *ngFor="let item of allSchemeCode"
-                                                                        [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
-                                                                </ng-select>
-                
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
-                                                        class="required">*</sub></label></div>
+                                                    <div class="col-sm-12 col-md-2"> <label for="Tscheme">Scheme
+                                                            Code<sub class="required">*</sub></label></div>
                                                     <div class="col-sm-12 col-md-4">
                                                         <div class="form-group form-primary form-static-label">
                                                             <span class="border-lable-flt">
-                                                                <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
-                                                                    formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                                                    [ngClass]="{'form-submitted': formSubmitted}" required 
-                                                                     placeholder="Scheme">
-                                                                    <ng-option *ngFor="let values of scheme" [value]="values">
-                                                                        {{values.label}}</ng-option>
+                                                                <ng-select id="Tscheme" bindValue="value"
+                                                                    [(ngModel)]="ngschemecode" formControlName="Tscheme"
+                                                                    bindLabel="label" title="C
+                                                                    ompulsory Selection"
+                                                                    (change)="getTransferAccountList($event)"
+                                                                    placeholder="Scheme">
+                                                                    <ng-option *ngFor="let values of scheme"
+                                                                        [value]="values">
+                                                                        {{values.id}} {{values.label}}</ng-option>
                                                                 </ng-select>
-                            
+
                                                             </span>
                                                         </div>
-                                                        <div class="form-group form-primary form-static-label"
+                                                        <!-- <div class="form-group form-primary form-static-label"
                                                             *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                                             class="alert alert-danger">
                                                             <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
                                                                 This field is required.
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
-                                                    
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
-                                                        class="required">*</sub></label></div>
-                                                    <div class="col-sm-12 col-md-2">
+                                                    <div class="col-sm-12 col-md-2"> <label for="TschemeAC">Account
+                                                            Number<sub class="required">*</sub></label></div>
+                                                    <div class="col-sm-12 col-md">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <ng-select id="AC_NO" bindValue="id" [(ngModel)]="ngacno"
-                                                                    formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
-                                                                    [ngClass]="{'form-submitted': formSubmitted}" required
+                                                                <ng-select id="TschemeAC" bindValue="id"
+                                                                    [(ngModel)]="ngacno" formControlName="TschemeAC"
+                                                                    bindLabel="label" bindValue="bankacno"
+                                                                    title="Compulsory Selection"
                                                                     placeholder="Account Number">
-                                                                    <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                                                        {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
+                                                                    <ng-option *ngFor="let values of schemeACNo"
+                                                                        [value]="values">
+                                                                        {{values.label}} {{values.name}}</ng-option>
                                                                 </ng-select>
                                                             </span>
                                                         </div>
-                                                        <div class="form-group form-primary form-static-label"
-                                                            *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
+                                                        <!-- <div class="form-group form-primary form-static-label"
+                                                            *ngIf="angForm.controls['TschemeAC'].invalid && (angForm.controls['TschemeAC'].dirty || angForm.controls['TschemeAC'].touched)"
                                                             class="alert alert-danger">
-                                                            <div *ngIf="angForm.controls['AC_NO'].errors?.required">
+                                                            <div *ngIf="angForm.controls['TschemeAC'].errors?.required">
                                                                 This field is required.
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-2"><label for="NARRATION">Particulars</label></div>
-                                                    <div class="col-md-5">
-                                                        <div class="form-group input-group">
-                                                            <span class="border-lable-flt">
-
-                                                                <textarea class="form-control" formControlName="NARRATION"
-                                                                    [(ngModel)]="narration"></textarea>
-                                                                <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i>
-                                                            </span>
-                                                        </div>
-                                                        
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                                 <div class="row">
+                                                    <div class="col-sm-12 col-md-2"><label
+                                                            for="NARRATION">Particulars</label></div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group input-group">
+                                                            <span class="border-lable-flt">
+
+                                                                <textarea class="form-control"
+                                                                    formControlName="NARRATION"
+                                                                    [(ngModel)]="narration"></textarea>
+                                                                <i class="fa fa-info-circle errspan"
+                                                                    (click)="modalLarge.show()"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-2"><label for="amount">Amount<sub
-                                                        class="required">*</sub></label></div>
+                                                                class="required">*</sub></label></div>
                                                     <div class="col-md-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
-                                                                <input style="text-align: right;" type="text" class="form-control" name="amount"
-                                                                    id="amount" formControlName="amount"
+                                                                <input style="text-align: right;" type="text"
+                                                                    class="form-control" name="amount" id="amount"
+                                                                    formControlName="amount"
                                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md" style="float: right;">
-                                                        <button type="submit" class="btn btn-outline-primary btn-sm" (click)="submit()">
-                                                            Submit
+                                                    <div class="col-md">
+                                                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                                            *ngIf="jointShowButton" (click)="addTransferAccount()">
+                                                            Add Account
+                                                        </button>
+                                                        <button class="btn btn-outline-primary btn-sm"
+                                                            (click)="updateTransferAcccount()" *ngIf="jointUpdateShow">
+                                                            Update Account
                                                         </button>
                                                     </div>
                                                 </div>
 
-                                                 <!-- Multiple Transaction details data show here -->
+                                                <!-- Multiple Transaction details data show here -->
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <table class="table table-bordered table-hover compact">
@@ -503,160 +582,184 @@
                                                                 <td>Action</td>
                                                                 <td>Cheque Number</td>
                                                                 <td>Cheque Date</td>
-                                                                <td>Scheme Type</td>
                                                                 <td>Account Number</td>
                                                                 <td>Particulars</td>
                                                                 <td style="text-align: right;">Amount</td>
                                                             </thead>
 
                                                             <tbody *ngIf="multigrid?.length != 0">
-                                                                <tr>
-                                                                    <td></td>
-                                                                    <td>{{ data.chequeNo }}</td>
-                                                                    <td>{{ data.ChequeDate }}</td>
-                                                                    <td>{{ data.scheme_type }}</td>
+                                                                <tr *ngFor="let data of multigrid;
+                                                                let indexOfelement = index">
+                                                                    <td> <span class="fa fa-fw fa-edit field-icon"
+                                                                            id="editbutton"
+                                                                            (click)="editTransferAccount(indexOfelement)"
+                                                                            placement="top" ngbTooltip="Edit"></span>
+                                                                    </td>
+                                                                    <td>{{ data?.chequeNo }}</td>
+                                                                    <td>{{ data?.ChequeDate }}</td>
                                                                     <td>{{ data.AC_NO }}</td>
-                                                                    <td>{{ data.particulars }}</td>
+                                                                    <td>{{ data?.particulars }}</td>
                                                                     <td>{{ data.amount }}</td>
                                                                 </tr>
                                                             </tbody>
-                                                            
+                                                            <tbody *ngIf="multigrid?.length == 0">
+                                                                <tr>
+                                                                    <td colspan="5" class="no-data-available"
+                                                                        style="text-align: center;">
+                                                                        No data!
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
-                                    
-                                    
+
+
                                 </div>
                             </div>
-                            
-                        </form>
-                    </div> 
+
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-3 col-sm-12 col-xm-12">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        Details
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Deposit Amount</h6>
+        <div class="col-md-3 col-sm-12 col-xm-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            Details
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Opening Date</h6>
+                                            </div>
                                         </div>
+                                        <div class="fw-bolder transaction-title text-success"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><input type="text"
+                                                name="OpenDate" placeholder=" " id="OpenDate" value=""
+                                                formControlName="OpenDate" disabled></div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-primary"
-                                        style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
-                                            aria-hidden="true"></i>1000.00</div>
                                 </div>
-                            </div>
-                            
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Int Rate%</h6>
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Renewal Date</h6>
+                                            </div>
                                         </div>
+                                        <div class="fw-bolder transaction-title text-success"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><input type="text"
+                                                name="renewalDate" placeholder=" " id="renewalDate" value=""
+                                                formControlName="renewalDate" disabled></div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-danger"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">7.75</div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Last Int. Date
-                                            </h6>
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Int Rate%</h6>
+                                            </div>
                                         </div>
+                                        <div class="fw-bolder transaction-title text-danger"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><input type="text"
+                                                name="INTRATE" placeholder=" " id="INTRATE" value=""
+                                                formControlName="INTRATE" disabled></div>
+                                        <!-- <div class="fw-bolder transaction-title text-danger"
+                                            style="margin-left: auto;order: 2;font-size: 12px;">7.75</div> -->
                                     </div>
-                                    <div class="fw-bolder transaction-title text-danger"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
                                 </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Opening Date</h6>
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Last Int. Date
+                                                </h6>
+                                            </div>
                                         </div>
+                                        <div class="fw-bolder transaction-title text-danger"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><input type="text"
+                                                name="LastIntDate" placeholder=" " id="LastIntDate" value=""
+                                                formControlName="LastIntDate" disabled></div>
+                                        <!-- <div class="fw-bolder transaction-title text-danger"
+                                            style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div> -->
                                     </div>
-                                    <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">As On Date
-                                            </h6>
+
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity Date
+                                                </h6>
+                                            </div>
                                         </div>
+                                        <div class="fw-bolder transaction-title text-success"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><input type="text"
+                                                name="maturityDate" placeholder=" " id="maturityDate" value=""
+                                                formControlName="maturityDate" disabled></div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="transaction-item">
-                                    <div class="d-flex">
-                                        <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Maturity Date
-                                            </h6>
+                                <!-- <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity Date
+                                                </h6>
+                                            </div>
                                         </div>
+                                        <div class="fw-bolder transaction-title text-success"
+                                            style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
                                     </div>
-                                    <div class="fw-bolder transaction-title text-success"
-                                        style="margin-left: auto;order: 2;font-size: 12px;">12/12/2022</div>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="user-avatar-section">
-                                            <div class="d-flex align-items-center flex-column">
-                                                <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
-                                                    height="110" width="110" (mouseover)="showImage(customerImg)"
-                                                    (mouseout)="hideImage()" alt="User avatar" />
-                                                <div class="user-info text-center">
-                                                    <h4>Ajit Sutar</h4>
+                                </div> -->
+
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="user-avatar-section">
+                                                <div class="d-flex align-items-center flex-column">
+                                                    <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
+                                                        height="110" width="110" (mouseover)="showImage(customerImg)"
+                                                        (mouseout)="hideImage()" alt="User avatar" />
+                                                    <div class="user-info text-center">
+                                                        <h4>Ajit Sutar</h4>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="user-avatar-section">
-                                            <div class="d-flex align-items-center flex-column">
-                                                <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
-                                                    (mouseover)="showImage(signture)" (mouseout)="hideImage()"
-                                                    height="50" width="110" alt="User avatar" />
+                                            <div class="user-avatar-section">
+                                                <div class="d-flex align-items-center flex-column">
+                                                    <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
+                                                        (mouseover)="showImage(signture)" (mouseout)="hideImage()"
+                                                        height="50" width="110" alt="User avatar" />
 
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="info-container">
-                                            <ul class="list-unstyled">
-                                                <li class="mb-75">
-                                                    <span class="fw-bolder me-25">Status:</span>
-                                                    <span class="badge bg-light-success">Active</span>
-                                                </li>
+                                            <div class="info-container">
+                                                <ul class="list-unstyled">
+                                                    <li class="mb-75">
+                                                        <span class="fw-bolder me-25">Status:</span>
+                                                        <span class="badge bg-light-success">Active</span>
+                                                    </li>
 
-                                                <li class="mb-75">
-                                                    <span class="fw-bolder me-25">PAN ID:</span>
-                                                    <span>ADFE2323D</span>
-                                                </li>
-                                                <li class="mb-75">
-                                                    <span class="fw-bolder me-25">Contact:</span>
-                                                    <span>+91 7636456273</span>
-                                                </li>
-                                            </ul>
+                                                    <li class="mb-75">
+                                                        <span class="fw-bolder me-25">PAN ID:</span>
+                                                        <span>ADFE2323D</span>
+                                                    </li>
+                                                    <li class="mb-75">
+                                                        <span class="fw-bolder me-25">Contact:</span>
+                                                        <span>+91 7636456273</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -665,11 +768,11 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
-   
-</div>
+</form>
 <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
     <div class="app-modal-header">
         <h4 class="modal-title">Narration Master</h4>

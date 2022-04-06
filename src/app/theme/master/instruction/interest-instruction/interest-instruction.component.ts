@@ -246,14 +246,14 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       });
       this.scheme = filtered;
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name != 'AG' && scheme.name != 'SH' && scheme.name != 'IV');  
+        return (scheme.name != 'AG' && scheme.name != 'SH' && scheme.name != 'IV');
       });
       this.allscheme = allscheme;
     })
-
-    this.schemeCodeDropdownService.getTermDepositSchemeRD().pipe(first()).subscribe(data => {
-      this.allscheme.push(data)
+    this.schemeCodeDropdownService.getTermDepositSchemeRD().pipe(first()).subscribe(TDdata => {
+      this.allscheme.push(TDdata)
     })
+
   }
   cashoption: boolean = false
   transferoption: boolean = false
@@ -562,11 +562,12 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       CR_PARTICULARS: ['',],
       SI_FREQUENCY: ['', [Validators.required]],
       LAST_EXEC_DATE: ['',],
-      TRAN_TYPE: ['', [Validators.required]],
+      TRAN_TYPE: ['Transfer', [Validators.required]],
       REVOKE_DATE: ['',],
       ADV_NARRATION: ['',],
       DEFAULT_INTEREST_APPLICABLE: ['',],
     });
+    this.OpenLink(2)
   }
 
   submit() {

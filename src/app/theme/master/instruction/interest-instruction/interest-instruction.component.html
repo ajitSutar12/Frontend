@@ -56,8 +56,9 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="DAYS" class="form-control" placeholder=" " id="DAYS" style="text-align: right;"
-                                        formControlName="DAYS" pattern="^[0-9]+$" disabled (ngModelChange)="fromDate()">
+                                    <input type="text" name="DAYS" class="form-control" placeholder=" " id="DAYS"
+                                        style="text-align: right;" formControlName="DAYS" pattern="^[0-9]+$" disabled
+                                        (ngModelChange)="fromDate()">
                                     <label for="DAYS">Days</label>
                                 </span>
                             </div>
@@ -181,7 +182,7 @@
                                                 [ngClass]="{'form-submitted': formSubmitted}" [required]="cashoption"
                                                 placeholder="Scheme">
                                                 <ng-option *ngFor="let values of scheme" [value]="values">
-                                                    {{values.label}}</ng-option>
+                                                    {{values.id}} {{values.label}}</ng-option>
                                             </ng-select>
                                             <label for="cashScheme">Scheme <sub class="required"> * </sub></label>
                                         </span>
@@ -250,7 +251,7 @@
                                             [ngClass]="{'form-submitted': formSubmitted}" [required]="transferoption"
                                             placeholder="Scheme">
                                             <ng-option *ngFor="let values of allscheme" [value]="values">
-                                                {{values.label}}</ng-option>
+                                                {{values.id}} {{values.label}}</ng-option>
                                         </ng-select>
                                         <label for="CR_ACTYPE">Scheme <sub class="required"> * </sub></label>
                                     </span>
@@ -310,9 +311,9 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" name="To" class="form-control" placeholder=" "
-                                            id="ADV_NARRATION" pattern="^[A-Za-z]+$" maxlength="50"
+                                            id="ADV_NARRATION" pattern="^[A-Za-z ]+$" maxlength="50"
                                             title="Input allowed only A-Za-z" formControlName="ADV_NARRATION"
-                                            (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
+                                            (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
                                             [required]="transferoption">
                                         <label for="ADV_NARRATION">Advice Narration <sub
                                                 class="required">*</sub></label>

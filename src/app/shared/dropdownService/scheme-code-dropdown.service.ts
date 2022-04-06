@@ -28,7 +28,7 @@ export class SchemeCodeDropdownService {
         return this.http.get<any>(this.url + '/scheme-parameters/')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.S_NAME, value: element.id, name: element.S_ACNOTYPE, id: element.S_APPL, glacno: element.S_GLACNO, intapp: element.S_INT_APPLICABLE };
+                    let obj = { label: element.S_NAME, value: element.id, name: element.S_ACNOTYPE, id: element.S_APPL, glacno: element.S_GLACNO, intapp: element.S_INT_APPLICABLE, SVR_CHARGE_GLCODE: element.SVR_CHARGE_GLCODE, SVR_CHARGE_RATE: element.SVR_CHARGE_RATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -54,7 +54,9 @@ export class SchemeCodeDropdownService {
         return this.http.get<any>(this.url + '/scheme-parameters/term/')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.S_APPL + ' ' + element.S_NAME, value: element.id, name: element.S_ACNOTYPE };
+                    // let obj = { label: element.S_APPL + ' ' + element.S_NAME, value: element.id, name: element.S_ACNOTYPE };
+
+                    let obj = { label: element.S_NAME, value: element.id, name: element.S_ACNOTYPE, id: element.S_APPL, glacno: element.S_GLACNO, intapp: element.S_INT_APPLICABLE, SVR_CHARGE_GLCODE: element.SVR_CHARGE_GLCODE, SVR_CHARGE_RATE: element.SVR_CHARGE_RATE };
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;

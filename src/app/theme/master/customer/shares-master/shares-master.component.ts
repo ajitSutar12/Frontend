@@ -279,7 +279,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       pageLength: 10,
       serverSide: true,
       processing: true,
-      scrollX:true,
       ajax: (dataTableParameters: any, callback) => {
         dataTableParameters.minNumber = dataTableParameters.start + 1;
         dataTableParameters.maxNumber =
@@ -405,6 +404,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.allScheme = data;
+      console.log(data)
     })
 
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
@@ -413,9 +413,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    let branchCode = result.branch.CODE
+    let branchCode = result.branch.id
     if (result.RoleDefine[0].Role.id == 1) {
-      this.salaryDMasterdropdownService.getSalaryDMasterList(branchCode).pipe(first()).subscribe(data => {
+      this.salaryDMasterdropdownService.getSalaryMasterList().pipe(first()).subscribe(data => {
         this.salary_div = data;
       })
     }
@@ -1115,28 +1115,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     })
   }
-  // ngAfterViewInit(): void {
-  //   this.angForm.controls['AC_TYPE'].enable()
-
-  //   this.dtTrigger.next();
-  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-  //     $('#sharemastertable tfoot tr').appendTo('#sharemastertable thead');
-  //     dtInstance.columns().every(function () {
-  //       const that = this;
-  //       $('input', this.footer()).on('keyup change', function () {
-  //         if (this['value'] != '') {
-  //           that
-  //             .search(this['value'])
-  //             .draw();
-  //         } else {
-  //           that
-  //             .search(this['value'])
-  //             .draw();
-  //         }
-  //       });
-  //     });
-  //   });
-  // }
 
   ngAfterViewInit(): void {
     this.angForm.controls['AC_TYPE'].enable()

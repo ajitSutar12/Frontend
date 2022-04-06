@@ -99,9 +99,9 @@ export class AccountOpeningComponent implements OnInit {
   ngBank: any = null
   ngBranch: any = null
   DatatableHideShow: boolean = true;
-  rejectShow:boolean =false;
-  approveShow:boolean =false;
-
+  rejectShow: boolean = false;
+  approveShow: boolean = false;
+  maxDate: Date
   constructor(private fb: FormBuilder,
     private bankMasterService: BankMasterService,
     private ownbranchMaster: OwnbranchMasterService,
@@ -109,7 +109,10 @@ export class AccountOpeningComponent implements OnInit {
     private bankService: BankService,
     private investmentService: InvestmentService,
     private http: HttpClient,
-  ) { }
+  ) {
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate());
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -294,10 +297,10 @@ export class AccountOpeningComponent implements OnInit {
   resetForm() {
     this.createForm();
   }
-  getBankName(id) {
-    this.bankService.getFormData(id).subscribe(data => {
+  getBankName(event) {
+    this.bankService.getFormData(event.value).subscribe(data => {
       this.angForm.patchValue({
-        INVEST_BANK: id.toString(),
+        INVEST_BANK: event.value,
         AC_NAME: data.BANK_NAME
       })
     })
@@ -377,48 +380,48 @@ export class AccountOpeningComponent implements OnInit {
     });
   }
 
-    //approve account
-    Approve(){
-      let user = JSON.parse(localStorage.getItem('user'));
-      let obj ={
-        id : this.updateID,
-        user: user.id
-      }
-      this.investmentService.approve(obj).subscribe(data=>{
-        Swal.fire(
-          'Approved',
-          'Investment Account approved successfully',
-          'success'
-        );
-        var button = document.getElementById('triggerhide');
-        button.click();
-  
-        this.getUserData.emit('welcome to stackoverflow!');
-      },err=>{
-        console.log('something is wrong');
-      })
+  //approve account
+  Approve() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
     }
-  
-  
-    //reject account
-    reject(){
-      let user = JSON.parse(localStorage.getItem('user'));
-      let obj ={
-        id : this.updateID,
-        user: user.id
-      }
-      this.investmentService.reject(obj).subscribe(data=>{
-        Swal.fire(
-          'Rejected',
-          'Investment Account rejected successfully',
-          'success'
-        );
-  
-        var button = document.getElementById('triggerhide');
-        button.click();
-      },err=>{
-        console.log('something is wrong');
-      })
+    this.investmentService.approve(obj).subscribe(data => {
+      Swal.fire(
+        'Approved',
+        'Investment Account approved successfully',
+        'success'
+      );
+      var button = document.getElementById('triggerhide');
+      button.click();
+
+      this.getUserData.emit('welcome to stackoverflow!');
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
+
+
+  //reject account
+  reject() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let obj = {
+      id: this.updateID,
+      user: user.id
     }
+    this.investmentService.reject(obj).subscribe(data => {
+      Swal.fire(
+        'Rejected',
+        'Investment Account rejected successfully',
+        'success'
+      );
+
+      var button = document.getElementById('triggerhide');
+      button.click();
+    }, err => {
+      console.log('something is wrong');
+    })
+  }
 
 }

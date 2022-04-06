@@ -123,9 +123,10 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_SHORT_NAME" required=""
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            pattern="^[A-Z\./ -]+$"
+                                                                            pattern="^[A-Za-z\./ -]+$"
+                                                                            style="text-transform:uppercase;"
                                                                             title="Input allowed only  A-Z  - / . (Space)"
-                                                                            (keypress)="($event.charCode >= 65 && $event.charCode < 90)|| ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                                                            (keypress)="($event.charCode >= 65 && $event.charCode < 90)|| ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || ($event.charCode >= 97 && $event.charCode <= 122)"
                                                                             formControlName="AC_SHORT_NAME" required>
                                                                         <label for="AC_SHORT_NAME">A/c Short Name<sub
                                                                                 class="required">* </sub></label>
