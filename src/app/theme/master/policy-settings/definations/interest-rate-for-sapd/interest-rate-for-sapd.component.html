@@ -89,7 +89,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="INT_RATE" class="form-control" placeholder=" "
+                                    <input style="text-align: right;" type="text" name="INT_RATE" class="form-control" placeholder=" "
                                         id="INT_RATE" required pattern="\d{1,2}(\.\d{1,2})?" #margin maxlength="5"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         (keyup)="checkmargin(margin.value)" title="Input allowed only  0-9"

@@ -13,7 +13,7 @@
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input
+                  <input style="text-align: right;"
                     type="text"
                     name="S_APPL"
                     class="form-control"
@@ -281,7 +281,7 @@
                     <div class="col-sm">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input
+                          <input style="text-align: right;"
                             type="text"
                             name="SHARES_FACE_VALUE"
                             class="form-control"
@@ -289,7 +289,7 @@
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                             id="SHARES_FACE_VALUE"
                             title="Input allowed only . 0-9 "
-                            pattern="\d{1,2}(\.\d{2})?" 
+                            pattern="\d{1,2}(\.\d{1,2})?" 
                             formControlName="SHARES_FACE_VALUE"
                           />
                           <label for="SHARES_FACE_VALUE"
@@ -319,14 +319,14 @@
                     <div class="col-sm">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input
+                          <input style="text-align: right;"
                             type="text"
                             name="MAX_SHARES_LIMIT"
                             class="form-control"
                             placeholder=" "
                             id="MAX_SHARES_LIMIT"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                            pattern="\d{1,2}(\.\d{2})?"
+                            pattern="\d{1,2}(\.\d{1,2})?"
                             title="Input allowed only . 0-9"
                             formControlName="MAX_SHARES_LIMIT"
                           />
@@ -358,14 +358,14 @@
                     <div class="col-sm-6">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input
+                          <input style="text-align: right;"
                             type="text"
                             name="DIVIDEND_PERCENTAGE"
                             class="form-control"
                             placeholder=" "
                             id="DIVIDEND_PERCENTAGE"
-                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                            pattern="\d{1,20}(\.\d{2})?"
+                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                            pattern="\d{1,20}(\.\d{1,2})?"
                             title="Input allowed only  0-9"
                             formControlName="DIVIDEND_PERCENTAGE"
                           />
@@ -559,7 +559,7 @@
                       <div class="col-sm">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input
+                            <input style="text-align: right;"
                               type="text"
                               name="ROUNDOFF_FACTOR"
                               class="form-control"
@@ -600,14 +600,14 @@
                       <div class="col-sm">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input
+                            <input style="text-align: right;"
                               type="text"
                               name="SANCT_LIMIT_PERCENTAGE"
                               class="form-control"
                               placeholder=" "
-                              (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                               id="SANCT_LIMIT_PERCENTAGE"
-                              pattern="\d{1,20}(\.\d{2})?"
+                              pattern="\d{1,20}(\.\d{1,2})?"
                               title="Input allowed only  0-9"
                               formControlName="SANCT_LIMIT_PERCENTAGE"
                             />
@@ -642,7 +642,7 @@
                       <div class="col-sm-6">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input
+                            <input style="text-align: right;"
                               type="text"
                               name="RETIREMENT_YEARS"
                               class="form-control"

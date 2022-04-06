@@ -1117,6 +1117,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   //Method for append data into fields
   updatecheckdata: any
   editClickHandler(id) {
+    debugger
     let ngbankstartdate
     let ngpreviousdate
     let ngcurrentdate
@@ -1164,6 +1165,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       this.nghalfday = data.HALF_DAY
       this.ngintcal = data.INT_CALC_METHOD
       this.angForm.patchValue({
+        
         // Bank Details tab:
 
         'SYSPARA_CODE': data.SYSPARA_CODE,
@@ -1179,8 +1181,8 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         'ACCOUNTANT': data.ACCOUNTANT,
         'GENERAL_MANAGER': data.GENERAL_MANAGER,
 
-        // 'COMPANY_START_DATE': data.COMPANY_START_DATE,
-        'COMPANY_START_DATE': (data.COMPANY_START_DATE == 'Invalid date' || data.COMPANY_START_DATE == '' || data.COMPANY_START_DATE == null) ? ngbankstartdate = '' : ngbankstartdate = data.COMPANY_START_DATE,
+        'COMPANY_START_DATE': data.COMPANY_START_DATE,
+        // 'COMPANY_START_DATE': (data.COMPANY_START_DATE == 'Invalid date' || data.COMPANY_START_DATE == '' || data.COMPANY_START_DATE == null) ? ngbankstartdate = '' : ngbankstartdate = data.COMPANY_START_DATE,
         'NO_OF_EMPLOYEES': data.NO_OF_EMPLOYEES,
         'OFFICER_NAME': data.OFFICER_NAME,
         'OFFICER_DESIGNATION': data.OFFICER_DESIGNATION,
@@ -1282,16 +1284,17 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         'WITHDRW_CLOSING_FOR_GURMEMBERS': data.WITHDRW_CLOSING_FOR_GURMEMBERS,
 
         // Admin Options tab:
-        // 'PREVIOUS_DATE': data.PREVIOUS_DATE,
-        'PREVIOUS_DATE': (data.PREVIOUS_DATE == 'Invalid date' || data.PREVIOUS_DATE == '' || data.PREVIOUS_DATE == null) ? ngpreviousdate = '' : ngpreviousdate = data.PREVIOUS_DATE,
-        // 'CURRENT_DATE': data.CURRENT_DATE,
-        'CURRENT_DATE': (data.CURRENT_DATE == 'Invalid date' || data.CURRENT_DATE == '' || data.CURRENT_DATE == null) ? ngcurrentdate= '' : ngcurrentdate= data.CURRENT_DATE,
+        'PREVIOUS_DATE': data.PREVIOUS_DATE,
+        // 'PREVIOUS_DATE': (data.PREVIOUS_DATE == 'Invalid date' || data.PREVIOUS_DATE == '' || data.PREVIOUS_DATE == null) ? ngpreviousdate = '' : ngpreviousdate = data.PREVIOUS_DATE,
+        'CURRENT_DATE': data.CURRENT_DATE,
+        // 'CURRENT_DATE': (data.CURRENT_DATE == 'Invalid date' || data.CURRENT_DATE == '' || data.CURRENT_DATE == null) ? ngcurrentdate= '' : ngcurrentdate= data.CURRENT_DATE,
+       
         'DAY_BEGIN_EXECUTED': data.DAY_BEGIN_EXECUTED,
         'DAY_END_EXECUTED': data.DAY_END_EXECUTED,
-        // 'PIGMY_PREVIOUS_DATE': data.PIGMY_PREVIOUS_DATE,
-        'PIGMY_PREVIOUS_DATE': (data.PIGMY_PREVIOUS_DATE == 'Invalid date' || data.PIGMY_PREVIOUS_DATE == '' || data.PIGMY_PREVIOUS_DATE == null) ? ngpigmypreviousdate= '' : ngpigmypreviousdate= data.PIGMY_PREVIOUS_DATE,
-        // 'PIGMY_CURRENT_DATE': data.PIGMY_CURRENT_DATE,
-        'PIGMY_CURRENT_DATE': (data.PIGMY_CURRENT_DATE == 'Invalid date' || data.PIGMY_CURRENT_DATE == '' || data.PIGMY_CURRENT_DATE == null) ? ngpigmycurrentdate= '' : ngpigmycurrentdate= data.PIGMY_CURRENT_DATE,
+        'PIGMY_PREVIOUS_DATE': data.PIGMY_PREVIOUS_DATE,
+        // 'PIGMY_PREVIOUS_DATE': (data.PIGMY_PREVIOUS_DATE == 'Invalid date' || data.PIGMY_PREVIOUS_DATE == '' || data.PIGMY_PREVIOUS_DATE == null) ? ngpigmypreviousdate= '' : ngpigmypreviousdate= data.PIGMY_PREVIOUS_DATE,
+        'PIGMY_CURRENT_DATE': data.PIGMY_CURRENT_DATE,
+        // 'PIGMY_CURRENT_DATE': (data.PIGMY_CURRENT_DATE == 'Invalid date' || data.PIGMY_CURRENT_DATE == '' || data.PIGMY_CURRENT_DATE == null) ? ngpigmycurrentdate= '' : ngpigmycurrentdate= data.PIGMY_CURRENT_DATE,
         'PIGMY_DAY_BEGIN_EXECUTED': data.PIGMY_DAY_BEGIN_EXECUTED,
         'PIGMY_DAY_END_EXECUTED': data.PIGMY_DAY_END_EXECUTED,
         // 'CASH_IN_HAND_ACNO': data.CASH_IN_HAND_ACNO,
@@ -1304,6 +1307,10 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         
 
       })
+      console.log(data.PREVIOUS_DATE)
+      console.log(data.CURRENT_DATE)
+      console.log(data.PIGMY_PREVIOUS_DATE)
+      console.log(data.PIGMY_CURRENT_DATE)
     })
   }
 

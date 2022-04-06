@@ -303,6 +303,13 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
       this.resetForm();
     })
   }
+
+  addNewData() {
+    this.showButton = true;
+    this.updateShow = false;
+    this.newbtnShow = false;
+    this.resetForm();
+  }
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({

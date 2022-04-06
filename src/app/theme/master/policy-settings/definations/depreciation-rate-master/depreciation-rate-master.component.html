@@ -60,8 +60,8 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="DEPR_RATE" class="form-control" placeholder=" "
-                                        id="DEPR_RATE" required=""  pattern="\d{1,2}(\.\d{2})?" maxlength="5" 
+                                    <input style="text-align: right;" type="text" name="DEPR_RATE" class="form-control" placeholder=" "
+                                        id="DEPR_RATE" required=""  pattern="\d{1,2}(\.\d{0,2})?" maxlength="5" 
                                         #margin (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         (keyup)="checkmargin(margin.value)"
                                         title="Input allowed only  0-9" formControlName="DEPR_RATE">

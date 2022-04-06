@@ -1153,6 +1153,8 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       this.ngrecble=Number(data.S_RECBL_PENAL_ACNO)
       this.ngcashint=Number(data.S_CASH_INT_ACNO)
       this.ngmaturebtntpd=Number(data.MATURED_BUT_NOT_PAID_GLAC)
+      this.ngunittdperiod=Number(data.UNIT_OF_PERIOD)
+      this.nginstallmentbase=Number(data.INSTALLMENT_BASIS)
       this.angForm.patchValue({
 
         'S_ACNOTYPE': data.S_ACNOTYPE,
@@ -1193,7 +1195,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         'COMPOUND_INT_DAYS': data.COMPOUND_INT_DAYS,
         'IS_DISCOUNTED_INT_RATE': data.IS_DISCOUNTED_INT_RATE,
         'S_INSTTYPE': data.S_INSTTYPE,
-        'INSTALLMENT_BASIS': data.INSTALLMENT_BASIS,
+        // 'INSTALLMENT_BASIS': data.INSTALLMENT_BASIS,
         'IS_ASSUMED_INSTALLMENTS': (data.IS_ASSUMED_INSTALLMENTS=="true"?true:false),
         'INSTALLMENT_COMPULSORY_IN_PAT': (data.INSTALLMENT_COMPULSORY_IN_PAT=="true"?true:false),
         'PREMATURE_ON_DEPOSIT_INST':(data.PREMATURE_ON_DEPOSIT_INST=="true"?true:false),
@@ -1213,7 +1215,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         'S_INTASON': data.S_INTASON,
         'PERIOD_APPLICABLE': data.PERIOD_APPLICABLE,
         'IS_AUTO_PERIOD_CALCULATE': data.IS_AUTO_PERIOD_CALCULATE,
-        'UNIT_OF_PERIOD': data.UNIT_OF_PERIOD,
+        // 'UNIT_OF_PERIOD': data.UNIT_OF_PERIOD,
         'MIN_DAYS': data.MIN_DAYS,
         'MIN_MONTH': data.MIN_MONTH,
         'MAX_DEP_LMT': data.MAX_DEP_LMT,

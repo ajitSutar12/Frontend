@@ -13,7 +13,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
+                                    <input style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         required="" pattern="^[0-9]+$" maxlength="3" minlength="3" min="401" max="499"
                                         title="Input allowed only 0-9" #autofocus
@@ -243,7 +243,7 @@
                                             <div class="col-sm">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" class="form-control" placeholder=" "
+                                                        <input style="text-align: right;" type="text" class="form-control" placeholder=" "
                                                             id="S_PRODUCT_DAY_BASE" formControlName="S_PRODUCT_DAY_BASE"
                                                             [(ngModel)]="S_PRODUCT_DAY_BASE" name="S_PRODUCT_DAY_BASE"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -293,7 +293,7 @@
                                             <div class="col-sm">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" class="form-control" placeholder=" "
+                                                        <input style="text-align: right;" type="text" class="form-control" placeholder=" "
                                                             id="S_PRODUCT_DAY_BASE_END" title="Input allowed only  0-9"
                                                             formControlName="S_PRODUCT_DAY_BASE_END"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -344,10 +344,10 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" name="MIN_INT_LIMIT" class="form-control"
+                                                        <input style="text-align: right;" type="text" name="MIN_INT_LIMIT" class="form-control"
                                                             placeholder=" " id="MIN_INT_LIMIT"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                            pattern="\d{1,2}(\.\d{2})?" title="Input allowed only  0-9"
+                                                            pattern="\d{1,2}(\.\d{1,2})?" title="Input allowed only  0-9"
                                                             formControlName="MIN_INT_LIMIT" disabled>
                                                         <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
                                                     </span>
@@ -426,7 +426,7 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" name="ROUNDOFF_FACTOR" class="form-control"
+                                                        <input style="text-align: right;" type="text" name="ROUNDOFF_FACTOR" class="form-control"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                             placeholder=" " id="ROUNDOFF_FACTOR" pattern="^[0-9]+$"
                                                             title="Input allowed only  0-9" maxlength="2"
@@ -483,7 +483,7 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" name="PIGMY_MACHINE_SCHEME"
+                                                        <input style="text-align: right;" type="text" name="PIGMY_MACHINE_SCHEME"
                                                             class="form-control" placeholder=" "
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                             id="PIGMY_MACHINE_SCHEME" pattern="^[0-9]+$"
@@ -535,7 +535,7 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" name="OVERDRAFT_INTEREST_RATE"
+                                                        <input style="text-align: right;" type="text" name="OVERDRAFT_INTEREST_RATE"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                             class="form-control" placeholder=" "
                                                             id="OVERDRAFT_INTEREST_RATE" pattern="\d{1,2}(\.\d{1,2})?"
@@ -591,7 +591,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" name="SVR_CHARGE_RATE" class="form-control"
+                                                        <input style="text-align: right;" type="text" name="SVR_CHARGE_RATE" class="form-control"
                                                             placeholder=" " id="SVR_CHARGE_RATE"
                                                             pattern="\d{1,2}(\.\d{1,2})?"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"

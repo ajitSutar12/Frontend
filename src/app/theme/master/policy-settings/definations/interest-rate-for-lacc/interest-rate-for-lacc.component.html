@@ -95,10 +95,10 @@
                                 <div class="col-sm-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" name="FROM_AMOUNT" class="form-control" placeholder=" "
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                            <input style="text-align: right;" type="text" name="FROM_AMOUNT" class="form-control" placeholder=" "
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                 id="FROM_AMOUNT" (focusout)="compareamount()"
-                                                pattern="\d{1,10}(\.\d{2})?" maxlength="13"
+                                                pattern="\d{1,2}(\.\d{0,2})?" maxlength="13"
                                                 title="Input allowed only 0-9" formControlName="FROM_AMOUNT">
                                             <label for="FROM_AMOUNT">From Amount</label>
                                         </span>
@@ -114,9 +114,9 @@
                                 <div class="col-sm-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" name="TO_AMOUNT" class="form-control" placeholder=" "
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="toamt"
-                                                pattern="\d{1,10}(\.\d{2})?" maxlength="13" (focusout)="compareamount()"
+                                            <input style="text-align: right;" type="text" name="TO_AMOUNT" class="form-control" placeholder=" "
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" id="toamt"
+                                                pattern="\d{1,2}(\.\d{0,2})?" maxlength="13" (focusout)="compareamount()"
                                                 title="Input allowed only 0-9" formControlName="TO_AMOUNT">
                                             <label for="TO_AMOUNT">Upto Amount</label>
                                         </span>
@@ -132,9 +132,9 @@
                                 <div class="col-sm-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" name="INT_RATE" class="form-control" placeholder=" "
+                                            <input style="text-align: right;" type="text" name="INT_RATE" class="form-control" placeholder=" "
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                                pattern="\d{1,2}(\.\d{2})?" #rate (keyup)="checkmargin(rate.value)"
+                                                pattern="\d{1,2}(\.\d{0,2})?" #rate (keyup)="checkmargin(rate.value)"
                                                 id="INT_RATE" maxlength="5" title="Input allowed only  0-9"
                                                 formControlName="INT_RATE">
                                             <label for="INT_RATE">Interest Rate<sub class="required">*
@@ -154,8 +154,8 @@
                                 <div class="col-sm-3">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" name="PENAL_INT_RATE" class="form-control"
-                                                placeholder=" " pattern="\d{1,2}(\.\d{2})?" #margin
+                                            <input style="text-align: right;" type="text" name="PENAL_INT_RATE" class="form-control"
+                                                placeholder=" " pattern="\d{1,2}(\.\d{0,2})?" #margin
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                 (keyup)="checkmargin(margin.value)" id="PENAL_INT_RATE" maxlength="5"
                                                 title="Input allowed only  0-9" formControlName="PENAL_INT_RATE">
@@ -254,7 +254,7 @@
 
                                         </td>
                                         <td class="td_right">{{ data.EFFECT_DATE}}</td>
-                                        <td class="td_right">{{ data.scheme?.S_APPL}}</td>
+                                        <td class="td_right">{{ data.allScheme?.S_APPL}}</td>
                                         <td>{{ data.category?.NAME}}</td>
                                     </tr>
                                 </tbody>

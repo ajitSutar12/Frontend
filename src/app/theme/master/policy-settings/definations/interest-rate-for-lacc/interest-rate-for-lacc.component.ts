@@ -329,7 +329,7 @@ compareamount() {
     if (from > to) {
       Swal.fire(
         'Warning!',
-        'From Amount Should Be Less Than Upto Months',
+        'From Amount Should Be Less Than Upto Amount',
         'warning'
       );
       (document.getElementById("toamt") as HTMLInputElement).value = ""

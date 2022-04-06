@@ -631,6 +631,9 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
       this.ngpenalac=Number(data.S_PENAL_ACNO)
       this.ngreceivablepenal=Number(data.S_RECBL_PENAL_ACNO)
       this.ngcashint=Number(data.S_CASH_INT_ACNO)
+      this.ngnotapplicable=Number(data.COMPOUND_INT_BASIS)
+      this.ngunit=Number(data.UNIT_OF_PERIOD)
+      this.nginstallment=Number(data.INSTALLMENT_BASIS)
       this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
@@ -655,14 +658,14 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
         'S_INTCALC_METHOD': (data.S_INTCALC_METHOD=="true"?true:false),
         'FIX_QUARTER': (data.FIX_QUARTER=="true"?true:false),
         'QUARTER_PLUS_DAYS': (data.QUARTER_PLUS_DAYS=="true"?true:false),
-        'COMPOUND_INT_BASIS': data.COMPOUND_INT_BASIS,
+        // 'COMPOUND_INT_BASIS': data.COMPOUND_INT_BASIS,
         'COMPOUND_INT_DAYS': data.COMPOUND_INT_DAYS,
         'IS_DISCOUNTED_INT_RATE': (data.IS_DISCOUNTED_INT_RATE=="true"?true:false),
         'S_PRODUCT_DAY_BASE':data.S_PRODUCT_DAY_BASE,
         'S_PRODUCT_DAY_BASE_END':data.S_PRODUCT_DAY_BASE_END,
         'PROD_INTUPTODATE':data.PROD_INTUPTODATE,
         'S_INSTTYPE': data.S_INSTTYPE,
-        'INSTALLMENT_BASIS': data.INSTALLMENT_BASIS,
+        // 'INSTALLMENT_BASIS': data.INSTALLMENT_BASIS,
         'IS_ASSUMED_INSTALLMENTS': (data.IS_ASSUMED_INSTALLMENTS=="true"?true:false),
         'INSTALLMENT_COMPULSORY_IN_PAT': (data.INSTALLMENT_COMPULSORY_IN_PAT=="true"?true:false),
         'S_PENAL_INT_APPLICABLE':(data.S_PENAL_INT_APPLICABLE=="true"?true:false),
@@ -676,7 +679,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
         'S_INTASON': data.S_INTASON,
         'PERIOD_APPLICABLE': data.PERIOD_APPLICABLE,
         'IS_AUTO_PERIOD_CALCULATE': data.IS_AUTO_PERIOD_CALCULATE,
-        'UNIT_OF_PERIOD': data.UNIT_OF_PERIOD,
+        // 'UNIT_OF_PERIOD': data.UNIT_OF_PERIOD,
         'MIN_DAYS': data.MIN_DAYS,
         'MIN_MONTH': data.MIN_MONTH,
         'MULTIPLE_OF_AMT': data.MULTIPLE_OF_AMT,
@@ -721,6 +724,15 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngglac=null
+    this.nginterestgl=null
+    this.ngreceivable=null
+    this.ngpenalac=null
+    this.ngreceivablepenal=null
+    this.ngcashint=null
+    this.ngnotapplicable=null
+    this.nginstallment=null
+    this.ngunit=null
   }
   //Method for delete data
   // delClickHandler(id: number) {

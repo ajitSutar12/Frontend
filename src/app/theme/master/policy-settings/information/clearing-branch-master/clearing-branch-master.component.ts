@@ -197,13 +197,14 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     this.updateShow = true;
     this.newbtnShow = true;
     this.clearingBranchService.getFormData(id).subscribe(data => {
-      debugger
+      
       console.log(data);
       this.updateID = data.id;
-      this.ngAcNo = data.AC_NO
+      
+      this.ngAcNo = Number(data.AC_NO)
       this.angForm.patchValue({
         'CODE': data.CODE,
-        'AC_NO': data.AC_NO, 
+        // 'AC_NO': data.AC_NO, 
         'NAME': data.NAME,
       })
     })
@@ -290,7 +291,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.createForm();
-    this.angForm.controls['AC_NO'].reset()
+    this.ngAcNo=null
   }
 
   rerender(): void {

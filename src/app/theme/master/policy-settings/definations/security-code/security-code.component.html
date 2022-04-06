@@ -13,7 +13,7 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="SECU_CODE" class="form-control" placeholder=" "
+                                    <input style="text-align: right;" type="text" name="SECU_CODE" class="form-control" placeholder=" "
                                         id="SECU_CODE" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="SECU_CODE" disabled>
                                     <label for="SECU_CODE">Security Code<sub class="required">* </sub></label>
@@ -46,7 +46,7 @@
                         <div class="col-6">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="MARGIN" class="form-control" placeholder=" " id="MARGIN"
+                                    <input style="text-align: right;" type="text" name="MARGIN" class="form-control" placeholder=" " id="MARGIN"
                                         pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="3" #margin
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         (keyup)="checkmargin(margin.value)" max="100" formControlName="MARGIN">

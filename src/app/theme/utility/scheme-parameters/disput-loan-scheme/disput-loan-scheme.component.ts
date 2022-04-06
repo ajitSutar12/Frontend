@@ -520,6 +520,7 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
       this.ngrecblepenalintac=Number(data.S_RECBL_PENAL_ACNO)
       this.ngrecbleoverdueint=Number(data.S_RECBL_ODUE_INT_ACNO)
       this.ngoutstandingintac=Number(data.S_OUTSTANDING_INT_ACNO)
+      this.nginstallmentmethod=data.INSTALLMENT_METHOD
       this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
         'S_APPL': data.S_APPL,
@@ -553,7 +554,7 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
         'IS_OVERDUE_CHARGES_APPLY': (data.IS_OVERDUE_CHARGES_APPLY=="true"?true:false),
         'ROUNDOFF_FACTOR': data.ROUNDOFF_FACTOR,
         'S_INSTTYPE': (data.S_INSTTYPE=="true"?true:false),
-        'INSTALLMENT_METHOD': data.INSTALLMENT_METHOD,
+        // 'INSTALLMENT_METHOD': data.INSTALLMENT_METHOD,
         'IS_OVERDUE_ON_INSTALLMENT': data.IS_OVERDUE_ON_INSTALLMENT,
         'IS_SHOW_INT_AS_RECINT_IFDUEBAL': (data.IS_SHOW_INT_AS_RECINT_IFDUEBAL=="true"?true:false),
         'MIN_DUE_INSTALLMENTS': (data.MIN_DUE_INSTALLMENTS=="true"?true:false),

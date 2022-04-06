@@ -443,6 +443,7 @@ export class SchemeTypeSettingComponent
   // Reset Function
   resetForm() {
     this.createForm();
+    this.ngscheme=null
   }
   //function for delete button clicked
   delClickHandler() {

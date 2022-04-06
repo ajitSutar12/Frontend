@@ -237,7 +237,7 @@ export class DepreciationRateMasterComponent implements OnInit {
       this.updatecheckdata=data
       this.updateID = data.id;
       this.ngcategory=Number(data.CATEGORY)
-      this.angForm.setValue({
+      this.angForm.patchValue({
         'EFFECT_DATE': (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? effectdate = '' : effectdate = data.EFFECT_DATE,
         // 'EFFECT_DATE': data.EFFECT_DATE,
         // 'CATEGORY': data.CATEGORY,

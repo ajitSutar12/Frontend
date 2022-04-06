@@ -394,7 +394,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         'PIGMY_MACHINE_SCHEME': data.PIGMY_MACHINE_SCHEME,
         'OVERDRAFT_INTEREST_APPLICABLE': (data.OVERDRAFT_INTEREST_APPLICABLE=="true"?true:false),
         'OVERDRAFT_INTEREST_RATE': data.OVERDRAFT_INTEREST_RATE,
-        'SVR_CHARGE_GLCODE': data.SVR_CHARGE_GLCODE,
+        // 'SVR_CHARGE_GLCODE': data.SVR_CHARGE_GLCODE,
         'SVR_CHARGE_RATE': data.SVR_CHARGE_RATE
       })
     })

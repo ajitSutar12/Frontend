@@ -13,7 +13,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
+                                    <input style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         required pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="3" minlength="3"
                                         formControlName="S_APPL" #autofocus>
@@ -448,9 +448,9 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" name="MIN_INT_LIMIT" class="form-control"
+                                                        <input style="text-align: right;" type="text" name="MIN_INT_LIMIT" class="form-control"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
-                                                            placeholder=" " id="MIN_INT_LIMIT" pattern="\d{2}(\.\d{2})?"
+                                                            placeholder=" " id="MIN_INT_LIMIT" pattern="\d{2}(\.\d{1,2})?"
                                                             title="Input allowed only . 0-9" maxlength="2"
                                                             formControlName="MIN_INT_LIMIT">
                                                         <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
@@ -529,10 +529,10 @@
                                             <div class="col-sm">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" name="S_PENAL_INT_RATE" class="form-control"
+                                                        <input style="text-align: right;" type="text" name="S_PENAL_INT_RATE" class="form-control"
                                                             placeholder=" " id="S_PENAL_INT_RATE" maxlength="5"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
-                                                            pattern="\d{2}(\.\d{2})?" title="Input allowed only . 0-9"
+                                                            pattern="\d{2}(\.\d{1,2})?" title="Input allowed only . 0-9"
                                                             formControlName="S_PENAL_INT_RATE">
                                                         <label for="S_PENAL_INT_RATE">Penal Interest Rate % </label>
                                                     </span>
@@ -701,7 +701,7 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" name="ROUNDOFF_FACTOR" class="form-control"
+                                                        <input style="text-align: right;" type="text" name="ROUNDOFF_FACTOR" class="form-control"
                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                             placeholder=" " id="ROUNDOFF_FACTOR" pattern="^[0-9]+$" maxlength="2"
                                                             title="Input allowed only  0-9"
@@ -774,7 +774,7 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" name="IS_OVERDUE_ON_INSTALLMENT"
+                                                        <input style="text-align: right;" type="text" name="IS_OVERDUE_ON_INSTALLMENT"
                                                             class="form-control" placeholder=" " max="3" maxlength="1"
                                                             id="IS_OVERDUE_ON_INSTALLMENT" pattern="^[0-9]+$"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode <= 51)"
@@ -815,7 +815,7 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" name="MIN_DUE_INSTALLMENTS"
+                                                        <input style="text-align: right;" type="text" name="MIN_DUE_INSTALLMENTS"
                                                             class="form-control" placeholder=" "
                                                             id="MIN_DUE_INSTALLMENTS" pattern="^[0-9]+$"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"

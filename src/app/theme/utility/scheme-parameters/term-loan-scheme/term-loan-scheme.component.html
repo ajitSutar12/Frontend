@@ -18,7 +18,7 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input
+                  <input style="text-align: right;"
                     type="text"
                     name="S_APPL"
                     class="form-control"
@@ -785,14 +785,14 @@
                       <div class="col-md-7">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input
+                            <input style="text-align: right;"
                               type="text"
                               name="MIN_INT_LIMIT"
                               class="form-control"
                               placeholder=" "
                               id="MIN_INT_LIMIT"
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
-                              pattern="\d{2}(\.\d{2})?"
+                              pattern="\d{2}(\.\d{1,2})?"
                               title="Input allowed only . 0-9"
                               formControlName="MIN_INT_LIMIT"
                               disabled
@@ -961,7 +961,7 @@
                       <div class="col-sm-6">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input
+                            <input style="text-align: right;"
                               type="text"
                               name="S_PENAL_INT_RATE"
                               class="form-control"
@@ -970,7 +970,7 @@
                               id="S_PENAL_INT_RATE"
                               maxlength="5"
                               max="100"
-                              pattern="\d{2}(\.\d{2})?"
+                              pattern="\d{2}(\.\d{1,2})?"
                               title="Input allowed only . 0-9"
                               formControlName="S_PENAL_INT_RATE"
                             />
@@ -1281,14 +1281,14 @@
                       <div class="col-sm-8">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input
+                            <input style="text-align: right;"
                               type="text"
                               name="MAX_LOAN_LMT"
                               class="form-control"
                               placeholder=" "
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
                               id="MAX_LOAN_LMT"
-                              pattern="\d{1,20}(\.\d{2})?"
+                              pattern="\d{1,20}(\.\d{1,2})?"
                               maxlength="20"
                               title="Input allowed only . 0-9"
                               formControlName="MAX_LOAN_LMT"
@@ -1319,7 +1319,7 @@
                       <div class="col-sm-8">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input
+                            <input style="text-align: right;"
                               type="text"
                               name="ROUNDOFF_FACTOR"
                               class="form-control"
@@ -1362,7 +1362,7 @@
                       <div class="col-sm-8">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input
+                            <input style="text-align: right;"
                               type="text"
                               name="DEFAULT_LOAN_PERIOD"
                               class="form-control"
@@ -1430,7 +1430,7 @@
                       <div class="col-sm-8">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input
+                            <input style="text-align: right;"
                               type="text"
                               name="MIN_LOAN_PERIOD"
                               class="form-control"
@@ -1474,13 +1474,13 @@
                       <div class="col-sm-8">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input
+                            <input style="text-align: right;"
                               type="text"
                               name="MAX_LOAN_PERIOD"
                               class="form-control"
                               placeholder=" "
                               id="MAX_LOAN_PERIOD"
-                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46" 
+                              (keypress)="($event.charCode >= 48 && $event.charCode < 58 )" 
                               pattern="^[0-9]+$"
                               title="Input allowed only  0-9"
                               maxlength="3"
@@ -1582,7 +1582,7 @@
                       <div class="col-sm-8">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input
+                            <input style="text-align: right;"
                               type="text"
                               name="IS_OVERDUE_ON_INSTALLMENT"
                               class="form-control"
@@ -1667,7 +1667,7 @@
                       <div class="col-sm-8">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input
+                            <input style="text-align: right;"
                               type="text"
                               name="MIN_DUE_INSTALLMENTS"
                               class="form-control"

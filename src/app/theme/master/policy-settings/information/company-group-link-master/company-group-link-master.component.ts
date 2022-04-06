@@ -77,7 +77,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   newbtnShow: boolean = false;
 
   updateID: number = 0;
-  ngToAccount: any
+  ngToAccount: any=null
   companyCode: any;
   schemeCode: any;
   ngcompany: any = null
@@ -85,7 +85,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   //Scheme type variable
   schemeType: string = 'GL'
   account: any[]
-  ngAccount: any
+  ngAccount: any=null
   //for search functionality
   filterData = {};
   ngBranchCode
@@ -219,9 +219,9 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.angForm = this.fb.group({
       COMP_CODE: ['', [Validators.required]],
       CODE: ['', [Validators.required]],
-      FROM_AC: [''],
-      TO_AC: [''],
-      BRANCH_CODE: ['']
+      FROM_AC: ['',[Validators.required]],
+      TO_AC: ['',[Validators.required]],
+      BRANCH_CODE: ['',[Validators.required]]
 
     });
   }
@@ -269,6 +269,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
   //Method for append data into fields
   editClickHandler(id) {
+
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
@@ -277,18 +278,14 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       
       this.updateID = data.id;
       this.ngBranchCode = Number(data.BRANCH_CODE)
-      this.ngcompany = data.COMP_CODE
-      this.ngcode = data.CODE
-      
+      this.ngcompany=Number(data.COMP_CODE)
+      this.ngcode=Number(data.CODE)
       this.ngAccount = Number(data.FROM_AC)
       this.ngToAccount =Number(data.TO_AC)
-      // })
-      // this.angForm.patchValue({
-      //   'COMP_CODE': data.COMP_CODE,
-      //   'CODE': data.CODE,
-      //   'FROM_AC': data.FROM_AC,
-      //   'TO_AC': data.TO_AC
-      // })
+     
+      this.multiData = []
+        
+      
     })
   }
   addNewData() {
@@ -386,20 +383,21 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     this.ngcode = null
     this.ngAccount = null
     this.ngToAccount = null
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data)
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH_CODE'].enable()
-    }
-    else {
-      this.angForm.controls['BRANCH_CODE'].disable()
-      this.ngBranchCode = result.branch.id
-      this.branchCode = result.branch.CODE
-    }
+    // let data: any = localStorage.getItem('user');
+    // let result = JSON.parse(data)
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.angForm.controls['BRANCH_CODE'].enable()
+    //   this.ngBranchCode = result.branch.id
+    // }
+    // else {
+    //   this.angForm.controls['BRANCH_CODE'].disable()
+    //   this.ngBranchCode = result.branch.id
+    //   this.branchCode = result.branch.CODE
+    // }
 
-    this.angForm.patchValue({
-      BRANCH_CODE: result.branch.id
-    })
+    // this.angForm.patchValue({
+    //   BRANCH_CODE: result.branch.id
+    // })
   }
 
   rerender(): void {
@@ -482,6 +480,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   multiData: any
   accountno: any
   checkValidaion() {
+    debugger
     console.log(this.angForm.controls['TO_AC'].value)
     var fromac = this.angForm.controls['FROM_AC'].value
     var toac = this.angForm.controls['TO_AC'].value;

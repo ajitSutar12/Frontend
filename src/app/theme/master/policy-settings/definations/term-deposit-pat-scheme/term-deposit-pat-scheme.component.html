@@ -88,7 +88,7 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" name="MONTHS" class="form-control" placeholder=" "
+                                            <input style="text-align: right;" type="text" name="MONTHS" class="form-control" placeholder=" "
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                 id="months" #month pattern="^[0-9]+$"   maxlength="3"   title="Input allowed only 0-9"
                                                 formControlName="MONTHS">
@@ -104,7 +104,7 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" name="DAYS" class="form-control" placeholder=" "
+                                            <input style="text-align: right;" type="text" name="DAYS" class="form-control" placeholder=" "
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                 id="days" pattern="^[0-9]+$"  maxlength="3" #day  title="Input allowed only 0-9"
                                                 formControlName="DAYS">
@@ -120,8 +120,8 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" name="INT_RATE" class="form-control" placeholder=" "
-                                            pattern="\d{1,2}(\.\d{2})?" id="INT_RATE" maxlength="5"
+                                            <input style="text-align: right;" type="text" name="INT_RATE" class="form-control" placeholder=" "
+                                            pattern="\d{1,2}(\.\d{0,2})?" id="INT_RATE" maxlength="5"
                                             #margin (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                             (keyup)="checkmargin(margin.value)"
                                             (keyup)="checkinput()"

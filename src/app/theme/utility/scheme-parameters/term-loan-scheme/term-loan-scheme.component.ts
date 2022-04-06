@@ -607,7 +607,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       this.ngrecblepenalintac=Number(data.S_RECBL_PENAL_ACNO)
       this.ngrecbleoverdueint=Number(data.S_RECBL_ODUE_INT_ACNO)
       this.ngoutstandingintac=Number(data.S_OUTSTANDING_INT_ACNO)
-      this.nginstallment=Number(data.INSTALLMENT_METHOD)
+      this.nginstallment=data.INSTALLMENT_METHOD
       
       this.angForm.patchValue({
         'S_ACNOTYPE': data.S_ACNOTYPE,
@@ -653,6 +653,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
         'MAX_LOAN_PERIOD': data.MAX_LOAN_PERIOD,
         'S_INSTTYPE': data.S_INSTTYPE,
         // 'INSTALLMENT_METHOD': data.INSTALLMENT_METHOD,
+        
         'IS_OVERDUE_ON_INSTALLMENT': data.IS_OVERDUE_ON_INSTALLMENT,
         'IS_SHOW_INT_AS_RECINT_IFDUEBAL': data.IS_SHOW_INT_AS_RECINT_IFDUEBAL,
         'MIN_DUE_INSTALLMENTS': data.MIN_DUE_INSTALLMENTS

@@ -13,9 +13,9 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="FIN_YEAR" class="form-control" placeholder=" " #finyear
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                    #autofocus id="FIN_YEAR" required="" minlength="9" maxlength="9" pattern="^[0-9 -]+$" (keyup)="addhyphen(finyear.value)"
+                                    <input style="text-align: right;" type="text" name="FIN_YEAR" class="form-control" placeholder=" " 
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58)" [(ngModel)]="ngfinyear" #finyear
+                                    #autofocus id="FIN_YEAR" required="" maxlength="9" pattern="^[0-9 -]+$" (keyup)="addhyphen(finyear.value)"
                                         title="Input allowed only  0-9" formControlName="FIN_YEAR">
                                     <label for="FIN_YEAR">Financial Year<sub class="required">* </sub></label>
                                 </span>
@@ -54,9 +54,9 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="INTEREST_AMOUNT" class="form-control" placeholder=" "
+                                    <input style="text-align: right;" type="text" name="INTEREST_AMOUNT" class="form-control" placeholder=" "
                                         id="INTEREST_AMOUNT" required=""  (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                        pattern="\d{1,10}(\.\d{2})?" title="Input allowed only  0-9" maxlength="13"
+                                        pattern="\d{1,2}(\.\d{0,2})?" title="Input allowed only  0-9" maxlength="13"
                                         formControlName="INTEREST_AMOUNT">
                                     <label for="INTEREST_AMOUNT">Interest Amount<sub class="required">* </sub></label>
                                 </span>
@@ -72,8 +72,8 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="TDS_RATE" class="form-control" placeholder=" " (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                        id="TDS_RATE" required=""  pattern="\d{1,2}(\.\d{2})?" maxlength="5"
+                                    <input style="text-align: right;" type="text" name="TDS_RATE" class="form-control" placeholder=" " (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                        id="TDS_RATE" required=""  pattern="\d{1,2}(\.\d{0,2})?" maxlength="5"
                                         title="Input allowed only  0-9" formControlName="TDS_RATE">
                                     <label for="TDS_RATE">TDS Rate<sub class="required">* </sub></label>
                                 </span>
@@ -87,8 +87,8 @@
                         <div class="col-md">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="SURCHARGE_RATE" class="form-control" placeholder=" "
-                                        id="SURCHARGE_RATE"  pattern="\d{1,2}(\.\d{2})?" maxlength="5" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                    <input style="text-align: right;" type="text" name="SURCHARGE_RATE" class="form-control" placeholder=" "
+                                        id="SURCHARGE_RATE"  pattern="\d{1,2}(\.\d{0,2})?" maxlength="5" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         title="Input allowed only  0-9" formControlName="SURCHARGE_RATE">
                                     <label for="SURCHARGE_RATE">Surcharge Rate</label>
                                 </span>

@@ -847,7 +847,7 @@ export class CashCreditMasterComponent implements OnInit {
     this.ngpurpose = null
     this.sanctionDate = null
     this.ngresodate = null
-    this.angForm.controls['AC_COREG_DATE'].reset()
+    // this.angForm.controls['AC_COREG_DATE'].reset()
     this.getSystemParaDate()
   }
 
@@ -1165,7 +1165,7 @@ export class CashCreditMasterComponent implements OnInit {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.tempopendate = data.CURRENT_DATE
       this.openingDate = data.CURRENT_DATE
-      this.ngredate = data.CURRENT_DATE
+      // this.ngredate = data.CURRENT_DATE
 
       if (data.ON_LINE === true) {
         this.angForm.controls['AC_OPDATE'].disable()
@@ -1187,7 +1187,7 @@ export class CashCreditMasterComponent implements OnInit {
     this.angForm.patchValue({
       AC_EXPIRE_DATE: this.angForm.controls['AC_OPDATE'].value,
 
-      AC_COREG_DATE: this.angForm.controls['AC_OPDATE'].value
+      // AC_COREG_DATE: this.angForm.controls['AC_OPDATE'].value
     })
 
   }
@@ -1208,7 +1208,7 @@ export class CashCreditMasterComponent implements OnInit {
   getPriority(idp) {
     this.prioritySectorMaster.getFormData(idp).subscribe(data => {
       this.angForm.patchValue({
-        AC_PRIORITY: idp.toString(),
+        AC_PRIORITY: idp,
         AC_PRIORITY_SUB1: data.SUB1_CODE,
         AC_PRIORITY_SUB2: data.SUB2_CODE,
         AC_PRIORITY_SUB3: data.SUB3_CODE,

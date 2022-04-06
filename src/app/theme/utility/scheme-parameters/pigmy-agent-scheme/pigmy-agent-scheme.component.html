@@ -14,7 +14,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
+                                    <input style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" " id="S_APPL"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         required="" pattern="^[0-9]+$" maxlength="3" minlength="3" min="301" max="399"
                                         title="Input allowed 0-9. (Space)" formControlName="S_APPL" #autofocus>
@@ -120,10 +120,10 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input type="text" name="MIN_INT_LIMIT" class="form-control"
+                                                        <input style="text-align: right;" type="text" name="MIN_INT_LIMIT" class="form-control"
                                                             placeholder=" " id="MIN_INT_LIMIT"
-                                                            pattern="\d{1,20}(\.\d{2})?" maxlength="2"
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 || $event.charCode <= 32 "
+                                                            pattern="\d{1,20}(\.\d{1,2})?" maxlength="2"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                             formControlName="MIN_INT_LIMIT" disabled>
                                                         <label for="MIN_INT_LIMIT">Minimum Interest Amount<sub

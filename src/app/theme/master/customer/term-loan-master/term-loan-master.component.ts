@@ -1166,7 +1166,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.systemParameter.getFormData(1).subscribe(data => {
       this.tempopendate = data.CURRENT_DATE
       this.openingDate = data.CURRENT_DATE
-      this.ngredate = data.CURRENT_DATE
+      // this.ngredate = data.CURRENT_DATE
 
       if (data.ON_LINE === true) {
         this.angForm.controls['AC_OPDATE'].disable()
@@ -1209,7 +1209,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.angForm.patchValue({
       AC_EXPIRE_DATE: this.angForm.controls['AC_OPDATE'].value,
 
-      AC_COREG_DATE: this.angForm.controls['AC_OPDATE'].value
+      // AC_COREG_DATE: this.angForm.controls['AC_OPDATE'].value
     })
 
   }

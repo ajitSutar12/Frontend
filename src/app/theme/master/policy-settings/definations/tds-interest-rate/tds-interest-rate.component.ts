@@ -56,6 +56,8 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
   passenger: any;
   itemsPerPage = 10;
   totalItems: any;
+
+  ngfinyear:any=null
   currentJustify = 'start';
   active = 1;
   activeKeep = 1;
@@ -241,13 +243,20 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
   }
 
    //method for adding hyphen in date
-   addhyphen(data: any) {
-    let result = data
-      .replace(/\D/g, "")
-      .split(/(?:([\d]{4}))/g)
-      .filter((s) => s.length > 0)
-      .join("-");
-    (document.getElementById("FIN_YEAR") as HTMLInputElement).value = result;
+  addhyphen(data: any) {
+    let date = new Date().getFullYear() + 1;
+    let result = Number((document.getElementById("FIN_YEAR") as HTMLInputElement).value);
+    if (result > date) {
+      Swal.fire("Warning!", "please enter valid Year ", "warning");
+      (document.getElementById("FIN_YEAR") as HTMLInputElement).value = "";
+    }
+    else {
+      if (data.length == 4) {
+        result += 1;
+        this.ngfinyear = data + "-" + result;
+      }
+
+    }
   }
   //Method for update data 
   updateData(id) {

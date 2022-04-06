@@ -139,9 +139,9 @@
                         <div class="col-md">
                           <div class="form-group input-group">
                             <span class="border-lable-flt">
-                              <input type="text" name="S_CASH_PAID_MIN_AMT" class="form-control" placeholder=" "
-                                id="S_CASH_PAID_MIN_AMT"  pattern="\d{1,20}(\.\d{2})?"
-                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                              <input style="text-align: right;" type="text" name="S_CASH_PAID_MIN_AMT" class="form-control" placeholder=" "
+                                id="S_CASH_PAID_MIN_AMT"  pattern="\d{1,20}(\.\d{1,2})?"
+                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                 title="Input allowed only  0-9/ . (Space)" maxlength="20,2"
                                 formControlName="S_CASH_PAID_MIN_AMT" disabled />
                               <label for="S_CASH_PAID_MIN_AMT">Show Message when cash Payment Min Rs.

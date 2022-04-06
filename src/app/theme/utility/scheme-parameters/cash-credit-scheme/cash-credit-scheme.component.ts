@@ -560,6 +560,7 @@ export class CashCreditSchemeComponent implements OnInit {
       this.ngpenalintac=Number(data.S_PENAL_ACNO)
       this.ngrecblepenalintac=Number(data.S_RECBL_PENAL_ACNO)
       this.ngrecbleoverdueint=Number(data.S_RECBL_ODUE_INT_ACNO)
+      this.ngoverdraftint=Number(data.OVERDRAFT_INTEREST_APPLICABLE)
       this.angForm.patchValue({
         S_ACNOTYPE: data.S_ACNOTYPE,
         S_APPL: data.S_APPL,
@@ -584,7 +585,7 @@ export class CashCreditSchemeComponent implements OnInit {
         POST_PENALINT_IN_INTEREST: (data.POST_PENALINT_IN_INTEREST=="true"?true:false),
         IS_CAL_EXTRAPENAL_FOR_CC: (data.IS_CAL_EXTRAPENAL_FOR_CCT=="true"?true:false),
         S_PENAL_INT_RATE: data.S_PENAL_INT_RATE,
-        OVERDRAFT_INTEREST_APPLICABLE: data.OVERDRAFT_INTEREST_APPLICABLE,
+        // OVERDRAFT_INTEREST_APPLICABLE: data.OVERDRAFT_INTEREST_APPLICABLE,
         OVERDRAFT_INTEREST_RATE: data.OVERDRAFT_INTEREST_RATE,
         ODPENALTY_ON_EXPIRED_LEDGERBAL: (data.ODPENALTY_ON_EXPIRED_LEDGERBAL=="true"?true:false),
         BALANCE_ADD_APPLICABLE: (data.BALANCE_ADD_APPLICABLE=="true"?true:false),
