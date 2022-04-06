@@ -215,7 +215,9 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       LEDGER_BAL: [4342],
       PAYABLE_INT: [4342],
       POSTED_INT: [''],
-      NET_INT: ['']
+      NET_INT: [''],
+      PENAL_INT: ['1000'],
+      NETPAYABLE_AMT: [''],
     });
   }
 
@@ -534,6 +536,27 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     }
   }
 
+  submit() {
+    // TRAN_DATE
+    // TRAN_TYPE
+    // BRANCH_CODE
+    // TRAN_ACNOTYPE
+    // TRAN_ACTYPE
+    // TRAN_ACNO
+    // SURCHARGE_AMOUNT
+    // PENAL_INTEREST_AMOUNT
+    // NET_INTEREST_AMOUNT
+    // TOTAL_INTEREST_AMOUNT
+    // NET_PAYABLE_AMOUNT
+    // INTEREST_RATE
+    // IS_PREMATURE_CLOSE
+    // NARRATION
+    // TRAN_STATUS
+    // TOKEN_NO
+    // PAYABLE_INTEREST_AMOUNT
+    // CHEQUE_NO
+    // USER
+  }
   //function toggle update to add button
   updateData() {
     // this.showButton = true;
