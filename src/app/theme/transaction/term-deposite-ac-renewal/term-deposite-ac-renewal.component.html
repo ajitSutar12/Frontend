@@ -113,7 +113,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly
+                                            <input type="text" class="form-control" readonly style="text-align: right;"
                                                 value="{{customer?.AC_SCHMAMT}}" formControlName="old_deposit_Amt">
                                         </span>
                                     </div>
@@ -124,7 +124,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly
+                                            <input type="text" class="form-control" readonly 
                                                 value="{{customer?.AC_OPDATE}}" formControlName="old_Ac_op_date">
                                         </span>
                                     </div>
@@ -135,7 +135,7 @@
                                 <div class="col-md-2 labelWidth">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly
+                                            <input type="text" class="form-control" readonly 
                                                 value="{{customer?.AC_EXPDT}}" formControlName="old_ac_expdt">
                                         </span>
                                     </div>
@@ -148,7 +148,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly
+                                            <input type="text" class="form-control" readonly style="text-align: right;"
                                                 value="{{customer?.AC_MATUAMT}}" formControlName="old_ac_matuamt">
                                         </span>
                                     </div>
@@ -170,7 +170,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly
+                                            <input type="text" class="form-control" readonly style="text-align: right;"
                                                 value="{{customer?.AC_REF_RECEIPTNO}}" formControlName="old_receipt_no">
                                         </span>
                                     </div>
@@ -183,7 +183,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly
+                                            <input type="text" class="form-control" readonly style="text-align: right;"
                                                 value="{{customer?.AC_MONTHS}}" formControlName="old_month">
                                         </span>
                                     </div>
@@ -194,7 +194,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly
+                                            <input type="text" class="form-control" readonly style="text-align: right;"
                                                 value="{{customer?.AC_INTRATE}}" formControlName="old_intrate">
                                         </span>
                                     </div>
@@ -205,7 +205,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" readonly value="0" formControlName="old_total_int_paid">
+                                            <input style="text-align: right;" type="text" class="form-control" readonly value="0" formControlName="old_total_int_paid">
                                         </span>
                                     </div>
                                 </div>
@@ -228,7 +228,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" disabled
+                                            <input type="text" class="form-control" disabled style="text-align: right;"
                                                 value="{{customer?.AC_INTCATA}}" formControlName="old_int_cate">
                                         </span>
                                     </div>
@@ -253,7 +253,7 @@
                                 <div class="col-sm-2">
                                     <div class="checkbox checkbox-primary">
                                         <div class="border-checkbox-group border-checkbox-group-primary">
-                                            <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY"
+                                            <input  type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY"
                                                 formControlName="NormalInt" (click)="normalCheck($event)">
                                             <label class="border-checkbox-label" for="AC_IS_RECOVERY">Normal
                                                 Interest</label>
@@ -275,7 +275,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" [disabled]="NormalCheck" formControlName="NormalInt">
+                                            <input style="text-align: right;" type="text" class="form-control" [disabled]="NormalCheck" formControlName="NormalInt">
                                         </span>
                                     </div>
                                 </div>
@@ -327,6 +327,13 @@
                                             </ng-select>
                                         </span>
                                     </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['normal_scheme_type'].invalid && (angForm.controls['normal_scheme_type'].dirty || angForm.controls['normal_scheme_type'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['normal_scheme_type'].errors?.required">
+                                            This field is required.
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_BRANCH">Scheme<sub
                                             class="required">*</sub></label></div>
@@ -340,6 +347,13 @@
                                             </ng-select>
                                         </span>
                                     </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['normal_scheme'].invalid && (angForm.controls['normal_scheme'].dirty || angForm.controls['normal_scheme'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['normal_scheme'].errors?.required">
+                                            This field is required.
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Account No.<sub
                                             class="required">*</sub></label></div>
@@ -352,6 +366,13 @@
                                                     {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                             </ng-select>
                                         </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['normal_account_no'].invalid && (angForm.controls['normal_account_no'].dirty || angForm.controls['normal_account_no'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['normal_account_no'].errors?.required">
+                                            This field is required.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -373,7 +394,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" formControlName="payableInt" [disabled]="PayableCheck">
+                                            <input style="text-align: right;" type="text" class="form-control" formControlName="payableInt" [disabled]="PayableCheck">
                                         </span>
                                     </div>
                                 </div>
@@ -415,6 +436,13 @@
                                             </ng-select>
                                         </span>
                                     </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['payable_scheme_type'].invalid && (angForm.controls['payable_scheme_type'].dirty || angForm.controls['payable_scheme_type'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['payable_scheme_type'].errors?.required">
+                                            This field is required.
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_BRANCH">Scheme<sub
                                             class="required">*</sub></label></div>
@@ -428,6 +456,13 @@
                                             </ng-select>
                                         </span>
                                     </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['payable_scheme'].invalid && (angForm.controls['payable_scheme'].dirty || angForm.controls['payable_scheme'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['payable_scheme'].errors?.required">
+                                            This field is required.
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Account No.<sub
                                             class="required">*</sub></label></div>
@@ -440,6 +475,13 @@
                                                     {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                             </ng-select>
                                         </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['payable_account_no'].invalid && (angForm.controls['payable_account_no'].dirty || angForm.controls['payable_account_no'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['payable_account_no'].errors?.required">
+                                            This field is required.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -456,7 +498,7 @@
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" formControlName="renewal_tran_no">
+                                            <input style="text-align: right;" type="text" class="form-control" formControlName="renewal_tran_no">
                                         </span>
                                     </div>
                                 </div>
@@ -491,7 +533,7 @@
                                 <div class="col-md-1 col-sm-6">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" formControlName="new_month">
+                                            <input style="text-align: right;" type="text" class="form-control" formControlName="new_month">
                                         </span>
                                     </div>
                                 </div>
@@ -513,7 +555,7 @@
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" formControlName="new_receipt">
+                                            <input style="text-align: right;" type="text" class="form-control" formControlName="new_receipt">
                                         </span>
                                     </div>
                                 </div>
@@ -525,7 +567,7 @@
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" formControlName="new_deposit">
+                                            <input style="text-align: right;" type="text" class="form-control" formControlName="new_deposit">
                                         </span>
                                     </div>
                                 </div>
@@ -535,7 +577,7 @@
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" formControlName="new_rate">
+                                            <input style="text-align: right;" type="text" class="form-control" formControlName="new_rate">
                                         </span>
                                     </div>
                                 </div>
@@ -559,7 +601,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" class="form-control" formControlName="new_maturity_amt">
+                                            <input style="text-align: right;" type="text" class="form-control" formControlName="new_maturity_amt">
                                         </span>
                                     </div>
                                 </div>

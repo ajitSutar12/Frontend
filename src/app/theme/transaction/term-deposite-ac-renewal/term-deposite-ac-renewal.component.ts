@@ -69,49 +69,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.angForm = this.fb.group({
-      branch_code: [''],
-      date: [''],
-      scheme_type: [''],
-      scheme: [''],
-      account_no: [''],
-      NormalInt:[''],
-      IntUpto:[''],
-      NormalIntRadio:[''],
-      PayableCheck:[''],
-      new_matu_date:[''],
-      new_maturity_amt:[''],
-      new_last_date:[''],
-      new_rate:[''],
-      new_deposit:[''],
-      new_receipt:[''],
-      new_day:[''],
-      new_month:[''],
-      new_ason_date:[''],
-      new_category:[''],
-      renewal_tran_no:[''],
-      payable_account_no:[''],
-      payable_scheme:[''],
-      payable_scheme_type:[''],
-      PayableIntRadio:[''],
-      payableCheck:[''],
-      normal_account_no:[''],
-      normal_scheme:[''],
-      normal_scheme_type:[''],
-      old_last_trn_date:[''],
-      old_int_cate:[''],
-      old_last_int_date:[''],
-      old_total_int_paid:[''],
-      old_intrate:[''],
-      old_month:[''],
-      old_receipt_no:[''],
-      old_ac_ason_date:[''],
-      old_ac_matuamt:[''],
-      old_ac_expdt:[''],
-      old_Ac_op_date:[''],
-      old_deposit_Amt:[''],
-      payableInt:['']
-    })
+    this.createForm()
+    
     let user = JSON.parse(localStorage.getItem('user'));
 
     this.current_date = user.branch.syspara.CURRENT_DATE;
@@ -144,6 +103,53 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     this._service.interestCategory().subscribe(data=>{
       this.InterestCategoryData = data;
       console.log(this.InterestCategoryData);
+    })
+  }
+
+  createForm()
+  {
+    this.angForm = this.fb.group({
+      branch_code: ['',[Validators.required]],
+      date: [''],
+      scheme_type: ['',[Validators.required]],
+      scheme: ['',[Validators.required]],
+      account_no: ['',[Validators.required]],
+      NormalInt:[''],
+      IntUpto:[''],
+      NormalIntRadio:[''],
+      PayableCheck:[''],
+      new_matu_date:[''],
+      new_maturity_amt:[''],
+      new_last_date:[''],
+      new_rate:[''],
+      new_deposit:[''],
+      new_receipt:[''],
+      new_day:[''],
+      new_month:[''],
+      new_ason_date:[''],
+      new_category:[''],
+      renewal_tran_no:[''],
+      payable_account_no:['',[Validators.required]],
+      payable_scheme:['',[Validators.required]],
+      payable_scheme_type:['',[Validators.required]],
+      PayableIntRadio:[''],
+      payableCheck:[''],
+      normal_account_no:['',[Validators.required]],
+      normal_scheme:['',[Validators.required]],
+      normal_scheme_type:['',[Validators.required]],
+      old_last_trn_date:[''],
+      old_int_cate:[''],
+      old_last_int_date:[''],
+      old_total_int_paid:[''],
+      old_intrate:[''],
+      old_month:[''],
+      old_receipt_no:[''],
+      old_ac_ason_date:[''],
+      old_ac_matuamt:[''],
+      old_ac_expdt:[''],
+      old_Ac_op_date:[''],
+      old_deposit_Amt:[''],
+      payableInt:['']
     })
   }
 

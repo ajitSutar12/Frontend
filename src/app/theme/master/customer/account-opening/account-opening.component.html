@@ -34,7 +34,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_NO" class="form-control" placeholder=" " id="AC_NO"
+                                    <input style="text-align: right;" type="text" name="AC_NO" class="form-control" placeholder=" " id="AC_NO"
                                         formControlName="AC_NO" disabled>
                                     <label for="AC_NO">Account Number</label>
                                 </span>
@@ -97,7 +97,7 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_REF_RECEIPTNO" class="form-control" placeholder=" "
+                                    <input style="text-align: right;" type="text" name="AC_REF_RECEIPTNO" class="form-control" placeholder=" "
                                         id="AC_REF_RECEIPTNO" required pattern="^[0-9]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         title="Input allowed only 0-9" formControlName="AC_REF_RECEIPTNO">
@@ -181,7 +181,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_MONTHS" class="form-control" placeholder=" "
+                                    <input style="text-align: right;" type="text" name="AC_MONTHS" class="form-control" placeholder=" "
                                         id="AC_MONTHS" required pattern="^[0-9]+$" title="Input allowed only 0-9"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_MONTHS">
@@ -200,7 +200,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_DAYS" class="form-control" placeholder=" " id="AC_DAYS"
+                                    <input style="text-align: right;" type="text" name="AC_DAYS" class="form-control" placeholder=" " id="AC_DAYS"
                                         required pattern="^[0-9]+$" title="Input allowed only 0-9"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_DAYS">
@@ -221,7 +221,7 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_SCHMAMT" class="form-control" placeholder=" "
+                                    <input  type="text" name="AC_SCHMAMT" class="form-control" placeholder=" "
                                         id="AC_SCHMAMT" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         style="text-align: right;"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -242,9 +242,10 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_INTRATE" class="form-control" placeholder=" "
-                                        id="AC_INTRATE" required pattern="^[0-9]+$" title="Input allowed only 0-9"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                    <input style="text-align: right;" type="text" name="AC_INTRATE" class="form-control" placeholder=" "
+                                        id="AC_INTRATE" required title="Input allowed only . 0-9(after decimal 1 0r 2 digits) "
+                                        pattern="\d{1,20}(\.\d{1,2})?"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         formControlName="AC_INTRATE">
                                     <label for="AC_INTRATE">Interest Rate <sub class="required">*</sub></label>
                                 </span>
@@ -254,7 +255,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_INTRATE'].errors?.pattern || angForm.controls['AC_INTRATE'].errors?.required">
-                                    This field is required and Input allowed only 0-9
+                                    This field is required and Input allowed only . 0-9
                                 </div>
                             </div>
                         </div>
@@ -280,9 +281,12 @@
                         <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" class="form-control" placeholder=" " id="AC_CLOSEDT"
-                                        max="9999-12-31" formControlName="AC_CLOSEDT" onfocus="(this.type='date')"
-                                        disabled />
+                                    <input type="text" placeholder="dd/mm/yyyy" name="AC_CLOSEDT" id="AC_CLOSEDT"
+                                    class="form-control" max="{{datemax | date:'yyyy-MM-dd'}}" 
+                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate"
+                                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_CLOSEDT"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                    [bsValue]="bsValue" bsDatepicker disabled />
                                     <label for="AC_CLOSEDT">Account Closed Date </label>
                                 </span>
                             </div>
@@ -355,8 +359,8 @@
                                             {{data.AC_SCHMAMT === ''? '-' : data.AC_SCHMAMT}}</td>
                                         <td [ngClass]="data.AC_MATUAMT === '' ? 'td_center' : 'td_right'">
                                             {{data.AC_MATUAMT === ''? '-' : data.AC_MATUAMT}}</td>
-                                        <td [ngClass]="data.AC_CLOSEDT === '' ? 'td_center' : 'td_center'">
-                                            {{data.AC_CLOSEDT === ''? '-' : data.AC_CLOSEDT}}</td>
+                                        <!-- <td [ngClass]="data.AC_CLOSEDT === '' ? 'td_center' : 'td_center'">
+                                            {{data.AC_CLOSEDT === ''? '-' : data.AC_CLOSEDT}}</td> -->
                                     </tr>
                                 </tbody>
                                 <tbody *ngIf="investmentMaster?.length == 0">
@@ -379,7 +383,7 @@
                                         <th><input type="text" class="form-control" name="AC_INTRATE"></th>
                                         <th><input type="text" class="form-control" name="AC_SCHMAMT"></th>
                                         <th><input type="text" class="form-control" name="AC_MATUAMT"></th>
-                                        <th><input type="text" class="form-control" name="AC_CLOSEDT"></th>
+                                        <!-- <th><input type="text" class="form-control" name="AC_CLOSEDT"></th> -->
                                     </tr>
                                 </tfoot>
                             </table>

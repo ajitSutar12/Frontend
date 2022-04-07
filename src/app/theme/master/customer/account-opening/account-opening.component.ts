@@ -104,6 +104,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
   rejectShow: boolean = false;
   approveShow: boolean = false;
   maxDate: Date
+  minDate: Date
   constructor(private fb: FormBuilder,
     private bankMasterService: BankMasterService,
     private ownbranchMaster: OwnbranchMasterService,
@@ -114,6 +115,8 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
   ) {
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate());
   }
 
   ngOnInit(): void {
@@ -223,10 +226,10 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
           title: 'Maturity Amount',
           data: 'AC_MATUAMT'
         },
-        {
-          title: 'Account Closed Date',
-          data: 'AC_CLOSEDT'
-        },
+        // {
+        //   title: 'Account Closed Date',
+        //   data: 'AC_CLOSEDT'
+        // },
       ],
       dom: 'Blrtip',
     };
@@ -298,12 +301,17 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_SCHMAMT': formVal.AC_SCHMAMT,
       'AC_INTRATE': formVal.AC_INTRATE,
       'AC_MATUAMT': formVal.AC_MATUAMT,
-      'AC_CLOSEDT': formVal.AC_CLOSEDT
+      'AC_CLOSEDT': (formVal.AC_CLOSEDT == '' || formVal.AC_CLOSEDT == null || formVal.AC_CLOSEDT == 'Invalid date') ? '' : moment(formVal.AC_CLOSEDT).format('DD/MM/YYYY'),
+      // 'AC_CLOSEDT': formVal.AC_CLOSEDT
     }
     this.investmentService.postData(dataToSend).subscribe(data => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      // to reload after insertion of data
-      this.rerender();
+      this.formSubmitted = false;
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+     
+     
     }, (error) => {
       console.log(error)
     })
@@ -373,6 +381,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     let opdate
     let AC_ASON_DATE
     let AC_EXPDT
+    let AC_CLOSEDT
     if (this.updatecheckdata.AC_OPDATE != data.AC_OPDATE) {
       (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
     } else {
@@ -390,14 +399,22 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     } else {
       data['AC_EXPDT'] = data.AC_EXPDT
     }
+    if (this.updatecheckdata.AC_CLOSEDT != data.AC_CLOSEDT) {
+      (data.AC_CLOSEDT == 'Invalid date' || data.AC_CLOSEDT == '' || data.AC_CLOSEDT == null) ? (AC_CLOSEDT = '', data['AC_CLOSEDT'] = AC_CLOSEDT) : (AC_CLOSEDT = data.AC_CLOSEDT, data['AC_CLOSEDT'] = moment(AC_CLOSEDT).format('DD/MM/YYYY'))
+    } else {
+      data['AC_CLOSEDT'] = data.AC_CLOSEDT
+    }
 
     data['id'] = this.updateID;
     this.investmentService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload()
+      });
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
-      this.rerender();
+      
       this.resetForm();
     })
   }
