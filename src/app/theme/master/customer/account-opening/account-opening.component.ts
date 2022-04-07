@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import Swal from 'sweetalert2';
@@ -10,17 +10,18 @@ import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/sc
 import { InvestmentService } from './account-opening.service';
 import { BankService } from '../../policy-settings/information/bank-master/bank-master.service';
 import { environment } from '../../../../../environments/environment';
+// Angular Datatable Directive  
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs-compat';
 import { HttpClient } from '@angular/common/http';
-
+import * as moment from 'moment';
+// Handling datatable data
 class DataTableResponse {
   data: any[];
   draw: number;
   recordsFiltered: number;
   recordsTotal: number;
 }
-
 // For fetching values from backend
 interface InvestmentMaster {
   AC_ACNOTYPE: string
@@ -46,7 +47,7 @@ interface InvestmentMaster {
   styleUrls: ['./account-opening.component.scss']
 })
 
-export class AccountOpeningComponent implements OnInit {
+export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() childMessage: string;
   @Output() public getUserData = new EventEmitter<string>();
   //api 
@@ -57,11 +58,12 @@ export class AccountOpeningComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  // Store data from backend
-  investmentMaster: InvestmentMaster[];
+  // Created Form Group
   angForm: FormGroup;
   //Datatable variable
   dtExportButtonOptions: DataTables.Settings = {};
+  // Store data from backend
+  investmentMaster: InvestmentMaster[];
   dtExportOptions: DataTables.Settings = {};
   Data: any;
   datemax: any;
@@ -145,6 +147,11 @@ export class AccountOpeningComponent implements OnInit {
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         this.http
           .post<DataTableResponse>(
@@ -256,19 +263,36 @@ export class AccountOpeningComponent implements OnInit {
     });
   }
 
+  getBranch(event) {
+    this.ngBranch = event.value
+  }
   submit() {
     const formVal = this.angForm.value;
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    let bankCode = Number(result.branch.syspara.BANK_CODE)
+    let schecode
+    this.scheme.forEach(async (element) => {
+      if (element.value == this.code) {
+        schecode = element.name
+      }
+    })
     const dataToSend = {
+      'branchCode': branchCode,
+      'bankCode': bankCode,
+      'schemeCode': schecode,
       'AC_ACNOTYPE': formVal.AC_ACNOTYPE,
       'AC_TYPE': formVal.AC_TYPE,
       'AC_NO': formVal.AC_NO,
       'INVEST_BANK': formVal.INVEST_BANK,
-      'INVEST_BRANCH': formVal.INVEST_BRANCH,
+      'INVEST_BRANCH': this.ngBranch,
       'AC_NAME': formVal.AC_NAME,
       'AC_REF_RECEIPTNO': formVal.AC_REF_RECEIPTNO,
-      'AC_OPDATE': formVal.AC_OPDATE,
-      'AC_ASON_DATE': formVal.AC_ASON_DATE,
-      'AC_EXPDT': formVal.AC_EXPDT,
+      'AC_OPDATE': (formVal.AC_OPDATE == '' || formVal.AC_OPDATE == null || formVal.AC_OPDATE == 'Invalid date') ? '' : moment(formVal.AC_OPDATE).format('DD/MM/YYYY'),
+      'AC_ASON_DATE': (formVal.AC_ASON_DATE == '' || formVal.AC_ASON_DATE == null || formVal.AC_ASON_DATE == 'Invalid date') ? '' : moment(formVal.AC_ASON_DATE).format('DD/MM/YYYY'),
+      'AC_EXPDT': (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == null || formVal.AC_EXPDT == 'Invalid date') ? '' : moment(formVal.AC_EXPDT).format('DD/MM/YYYY'),
       'AC_MONTHS': formVal.AC_MONTHS,
       'AC_DAYS': formVal.AC_DAYS,
       'AC_SCHMAMT': formVal.AC_SCHMAMT,
@@ -291,11 +315,16 @@ export class AccountOpeningComponent implements OnInit {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
+    this.angForm.controls['AC_CLOSEDT'].disable()
     this.resetForm();
   }
   // Reset Function
   resetForm() {
     this.createForm();
+    this.angForm.controls['AC_CLOSEDT'].disable()
+    this.code = null
+    this.ngBank = null
+    this.ngBranch = null
   }
   getBankName(event) {
     this.bankService.getFormData(event.value).subscribe(data => {
@@ -305,19 +334,22 @@ export class AccountOpeningComponent implements OnInit {
       })
     })
   }
+  updatecheckdata
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
+    this.angForm.controls['AC_CLOSEDT'].enable()
     this.investmentService.getFormData(id).subscribe(data => {
+      this.updatecheckdata = data
       this.updateID = data.id;
       this.angForm.setValue({
         'AC_ACNOTYPE': data.AC_ACNOTYPE,
         'AC_TYPE': data.AC_TYPE,
         'AC_NO': data.AC_NO,
-        'INVEST_BANK': data.INVEST_BANK,
-        'INVEST_BRANCH': data.INVEST_BRANCH,
+        'INVEST_BANK': Number(data.INVEST_BANK),
+        'INVEST_BRANCH': Number(data.INVEST_BRANCH),
         'AC_NAME': data.AC_NAME,
         'AC_REF_RECEIPTNO': data.AC_REF_RECEIPTNO,
         'AC_OPDATE': data.AC_OPDATE,
@@ -330,12 +362,35 @@ export class AccountOpeningComponent implements OnInit {
         'AC_MATUAMT': data.AC_MATUAMT,
         'AC_CLOSEDT': data.AC_CLOSEDT
       })
+      this.ngBank = Number(data.INVEST_BANK)
+      this.ngBranch = Number(data.INVEST_BRANCH)
     })
   }
 
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
+    let opdate
+    let AC_ASON_DATE
+    let AC_EXPDT
+    if (this.updatecheckdata.AC_OPDATE != data.AC_OPDATE) {
+      (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
+    } else {
+      data['AC_OPDATE'] = data.AC_OPDATE
+    }
+
+    if (this.updatecheckdata.AC_ASON_DATE != data.AC_ASON_DATE) {
+      (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (AC_ASON_DATE = '', data['AC_ASON_DATE'] = AC_ASON_DATE) : (AC_ASON_DATE = data.AC_ASON_DATE, data['AC_ASON_DATE'] = moment(AC_ASON_DATE).format('DD/MM/YYYY'))
+    } else {
+      data['AC_ASON_DATE'] = data.AC_ASON_DATE
+    }
+
+    if (this.updatecheckdata.AC_EXPDT != data.AC_EXPDT) {
+      (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? (AC_EXPDT = '', data['AC_EXPDT'] = AC_EXPDT) : (AC_EXPDT = data.AC_EXPDT, data['AC_EXPDT'] = moment(AC_EXPDT).format('DD/MM/YYYY'))
+    } else {
+      data['AC_EXPDT'] = data.AC_EXPDT
+    }
+
     data['id'] = this.updateID;
     this.investmentService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');

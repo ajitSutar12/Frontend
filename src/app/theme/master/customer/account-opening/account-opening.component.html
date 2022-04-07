@@ -67,7 +67,7 @@
                                     <ng-select bindValue="value" [(ngModel)]="ngBranch" id="INVEST_BRANCH"
                                         formControlName="INVEST_BRANCH" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="Branch Code">
+                                        (change)="getBranch($event)" placeholder="Branch Code">
                                         <ng-option *ngFor="let values of BranchCode" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
